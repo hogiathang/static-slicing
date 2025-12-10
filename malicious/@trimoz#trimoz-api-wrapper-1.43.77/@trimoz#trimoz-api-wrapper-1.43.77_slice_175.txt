@@ -1,0 +1,3 @@
+_tmp_1.updateTexts = <lambda>2
+const url = 'v3/establishments/' + establishmentId + '/texts'
+const request = API.http.put(url, params)

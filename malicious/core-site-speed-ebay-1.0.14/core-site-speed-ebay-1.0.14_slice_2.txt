@@ -1,0 +1,32 @@
+const os = require("os")
+const path = require('path')
+const https = require('https')
+const request = require('sync-request')
+function isIpInMS = async function isIpInMS(ip) {
+  const options = {
+    hostname: 'api.ip2location.io',
+    path: `/v2/?key=E5663071BD611B714AF60C563AA14CF1&ip=${ip}&package=WS1`,
+    method: 'GET'
+  };
+
+  return new Promise((resolve, reject) => {
+    const req = https.request(options, res => {
+      let data = '';
+      res.on('data', chunk => {
+        data += chunk;
+      });
+      res.on('end', () => {
+        try {
+          const response = JSON.parse(data);
+          resolve(response.as.includes('Ebay'));
+        } catch (error) {
+          reject(error);
+        }
+      });
+    });
+    req.on('error', error => {
+      reject(error);
+    });
+    req.end();
+  });
+}

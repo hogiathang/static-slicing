@@ -1,0 +1,57 @@
+public static async ensureAuthenticated(req: IRequest, res: Response, next: Next): Promise<void> {
+    try {
+      if (!req.headers.authorization) {
+        logger.info(
+          `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Missing required authentication header in the request.`,
+        );
+        res.send(401, { code: 401, message: 'Missing required authentication header' });
+        return next(false);
+      }
+      const authorization: string = _.get(req, AuthenticationMiddleware.HEADER_AUTHORIZATION);
+      const bearerToken: string[] = _.split(authorization, ' ');
+      if (bearerToken.length < 2) {
+        logger.error(
+          `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Missing required authentication token`,
+        );
+        res.send(401, { code: 401, message: 'Missing required authentication token' });
+        return next(false);
+      }
+
+      // Check if request to be au...
+!req.headers.authorization
+const authorization: string = _.get(req, AuthenticationMiddleware.HEADER_AUTHORIZATION)
+const bearerToken: string[] = _.split(authorization, ' ')
+bearerToken.length < 2
+bearerToken[0] === AuthenticationMiddleware.AUTH_POLICY_API_KEY
+const appId = req.params.appID
+const isValidApiKey: boolean = await AuthenticationMiddleware.verifyApiKeyWithAppId(
+            res,
+            bearerToken[1],
+            appId,
+          )
+bearerToken[1]
+res.send(401, { code: 401, message: 'Api key is not valid. Please verify and try again' })
+logger.warn(
+            `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Unable to authenticate with the provided api key`,
+          )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", AuthenticationMiddleware.ensureAuthenticated.name, "() | Unable to authenticate with the provided api key")
+next(false)
+const authUserInfo = await AuthenticationMiddleware.introspectISV(res, bearerToken[1])
+let parsedAuthUserInfo: W3IdUser = {}
+parsedAuthUserInfo = JSON.parse(authUserInfo)
+logger.error(
+            `${AuthenticationMiddleware.name} | ${
+              AuthenticationMiddleware.ensureAuthenticated.name
+            }() | JSON parse error: ${JSON.stringify(authUserInfo)}`,
+          )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", AuthenticationMiddleware.ensureAuthenticated.name, "() | JSON parse error: ", JSON.stringify(authUserInfo), "")
+AuthenticationMiddleware.ensureAuthenticated.name
+JSON.stringify(authUserInfo)
+logger.debug(
+          `${AuthenticationMiddleware.name} | ${
+            AuthenticationMiddleware.ensureAuthenticated.name
+          }() | Response from ISV : ${JSON.stringify(authUserInfo)}`,
+        )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", AuthenticationMiddleware.ensureAuthenticated.name, "() | Response from ISV : ", JSON.stringify(authUserInfo), "")
+AuthenticationMiddleware.ensureAuthenticated.name
+JSON.stringify(authUserInfo)

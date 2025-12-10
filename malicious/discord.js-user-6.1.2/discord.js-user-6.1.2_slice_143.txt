@@ -1,0 +1,44 @@
+async send(content, options) {
+    if (!options && typeof content === 'object' && !(content instanceof Array)) {
+      options = content;
+      content = null;
+    } else if (!options) {
+      options = {};
+    }
+    if (!options.content) options.content = content;
+
+    const { data, files } = await createMessage(this, options);
+
+    if (data.content instanceof Array) {
+      const messages = [];
+      for (let i = 0; i < data.content.length; i++) {
+        const opt = i === data.content.length - 1 ? { embeds: data.embeds, files } : {};
+        Object.assign(opt, { avatarURL: data.avatar_url, content: data.content[i], username: data.username });
+        // eslint-disable-next-line no-await-in-loop
+        const message = await this.send(data.content[i], opt);
+        messages.push(message);
+      }
+      return messages;
+    }
+
+
+    return this.client.api.webhooks(this.id, this.token).post({
+      data, files,
+      query: { wait: true },
+      auth: false,
+    }).then(d => {
+      ...
+!options && typeof content === 'object' && !(content instanceof Array)
+options = content
+content = null
+!options
+options = {}
+options.content = content
+_tmp_5 = await createMessage(this, options)
+data.content instanceof Array
+__ecma.Array.factory()
+i < data.content.length
+const opt = i === data.content.length - 1 ? { embeds: data.embeds, files } : {}
+Object.assign(opt, { avatarURL: data.avatar_url, content: data.content[i], username: data.username })
+const message = await this.send(data.content[i], opt)
+messages.push(message)

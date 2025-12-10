@@ -1,0 +1,20 @@
+async set(presence) {
+    const packet = await this._parse(presence);
+    this.patch(packet);
+    if (typeof presence.shardID === 'undefined') {
+      this.client.ws.broadcast({ op: OPCodes.STATUS_UPDATE, d: packet });
+    } else if (Array.isArray(presence.shardID)) {
+      for (const shardID of presence.shardID) {
+        this.client.ws.shards.get(shardID).send({ op: OPCodes.STATUS_UPDATE, d: packet });
+      }
+    } else {
+      this.client.ws.shards.get(presence.shardID).send({ op: OPCodes.STATUS_UPDATE, d: packet });
+    }
+    return this;
+  }
+const packet = await this._parse(presence)
+this.patch(packet)
+typeof presence.shardID === 'undefined'
+Array.isArray(presence.shardID)
+_iterator_0 = <operator>.iterator(presence.shardID)
+this.client.ws.shards.get(shardID).send({ op: OPCodes.STATUS_UPDATE, d: packet })

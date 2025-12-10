@@ -1,0 +1,58 @@
+_conditionMessage = (message) => {
+    if (this.options.debug) {
+      log.debug(message);
+      return;
+    }
+
+    // output any strings that don't contain a stack trace
+    if (message.indexOf('  at') === -1) {
+      this._conditionOutput(message);
+      return;
+    }
+
+    let msg = '';
+    const basePath = path.resolve('.', this.options.path);
+    const basePathParent = path.resolve(basePath, '..');
+    const TAB = '    ';
+
+    try {
+      _.each(message.split('\n'), (line) => {
+        const trimmedLine = line.trim();
+        const relativePathLine = line.replace(basePathParent + path.sep, '');
+        // filter out some known unnecessary lines
+        // console.error('[' + line + ']');
+        if (trimmedLine.indexOf('node_modules') !== -1) {
+          return;
+        }
+        // for stack trace lines
+        if (trimmedLine.indexOf('at') === 0) {
+          msg += relativePathLine.yellow + '\n';
+        } else {
+          // or other lines that start with a tab (cucumber repe...
+this.options.debug
+message.indexOf('  at') === -1
+let msg = ''
+const basePath = path.resolve('.', this.options.path)
+const basePathParent = path.resolve(basePath, '..')
+const TAB = '    '
+_.each(message.split('\n'), (line) => {
+        const trimmedLine = line.trim();
+        const relativePathLine = line.replace(basePathParent + path.sep, '');
+        // filter out some known unnecessary lines
+        // console.error('[' + line + ']');
+        if (trimmedLine.indexOf('node_modules') !== -1) {
+          return;
+        }
+        // for stack trace lines
+        if (trimmedLine.indexOf('at') === 0) {
+          msg += relativePathLine.yellow + '\n';
+        } else {
+          // or other lines that start with a tab (cucumber repeats errors at the end)
+          if (line.indexOf(TAB) !== -1) {
+            msg += relativePathLine.yellow + '\n';
+          } else {
+            msg += relativePathLine.magenta + '\n';
+          }
+        }
+      })
+(_tmp_18 = process.stdout).write

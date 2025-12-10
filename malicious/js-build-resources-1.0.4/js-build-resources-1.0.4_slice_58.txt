@@ -1,0 +1,35 @@
+function getUserSettings = async function getUserSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const status = validateRequestParams(request);
+    if (status === undefined) {
+      const userId: string = request.params.userID;
+      const appId: string = request.params.appID;
+
+      logger.debug(`${CLASS_NAME} | ${getUserSettings.name}() | Getting User Settings`);
+      const authenticatedUser: string | undefined = _.toUpper(request.username);
+
+      if (authenticatedUser && userId && authenticatedUser !== _.toUpper(userId)) {
+        logger.warn(
+          `${CLASS_NAME} | ${getUserSettings.name}() | Authenticated user is trying to read other person details.`,
+        );
+        return response.send(403, {
+          code: 403,
+          message: `Forbidden: You are not allowed to read settings details of others.`,
+        });
+      }
+
+      const result: UserSettingsResult = {};
+      result.general = await settingsRepo.getUserSettings(userId, 'general');
+      if (appId !== ...
+const status = validateRequestParams(request)
+status === undefined
+const userId: string = request.params.userID
+const appId: string = request.params.appID
+<operator>.formatString("", CLASS_NAME, " | ", getUserSettings.name, "() | Getting User Settings")
+const authenticatedUser: string | undefined = _.toUpper(request.username)
+authenticatedUser && userId && authenticatedUser !== _.toUpper(userId)
+const result: UserSettingsResult = {}
+result.general = await settingsRepo.getUserSettings(userId, 'general')
+appId !== 'general'
+result[appId] = await settingsRepo.getUserSettings(userId, appId)
+response.send(200, result)

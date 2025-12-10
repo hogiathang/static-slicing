@@ -1,0 +1,162 @@
+constructor(logs, guild, data) {
+    /**
+     * The target type of this entry
+     * @type {AuditLogTargetType}
+     */
+    this.targetType = GuildAuditLogsEntry.targetType(data.action_type);
+    const targetType = this.targetType;
+
+    /**
+     * The action type of this entry
+     * @type {AuditLogActionType}
+     */
+    this.actionType = GuildAuditLogsEntry.actionType(data.action_type);
+
+    /**
+     * Specific action type of this entry in its string presentation
+     * @type {AuditLogEvent}
+     */
+    this.action = data.action_type;
+
+    /**
+     * The reason of this entry
+     * @type {?string}
+     */
+    this.reason = data.reason ?? null;
+
+    /**
+     * The user that executed this entry
+     * @type {?User}
+     */
+    this.executor = data.user_id
+      ? guild.client.options.partials.includes(Partials.User)
+        ? guild.client.users._add({ id: data.user_id })
+        : guild.client.users.cache.get(data.user_id)
+      : null;
+
+    /**
+     * An entry in the audit log repr...
+this.targetType = GuildAuditLogsEntry.targetType(data.action_type)
+const targetType = this.targetType
+this.actionType = GuildAuditLogsEntry.actionType(data.action_type)
+this.action = data.action_type
+this.reason = data.reason ?? null
+this.executor = data.user_id
+      ? guild.client.options.partials.includes(Partials.User)
+        ? guild.client.users._add({ id: data.user_id })
+        : guild.client.users.cache.get(data.user_id)
+      : null
+guild.client.options.partials.includes(Partials.User) ? guild.client.users._add({ id: data.user_id }) : guild.client.users.cache.get(data.user_id)
+guild.client.users._add({ id: data.user_id })
+guild.client.users.cache.get(data.user_id)
+this.changes = data.changes?.map(c => ({ key: c.key, old: c.old_value, new: c.new_value })) ?? []
+this.id = data.id
+this.extra = null
+data.action_type
+AuditLogEvent.MemberPrune
+this.extra = {
+          removed: Number(data.options.members_removed),
+          days: Number(data.options.delete_member_days),
+        }
+_tmp_12.removed = Number(data.options.members_removed)
+_tmp_12.days = Number(data.options.delete_member_days)
+break;
+AuditLogEvent.MemberMove
+AuditLogEvent.MessageDelete
+AuditLogEvent.MessageBulkDelete
+this.extra = {
+          channel: guild.channels.cache.get(data.options.channel_id) ?? { id: data.options.channel_id },
+          count: Number(data.options.count),
+        }
+_tmp_13.channel = guild.channels.cache.get(data.options.channel_id) ?? { id: data.options.channel_id }
+_tmp_13.count = Number(data.options.count)
+break;
+AuditLogEvent.MessagePin
+AuditLogEvent.MessageUnpin
+this.extra = {
+          channel: guild.client.channels.cache.get(data.options.channel_id) ?? { id: data.options.channel_id },
+          messageId: data.options.message_id,
+        }
+_tmp_16.channel = guild.client.channels.cache.get(data.options.channel_id) ?? { id: data.options.channel_id }
+_tmp_16.messageId = data.options.message_id
+break;
+AuditLogEvent.MemberDisconnect
+this.extra = {
+          count: Number(data.options.count),
+        }
+_tmp_19.count = Number(data.options.count)
+break;
+AuditLogEvent.ChannelOverwriteCreate
+AuditLogEvent.ChannelOverwriteUpdate
+AuditLogEvent.ChannelOverwriteDelete
+data.options.type
+AuditLogOptionsType.Role
+this.extra = guild.roles.cache.get(data.options.id) ?? {
+              id: data.options.id,
+              name: data.options.role_name,
+              type: AuditLogOptionsType.Role,
+            }
+_tmp_21.id = data.options.id
+_tmp_21.name = data.options.role_name
+_tmp_21.type = AuditLogOptionsType.Role
+break;
+AuditLogOptionsType.Member
+this.extra = guild.members.cache.get(data.options.id) ?? {
+              id: data.options.id,
+              type: AuditLogOptionsType.Member,
+            }
+_tmp_23.id = data.options.id
+_tmp_23.type = AuditLogOptionsType.Member
+break;
+default:
+break;
+break;
+AuditLogEvent.StageInstanceCreate
+AuditLogEvent.StageInstanceDelete
+AuditLogEvent.StageInstanceUpdate
+this.extra = {
+          channel: guild.client.channels.cache.get(data.options?.channel_id) ?? { id: data.options?.channel_id },
+        }
+_tmp_24.channel = guild.client.channels.cache.get(data.options?.channel_id) ?? { id: data.options?.channel_id }
+break;
+AuditLogEvent.ApplicationCommandPermissionUpdate
+this.extra = {
+          applicationId: data.options.application_id,
+          guild: guild.client.guilds.cache.get(data.options.guild_id) ?? { id: data.options.guild_id },
+        }
+_tmp_27.applicationId = data.options.application_id
+_tmp_27.guild = guild.client.guilds.cache.get(data.options.guild_id) ?? { id: data.options.guild_id }
+break;
+default:
+break;
+this.target = null
+targetType === Targets.Unknown
+targetType === Targets.User && data.target_id
+targetType === Targets.Guild
+targetType === Targets.Webhook
+targetType === Targets.Invite
+let change = this.changes.find(c => c.key === 'code')
+change = change.new ?? change.old
+this.target =
+        guild.invites.cache.get(change) ??
+        new Invite(
+          guild.client,
+          this.changes.reduce(
+            (o, c) => {
+              o[c.key] = c.new ?? c.old;
+              return o;
+            },
+            { guild },
+          ),
+        )
+guild.invites.cache.get(change) ??
+        new Invite(
+          guild.client,
+          this.changes.reduce(
+            (o, c) => {
+              o[c.key] = c.new ?? c.old;
+              return o;
+            },
+            { guild },
+          ),
+        )

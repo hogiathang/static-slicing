@@ -1,0 +1,3 @@
+_tmp_1.getAllArchivedResourcesByEstablishmentForConfig = getAllArchivedResourcesByEstablishmentForConfig
+<operator>.formatString("v3/establishments/", establishmentId, "/resources/for-config?listArchived=true")
+const request = API.http.get(url)

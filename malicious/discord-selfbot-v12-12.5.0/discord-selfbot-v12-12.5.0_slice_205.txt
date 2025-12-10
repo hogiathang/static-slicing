@@ -1,0 +1,7 @@
+broadcast(message) {
+    const promises = [];
+    for (const shard of this.shards.values()) promises.push(shard.send(message));
+    return Promise.all(promises);
+  }
+__ecma.Array.factory()
+_iterator_1 = <operator>.iterator(this.shards.values())

@@ -1,0 +1,82 @@
+menus.map((menu) => {
+        if (menu.show) {
+          return menu.children && NAVIGATION_COLLAPSIBLE_SIDEBAR_ENABLED ? (
+            <Menu.SubMenu
+              key={menu.key}
+              title={
+                <div className="navigation-docs">
+                  <span data-testid={menu.testId} className="troy-menu-icon">
+                    {selectedPage &&
+                    selectedPage.indexOf(menu.key) !== -1 &&
+                    !collapsed
+                      ? menu.iconSelected
+                      : menu.icon}
+                  </span>
+                  <span className="sidebar-menu-item-title">{menu.title}</span>
+                  {menu.label}
+                  {isPopoverVisible && !!get(menuTooltip, menu.key) && (
+                    <Popover
+                      getPopupContainer={(trigger) =>
+                        document.querySelector(`.${menuClassName}`)
+                      }
+                      overlayClassName="troy-menu-item-popover-overlay"
+     ...
+menu.show
+menu.children && NAVIGATION_COLLAPSIBLE_SIDEBAR_ENABLED ? <Menu.SubMenu
+              key={menu.key}
+              title={
+                <div className="navigation-docs">
+                  <span data-testid={menu.testId} className="troy-menu-icon">
+                    {selectedPage &&
+                    selectedPage.indexOf(menu.key) !== -1 &&
+                    !collapsed
+                      ? menu.iconSelected
+                      : menu.icon}
+                  </span>
+                  <span className="sidebar-menu-item-title">{menu.title}</span>
+                  {menu.label}
+                  {isPopoverVisible && !!get(menuTooltip, menu.key) && (
+                    <Popover
+                      getPopupContainer={(trigger) =>
+                        document.querySelector(`.${menuClassName}`)
+                      }
+                      overlayClassName="troy-menu-item-popover-overlay"
+                      placement="rightTop"
+                      content={menuTooltip[menu.key]}
+                      visible
+              ... : <Menu.Item
+              key={menu.key}
+              className="navigation-docs"
+              data-testId={menu.id}
+            >
+              <span data-testid={menu.testId} className="troy-menu-icon">
+                {selectedPage === menu.key ? menu.iconSelected : menu.icon}
+              </span>
+              <span className="sidebar-menu-item-title">{menu.title}</span>
+              {menu.label}
+              {isPopoverVisible && !!get(menuTooltip, menu.key) && (
+                <Popover
+                  getPopupContainer={(trigger) =>
+                    document.querySelector(`.${menuClassName}`)
+                  }
+                  overlayClassName="troy-menu-item-popover-overlay"
+                  placement="rightTop"
+                  content={menuTooltip[menu.key]}
+                  visible
+                >
+                  <span className="troy-menu-item-popover-content" />
+                </Popover>
+              )}
+            </Menu.Item>
+menu.key
+"navigation-docs"
+menu.testId
+selectedPage &&
+                    selectedPage.indexOf(menu.key) !== -1 &&
+                    !collapsed ? menu.iconSelected : menu.icon
+selectedPage.indexOf(menu.key) !== -1
+!collapsed
+menu.iconSelected
+menu.icon
+menu.title
+menu.label

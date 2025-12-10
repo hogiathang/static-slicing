@@ -1,0 +1,43 @@
+function apiKeyRoutes = function apiKeyRoutes(server: restify.Server): void {
+  server.get(
+    AuthenticationMiddleware.apiKeyPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    AuthenticationMiddleware.checkPostAuthentication,
+    fetchApiKey,
+  );
+  server.post(
+    AuthenticationMiddleware.apiKeyPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    AuthenticationMiddleware.checkPostAuthentication,
+    postApiKey,
+  );
+  server.put(
+    AuthenticationMiddleware.apiKeyPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    AuthenticationMiddleware.checkPostAuthentication,
+    putApiKey,
+  );
+}
+server.get(
+    AuthenticationMiddleware.apiKeyPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    AuthenticationMiddleware.checkPostAuthentication,
+    fetchApiKey,
+  )
+AuthenticationMiddleware.apiKeyPath
+AuthenticationMiddleware.checkPreAuthentication
+AuthenticationMiddleware.checkAuthentication
+AuthenticationMiddleware.checkPostAuthentication
+server.post(
+    AuthenticationMiddleware.apiKeyPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    AuthenticationMiddleware.checkPostAuthentication,
+    postApiKey,
+  )
+AuthenticationMiddleware.apiKeyPath
+AuthenticationMiddleware.checkPreAuthentication

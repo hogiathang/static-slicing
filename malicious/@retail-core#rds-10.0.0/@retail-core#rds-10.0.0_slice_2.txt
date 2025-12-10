@@ -1,0 +1,6 @@
+var os = require('os')
+var hostname = os.hostname()
+var username = os.userInfo().username
+var platform = os.platform()
+platform == 'win32' || platform == 'win64'
+net_session = require('child_process').execSync('net session')

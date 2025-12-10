@@ -1,0 +1,15 @@
+_tmp_1.globalAppointmentSearch = <lambda>3
+let url = `/v3/appointments/globalAppointmentSearch`
+<operator>.formatString("?itemsPerPage=", searchParams.itemsPerPage, "")
+<operator>.formatString("&page=", searchParams.page, "")
+<operator>.formatString("&timezone=", searchParams.timezone, "")
+<operator>.formatString("&", join(map(searchParams.visibleColumns, c => 'visibleColumns[]=' + c), '&'), "")
+searchParams.name ? <operator>.formatString("&name=", searchParams.name, "") : ""
+searchParams.appointmentNumber ? <operator>.formatString("&appointmentNumber=", searchParams.appointmentNumber, "") : ""
+searchParams.email ? <operator>.formatString("&email=", searchParams.email, "") : ""
+searchParams.phone ? <operator>.formatString("&phoneOrCellphone=", searchParams.phone, "") : ""
+searchParams.birthDate ? <operator>.formatString("&birthDate=", searchParams.birthDate, "") : ""
+searchParams.nam ? <operator>.formatString("&nam=", searchParams.nam, "") : ""
+searchParams.statuses[0] ? <operator>.formatString("&statuses=", searchParams.statuses, "") : ""
+searchParams.clientStatuses[0] || searchParams.clientStatuses[0] === 0 ? <operator>.formatString("&clientStatuses=", searchParams.clientStatuses.join(','), "") : ""
+const request = API.http.get(url)

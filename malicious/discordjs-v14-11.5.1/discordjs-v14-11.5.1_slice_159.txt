@@ -1,0 +1,4 @@
+broadcast(packet) {
+    for (const shard of this.shards.values()) shard.send(packet);
+  }
+_iterator_0 = <operator>.iterator(this.shards.values())

@@ -1,0 +1,3 @@
+_tmp_1.getStatisticsReportJob = <lambda>5
+<operator>.formatString("/v3/statistics/job/", jobId, "")
+const request = API.http.get(url)

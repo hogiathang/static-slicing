@@ -1,0 +1,3 @@
+_tmp_1.getMyResourcesByIds = getMyResourcesByIds
+<operator>.formatString("v3/my/resources?queryType=byIds&ids=", resourceIds, "")
+const request = API.http.get(url)

@@ -1,0 +1,41 @@
+registerDispatcher(dispatcher) {
+    if (!this._dispatchers.has(dispatcher.volume)) {
+      this._dispatchers.set(dispatcher.volume, new Set());
+      this._encoders.set(dispatcher.volume, OpusEncoders.fetch());
+    }
+    const container = this._dispatchers.get(dispatcher.volume);
+    if (!container.has(dispatcher)) {
+      container.add(dispatcher);
+      dispatcher.once('end', () => this.unregisterDispatcher(dispatcher));
+      dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      });
+      /**
+       * Emitted whenever a stream dispatcher subscribes to the broadcast.
+       * @event VoiceBroadcast#subscribe
+       * @param {StreamDispatcher} dispatcher The subscribed dispatcher
+       */
+      this.emit('subscribe', dispatcher);
+    }
+  }
+!this._dispatchers.has(dispatcher.volume)
+this._dispatchers.set(dispatcher.volume, new Set())
+this._encoders.set(dispatcher.volume, OpusEncoders.fetch())
+const container = this._dispatchers.get(dispatcher.volume)
+!container.has(dispatcher)
+container.add(dispatcher)
+dispatcher.once('end', () => this.unregisterDispatcher(dispatcher))
+dispatcher.on('volumeChange', (o, n) => {
+        this.unregisterDispatcher(dispatcher, o);
+        if (!this._dispatchers.has(n)) {
+          this._dispatchers.set(n, new Set());
+          this._encoders.set(n, OpusEncoders.fetch());
+        }
+        this._dispatchers.get(n).add(dispatcher);
+      })
+this.emit('subscribe', dispatcher)

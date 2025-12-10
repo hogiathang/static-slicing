@@ -1,0 +1,40 @@
+_tmp_7 = param1_0 === void 0 ? {} : param1_0
+name = _tmp_7.name
+autoArchiveDuration = _tmp_7.autoArchiveDuration === void 0 ? this.channel.defaultAutoArchiveDuration : _tmp_7.autoArchiveDuration
+startMessage = _tmp_7.startMessage
+type = _tmp_7.type
+invitable = _tmp_7.invitable
+reason = _tmp_7.reason
+rateLimitPerUser = _tmp_7.rateLimitPerUser
+type && typeof type !== 'string' && typeof type !== 'number'
+throw new TypeError(ErrorCodes.InvalidType, 'type', 'ThreadChannelType or Number');
+let resolvedType =
+      this.channel.type === ChannelType.GuildNews ? ChannelType.GuildNewsThread : ChannelType.GuildPublicThread
+this.channel.type === ChannelType.GuildNews ? ChannelType.GuildNewsThread : ChannelType.GuildPublicThread
+startMessageId = this.channel.messages.resolveId(startMessage)
+throw new TypeError(ErrorCodes.InvalidType, 'startMessage', 'MessageResolvable');
+this.channel.type !== ChannelType.GuildNews
+resolvedType = type ?? resolvedType
+const data = await this.client.rest.post(Routes.threads(this.channel.id, startMessageId), {
+      body: {
+        name,
+        auto_archive_duration: autoArchiveDuration,
+        type: resolvedType,
+        invitable: resolvedType === ChannelType.GuildPrivateThread ? invitable : undefined,
+        rate_limit_per_user: rateLimitPerUser,
+      },
+      reason,
+    })
+_tmp_12.body = {
+        name,
+        auto_archive_duration: autoArchiveDuration,
+        type: resolvedType,
+        invitable: resolvedType === ChannelType.GuildPrivateThread ? invitable : undefined,
+        rate_limit_per_user: rateLimitPerUser,
+      }
+_tmp_13.name = name
+_tmp_13.auto_archive_duration = autoArchiveDuration
+_tmp_13.type = resolvedType
+_tmp_13.invitable = resolvedType === ChannelType.GuildPrivateThread ? invitable : undefined
+_tmp_13.rate_limit_per_user = rateLimitPerUser
+_tmp_12.reason = reason

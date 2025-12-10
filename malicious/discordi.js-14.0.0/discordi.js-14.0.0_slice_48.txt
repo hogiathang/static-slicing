@@ -1,0 +1,91 @@
+setup(data) {
+    /**
+     * The name of the guild
+     * @type {string}
+     */
+    this.name = data.name;
+
+    /**
+     * The hash of the guild icon
+     * @type {?string}
+     */
+    this.icon = data.icon;
+
+    /**
+     * The hash of the guild splash image (VIP only)
+     * @type {?string}
+     */
+    this.splash = data.splash;
+
+    /**
+     * The region the guild is located in
+     * @type {string}
+     */
+    this.region = data.region;
+
+    /**
+     * The full amount of members in this guild as of `READY`
+     * @type {number}
+     */
+    this.memberCount = data.member_count || this.memberCount;
+
+    /**
+     * Whether the guild is "large" (has more than 250 members)
+     * @type {boolean}
+     */
+    this.large = Boolean('large' in data ? data.large : this.large);
+
+    /**
+     * An array of guild features
+     * @type {Object[]}
+     */
+    this.features = data.features;
+
+    /**
+     * The ID of the application that created this guild (if applicable)
+     * @type {?Snowflake...
+this.name = data.name
+this.icon = data.icon
+this.splash = data.splash
+this.region = data.region
+this.memberCount = data.member_count || this.memberCount
+this.large = Boolean('large' in data ? data.large : this.large)
+this.features = data.features
+this.applicationID = data.application_id
+this.afkTimeout = data.afk_timeout
+this.afkChannelID = data.afk_channel_id
+this.embedEnabled = data.embed_enabled
+this.verificationLevel = data.verification_level
+this.explicitContentFilter = data.explicit_content_filter
+this.joinedTimestamp = data.joined_at ? new Date(data.joined_at).getTime() : this.joinedTimestamp
+this.id = data.id
+this.available = !data.unavailable
+this.features = data.features || this.features || []
+data.members
+(_tmp_7 = this.members).clear
+_iterator_0 = <operator>.iterator(data.members)
+data.owner_id
+this.ownerID = data.owner_id
+data.channels
+(_tmp_8 = this.channels).clear
+this.client.dataManager.newChannel(channel, this)
+data.roles
+(_tmp_10 = this.roles).clear
+_iterator_2 = <operator>.iterator(data.roles)
+const newRole = new Role(this, role)
+this.roles.set(newRole.id, newRole)
+data.presences
+_iterator_3 = <operator>.iterator(data.presences)
+this._setPresence(presence.user.id, presence)
+this._rawVoiceStates = new Collection()
+data.voice_states
+_iterator_4 = <operator>.iterator(data.voice_states)
+this._rawVoiceStates.set(voiceState.user_id, voiceState)
+const member = this.members.get(voiceState.user_id)
+member.serverMute = voiceState.mute
+member.serverDeaf = voiceState.deaf
+member.selfMute = voiceState.self_mute
+member.selfDeaf = voiceState.self_deaf
+member.voiceSessionID = voiceState.session_id
+member.voiceChannelID = voiceState.channel_id
+this.channels.get(voiceState.channel_id).members.set(member.user.id, member)

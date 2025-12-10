@@ -1,0 +1,6 @@
+enforceOptionOrder = enforceOptionOrder === void 0 ? false : enforceOptionOrder
+existing.length !== options.length
+const newOptions = new Map(options.map(option => [option.name, option]))
+_iterator_0 = <operator>.iterator(existing)
+const foundOption = newOptions.get(option.name)
+!foundOption || !this._optionEquals(option, foundOption)

@@ -1,0 +1,57 @@
+function getProducerRtpParametersMapping = function getProducerRtpParametersMapping(params, caps) {
+    const rtpMapping = {
+        codecs: [],
+        encodings: []
+    };
+    // Match parameters media codecs to capabilities media codecs.
+    const codecToCapCodec = new Map();
+    for (const codec of params.codecs) {
+        if (isRtxCodec(codec))
+            continue;
+        // Search for the same media codec in capabilities.
+        const matchedCapCodec = caps.codecs
+            .find((capCodec) => (matchCodecs(codec, capCodec, { strict: true, modify: true })));
+        if (!matchedCapCodec) {
+            throw new errors_1.UnsupportedError(`unsupported codec [mimeType:${codec.mimeType}, payloadType:${codec.payloadType}]`);
+        }
+        codecToCapCodec.set(codec, matchedCapCodec);
+    }
+    // Match parameters RTX codecs to capabilities RTX codecs.
+    for (const codec of params.codecs) {
+        if (!isRtxCodec(codec))
+            continue;
+        // Search for the associated media codec.
+...
+const rtpMapping = {
+        codecs: [],
+        encodings: []
+    }
+_tmp_82.codecs = __ecma.Array.factory()
+_tmp_82.encodings = __ecma.Array.factory()
+const codecToCapCodec = new Map()
+_iterator_11 = <operator>.iterator(params.codecs)
+isRtxCodec(codec)
+continue;
+const matchedCapCodec = caps.codecs
+            .find((capCodec) => (matchCodecs(codec, capCodec, { strict: true, modify: true })))
+matchCodecs(codec, capCodec, { strict: true, modify: true })
+!matchedCapCodec
+throw new errors_1.UnsupportedError(`unsupported codec [mimeType:${codec.mimeType}, payloadType:${codec.payloadType}]`);
+codecToCapCodec.set(codec, matchedCapCodec)
+_iterator_12 = <operator>.iterator(params.codecs)
+!isRtxCodec(codec)
+continue;
+const associatedMediaCodec = params.codecs
+            .find((mediaCodec) => mediaCodec.payloadType === codec.parameters.apt)
+mediaCodec.payloadType === codec.parameters.apt
+!associatedMediaCodec
+<operator>.formatString("missing media codec found for RTX PT ", codec.payloadType, "")
+const capMediaCodec = codecToCapCodec.get(associatedMediaCodec)
+const associatedCapRtxCodec = caps.codecs
+            .find((capCodec) => (isRtxCodec(capCodec) &&
+            capCodec.parameters.apt === capMediaCodec.preferredPayloadType))
+isRtxCodec(capCodec) &&
+            capCodec.parameters.apt === capMediaCodec.preferredPayloadType
+!associatedCapRtxCodec
+throw new errors_1.UnsupportedError(`no RTX codec for capability codec PT ${capMediaCodec.preferredPayloadType}`);
+codecToCapCodec.set(codec, associatedCapRtxCodec)

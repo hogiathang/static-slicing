@@ -1,0 +1,19 @@
+input => {
+        const id = input.replace(/<|!|>|@/g, '');
+        if (message.channel.type === 'dm') {
+          const user = message.client.users.cache.get(id);
+          return user ? `@${user.username}` : input;
+        }
+
+        const member = message.channel.guild.members.cache.get(id);
+        if (member) {
+          return `@${member.displayName}`;
+        } else {
+          const user = message.client.users.cache.get(id);
+          return user ? `@${user.username}` : input;
+        }
+      }
+const id = input.replace(/<|!|>|@/g, '')
+message.channel.type === 'dm'
+const member = message.channel.guild.members.cache.get(id)
+const user = message.client.users.cache.get(id)

@@ -1,0 +1,3 @@
+_tmp_1.jobControlInformation = jobControlInformation
+<operator>.formatString("v3/appointments/jobs/", jobId, "/control")
+const request = API.http.get(url)

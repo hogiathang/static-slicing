@@ -1,0 +1,33 @@
+setImmediate(async () => {
+		try {
+			uploadBodySize = await getBodySize(options);
+
+			if (
+				uploadBodySize > 0 &&
+				is.undefined(options.headers['content-length']) &&
+				is.undefined(options.headers['transfer-encoding'])
+			) {
+				options.headers['content-length'] = uploadBodySize;
+			}
+
+			for (const hook of options.hooks.beforeRequest) {
+				// eslint-disable-next-line no-await-in-loop
+				await hook(options);
+			}
+
+			get(options);
+		} catch (error) {
+			emitter.emit('error', error);
+		}
+	})
+uploadBodySize = await getBodySize(options)
+uploadBodySize > 0 &&
+				is.undefined(options.headers['content-length']) &&
+				is.undefined(options.headers['transfer-encoding'])
+is.undefined(options.headers['content-length'])
+is.undefined(options.headers['transfer-encoding'])
+options.headers['content-length'] = uploadBodySize
+_iterator_0 = <operator>.iterator(options.hooks.beforeRequest)
+await hook(options)
+get(options)
+emitter.emit('error', error)

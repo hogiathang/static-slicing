@@ -1,0 +1,47 @@
+entry.promise = new Promise((resolve, reject) => {
+      const endpoint = this.client.api.channels[this.id].typing;
+      Object.assign(entry, {
+        count: count || 1,
+        interval: this.client.setInterval(() => {
+          endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          });
+        }, 9000),
+        resolve,
+      });
+      endpoint.post().catch(error => {
+        this.client.clearInterval(entry.interval);
+        this.client.user._typing.delete(this.id);
+        reject(error);
+      });
+      this.client.user._typing.set(this.id, entry);
+    })
+const endpoint = this.client.api.channels[this.id].typing
+Object.assign(entry, {
+        count: count || 1,
+        interval: this.client.setInterval(() => {
+          endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          });
+        }, 9000),
+        resolve,
+      })
+_tmp_9.count = count || 1
+_tmp_9.interval = this.client.setInterval(() => {
+          endpoint.post().catch(error => {
+            this.client.clearInterval(entry.interval);
+            this.client.user._typing.delete(this.id);
+            reject(error);
+          });
+        }, 9000)
+9000
+_tmp_9.resolve = resolve
+endpoint.post().catch(error => {
+        this.client.clearInterval(entry.interval);
+        this.client.user._typing.delete(this.id);
+        reject(error);
+      })

@@ -1,0 +1,4 @@
+_tmp_1.getFormByGlobalSearch = getFormByGlobalSearch
+let url = '/v3/forms/globalSearch'
+url = appendQueryParams(url, params)
+const request = API.http.get(url)

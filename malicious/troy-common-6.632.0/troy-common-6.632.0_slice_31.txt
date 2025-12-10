@@ -1,0 +1,7 @@
+const isMultiEntityUser = () => {
+    const userPlatform = get(GET_USERPROFILE_FROM_LS(), [
+      "user_profile",
+      "platform",
+    ]);
+    return userPlatform === MULTI_ENTITY_PLATFORM;
+  }

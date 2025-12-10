@@ -1,0 +1,6 @@
+function swagger = function swagger(server: restify.Server): void {
+  server.get('/:', swaggerUiRestify.serveFiles(swaggerJson));
+  server.get('/', swaggerUiRestify.setup(swaggerJson));
+}
+server.get('/:', swaggerUiRestify.serveFiles(swaggerJson))
+server.get('/', swaggerUiRestify.setup(swaggerJson))

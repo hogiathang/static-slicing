@@ -1,0 +1,3 @@
+_tmp_1.updateHeadOfficeBankNote = updateHeadOfficeBankNote
+<operator>.formatString("v3/headOffices/", headOfficeId, "/banks/", bankId, "/note/", noteId, "")
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

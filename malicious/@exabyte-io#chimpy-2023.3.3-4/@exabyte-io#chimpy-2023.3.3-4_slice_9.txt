@@ -1,0 +1,80 @@
+Mocha.prototype.start = function (callback) {
+
+  var self = this;
+  if (glob.sync(self.options.path).length === 0) {
+    const infoMessage = `[chimp][mocha] Directory ${self.options.path} does not exist. Not running`;
+    if (booleanHelper.isTruthy(self.options['fail-when-no-tests-run'])) {
+      callback(infoMessage);
+    }
+    else {
+      log.info(infoMessage);
+      callback();
+    }
+    return;
+  }
+
+  log.debug('[chimp][mocha] Running...');
+
+  var opts = {
+    env: process.env,
+    silent: true
+  };
+
+  var port;
+  if (this.options.debugMocha) {
+    port = parseInt(this.options.debugMocha);
+    if (port > 1) {
+      opts.execArgv = ['--debug=' + port];
+    } else {
+      opts.execArgv = ['--debug'];
+    }
+  }
+
+  if (this.options.debugBrkMocha) {
+    port = parseInt(this.options.debugBrkMocha);
+    if (port > 1) {
+      opts.execArgv = ['--debug-brk=' + port];
+    } else {
+      opts.execArgv = ['--debug-brk'];
+    }
+  }
+
+  if (this.options.inspectMocha) {
+    port = parseInt(thi...
+var self = this
+glob.sync(self.options.path).length === 0
+log.debug('[chimp][mocha] Running...')
+var opts = {
+    env: process.env,
+    silent: true
+  }
+_tmp_0.env = process.env
+_tmp_0.silent = true
+this.options.debugMocha
+port = parseInt(this.options.debugMocha)
+port > 1
+opts.execArgv = ['--debug=' + port]
+_tmp_2 = __ecma.Array.factory()
+this.options.debugBrkMocha
+port = parseInt(this.options.debugBrkMocha)
+port > 1
+opts.execArgv = ['--debug-brk=' + port]
+opts.execArgv = ['--debug-brk']
+this.options.inspectMocha
+port = parseInt(this.options.inspectMocha)
+port > 1
+opts.execArgv = ['--inspect=' + port]
+_tmp_6 = __ecma.Array.factory()
+this.options.inspectBrkMocha
+port = parseInt(this.options.inspectBrkMocha)
+port > 1
+opts.execArgv = ['--inspect-brk=' + port]
+opts.execArgv = ['--inspect-brk']
+__ecma.Array.factory()
+this.options._ && this.options._.length > 2
+_specs = this.options._.slice(2)
+opts.env = _.extend(process.env, {
+    mochaConfig: JSON.stringify(this.options.mochaConfig)
+  })
+_tmp_10.mochaConfig = JSON.stringify(this.options.mochaConfig)
+self.child = cp.fork(path.join(__dirname, 'mocha-wrapper-instance.js'), _specs, opts)

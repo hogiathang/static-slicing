@@ -1,0 +1,5 @@
+_tmp_1.getServiceTemplatesFilters = <lambda>16
+serviceUnifiedId ? <operator>.formatString("&service_unified=", serviceUnifiedId, "") : ""
+const isLight = light ? '&light=true' : ''
+const url = 'v3/establishments/' + establishmentId + '/services/templates/filters?' + serviceUnified + isLight
+const request = API.http.get(url)

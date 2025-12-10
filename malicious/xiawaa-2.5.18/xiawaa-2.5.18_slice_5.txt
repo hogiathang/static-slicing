@@ -1,0 +1,7 @@
+options = options === void 0 ? {} : options
+Hoek.assert(this._core.decorations.public[type], 'Unknown decoration type:', type)
+Hoek.assert(property, 'Missing decoration property name')
+Hoek.assert(typeof property === 'string' || typeof property === 'symbol', 'Decoration property must be a string or a symbol')
+const propertyName = property.toString()
+Hoek.assert(propertyName[0] !== '_', 'Property name cannot begin with an underscore:', propertyName)
+const existing = this._core.decorations[type].get(property)

@@ -1,0 +1,43 @@
+activity = param1_0.activity
+const applicationID = activity && (activity.application ? activity.application.id || activity.application : null)
+let assets = new Collection()
+throw new TypeError('INVALID_TYPE', 'name', 'string');
+activity.type = 0
+activity.assets && applicationID
+const a = await this.client.api.oauth2.applications(applicationID).assets.get()
+!(_result_0 = _iterator_0.next()).done
+_tmp_12.afk = afk != null ? afk : false
+_tmp_12.since = since != null ? since : null
+_tmp_12.status = status || this.status
+_tmp_12.game = activity ? {
+        type: activity.type,
+        name: activity.name,
+        url: activity.url,
+        details: activity.details || undefined,
+        state: activity.state || undefined,
+        assets: activity.assets ? {
+          large_text: activity.assets.largeText || undefined,
+          small_text: activity.assets.smallText || undefined,
+          large_image: assets.get(activity.assets.largeImage) || activity.assets.largeImage,
+          small_image: assets.get(activity.assets.smallImage) || activity.assets.smallImage,
+        } : undefined,
+        timestamps: activity.timestamps || undefined,
+        party: activity.party || undefined,
+        application_id: applicationID || undefined,
+        secrets: activity.secrets || undefined,
+        instance: activity.instance || undefined,
+      } : null
+_tmp_13.type = activity.type
+_tmp_13.name = activity.name
+_tmp_13.url = activity.url
+_tmp_13.details = activity.details || undefined
+_tmp_13.state = activity.state || undefined
+_tmp_13.assets = activity.assets ? {
+          large_text: activity.assets.largeText || undefined,
+          small_text: activity.assets.smallText || undefined,
+          large_image: assets.get(activity.assets.largeImage) || activity.assets.largeImage,
+          small_image: assets.get(activity.assets.smallImage) || activity.assets.smallImage,
+        } : undefined
+_tmp_14.large_text = activity.assets.largeText || undefined
+_tmp_14.small_text = activity.assets.smallText || undefined
+_tmp_14.large_image = assets.get(activity.assets.largeImage) || activity.assets.largeImage

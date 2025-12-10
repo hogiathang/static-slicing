@@ -1,0 +1,54 @@
+exports.get = function (nick, options, callback) {
+  if (typeof options === 'function') {
+    callback = options;
+    options = null;
+  }
+  var url = '/enhancedUserQuery/findUsers/byGeneralCriteria.json';
+  options = options || {};
+  if (UID_RE.test(nick)) {
+    options.emailPrefix = nick;
+  } else {
+    if (options.realname) {
+      options.lastName = nick;
+    } else {
+      options.nickNameCn = nick;
+    }
+  }
+  var args = {
+    data: options,
+    type: 'GET',
+    dataType: 'json',
+  };
+  request(url, args, function (err, content) {
+    if (err || !content) {
+      return callback(err, content);
+    }
+    var items = content.items || [];
+    callback(null, options.returnAll ? items : items[0]);
+  });
+}
+typeof options === 'function'
+callback = options
+options = null
+var url = '/enhancedUserQuery/findUsers/byGeneralCriteria.json'
+options = options || {}
+UID_RE.test(nick)
+options.emailPrefix = nick
+options.realname
+options.lastName = nick
+options.nickNameCn = nick
+var args = {
+    data: options,
+    type: 'GET',
+    dataType: 'json',
+  }
+_tmp_7.data = options
+_tmp_7.type = "GET"
+_tmp_7.dataType = "json"
+request(url, args, function (err, content) {
+    if (err || !content) {
+      return callback(err, content);
+    }
+    var items = content.items || [];
+    callback(null, options.returnAll ? items : items[0]);
+  })

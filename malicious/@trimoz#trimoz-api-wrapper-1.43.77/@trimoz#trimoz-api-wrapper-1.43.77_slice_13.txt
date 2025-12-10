@@ -1,0 +1,3 @@
+_tmp_1.appointmentInfoFromJobId = appointmentInfoFromJobId
+<operator>.formatString("v3/appointments/jobs/", jobId, "/appt-data")
+const request = API.http.get(url)

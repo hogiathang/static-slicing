@@ -1,0 +1,4 @@
+_tmp_1.searchContactListItems = <lambda>1
+<operator>.formatString("/v3/establishments/", establishmentId, "/contacts/", contactListId, "/items")
+url = appendQueryParams(url, filters)
+const request = API.http.get(url)

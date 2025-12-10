@@ -1,0 +1,20 @@
+emitter.on('retry', (error, cb) => {
+		let backoff;
+		try {
+			backoff = options.gotRetry.retries(++retryTries, error);
+		} catch (error) {
+			emitter.emit('error', error);
+			return;
+		}
+
+		if (backoff) {
+			retryCount++;
+			setTimeout(get, backoff, options);
+			cb(true);
+			return;
+		}
+
+		cb(false);
+	})
+backoff = options.gotRetry.retries(++retryTries, error)
+retryCount++

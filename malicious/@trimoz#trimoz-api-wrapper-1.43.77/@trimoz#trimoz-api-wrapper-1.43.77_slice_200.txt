@@ -1,0 +1,2 @@
+_tmp_1.validateMfaLogin = <lambda>8
+const request = API.http.post('v3/login/validateMfaLogin', params, { headers: { 'Content-Type': 'application/json' } })

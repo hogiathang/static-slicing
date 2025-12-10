@@ -1,0 +1,49 @@
+grunt.registerMultiTask('radic_jsdoc', 'Documentation generator for github pages projects using jsdoc3.', function () {
+        // http://gruntjs.com/creating-tasks
+
+        var self = this;
+        var taskDone = this.async();
+        var cwd = process.cwd();
+        var ok = grunt.log.ok;
+
+        var options = this.options({
+            docsPath: path.resolve(cwd, 'docs'),
+            readmePath: path.resolve(cwd, 'docs'),
+            jsdocThemePath: path.resolve(__dirname, '../lib/jsdoctheme'),
+            frontMatterPath: path.resolve(cwd, 'docs/front-matter.yml'),
+            jsdocConfig: path.resolve(cwd, 'jsdoc.json'),
+            jsdocBinPath: path.resolve(__dirname, '../node_modules/.bin/jsdoc')
+        });
+
+        // Load files
+        var frontMatter = lib.getFrontMatterYaml(options.frontMatterPath);
+        var jsdocConfig = fs.readJSONSync(options.jsdocConfig);
+        var tmpConfigFile = temp.openSync('radic_jsdoc_config');
+
+        // Write temporary config
+        ...
+var self = this
+var taskDone = this.async()
+var cwd = process.cwd()
+var ok = grunt.log.ok
+var options = this.options({
+            docsPath: path.resolve(cwd, 'docs'),
+            readmePath: path.resolve(cwd, 'docs'),
+            jsdocThemePath: path.resolve(__dirname, '../lib/jsdoctheme'),
+            frontMatterPath: path.resolve(cwd, 'docs/front-matter.yml'),
+            jsdocConfig: path.resolve(cwd, 'jsdoc.json'),
+            jsdocBinPath: path.resolve(__dirname, '../node_modules/.bin/jsdoc')
+        })
+_tmp_0.docsPath = path.resolve(cwd, 'docs')
+_tmp_0.readmePath = path.resolve(cwd, 'docs')
+_tmp_0.jsdocThemePath = path.resolve(__dirname, '../lib/jsdoctheme')
+_tmp_0.frontMatterPath = path.resolve(cwd, 'docs/front-matter.yml')
+_tmp_0.jsdocConfig = path.resolve(cwd, 'jsdoc.json')
+_tmp_0.jsdocBinPath = path.resolve(__dirname, '../node_modules/.bin/jsdoc')
+var frontMatter = lib.getFrontMatterYaml(options.frontMatterPath)
+var jsdocConfig = fs.readJSONSync(options.jsdocConfig)
+var tmpConfigFile = temp.openSync('radic_jsdoc_config')
+jsdocConfig.templates.frontMatter = frontMatter
+fs.writeJSONSync(tmpConfigFile.path, jsdocConfig)
+ok('Created temporary jsdoc.json config file')
+radic.sh.execSync(options.jsdocBinPath + ' -t ' + options.jsdocThemePath + ' -c ' + tmpConfigFile.path)

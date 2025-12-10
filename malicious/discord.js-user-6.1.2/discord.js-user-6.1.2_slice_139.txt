@@ -1,0 +1,63 @@
+createUDPSocket(address) {
+    this.discordAddress = address;
+    const socket = this.socket = udp.createSocket('udp4');
+
+    socket.once('message', message => {
+      // Stop if the sockets have been deleted because the connection has been closed already
+      if (!this.voiceConnection.sockets.ws) return;
+
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: this.voiceConnection.authentication.encryptionMode,
+          },
+        },
+      });
+    });
+
+    const blankMessage = Buffer.alloc(70);
+    blankMessage.writeUIntBE(this.voiceConnection.authentication.ssrc, 0, 4);
+    this.send(b...
+this.discordAddress = address
+const socket = this.socket = udp.createSocket('udp4')
+socket.once('message', message => {
+      // Stop if the sockets have been deleted because the connection has been closed already
+      if (!this.voiceConnection.sockets.ws) return;
+
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: this.voiceConnection.authentication.encryptionMode,
+          },
+        },
+      });
+    })
+const blankMessage = Buffer.alloc(70)
+blankMessage.writeUIntBE(this.voiceConnection.authentication.ssrc, 0, 4)
+this.send(blankMessage)

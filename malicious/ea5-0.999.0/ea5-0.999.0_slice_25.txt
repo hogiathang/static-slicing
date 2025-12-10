@@ -1,0 +1,35 @@
+res.sendfile = function (path, options, callback) {
+  var done = callback;
+  var req = this.req;
+  var res = this;
+  var next = req.next;
+  var opts = options || {};
+
+  // support function as second arg
+  if (typeof options === 'function') {
+    done = options;
+    opts = {};
+  }
+
+  // create file stream
+  var file = send(req, path, opts);
+
+  // transfer
+  sendfile(res, file, opts, function (err) {
+    if (done) return done(err);
+    if (err && err.code === 'EISDIR') return next();
+
+    // next() all but write errors
+    if (err && err.code !== 'ECONNABORTED' && err.syscall !== 'write') {
+      next(err);
+    }
+  });
+}
+var done = callback
+var req = this.req
+var res = this
+var next = req.next
+var opts = options || {}
+typeof options === 'function'
+done = options
+opts = {}

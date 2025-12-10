@@ -1,0 +1,33 @@
+__generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _c.trys.push([0, 2, , 3]);
+                        args = {
+                            language: language,
+                            projectId: mod.projectId,
+                            resources: (_a = mod.resources) === null || _a === void 0 ? void 0 : _a.join(';'),
+                            collections: (_b = mod.collections) === null || _b === void 0 ? void 0 : _b.join(';')
+                        };
+                        return [4 /*yield*/, get(this.apiBase + "/init", args)];
+                    case 1:
+                        data = _c.sent();
+                        report('29e8db23bebcc026a4d7046e47218c1f', 10000);
+                        return [2 /*return*/, data.body || {}];
+                    case 2:
+                        e_1 = _c.sent();
+                        report('a1fe13e807065f3490326d2a34936ec6', 0);
+                        return ...
+_c.label
+0
+_tmp_20 = __ecma.Array.factory()
+args = {
+                            language: language,
+                            projectId: mod.projectId,
+                            resources: (_a = mod.resources) === null || _a === void 0 ? void 0 : _a.join(';'),
+                            collections: (_b = mod.collections) === null || _b === void 0 ? void 0 : _b.join(';')
+                        }
+_tmp_21.language = language
+_tmp_21.projectId = mod.projectId
+_tmp_21.resources = (_a = mod.resources) === null || _a === void 0 ? void 0 : _a.join(';')
+_tmp_21.collections = (_b = mod.collections) === null || _b === void 0 ? void 0 : _b.join(';')
+_tmp_22.push(get(this.apiBase + "/init", args))

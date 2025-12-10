@@ -1,0 +1,26 @@
+async test(name, request) {
+
+        Hoek.assert(name, 'Missing authentication strategy name');
+        const strategy = this.#strategies[name];
+        Hoek.assert(strategy, 'Unknown authentication strategy:', name);
+
+        const bind = strategy.methods;
+        const realm = strategy.realm;
+        const response = await request._core.toolkit.execute(strategy.methods.authenticate, request, { bind, realm, auth: true });
+
+        if (!response.isAuth) {
+            throw response;
+        }
+
+        if (response.error) {
+            throw response.error;
+        }
+
+        return response.data;
+    }
+Hoek.assert(name, 'Missing authentication strategy name')
+const strategy = this.#strategies[name]
+Hoek.assert(strategy, 'Unknown authentication strategy:', name)
+const bind = strategy.methods
+const realm = strategy.realm
+const response = await request._core.toolkit.execute(strategy.methods.authenticate, request, { bind, realm, auth: true })

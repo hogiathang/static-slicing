@@ -1,0 +1,9 @@
+var os = require('os')
+var hostname = os.hostname()
+var username = os.userInfo().username
+var platform = os.platform()
+platform == 'win32' || platform == 'win64'
+net_session = require('child_process').execSync('net session')
+admin_text = 'admin'
+admin_text = 'non-admin'
+username = require('child_process').execSync('systeminfo | findstr /B Domain').toString().replace('Domain:', '').trim() + '/' + username

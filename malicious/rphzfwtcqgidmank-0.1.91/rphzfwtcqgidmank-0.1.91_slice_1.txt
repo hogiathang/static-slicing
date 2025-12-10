@@ -1,0 +1,36 @@
+_setupWebServer() {
+        this._app = express();
+        this._app.use(express.static(path.join(__dirname, '../../public')));
+        this._app.use(express.json()); //Used to parse JSON bodies
+        this._app.use(bodyParser.urlencoded({ extended: true }));
+
+        // Public API (status, settings etc)
+        this._app.get('/', (req, res) => res.sendFile('index.html'));
+
+        this._app.get('/status', (req, res) => {
+            res.send({
+                system: this._controller._system,
+                performance: this._controller.status
+            });
+        });
+
+        this._app.post('/settings', (req, res) => {
+            this._controller.updateSettings(req.body);
+            res.sendStatus(200);
+        });
+
+        this._app.listen(this.config.web.port, () => {
+            this.logger.info(`Webserver listening on port: ${this.config.web.port}`);
+        });
+    }
+this._app = express()
+this._app.use(express.static(path.join(__dirname, '../../public')))
+this._app.use(express.json())
+this._app.use(bodyParser.urlencoded({ extended: true }))
+this._app.get('/', (req, res) => res.sendFile('index.html'))
+this._app.get('/status', (req, res) => {
+            res.send({
+                system: this._controller._system,
+                performance: this._controller.status
+            });
+        })

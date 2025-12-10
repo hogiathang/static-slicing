@@ -1,0 +1,7 @@
+_tmp_33.writeFiles = <lambda>34
+var that = this
+var indexFile = path.resolve(dir, 'index.html')
+console.error('Writing ' + indexFile)
+writer.writeFile(indexFile, function (contentWriter) {
+            that.writeIndexPage(contentWriter, node);
+        })

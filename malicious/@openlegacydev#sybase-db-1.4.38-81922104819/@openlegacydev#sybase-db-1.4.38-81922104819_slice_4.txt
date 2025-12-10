@@ -1,0 +1,32 @@
+function osLib = function osLib(name, version, targetOs, targetDir = ".") {
+  let fileName = `${name}.zip`;
+  let artifactPath = `${name}/${version}/${targetOs}/${fileName}`;
+  let url = `${baseUrl}/${artifactPath}`;
+  let file = fs.createWriteStream(`${targetDir}/${fileName}`);
+
+  http.get(url, function (res) {
+    console.log(`Found file: ${url}`);
+    const { statusCode } = res;
+    let error;
+    if (statusCode !== 200) {
+      error = new Error(
+        "Request Failed.\n" + `${statusCode}: ${res.statusMessage}`
+      );
+    }
+    if (error) {
+      console.log(error.message);
+      process.exit(1);
+    }
+    res.pipe(file);
+    file.on("finish", () => {
+      file.close();
+      console.log(`Downloaded file: ${targetDir}/${fileName}`);
+      unzip(fileName, targetDir);
+      fs.unlinkSync(fileName);
+    });
+  });
+}
+<operator>.formatString("", name, ".zip")
+<operator>.formatString("", name, "/", version, "/", targetOs, "/", fileName, "")
+<operator>.formatString("", baseUrl, "/", artifactPath, "")
+let file = fs.createWriteStream(`${targetDir}/${fileName}`)

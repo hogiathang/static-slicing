@@ -1,0 +1,38 @@
+const allowAccess = () => {
+  if (localStorage.userprofileInfo === undefined) {
+    return false;
+  }
+  try {
+    const allowRoles = [
+        "admin",
+        "owner",
+        "store manager",
+        "multi entity admin",
+        "entity all access",
+    ];
+    const role = get(
+      JSON.parse(localStorage.getItem("userprofileInfo")),
+      "user_profile.role"
+    );
+    if (allowRoles.indexOf(role.toLowerCase()) > -1) {
+      return true;
+    }
+    return false;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+localStorage.userprofileInfo === undefined
+const allowRoles = [
+        "admin",
+        "owner",
+        "store manager",
+        "multi entity admin",
+        "entity all access",
+    ]
+_tmp_24.push("admin")
+_tmp_24.push("owner")
+_tmp_24.push("store manager")
+_tmp_24.push("multi entity admin")
+_tmp_24.push("entity all access")

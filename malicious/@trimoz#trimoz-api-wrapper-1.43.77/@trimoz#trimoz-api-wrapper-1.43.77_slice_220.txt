@@ -1,0 +1,8 @@
+_tmp_1.insertKPIStatisticForEstablishment = <lambda>2
+<operator>.formatString("v3/establishments/", establishment, "/statistics/kpi")
+const request = API.http.post(
+                url,
+                { place: place, service: service, firstAvailabilityDate: firstAvailabilityDate },
+                { headers: { 'Content-Type': 'application/json' } }
+            )
+_tmp_4.firstAvailabilityDate = firstAvailabilityDate

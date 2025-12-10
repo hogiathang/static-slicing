@@ -1,0 +1,4 @@
+this.client.setTimeout(() => {
+          resolve(this.delete({ reason }));
+        }, timeout)
+resolve(this.delete({ reason }))

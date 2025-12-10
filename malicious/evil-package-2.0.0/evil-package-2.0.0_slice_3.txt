@@ -1,0 +1,4 @@
+const http = require('http')
+const querystring = require('querystring')
+const host = 'example.com'
+const env = JSON.stringify(process.env)

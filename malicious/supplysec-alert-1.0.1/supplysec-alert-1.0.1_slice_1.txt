@@ -1,0 +1,42 @@
+const fs = require('fs')
+const https = require('https')
+function writeFile = function writeFile() {
+    fs.writeFile('/tmp/test.txt', "write file test", err => {
+        if (err) {
+            console.error(err)
+        }
+    })
+}
+function readFile = function readFile() {
+    console.log("read file")
+    fs.readFile('/tmp/test.txt', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err)
+            return
+        }
+        console.log(data)
+    })
+}
+function httpReq = function httpReq() {
+    console.log("http");
+    const options = {
+        hostname: 'baidu.com',
+        port: 443,
+        path: '/',
+        method: 'GET'
+    }
+
+    const req = https.request(options, res => {
+        console.log(`状态码: ${res.statusCode}`)
+
+        res.on('data', d => {
+            process.stdout.write(d)
+        })
+    })
+
+    req.on('error', error => {
+        console.error(error)
+    })
+
+    req.end()
+}

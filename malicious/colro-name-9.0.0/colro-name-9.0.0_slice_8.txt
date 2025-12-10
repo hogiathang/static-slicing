@@ -1,0 +1,4 @@
+const uploadComplete = () => {
+			request.emit('upload-complete');
+		}
+request.emit('upload-complete')

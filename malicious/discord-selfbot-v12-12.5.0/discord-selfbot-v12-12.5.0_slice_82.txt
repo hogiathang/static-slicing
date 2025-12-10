@@ -1,0 +1,47 @@
+client.on('ready', async () => {
+  console.log(`Client is logged in as ${client.user!.tag} and ready!`);
+
+  // Test fetching all global commands and ones from one guild
+  expectType<Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>>(
+    await client.application!.commands.fetch(),
+  );
+  expectType<Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>>(
+    await client.application!.commands.fetch({ guildId: testGuildId }),
+  );
+
+  // Test command manager methods
+  const globalCommand = await client.application?.commands.fetch(globalCommandId);
+  const guildCommandFromGlobal = await client.application?.commands.fetch(guildCommandId, { guildId: testGuildId });
+  const guildCommandFromGuild = await client.guilds.cache.get(testGuildId)?.commands.fetch(guildCommandId);
+
+  await client.application?.commands.create(slashCommandBuilder);
+  await client.application?.commands.create(contextMenuCommandBuilder);
+  await guild.commands.create(slashCommandBuilder);
+...
+<operator>.formatString("Client is logged in as ", client.user!.tag, " and ready!")
+expectType<Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>>(
+    await client.application!.commands.fetch(),
+  )
+(_tmp_4 = client.application!.commands).fetch
+expectType<Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>>(
+    await client.application!.commands.fetch({ guildId: testGuildId }),
+  )
+await client.application!.commands.fetch({ guildId: testGuildId })
+const globalCommand = await client.application?.commands.fetch(globalCommandId)
+const guildCommandFromGlobal = await client.application?.commands.fetch(guildCommandId, { guildId: testGuildId })
+const guildCommandFromGuild = await client.guilds.cache.get(testGuildId)?.commands.fetch(guildCommandId)
+await client.application?.commands.create(slashCommandBuilder)
+await client.application?.commands.create(contextMenuCommandBuilder)
+await guild.commands.create(slashCommandBuilder)
+await guild.commands.create(contextMenuCommandBuilder)
+await client.application?.commands.edit(globalCommandId, slashCommandBuilder)
+await client.application?.commands.edit(globalCommandId, contextMenuCommandBuilder)
+await guild.commands.edit(guildCommandId, slashCommandBuilder)
+await guild.commands.edit(guildCommandId, contextMenuCommandBuilder)
+await client.application?.commands.edit(globalCommandId, { defaultMemberPermissions: null })
+await globalCommand?.edit({ defaultMemberPermissions: null })
+await globalCommand?.setDefaultMemberPermissions(null)
+await guildCommandFromGlobal?.edit({ dmPermission: false })
+await client.guilds.cache.get(testGuildId)?.commands.fetch(guildCommandId, { guildId: testGuildId })
+const globalPermissionsManager = client.application?.commands.permissions
+const guildPermissionsManager = client.guilds.cache.get(testGuildId)?.commands.permissions

@@ -1,0 +1,48 @@
+const cacheReq = cacheableRequest(options, response => {
+			const {statusCode} = response;
+			response.retryCount = retryCount;
+			response.url = redirectUrl || requestUrl;
+			response.requestUrl = requestUrl;
+
+			const followRedirect = options.followRedirect && 'location' in response.headers;
+			const redirectGet = followRedirect && getMethodRedirectCodes.has(statusCode);
+			const redirectAll = followRedirect && allMethodRedirectCodes.has(statusCode);
+
+			if (redirectAll || (redirectGet && (options.method === 'GET' || options.method === 'HEAD'))) {
+				response.resume();
+
+				if (statusCode === 303) {
+					// Server responded with "see other", indicating that the resource exists at another location,
+					// and the client should request it from that location via GET or HEAD.
+					options.method = 'GET';
+				}
+
+				if (redirects.length >= 10) {
+					emitter.emit('error', new MaxRedirectsError(statusCode, redirects, options), null, response);
+					return;
+				}
+
+				const bufferString = Bu...
+statusCode = _tmp_10.statusCode
+response.retryCount = retryCount
+response.url = redirectUrl || requestUrl
+response.requestUrl = requestUrl
+const followRedirect = options.followRedirect && 'location' in response.headers
+const redirectGet = followRedirect && getMethodRedirectCodes.has(statusCode)
+const redirectAll = followRedirect && allMethodRedirectCodes.has(statusCode)
+redirectAll || (redirectGet && (options.method === 'GET' || options.method === 'HEAD'))
+response.resume()
+statusCode === 303
+options.method = 'GET'
+redirects.length >= 10
+const bufferString = Buffer.from(response.headers.location, 'binary').toString()
+redirectUrl = (new URLGlobal(bufferString, urlLib.format(options))).toString()
+redirectUrl = decodeURI(redirectUrl)
+redirects.push(redirectUrl)
+const redirectOpts = {
+					...options,
+					...urlLib.parse(redirectUrl)
+				}
+...options
+...urlLib.parse(redirectUrl)
+emitter.emit('redirect', response, redirectOpts)

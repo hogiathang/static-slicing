@@ -1,0 +1,3 @@
+_tmp_1.getResourceConfigurationMessagesByEstablishment = getResourceConfigurationMessagesByEstablishment
+<operator>.formatString("v3/establishments/", establishmentId, "/resources/", resourceId, "/configuration/messages")
+const request = API.http.get(url)

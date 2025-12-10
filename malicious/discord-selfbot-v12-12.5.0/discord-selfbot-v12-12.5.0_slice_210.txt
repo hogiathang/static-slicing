@@ -1,0 +1,29 @@
+client.on('messageCreate', async message => {
+  const { channel } = message;
+  assertIsMessage(channel.send('string'));
+  assertIsMessage(channel.send({}));
+  assertIsMessage(channel.send({ embeds: [] }));
+
+  const attachment = new AttachmentBuilder('file.png');
+  const embed = new EmbedBuilder();
+  assertIsMessage(channel.send({ files: [attachment] }));
+  assertIsMessage(channel.send({ embeds: [embed] }));
+  assertIsMessage(channel.send({ embeds: [embed], files: [attachment] }));
+
+  if (message.inGuild()) {
+    expectAssignable<Message<true>>(message);
+    const component = await message.awaitMessageComponent({ componentType: ComponentType.Button });
+    expectType<ButtonInteraction<'cached'>>(component);
+    expectType<Message<true>>(await component.reply({ fetchReply: true }));
+
+    const buttonCollector = message.createMessageComponentCollector({ componentType: ComponentType.Button });
+    expectType<InteractionCollector<ButtonInteraction<'cached'>>>(buttonCollector);
+    expect...
+channel = _tmp_280.channel
+assertIsMessage(channel.send('string'))
+assertIsMessage(channel.send({}))
+assertIsMessage(channel.send({ embeds: [] }))
+const attachment = new AttachmentBuilder('file.png')
+const embed = new EmbedBuilder()
+assertIsMessage(channel.send({ files: [attachment] }))
+assertIsMessage(channel.send({ embeds: [embed] }))

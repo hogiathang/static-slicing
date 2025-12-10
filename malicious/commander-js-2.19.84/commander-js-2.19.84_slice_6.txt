@@ -1,0 +1,60 @@
+Command.prototype.executeSubCommand = function(argv, args, unknown) {
+  args = args.concat(unknown);
+
+  if (!args.length) this.help();
+  if (args[0] === 'help' && args.length === 1) this.help();
+
+  // <cmd> --help
+  if (args[0] === 'help') {
+    args[0] = args[1];
+    args[1] = '--help';
+  }
+
+  // executable
+  var f = argv[1];
+  // name of the subcommand, link `pm-install`
+  var bin = basename(f, path.extname(f)) + '-' + args[0];
+
+  // In case of globally installed, get the base dir where executable
+  //  subcommand file should be located at
+  var baseDir,
+    link = fs.lstatSync(f).isSymbolicLink() ? fs.readlinkSync(f) : f;
+
+  // when symbolink is relative path
+  if (link !== f && link.charAt(0) !== '/') {
+    link = path.join(dirname(f), link);
+  }
+  baseDir = dirname(link);
+
+  // prefer local `./<bin>` to bin in the $PATH
+  var localBin = path.join(baseDir, bin);
+
+  // whether bin file is a js script with explicit `.js` or `.ts` extension
+  var isExplicitJS = false;
+  if (exists(...
+args = args.concat(unknown)
+!args.length
+args[0] === 'help' && args.length === 1
+args[0] === 'help'
+args[0] = args[1]
+args[1] = '--help'
+var f = argv[1]
+var bin = basename(f, path.extname(f)) + '-' + args[0]
+var link = fs.lstatSync(f).isSymbolicLink() ? fs.readlinkSync(f) : f
+link !== f && link.charAt(0) !== '/'
+link = path.join(dirname(f), link)
+baseDir = dirname(link)
+var localBin = path.join(baseDir, bin)
+var isExplicitJS = false
+exists(localBin + '.js')
+bin = localBin + '.js'
+isExplicitJS = true
+exists(localBin + '.ts')
+bin = localBin + '.ts'
+isExplicitJS = true
+exists(localBin)
+bin = localBin
+args = args.slice(1)
+process.platform !== 'win32'
+args.unshift(bin)
+proc = spawn(process.execPath, args, { stdio: 'inherit' })

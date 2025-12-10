@@ -1,0 +1,17 @@
+node.children.forEach(function (child) {
+            if (child.kind === 'dir') {
+                that.writeFiles(writer, child, path.resolve(dir, child.relativeName), collector);
+            } else {
+                childFile = path.resolve(dir, child.relativeName + '.html');
+                if (that.opts.verbose) { console.error('Writing ' + childFile); }
+                writer.writeFile(childFile, function (contentWriter) {
+                    that.writeDetailPage(contentWriter, child, collector.fileCoverageFor(child.fullPath()));
+                });
+            }
+        })
+child.kind === 'dir'
+childFile = path.resolve(dir, child.relativeName + '.html')
+console.error('Writing ' + childFile)
+writer.writeFile(childFile, function (contentWriter) {
+                    that.writeDetailPage(contentWriter, child, collector.fileCoverageFor(child.fullPath()));
+                })

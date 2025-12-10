@@ -1,0 +1,6 @@
+var platform = require("node:os").platform
+var dirname = require("node:path").dirname
+var fileURLToPath = require("node:url").fileURLToPath
+var execaCommandSync = require("execa").execaCommandSync
+process.env.npm_package_version === `0.0.0`
+process.exit(0)

@@ -1,0 +1,31 @@
+minResourceCount = minResourceCount === void 0 ? null : minResourceCount
+const url = 'v3/establishments/' + establishmentId +
+                '/schedules/next?dateTarget=' + dateTarget +
+                '&dateStart=' + dateStart +
+                '&dateStop=' + dateStop +
+                '&service=' + service +
+                (clientTimeZone ? '&timezone=' + clientTimeZone : '') +
+                (place ? '&places=' + place : '') +
+                (limit ? '&limit=' + limit : '') +
+                (minResourceCount ? '&resourceCount=' + minResourceCount : '') +
+                (filters ? (filters[0] !== null ? '&filter1=' + filters[0] : '') +
+                (filters[1] !== null ? '&filter2=' + filters[1] : '') +
+                (filters[2] !== null ? '&filter3=' + filters[2] : '') : '')+
+                '&gapMode='+ gapMode +
+                ((gapMode && gapHeadOfficeId) ? '&gapHeadOfficeId='+ gapHeadOfficeId : '')
+"/schedules/next?dateTarget="
+"&dateStart="
+"&dateStop="
+"&service="
+clientTimeZone ? '&timezone=' + clientTimeZone : ""
+place ? '&places=' + place : ""
+limit ? '&limit=' + limit : ""
+minResourceCount ? '&resourceCount=' + minResourceCount : ""
+filters ? (filters[0] !== null ? '&filter1=' + filters[0] : '') +
+                (filters[1] !== null ? '&filter2=' + filters[1] : '') +
+                (filters[2] !== null ? '&filter3=' + filters[2] : '') : ""
+filters[1] !== null ? '&filter2=' + filters[1] : ""
+filters[2] !== null ? '&filter3=' + filters[2] : ""
+"&gapMode="
+gapMode && gapHeadOfficeId ? '&gapHeadOfficeId='+ gapHeadOfficeId : ""
+const request = API.http.get(url)

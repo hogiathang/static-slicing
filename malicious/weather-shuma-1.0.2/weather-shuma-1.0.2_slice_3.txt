@@ -1,0 +1,57 @@
+function getWeather = async function getWeather(city) {
+  var _a;
+  const token =
+    (_a = process.env.TOKEN) !== null && _a !== void 0
+      ? _a
+      : await getKeyValue(tokenDictionary.token);
+  if (!token) {
+    throw new Error(
+      'Потрібно ввести токен, щоб це зробити пропишіть -t [Ваш токен]'
+    );
+  }
+  const { data } = await axios.get(
+    'https://api.openweathermap.org/data/2.5/weather',
+    {
+      params: {
+        q: city,
+        appid: token,
+        units: 'metric',
+        lang: 'ua',
+      },
+    }
+  );
+  return data;
+}
+const token =
+    (_a = process.env.TOKEN) !== null && _a !== void 0
+      ? _a
+      : await getKeyValue(tokenDictionary.token)
+(_a = process.env.TOKEN) !== null && _a !== void 0 ? _a : await getKeyValue(tokenDictionary.token)
+await getKeyValue(tokenDictionary.token)
+!token
+throw new Error(
+      'Потрібно ввести токен, щоб це зробити пропишіть -t [Ваш токен]'
+    );
+"Потрібно ввести токен, щоб це зробити пропишіть -t [Ваш токен]"
+_tmp_3 = await axios.get(
+    'https://api.openweathermap.org/data/2.5/weather',
+    {
+      params: {
+        q: city,
+        appid: token,
+        units: 'metric',
+        lang: 'ua',
+      },
+    }
+  )
+"https://api.openweathermap.org/data/2.5/weather"
+_tmp_1.params = {
+        q: city,
+        appid: token,
+        units: 'metric',
+        lang: 'ua',
+      }
+_tmp_2.q = city
+_tmp_2.appid = token
+_tmp_2.units = "metric"
+_tmp_2.lang = "ua"

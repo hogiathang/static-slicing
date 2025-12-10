@@ -1,0 +1,23 @@
+push(buffer) {
+    const ssrc = buffer.readUInt32BE(8);
+    const user = this.userFromSSRC(ssrc);
+    if (!user) return;
+    let stream = this.streams.get(user.id);
+    if (!stream) return;
+    stream = stream.stream;
+    const opusPacket = this.parseBuffer(buffer);
+    if (opusPacket instanceof Error) {
+      this.emit('error', opusPacket);
+      return;
+    }
+    stream.push(opusPacket);
+  }
+const ssrc = buffer.readUInt32BE(8)
+const user = this.userFromSSRC(ssrc)
+!user
+let stream = this.streams.get(user.id)
+!stream
+stream = stream.stream
+const opusPacket = this.parseBuffer(buffer)
+opusPacket instanceof Error
+this.emit('error', opusPacket)

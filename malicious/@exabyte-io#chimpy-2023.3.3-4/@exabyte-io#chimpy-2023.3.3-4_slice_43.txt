@@ -1,0 +1,40 @@
+function Chimp = function Chimp(options) {
+  this.chokidar = chokidar;
+  this.options = options || {};
+  this.processes = [];
+  this.isInterrupting = false;
+  this.exec = require('child_process').exec;
+  this.fs = fs;
+  this.testRunnerRunOrder = [];
+  this.watcher = undefined;
+
+  // store all cli parameters in env hash
+  // Note: Environment variables are always strings.
+  for (const option in options) {
+    if (option === 'ddp') {
+      handleDdpOption(options);
+    } else {
+      process.env[`chimp.${option}`] = _.isObject(options[option]) ?
+       JSON.stringify(options[option]) :
+       String(options[option]);
+    }
+  }
+
+  this._handleChimpInterrupt();
+}
+this.chokidar = chokidar
+this.options = options || {}
+__ecma.Array.factory()
+this.isInterrupting = false
+this.exec = require('child_process').exec
+this.fs = fs
+this.testRunnerRunOrder = []
+this.watcher = undefined
+_iterator_0 = <operator>.iterator(options)
+option === 'ddp'
+handleDdpOption(options)
+process.env[`chimp.${option}`] = _.isObject(options[option]) ?
+       JSON.stringify(options[option]) :
+       String(options[option])
+JSON.stringify(options[option])
+String(options[option])

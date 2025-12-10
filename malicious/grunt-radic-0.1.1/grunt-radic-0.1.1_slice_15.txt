@@ -1,0 +1,12 @@
+_tmp_1.push(<lambda>5)
+var fm = "---\n" + fs.readFileSync(options.frontMatterPath, 'utf-8') + "\n---\n"
+var readme = fs.readFileSync(options.readmePath, 'utf-8')
+                    .replace(options.replacer, fm)
+                    .replace(/```(?=\w)(\w*)/g, '{% highlight $1 %}')
+                    .replace(/```\n/g, '{% endhighlight %}\n')
+options.replacer
+"{% highlight $1 %}"
+"{% endhighlight %}
+"
+fs.outputFileSync(path.join(cwd, options.dir, options.indexName), readme, 'utf-8')
+process.chdir(path.join(cwd, options.dir))

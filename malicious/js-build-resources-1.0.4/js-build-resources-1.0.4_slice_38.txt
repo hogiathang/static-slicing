@@ -1,0 +1,21 @@
+function postApiKey = async function postApiKey(request: Request, response: Response): Promise<Response> {
+  try {
+    const status: string | undefined = validateApiKeyRequestParams(request, OperationType.POST);
+    if (status === undefined && request.username) {
+      const appId: string = request.params.appID;
+      const { username } = request;
+
+      logger.debug(`${CLASS_NAME} | ${postApiKey.name}() | create Api Key...`);
+
+      const result = await apiKeyRepo.createApiKey(appId, username);
+
+      return response.send(200, { key: result });
+    }
+    return response.send(400, { code: 400, message: status });
+  } catch (err) {
+    return response.send(500, { code: 500, message: 'Unable to create api key' });
+  }
+}
+const status: string | undefined = validateApiKeyRequestParams(request, OperationType.POST)
+status === undefined && request.username
+response.send(400, { code: 400, message: status })

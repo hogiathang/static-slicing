@@ -1,0 +1,3 @@
+_tmp_1.updateFormStatus = <lambda>6
+<operator>.formatString("/v3/establishments/", establishmentId, "/appointments/", appointmentId, "/forms/", formId, "/status")
+const request = API.http.put(url, params)

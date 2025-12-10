@@ -1,0 +1,5 @@
+dateStart = dateStart === void 0 ? null : dateStart
+<operator>.formatString("v3/establishments/usage?headOffice=", headOffice, "&module=", moduleId, "")
+<operator>.formatString("&dateStart=", dateStart, "")
+<operator>.formatString("&dateStop=", dateStop, "")
+const request = API.http.get(url)

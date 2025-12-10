@@ -1,0 +1,10 @@
+const apiModelsUsed = Object.keys(models).filter(model => {
+          const connector = get(this.config.connections, models[model].connection, {}).connector;
+
+          if (connector) {
+            return connector.replace('tysapi-hook-', '') === name;
+          }
+
+          return false;
+        })
+const connector = get(this.config.connections, models[model].connection, {}).connector

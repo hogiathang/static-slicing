@@ -1,0 +1,9 @@
+_send(data) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      this.debug(`Tried to send packet ${JSON.stringify(data)} but no WebSocket is available!`);
+      return;
+    }
+    this.ws.send(this.pack(data));
+  }
+!this.ws || this.ws.readyState !== WebSocket.OPEN
+<operator>.formatString("Tried to send packet ", JSON.stringify(data), " but no WebSocket is available!")

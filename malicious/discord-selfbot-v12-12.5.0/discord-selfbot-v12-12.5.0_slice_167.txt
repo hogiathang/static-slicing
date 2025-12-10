@@ -1,0 +1,51 @@
+handle(data) {
+    const client = this.client;
+
+    const guild = client.guilds.cache.get(data.guild_id);
+    if (!guild) return {};
+
+    if (data.channel_ids) {
+      for (const id of data.channel_ids) {
+        const channel = client.channels.resolve(id);
+        if (channel) this.removeStale(channel);
+      }
+    } else {
+      for (const channel of guild.channels.cache.values()) {
+        this.removeStale(channel);
+      }
+    }
+
+    const syncedThreads = data.threads.reduce((coll, rawThread) => {
+      const thread = client.channels._add(rawThread);
+      return coll.set(thread.id, thread);
+    }, new Collection());
+
+    for (const rawMember of Object.values(data.members)) {
+      // Discord sends the thread id as id in this object
+      const thread = client.channels.cache.get(rawMember.id);
+      if (thread) {
+        thread.members._add(rawMember);
+      }
+    }
+
+    /**
+     * Emitted whenever the client user gains access to a text or news channel that contains threads
+    ...
+const client = this.client
+const guild = client.guilds.cache.get(data.guild_id)
+!guild
+data.channel_ids
+_iterator_0 = <operator>.iterator(data.channel_ids)
+const channel = client.channels.resolve(id)
+this.removeStale(channel)
+_iterator_1 = <operator>.iterator(guild.channels.cache.values())
+this.removeStale(channel)
+const syncedThreads = data.threads.reduce((coll, rawThread) => {
+      const thread = client.channels._add(rawThread);
+      return coll.set(thread.id, thread);
+    }, new Collection())
+new Collection()
+_iterator_2 = <operator>.iterator(Object.values(data.members))
+const thread = client.channels.cache.get(rawMember.id)
+thread.members._add(rawMember)
+client.emit(Events.ThreadListSync, syncedThreads, guild)

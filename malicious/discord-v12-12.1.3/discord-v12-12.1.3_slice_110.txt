@@ -1,0 +1,7 @@
+speaking = param1_2.speaking
+const guild = this.channel.guild
+const user = this.client.users.get(user_id)
+!speaking
+_iterator_0 = <operator>.iterator(this.receivers)
+receiver.stoppedSpeaking(user)
+this.status === Constants.VoiceStatus.CONNECTED

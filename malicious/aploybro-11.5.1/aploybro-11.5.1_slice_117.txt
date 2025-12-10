@@ -1,0 +1,10 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const data = packet.d;
+    const channel = client.channels.get(data.channel_id);
+    if (channel) client.emit(Events.WEBHOOKS_UPDATE, channel);
+  }
+const client = this.packetManager.client
+const data = packet.d
+const channel = client.channels.get(data.channel_id)
+client.emit(Events.WEBHOOKS_UPDATE, channel)

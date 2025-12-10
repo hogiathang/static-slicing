@@ -1,0 +1,8 @@
+waitForReady = waitForReady === void 0 ? true : waitForReady
+throw new Error('SHARDING_PROCESS_EXISTS', this.id);
+this.process = childProcess.fork(path.resolve(this.manager.file), this.args, {
+      env: this.env, execArgv: this.execArgv,
+    })
+      .on('message', this._handleMessage.bind(this))
+      .on('exit', this._exitListener)
+_tmp_9.execArgv = this.execArgv

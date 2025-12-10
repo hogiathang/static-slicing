@@ -1,0 +1,22 @@
+listener.on('clientError', (err, socket) => {
+
+            this._log(['connection', 'client', 'error'], err);
+
+            if (socket.readable) {
+                const request = this.settings.operations.cleanStop && this.actives.get(socket);
+                if (request) {
+                    const error = Boom.badRequest();
+                    error.output.headers = { connection: 'close' };
+                    request._reply(error);
+                }
+                else {
+                    socket.end(internals.badRequestResponse);
+                }
+            }
+            else {
+                socket.destroy(err);
+            }
+        })
+this._log(['connection', 'client', 'error'], err)
+socket.readable
+const request = this.settings.operations.cleanStop && this.actives.get(socket)

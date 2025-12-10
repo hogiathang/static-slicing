@@ -1,0 +1,3 @@
+function getUserProfileStatus = function getUserProfileStatus() {
+  return get(GET_USERPROFILE_FROM_LS(), ["user_profile", "profile_status"]);
+}

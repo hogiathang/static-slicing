@@ -1,0 +1,3 @@
+_tmp_1.sendMail = sendMail
+const url = 'v3/establishments/' + establishmentId + '/appointments/mails'
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

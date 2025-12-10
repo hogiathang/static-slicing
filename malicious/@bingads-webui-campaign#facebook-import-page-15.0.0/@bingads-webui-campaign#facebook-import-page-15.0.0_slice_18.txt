@@ -1,0 +1,64 @@
+_tmp_10.add = <lambda>4
+var elemData = dataPriv.get( elem )
+!acceptData( elem )
+handler.handler
+handleObjIn = handler
+handler = handleObjIn.handler
+selector = handleObjIn.selector
+jQuery.find.matchesSelector( documentElement, selector )
+!handler.guid
+handler.guid = jQuery.guid++
+!( events = elemData.events )
+events = elemData.events = Object.create( null )
+!( eventHandle = elemData.handle )
+eventHandle = elemData.handle = function( e ) {
+
+				// Discard the second event of a jQuery.event.trigger() and
+				// when an event is called after a page has unloaded
+				return typeof jQuery !== "undefined" && jQuery.event.triggered !== e.type ?
+					jQuery.event.dispatch.apply( elem, arguments ) : undefined;
+			}
+types = ( types || "" ).match( rnothtmlwhite ) || [ "" ]
+t = types.length
+t--
+tmp = rtypenamespace.exec( types[ t ] ) || []
+type = origType = tmp[ 1 ]
+namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort()
+!type
+continue;
+special = jQuery.event.special[ type ] || {}
+type = ( selector ? special.delegateType : special.bindType ) || type
+special = jQuery.event.special[ type ] || {}
+handleObj = jQuery.extend( {
+				type: type,
+				origType: origType,
+				data: data,
+				handler: handler,
+				guid: handler.guid,
+				selector: selector,
+				needsContext: selector && jQuery.expr.match.needsContext.test( selector ),
+				namespace: namespaces.join( "." )
+			}, handleObjIn )
+_tmp_20.type = type
+_tmp_20.origType = origType
+_tmp_20.data = data
+_tmp_20.handler = handler
+_tmp_20.guid = handler.guid
+_tmp_20.selector = selector
+_tmp_20.needsContext = selector && jQuery.expr.match.needsContext.test( selector )
+_tmp_20.namespace = namespaces.join( "." )
+!( handlers = events[ type ] )
+handlers = events[ type ] = []
+handlers.delegateCount = 0
+!special.setup ||
+					special.setup.call( elem, data, namespaces, eventHandle ) === false
+special.setup.call( elem, data, namespaces, eventHandle ) === false
+elem.addEventListener
+elem.addEventListener( type, eventHandle )
+special.add
+special.add.call( elem, handleObj )
+!handleObj.handler.guid
+handleObj.handler.guid = handler.guid
+handlers.splice( handlers.delegateCount++, 0, handleObj )
+handlers.push( handleObj )
+jQuery.event.global[ type ] = true

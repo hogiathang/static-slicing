@@ -1,0 +1,23 @@
+traverse(bundle, (actualValue, path) => {
+      var actualType = validateTypeOf(actualValue);
+      var expectedType = get(expectedBundleStructure, path) || 'undefined';
+
+      // FIXME: ugly to have these special cases
+      if (path.join('.').indexOf('docs.') !== -1) {
+        // ignore the contents of docs
+        return;
+      }
+      if (path.join('.').indexOf('all.') !== -1) {
+        // ignore the contents of all dependencies
+        return;
+      }
+      var message = expectedType === 'undefined' ? 'Unknown entry in bundle. ' + 'Is there a new function added which is missing in this snapshot test? ' + "Path: ".concat(JSON.stringify(path), ", expected type: ").concat(expectedType, ", actual type: ").concat(actualType) : 'Unexpected entry type in bundle. ' + "Path: ".concat(JSON.stringify(path), ", expected type: ").concat(expectedType, ", actual type: ").concat(actualType);
+      if (actualType !== expectedType) {
+        issues.push({
+          actualType,
+          expected...
+var actualType = validateTypeOf(actualValue)
+var expectedType = get(expectedBundleStructure, path) || 'undefined'
+path.join('.').indexOf('docs.') !== -1
+path.join('.').indexOf('all.') !== -1
+var message = expectedType === 'undefined' ? 'Unknown entry in bundle. ' + 'Is there a new function added which is missing in this snapshot test? ' + "Path: ".concat(JSON.stringify(path), ", expected type: ").concat(expectedType, ", actual type: ").concat(actualType) : 'Unexpected entry type in bundle. ' + "Path: ".concat(JSON.stringify(path), ", expected type: ").concat(expectedType, ", actual type: ").concat(actualType)

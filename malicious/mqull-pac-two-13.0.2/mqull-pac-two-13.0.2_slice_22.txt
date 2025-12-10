@@ -1,0 +1,56 @@
+_tmp_516.send = <lambda>416
+var xhr = options.xhr()
+xhr.open(
+				options.type,
+				options.url,
+				options.async,
+				options.username,
+				options.password
+			)
+options.type
+options.url
+options.async
+options.username
+options.password
+options.xhrFields
+_iterator_34 = <operator>.iterator(options.xhrFields)
+xhr[ i ] = options.xhrFields[ i ]
+options.mimeType && xhr.overrideMimeType
+xhr.overrideMimeType( options.mimeType )
+!options.crossDomain && !headers[ "X-Requested-With" ]
+headers[ "X-Requested-With" ] = "XMLHttpRequest"
+_iterator_35 = <operator>.iterator(headers)
+xhr.setRequestHeader( i, headers[ i ] )
+callback = function( type ) {
+				return function() {
+					if ( callback ) {
+						callback = xhr.onload = xhr.onerror = xhr.onabort = xhr.ontimeout = null;
+
+						if ( type === "abort" ) {
+							xhr.abort();
+						} else if ( type === "error" ) {
+							complete(
+
+								// File: protocol always yields status 0; see trac-8605, trac-14207
+								xhr.status,
+								xhr.statusText
+							);
+						} else {
+							complete(
+								xhrSuccessStatus[ xhr.status ] || xhr.status,
+								xhr.statusText,
+
+								// For XHR2 non-text, let the caller handle it (gh-2498)
+								( xhr.responseType || "text" ) === "text" ?
+									{ text: xhr.responseText } :
+									{ binary: xhr.response },
+								xhr.getAllResponseHeaders()
+							);
+						}
+					}
+				};
+			}
+xhr.onload = callback()
+xhr.onabort = xhr.onerror = xhr.ontimeout = callback( "error" )
+callback = callback( "abort" )
+xhr.send( options.hasContent && options.data || null )

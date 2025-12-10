@@ -1,0 +1,3 @@
+_tmp_1.getMyServicesByNameByHeadOfficesByEstablishments = getMyServicesByNameByHeadOfficesByEstablishments
+<operator>.formatString("v3/my/services?queryType=byName&name=", name, "&headOffices=", headOfficeIds, "&establishments=", establishmentIds, "")
+const request = API.http.get(url)

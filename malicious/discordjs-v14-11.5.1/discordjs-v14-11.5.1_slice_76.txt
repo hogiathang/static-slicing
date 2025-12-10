@@ -1,0 +1,16 @@
+data = _tmp_9.data === void 0 ? {} : _tmp_9.data
+data.color = resolveColor(data.color)
+data.permissions = Permissions.resolve(data.permissions)
+this.guild.client.api
+      .guilds(this.guild.id)
+      .roles.post({ data, reason })
+      .then(r => {
+        const { role } = this.client.actions.GuildRoleCreate.handle({
+          guild_id: this.guild.id,
+          role: r,
+        });
+        if (data.position) return role.setPosition(data.position, reason);
+        return role;
+      })
+this.guild.id
+_tmp_14.reason = reason

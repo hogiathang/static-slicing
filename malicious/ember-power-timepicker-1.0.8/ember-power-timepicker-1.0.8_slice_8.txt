@@ -1,0 +1,5 @@
+_tmp_17.didInsertElement = didInsertElement
+this.get('selectedTime') !== null
+this.propertyWillChange('selectedTime')
+this.propertyDidChange('selectedTime')
+this.set('selectedTime', this.get('selectedTime'))

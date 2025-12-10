@@ -1,0 +1,49 @@
+constructor(message, users, roles, everyone) {
+    /**
+     * Whether `@everyone` or `@here` were mentioned
+     * @type {boolean}
+     */
+    this.everyone = Boolean(everyone);
+
+    if (users) {
+      if (users instanceof Collection) {
+        /**
+         * Any users that were mentioned
+         * @type {Collection<Snowflake, User>}
+         */
+        this.users = new Collection(users);
+      } else {
+        this.users = new Collection();
+        for (const mention of users) {
+          let user = message.client.users.get(mention.id);
+          if (!user) user = message.client.dataManager.newUser(mention);
+          this.users.set(user.id, user);
+        }
+      }
+    } else {
+      this.users = new Collection();
+    }
+
+    if (roles) {
+      if (roles instanceof Collection) {
+        /**
+         * Any roles that were mentioned
+         * @type {Collection<Snowflake, Role>}
+         */
+        this.roles = new Collection(roles);
+      } else {
+        this.roles = new Collectio...
+this.everyone = Boolean(everyone)
+users instanceof Collection
+this.users = new Collection(users)
+this.users = new Collection()
+_iterator_0 = <operator>.iterator(users)
+let user = message.client.users.get(mention.id)
+user = message.client.dataManager.newUser(mention)
+this.users.set(user.id, user)
+this.users = new Collection()
+roles instanceof Collection
+this.roles = new Collection()
+_iterator_1 = <operator>.iterator(roles)
+const role = message.channel.guild.roles.get(mention)
+this.roles.set(role.id, role)

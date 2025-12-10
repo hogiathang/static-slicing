@@ -1,0 +1,28 @@
+createOverwrite(userOrRole, options, reason) {
+    userOrRole = this.guild.roles.resolve(userOrRole) || this.client.users.resolve(userOrRole);
+    if (!userOrRole) return Promise.reject(new TypeError('INVALID_TYPE', 'parameter', 'User nor a Role', true));
+
+    const type = userOrRole instanceof Role ? 'role' : 'member';
+    const { allow, deny } = PermissionOverwrites.resolveOverwriteOptions(options);
+
+    return this.client.api
+      .channels(this.id)
+      .permissions[userOrRole.id].put({
+        data: { id: userOrRole.id, type, allow: allow.bitfield, deny: deny.bitfield },
+        reason,
+      })
+      .then(() => this);
+  }
+userOrRole = this.guild.roles.resolve(userOrRole) || this.client.users.resolve(userOrRole)
+Promise.reject(new TypeError('INVALID_TYPE', 'parameter', 'User nor a Role', true))
+const type = userOrRole instanceof Role ? 'role' : 'member'
+_tmp_49 = PermissionOverwrites.resolveOverwriteOptions(options)
+this.client.api
+      .channels(this.id)
+      .permissions[userOrRole.id].put({
+        data: { id: userOrRole.id, type, allow: allow.bitfield, deny: deny.bitfield },
+        reason,
+      })
+      .then(() => this)
+this.id
+userOrRole.id

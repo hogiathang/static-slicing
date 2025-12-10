@@ -1,0 +1,3 @@
+_tmp_1.update = <lambda>4
+const url = 'v3/headOffices/' + headOfficeId
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

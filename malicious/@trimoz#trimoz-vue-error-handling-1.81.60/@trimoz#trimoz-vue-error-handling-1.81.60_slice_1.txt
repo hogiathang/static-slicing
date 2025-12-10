@@ -1,0 +1,8 @@
+internalCode = internalCode === void 0 ? null : internalCode
+super(previousError.message)
+this.inner = previousError
+this.textKey = textKey
+this.uuid = uuidv4()
+this.internalCode = internalCode
+this.contextCode = contextCode
+this.httpStatus = get(previousError, 'response.status', null)

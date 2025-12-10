@@ -1,0 +1,3 @@
+_tmp_241.queue = <lambda>218
+type = ( type || "fx" ) + "queue"
+queue = dataPriv.get( elem, type )

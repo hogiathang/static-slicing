@@ -1,0 +1,33 @@
+item.request.make().then(res => {
+        if (res && res.headers) {
+          if (res.headers.get('x-ratelimit-global')) this.manager.globallyRateLimited = true;
+          this.limit = Number(res.headers.get('x-ratelimit-limit') || Infinity);
+          const reset = res.headers.get('x-ratelimit-reset');
+          this.resetTime = reset !== null ?
+            (Number(reset) * 1e3) - new Date(res.headers.get('date') || Date.now()).getTime() + Date.now() :
+            Date.now();
+          const remaining = res.headers.get('x-ratelimit-remaining');
+          this.remaining = remaining !== null ? Number(remaining) : 1;
+        }
+
+        if (res.ok) {
+          parseResponse(res).then(item.resolve, item.reject);
+          finish();
+          return;
+        }
+
+        if (res.status === 429) {
+          this.queue.unshift(item);
+          finish(Number(res.headers.get('retry-after')) + this.client.options.restTimeOffset);
+        } else if (res.status >= 500 && res.status < 600) {
+     ...
+res && res.headers
+this.manager.globallyRateLimited = true
+this.limit = Number(res.headers.get('x-ratelimit-limit') || Infinity)
+const reset = res.headers.get('x-ratelimit-reset')
+this.resetTime = reset !== null ?
+            (Number(reset) * 1e3) - new Date(res.headers.get('date') || Date.now()).getTime() + Date.now() :
+            Date.now()
+(Number(reset) * 1e3) - new Date(res.headers.get('date') || Date.now()).getTime() + Date.now()
+Date.now()
+const remaining = res.headers.get('x-ratelimit-remaining')

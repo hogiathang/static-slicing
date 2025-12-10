@@ -1,0 +1,3 @@
+_tmp_1.getAllMyEstablishments = getAllMyEstablishments
+const url = `v3/my/establishments?queryType=all`
+const request = API.http.get(url)

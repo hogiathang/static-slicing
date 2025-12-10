@@ -1,0 +1,11 @@
+$('script').each(function() {
+              if ($(this).attr('src')) {
+                const parse = path.parse($(this).attr('src'));
+                const url = URL.parse(_.get(zenapi.config.currentEnvironment.server, 'admin.build.host', _.get(zenapi.config.currentEnvironment.server, 'admin.path', '/admin')));
+
+                $(this).attr('src', `${url.pathname.replace(/\/$/, '')}/${parse.base}`);
+              }
+            })
+(_tmp_2 = $(this)).attr
+const parse = path.parse($(this).attr('src'))
+const url = URL.parse(_.get(zenapi.config.currentEnvironment.server, 'admin.build.host', _.get(zenapi.config.currentEnvironment.server, 'admin.path', '/admin')))

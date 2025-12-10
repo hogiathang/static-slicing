@@ -1,0 +1,56 @@
+set (key, value, maxAge) {
+    maxAge = maxAge || this[MAX_AGE]
+
+    if (maxAge && typeof maxAge !== 'number')
+      throw new TypeError('maxAge must be a number')
+
+    const now = maxAge ? Date.now() : 0
+    const len = this[LENGTH_CALCULATOR](value, key)
+
+    if (this[CACHE].has(key)) {
+      if (len > this[MAX]) {
+        del(this, this[CACHE].get(key))
+        return false
+      }
+
+      const node = this[CACHE].get(key)
+      const item = node.value
+
+      // dispose of the old one before overwriting
+      // split out into 2 ifs for better coverage tracking
+      if (this[DISPOSE]) {
+        if (!this[NO_DISPOSE_ON_SET])
+          this[DISPOSE](key, item.value)
+      }
+
+      item.now = now
+      item.maxAge = maxAge
+      item.value = value
+      this[LENGTH] += len - item.length
+      item.length = len
+      this.get(key)
+      trim(this)
+      return true
+    }
+
+    const hit = new Entry(key, value, len, now, maxAge)
+
+    // oversized objects fall out of cache automatically...
+maxAge = maxAge || this[MAX_AGE]
+maxAge && typeof maxAge !== 'number'
+throw new TypeError('maxAge must be a number')
+const now = maxAge ? Date.now() : 0
+const len = this[LENGTH_CALCULATOR](value, key)
+(_tmp_19 = this[CACHE]).has
+len > this[MAX]
+const node = this[CACHE].get(key)
+const item = node.value
+this[DISPOSE]
+!this[NO_DISPOSE_ON_SET]
+this[DISPOSE](key, item.value)
+item.now = now
+item.maxAge = maxAge
+item.value = value
+this[LENGTH] += len - item.length
+item.length = len
+this.get(key)

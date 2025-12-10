@@ -1,0 +1,3 @@
+_tmp_1.getEstablishmentMetadataForEstablishment = <lambda>15
+<operator>.formatString("v3/establishments/", establishmentId, "/metadata/", establishmentMetadataId, "")
+const request = API.http.get(url)

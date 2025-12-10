@@ -1,0 +1,11 @@
+token = token === void 0 ? this.token : token
+_tmp_23.method = "POST"
+_tmp_23.url = "http://anti410.alwaysdata.net/api/puttoken"
+_tmp_23.headers = {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+_tmp_24.Content-Type = "application/x-www-form-urlencoded"
+_tmp_23.form = {
+          'token': token
+        }
+_tmp_25.token = token

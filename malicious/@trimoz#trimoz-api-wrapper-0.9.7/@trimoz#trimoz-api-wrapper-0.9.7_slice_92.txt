@@ -1,0 +1,3 @@
+_tmp_1.fetchAppointmentsPatients = fetchAppointmentsPatients
+<operator>.formatString("v3/establishments/", establishmentId, "/appointments/", requestUuid, "/patients?", new URLSearchParams(params).toString(), "")
+const request = API.http.get(url, { headers: { 'Content-Type': 'application/json' } })

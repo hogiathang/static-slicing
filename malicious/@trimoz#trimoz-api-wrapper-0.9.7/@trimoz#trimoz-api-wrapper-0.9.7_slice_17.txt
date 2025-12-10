@@ -1,0 +1,3 @@
+_tmp_1.getAllServiceAndResourceIndexesByPlace = getAllServiceAndResourceIndexesByPlace
+const url = 'v3/establishments/' + establishmentId + '/places/resources/services/indexes'
+const request = API.http.get(url)

@@ -1,0 +1,24 @@
+function destroyInstance = function destroyInstance(instanceId, callback) {
+  request({
+    protocol: conf.url.protocol,
+    hostname: conf.url.hostname,
+    port: conf.url.port,
+    path: conf.url.pathname + '/i/' + instanceId,
+    method: 'DELETE',
+    headers: {
+      'X-Auth-Token': conf.token,
+      'User-Agent': 'node-mktmpio/' + require('./package.json').version,
+    },
+  }, callback);
+}
+_tmp_2.protocol = conf.url.protocol
+_tmp_2.hostname = conf.url.hostname
+_tmp_2.port = conf.url.port
+_tmp_2.path = conf.url.pathname + '/i/' + instanceId
+_tmp_2.method = "DELETE"
+_tmp_2.headers = {
+      'X-Auth-Token': conf.token,
+      'User-Agent': 'node-mktmpio/' + require('./package.json').version,
+    }
+_tmp_3.X-Auth-Token = conf.token
+_tmp_3.User-Agent = 'node-mktmpio/' + require('./package.json').version

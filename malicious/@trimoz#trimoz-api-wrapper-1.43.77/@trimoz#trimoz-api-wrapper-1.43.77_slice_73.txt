@@ -1,0 +1,3 @@
+_tmp_1.getMyPatient = <lambda>3
+const url = 'v3/resources/current'
+const request = API.http.get(url)

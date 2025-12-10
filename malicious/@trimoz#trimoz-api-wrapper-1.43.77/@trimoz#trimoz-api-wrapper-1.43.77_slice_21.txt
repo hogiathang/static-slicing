@@ -1,0 +1,3 @@
+_tmp_1.getAvailable = <lambda>6
+const url = 'v3/places/available'
+const request = API.http.get(url)

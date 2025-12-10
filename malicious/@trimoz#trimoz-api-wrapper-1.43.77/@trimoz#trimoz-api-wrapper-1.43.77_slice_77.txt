@@ -1,0 +1,2 @@
+_tmp_1.getModules = <lambda>1
+const request = API.http.get('v3/modules', params)

@@ -1,0 +1,10 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const data = packet.d;
+    const guild = client.guilds.get(data.guild_id);
+    if (guild) client.emit(Events.GUILD_INTEGRATIONS_UPDATE, guild);
+  }
+const client = this.packetManager.client
+const data = packet.d
+const guild = client.guilds.get(data.guild_id)
+client.emit(Events.GUILD_INTEGRATIONS_UPDATE, guild)

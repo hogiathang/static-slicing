@@ -1,0 +1,29 @@
+connect() {
+    this.emit('debug', `[WS] connect requested`);
+    if (this.dead) return;
+    if (this.ws) this.reset();
+    if (this.attempts >= 5) {
+      this.emit('debug', new Error('VOICE_CONNECTION_ATTEMPTS_EXCEEDED', this.attempts));
+      return;
+    }
+
+    this.attempts++;
+
+    /**
+     * The actual WebSocket used to connect to the Voice WebSocket Server.
+     * @type {WebSocket}
+     */
+    this.ws = WebSocket.create(`wss://${this.connection.authentication.endpoint}/`, { v: 4 });
+    this.emit('debug', `[WS] connecting, ${this.attempts} attempts, ${this.ws.url}`);
+    this.ws.onopen = this.onOpen.bind(this);
+    this.ws.onmessage = this.onMessage.bind(this);
+    this.ws.onclose = this.onClose.bind(this);
+    this.ws.onerror = this.onError.bind(this);
+  }
+this.emit('debug', `[WS] connect requested`)
+this.dead
+this.reset()
+this.attempts >= 5
+this.attempts++
+this.ws = WebSocket.create(`wss://${this.connection.authentication.endpoint}/`, { v: 4 })
+<operator>.formatString("[WS] connecting, ", this.attempts, " attempts, ", this.ws.url, "")

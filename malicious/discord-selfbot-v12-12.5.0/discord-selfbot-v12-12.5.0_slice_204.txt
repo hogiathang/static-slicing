@@ -1,0 +1,15 @@
+_send(data) {
+    if (this.connection?.readyState !== WebSocket.OPEN) {
+      this.debug(`Tried to send packet '${JSON.stringify(data)}' but no WebSocket is available!`);
+      this.destroy({ closeCode: 4_000 });
+      return;
+    }
+
+    this.connection.send(WebSocket.pack(data), err => {
+      if (err) this.manager.client.emit(Events.ShardError, err, this.id);
+    });
+  }
+this.connection?.readyState !== WebSocket.OPEN
+this.connection.send(WebSocket.pack(data), err => {
+      if (err) this.manager.client.emit(Events.ShardError, err, this.id);
+    })

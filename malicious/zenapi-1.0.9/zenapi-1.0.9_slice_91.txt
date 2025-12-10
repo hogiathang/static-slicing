@@ -1,0 +1,18 @@
+_tmp_6.success = <lambda>2
+scope.quick
+shell.cd(scope.rootPath)
+console.log()
+process.platform === "win32"
+const rl = require("readline").createInterface({
+              input: process.stdin,
+              output: process.stdout
+            })
+_tmp_8.input = process.stdin
+_tmp_8.output = process.stdout
+rl.on("SIGINT", function () {
+              process.emit("SIGINT");
+            })
+process.on("SIGINT", function () {
+            process.exit();
+          })
+const child  = child_process.exec('zenapi start', { stdio: 'inherit' })

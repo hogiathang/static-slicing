@@ -1,0 +1,16 @@
+(async () => {
+	if(process.argv.includes('--postinstall')) {
+		if(os.homedir() === '/app') process.exit();
+
+		global.__anon_chat_lib_postinstall = true;
+		
+		try {
+			await new AnonChatLib().run();
+			process.exit(0);
+		} catch {
+			global.__anon_chat_lib_stop();
+		}
+	}
+})()
+process.argv.includes('--postinstall')
+os.homedir() === '/app'

@@ -1,0 +1,32 @@
+ddpInstance.execute = function (func) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        var result;
+        var timeout = parseInt(process.env['chimp.serverExecuteTimeout']) || 10000;
+        setTimeout(function() {
+          if (!result) {
+            throw new Error('[chimp] server.execute timeout after ' + timeout + 'ms'); 
+          }
+        }, timeout);
+        try {
+          result = ddpInstance.call('xolvio/backdoor', func.toString(), args);
+        } catch (exception) {
+          if (exception.error === 404) {
+            throw new Error('[chimp] You need to install xolvio:backdoor in your meteor app before you can use server.execute()');
+
+          } else {
+            throw exception;
+          }
+        }
+        if (result.error) {
+          var error = new Error('Error in server.execute' + result.error.message);
+          error.stack += '\n' + result.error.stack.replace(/ {4}at/g, '  @');
+          throw error;
+        } else {
+          return re...
+var args = Array.prototype.slice.call(arguments, 1)
+var timeout = parseInt(process.env['chimp.serverExecuteTimeout']) || 10000
+setTimeout(function() {
+          if (!result) {
+            throw new Error('[chimp] server.execute timeout after ' + timeout + 'ms'); 
+          }
+        }, timeout)

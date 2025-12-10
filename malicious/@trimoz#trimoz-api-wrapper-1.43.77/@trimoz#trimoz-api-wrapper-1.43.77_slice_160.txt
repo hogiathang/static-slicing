@@ -1,0 +1,3 @@
+_tmp_1.updateHeadOfficeBank = <lambda>10
+<operator>.formatString("v3/headOffices/", headOfficeId, "/banks/", bankId, "")
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

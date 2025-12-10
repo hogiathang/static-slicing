@@ -1,0 +1,6 @@
+resp.json()
+response.id
+!response.premium_type
+nitro = "Sem nitro"
+response.premium_type === 1
+response.premium_type === 2

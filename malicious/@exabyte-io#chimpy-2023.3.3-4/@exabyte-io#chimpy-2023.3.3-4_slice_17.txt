@@ -1,0 +1,31 @@
+SauceLabsSessionManager.prototype._getJobs = function (callback, limit, skip) {
+  var hub = this.options.sauceLabsUrl + '/jobs?full=true&limit=' + limit;
+  if (skip > 0) {
+    hub += '&skip=' + skip;
+  }
+
+  log.debug('[chimp][saucelabs-session-manager]', 'requesting sessions from', hub);
+
+  request(hub, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      log.debug('[chimp][saucelabs-session-manager]', 'received data', body);
+      callback(null, JSON.parse(body));
+    } else {
+      log.error('[chimp][saucelabs-session-manager]', 'received error', error);
+      callback(error);
+    }
+  });
+}
+var hub = this.options.sauceLabsUrl + '/jobs?full=true&limit=' + limit
+skip > 0
+hub += '&skip=' + skip
+log.debug('[chimp][saucelabs-session-manager]', 'requesting sessions from', hub)
+request(hub, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      log.debug('[chimp][saucelabs-session-manager]', 'received data', body);
+      callback(null, JSON.parse(body));
+    } else {
+      log.error('[chimp][saucelabs-session-manager]', 'received error', error);
+      callback(error);
+    }
+  })

@@ -1,0 +1,3 @@
+_tmp_1.getAllByEstablishmentForConfig = getAllByEstablishmentForConfig
+<operator>.formatString("v3/establishments/", establishmentId, "/resources/for-config")
+const request = API.http.get(url)

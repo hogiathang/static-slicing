@@ -1,0 +1,52 @@
+setup(data) {
+    /**
+     * The guild the invite is for. If this guild is already known, this will be a guild object. If the guild is
+     * unknown, this will be a PartialGuild object
+     * @type {Guild|PartialGuild}
+     */
+    this.guild = this.client.guilds.get(data.guild.id) || new PartialGuild(this.client, data.guild);
+
+    /**
+     * The code for this invite
+     * @type {string}
+     */
+    this.code = data.code;
+
+    /**
+     * Whether or not this invite is temporary
+     * @type {boolean}
+     */
+    this.temporary = data.temporary;
+
+    /**
+     * The maximum age of the invite, in seconds
+     * @type {?number}
+     */
+    this.maxAge = data.max_age;
+
+    /**
+     * How many times this invite has been used
+     * @type {number}
+     */
+    this.uses = data.uses;
+
+    /**
+     * The maximum uses of this invite
+     * @type {number}
+     */
+    this.maxUses = data.max_uses;
+
+    if (data.inviter) {
+      /**
+       * The user who created this invite
+       * @type {User}
+...
+this.guild = this.client.guilds.get(data.guild.id) || new PartialGuild(this.client, data.guild)
+this.code = data.code
+this.temporary = data.temporary
+this.maxAge = data.max_age
+this.uses = data.uses
+this.maxUses = data.max_uses
+data.inviter
+this.inviter = this.client.dataManager.newUser(data.inviter)
+this.channel = this.client.channels.get(data.channel.id) || new PartialGuildChannel(this.client, data.channel)

@@ -1,0 +1,3 @@
+_tmp_1.createPlaceSettings = <lambda>14
+<operator>.formatString("v3/establishments/", establishmentId, "/places/", placeId, "/settings")
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

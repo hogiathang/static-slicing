@@ -1,0 +1,11 @@
+cache = param1_1.cache
+const existing = this.cache.get(user)
+existing && !existing.partial
+this.client.api
+      .guilds(this.guild.id)
+      .members(user)
+      .get()
+      .then(data => this.add(data, cache))
+this.guild.id
+members
+get

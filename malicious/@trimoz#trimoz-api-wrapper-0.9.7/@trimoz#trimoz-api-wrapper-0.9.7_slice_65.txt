@@ -1,0 +1,4 @@
+_tmp_1.getHeadOfficesBanks = <lambda>6
+let url = 'v3/headOffices/banks'
+url = appendQueryParams(url, params)
+const request = API.http.get(url)

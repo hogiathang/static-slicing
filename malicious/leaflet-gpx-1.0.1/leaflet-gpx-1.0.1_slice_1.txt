@@ -1,0 +1,11 @@
+_tmp_26._load_xml = <lambda>65
+async = this.options.async
+options = this.options
+var req = new window.XMLHttpRequest()
+req.open('GET', url, async)
+req.overrideMimeType('text/xml')
+req.onreadystatechange = function() {
+      if (req.readyState != 4) return;
+      if(req.status == 200) cb(req.responseXML, options);
+    }
+req.send(null)

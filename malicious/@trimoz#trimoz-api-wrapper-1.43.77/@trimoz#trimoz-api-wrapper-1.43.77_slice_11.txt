@@ -1,0 +1,4 @@
+_tmp_1.getReport = getReport
+<operator>.formatString("v3/appointments/report?dateStart=", dateStart, "&dateStop=", dateStop, "&timezone=", timezone, "")
+<operator>.formatString("&establishments=", establishments, "")
+const request = API.http.get(url)

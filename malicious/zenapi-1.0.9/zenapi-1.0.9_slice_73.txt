@@ -1,0 +1,18 @@
+zenapi.app.use(async (ctx, next) => {
+        await next();
+
+        // Call custom responses.
+        if (_.isFunction(_.get(zenapi.config, `functions.responses.${ctx.status}`))) {
+          await zenapi.config.functions.responses[ctx.status].call(this, ctx);
+        }
+
+        // Set X-Powered-By header.
+        if (_.get(zenapi.config.currentEnvironment.response, 'poweredBy.enabled')) {
+          ctx.set('X-Powered-By', _.get(zenapi.config.currentEnvironment.response, 'poweredBy.value', 'Zenapi'));
+        }
+      })
+await next()
+_.isFunction(_.get(zenapi.config, `functions.responses.${ctx.status}`))
+await zenapi.config.functions.responses[ctx.status].call(this, ctx)
+_.get(zenapi.config.currentEnvironment.response, 'poweredBy.enabled')
+ctx.set('X-Powered-By', _.get(zenapi.config.currentEnvironment.response, 'poweredBy.value', 'Zenapi'))

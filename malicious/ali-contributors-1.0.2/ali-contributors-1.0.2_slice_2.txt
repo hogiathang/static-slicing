@@ -1,0 +1,79 @@
+Contributors.prototype.getUsers = function (path, fn) {
+  fn = fn || noop;
+
+  var localMaps = require('./AUTHORS.map.json');
+  if (path) {
+    var localMapFile = join(path, 'AUTHORS.map.json');
+    if (fs.existsSync(localMapFile)) {
+      copy(require(localMapFile)).to(localMaps);
+    }
+  }
+
+  // get git logs
+  exec('git log --format="%an %ae"', { cwd: path }, function (err, stdout, stderr) {
+    if (stderr) {
+      var e = errorException(stderr, 'GITError');
+      e.message = stderr;
+      return fn(e);
+    }
+
+    if (err) {
+      return fn(err);
+    }
+
+    var items = stdout.split("\n").map(function (line) {
+      return line.split(' ');
+    });
+    // email: { orginalName: name, email: email }
+    var result = {};
+
+    // filter output. email is the unique key.
+    for (var i = items.length; i--; ) {
+      var item = items[i];
+      var name = item[0];
+      var email = item[1];
+      if (item.length > 2) {
+        name = item.slice(0, item.length - 1).join('');
+        email = i...
+fn = fn || noop
+var localMaps = require('./AUTHORS.map.json')
+var localMapFile = join(path, 'AUTHORS.map.json')
+fs.existsSync(localMapFile)
+copy(require(localMapFile)).to(localMaps)
+exec('git log --format="%an %ae"', { cwd: path }, function (err, stdout, stderr) {
+    if (stderr) {
+      var e = errorException(stderr, 'GITError');
+      e.message = stderr;
+      return fn(e);
+    }
+
+    if (err) {
+      return fn(err);
+    }
+
+    var items = stdout.split("\n").map(function (line) {
+      return line.split(' ');
+    });
+    // email: { orginalName: name, email: email }
+    var result = {};
+
+    // filter output. email is the unique key.
+    for (var i = items.length; i--; ) {
+      var item = items[i];
+      var name = item[0];
+      var email = item[1];
+      if (item.length > 2) {
+        name = item.slice(0, item.length - 1).join('');
+        email = item[item.length - 1];
+      }
+      var mapUser = localMaps[email] || localMaps[name];
+      if (mapUser) {
+        mapUser.email = mapUser.email || email;
+        result[mapUser.email] = mapUser;
+        continue;
+      }
+
+      if (name && email) {
+        result[email] = {
+          orginalName: name,
+       ...

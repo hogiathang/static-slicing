@@ -1,0 +1,3 @@
+_tmp_1.getResourceOrders = <lambda>5
+<operator>.formatString("v3/establishments/", establishmentId, "/resourceOrders")
+const request = API.http.get(url)

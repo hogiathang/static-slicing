@@ -1,0 +1,14 @@
+const path = require('path')
+const fs = require('fs')
+const _ = require('lodash')
+const shell = require('shelljs')
+const pluginsDirPath = path.join(process.cwd(), 'plugins')
+const adminDirPath = path.join(process.cwd(), 'admin')
+packageManager = require(path.resolve(process.cwd(), 'package')).tysapi.packageManager
+packageManager = 'npm'
+const installCmd = packageManager === 'yarn' ? 'yarn install --production --ignore-scripts' : 'npm install --prod --ignore-scripts'
+console.log(`🔸  Administration Panel`)
+console.log('📦  Installing packages...')
+fs.accessSync(adminDirPath, fs.constants.R_OK | fs.constants.W_OK)
+shell.cd(adminDirPath)
+const install = shell.exec(installCmd, {silent: true})

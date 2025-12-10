@@ -1,0 +1,61 @@
+public static async verifyApiKeyWithAppId(
+    res: Response,
+    apiKey: string,
+    appIdFromParams: string,
+  ): Promise<boolean> {
+    let flag = false;
+    try {
+      const decodedBase64Key = Buffer.from(apiKey, 'base64').toString('utf-8');
+      const [appIdFromToken, apiToken]: string[] = parseAppIdAndToken(decodedBase64Key);
+      if (appIdFromToken !== appIdFromParams && !settings.restrictedAppIdWhitelist.includes(appIdFromToken)) {
+        logger.error(
+          `${AuthenticationMiddleware.name} | ${this.verifyApiKeyWithAppId.name}() | appId from query params does not match appId from bearer token`,
+        );
+        res.send(400, {
+          code: 400,
+          message: `Unable to verify API key: appId you are trying to access does not match bearer token`,
+        });
+        throw new Error('appId you are trying to access does not match bearer token');
+      }
+
+      logger.debug(
+        `${AuthenticationMiddleware.name} | ${this.verifyApiKeyWithAppId.name}() | app ...
+let flag = false
+const decodedBase64Key = Buffer.from(apiKey, 'base64').toString('utf-8')
+_tmp_12 = parseAppIdAndToken(decodedBase64Key)
+appIdFromToken !== appIdFromParams && !settings.restrictedAppIdWhitelist.includes(appIdFromToken)
+logger.error(
+          `${AuthenticationMiddleware.name} | ${this.verifyApiKeyWithAppId.name}() | appId from query params does not match appId from bearer token`,
+        )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", this.verifyApiKeyWithAppId.name, "() | appId from query params does not match appId from bearer token")
+res.send(400, {
+          code: 400,
+          message: `Unable to verify API key: appId you are trying to access does not match bearer token`,
+        })
+_tmp_14.code = 400
+_tmp_14.message = "Unable to verify API key: appId you are trying to access does not match bearer token"
+throw new Error('appId you are trying to access does not match bearer token');
+logger.debug(
+        `${AuthenticationMiddleware.name} | ${this.verifyApiKeyWithAppId.name}() | app id: ${appIdFromToken}`,
+      )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", this.verifyApiKeyWithAppId.name, "() | app id: ", appIdFromToken, "")
+logger.debug(
+        `${AuthenticationMiddleware.name} | ${this.verifyApiKeyWithAppId.name}() | app token: ${apiToken}`,
+      )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", this.verifyApiKeyWithAppId.name, "() | app token: ", apiToken, "")
+appIdFromToken && apiToken
+const apiKeyRepo: ApiKeyRepo = ApiKeyRepoFactory.accessOrCreateSingleton()
+settings.restrictedAppIdWhitelist.includes(appIdFromToken)
+const masterPersistedKey: ApiKey = await apiKeyRepo.getApiKey(appIdFromToken)
+masterPersistedKey.key === apiToken
+flag = true
+const persistedKey: ApiKey = await apiKeyRepo.getApiKey(appIdFromToken)
+persistedKey.key === apiToken
+flag = true
+err instanceof NotFoundError
+throw err;
+logger.error(
+        `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.verifyApiKeyWithAppId.name}() | Api key verification error: ${err}`,
+      )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", AuthenticationMiddleware.verifyApiKeyWithAppId.name, "() | Api key verification error: ", err, "")
+_tmp_17.message = <operator>.formatString("Unable to verify API key: ", err.message, "")

@@ -1,0 +1,29 @@
+reason = param2_0.reason
+const id = this.client.users.resolveId(user)
+throw new TypeError(ErrorCodes.InvalidType, 'user', 'UserResolvable');
+data.channel
+data.channel = this.guild.channels.resolve(data.channel)
+!(data.channel instanceof BaseGuildVoiceChannel)
+throw new Error(ErrorCodes.GuildVoiceChannelResolve);
+data.channel_id = data.channel.id
+data.channel = undefined
+data.channel === null
+data.channel_id = null
+data.channel = undefined
+data.roles &&= data.roles.map(role => (role instanceof Role ? role.id : role))
+typeof data.communicationDisabledUntil !== 'undefined'
+data.communication_disabled_until =
+        // eslint-disable-next-line eqeqeq
+        data.communicationDisabledUntil != null
+          ? new Date(data.communicationDisabledUntil).toISOString()
+          : data.communicationDisabledUntil
+data.communicationDisabledUntil != null ? new Date(data.communicationDisabledUntil).toISOString() : data.communicationDisabledUntil
+(_tmp_54 = new Date(data.communicationDisabledUntil)).toISOString
+data.communicationDisabledUntil
+id === this.client.user.id
+const keys = Object.keys(data)
+endpoint = Routes.guildMember(this.guild.id)
+endpoint = Routes.guildMember(this.guild.id, id)
+endpoint = Routes.guildMember(this.guild.id, id)
+const d = await this.client.rest.patch(endpoint, { body: data, reason })
+const clone = this.cache.get(id)?._clone()

@@ -1,0 +1,11 @@
+function Contributors = function Contributors(path, fn) {
+  path = path || process.cwd();
+  if (!(this instanceof Contributors)) {
+    return new Contributors().fetch(path, fn);
+  }
+
+  EventEmitter.call(this);
+}
+path = path || process.cwd()
+!(this instanceof Contributors)
+(_tmp_0 = new Contributors()).fetch

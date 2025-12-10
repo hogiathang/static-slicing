@@ -1,0 +1,3 @@
+_tmp_1.setPrestBatch = setPrestBatch
+<operator>.formatString("v3/establishments/", establishmentId, "/places/resources/services")
+const request = API.http.put(url, arrPrest)

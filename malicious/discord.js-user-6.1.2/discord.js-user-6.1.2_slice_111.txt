@@ -1,0 +1,20 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const data = packet.d;
+    const guild = client.guilds.get(data.guild_id);
+    if (!guild) return;
+    const members = new Collection();
+
+    for (const member of data.members) members.set(member.user.id, guild.members.add(member));
+
+    client.emit(Events.GUILD_MEMBERS_CHUNK, members, guild);
+
+    client.ws.lastHeartbeatAck = true;
+  }
+const client = this.packetManager.client
+const data = packet.d
+const guild = client.guilds.get(data.guild_id)
+!guild
+const members = new Collection()
+members.set(member.user.id, guild.members.add(member))
+client.emit(Events.GUILD_MEMBERS_CHUNK, members, guild)

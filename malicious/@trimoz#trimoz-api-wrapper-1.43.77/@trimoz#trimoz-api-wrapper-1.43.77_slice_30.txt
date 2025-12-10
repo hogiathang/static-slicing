@@ -1,0 +1,3 @@
+_tmp_1.getResourceSettingsByIds = <lambda>4
+const url = 'v3/resources/' + resourceId + '/settings/establishments/' + establishmentId
+const request = API.http.get(url)

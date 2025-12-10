@@ -1,0 +1,10 @@
+client.on(Events.ShardDisconnect, (_, shardId) => {
+      for (const [guildId, adapter] of this.adapters.entries()) {
+        if (client.guilds.cache.get(guildId)?.shardId === shardId) {
+          adapter.destroy();
+        }
+      }
+    })
+_iterator_0 = <operator>.iterator(this.adapters.entries())
+client.guilds.cache.get(guildId)?.shardId === shardId
+adapter.destroy()

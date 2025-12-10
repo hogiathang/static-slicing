@@ -1,0 +1,3 @@
+_tmp_1.getAllForPlace = getAllForPlace
+<operator>.formatString("v3/establishments/", establishmentId, "/appointments?dateStart=", dateStart, "&dateStop=", dateStop, "&places=", place, "&timezone=", timezone, "")
+const request = API.http.get(url)

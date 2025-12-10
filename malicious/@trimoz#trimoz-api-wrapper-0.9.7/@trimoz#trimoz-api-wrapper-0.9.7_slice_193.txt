@@ -1,0 +1,3 @@
+_tmp_1.batchExportForm = <lambda>6
+<operator>.formatString("/v3/establishments/", establishmentId, "/forms/batchExport")
+const request = API.http.post(url, params)

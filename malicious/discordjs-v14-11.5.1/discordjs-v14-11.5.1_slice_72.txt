@@ -1,0 +1,14 @@
+spawnTimeout = spawnTimeout === void 0 ? 30000 : spawnTimeout
+throw new Error('SHARDING_PROCESS_EXISTS', this.id);
+throw new Error('SHARDING_WORKER_EXISTS', this.id);
+this.manager.mode === 'process'
+this.process = childProcess
+        .fork(path.resolve(this.manager.file), this.args, {
+          env: this.env,
+          execArgv: this.execArgv,
+        })
+        .on('message', this._handleMessage.bind(this))
+        .on('exit', this._exitListener)
+path.resolve(this.manager.file)
+_tmp_10.env = this.env
+_tmp_10.execArgv = this.execArgv

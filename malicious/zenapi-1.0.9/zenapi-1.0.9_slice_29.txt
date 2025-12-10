@@ -1,0 +1,14 @@
+this.config.hook.settings = Object.keys(this.hook).reduce((acc, current) => {
+    // Try to find the settings in the current environment, then in the main configurations.
+    const currentSettings = merge(get(cloneDeep(this.hook[current]), ['defaults', current], {}), flattenHooksConfig[current] || get(this.config.currentEnvironment, ['hook', current]) || get(this.config, ['hook', current]));
+    acc[current] = !isObject(currentSettings) ? {} : currentSettings;
+
+    if (!acc[current].hasOwnProperty('enabled')) {
+      this.log.warn(`(hook:${current}) wasn't loaded due to missing key \`enabled\` in the configuration`);
+    }
+
+    // Ensure that enabled key exist by forcing to false.
+    defaults(acc[current], { enabled : false });
+
+    return acc;
+  }, {})

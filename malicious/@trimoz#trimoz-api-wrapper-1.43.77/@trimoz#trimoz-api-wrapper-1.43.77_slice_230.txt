@@ -1,0 +1,3 @@
+_tmp_1.deleteHeadOfficeBank = <lambda>12
+const url = 'v3/headOffices/' + headOfficeId + '/banks/' + bankId
+const request = API.http.delete(url)

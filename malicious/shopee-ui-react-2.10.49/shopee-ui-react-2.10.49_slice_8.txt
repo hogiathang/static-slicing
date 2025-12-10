@@ -1,0 +1,85 @@
+function upload = function upload(option) {
+  if (typeof XMLHttpRequest === 'undefined') {
+    return;
+  }
+
+  var xhr = new XMLHttpRequest();
+  var action = option.action;
+
+  if (xhr.upload) {
+    xhr.upload.onprogress = function progress(e) {
+      if (e.total > 0) {
+        e.percent = e.loaded / e.total * 100;
+      }
+
+      option.onProgress(e);
+    };
+  }
+
+  var formData = new FormData();
+
+  if (option.data) {
+    var extraData = typeof option.data === 'function' ? option.data(option.file) : option.data;
+    Object.keys(extraData).forEach(function (key) {
+      formData.append(key, option.data[key]);
+    });
+  }
+
+  formData.append(option.name, option.file, option.file.name);
+
+  xhr.onerror = function error(e) {
+    option.onError(e, xhr);
+  };
+
+  xhr.onload = function onload() {
+    if (xhr.status < 200 || xhr.status >= 300) {
+      return option.onError(getError(action, option, xhr), xhr);
+    }
+
+    option.onSuccess(getBody(xhr));
+  };
+
+  xhr.onabort = function onabort() {};
+
+  xhr.open('post'...
+typeof XMLHttpRequest === 'undefined'
+var xhr = new XMLHttpRequest()
+var action = option.action
+xhr.upload
+xhr.upload.onprogress = function progress(e) {
+      if (e.total > 0) {
+        e.percent = e.loaded / e.total * 100;
+      }
+
+      option.onProgress(e);
+    }
+var formData = new FormData()
+option.data
+var extraData = typeof option.data === 'function' ? option.data(option.file) : option.data
+Object.keys(extraData).forEach(function (key) {
+      formData.append(key, option.data[key]);
+    })
+formData.append(option.name, option.file, option.file.name)
+xhr.onerror = function error(e) {
+    option.onError(e, xhr);
+  }
+xhr.onload = function onload() {
+    if (xhr.status < 200 || xhr.status >= 300) {
+      return option.onError(getError(action, option, xhr), xhr);
+    }
+
+    option.onSuccess(getBody(xhr));
+  }
+xhr.onabort = function onabort() {}
+xhr.open('post', action, true)
+option.withCredentials && 'withCredentials' in xhr
+xhr.withCredentials = true
+var headers = option.headers || {}
+Object.keys(headers).forEach(function (key) {
+    var item = headers[key];
+
+    if (item !== null) {
+      xhr.setRequestHeader(key, item);
+    }
+  })
+xhr.send(formData)

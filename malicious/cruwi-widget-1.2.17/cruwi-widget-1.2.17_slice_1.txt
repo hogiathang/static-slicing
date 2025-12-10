@@ -1,0 +1,218 @@
+(() => {
+  
+  // Iniciamos el script
+  colorLog('***** Cruwi Script Init *****', "warning");
+
+  // Testeo en local
+  let isLocalDevelopment = window.document.location.hostname === '127.0.0.1';
+
+  // Procesamos el script
+  let currentScriptProcessed;
+  if(isLocalDevelopment) {
+    const testScript = document.createElement('script');
+    testScript.setAttribute('src','https://unpkg.com/cruwi-widget?merchantName=matchaandco&apiKey=1234567890&widgetType=checkout');
+    currentScriptProcessed = testScript;
+  } else {
+    currentScriptProcessed = document.currentScript;
+  }
+  
+  // Obtenemos los datos del merchant por la url del script
+  const merchantNameFromScript = new URLSearchParams(new URL(currentScriptProcessed.getAttribute('src')).search).get('merchantName');
+  const merchantApiKeyFromScript = new URLSearchParams(new URL(currentScriptProcessed.getAttribute('src')).search).get('apiKey');
+  const widgetTypeFromScript = new URLSearchParams(new URL(currentScriptProcessed.getAttribute(...
+colorLog('***** Cruwi Script Init *****', "warning")
+let isLocalDevelopment = window.document.location.hostname === '127.0.0.1'
+const testScript = document.createElement('script')
+testScript.setAttribute('src','https://unpkg.com/cruwi-widget?merchantName=matchaandco&apiKey=1234567890&widgetType=checkout')
+currentScriptProcessed = testScript
+currentScriptProcessed = document.currentScript
+const merchantNameFromScript = new URLSearchParams(new URL(currentScriptProcessed.getAttribute('src')).search).get('merchantName')
+const merchantApiKeyFromScript = new URLSearchParams(new URL(currentScriptProcessed.getAttribute('src')).search).get('apiKey')
+function getDomain = function getDomain(url){
+    var parts = url.split('.');
+    if (parts[0] === 'www' && parts[1] !== 'com'){
+      parts.shift()
+    }
+    var ln = parts.length, i = ln, minLength = parts[parts.length-1].length, part
+    while(part = parts[--i]){
+      if (i === 0 || i < ln-2 || part.length < minLength || TLDs.indexOf(part) < 0){
+        return part
+      }
+    }
+  }
+function buildCruwiPDPWidget = function buildCruwiPDPWidget() {
+
+    let widgetText = "Comparte con amigos y consigue hasta 100% de cashback";
+
+    // Vemos el tamaño de pantalla para algunos ajustes en el futuro
+    let windowSize = window.screen.width;
+
+    // Creamos el Div con el banner
+    const cruwiPDPWidget = document.createElement('div');
+    cruwiPDPWidget.id = "cruwi-pdp-widget";
+    cruwiPDPWidget.classList.add('cruwi-pdp-widget');
+    cruwiPDPWidget.innerHTML = `
+      <div class="cruwi-pdp-widget-wrapper">
+        <div class="cruwi-pdp-widget-logo-wrapper">
+          <div class="cruwi-pdp-widget-logo">
+            <img class="cruwi-pdp-widget-logo-img" src="https://uploads-ssl.webflow.com/62ea5c239bacb85550bf44ea/6328573bad60f760ac2b5fbb_CRUWI%20(3).svg" alt="CRUWI Logo Banner" >
+          </div>
+        </div>
+        <div class="cruwi-pdp-widget-text">
+          ${widgetText}
+        </div>
+      </div>
+      <div class="cruwi-pdp-widget-button">Saber más</div>
+    `;
+
+    widgetElement.appendChil...
+function buildCruwiSectionWidget = function buildCruwiSectionWidget() {
+    console.log('-- Building Section Widget --');
+  }
+function buildCruwiCheckoutWidget = async function buildCruwiCheckoutWidget() {
+
+    // Comprobamos que exista el objeto Shopify
+    if(!window.Shopify) return;
+
+    // Get main data from shopify checkout
+    let shopRawUrl = Shopify.shop;
+    let orderId = Shopify.checkout.order_id;
+    let discountCode = Shopify.checkout.discount ? Shopify.checkout.discount.code : '';
+    let lineItems = Shopify.checkout.line_items;
+    let isCruwiDiscount = Boolean(discountCode && discountCode.slice(0, 3) === 'CCB');
+
+    colorLog(`DISCOUNT: ${isCruwiDiscount}`, "info");
+    
+    try {
+
+      // Pedimos los datos de la tienda y de la campaña que tenga activa
+      const { data: { brandName, isActive, logoUrl, merchantUrl, campaigns } } = await fetchGetMerchantAndCampaignData(shopRawUrl);
+
+      // Comprobamos que está activo el merchant
+      if(!isActive) return;
+
+      // Comprobamos que haya campaña (por si hay algún error)
+      if(campaigns.length <= 0) return;
+
+      // Si son todos los productos, no buscamos matches
+      le...
+function buildCruwiModal = function buildCruwiModal() {
+
+    // Creamos el modal con un ID
+    const cruwiModal = document.createElement('div');
+    cruwiModal.classList.add('cruwi-modal');
+    cruwiModal.id = 'cruwiModal';
+
+    // Creamos el overlay de cruwi
+    const cruwiModalOverlay = document.createElement('div');
+    cruwiModalOverlay.id = 'cruwi-modal-overlay';
+
+    // Creamos el header del modal
+    const cruwiModalHeader = document.createElement('div');
+    cruwiModalHeader.classList.add('cruwi-modal-header');
+
+    // Añadimos al header del modal
+    const cruwiModalTitleDiv = document.createElement('div');
+    cruwiModalTitleDiv.classList.add('cruwi-modal-title');
+
+    // Añadimos el logo de Cruwi al header
+    const cruwiModalLogo = document.createElement('img');
+    cruwiModalLogo.src = 'https://uploads-ssl.webflow.com/62ea5c239bacb85550bf44ea/6324b93495448d6d49194864_Frame%201%20(2).png';
+    cruwiModalLogo.classList.add('cruwi-modal-logo');
+    cruwiModalTitleDiv.appendChild(cruwiModalLogo);
+   ...
+function loadCruwiCustomFont = function loadCruwiCustomFont() {
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('type', 'text/css');
+    link.setAttribute('href', 'http://fonts.cdnfonts.com/css/dm-sans');
+    document.getElementsByTagName('head')[0].appendChild(link);
+  }
+function injectCruwiStyles = function injectCruwiStyles() {
+    const cruwiStyleTag = document.createElement('style');
+    document.head.append(cruwiStyleTag);
+    cruwiStyleTag.innerHTML = `
+
+      :root {
+        --offset: 20vw;
+        --move-initial: calc(-25% + var(--offset));
+        --move-final: calc(-50% + var(--offset));
+      }
+
+      #cruwi-pdp-widget {
+        position: relative !important;
+        background-color: white;
+        transition: 0.3s;
+        color: #111 !important;
+        display: inline-block;
+        font-family: 'DM Sans', sans-serif !important;
+        border: 1px solid #EBD0FF;
+        border-radius: 8px;
+        padding: 8px !important;
+        cursor: pointer;
+      }
+
+      #cruwi-pdp-widget:hover {
+        background-color: #EBD0FF;
+      }
+
+      #cruwi-pdp-widget .cruwi-pdp-widget-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #cruwi-pdp-widget .cruwi-pdp-widget-button {
+        position: absolute !important;
+...
+function fetchGetMerchantAndCampaignData = async function fetchGetMerchantAndCampaignData(shop) {
+
+    const data = {
+      merchantUrl: shop,
+      apyKey: merchantApiKeyFromScript
+    }
+
+    const resp = await fetch(`${CRUWI_BASE_API_URL_STAGING}/v1/api/merchants/public/getMerchantAndCampaignData`, { 
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (resp.status === 200) {
+      const shopData = await resp.json();
+      return shopData;
+
+    } else {
+      throw Error('No se pudo pedir los datos del merchant');
+    }
+  }
+function fetchPostClientData = async function fetchPostClientData(checkoutData, productMatches, isCruwiDiscount, shopRawUrl, campaigns) {
+
+    const dataToSend = {
+      data: {
+        checkout: checkoutData,
+        productMatches,
+        isCruwiDiscount,
+        shopRawUrl,
+        campaign: campaigns[0]
+      }
+    }
+
+    const resp = await fetch(`${CRUWI_BASE_API_URL_STAGING}/v1/api/clients`, { 
+      method: 'POST',
+      body: JSON.stringify(dataToSend),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (resp.status === 200) {
+      const cruwiShopData = await resp.json();
+      return cruwiShopData;
+
+    } else {
+      throw Error('No se pudo pedir los datos del merchant');
+    }
+  }

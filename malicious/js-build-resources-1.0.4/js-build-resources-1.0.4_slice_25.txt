@@ -1,0 +1,53 @@
+function appSettingsRoutes = function appSettingsRoutes(server: restify.Server): void {
+  server.get(
+    AuthenticationMiddleware.allAppSettingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    getAppSettings,
+  );
+  server.get(
+    AuthenticationMiddleware.singleAppSettingPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    getAppSettings,
+  );
+  server.post(
+    AuthenticationMiddleware.singleAppSettingPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    postAppSettings,
+  );
+  server.del(
+    AuthenticationMiddleware.singleAppSettingPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    deleteAppSettings,
+  );
+}
+server.get(
+    AuthenticationMiddleware.allAppSettingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    getAppSettings,
+  )
+AuthenticationMiddleware.allAppSettingsPath
+AuthenticationMiddleware.checkPreAuthentication
+AuthenticationMiddleware.checkAuthentication
+server.get(
+    AuthenticationMiddleware.singleAppSettingPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    getAppSettings,
+  )
+AuthenticationMiddleware.singleAppSettingPath
+AuthenticationMiddleware.checkPreAuthentication
+AuthenticationMiddleware.checkAuthentication
+server.post(
+    AuthenticationMiddleware.singleAppSettingPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    postAppSettings,
+  )
+AuthenticationMiddleware.singleAppSettingPath
+AuthenticationMiddleware.checkPreAuthentication
+AuthenticationMiddleware.checkAuthentication

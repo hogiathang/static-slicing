@@ -1,0 +1,2 @@
+_tmp_1.sendReminders = <lambda>1
+const request = API.http.post(`/v3/establishments/${establishmentId}/reminders`, params)

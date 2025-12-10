@@ -1,0 +1,31 @@
+static async response(response) {
+
+        const request = response.request;
+        const auth = request._core.auth;
+        if (!request.auth.isAuthenticated) {
+            return;
+        }
+
+        const strategy = auth.#strategies[request.auth.strategy];
+        Hoek.assert(strategy, 'Unknown authentication strategy:', request.auth.strategy);
+
+        if (!strategy.methods.response) {
+            return;
+        }
+
+        const bind = strategy.methods;
+        const realm = strategy.realm;
+        const error = await request._core.toolkit.execute(strategy.methods.response, request, { bind, realm, continue: 'undefined' });
+        if (error) {
+            throw error;
+        }
+    }
+const request = response.request
+const auth = request._core.auth
+!request.auth.isAuthenticated
+const strategy = auth.#strategies[request.auth.strategy]
+Hoek.assert(strategy, 'Unknown authentication strategy:', request.auth.strategy)
+!strategy.methods.response
+const bind = strategy.methods
+const realm = strategy.realm
+const error = await request._core.toolkit.execute(strategy.methods.response, request, { bind, realm, continue: 'undefined' })

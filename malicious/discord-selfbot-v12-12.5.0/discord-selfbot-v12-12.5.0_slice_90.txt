@@ -1,0 +1,96 @@
+async create({
+    name,
+    type,
+    topic,
+    nsfw,
+    bitrate,
+    userLimit,
+    parent,
+    permissionOverwrites,
+    position,
+    rateLimitPerUser,
+    rtcRegion,
+    videoQualityMode,
+    reason,
+  }) {
+    parent &&= this.client.channels.resolveId(parent);
+    permissionOverwrites &&= permissionOverwrites.map(o => PermissionOverwrites.resolve(o, this.guild));
+
+    const data = await this.client.rest.post(Routes.guildChannels(this.guild.id), {
+      body: {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      },
+      reason,
+    });
+    return this.client.actions.ChannelCreate.handle(data).channel;
+  }
+name = param1_0.name
+type = param1_0.type
+topic = param1_0.topic
+nsfw = param1_0.nsfw
+bitrate = param1_0.bitrate
+userLimit = param1_0.userLimit
+parent = param1_0.parent
+permissionOverwrites = param1_0.permissionOverwrites
+position = param1_0.position
+rateLimitPerUser = param1_0.rateLimitPerUser
+rtcRegion = param1_0.rtcRegion
+videoQualityMode = param1_0.videoQualityMode
+reason = param1_0.reason
+parent &&= this.client.channels.resolveId(parent)
+permissionOverwrites &&= permissionOverwrites.map(o => PermissionOverwrites.resolve(o, this.guild))
+const data = await this.client.rest.post(Routes.guildChannels(this.guild.id), {
+      body: {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      },
+      reason,
+    })
+_tmp_14.body = {
+        name,
+        topic,
+        type,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+        rtc_region: rtcRegion,
+        video_quality_mode: videoQualityMode,
+      }
+_tmp_15.name = name
+_tmp_15.topic = topic
+_tmp_15.type = type
+_tmp_15.nsfw = nsfw
+_tmp_15.bitrate = bitrate
+_tmp_15.user_limit = userLimit
+_tmp_15.parent_id = parent
+_tmp_15.position = position
+_tmp_15.permission_overwrites = permissionOverwrites
+_tmp_15.rate_limit_per_user = rateLimitPerUser
+_tmp_15.rtc_region = rtcRegion
+_tmp_15.video_quality_mode = videoQualityMode
+_tmp_14.reason = reason

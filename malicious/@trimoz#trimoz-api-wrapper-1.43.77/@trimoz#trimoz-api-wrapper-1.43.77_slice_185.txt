@@ -1,0 +1,3 @@
+_tmp_1.createResourceRoles = <lambda>18
+const url = 'v3/establishments/' + establishmentId + '/resources/' + resourceId + '/roles'
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

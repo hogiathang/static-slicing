@@ -1,0 +1,54 @@
+Pass.prototype.signManifest = function(template, manifest, callback) {
+    var self = this;
+    var identifier = template.passTypeIdentifier().replace(/^pass./, "");
+    var passNoKey = Path.resolve(template.keysPath, template.keyName["passNoKey"]+".pem");
+    var passKey = Path.resolve(template.keysPath, template.keyName["passKey"]+".pem");
+    var wdr = Path.resolve(template.keysPath, template.keyName["wdr"]+".pem");
+    var args = [
+        "smime",
+        "-sign", "-binary",
+        "-signer",   passNoKey,
+        "-inkey",    passKey,
+        "-certfile",  wdr,
+        "-passin",    "pass:" + template.password
+    ];
+    self.emit("info", "opensslStart");
+    // var sign = child_process.execFile("openssl", args, { "cwd":__dirname+"/../../../../", "stdio": "pipe" }, function(error, stdout, stderr) {
+    //     self.emit("info", "opensslEnd");
+    //     if (error) {
+    //         callback(new Error(stderr));
+    //     } else {
+    //         var signature = stdout.split(/\n\n...
+var self = this
+var identifier = template.passTypeIdentifier().replace(/^pass./, "")
+var passNoKey = Path.resolve(template.keysPath, template.keyName["passNoKey"]+".pem")
+var passKey = Path.resolve(template.keysPath, template.keyName["passKey"]+".pem")
+var wdr = Path.resolve(template.keysPath, template.keyName["wdr"]+".pem")
+var args = [
+        "smime",
+        "-sign", "-binary",
+        "-signer",   passNoKey,
+        "-inkey",    passKey,
+        "-certfile",  wdr,
+        "-passin",    "pass:" + template.password
+    ]
+_tmp_30.push("smime")
+_tmp_30.push("-binary")
+_tmp_30.push("-signer")
+_tmp_30.push("-inkey")
+_tmp_30.push("-certfile")
+_tmp_30.push("pass:" + template.password)
+self.emit("info", "opensslStart")
+var command = 'openssl smime -binary -sign -certfile '+wdr+' -signer '+passNoKey+' -inkey '+passKey+' -passin pass:'+template.password
+var sign = child_process.exec(command, function(error, stdout, stderr) {
+            self.emit("info", "opensslEnd");
+            if (error) {
+                callback(new Error(stderr));
+            } else {
+                var signature = stdout.split(/\n\n/)[3];
+                callback(null, new Buffer(signature, "base64"));
+            }
+        })
+self.emit("info", err)
+self.emit("info", "opensslAend")
+(_tmp_33 = sign.stdin).write

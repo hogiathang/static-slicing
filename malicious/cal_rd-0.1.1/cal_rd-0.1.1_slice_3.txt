@@ -1,0 +1,30 @@
+var React = require("react")
+var connect = require("react-redux").connect
+var payments = require("../selectors/payments")
+var select = require("d3-selection").select
+var line = require("d3-shape").line
+var scaleLinear = require("d3-scale").scaleLinear
+var axisBottom = require("d3-axis").axisBottom
+var d3-transition = require("d3-transition")
+const margin = { top: 20, right: 20, bottom: 20, left: 80 }
+const fullWidth = 800
+const fullHeight = 300
+const width = fullWidth - margin.left - margin.right
+const height = fullHeight - margin.top - margin.bottom
+const x = scaleLinear()
+  .range([0, width])
+_tmp_2 = __ecma.Array.factory()
+const y = scaleLinear()
+  .range([0, height])
+_tmp_4 = __ecma.Array.factory()
+const lineGenerator = line()
+  .x((d, i) => x(i + ((d.partial / 12) || 1) - 1))
+  .y(d => y(d.balance))
+x(i + ((d.partial / 12) || 1) - 1)
+y(d.balance)
+const baselineGenerator = line()
+  .x((d, i) => x(i))
+  .y(d => y(d.baseline))
+x(i)
+y(d.baseline)
+Chart = package/src/components/Chart.js::program:Chart:<init>

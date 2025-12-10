@@ -1,0 +1,53 @@
+constructor(logs, guild, data) {
+    const targetType = GuildAuditLogs.targetType(data.action_type);
+    /**
+     * The target type of this entry
+     * @type {AuditLogTargetType}
+     */
+    this.targetType = targetType;
+
+    /**
+     * The action type of this entry
+     * @type {AuditLogActionType}
+     */
+    this.actionType = GuildAuditLogs.actionType(data.action_type);
+
+    /**
+     * Specific action type of this entry in its string representation
+     * @type {AuditLogAction}
+     */
+    this.action = Object.keys(Actions).find(k => Actions[k] === data.action_type);
+
+    /**
+     * The reason of this entry
+     * @type {?string}
+     */
+    this.reason = data.reason || null;
+
+    /**
+     * The user that executed this entry
+     * @type {User}
+     */
+    this.executor = guild.client.users.get(data.user_id);
+
+    /**
+     * An entry in the audit log representing a specific change.
+     * @typedef {object} AuditLogChange
+     * @property {string} key The property that was change...
+const targetType = GuildAuditLogs.targetType(data.action_type)
+this.targetType = targetType
+this.actionType = GuildAuditLogs.actionType(data.action_type)
+this.action = Object.keys(Actions).find(k => Actions[k] === data.action_type)
+this.reason = data.reason || null
+this.executor = guild.client.users.get(data.user_id)
+this.changes = data.changes ? data.changes.map(c => ({ key: c.key, old: c.old_value, new: c.new_value })) : null
+this.id = data.id
+this.extra = null
+data.action_type
+Actions.MESSAGE_PIN
+Actions.MESSAGE_UNPIN
+this.extra = {
+          channel: guild.client.channels.get(data.options.channel_id) || { id: data.options.channel_id },
+          messageID: data.options.message_id,
+        }
+_tmp_29.channel = guild.client.channels.get(data.options.channel_id) || { id: data.options.channel_id }

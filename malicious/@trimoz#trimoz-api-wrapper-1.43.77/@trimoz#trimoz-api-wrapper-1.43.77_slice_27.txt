@@ -1,0 +1,3 @@
+_tmp_1.getAllByEstablishmentForFilters = getAllByEstablishmentForFilters
+<operator>.formatString("v3/establishments/", establishmentId, "/resources/for-filter")
+const request = API.http.get(url)

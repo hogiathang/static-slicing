@@ -1,0 +1,9 @@
+this.getTranslationFromAPI = function (_a) {
+            var _b;
+            var language = _a.language, type = _a.type, id = _a.id, keys = _a.keys, hash = _a.hash;
+            var data = (_b = {}, _b[type + "_id"] = id, _b.language = language, _b.keys = keys, _b.hash = hash, _b);
+            return get(_this.apiBase + "/transify", data);
+        }
+var language = _a.language
+var data = (_b = {}, _b[type + "_id"] = id, _b.language = language, _b.keys = keys, _b.hash = hash, _b)
+get(_this.apiBase + "/transify", data)

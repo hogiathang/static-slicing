@@ -1,0 +1,2 @@
+_tmp_1.heartbeat = <lambda>12
+const request = API.http.post('v3/heartbeat')

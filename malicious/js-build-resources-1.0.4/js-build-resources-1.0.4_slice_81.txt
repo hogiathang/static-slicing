@@ -1,0 +1,29 @@
+public static async ensureAuthenticated(req: IRequest, res: Response, next: Next): Promise<void> {
+    try {
+      if (!req.headers.authorization) {
+        logger.info(
+          `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Missing required authentication header in the request.`,
+        );
+        res.send(401, { code: 401, message: 'Missing required authentication header' });
+        return next(false);
+      }
+      const authorization: string = _.get(req, AuthenticationMiddleware.HEADER_AUTHORIZATION);
+      const bearerToken: string[] = _.split(authorization, ' ');
+      if (bearerToken.length < 2) {
+        logger.error(
+          `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Missing required authentication token`,
+        );
+        res.send(401, { code: 401, message: 'Missing required authentication token' });
+        return next(false);
+      }
+
+      // Check if request to be au...
+!req.headers.authorization
+const authorization: string = _.get(req, AuthenticationMiddleware.HEADER_AUTHORIZATION)
+const bearerToken: string[] = _.split(authorization, ' ')
+bearerToken.length < 2
+logger.error(
+          `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.ensureAuthenticated.name}() | Missing required authentication token`,
+        )
+<operator>.formatString("", AuthenticationMiddleware.name, " | ", AuthenticationMiddleware.ensureAuthenticated.name, "() | Missing required authentication token")
+res.send(401, { code: 401, message: 'Missing required authentication token' })

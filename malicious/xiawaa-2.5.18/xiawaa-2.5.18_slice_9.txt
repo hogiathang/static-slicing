@@ -1,0 +1,38 @@
+async _authenticate(request) {
+
+        const config = this.lookup(request.route);
+
+        const errors = [];
+        request.auth.mode = config.mode;
+
+        // Injection bypass
+
+        if (request.auth.credentials) {
+            internals.validate(null, { credentials: request.auth.credentials, artifacts: request.auth.artifacts }, request.auth.strategy, config, request, errors);
+            return;
+        }
+
+        // Try each strategy
+
+        for (const name of config.strategies) {
+            const strategy = this.#strategies[name];
+
+            const bind = strategy.methods;
+            const realm = strategy.realm;
+            const response = await request._core.toolkit.execute(strategy.methods.authenticate, request, { bind, realm, auth: true });
+
+            const message = (response.isAuth ? internals.validate(response.error, response.data, name, config, request, errors) : internals.validate(response, null, name, config, request, errors));
+            if (!message) {
+ ...
+const config = this.lookup(request.route)
+__ecma.Array.factory()
+request.auth.mode = config.mode
+request.auth.credentials
+_iterator_4 = <operator>.iterator(config.strategies)
+const strategy = this.#strategies[name]
+const bind = strategy.methods
+const realm = strategy.realm
+const response = await request._core.toolkit.execute(strategy.methods.authenticate, request, { bind, realm, auth: true })
+const message = (response.isAuth ? internals.validate(response.error, response.data, name, config, request, errors) : internals.validate(response, null, name, config, request, errors))
+!message
+message !== internals.missing

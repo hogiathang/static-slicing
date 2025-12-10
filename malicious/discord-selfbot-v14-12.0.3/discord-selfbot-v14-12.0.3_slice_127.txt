@@ -1,0 +1,18 @@
+args = args === void 0 ? __ecma.Array.factory() : args
+super()
+this.manager = manager
+this.id = id
+this.env = Object.assign({}, process.env, {
+      SHARD_ID: this.id,
+      SHARD_COUNT: this.manager.totalShards,
+      CLIENT_TOKEN: this.manager.token
+    })
+_tmp_1.SHARD_ID = this.id
+_tmp_1.SHARD_COUNT = this.manager.totalShards
+_tmp_1.CLIENT_TOKEN = this.manager.token
+this.ready = false
+this._evals = new Map()
+this._fetches = new Map()
+this._exitListener = this._handleExit.bind(this, undefined)
+this.process = null
+this.spawn(args)

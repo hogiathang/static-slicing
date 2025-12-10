@@ -1,0 +1,6 @@
+_tmp_1.push(<lambda>7)
+fs.unlinkSync(tmpReadmePath)
+fs.unlinkSync(tmpConfPath)
+var indexfile = path.join(dir, "index.html")
+fs.existsSync(indexfile)
+fs.unlinkSync(indexfile)

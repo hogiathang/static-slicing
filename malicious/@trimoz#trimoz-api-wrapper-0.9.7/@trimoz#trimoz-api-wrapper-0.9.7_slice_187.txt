@@ -1,0 +1,5 @@
+_tmp_1.uploadLogo = <lambda>11
+const url = 'v3/establishments/' + establishmentId + '/settings/logo?logoType=' + logoType
+const params = new FormData()
+params.append('logo', file, file.name)
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' } })

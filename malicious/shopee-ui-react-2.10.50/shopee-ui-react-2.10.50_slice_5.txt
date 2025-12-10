@@ -1,0 +1,53 @@
+useEffect(() => {
+    if (!file) {
+      return;
+    }
+
+    const context = {};
+    contextRef.current = context;
+
+    setResult((s) => ({
+      ...s,
+      loading: true,
+    }));
+    request({
+      ...optionsRef.current,
+      file,
+      onError: (e, body) => {
+        if (contextRef.current !== context) return;
+
+        if (callable(optionsRef.current.onError)) {
+          optionsRef.current.onError(e, body);
+        }
+
+        setResult((s) => ({
+          ...s,
+          error: e,
+          loading: false,
+        }));
+      },
+      onSuccess: (body, xhr) => {
+        if (contextRef.current !== context) return;
+
+        if (callable(optionsRef.current.onSuccess)) {
+          optionsRef.current.onSuccess(body, xhr);
+        }
+
+        setResult((s) => ({
+          ...s,
+          data: body,
+          loading: false,
+        }));
+      },
+      onProgress: (e) => {
+        if (contextRef.current !== context) return;
+
+        if (callable(optionsRef.current.onProgress)) {
+    ...
+!file
+const context = {}
+contextRef.current = context
+setResult((s) => ({
+      ...s,
+      loading: true,
+    }))

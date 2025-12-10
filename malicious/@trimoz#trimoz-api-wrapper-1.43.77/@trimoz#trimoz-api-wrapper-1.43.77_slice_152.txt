@@ -1,0 +1,5 @@
+_tmp_1.updateSettings = <lambda>10
+const url = 'v3/establishments/' + establishmentId + '/settings'
+!Array.isArray(params)
+_tmp_15 = __ecma.Array.factory()
+const request = API.http.put(url, params)

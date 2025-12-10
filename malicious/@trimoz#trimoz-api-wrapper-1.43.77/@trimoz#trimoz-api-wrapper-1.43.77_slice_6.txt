@@ -1,0 +1,4 @@
+_tmp_1.get = <lambda>10
+let url = 'v3/establishments/' + establishmentId + '/appointments/' + appointmentId
+<operator>.formatString("?view=", view, "")
+const request = API.http.get(url)

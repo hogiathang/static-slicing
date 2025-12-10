@@ -1,0 +1,51 @@
+function parseObjectInitialiser = function parseObjectInitialiser() {
+        var properties = [], property, name, kind, storedKind, map = new StringMap(),
+            marker = markerCreate(), toString = String;
+
+        expect('{');
+
+        while (!match('}')) {
+            if (match('...')) {
+                property = parseObjectSpreadProperty();
+            } else {
+                property = parseObjectProperty();
+
+                if (property.key.type === Syntax.Identifier) {
+                    name = property.key.name;
+                } else {
+                    name = toString(property.key.value);
+                }
+                kind = (property.kind === 'init') ? PropertyKind.Data : (property.kind === 'get') ? PropertyKind.Get : PropertyKind.Set;
+
+                if (map.has(name)) {
+                    storedKind = map.get(name);
+                    if (storedKind === PropertyKind.Data) {
+                        if (strict && kind === PropertyKind.Data) {
+                            throwErrorTolerant...
+var map = new StringMap()
+var marker = markerCreate()
+expect('{')
+!match('}')
+match('...')
+property = parseObjectSpreadProperty()
+property = parseObjectProperty()
+property.key.type === Syntax.Identifier
+name = property.key.name
+name = toString(property.key.value)
+kind = (property.kind === 'init') ? PropertyKind.Data : (property.kind === 'get') ? PropertyKind.Get : PropertyKind.Set
+map.has(name)
+storedKind = map.get(name)
+storedKind === PropertyKind.Data
+strict && kind === PropertyKind.Data
+throwErrorTolerant({}, Messages.StrictDuplicateProperty)
+kind !== PropertyKind.Data
+throwErrorTolerant({}, Messages.AccessorDataProperty)
+kind === PropertyKind.Data
+throwErrorTolerant({}, Messages.AccessorDataProperty)
+storedKind & kind
+throwErrorTolerant({}, Messages.AccessorGetSet)
+map.set(name, storedKind | kind)
+map.set(name, kind)
+properties.push(property)
+!match('}')
+expect(',')

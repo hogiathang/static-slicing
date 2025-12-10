@@ -1,0 +1,84 @@
+HttpProxy.prototype.requestReal = function( params, callback, errCallback, cookie ) {
+    if ( this._opt.isCookieNeeded === true && cookie === undefined ) {
+        errCallback( new Error( 'This request need cookie, you must set a cookie for'
+            + ' it before request. interfaceId = ' + this._opt.id ) );
+        return;
+    }
+
+    var self = this, isCompleted = false;
+    var rid = new Date().getTime() + '' + Math.round( Math.random() * 1000 );
+
+    var options = {
+        hostname: self._opt.hostname,
+        port: self._opt.port,
+        path: self._parsePath( self._opt.path, params ) + '_rid=' + rid + '&',
+        method: self._opt.method,
+        headers: { 'Cookie': cookie },
+        agent: keepAliveAgent,
+        keepAlive: true
+    };
+
+    var querystring = self._queryStringify( params );
+
+    if ( self._opt.method === Constant.POST ) {
+        options.headers[ 'Content-Type' ] = 'application/x-www-form-urlencoded';
+        options.headers[ 'Content-Length' ] = querys...
+this._opt.isCookieNeeded === true && cookie === undefined
+var isCompleted = false
+var rid = new Date().getTime() + '' + Math.round( Math.random() * 1000 )
+var options = {
+        hostname: self._opt.hostname,
+        port: self._opt.port,
+        path: self._parsePath( self._opt.path, params ) + '_rid=' + rid + '&',
+        method: self._opt.method,
+        headers: { 'Cookie': cookie },
+        agent: keepAliveAgent,
+        keepAlive: true
+    }
+_tmp_8.hostname = self._opt.hostname
+_tmp_8.port = self._opt.port
+_tmp_8.path = self._parsePath( self._opt.path, params ) + '_rid=' + rid + '&'
+_tmp_8.method = self._opt.method
+_tmp_8.headers = { 'Cookie': cookie }
+_tmp_8.agent = keepAliveAgent
+_tmp_8.keepAlive = true
+var querystring = self._queryStringify( params )
+self._opt.method === Constant.POST
+options.headers[ 'Content-Type' ] = 'application/x-www-form-urlencoded'
+options.headers[ 'Content-Length' ] = querystring.length
+self._opt.method === Constant.GET
+options.path += querystring
+var timer = setTimeout( function() {
+        req.abort();
+        var e = new Error( 'Timeout. rid = ' + rid
+              + ', interfaceId = ' + self._opt.id
+              + ', url = ' + self._opt.currUrl );
+        errCallback( e );
+        isCompleted = true;
+    }, self._opt.timeout )
+self._opt.timeout
+var req = http.request( options, function( res ) {
+        if ( isCompleted ) return;
+        var source = [], size = 0;
+        res.on( 'data', function( chunk ) {
+            source.push( chunk );
+            size += chunk.length;
+        } );
+        res.on( 'end', function() {
+            clearTimeout( timer );
+            var buffer = Buffer.concat( source, size );
+            if ( res.statusCode !== 200 ) {
+                var e = new Error( 'Response error. rid = ' + rid
+                    + ', interfaceId = ' + self._opt.id
+                    + ', url = ' + self._opt.currUrl
+                    + ', statusCode = ' + res.statusCode );
+                e.statusCode = res.statusCode;
+                e.responseText = buffer.toString();
+                ( isCompleted = true ) && errCallback( e );
+                return;
+            }
+            try {
+                var result = self._opt.encoding === Constant.ENCODING_RAW 
+                    ? buffer
+                    : ( self._...
+self._opt.method !== Constant.POST || req.write( querystring )

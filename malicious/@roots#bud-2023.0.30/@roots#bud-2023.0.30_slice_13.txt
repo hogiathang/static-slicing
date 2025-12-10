@@ -1,0 +1,37 @@
+async applyBudEnv(bud) {
+        if (bud.env.isString(`APP_MODE`)) {
+            bud.hooks.on(`build.mode`, bud.env.get(`APP_MODE`));
+            bud.success(`mode set to`, bud.env.get(`APP_MODE`), `from environment`);
+        }
+        if (bud.env.isString(`APP_BASE_PATH`)) {
+            bud.context.basedir = bud.env.get(`APP_BASE_PATH`);
+            bud.success(`project base path set to`, bud.env.get(`APP_BASE_PATH`), `from environment`);
+        }
+        if (bud.env.isString(`APP_PUBLIC_PATH`)) {
+            bud.hooks.on(`build.output.publicPath`, bud.env.get(`APP_PUBLIC_PATH`));
+            bud.success(`public path set to`, bud.env.get(`APP_PUBLIC_PATH`), `from environment`);
+        }
+        if (bud.env.isString(`APP_SRC_PATH`)) {
+            bud.hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`));
+            bud.success(`src path set to`, bud.env.get(`APP_SRC_PATH`), `from environment`);
+        }
+        if (bud.env.isString(`APP_DIST_PATH`)) {
+            bud.hooks.on(...
+bud.env.isString(`APP_MODE`)
+bud.hooks.on(`build.mode`, bud.env.get(`APP_MODE`))
+bud.success(`mode set to`, bud.env.get(`APP_MODE`), `from environment`)
+bud.env.isString(`APP_BASE_PATH`)
+bud.context.basedir = bud.env.get(`APP_BASE_PATH`)
+bud.success(`project base path set to`, bud.env.get(`APP_BASE_PATH`), `from environment`)
+bud.env.isString(`APP_PUBLIC_PATH`)
+bud.hooks.on(`build.output.publicPath`, bud.env.get(`APP_PUBLIC_PATH`))
+bud.success(`public path set to`, bud.env.get(`APP_PUBLIC_PATH`), `from environment`)
+bud.env.isString(`APP_SRC_PATH`)
+bud.hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`))
+bud.success(`src path set to`, bud.env.get(`APP_SRC_PATH`), `from environment`)
+bud.env.isString(`APP_DIST_PATH`)
+bud.hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`))
+bud.success(`dist path set to`, bud.env.get(`APP_DIST_PATH`), `from environment`)
+bud.env.isString(`APP_STORAGE_PATH`)
+bud.hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`))
+bud.success(`storage path set to`, bud.env.get(`APP_STORAGE_PATH`), `from environment`)

@@ -1,0 +1,35 @@
+this[key] = function (name, value, prefix, tags, tagKeys) {
+                name = `${prefix || this.defaultPrefix}.${name}`;
+                if (this.enablePreAggregate &&
+                    tags &&
+                    this._preDefinedTagKeys.size > 0) {
+                    const key = `${type}${METRIC_TYPE_NAME_SEPARATOR}${name}`;
+                    const preDefinedTagKeys = this._preDefinedTagKeys.get(key);
+                    // 如果没有预定义 tag key 直接走兜底逻辑
+                    if (preDefinedTagKeys) {
+                        let aggCache = this._aggregationCaches.get(key);
+                        if (!aggCache &&
+                            this._aggregationCaches.size < MAX_AGG_SIZE) {
+                            aggCache = new Map();
+                            this._aggregationCaches.set(key, aggCache);
+                        }
+                        // 没有聚合缓存直接走兜底逻辑
+                        // tagKey-value 的组合类型总数超过 MAX_METRIC_AGG_SIZE 限制后不再做聚合
+                        // 这里一共会...
+<operator>.formatString("", prefix || this.defaultPrefix, ".", name, "")
+this.enablePreAggregate &&
+                    tags &&
+                    this._preDefinedTagKeys.size > 0
+this._preDefinedTagKeys.size > 0
+<operator>.formatString("", type, "", METRIC_TYPE_NAME_SEPARATOR, "", name, "")
+const preDefinedTagKeys = this._preDefinedTagKeys.get(key)
+let aggCache = this._aggregationCaches.get(key)
+!aggCache &&
+                            this._aggregationCaches.size < MAX_AGG_SIZE
+this._aggregationCaches.size < MAX_AGG_SIZE
+aggCache = new Map()
+this._aggregationCaches.set(key, aggCache)
+aggCache && aggCache.size < MAX_METRIC_AGG_SIZE
+const tagsStr = util_2.toKV(tags, preDefinedTagKeys)
+type === 'store'
+aggCache.set(tagsStr, (aggCache.get(tagsStr) || 0) + value)

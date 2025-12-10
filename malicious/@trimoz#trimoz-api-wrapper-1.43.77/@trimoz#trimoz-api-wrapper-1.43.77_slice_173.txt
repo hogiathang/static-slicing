@@ -1,0 +1,3 @@
+_tmp_1.updateServiceMetas = <lambda>33
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceTemplateId + '/metadata'
+const request = API.http.put(url, params)

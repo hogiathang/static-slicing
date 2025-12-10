@@ -1,0 +1,27 @@
+@measureTime('5d42f2badb8e75f819c0b005535c8dc3')
+  public async init(language: string, mod: TspModule): Promise<InitInfo> {
+    try {
+      const args = {
+        language,
+        projectId: mod.projectId,
+        resources: mod.resources?.join(';'),
+        collections: mod.collections?.join(';')
+      }
+      const data = await get(`${this.apiBase}/init`, args);
+      report('29e8db23bebcc026a4d7046e47218c1f', 10000);
+      return data.body || {};
+    } catch (e) {
+      report('a1fe13e807065f3490326d2a34936ec6', 0);
+      return {};
+    }
+  }
+const args = {
+        language,
+        projectId: mod.projectId,
+        resources: mod.resources?.join(';'),
+        collections: mod.collections?.join(';')
+      }
+_tmp_1.language = language
+_tmp_1.projectId = mod.projectId
+_tmp_1.resources = mod.resources?.join(';')
+_tmp_1.collections = mod.collections?.join(';')

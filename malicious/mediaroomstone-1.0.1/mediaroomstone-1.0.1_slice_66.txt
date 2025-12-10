@@ -1,0 +1,72 @@
+dataProducerId = param1_5.dataProducerId
+logger.debug('pipeToRouter()')
+!producerId && !dataProducerId
+throw new TypeError('missing producerId or dataProducerId');
+producerId && dataProducerId
+throw new TypeError('just producerId or dataProducerId can be given');
+!router
+throw new TypeError('Router not found');
+router === this
+throw new TypeError('cannot use this Router as destination');
+producer = this.#producers.get(producerId)
+!producer
+throw new TypeError('Producer not found');
+dataProducer = this.#dataProducers.get(dataProducerId)
+!dataProducer
+throw new TypeError('DataProducer not found');
+const pipeTransportPairKey = router.id
+let pipeTransportPairPromise = this.#mapRouterPairPipeTransportPairPromise.get(pipeTransportPairKey)
+pipeTransportPair = await pipeTransportPairPromise
+localPipeTransport = pipeTransportPair[this.id]
+remotePipeTransport = pipeTransportPair[router.id]
+pipeTransportPairPromise = new Promise((resolve, reject) => {
+                Promise.all([
+                    this.createPipeTransport({ listenIp, enableSctp, numSctpStreams, enableRtx, enableSrtp }),
+                    router.createPipeTransport({ listenIp, enableSctp, numSctpStreams, enableRtx, enableSrtp })
+                ])
+                    .then((pipeTransports) => {
+                    localPipeTransport = pipeTransports[0];
+                    remotePipeTransport = pipeTransports[1];
+                })
+                    .then(() => {
+                    return Promise.all([
+                        localPipeTransport.connect({
+                            ip: remotePipeTransport.tuple.localIp,
+                            port: remotePipeTransport.tuple.localPort,
+                            srtpParameters: remotePipeTransport.srtpParameters
+                        }),
+                        remotePipeTransport.connect({
+                            ip:...
+this.#mapRouterPairPipeTransportPairPromise.set(pipeTransportPairKey, pipeTransportPairPromise)
+router.addPipeTransportPair(this.id, pipeTransportPairPromise)
+await pipeTransportPairPromise
+pipeConsumer = await localPipeTransport.consume({
+                    producerId: producerId
+                })
+_tmp_126.producerId = producerId
+pipeProducer = await remotePipeTransport.produce({
+                    id: producer.id,
+                    kind: pipeConsumer.kind,
+                    rtpParameters: pipeConsumer.rtpParameters,
+                    paused: pipeConsumer.producerPaused,
+                    appData: producer.appData
+                })
+_tmp_127.id = producer.id
+_tmp_127.kind = pipeConsumer.kind
+_tmp_127.rtpParameters = pipeConsumer.rtpParameters
+_tmp_127.paused = pipeConsumer.producerPaused
+_tmp_127.appData = producer.appData
+producer.closed
+throw new errors_1.InvalidStateError('original Producer closed');
+pipeProducer.paused !== producer.paused
+producer.paused
+await pipeProducer.pause()
+await pipeProducer.resume()
+pipeConsumer.observer.on('close', () => pipeProducer.close())
+pipeConsumer.observer.on('pause', () => pipeProducer.pause())
+pipeConsumer.observer.on('resume', () => pipeProducer.resume())
+pipeProducer.observer.on('close', () => pipeConsumer.close())
+_tmp_133.pipeConsumer = pipeConsumer
+logger.error('pipeToRouter() | error creating pipe Consumer/Producer pair:%o', error)
+pipeConsumer.close()
+pipeProducer.close()

@@ -1,0 +1,6 @@
+typingSinceIn(channel) {
+    channel = this.client.channels.resolve(channel);
+    return channel._typing.has(this.id) ? new Date(channel._typing.get(this.id).since) : null;
+  }
+channel = this.client.channels.resolve(channel)
+channel._typing.has(this.id) ? new Date(channel._typing.get(this.id).since) : null

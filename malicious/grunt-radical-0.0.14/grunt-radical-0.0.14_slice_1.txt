@@ -1,0 +1,45 @@
+grunt.registerTask('publish', 'Publish node/bower projects.', function (action) {
+
+        var self = this;
+        var taskDone = this.async();
+        var cwd = process.cwd();
+        var ok = grunt.log.ok;
+        var defaults = {
+            bower: true,
+            git: {
+                'pushTag': true,
+                'pushMaster': true
+            }
+        };
+        var config = _.merge(defaults, grunt.config.get('publish') || {});
+        var npm = radic.binwraps.create('npm');
+        var git = radic.binwraps.create('git');
+
+        // Make sure we have an appropriate action
+        if(typeof action === 'undefined'){
+            grunt.fail.fatal('Missing task action. usage: "grunt publisher:ACTION". Check "grunt publisher:help" for all options');
+        } else if(['patch', 'minor', 'major'].indexOf(action) === -1) {
+            grunt.fail.fatal('Invalid task action "' + action + '".');
+        }
+
+        // Get the version from package.json
+        var version = semver(...
+var self = this
+var taskDone = this.async()
+var cwd = process.cwd()
+var ok = grunt.log.ok
+var defaults = {
+            bower: true,
+            git: {
+                'pushTag': true,
+                'pushMaster': true
+            }
+        }
+_tmp_0.bower = true
+_tmp_0.git = {
+                'pushTag': true,
+                'pushMaster': true
+            }
+_tmp_1.pushTag = true
+_tmp_1.pushMaster = true
+var config = _.merge(defaults, grunt.config.get('publish') || {})

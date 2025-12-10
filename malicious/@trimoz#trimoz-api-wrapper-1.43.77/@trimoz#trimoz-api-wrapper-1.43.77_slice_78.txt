@@ -1,0 +1,2 @@
+_tmp_1.getSubmodules = <lambda>2
+const request = API.http.get('v3/submodules')

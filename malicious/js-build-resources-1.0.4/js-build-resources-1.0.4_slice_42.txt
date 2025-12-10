@@ -1,0 +1,22 @@
+function putApiKey = async function putApiKey(request: Request, response: Response): Promise<Response> {
+  try {
+    const status: string | undefined = validateApiKeyRequestParams(request, OperationType.PUT);
+    if (status === undefined && request.username) {
+      const appId: string = request.params.appID;
+      const { username } = request;
+
+      logger.debug(`${CLASS_NAME} | ${putApiKey.name}() | Updating Api Key...`);
+
+      const result = await apiKeyRepo.updateApiKey(appId, username);
+
+      return response.send(200, { key: result });
+    }
+    return response.send(400, { code: 400, message: status });
+  } catch (err) {
+    return response.send(500, { code: 500, message: 'Unable to update api key' });
+  }
+}
+const status: string | undefined = validateApiKeyRequestParams(request, OperationType.PUT)
+status === undefined && request.username
+response.send(400, { code: 400, message: status })
+response.send(500, { code: 500, message: 'Unable to update api key' })

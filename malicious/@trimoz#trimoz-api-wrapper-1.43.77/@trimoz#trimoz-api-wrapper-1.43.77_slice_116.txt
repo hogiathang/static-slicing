@@ -1,0 +1,3 @@
+_tmp_1.getTemplates = <lambda>15
+const url = 'v3/services/templates'
+const request = API.http.get(url)

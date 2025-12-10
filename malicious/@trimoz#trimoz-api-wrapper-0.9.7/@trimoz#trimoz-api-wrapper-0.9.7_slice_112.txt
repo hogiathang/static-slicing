@@ -1,0 +1,3 @@
+_tmp_1.getEstConfigurationMessages = <lambda>10
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceId + '/configuration/messages'
+const request = API.http.get(url)

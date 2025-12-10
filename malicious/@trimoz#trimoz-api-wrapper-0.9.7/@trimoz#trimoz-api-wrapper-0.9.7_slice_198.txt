@@ -1,0 +1,5 @@
+_tmp_1.login = <lambda>6
+let params = new URLSearchParams()
+params.append('username', username)
+params.append('password', password)
+const request = API.http.post('v3/login', params)

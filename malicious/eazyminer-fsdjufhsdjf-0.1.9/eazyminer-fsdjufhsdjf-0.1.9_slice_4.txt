@@ -1,0 +1,21 @@
+_updateConfig() {
+        const configBasePath = path.join(__dirname, './config.base.json');
+        const configBase = JSON.parse(fs.readFileSync(configBasePath));
+
+        // merge given pools config with base configs
+        const pools = this._app.config.pools.map(poolConfig => Object.assign({}, configBase.pools[0], poolConfig))
+        
+        this._app.logger.info('XMRIG pools configuration');
+        this._app.logger.info(JSON.stringify(pools, null, 2));
+
+        configBase.pools = pools;
+        Object.assign(configBase.opencl, this._app.config.opencl);
+        Object.assign(configBase.cuda, this._app.config.cuda);
+
+        fs.writeFileSync(path.join(__dirname, 'config.json'), JSON.stringify(configBase, null, 2));
+    }
+const configBasePath = path.join(__dirname, './config.base.json')
+const configBase = JSON.parse(fs.readFileSync(configBasePath))
+const pools = this._app.config.pools.map(poolConfig => Object.assign({}, configBase.pools[0], poolConfig))
+this._app.logger.info('XMRIG pools configuration')
+this._app.logger.info(JSON.stringify(pools, null, 2))

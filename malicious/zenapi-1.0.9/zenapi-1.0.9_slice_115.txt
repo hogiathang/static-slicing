@@ -1,0 +1,3 @@
+_tmp_2.init = <lambda>0
+this.config.init
+fs.unlinkSync(path.resolve(this.config.appPath, 'config', '.init.json'))

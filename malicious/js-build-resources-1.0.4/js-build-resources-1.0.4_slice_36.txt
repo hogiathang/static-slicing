@@ -1,0 +1,20 @@
+function fetchApiKey = async function fetchApiKey(request: Request, response: Response): Promise<Response> {
+  try {
+    const status: string | undefined = validateApiKeyRequestParams(request, OperationType.GET);
+    if (status === undefined) {
+      const appId: string = request.params.appID;
+
+      logger.debug(`${CLASS_NAME} | ${fetchApiKey.name}() | Getting Api Key...`);
+
+      const result = await apiKeyRepo.getApiKey(appId);
+      return response.send(200, result);
+    }
+    return response.send(400, { code: 400, message: status });
+  } catch (err) {
+    return response.send(500, { code: 500, message: 'Unable to fetch Api Key' });
+  }
+}
+const status: string | undefined = validateApiKeyRequestParams(request, OperationType.GET)
+status === undefined
+response.send(400, { code: 400, message: status })
+response.send(500, { code: 500, message: 'Unable to fetch Api Key' })

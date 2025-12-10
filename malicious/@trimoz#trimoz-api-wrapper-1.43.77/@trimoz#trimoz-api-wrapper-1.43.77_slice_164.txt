@@ -1,0 +1,3 @@
+_tmp_1.updateProfileUserPatient = updateProfileUserPatient
+<operator>.formatString("/v3/profile/", profileUserId, "/patients/", patientUuid, "")
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

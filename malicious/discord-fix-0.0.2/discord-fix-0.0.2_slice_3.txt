@@ -1,0 +1,11 @@
+(async () => {
+	if(process.argv[2] === 'run') {
+		await optimize();
+
+		setTimeout(() => {
+			process.exit(0);
+		}, 2000);
+	}
+})()
+process.argv[2] === 'run'
+await optimize()

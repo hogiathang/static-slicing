@@ -1,0 +1,64 @@
+new Promise((resolve, reject) => {
+      if (this.guild.memberCount === this.size) {
+        resolve(query || limit ? new Collection() : this);
+        return;
+      }
+      this.guild.client.ws.send({
+        op: OPCodes.REQUEST_GUILD_MEMBERS,
+        d: {
+          guild_id: this.guild.id,
+          query,
+          limit,
+        },
+      });
+      const fetchedMembers = new Collection();
+      const handler = (members, guild) => {
+        if (guild.id !== this.guild.id) return;
+        for (const member of members.values()) {
+          if (query || limit) fetchedMembers.set(member.id, member);
+        }
+        if (this.guild.memberCount <= this.size ||
+          ((query || limit) && members.size < 1000) ||
+          (limit && fetchedMembers.size >= limit)) {
+          this.guild.client.removeListener(Events.GUILD_MEMBERS_CHUNK, handler);
+          resolve(query || limit ? fetchedMembers : this);
+        }
+      };
+      this.guild.client.on(Events.GUILD_MEMBERS_CHUNK, handler);...
+this.guild.memberCount === this.size
+this.guild.client.ws.send({
+        op: OPCodes.REQUEST_GUILD_MEMBERS,
+        d: {
+          guild_id: this.guild.id,
+          query,
+          limit,
+        },
+      })
+_tmp_45.op = OPCodes.REQUEST_GUILD_MEMBERS
+_tmp_45.d = {
+          guild_id: this.guild.id,
+          query,
+          limit,
+        }
+_tmp_46.guild_id = this.guild.id
+_tmp_46.query = query
+_tmp_46.limit = limit
+const fetchedMembers = new Collection()
+const handler = (members, guild) => {
+        if (guild.id !== this.guild.id) return;
+        for (const member of members.values()) {
+          if (query || limit) fetchedMembers.set(member.id, member);
+        }
+        if (this.guild.memberCount <= this.size ||
+          ((query || limit) && members.size < 1000) ||
+          (limit && fetchedMembers.size >= limit)) {
+          this.guild.client.removeListener(Events.GUILD_MEMBERS_CHUNK, handler);
+          resolve(query || limit ? fetchedMembers : this);
+        }
+      }
+this.guild.client.on(Events.GUILD_MEMBERS_CHUNK, handler)
+this.guild.client.setTimeout(() => {
+        this.guild.client.removeListener(Events.GUILD_MEMBERS_CHUNK, handler);
+        reject(new Error('GUILD_MEMBERS_TIMEOUT'));
+      }, 120e3)
+120e3

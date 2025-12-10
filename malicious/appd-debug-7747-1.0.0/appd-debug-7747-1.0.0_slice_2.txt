@@ -1,0 +1,39 @@
+Agent.prototype.recursiveMkDir = function (dir) {
+  var dirsToMake = [];
+  var currDir = path.normalize(dir);
+  var parentDir = path.dirname(currDir);
+  var controlVar = true;
+  while (controlVar) {
+    if (fs.existsSync(currDir))
+      break;
+    dirsToMake.push(currDir);
+    currDir = parentDir;
+    parentDir = path.dirname(currDir);
+    if (currDir == parentDir)
+      break;
+  }
+
+  while (dirsToMake.length) {
+    currDir = dirsToMake.pop();
+    try {
+      fs.mkdirSync(currDir);
+    } catch (e) {
+      if (e.code != 'EEXIST') throw e;
+    }
+  }
+}
+__ecma.Array.factory()
+var currDir = path.normalize(dir)
+var parentDir = path.dirname(currDir)
+var controlVar = true
+fs.existsSync(currDir)
+break;
+dirsToMake.push(currDir)
+currDir = parentDir
+parentDir = path.dirname(currDir)
+currDir == parentDir
+break;
+dirsToMake.length
+currDir = dirsToMake.pop()
+fs.mkdirSync(currDir)
+e.code != 'EEXIST'

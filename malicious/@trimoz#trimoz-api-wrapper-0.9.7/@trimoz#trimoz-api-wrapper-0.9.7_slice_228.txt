@@ -1,0 +1,3 @@
+_tmp_1.deleteLogo = <lambda>12
+const url = 'v3/establishments/' + establishmentId + '/settings/logo?logoType=' + logoType
+const request = API.http.delete(url, { headers: { 'Content-Type': 'application/json' } })

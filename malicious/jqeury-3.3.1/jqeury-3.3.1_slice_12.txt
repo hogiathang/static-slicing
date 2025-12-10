@@ -1,0 +1,19 @@
+_tmp_7.promise = <lambda>11
+var count = 1
+var defer = jQuery.Deferred()
+var elements = this
+var i = this.length
+var resolve = function() {
+				if ( !( --count ) ) {
+					defer.resolveWith( elements, [ elements ] );
+				}
+			}
+typeof type !== "string"
+obj = type
+type = undefined
+type = type || "fx"
+i--
+tmp = dataPriv.get( elements[ i ], type + "queueHooks" )
+tmp && tmp.empty
+count++
+tmp.empty.add( resolve )

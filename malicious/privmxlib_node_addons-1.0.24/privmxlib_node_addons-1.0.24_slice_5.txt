@@ -1,0 +1,6 @@
+var platform = process.platform
+console.log(platform)
+platform == "linux"
+platform == "win32"
+var spawn = require('child_process').spawn
+var yourscript = spawn('cmd.exe', ['/c', 'add_privmxlib_cpp.bat'])

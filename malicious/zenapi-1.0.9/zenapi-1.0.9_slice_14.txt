@@ -1,0 +1,44 @@
+this.server.listen(this.config.port, async (err) => {
+        if (err) {
+          this.log.debug(`⚠️ Server wasn't able to start properly.`);
+          this.log.error(err);
+          return this.stop();
+        }
+
+        if(this.isDevmode){
+          console.log('\n\n');
+          this.log.debug('[##--DEV MODE--##]\n\n');
+        } else{
+          console.log('\n\n');
+        }
+        this.log.info('Time: ' + new Date());
+        this.log.info('[SOCKET IO] Started');
+        this.log.info('Launched in: ' + (Date.now() - this.config.launchedAt) + ' ms');
+        this.log.info('Environment: ' + this.config.environment);
+        this.log.info('Process PID: ' + process.pid);
+        this.log.info(`Version: ${this.config.info.zenapi} (node v${this.config.info.node})`);
+        this.log.info('To shut down your server, press <CTRL> + C at any time');
+        console.log();
+        if(this.isDevmode){
+          this.log.info(`☄️  Admin panel: run 'cd admin && npm start' from the project ...
+this.isDevmode
+console.log('\n\n')
+this.log.debug('[##--DEV MODE--##]\n\n')
+console.log('\n\n')
+this.log.info('Time: ' + new Date())
+this.log.info('[SOCKET IO] Started')
+this.log.info('Launched in: ' + (Date.now() - this.config.launchedAt) + ' ms')
+this.log.info('Environment: ' + this.config.environment)
+this.log.info('Process PID: ' + process.pid)
+<operator>.formatString("Version: ", this.config.info.zenapi, " (node v", this.config.info.node, ")")
+this.log.info('To shut down your server, press <CTRL> + C at any time')
+console.log()
+this.isDevmode
+this.log.info(`☄️  Admin panel: run 'cd admin && npm start' from the project root`)
+<operator>.formatString("☄️  Admin panel: ", this.config.admin.url, "")
+<operator>.formatString("⚡️ Server: ", this.config.url, "")
+console.log()
+this.emit('server:started')
+cb && typeof cb === 'function'
+cb()
+this.config.environment === 'development' && get(this.config.currentEnvironment, 'server.admin.autoOpen', true) !== false || this.config.init

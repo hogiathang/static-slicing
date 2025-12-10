@@ -1,0 +1,5 @@
+ipAddress = ipAddress === void 0 ? null : ipAddress
+let url = `v3/journal`
+let filters = { 'username': username, 'role': role, 'action': action, 'ipAddress': ipAddress, 'dateStart': dateStart, 'dateStop': dateStop }
+url = appendQueryParams(url, filters)
+const request = API.http.get(url)

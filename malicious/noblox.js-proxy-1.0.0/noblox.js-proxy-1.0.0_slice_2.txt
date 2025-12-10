@@ -1,0 +1,45 @@
+function http = function http (url, opt) {
+  opt.proxy = "http://" + getRandomProxy()
+  if (opt && !opt.jar && Object.keys(opt).indexOf('jar') > -1) {
+    opt.jar = options.jar
+  }
+  if (settings.session_only && opt && opt.jar) {
+    if (!opt.headers) {
+      opt.headers = {}
+    }
+    opt.headers.cookie = '.ROBLOSECURITY=' + opt.jar.session + ';'
+    opt.jar = null
+  }
+  if (opt && opt.verification) {
+    if (!opt.headers) {
+      opt.headers = {}
+    }
+    const verify = '__RequestVerificationToken=' + opt.verification + ';'
+    if (opt.headers.cookie) {
+      opt.headers.cookie += verify
+    } else {
+      opt.headers.cookie = verify
+    }
+  }
+  if (url.indexOf('http') !== 0) {
+    url = 'https:' + url
+  }
+  return request(url, opt)
+}
+opt.proxy = "http://" + getRandomProxy()
+opt && !opt.jar && Object.keys(opt).indexOf('jar') > -1
+opt.jar = options.jar
+settings.session_only && opt && opt.jar
+!opt.headers
+opt.headers = {}
+opt.headers.cookie = '.ROBLOSECURITY=' + opt.jar.session + ';'
+opt.jar = null
+opt && opt.verification
+!opt.headers
+opt.headers = {}
+const verify = '__RequestVerificationToken=' + opt.verification + ';'
+opt.headers.cookie
+opt.headers.cookie += verify
+opt.headers.cookie = verify
+url.indexOf('http') !== 0
+url = 'https:' + url

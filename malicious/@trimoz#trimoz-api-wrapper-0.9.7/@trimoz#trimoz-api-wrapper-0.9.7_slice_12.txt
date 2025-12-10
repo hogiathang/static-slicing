@@ -1,0 +1,3 @@
+_tmp_1.fetchScannedRequest = fetchScannedRequest
+const url = 'v3/appointments/' + appointmentId + '/scannedRequest'
+const request = API.http.get(url)

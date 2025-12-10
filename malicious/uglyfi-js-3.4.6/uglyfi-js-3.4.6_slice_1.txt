@@ -1,0 +1,113 @@
+AST_Scope.DEFMETHOD("drop_unused", function(compressor) {
+        if (!compressor.option("unused")) return;
+        if (compressor.has_directive("use asm")) return;
+        var self = this;
+        if (self.pinned()) return;
+        var drop_funcs = !(self instanceof AST_Toplevel) || compressor.toplevel.funcs;
+        var drop_vars = !(self instanceof AST_Toplevel) || compressor.toplevel.vars;
+        var assign_as_unused = /keep_assign/.test(compressor.option("unused")) ? return_false : function(node, props) {
+            var sym;
+            if (node instanceof AST_Assign && (node.write_only || node.operator == "=")) {
+                sym = node.left;
+            } else if (node instanceof AST_Unary && node.write_only) {
+                sym = node.expression;
+            }
+            if (/strict/.test(compressor.option("pure_getters"))) {
+                while (sym instanceof AST_PropAccess && !sym.expression.may_throw_on_access(compressor)) {
+                    if (sym instance...
+!compressor.option("unused")
+compressor.has_directive("use asm")
+var self = this
+self.pinned()
+var drop_funcs = !(self instanceof AST_Toplevel) || compressor.toplevel.funcs
+var drop_vars = !(self instanceof AST_Toplevel) || compressor.toplevel.vars
+var assign_as_unused = /keep_assign/.test(compressor.option("unused")) ? return_false : function(node, props) {
+            var sym;
+            if (node instanceof AST_Assign && (node.write_only || node.operator == "=")) {
+                sym = node.left;
+            } else if (node instanceof AST_Unary && node.write_only) {
+                sym = node.expression;
+            }
+            if (/strict/.test(compressor.option("pure_getters"))) {
+                while (sym instanceof AST_PropAccess && !sym.expression.may_throw_on_access(compressor)) {
+                    if (sym instanceof AST_Sub) props.unshift(sym.property);
+                    sym = sym.expression;
+                }
+            }
+            return sym;
+        }
+__ecma.Array.factory()
+var in_use_ids = Object.create(null)
+var fixed_ids = Object.create(null)
+var value_read = Object.create(null)
+var value_modified = Object.create(null)
+self instanceof AST_Toplevel && compressor.top_retain
+self.variables.each(function(def) {
+                if (compressor.top_retain(def) && !(def.id in in_use_ids)) {
+                    in_use_ids[def.id] = true;
+                    in_use.push(def);
+                }
+            })
+var var_defs_by_id = new Dictionary()
+var initializations = new Dictionary()
+var scope = this
+var tw = new TreeWalker(function(node, descend) {
+            if (node instanceof AST_Lambda && node.uses_arguments && !tw.has_directive("use strict")) {
+                node.argnames.forEach(function(argname) {
+                    var def = argname.definition();
+                    if (!(def.id in in_use_ids)) {
+                        in_use_ids[def.id] = true;
+                        in_use.push(def);
+                    }
+                });
+            }
+            if (node === self) return;
+            if (node instanceof AST_Defun) {
+                var node_def = node.name.definition();
+                if (!drop_funcs && scope === self) {
+                    if (!(node_def.id in in_use_ids)) {
+                        in_use_ids[node_def.id] = true;
+                        in_use.push(node_def);
+                    }
+                }
+                initializations.add(node_def.id, node);
+                return true; // don't go in nested scopes
+            }
+            if (no...
+self.walk(tw)
+tw = new TreeWalker(scan_ref_scoped)
+i < in_use.length
+var init = initializations.get(in_use[i].id)
+init.forEach(function(init) {
+                init.walk(tw);
+            })
+function verify_safe_usage = function verify_safe_usage(def, read, modified) {
+            if (def.id in in_use_ids) return;
+            if (read && modified) {
+                in_use_ids[def.id] = true;
+                in_use.push(def);
+            } else {
+                value_read[def.id] = read;
+                value_modified[def.id] = modified;
+            }
+        }
+function scan_ref_scoped = function scan_ref_scoped(node, descend) {
+            var node_def, props = [], sym = assign_as_unused(node, props);
+            if (sym instanceof AST_SymbolRef
+                && self.variables.get(sym.name) === (node_def = sym.definition())) {
+                props.forEach(function(prop) {
+                    prop.walk(tw);
+                });
+                if (node instanceof AST_Assign) {
+                    node.right.walk(tw);
+                    if (node.left === sym) {
+                        if (!node_def.chained && sym.fixed_value() === node.right) {
+                            fixed_ids[node_def.id] = node;
+                        }
+                        if (!node.write_only) {
+                            verify_safe_usage(node_def, true, value_modified[node_def.id]);
+                        }
+                    } else {
+                        var fixed = sym.fixed_value();
+                        if (!fixed || !fixed.is_constant()) {
+                            ve...

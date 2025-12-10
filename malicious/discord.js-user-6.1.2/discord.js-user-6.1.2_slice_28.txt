@@ -1,0 +1,48 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const data = packet.d;
+    let user = client.users.get(data.user.id);
+    const guild = client.guilds.get(data.guild_id);
+
+    // Step 1
+    if (!user) {
+      if (data.user.username) {
+        user = client.users.add(data.user);
+      } else {
+        return;
+      }
+    }
+
+    const oldUser = user._update(data.user);
+    if (!user.equals(oldUser)) {
+      client.emit(Events.USER_UPDATE, oldUser, user);
+    }
+
+    if (guild) {
+      let oldPresence = guild.presences.get(user.id);
+      if (oldPresence) oldPresence = oldPresence._clone();
+      let member = guild.members.get(user.id);
+      if (!member && data.status !== 'offline') {
+        member = guild.members.add({
+          user,
+          roles: data.roles,
+          deaf: false,
+          mute: false,
+        });
+        client.emit(Events.GUILD_MEMBER_AVAILABLE, member);
+      }
+      guild.presences.add(Object.assign(data, { guild }));
+      if (member && c...
+const client = this.packetManager.client
+const data = packet.d
+let user = client.users.get(data.user.id)
+const guild = client.guilds.get(data.guild_id)
+!user
+data.user.username
+user = client.users.add(data.user)
+const oldUser = user._update(data.user)
+!user.equals(oldUser)
+client.emit(Events.USER_UPDATE, oldUser, user)
+let oldPresence = guild.presences.get(user.id)
+oldPresence = oldPresence._clone()
+let member = guild.members.get(user.id)

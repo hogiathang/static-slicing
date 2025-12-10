@@ -1,0 +1,27 @@
+stoppedSpeaking(user) {
+    const opusStream = this.opusStreams.get(user.id);
+    const pcmStream = this.pcmStreams.get(user.id);
+    const opusEncoder = this.opusEncoders.get(user.id);
+    if (opusStream) {
+      opusStream.push(null);
+      opusStream.open = false;
+      this.opusStreams.delete(user.id);
+    }
+    if (pcmStream) {
+      pcmStream.push(null);
+      pcmStream.open = false;
+      this.pcmStreams.delete(user.id);
+    }
+    if (opusEncoder) {
+      opusEncoder.destroy();
+    }
+  }
+const opusStream = this.opusStreams.get(user.id)
+const pcmStream = this.pcmStreams.get(user.id)
+const opusEncoder = this.opusEncoders.get(user.id)
+opusStream.push(null)
+opusStream.open = false
+(_tmp_25 = this.opusStreams).delete
+pcmStream.push(null)
+pcmStream.open = false
+(_tmp_26 = this.pcmStreams).delete

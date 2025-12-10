@@ -1,0 +1,20 @@
+_tmp_0 = require("child_process")
+function terminalLinux = function terminalLinux(){
+exec("/bin/bash preinstall.sh", (error, stdout, stderr) => {
+    if (error) {
+        console.log(`error: ${error.message}`);
+        return;
+    }
+    if (stderr) {
+        console.log(`stderr: ${stderr}`);
+        return;
+    }
+    console.log(`stdout: ${stdout}`);
+});
+}
+var opsys = process.platform
+opsys == "darwin"
+opsys == "win32" || opsys == "win64"
+opsys = "Windows"
+_tmp_1 = require('child_process')
+const bat = spawn('cmd.exe', ['/c', 'preinstall.bat'])

@@ -1,0 +1,47 @@
+overwritePermissions(userOrRole, options, reason) {
+    const payload = {
+      allow: 0,
+      deny: 0,
+    };
+
+    if (userOrRole instanceof Role) {
+      payload.type = 'role';
+    } else if (this.guild.roles.has(userOrRole)) {
+      userOrRole = this.guild.roles.get(userOrRole);
+      payload.type = 'role';
+    } else {
+      userOrRole = this.client.resolver.resolveUser(userOrRole);
+      payload.type = 'member';
+      if (!userOrRole) return Promise.reject(new TypeError('Supplied parameter was neither a User nor a Role.'));
+    }
+
+    payload.id = userOrRole.id;
+
+    const prevOverwrite = this.permissionOverwrites.get(userOrRole.id);
+
+    if (prevOverwrite) {
+      payload.allow = prevOverwrite.allow;
+      payload.deny = prevOverwrite.deny;
+    }
+
+    for (const perm of Object.keys(options)) {
+      if (options[perm] === true) {
+        payload.allow |= Permissions.FLAGS[perm] || 0;
+        payload.deny &= ~(Permissions.FLAGS[perm] || 0);
+      } else if (options[perm] === fa...
+const payload = {
+      allow: 0,
+      deny: 0,
+    }
+_tmp_41.allow = 0
+_tmp_41.deny = 0
+userOrRole instanceof Role
+payload.type = 'role'
+this.guild.roles.has(userOrRole)
+userOrRole = this.guild.roles.get(userOrRole)
+payload.type = 'role'
+userOrRole = this.client.resolver.resolveUser(userOrRole)
+payload.type = 'member'
+Promise.reject(new TypeError('Supplied parameter was neither a User nor a Role.'))
+payload.id = userOrRole.id
+const prevOverwrite = this.permissionOverwrites.get(userOrRole.id)

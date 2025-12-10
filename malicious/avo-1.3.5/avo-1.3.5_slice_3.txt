@@ -1,0 +1,18 @@
+function _haveValidAccessToken = function _haveValidAccessToken(refreshToken) {
+  if (_.isEmpty(lastAccessToken)) {
+    var tokens = conf.get('tokens');
+    if (refreshToken === _.get(tokens, 'refreshToken')) {
+      lastAccessToken = tokens;
+    }
+  }
+
+  return (
+    _.has(lastAccessToken, 'idToken') &&
+    lastAccessToken.refreshToken === refreshToken &&
+    _.has(lastAccessToken, 'expiresAt') &&
+    lastAccessToken.expiresAt > Date.now() + FIFTEEN_MINUTES_IN_MS
+  );
+}
+_.isEmpty(lastAccessToken)
+var tokens = conf.get('tokens')
+refreshToken === _.get(tokens, 'refreshToken')

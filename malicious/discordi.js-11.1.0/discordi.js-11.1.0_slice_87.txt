@@ -1,0 +1,16 @@
+destroy(type, reason) {
+    if (this.destroyed) return;
+    this.destroyed = true;
+    this.setSpeaking(false);
+    this.emit(type, reason);
+    /**
+     * Emitted once the dispatcher ends.
+     * @param {string} [reason] the reason the dispatcher ended
+     * @event StreamDispatcher#end
+     */
+    if (type !== 'end') this.emit('end', `destroyed due to ${type} - ${reason}`);
+  }
+this.destroyed
+this.destroyed = true
+this.setSpeaking(false)
+this.emit(type, reason)

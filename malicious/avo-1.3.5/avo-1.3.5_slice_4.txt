@@ -1,0 +1,37 @@
+function(res) {
+        if (res.status === 401 || res.status === 400) {
+          return {idToken: refreshToken};
+        }
+
+        if (!_.isString(res.body.idToken)) {
+          throw INVALID_CREDENTIAL_ERROR;
+        }
+        lastAccessToken = _.assign(
+          {
+            expiresAt: Date.now() + res.body.expiresIn * 1000,
+            refreshToken: refreshToken
+          },
+          res.body
+        );
+
+        var currentRefreshToken = _.get(conf.get('tokens'), 'refreshToken');
+        if (refreshToken === currentRefreshToken) {
+          conf.set('tokens', lastAccessToken);
+        }
+
+        return lastAccessToken;
+      }
+res.status === 401 || res.status === 400
+!_.isString(res.body.idToken)
+throw INVALID_CREDENTIAL_ERROR;
+lastAccessToken = _.assign(
+          {
+            expiresAt: Date.now() + res.body.expiresIn * 1000,
+            refreshToken: refreshToken
+          },
+          res.body
+        )
+_tmp_104.expiresAt = Date.now() + res.body.expiresIn * 1000
+_tmp_104.refreshToken = refreshToken
+res.body
+var currentRefreshToken = _.get(conf.get('tokens'), 'refreshToken')

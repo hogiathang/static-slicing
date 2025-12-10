@@ -1,0 +1,29 @@
+options = options === void 0 ? {} : options
+_tmp_4 = options
+type = _tmp_4.type
+topic = _tmp_4.topic
+nsfw = _tmp_4.nsfw
+bitrate = _tmp_4.bitrate
+userLimit = _tmp_4.userLimit
+parent = _tmp_4.parent
+permissionOverwrites = _tmp_4.permissionOverwrites
+position = _tmp_4.position
+rateLimitPerUser = _tmp_4.rateLimitPerUser
+reason = _tmp_4.reason
+parent = this.client.channels.resolveID(parent)
+permissionOverwrites = permissionOverwrites.map(o => PermissionOverwrites.resolve(o, this.guild))
+const data = await this.client.api.guilds(this.guild.id).channels.post({
+      data: {
+        name,
+        topic,
+        type: type ? ChannelTypes[type.toUpperCase()] : ChannelTypes.TEXT,
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        position,
+        permission_overwrites: permissionOverwrites,
+        rate_limit_per_user: rateLimitPerUser,
+      },
+      reason,
+    })

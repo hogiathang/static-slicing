@@ -1,0 +1,70 @@
+module.exports = tysapi => function routerChecker(value, endpoint, plugin) {
+  const Joi = tysapi.koaMiddlewares.routerJoi.Joi;
+  const builder = joijson.builder(Joi);
+  const route = regex.detectRoute(endpoint);
+
+  // Define controller and action names.
+  const handler = _.trim(value.handler).split('.');
+  const controller = plugin
+    ? tysapi.plugins[plugin].controllers[handler[0].toLowerCase()]
+    : tysapi.controllers[handler[0].toLowerCase()] ||
+        tysapi.admin.controllers[handler[0].toLowerCase()];
+
+  const action = controller[handler[1]];
+
+  // Retrieve the API's name where the controller is located
+  // to access to the right validators
+  const currentApiName = finder(tysapi.plugins[plugin] || tysapi.api || tysapi.admin, controller);
+
+  // Init policies array.
+  const policies = [];
+
+  // Add the `globalPolicy`.
+  policies.push(policyUtils.globalPolicy(endpoint, value, route, plugin));
+
+  // Allow string instead of array of policies.
+  if (
+    !_.isArray(_.get(value, ...
+const Joi = tysapi.koaMiddlewares.routerJoi.Joi
+const builder = joijson.builder(Joi)
+const route = regex.detectRoute(endpoint)
+const handler = _.trim(value.handler).split('.')
+const controller = plugin
+    ? tysapi.plugins[plugin].controllers[handler[0].toLowerCase()]
+    : tysapi.controllers[handler[0].toLowerCase()] ||
+        tysapi.admin.controllers[handler[0].toLowerCase()]
+tysapi.plugins[plugin].controllers[handler[0].toLowerCase()]
+tysapi.controllers[handler[0].toLowerCase()] ||
+        tysapi.admin.controllers[handler[0].toLowerCase()]
+tysapi.admin.controllers[handler[0].toLowerCase()]
+const action = controller[handler[1]]
+const currentApiName = finder(tysapi.plugins[plugin] || tysapi.api || tysapi.admin, controller)
+__ecma.Array.factory()
+policies.push(policyUtils.globalPolicy(endpoint, value, route, plugin))
+!_.isArray(_.get(value, 'config.policies')) &&
+    !_.isEmpty(_.get(value, 'config.policies'))
+!_.isEmpty(_.get(value, 'config.policies'))
+value.config.policies = [value.config.policies]
+_.isArray(_.get(value, 'config.policies')) &&
+    !_.isEmpty(_.get(value, 'config.policies'))
+!_.isEmpty(_.get(value, 'config.policies'))
+_.forEach(value.config.policies, policy => {
+      policyUtils.get(policy, plugin, policies, endpoint, currentApiName);
+    })
+policies.push(async (ctx, next) => {
+    // Set body.
+    const values = await next();
+
+    if (!ctx.body) {
+      ctx.body = values;
+    }
+  })
+const validate = {}
+_.isString(_.get(value, 'config.validate')) &&
+    !_.isEmpty(_.get(value, 'config.validate'))
+!_.isEmpty(_.get(value, 'config.validate'))
+const validator = _.get(
+      tysapi.api,
+      currentApiName + '.validators.' + value.config.validate
+    )
+tysapi.api

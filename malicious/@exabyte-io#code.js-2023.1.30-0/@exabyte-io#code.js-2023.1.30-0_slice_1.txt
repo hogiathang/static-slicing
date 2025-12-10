@@ -1,0 +1,17 @@
+static createConfigFromContext(config) {
+        const data = lodash.get(config.context, config.name);
+        const isEdited = lodash.get(config.context, this.getIsEditedKeyByName(config.name));
+        const extraData = lodash.get(config.context, this.getExtraDataKeyByName(config.name));
+        return Object.assign(
+            config,
+            data
+                ? {
+                      data,
+                      extraData,
+                      isEdited,
+                  }
+                : {},
+        );
+    }
+const data = lodash.get(config.context, config.name)
+const isEdited = lodash.get(config.context, this.getIsEditedKeyByName(config.name))

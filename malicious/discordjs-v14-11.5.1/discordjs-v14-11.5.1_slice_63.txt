@@ -1,0 +1,6 @@
+get lastMessage() {
+    const channel = this.client.channels.cache.get(this.lastMessageChannelID);
+    return (channel && channel.messages.cache.get(this.lastMessageID)) || null;
+  }
+const channel = this.client.channels.cache.get(this.lastMessageChannelID)
+(channel && channel.messages.cache.get(this.lastMessageID)) || null

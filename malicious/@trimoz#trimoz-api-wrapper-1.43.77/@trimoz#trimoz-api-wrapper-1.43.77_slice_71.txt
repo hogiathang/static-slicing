@@ -1,0 +1,3 @@
+_tmp_1.getJournalActions = <lambda>3
+let url = `v3/journal/actions`
+const request = API.http.get(url)

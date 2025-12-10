@@ -1,0 +1,11 @@
+_tmp_23 = param2_0 === void 0 ? {} : param2_0
+throw new Error(ErrorCodes.WebhookTokenUnavailable);
+const data = await this.client.rest.get(Routes.webhookMessage(this.id, this.token, message), {
+      query: threadId ? makeURLSearchParams({ thread_id: threadId }) : undefined,
+      auth: false,
+    })
+_tmp_26.query = threadId ? makeURLSearchParams({ thread_id: threadId }) : undefined
+_tmp_26.auth = false
+!this.client.channels
+this.client.channels.cache.get(data.channel_id)?.messages._add(data, false) ??
+      new (getMessage())(this.client, data)

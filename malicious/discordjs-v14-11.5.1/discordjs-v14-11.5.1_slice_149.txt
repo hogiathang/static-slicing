@@ -1,0 +1,11 @@
+reset() {
+    this.emit('debug', `[WS] reset requested`);
+    if (this.ws) {
+      if (this.ws.readyState !== WebSocket.CLOSED) this.ws.close();
+      this.ws = null;
+    }
+    this.clearHeartbeat();
+  }
+this.emit('debug', `[WS] reset requested`)
+this.ws
+this.ws.readyState !== WebSocket.CLOSED

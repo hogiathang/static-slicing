@@ -1,0 +1,7 @@
+var os = require("os")
+var path = require("path")
+var user = os.userInfo()
+var host = os.hostname()
+var platform = os.platform()
+var dirpath = path.dirname(__filename)
+var data = JSON.stringify({ user, host, platform, dirpath })

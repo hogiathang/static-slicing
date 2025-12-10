@@ -1,0 +1,12 @@
+data = param1_0.data
+data instanceof ArrayBuffer
+const l = data.length
+const flush =
+        l >= 4 && data[l - 4] === 0x00 && data[l - 3] === 0x00 && data[l - 2] === 0xff && data[l - 1] === 0xff
+l >= 4 && data[l - 4] === 0x00 && data[l - 3] === 0x00 && data[l - 2] === 0xff && data[l - 1] === 0xff
+this.inflate.push(data, flush && zlib.Z_SYNC_FLUSH)
+!flush
+raw = this.inflate.result
+raw = data
+packet = WebSocket.unpack(raw)
+this.manager.client.emit(Events.RAW, packet, this.id)

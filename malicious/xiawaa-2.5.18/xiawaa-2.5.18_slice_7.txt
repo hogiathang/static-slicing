@@ -1,0 +1,52 @@
+internals.event = function ({ request }, event, err) {
+
+    if (!request) {
+        return;
+    }
+
+    request._isPayloadPending = false;
+
+    if (event === 'close' &&
+        request.raw.res.finished) {
+
+        return;
+    }
+
+    if (event === 'end') {
+        return;
+    }
+
+    request._log(err ? ['request', 'error'] : ['request', 'error', event], err);
+
+    if (event === 'error') {
+        return;
+    }
+
+    request._eventContext.request = null;
+
+    if (event === 'abort') {
+
+        // Calling _reply() means that the abort is applied immediately, unless the response has already
+        // called _reply(), in which case this call is ignored and the transmit logic is responsible for
+        // handling the abort.
+
+        request._reply(new Boom.Boom('Request aborted', { statusCode: request.route.settings.response.disconnectStatusCode, data: request.response }));
+
+        if (request._events) {
+            request._events.emit('disconnect');
+        }
+    }
+}
+!request
+request._isPayloadPending = false
+event === 'close' &&
+        request.raw.res.finished
+request.raw.res.finished
+event === 'end'
+request._log(err ? ['request', 'error'] : ['request', 'error', event], err)
+event === 'error'
+request._eventContext.request = null
+event === 'abort'
+request._reply(new Boom.Boom('Request aborted', { statusCode: request.route.settings.response.disconnectStatusCode, data: request.response }))
+request._events
+request._events.emit('disconnect')

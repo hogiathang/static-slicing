@@ -1,0 +1,3 @@
+_tmp_1.create = <lambda>6
+const url = 'v3/establishments' + (withSettings ? '?settings=true' : '')
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

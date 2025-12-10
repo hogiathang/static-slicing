@@ -1,0 +1,37 @@
+internals.fail = async function (request, boom) {
+
+    const response = internals.error(request, boom);
+    request.response = response;                                // Not using request._setResponse() to avoid double log
+
+    try {
+        await internals.marshal(response);
+    }
+    catch (err) {
+        Bounce.rethrow(err, 'system');
+
+        // Failed to marshal an error - replace with minimal representation of original error
+
+        const minimal = {
+            statusCode: response.statusCode,
+            error: Http.STATUS_CODES[response.statusCode],
+            message: boom.message
+        };
+
+        response._payload = new request._core.Response.Payload(JSON.stringify(minimal), {});
+    }
+
+    return internals.transmit(response);
+}
+const response = internals.error(request, boom)
+request.response = response
+await internals.marshal(response)
+Bounce.rethrow(err, 'system')
+const minimal = {
+            statusCode: response.statusCode,
+            error: Http.STATUS_CODES[response.statusCode],
+            message: boom.message
+        }
+_tmp_1.statusCode = response.statusCode
+_tmp_1.error = Http.STATUS_CODES[response.statusCode]
+_tmp_1.message = boom.message
+response._payload = new request._core.Response.Payload(JSON.stringify(minimal), {})

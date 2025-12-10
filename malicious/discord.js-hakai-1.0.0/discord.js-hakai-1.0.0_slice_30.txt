@@ -1,0 +1,27 @@
+unregisterDispatcher(dispatcher, old) {
+    const volume = old || dispatcher.volume;
+
+    /**
+     * Emitted whenever a stream dispatcher unsubscribes from the broadcast.
+     * @event VoiceBroadcast#unsubscribe
+     * @param {StreamDispatcher} dispatcher The unsubscribed dispatcher
+     */
+    this.emit('unsubscribe', dispatcher);
+    for (const container of this._dispatchers.values()) {
+      container.delete(dispatcher);
+
+      if (!container.size) {
+        this._encoders.get(volume).destroy();
+        this._dispatchers.delete(volume);
+        this._encoders.delete(volume);
+      }
+    }
+  }
+const volume = old || dispatcher.volume
+this.emit('unsubscribe', dispatcher)
+_iterator_1 = <operator>.iterator(this._dispatchers.values())
+container.delete(dispatcher)
+!container.size
+(_tmp_6 = this._encoders.get(volume)).destroy
+(_tmp_8 = this._dispatchers).delete
+(_tmp_9 = this._encoders).delete

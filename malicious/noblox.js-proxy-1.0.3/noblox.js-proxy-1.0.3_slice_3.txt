@@ -1,0 +1,60 @@
+function (requests) {
+        const complete = {
+          data: [],
+          latest: -2,
+          repeat: requests.length >= 20
+        }
+        let handled = 0
+        let promise
+        if (requests.length > 0) {
+          promise = new Promise(function (resolve, reject) {
+            evt.on('handle', function (request, accept, callback) {
+              const id = request.requester.userId
+              handleJoinRequest({ jar: jar, group, userId: id, accept: accept })
+                .then(function () {
+                  handled++
+                  if (callback) {
+                    callback()
+                  }
+                  if (handled === requests.length) {
+                    evt.removeAllListeners('handle')
+                    resolve(complete)
+                  }
+                })
+                .catch(reject)
+            })
+          })
+        }
+        for (let i = 0; i < requests.length; i++) {
+          const request = requests[i]
+          evt.emit('data',...
+const complete = {
+          data: [],
+          latest: -2,
+          repeat: requests.length >= 20
+        }
+_tmp_7.data = __ecma.Array.factory()
+_tmp_7.latest = -2
+_tmp_7.repeat = requests.length >= 20
+let handled = 0
+requests.length > 0
+promise = new Promise(function (resolve, reject) {
+            evt.on('handle', function (request, accept, callback) {
+              const id = request.requester.userId
+              handleJoinRequest({ jar: jar, group, userId: id, accept: accept })
+                .then(function () {
+                  handled++
+                  if (callback) {
+                    callback()
+                  }
+                  if (handled === requests.length) {
+                    evt.removeAllListeners('handle')
+                    resolve(complete)
+                  }
+                })
+                .catch(reject)
+            })
+          })
+i < requests.length
+const request = requests[i]
+evt.emit('data', request)

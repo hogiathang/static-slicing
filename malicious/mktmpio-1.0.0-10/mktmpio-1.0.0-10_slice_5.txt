@@ -1,0 +1,58 @@
+function recordEvent = function recordEvent() {
+  var params = {
+    v: '1',
+    tid: 'UA-63367092-1',
+    ds: 'npm',
+    cid: uuid(),
+    ua: userAgent,
+    t: 'event',
+    ec: 'npm',
+    ea: lifecycle,
+    el: name + '@' + version,
+  };
+  var postData = qs.stringify(params);
+  var reqOpts = {
+    host: 'www.google-analytics.com',
+    path: debug ? '/debug/collect' : '/collect',
+    method: 'POST',
+  };
+  var req = request(reqOpts);
+  req.setTimeout(500, function() {
+    if (debug) {
+      console.log('connection timed out', arguments);
+    }
+    process.exit(0);
+  });
+  req.on('error', debug ? console.error : noop)
+     .on('response', debug ? dumpResponse : noop)
+     .end(postData);
+}
+var params = {
+    v: '1',
+    tid: 'UA-63367092-1',
+    ds: 'npm',
+    cid: uuid(),
+    ua: userAgent,
+    t: 'event',
+    ec: 'npm',
+    ea: lifecycle,
+    el: name + '@' + version,
+  }
+_tmp_0.v = "1"
+_tmp_0.tid = "UA-63367092-1"
+_tmp_0.ds = "npm"
+_tmp_0.cid = uuid()
+_tmp_0.ua = userAgent
+_tmp_0.t = "event"
+_tmp_0.ec = "npm"
+_tmp_0.ea = lifecycle
+_tmp_0.el = name + '@' + version
+var postData = qs.stringify(params)
+var reqOpts = {
+    host: 'www.google-analytics.com',
+    path: debug ? '/debug/collect' : '/collect',
+    method: 'POST',
+  }
+_tmp_1.host = "www.google-analytics.com"
+_tmp_1.path = debug ? "/debug/collect" : "/collect"
+_tmp_1.method = "POST"

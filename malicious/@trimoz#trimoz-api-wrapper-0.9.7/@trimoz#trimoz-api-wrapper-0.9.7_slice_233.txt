@@ -1,0 +1,3 @@
+_tmp_1.deleteBatch = deleteBatch
+const url = 'v3/establishments/' + establishmentId + '/availabilities?ids=' + params
+const request = API.http.delete(url)

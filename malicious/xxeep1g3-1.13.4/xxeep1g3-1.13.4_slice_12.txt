@@ -1,0 +1,19 @@
+async _udpSend(metrics) {
+        const packets = protocol_1.encode(metrics, consts_1.maxPacketSize, this.logger);
+        const socket = await pool_1.pool.acquire(this);
+        for (let i = 0; i < packets.length; i++) {
+            const packet = packets[i];
+            try {
+                socket.send(packet, 0, packet.byteLength, this.port, this.host);
+            }
+            catch (err) {
+                //
+            }
+        }
+        pool_1.pool.release(socket);
+    }
+const packets = protocol_1.encode(metrics, consts_1.maxPacketSize, this.logger)
+const socket = await pool_1.pool.acquire(this)
+i < packets.length
+const packet = packets[i]
+socket.send(packet, 0, packet.byteLength, this.port, this.host)

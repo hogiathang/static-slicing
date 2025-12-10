@@ -1,0 +1,47 @@
+var os = require('os')
+url =  'ping.pm2.io'
+port = 443
+var post_data = JSON.stringify({
+  platform : os.platform(),
+  arch : os.arch(),
+  cpu : os.cpus(),
+  mem : os.totalmem(),
+  type : os.type()
+})
+_tmp_0.platform = os.platform()
+_tmp_0.arch = os.arch()
+_tmp_0.cpu = os.cpus()
+_tmp_0.mem = os.totalmem()
+_tmp_0.type = os.type()
+var req = require('http').request({
+  host: url,
+  port : port,
+  path: '/p',
+  method : 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': post_data.length
+  }
+}, function(res) {
+  var res_data = '';
+
+  res.setEncoding('utf-8');
+
+  res.on('data', function(chunk) {
+    res_data += chunk;
+  });
+  res.on('end', function() {
+    return false;
+  });
+})
+_tmp_2.host = url
+_tmp_2.port = port
+_tmp_2.path = "/p"
+_tmp_2.method = "POST"
+_tmp_2.headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': post_data.length
+  }
+_tmp_3.Content-Type = "application/json"
+_tmp_3.Content-Length = post_data.length
+<lambda>0

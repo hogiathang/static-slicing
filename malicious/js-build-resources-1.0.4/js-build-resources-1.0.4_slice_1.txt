@@ -1,0 +1,27 @@
+public static checkAuthentication(req: IRequest, res: Response, next: Next): void {
+    const w3idAuthPluginRequest: IRequest = req;
+    const route: IRouteOptions = (w3idAuthPluginRequest.getRoute() as Route).spec;
+
+    if (!route.authRequired) {
+      return next();
+    }
+    if (process.env.APP_ENVIRONMENT === 'production') {
+      AuthenticationMiddleware.ensureAuthenticated(req, res, next);
+      return undefined;
+    }
+    try {
+      const authorization = _.get(req, AuthenticationMiddleware.HEADER_AUTHORIZATION);
+
+      logger.debug(
+        `${AuthenticationMiddleware.name} | ${AuthenticationMiddleware.checkAuthentication.name}() | Authorization: ${authorization}`,
+      );
+      if (!_.isEmpty(authorization) && authorization.includes('id') && authorization.includes('email')) {
+        const spaceIndex: number = _.indexOf(authorization, ' ');
+        const token = authorization.substring(spaceIndex + 1);
+        const details: UserDetails = JSON.parse(token);
+        req.use...
+const w3idAuthPluginRequest: IRequest = req
+const route: IRouteOptions = (w3idAuthPluginRequest.getRoute() as Route).spec
+!route.authRequired
+process.env.APP_ENVIRONMENT === 'production'
+const authorization = _.get(req, AuthenticationMiddleware.HEADER_AUTHORIZATION)

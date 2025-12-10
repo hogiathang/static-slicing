@@ -1,0 +1,55 @@
+function Buffer = function Buffer (subject, encoding) {
+  var self = this
+  if (!(self instanceof Buffer)) return new Buffer(subject, encoding)
+
+  var type = typeof subject
+  var length
+
+  if (type === 'number') {
+    length = +subject
+  } else if (type === 'string') {
+    length = Buffer.byteLength(subject, encoding)
+  } else if (type === 'object' && subject !== null) {
+    // assume object is array-like
+    if (subject.type === 'Buffer' && isArray(subject.data)) subject = subject.data
+    length = +subject.length
+  } else {
+    throw new TypeError('must start with number, buffer, array or string')
+  }
+
+  if (length > kMaxLength) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum size: 0x' +
+      kMaxLength.toString(16) + ' bytes')
+  }
+
+  if (length < 0) length = 0
+  else length >>>= 0 // coerce to uint32
+
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Preferred: Return an augmented `Uint8Array` instance for best performance
+    self = Buffer._augment(new Uint8Array(length)) // ...
+var self = this
+new Buffer(subject, encoding)
+var type = typeof subject
+type === 'number'
+length = +subject
+type === 'string'
+length = Buffer.byteLength(subject, encoding)
+type === 'object' && subject !== null
+subject.type === 'Buffer' && isArray(subject.data)
+length = +subject.length
+throw new TypeError('must start with number, buffer, array or string')
+length > kMaxLength
+throw new RangeError('Attempt to allocate Buffer larger than maximum size: 0x' +
+      kMaxLength.toString(16) + ' bytes')
+kMaxLength.toString(16)
+length < 0
+length >>>= 0
+Buffer.TYPED_ARRAY_SUPPORT
+self = Buffer._augment(new Uint8Array(length))
+self.length = length
+self._isBuffer = true
+Buffer.TYPED_ARRAY_SUPPORT && typeof subject.byteLength === 'number'
+isArrayish(subject)
+type === 'string'
+self.write(subject, 0, encoding)

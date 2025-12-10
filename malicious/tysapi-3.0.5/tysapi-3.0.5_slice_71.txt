@@ -1,0 +1,37 @@
+_tmp_1.initialize = <lambda>1
+tysapi.koaMiddlewares.locale(tysapi.app)
+tysapi.app.use(
+        tysapi.koaMiddlewares.i18n(tysapi.app, {
+          directory: path.resolve(
+            tysapi.config.appPath,
+            tysapi.config.paths.config,
+            'locales'
+          ),
+          locales: Object.keys(get(tysapi.config, 'locales', {})),
+          defaultLocale: tysapi.config.middleware.settings.language.defaultLocale,
+          modes: tysapi.config.middleware.settings.language.modes,
+          cookieName: tysapi.config.middleware.settings.language.cookieName,
+          extension: '.json'
+        })
+      )
+tysapi.koaMiddlewares.i18n(tysapi.app, {
+          directory: path.resolve(
+            tysapi.config.appPath,
+            tysapi.config.paths.config,
+            'locales'
+          ),
+          locales: Object.keys(get(tysapi.config, 'locales', {})),
+          defaultLocale: tysapi.config.middleware.settings.language.defaultLocale,
+          modes: tysapi.config.middleware.settings.language.modes,
+          cookieName: tysapi.config.middleware.settings.language.cookieName,
+          extension: '.json'
+        })
+_tmp_5.directory = path.resolve(
+            tysapi.config.appPath,
+            tysapi.config.paths.config,
+            'locales'
+          )
+tysapi.config.appPath
+tysapi.config.paths.config
+"locales"
+_tmp_5.locales = Object.keys(get(tysapi.config, 'locales', {}))

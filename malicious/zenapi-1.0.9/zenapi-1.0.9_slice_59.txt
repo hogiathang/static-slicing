@@ -1,0 +1,33 @@
+new Promise((resolve, reject) => {
+          // Don't load disabled hook.
+          if (this.config.hook.settings[hook].enabled === false) {
+            return resolve();
+          }
+
+          const module = this.hook[hook].load;
+
+          const hooks = Object.keys(this.hook).filter(
+            hook => this.config.hook.settings[hook].enabled !== false
+          );
+          const hooksBefore = get(this.config.hook, 'load.before', [])
+            .filter(hook => !isUndefined(this.hook[hook]))
+            .filter(hook => this.config.hook.settings[hook].enabled !== false);
+          const hooksOrder = get(this.config.hook, 'load.order', [])
+            .filter(hook => !isUndefined(this.hook[hook]))
+            .filter(hook => this.config.hook.settings[hook].enabled !== false);
+          const hooksAfter = get(this.config.hook, 'load.after', [])
+            .filter(hook => !isUndefined(this.hook[hook]))
+            .filter(hook => this.config.hook.settings[hook].enabled !== false);
+
+...
+this.config.hook.settings[hook].enabled === false
+const module = this.hook[hook].load
+const hooks = Object.keys(this.hook).filter(
+            hook => this.config.hook.settings[hook].enabled !== false
+          )
+this.config.hook.settings[hook].enabled !== false
+const hooksBefore = get(this.config.hook, 'load.before', [])
+            .filter(hook => !isUndefined(this.hook[hook]))
+            .filter(hook => this.config.hook.settings[hook].enabled !== false)
+!isUndefined(this.hook[hook])
+this.config.hook.settings[hook].enabled !== false

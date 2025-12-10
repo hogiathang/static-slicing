@@ -1,0 +1,3 @@
+_tmp_1.getResourcesByName = getResourcesByName
+const url = 'v3/resources/search?name=' + name
+const request = API.http.get(url)

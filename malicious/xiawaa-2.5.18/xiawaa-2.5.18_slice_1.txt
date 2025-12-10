@@ -1,0 +1,25 @@
+accept(request) {
+
+        const header = request.headers['accept-encoding'];
+        if (!header) {
+            return 'identity';
+        }
+
+        const common = this.#common.get(header);
+        if (common) {
+            return common;
+        }
+
+        try {
+            return Accept.encoding(header, this.encodings);
+        }
+        catch (err) {
+            Bounce.rethrow(err, 'system');
+            err.header = header;
+            request._log(['accept-encoding', 'error'], err);
+            return 'identity';
+        }
+    }
+const header = request.headers['accept-encoding']
+!header
+const common = this.#common.get(header)

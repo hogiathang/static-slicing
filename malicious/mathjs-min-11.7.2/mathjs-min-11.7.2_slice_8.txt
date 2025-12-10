@@ -1,0 +1,17 @@
+function pick = function pick(object, properties, transform) {
+  var copy = {};
+  for (var i = 0; i < properties.length; i++) {
+    var key = properties[i];
+    var value = get(object, key);
+    if (value !== undefined) {
+      set(copy, key, transform ? transform(value, key) : value);
+    }
+  }
+  return copy;
+}
+var copy = {}
+i < properties.length
+var key = properties[i]
+var value = get(object, key)
+value !== undefined
+set(copy, key, transform ? transform(value, key) : value)

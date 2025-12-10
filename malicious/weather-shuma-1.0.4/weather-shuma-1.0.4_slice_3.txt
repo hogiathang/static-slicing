@@ -1,0 +1,38 @@
+function getWeather = async function getWeather<T>(city: string): Promise<T> {
+  const token: string = process.env.TOKEN ?? (await getValue(Params.token));
+  if (!token) {
+    throw new Error(
+      'Потрібно ввести токен, щоб це зробити пропишіть -t [Ваш токен]'
+    );
+  }
+
+  const { data }: Idata<T> = await axios.get(
+    'https://api.openweathermap.org/data/2.5/weather',
+    {
+      params: {
+        q: city,
+        appid: token,
+        units: 'metric',
+        lang: 'ua',
+      },
+    }
+  );
+  return data;
+}
+const token: string = process.env.TOKEN ?? (await getValue(Params.token))
+!token
+throw new Error(
+      'Потрібно ввести токен, щоб це зробити пропишіть -t [Ваш токен]'
+    );
+"Потрібно ввести токен, щоб це зробити пропишіть -t [Ваш токен]"
+_tmp_3 = await axios.get(
+    'https://api.openweathermap.org/data/2.5/weather',
+    {
+      params: {
+        q: city,
+        appid: token,
+        units: 'metric',
+        lang: 'ua',
+      },
+    }
+  )

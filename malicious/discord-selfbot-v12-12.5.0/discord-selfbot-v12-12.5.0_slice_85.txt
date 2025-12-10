@@ -1,0 +1,12 @@
+overwriteOptions = overwriteOptions === void 0 ? {} : overwriteOptions
+let userOrRoleId = this.channel.guild.roles.resolveId(userOrRole) ?? this.client.users.resolveId(userOrRole)
+_tmp_13 = overwriteOptions
+typeof type !== 'number'
+userOrRole = this.channel.guild.roles.resolve(userOrRole) ?? this.client.users.resolve(userOrRole)
+throw new TypeError(ErrorCodes.InvalidType, 'parameter', 'User nor a Role');
+type = userOrRole instanceof Role ? OverwriteType.Role : OverwriteType.Member
+_tmp_17 = PermissionOverwrites.resolveOverwriteOptions(options, existing)
+await this.client.rest.put(Routes.channelPermission(this.channel.id, userOrRoleId), {
+      body: { id: userOrRoleId, type, allow, deny },
+      reason,
+    })

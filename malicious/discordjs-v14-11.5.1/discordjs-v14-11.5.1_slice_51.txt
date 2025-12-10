@@ -1,0 +1,110 @@
+constructor(logs, guild, data) {
+    const targetType = GuildAuditLogs.targetType(data.action_type);
+    /**
+     * The target type of this entry
+     * @type {AuditLogTargetType}
+     */
+    this.targetType = targetType;
+
+    /**
+     * The action type of this entry
+     * @type {AuditLogActionType}
+     */
+    this.actionType = GuildAuditLogs.actionType(data.action_type);
+
+    /**
+     * Specific action type of this entry in its string presentation
+     * @type {AuditLogAction}
+     */
+    this.action = Object.keys(Actions).find(k => Actions[k] === data.action_type);
+
+    /**
+     * The reason of this entry
+     * @type {?string}
+     */
+    this.reason = data.reason || null;
+
+    /**
+     * The user that executed this entry
+     * @type {User}
+     */
+    this.executor = guild.client.options.partials.includes(PartialTypes.USER)
+      ? guild.client.users.add({ id: data.user_id })
+      : guild.client.users.cache.get(data.user_id);
+
+    /**
+     * An entry in the audit log represe...
+const targetType = GuildAuditLogs.targetType(data.action_type)
+this.targetType = targetType
+this.actionType = GuildAuditLogs.actionType(data.action_type)
+this.action = Object.keys(Actions).find(k => Actions[k] === data.action_type)
+this.reason = data.reason || null
+this.executor = guild.client.options.partials.includes(PartialTypes.USER)
+      ? guild.client.users.add({ id: data.user_id })
+      : guild.client.users.cache.get(data.user_id)
+guild.client.users.add({ id: data.user_id })
+guild.client.users.cache.get(data.user_id)
+this.changes = data.changes ? data.changes.map(c => ({ key: c.key, old: c.old_value, new: c.new_value })) : null
+this.id = data.id
+this.extra = null
+data.action_type
+Actions.MEMBER_PRUNE
+this.extra = {
+          removed: Number(data.options.members_removed),
+          days: Number(data.options.delete_member_days),
+        }
+_tmp_29.removed = Number(data.options.members_removed)
+_tmp_29.days = Number(data.options.delete_member_days)
+break;
+Actions.MEMBER_MOVE
+Actions.MESSAGE_DELETE
+Actions.MESSAGE_BULK_DELETE
+this.extra = {
+          channel: guild.channels.cache.get(data.options.channel_id) || { id: data.options.channel_id },
+          count: Number(data.options.count),
+        }
+_tmp_30.channel = guild.channels.cache.get(data.options.channel_id) || { id: data.options.channel_id }
+_tmp_30.count = Number(data.options.count)
+break;
+Actions.MESSAGE_PIN
+Actions.MESSAGE_UNPIN
+this.extra = {
+          channel: guild.client.channels.cache.get(data.options.channel_id) || { id: data.options.channel_id },
+          messageID: data.options.message_id,
+        }
+_tmp_33.channel = guild.client.channels.cache.get(data.options.channel_id) || { id: data.options.channel_id }
+_tmp_33.messageID = data.options.message_id
+break;
+Actions.MEMBER_DISCONNECT
+this.extra = {
+          count: Number(data.options.count),
+        }
+_tmp_36.count = Number(data.options.count)
+break;
+Actions.CHANNEL_OVERWRITE_CREATE
+Actions.CHANNEL_OVERWRITE_UPDATE
+Actions.CHANNEL_OVERWRITE_DELETE
+data.options.type
+"member"
+this.extra = guild.members.cache.get(data.options.id) || { id: data.options.id, type: 'member' }
+break;
+"role"
+this.extra = guild.roles.cache.get(data.options.id) || {
+              id: data.options.id,
+              name: data.options.role_name,
+              type: 'role',
+            }
+_tmp_40.id = data.options.id
+_tmp_40.name = data.options.role_name
+_tmp_40.type = "role"
+break;
+default:
+break;
+break;
+default:
+break;
+this.target = null
+targetType === Targets.UNKNOWN
+targetType === Targets.USER && data.target_id
+targetType === Targets.GUILD
+this.target = guild.client.guilds.cache.get(data.target_id)

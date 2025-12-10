@@ -1,0 +1,37 @@
+new Promise((resolve, reject) => {
+      if (!channel.joinable) {
+        throw new Error('VOICE_JOIN_CHANNEL', channel.full);
+      }
+
+      let connection = this.connections.get(channel.guild.id);
+
+      if (connection) {
+        if (connection.channel.id !== channel.id) {
+          this.connections.get(channel.guild.id).updateChannel(channel);
+        }
+        resolve(connection);
+        return;
+      } else {
+        connection = new VoiceConnection(this, channel);
+        connection.on('debug', msg =>
+          this.client.emit('debug', `[VOICE (${channel.guild.id}:${connection.status})]: ${msg}`),
+        );
+        connection.authenticate();
+        this.connections.set(channel.guild.id, connection);
+      }
+
+      connection.once('failed', reason => {
+        this.connections.delete(channel.guild.id);
+        reject(reason);
+      });
+
+      connection.on('error', reject);
+
+      connection.once('authenticated', () => {
+        connection.once('ready', () => {
+          re...
+!channel.joinable
+throw new Error('VOICE_JOIN_CHANNEL', channel.full);
+let connection = this.connections.get(channel.guild.id)
+connection.channel.id !== channel.id
+(_tmp_14 = this.connections.get(channel.guild.id)).updateChannel

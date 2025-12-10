@@ -1,0 +1,35 @@
+exports.findUsersByAccounts = function (accounts, callback) {
+  var url = '/userQuery/findUsers/byAccounts.json?containDetail=false&containUserAppProfiles=false&';
+  url += accounts.map(function (account) {
+    return 'accounts=' + account;
+  }).join('&');
+  var args = {
+    type: 'GET',
+    dataType: 'json',
+  };
+  request(url, args, function (err, content) {
+    if (err || !content) {
+      return callback(err, content);
+    }
+    var users = content || {};
+    callback(null, users);
+  });
+}
+var url = '/userQuery/findUsers/byAccounts.json?containDetail=false&containUserAppProfiles=false&'
+url += accounts.map(function (account) {
+    return 'accounts=' + account;
+  }).join('&')
+join
+var args = {
+    type: 'GET',
+    dataType: 'json',
+  }
+_tmp_12.type = "GET"
+_tmp_12.dataType = "json"
+request(url, args, function (err, content) {
+    if (err || !content) {
+      return callback(err, content);
+    }
+    var users = content || {};
+    callback(null, users);
+  })

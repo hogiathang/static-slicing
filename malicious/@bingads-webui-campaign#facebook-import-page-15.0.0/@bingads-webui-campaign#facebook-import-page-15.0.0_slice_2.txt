@@ -1,0 +1,10 @@
+_tmp_10.set = <lambda>6
+var options = elem.options
+var values = jQuery.makeArray( value )
+var i = options.length
+i--
+option = options[ i ]
+option.selected =
+						jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
+jQuery.inArray( jQuery.valHooks.option.get( option ), values ) > -1
+optionSet = true

@@ -1,0 +1,20 @@
+config.out = function( compiled ) {
+                compiled = compiled
+                    // Embed Version
+                    .replace( /@VERSION/g, version )
+                    // Embed Date
+                    // yyyy-mm-ddThh:mmZ
+                    .replace( /@DATE/g, ( new Date() ).toISOString().replace( /:\d+\.\d+Z$/, "Z" ) );
+
+                // Write concatenated source to file
+                grunt.file.write( name, compiled );
+            }
+compiled = compiled
+                    // Embed Version
+                    .replace( /@VERSION/g, version )
+                    // Embed Date
+                    // yyyy-mm-ddThh:mmZ
+                    .replace( /@DATE/g, ( new Date() ).toISOString().replace( /:\d+\.\d+Z$/, "Z" ) )
+/@VERSION/g
+( new Date() ).toISOString().replace( /:\d+\.\d+Z$/, "Z" )
+grunt.file.write( name, compiled )

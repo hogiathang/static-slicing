@@ -1,0 +1,3 @@
+_tmp_1.getGlobal = <lambda>2
+const url = 'v3/resources/' + resourceId
+const request = API.http.get(url)

@@ -1,0 +1,27 @@
+_removeReaction(emoji, user) {
+    const emojiID = emoji.id ? `${emoji.name}:${emoji.id}` : emoji.name;
+    if (this.reactions.has(emojiID)) {
+      const reaction = this.reactions.get(emojiID);
+      if (!user) {
+        this.reactions.delete(emojiID);
+        return reaction;
+      }
+      if (reaction.users.has(user.id)) {
+        reaction.users.delete(user.id);
+        reaction.count--;
+        if (user.id === this.client.user.id) reaction.me = false;
+        if (reaction.count <= 0) this.reactions.delete(emojiID);
+        return reaction;
+      }
+    }
+    return null;
+  }
+emoji.id ? <operator>.formatString("", emoji.name, ":", emoji.id, "") : emoji.name
+(_tmp_94 = this.reactions).has
+const reaction = this.reactions.get(emojiID)
+!user
+(_tmp_97 = reaction.users).has
+(_tmp_98 = reaction.users).delete
+reaction.count--
+user.id === this.client.user.id
+(_tmp_99 = this.reactions).delete

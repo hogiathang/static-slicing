@@ -1,0 +1,2 @@
+_tmp_1.sendCouponLostMail = <lambda>5
+const request = API.http.post(`/v3/establishments/${establishmentId}/couponLost`, params)

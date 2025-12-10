@@ -1,0 +1,9 @@
+_send(data) {
+    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+      this.debug(`Tried to send packet ${data} but no WebSocket is available!`);
+      return;
+    }
+    this.ws.send(WebSocket.pack(data));
+  }
+!this.ws || this.ws.readyState !== WebSocket.OPEN
+this.ws.send(WebSocket.pack(data))

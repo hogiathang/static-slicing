@@ -1,0 +1,3 @@
+session_id = param1_1.session_id
+const connection = this.connections.get(guild_id)
+connection.channel = this.client.channels.get(channel_id)

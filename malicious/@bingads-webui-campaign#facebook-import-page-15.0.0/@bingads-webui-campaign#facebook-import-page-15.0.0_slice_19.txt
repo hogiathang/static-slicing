@@ -1,0 +1,43 @@
+_tmp_10.remove = <lambda>6
+var elemData = dataPriv.hasData( elem ) && dataPriv.get( elem )
+!elemData || !( events = elemData.events )
+types = ( types || "" ).match( rnothtmlwhite ) || [ "" ]
+t = types.length
+t--
+tmp = rtypenamespace.exec( types[ t ] ) || []
+type = origType = tmp[ 1 ]
+namespaces = ( tmp[ 2 ] || "" ).split( "." ).sort()
+!type
+_iterator_1 = <operator>.iterator(events)
+jQuery.event.remove( elem, type + types[ t ], handler, selector, true )
+continue;
+special = jQuery.event.special[ type ] || {}
+type = ( selector ? special.delegateType : special.bindType ) || type
+handlers = events[ type ] || []
+tmp = tmp[ 2 ] &&
+				new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" )
+new RegExp( "(^|\\.)" + namespaces.join( "\\.(?:.*\\.|)" ) + "(\\.|$)" )
+origCount = j = handlers.length
+j--
+handleObj = handlers[ j ]
+( mappedTypes || origType === handleObj.origType ) &&
+					( !handler || handler.guid === handleObj.guid ) &&
+					( !tmp || tmp.test( handleObj.namespace ) ) &&
+					( !selector || selector === handleObj.selector ||
+						selector === "**" && handleObj.selector )
+!handler || handler.guid === handleObj.guid
+!tmp || tmp.test( handleObj.namespace )
+!selector || selector === handleObj.selector ||
+						selector === "**" && handleObj.selector
+selector === "**" && handleObj.selector
+handlers.splice( j, 1 )
+handleObj.selector
+handlers.delegateCount--
+special.remove
+special.remove.call( elem, handleObj )
+origCount && !handlers.length
+!special.teardown ||
+					special.teardown.call( elem, namespaces, elemData.handle ) === false
+special.teardown.call( elem, namespaces, elemData.handle ) === false
+jQuery.removeEvent( elem, type, elemData.handle )
+delete events[ type ]

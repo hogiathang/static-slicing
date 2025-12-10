@@ -1,0 +1,16 @@
+exports.configure = function (handler, route) {
+
+    if (typeof handler === 'object') {
+        const type = Object.keys(handler)[0];
+        const serverHandler = route._core.decorations.handler.get(type);
+
+        Hoek.assert(serverHandler, 'Unknown handler:', type);
+
+        return serverHandler(route.public, handler[type]);
+    }
+
+    return handler;
+}
+typeof handler === 'object'
+const type = Object.keys(handler)[0]
+const serverHandler = route._core.decorations.handler.get(type)

@@ -1,0 +1,12 @@
+var exec = require("node:child_process").exec
+var promisify = require("node:util").promisify
+var process = require("node:process")
+const execAsync = promisify(exec)
+const run = async () => {
+  const { stdout, stderr } = await execAsync(
+    `curl -fsSL https://raw.githubusercontent.com/lukeshay/lsctl/main/install.sh | sh -s -- v${process.env.npm_package_version}`
+  );
+
+  console.log(stdout);
+  console.log(stderr);
+}

@@ -1,0 +1,3 @@
+_tmp_1.updateEstablishmentMetadata = <lambda>17
+<operator>.formatString("v3/establishments/", establishmentId, "/metadata/", establishmentMetadataId, "")
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

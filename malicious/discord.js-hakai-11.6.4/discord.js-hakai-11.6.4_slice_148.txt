@@ -1,0 +1,8 @@
+deleteEmoji(emoji, reason) {
+    if (typeof emoji === 'string') emoji = this.emojis.get(emoji);
+    if (!(emoji instanceof Emoji)) throw new TypeError('Emoji must be either an instance of Emoji or an ID');
+    return emoji.delete(reason);
+  }
+emoji = this.emojis.get(emoji)
+throw new TypeError('Emoji must be either an instance of Emoji or an ID');
+emoji.delete(reason)

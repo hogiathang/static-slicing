@@ -1,0 +1,7 @@
+_tmp_4.data = <lambda>6
+var elem = this[ 0 ]
+var attrs = elem && elem.attributes
+key === undefined
+this.length
+data = dataUser.get( elem )
+elem.nodeType === 1 && !dataPriv.get( elem, "hasDataAttrs" )

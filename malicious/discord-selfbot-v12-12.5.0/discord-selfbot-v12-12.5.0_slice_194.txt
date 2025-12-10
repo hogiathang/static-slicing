@@ -1,0 +1,15 @@
+async delete(command, guildId) {
+    const id = this.resolveId(command);
+    if (!id) throw new TypeError(ErrorCodes.InvalidType, 'command', 'ApplicationCommandResolvable');
+
+    await this.client.rest.delete(this.commandPath({ id, guildId }));
+
+    const cached = this.cache.get(id);
+    this.cache.delete(id);
+    return cached ?? null;
+  }
+const id = this.resolveId(command)
+throw new TypeError(ErrorCodes.InvalidType, 'command', 'ApplicationCommandResolvable');
+await this.client.rest.delete(this.commandPath({ id, guildId }))
+const cached = this.cache.get(id)
+(_tmp_41 = this.cache).delete

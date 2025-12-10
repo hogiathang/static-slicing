@@ -1,0 +1,45 @@
+const configuratePlugin = (acc, current, source, name) => {
+    switch (source) {
+      case 'host': {
+        let host;
+
+        try {
+          host = _.get(this.config.environments[current].server, 'admin.build.host').replace(/\/$/, '') || '/';
+
+        } catch (e) {
+          throw new Error("You can't use `remote` as a source without set the `host` configuration.");
+        }
+
+        const folder = _.get(this.config.environments[current].server, 'admin.build.plugins.folder', null);
+
+        if (_.isString(folder)) {
+          const cleanFolder = folder[0] === '/' ? folder.substring(1) : folder;
+
+          return `/${host}/${cleanFolder}/${name}/main.js`.replace('//', '/');
+        }
+
+        return `/${host}/${name}/main.js`.replace('//', '/');
+      }
+
+      case 'custom':
+        if (!_.isEmpty(_.get(this.plugins[name].config, `sources.${current}`, {}))) {
+          return (acc[current] = this.plugins[name].config.sources[current]);
+        }
+
+        throw new Error(
+          'Y...
+"custom"
+!_.isEmpty(_.get(this.plugins[name].config, `sources.${current}`, {}))
+throw new Error(
+          'You have to define the source URL for each environment in `./plugins/**/config/sources.json`'
+        );
+"You have to define the source URL for each environment in `./plugins/**/config/sources.json`"
+"backend"
+const backend = _.get(
+          this.config.environments[current],
+          'server.admin.build.backend',
+          `http://${this.config.environments[current].server.host}:${
+            this.config.environments[current].server.port
+          }`,
+        ).replace(/\/$/, '')
+this.config.environments[current]

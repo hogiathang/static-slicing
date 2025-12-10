@@ -1,0 +1,15 @@
+speaking = param1_1.speaking
+speaking = Boolean(speaking)
+const guild = this.channel.guild
+const user = this.client.users.get(user_id)
+this.ssrcMap.set(+ssrc, user_id)
+const old = this._speaking.get(user_id)
+this._speaking.set(user_id, speaking)
+this.status === VoiceStatus.CONNECTED
+this.emit('speaking', user, speaking)
+!speaking
+_iterator_1 = <operator>.iterator(this.receivers)
+(_tmp_43 = receiver.packets)._stoppedSpeaking
+guild && user && old !== speaking
+const member = guild.member(user)
+this.client.emit(Events.GUILD_MEMBER_SPEAKING, member, speaking)

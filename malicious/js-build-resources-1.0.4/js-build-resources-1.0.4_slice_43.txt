@@ -1,0 +1,24 @@
+function getAppSettings = async function getAppSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const status = validateRequestParams(request, OperationType.GET);
+    if (status === undefined) {
+      const appId: string = request.params.appID;
+      const { settingName } = request.params;
+
+      logger.debug(`${CLASS_NAME} | ${getAppSettings.name}() | Getting App Settings`);
+
+      const result = await settingsRepo.getAppSettings(appId, settingName);
+      return response.send(200, result);
+    }
+    return response.send(400, { code: 400, message: status });
+  } catch (err) {
+    return response.send(500, { code: 500, message: 'Unable to fetch app settings' });
+  }
+}
+const status = validateRequestParams(request, OperationType.GET)
+status === undefined
+const appId: string = request.params.appID
+settingName = _tmp_2.settingName
+<operator>.formatString("", CLASS_NAME, " | ", getAppSettings.name, "() | Getting App Settings")
+const result = await settingsRepo.getAppSettings(appId, settingName)
+response.send(200, result)

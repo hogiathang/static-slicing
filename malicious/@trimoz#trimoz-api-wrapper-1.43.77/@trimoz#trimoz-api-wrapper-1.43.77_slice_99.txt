@@ -1,0 +1,25 @@
+gapHeadOfficeId = gapHeadOfficeId === void 0 ? null : gapHeadOfficeId
+const url = 'v3/establishments/' + establishmentId +
+                '/schedules/day?dateStart=' + dateStart +
+                '&dateStop=' + dateStop +
+                '&service=' + service +
+                (clientTimeZone ? '&timezone=' + clientTimeZone : '') +
+                (place ? '&places=' + place : '') +
+                (filters ? (filters[0] !== null ? '&filter1=' + filters[0] : '') +
+                (filters[1] !== null ? '&filter2=' + filters[1] : '') +
+                (filters[2] !== null ? '&filter3=' + filters[2] : '') : '')+
+                '&gapMode='+ gapMode +
+                ((gapMode && gapHeadOfficeId) ? '&gapHeadOfficeId='+ gapHeadOfficeId : '')
+"/schedules/day?dateStart="
+"&dateStop="
+"&service="
+clientTimeZone ? '&timezone=' + clientTimeZone : ""
+place ? '&places=' + place : ""
+filters ? (filters[0] !== null ? '&filter1=' + filters[0] : '') +
+                (filters[1] !== null ? '&filter2=' + filters[1] : '') +
+                (filters[2] !== null ? '&filter3=' + filters[2] : '') : ""
+filters[1] !== null ? '&filter2=' + filters[1] : ""
+filters[2] !== null ? '&filter3=' + filters[2] : ""
+"&gapMode="
+gapMode && gapHeadOfficeId ? '&gapHeadOfficeId='+ gapHeadOfficeId : ""
+const request = API.http.get(url)

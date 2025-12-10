@@ -1,0 +1,6 @@
+this.send(message).catch(err => {
+      err.message = `Error when sending ${type} response to master process: ${err.message}`;
+      this.client.emit(Events.ERROR, err);
+    })
+<operator>.formatString("Error when sending ", type, " response to master process: ", err.message, "")
+this.client.emit(Events.ERROR, err)

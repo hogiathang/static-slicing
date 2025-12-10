@@ -1,0 +1,42 @@
+function postUserSettings = async function postUserSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const status = validateRequestParams(request);
+    if (status === undefined) {
+      const userId: string = request.params.userID;
+      const appId: string = request.params.appID;
+
+      const result = {};
+
+      logger.debug(`${CLASS_NAME} | ${postUserSettings.name}() | Updating User Settings`);
+      const authenticatedUser: string | undefined = _.toUpper(request.username);
+
+      if (authenticatedUser && userId && authenticatedUser !== _.toUpper(userId)) {
+        logger.warn(
+          `${CLASS_NAME} | ${postUserSettings.name}() | Authenticated user is trying to update other person details.`,
+        );
+        return response.send(403, {
+          code: 403,
+          message: `Forbidden: You are not allowed to update settings details of others.`,
+        });
+      }
+
+      const filter = await settingsRepo.getAppSettings(appId, undefined);
+      // const filter = { general: ...
+const status = validateRequestParams(request)
+status === undefined
+const userId: string = request.params.userID
+const appId: string = request.params.appID
+const result = {}
+<operator>.formatString("", CLASS_NAME, " | ", postUserSettings.name, "() | Updating User Settings")
+const authenticatedUser: string | undefined = _.toUpper(request.username)
+authenticatedUser && userId && authenticatedUser !== _.toUpper(userId)
+logger.warn(
+          `${CLASS_NAME} | ${postUserSettings.name}() | Authenticated user is trying to update other person details.`,
+        )
+<operator>.formatString("", CLASS_NAME, " | ", postUserSettings.name, "() | Authenticated user is trying to update other person details.")
+response.send(403, {
+          code: 403,
+          message: `Forbidden: You are not allowed to update settings details of others.`,
+        })
+_tmp_6.code = 403
+_tmp_6.message = "Forbidden: You are not allowed to update settings details of others."

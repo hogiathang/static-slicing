@@ -1,0 +1,24 @@
+handle(data) {
+    const client = this.client;
+
+    const channel = client.channels.get(data.id);
+    if (channel) {
+      const oldChannel = Util.cloneObject(channel);
+      channel.setup(data);
+      client.emit(Constants.Events.CHANNEL_UPDATE, oldChannel, channel);
+      return {
+        old: oldChannel,
+        updated: channel,
+      };
+    }
+
+    return {
+      old: null,
+      updated: null,
+    };
+  }
+const client = this.client
+const channel = client.channels.get(data.id)
+const oldChannel = Util.cloneObject(channel)
+channel.setup(data)
+client.emit(Constants.Events.CHANNEL_UPDATE, oldChannel, channel)

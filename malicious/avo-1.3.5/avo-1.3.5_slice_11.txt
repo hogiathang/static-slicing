@@ -1,0 +1,35 @@
+new Promise(function(resolve, reject) {
+    var req = request(options, function(err, response, body) {
+      if (err) {
+        return reject(
+          new AvoError('Server Error. ' + err.message, {
+            original: err,
+            exit: 2
+          })
+        );
+      }
+
+      if (response.statusCode >= 400 && !logOptions.skipResponseBody) {
+        if (!options.resolveOnHTTPError) {
+          return reject(responseToError(response, body, options));
+        }
+      }
+
+      return resolve({
+        status: response.statusCode,
+        response: response,
+        body: body
+      });
+    });
+
+    if (_.size(options.files) > 0) {
+      var form = req.form();
+      _.forEach(options.files, function(details, param) {
+        form.append(param, details.stream, {
+          knownLength: details.knownLength,
+          filename: details.filename,
+          contentType: details.contentType
+        });
+      });
+    }
+  })

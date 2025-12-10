@@ -1,0 +1,9 @@
+reset() {
+    if (this.ws) {
+      if (this.ws.readyState !== WebSocket.CLOSED) this.ws.close();
+      this.ws = null;
+    }
+    this.clearHeartbeat();
+  }
+this.ws
+this.ws.readyState !== WebSocket.CLOSED

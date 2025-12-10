@@ -1,0 +1,18 @@
+rolePermissions(role, checkAdmin) {
+    if (checkAdmin && role.permissions.has(PermissionFlagsBits.Administrator)) {
+      return new PermissionsBitField(PermissionsBitField.All).freeze();
+    }
+
+    const everyoneOverwrites = this.permissionOverwrites.cache.get(this.guild.id);
+    const roleOverwrites = this.permissionOverwrites.cache.get(role.id);
+
+    return role.permissions
+      .remove(everyoneOverwrites?.deny ?? PermissionsBitField.DefaultBit)
+      .add(everyoneOverwrites?.allow ?? PermissionsBitField.DefaultBit)
+      .remove(roleOverwrites?.deny ?? PermissionsBitField.DefaultBit)
+      .add(roleOverwrites?.allow ?? PermissionsBitField.DefaultBit)
+      .freeze();
+  }
+checkAdmin && role.permissions.has(PermissionFlagsBits.Administrator)
+const everyoneOverwrites = this.permissionOverwrites.cache.get(this.guild.id)
+const roleOverwrites = this.permissionOverwrites.cache.get(role.id)

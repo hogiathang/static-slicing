@@ -1,0 +1,6 @@
+withSettings = withSettings === void 0 ? false : withSettings
+<operator>.formatString("v3/establishments/", establishmentId, "/services")
+<operator>.formatString("?settings=", withSettings, "")
+<operator>.formatString("", withSettings ? '&' : '?', "module=", module, "")
+<operator>.formatString("", module || withSettings ? '&' : '?', "ignorePrest=", ignorePrest, "")
+const request = API.http.get(url)

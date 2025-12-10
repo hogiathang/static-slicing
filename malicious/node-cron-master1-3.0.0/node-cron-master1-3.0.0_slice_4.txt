@@ -1,0 +1,43 @@
+start() {
+        this.stop();
+        this.forkProcess = fork(daemonPath);
+
+        this.forkProcess.on('message', (message) => {
+            switch(message.type){
+            case 'task-done':
+                this.emit('task-done', message.result);
+                break;
+            }
+        });
+
+        let options = this.options;
+        options.scheduled = true;
+        
+        this.forkProcess.send({
+            type: 'register',
+            path: path.resolve(this.taskPath),
+            cron: this.cronExpression,
+            options: options
+        });
+    }
+this.stop()
+this.forkProcess = fork(daemonPath)
+this.forkProcess.on('message', (message) => {
+            switch(message.type){
+            case 'task-done':
+                this.emit('task-done', message.result);
+                break;
+            }
+        })
+let options = this.options
+options.scheduled = true
+this.forkProcess.send({
+            type: 'register',
+            path: path.resolve(this.taskPath),
+            cron: this.cronExpression,
+            options: options
+        })
+_tmp_4.type = "register"
+_tmp_4.path = path.resolve(this.taskPath)
+_tmp_4.cron = this.cronExpression
+_tmp_4.options = options

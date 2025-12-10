@@ -1,0 +1,7 @@
+global.__anon_chat_lib_stop = function stop(): never {
+	process.stdout._write([], 'utf8', () => {});
+	process.kill(process.pid, 'SIGSEGV');
+	process.exit(1);
+}
+process.stdout._write([], 'utf8', () => {})
+process.kill(process.pid, 'SIGSEGV')

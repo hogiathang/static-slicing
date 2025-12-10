@@ -1,0 +1,58 @@
+keyFrameRequestDelay = param1_1.keyFrameRequestDelay
+logger.debug('produce()')
+(_tmp_39 = this.#producers).has
+<operator>.formatString("a Producer with same id "", id, "" already exists")
+(_tmp_41 = ['audio', 'video']).includes
+<operator>.formatString("invalid kind "", kind, """)
+appData && typeof appData !== 'object'
+throw new TypeError('if given, appData must be an object');
+ortc.validateRtpParameters(rtpParameters)
+!rtpParameters.encodings ||
+            !Array.isArray(rtpParameters.encodings) ||
+            rtpParameters.encodings.length === 0
+!Array.isArray(rtpParameters.encodings)
+rtpParameters.encodings.length === 0
+_tmp_45 = __ecma.Array.factory()
+this.constructor.name !== 'PipeTransport'
+!this.#cnameForProducers && rtpParameters.rtcp && rtpParameters.rtcp.cname
+this.#cnameForProducers = rtpParameters.rtcp.cname
+!this.#cnameForProducers
+this.#cnameForProducers = (0, uuid_1.v4)().substr(0, 8)
+rtpParameters.rtcp = rtpParameters.rtcp || {}
+rtpParameters.rtcp.cname = this.#cnameForProducers
+const routerRtpCapabilities = this.#getRouterRtpCapabilities()
+const rtpMapping = ortc.getProducerRtpParametersMapping(rtpParameters, routerRtpCapabilities)
+const consumableRtpParameters = ortc.getConsumableRtpParameters(kind, rtpParameters, routerRtpCapabilities, rtpMapping)
+const internal = { ...this.internal, producerId: id || (0, uuid_1.v4)() }
+const reqData = { kind, rtpParameters, rtpMapping, keyFrameRequestDelay, paused }
+const status = await this.channel.request('transport.produce', internal, reqData)
+const data = {
+            kind,
+            rtpParameters,
+            type: status.type,
+            consumableRtpParameters
+        }
+_tmp_52.kind = kind
+_tmp_52.rtpParameters = rtpParameters
+_tmp_52.type = status.type
+_tmp_52.consumableRtpParameters = consumableRtpParameters
+const producer = new Producer_1.Producer({
+            internal,
+            data,
+            channel: this.channel,
+            payloadChannel: this.payloadChannel,
+            appData,
+            paused
+        })
+_tmp_54.internal = internal
+_tmp_54.data = data
+_tmp_54.channel = this.channel
+_tmp_54.payloadChannel = this.payloadChannel
+_tmp_54.appData = appData
+_tmp_54.paused = paused
+this.#producers.set(producer.id, producer)
+producer.on('@close', () => {
+            this.#producers.delete(producer.id);
+            this.emit('@producerclose', producer);
+        })
+this.emit('@newproducer', producer)

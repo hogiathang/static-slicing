@@ -1,0 +1,30 @@
+options = options === void 0 ? {} : options
+super()
+options.shardId = Number(process.env.SHARD_ID)
+options.shardCount = Number(process.env.SHARD_COUNT)
+this.options = Util.mergeDefault(Constants.DefaultOptions, options)
+this._validateOptions()
+this.rest = new RESTManager(this)
+this.dataManager = new ClientDataManager(this)
+this.manager = new ClientManager(this)
+this.ws = new WebSocketManager(this)
+this.resolver = new ClientDataResolver(this)
+this.actions = new ActionsManager(this)
+this.voice = !this.browser ? new ClientVoiceManager(this) : null
+this.shard = process.send ? ShardClientUtil.singleton(this) : null
+this.users = new Collection()
+this.guilds = new Collection()
+this.channels = new Collection()
+this.presences = new Collection()
+Object.defineProperty(this, 'token', { writable: true })
+!this.token && 'CLIENT_TOKEN' in process.env
+this.token = process.env.CLIENT_TOKEN
+this.token = null
+this.user = null
+this.readyAt = null
+__ecma.Array.factory()
+__ecma.Array.factory()
+this._timeouts = new Set()
+this._intervals = new Set()
+this.options.messageSweepInterval > 0
+this.setInterval(this.sweepMessages.bind(this), this.options.messageSweepInterval * 1000)

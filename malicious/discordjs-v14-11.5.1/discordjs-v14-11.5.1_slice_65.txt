@@ -1,0 +1,6 @@
+typingDurationIn(channel) {
+    channel = this.client.channels.resolve(channel);
+    return channel._typing.has(this.id) ? channel._typing.get(this.id).elapsedTime : -1;
+  }
+channel = this.client.channels.resolve(channel)
+channel._typing.has(this.id) ? channel._typing.get(this.id).elapsedTime : -1

@@ -1,0 +1,9 @@
+_setPresence(id, presence) {
+    if (this.presences.get(id)) {
+      this.presences.get(id).update(presence);
+      return;
+    }
+    this.presences.set(id, new Presence(presence, this.client));
+  }
+(_tmp_141 = this.presences).get
+(_tmp_142 = this.presences.get(id)).update

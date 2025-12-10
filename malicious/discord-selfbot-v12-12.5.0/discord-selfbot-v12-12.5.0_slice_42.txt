@@ -1,0 +1,8 @@
+parent = param3_0.parent
+const threads = rawThreads.threads.reduce((coll, raw) => {
+      const thread = client.channels._add(raw, guild ?? parent?.guild, { cache });
+      if (parent && thread.parentId !== parent.id) return coll;
+      return coll.set(thread.id, thread);
+    }, new Collection())
+_tmp_36 = .alloc
+client.channels.cache.get(rawMember.id)?.members._add(rawMember)

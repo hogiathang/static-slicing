@@ -1,0 +1,3 @@
+_tmp_1.deleteHeadOfficeBankNote = <lambda>15
+<operator>.formatString("v3/headOffices/", headOfficeId, "/banks/", bankId, "/note/", noteId, "")
+const request = API.http.delete(url)

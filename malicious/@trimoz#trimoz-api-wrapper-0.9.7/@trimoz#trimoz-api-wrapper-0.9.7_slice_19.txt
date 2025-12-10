@@ -1,0 +1,4 @@
+ignorePrest = ignorePrest === void 0 ? false : ignorePrest
+<operator>.formatString("v3/establishments/", establishmentId, "/places")
+<operator>.formatString("?ignorePrest=", ignorePrest, "")
+const request = API.http.get(url)

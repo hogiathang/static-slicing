@@ -1,0 +1,44 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const data = packet.d;
+    let user = client.users.get(data.user.id);
+    const guild = client.guilds.get(data.guild_id);
+
+    // Step 1
+    if (!user) {
+      if (data.user.username) {
+        user = client.dataManager.newUser(data.user);
+      } else {
+        return;
+      }
+    }
+
+    const oldUser = Util.cloneObject(user);
+    user.patch(data.user);
+    if (!user.equals(oldUser)) {
+      client.emit(Constants.Events.USER_UPDATE, oldUser, user);
+    }
+
+    if (guild) {
+      let member = guild.members.get(user.id);
+      if (!member && data.status !== 'offline') {
+        member = guild._addMember({
+          user,
+          roles: data.roles,
+          deaf: false,
+          mute: false,
+        }, false);
+        client.emit(Constants.Events.GUILD_MEMBER_AVAILABLE, member);
+      }
+      if (member) {
+        if (client.listenerCount(Constants.Events.PRESENCE_UPDATE) === 0) {
+          guild._setPresence(user.i...
+const client = this.packetManager.client
+const data = packet.d
+let user = client.users.get(data.user.id)
+const guild = client.guilds.get(data.guild_id)
+!user
+data.user.username
+user = client.dataManager.newUser(data.user)
+const oldUser = Util.cloneObject(user)
+user.patch(data.user)

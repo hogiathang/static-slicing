@@ -1,0 +1,15 @@
+function logout = function logout(refreshToken) {
+  if (lastAccessToken.refreshToken === refreshToken) {
+    lastAccessToken = {};
+  }
+  var tokens = conf.get('tokens');
+  var currentToken = _.get(tokens, 'refreshToken');
+  if (refreshToken === currentToken) {
+    conf.delete('user');
+    conf.delete('tokens');
+  }
+}
+lastAccessToken.refreshToken === refreshToken
+lastAccessToken = {}
+var tokens = conf.get('tokens')
+var currentToken = _.get(tokens, 'refreshToken')

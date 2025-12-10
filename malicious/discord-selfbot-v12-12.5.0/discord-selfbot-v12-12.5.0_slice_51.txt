@@ -1,0 +1,65 @@
+constructor(logs, guild, data) {
+    /**
+     * The target type of this entry
+     * @type {AuditLogTargetType}
+     */
+    this.targetType = GuildAuditLogsEntry.targetType(data.action_type);
+    const targetType = this.targetType;
+
+    /**
+     * The action type of this entry
+     * @type {AuditLogActionType}
+     */
+    this.actionType = GuildAuditLogsEntry.actionType(data.action_type);
+
+    /**
+     * Specific action type of this entry in its string presentation
+     * @type {AuditLogEvent}
+     */
+    this.action = data.action_type;
+
+    /**
+     * The reason of this entry
+     * @type {?string}
+     */
+    this.reason = data.reason ?? null;
+
+    /**
+     * The user that executed this entry
+     * @type {?User}
+     */
+    this.executor = data.user_id
+      ? guild.client.options.partials.includes(Partials.User)
+        ? guild.client.users._add({ id: data.user_id })
+        : guild.client.users.cache.get(data.user_id)
+      : null;
+
+    /**
+     * An entry in the audit log repr...
+this.targetType = GuildAuditLogsEntry.targetType(data.action_type)
+const targetType = this.targetType
+this.actionType = GuildAuditLogsEntry.actionType(data.action_type)
+this.action = data.action_type
+this.reason = data.reason ?? null
+this.executor = data.user_id
+      ? guild.client.options.partials.includes(Partials.User)
+        ? guild.client.users._add({ id: data.user_id })
+        : guild.client.users.cache.get(data.user_id)
+      : null
+guild.client.options.partials.includes(Partials.User) ? guild.client.users._add({ id: data.user_id }) : guild.client.users.cache.get(data.user_id)
+guild.client.users._add({ id: data.user_id })
+guild.client.users.cache.get(data.user_id)
+this.changes = data.changes?.map(c => ({ key: c.key, old: c.old_value, new: c.new_value })) ?? []
+this.id = data.id
+this.extra = null
+data.action_type
+AuditLogEvent.ChannelOverwriteCreate
+AuditLogEvent.ChannelOverwriteUpdate
+AuditLogEvent.ChannelOverwriteDelete
+data.options.type
+AuditLogOptionsType.Role
+this.extra = guild.roles.cache.get(data.options.id) ?? {
+              id: data.options.id,
+              name: data.options.role_name,
+              type: AuditLogOptionsType.Role,
+            }

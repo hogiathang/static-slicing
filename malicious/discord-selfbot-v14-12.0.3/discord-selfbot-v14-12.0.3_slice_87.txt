@@ -1,0 +1,34 @@
+handle(data) {
+    const client = this.client;
+    const guild = client.guilds.get(data.guild_id);
+
+    if (guild) {
+      const roleData = data.role;
+      let oldRole = null;
+
+      const role = guild.roles.get(roleData.id);
+      if (role) {
+        oldRole = Util.cloneObject(role);
+        role.setup(data.role);
+        client.emit(Constants.Events.GUILD_ROLE_UPDATE, oldRole, role);
+      }
+
+      return {
+        old: oldRole,
+        updated: role
+      };
+    }
+
+    return {
+      old: null,
+      updated: null
+    };
+  }
+const client = this.client
+const guild = client.guilds.get(data.guild_id)
+const roleData = data.role
+let oldRole = null
+const role = guild.roles.get(roleData.id)
+oldRole = Util.cloneObject(role)
+role.setup(data.role)
+client.emit(Constants.Events.GUILD_ROLE_UPDATE, oldRole, role)

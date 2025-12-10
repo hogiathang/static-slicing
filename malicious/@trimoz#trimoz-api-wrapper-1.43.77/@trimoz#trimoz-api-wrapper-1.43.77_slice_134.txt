@@ -1,0 +1,3 @@
+_tmp_1.assignServicesAndResources = <lambda>1
+<operator>.formatString("v3/establishments/", establishmentId, "/places/resources/services/assign?filters=", filters, "")
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

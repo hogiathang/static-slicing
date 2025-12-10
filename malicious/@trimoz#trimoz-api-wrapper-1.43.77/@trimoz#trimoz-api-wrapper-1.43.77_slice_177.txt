@@ -1,0 +1,3 @@
+_tmp_1.sendMessage = sendMessage
+<operator>.formatString("v3/establishments/", establishmentId, "/appointments/", appointmentId, "/message/", messageType, "/", configurationMessage, "")
+const request = API.http.post(url)

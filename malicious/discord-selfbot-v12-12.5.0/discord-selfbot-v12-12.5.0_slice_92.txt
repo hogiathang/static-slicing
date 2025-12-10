@@ -1,0 +1,103 @@
+async create({
+    name,
+    afkChannelId,
+    afkTimeout,
+    channels = [],
+    defaultMessageNotifications,
+    explicitContentFilter,
+    icon = null,
+    roles = [],
+    systemChannelId,
+    systemChannelFlags,
+    verificationLevel,
+  }) {
+    icon = await DataResolver.resolveImage(icon);
+
+    for (const channel of channels) {
+      channel.parent_id = channel.parentId;
+      delete channel.parentId;
+      channel.user_limit = channel.userLimit;
+      delete channel.userLimit;
+      channel.rate_limit_per_user = channel.rateLimitPerUser;
+      delete channel.rateLimitPerUser;
+      channel.rtc_region = channel.rtcRegion;
+      delete channel.rtcRegion;
+      channel.video_quality_mode = channel.videoQualityMode;
+      delete channel.videoQualityMode;
+
+      if (!channel.permissionOverwrites) continue;
+      for (const overwrite of channel.permissionOverwrites) {
+        overwrite.allow &&= PermissionsBitField.resolve(overwrite.allow).toString();
+        overwrite.deny &&= Perm...
+name = param1_0.name
+afkChannelId = param1_0.afkChannelId
+afkTimeout = param1_0.afkTimeout
+channels = param1_0.channels
+defaultMessageNotifications = param1_0.defaultMessageNotifications
+explicitContentFilter = param1_0.explicitContentFilter
+icon = param1_0.icon
+roles = param1_0.roles
+systemChannelId = param1_0.systemChannelId
+systemChannelFlags = param1_0.systemChannelFlags
+verificationLevel = param1_0.verificationLevel
+icon = await DataResolver.resolveImage(icon)
+_iterator_0 = <operator>.iterator(channels)
+channel.parent_id = channel.parentId
+delete channel.parentId
+channel.user_limit = channel.userLimit
+delete channel.userLimit
+channel.rate_limit_per_user = channel.rateLimitPerUser
+delete channel.rateLimitPerUser
+channel.rtc_region = channel.rtcRegion
+delete channel.rtcRegion
+channel.video_quality_mode = channel.videoQualityMode
+delete channel.videoQualityMode
+!channel.permissionOverwrites
+_iterator_1 = <operator>.iterator(channel.permissionOverwrites)
+overwrite.allow &&= PermissionsBitField.resolve(overwrite.allow).toString()
+overwrite.deny &&= PermissionsBitField.resolve(overwrite.deny).toString()
+channel.permission_overwrites = channel.permissionOverwrites
+delete channel.permissionOverwrites
+_iterator_2 = <operator>.iterator(roles)
+role.color &&= resolveColor(role.color)
+role.permissions &&= PermissionsBitField.resolve(role.permissions).toString()
+systemChannelFlags &&= SystemChannelFlagsBitField.resolve(systemChannelFlags)
+const data = await this.client.rest.post(Routes.guilds(), {
+      body: {
+        name,
+        icon,
+        verification_level: verificationLevel,
+        default_message_notifications: defaultMessageNotifications,
+        explicit_content_filter: explicitContentFilter,
+        roles,
+        channels,
+        afk_channel_id: afkChannelId,
+        afk_timeout: afkTimeout,
+        system_channel_id: systemChannelId,
+        system_channel_flags: systemChannelFlags,
+      },
+    })
+_tmp_16.body = {
+        name,
+        icon,
+        verification_level: verificationLevel,
+        default_message_notifications: defaultMessageNotifications,
+        explicit_content_filter: explicitContentFilter,
+        roles,
+        channels,
+        afk_channel_id: afkChannelId,
+        afk_timeout: afkTimeout,
+        system_channel_id: systemChannelId,
+        system_channel_flags: systemChannelFlags,
+      }
+_tmp_17.name = name
+_tmp_17.icon = icon
+_tmp_17.verification_level = verificationLevel
+_tmp_17.default_message_notifications = defaultMessageNotifications
+_tmp_17.explicit_content_filter = explicitContentFilter
+_tmp_17.roles = roles
+_tmp_17.channels = channels
+_tmp_17.afk_channel_id = afkChannelId
+_tmp_17.afk_timeout = afkTimeout
+_tmp_17.system_channel_id = systemChannelId
+_tmp_17.system_channel_flags = systemChannelFlags

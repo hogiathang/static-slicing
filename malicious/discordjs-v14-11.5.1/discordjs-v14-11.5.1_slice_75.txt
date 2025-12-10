@@ -1,0 +1,15 @@
+_tmp_5 = param3_0 === void 0 ? {} : param3_0
+attachment = await DataResolver.resolveImage(attachment)
+throw new TypeError('REQ_RESOURCE_TYPE');
+const data = { image: attachment, name }
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(roles instanceof Collection ? roles.values() : roles)
+role = this.guild.roles.resolve(role)
+!role
+(_tmp_10 = data.roles).push
+this.client.api
+      .guilds(this.guild.id)
+      .emojis.post({ data, reason })
+      .then(emoji => this.client.actions.GuildEmojiCreate.handle(this.guild, emoji).emoji)
+this.guild.id
+_tmp_14.reason = reason

@@ -1,0 +1,3 @@
+_tmp_1.getArchivedPlaces = getArchivedPlaces
+<operator>.formatString("v3/establishments/", establishmentId, "/places/archived")
+const request = API.http.get(url)

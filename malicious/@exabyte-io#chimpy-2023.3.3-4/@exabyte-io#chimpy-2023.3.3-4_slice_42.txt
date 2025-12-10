@@ -1,0 +1,71 @@
+var setupBrowser = function () {
+      log.debug('[chimp][helper] getting browser');
+
+      const webdriverioConfigOptions = JSON.parse(process.env['chimp.webdriverio']);
+      const webdriverioOptions = merge(
+        webdriverioConfigOptions,
+        {
+          desiredCapabilities: {
+            browserName: parseNullableString(process.env['chimp.browser']),
+            platform: parseNullableString(process.env['chimp.platform']),
+            name: parseNullableString(process.env['chimp.name']),
+            version: parseNullableString(process.env['chimp.browserVersion']),
+            deviceName: parseNullableString(process.env['chimp.deviceName']),
+          },
+          user: parseNullableString(process.env['chimp.user'] || process.env.SAUCE_USERNAME),
+          key: parseNullableString(process.env['chimp.key'] || process.env.SAUCE_ACCESS_KEY),
+          host: parseNullableString(process.env['chimp.host']),
+          port: parseNullableInteger(process.env['chimp.port']),
+          ...
+log.debug('[chimp][helper] getting browser')
+const webdriverioConfigOptions = JSON.parse(process.env['chimp.webdriverio'])
+const webdriverioOptions = merge(
+        webdriverioConfigOptions,
+        {
+          desiredCapabilities: {
+            browserName: parseNullableString(process.env['chimp.browser']),
+            platform: parseNullableString(process.env['chimp.platform']),
+            name: parseNullableString(process.env['chimp.name']),
+            version: parseNullableString(process.env['chimp.browserVersion']),
+            deviceName: parseNullableString(process.env['chimp.deviceName']),
+          },
+          user: parseNullableString(process.env['chimp.user'] || process.env.SAUCE_USERNAME),
+          key: parseNullableString(process.env['chimp.key'] || process.env.SAUCE_ACCESS_KEY),
+          host: parseNullableString(process.env['chimp.host']),
+          port: parseNullableInteger(process.env['chimp.port']),
+          logLevel: booleanHelper.isTruthy(process.env['chimp.debug']) ?
+            'verbose' : webdriverioConfigOptions.logLevel,
+          sync: parseBoolean(process.env['chimp.sync']),
+...
+_tmp_8.desiredCapabilities = {
+            browserName: parseNullableString(process.env['chimp.browser']),
+            platform: parseNullableString(process.env['chimp.platform']),
+            name: parseNullableString(process.env['chimp.name']),
+            version: parseNullableString(process.env['chimp.browserVersion']),
+            deviceName: parseNullableString(process.env['chimp.deviceName']),
+          }
+_tmp_9.browserName = parseNullableString(process.env['chimp.browser'])
+_tmp_9.platform = parseNullableString(process.env['chimp.platform'])
+_tmp_9.name = parseNullableString(process.env['chimp.name'])
+_tmp_9.version = parseNullableString(process.env['chimp.browserVersion'])
+_tmp_9.deviceName = parseNullableString(process.env['chimp.deviceName'])
+_tmp_8.user = parseNullableString(process.env['chimp.user'] || process.env.SAUCE_USERNAME)
+_tmp_8.key = parseNullableString(process.env['chimp.key'] || process.env.SAUCE_ACCESS_KEY)
+_tmp_8.host = parseNullableString(process.env['chimp.host'])
+_tmp_8.port = parseNullableInteger(process.env['chimp.port'])
+_tmp_8.logLevel = booleanHelper.isTruthy(process.env['chimp.debug']) ? "verbose" : webdriverioConfigOptions.logLevel
+webdriverioConfigOptions.logLevel
+_tmp_8.sync = parseBoolean(process.env['chimp.sync'])
+global.sessionManager = new SessionFactory(Object.assign(
+        _.pick(webdriverioOptions, 'host', 'port', 'user', 'key'),
+        {
+          browser: webdriverioOptions.desiredCapabilities.browserName,
+          deviceName: webdriverioOptions.desiredCapabilities.deviceName,
+        }
+      ))
+_.pick(webdriverioOptions, 'host', 'port', 'user', 'key')
+_tmp_11.browser = webdriverioOptions.desiredCapabilities.browserName
+_tmp_11.deviceName = webdriverioOptions.desiredCapabilities.deviceName
+booleanHelper.isTruthy(process.env['chimp.watch'])
+webdriverioOptions.desiredCapabilities.applicationCacheEnabled = false
+log.debug('[chimp][helper] webdriverioOptions are ', JSON.stringify(webdriverioOptions))

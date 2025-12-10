@@ -1,0 +1,49 @@
+push(buffer) {
+    const ssrc = buffer.readUInt32BE(8);
+    const userStat = this.connection.ssrcMap.get(ssrc);
+    if (!userStat) return;
+
+    let speakingTimeout = this.speakingTimeouts.get(ssrc);
+    if (typeof speakingTimeout === 'undefined') {
+      this.connection.onSpeaking({ user_id: userStat.userID, ssrc: ssrc, speaking: userStat.speaking });
+      speakingTimeout = this.receiver.connection.client.setTimeout(() => {
+        try {
+          this.connection.onSpeaking({ user_id: userStat.userID, ssrc: ssrc, speaking: 0 });
+          this.receiver.connection.client.clearTimeout(speakingTimeout);
+          this.speakingTimeouts.delete(ssrc);
+        } catch {
+          // Connection already closed, ignore
+        }
+      }, DISCORD_SPEAKING_DELAY);
+      this.speakingTimeouts.set(ssrc, speakingTimeout);
+    } else {
+      speakingTimeout.refresh();
+    }
+
+    let stream = this.streams.get(userStat.userID);
+    if (!stream) return;
+    stream = stream.stream;
+    const opusPacke...
+const ssrc = buffer.readUInt32BE(8)
+const userStat = this.connection.ssrcMap.get(ssrc)
+!userStat
+let speakingTimeout = this.speakingTimeouts.get(ssrc)
+typeof speakingTimeout === 'undefined'
+this.connection.onSpeaking({ user_id: userStat.userID, ssrc: ssrc, speaking: userStat.speaking })
+speakingTimeout = this.receiver.connection.client.setTimeout(() => {
+        try {
+          this.connection.onSpeaking({ user_id: userStat.userID, ssrc: ssrc, speaking: 0 });
+          this.receiver.connection.client.clearTimeout(speakingTimeout);
+          this.speakingTimeouts.delete(ssrc);
+        } catch {
+          // Connection already closed, ignore
+        }
+      }, DISCORD_SPEAKING_DELAY)
+this.speakingTimeouts.set(ssrc, speakingTimeout)
+speakingTimeout.refresh()
+let stream = this.streams.get(userStat.userID)
+!stream
+stream = stream.stream
+const opusPacket = this.parseBuffer(buffer)
+opusPacket instanceof Error
+this.emit('error', opusPacket)

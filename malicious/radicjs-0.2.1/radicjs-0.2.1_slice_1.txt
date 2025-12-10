@@ -1,0 +1,4 @@
+_tmp_3.npmVersion = <lambda>2
+exec('npm version ' + type, function (error, stdout) {
+                    done(error);
+                })

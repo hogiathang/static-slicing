@@ -1,0 +1,10 @@
+get roles() {
+    const roles = new Collection();
+    for (const role of this._roles) {
+      if (this.guild.roles.has(role)) roles.set(role, this.guild.roles.get(role));
+    }
+    return roles;
+  }
+const roles = new Collection()
+_iterator_0 = <operator>.iterator(this._roles)
+roles.set(role, this.guild.roles.get(role))

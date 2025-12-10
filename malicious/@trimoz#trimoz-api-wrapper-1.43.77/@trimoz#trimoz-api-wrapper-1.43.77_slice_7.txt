@@ -1,0 +1,5 @@
+_tmp_1.getGroupOfAppointment = <lambda>11
+let url = 'v3/establishments/' + establishmentId + '/appointments/' + appointmentNumber + '/group'
+let params = { uuid: !!uuid, recaptchaToken: recaptchaToken, date: appointmentDate }
+url = appendQueryParams(url, params)
+const request = API.http.get(url)

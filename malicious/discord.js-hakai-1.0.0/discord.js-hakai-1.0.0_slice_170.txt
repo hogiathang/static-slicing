@@ -1,0 +1,13 @@
+new Promise((resolve, reject) => {
+      if (!this.ws || this.ws.readyState !== WebSocket.OPEN) {
+        throw new Error(`Voice websocket not open to send ${data}.`);
+      }
+      this.ws.send(data, null, error => {
+        if (error) reject(error); else resolve(data);
+      });
+    })
+!this.ws || this.ws.readyState !== WebSocket.OPEN
+<operator>.formatString("Voice websocket not open to send ", data, ".")
+this.ws.send(data, null, error => {
+        if (error) reject(error); else resolve(data);
+      })

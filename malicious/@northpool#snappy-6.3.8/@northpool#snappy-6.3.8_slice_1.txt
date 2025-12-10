@@ -1,0 +1,22 @@
+response => {
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+            response.pipe(destination);
+            destination.on("finish", () => {
+                console.info("Successfully downloaded binaries for node-libpng-async.");
+            });
+            return;
+        }
+        if (response.statusCode === 404) {
+            throw new Error(`No supported node-libpng-async ${packageVersion} build found for node ${process.version} on ${process.platform} (${process.arch}).`);
+        } else {
+            throw new Error(`Error downloading binaries for node-libpng-async ${packageVersion}. Received status code ${response.statusCode}`)
+        }
+        destination.close();
+        fs.unlink(fileName.qualifiedName);
+    }
+response.statusCode >= 200 && response.statusCode < 300
+response.statusCode === 404
+<operator>.formatString("No supported node-libpng-async ", packageVersion, " build found for node ", process.version, " on ", process.platform, " (", process.arch, ").")
+<operator>.formatString("Error downloading binaries for node-libpng-async ", packageVersion, ". Received status code ", response.statusCode, "")
+destination.close()
+fs.unlink(fileName.qualifiedName)

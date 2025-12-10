@@ -1,0 +1,101 @@
+options = options === void 0 ? {} : options
+__ecma.Array.factory()
+this._preDefinedTagKeys = new Map()
+this._aggregationCaches = new Map()
+this.debug =
+            typeof options.debug === 'boolean'
+                ? options.debug
+                : consts_1.defaultOptions.debug
+typeof options.debug === 'boolean' ? options.debug : consts_1.defaultOptions.debug
+options.debug
+consts_1.defaultOptions.debug
+const silentVerifying = typeof options.silentVerifying === 'boolean'
+            ? options.silentVerifying
+            : consts_1.defaultOptions.silentVerifying
+options.silentVerifying
+consts_1.defaultOptions.silentVerifying
+this.host = options.host || consts_1.defaultOptions.host
+this.port = options.port || consts_1.defaultOptions.port
+this.defaultPrefix =
+            typeof options.defaultPrefix === 'string'
+                ? options.defaultPrefix
+                : consts_1.defaultOptions.defaultPrefix
+typeof options.defaultPrefix === 'string' ? options.defaultPrefix : consts_1.defaultOptions.defaultPrefix
+options.defaultPrefix
+consts_1.defaultOptions.defaultPrefix
+this.bufferSize =
+            typeof options.bufferSize === 'number'
+                ? options.bufferSize
+                : consts_1.defaultOptions.bufferSize
+typeof options.bufferSize === 'number' ? options.bufferSize : consts_1.defaultOptions.bufferSize
+options.bufferSize
+consts_1.defaultOptions.bufferSize
+this.flushInterval =
+            typeof options.flushInterval === 'number'
+                ? options.flushInterval
+                : consts_1.defaultOptions.flushInterval
+typeof options.flushInterval === 'number' ? options.flushInterval : consts_1.defaultOptions.flushInterval
+options.flushInterval
+consts_1.defaultOptions.flushInterval
+this.logger = options.logger || consts_1.defaultOptions.logger
+this.enablePreAggregate =
+            typeof options.enablePreAggregate === 'boolean'
+                ? options.enablePreAggregate
+                : consts_1.defaultOptions.enablePreAggregate
+typeof options.enablePreAggregate === 'boolean' ? options.enablePreAggregate : consts_1.defaultOptions.enablePreAggregate
+options.enablePreAggregate
+consts_1.defaultOptions.enablePreAggregate
+this._send = this._send || this._udpSend
+const fns = [
+            ['emitCounter', 'counter'],
+            ['emitTimer', 'timer'],
+            ['emitStore', 'store'],
+            ['emitRateCounter', 'rate_counter'],
+            ['emitMeter', 'meter'],
+        ]
+_tmp_5.push(['emitCounter', 'counter'])
+_tmp_5.push(['emitTimer', 'timer'])
+_tmp_5.push(['emitStore', 'store'])
+_tmp_5.push(['emitRateCounter', 'rate_counter'])
+_tmp_5.push(['emitMeter', 'meter'])
+_iterator_0 = <operator>.iterator(fns)
+this[key] = function (name, value, prefix, tags, tagKeys) {
+                name = `${prefix || this.defaultPrefix}.${name}`;
+                if (this.enablePreAggregate &&
+                    tags &&
+                    this._preDefinedTagKeys.size > 0) {
+                    const key = `${type}${METRIC_TYPE_NAME_SEPARATOR}${name}`;
+                    const preDefinedTagKeys = this._preDefinedTagKeys.get(key);
+                    // 如果没有预定义 tag key 直接走兜底逻辑
+                    if (preDefinedTagKeys) {
+                        let aggCache = this._aggregationCaches.get(key);
+                        if (!aggCache &&
+                            this._aggregationCaches.size < MAX_AGG_SIZE) {
+                            aggCache = new Map();
+                            this._aggregationCaches.set(key, aggCache);
+                        }
+                        // 没有聚合缓存直接走兜底逻辑
+                        // tagKey-value 的组合类型总数超过 MAX_METRIC_AGG_SIZE 限制后不再做聚合
+                        // 这里一共会...
+!silentVerifying
+_iterator_1 = <operator>.iterator(fns)
+const fn = this[key]
+this[key] = function (name, value, prefix, tags, tagKeys) {
+                    if (!name || typeof name !== 'string') {
+                        throw new Error(util_1.format('invalid metrics %s, name is invalid', `${prefix || this.defaultPrefix}.${name}`));
+                    }
+                    if (!value && value !== 0) {
+                        throw new Error(util_1.format('invalid metrics %s, value is invalid, value: %s', `${prefix || this.defaultPrefix}.${name}`, value));
+                    }
+                    if (tags) {
+                        if (typeof tags !== 'object' || Array.isArray(tags)) {
+                            throw new Error(util_1.format('invalid metrics %s, tags is invalid', `${prefix || this.defaultPrefix}.${name}`));
+                        }
+                        const keys = tagKeys || Object.keys(tags);
+                        for (let i = 0; i < keys.length; i++) {
+                            const key = keys[i];
+                            c...
+!METRICS_ENABLE
+const warningMessage = 'Will NOT send metrics to server due to environment variables(METRICS_ENABLE=false).'
+this.debug
+<operator>.formatString("\x1b[36mMETRIC\x1b[0m ", warningMessage.replace('NOT', '\x1B[31mNOT\x1b[0m'), "\n")

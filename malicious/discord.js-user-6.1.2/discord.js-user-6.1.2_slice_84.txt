@@ -1,0 +1,17 @@
+handle(data) {
+    const client = this.client;
+    let channel = client.channels.get(data.id);
+
+    if (channel) {
+      client.channels.remove(channel.id);
+      channel.deleted = true;
+      client.emit(Events.CHANNEL_DELETE, channel);
+    }
+
+    return { channel };
+  }
+const client = this.client
+let channel = client.channels.get(data.id)
+client.channels.remove(channel.id)
+channel.deleted = true
+client.emit(Events.CHANNEL_DELETE, channel)

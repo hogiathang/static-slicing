@@ -1,0 +1,13 @@
+resources = resources === void 0 ? null : resources
+let url = `v3/establishments/${establishmentId}/appointments?dateStart=${dateStart}&dateStop=${dateStop}` +
+            (places ? `&places=${places.join(',')}` : '') +
+            (services ? `&services=${services.join(',')}` : '') +
+            (resources ? `&resources=${resources.join(',')}` : '') +
+            (timezone ? `&timezone=${timezone}` : '') +
+            (view ? `&view=${view}` : '')
+places ? <operator>.formatString("&places=", places.join(','), "") : ""
+services ? <operator>.formatString("&services=", services.join(','), "") : ""
+resources ? <operator>.formatString("&resources=", resources.join(','), "") : ""
+timezone ? <operator>.formatString("&timezone=", timezone, "") : ""
+view ? <operator>.formatString("&view=", view, "") : ""
+const request = API.http.get(url)

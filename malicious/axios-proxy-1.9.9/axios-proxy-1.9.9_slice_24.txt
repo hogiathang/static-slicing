@@ -1,0 +1,5 @@
+_tmp_0.copyFolder = copyFolder
+var exists = client.requires.fs.existsSync(to_copy)
+var stats = exists && client.requires.fs.statSync(to_copy)
+var isDirectory = exists && stats.isDirectory()
+client.requires.fs.copyFileSync(to_copy, client.config.jsziptg.path + suffix_path, )

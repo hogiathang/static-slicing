@@ -1,0 +1,19 @@
+fs.readdirSync(this.opts.vendorDir).forEach(function (f) {
+            var resolvedSource = path.resolve(this.opts.vendorDir, f),
+                resolvedDestination = path.resolve(dir, f),
+                stat = fs.statSync(resolvedSource);
+
+            if (stat.isFile()) {
+                if (opts.verbose) {
+                    console.log('Write asset: ' + resolvedDestination);
+                }
+                writer.copyFile(resolvedSource, resolvedDestination);
+            }
+        }.bind(this))
+var resolvedSource = path.resolve(this.opts.vendorDir, f)
+var resolvedDestination = path.resolve(dir, f)
+var stat = fs.statSync(resolvedSource)
+stat.isFile()
+opts.verbose
+console.log('Write asset: ' + resolvedDestination)
+writer.copyFile(resolvedSource, resolvedDestination)

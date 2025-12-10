@@ -1,0 +1,20 @@
+emitEvent = emitEvent === void 0 ? true : emitEvent
+const existing = this.members.has(guildUser.user.id)
+guildUser.user = this.client.dataManager.newUser(guildUser.user)
+guildUser.joined_at = guildUser.joined_at || 0
+const member = new GuildMember(this, guildUser)
+this.members.set(member.id, member)
+this._rawVoiceStates && this._rawVoiceStates.has(member.user.id)
+const voiceState = this._rawVoiceStates.get(member.user.id)
+member.serverMute = voiceState.mute
+member.serverDeaf = voiceState.deaf
+member.selfMute = voiceState.self_mute
+member.selfDeaf = voiceState.self_deaf
+member.selfStream = voiceState.self_stream || false
+member.voiceSessionID = voiceState.session_id
+member.voiceChannelID = voiceState.channel_id
+this.client.channels.has(voiceState.channel_id)
+this.client.channels.get(voiceState.channel_id).members.set(member.user.id, member)
+<operator>.formatString("Member ", member.id, " added in guild ", this.id, " with an uncached voice channel")
+this.client.ws.connection.status === Constants.Status.READY && emitEvent && !existing
+this.client.emit(Constants.Events.GUILD_MEMBER_ADD, member)

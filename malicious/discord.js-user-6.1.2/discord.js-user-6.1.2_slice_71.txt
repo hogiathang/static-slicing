@@ -1,0 +1,15 @@
+_tmp_2 = param2_0 === void 0 ? {} : param2_0
+parent = this.client.channels.resolveID(parent)
+this.client.api.guilds(this.guild.id).channels.post({
+      data: {
+        name,
+        topic,
+        type: type ? ChannelTypes[type.toUpperCase()] : 'text',
+        nsfw,
+        bitrate,
+        user_limit: userLimit,
+        parent_id: parent,
+        permission_overwrites: resolvePermissions.call(this, overwrites),
+      },
+      reason,
+    }).then(data => this.client.actions.ChannelCreate.handle(data).channel)

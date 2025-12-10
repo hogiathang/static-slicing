@@ -1,0 +1,43 @@
+fs.readFile(sourcePath, (err, html) => {
+            const $ = cheerio.load(html.toString());
+
+            $('script').each(function() {
+              if ($(this).attr('src')) {
+                const parse = path.parse($(this).attr('src'));
+                const url = URL.parse(_.get(zenapi.config.currentEnvironment.server, 'admin.build.host', _.get(zenapi.config.currentEnvironment.server, 'admin.path', '/admin')));
+
+                $(this).attr('src', `${url.pathname.replace(/\/$/, '')}/${parse.base}`);
+              }
+            });
+
+            // Remove previous and use build configurations.
+            if (environment === 'production') {
+              $('body').removeAttr('front');
+              $('body').removeAttr('back');
+            } else {
+              // Update attribute with the current server configurations.
+              $('body').attr('front', `${_.get(zenapi.config.currentEnvironment.server, 'admin.path', '/admin')}`);
+              $('body').attr('back', `/`);
+  ...
+const $ = cheerio.load(html.toString())
+$('script').each(function() {
+              if ($(this).attr('src')) {
+                const parse = path.parse($(this).attr('src'));
+                const url = URL.parse(_.get(zenapi.config.currentEnvironment.server, 'admin.build.host', _.get(zenapi.config.currentEnvironment.server, 'admin.path', '/admin')));
+
+                $(this).attr('src', `${url.pathname.replace(/\/$/, '')}/${parse.base}`);
+              }
+            })
+environment === 'production'
+(_tmp_6 = $('body')).removeAttr
+(_tmp_7 = $('body')).removeAttr
+<operator>.formatString("", _.get(zenapi.config.currentEnvironment.server, 'admin.path', '/admin'), "")
+$('body').attr('back', `/`)
+!zenapi.config.currentEnvironment.server.production
+fs.writeFile(sourcePath, $.html(), (err) => {
+                if (err) {
+                  return reject(err);
+                }
+
+                resolve();
+              })

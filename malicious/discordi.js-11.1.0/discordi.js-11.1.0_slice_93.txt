@@ -1,0 +1,10 @@
+queue = queue === void 0 ? false : queue
+packet.op === Constants.OPCodes.HEARTBEAT_ACK
+packet.op === Constants.OPCodes.HEARTBEAT
+this.client.ws.send({
+        op: Constants.OPCodes.HEARTBEAT,
+        d: this.client.ws.sequence,
+      })
+_tmp_8.op = Constants.OPCodes.HEARTBEAT
+_tmp_8.d = this.client.ws.sequence
+this.ws.client.emit('debug', 'Received gateway heartbeat')

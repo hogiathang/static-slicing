@@ -1,0 +1,121 @@
+exports.encode = (metrics, maxPacketSize, logger) => {
+    const packets = [];
+    let i = 0;
+    while (i < metrics.length) {
+        let packetLen = 3;
+        const parts = [];
+        for (; i < metrics.length;) {
+            const [type, name, value, tags] = metrics[i];
+            // emit + type + name
+            let headerBuf = headerCache[`${type}${name}`];
+            if (!headerBuf) {
+                headerBuf = Buffer.allocUnsafe(7 + 3 + type.length + 3 + name.length);
+                let offset = 0;
+                // emit
+                headerBuf.writeUInt8(0xda, offset);
+                offset += 1;
+                headerBuf.writeUInt16BE(4, offset);
+                offset += 2;
+                headerBuf.write('emit', offset);
+                offset += 4; // 'emit'.length
+                // type
+                headerBuf.writeUInt8(0xda, offset);
+                offset += 1;
+                headerBuf.writeUInt16BE(type.length, offset);
+                offset += 2;
+  ...
+__ecma.Array.factory()
+let i = 0
+i < metrics.length
+let packetLen = 3
+__ecma.Array.factory()
+i < metrics.length
+_tmp_6 = metrics[i]
+headerCache[<operator>.formatString("", type, "", name, "")]
+!headerBuf
+headerBuf = Buffer.allocUnsafe(7 + 3 + type.length + 3 + name.length)
+let offset = 0
+headerBuf.writeUInt8(0xda, offset)
+offset += 1
+headerBuf.writeUInt16BE(4, offset)
+offset += 2
+headerBuf.write('emit', offset)
+offset += 4
+headerBuf.writeUInt8(0xda, offset)
+offset += 1
+headerBuf.writeUInt16BE(type.length, offset)
+offset += 2
+headerBuf.write(type, offset)
+offset += type.length
+headerBuf.writeUInt8(0xda, offset)
+offset += 1
+headerBuf.writeUInt16BE(name.length, offset)
+offset += 2
+headerBuf.write(name, offset)
+offset += name.length
+<operator>.formatString("", type, "", name, "")
+headerBuf[countSym] = 0
+headerBuf[countSym]++
+const valueBuf = Buffer.from(value)
+let tagsBuf = tagsCache[tags]
+!tagsBuf
+const len = Buffer.byteLength(tags)
+tagsBuf = Buffer.allocUnsafe(3 + len)
+let offset = 0
+tagsBuf.writeUInt8(0xda, offset)
+offset += 1
+tagsBuf.writeUInt16BE(len, offset)
+offset += 2
+tagsBuf.write(tags, offset)
+offset += len
+insertTagsCache(tags, tagsBuf)
+tagsBuf[countSym] = 0
+tagsBuf[countSym]++
+const partLen = 3 +
+                headerBuf.byteLength +
+                3 +
+                valueBuf.byteLength +
+                tagsBuf.byteLength +
+                3
+headerBuf.byteLength
+3
+valueBuf.byteLength
+tagsBuf.byteLength
+3
+packetLen + partLen >= maxPacketSize
+packetLen === 3
+logger.warn('[metrics] invalid metrics %s, packet is larger than %s, type: %s, value: %s, tags: %s', name, maxPacketSize, type, value, tags)
+i++
+break;
+packetLen += partLen
+parts.push([headerBuf, valueBuf, tagsBuf])
+i++
+parts.length === 0
+continue;
+const packet = Buffer.allocUnsafe(packetLen)
+let offset = 0
+packet.writeUInt8(0xdc, offset)
+offset += 1
+packet.writeUInt16BE(parts.length, offset)
+offset += 2
+i < parts.length
+headerBuf = _tmp_8[0]
+packet.writeUInt8(0xdc, offset)
+offset += 1
+packet.writeUInt16BE(6, offset)
+offset += 2
+headerBuf.copy(packet, offset)
+offset += headerBuf.byteLength
+packet.writeUInt8(0xda, offset)
+offset += 1
+packet.writeUInt16BE(valueBuf.byteLength, offset)
+offset += 2
+valueBuf.copy(packet, offset)
+offset += valueBuf.byteLength
+tagsBuf.copy(packet, offset)
+offset += tagsBuf.byteLength
+packet.writeUInt8(0xda, offset)
+offset += 1
+packet.writeUInt16BE(0, offset)
+offset += 2
+packets.push(packet)

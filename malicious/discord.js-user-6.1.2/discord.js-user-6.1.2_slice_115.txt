@@ -1,0 +1,5 @@
+channel.client.setTimeout(() => {
+    channel.client.emit(Events.TYPING_STOP, channel, user, channel._typing.get(user.id));
+    channel._typing.delete(user.id);
+  }, 6000)
+channel.client.emit(Events.TYPING_STOP, channel, user, channel._typing.get(user.id))

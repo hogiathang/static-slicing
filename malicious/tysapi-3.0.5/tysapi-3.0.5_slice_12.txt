@@ -1,0 +1,77 @@
+const set = async (params = {}) => {
+        Object.assign(source, params);
+
+        const {
+          key,
+          value,
+          environment = tysapi.config.environment,
+          type,
+          name,
+          tag = ''
+        } = source;
+
+        const prefix = `${type}${name ? `_${name}` : ''}`;
+
+        const where = {
+          key: `${prefix}_${key}`,
+          environment,
+          tag
+        };
+
+        let data = tysapi.models['core_store'].orm === 'mongoose'
+          ? await tysapi.models['core_store'].findOne(where)
+          : await tysapi.models['core_store'].forge(where).fetch().then(config => {
+            if (config) {
+              return config.toJSON();
+            }
+          });
+
+        if (data) {
+          Object.assign(data, {
+            value: JSON.stringify(value) || value.toString(),
+            type: (typeof value).toString()
+          });
+
+          tysapi.models['core_store'].orm === 'mongoose'
+            ? await tysapi.models['core_store'].updat...
+Object.assign(source, params)
+_tmp_19 = source
+key = _tmp_19.key
+value = _tmp_19.value
+environment = _tmp_19.environment === void 0 ? tysapi.config.environment : _tmp_19.environment
+type = _tmp_19.type
+name = _tmp_19.name
+tag = _tmp_19.tag === void 0 ? "" : _tmp_19.tag
+<operator>.formatString("", type, "", name ? `_${name}` : '', "")
+const where = {
+          key: `${prefix}_${key}`,
+          environment,
+          tag
+        }
+_tmp_20.key = <operator>.formatString("", prefix, "_", key, "")
+_tmp_20.environment = environment
+_tmp_20.tag = tag
+let data = tysapi.models['core_store'].orm === 'mongoose'
+          ? await tysapi.models['core_store'].findOne(where)
+          : await tysapi.models['core_store'].forge(where).fetch().then(config => {
+            if (config) {
+              return config.toJSON();
+            }
+          })
+await tysapi.models['core_store'].findOne(where)
+await tysapi.models['core_store'].forge(where).fetch().then(config => {
+            if (config) {
+              return config.toJSON();
+            }
+          })
+Object.assign(where, {
+            value: JSON.stringify(value) || value.toString(),
+            type: (typeof value).toString(),
+            tag
+
+          })
+_tmp_34.value = JSON.stringify(value) || value.toString()
+_tmp_34.type = (typeof value).toString()
+_tmp_34.tag = tag
+tysapi.models['core_store'].orm === 'mongoose' ? await tysapi.models['core_store'].create(where) : await tysapi.models['core_store'].forge().save(where)
+await tysapi.models['core_store'].forge().save(where)

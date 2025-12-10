@@ -1,0 +1,22 @@
+_tmp_1.declarePrintOperation = <lambda>9
+<operator>.formatString("v3/establishments/", searchParams.establishment, "/declarePrintOperation")
+<operator>.formatString("?dateStart=", searchParams.dateStart, "")
+<operator>.formatString("&dateStop=", searchParams.dateStop, "")
+<operator>.formatString("&timezone=", searchParams.timezone, "")
+searchParams.hour ? <operator>.formatString("&hour=", searchParams.hour, "") : ""
+searchParams.name ? <operator>.formatString("&name=", searchParams.name, "") : ""
+searchParams.services[0] ? <operator>.formatString("&services=", searchParams.services.join(','), "") : ""
+searchParams.places[0] ? <operator>.formatString("&places=", searchParams.places.join(','), "") : ""
+searchParams.resources[0] ? <operator>.formatString("&resources=", searchParams.resources.join(','), "") : ""
+searchParams.appointmentNumber ? <operator>.formatString("&appointmentNumber=", searchParams.appointmentNumber, "") : ""
+searchParams.statuses[0] ? <operator>.formatString("&statuses=", searchParams.statuses, "") : ""
+searchParams.clientStatuses[0] || searchParams.clientStatuses[0] === 0 ? <operator>.formatString("&clientStatuses=", searchParams.clientStatuses.join(','), "") : ""
+searchParams.email ? <operator>.formatString("&email=", searchParams.email, "") : ""
+searchParams.phone ? <operator>.formatString("&phone=", searchParams.phone, "") : ""
+searchParams.cellphone ? <operator>.formatString("&cellphone=", searchParams.cellphone, "") : ""
+searchParams.birthDate ? <operator>.formatString("&birthDate=", searchParams.birthDate, "") : ""
+searchParams.nam ? <operator>.formatString("&nam=", searchParams.nam, "") : ""
+searchParams.comments ? <operator>.formatString("&comments=", searchParams.comments, "") : ""
+searchParams.source ? <operator>.formatString("&source=", searchParams.source, "") : ""
+searchParams.locale ? <operator>.formatString("&locale=", searchParams.locale, "") : ""
+const request = API.http.get(url)

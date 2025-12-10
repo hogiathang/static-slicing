@@ -1,0 +1,3 @@
+_tmp_1.createEstablishmentMetadata = <lambda>16
+<operator>.formatString("v3/establishments/", establishmentId, "/metadata")
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

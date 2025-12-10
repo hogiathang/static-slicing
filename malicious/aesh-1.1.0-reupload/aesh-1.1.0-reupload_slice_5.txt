@@ -1,0 +1,10 @@
+function command_del = async function command_del()
+{
+    let filename = process.argv[3];
+    if (!filename) { print_usage(); return; }
+
+    execSync(`ipfs files rm -r "${fullpath(filename)}"`);
+    console.log(`removed local share (${basename(filename)})`);
+}
+let filename = process.argv[3]
+print_usage()

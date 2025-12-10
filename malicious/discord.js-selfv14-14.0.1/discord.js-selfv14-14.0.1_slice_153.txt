@@ -1,0 +1,25 @@
+sendPacket(packet) {
+    let repeats = this.passes;
+    /**
+     * Emitted whenever the dispatcher has debug information.
+     * @event StreamDispatcher#debug
+     * @param {string} info The debug info
+     */
+    this.setSpeaking(true);
+    while (repeats-- && this.player.voiceConnection.sockets.udp) {
+      this.player.voiceConnection.sockets.udp.send(packet)
+        .catch(e => {
+          this.setSpeaking(false);
+          this.emit('debug', `Failed to send a packet ${e}`);
+        });
+    }
+  }
+let repeats = this.passes
+this.setSpeaking(true)
+repeats-- && this.player.voiceConnection.sockets.udp
+this.player.voiceConnection.sockets.udp.send(packet)
+        .catch(e => {
+          this.setSpeaking(false);
+          this.emit('debug', `Failed to send a packet ${e}`);
+        })
+<lambda>0

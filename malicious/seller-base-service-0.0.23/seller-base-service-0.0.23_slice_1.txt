@@ -1,0 +1,20 @@
+fileReader.onerror = () => {
+      resolve({
+        data: null,
+        error: normalizeError(null, null, new Error('ParseBlobError: Default Error.')),
+        headers: res.headers,
+        config: res.config
+      });
+      fileReader.abort();
+    }
+resolve({
+        data: null,
+        error: normalizeError(null, null, new Error('ParseBlobError: Default Error.')),
+        headers: res.headers,
+        config: res.config
+      })
+_tmp_9.data = null
+_tmp_9.error = normalizeError(null, null, new Error('ParseBlobError: Default Error.'))
+_tmp_9.headers = res.headers
+_tmp_9.config = res.config
+fileReader.abort()

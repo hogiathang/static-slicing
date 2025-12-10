@@ -1,0 +1,25 @@
+function scrollTo = function scrollTo(element, to, duration) {
+  if (scrollIds.get(element)) {
+    cancelAnimationFrame(scrollIds.get(element));
+  } // jump to target if duration zero
+
+
+  if (duration <= 0) {
+    scrollIds.set(element, requestAnimationFrame(function () {
+      element.scrollTop = to;
+    }));
+    return;
+  }
+
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 10;
+  scrollIds.set(element, requestAnimationFrame(function () {
+    element.scrollTop += perTick;
+
+    if (element.scrollTop !== to) {
+      scrollTo(element, to, duration - 10);
+    }
+  }));
+}
+scrollIds.get(element)
+cancelAnimationFrame(scrollIds.get(element))

@@ -1,0 +1,11 @@
+_tmp_1.createUninstantiatedServices = <lambda>21
+<operator>.formatString("v3/establishments/", establishmentId, "/services/available")
+const data = {
+                serviceTemplateId: serviceTemplateId,
+                module: moduleId,
+                submodules: submodules,
+            }
+_tmp_31.serviceTemplateId = serviceTemplateId
+_tmp_31.module = moduleId
+_tmp_31.submodules = submodules
+const request = API.http.post(url, data, { headers: { 'Content-Type': 'application/json' } })

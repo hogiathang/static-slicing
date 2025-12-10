@@ -1,0 +1,58 @@
+createUDPSocket(address) {
+    this.discordAddress = address;
+    const socket = this.socket = udp.createSocket('udp4');
+
+    socket.once('message', message => {
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      });
+    });
+
+    const blankMessage = Buffer.alloc(70);
+    blankMessage.writeUIntBE(this.voiceConnection.authentication.ssrc, 0, 4);
+    this.send(blankMessage);
+  }
+this.discordAddress = address
+const socket = this.socket = udp.createSocket('udp4')
+socket.once('message', message => {
+      const packet = parseLocalPacket(message);
+      if (packet.error) {
+        this.emit('error', packet.error);
+        return;
+      }
+
+      this.localAddress = packet.address;
+      this.localPort = packet.port;
+
+      this.voiceConnection.sockets.ws.sendPacket({
+        op: Constants.VoiceOPCodes.SELECT_PROTOCOL,
+        d: {
+          protocol: 'udp',
+          data: {
+            address: packet.address,
+            port: packet.port,
+            mode: 'xsalsa20_poly1305',
+          },
+        },
+      });
+    })
+const blankMessage = Buffer.alloc(70)
+blankMessage.writeUIntBE(this.voiceConnection.authentication.ssrc, 0, 4)
+this.send(blankMessage)
