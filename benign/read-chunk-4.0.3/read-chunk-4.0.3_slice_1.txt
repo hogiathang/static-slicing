@@ -1,0 +1,30 @@
+function readChunkSync = function readChunkSync(filePath, {length, startPosition}) {
+	let buffer = Buffer.alloc(length);
+	const fileDescriptor = fs.openSync(filePath, 'r');
+
+	try {
+		const bytesRead = fs.readSync(fileDescriptor, buffer, {
+			length,
+			position: startPosition,
+		});
+
+		if (bytesRead < length) {
+			buffer = buffer.subarray(0, bytesRead);
+		}
+
+		return buffer;
+	} finally {
+		fs.closeSync(fileDescriptor);
+	}
+}
+let buffer = Buffer.alloc(length)
+const fileDescriptor = fs.openSync(filePath, 'r')
+const bytesRead = fs.readSync(fileDescriptor, buffer, {
+			length,
+			position: startPosition,
+		})
+_tmp_3.length = length
+_tmp_3.position = startPosition
+bytesRead < length
+buffer = buffer.subarray(0, bytesRead)
+fs.closeSync(fileDescriptor)

@@ -1,0 +1,36 @@
+resolveBuilder(builderStr) {
+        const [packageName, builderName] = builderStr.split(':', 2);
+        if (!builderName) {
+            throw new Error('No builder name specified.');
+        }
+        const packageJsonPath = require.resolve(packageName + '/package.json', {
+            paths: [this._root],
+        });
+        const packageJson = require(packageJsonPath);
+        if (!packageJson['builders']) {
+            throw new Error(`Package ${JSON.stringify(packageName)} has no builders defined.`);
+        }
+        const builderJsonPath = path.resolve(path.dirname(packageJsonPath), packageJson['builders']);
+        const builderJson = require(builderJsonPath);
+        const builder = builderJson.builders && builderJson.builders[builderName];
+        if (!builder) {
+            throw new Error(`Cannot find builder ${JSON.stringify(builderStr)}.`);
+        }
+        const importPath = builder.implementation;
+        if (!importPath) {
+            throw new Error('Could not fin...
+_tmp_20 = builderStr.split(':', 2)
+!builderName
+throw new Error('No builder name specified.');
+const packageJsonPath = require.resolve(packageName + '/package.json', {
+            paths: [this._root],
+        })
+_tmp_23 = __ecma.Array.factory()
+const packageJson = require(packageJsonPath)
+!packageJson['builders']
+<operator>.formatString("Package ", JSON.stringify(packageName), " has no builders defined.")
+const builderJsonPath = path.resolve(path.dirname(packageJsonPath), packageJson['builders'])
+const builderJson = require(builderJsonPath)
+const builder = builderJson.builders && builderJson.builders[builderName]
+!builder
+<operator>.formatString("Cannot find builder ", JSON.stringify(builderStr), ".")

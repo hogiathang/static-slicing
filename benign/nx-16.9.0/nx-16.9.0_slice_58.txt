@@ -1,0 +1,62 @@
+keysArray.forEach((key) => {
+                // we don't need to keep duplicates, we can just track the keys
+                const existingNode = nodes.get(packageName)?.get(version);
+                if (existingNode) {
+                    keyMap.set(key, existingNode);
+                    return;
+                }
+                const node = {
+                    type: 'npm',
+                    name: version
+                        ? `npm:${packageName}@${version}`
+                        : `npm:${packageName}`,
+                    data: {
+                        version,
+                        packageName,
+                        hash: snapshot.integrity ||
+                            snapshot.checksum ||
+                            (0, file_hasher_1.hashArray)([packageName, version]),
+                    },
+                };
+                keyMap.set(key, node);
+                // use actual version so we can detect it later based on npm package's version
+                con...
+const existingNode = nodes.get(packageName)?.get(version)
+const node = {
+                    type: 'npm',
+                    name: version
+                        ? `npm:${packageName}@${version}`
+                        : `npm:${packageName}`,
+                    data: {
+                        version,
+                        packageName,
+                        hash: snapshot.integrity ||
+                            snapshot.checksum ||
+                            (0, file_hasher_1.hashArray)([packageName, version]),
+                    },
+                }
+_tmp_11.type = "npm"
+_tmp_11.name = version ? <operator>.formatString("npm:", packageName, "@", version, "") : <operator>.formatString("npm:", packageName, "")
+<operator>.formatString("npm:", packageName, "@", version, "")
+<operator>.formatString("npm:", packageName, "")
+_tmp_11.data = {
+                        version,
+                        packageName,
+                        hash: snapshot.integrity ||
+                            snapshot.checksum ||
+                            (0, file_hasher_1.hashArray)([packageName, version]),
+                    }
+_tmp_12.version = version
+_tmp_12.packageName = packageName
+_tmp_12.hash = snapshot.integrity ||
+                            snapshot.checksum ||
+                            (0, file_hasher_1.hashArray)([packageName, version])
+snapshot.checksum
+(0, file_hasher_1.hashArray)([packageName, version])
+keyMap.set(key, node)
+const mapKey = snapshot.version && version !== snapshot.version
+                    ? snapshot.version
+                    : version
+snapshot.version
+!nodes.has(packageName)
+nodes.get(packageName).set(mapKey, node)

@@ -1,0 +1,12 @@
+function exit = function exit(code) {
+  /* istanbul ignore next */
+  if (process.platform === 'win32' && process.stdout.bufferSize) {
+    process.stdout.once('drain', function() {
+      process.exit(code);
+    });
+    return;
+  }
+  process.exit(code);
+}
+process.platform === 'win32' && process.stdout.bufferSize
+process.exit(code)

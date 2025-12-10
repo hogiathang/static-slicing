@@ -1,0 +1,67 @@
+setTimeout(function() {
+      // Destroyed
+      if (self.state === DESTROYED || self.state === UNREFERENCED) {
+        return;
+      }
+
+      // Create a new server instance
+      var server = new Server(
+        Object.assign({}, self.s.options, {
+          host: _server.name.split(':')[0],
+          port: parseInt(_server.name.split(':')[1], 10),
+          reconnect: false,
+          monitoring: false,
+          parent: self,
+          clientInfo: clone(self.s.clientInfo)
+        })
+      );
+
+      destroyServer(_server);
+      removeProxyFrom(self.disconnectedProxies, _server);
+
+      // Relay the server description change
+      relayEvents(server, self, ['serverDescriptionChanged']);
+
+      // Emit opening server event
+      self.emit('serverOpening', {
+        topologyId: server.s.topologyId !== -1 ? server.s.topologyId : self.id,
+        address: server.name
+      });
+
+      // Add temp handlers
+      server.once('connect', _handleEvent(self, 'connect'));
+      server.once('c...
+self.state === DESTROYED || self.state === UNREFERENCED
+var server = new Server(
+        Object.assign({}, self.s.options, {
+          host: _server.name.split(':')[0],
+          port: parseInt(_server.name.split(':')[1], 10),
+          reconnect: false,
+          monitoring: false,
+          parent: self,
+          clientInfo: clone(self.s.clientInfo)
+        })
+      )
+Object.assign({}, self.s.options, {
+          host: _server.name.split(':')[0],
+          port: parseInt(_server.name.split(':')[1], 10),
+          reconnect: false,
+          monitoring: false,
+          parent: self,
+          clientInfo: clone(self.s.clientInfo)
+        })
+_tmp_22.host = _server.name.split(':')[0]
+_tmp_22.port = parseInt(_server.name.split(':')[1], 10)
+_tmp_22.reconnect = false
+_tmp_22.monitoring = false
+_tmp_22.parent = self
+_tmp_22.clientInfo = clone(self.s.clientInfo)
+destroyServer(_server)
+removeProxyFrom(self.disconnectedProxies, _server)
+relayEvents(server, self, ['serverDescriptionChanged'])
+self.emit('serverOpening', {
+        topologyId: server.s.topologyId !== -1 ? server.s.topologyId : self.id,
+        address: server.name
+      })
+_tmp_26.topologyId = server.s.topologyId !== -1 ? server.s.topologyId : self.id
+_tmp_26.address = server.name

@@ -1,0 +1,48 @@
+analyze(clazz, decorator) {
+    var _a;
+    this.perf.eventCount(PerfEvent.AnalyzePipe);
+    const name = clazz.name.text;
+    const type = wrapTypeReference(this.reflector, clazz);
+    if (decorator.args === null) {
+      throw new FatalDiagnosticError(ErrorCode.DECORATOR_NOT_CALLED, decorator.node, `@Pipe must be called`);
+    }
+    if (decorator.args.length !== 1) {
+      throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARITY_WRONG, decorator.node, "@Pipe must have exactly one argument");
+    }
+    const meta = unwrapExpression(decorator.args[0]);
+    if (!ts26.isObjectLiteralExpression(meta)) {
+      throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, meta, "@Pipe must have a literal argument");
+    }
+    const pipe = reflectObjectLiteral(meta);
+    if (!pipe.has("name")) {
+      throw new FatalDiagnosticError(ErrorCode.PIPE_MISSING_NAME, meta, `@Pipe decorator is missing name field`);
+    }
+    const pipeNameExpr = pipe.get("name");
+    const pipeName = this.e...
+this.perf.eventCount(PerfEvent.AnalyzePipe)
+const name = clazz.name.text
+const type = wrapTypeReference(this.reflector, clazz)
+decorator.args === null
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_NOT_CALLED, decorator.node, `@Pipe must be called`);
+decorator.args.length !== 1
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARITY_WRONG, decorator.node, "@Pipe must have exactly one argument");
+const meta = unwrapExpression(decorator.args[0])
+!ts26.isObjectLiteralExpression(meta)
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, meta, "@Pipe must have a literal argument");
+const pipe = reflectObjectLiteral(meta)
+!pipe.has("name")
+throw new FatalDiagnosticError(ErrorCode.PIPE_MISSING_NAME, meta, `@Pipe decorator is missing name field`);
+const pipeNameExpr = pipe.get("name")
+const pipeName = this.evaluator.evaluate(pipeNameExpr)
+typeof pipeName !== "string"
+throw createValueHasWrongTypeError(pipeNameExpr, pipeName, `@Pipe.name must be a string`);
+let pure = true
+pipe.has("pure")
+const expr = pipe.get("pure")
+const pureValue = this.evaluator.evaluate(expr)
+typeof pureValue !== "boolean"
+throw createValueHasWrongTypeError(expr, pureValue, `@Pipe.pure must be a boolean`);
+pure = pureValue
+let isStandalone = false
+pipe.has("standalone")
+const expr = pipe.get("standalone")

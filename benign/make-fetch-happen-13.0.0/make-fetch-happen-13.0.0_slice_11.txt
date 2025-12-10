@@ -1,0 +1,59 @@
+async revalidate (request, options) {
+    const revalidateRequest = new Request(request, {
+      headers: this.policy.revalidationHeaders(request),
+    })
+
+    try {
+      // NOTE: be sure to remove the headers property from the
+      // user supplied options, since we have already defined
+      // them on the new request object. if they're still in the
+      // options then those will overwrite the ones from the policy
+      var response = await remote(revalidateRequest, {
+        ...options,
+        headers: undefined,
+      })
+    } catch (err) {
+      // if the network fetch fails, return the stale
+      // cached response unless it has a cache-control
+      // of 'must-revalidate'
+      if (!this.policy.mustRevalidate) {
+        return this.respond(request.method, options, 'stale')
+      }
+
+      throw err
+    }
+
+    if (this.policy.revalidated(revalidateRequest, response)) {
+      // we got a 304, write a new index to the cache and respond from cache
+      const metadata = get...
+const revalidateRequest = new Request(request, {
+      headers: this.policy.revalidationHeaders(request),
+    })
+_tmp_87.headers = this.policy.revalidationHeaders(request)
+var response = await remote(revalidateRequest, {
+        ...options,
+        headers: undefined,
+      })
+...options
+_tmp_89.headers = undefined
+!this.policy.mustRevalidate
+throw err
+this.policy.revalidated(revalidateRequest, response)
+const metadata = getMetadata(request, response, options)
+_iterator_5 = <operator>.iterator(KEEP_RESPONSE_HEADERS)
+!hasOwnProperty(metadata.resHeaders, name) &&
+          hasOwnProperty(this.entry.metadata.resHeaders, name)
+hasOwnProperty(this.entry.metadata.resHeaders, name)
+metadata.resHeaders[name] = this.entry.metadata.resHeaders[name]
+_iterator_6 = <operator>.iterator(options.cacheAdditionalHeaders)
+const inMeta = hasOwnProperty(metadata.resHeaders, name)
+const inEntry = hasOwnProperty(this.entry.metadata.resHeaders, name)
+const inPolicy = hasOwnProperty(this.policy.response.headers, name)
+!inMeta && inEntry
+metadata.resHeaders[name] = this.entry.metadata.resHeaders[name]
+!inPolicy && inMeta
+this.policy.response.headers[name] = metadata.resHeaders[name]
+await cacache.index.insert(options.cachePath, this.key, this.entry.integrity, {
+          size: this.entry.size,
+          metadata,
+        })

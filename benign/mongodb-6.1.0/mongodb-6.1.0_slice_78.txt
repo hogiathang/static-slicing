@@ -1,0 +1,22 @@
+connect(): void {
+    if (this.s.state !== STATE_CLOSED) {
+      return;
+    }
+
+    stateTransition(this, STATE_CONNECTING);
+
+    // If in load balancer mode we automatically set the server to
+    // a load balancer. It never transitions out of this state and
+    // has no monitor.
+    if (!this.loadBalanced) {
+      this[kMonitor]?.connect();
+    } else {
+      stateTransition(this, STATE_CONNECTED);
+      this.emit(Server.CONNECT, this);
+    }
+  }
+this.s.state !== STATE_CLOSED
+stateTransition(this, STATE_CONNECTING)
+!this.loadBalanced
+stateTransition(this, STATE_CONNECTED)
+this.emit(Server.CONNECT, this)

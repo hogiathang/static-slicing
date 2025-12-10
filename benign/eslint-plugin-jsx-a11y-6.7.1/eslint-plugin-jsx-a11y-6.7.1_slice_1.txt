@@ -1,0 +1,8 @@
+_tmp_16.JSXAttribute = JSXAttribute
+var name = (0, _jsxAstUtils.propName)(attribute)
+var normalizedName = name.toLowerCase()
+normalizedName.indexOf('aria-') !== 0 || _ariaQuery.aria.get(normalizedName) === undefined
+(0, _jsxAstUtils.getPropValue)(attribute) == null
+var value = (0, _jsxAstUtils.getLiteralPropValue)(attribute)
+value === null
+var attributes = _ariaQuery.aria.get(normalizedName)

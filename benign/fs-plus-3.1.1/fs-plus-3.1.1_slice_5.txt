@@ -1,0 +1,39 @@
+mkdirp(path.dirname(destinationPath), function(error) {
+        var destinationStream, sourceStream;
+        if (error != null) {
+          if (typeof done === "function") {
+            done(error);
+          }
+          return;
+        }
+        sourceStream = fs.createReadStream(sourcePath);
+        sourceStream.on('error', function(error) {
+          if (typeof done === "function") {
+            done(error);
+          }
+          return done = null;
+        });
+        destinationStream = fs.createWriteStream(destinationPath);
+        destinationStream.on('error', function(error) {
+          if (typeof done === "function") {
+            done(error);
+          }
+          return done = null;
+        });
+        destinationStream.on('close', function() {
+          if (typeof done === "function") {
+            done();
+          }
+          return done = null;
+        });
+        return sourceStream.pipe(destinationStream);
+      })
+error != null
+sourceStream = fs.createReadStream(sourcePath)
+sourceStream.on('error', function(error) {
+          if (typeof done === "function") {
+            done(error);
+          }
+          return done = null;
+        })
+destinationStream = fs.createWriteStream(destinationPath)

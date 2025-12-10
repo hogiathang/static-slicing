@@ -1,0 +1,102 @@
+Needle.prototype.send_request = function(count, method, uri, config, post_data, out, callback) {
+
+  if (typeof config.uri_modifier === 'function') {
+    var modified_uri = config.uri_modifier(uri);
+    debug('Modifying request URI', uri + ' => ' + modified_uri);
+    uri = modified_uri;
+  }
+
+  var request,
+      timer,
+      returned     = 0,
+      self         = this,
+      request_opts = this.get_request_opts(method, uri, config),
+      protocol     = request_opts.protocol == 'https:' ? https : http;
+
+  function done(err, resp) {
+    if (returned++ > 0)
+      return debug('Already finished, stopping here.');
+
+    if (timer) clearTimeout(timer);
+    request.removeListener('error', had_error);
+    out.done = true;
+
+    // An error can still be fired after closing.  In particular, on macOS.
+    // See also:
+    //  - https://github.com/tomas/needle/issues/391
+    //  - https://github.com/less/less.js/issues/3693
+    //  - https://github.com/nodejs/node/issues/27916
+    request.once('e...
+typeof config.uri_modifier === 'function'
+var modified_uri = config.uri_modifier(uri)
+debug('Modifying request URI', uri + ' => ' + modified_uri)
+uri = modified_uri
+var returned     = 0
+var self         = this
+var request_opts = this.get_request_opts(method, uri, config)
+var protocol     = request_opts.protocol == 'https:' ? https : http
+function done = function done(err, resp) {
+    if (returned++ > 0)
+      return debug('Already finished, stopping here.');
+
+    if (timer) clearTimeout(timer);
+    request.removeListener('error', had_error);
+    out.done = true;
+
+    // An error can still be fired after closing.  In particular, on macOS.
+    // See also:
+    //  - https://github.com/tomas/needle/issues/391
+    //  - https://github.com/less/less.js/issues/3693
+    //  - https://github.com/nodejs/node/issues/27916
+    request.once('error', function() {});
+
+    if (callback)
+      return callback(err, resp, resp ? resp.body : undefined);
+
+    // NOTE: this event used to be called 'end', but the behaviour was confusing
+    // when errors ocurred, because the stream would still emit an 'end' event.
+    out.emit('done', err);
+
+    // trigger the 'done' event on streams we're being piped to, if any
+    var pipes = out._readableState.pipes || [];
+    if (!pipes.forEach) pipes = [pipes];
+    pipes.forEach(function(st) { st.emit('done', err)...
+function had_error = function had_error(err) {
+    debug('Request error', err);
+    out.emit('err', err);
+    done(err || new Error('Unknown error when making request.'));
+  }
+function set_timeout = function set_timeout(type, milisecs) {
+    if (timer) clearTimeout(timer);
+    if (milisecs <= 0) return;
+
+    timer = setTimeout(function() {
+      out.emit('timeout', type);
+      request.abort();
+      // also invoke done() to terminate job on read_timeout
+      if (type == 'read') done(new Error(type + ' timeout'));
+    }, milisecs);
+  }
+debug('Making request #' + count, request_opts)
+request = protocol.request(request_opts, function(resp) {
+
+    var headers = resp.headers;
+    debug('Got response', resp.statusCode, headers);
+    out.emit('response', resp);
+
+    set_timeout('read', config.read_timeout);
+
+    // if we got cookies, parse them unless we were instructed not to. make sure to include any
+    // cookies that might have been set on previous redirects.
+    if (config.parse_cookies && (headers['set-cookie'] || config.previous_resp_cookies)) {
+      resp.cookies = extend(config.previous_resp_cookies || {}, cookies.read(headers['set-cookie']));
+      debug('Got cookies', resp.cookies);
+    }
+
+    // if redirect code is found, determine if we should follow it according to the given options.
+    if (redirect_codes.indexOf(resp.statusCode) !== -1 && self.should_follow(headers.location, config, uri)) {
+      // clear timer before following redirects to prevent unexpected setTimeout consequence
+      clearTimeout(timer);
+
+      if (count <= config.follow_max) {
+ ...

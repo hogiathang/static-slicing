@@ -1,0 +1,28 @@
+var getAncestorsKeys = function getAncestorsKeys(blockKey, blockMap) {
+  var parents = [];
+
+  if (!blockKey) {
+    return parents;
+  }
+
+  var blockNode = blockMap.get(blockKey);
+
+  while (blockNode && blockNode.getParentKey()) {
+    var parentKey = blockNode.getParentKey();
+
+    if (parentKey) {
+      parents.push(parentKey);
+    }
+
+    blockNode = parentKey ? blockMap.get(parentKey) : null;
+  }
+
+  return parents;
+}
+__ecma.Array.factory()
+!blockKey
+var blockNode = blockMap.get(blockKey)
+blockNode && blockNode.getParentKey()
+var parentKey = blockNode.getParentKey()
+parents.push(parentKey)
+blockNode = parentKey ? blockMap.get(parentKey) : null

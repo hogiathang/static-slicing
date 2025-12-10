@@ -1,0 +1,19 @@
+function (err) {
+    if (reply.sent === true) {
+      reply.log.error({ err }, 'Promise errored, but reply.sent = true was set')
+      return
+    }
+
+    reply[kReplyIsError] = true
+
+    // try-catch allow to re-throw error in error handler for async handler
+    try {
+      reply.send(err)
+    } catch (err) {
+      reply.send(err)
+    }
+  }
+reply.sent === true
+reply[kReplyIsError] = true
+reply.send(err)
+reply.send(err)

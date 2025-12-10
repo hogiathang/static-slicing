@@ -1,0 +1,65 @@
+function handleFetcherAction = async function handleFetcherAction(
+    key: string,
+    routeId: string,
+    path: string,
+    match: AgnosticDataRouteMatch,
+    requestMatches: AgnosticDataRouteMatch[],
+    submission: Submission
+  ) {
+    interruptActiveLoads();
+    fetchLoadMatches.delete(key);
+
+    if (!match.route.action && !match.route.lazy) {
+      let error = getInternalRouterError(405, {
+        method: submission.formMethod,
+        pathname: path,
+        routeId: routeId,
+      });
+      setFetcherError(key, routeId, error);
+      return;
+    }
+
+    // Put this fetcher into it's submitting state
+    let existingFetcher = state.fetchers.get(key);
+    let fetcher = getSubmittingFetcher(submission, existingFetcher);
+    state.fetchers.set(key, fetcher);
+    updateState({ fetchers: new Map(state.fetchers) });
+
+    // Call the action for the fetcher
+    let abortController = new AbortController();
+    let fetchRequest = createClientSideRequest(
+      init.history,
+      path,
+      abortController.signal,
+...
+interruptActiveLoads()
+fetchLoadMatches.delete(key)
+!match.route.action && !match.route.lazy
+let existingFetcher = state.fetchers.get(key)
+let fetcher = getSubmittingFetcher(submission, existingFetcher)
+state.fetchers.set(key, fetcher)
+updateState({ fetchers: new Map(state.fetchers) })
+let abortController = new AbortController()
+let fetchRequest = createClientSideRequest(
+      init.history,
+      path,
+      abortController.signal,
+      submission
+    )
+init.history
+abortController.signal
+fetchControllers.set(key, abortController)
+let originatingLoadId = incrementingLoadId
+let actionResult = await callLoaderOrAction(
+      "action",
+      fetchRequest,
+      match,
+      requestMatches,
+      manifest,
+      mapRouteProperties,
+      basename
+    )
+"action"
+fetchRequest.signal.aborted
+isRedirectResult(actionResult)
+fetchControllers.delete(key)

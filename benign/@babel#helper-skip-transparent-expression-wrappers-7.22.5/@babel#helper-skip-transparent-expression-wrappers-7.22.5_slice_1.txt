@@ -1,0 +1,8 @@
+function skipTransparentExprWrappers = function skipTransparentExprWrappers(path) {
+  while (isTransparentExprWrapper(path.node)) {
+    path = path.get("expression");
+  }
+  return path;
+}
+isTransparentExprWrapper(path.node)
+path = path.get("expression")

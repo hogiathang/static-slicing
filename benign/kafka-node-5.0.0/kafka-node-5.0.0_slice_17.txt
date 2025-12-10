@@ -1,0 +1,6 @@
+Client.prototype.sendWhenReady = function (broker, correlationId, request, decode, cb) {
+  this.queueCallback(broker.socket, correlationId, [decode, cb]);
+  broker.write(request);
+}
+this.queueCallback(broker.socket, correlationId, [decode, cb])
+broker.write(request)

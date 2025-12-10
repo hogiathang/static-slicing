@@ -1,0 +1,29 @@
+OperationBatcher.prototype.consumeQueue = function (key) {
+        if (key === void 0) { key = ""; }
+        var batch = this.batchesByKey.get(key);
+        this.batchesByKey.delete(key);
+        if (!batch || !batch.size) {
+            return;
+        }
+        var operations = [];
+        var forwards = [];
+        var observables = [];
+        var nexts = [];
+        var errors = [];
+        var completes = [];
+        batch.forEach(function (request) {
+            operations.push(request.operation);
+            forwards.push(request.forward);
+            observables.push(request.observable);
+            nexts.push(request.next);
+            errors.push(request.error);
+            completes.push(request.complete);
+        });
+        var batchedObservable = this.batchHandler(operations, forwards) || Observable.of();
+        var onError = function (error) {
+            errors.forEach(function (rejecters) {
+                if (rejecters) {
+                    rejecters.forEach(func...
+key === void 0
+var batch = this.batchesByKey.get(key)
+(_tmp_18 = this.batchesByKey).delete

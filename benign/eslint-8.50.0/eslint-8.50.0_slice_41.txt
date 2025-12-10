@@ -1,0 +1,20 @@
+finalize() {
+
+        // Step 1: ensure that all of the necessary variables are up to date
+        const varsCache = this[caches].get("vars");
+        const globalScope = this.scopeManager.scopes[0];
+        const configGlobals = varsCache.get("configGlobals");
+        const inlineGlobals = varsCache.get("inlineGlobals");
+        const exportedVariables = varsCache.get("exportedVariables");
+
+        addDeclaredGlobals(globalScope, configGlobals, inlineGlobals);
+
+        if (exportedVariables) {
+            markExportedVariables(globalScope, exportedVariables);
+        }
+
+    }
+const varsCache = this[caches].get("vars")
+const globalScope = this.scopeManager.scopes[0]
+const configGlobals = varsCache.get("configGlobals")
+const inlineGlobals = varsCache.get("inlineGlobals")

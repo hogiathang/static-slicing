@@ -1,0 +1,11 @@
+subShell.once('close', function handleSubShellClose() {
+    // write the buffered output to stdout
+    var content = log.read();
+
+    if (content !== null) {
+      process.stdout.write(content);
+    }
+  })
+var content = log.read()
+content !== null
+(_tmp_24 = process.stdout).write

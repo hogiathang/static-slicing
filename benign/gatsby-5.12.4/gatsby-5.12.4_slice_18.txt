@@ -1,0 +1,41 @@
+loadPage(rawPath) {
+    const pagePath = findPath(rawPath)
+    if (this.pageDb.has(pagePath)) {
+      const page = this.pageDb.get(pagePath)
+      if (process.env.BUILD_STAGE !== `develop` || !page.payload.stale) {
+        if (page.error) {
+          return Promise.resolve({
+            error: page.error,
+            status: page.status,
+          })
+        }
+
+        return Promise.resolve(page.payload)
+      }
+    }
+
+    if (this.inFlightDb.has(pagePath)) {
+      return this.inFlightDb.get(pagePath)
+    }
+
+    const loadDataPromises = [
+      this.loadAppData(),
+      this.loadPageDataJson(pagePath),
+    ]
+
+    if (global.hasPartialHydration) {
+      loadDataPromises.push(this.loadPartialHydrationJson(pagePath))
+    }
+
+    const inFlightPromise = Promise.all(loadDataPromises).then(allData => {
+      const [appDataResponse, pageDataResponse, rscDataResponse] = allData
+
+      if (
+        pageDataResponse.status === PageResourceStatus.Error ||
+        rscDataResponse?.status === Pa...
+const pagePath = findPath(rawPath)
+(_tmp_66 = this.pageDb).has
+const page = this.pageDb.get(pagePath)
+process.env.BUILD_STAGE !== `develop` || !page.payload.stale
+(_tmp_69 = this.inFlightDb).has
+(_tmp_70 = this.inFlightDb).get

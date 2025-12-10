@@ -1,0 +1,74 @@
+function fillConductCheck = function fillConductCheck(keys, levelEntities, maxLevel, syntheticGetCheckDisabled) {
+  var checkedKeys = new Set(keys);
+  var halfCheckedKeys = new Set();
+  // Add checked keys top to bottom
+  for (var level = 0; level <= maxLevel; level += 1) {
+    var entities = levelEntities.get(level) || new Set();
+    entities.forEach(function (entity) {
+      var key = entity.key,
+        node = entity.node,
+        _entity$children = entity.children,
+        children = _entity$children === void 0 ? [] : _entity$children;
+      if (checkedKeys.has(key) && !syntheticGetCheckDisabled(node)) {
+        children.filter(function (childEntity) {
+          return !syntheticGetCheckDisabled(childEntity.node);
+        }).forEach(function (childEntity) {
+          checkedKeys.add(childEntity.key);
+        });
+      }
+    });
+  }
+  // Add checked keys from bottom to top
+  var visitedKeys = new Set();
+  for (var _level = maxLevel; _level >= 0; _level -= 1) {
+    var _entities = levelEntities.get(_level) |...
+var checkedKeys = new Set(keys)
+var halfCheckedKeys = new Set()
+level <= maxLevel
+var entities = levelEntities.get(level) || new Set()
+entities.forEach(function (entity) {
+      var key = entity.key,
+        node = entity.node,
+        _entity$children = entity.children,
+        children = _entity$children === void 0 ? [] : _entity$children;
+      if (checkedKeys.has(key) && !syntheticGetCheckDisabled(node)) {
+        children.filter(function (childEntity) {
+          return !syntheticGetCheckDisabled(childEntity.node);
+        }).forEach(function (childEntity) {
+          checkedKeys.add(childEntity.key);
+        });
+      }
+    })
+var visitedKeys = new Set()
+var _level = maxLevel
+var _entities = levelEntities.get(_level) || new Set()
+_entities.forEach(function (entity) {
+      var parent = entity.parent,
+        node = entity.node;
+      // Skip if no need to check
+      if (syntheticGetCheckDisabled(node) || !entity.parent || visitedKeys.has(entity.parent.key)) {
+        return;
+      }
+      // Skip if parent is disabled
+      if (syntheticGetCheckDisabled(entity.parent.node)) {
+        visitedKeys.add(parent.key);
+        return;
+      }
+      var allChecked = true;
+      var partialChecked = false;
+      (parent.children || []).filter(function (childEntity) {
+        return !syntheticGetCheckDisabled(childEntity.node);
+      }).forEach(function (_ref2) {
+        var key = _ref2.key;
+        var checked = checkedKeys.has(key);
+        if (allChecked && !checked) {
+          allChecked = false;
+        }
+        if (!partialChecked && (checked || halfCheckedKeys.has(key))) {
+          partialChecked = true;
+        }
+      });
+      if (allChecked) {
+        checkedKeys.add(parent.key);
+      }
+      if (parti...

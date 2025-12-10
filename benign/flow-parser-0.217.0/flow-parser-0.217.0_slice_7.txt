@@ -1,0 +1,7 @@
+a4.prototype.open=function(a,b){var
+c;if(b.rdonly&&b.wronly)Y(this.nm(a)+z9);if(b.text&&b.binary)Y(this.nm(a)+s2);this.lookup(a);if(this.content[a]){if(this.is_dir(a))Y(this.nm(a)+K8);if(b.create&&b.excl)Y(this.nm(a)+y3);c=this.content[a];if(b.truncate)c.truncate()}else if(b.create){this.create_dir_if_needed(a);this.content[a]=new
+bu(as(0));c=this.content[a]}else
+M1(this.nm(a));return new
+i0(this.nm(a),c,b)}
+this.content[a]=new
+bu(as(0))

@@ -1,0 +1,52 @@
+async fetch(nodeId) {
+    if (!this.running) {
+      this.logger.debug('consumer not running, exiting', {
+        groupId: this.consumerGroup.groupId,
+        memberId: this.consumerGroup.memberId,
+      })
+
+      return []
+    }
+
+    const startFetch = Date.now()
+
+    this.instrumentationEmitter.emit(FETCH_START, { nodeId })
+
+    const batches = await this.consumerGroup.fetch(nodeId)
+
+    this.instrumentationEmitter.emit(FETCH, {
+      /**
+       * PR #570 removed support for the number of batches in this instrumentation event;
+       * The new implementation uses an async generation to deliver the batches, which makes
+       * this number impossible to get. The number is set to 0 to keep the event backward
+       * compatible until we bump KafkaJS to version 2, following the end of node 8 LTS.
+       *
+       * @since 2019-11-29
+       */
+      numberOfBatches: 0,
+      duration: Date.now() - startFetch,
+      nodeId,
+    })
+
+    if (batches.length === 0) {
+      await this.heartb...
+!this.running
+const startFetch = Date.now()
+this.instrumentationEmitter.emit(FETCH_START, { nodeId })
+const batches = await this.consumerGroup.fetch(nodeId)
+this.instrumentationEmitter.emit(FETCH, {
+      /**
+       * PR #570 removed support for the number of batches in this instrumentation event;
+       * The new implementation uses an async generation to deliver the batches, which makes
+       * this number impossible to get. The number is set to 0 to keep the event backward
+       * compatible until we bump KafkaJS to version 2, following the end of node 8 LTS.
+       *
+       * @since 2019-11-29
+       */
+      numberOfBatches: 0,
+      duration: Date.now() - startFetch,
+      nodeId,
+    })
+_tmp_78.numberOfBatches = 0
+_tmp_78.duration = Date.now() - startFetch
+_tmp_78.nodeId = nodeId

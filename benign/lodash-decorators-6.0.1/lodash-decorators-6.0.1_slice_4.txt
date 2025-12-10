@@ -1,0 +1,14 @@
+CompositeKeyWeakMap.prototype.get = function (keys) {
+        var next = this._weakMap;
+        for (var i = 0, len = keys.length; i < len; i++) {
+            next = next.get(keys[i]);
+            if (isUndefined(next)) {
+                break;
+            }
+        }
+        return next;
+    }
+var next = this._weakMap
+var len = keys.length
+next = next.get(keys[i])
+isUndefined(next)

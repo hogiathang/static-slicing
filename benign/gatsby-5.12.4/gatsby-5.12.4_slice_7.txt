@@ -1,0 +1,82 @@
+function getValidHeadNodesAndAttributesSSR = function getValidHeadNodesAndAttributesSSR(rootNode, htmlAndBodyAttributes = {
+  html: {},
+  body: {}
+}) {
+  const seenIds = new Map();
+  const validHeadNodes = [];
+
+  // Filter out non-element nodes before looping since we don't care about them
+  for (const node of rootNode.childNodes) {
+    var _node$attributes;
+    const {
+      rawTagName
+    } = node;
+    const id = (_node$attributes = node.attributes) === null || _node$attributes === void 0 ? void 0 : _node$attributes.id;
+    if (!isElementType(node)) continue;
+    if (isValidNodeName(rawTagName)) {
+      if (rawTagName === `html` || rawTagName === `body`) {
+        const {
+          style,
+          ...nonStyleAttributes
+        } = node.attributes;
+        htmlAndBodyAttributes[rawTagName] = {
+          ...htmlAndBodyAttributes[rawTagName],
+          ...nonStyleAttributes
+        };
+
+        // Unfortunately renderToString converts inline styles to a string, so we have to convert them back to an object
+        if (style) {
+ ...
+_tmp_1.html = {}
+_tmp_1.body = {}
+const seenIds = new Map()
+const validHeadNodes = []
+_iterator_0 = <operator>.iterator(rootNode.childNodes)
+_tmp_5 = node
+rawTagName = _tmp_5.rawTagName
+const id = (_node$attributes = node.attributes) === null || _node$attributes === void 0 ? void 0 : _node$attributes.id
+!isElementType(node)
+isValidNodeName(rawTagName)
+rawTagName === `html` || rawTagName === `body`
+_tmp_6 = node.attributes
+style = _tmp_6.style
+...nonStyleAttributes
+node.attributes
+htmlAndBodyAttributes[rawTagName] = {
+          ...htmlAndBodyAttributes[rawTagName],
+          ...nonStyleAttributes
+        }
+...htmlAndBodyAttributes[rawTagName]
+...nonStyleAttributes
+htmlAndBodyAttributes[rawTagName].style = {
+            ...((_htmlAndBodyAttribute = htmlAndBodyAttributes[rawTagName]) === null || _htmlAndBodyAttribute === void 0 ? void 0 : _htmlAndBodyAttribute.style),
+            ...styleToOjbect(style)
+          }
+...((_htmlAndBodyAttribute = htmlAndBodyAttributes[rawTagName]) === null || _htmlAndBodyAttribute === void 0 ? void 0 : _htmlAndBodyAttribute.style)
+...styleToOjbect(style)
+const attributes = {
+          ...node.attributes,
+          "data-gatsby-head": true
+        }
+...node.attributes
+_tmp_9.data-gatsby-head = true
+rawTagName === `script` || rawTagName === `style`
+element = /*#__PURE__*/React.createElement(node.rawTagName, (0, _extends2.default)({}, attributes, {
+            dangerouslySetInnerHTML: {
+              __html: node.text
+            }
+          }))
+_tmp_11.dangerouslySetInnerHTML = {
+              __html: node.text
+            }
+_tmp_12.__html = node.text
+element = node.textContent.length > 0 ? /*#__PURE__*/React.createElement(node.rawTagName, attributes, node.textContent) : /*#__PURE__*/React.createElement(node.rawTagName, attributes)
+!seenIds.has(id)
+validHeadNodes.push(element)
+seenIds.set(id, validHeadNodes.length - 1)
+const indexOfPreviouslyInsertedNode = seenIds.get(id)
+validHeadNodes[indexOfPreviouslyInsertedNode] = element
+validHeadNodes.push(element)
+warnForInvalidTag(rawTagName)
+node.childNodes.length
+validHeadNodes.push(...getValidHeadNodesAndAttributesSSR(node, htmlAndBodyAttributes).validHeadNodes)

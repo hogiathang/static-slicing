@@ -1,0 +1,23 @@
+Map.prototype.reduceRight = function (callback, basis /*, thisp*/) {
+        var thisp = arguments[2];
+        var keysIterator = this.keys();
+        var size = this.size;
+        var reverseOrder = new Array(this.size);
+        var aKey, i = 0;
+        while ((aKey = keysIterator.next().value)) {
+            reverseOrder[--size] = aKey;
+        }
+        while (i++ < size) {
+            basis = callback.call(thisp, basis, this.get(reverseOrder[i]), reverseOrder[i], this);
+        }
+        return basis;
+    }
+var thisp = arguments[2]
+var keysIterator = this.keys()
+var size = this.size
+var reverseOrder = new Array(this.size)
+var i = 0
+aKey = keysIterator.next().value
+reverseOrder[--size] = aKey
+i++ < size
+basis = callback.call(thisp, basis, this.get(reverseOrder[i]), reverseOrder[i], this)

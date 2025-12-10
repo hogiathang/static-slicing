@@ -1,0 +1,13 @@
+function unwatchFile = function unwatchFile(filename) {
+  const deps = fileToDeps.get(filename);
+  if (!deps) return;
+  for (const dep of deps) {
+    removeFileDependency(filename, dep);
+  }
+  fileToDeps.delete(filename);
+}
+const deps = fileToDeps.get(filename)
+!deps
+_iterator_3 = <operator>.iterator(deps)
+removeFileDependency(filename, dep)
+fileToDeps.delete(filename)

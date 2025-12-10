@@ -1,0 +1,69 @@
+function (serviceName, onError) {
+
+      // Wrap our handler functions to route errors properly.
+      onResponse = wrapHandler(onResponse, onError);
+      onWrite = wrapHandler(onWrite, onError);
+      onResult = wrapHandler(onResult, onError);
+
+      // Create a duplex channel with transform for internal use.
+      var serverChannel = makeChannel();//0, "server");
+      var clientChannel = makeChannel();//0, "client");
+      var socket = {
+        put: serverChannel.put,
+        drain: serverChannel.drain,
+        take: clientChannel.take
+      };
+
+      // Send the initial request to start the connection.
+      var headers = {};
+      if (auth) headers.Authorization = auth;
+      request("GET", gitUrl + "/info/refs?service=" + serviceName, headers, onResponse);
+
+      // Prep for later requests
+      var bodyParts = [];
+      var bodyWrite = pktLine.framer(function (chunk) {
+        bodyParts.push(chunk);
+      });
+      headers["Content-Type"] = "application/x-" + serviceName + ...
+onResponse = wrapHandler(onResponse, onError)
+onWrite = wrapHandler(onWrite, onError)
+onResult = wrapHandler(onResult, onError)
+var serverChannel = makeChannel()
+var clientChannel = makeChannel()
+var socket = {
+        put: serverChannel.put,
+        drain: serverChannel.drain,
+        take: clientChannel.take
+      }
+_tmp_4.put = serverChannel.put
+_tmp_4.drain = serverChannel.drain
+_tmp_4.take = clientChannel.take
+var headers = {}
+headers.Authorization = auth
+function onResponse = function onResponse(res) {
+        if (res.statusCode !== 200) {
+          throw new Error("Invalid response: " + res.statusCode);
+        }
+        if (res.headers["content-type"] !== "application/x-" + serviceName + "-advertisement") {
+          throw new Error("Not a smart http git server");
+        }
+        parseResponse(res.body);
+      }
+function onWrite = function onWrite(item) {
+        if (item === undefined) return socket.put();
+        bodyWrite(item);
+        socket.take(onWrite);
+        if (item !== "done\n" || !bodyParts.length) return;
+        var body = bodec.join(bodyParts);
+        bodyParts.length = 0;
+        request("POST", gitUrl + "/" + serviceName, headers, body, onResult);
+      }
+function onResult = function onResult(res) {
+        if (res.statusCode !== 200) {
+          throw new Error("Invalid result: " + res.statusCode);
+        }
+        if (res.headers["content-type"] !== "application/x-" + serviceName + "-result") {
+          throw new Error("Not a smart http git server");
+        }
+        parseResponse(res.body);
+      }

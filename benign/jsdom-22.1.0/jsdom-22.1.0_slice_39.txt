@@ -1,0 +1,129 @@
+send(body) {
+    const { flag, properties, upload, _ownerDocument } = this;
+    // Not per spec, but per tests: https://github.com/whatwg/xhr/issues/65
+    if (!_ownerDocument) {
+      throw DOMException.create(this._globalObject, ["The object is in an invalid state.", "InvalidStateError"]);
+    }
+
+    if (this.readyState !== READY_STATES.OPENED || properties.send) {
+      throw DOMException.create(this._globalObject, ["The object is in an invalid state.", "InvalidStateError"]);
+    }
+
+    properties.beforeSend = true;
+
+    try {
+      if (flag.method === "GET" || flag.method === "HEAD") {
+        body = null;
+      }
+
+      if (body !== null) {
+        let encoding = null;
+        let mimeType = null;
+
+        if (Document.isImpl(body)) {
+          encoding = "UTF-8";
+          mimeType = (body._parsingMode === "html" ? "text/html" : "application/xml") + ";charset=UTF-8";
+          flag.body = fragmentSerialization(body, { requireWellFormed: false });
+        } else {
+          if ...
+_ownerDocument = _tmp_108._ownerDocument
+!_ownerDocument
+throw DOMException.create(this._globalObject, ["The object is in an invalid state.", "InvalidStateError"]);
+this.readyState !== READY_STATES.OPENED || properties.send
+throw DOMException.create(this._globalObject, ["The object is in an invalid state.", "InvalidStateError"]);
+properties.beforeSend = true
+flag.method === "GET" || flag.method === "HEAD"
+body = null
+body !== null
+let encoding = null
+let mimeType = null
+Document.isImpl(body)
+encoding = "UTF-8"
+mimeType = (body._parsingMode === "html" ? "text/html" : "application/xml") + ";charset=UTF-8"
+flag.body = fragmentSerialization(body, { requireWellFormed: false })
+typeof body === "string"
+encoding = "UTF-8"
+contentType = _tmp_112.contentType
+mimeType = contentType
+flag.body = buffer || formData
+flag.formData = Boolean(formData)
+const existingContentType = xhrUtils.getRequestHeader(flag.requestHeaders, "content-type")
+mimeType !== null && existingContentType === null
+flag.requestHeaders["Content-Type"] = mimeType
+existingContentType !== null && encoding !== null
+const parsed = MIMEType.parse(existingContentType)
+const charset = parsed.parameters.get("charset")
+charset && !asciiCaseInsensitiveMatch(charset, encoding) && encoding !== null
+parsed.parameters.set("charset", encoding)
+xhrUtils.updateRequestHeader(flag.requestHeaders, "content-type", parsed.toString())
+properties.beforeSend
+properties.beforeSend = false
+throw DOMException.create(this._globalObject, ["The object is in an invalid state.", "InvalidStateError"]);
+Object.keys(upload._eventListeners).length > 0
+properties.uploadListener = true
+flag.body && flag.body.byteLength === 0
+flag.body = null
+flag.synchronous
+properties.send = true
+fireAnEvent("loadstart", this, ProgressEvent)
+const client = xhrUtils.createClient(this)
+properties.client = client
+properties.totalReceivedChunkSize = 0
+properties.bufferStepSize = 1 * 1024 * 1024
+properties.origin = flag.origin
+client.on("error", err => {
+        client.removeAllListeners();
+        properties.error = err;
+        xhrUtils.dispatchError(this);
+      })
+client.on("response", (res, url) => receiveResponse(this, res, url))
+client.on("redirect", (response, requestHeaders, currentURL) => {
+        const destUrlObj = new URL(requestHeaders.Referer);
+        const urlObj = new URL(currentURL);
+
+        if (destUrlObj.origin !== urlObj.origin && destUrlObj.origin !== flag.origin) {
+          properties.origin = "null";
+        }
+
+        requestHeaders.Origin = properties.origin;
+
+        if (flag.origin !== destUrlObj.origin &&
+            destUrlObj.protocol !== "data:") {
+          if (!xhrUtils.validCORSHeaders(this, response, flag, properties, flag.origin)) {
+            return;
+          }
+          if (urlObj.username || urlObj.password) {
+            properties.error = "Userinfo forbidden in cors redirect";
+            xhrUtils.dispatchError(this);
+          }
+        }
+      })
+body !== null && body !== ""
+properties.uploadComplete = false
+setDispatchProgressEvents(this)
+properties.uploadComplete = true
+this.timeout > 0
+properties.timeoutStart = (new Date()).getTime()
+properties.timeoutFn = () => {
+          client.abort();
+          if (!(this.readyState === READY_STATES.UNSENT ||
+              (this.readyState === READY_STATES.OPENED && !properties.send) ||
+              this.readyState === READY_STATES.DONE)) {
+            properties.send = false;
+            let stateChanged = false;
+            if (!properties.uploadComplete) {
+              fireAnEvent("progress", upload, ProgressEvent);
+              readyStateChange(this, READY_STATES.DONE);
+              fireAnEvent("timeout", upload, ProgressEvent);
+              fireAnEvent("loadend", upload, ProgressEvent);
+              stateChanged = true;
+            }
+            fireAnEvent("progress", this, ProgressEvent);
+            if (!stateChanged) {
+              readyStateChange(this, READY_STATES.DONE);
+            }
+            fireAnEvent("timeout", this, ProgressEvent);
+            fireAnEvent("loadend", this, ProgressEvent);
+          }
+          this.readyState = READY_STATES.UNSENT...
+properties.timeoutId = setTimeout(properties.timeoutFn, this.timeout)

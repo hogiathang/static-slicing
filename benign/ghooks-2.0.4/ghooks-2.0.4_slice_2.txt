@@ -1,0 +1,9 @@
+function runCommand = function runCommand(command, env) {
+  env = clone(env || process.env)
+  const alterPath = managePath(env)
+  alterPath.unshift(getNpmBin(process.cwd()))
+  spawn(command, {stdio: 'inherit', env}).on('exit', process.exit)
+}
+env = clone(env || process.env)
+const alterPath = managePath(env)
+alterPath.unshift(getNpmBin(process.cwd()))

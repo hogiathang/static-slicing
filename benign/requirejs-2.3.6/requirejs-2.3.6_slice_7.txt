@@ -1,0 +1,6 @@
+_tmp_43.copyFile = <lambda>92
+file.exists(destFileName) && fs.statSync(destFileName).mtime.getTime() >= fs.statSync(srcFileName).mtime.getTime()
+parentDir = path.dirname(destFileName)
+!file.exists(parentDir)
+mkFullDir(parentDir)
+fs.writeFileSync(destFileName, fs.readFileSync(srcFileName, 'binary'), 'binary')

@@ -1,0 +1,32 @@
+function isglob = function isglob(str, { strict = true } = {}) {
+  if (str === '') return false;
+  let match, rgx = strict ? STRICT : RELAXED;
+
+  while ((match = rgx.exec(str))) {
+    if (match[2]) return true;
+    let idx = match.index + match[0].length;
+
+    // if an open bracket/brace/paren is escaped,
+    // set the index to the next closing character
+    let open = match[1];
+    let close = open ? CHARS[open] : null;
+    if (open && close) {
+      let n = str.indexOf(close, idx);
+      if (n !== -1)  idx = n + 1;
+    }
+
+    str = str.slice(idx);
+  }
+  return false;
+}
+str === ''
+let rgx = strict ? STRICT : RELAXED
+match = rgx.exec(str)
+match[2]
+let idx = match.index + match[0].length
+let open = match[1]
+let close = open ? CHARS[open] : null
+open && close
+let n = str.indexOf(close, idx)
+idx = n + 1
+str = str.slice(idx)

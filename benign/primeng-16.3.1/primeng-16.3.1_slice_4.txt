@@ -1,0 +1,62 @@
+restoreState() {
+        const storage = this.getStorage();
+        const stateString = storage.getItem(this.stateKey);
+        const dateFormat = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/;
+        const reviver = function (key, value) {
+            if (typeof value === 'string' && dateFormat.test(value)) {
+                return new Date(value);
+            }
+            return value;
+        };
+        if (stateString) {
+            let state = JSON.parse(stateString, reviver);
+            if (this.paginator) {
+                if (this.first !== undefined) {
+                    this.first = state.first;
+                    this.firstChange.emit(this.first);
+                }
+                if (this.rows !== undefined) {
+                    this.rows = state.rows;
+                    this.rowsChange.emit(this.rows);
+                }
+            }
+            if (state.sortField) {
+                this.restoringSort = true;
+                this._sortField = state.sortField;
+   ...
+const storage = this.getStorage()
+const stateString = storage.getItem(this.stateKey)
+const dateFormat = /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/
+const reviver = function (key, value) {
+            if (typeof value === 'string' && dateFormat.test(value)) {
+                return new Date(value);
+            }
+            return value;
+        }
+let state = JSON.parse(stateString, reviver)
+this.paginator
+this.first !== undefined
+this.first = state.first
+(_tmp_234 = this.firstChange).emit
+this.rows !== undefined
+this.rows = state.rows
+(_tmp_235 = this.rowsChange).emit
+state.sortField
+this.restoringSort = true
+this._sortField = state.sortField
+this._sortOrder = state.sortOrder
+state.multiSortMeta
+this.restoringSort = true
+this._multiSortMeta = state.multiSortMeta
+state.filters
+this.restoringFilter = true
+this.filters = state.filters
+this.resizableColumns
+this.columnWidthsState = state.columnWidths
+this.tableWidthState = state.tableWidth
+state.expandedRowKeys
+this.expandedRowKeys = state.expandedRowKeys
+state.selection
+Promise.resolve(null).then(() => this.selectionChange.emit(state.selection))
+this.stateRestored = true
+(_tmp_238 = this.onStateRestore).emit

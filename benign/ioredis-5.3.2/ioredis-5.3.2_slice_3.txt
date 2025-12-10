@@ -1,0 +1,22 @@
+function fillSubCommand = function fillSubCommand(command, count) {
+    let remainingReplies = remainingRepliesMap.has(command)
+        ? remainingRepliesMap.get(command)
+        : command.args.length;
+    remainingReplies -= 1;
+    if (remainingReplies <= 0) {
+        command.resolve(count);
+        remainingRepliesMap.delete(command);
+        return true;
+    }
+    remainingRepliesMap.set(command, remainingReplies);
+    return false;
+}
+let remainingReplies = remainingRepliesMap.has(command)
+        ? remainingRepliesMap.get(command)
+        : command.args.length
+remainingRepliesMap.get(command)
+command.args.length
+remainingReplies -= 1
+remainingReplies <= 0
+command.resolve(count)
+remainingRepliesMap.delete(command)

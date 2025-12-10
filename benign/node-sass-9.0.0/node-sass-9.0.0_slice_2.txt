@@ -1,0 +1,36 @@
+function build = function build(options) {
+  var args = [require.resolve(path.join('node-gyp', 'bin', 'node-gyp.js')), 'rebuild', '--verbose'].concat(
+    ['libsass_ext', 'libsass_cflags', 'libsass_ldflags', 'libsass_library'].map(function(subject) {
+      return ['--', subject, '=', process.env[subject.toUpperCase()] || ''].join('');
+    })).concat(options.args);
+
+  console.log('Building:', [process.execPath].concat(args).join(' '));
+
+  var proc = spawn(process.execPath, args, {
+    stdio: [0, 1, 2]
+  });
+
+  proc.on('exit', function(errorCode) {
+    if (!errorCode) {
+      afterBuild(options);
+      return;
+    }
+
+    if (errorCode === 127 ) {
+      console.error('node-gyp not found!');
+    } else {
+      console.error('Build failed with error code:', errorCode);
+    }
+
+    process.exit(1);
+  });
+}
+var args = [require.resolve(path.join('node-gyp', 'bin', 'node-gyp.js')), 'rebuild', '--verbose'].concat(
+    ['libsass_ext', 'libsass_cflags', 'libsass_ldflags', 'libsass_library'].map(function(subject) {
+      return ['--', subject, '=', process.env[subject.toUpperCase()] || ''].join('');
+    })).concat(options.args)
+['libsass_ext', 'libsass_cflags', 'libsass_ldflags', 'libsass_library'].map(function(subject) {
+      return ['--', subject, '=', process.env[subject.toUpperCase()] || ''].join('');
+    })
+options.args
+console.log('Building:', [process.execPath].concat(args).join(' '))

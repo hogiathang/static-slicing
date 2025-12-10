@@ -1,0 +1,7 @@
+_tmp_3._run = <lambda>24
+_tmp_33.targets = __ecma.Array.factory()
+var opts = self.options
+var shortOpts = self.short
+var skip = false
+argv = self.isArray( argv ) ? argv : process.argv.slice( 2 )
+argv.length && ristarget.exec( argv[ 0 ] ) && self.mods[ argv[ 0 ] ]

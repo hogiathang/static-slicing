@@ -1,0 +1,32 @@
+results.forEach(function (result) {
+            let refMoment = dayjs(context.refDate);
+
+            if (result.start.isOnlyTime() && refMoment.isAfter(result.start.dayjs())) {
+                refMoment = refMoment.add(1, "day");
+                implySimilarDate(result.start, refMoment);
+                if (result.end && result.end.isOnlyTime()) {
+                    implySimilarDate(result.end, refMoment);
+                    if (result.start.dayjs().isAfter(result.end.dayjs())) {
+                        refMoment = refMoment.add(1, "day");
+                        implySimilarDate(result.end, refMoment);
+                    }
+                }
+            }
+
+            if (result.start.isOnlyWeekdayComponent() && refMoment.isAfter(result.start.dayjs())) {
+                if (refMoment.day() >= result.start.get("weekday")) {
+                    refMoment = refMoment.day(result.start.get("weekday") + 7);
+                } else {
+                    refMoment = refMoment.day(<number>...
+let refMoment = dayjs(context.refDate)
+result.start.isOnlyTime() && refMoment.isAfter(result.start.dayjs())
+refMoment = refMoment.add(1, "day")
+implySimilarDate(result.start, refMoment)
+result.end && result.end.isOnlyTime()
+implySimilarDate(result.end, refMoment)
+result.start.dayjs().isAfter(result.end.dayjs())
+refMoment = refMoment.add(1, "day")
+implySimilarDate(result.end, refMoment)
+result.start.isOnlyWeekdayComponent() && refMoment.isAfter(result.start.dayjs())
+refMoment.day() >= result.start.get("weekday")
+refMoment = refMoment.day(result.start.get("weekday") + 7)

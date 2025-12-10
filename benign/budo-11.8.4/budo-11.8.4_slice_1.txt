@@ -1,0 +1,20 @@
+function create = function create (httpsOpts) {
+    var server = ssl
+      ? https.createServer(httpsOpts, handler)
+      : http.createServer(handler)
+    server.setLiveOptions = handler.setLiveOptions
+
+    // TODO: Perhaps --ssl should support some sort of HTTP -> HTTPS redirect
+    process.nextTick(function () {
+      cb(null, server)
+    })
+  }
+var server = ssl
+      ? https.createServer(httpsOpts, handler)
+      : http.createServer(handler)
+https.createServer(httpsOpts, handler)
+http.createServer(handler)
+server.setLiveOptions = handler.setLiveOptions
+process.nextTick(function () {
+      cb(null, server)
+    })

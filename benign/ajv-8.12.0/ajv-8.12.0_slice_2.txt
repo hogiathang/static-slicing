@@ -1,0 +1,71 @@
+function compileParser = function compileParser(
+  this: Ajv,
+  sch: SchemaEnv,
+  definitions: SchemaObjectMap
+): SchemaEnv {
+  const _sch = getCompilingSchema.call(this, sch)
+  if (_sch) return _sch
+  const {es5, lines} = this.opts.code
+  const {ownProperties} = this.opts
+  const gen = new CodeGen(this.scope, {es5, lines, ownProperties})
+  const parseName = gen.scopeName("parse")
+  const cxt: ParseCxt = {
+    self: this,
+    gen,
+    schema: sch.schema as SchemaObject,
+    schemaEnv: sch,
+    definitions,
+    data: N.data,
+    parseName,
+    char: gen.name("c"),
+  }
+
+  let sourceCode: string | undefined
+  try {
+    this._compilations.add(sch)
+    sch.parseName = parseName
+    parserFunction(cxt)
+    gen.optimize(this.opts.code.optimize)
+    const parseFuncCode = gen.toString()
+    sourceCode = `${gen.scopeRefs(N.scope)}return ${parseFuncCode}`
+    const makeParse = new Function(`${N.scope}`, sourceCode)
+    const parse: (json: string) => unknown = makeParse(this.scope.get())
+    this.scope.value(parseName,...
+const _sch = getCompilingSchema.call(this, sch)
+_tmp_94 = this.opts.code
+ownProperties = _tmp_95.ownProperties
+const gen = new CodeGen(this.scope, {es5, lines, ownProperties})
+const parseName = gen.scopeName("parse")
+const cxt: ParseCxt = {
+    self: this,
+    gen,
+    schema: sch.schema as SchemaObject,
+    schemaEnv: sch,
+    definitions,
+    data: N.data,
+    parseName,
+    char: gen.name("c"),
+  }
+_tmp_98.self = this
+_tmp_98.gen = gen
+_tmp_98.schema = sch.schema as SchemaObject
+_tmp_98.schemaEnv = sch
+_tmp_98.definitions = definitions
+_tmp_98.data = N.data
+_tmp_98.parseName = parseName
+_tmp_98.char = gen.name("c")
+(_tmp_99 = this._compilations).add
+sch.parseName = parseName
+parserFunction(cxt)
+gen.optimize(this.opts.code.optimize)
+const parseFuncCode = gen.toString()
+<operator>.formatString("", gen.scopeRefs(N.scope), "return ", parseFuncCode, "")
+const makeParse = new Function(`${N.scope}`, sourceCode)
+const parse: (json: string) => unknown = makeParse(this.scope.get())
+this.scope.value(parseName, {ref: parse})
+sch.parse = parse
+this.logger.error("Error compiling parser, function code:", sourceCode)
+delete sch.parse
+delete sch.parseName
+throw e
+(_tmp_105 = this._compilations).delete

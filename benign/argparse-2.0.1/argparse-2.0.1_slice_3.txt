@@ -1,0 +1,31 @@
+_parse_known_args(arg_strings, namespace) {
+        // replace arg strings that are file references
+        if (this.fromfile_prefix_chars !== undefined) {
+            arg_strings = this._read_args_from_files(arg_strings)
+        }
+
+        // map all mutually exclusive arguments to the other arguments
+        // they can't occur with
+        let action_conflicts = new Map()
+        for (let mutex_group of this._mutually_exclusive_groups) {
+            let group_actions = mutex_group._group_actions
+            for (let [ i, mutex_action ] of Object.entries(mutex_group._group_actions)) {
+                let conflicts = action_conflicts.get(mutex_action) || []
+                conflicts = conflicts.concat(group_actions.slice(0, +i))
+                conflicts = conflicts.concat(group_actions.slice(+i + 1))
+                action_conflicts.set(mutex_action, conflicts)
+            }
+        }
+
+        // find all option indices, and determine the arg_string_pattern
+        // which has an...
+this.fromfile_prefix_chars !== undefined
+arg_strings = this._read_args_from_files(arg_strings)
+let action_conflicts = new Map()
+_iterator_40 = <operator>.iterator(this._mutually_exclusive_groups)
+let group_actions = mutex_group._group_actions
+_iterator_41 = <operator>.iterator(Object.entries(mutex_group._group_actions))
+let conflicts = action_conflicts.get(mutex_action) || []
+conflicts = conflicts.concat(group_actions.slice(0, +i))
+conflicts = conflicts.concat(group_actions.slice(+i + 1))
+action_conflicts.set(mutex_action, conflicts)

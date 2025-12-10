@@ -1,0 +1,315 @@
+BRp.findEdgeControlPoints = function( edges ){
+  if( !edges || edges.length === 0 ){ return; }
+
+  let r = this;
+  let cy = r.cy;
+  let hasCompounds = cy.hasCompoundNodes();
+
+  let hashTable = {
+    map: new Map(),
+    get: function(pairId){
+      let map2 = this.map.get(pairId[0]);
+
+      if( map2 != null ){
+        return map2.get(pairId[1]);
+      } else {
+        return null;
+      }
+    },
+    set: function(pairId, val){
+      let map2 = this.map.get(pairId[0]);
+
+      if( map2 == null ){
+        map2 = new Map();
+        this.map.set(pairId[0], map2);
+      }
+
+      map2.set(pairId[1], val);
+    }
+  };
+
+  let pairIds = [];
+  let haystackEdges = [];
+
+  // create a table of edge (src, tgt) => list of edges between them
+  for( let i = 0; i < edges.length; i++ ){
+    let edge = edges[i];
+    let _p = edge._private;
+    let curveStyle = edge.pstyle('curve-style').value;
+
+    // ignore edges who are not to be displayed
+    // they shouldn't take up space
+    if( edge.removed() || !ed...
+!edges || edges.length === 0
+let r = this
+let cy = r.cy
+let hasCompounds = cy.hasCompoundNodes()
+let hashTable = {
+    map: new Map(),
+    get: function(pairId){
+      let map2 = this.map.get(pairId[0]);
+
+      if( map2 != null ){
+        return map2.get(pairId[1]);
+      } else {
+        return null;
+      }
+    },
+    set: function(pairId, val){
+      let map2 = this.map.get(pairId[0]);
+
+      if( map2 == null ){
+        map2 = new Map();
+        this.map.set(pairId[0], map2);
+      }
+
+      map2.set(pairId[1], val);
+    }
+  }
+_tmp_52.map = new Map()
+_tmp_52.get = <lambda>13
+_tmp_52.set = <lambda>14
+__ecma.Array.factory()
+let haystackEdges = []
+i < edges.length
+let edge = edges[i]
+let _p = edge._private
+let curveStyle = edge.pstyle('curve-style').value
+edge.removed() || !edge.takesUpSpace()
+continue;
+curveStyle === 'haystack'
+haystackEdges.push( edge )
+continue;
+let edgeIsUnbundled = curveStyle === 'unbundled-bezier' || curveStyle === 'segments' || curveStyle === 'straight' || curveStyle === 'straight-triangle' || curveStyle === 'taxi'
+let edgeIsBezier = curveStyle === 'unbundled-bezier' || curveStyle === 'bezier'
+let src = _p.source
+let tgt = _p.target
+let srcIndex = src.poolIndex()
+let tgtIndex = tgt.poolIndex()
+let pairId = [ srcIndex, tgtIndex ].sort()
+let tableEntry = hashTable.get( pairId )
+tableEntry == null
+_tmp_60.eles = __ecma.Array.factory()
+hashTable.set( pairId, tableEntry )
+pairIds.push( pairId )
+(_tmp_61 = tableEntry.eles).push
+tableEntry.hasUnbundled = true
+tableEntry.hasBezier = true
+p < pairIds.length
+let pairId = pairIds[ p ]
+let pairInfo = hashTable.get( pairId )
+!pairInfo.hasUnbundled
+let pllEdges = pairInfo.eles[0].parallelEdges().filter(e => e.isBundledBezier())
+util.clearArray( pairInfo.eles )
+pllEdges.forEach( edge => pairInfo.eles.push(edge) )
+pairInfo.eles.sort( (edge1, edge2) => edge1.poolIndex() - edge2.poolIndex() )
+let firstEdge = pairInfo.eles[0]
+let src = firstEdge.source()
+let tgt = firstEdge.target()
+src.poolIndex() > tgt.poolIndex()
+let temp = src
+src = tgt
+tgt = temp
+let srcPos = pairInfo.srcPos = src.position()
+let tgtPos = pairInfo.tgtPos = tgt.position()
+let srcW = pairInfo.srcW = src.outerWidth()
+let srcH = pairInfo.srcH = src.outerHeight()
+let tgtW = pairInfo.tgtW = tgt.outerWidth()
+let tgtH = pairInfo.tgtH = tgt.outerHeight()
+let srcShape = pairInfo.srcShape = r.nodeShapes[ this.getNodeShape( src ) ]
+let tgtShape = pairInfo.tgtShape = r.nodeShapes[ this.getNodeShape( tgt ) ]
+pairInfo.dirCounts = {
+      'north': 0,
+      'west': 0,
+      'south': 0,
+      'east': 0,
+      'northwest': 0,
+      'southwest': 0,
+      'northeast': 0,
+      'southeast': 0
+    }
+_tmp_66.north = 0
+_tmp_66.west = 0
+_tmp_66.south = 0
+_tmp_66.east = 0
+_tmp_66.northwest = 0
+_tmp_66.southwest = 0
+_tmp_66.northeast = 0
+_tmp_66.southeast = 0
+i < pairInfo.eles.length
+const edge = pairInfo.eles[i]
+const rs = edge[0]._private.rscratch
+const curveStyle = edge.pstyle( 'curve-style' ).value
+const edgeIsUnbundled = curveStyle === 'unbundled-bezier' || curveStyle === 'segments' || curveStyle === 'taxi'
+const edgeIsSwapped = !src.same(edge.source())
+!pairInfo.calculatedIntersection && src !== tgt && ( pairInfo.hasBezier || pairInfo.hasUnbundled )
+pairInfo.calculatedIntersection = true
+let srcOutside = srcShape.intersectLine(
+          srcPos.x, srcPos.y,
+          srcW, srcH,
+          tgtPos.x, tgtPos.y,
+          0
+        )
+srcPos.x
+tgtPos.x
+0
+let srcIntn = pairInfo.srcIntn = srcOutside
+let tgtOutside = tgtShape.intersectLine(
+          tgtPos.x, tgtPos.y,
+          tgtW, tgtH,
+          srcPos.x, srcPos.y,
+          0
+        )
+tgtPos.x
+srcPos.x
+0
+let tgtIntn = pairInfo.tgtIntn = tgtOutside
+let intersectionPts = pairInfo.intersectionPts = {
+          x1: srcOutside[0],
+          x2: tgtOutside[0],
+          y1: srcOutside[1],
+          y2: tgtOutside[1]
+        }
+_tmp_67.x1 = srcOutside[0]
+_tmp_67.x2 = tgtOutside[0]
+_tmp_67.y1 = srcOutside[1]
+_tmp_67.y2 = tgtOutside[1]
+let posPts = pairInfo.posPts = {
+          x1: srcPos.x,
+          x2: tgtPos.x,
+          y1: srcPos.y,
+          y2: tgtPos.y
+        }
+_tmp_68.x1 = srcPos.x
+_tmp_68.x2 = tgtPos.x
+_tmp_68.y1 = srcPos.y
+_tmp_68.y2 = tgtPos.y
+let dy = ( tgtOutside[1] - srcOutside[1] )
+let dx = ( tgtOutside[0] - srcOutside[0] )
+let l = Math.sqrt( dx * dx + dy * dy )
+let vector = pairInfo.vector = {
+          x: dx,
+          y: dy
+        }
+_tmp_69.x = dx
+_tmp_69.y = dy
+let vectorNorm = pairInfo.vectorNorm = {
+          x: vector.x / l,
+          y: vector.y / l
+        }
+_tmp_70.x = vector.x / l
+_tmp_70.y = vector.y / l
+let vectorNormInverse = {
+          x: -vectorNorm.y,
+          y: vectorNorm.x
+        }
+_tmp_71.x = -vectorNorm.y
+_tmp_71.y = vectorNorm.x
+pairInfo.nodesOverlap = (
+          !is.number(l)
+          || tgtShape.checkPoint( srcOutside[0], srcOutside[1], 0, tgtW, tgtH, tgtPos.x, tgtPos.y )
+          || srcShape.checkPoint( tgtOutside[0], tgtOutside[1], 0, srcW, srcH, srcPos.x, srcPos.y )
+        )
+!is.number(l)
+          || tgtShape.checkPoint( srcOutside[0], srcOutside[1], 0, tgtW, tgtH, tgtPos.x, tgtPos.y )
+          || srcShape.checkPoint( tgtOutside[0], tgtOutside[1], 0, srcW, srcH, srcPos.x, srcPos.y )
+tgtShape.checkPoint( srcOutside[0], srcOutside[1], 0, tgtW, tgtH, tgtPos.x, tgtPos.y )
+srcShape.checkPoint( tgtOutside[0], tgtOutside[1], 0, srcW, srcH, srcPos.x, srcPos.y )
+pairInfo.vectorNormInverse = vectorNormInverse
+swappedpairInfo = {
+          nodesOverlap: pairInfo.nodesOverlap,
+          dirCounts: pairInfo.dirCounts,
+          calculatedIntersection: true,
+          hasBezier: pairInfo.hasBezier,
+          hasUnbundled: pairInfo.hasUnbundled,
+          eles: pairInfo.eles,
+          srcPos: tgtPos,
+          tgtPos: srcPos,
+          srcW: tgtW,
+          srcH: tgtH,
+          tgtW: srcW,
+          tgtH: srcH,
+          srcIntn: tgtIntn,
+          tgtIntn: srcIntn,
+          srcShape: tgtShape,
+          tgtShape: srcShape,
+          posPts: {
+            x1: posPts.x2, y1: posPts.y2,
+            x2: posPts.x1, y2: posPts.y1
+          },
+          intersectionPts: {
+            x1: intersectionPts.x2, y1: intersectionPts.y2,
+            x2: intersectionPts.x1, y2: intersectionPts.y1
+          },
+          vector: { x: -vector.x, y: -vector.y },
+          vectorNorm: { x: -vectorNorm.x, y: -vectorNorm.y },
+          vectorNormInverse: { x: -vectorNormInverse.x, y: -vectorNormInverse.y }
+   ...
+_tmp_72.nodesOverlap = pairInfo.nodesOverlap
+_tmp_72.dirCounts = pairInfo.dirCounts
+_tmp_72.calculatedIntersection = true
+_tmp_72.hasBezier = pairInfo.hasBezier
+_tmp_72.hasUnbundled = pairInfo.hasUnbundled
+_tmp_72.eles = pairInfo.eles
+_tmp_72.srcPos = tgtPos
+_tmp_72.tgtPos = srcPos
+_tmp_72.srcW = tgtW
+_tmp_72.srcH = tgtH
+_tmp_72.tgtW = srcW
+_tmp_72.tgtH = srcH
+_tmp_72.srcIntn = tgtIntn
+_tmp_72.tgtIntn = srcIntn
+_tmp_72.srcShape = tgtShape
+_tmp_72.tgtShape = srcShape
+_tmp_72.posPts = {
+            x1: posPts.x2, y1: posPts.y2,
+            x2: posPts.x1, y2: posPts.y1
+          }
+_tmp_73.x1 = posPts.x2
+_tmp_73.x2 = posPts.x1
+_tmp_72.intersectionPts = {
+            x1: intersectionPts.x2, y1: intersectionPts.y2,
+            x2: intersectionPts.x1, y2: intersectionPts.y1
+          }
+_tmp_74.x1 = intersectionPts.x2
+_tmp_74.x2 = intersectionPts.x1
+_tmp_72.vector = { x: -vector.x, y: -vector.y }
+_tmp_72.vectorNorm = { x: -vectorNorm.x, y: -vectorNorm.y }
+_tmp_72.vectorNormInverse = { x: -vectorNormInverse.x, y: -vectorNormInverse.y }
+const passedPairInfo = edgeIsSwapped ? swappedpairInfo : pairInfo
+rs.nodesOverlap = passedPairInfo.nodesOverlap
+rs.srcIntn = passedPairInfo.srcIntn
+rs.tgtIntn = passedPairInfo.tgtIntn
+hasCompounds &&
+        ( src.isParent() || src.isChild() || tgt.isParent() || tgt.isChild() ) &&
+        ( src.parents().anySame(tgt) || tgt.parents().anySame(src) || (src.same(tgt) && src.isParent()) )
+src.isParent() || src.isChild() || tgt.isParent() || tgt.isChild()
+src.parents().anySame(tgt) || tgt.parents().anySame(src) || (src.same(tgt) && src.isParent())
+this.findCompoundLoopPoints(edge, passedPairInfo, i, edgeIsUnbundled)
+src === tgt
+this.findLoopPoints(edge, passedPairInfo, i, edgeIsUnbundled)
+curveStyle === 'segments'
+this.findSegmentsPoints(edge, passedPairInfo)
+curveStyle === 'taxi'
+this.findTaxiPoints(edge, passedPairInfo)
+curveStyle === 'straight'
+        || (
+          !edgeIsUnbundled
+          && pairInfo.eles.length % 2 === 1
+          && i === Math.floor( pairInfo.eles.length / 2 )
+        )
+!edgeIsUnbundled
+          && pairInfo.eles.length % 2 === 1
+          && i === Math.floor( pairInfo.eles.length / 2 )
+pairInfo.eles.length % 2 === 1
+i === Math.floor( pairInfo.eles.length / 2 )
+this.findStraightEdgePoints(edge)
+this.findBezierPoints(edge, passedPairInfo, i, edgeIsUnbundled, edgeIsSwapped)
+this.findEndpoints( edge )
+this.tryToCorrectInvalidPoints( edge, passedPairInfo )
+this.checkForInvalidEdgeWarning( edge )
+this.storeAllpts( edge )
+this.storeEdgeProjections( edge )
+this.calculateArrowAngles( edge )
+this.recalculateEdgeLabelProjections( edge )
+this.calculateLabelAngles( edge )

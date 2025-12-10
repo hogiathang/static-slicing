@@ -1,0 +1,37 @@
+const appender = (logEvent) => {
+    const fileKey = findFileKey(config.property, logEvent);
+    debug('fileKey for property ', config.property, ' is ', fileKey);
+    if (fileKey) {
+      let file = files.get(fileKey);
+      debug('existing file appender is ', file);
+      if (!file) {
+        debug('creating new file appender');
+        config.filename = path.join(config.base, fileKey + config.extension);
+        file = fileAppender.configure(config, layouts);
+        files.set(fileKey, file);
+        if (config.timeout) {
+          debug('creating new timer');
+          timers.set(fileKey, {
+            timeout: config.timeout,
+            lastUsed: Date.now(),
+            interval: setInterval(
+              checkForTimeout.bind(null, fileKey),
+              config.timeout
+            ),
+          });
+        }
+      } else if (config.timeout) {
+        debug('%s extending activity', fileKey);
+        timers.get(fileKey).lastUsed = Date.now();
+      }
+
+      file(logEvent);
+    } else ...
+const fileKey = findFileKey(config.property, logEvent)
+debug('fileKey for property ', config.property, ' is ', fileKey)
+let file = files.get(fileKey)
+debug('existing file appender is ', file)
+!file
+config.timeout
+debug('%s extending activity', fileKey)
+timers.get(fileKey).lastUsed = Date.now()

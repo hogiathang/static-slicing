@@ -1,0 +1,58 @@
+async getCoverageMapFromAllCoverageFiles () {
+    // the merge process can be very expensive, and it's often the case that
+    // check-coverage is called immediately after a report. We memoize the
+    // result from getCoverageMapFromAllCoverageFiles() to address this
+    // use-case.
+    if (this._allCoverageFiles) return this._allCoverageFiles
+
+    const map = libCoverage.createCoverageMap()
+    let v8ProcessCov
+
+    if (this.mergeAsync) {
+      v8ProcessCov = await this._getMergedProcessCovAsync()
+    } else {
+      v8ProcessCov = this._getMergedProcessCov()
+    }
+    const resultCountPerPath = new Map()
+    const possibleCjsEsmBridges = new Map()
+
+    for (const v8ScriptCov of v8ProcessCov.result) {
+      try {
+        const sources = this._getSourceMap(v8ScriptCov)
+        const path = resolve(this.resolve, v8ScriptCov.url)
+        const converter = v8toIstanbul(path, this.wrapperLength, sources, (path) => {
+          if (this.excludeAfterRemap) {
+            return !this._sho...
+this._allCoverageFiles
+const map = libCoverage.createCoverageMap()
+this.mergeAsync
+v8ProcessCov = await this._getMergedProcessCovAsync()
+v8ProcessCov = this._getMergedProcessCov()
+const resultCountPerPath = new Map()
+const possibleCjsEsmBridges = new Map()
+_iterator_1 = <operator>.iterator(v8ProcessCov.result)
+const sources = this._getSourceMap(v8ScriptCov)
+const path = resolve(this.resolve, v8ScriptCov.url)
+const converter = v8toIstanbul(path, this.wrapperLength, sources, (path) => {
+          if (this.excludeAfterRemap) {
+            return !this._shouldInstrument(path)
+          }
+        })
+await converter.load()
+resultCountPerPath.has(path)
+resultCountPerPath.set(path, resultCountPerPath.get(path) + 1)
+resultCountPerPath.set(path, 0)
+isCjsEsmBridgeCov(v8ScriptCov)
+possibleCjsEsmBridges.set(converter, {
+            path,
+            functions: v8ScriptCov.functions
+          })
+_tmp_17.path = path
+_tmp_17.functions = v8ScriptCov.functions
+converter.applyCoverage(v8ScriptCov.functions)
+map.merge(converter.toIstanbul())
+<operator>.formatString("file: ", v8ScriptCov.url, " error: ", err.stack, "")
+_iterator_2 = <operator>.iterator(possibleCjsEsmBridges)
+resultCountPerPath.get(path) <= 1
+converter.applyCoverage(functions)
+map.merge(converter.toIstanbul())

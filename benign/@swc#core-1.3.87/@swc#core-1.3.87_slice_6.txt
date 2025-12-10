@@ -1,0 +1,27 @@
+const validateBinary = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const { name } = require(path.resolve(process.env.INIT_CWD, 'package.json'));
+        if (name === '@swc/core') {
+            return;
+        }
+    }
+    catch (_) {
+        return;
+    }
+    // TODO: We do not take care of the case if user try to install with `--no-optional`.
+    // For now, it is considered as deliberate decision.
+    let binding;
+    try {
+        binding = require('./binding');
+        // Check if binding binary actually works.
+        // For the latest version, checks target triple. If it's old version doesn't have target triple, use parseSync instead.
+        const triple = binding.getTargetTriple ? binding.getTargetTriple() : binding.parseSync('console.log()', Buffer.from(JSON.stringify({ syntax: "ecmascript" })));
+        assert.ok(triple, 'Failed to read target triple from native binary.');
+    }
+    catch (error) {
+        // if error is unsupported archit...
+_tmp_9 = require(path.resolve(process.env.INIT_CWD, 'package.json'))
+name === '@swc/core'
+binding = require('./binding')
+const triple = binding.getTargetTriple ? binding.getTargetTriple() : binding.parseSync('console.log()', Buffer.from(JSON.stringify({ syntax: "ecmascript" })))

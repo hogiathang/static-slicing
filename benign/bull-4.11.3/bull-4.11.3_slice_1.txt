@@ -1,0 +1,10 @@
+Queue.prototype.processJobs = function(index, resolve, job) {
+  const processJobs = this.processJobs.bind(this, index, resolve);
+  process.nextTick(() => {
+    this._processJobOnNextTick(processJobs, index, resolve, job);
+  });
+}
+const processJobs = this.processJobs.bind(this, index, resolve)
+process.nextTick(() => {
+    this._processJobOnNextTick(processJobs, index, resolve, job);
+  })

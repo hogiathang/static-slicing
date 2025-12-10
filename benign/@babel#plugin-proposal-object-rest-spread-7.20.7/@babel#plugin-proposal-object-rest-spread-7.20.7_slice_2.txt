@@ -1,0 +1,24 @@
+function createObjectRest = function createObjectRest(path, file, objRef) {
+    const props = path.get("properties");
+    const last = props[props.length - 1];
+    core.types.assertRestElement(last.node);
+    const restElement = core.types.cloneNode(last.node);
+    last.remove();
+    const impureComputedPropertyDeclarators = replaceImpureComputedKeys(path.get("properties"), path.scope);
+    const {
+      keys,
+      allLiteral,
+      hasTemplateLiteral
+    } = extractNormalizedKeys(path.node);
+    if (keys.length === 0) {
+      return [impureComputedPropertyDeclarators, restElement.argument, core.types.callExpression(getExtendsHelper(file), [core.types.objectExpression([]), core.types.sequenceExpression([core.types.callExpression(file.addHelper("objectDestructuringEmpty"), [core.types.cloneNode(objRef)]), core.types.cloneNode(objRef)])])];
+    }
+    let keyExpression;
+    if (!allLiteral) {
+      keyExpression = core.types.callExpression(core.types.memberExpression(core.types.arrayExpression(keys), core.types....
+const props = path.get("properties")
+const last = props[props.length - 1]
+(_tmp_32 = core.types).assertRestElement
+const restElement = core.types.cloneNode(last.node)
+last.remove()
+const impureComputedPropertyDeclarators = replaceImpureComputedKeys(path.get("properties"), path.scope)

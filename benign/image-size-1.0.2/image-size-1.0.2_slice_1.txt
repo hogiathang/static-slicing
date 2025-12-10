@@ -1,0 +1,10 @@
+const fs = require('fs')
+const path = require('path')
+imageSize = _tmp_0.imageSize
+const files = process.argv.slice(2)
+!files.length
+console.error('Usage: image-size image1 [image2] [image3] ...')
+process.exit(-1)
+function colorize = function colorize(text, color) {
+  return color[0] + text + color[1]
+}

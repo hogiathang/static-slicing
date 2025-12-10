@@ -1,0 +1,33 @@
+async _refreshHosts(initializing, isReconnecting) {
+    // Get a reference to the current connection as it might change from external events
+    const c = this.connection;
+
+    if (!c) {
+      if (isReconnecting) {
+        throw new errors.DriverInternalError('Connection reference has been lost when reconnecting');
+      }
+
+      // it's possible that this was called as a result of a topology change, but the connection was lost
+      // between scheduling time and now. This will be called again when there is a new connection.
+      return;
+    }
+
+    this.log('info', 'Refreshing local and peers info');
+
+    const rsLocal = await c.send(new requests.QueryRequest(selectLocal), null);
+    this._setLocalInfo(initializing, isReconnecting, c, rsLocal);
+
+    if (!this.host) {
+      throw new errors.DriverInternalError('Information from system.local could not be retrieved');
+    }
+
+    const rsPeers = await c.send(new requests.QueryRequest(selectPeers), null);
+    await this.setPeersInfo(in...
+const c = this.connection
+!c
+this.log('info', 'Refreshing local and peers info')
+const rsLocal = await c.send(new requests.QueryRequest(selectLocal), null)
+this._setLocalInfo(initializing, isReconnecting, c, rsLocal)
+!this.host
+throw new errors.DriverInternalError('Information from system.local could not be retrieved');
+const rsPeers = await c.send(new requests.QueryRequest(selectPeers), null)

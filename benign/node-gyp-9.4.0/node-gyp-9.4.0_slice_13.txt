@@ -1,0 +1,71 @@
+function doBuild = function doBuild () {
+    // Enable Verbose build
+    var verbose = log.levels[log.level] <= log.levels.verbose
+    var j
+
+    if (!win && verbose) {
+      argv.push('V=1')
+    }
+
+    if (win && !verbose) {
+      argv.push('/clp:Verbosity=minimal')
+    }
+
+    if (win) {
+      // Turn off the Microsoft logo on Windows
+      argv.push('/nologo')
+    }
+
+    // Specify the build type, Release by default
+    if (win) {
+      // Convert .gypi config target_arch to MSBuild /Platform
+      // Since there are many ways to state '32-bit Intel', default to it.
+      // N.B. msbuild's Condition string equality tests are case-insensitive.
+      var archLower = arch.toLowerCase()
+      var p = archLower === 'x64' ? 'x64'
+        : (archLower === 'arm' ? 'ARM'
+          : (archLower === 'arm64' ? 'ARM64' : 'Win32'))
+      argv.push('/p:Configuration=' + buildType + ';Platform=' + p)
+      if (jobs) {
+        j = parseInt(jobs, 10)
+        if (!isNaN(j) && j > 0) {
+          argv.push('/m:' + j)
+  ...
+var verbose = log.levels[log.level] <= log.levels.verbose
+!win && verbose
+argv.push('V=1')
+win && !verbose
+argv.push('/clp:Verbosity=minimal')
+argv.push('/nologo')
+var archLower = arch.toLowerCase()
+var p = archLower === 'x64' ? 'x64'
+        : (archLower === 'arm' ? 'ARM'
+          : (archLower === 'arm64' ? 'ARM64' : 'Win32'))
+archLower === 'arm' ? "ARM" : archLower === 'arm64' ? "ARM64" : "Win32"
+archLower === 'arm64' ? "ARM64" : "Win32"
+argv.push('/p:Configuration=' + buildType + ';Platform=' + p)
+j = parseInt(jobs, 10)
+!isNaN(j) && j > 0
+argv.push('/m:' + j)
+jobs.toUpperCase() === 'MAX'
+argv.push('/m:' + require('os').cpus().length)
+argv.push('BUILDTYPE=' + buildType)
+argv.push('-C')
+argv.push('build')
+j = parseInt(jobs, 10)
+!isNaN(j) && j > 0
+argv.push('--jobs')
+argv.push(j)
+jobs.toUpperCase() === 'MAX'
+argv.push('--jobs')
+argv.push(require('os').cpus().length)
+var hasSln = argv.some(function (arg) {
+        return path.extname(arg) === '.sln'
+      })
+!hasSln
+argv.unshift(gyp.opts.solution || guessedSolution)
+!win
+const buildBinsDir = path.resolve('build', 'node_gyp_bins')
+<operator>.formatString("", buildBinsDir, ":", process.env.PATH, "")
+log.verbose('bin symlinks', `adding symlinks (such as Python), at "${buildBinsDir}", to PATH`)
+var proc = gyp.spawn(command, argv)

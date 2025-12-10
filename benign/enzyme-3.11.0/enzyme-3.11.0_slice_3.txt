@@ -1,0 +1,10 @@
+function getAdapter = function getAdapter(options = {}) {
+  if (options.adapter) {
+    validateAdapter(options.adapter);
+    return options.adapter;
+  }
+  const { adapter } = get();
+  validateAdapter(adapter);
+  return adapter;
+}
+options.adapter

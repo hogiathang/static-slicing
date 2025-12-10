@@ -1,0 +1,17 @@
+function handleFile = function handleFile(src, filename) {
+    if (util.shouldIgnore(src)) return;
+
+    if (util.canCompile(filename, commander.extensions)) {
+      write(src, filename);
+    } else if (commander.copyFiles) {
+      var dest = path.join(commander.outDir, filename);
+      outputFileSync(dest, fs.readFileSync(src));
+      util.chmod(src, dest);
+    }
+  }
+util.shouldIgnore(src)
+util.canCompile(filename, commander.extensions)
+commander.copyFiles
+var dest = path.join(commander.outDir, filename)
+outputFileSync(dest, fs.readFileSync(src))
+util.chmod(src, dest)

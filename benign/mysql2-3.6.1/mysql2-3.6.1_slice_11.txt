@@ -1,0 +1,22 @@
+unprepare(sql) {
+    let options = {};
+    if (typeof sql === 'object') {
+      options = sql;
+    } else {
+      options.sql = sql;
+    }
+    const key = Connection.statementKey(options);
+    const stmt = this._statements.get(key);
+    if (stmt) {
+      this._statements.delete(key);
+      stmt.close();
+    }
+    return stmt;
+  }
+let options = {}
+typeof sql === 'object'
+options = sql
+options.sql = sql
+const key = Connection.statementKey(options)
+const stmt = this._statements.get(key)
+(_tmp_64 = this._statements).delete

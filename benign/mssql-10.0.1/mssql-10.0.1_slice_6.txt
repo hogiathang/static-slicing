@@ -1,0 +1,44 @@
+const handleError = (req, connection, info, moreErrors) => {
+        const doReturn = !moreErrors
+        if ((typeof info.sqlstate === 'string') && (info.sqlstate.toLowerCase() === '08s01')) {
+          connection.hasError = true
+        }
+
+        const err = new RequestError(info, 'EREQUEST')
+        err.code = 'EREQUEST'
+
+        if (this.stream) {
+          this.emit('error', err)
+        } else {
+          if (doReturn && !hasReturned) {
+            if (req) {
+              for (const event in errorHandlers) {
+                req.removeListener(event, errorHandlers[event])
+              }
+            }
+            if (connection) {
+              this.parent.release(connection)
+              delete this._cancel
+
+              debug('request(%d): failed', IDS.get(this), err)
+            }
+
+            let previous
+            if (errors.length) {
+              previous = errors.pop()
+              if (!err.precedingErrors) {
+                err.precedingErrors = []
+              }
+   ...
+const doReturn = !moreErrors
+(typeof info.sqlstate === 'string') && (info.sqlstate.toLowerCase() === '08s01')
+connection.hasError = true
+const err = new RequestError(info, 'EREQUEST')
+err.code = 'EREQUEST'
+this.stream
+doReturn && !hasReturned
+_iterator_1 = <operator>.iterator(errorHandlers)
+req.removeListener(event, errorHandlers[event])
+this.parent.release(connection)
+delete this._cancel
+debug('request(%d): failed', IDS.get(this), err)

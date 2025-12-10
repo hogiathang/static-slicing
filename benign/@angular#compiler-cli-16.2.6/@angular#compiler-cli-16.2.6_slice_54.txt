@@ -1,0 +1,17 @@
+node.statements.forEach((stmt) => {
+      if (this._before.has(stmt)) {
+        newStatements.push(...this._before.get(stmt));
+        this._before.delete(stmt);
+      }
+      newStatements.push(stmt);
+      if (this._after.has(stmt)) {
+        newStatements.push(...this._after.get(stmt));
+        this._after.delete(stmt);
+      }
+    })
+(_tmp_806 = this._before).has
+newStatements.push(...this._before.get(stmt))
+(_tmp_808 = this._before).delete
+newStatements.push(stmt)
+(_tmp_809 = this._after).has
+newStatements.push(...this._after.get(stmt))

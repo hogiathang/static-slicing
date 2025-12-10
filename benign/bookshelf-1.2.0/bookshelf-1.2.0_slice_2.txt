@@ -1,0 +1,33 @@
+CollectionBase.prototype.remove = function(models, options) {
+  const singular = !Array.isArray(models);
+  models = singular ? [models] : _.clone(models);
+  options = options || {};
+  for (let i = 0; i < models.length; i++) {
+    const model = (models[i] = this.get(models[i]));
+    if (!model) continue;
+    delete this._byId[this.idKey(model.id)];
+    delete this._byId[model.cid];
+    const index = this.models.indexOf(model);
+    this.models.splice(index, 1);
+    this.length = this.length - 1;
+    if (!options.silent) {
+      options.index = index;
+      model.trigger('remove', model, this, options);
+    }
+  }
+  return singular ? models[0] : models;
+}
+const singular = !Array.isArray(models)
+models = singular ? [models] : _.clone(models)
+options = options || {}
+i < models.length
+const model = (models[i] = this.get(models[i]))
+!model
+delete this._byId[this.idKey(model.id)]
+delete this._byId[model.cid]
+const index = this.models.indexOf(model)
+(_tmp_26 = this.models).splice
+this.length = this.length - 1
+!options.silent
+options.index = index
+model.trigger('remove', model, this, options)

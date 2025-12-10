@@ -1,0 +1,6 @@
+_tmp_0 = require('fs/promises')
+chmod = _tmp_0.chmod
+open = _tmp_0.open
+readFile = _tmp_0.readFile
+require('fs/promises')
+const execMode = 0o777 & (~process.umask())

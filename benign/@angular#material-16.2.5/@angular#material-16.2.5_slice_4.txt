@@ -1,0 +1,5 @@
+namespace = namespace === void 0 ? "" : namespace
+const key = iconKey(namespace, name)
+let config = this._svgIconConfigs.get(key)
+config = this._getIconConfigFromResolvers(namespace, name)
+const iconSetConfigs = this._iconSetConfigs.get(namespace)

@@ -1,0 +1,54 @@
+_run(args, options) {
+
+    if (args[0] === 'help') {
+      this._help(args.slice(1).join(' '));
+      return process.exit(0);
+    }
+
+    let argsCopy = args.slice();
+    const commandArr = [];
+    /**
+     * @type {Command}
+     */
+    let cmd;
+
+    while(!cmd && argsCopy.length) {
+      commandArr.push(argsCopy.shift());
+      const cmdStr = commandArr.join(' ');
+      cmd = this._commands.filter(c => (c.name() === cmdStr || c.getAlias() === cmdStr))[0];
+    }
+
+    if (options.V || options.version) {
+      console.log(this.version());
+      return process.exit(0);
+    }
+
+    if(!cmd) {
+      let _filter = this._commands.filter(c => c._default === true);
+      if(_filter.length > 0) {
+        cmd = _filter[0];
+        argsCopy = args.slice();
+      }
+    }
+
+    if (!cmd && this._getDefaultCommand()) {
+      cmd = this._getDefaultCommand();
+      argsCopy = args.slice();
+    }
+
+    if (!cmd) {
+      this._help(args.join(' '));
+      return process.exit(1);
+    }
+
+    if (options.help...
+args[0] === 'help'
+let argsCopy = args.slice()
+__ecma.Array.factory()
+!cmd && argsCopy.length
+commandArr.push(argsCopy.shift())
+const cmdStr = commandArr.join(' ')
+cmd = this._commands.filter(c => (c.name() === cmdStr || c.getAlias() === cmdStr))[0]
+options.V || options.version
+console.log(this.version())
+process.exit(0)

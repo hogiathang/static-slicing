@@ -1,0 +1,3 @@
+const onListen = require('on-net-listen')
+const net = require('net')
+const socket = net.connect(process.env.AUTOCANNON_SOCKET)

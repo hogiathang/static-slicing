@@ -1,0 +1,18 @@
+options = options === void 0 ? {} : options
+jsiiDeprecationWarnings._aws_cdk_core_ExportValueOptions(options)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, this.exportValue)
+throw error;
+options.name
+const resolvable = token_1.Tokenization.reverse(exportedValue)
+!resolvable || !reference_1.Reference.isReference(resolvable)
+throw new Error('exportValue: either supply \'name\' or make sure to export a resource attribute (like \'bucket.bucketName\')');
+cfn_element_1.CfnElement.isCfnElement(resolvable.target)
+(_tmp_102 = resolvable.target)._lockLogicalId
+const exportable = refs_1.referenceNestedStackValueInParent(resolvable, this)
+const exportsScope = getCreateExportsScope(this)
+const resolved = this.resolve(exportable)
+const id = 'Output' + JSON.stringify(resolved)
+const exportName = generateExportName(exportsScope, id)
+(_tmp_103 = token_1.Token).isUnresolved
+<operator>.formatString("unresolved token in generated export name: ", JSON.stringify(this.resolve(exportName)), "")

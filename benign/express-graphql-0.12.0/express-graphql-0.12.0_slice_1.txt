@@ -1,0 +1,28 @@
+function getGraphQLParams = async function getGraphQLParams(request) {
+    var _a, _b, _c;
+    const urlData = new URLSearchParams(request.url.split('?')[1]);
+    const bodyData = await parseBody_1.parseBody(request);
+    // GraphQL Query string.
+    let query = (_a = urlData.get('query')) !== null && _a !== void 0 ? _a : bodyData.query;
+    if (typeof query !== 'string') {
+        query = null;
+    }
+    // Parse the variables if needed.
+    let variables = ((_b = urlData.get('variables')) !== null && _b !== void 0 ? _b : bodyData.variables);
+    if (typeof variables === 'string') {
+        try {
+            variables = JSON.parse(variables);
+        }
+        catch (_d) {
+            throw http_errors_1.default(400, 'Variables are invalid JSON.');
+        }
+    }
+    else if (typeof variables !== 'object') {
+        variables = null;
+    }
+    // Name of GraphQL operation to execute.
+    let operationName = (_c = urlData.get('operationName')) !== null && _c !== void 0 ? _c : bodyData.operationName;
+    if (t...
+const urlData = new URLSearchParams(request.url.split('?')[1])
+const bodyData = await parseBody_1.parseBody(request)
+let query = (_a = urlData.get('query')) !== null && _a !== void 0 ? _a : bodyData.query

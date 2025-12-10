@@ -1,0 +1,55 @@
+function getStylesheetPath = function getStylesheetPath(document, file, options = {}) {
+  let {base} = options;
+
+  // Check inline styles
+  if (file.inline) {
+    return normalizePath(`${document.virtualPath}.css`);
+  }
+
+  // Check remote
+  if (file.remote) {
+    return getRemoteStylesheetPath(file.urlObj, document.urlObj);
+  }
+
+  // Generate path relative to document if stylesheet is referenced relative
+  //
+  if (isRelative(file.path) && document.virtualPath) {
+    return normalizePath(joinPath(path.dirname(document.virtualPath), file.path));
+  }
+
+  if (base && path.resolve(file.path).includes(path.resolve(base))) {
+    base = path.resolve(base);
+    return normalizePath(`/${path.relative(path.resolve(base), path.resolve(file.path))}`);
+  }
+
+  // Try to compute path based on document link tags with same name
+  const stylesheet = document.stylesheets
+    .filter((href) => !Buffer.isBuffer(href))
+    .find((href) => {
+      const {pathname} = urlParse(href);
+      const name = path.basename(pathname);
+      ret...
+base = _tmp_109.base
+file.inline
+file.remote
+isRelative(file.path) && document.virtualPath
+base && path.resolve(file.path).includes(path.resolve(base))
+const stylesheet = document.stylesheets
+    .filter((href) => !Buffer.isBuffer(href))
+    .find((href) => {
+      const {pathname} = urlParse(href);
+      const name = path.basename(pathname);
+      return name === path.basename(file.path);
+    })
+!Buffer.isBuffer(href)
+<lambda>32
+stylesheet && isRelative(stylesheet) && document.virtualPath
+stylesheet && isRemote(stylesheet)
+_tmp_116 = document.stylesheets
+    .filter((href) => !Buffer.isBuffer(href))
+    .sort((a) => (isRemote(a) ? 1 : -1))
+!Buffer.isBuffer(href)
+isRemote(a) ? 1 : -1
+unsafestylesheet && isRelative(unsafestylesheet) && document.virtualPath
+unsafestylesheet && isRemote(unsafestylesheet)
+process.stderr.write(BASE_WARNING)

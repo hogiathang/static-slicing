@@ -1,0 +1,30 @@
+schema.methods.initializeTimestamps = function() {
+    const ts = currentTime != null ?
+      currentTime() : this.constructor.base.now();
+
+
+    if (createdAt && !this.get(createdAt)) {
+      this.$set(createdAt, ts);
+    }
+    if (updatedAt && !this.get(updatedAt)) {
+      this.$set(updatedAt, ts);
+    }
+    if (this.$isSubdocument) {
+      return this;
+    }
+
+    const subdocs = this.$getAllSubdocs();
+    for (const subdoc of subdocs) {
+      if (subdoc.initializeTimestamps) {
+        subdoc.initializeTimestamps();
+      }
+    }
+
+    return this;
+  }
+const ts = currentTime != null ?
+      currentTime() : this.constructor.base.now()
+(_tmp_9 = this.constructor.base).now
+createdAt && !this.get(createdAt)
+this.$set(createdAt, ts)
+updatedAt && !this.get(updatedAt)

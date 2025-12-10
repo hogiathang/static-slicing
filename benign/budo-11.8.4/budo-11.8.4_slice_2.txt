@@ -1,0 +1,18 @@
+var browserify = require('browserify')
+var path = require('path')
+var fs = require('fs')
+var UglifyJS = require('uglify-js')
+var buildFolder = path.resolve(__dirname, '..', 'build')
+var buildFile = path.resolve(buildFolder, 'bundled-livereload-client.js')
+var clientFile = path.resolve(__dirname, '..', 'lib', 'reload', 'client.js')
+function mkdir = function mkdir (path, cb) {
+  fs.mkdir(path, function (err) {
+    if (err && err.code === 'EEXIST') err = null
+    cb(err)
+  })
+}
+function error = function error (err) {
+  console.error('ERROR: Could not bundle LiveReload client, budo ' +
+    'will fall back to browserifying it on the fly.')
+  console.error(err)
+}

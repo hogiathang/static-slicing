@@ -1,0 +1,108 @@
+const crossArgv = require('cross-argv')
+const fs = require('fs')
+const os = require('os')
+const net = require('net')
+const path = require('path')
+const URL = require('url').URL
+const spawn = require('child_process').spawn
+const managePath = require('manage-path')
+const hasAsyncHooks = require('has-async-hooks')
+const subarg = require('subarg')
+const printResult = require('./lib/printResult')
+const initJob = require('./lib/init')
+const track = require('./lib/progressTracker')
+const generateSubArgAliases = require('./lib/subargAliases')
+_tmp_34 = require('./lib/url')
+_tmp_35 = require('./lib/parseHAR')
+const _aggregateResult = require('./lib/aggregateResult')
+const validateOpts = require('./lib/validate')
+typeof URL !== 'function'
+console.error('autocannon requires the WHATWG URL API, but it is not available. Please upgrade to Node 6.13+.')
+process.exit(1)
+function parseArguments = function parseArguments (argvs) {
+  let argv = subarg(argvs, {
+    boolean: ['json', 'n', 'help', 'renderLatencyTable', 'renderProgressBar', 'renderStatusCodes', 'forever', 'idReplacement', 'excludeErrorStats', 'onPort', 'debug', 'ignoreCoordinatedOmission'],
+    alias,
+    default: defaults,
+    '--': true
+  })
+  // subarg does not convert aliases in sub arguments
+  argv = generateSubArgAliases(argv)
+
+  argv.url = argv._.length > 1 ? argv._ : argv._[0]
+
+  if (argv.onPort) {
+    argv.spawn = argv['--']
+  }
+
+  // support -n to disable the progress bar and results table
+  if (argv.n) {
+    argv.renderProgressBar = false
+    argv.renderResultsTable = false
+    argv.renderStatusCodes = false
+  }
+
+  if (argv.version) {
+    console.log('autocannon', 'v' + require('./package').version)
+    console.log('node', process.version)
+    return
+  }
+
+  if (!checkURL(argv.url) || argv.help) {
+    const help = fs.readFileSync(path.join(__dirname, 'help.txt'), 'utf8')
+    console.error(help)
+    retur...
+function start = function start (argv) {
+  if (!argv) {
+    // we are printing the help
+    return
+  }
+
+  if (argv.onPort) {
+    if (!hasAsyncHooks()) {
+      console.error('The --on-port flag requires the async_hooks builtin module, but it is not available. Please upgrade to Node 8.1+.')
+      process.exit(1)
+    }
+
+    const { socketPath, server } = createChannel((port) => {
+      const url = new URL(argv.url, `http://localhost:${port}`).href
+      const opts = Object.assign({}, argv, {
+        onPort: false,
+        url
+      })
+      const tracker = initJob(opts, () => {
+        proc.kill('SIGINT')
+        server.close()
+      })
+
+      process.once('SIGINT', () => {
+        tracker.stop()
+      })
+    })
+
+    // manage-path always uses the $PATH variable, but we can pretend
+    // that it is equal to $NODE_PATH
+    const alterPath = managePath({ PATH: process.env.NODE_PATH })
+    alterPath.unshift(path.join(__dirname, 'lib/preload'))
+
+    const proc = spawn(argv.spawn[0], argv.spawn.slice(1), {...
+function createChannel = function createChannel (onport) {
+  const pipeName = `${process.pid}.autocannon`
+  const socketPath = process.platform === 'win32'
+    ? `\\\\?\\pipe\\${pipeName}`
+    : path.join(os.tmpdir(), pipeName)
+  const server = net.createServer((socket) => {
+    socket.once('data', (chunk) => {
+      const port = chunk.toString()
+      onport(port)
+    })
+  })
+  server.listen(socketPath)
+  server.on('close', () => {
+    try {
+      fs.unlinkSync(socketPath)
+    } catch (err) {}
+  })
+
+  return { socketPath, server }
+}

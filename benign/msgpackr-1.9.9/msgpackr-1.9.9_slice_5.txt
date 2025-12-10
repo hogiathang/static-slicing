@@ -1,0 +1,23 @@
+structures.isCompatible = existing => {
+		let compatible = true;
+		if (existing instanceof Map) {
+			let named = existing.get('named') || [];
+			if (named.length !== (packr.lastNamedStructuresLength || 0))
+				compatible = false;
+			let typed = existing.get('typed') || [];
+			if (typed.length !== lastTypedStructuresLength)
+				compatible = false;
+		} else if (existing instanceof Array || Array.isArray(existing)) {
+			if (existing.length !== (packr.lastNamedStructuresLength || 0))
+				compatible = false;
+		}
+		if (!compatible)
+			packr._mergeStructures(existing);
+		return compatible;
+	}
+let compatible = true
+existing instanceof Map
+let named = existing.get('named') || []
+named.length !== (packr.lastNamedStructuresLength || 0)
+compatible = false
+let typed = existing.get('typed') || []

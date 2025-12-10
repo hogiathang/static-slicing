@@ -1,0 +1,50 @@
+writeCoverageFile () {
+    var coverage = coverageFinder()
+
+    // Remove any files that should be excluded but snuck into the coverage
+    Object.keys(coverage).forEach(function (absFile) {
+      if (!this.exclude.shouldInstrument(absFile)) {
+        delete coverage[absFile]
+      }
+    }, this)
+
+    if (this.cache) {
+      Object.keys(coverage).forEach(function (absFile) {
+        if (this.hashCache[absFile] && coverage[absFile]) {
+          coverage[absFile].contentHash = this.hashCache[absFile]
+        }
+      }, this)
+    }
+
+    var id = this.processInfo.uuid
+    var coverageFilename = path.resolve(this.tempDirectory(), id + '.json')
+
+    fs.writeFileSync(
+      coverageFilename,
+      JSON.stringify(coverage),
+      'utf-8'
+    )
+
+    this.processInfo.coverageFilename = coverageFilename
+    this.processInfo.files = Object.keys(coverage)
+    this.processInfo.saveSync()
+  }
+var coverage = coverageFinder()
+Object.keys(coverage).forEach(function (absFile) {
+      if (!this.exclude.shouldInstrument(absFile)) {
+        delete coverage[absFile]
+      }
+    }, this)
+this.cache
+Object.keys(coverage).forEach(function (absFile) {
+        if (this.hashCache[absFile] && coverage[absFile]) {
+          coverage[absFile].contentHash = this.hashCache[absFile]
+        }
+      }, this)
+var id = this.processInfo.uuid
+var coverageFilename = path.resolve(this.tempDirectory(), id + '.json')
+fs.writeFileSync(
+      coverageFilename,
+      JSON.stringify(coverage),
+      'utf-8'
+    )

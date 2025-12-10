@@ -1,0 +1,29 @@
+const tool = require('command-line-tool')
+const version = require('../package').version
+const cli = parseCommandLine()
+let options = cli.options._all
+options = loadStoredConfig(options)
+options.help
+options.version
+options.clear
+const jsdoc2md = require('../')
+jsdoc2md._interface = 'cli'
+options.config
+const omit = require('lodash.omit')
+tool.stop(JSON.stringify(omit(options, 'config'), null, '  '))
+function loadStoredConfig = function loadStoredConfig (options) {
+  const loadConfig = require('config-master')
+  const jsdoc2mdConfig = loadConfig('jsdoc2md')
+  return Object.assign(jsdoc2mdConfig, options)
+}
+function parseCommandLine = function parseCommandLine () {
+  const cliData = require('../lib/cli-data')
+  try {
+    return tool.getCli(cliData.definitions, cliData.usageSections)
+  } catch (err) {
+    handleError(err)
+  }
+}
+function handleError = function handleError (err) {
+  tool.halt(err.toString())
+}

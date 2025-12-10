@@ -1,0 +1,709 @@
+function parse = function parse(ua) {
+
+    /** The environment context object. */
+    var context = root;
+
+    /** Used to flag when a custom context is provided. */
+    var isCustomContext = ua && typeof ua == 'object' && getClassOf(ua) != 'String';
+
+    // Juggle arguments.
+    if (isCustomContext) {
+      context = ua;
+      ua = null;
+    }
+
+    /** Browser navigator object. */
+    var nav = context.navigator || {};
+
+    /** Browser user agent string. */
+    var userAgent = nav.userAgent || '';
+
+    ua || (ua = userAgent);
+
+    /** Used to flag when `thisBinding` is the [ModuleScope]. */
+    var isModuleScope = isCustomContext || thisBinding == oldRoot;
+
+    /** Used to detect if browser is like Chrome. */
+    var likeChrome = isCustomContext
+      ? !!nav.likeChrome
+      : /\bChrome\b/.test(ua) && !/internal|\n/i.test(toString.toString());
+
+    /** Internal `[[Class]]` value shortcuts. */
+    var objectClass = 'Object',
+        airRuntimeClass = isCustomContext ? objectClass : 'ScriptBridgingP...
+var context = root
+var isCustomContext = ua && typeof ua == 'object' && getClassOf(ua) != 'String'
+context = ua
+ua = null
+var nav = context.navigator || {}
+var userAgent = nav.userAgent || ''
+ua || (ua = userAgent)
+var isModuleScope = isCustomContext || thisBinding == oldRoot
+var likeChrome = isCustomContext
+      ? !!nav.likeChrome
+      : /\bChrome\b/.test(ua) && !/internal|\n/i.test(toString.toString())
+!!nav.likeChrome
+/\bChrome\b/.test(ua) && !/internal|\n/i.test(toString.toString())
+var objectClass = 'Object'
+var airRuntimeClass = isCustomContext ? objectClass : 'ScriptBridgingProxyObject'
+var enviroClass = isCustomContext ? objectClass : 'Environment'
+var javaClass = (isCustomContext && context.java) ? 'JavaPackage' : getClassOf(context.java)
+var phantomClass = isCustomContext ? objectClass : 'RuntimeObject'
+var java = /\bJava/.test(javaClass) && context.java
+var rhino = java && getClassOf(context.environment) == enviroClass
+var alpha = java ? 'a' : '\u03b1'
+var beta = java ? 'b' : '\u03b2'
+var doc = context.document || {}
+var opera = context.operamini || context.opera
+var operaClass = reOpera.test(operaClass = (isCustomContext && opera) ? opera['[[Class]]'] : getClassOf(opera))
+      ? operaClass
+      : (opera = null)
+opera = null
+var arch = ua
+__ecma.Array.factory()
+var prerelease = null
+var useFeatures = ua == userAgent
+var version = useFeatures && opera && typeof opera.version == 'function' && opera.version()
+var layout = getLayout([
+      { 'label': 'EdgeHTML', 'pattern': 'Edge' },
+      'Trident',
+      { 'label': 'WebKit', 'pattern': 'AppleWebKit' },
+      'iCab',
+      'Presto',
+      'NetFront',
+      'Tasman',
+      'KHTML',
+      'Gecko'
+    ])
+_tmp_43.push({ 'label': 'EdgeHTML', 'pattern': 'Edge' })
+_tmp_43.push("Trident")
+_tmp_43.push({ 'label': 'WebKit', 'pattern': 'AppleWebKit' })
+_tmp_43.push("iCab")
+_tmp_43.push("Presto")
+_tmp_43.push("NetFront")
+_tmp_43.push("Tasman")
+_tmp_43.push("KHTML")
+_tmp_43.push("Gecko")
+var name = getName([
+      'Adobe AIR',
+      'Arora',
+      'Avant Browser',
+      'Breach',
+      'Camino',
+      'Electron',
+      'Epiphany',
+      'Fennec',
+      'Flock',
+      'Galeon',
+      'GreenBrowser',
+      'iCab',
+      'Iceweasel',
+      'K-Meleon',
+      'Konqueror',
+      'Lunascape',
+      'Maxthon',
+      { 'label': 'Microsoft Edge', 'pattern': '(?:Edge|Edg|EdgA|EdgiOS)' },
+      'Midori',
+      'Nook Browser',
+      'PaleMoon',
+      'PhantomJS',
+      'Raven',
+      'Rekonq',
+      'RockMelt',
+      { 'label': 'Samsung Internet', 'pattern': 'SamsungBrowser' },
+      'SeaMonkey',
+      { 'label': 'Silk', 'pattern': '(?:Cloud9|Silk-Accelerated)' },
+      'Sleipnir',
+      'SlimBrowser',
+      { 'label': 'SRWare Iron', 'pattern': 'Iron' },
+      'Sunrise',
+      'Swiftfox',
+      'Vivaldi',
+      'Waterfox',
+      'WebPositive',
+      { 'label': 'Yandex Browser', 'pattern': 'YaBrowser' },
+      { 'label': 'UC Browser', 'pattern': 'UCBrowser' },
+      'Opera Mini',
+   ...
+_tmp_46.push("Adobe AIR")
+_tmp_46.push("Arora")
+_tmp_46.push("Avant Browser")
+_tmp_46.push("Breach")
+_tmp_46.push("Camino")
+_tmp_46.push("Electron")
+_tmp_46.push("Epiphany")
+_tmp_46.push("Fennec")
+_tmp_46.push("Flock")
+_tmp_46.push("Galeon")
+_tmp_46.push("GreenBrowser")
+_tmp_46.push("iCab")
+_tmp_46.push("Iceweasel")
+_tmp_46.push("K-Meleon")
+_tmp_46.push("Konqueror")
+_tmp_46.push("Lunascape")
+_tmp_46.push("Maxthon")
+_tmp_46.push({ 'label': 'Microsoft Edge', 'pattern': '(?:Edge|Edg|EdgA|EdgiOS)' })
+_tmp_46.push("Midori")
+_tmp_46.push("Nook Browser")
+_tmp_46.push("PaleMoon")
+_tmp_46.push("PhantomJS")
+_tmp_46.push("Raven")
+_tmp_46.push("Rekonq")
+_tmp_46.push("RockMelt")
+_tmp_46.push({ 'label': 'Samsung Internet', 'pattern': 'SamsungBrowser' })
+_tmp_46.push("SeaMonkey")
+_tmp_46.push({ 'label': 'Silk', 'pattern': '(?:Cloud9|Silk-Accelerated)' })
+_tmp_46.push("Sleipnir")
+_tmp_46.push("SlimBrowser")
+_tmp_46.push({ 'label': 'SRWare Iron', 'pattern': 'Iron' })
+_tmp_46.push("Sunrise")
+_tmp_46.push("Swiftfox")
+_tmp_46.push("Vivaldi")
+_tmp_46.push("Waterfox")
+_tmp_46.push("WebPositive")
+_tmp_46.push({ 'label': 'Yandex Browser', 'pattern': 'YaBrowser' })
+_tmp_46.push({ 'label': 'UC Browser', 'pattern': 'UCBrowser' })
+_tmp_46.push("Opera Mini")
+_tmp_46.push({ 'label': 'Opera Mini', 'pattern': 'OPiOS' })
+_tmp_46.push("Opera")
+_tmp_46.push({ 'label': 'Opera', 'pattern': 'OPR' })
+_tmp_46.push("Chromium")
+_tmp_46.push("Chrome")
+_tmp_46.push({ 'label': 'Chrome', 'pattern': '(?:HeadlessChrome)' })
+_tmp_46.push({ 'label': 'Chrome Mobile', 'pattern': '(?:CriOS|CrMo)' })
+_tmp_46.push({ 'label': 'Firefox', 'pattern': '(?:Firefox|Minefield)' })
+_tmp_46.push({ 'label': 'Firefox for iOS', 'pattern': 'FxiOS' })
+_tmp_46.push({ 'label': 'IE', 'pattern': 'IEMobile' })
+_tmp_46.push({ 'label': 'IE', 'pattern': 'MSIE' })
+_tmp_46.push("Safari")
+var product = getProduct([
+      { 'label': 'BlackBerry', 'pattern': 'BB10' },
+      'BlackBerry',
+      { 'label': 'Galaxy S', 'pattern': 'GT-I9000' },
+      { 'label': 'Galaxy S2', 'pattern': 'GT-I9100' },
+      { 'label': 'Galaxy S3', 'pattern': 'GT-I9300' },
+      { 'label': 'Galaxy S4', 'pattern': 'GT-I9500' },
+      { 'label': 'Galaxy S5', 'pattern': 'SM-G900' },
+      { 'label': 'Galaxy S6', 'pattern': 'SM-G920' },
+      { 'label': 'Galaxy S6 Edge', 'pattern': 'SM-G925' },
+      { 'label': 'Galaxy S7', 'pattern': 'SM-G930' },
+      { 'label': 'Galaxy S7 Edge', 'pattern': 'SM-G935' },
+      'Google TV',
+      'Lumia',
+      'iPad',
+      'iPod',
+      'iPhone',
+      'Kindle',
+      { 'label': 'Kindle Fire', 'pattern': '(?:Cloud9|Silk-Accelerated)' },
+      'Nexus',
+      'Nook',
+      'PlayBook',
+      'PlayStation Vita',
+      'PlayStation',
+      'TouchPad',
+      'Transformer',
+      { 'label': 'Wii U', 'pattern': 'WiiU' },
+      'Wii',
+      'Xbox One',
+      { 'label': 'Xbox...
+_tmp_61.push({ 'label': 'BlackBerry', 'pattern': 'BB10' })
+_tmp_61.push("BlackBerry")
+_tmp_61.push({ 'label': 'Galaxy S', 'pattern': 'GT-I9000' })
+_tmp_61.push({ 'label': 'Galaxy S2', 'pattern': 'GT-I9100' })
+_tmp_61.push({ 'label': 'Galaxy S3', 'pattern': 'GT-I9300' })
+_tmp_61.push({ 'label': 'Galaxy S4', 'pattern': 'GT-I9500' })
+_tmp_61.push({ 'label': 'Galaxy S5', 'pattern': 'SM-G900' })
+_tmp_61.push({ 'label': 'Galaxy S6', 'pattern': 'SM-G920' })
+_tmp_61.push({ 'label': 'Galaxy S6 Edge', 'pattern': 'SM-G925' })
+_tmp_61.push({ 'label': 'Galaxy S7', 'pattern': 'SM-G930' })
+_tmp_61.push({ 'label': 'Galaxy S7 Edge', 'pattern': 'SM-G935' })
+_tmp_61.push("Google TV")
+_tmp_61.push("Lumia")
+_tmp_61.push("iPad")
+_tmp_61.push("iPod")
+_tmp_61.push("iPhone")
+_tmp_61.push("Kindle")
+_tmp_61.push({ 'label': 'Kindle Fire', 'pattern': '(?:Cloud9|Silk-Accelerated)' })
+_tmp_61.push("Nexus")
+_tmp_61.push("Nook")
+_tmp_61.push("PlayBook")
+_tmp_61.push("PlayStation Vita")
+_tmp_61.push("PlayStation")
+_tmp_61.push("TouchPad")
+_tmp_61.push("Transformer")
+_tmp_61.push({ 'label': 'Wii U', 'pattern': 'WiiU' })
+_tmp_61.push("Wii")
+_tmp_61.push("Xbox One")
+_tmp_61.push({ 'label': 'Xbox 360', 'pattern': 'Xbox' })
+_tmp_61.push("Xoom")
+var manufacturer = getManufacturer({
+      'Apple': { 'iPad': 1, 'iPhone': 1, 'iPod': 1 },
+      'Alcatel': {},
+      'Archos': {},
+      'Amazon': { 'Kindle': 1, 'Kindle Fire': 1 },
+      'Asus': { 'Transformer': 1 },
+      'Barnes & Noble': { 'Nook': 1 },
+      'BlackBerry': { 'PlayBook': 1 },
+      'Google': { 'Google TV': 1, 'Nexus': 1 },
+      'HP': { 'TouchPad': 1 },
+      'HTC': {},
+      'Huawei': {},
+      'Lenovo': {},
+      'LG': {},
+      'Microsoft': { 'Xbox': 1, 'Xbox One': 1 },
+      'Motorola': { 'Xoom': 1 },
+      'Nintendo': { 'Wii U': 1,  'Wii': 1 },
+      'Nokia': { 'Lumia': 1 },
+      'Oppo': {},
+      'Samsung': { 'Galaxy S': 1, 'Galaxy S2': 1, 'Galaxy S3': 1, 'Galaxy S4': 1 },
+      'Sony': { 'PlayStation': 1, 'PlayStation Vita': 1 },
+      'Xiaomi': { 'Mi': 1, 'Redmi': 1 }
+    })
+_tmp_75.Apple = { 'iPad': 1, 'iPhone': 1, 'iPod': 1 }
+_tmp_75.Alcatel = {}
+_tmp_75.Archos = {}
+_tmp_75.Amazon = { 'Kindle': 1, 'Kindle Fire': 1 }
+_tmp_75.Asus = { 'Transformer': 1 }
+_tmp_75.Barnes & Noble = { 'Nook': 1 }
+_tmp_75.BlackBerry = { 'PlayBook': 1 }
+_tmp_75.Google = { 'Google TV': 1, 'Nexus': 1 }
+_tmp_75.HP = { 'TouchPad': 1 }
+_tmp_75.HTC = {}
+_tmp_75.Huawei = {}
+_tmp_75.Lenovo = {}
+_tmp_75.LG = {}
+_tmp_75.Microsoft = { 'Xbox': 1, 'Xbox One': 1 }
+_tmp_75.Motorola = { 'Xoom': 1 }
+_tmp_75.Nintendo = { 'Wii U': 1,  'Wii': 1 }
+_tmp_75.Nokia = { 'Lumia': 1 }
+_tmp_75.Oppo = {}
+_tmp_75.Samsung = { 'Galaxy S': 1, 'Galaxy S2': 1, 'Galaxy S3': 1, 'Galaxy S4': 1 }
+_tmp_75.Sony = { 'PlayStation': 1, 'PlayStation Vita': 1 }
+_tmp_75.Xiaomi = { 'Mi': 1, 'Redmi': 1 }
+var os = getOS([
+      'Windows Phone',
+      'KaiOS',
+      'Android',
+      'CentOS',
+      { 'label': 'Chrome OS', 'pattern': 'CrOS' },
+      'Debian',
+      { 'label': 'DragonFly BSD', 'pattern': 'DragonFly' },
+      'Fedora',
+      'FreeBSD',
+      'Gentoo',
+      'Haiku',
+      'Kubuntu',
+      'Linux Mint',
+      'OpenBSD',
+      'Red Hat',
+      'SuSE',
+      'Ubuntu',
+      'Xubuntu',
+      'Cygwin',
+      'Symbian OS',
+      'hpwOS',
+      'webOS ',
+      'webOS',
+      'Tablet OS',
+      'Tizen',
+      'Linux',
+      'Mac OS X',
+      'Macintosh',
+      'Mac',
+      'Windows 98;',
+      'Windows '
+    ])
+_tmp_97.push("Windows Phone")
+_tmp_97.push("KaiOS")
+_tmp_97.push("Android")
+_tmp_97.push("CentOS")
+_tmp_97.push({ 'label': 'Chrome OS', 'pattern': 'CrOS' })
+_tmp_97.push("Debian")
+_tmp_97.push({ 'label': 'DragonFly BSD', 'pattern': 'DragonFly' })
+_tmp_97.push("Fedora")
+_tmp_97.push("FreeBSD")
+_tmp_97.push("Gentoo")
+_tmp_97.push("Haiku")
+_tmp_97.push("Kubuntu")
+_tmp_97.push("Linux Mint")
+_tmp_97.push("OpenBSD")
+_tmp_97.push("Red Hat")
+_tmp_97.push("SuSE")
+_tmp_97.push("Ubuntu")
+_tmp_97.push("Xubuntu")
+_tmp_97.push("Cygwin")
+_tmp_97.push("Symbian OS")
+_tmp_97.push("hpwOS")
+_tmp_97.push("webOS ")
+_tmp_97.push("webOS")
+_tmp_97.push("Tablet OS")
+_tmp_97.push("Tizen")
+_tmp_97.push("Linux")
+_tmp_97.push("Mac OS X")
+_tmp_97.push("Macintosh")
+_tmp_97.push("Mac")
+_tmp_97.push("Windows 98;")
+_tmp_97.push("Windows ")
+function getLayout = function getLayout(guesses) {
+      return reduce(guesses, function(result, guess) {
+        return result || RegExp('\\b' + (
+          guess.pattern || qualify(guess)
+        ) + '\\b', 'i').exec(ua) && (guess.label || guess);
+      });
+    }
+function getManufacturer = function getManufacturer(guesses) {
+      return reduce(guesses, function(result, value, key) {
+        // Lookup the manufacturer by product or scan the UA for the manufacturer.
+        return result || (
+          value[product] ||
+          value[/^[a-z]+(?: +[a-z]+\b)*/i.exec(product)] ||
+          RegExp('\\b' + qualify(key) + '(?:\\b|\\w*\\d)', 'i').exec(ua)
+        ) && key;
+      });
+    }
+function getName = function getName(guesses) {
+      return reduce(guesses, function(result, guess) {
+        return result || RegExp('\\b' + (
+          guess.pattern || qualify(guess)
+        ) + '\\b', 'i').exec(ua) && (guess.label || guess);
+      });
+    }
+function getOS = function getOS(guesses) {
+      return reduce(guesses, function(result, guess) {
+        var pattern = guess.pattern || qualify(guess);
+        if (!result && (result =
+              RegExp('\\b' + pattern + '(?:/[\\d.]+|[ \\w.]*)', 'i').exec(ua)
+            )) {
+          result = cleanupOS(result, pattern, guess.label || guess);
+        }
+        return result;
+      });
+    }
+function getProduct = function getProduct(guesses) {
+      return reduce(guesses, function(result, guess) {
+        var pattern = guess.pattern || qualify(guess);
+        if (!result && (result =
+              RegExp('\\b' + pattern + ' *\\d+[.\\w_]*', 'i').exec(ua) ||
+              RegExp('\\b' + pattern + ' *\\w+-[\\w]*', 'i').exec(ua) ||
+              RegExp('\\b' + pattern + '(?:; *(?:[a-z]+[_-])?[a-z]+\\d+|[^ ();-]*)', 'i').exec(ua)
+            )) {
+          // Split by forward slash and append product version if needed.
+          if ((result = String((guess.label && !RegExp(pattern, 'i').test(guess.label)) ? guess.label : result).split('/'))[1] && !/[\d.]+/.test(result[0])) {
+            result[0] += ' ' + result[1];
+          }
+          // Correct character case and cleanup string.
+          guess = guess.label || guess;
+          result = format(result[0]
+            .replace(RegExp(pattern, 'i'), guess)
+            .replace(RegExp('; *(?:' + guess + '[_-])?', 'i'), ' ')
+            .replace(Re...
+function getVersion = function getVersion(patterns) {
+      return reduce(patterns, function(result, pattern) {
+        return result || (RegExp(pattern +
+          '(?:-[\\d.]+/|(?: for [\\w-]+)?[ /-])([\\d.]+[^ ();/_-]*)', 'i').exec(ua) || 0)[1] || null;
+      });
+    }
+function toStringPlatform = function toStringPlatform() {
+      return this.description || '';
+    }
+_tmp_100 = __ecma.Array.factory()
+/\bAndroid\b/.test(os) && !product &&
+        (data = /\bAndroid[^;]*;(.*?)(?:Build|\) AppleWebKit)\b/i.exec(ua))
+(_tmp_102 = /\bAndroid[^;]*;(.*?)(?:Build|\) AppleWebKit)\b/i).exec
+product = trim(data[1])
+        // Replace any language codes (eg. "en-US").
+        .replace(/^[a-z]{2}-[a-z]{2};\s*/i, '')
+        || null
+/^[a-z]{2}-[a-z]{2};\s*/i
+manufacturer && !product
+product = getProduct([manufacturer])
+manufacturer && product
+product = product
+        .replace(RegExp('^(' + qualify(manufacturer) + ')[-_.\\s]', 'i'), manufacturer + ' ')
+        .replace(RegExp('^(' + qualify(manufacturer) + ')[-_.]?(\\w)', 'i'), manufacturer + ' $2')
+RegExp('^(' + qualify(manufacturer) + ')[-_.\\s]', 'i')
+RegExp('^(' + qualify(manufacturer) + ')[-_.]?(\\w)', 'i')
+data = /\bGoogle TV\b/.exec(product)
+product = data[0]
+(_tmp_107 = /\bSimulator\b/i).test
+product = (product ? product + ' ' : '') + 'Simulator'
+name == 'Opera Mini' && /\bOPiOS\b/.test(ua)
+description.push('running in Turbo/Uncompressed mode')
+name == 'IE' && /\blike iPhone OS\b/.test(ua)
+data = parse(ua.replace(/like iPhone OS/, ''))
+manufacturer = data.manufacturer
+product = data.product
+(_tmp_110 = /^iP/).test
+name || (name = 'Safari')
+os = 'iOS' + ((data = / OS ([\d_]+)/i.exec(ua))
+        ? ' ' + data[1].replace(/_/g, '.')
+        : '')
+' ' + data[1].replace(/_/g, '.')
+name == 'Konqueror' && /^Linux\b/i.test(os)
+os = 'Kubuntu'
+(manufacturer && manufacturer != 'Google' &&
+        ((/Chrome/.test(name) && !/\bMobile Safari\b/i.test(ua)) || /\bVita\b/.test(product))) ||
+        (/\bAndroid\b/.test(os) && /^Chrome/.test(name) && /\bVersion\//i.test(ua))
+(/Chrome/.test(name) && !/\bMobile Safari\b/i.test(ua)) || /\bVita\b/.test(product)
+/\bAndroid\b/.test(os) && /^Chrome/.test(name) && /\bVersion\//i.test(ua)
+name = 'Android Browser'
+os = /\bAndroid\b/.test(os) ? os : 'Android'
+name == 'Silk'
+(_tmp_121 = /\bMobi/i).test
+os = 'Android'
+description.unshift('desktop mode')
+(_tmp_122 = /Accelerated *= *true/i).test
+description.unshift('accelerated')
+name == 'UC Browser' && /\bUCWEB\b/.test(ua)
+description.push('speed mode')
+name == 'PaleMoon' && (data = /\bFirefox\/([\d.]+)\b/.exec(ua))
+description.push('identifying as Firefox ' + data[1])
+name == 'Firefox' && (data = /\b(Mobile|Tablet|TV)\b/i.exec(ua))
+os || (os = 'Firefox OS')
+product || (product = data[1])
+!name || (data = !/\bMinefield\b/i.test(ua) && /\b(?:Firefox|Safari)\b/.exec(name))
+name && !product && /[\/,]|^[^(]+?\)/.test(ua.slice(ua.indexOf(data + '/') + 8))
+name = null
+(data = product || manufacturer || os) &&
+          (product || manufacturer || /\b(?:Android|Symbian OS|Tablet OS|webOS)\b/.test(os))
+product || manufacturer || /\b(?:Android|Symbian OS|Tablet OS|webOS)\b/.test(os)
+name = /[a-z]+(?: Hat)?/i.exec(/\bAndroid\b/.test(os) ? os : data) + ' Browser'
+name == 'Electron' && (data = (/\bChrome\/([\d.]+)\b/.exec(ua) || 0)[1])
+description.push('Chromium ' + data)
+!version
+version = getVersion([
+        '(?:Cloud9|CriOS|CrMo|Edge|Edg|EdgA|EdgiOS|FxiOS|HeadlessChrome|IEMobile|Iron|Opera ?Mini|OPiOS|OPR|Raven|SamsungBrowser|Silk(?!/[\\d.]+$)|UCBrowser|YaBrowser)',
+        'Version',
+        qualify(name),
+        '(?:Firefox|Minefield|NetFront)'
+      ])
+_tmp_133.push("(?:Cloud9|CriOS|CrMo|Edge|Edg|EdgA|EdgiOS|FxiOS|HeadlessChrome|IEMobile|Iron|Opera ?Mini|OPiOS|OPR|Raven|SamsungBrowser|Silk(?!/[\d.]+$)|UCBrowser|YaBrowser)")
+_tmp_133.push("Version")
+_tmp_133.push(qualify(name))
+_tmp_133.push("(?:Firefox|Minefield|NetFront)")
+data =
+          layout == 'iCab' && parseFloat(version) > 3 && 'WebKit' ||
+          /\bOpera\b/.test(name) && (/\bOPR\b/.test(ua) ? 'Blink' : 'Presto') ||
+          /\b(?:Midori|Nook|Safari)\b/i.test(ua) && !/^(?:Trident|EdgeHTML)$/.test(layout) && 'WebKit' ||
+          !layout && /\bMSIE\b/i.test(ua) && (os == 'Mac OS' ? 'Tasman' : 'Trident') ||
+          layout == 'WebKit' && /\bPlayStation\b(?! Vita\b)/i.test(name) && 'NetFront'
+layout == 'iCab' && parseFloat(version) > 3 && 'WebKit' ||
+          /\bOpera\b/.test(name) && (/\bOPR\b/.test(ua) ? 'Blink' : 'Presto') ||
+          /\b(?:Midori|Nook|Safari)\b/i.test(ua) && !/^(?:Trident|EdgeHTML)$/.test(layout) && 'WebKit' ||
+          !layout && /\bMSIE\b/i.test(ua) && (os == 'Mac OS' ? 'Tasman' : 'Trident') ||
+          layout == 'WebKit' && /\bPlayStation\b(?! Vita\b)/i.test(name) && 'NetFront'
+/\bOpera\b/.test(name) && (/\bOPR\b/.test(ua) ? 'Blink' : 'Presto')
+/\b(?:Midori|Nook|Safari)\b/i.test(ua) && !/^(?:Trident|EdgeHTML)$/.test(layout) && 'WebKit'
+!layout && /\bMSIE\b/i.test(ua) && (os == 'Mac OS' ? 'Tasman' : 'Trident')
+layout == 'WebKit' && /\bPlayStation\b(?! Vita\b)/i.test(name) && 'NetFront'
+_tmp_140 = __ecma.Array.factory()
+name == 'IE' && (data = (/; *(?:XBLWP|ZuneWP)(\d+)/i.exec(ua) || 0)[1])
+name += ' Mobile'
+os = 'Windows Phone ' + (/\+$/.test(data) ? data : data + '.x')
+description.unshift('desktop mode')
+(_tmp_143 = /\bWPDesktop\b/i).test
+name = 'IE Mobile'
+os = 'Windows Phone 8.x'
+description.unshift('desktop mode')
+version || (version = (/\brv:([\d.]+)/.exec(ua) || 0)[1])
+name != 'IE' && layout == 'Trident' && (data = /\brv:([\d.]+)/.exec(ua))
+description.push('identifying as ' + name + (version ? ' ' + version : ''))
+name = 'IE'
+version = data[1]
+isHostType(context, 'global')
+data = java.lang.System
+arch = data.getProperty('os.arch')
+os = os || data.getProperty('os.name') + ' ' + data.getProperty('os.version')
+version = context.require('ringo/engine').version.join('.')
+name = 'RingoJS'
+(data = context.system) && data.global.system == context.system
+name = 'Narwhal'
+os || (os = data[0].os || null)
+!name
+name = 'Rhino'
+typeof context.process == 'object' && !context.process.browser &&
+          (data = context.process)
+data = context.process
+typeof data.versions == 'object'
+typeof data.versions.electron == 'string'
+description.push('Node ' + data.versions.node)
+name = 'Electron'
+version = data.versions.electron
+typeof data.versions.nw == 'string'
+description.push('Chromium ' + version, 'Node ' + data.versions.node)
+name = 'NW.js'
+version = data.versions.nw
+!name
+name = 'Node.js'
+arch = data.arch
+os = data.platform
+version = /[\d.]+/.exec(data.version)
+version = version ? version[0] : null
+getClassOf((data = context.runtime)) == airRuntimeClass
+name = 'Adobe AIR'
+os = data.flash.system.Capabilities.os
+getClassOf((data = context.phantom)) == phantomClass
+name = 'PhantomJS'
+version = (data = data.version || null) && (data.major + '.' + data.minor + '.' + data.patch)
+typeof doc.documentMode == 'number' && (data = /\bTrident\/(\d+)/i.exec(ua))
+version = [version, doc.documentMode]
+(data = +data[1] + 4) != version[1]
+description.push('IE ' + version[1] + ' mode')
+layout && (layout[1] = '')
+version[1] = data
+version = name == 'IE' ? String(version[1].toFixed(1)) : version[0]
+typeof doc.documentMode == 'number' && /^(?:Chrome|Firefox)\b/.test(name)
+description.push('masking as ' + name + ' ' + version)
+name = 'IE'
+version = '11.0'
+_tmp_152 = __ecma.Array.factory()
+os = 'Windows'
+os = os && format(os)
+version && (data =
+          /(?:[ab]|dp|pre|[ab]\d+pre)(?:\d+\+?)?$/i.exec(version) ||
+          /(?:alpha|beta)(?: ?\d)?/i.exec(ua + ';' + (useFeatures && nav.appMinorVersion)) ||
+          /\bMinefield\b/i.test(ua) && 'a'
+        )
+/(?:[ab]|dp|pre|[ab]\d+pre)(?:\d+\+?)?$/i.exec(version) ||
+          /(?:alpha|beta)(?: ?\d)?/i.exec(ua + ';' + (useFeatures && nav.appMinorVersion)) ||
+          /\bMinefield\b/i.test(ua) && 'a'
+/(?:alpha|beta)(?: ?\d)?/i.exec(ua + ';' + (useFeatures && nav.appMinorVersion))
+(_tmp_155 = /\bMinefield\b/i).test
+prerelease = /b/i.test(data) ? 'beta' : 'alpha'
+version = version.replace(RegExp(data + '\\+?$'), '') +
+        (prerelease == 'beta' ? beta : alpha) + (/\d+\+?/.exec(data) || '')
+prerelease == 'beta' ? beta : alpha
+name == 'Fennec' || name == 'Firefox' && /\b(?:Android|Firefox OS|KaiOS)\b/.test(os)
+name = 'Firefox Mobile'
+name == 'Maxthon' && version
+version = version.replace(/\.[\d.]+/, '.x')
+(_tmp_159 = /\bXbox\b/i).test
+product == 'Xbox 360'
+os = null
+product == 'Xbox 360' && /\bIEMobile\b/.test(ua)
+description.unshift('mobile mode')
+(/^(?:Chrome|IE|Opera)$/.test(name) || name && !product && !/Browser|Mobi/.test(name)) &&
+        (os == 'Windows CE' || /Mobi/i.test(ua))
+os == 'Windows CE' || /Mobi/i.test(ua)
+name += ' Mobile'
+name == 'IE' && useFeatures
+context.external === null
+description.unshift('platform preview')
+description.unshift('embedded')
+(/\bBlackBerry\b/.test(product) || /\bBB10\b/.test(ua)) && (data =
+          (RegExp(product.replace(/ +/g, ' *') + '/([.\\d]+)', 'i').exec(ua) || 0)[1] ||
+          version
+        )
+(RegExp(product.replace(/ +/g, ' *') + '/([.\\d]+)', 'i').exec(ua) || 0)[1] ||
+          version
+_tmp_167 = __ecma.Array.factory()
+os = (data[1] ? (product = null, manufacturer = 'BlackBerry') : 'Device Software') + ' ' + data[0]
+version = null
+this != forOwn && product != 'Wii' && (
+          (useFeatures && opera) ||
+          (/Opera/.test(name) && /\b(?:MSIE|Firefox)\b/i.test(ua)) ||
+          (name == 'Firefox' && /\bOS X (?:\d+\.){2,}/.test(os)) ||
+          (name == 'IE' && (
+            (os && !/^Win/.test(os) && version > 5.5) ||
+            /\bWindows XP\b/.test(os) && version > 8 ||
+            version == 8 && !/\bTrident\b/.test(ua)
+          ))
+        ) && !reOpera.test((data = parse.call(forOwn, ua.replace(reOpera, '') + ';'))) && data.name
+(useFeatures && opera) ||
+          (/Opera/.test(name) && /\b(?:MSIE|Firefox)\b/i.test(ua)) ||
+          (name == 'Firefox' && /\bOS X (?:\d+\.){2,}/.test(os)) ||
+          (name == 'IE' && (
+            (os && !/^Win/.test(os) && version > 5.5) ||
+            /\bWindows XP\b/.test(os) && version > 8 ||
+            version == 8 && !/\bTrident\b/.test(ua)
+          ))
+/Opera/.test(name) && /\b(?:MSIE|Firefox)\b/i.test(ua)
+name == 'Firefox' && /\bOS X (?:\d+\.){2,}/.test(os)
+name == 'IE' && (
+            (os && !/^Win/.test(os) && version > 5.5) ||
+            /\bWindows XP\b/.test(os) && version > 8 ||
+            version == 8 && !/\bTrident\b/.test(ua)
+          )
+(os && !/^Win/.test(os) && version > 5.5) ||
+            /\bWindows XP\b/.test(os) && version > 8 ||
+            version == 8 && !/\bTrident\b/.test(ua)
+/\bWindows XP\b/.test(os) && version > 8
+version == 8 && !/\bTrident\b/.test(ua)
+!reOpera.test((data = parse.call(forOwn, ua.replace(reOpera, '') + ';')))
+data = 'ing as ' + data.name + ((data = data.version) ? ' ' + data : '')
+reOpera.test(name)
+/\bIE\b/.test(data) && os == 'Mac OS'
+os = null
+data = 'identify' + data
+data = 'mask' + data
+name = format(operaClass.replace(/([a-z])([A-Z])/g, '$1 $2'))
+name = 'Opera'
+(_tmp_176 = /\bIE\b/).test
+os = null
+!useFeatures
+version = null
+_tmp_177 = __ecma.Array.factory()
+description.push(data)
+data = (/\bAppleWebKit\/([\d.]+\+?)/i.exec(ua) || 0)[1]
+data = [parseFloat(data.replace(/\.(\d)$/, '.0$1')), data]
+name == 'Safari' && data[1].slice(-1) == '+'
+name = 'WebKit Nightly'
+prerelease = 'alpha'
+version = data[1].slice(0, -1)
+version == data[1] ||
+          version == (data[2] = (/\bSafari\/([\d.]+\+?)/i.exec(ua) || 0)[1])
+version == (data[2] = (/\bSafari\/([\d.]+\+?)/i.exec(ua) || 0)[1])
+version = null
+data[1] = (/\b(?:Headless)?Chrome\/([\d.]+)/i.exec(ua) || 0)[1]
+data[0] == 537.36 && data[2] == 537.36 && parseFloat(data[1]) >= 28 && layout == 'WebKit'
+_tmp_184 = __ecma.Array.factory()
+!useFeatures || (!likeChrome && !data[1])
+layout && (layout[1] = 'like Safari')
+data = (data = data[0], data < 400 ? 1 : data < 500 ? 2 : data < 526 ? 3 : data < 533 ? 4 : data < 534 ? '4+' : data < 535 ? 5 : data < 537 ? 6 : data < 538 ? 7 : data < 601 ? 8 : data < 602 ? 9 : data < 604 ? 10 : data < 606 ? 11 : data < 608 ? 12 : '12')
+layout && (layout[1] = 'like Chrome')
+data = data[1] || (data = data[0], data < 530 ? 1 : data < 532 ? 2 : data < 532.05 ? 3 : data < 533 ? 4 : data < 534.03 ? 5 : data < 534.07 ? 6 : data < 534.10 ? 7 : data < 534.13 ? 8 : data < 534.16 ? 9 : data < 534.24 ? 10 : data < 534.30 ? 11 : data < 535.01 ? 12 : data < 535.02 ? '13+' : data < 535.07 ? 15 : data < 535.11 ? 16 : data < 535.19 ? 17 : data < 536.05 ? 18 : data < 536.10 ? 19 : data < 537.01 ? 20 : data < 537.11 ? '21+' : data < 537.13 ? 23 : data < 537.18 ? 24 : data < 537.24 ? 25 : data < 537.36 ? 26 : layout != 'Blink' ? '27' : '28')
+layout && (layout[1] += ' ' + (data += typeof data == 'number' ? '.x' : /[.+]/.test(data) ? '' : '+'))
+name == 'Safari' && (!version || parseInt(version) > 45)
+version = data
+name == 'Chrome' && /\bHeadlessChrome/i.test(ua)
+description.unshift('headless')
+name == 'Opera' &&  (data = /\bzbov|zvav$/.exec(os))
+name += ' '
+description.unshift('desktop mode')
+data == 'zvav'
+name += 'Mini'
+version = null
+name += 'Mobile'
+os = os.replace(RegExp(' *' + data + '$'), '')
+name == 'Safari' && /\bChrome\b/.exec(layout && layout[1])
+description.unshift('desktop mode')
+name = 'Chrome Mobile'
+version = null
+(_tmp_189 = /\bOS X\b/).test
+manufacturer = 'Apple'
+os = 'iOS 4.3+'
+os = null
+/\bSRWare Iron\b/.test(name) && !version
+version = getVersion('Chrome')
+version && version.indexOf((data = /[\d.]+$/.exec(os))) == 0 &&
+        ua.indexOf('/' + data + '-') > -1
+ua.indexOf('/' + data + '-') > -1
+os = trim(os.replace(data, ''))
+os && os.indexOf(name) != -1 && !RegExp(name + ' OS').test(os)
+os = os.replace(RegExp(' *' + qualify(name) + ' *'), '')
+layout && !/\b(?:Avant|Nook)\b/.test(name) && (
+        /Browser|Lunascape|Maxthon/.test(name) ||
+        name != 'Safari' && /^iOS/.test(os) && /\bSafari\b/.test(layout[1]) ||
+        /^(?:Adobe|Arora|Breach|Midori|Opera|Phantom|Rekonq|Rock|Samsung Internet|Sleipnir|SRWare Iron|Vivaldi|Web)/.test(name) && layout[1])
+/Browser|Lunascape|Maxthon/.test(name) ||
+        name != 'Safari' && /^iOS/.test(os) && /\bSafari\b/.test(layout[1]) ||
+        /^(?:Adobe|Arora|Breach|Midori|Opera|Phantom|Rekonq|Rock|Samsung Internet|Sleipnir|SRWare Iron|Vivaldi|Web)/.test(name) && layout[1]
+name != 'Safari' && /^iOS/.test(os) && /\bSafari\b/.test(layout[1])
+/^(?:Adobe|Arora|Breach|Midori|Opera|Phantom|Rekonq|Rock|Samsung Internet|Sleipnir|SRWare Iron|Vivaldi|Web)/.test(name) && layout[1]
+(data = layout[layout.length - 1]) && description.push(data)
+description.length
+description = ['(' + description.join('; ') + ')']
+manufacturer && product && product.indexOf(manufacturer) < 0
+description.push('on ' + manufacturer)
+description.push((/^on /.test(description[description.length - 1]) ? '' : 'on ') + product)
+(_tmp_200 = / ([\d.+]+)$/).exec

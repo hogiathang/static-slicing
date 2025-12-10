@@ -1,0 +1,17 @@
+version = param1_1.version
+_tmp_20 = [].concat(normalizeFunding(funding)).filter(isValidFunding)
+_tmp_22 = fundingSource || {}
+const pkgRef = getPrintableName({ name, version })
+let item = {
+          label: pkgRef,
+        }
+_tmp_24.label = pkgRef
+item.label = tree({
+            label: this.npm.chalk.bgBlack.white(url),
+            nodes: [pkgRef],
+          }).trim()
+_tmp_26.label = this.npm.chalk.bgBlack.white(url)
+_tmp_28 = __ecma.Array.factory()
+trim
+seenUrls.has(url)
+item = seenUrls.get(url)

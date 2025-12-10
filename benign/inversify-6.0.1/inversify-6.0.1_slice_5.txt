@@ -1,0 +1,11 @@
+remove(moduleId) {
+        if (this._map.has(moduleId)) {
+            const handlers = this._map.get(moduleId);
+            this._map.delete(moduleId);
+            return handlers;
+        }
+        return this._getEmptyHandlersStore();
+    }
+(_tmp_2 = this._map).has
+const handlers = this._map.get(moduleId)
+(_tmp_4 = this._map).delete

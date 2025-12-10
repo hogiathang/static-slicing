@@ -1,0 +1,52 @@
+function resolveSource = function resolveSource(obj) {
+  if (obj.isMemberExpression() && obj.get("property").isIdentifier({
+    name: "prototype"
+  })) {
+    const id = resolveId(obj.get("object"));
+    if (id) {
+      return {
+        id,
+        placement: "prototype"
+      };
+    }
+    return {
+      id: null,
+      placement: null
+    };
+  }
+  const id = resolveId(obj);
+  if (id) {
+    return {
+      id,
+      placement: "static"
+    };
+  }
+  const {
+    value
+  } = obj.evaluate();
+  if (value !== undefined) {
+    return {
+      id: getType(value),
+      placement: "prototype"
+    };
+  } else if (obj.isRegExpLiteral()) {
+    return {
+      id: "RegExp",
+      placement: "prototype"
+    };
+  } else if (obj.isFunction()) {
+    return {
+      id: "Function",
+      placement: "prototype"
+    };
+  }
+  return {
+    id: null,
+    placement: null
+  };
+}
+obj.isMemberExpression() && obj.get("property").isIdentifier({
+    name: "prototype"
+  })
+_tmp_16.name = "prototype"
+const id = resolveId(obj.get("object"))

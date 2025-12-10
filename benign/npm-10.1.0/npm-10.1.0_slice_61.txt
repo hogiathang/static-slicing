@@ -1,0 +1,67 @@
+(node) => {
+  // if the original edge was a deduped dep, treeverse will fail to
+  // revisit that node in tree traversal logic, so we make it so that
+  // we have a diff obj for deduped nodes:
+  if (seenNodes.has(node.path)) {
+    const { realpath, root } = node
+    const targetLocation = root ? relative(root.realpath, realpath)
+      : node.targetLocation
+    node = {
+      name: node.name,
+      version: node.version,
+      pkgid: node.pkgid,
+      package: node.package,
+      path: node.path,
+      isLink: node.isLink,
+      realpath: node.realpath,
+      targetLocation,
+      [_type]: node[_type],
+      [_invalid]: node[_invalid],
+      [_missing]: node[_missing],
+      // if it's missing, it's not deduped, it's just missing
+      [_dedupe]: !node[_missing],
+    }
+  } else {
+    // keeps track of already seen nodes in order to check for dedupes
+    seenNodes.set(node.path, node)
+  }
+
+  // _parent is going to be a ref to a treeverse-visited node (returned from
+  // getHumanOutput...
+seenNodes.has(node.path)
+realpath = _tmp_71.realpath
+const targetLocation = root ? relative(root.realpath, realpath)
+      : node.targetLocation
+node.targetLocation
+node = {
+      name: node.name,
+      version: node.version,
+      pkgid: node.pkgid,
+      package: node.package,
+      path: node.path,
+      isLink: node.isLink,
+      realpath: node.realpath,
+      targetLocation,
+      [_type]: node[_type],
+      [_invalid]: node[_invalid],
+      [_missing]: node[_missing],
+      // if it's missing, it's not deduped, it's just missing
+      [_dedupe]: !node[_missing],
+    }
+_tmp_72.name = node.name
+_tmp_72.version = node.version
+_tmp_72.pkgid = node.pkgid
+_tmp_72.package = node.package
+_tmp_72.path = node.path
+_tmp_72.isLink = node.isLink
+_tmp_72.realpath = node.realpath
+_tmp_72.targetLocation = targetLocation
+_tmp_72._type = node[_type]
+_tmp_72._invalid = node[_invalid]
+_tmp_72._missing = node[_missing]
+_tmp_72._dedupe = !node[_missing]
+seenNodes.set(node.path, node)
+node[_parent] = nodeResult
+node[_filteredBy] = node[_include] =
+    filterByPositionalArgs(args, { node: seenNodes.get(node.path) })
+filterByPositionalArgs(args, { node: seenNodes.get(node.path) })

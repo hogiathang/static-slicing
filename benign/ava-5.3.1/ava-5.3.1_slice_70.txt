@@ -1,0 +1,145 @@
+emitStateChange(event) {
+		const {stats} = this;
+		const fileStats = stats.byFile.get(event.testFile);
+
+		let changedStats = true;
+		switch (event.type) {
+			case 'declared-test': {
+				stats.declaredTests++;
+				fileStats.declaredTests++;
+				break;
+			}
+
+			case 'hook-failed': {
+				stats.failedHooks++;
+				fileStats.failedHooks++;
+				break;
+			}
+
+			case 'internal-error': {
+				stats.internalErrors++;
+				if (event.testFile) {
+					fileStats.internalErrors++;
+				}
+
+				break;
+			}
+
+			case 'selected-test': {
+				stats.selectedTests++;
+				fileStats.selectedTests++;
+				if (event.skip) {
+					stats.skippedTests++;
+					fileStats.skippedTests++;
+				} else if (event.todo) {
+					stats.todoTests++;
+					fileStats.todoTests++;
+				} else {
+					stats.remainingTests++;
+					fileStats.remainingTests++;
+					this.addPendingTest(event);
+				}
+
+				break;
+			}
+
+			case 'shared-worker-error': {
+				stats.sharedWorkerErrors++;
+				break;
+			}
+
+			case 'test-failed': {
+				stats.failedTest...
+stats = _tmp_10.stats
+const fileStats = stats.byFile.get(event.testFile)
+let changedStats = true
+event.type
+"declared-test"
+stats.declaredTests++
+fileStats.declaredTests++
+break;
+"hook-failed"
+stats.failedHooks++
+fileStats.failedHooks++
+break;
+"internal-error"
+stats.internalErrors++
+event.testFile
+fileStats.internalErrors++
+break;
+"selected-test"
+stats.selectedTests++
+fileStats.selectedTests++
+event.skip
+stats.skippedTests++
+fileStats.skippedTests++
+event.todo
+stats.todoTests++
+fileStats.todoTests++
+stats.remainingTests++
+fileStats.remainingTests++
+this.addPendingTest(event)
+break;
+"shared-worker-error"
+stats.sharedWorkerErrors++
+break;
+"test-failed"
+stats.failedTests++
+fileStats.failedTests++
+stats.remainingTests--
+fileStats.remainingTests--
+this.removePendingTest(event)
+break;
+"test-passed"
+event.knownFailing
+stats.passedKnownFailingTests++
+fileStats.passedKnownFailingTests++
+stats.passedTests++
+fileStats.passedTests++
+stats.remainingTests--
+fileStats.remainingTests--
+this.removePendingTest(event)
+break;
+"test-register-log-reference"
+this.addPendingTestLogs(event)
+break;
+"timeout"
+stats.timeouts++
+event.pendingTests = this.pendingTests
+event.pendingTestsLogs = this.pendingTestsLogs
+this.pendingTests = new Map()
+this.pendingTestsLogs = new Map()
+_iterator_0 = <operator>.iterator(event.pendingTests.values())
+stats.timedOutTests += testsInFile.size
+break;
+"interrupt"
+event.pendingTests = this.pendingTests
+event.pendingTestsLogs = this.pendingTestsLogs
+this.pendingTests = new Map()
+this.pendingTestsLogs = new Map()
+break;
+"process-exit"
+event.pendingTests = this.pendingTests
+event.pendingTestsLogs = this.pendingTestsLogs
+this.pendingTests = new Map()
+this.pendingTestsLogs = new Map()
+break;
+"uncaught-exception"
+stats.uncaughtExceptions++
+fileStats.uncaughtExceptions++
+break;
+"unhandled-rejection"
+stats.unhandledRejections++
+fileStats.unhandledRejections++
+break;
+"worker-failed"
+stats.failedWorkers++
+break;
+"worker-finished"
+stats.finishedWorkers++
+break;
+default:
+changedStats = false
+break;
+this.emit('stateChange', {type: 'stats', stats: copyStats(stats)})
+this.emit('stateChange', event)

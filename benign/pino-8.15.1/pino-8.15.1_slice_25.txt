@@ -1,0 +1,87 @@
+const bench = require('fastbench')
+const pino = require('../../')
+const fs = require('fs')
+const dest = fs.createWriteStream('/dev/null')
+const plog = pino(dest)
+delete require.cache[require.resolve('../../')]
+const plogDest = require('../../')(pino.destination('/dev/null'))
+delete require.cache[require.resolve('../../')]
+const plogAsync = require('../../')(pino.destination({ dest: '/dev/null', sync: false }))
+const plogChild = plog.child({ a: 'property' })
+const plogDestChild = plogDest.child({ a: 'property' })
+const plogAsyncChild = plogAsync.child({ a: 'property' })
+const plogChildChild = plog.child({ a: 'property' }).child({ sub: 'child' })
+const plogDestChildChild = plogDest.child({ a: 'property' }).child({ sub: 'child' })
+const plogAsyncChildChild = plogAsync.child({ a: 'property' }).child({ sub: 'child' })
+const max = 10
+const run = bench([
+  function benchPino (cb) {
+    for (var i = 0; i < max; i++) {
+      plog.info('hello world')
+    }
+    setImmediate(cb)
+  },
+  function benchPinoDest (cb) {
+    for (var i = 0; i < max; i++) {
+      plogDest.info('hello world')
+    }
+    setImmediate(cb)
+  },
+  function benchPinoExtreme (cb) {
+    for (var i = 0; i < max; i++) {
+      plogAsync.info('hello world')
+    }
+    setImmediate(cb)
+  },
+  function benchPinoObj (cb) {
+    for (var i = 0; i < max; i++) {
+      plog.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchPinoDestObj (cb) {
+    for (var i = 0; i < max; i++) {
+      plogDest.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchPinoAsyncObj (cb) {
+    for (var i = 0; i < max; i++) {
+      plogAsync.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchPinoChild (cb) {
+    for (var i = 0; i < max; i++) {
+      plogChild.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchP...
+_tmp_13.push(benchPino)
+_tmp_13.push(benchPinoDest)
+_tmp_13.push(benchPinoExtreme)
+_tmp_13.push(benchPinoObj)
+_tmp_13.push(benchPinoDestObj)
+_tmp_13.push(benchPinoAsyncObj)
+_tmp_13.push(benchPinoChild)
+_tmp_13.push(benchPinoDestChild)
+_tmp_13.push(benchPinoAsyncChild)
+_tmp_13.push(benchPinoChildChild)
+_tmp_13.push(benchPinoDestChildChild)
+_tmp_13.push(benchPinoAsyncChildChild)
+_tmp_13.push(benchPinoChildCreation)
+_tmp_13.push(benchPinoDestChildCreation)
+_tmp_13.push(benchPinoMulti)
+_tmp_13.push(benchPinoDestMulti)
+_tmp_13.push(benchPinoAsyncMulti)
+_tmp_13.push(benchPinoInterpolate)
+_tmp_13.push(benchPinoDestInterpolate)
+_tmp_13.push(benchPinoDestInterpolate1)
+_tmp_13.push(benchPinoInterpolateAll)
+_tmp_13.push(benchPinoDestInterpolateAll)
+_tmp_13.push(benchPinoAsyncInterpolateAll)
+_tmp_13.push(benchPinoInterpolateExtra)
+_tmp_13.push(benchPinoDestInterpolateExtra)
+_tmp_13.push(benchPinoAsyncInterpolateExtra)
+10000

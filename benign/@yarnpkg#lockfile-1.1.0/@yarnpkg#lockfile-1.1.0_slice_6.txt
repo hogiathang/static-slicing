@@ -1,0 +1,68 @@
+function rimrafSync = function rimrafSync (p, options) {
+  options = options || {}
+  defaults(options)
+
+  assert(p, 'rimraf: missing path')
+  assert.equal(typeof p, 'string', 'rimraf: path should be a string')
+  assert(options, 'rimraf: missing options')
+  assert.equal(typeof options, 'object', 'rimraf: options should be object')
+
+  var results
+
+  if (options.disableGlob || !glob.hasMagic(p)) {
+    results = [p]
+  } else {
+    try {
+      options.lstatSync(p)
+      results = [p]
+    } catch (er) {
+      results = glob.sync(p, options.glob)
+    }
+  }
+
+  if (!results.length)
+    return
+
+  for (var i = 0; i < results.length; i++) {
+    var p = results[i]
+
+    try {
+      var st = options.lstatSync(p)
+    } catch (er) {
+      if (er.code === "ENOENT")
+        return
+
+      // Windows can EPERM on stat.  Life is suffering.
+      if (er.code === "EPERM" && isWindows)
+        fixWinEPERMSync(p, options, er)
+    }
+
+    try {
+      // sunos lets the root user unlink directories, which is... weird.
+      if (st &&...
+options = options || {}
+defaults(options)
+assert(p, 'rimraf: missing path')
+assert.equal(typeof p, 'string', 'rimraf: path should be a string')
+assert(options, 'rimraf: missing options')
+assert.equal(typeof options, 'object', 'rimraf: options should be object')
+options.disableGlob || !glob.hasMagic(p)
+_tmp_628 = __ecma.Array.factory()
+options.lstatSync(p)
+_tmp_629 = __ecma.Array.factory()
+results = glob.sync(p, options.glob)
+!results.length
+i < results.length
+var p = results[i]
+var st = options.lstatSync(p)
+er.code === "ENOENT"
+er.code === "EPERM" && isWindows
+fixWinEPERMSync(p, options, er)
+st && st.isDirectory()
+rmdirSync(p, options, null)
+options.unlinkSync(p)
+er.code === "ENOENT"
+er.code === "EPERM"
+er.code !== "EISDIR"
+throw er
+rmdirSync(p, options, er)

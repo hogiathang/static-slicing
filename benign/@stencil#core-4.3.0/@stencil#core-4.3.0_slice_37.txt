@@ -1,0 +1,7 @@
+fetch(input, init) {
+    if (typeof fetch === 'function') {
+      return fetch(input, init);
+    }
+    throw new Error(`fetch() not implemented`);
+  }
+typeof fetch === 'function'

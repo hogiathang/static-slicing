@@ -1,0 +1,38 @@
+function shouldTransform = function shouldTransform(path) {
+  let optionalPath = path;
+  const chains = [];
+  for (;;) {
+    if (optionalPath.isOptionalMemberExpression()) {
+      chains.push(optionalPath.node);
+      optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("object"));
+    } else if (optionalPath.isOptionalCallExpression()) {
+      chains.push(optionalPath.node);
+      optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("callee"));
+    } else {
+      break;
+    }
+  }
+  for (let i = 0; i < chains.length; i++) {
+    const node = chains[i];
+    if (core.types.isOptionalCallExpression(node) && matchAffectedArguments(node.arguments)) {
+      if (node.optional) {
+        return true;
+      }
+      const callee = chains[i + 1];
+      if (core.types.isOptionalMemberExpression(callee, {
+        optional: true
+      })) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+let optionalPath = path
+__ecma.Array.factory()
+optionalPath.isOptionalMemberExpression()
+chains.push(optionalPath.node)
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("object"))
+optionalPath.isOptionalCallExpression()
+chains.push(optionalPath.node)
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("callee"))

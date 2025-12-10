@@ -1,0 +1,10 @@
+const socketPromise = (async () => {
+		try {
+			socket = await connect(options, callback);
+
+			socket.on('error', reject);
+			socket.once('timeout', onTimeout);
+		} catch (error) {
+			reject(error);
+		}
+	})()

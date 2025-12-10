@@ -1,0 +1,23 @@
+PropertyChanges.prototype.makePropertyObservable = function (key) {
+    // arrays are special.  we do not support direct setting of properties
+    // on an array.  instead, call .set(index, value).  this is observable.
+    // 'length' property is observable for all mutating methods because
+    // our overrides explicitly dispatch that change.
+
+
+    var overriddenPropertyDescriptors = ObjectsOverriddenPropertyDescriptors.get(this);
+    if (overriddenPropertyDescriptors && overriddenPropertyDescriptors.get(key) !== void 0) {
+        // if we have already recorded an overridden property descriptor,
+        // we have already installed the observer, so short-here
+        return;
+    }
+
+    // memoize overridden property descriptor table
+    if (!overriddenPropertyDescriptors) {
+        if (Array.isArray(this)) {
+            return;
+        }
+        if (!Object.isExtensible(this)) {
+            throw new Error("Can't make property " + JSON.stringify(key) + " observable on " + this + " b...
+var overriddenPropertyDescriptors = ObjectsOverriddenPropertyDescriptors.get(this)
+overriddenPropertyDescriptors && overriddenPropertyDescriptors.get(key) !== void 0

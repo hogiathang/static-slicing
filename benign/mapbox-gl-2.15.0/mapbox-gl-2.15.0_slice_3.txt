@@ -1,0 +1,11 @@
+var fs = require("fs")
+var minimist = require("minimist")
+var migrate = require("@mapbox/mapbox-gl-style-spec").migrate
+const argv = minimist(process.argv.slice(2))
+argv.help || argv.h || (!argv._.length && process.stdin.isTTY)
+help()
+process.exit(0)
+function help = function help() {
+    console.log('usage:');
+    console.log('  gl-style-migrate source.json > destination.json');
+}

@@ -1,0 +1,19 @@
+ngZone.run(() => {
+            const moduleRef = createNgModuleRefWithProviders(moduleFactory.moduleType, this.injector, internalProvideZoneChangeDetection(() => ngZone));
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) &&
+                moduleRef.injector.get(PROVIDED_NG_ZONE, null) !== null) {
+                throw new RuntimeError(207 /* RuntimeErrorCode.PROVIDER_IN_WRONG_CONTEXT */, '`bootstrapModule` does not support `provideZoneChangeDetection`. Use `BootstrapOptions` instead.');
+            }
+            const exceptionHandler = moduleRef.injector.get(ErrorHandler, null);
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && exceptionHandler === null) {
+                throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No ErrorHandler. Is platform module (BrowserModule) included?');
+            }
+            ngZone.runOutsideAngular(() => {
+                const subscription = ngZone.onError.subscribe({
+ ...
+const moduleRef = createNgModuleRefWithProviders(moduleFactory.moduleType, this.injector, internalProvideZoneChangeDetection(() => ngZone))
+(typeof ngDevMode === 'undefined' || ngDevMode) &&
+                moduleRef.injector.get(PROVIDED_NG_ZONE, null) !== null
+moduleRef.injector.get(PROVIDED_NG_ZONE, null) !== null
+throw new RuntimeError(207 /* RuntimeErrorCode.PROVIDER_IN_WRONG_CONTEXT */, '`bootstrapModule` does not support `provideZoneChangeDetection`. Use `BootstrapOptions` instead.');
+const exceptionHandler = moduleRef.injector.get(ErrorHandler, null)

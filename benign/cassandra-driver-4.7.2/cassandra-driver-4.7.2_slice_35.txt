@@ -1,0 +1,6 @@
+static send(request, execOptions, client) {
+    const instance = new RequestHandler(request, execOptions, client);
+    return instance.send();
+  }
+const instance = new RequestHandler(request, execOptions, client)
+instance.send()

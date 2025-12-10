@@ -1,0 +1,68 @@
+const glslifyBundle = require('glslify-bundle')
+const glslifyDeps   = require('glslify-deps')
+const glslResolve   = require('glsl-resolve')
+const minimist      = require('minimist')
+const path          = require('path')
+const bl            = require('bl')
+const fs            = require('fs')
+const depper = glslifyDeps()
+const argv   = minimist(process.argv.slice(2), {
+  alias: {
+    t: 'transform',
+    g: 'global',
+    p: 'post',
+    o: 'output',
+    v: 'version',
+    h: 'help'
+  }
+})
+_tmp_6.alias = {
+    t: 'transform',
+    g: 'global',
+    p: 'post',
+    o: 'output',
+    v: 'version',
+    h: 'help'
+  }
+_tmp_7.t = "transform"
+_tmp_7.g = "global"
+_tmp_7.p = "post"
+_tmp_7.o = "output"
+_tmp_7.v = "version"
+_tmp_7.h = "help"
+var input = ''
+argv.version
+const version = require('./package.json').version
+process.stdout.write('v' + version + '\n')
+function help = function help() {
+  fs.createReadStream(path.join(__dirname, 'usage.txt'))
+    .once('close', function() {
+      console.error()
+      process.exit(1)
+    })
+    .pipe(process.stderr)
+}
+function output = function output(err, tree) {
+  if (err) throw err
+  var src = String(glslifyBundle(tree))
+
+  next()
+  function next() {
+    var tr = argv.p.shift()
+    if (!tr) return done()
+    var transform = require(tr)
+
+    transform(null, src, {
+      post: true
+    }, function(err, data) {
+      if (err) throw err
+      if (data) src = data
+      next()
+    })
+  }
+
+  function done() {
+    if (!argv.output) return process.stdout.write(src)
+    fs.writeFileSync(argv.output, src)
+  }
+}

@@ -1,0 +1,3 @@
+_tmp_0.get = <lambda>1
+var result = ends.promise.get("head")
+ends.promise = ends.promise.get("tail")

@@ -1,0 +1,3 @@
+options = options === void 0 ? {} : options
+let channels = this.guilds.get(this.channelGuildMap[channelID]).channels
+const channel = channels.get(channelID)

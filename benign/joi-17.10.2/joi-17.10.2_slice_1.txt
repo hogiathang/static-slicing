@@ -1,0 +1,40 @@
+rule(options) {
+
+        const def = this._definition;
+        Common.assertOptions(options, Object.keys(def.modifiers));
+
+        Assert(this.$_temp.ruleset !== false, 'Cannot apply rules to empty ruleset or the last rule added does not support rule properties');
+        const start = this.$_temp.ruleset === null ? this._rules.length - 1 : this.$_temp.ruleset;
+        Assert(start >= 0 && start < this._rules.length, 'Cannot apply rules to empty ruleset');
+
+        const obj = this.clone();
+
+        for (let i = start; i < obj._rules.length; ++i) {
+            const original = obj._rules[i];
+            const rule = Clone(original);
+
+            for (const name in options) {
+                def.modifiers[name](rule, options[name]);
+                Assert(rule.name === original.name, 'Cannot change rule name');
+            }
+
+            obj._rules[i] = rule;
+
+            if (obj._singleRules.get(rule.name) === original) {
+                obj._singleRules.set(rule.name, rule);
+      ...
+const def = this._definition
+Common.assertOptions(options, Object.keys(def.modifiers))
+Assert(this.$_temp.ruleset !== false, 'Cannot apply rules to empty ruleset or the last rule added does not support rule properties')
+const start = this.$_temp.ruleset === null ? this._rules.length - 1 : this.$_temp.ruleset
+Assert(start >= 0 && start < this._rules.length, 'Cannot apply rules to empty ruleset')
+const obj = this.clone()
+i < obj._rules.length
+const original = obj._rules[i]
+const rule = Clone(original)
+_iterator_9 = <operator>.iterator(options)
+def.modifiers[name](rule, options[name])
+Assert(rule.name === original.name, 'Cannot change rule name')
+obj._rules[i] = rule
+obj._singleRules.get(rule.name) === original
+obj._singleRules.set(rule.name, rule)

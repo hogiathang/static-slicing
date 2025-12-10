@@ -1,0 +1,12 @@
+function (m) {
+        var out = b;
+        for (var _i = 0, _a = keysO(m); _i < _a.length; _i++) {
+            var k = _a[_i];
+            out = f(k, out, m.get(k));
+        }
+        return out;
+    }
+var out = b
+var _a = keysO(m)
+var k = _a[_i]
+out = f(k, out, m.get(k))

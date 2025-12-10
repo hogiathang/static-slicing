@@ -1,0 +1,173 @@
+var Casper = function Casper(options) {
+    "use strict";
+    /*eslint max-statements:0*/
+    // init & checks
+    if (!(this instanceof Casper)) {
+        return new Casper(options);
+    }
+    // default options
+    this.defaults = {
+        clientScripts:       [],
+        colorizerType:       'Colorizer',
+        exitOnError:         true,
+        logLevel:            "error",
+        httpStatusHandlers:  {},
+        safeLogs:            true,
+        onAlert:             null,
+        onDie:               null,
+        onError:             null,
+        onLoadError:         null,
+        onPageInitialized:   null,
+        onResourceReceived:  null,
+        onResourceRequested: null,
+        onRunComplete:       function _onRunComplete() {
+            this.exit();
+        },
+        onStepComplete:      null,
+        onStepTimeout:       function _onStepTimeout(timeout, stepNum) {
+            this.die("Maximum step execution timeout exceeded for step " + stepNum);
+        },
+        ...
+!(this instanceof Casper)
+this.defaults = {
+        clientScripts:       [],
+        colorizerType:       'Colorizer',
+        exitOnError:         true,
+        logLevel:            "error",
+        httpStatusHandlers:  {},
+        safeLogs:            true,
+        onAlert:             null,
+        onDie:               null,
+        onError:             null,
+        onLoadError:         null,
+        onPageInitialized:   null,
+        onResourceReceived:  null,
+        onResourceRequested: null,
+        onRunComplete:       function _onRunComplete() {
+            this.exit();
+        },
+        onStepComplete:      null,
+        onStepTimeout:       function _onStepTimeout(timeout, stepNum) {
+            this.die("Maximum step execution timeout exceeded for step " + stepNum);
+        },
+        onTimeout:           function _onTimeout(timeout) {
+            this.die(f("Script timeout of %dms reached, exiting.", timeout));
+        },
+        onWaitTimeout:       function _onWaitTimeout(timeout) {
+        ...
+_tmp_27.clientScripts = __ecma.Array.factory()
+_tmp_27.colorizerType = "Colorizer"
+_tmp_27.exitOnError = true
+_tmp_27.logLevel = "error"
+_tmp_27.httpStatusHandlers = {}
+_tmp_27.safeLogs = true
+_tmp_27.onAlert = null
+_tmp_27.onDie = null
+_tmp_27.onError = null
+_tmp_27.onLoadError = null
+_tmp_27.onPageInitialized = null
+_tmp_27.onResourceReceived = null
+_tmp_27.onResourceRequested = null
+_tmp_27.onRunComplete = _onRunComplete
+_tmp_27.onStepComplete = null
+_tmp_27.onStepTimeout = _onStepTimeout
+_tmp_27.onTimeout = _onTimeout
+_tmp_27.onWaitTimeout = _onWaitTimeout
+_tmp_27.page = null
+_tmp_27.pageSettings = {
+            localToRemoteUrlAccessEnabled: true,
+            javascriptEnabled:             true,
+            userAgent:                     defaultUserAgent
+        }
+_tmp_29.localToRemoteUrlAccessEnabled = true
+_tmp_29.javascriptEnabled = true
+_tmp_29.userAgent = defaultUserAgent
+_tmp_27.remoteScripts = __ecma.Array.factory()
+_tmp_27.silentErrors = false
+_tmp_27.stepTimeout = null
+_tmp_27.timeout = null
+_tmp_27.verbose = false
+_tmp_27.retryTimeout = 20
+_tmp_27.waitTimeout = 5000
+_tmp_27.clipRect = null
+_tmp_27.viewportSize = null
+this.options = utils.mergeObjects(this.defaults, options)
+this.cli = phantom.casperArgs
+this.options.logLevel = this.cli.get('log-level', this.options.logLevel)
+!this.options.verbose
+this.options.verbose = this.cli.has('direct') || this.cli.has('verbose')
+this.colorizer = this.getColorizer()
+this.mouse = mouse.create(this)
+this.popups = pagestack.create()
+this.checker = null
+this.currentResponse = {}
+this.currentUrl = 'about:blank'
+this.currentHTTPStatus = null
+__ecma.Array.factory()
+this.navigationRequested = false
+this.logFormats = {}
+this.logLevels = ["debug", "info", "warning", "error"]
+this.logStyles = {
+        debug:   'INFO',
+        info:    'PARAMETER',
+        warning: 'COMMENT',
+        error:   'ERROR'
+    }
+_tmp_36.debug = "INFO"
+_tmp_36.info = "PARAMETER"
+_tmp_36.warning = "COMMENT"
+_tmp_36.error = "ERROR"
+this.page = null
+this.pendingWait = false
+this.requestUrl = 'about:blank'
+__ecma.Array.factory()
+this.result = {
+        log:    [],
+        status: "success",
+        time:   0
+    }
+_tmp_37.log = __ecma.Array.factory()
+_tmp_37.status = "success"
+_tmp_37.time = 0
+this.started = false
+this.step = -1
+__ecma.Array.factory()
+__ecma.Array.factory()
+this._test = undefined
+this.__defineGetter__('test', function() {
+        if (!phantom.casperTest) {
+            throw new CasperError('casper.test property is only available using the `casperjs test` command');
+        }
+        if (!utils.isObject(this._test)) {
+            this._test = tester.create(this, {
+                concise: this.cli.get('concise')
+            });
+        }
+        return this._test;
+    })
+this.initErrorHandler()
+this.on('error', function(msg, backtrace) {
+        var c = this.getColorizer();
+        var match = /^(.*): __mod_error(.*):: (.*)/.exec(msg);
+        var notices = [];
+        if (match && match.length === 4) {
+            notices.push('  in module ' + match[2]);
+            msg = match[3];
+        }
+
+        console.log(c.colorize(msg, 'RED_BAR', 80));
+        notices.forEach(function(notice) {
+            console.log(c.colorize(notice, 'COMMENT'));
+        });
+        (backtrace || []).forEach(function(item) {
+            var message = fs.absolute(item.file) + ":" + c.colorize(item.line, "COMMENT");
+            if (item['function']) {
+                message += " in " + c.colorize(item['function'], "PARAMETER");
+            }
+            console.log("  " + message);
+        });
+    })
+this.on('deprecated', function onDeprecated(message) {
+        this.warn('[deprecated] ' + message);
+    })
+this.emit('init')

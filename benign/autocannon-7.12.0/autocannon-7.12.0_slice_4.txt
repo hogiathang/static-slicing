@@ -1,0 +1,7 @@
+const cluster = require('cluster')
+const http = require('http')
+const numCPUs = Math.floor(require('os').cpus().length / 2) || 1
+cluster.isMaster
+<operator>.formatString("Master ", process.pid, " is running")
+i < numCPUs
+cluster.fork()

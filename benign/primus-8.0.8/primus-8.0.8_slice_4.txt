@@ -1,0 +1,96 @@
+function Url = function Url(address, location, parser) {
+  address = trimLeft(address);
+  address = address.replace(CRHTLF, '');
+
+  if (!(this instanceof Url)) {
+    return new Url(address, location, parser);
+  }
+
+  var relative, extracted, parse, instruction, index, key
+    , instructions = rules.slice()
+    , type = typeof location
+    , url = this
+    , i = 0;
+
+  //
+  // The following if statements allows this module two have compatibility with
+  // 2 different API:
+  //
+  // 1. Node.js's `url.parse` api which accepts a URL, boolean as arguments
+  //    where the boolean indicates that the query string should also be parsed.
+  //
+  // 2. The `URL` interface of the browser which accepts a URL, object as
+  //    arguments. The supplied object will be used as default values / fall-back
+  //    for relative paths.
+  //
+  if ('object' !== type && 'string' !== type) {
+    parser = location;
+    location = null;
+  }
+
+  if (parser && 'function' !== typeof parser) parser = qs.parse;
+
+  location = lolcat...
+address = trimLeft(address)
+address = address.replace(CRHTLF, '')
+!(this instanceof Url)
+var instructions = rules.slice()
+var type = typeof location
+var url = this
+var i = 0
+'object' !== type && 'string' !== type
+parser = location
+location = null
+parser && 'function' !== typeof parser
+location = lolcation(location)
+extracted = extractProtocol(address || '', location)
+relative = !extracted.protocol && !extracted.slashes
+url.slashes = extracted.slashes || relative && location.slashes
+url.protocol = extracted.protocol || location.protocol || ''
+address = extracted.rest
+extracted.protocol === 'file:' && (
+      extracted.slashesCount !== 2 || windowsDriveLetter.test(address)) ||
+    (!extracted.slashes &&
+      (extracted.protocol ||
+        extracted.slashesCount < 2 ||
+        !isSpecial(url.protocol)))
+extracted.slashesCount !== 2 || windowsDriveLetter.test(address)
+!extracted.slashes &&
+      (extracted.protocol ||
+        extracted.slashesCount < 2 ||
+        !isSpecial(url.protocol))
+extracted.protocol ||
+        extracted.slashesCount < 2 ||
+        !isSpecial(url.protocol)
+extracted.slashesCount < 2
+!isSpecial(url.protocol)
+instructions[3] = [/(.*)/, 'pathname']
+i < instructions.length
+instruction = instructions[i]
+typeof instruction === 'function'
+address = instruction(address, url)
+continue;
+parse = instruction[0]
+key = instruction[1]
+parse !== parse
+url[key] = address
+'string' === typeof parse
+index = parse === '@'
+        ? address.lastIndexOf(parse)
+        : address.indexOf(parse)
+address.lastIndexOf(parse)
+address.indexOf(parse)
+~index
+'number' === typeof instruction[2]
+url[key] = address.slice(0, index)
+address = address.slice(index + instruction[2])
+url[key] = address.slice(index)
+address = address.slice(0, index)
+index = parse.exec(address)
+url[key] = index[1]
+address = address.slice(0, index.index)
+url[key] = url[key] || (
+      relative && instruction[3] ? location[key] || '' : ''
+    )
+relative && instruction[3] ? location[key] || '' : ""
+url[key] = url[key].toLowerCase()

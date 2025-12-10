@@ -1,0 +1,45 @@
+function mergeScriptCovs = function mergeScriptCovs(scriptCovs: ReadonlyArray<ScriptCov>): ScriptCov | undefined {
+  if (scriptCovs.length === 0) {
+    return undefined;
+  } else if (scriptCovs.length === 1) {
+    const merged: ScriptCov = scriptCovs[0];
+    deepNormalizeScriptCov(merged);
+    return merged;
+  }
+
+  const first: ScriptCov = scriptCovs[0];
+  const scriptId: string = first.scriptId;
+  const url: string = first.url;
+
+  const rangeToFuncs: Map<string, FunctionCov[]> = new Map();
+  for (const scriptCov of scriptCovs) {
+    for (const funcCov of scriptCov.functions) {
+      const rootRange: string = stringifyFunctionRootRange(funcCov);
+      let funcCovs: FunctionCov[] | undefined = rangeToFuncs.get(rootRange);
+
+      if (funcCovs === undefined ||
+        // if the entry in rangeToFuncs is function-level granularity and
+        // the new coverage is block-level, prefer block-level.
+        (!funcCovs[0].isBlockCoverage && funcCov.isBlockCoverage)) {
+        funcCovs = [];
+        rangeToFuncs.set(r...
+scriptCovs.length === 0
+scriptCovs.length === 1
+const first: ScriptCov = scriptCovs[0]
+const scriptId: string = first.scriptId
+const url: string = first.url
+const rangeToFuncs: Map<string, FunctionCov[]> = new Map()
+_iterator_7 = <operator>.iterator(scriptCovs)
+_iterator_8 = <operator>.iterator(scriptCov.functions)
+const rootRange: string = stringifyFunctionRootRange(funcCov)
+let funcCovs: FunctionCov[] | undefined = rangeToFuncs.get(rootRange)
+funcCovs === undefined ||
+        // if the entry in rangeToFuncs is function-level granularity and
+        // the new coverage is block-level, prefer block-level.
+        (!funcCovs[0].isBlockCoverage && funcCov.isBlockCoverage)
+!funcCovs[0].isBlockCoverage && funcCov.isBlockCoverage
+__ecma.Array.factory()
+rangeToFuncs.set(rootRange, funcCovs)
+funcCovs[0].isBlockCoverage && !funcCov.isBlockCoverage
+continue;
+funcCovs.push(funcCov)

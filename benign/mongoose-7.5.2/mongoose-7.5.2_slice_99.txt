@@ -1,0 +1,151 @@
+function run = async function run() {
+  await mongoose.connect(config.uri);
+
+  const Subscriber = mongoose.model('Subscriber', mongoose.Schema({
+    companyName: String,
+    description: String,
+    url: String,
+    logo: String
+  }), 'Subscriber');
+
+  const Job = mongoose.model('Job', mongoose.Schema({
+    logo: String,
+    company: String,
+    title: String,
+    location: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    }
+  }), 'Job');
+
+  const OpenCollectiveSponsor = mongoose.model('OpenCollectiveSponsor', mongoose.Schema({
+    openCollectiveId: {
+      type: Number,
+      required: true
+    },
+    website: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      required: true
+    },
+    alt: {
+      type: String
+    }
+  }), 'OpenCollectiveSponsor');
+
+  try {
+    fs.mkdirSync(`${docsDir}/data`);
+  } catch (err) {}
+
+  const subscribers = awa...
+await mongoose.connect(config.uri)
+const Subscriber = mongoose.model('Subscriber', mongoose.Schema({
+    companyName: String,
+    description: String,
+    url: String,
+    logo: String
+  }), 'Subscriber')
+_tmp_0.companyName = String
+_tmp_0.description = String
+_tmp_0.url = String
+_tmp_0.logo = String
+"Subscriber"
+const Job = mongoose.model('Job', mongoose.Schema({
+    logo: String,
+    company: String,
+    title: String,
+    location: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String,
+      required: true
+    },
+    url: {
+      type: String,
+      required: true
+    }
+  }), 'Job')
+_tmp_1.logo = String
+_tmp_1.company = String
+_tmp_1.title = String
+_tmp_1.location = {
+      type: String,
+      required: true
+    }
+_tmp_2.type = String
+_tmp_2.required = true
+_tmp_1.description = {
+      type: String,
+      required: true
+    }
+_tmp_3.type = String
+_tmp_3.required = true
+_tmp_1.url = {
+      type: String,
+      required: true
+    }
+_tmp_4.type = String
+_tmp_4.required = true
+"Job"
+const OpenCollectiveSponsor = mongoose.model('OpenCollectiveSponsor', mongoose.Schema({
+    openCollectiveId: {
+      type: Number,
+      required: true
+    },
+    website: {
+      type: String,
+      required: true
+    },
+    image: {
+      type: String,
+      required: true
+    },
+    alt: {
+      type: String
+    }
+  }), 'OpenCollectiveSponsor')
+_tmp_5.openCollectiveId = {
+      type: Number,
+      required: true
+    }
+_tmp_6.type = Number
+_tmp_6.required = true
+_tmp_5.website = {
+      type: String,
+      required: true
+    }
+_tmp_7.type = String
+_tmp_7.required = true
+_tmp_5.image = {
+      type: String,
+      required: true
+    }
+_tmp_8.type = String
+_tmp_8.required = true
+_tmp_5.alt = {
+      type: String
+    }
+_tmp_9.type = String
+"OpenCollectiveSponsor"
+<operator>.formatString("", docsDir, "/data")
+const subscribers = await Subscriber.
+    find({ companyName: { $exists: true }, description: { $exists: true }, logo: { $exists: true } }).
+    sort({ createdAt: 1 }).
+    select({ companyName: 1, description: 1, url: 1, logo: 1 })
+_tmp_12.companyName = { $exists: true }
+_tmp_16.createdAt = 1
+_tmp_17.companyName = 1
+fs.writeFileSync(`${docsDir}/data/sponsors.json`, JSON.stringify(subscribers, null, '  '))

@@ -1,0 +1,24 @@
+BpmnUpdater.prototype.updateFlowNodeRefs = function(businessObject, newContainment, oldContainment) {
+
+  if (oldContainment === newContainment) {
+    return;
+  }
+
+  var oldRefs, newRefs;
+
+  if (is (oldContainment, 'bpmn:Lane')) {
+    oldRefs = oldContainment.get('flowNodeRef');
+    collectionRemove(oldRefs, businessObject);
+  }
+
+  if (is(newContainment, 'bpmn:Lane')) {
+    newRefs = newContainment.get('flowNodeRef');
+    collectionAdd(newRefs, businessObject);
+  }
+}
+oldContainment === newContainment
+is (oldContainment, 'bpmn:Lane')
+oldRefs = oldContainment.get('flowNodeRef')
+collectionRemove(oldRefs, businessObject)
+is(newContainment, 'bpmn:Lane')
+newRefs = newContainment.get('flowNodeRef')

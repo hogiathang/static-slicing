@@ -1,0 +1,3 @@
+_tmp_28.get = get11
+semver.gte(process.versions.node, '13.0.0')
+warning.emit('FSTDEP005')

@@ -1,0 +1,16 @@
+req.query('commit tran', err => {
+        if (err) err = new TransactionError(err)
+
+        this.parent.release(this._acquiredConnection)
+        this._acquiredConnection = null
+        this._acquiredConfig = null
+
+        if (!err) debug('transaction(%d): commited', IDS.get(this))
+
+        callback(null)
+      })
+err = new TransactionError(err)
+this.parent.release(this._acquiredConnection)
+this._acquiredConnection = null
+this._acquiredConfig = null
+debug('transaction(%d): commited', IDS.get(this))

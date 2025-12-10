@@ -1,0 +1,13 @@
+_proto.get = function get(environment, key) {
+    var forEnv = this._map.get(environment);
+    if (!forEnv) {
+      forEnv = new Map();
+      this._map.set(environment, forEnv);
+    }
+    return forEnv.get(key);
+  }
+var forEnv = this._map.get(environment)
+!forEnv
+forEnv = new Map()
+this._map.set(environment, forEnv)
+forEnv.get(key)

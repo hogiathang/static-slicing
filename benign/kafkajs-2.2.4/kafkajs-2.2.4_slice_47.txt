@@ -1,0 +1,4 @@
+maxWaitTime = param1_3.maxWaitTime
+const request = require('./v3/request')
+const response = require('./v3/response')
+_tmp_7.request = request({ replicaId, maxWaitTime, minBytes, maxBytes, topics })

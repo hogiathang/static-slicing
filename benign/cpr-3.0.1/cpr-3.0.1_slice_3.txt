@@ -1,0 +1,34 @@
+fs.stat(options.from, function(err, stat) {
+        if (err) {
+            return callback(new Error('From should be a file or directory'));
+        }
+        if (stat && stat.isDirectory()) {
+            if (options.deleteFirst) {
+                rimraf(to, function() {
+                    proc();
+                });
+            } else {
+                proc();
+
+            }
+        } else {
+            if (stat.isFile()) {
+                var dirRegex = new RegExp(path.sep + '$');
+                if (dirRegex.test(to)) { // Create directory if has trailing separator
+                  to = path.join(to, path.basename(options.from));
+                }
+                // ensure copyFile() can access cached stat
+                options.stats = options.stats || {};
+                options.stats[from] = stat;
+                return copyFile(options.from, to, options, callback);
+            }
+            callback(new Error('From should be a file or directory'));
+        }
+    })
+stat && stat.isDirectory()
+stat.isFile()
+var dirRegex = new RegExp(path.sep + '$')
+dirRegex.test(to)
+to = path.join(to, path.basename(options.from))
+options.stats = options.stats || {}
+options.stats[from] = stat

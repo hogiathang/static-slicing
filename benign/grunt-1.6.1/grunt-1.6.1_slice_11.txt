@@ -1,0 +1,21 @@
+file._copySymbolicLink = function(srcpath, destpath) {
+  var destdir = path.join(destpath, '..');
+  // Use the correct relative path for the symlink
+  if (!grunt.file.isPathAbsolute(srcpath)) {
+    srcpath = path.relative(destdir, srcpath) || '.';
+  }
+  file.mkdir(destdir);
+  var mode = grunt.file.isDir(srcpath) ? 'dir' : 'file';
+  if (fs.existsSync(destpath)) {
+    // skip symlink if file already exists
+    return;
+  }
+  return fs.symlinkSync(srcpath, destpath, mode);
+}
+var destdir = path.join(destpath, '..')
+(_tmp_84 = grunt.file).isPathAbsolute
+srcpath = path.relative(destdir, srcpath) || '.'
+file.mkdir(destdir)
+var mode = grunt.file.isDir(srcpath) ? 'dir' : 'file'
+fs.existsSync(destpath)
+fs.symlinkSync(srcpath, destpath, mode)

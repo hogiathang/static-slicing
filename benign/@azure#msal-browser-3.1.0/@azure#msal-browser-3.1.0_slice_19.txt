@@ -1,0 +1,40 @@
+onWindowMessage(event) {
+        this.logger.trace("NativeMessageHandler - onWindowMessage called");
+        // We only accept messages from ourselves
+        if (event.source !== window) {
+            return;
+        }
+        const request = event.data;
+        if (!request.channel ||
+            request.channel !== NativeConstants.CHANNEL_ID) {
+            return;
+        }
+        if (request.extensionId && request.extensionId !== this.extensionId) {
+            return;
+        }
+        if (request.body.method === NativeExtensionMethod.HandshakeRequest) {
+            const handshakeResolver = this.handshakeResolvers.get(request.responseId);
+            /*
+             * Filter out responses with no matched resolvers sooner to keep channel ports open while waiting for
+             * the proper response.
+             */
+            if (!handshakeResolver) {
+                this.logger.trace(`NativeMessageHandler.onWindowMessage - resolver can't be found for request ${request.resp...
+this.logger.trace("NativeMessageHandler - onWindowMessage called")
+event.source !== window
+const request = event.data
+!request.channel ||
+            request.channel !== NativeConstants.CHANNEL_ID
+request.channel !== NativeConstants.CHANNEL_ID
+request.extensionId && request.extensionId !== this.extensionId
+request.body.method === NativeExtensionMethod.HandshakeRequest
+const handshakeResolver = this.handshakeResolvers.get(request.responseId)
+!handshakeResolver
+this.logger.verbose(request.extensionId
+                ? `Extension with id: ${request.extensionId} not installed`
+                : "No extension installed")
+<operator>.formatString("Extension with id: ", request.extensionId, " not installed")
+"No extension installed"
+clearTimeout(this.timeoutId)
+(_tmp_1636 = this.messageChannel.port1).close
+(_tmp_1637 = this.messageChannel.port2).close

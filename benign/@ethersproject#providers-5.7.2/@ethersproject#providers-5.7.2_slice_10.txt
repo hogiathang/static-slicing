@@ -1,0 +1,34 @@
+__awaiter(this, void 0, void 0, function* () {
+            switch (method) {
+                case "getBlockNumber":
+                    return this.fetch("proxy", { action: "eth_blockNumber" });
+                case "getGasPrice":
+                    return this.fetch("proxy", { action: "eth_gasPrice" });
+                case "getBalance":
+                    // Returns base-10 result
+                    return this.fetch("account", {
+                        action: "balance",
+                        address: params.address,
+                        tag: params.blockTag
+                    });
+                case "getTransactionCount":
+                    return this.fetch("proxy", {
+                        action: "eth_getTransactionCount",
+                        address: params.address,
+                        tag: params.blockTag
+                    });
+                case "getCode":
+                    return this.fetch("proxy", {
+                        action: "eth_getCode",...
+"call"
+params.blockTag !== "latest"
+throw new Error("EtherscanProvider does not support blockTag for call");
+const postData = getTransactionPostData(params.transaction)
+postData.module = "proxy"
+postData.action = "eth_call"
+this.fetch("proxy", postData, true)
+"estimateGas"
+const postData = getTransactionPostData(params.transaction)
+postData.module = "proxy"
+postData.action = "eth_estimateGas"
+this.fetch("proxy", postData, true)

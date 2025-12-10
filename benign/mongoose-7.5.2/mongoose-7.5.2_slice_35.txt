@@ -1,0 +1,110 @@
+function addModelNamesToMap = function addModelNamesToMap(model, map, available, modelNames, options, data, ret, doc, schemaOptions, unpopulatedValue) {
+  // `PopulateOptions#connection`: if the model is passed as a string, the
+  // connection matters because different connections have different models.
+  const connection = options.connection != null ? options.connection : model.db;
+
+  unpopulatedValue = unpopulatedValue === void 0 ? ret : unpopulatedValue;
+  if (Array.isArray(unpopulatedValue)) {
+    unpopulatedValue = utils.cloneArrays(unpopulatedValue);
+  }
+
+  if (modelNames == null) {
+    return;
+  }
+
+  let k = modelNames.length;
+  while (k--) {
+    const modelName = modelNames[k];
+    if (modelName == null) {
+      continue;
+    }
+
+    let Model;
+    if (options.model && options.model[modelSymbol]) {
+      Model = options.model;
+    } else if (modelName[modelSymbol]) {
+      Model = modelName;
+    } else {
+      try {
+        Model = _getModelFromConn(connection, modelName);
+      } catch (err) {
+        if...
+const connection = options.connection != null ? options.connection : model.db
+unpopulatedValue = unpopulatedValue === void 0 ? ret : unpopulatedValue
+Array.isArray(unpopulatedValue)
+unpopulatedValue = utils.cloneArrays(unpopulatedValue)
+modelNames == null
+let k = modelNames.length
+k--
+const modelName = modelNames[k]
+modelName == null
+continue;
+options.model && options.model[modelSymbol]
+Model = options.model
+modelName[modelSymbol]
+Model = modelName
+Model = _getModelFromConn(connection, modelName)
+ret !== void 0
+throw err;
+Model = null
+let ids = ret
+Array.isArray(ret) ? utils.array.flatten(ret) : __ecma.Array.factory()
+const modelNamesForRefPath = data.modelNamesInOrder ? data.modelNamesInOrder : modelNames
+data.isRefPath && Array.isArray(ret) && flat.length === modelNamesForRefPath.length
+ids = flat.filter((val, i) => modelNamesForRefPath[i] === modelName)
+const perDocumentLimit = options.perDocumentLimit == null ?
+      get(options, 'options.perDocumentLimit', null) :
+      options.perDocumentLimit
+get(options, 'options.perDocumentLimit', null)
+options.perDocumentLimit
+!available[modelName] || perDocumentLimit != null
+const currentOptions = {
+        model: Model
+      }
+_tmp_9.model = Model
+data.isVirtual && get(data.virtual, 'options.options')
+currentOptions.options = clone(data.virtual.options.options)
+schemaOptions != null
+currentOptions.options = Object.assign({}, schemaOptions)
+utils.merge(currentOptions, options)
+options[populateModelSymbol] = Model
+currentOptions[populateModelSymbol] = Model
+available[modelName] = {
+        model: Model,
+        options: currentOptions,
+        match: data.hasMatchFunction ? [data.match] : data.match,
+        docs: [doc],
+        ids: [ids],
+        allIds: [ret],
+        unpopulatedValues: [unpopulatedValue],
+        localField: new Set([data.localField]),
+        foreignField: new Set([data.foreignField]),
+        justOne: data.justOne,
+        isVirtual: data.isVirtual,
+        virtual: data.virtual,
+        count: data.count,
+        [populateModelSymbol]: Model
+      }
+_tmp_11.model = Model
+_tmp_11.options = currentOptions
+_tmp_11.match = data.hasMatchFunction ? [data.match] : data.match
+_tmp_13 = __ecma.Array.factory()
+_tmp_14 = __ecma.Array.factory()
+_tmp_15 = __ecma.Array.factory()
+_tmp_11.unpopulatedValues = [unpopulatedValue]
+_tmp_11.localField = new Set([data.localField])
+_tmp_11.foreignField = new Set([data.foreignField])
+_tmp_11.justOne = data.justOne
+_tmp_11.isVirtual = data.isVirtual
+_tmp_11.virtual = data.virtual
+_tmp_11.count = data.count
+_tmp_11.populateModelSymbol = Model
+map.push(available[modelName])
+available[modelName].localField.add(data.localField)
+available[modelName].foreignField.add(data.foreignField)
+(_tmp_23 = available[modelName].docs).push
+(_tmp_24 = available[modelName].ids).push
+(_tmp_25 = available[modelName].allIds).push
+available[modelName].unpopulatedValues.push(unpopulatedValue)
+data.hasMatchFunction
+available[modelName].match.push(data.match)

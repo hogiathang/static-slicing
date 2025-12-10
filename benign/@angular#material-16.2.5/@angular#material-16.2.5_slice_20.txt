@@ -1,0 +1,21 @@
+function generateVariablesInScopeForView = function generateVariablesInScopeForView(view, scope) {
+  const newOps = [];
+  if (scope.view !== view.xref) {
+    newOps.push(createVariableOp(view.tpl.allocateXrefId(), scope.viewContextVariable, new NextContextExpr()));
+  }
+  for (const [name, value] of view.tpl.views.get(scope.view).contextVariables) {
+    newOps.push(createVariableOp(view.tpl.allocateXrefId(), scope.contextVariables.get(name), new ReadPropExpr(new ContextExpr(scope.view), value)));
+  }
+  for (const ref of scope.references) {
+    newOps.push(createVariableOp(view.tpl.allocateXrefId(), ref.variable, new ReferenceExpr(ref.targetId, ref.offset)));
+  }
+  if (scope.parent !== null) {
+    newOps.push(...generateVariablesInScopeForView(view, scope.parent));
+  }
+  return newOps;
+}
+__ecma.Array.factory()
+scope.view !== view.xref
+newOps.push(createVariableOp(view.tpl.allocateXrefId(), scope.viewContextVariable, new NextContextExpr()))
+_iterator_34 = <operator>.iterator(view.tpl.views.get(scope.view).contextVariables)
+newOps.push(createVariableOp(view.tpl.allocateXrefId(), scope.contextVariables.get(name), new ReadPropExpr(new ContextExpr(scope.view), value)))

@@ -1,0 +1,143 @@
+Gap.prototype.onHciLeAdvertisingReport = function(status, type, address, addressType, eir, rssi) {
+  var previouslyDiscovered = !!this._discoveries[address];
+  var advertisement =  previouslyDiscovered ? this._discoveries[address].advertisement : {
+    localName: undefined,
+    txPowerLevel: undefined,
+    manufacturerData: undefined,
+    serviceData: [],
+    serviceUuids: [],
+    solicitationServiceUuids: []
+  };
+
+  var discoveryCount = previouslyDiscovered ? this._discoveries[address].count : 0;
+  var hasScanResponse = previouslyDiscovered ? this._discoveries[address].hasScanResponse : false;
+
+  if (type === 0x04) {
+    hasScanResponse = true;
+  } else {
+    // reset service data every non-scan response event
+    advertisement.serviceData = [];
+    advertisement.serviceUuids = [];
+    advertisement.serviceSolicitationUuids = [];
+  }
+
+  discoveryCount++;
+
+  var i = 0;
+  var j = 0;
+  var serviceUuid = null;
+  var serviceSolicitationUuid = null;
+
+  while ((i + 1) < eir.length) {
+    ...
+var previouslyDiscovered = !!this._discoveries[address]
+var advertisement =  previouslyDiscovered ? this._discoveries[address].advertisement : {
+    localName: undefined,
+    txPowerLevel: undefined,
+    manufacturerData: undefined,
+    serviceData: [],
+    serviceUuids: [],
+    solicitationServiceUuids: []
+  }
+_tmp_16.localName = undefined
+_tmp_16.txPowerLevel = undefined
+_tmp_16.manufacturerData = undefined
+_tmp_16.serviceData = __ecma.Array.factory()
+_tmp_16.serviceUuids = __ecma.Array.factory()
+_tmp_16.solicitationServiceUuids = __ecma.Array.factory()
+var discoveryCount = previouslyDiscovered ? this._discoveries[address].count : 0
+var hasScanResponse = previouslyDiscovered ? this._discoveries[address].hasScanResponse : false
+type === 0x04
+hasScanResponse = true
+advertisement.serviceData = []
+advertisement.serviceUuids = []
+advertisement.serviceSolicitationUuids = []
+discoveryCount++
+var i = 0
+var j = 0
+var serviceUuid = null
+var serviceSolicitationUuid = null
+(i + 1) < eir.length
+var length = eir.readUInt8(i)
+length < 1
+debug('invalid EIR data, length = ' + length)
+break;
+var eirType = eir.readUInt8(i + 1)
+(i + length + 1) > eir.length
+debug('invalid EIR data, out of range of buffer length')
+break;
+var bytes = eir.slice(i + 2).slice(0, length - 1)
+0x02
+0x03
+j < bytes.length
+serviceUuid = bytes.readUInt16LE(j).toString(16)
+advertisement.serviceUuids.indexOf(serviceUuid) === -1
+advertisement.serviceUuids.push(serviceUuid)
+break;
+0x06
+0x07
+j < bytes.length
+serviceUuid = bytes.slice(j, j + 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+advertisement.serviceUuids.indexOf(serviceUuid) === -1
+advertisement.serviceUuids.push(serviceUuid)
+break;
+0x08
+0x09
+advertisement.localName = bytes.toString('utf8')
+break;
+0x0a
+advertisement.txPowerLevel = bytes.readInt8(0)
+break;
+0x14
+j < bytes.length
+serviceSolicitationUuid = bytes.readUInt16LE(j).toString(16)
+advertisement.serviceSolicitationUuids.indexOf(serviceSolicitationUuid) === -1
+advertisement.serviceSolicitationUuids.push(serviceSolicitationUuid)
+break;
+0x15
+j < bytes.length
+serviceSolicitationUuid = bytes.slice(j, j + 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+advertisement.serviceSolicitationUuids.indexOf(serviceSolicitationUuid) === -1
+advertisement.serviceSolicitationUuids.push(serviceSolicitationUuid)
+break;
+0x16
+var serviceDataUuid = bytes.slice(0, 2).toString('hex').match(/.{1,2}/g).reverse().join('')
+var serviceData = bytes.slice(2, bytes.length)
+advertisement.serviceData.push({
+          uuid: serviceDataUuid,
+          data: serviceData
+        })
+_tmp_41.uuid = serviceDataUuid
+_tmp_41.data = serviceData
+break;
+0x20
+var serviceData32Uuid = bytes.slice(0, 4).toString('hex').match(/.{1,2}/g).reverse().join('')
+var serviceData32 = bytes.slice(4, bytes.length)
+advertisement.serviceData.push({
+          uuid: serviceData32Uuid,
+          data: serviceData32
+        })
+_tmp_47.uuid = serviceData32Uuid
+_tmp_47.data = serviceData32
+break;
+0x21
+var serviceData128Uuid = bytes.slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+var serviceData128 = bytes.slice(16, bytes.length)
+advertisement.serviceData.push({
+          uuid: serviceData128Uuid,
+          data: serviceData128
+        })
+_tmp_53.uuid = serviceData128Uuid
+_tmp_53.data = serviceData128
+break;
+0x1f
+j < bytes.length
+serviceSolicitationUuid = bytes.readUInt32LE(j).toString(16)
+advertisement.serviceSolicitationUuids.indexOf(serviceSolicitationUuid) === -1
+advertisement.serviceSolicitationUuids.push(serviceSolicitationUuid)
+break;
+0xff
+advertisement.manufacturerData = bytes
+break;
+i += (length + 1)
+debug('advertisement = ' + JSON.stringify(advertisement, null, 0))

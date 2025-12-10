@@ -1,0 +1,47 @@
+function verify = function verify(visitor) {
+  if (visitor._verified) return;
+
+  if (typeof visitor === "function") {
+    throw new Error(messages.get("traverseVerifyRootFunction"));
+  }
+
+  for (var nodeType in visitor) {
+    if (nodeType === "enter" || nodeType === "exit") {
+      validateVisitorMethods(nodeType, visitor[nodeType]);
+    }
+
+    if (shouldIgnoreKey(nodeType)) continue;
+
+    if (t.TYPES.indexOf(nodeType) < 0) {
+      throw new Error(messages.get("traverseVerifyNodeType", nodeType));
+    }
+
+    var visitors = visitor[nodeType];
+    if ((typeof visitors === "undefined" ? "undefined" : (0, _typeof3.default)(visitors)) === "object") {
+      for (var visitorKey in visitors) {
+        if (visitorKey === "enter" || visitorKey === "exit") {
+          validateVisitorMethods(nodeType + "." + visitorKey, visitors[visitorKey]);
+        } else {
+          throw new Error(messages.get("traverseVerifyVisitorProperty", nodeType, visitorKey));
+        }
+      }
+    }
+  }
+
+  visitor._verified = true;
+}
+visitor._verified
+typeof visitor === "function"
+throw new Error(messages.get("traverseVerifyRootFunction"));
+_iterator_5 = <operator>.iterator(visitor)
+nodeType === "enter" || nodeType === "exit"
+validateVisitorMethods(nodeType, visitor[nodeType])
+shouldIgnoreKey(nodeType)
+t.TYPES.indexOf(nodeType) < 0
+throw new Error(messages.get("traverseVerifyNodeType", nodeType));
+var visitors = visitor[nodeType]
+(typeof visitors === "undefined" ? "undefined" : (0, _typeof3.default)(visitors)) === "object"
+_iterator_6 = <operator>.iterator(visitors)
+visitorKey === "enter" || visitorKey === "exit"
+validateVisitorMethods(nodeType + "." + visitorKey, visitors[visitorKey])
+throw new Error(messages.get("traverseVerifyVisitorProperty", nodeType, visitorKey));

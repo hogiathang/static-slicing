@@ -1,0 +1,34 @@
+function internalDeepEqual = function internalDeepEqual(actual, expected, options, channel) {
+  var opts = options || {};
+
+  // 7.1. All identical values are equivalent, as determined by ===.
+  if (opts.strict ? is(actual, expected) : actual === expected) {
+    return true;
+  }
+
+  var actualBoxed = whichBoxedPrimitive(actual);
+  var expectedBoxed = whichBoxedPrimitive(expected);
+  if (actualBoxed !== expectedBoxed) {
+    return false;
+  }
+
+  // 7.3. Other pairs that do not both pass typeof value == 'object', equivalence is determined by ==.
+  if (!actual || !expected || (typeof actual !== 'object' && typeof expected !== 'object')) {
+    return opts.strict ? is(actual, expected) : actual == expected; // eslint-disable-line eqeqeq
+  }
+
+  /*
+   * 7.4. For all other Object pairs, including Array objects, equivalence is
+   * determined by having the same number of owned properties (as verified
+   * with Object.prototype.hasOwnProperty.call), the same set of keys
+   * (although not necessarily the same order), equiva...
+var opts = options || {}
+opts.strict ? is(actual, expected) : actual === expected
+var actualBoxed = whichBoxedPrimitive(actual)
+var expectedBoxed = whichBoxedPrimitive(expected)
+actualBoxed !== expectedBoxed
+!actual || !expected || (typeof actual !== 'object' && typeof expected !== 'object')
+var hasActual = channel.has(actual)
+var hasExpected = channel.has(expected)
+hasActual && hasExpected
+channel.get(actual) === channel.get(expected)

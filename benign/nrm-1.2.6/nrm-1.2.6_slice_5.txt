@@ -1,0 +1,22 @@
+function onRename = async function onRename(name, newName) {
+  if (await isRegistryNotFound(name) || await isInternalRegistry(name, 'rename')) {
+    return;
+  }
+  if (name === newName) {
+    return exit('The names cannot be the same.');
+  }
+
+  if (!await isRegistryNotFound(newName, false)) {
+    return exit(`The new registry name '${newName}' is already exist.`);
+  }
+  const customRegistries = await readFile(NRMRC);
+  customRegistries[newName] = JSON.parse(JSON.stringify(customRegistries[name]));
+  delete customRegistries[name];
+  await writeFile(NRMRC, customRegistries);
+  printSuccess(`The registry '${name}' has been renamed to '${newName}'.`);
+}
+await isRegistryNotFound(name) || await isInternalRegistry(name, 'rename')
+name === newName
+!await isRegistryNotFound(newName, false)
+const customRegistries = await readFile(NRMRC)
+customRegistries[newName] = JSON.parse(JSON.stringify(customRegistries[name]))

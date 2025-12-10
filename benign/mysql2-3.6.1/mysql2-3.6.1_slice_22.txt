@@ -1,0 +1,42 @@
+function toParameter = function toParameter(value, encoding, timezone) {
+  let type = Types.VAR_STRING;
+  let length;
+  let writer = function(value) {
+    // eslint-disable-next-line no-invalid-this
+    return Packet.prototype.writeLengthCodedString.call(this, value, encoding);
+  };
+  if (value !== null) {
+    switch (typeof value) {
+      case 'undefined':
+        throw new TypeError('Bind parameters must not contain undefined');
+
+      case 'number':
+        type = Types.DOUBLE;
+        length = 8;
+        writer = Packet.prototype.writeDouble;
+        break;
+
+      case 'boolean':
+        value = value | 0;
+        type = Types.TINY;
+        length = 1;
+        writer = Packet.prototype.writeInt8;
+        break;
+
+      case 'object':
+        if (Object.prototype.toString.call(value) === '[object Date]') {
+          type = Types.DATETIME;
+          length = 12;
+          writer = function(value) {
+            // eslint-disable-next-line no-invalid-this
+            return Packet.prototype.writeDate.call(...
+let type = Types.VAR_STRING
+let writer = function(value) {
+    // eslint-disable-next-line no-invalid-this
+    return Packet.prototype.writeLengthCodedString.call(this, value, encoding);
+  }
+value !== null
+typeof value
+"object"
+Object.prototype.toString.call(value) === '[object Date]'
+isJSON(value)

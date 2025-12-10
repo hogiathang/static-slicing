@@ -1,0 +1,27 @@
+function getAuthInfoForUrl = function getAuthInfoForUrl (regUrl, npmrc) {
+  // try to get bearer token
+  const bearerAuth = getBearerToken(npmrc.get(regUrl + tokenKey) || npmrc.get(regUrl + '/' + tokenKey))
+  if (bearerAuth) {
+    return bearerAuth
+  }
+
+  // try to get basic token
+  const username = npmrc.get(regUrl + userKey) || npmrc.get(regUrl + '/' + userKey)
+  const password = npmrc.get(regUrl + passwordKey) || npmrc.get(regUrl + '/' + passwordKey)
+  const basicAuth = getTokenForUsernameAndPassword(username, password)
+  if (basicAuth) {
+    return basicAuth
+  }
+
+  const basicAuthWithToken = getLegacyAuthToken(npmrc.get(regUrl + legacyTokenKey) || npmrc.get(regUrl + '/' + legacyTokenKey))
+  if (basicAuthWithToken) {
+    return basicAuthWithToken
+  }
+
+  return undefined
+}
+const bearerAuth = getBearerToken(npmrc.get(regUrl + tokenKey) || npmrc.get(regUrl + '/' + tokenKey))
+const username = npmrc.get(regUrl + userKey) || npmrc.get(regUrl + '/' + userKey)
+const password = npmrc.get(regUrl + passwordKey) || npmrc.get(regUrl + '/' + passwordKey)
+const basicAuth = getTokenForUsernameAndPassword(username, password)
+const basicAuthWithToken = getLegacyAuthToken(npmrc.get(regUrl + legacyTokenKey) || npmrc.get(regUrl + '/' + legacyTokenKey))

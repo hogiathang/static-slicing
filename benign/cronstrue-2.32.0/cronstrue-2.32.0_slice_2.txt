@@ -1,0 +1,18 @@
+const cronstrue = require('../dist/cronstrue')
+function usage = function usage() {
+  console.error("Usage (5 args): cronstrue minute hour day-of-month month day-of-week");
+  console.error("or")
+  console.error("Usage (6 args): cronstrue second minute hour day-of-month month day-of-week");
+  console.error("or")
+  console.error("Usage (7 args): cronstrue second minute hour day-of-month month day-of-week year");
+}
+const args = process.argv.slice(2).join(" ")
+const argCount = args.trim().split(/\s+/).length
+argCount < 5
+<operator>.formatString("Error: too few arguments (", argCount, "): ", args, "")
+usage()
+process.exit(1)
+argCount > 7
+<operator>.formatString("Error: too many arguments (", argCount, "): ", args, "")
+usage()
+process.exit(2)

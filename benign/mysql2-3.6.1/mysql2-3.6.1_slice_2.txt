@@ -1,0 +1,12 @@
+function spliceConnection = function spliceConnection(queue, connection) {
+  const len = queue.length;
+  for (let i = 0; i < len; i++) {
+    if (queue.get(i) === connection) {
+      queue.removeOne(i);
+      break;
+    }
+  }
+}
+const len = queue.length
+let i = 0
+queue.get(i) === connection

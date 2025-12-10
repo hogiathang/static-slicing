@@ -1,0 +1,4 @@
+groupAssignment = param1_0.groupAssignment
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ groupId, generationId, memberId, groupAssignment })

@@ -1,0 +1,27 @@
+Object.keys(thisList).filter((i) => thisList[i].confidence < 2).forEach((i) => {
+      let component = null;
+      let node = null;
+      node = thisList[i].node;
+      while (!component && node.parent) {
+        node = node.parent;
+        // Stop moving up if we reach a decorator
+        if (node.type === 'Decorator') {
+          break;
+        }
+        component = this.get(node);
+      }
+      if (component) {
+        const newUsedProps = (thisList[i].usedPropTypes || []).filter((propType) => !propType.node || propType.node.kind !== 'init');
+
+        const componentId = getId(component.node);
+
+        usedPropTypes[componentId] = mergeUsedPropTypes(usedPropTypes[componentId] || [], newUsedProps);
+      }
+    })
+let component = null
+let node = null
+node = thisList[i].node
+!component && node.parent
+node = node.parent
+node.type === 'Decorator'
+component = this.get(node)

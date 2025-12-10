@@ -1,0 +1,34 @@
+function _buildPackageList = function _buildPackageList(options, projectDeps, logger) {
+    // Parse the packages options to set the targeted version.
+    const packages = new Map();
+    const commandLinePackages = options.packages && options.packages.length > 0 ? options.packages : [];
+    for (const pkg of commandLinePackages) {
+        // Split the version asked on command line.
+        const m = pkg.match(/^((?:@[^/]{1,100}\/)?[^@]{1,100})(?:@(.{1,100}))?$/);
+        if (!m) {
+            logger.warn(`Invalid package argument: ${JSON.stringify(pkg)}. Skipping.`);
+            continue;
+        }
+        const [, npmName, maybeVersion] = m;
+        const version = projectDeps.get(npmName);
+        if (!version) {
+            logger.warn(`Package not installed: ${JSON.stringify(npmName)}. Skipping.`);
+            continue;
+        }
+        packages.set(npmName, (maybeVersion || (options.next ? 'next' : 'latest')));
+    }
+    return packages;
+}
+const packages = new Map()
+const commandLinePackages = options.packages && options.packages.length > 0 ? options.packages : []
+_iterator_4 = <operator>.iterator(commandLinePackages)
+const m = pkg.match(/^((?:@[^/]{1,100}\/)?[^@]{1,100})(?:@(.{1,100}))?$/)
+!m
+<operator>.formatString("Invalid package argument: ", JSON.stringify(pkg), ". Skipping.")
+continue;
+maybeVersion = _tmp_58[2]
+const version = projectDeps.get(npmName)
+!version
+<operator>.formatString("Package not installed: ", JSON.stringify(npmName), ". Skipping.")
+continue;
+packages.set(npmName, (maybeVersion || (options.next ? 'next' : 'latest')))

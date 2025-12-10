@@ -1,0 +1,17 @@
+setSslOptions(zipEntries) {
+    this.clientOptions.sslOptions = Object.assign({
+      ca: [zipEntries.get('ca.crt') ],
+      cert: zipEntries.get('cert'),
+      key: zipEntries.get('key'),
+      rejectUnauthorized: true
+    }, this.clientOptions.sslOptions);
+  }
+this.clientOptions.sslOptions = Object.assign({
+      ca: [zipEntries.get('ca.crt') ],
+      cert: zipEntries.get('cert'),
+      key: zipEntries.get('key'),
+      rejectUnauthorized: true
+    }, this.clientOptions.sslOptions)
+_tmp_24.ca = [zipEntries.get('ca.crt') ]
+_tmp_24.cert = zipEntries.get('cert')
+_tmp_24.key = zipEntries.get('key')

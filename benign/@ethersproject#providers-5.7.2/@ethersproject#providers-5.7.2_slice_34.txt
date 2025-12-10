@@ -1,0 +1,21 @@
+function (error) {
+                    _this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: request,
+                        provider: _this
+                    });
+                    batch.forEach(function (inflightRequest) {
+                        inflightRequest.reject(error);
+                    });
+                }
+_this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: request,
+                        provider: _this
+                    })
+_tmp_13.action = "response"
+_tmp_13.error = error
+_tmp_13.request = request
+_tmp_13.provider = _this

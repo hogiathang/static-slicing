@@ -1,0 +1,117 @@
+_tmp_10.exit = util.wrapWithTypes(t, function(path, state) {
+      let node = path.node;
+
+      if (!shouldRegenerate(node, state)) return;
+
+      // if this is an ObjectMethod, we need to convert it to an ObjectProperty
+      path = replaceShorthandObjectMethod(path);
+      node = path.node;
+
+      let contextId = path.scope.generateUidIdentifier("context");
+      let argsId = path.scope.generateUidIdentifier("args");
+
+      path.ensureBlock();
+      let bodyBlockPath = path.get("body");
+
+      if (node.async) {
+        bodyBlockPath.traverse(awaitVisitor);
+      }
+
+      bodyBlockPath.traverse(functionSentVisitor, {
+        context: contextId
+      });
+
+      let outerBody = [];
+      let innerBody = [];
+
+      bodyBlockPath.get("body").forEach(function(childPath) {
+        let node = childPath.node;
+        if (t.isExpressionStatement(node) &&
+            t.isStringLiteral(node.expression)) {
+          // Babylon represents directives like "use strict" as elements
+          // of a bodyBlockPat...
+let node = path.node
+!shouldRegenerate(node, state)
+path = replaceShorthandObjectMethod(path)
+node = path.node
+let contextId = path.scope.generateUidIdentifier("context")
+let argsId = path.scope.generateUidIdentifier("args")
+path.ensureBlock()
+let bodyBlockPath = path.get("body")
+node.async
+bodyBlockPath.traverse(awaitVisitor)
+bodyBlockPath.traverse(functionSentVisitor, {
+        context: contextId
+      })
+_tmp_13.context = contextId
+__ecma.Array.factory()
+__ecma.Array.factory()
+bodyBlockPath.get("body").forEach(function(childPath) {
+        let node = childPath.node;
+        if (t.isExpressionStatement(node) &&
+            t.isStringLiteral(node.expression)) {
+          // Babylon represents directives like "use strict" as elements
+          // of a bodyBlockPath.node.directives array, but they could just
+          // as easily be represented (by other parsers) as traditional
+          // string-literal-valued expression statements, so we need to
+          // handle that here. (#248)
+          outerBody.push(node);
+        } else if (node && node._blockHoist != null) {
+          outerBody.push(node);
+        } else {
+          innerBody.push(node);
+        }
+      })
+outerBody.length > 0
+bodyBlockPath.node.body = innerBody
+let outerFnExpr = getOuterFnExpr(path)
+t.assertIdentifier(node.id)
+let innerFnId = t.identifier(node.id.name + "$")
+let vars = hoist(path)
+let context = {
+        usesThis: false,
+        usesArguments: false,
+        getArgsId: () => t.clone(argsId),
+      }
+_tmp_15.usesThis = false
+_tmp_15.usesArguments = false
+_tmp_15.getArgsId = <lambda>4
+path.traverse(argumentsThisVisitor, context)
+context.usesArguments
+vars = vars || t.variableDeclaration("var", [])
+vars.declarations.push(t.variableDeclarator(
+          t.clone(argsId),
+          t.identifier("arguments"),
+        ))
+t.clone(argsId)
+t.identifier("arguments")
+let emitter = new Emitter(contextId)
+emitter.explode(path.get("body"))
+vars && vars.declarations.length > 0
+outerBody.push(vars)
+let wrapArgs = [emitter.getContextFunction(innerFnId)]
+let tryLocsList = emitter.getTryLocsList()
+node.generator
+wrapArgs.push(outerFnExpr)
+context.usesThis || tryLocsList || node.async
+wrapArgs.push(t.nullLiteral())
+context.usesThis
+wrapArgs.push(t.thisExpression())
+tryLocsList || node.async
+wrapArgs.push(t.nullLiteral())
+wrapArgs.push(tryLocsList)
+node.async
+wrapArgs.push(t.nullLiteral())
+node.async
+let currentScope = path.scope
+currentScope.hasOwnBinding("Promise")
+currentScope = currentScope.parent
+wrapArgs.push(t.identifier("Promise"))
+let wrapCall = t.callExpression(
+        util.runtimeProperty(node.async ? "async" : "wrap"),
+        wrapArgs
+      )
+util.runtimeProperty(node.async ? "async" : "wrap")
+outerBody.push(t.returnStatement(wrapCall))
+node.body = t.blockStatement(outerBody)
+path.get("body.body").forEach(p => p.scope.registerDeclaration(p))

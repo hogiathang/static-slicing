@@ -1,0 +1,8 @@
+var nonInteractiveRoles = roles.filter(function (name) {
+  return !_ariaQuery.roles.get(name)["abstract"] && !_ariaQuery.roles.get(name).superClass.some(function (klasses) {
+    return (0, _arrayIncludes["default"])(klasses, 'widget');
+  });
+})
+!_ariaQuery.roles.get(name)["abstract"] && !_ariaQuery.roles.get(name).superClass.some(function (klasses) {
+    return (0, _arrayIncludes["default"])(klasses, 'widget');
+  })

@@ -1,0 +1,19 @@
+end(requestId, errorCode) {
+		this.totalRequests += 1
+		if (!this.requests.has(requestId)) {
+			return -2;
+		}
+		if (!this.loadTest.running) {
+			return -1;
+		}
+		const elapsed = this.getElapsedMs(this.requests.get(requestId));
+		this.add(elapsed, errorCode);
+		this.requests.delete(requestId);
+		return elapsed;
+	}
+this.totalRequests += 1
+!this.requests.has(requestId)
+!this.loadTest.running
+const elapsed = this.getElapsedMs(this.requests.get(requestId))
+this.add(elapsed, errorCode)
+this.requests.delete(requestId)

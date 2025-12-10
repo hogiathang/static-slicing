@@ -1,0 +1,7 @@
+React.useEffect(() => {
+    if (open && highlightedValue === subitemKeys[0] && !isInitiallyOpen.current) {
+      subitems.get(subitemKeys[0])?.ref?.current?.focus();
+    }
+  }, [open, highlightedValue, subitems, subitemKeys])
+open && highlightedValue === subitemKeys[0] && !isInitiallyOpen.current
+subitems.get(subitemKeys[0])?.ref?.current?.focus()

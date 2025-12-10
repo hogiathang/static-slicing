@@ -1,0 +1,41 @@
+function checkAttribute = function checkAttribute(context, node) {
+  const attribute = node.name.name;
+
+  const parentNodeName = node.parent.name.name;
+  if (!COMPONENT_ATTRIBUTE_MAP.has(attribute) || !COMPONENT_ATTRIBUTE_MAP.get(attribute).has(parentNodeName)) {
+    const tagNames = Array.from(
+      COMPONENT_ATTRIBUTE_MAP.get(attribute).values(),
+      (tagName) => `"<${tagName}>"`
+    ).join(', ');
+    report(context, messages.onlyMeaningfulFor, 'onlyMeaningfulFor', {
+      node: node.name,
+      data: {
+        attributeName: attribute,
+        tagNames,
+      },
+      suggest: [
+        Object.assign(
+          getMessageData('suggestRemoveDefault', messages.suggestRemoveDefault),
+          { fix(fixer) { return fixer.remove(node); } }
+        ),
+      ],
+    });
+    return;
+  }
+
+  function fix(fixer) { return fixer.remove(node); }
+
+  if (!node.value) {
+    report(context, messages.emptyIsMeaningless, 'emptyIsMeaningless', {
+      node: node.name,
+      data: { attributeName: attribute },
+      suggest...
+const attribute = node.name.name
+const parentNodeName = node.parent.name.name
+!COMPONENT_ATTRIBUTE_MAP.has(attribute) || !COMPONENT_ATTRIBUTE_MAP.get(attribute).has(parentNodeName)
+const tagNames = Array.from(
+      COMPONENT_ATTRIBUTE_MAP.get(attribute).values(),
+      (tagName) => `"<${tagName}>"`
+    ).join(', ')
+(_tmp_32 = COMPONENT_ATTRIBUTE_MAP.get(attribute)).values
+function fix = function fix(fixer) { return fixer.remove(node); }

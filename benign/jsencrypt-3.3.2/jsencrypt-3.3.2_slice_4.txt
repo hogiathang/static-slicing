@@ -1,0 +1,24 @@
+Stream.prototype.parseStringUTF = function (start, end) {
+        var s = "";
+        for (var i = start; i < end;) {
+            var c = this.get(i++);
+            if (c < 128) {
+                s += String.fromCharCode(c);
+            }
+            else if ((c > 191) && (c < 224)) {
+                s += String.fromCharCode(((c & 0x1F) << 6) | (this.get(i++) & 0x3F));
+            }
+            else {
+                s += String.fromCharCode(((c & 0x0F) << 12) | ((this.get(i++) & 0x3F) << 6) | (this.get(i++) & 0x3F));
+            }
+        }
+        return s;
+    }
+var s = ""
+var i = start
+var c = this.get(i++)
+c < 128
+s += String.fromCharCode(c)
+(c > 191) && (c < 224)
+s += String.fromCharCode(((c & 0x1F) << 6) | (this.get(i++) & 0x3F))
+s += String.fromCharCode(((c & 0x0F) << 12) | ((this.get(i++) & 0x3F) << 6) | (this.get(i++) & 0x3F))

@@ -1,0 +1,16 @@
+q.push(function (next) {
+            return fs.chown(dst, stat.uid, stat.gid, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            });
+        })
+fs.chown(dst, stat.uid, stat.gid, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            })

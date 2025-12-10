@@ -1,0 +1,14 @@
+new Promise((resolve, reject) => {
+        try {
+            const request = https.request(options, _ => resolve());
+            request.on('error', reject);
+            request.write(responseBody);
+            request.end();
+        }
+        catch (e) {
+            reject(e);
+        }
+    })
+const request = https.request(options, _ => resolve())
+request.on('error', reject)
+request.write(responseBody)

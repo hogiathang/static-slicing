@@ -1,0 +1,15 @@
+function serializeSubRequest = function serializeSubRequest(request) {
+    const requestBody = JSON.stringify(request.body);
+    let messagePayload = `POST ${request.url} HTTP/1.1\r\n`;
+    messagePayload += `Content-Length: ${requestBody.length}\r\n`;
+    messagePayload += 'Content-Type: application/json; charset=UTF-8\r\n';
+    if (request.headers) {
+        Object.keys(request.headers).forEach((key) => {
+            messagePayload += `${key}: ${request.headers[key]}\r\n`;
+        });
+    }
+    messagePayload += '\r\n';
+    messagePayload += requestBody;
+    return messagePayload;
+}
+const requestBody = JSON.stringify(request.body)

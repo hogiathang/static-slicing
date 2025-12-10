@@ -1,0 +1,17 @@
+function load = function load() {
+  if (process.env.BABEL_DISABLE_CACHE) return;
+
+  process.on("exit", save);
+  process.nextTick(save);
+
+  if (!_fs2.default.existsSync(FILENAME)) return;
+
+  try {
+    data = JSON.parse(_fs2.default.readFileSync(FILENAME));
+  } catch (err) {
+    return;
+  }
+}
+process.env.BABEL_DISABLE_CACHE
+process.on("exit", save)
+process.nextTick(save)

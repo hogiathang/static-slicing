@@ -1,0 +1,41 @@
+_tmp_2.MetaProperty = MetaProperty
+const meta = path.get("meta")
+const property = path.get("property")
+_tmp_3 = path
+scope = _tmp_3.scope
+meta.isIdentifier({
+          name: "new"
+        }) && property.isIdentifier({
+          name: "target"
+        })
+_tmp_4.name = "new"
+property.isIdentifier({
+          name: "target"
+        })
+_tmp_5.name = "target"
+const func = path.findParent(path => {
+            if (path.isClass()) return true;
+            if (path.isFunction() && !path.isArrowFunctionExpression()) {
+              if (path.isClassMethod({
+                kind: "constructor"
+              })) {
+                return false;
+              }
+              return true;
+            }
+            return false;
+          })
+!func
+throw path.buildCodeFrameError("new.target must be under a (non-arrow) function or a class.");
+_tmp_7 = func
+node = _tmp_7.node
+(_tmp_8 = _core.types).isMethod
+const constructor = _core.types.memberExpression(_core.types.thisExpression(), _core.types.identifier("constructor"))
+func.isClass()
+!node.id
+let scope = path.scope
+const name = node.id.name
+scope !== func.parentPath.scope
+scope.hasOwnBinding(name) && !scope.bindingIdentifierEquals(name, node.id)
+scope.rename(name)
+scope = scope.parent

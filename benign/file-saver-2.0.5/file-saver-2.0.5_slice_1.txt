@@ -1,0 +1,36 @@
+function saveAs (blob, name, opts, popup) {
+    // Open a popup immediately do go around popup blocker
+    // Mostly only available on user interaction and the fileReader is async so...
+    popup = popup || open('', '_blank')
+    if (popup) {
+      popup.document.title =
+      popup.document.body.innerText = 'downloading...'
+    }
+
+    if (typeof blob === 'string') return download(blob, name, opts)
+
+    var force = blob.type === 'application/octet-stream'
+    var isSafari = /constructor/i.test(_global.HTMLElement) || _global.safari
+    var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent)
+
+    if ((isChromeIOS || (force && isSafari) || isMacOSWebView) && typeof FileReader !== 'undefined') {
+      // Safari doesn't allow downloading of blob URLs
+      var reader = new FileReader()
+      reader.onloadend = function () {
+        var url = reader.result
+        url = isChromeIOS ? url : url.replace(/^data:[^;]*;/, 'data:attachment/file;')
+        if (popup) popup.location.href = ur...
+popup = popup || open('', '_blank')
+popup.document.title =
+      popup.document.body.innerText = 'downloading...'
+popup.document.body.innerText = 'downloading...'
+download(blob, name, opts)
+var force = blob.type === 'application/octet-stream'
+var isSafari = /constructor/i.test(_global.HTMLElement) || _global.safari
+var isChromeIOS = /CriOS\/[\d]+/.test(navigator.userAgent)
+(isChromeIOS || (force && isSafari) || isMacOSWebView) && typeof FileReader !== 'undefined'
+var URL = _global.URL || _global.webkitURL
+var url = URL.createObjectURL(blob)
+popup.location = url
+location.href = url
+popup = null

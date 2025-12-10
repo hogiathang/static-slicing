@@ -1,0 +1,1 @@
+stackAsset.assetType===blueprint_1.AssetType.FILE ? this.singlePublisher ? "FileAsset" : <operator>.formatString("FileAsset", ++this._fileAssetCtr, "") : this.singlePublisher ? "DockerAsset" : <operator>.formatString("DockerAsset", ++this._dockerAssetCtr, "")

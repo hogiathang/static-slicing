@@ -1,0 +1,8 @@
+function chmod = function chmod(src, dest) {
+  try {
+    _fs().chmodSync(dest, _fs().statSync(src).mode);
+  } catch (err) {
+    console.warn(`Cannot change permissions of ${dest}`);
+  }
+}
+_fs().chmodSync(dest, _fs().statSync(src).mode)

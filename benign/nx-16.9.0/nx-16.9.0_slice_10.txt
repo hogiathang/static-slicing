@@ -1,0 +1,3 @@
+_tmp_1.handler = <lambda>1
+(_tmp_3 = await Promise.resolve().then(() => require('./connect-to-nx-cloud'))).connectToNxCloudCommand
+process.exit(0)

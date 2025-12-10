@@ -1,0 +1,31 @@
+exports.OAuth.prototype._createClient= function( port, hostname, method, path, headers, sslEnabled ) {
+  var options = {
+    host: hostname,
+    port: port,
+    path: path,
+    method: method,
+    headers: headers
+  };
+  var httpModel;
+  if( sslEnabled ) {
+    httpModel= https;
+  } else {
+    httpModel= http;
+  }
+  return httpModel.request(options);
+}
+var options = {
+    host: hostname,
+    port: port,
+    path: path,
+    method: method,
+    headers: headers
+  }
+_tmp_18.host = hostname
+_tmp_18.port = port
+_tmp_18.path = path
+_tmp_18.method = method
+_tmp_18.headers = headers
+httpModel= https
+httpModel= http
+httpModel.request(options)

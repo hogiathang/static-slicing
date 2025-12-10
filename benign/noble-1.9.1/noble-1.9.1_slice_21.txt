@@ -1,0 +1,78 @@
+(_tmp_56 = function(data) {
+    var opcode = data[0];
+    var i = 0;
+
+    if (opcode === ATT_OP_READ_BY_TYPE_RESP) {
+      var type = data[1];
+      var num = (data.length - 2) / type;
+
+      for (i = 0; i < num; i++) {
+        characteristics.push({
+          startHandle: data.readUInt16LE(2 + i * type + 0),
+          properties: data.readUInt8(2 + i * type + 2),
+          valueHandle: data.readUInt16LE(2 + i * type + 3),
+          uuid: (type == 7) ? data.readUInt16LE(2 + i * type + 5).toString(16) : data.slice(2 + i * type + 5).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+        });
+      }
+    }
+
+    if (opcode !== ATT_OP_READ_BY_TYPE_RESP || characteristics[characteristics.length - 1].valueHandle === service.endHandle) {
+
+      var characteristicsDiscovered = [];
+      for (i = 0; i < characteristics.length; i++) {
+        var properties = characteristics[i].properties;
+
+        var characteristic = {
+          properties: [],
+          uuid: characteristics[i].uuid
+ ...).bind
+var opcode = data[0]
+var i = 0
+opcode === ATT_OP_READ_BY_TYPE_RESP
+var type = data[1]
+var num = (data.length - 2) / type
+i < num
+characteristics.push({
+          startHandle: data.readUInt16LE(2 + i * type + 0),
+          properties: data.readUInt8(2 + i * type + 2),
+          valueHandle: data.readUInt16LE(2 + i * type + 3),
+          uuid: (type == 7) ? data.readUInt16LE(2 + i * type + 5).toString(16) : data.slice(2 + i * type + 5).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+        })
+_tmp_57.startHandle = data.readUInt16LE(2 + i * type + 0)
+_tmp_57.properties = data.readUInt8(2 + i * type + 2)
+_tmp_57.valueHandle = data.readUInt16LE(2 + i * type + 3)
+_tmp_57.uuid = type == 7 ? data.readUInt16LE(2 + i * type + 5).toString(16) : data.slice(2 + i * type + 5).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+opcode !== ATT_OP_READ_BY_TYPE_RESP || characteristics[characteristics.length - 1].valueHandle === service.endHandle
+var characteristicsDiscovered = []
+i < characteristics.length
+var properties = characteristics[i].properties
+var characteristic = {
+          properties: [],
+          uuid: characteristics[i].uuid
+        }
+_tmp_64.properties = __ecma.Array.factory()
+_tmp_64.uuid = characteristics[i].uuid
+i !== 0
+characteristics[i - 1].endHandle = characteristics[i].startHandle - 1
+i === (characteristics.length - 1)
+characteristics[i].endHandle = service.endHandle
+this._characteristics[serviceUuid][characteristics[i].uuid] = characteristics[i]
+properties & 0x01
+characteristic.properties.push('broadcast')
+properties & 0x02
+(_tmp_66 = characteristic.properties).push
+properties & 0x04
+characteristic.properties.push('writeWithoutResponse')
+properties & 0x08
+(_tmp_68 = characteristic.properties).push
+properties & 0x10
+(_tmp_69 = characteristic.properties).push
+properties & 0x20
+characteristic.properties.push('indicate')
+properties & 0x40
+characteristic.properties.push('authenticatedSignedWrites')
+properties & 0x80
+characteristic.properties.push('extendedProperties')
+characteristicUuids.length === 0 || characteristicUuids.indexOf(characteristic.uuid) !== -1
+characteristicsDiscovered.push(characteristic)
+this.emit('characteristicsDiscover', this._address, serviceUuid, characteristicsDiscovered)

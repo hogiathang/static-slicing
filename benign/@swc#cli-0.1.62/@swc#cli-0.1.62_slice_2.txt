@@ -1,0 +1,13 @@
+function getProgram = async function getProgram(previousResults = new Map()) {
+        const results = new Map();
+        for (const filename of (await (0, _sources.globSources)(cliOptions.filenames, cliOptions.includeDotfiles))){
+            if ((0, _sources.isCompilableExtension)(filename, cliOptions.extensions)) {
+                results.set(filename, previousResults.get(filename));
+            }
+        }
+        return results;
+    }
+const results = new Map()
+_iterator_2 = <operator>.iterator(await (0, _sources.globSources)(cliOptions.filenames, cliOptions.includeDotfiles))
+(0, _sources.isCompilableExtension)(filename, cliOptions.extensions)
+results.set(filename, previousResults.get(filename))

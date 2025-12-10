@@ -1,0 +1,15 @@
+resolveEntryPoint = _tmp_0.resolveEntryPoint
+const fs = require('fs')
+const path = require('path')
+const projectRoot = process.argv[1]
+const platform = process.argv[2]
+const absolute = process.argv[3] === 'absolute'
+!platform || !projectRoot
+console.error(
+    'Usage: node expo/scripts/resolveAppEntry.js <projectRoot> <platform> <relative|absolute>'
+  )
+"Usage: node expo/scripts/resolveAppEntry.js <projectRoot> <platform> <relative|absolute>"
+process.exit(1)
+const entry = resolveEntryPoint(projectRoot, { platform })
+<operator>.formatString("Error: Could not find entry file for project at: ", projectRoot, "")
+process.exit(1)

@@ -1,0 +1,53 @@
+maybeCallback(normalizeCallback(callback), ctx, this, function () {
+    src = deBuffer(src);
+    dest = deBuffer(dest);
+    const srcFd = this.open(src, constants.O_RDONLY);
+
+    try {
+      const srcDescriptor = this.getDescriptorById(srcFd);
+      if (!srcDescriptor.isRead()) {
+        throw new FSError('EBADF');
+      }
+      const srcFile = srcDescriptor.getItem();
+      if (!(srcFile instanceof File)) {
+        throw new FSError('EBADF');
+      }
+      const srcContent = srcFile.getContent();
+
+      let destFlags =
+        constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC;
+
+      if ((flags & constants.COPYFILE_EXCL) === constants.COPYFILE_EXCL) {
+        destFlags |= constants.O_EXCL;
+      }
+
+      const destFd = this.open(dest, destFlags);
+
+      try {
+        this.writeBuffer(destFd, srcContent, 0, srcContent.length, 0);
+      } finally {
+        this.close(destFd);
+      }
+    } finally {
+      this.close(srcFd);
+    }
+  })
+src = deBuffer(src)
+dest = deBuffer(dest)
+const srcFd = this.open(src, constants.O_RDONLY)
+const srcDescriptor = this.getDescriptorById(srcFd)
+!srcDescriptor.isRead()
+throw new FSError('EBADF');
+const srcFile = srcDescriptor.getItem()
+!(srcFile instanceof File)
+throw new FSError('EBADF');
+const srcContent = srcFile.getContent()
+let destFlags =
+        constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC
+constants.O_WRONLY | constants.O_CREAT | constants.O_TRUNC
+(flags & constants.COPYFILE_EXCL) === constants.COPYFILE_EXCL
+destFlags |= constants.O_EXCL
+const destFd = this.open(dest, destFlags)
+this.writeBuffer(destFd, srcContent, 0, srcContent.length, 0)
+this.close(destFd)
+this.close(srcFd)

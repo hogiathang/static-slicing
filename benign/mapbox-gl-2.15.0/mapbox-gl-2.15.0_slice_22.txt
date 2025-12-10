@@ -1,0 +1,16 @@
+getProgramIds(): string[] {
+        const pattern = this.paint.get('fill-pattern');
+        const image = pattern && pattern.constantOr((1: any));
+
+        const ids = [image ? 'fillPattern' : 'fill'];
+
+        if (this.paint.get('fill-antialias')) {
+            ids.push(image && !this.getPaintProperty('fill-outline-color') ? 'fillOutlinePattern' : 'fillOutline');
+        }
+
+        return ids;
+    }
+const pattern = this.paint.get('fill-pattern')
+const image = pattern && pattern.constantOr((1: any))
+const ids = [image ? 'fillPattern' : 'fill']
+this.paint.get('fill-antialias')

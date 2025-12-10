@@ -1,0 +1,33 @@
+function interactive = function interactive(currentState) {
+    var packages = currentState.get('packages');
+
+    if (currentState.get('debug')) {
+        console.log('packages', packages);
+    }
+
+    var choicesGrouped = UI_GROUPS.map(function (group) {
+        return createChoices(packages, group);
+    }).filter(Boolean);
+
+    var choices = _.flatten(choicesGrouped);
+
+    if (!choices.length) {
+        console.log(emoji(':heart:  ') + 'Your modules look ' + chalk.bold('amazing') + '. Keep up the great work.' + emoji(' :heart:'));
+        return;
+    }
+
+    choices.push(unselectable());
+    choices.push(unselectable({ title: 'Space to select. Enter to start upgrading. Control-C to cancel.' }));
+
+    var questions = [{
+        name: 'packages',
+        message: 'Choose which packages to update.',
+        type: 'checkbox',
+        choices: choices.concat(unselectable()),
+        pageSize: process.stdout.rows - 2
+    }];
+
+    return inquirer.prompt(questions).then(function (answers) {
+        var packagesTo...
+var packages = currentState.get('packages')
+currentState.get('debug')

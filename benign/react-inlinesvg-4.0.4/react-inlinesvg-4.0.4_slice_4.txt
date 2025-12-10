@@ -1,0 +1,8 @@
+private fetchContent = async () => {
+    const { fetchOptions, src } = this.props;
+
+    const content: string = await request(src, fetchOptions);
+
+    this.handleLoad(content);
+  };
+fetchOptions = _tmp_0.fetchOptions

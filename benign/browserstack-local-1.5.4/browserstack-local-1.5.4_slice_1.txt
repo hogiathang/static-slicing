@@ -1,0 +1,65 @@
+this.download = function(conf, destParentDir, callback, retries){
+    var that = this;
+    if(!this.checkPath(destParentDir))
+      fs.mkdirSync(destParentDir);
+
+    var destBinaryName = (this.windows) ? 'BrowserStackLocal.exe' : 'BrowserStackLocal';
+    var binaryPath = path.join(destParentDir, destBinaryName);
+    var fileStream = fs.createWriteStream(binaryPath);
+
+    var options = url.parse(this.httpPath);
+    if(conf.proxyHost && conf.proxyPort) {
+      options.agent = new HttpsProxyAgent({
+        host: conf.proxyHost,
+        port: conf.proxyPort
+      });
+    }
+    if (conf.useCaCertificate) {
+      try {
+        options.ca = fs.readFileSync(conf.useCaCertificate);
+      } catch(err) {
+        console.log("failed to read cert file", err)
+      }
+    }
+
+    https.get(options, function (response) {
+      response.pipe(fileStream);
+      response.on('error', function(err) {
+        console.error('Got Error in binary download response', err);
+        that.retryBinaryDownload(con...
+var that = this
+!this.checkPath(destParentDir)
+fs.mkdirSync(destParentDir)
+var destBinaryName = (this.windows) ? 'BrowserStackLocal.exe' : 'BrowserStackLocal'
+var binaryPath = path.join(destParentDir, destBinaryName)
+var fileStream = fs.createWriteStream(binaryPath)
+var options = url.parse(this.httpPath)
+conf.proxyHost && conf.proxyPort
+options.agent = new HttpsProxyAgent({
+        host: conf.proxyHost,
+        port: conf.proxyPort
+      })
+_tmp_6.host = conf.proxyHost
+_tmp_6.port = conf.proxyPort
+conf.useCaCertificate
+options.ca = fs.readFileSync(conf.useCaCertificate)
+console.log("failed to read cert file", err)
+https.get(options, function (response) {
+      response.pipe(fileStream);
+      response.on('error', function(err) {
+        console.error('Got Error in binary download response', err);
+        that.retryBinaryDownload(conf, destParentDir, callback, retries, binaryPath);
+      });
+      fileStream.on('error', function (err) {
+        console.error('Got Error while downloading binary file', err);
+        that.retryBinaryDownload(conf, destParentDir, callback, retries, binaryPath);
+      });
+      fileStream.on('close', function () {
+        fs.chmod(binaryPath, '0755', function() {
+          callback(binaryPath);
+        });
+      });
+    }).on('error', function(err) {
+      console.error('Got Error in binary downloading request', err);
+      that.retryBinaryDownload(conf, destParentDir, callback, retries, binaryPath);
+    })

@@ -1,0 +1,4 @@
+filename = param1_15.filename
+const handle = await this.fs.promises.open(filename, flags, mode)
+const file = await this.fs.__getFileById(handle.fd)
+await handle.close()

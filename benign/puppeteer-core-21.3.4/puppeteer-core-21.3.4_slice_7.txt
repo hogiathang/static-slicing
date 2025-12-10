@@ -1,0 +1,20 @@
+#onBeforeRequestSent(event) {
+        const frame = this.#page.frame(event.context ?? '');
+        if (!frame) {
+            return;
+        }
+        const request = this.#requestMap.get(event.request.request);
+        let upsertRequest;
+        if (request) {
+            request._redirectChain.push(request);
+            upsertRequest = new HTTPRequest_js_1.BidiHTTPRequest(event, frame, request._redirectChain);
+        }
+        else {
+            upsertRequest = new HTTPRequest_js_1.BidiHTTPRequest(event, frame, []);
+        }
+        this.#requestMap.set(event.request.request, upsertRequest);
+        this.emit(NetworkManager_js_1.NetworkManagerEvent.Request, upsertRequest);
+    }
+const frame = this.#page.frame(event.context ?? '')
+!frame
+const request = this.#requestMap.get(event.request.request)

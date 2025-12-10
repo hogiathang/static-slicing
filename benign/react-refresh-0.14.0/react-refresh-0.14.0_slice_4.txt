@@ -1,0 +1,47 @@
+function computeFullKey = function computeFullKey(signature) {
+  if (signature.fullKey !== null) {
+    return signature.fullKey;
+  }
+
+  var fullKey = signature.ownKey;
+  var hooks;
+
+  try {
+    hooks = signature.getCustomHooks();
+  } catch (err) {
+    // This can happen in an edge case, e.g. if expression like Foo.useSomething
+    // depends on Foo which is lazily initialized during rendering.
+    // In that case just assume we'll have to remount.
+    signature.forceReset = true;
+    signature.fullKey = fullKey;
+    return fullKey;
+  }
+
+  for (var i = 0; i < hooks.length; i++) {
+    var hook = hooks[i];
+
+    if (typeof hook !== 'function') {
+      // Something's wrong. Assume we need to remount.
+      signature.forceReset = true;
+      signature.fullKey = fullKey;
+      return fullKey;
+    }
+
+    var nestedHookSignature = allSignaturesByType.get(hook);
+
+    if (nestedHookSignature === undefined) {
+      // No signature means Hook wasn't in the source code, e.g. in a library.
+      // We'll skip it because we...
+signature.fullKey !== null
+var fullKey = signature.ownKey
+hooks = signature.getCustomHooks()
+i < hooks.length
+var hook = hooks[i]
+typeof hook !== 'function'
+var nestedHookSignature = allSignaturesByType.get(hook)
+nestedHookSignature === undefined
+continue;
+var nestedHookKey = computeFullKey(nestedHookSignature)
+nestedHookSignature.forceReset
+signature.forceReset = true
+fullKey += '\n---\n' + nestedHookKey

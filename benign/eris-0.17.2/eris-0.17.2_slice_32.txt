@@ -1,0 +1,89 @@
+constructor(data, client) {
+        super(data.id);
+        this._client = client;
+        this.shard = client.shards.get(client.guildShardMap[this.id] || (Base.getDiscordEpoch(data.id) % client.options.maxShards) || 0);
+        this.unavailable = !!data.unavailable;
+        this.joinedAt = Date.parse(data.joined_at);
+        this.voiceStates = new Collection(VoiceState);
+        this.channels = new Collection(GuildChannel);
+        this.threads = new Collection(ThreadChannel);
+        this.members = new Collection(Member);
+        this.events = new Collection(GuildScheduledEvent);
+        this.stageInstances = new Collection(StageInstance);
+        this.memberCount = data.member_count;
+        this.roles = new Collection(Role);
+        this.applicationID = data.application_id;
+
+        if(data.widget_enabled !== undefined) {
+            this.widgetEnabled = data.widget_enabled;
+        }
+        if(data.widget_channel_id !== undefined) {
+            this.widgetChannelID = data.widg...
+super(data.id)
+this._client = client
+this.shard = client.shards.get(client.guildShardMap[this.id] || (Base.getDiscordEpoch(data.id) % client.options.maxShards) || 0)
+this.unavailable = !!data.unavailable
+this.joinedAt = Date.parse(data.joined_at)
+this.voiceStates = new Collection(VoiceState)
+this.channels = new Collection(GuildChannel)
+this.threads = new Collection(ThreadChannel)
+this.members = new Collection(Member)
+this.events = new Collection(GuildScheduledEvent)
+this.stageInstances = new Collection(StageInstance)
+this.memberCount = data.member_count
+this.roles = new Collection(Role)
+this.applicationID = data.application_id
+data.widget_enabled !== undefined
+this.widgetEnabled = data.widget_enabled
+data.widget_channel_id !== undefined
+this.widgetChannelID = data.widget_channel_id
+data.approximate_member_count !== undefined
+this.approximateMemberCount = data.approximate_member_count
+data.approximate_presence_count !== undefined
+this.approximatePresenceCount = data.approximate_presence_count
+data.auto_removed !== undefined
+this.autoRemoved = data.auto_removed
+data.emoji_count !== undefined
+this.emojiCount = data.emoji_count
+data.primary_category_id !== undefined
+this.primaryCategoryID = data.primary_category_id
+data.primary_category
+this.primaryCategory = data.primary_category
+data.categories !== undefined
+this.categories = data.categories
+data.keywords !== undefined
+this.keywords = data.keywords
+data.roles
+_iterator_0 = <operator>.iterator(data.roles)
+this.roles.add(role, this)
+data.channels
+_iterator_1 = <operator>.iterator(data.channels)
+channelData.guild_id = this.id
+const channel = Channel.from(channelData, client)
+channel.guild = this
+this.channels.add(channel, client)
+client.channelGuildMap[channel.id] = this.id
+data.threads
+_iterator_2 = <operator>.iterator(data.threads)
+threadData.guild_id = this.id
+const channel = Channel.from(threadData, client)
+channel.guild = this
+this.threads.add(channel, client)
+client.threadGuildMap[channel.id] = this.id
+data.members
+_iterator_3 = <operator>.iterator(data.members)
+member.id = member.user.id
+this.members.add(member, this)
+data.stage_instances
+_iterator_4 = <operator>.iterator(data.stage_instances)
+stageInstance.guild_id = this.id
+this.stageInstances.add(stageInstance, client)
+data.presences
+_iterator_5 = <operator>.iterator(data.presences)
+!this.members.get(presence.user.id)
+let userData = client.users.get(presence.user.id)
+<operator>.formatString("{username: ", userData.username, ", id: ", userData.id, ", discriminator: ", userData.discriminator, "}")
+client.emit("debug", `Presence without member. ${presence.user.id}. In global user cache: ${userData}. ` + JSON.stringify(presence), this.shard.id)
+continue;
+presence.id = presence.user.id
+(_tmp_16 = this.members).update

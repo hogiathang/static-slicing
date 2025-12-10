@@ -1,0 +1,58 @@
+IframeTransport.prototype._message = function(e) {
+  if (!urlUtils.isOriginEqual(e.origin, this.origin)) {
+    return;
+  }
+
+  var iframeMessage;
+  try {
+    iframeMessage = JSON.parse(e.data);
+  } catch (ignored) {
+    return;
+  }
+
+  if (iframeMessage.windowId !== this.windowId) {
+    return;
+  }
+
+  switch (iframeMessage.type) {
+  case 's':
+    this.iframeObj.loaded();
+    // window global dependency
+    this.postMessage('s', JSON.stringify([
+      version
+    , this.transport
+    , this.transUrl
+    , this.baseUrl
+    ]));
+    break;
+  case 't':
+    this.emit('message', iframeMessage.data);
+    break;
+  case 'c':
+    var cdata;
+    try {
+      cdata = JSON.parse(iframeMessage.data);
+    } catch (ignored) {
+      return;
+    }
+    this.emit('close', cdata[0], cdata[1]);
+    this.close();
+    break;
+  }
+}
+!urlUtils.isOriginEqual(e.origin, this.origin)
+iframeMessage = JSON.parse(e.data)
+iframeMessage.windowId !== this.windowId
+iframeMessage.type
+"s"
+(_tmp_202 = this.iframeObj).loaded
+this.postMessage('s', JSON.stringify([
+      version
+    , this.transport
+    , this.transUrl
+    , this.baseUrl
+    ]))
+_tmp_203.push(version)
+_tmp_203.push(this.transport)
+_tmp_203.push(this.transUrl)
+_tmp_203.push(this.baseUrl)

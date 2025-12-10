@@ -1,0 +1,33 @@
+module.exports.fileCommandJson = function (notifier, options, cb) {
+  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+    console.info('node-notifier debug info (fileCommandJson):');
+    console.info('[notifier path]', notifier);
+    console.info('[notifier options]', options.join(' '));
+  }
+  return cp.execFile(notifier, options, function (error, stdout, stderr) {
+    if (error) return cb(error, stdout);
+    if (!stdout) return cb(error, {});
+
+    try {
+      const data = JSON.parse(stdout);
+      cb(!stderr ? null : stderr, data);
+    } catch (e) {
+      cb(e, stdout);
+    }
+  });
+}
+process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1
+console.info('node-notifier debug info (fileCommandJson):')
+console.info('[notifier path]', notifier)
+console.info('[notifier options]', options.join(' '))
+cp.execFile(notifier, options, function (error, stdout, stderr) {
+    if (error) return cb(error, stdout);
+    if (!stdout) return cb(error, {});
+
+    try {
+      const data = JSON.parse(stdout);
+      cb(!stderr ? null : stderr, data);
+    } catch (e) {
+      cb(e, stdout);
+    }
+  })

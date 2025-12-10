@@ -1,0 +1,128 @@
+const fs = require('fs')
+const pathResolve = require('path').resolve
+const OptParse = require('optparse')
+const Hubot = require('..')
+const switches = [
+  ['-a', '--adapter HUBOT_ADAPTER', 'The Adapter to use, e.g. "shell" (to load the default hubot shell adapter)'],
+  ['-f', '--file HUBOT_FILE', 'Path to adapter file, e.g. "./adapters/CustomAdapter.mjs"'],
+  ['-c', '--create HUBOT_CREATE', 'Create a deployable hubot'],
+  ['-d', '--disable-httpd HUBOT_HTTPD', 'Disable the HTTP server'],
+  ['-h', '--help', 'Display the help information'],
+  ['-l', '--alias HUBOT_ALIAS', "Enable replacing the robot's name with alias"],
+  ['-n', '--name HUBOT_NAME', 'The name of the robot in chat'],
+  ['-r', '--require PATH', 'Alternative scripts path'],
+  ['-t', '--config-check', "Test hubot's config to make sure it won't fail at startup"],
+  ['-v', '--version', 'Displays the version of hubot installed']
+]
+_tmp_1.push(['-a', '--adapter HUBOT_ADAPTER', 'The Adapter to use, e.g. "shell" (to load the default hubot shell adapter)'])
+_tmp_1.push(['-f', '--file HUBOT_FILE', 'Path to adapter file, e.g. "./adapters/CustomAdapter.mjs"'])
+_tmp_1.push(['-c', '--create HUBOT_CREATE', 'Create a deployable hubot'])
+_tmp_1.push(['-d', '--disable-httpd HUBOT_HTTPD', 'Disable the HTTP server'])
+_tmp_1.push(['-h', '--help', 'Display the help information'])
+_tmp_1.push(['-l', '--alias HUBOT_ALIAS', "Enable replacing the robot's name with alias"])
+_tmp_1.push(['-n', '--name HUBOT_NAME', 'The name of the robot in chat'])
+_tmp_1.push(['-r', '--require PATH', 'Alternative scripts path'])
+_tmp_1.push(['-t', '--config-check', "Test hubot's config to make sure it won't fail at startup"])
+_tmp_1.push(['-v', '--version', 'Displays the version of hubot installed'])
+const options = {
+  adapter: process.env.HUBOT_ADAPTER,
+  alias: process.env.HUBOT_ALIAS || false,
+  create: process.env.HUBOT_CREATE || false,
+  enableHttpd: process.env.HUBOT_HTTPD !== 'false',
+  scripts: process.env.HUBOT_SCRIPTS || [],
+  name: process.env.HUBOT_NAME || 'Hubot',
+  file: process.env.HUBOT_FILE,
+  configCheck: false
+}
+_tmp_12.adapter = process.env.HUBOT_ADAPTER
+_tmp_12.alias = process.env.HUBOT_ALIAS || false
+_tmp_12.create = process.env.HUBOT_CREATE || false
+_tmp_12.enableHttpd = process.env.HUBOT_HTTPD !== 'false'
+_tmp_12.scripts = process.env.HUBOT_SCRIPTS || []
+_tmp_12.name = process.env.HUBOT_NAME || 'Hubot'
+_tmp_12.file = process.env.HUBOT_FILE
+_tmp_12.configCheck = false
+const Parser = new OptParse.OptionParser(switches)
+Parser.banner = 'Usage hubot [options]'
+Parser.on('adapter', (opt, value) => {
+  options.adapter = value
+})
+Parser.on('file', (opt, value) => {
+  options.file = value
+})
+Parser.on('create', function (opt, value) {
+  options.path = value
+  options.create = true
+})
+Parser.on('disable-httpd', opt => {
+  options.enableHttpd = false
+})
+Parser.on('help', function (opt, value) {
+  console.log(Parser.toString())
+  return process.exit(0)
+})
+Parser.on('alias', function (opt, value) {
+  if (!value) {
+    value = '/'
+  }
+  options.alias = value
+})
+Parser.on('name', (opt, value) => {
+  options.name = value
+})
+Parser.on('require', (opt, value) => {
+  options.scripts.push(value)
+})
+Parser.on('config-check', opt => {
+  options.configCheck = true
+})
+Parser.on('version', (opt, value) => {
+  options.version = true
+})
+Parser.on((opt, value) => {
+  console.warn(`Unknown option: ${opt}`)
+})
+Parser.parse(process.argv)
+options.create
+console.error("'hubot --create' is deprecated. Use the yeoman generator instead:")
+console.error('    npm install -g yo generator-hubot')
+<operator>.formatString("    mkdir -p ", options.path, "")
+<operator>.formatString("    cd ", options.path, "")
+console.error('    yo hubot')
+console.error('See https://github.com/github/hubot/blob/main/docs/index.md for more details on getting started.')
+process.exit(1)
+function loadScripts = async function loadScripts () {
+  await robot.load(pathResolve('.', 'scripts'))
+  await robot.load(pathResolve('.', 'src', 'scripts'))
+
+  loadExternalScripts()
+
+  const tasks = options.scripts.map((scriptPath) => {
+    if (scriptPath[0] === '/') {
+      return robot.load(scriptPath)
+    }
+
+    return robot.load(pathResolve('.', scriptPath))
+  })
+  await Promise.all(tasks)
+}
+function loadExternalScripts = function loadExternalScripts () {
+  const externalScripts = pathResolve('.', 'external-scripts.json')
+
+  if (!fs.existsSync(externalScripts)) {
+    return
+  }
+
+  fs.readFile(externalScripts, function (error, data) {
+    if (error) {
+      throw error
+    }
+
+    try {
+      robot.loadExternalScripts(JSON.parse(data))
+    } catch (error) {
+      console.error(`Error parsing JSON data from external-scripts.json: ${error}`)
+      process.exit(1)
+    }
+  })
+}

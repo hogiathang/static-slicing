@@ -1,0 +1,20 @@
+function cb = function cb (err, value) {
+      // TODO: we may protect multiple callback calls
+      //       or mixing async-await with callback
+      handled++
+
+      // we can safely ignore error for trailer
+      // since it does affect the client
+      // we log in here only for debug usage
+      if (err) reply.log.debug(err)
+      else trailers[trailerName] = value
+
+      // we push the check to the end of event
+      // loop, so the registration continue to
+      // process.
+      process.nextTick(send)
+    }
+handled++
+(_tmp_10 = reply.log).debug
+trailers[trailerName] = value
+process.nextTick(send)

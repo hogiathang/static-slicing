@@ -1,0 +1,14 @@
+function updateState = function updateState(params) {
+      const unusedKeys = new Set(Object.keys(state));
+      for (const key of params.keys()) {
+        const paramsForKey = params.getAll(key);
+        state[key] = paramsForKey.length > 1 ? paramsForKey : params.get(key) || "";
+        unusedKeys.delete(key);
+      }
+      Array.from(unusedKeys).forEach((key) => delete state[key]);
+    }
+const unusedKeys = new Set(Object.keys(state))
+_iterator_13 = <operator>.iterator(params.keys())
+const paramsForKey = params.getAll(key)
+state[key] = paramsForKey.length > 1 ? paramsForKey : params.get(key) || ""
+unusedKeys.delete(key)

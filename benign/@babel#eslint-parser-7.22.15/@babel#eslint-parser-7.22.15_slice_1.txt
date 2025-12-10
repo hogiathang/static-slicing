@@ -1,0 +1,28 @@
+function traverse = function traverse(node, visitorKeys, visitor) {
+  const {
+    type
+  } = node;
+  if (!type) return;
+  const keys = visitorKeys[type];
+  if (!keys) return;
+  for (const key of keys) {
+    for (const child of it(node[key])) {
+      if (child && typeof child === "object") {
+        visitor.enter(child);
+        traverse(child, visitorKeys, visitor);
+        visitor.exit(child);
+      }
+    }
+  }
+}
+_tmp_0 = node
+type = _tmp_0.type
+!type
+const keys = visitorKeys[type]
+!keys
+_iterator_0 = <operator>.iterator(keys)
+_iterator_1 = <operator>.iterator(it(node[key]))
+child && typeof child === "object"
+visitor.enter(child)
+traverse(child, visitorKeys, visitor)
+visitor.exit(child)

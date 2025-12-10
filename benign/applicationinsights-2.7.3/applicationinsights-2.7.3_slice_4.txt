@@ -1,0 +1,23 @@
+targetDir.split(sep).reduce(function (parentDir, childDir) {
+        var curDir = path.resolve(baseDir, parentDir, childDir);
+        try {
+            // Don't try to recreate homedir
+            if (HOME_DIR.indexOf(curDir) === -1) {
+                fs.mkdirSync(curDir);
+            }
+        }
+        catch (err) {
+            if (err.code === "EEXIST") { // curDir already exists!
+                return curDir;
+            }
+            // To avoid `EISDIR` error on Mac and `EACCES`-->`ENOENT` and `EPERM` on Windows.
+            if (err.code === "ENOENT") { // Throw the original parentDir error on curDir `ENOENT` failure.
+                throw new Error("EACCES: permission denied, mkdir \"" + parentDir + "\"");
+            }
+            var caughtErr = ["EACCES", "EPERM", "EISDIR"].indexOf(err.code) > -1;
+            if (!caughtErr || caughtErr && curDir === path.resolve(targetDir)) {
+                throw err; // Throw if it's just the last created dir.
+      ...
+var curDir = path.resolve(baseDir, parentDir, childDir)
+HOME_DIR.indexOf(curDir) === -1
+fs.mkdirSync(curDir)

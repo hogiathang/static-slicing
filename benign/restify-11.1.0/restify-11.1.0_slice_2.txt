@@ -1,0 +1,62 @@
+function rateLimit = function rateLimit(req, res, next) {
+        var attr;
+        var burst = options.burst;
+        var rate = options.rate;
+
+        if (options.ip) {
+            attr = req.connection.remoteAddress;
+        } else if (options.xff) {
+            attr = req.headers['x-forwarded-for'];
+        } else if (options.username) {
+            attr = req.username;
+        } else {
+            req.log.warn({ config: options }, 'Invalid throttle configuration');
+            return next();
+        }
+
+        // Before bothering with overrides, see if this request
+        // even matches
+        if (!attr) {
+            return next();
+        }
+
+        // Check the overrides
+        if (
+            options.overrides &&
+            options.overrides[attr] &&
+            options.overrides[attr].burst !== undefined &&
+            options.overrides[attr].rate !== undefined
+        ) {
+            burst = options.overrides[attr].burst;
+            rate = options.overrides[attr].rate;
+        }
+
+     ...
+var burst = options.burst
+var rate = options.rate
+options.ip
+attr = req.connection.remoteAddress
+options.xff
+attr = req.headers['x-forwarded-for']
+options.username
+attr = req.username
+!attr
+options.overrides &&
+            options.overrides[attr] &&
+            options.overrides[attr].burst !== undefined &&
+            options.overrides[attr].rate !== undefined
+options.overrides[attr]
+options.overrides[attr].burst !== undefined
+options.overrides[attr].rate !== undefined
+burst = options.overrides[attr].burst
+rate = options.overrides[attr].rate
+!rate || !burst
+var bucket = table.get(attr)
+!bucket
+bucket = new TokenBucket({
+                capacity: burst,
+                fillRate: rate
+            })
+_tmp_5.capacity = burst
+_tmp_5.fillRate = rate
+table.put(attr, bucket)

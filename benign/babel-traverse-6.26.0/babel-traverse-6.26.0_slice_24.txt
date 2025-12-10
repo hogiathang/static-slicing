@@ -1,0 +1,12 @@
+function VariableDeclarator = function VariableDeclarator() {
+  var id = this.get("id");
+
+  if (id.isIdentifier()) {
+    return this.get("init").getTypeAnnotation();
+  } else {
+    return;
+  }
+}
+var id = this.get("id")
+id.isIdentifier()
+(_tmp_3 = this.get("init")).getTypeAnnotation

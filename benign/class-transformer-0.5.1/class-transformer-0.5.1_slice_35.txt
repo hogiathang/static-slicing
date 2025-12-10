@@ -1,0 +1,132 @@
+level = level === void 0 ? 0 : level
+Array.isArray(value) || value instanceof Set
+targetType === String && !isMap
+targetType === Number && !isMap
+targetType === Boolean && !isMap
+(targetType === Date || value instanceof Date) && !isMap
+!!getGlobal().Buffer && (targetType === Buffer || value instanceof Buffer) && !isMap
+isPromise(value) && !isMap
+!isMap && value !== null && typeof value === 'object' && typeof value.then === 'function'
+typeof value === 'object' && value !== null
+!targetType && value.constructor !== Object
+!Array.isArray(value) && value.constructor === Array
+targetType = value.constructor
+!targetType && source
+targetType = source.constructor
+this.options.enableCircularCheck
+(_tmp_8 = this.recursionStack).add
+const keys = this.getKeys(targetType, value, isMap)
+let newValue = source ? source : {}
+!source &&
+                (this.transformationType === TransformationType.PLAIN_TO_CLASS ||
+                    this.transformationType === TransformationType.CLASS_TO_CLASS)
+this.transformationType === TransformationType.PLAIN_TO_CLASS ||
+                    this.transformationType === TransformationType.CLASS_TO_CLASS
+this.transformationType === TransformationType.CLASS_TO_CLASS
+newValue = new Map()
+newValue = new targetType()
+newValue = {}
+_iterator_0 = <operator>.iterator(keys)
+key === '__proto__' || key === 'constructor'
+continue;
+const valueKey = key
+let propertyName = key
+!this.options.ignoreDecorators && targetType
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+const exposeMetadata = defaultMetadataStorage.findExposeMetadataByCustomName(targetType, key)
+propertyName = exposeMetadata.propertyName
+newValueKey = exposeMetadata.propertyName
+this.transformationType === TransformationType.CLASS_TO_PLAIN ||
+                        this.transformationType === TransformationType.CLASS_TO_CLASS
+this.transformationType === TransformationType.CLASS_TO_CLASS
+const exposeMetadata = defaultMetadataStorage.findExposeMetadata(targetType, key)
+exposeMetadata && exposeMetadata.options && exposeMetadata.options.name
+newValueKey = exposeMetadata.options.name
+let subValue = undefined
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+subValue = value[valueKey]
+value instanceof Map
+subValue = value.get(valueKey)
+value[valueKey] instanceof Function
+subValue = value[valueKey]()
+subValue = value[valueKey]
+let isSubValueMap = subValue instanceof Map
+targetType && isMap
+type = targetType
+const metadata = defaultMetadataStorage.findTypeMetadata(targetType, propertyName)
+const options = { newObject: newValue, object: value, property: propertyName }
+const newType = metadata.typeFunction ? metadata.typeFunction(options) : metadata.reflectedType
+metadata.options &&
+                            metadata.options.discriminator &&
+                            metadata.options.discriminator.property &&
+                            metadata.options.discriminator.subTypes
+metadata.options.discriminator
+metadata.options.discriminator.property
+metadata.options.discriminator.subTypes
+!(value[valueKey] instanceof Array)
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+type = metadata.options.discriminator.subTypes.find(subType => {
+                                        if (subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue) {
+                                            return subType.name === subValue[metadata.options.discriminator.property];
+                                        }
+                                    })
+type === undefined ? type = newType : type = type.value
+!metadata.options.keepDiscriminatorProperty
+subValue && subValue instanceof Object && metadata.options.discriminator.property in subValue
+delete subValue[metadata.options.discriminator.property]
+this.transformationType === TransformationType.CLASS_TO_CLASS
+type = subValue.constructor
+this.transformationType === TransformationType.CLASS_TO_PLAIN
+subValue[metadata.options.discriminator.property] = metadata.options.discriminator.subTypes.find(subType => subType.value === subValue.constructor).name
+type = metadata
+type = newType
+isSubValueMap = isSubValueMap || metadata.reflectedType === Map
+this.options.targetMaps
+this.options.targetMaps
+                            .filter(map => map.target === targetType && !!map.properties[propertyName])
+                            .forEach(map => (type = map.properties[propertyName]))
+map.target === targetType && !!map.properties[propertyName]
+type = map.properties[propertyName]
+this.options.enableImplicitConversion &&
+                        this.transformationType === TransformationType.PLAIN_TO_CLASS
+this.transformationType === TransformationType.PLAIN_TO_CLASS
+const reflectedType = Reflect.getMetadata('design:type', targetType.prototype, propertyName)
+type = reflectedType
+const arrayType = Array.isArray(value[valueKey])
+                    ? this.getReflectedType(targetType, propertyName)
+                    : undefined
+this.getReflectedType(targetType, propertyName)
+const subSource = source ? source[valueKey] : undefined
+newValue.constructor.prototype
+const descriptor = Object.getOwnPropertyDescriptor(newValue.constructor.prototype, newValueKey)
+(this.transformationType === TransformationType.PLAIN_TO_CLASS ||
+                        this.transformationType === TransformationType.CLASS_TO_CLASS) &&
+                        // eslint-disable-next-line @typescript-eslint/unbound-method
+                        ((descriptor && !descriptor.set) || newValue[newValueKey] instanceof Function)
+this.transformationType === TransformationType.CLASS_TO_CLASS
+(descriptor && !descriptor.set) || newValue[newValueKey] instanceof Function
+continue;
+!this.options.enableCircularCheck || !this.isCircular(subValue)
+const transformKey = this.transformationType === TransformationType.PLAIN_TO_CLASS ? newValueKey : key
+this.transformationType === TransformationType.CLASS_TO_PLAIN
+finalValue = value[transformKey]
+finalValue = this.applyCustomTransformations(finalValue, targetType, transformKey, value, this.transformationType)
+finalValue = value[transformKey] === finalValue ? subValue : finalValue
+finalValue = this.transform(subSource, finalValue, type, arrayType, isSubValueMap, level + 1)
+subValue === undefined && this.options.exposeDefaultValues
+finalValue = newValue[newValueKey]
+finalValue = this.transform(subSource, subValue, type, arrayType, isSubValueMap, level + 1)
+finalValue = this.applyCustomTransformations(finalValue, targetType, transformKey, value, this.transformationType)
+finalValue !== undefined || this.options.exposeUnsetFields
+newValue instanceof Map
+newValue.set(newValueKey, finalValue)
+newValue[newValueKey] = finalValue
+this.transformationType === TransformationType.CLASS_TO_CLASS
+let finalValue = subValue
+finalValue = this.applyCustomTransformations(finalValue, targetType, key, value, this.transformationType)
+finalValue !== undefined || this.options.exposeUnsetFields
+newValue instanceof Map
+newValue.set(newValueKey, finalValue)
+newValue[newValueKey] = finalValue
+this.options.enableCircularCheck
+(_tmp_18 = this.recursionStack).delete

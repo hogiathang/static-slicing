@@ -1,0 +1,6 @@
+get(publicId, type, resourceType, transformation, format) {
+    let key = KeyValueCacheAdapter.generateCacheKey(publicId, type, resourceType, transformation, format);
+    return KeyValueCacheAdapter.extractData(this.storage.get(key));
+  }
+let key = KeyValueCacheAdapter.generateCacheKey(publicId, type, resourceType, transformation, format)
+KeyValueCacheAdapter.extractData(this.storage.get(key))

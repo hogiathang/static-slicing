@@ -1,0 +1,93 @@
+api.createTermDefinition = ({
+  activeCtx,
+  localCtx,
+  term,
+  defined,
+  options,
+  overrideProtected = false,
+}) => {
+  if(defined.has(term)) {
+    // term already defined
+    if(defined.get(term)) {
+      return;
+    }
+    // cycle detected
+    throw new JsonLdError(
+      'Cyclical context definition detected.',
+      'jsonld.CyclicalContext',
+      {code: 'cyclic IRI mapping', context: localCtx, term});
+  }
+
+  // now defining term
+  defined.set(term, false);
+
+  // get context term value
+  let value;
+  if(localCtx.hasOwnProperty(term)) {
+    value = localCtx[term];
+  }
+
+  if(term === '@type' &&
+     _isObject(value) &&
+     (value['@container'] || '@set') === '@set' &&
+     api.processingMode(activeCtx, 1.1)) {
+
+    const validKeys = ['@container', '@id', '@protected'];
+    const keys = Object.keys(value);
+    if(keys.length === 0 || keys.some(k => !validKeys.includes(k))) {
+      throw new JsonLdError(
+        'Invalid JSON-LD syntax; keywords cannot be overridden.',
+        ...
+activeCtx = param1_2.activeCtx
+localCtx = param1_2.localCtx
+term = param1_2.term
+defined = param1_2.defined
+options = param1_2.options
+overrideProtected = param1_2.overrideProtected
+defined.has(term)
+defined.get(term)
+throw new JsonLdError(
+      'Cyclical context definition detected.',
+      'jsonld.CyclicalContext',
+      {code: 'cyclic IRI mapping', context: localCtx, term});
+"Cyclical context definition detected."
+"jsonld.CyclicalContext"
+_tmp_72.code = "cyclic IRI mapping"
+defined.set(term, false)
+localCtx.hasOwnProperty(term)
+value = localCtx[term]
+term === '@type' &&
+     _isObject(value) &&
+     (value['@container'] || '@set') === '@set' &&
+     api.processingMode(activeCtx, 1.1)
+_isObject(value)
+(value['@container'] || '@set') === '@set'
+api.processingMode(activeCtx, 1.1)
+const validKeys = ['@container', '@id', '@protected']
+const keys = Object.keys(value)
+keys.length === 0 || keys.some(k => !validKeys.includes(k))
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; keywords cannot be overridden.',
+        'jsonld.SyntaxError',
+        {code: 'keyword redefinition', context: localCtx, term});
+"Invalid JSON-LD syntax; keywords cannot be overridden."
+"jsonld.SyntaxError"
+_tmp_75.code = "keyword redefinition"
+api.isKeyword(term)
+throw new JsonLdError(
+      'Invalid JSON-LD syntax; keywords cannot be overridden.',
+      'jsonld.SyntaxError',
+      {code: 'keyword redefinition', context: localCtx, term});
+"Invalid JSON-LD syntax; keywords cannot be overridden."
+"jsonld.SyntaxError"
+_tmp_77.code = "keyword redefinition"
+term.match(REGEX_KEYWORD)
+term === ''
+throw new JsonLdError(
+      'Invalid JSON-LD syntax; a term cannot be an empty string.',
+      'jsonld.SyntaxError',
+      {code: 'invalid term definition', context: localCtx});
+"Invalid JSON-LD syntax; a term cannot be an empty string."
+"jsonld.SyntaxError"
+_tmp_83.code = "invalid term definition"
+const previousMapping = activeCtx.mappings.get(term)

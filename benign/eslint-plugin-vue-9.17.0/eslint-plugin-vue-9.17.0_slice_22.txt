@@ -1,0 +1,24 @@
+_tmp_44.onVueObjectExit = onVueObjectExit
+const emits = vueEmitsDeclarations.get(node)
+(!vueTemplateDefineData ||
+                (vueTemplateDefineData.type !== 'export' &&
+                  vueTemplateDefineData.type !== 'setup')) &&
+              emits &&
+              (type === 'mark' || type === 'export' || type === 'definition')
+vueTemplateDefineData.type !== 'export' &&
+                  vueTemplateDefineData.type !== 'setup'
+vueTemplateDefineData.type !== 'setup'
+type === 'mark' || type === 'export' || type === 'definition'
+vueTemplateDefineData = {
+                type,
+                define: node,
+                emits,
+                props: vuePropsDeclarations.get(node) || []
+              }
+_tmp_48.type = type
+_tmp_48.define = node
+_tmp_48.emits = emits
+_tmp_48.props = vuePropsDeclarations.get(node) || []
+setupContexts.delete(node)
+vueEmitsDeclarations.delete(node)
+vuePropsDeclarations.delete(node)

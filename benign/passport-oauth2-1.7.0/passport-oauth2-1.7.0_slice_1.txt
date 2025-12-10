@@ -1,0 +1,59 @@
+OAuth2Strategy.prototype.authenticate = function(req, options) {
+  options = options || {};
+  var self = this;
+
+  if (req.query && req.query.error) {
+    if (req.query.error == 'access_denied') {
+      return this.fail({ message: req.query.error_description });
+    } else {
+      return this.error(new AuthorizationError(req.query.error_description, req.query.error, req.query.error_uri));
+    }
+  }
+
+  var callbackURL = options.callbackURL || this._callbackURL;
+  if (callbackURL) {
+    var parsed = url.parse(callbackURL);
+    if (!parsed.protocol) {
+      // The callback URL is relative, resolve a fully qualified URL from the
+      // URL of the originating request.
+      callbackURL = url.resolve(utils.originalURL(req, { proxy: this._trustProxy }), callbackURL);
+    }
+  }
+
+  var meta = {
+    authorizationURL: this._oauth2._authorizeUrl,
+    tokenURL: this._oauth2._accessTokenUrl,
+    clientID: this._oauth2._clientId,
+    callbackURL: callbackURL
+  }
+
+  if ((req.query && req.query.cod...
+options = options || {}
+var self = this
+req.query && req.query.error
+var callbackURL = options.callbackURL || this._callbackURL
+var parsed = url.parse(callbackURL)
+!parsed.protocol
+callbackURL = url.resolve(utils.originalURL(req, { proxy: this._trustProxy }), callbackURL)
+var meta = {
+    authorizationURL: this._oauth2._authorizeUrl,
+    tokenURL: this._oauth2._accessTokenUrl,
+    clientID: this._oauth2._clientId,
+    callbackURL: callbackURL
+  }
+_tmp_21.authorizationURL = this._oauth2._authorizeUrl
+_tmp_21.tokenURL = this._oauth2._accessTokenUrl
+_tmp_21.clientID = this._oauth2._clientId
+_tmp_21.callbackURL = callbackURL
+(req.query && req.query.code) || (req.body && req.body.code)
+var params = this.authorizationParams(options)
+params.response_type = 'code'
+params.redirect_uri = callbackURL
+var scope = options.scope || this._scope
+scope = scope.join(this._scopeSeparator)
+params.scope = scope
+this._pkceMethod
+verifier = base64url(crypto.pseudoRandomBytes(32))
+this._pkceMethod
+"S256"
+challenge = base64url(crypto.createHash('sha256').update(verifier).digest())

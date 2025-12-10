@@ -1,0 +1,12 @@
+sendUDPPacket(packet) {
+        if(this.udpSocket) {
+            try {
+                this.udpSocket.send(packet, 0, packet.length, this.udpPort, this.udpIP);
+            } catch(e) {
+                this.emit("error", e);
+            }
+        }
+    }
+this.udpSocket
+this.udpSocket.send(packet, 0, packet.length, this.udpPort, this.udpIP)
+this.emit("error", e)

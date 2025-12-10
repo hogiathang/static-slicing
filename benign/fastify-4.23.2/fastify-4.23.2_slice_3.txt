@@ -1,0 +1,39 @@
+ContentTypeParser.prototype.getParser = function (contentType) {
+  if (this.hasParser(contentType)) {
+    return this.customParsers.get(contentType)
+  }
+
+  const parser = this.cache.get(contentType)
+  if (parser !== undefined) return parser
+
+  const parsed = safeParseContentType(contentType)
+
+  // dummyContentType always the same object
+  // we can use === for the comparison and return early
+  if (parsed === defaultContentType) {
+    return this.customParsers.get('')
+  }
+
+  // eslint-disable-next-line no-var
+  for (var i = 0; i !== this.parserList.length; ++i) {
+    const parserListItem = this.parserList[i]
+    if (compareContentType(parsed, parserListItem)) {
+      const parser = this.customParsers.get(parserListItem.name)
+      // we set request content-type in cache to reduce parsing of MIME type
+      this.cache.set(contentType, parser)
+      return parser
+    }
+  }
+
+  // eslint-disable-next-line no-var
+  for (var j = 0; j !== this.parserRegExpList.length; ++j) {
+    const parse...
+this.hasParser(contentType)
+const parser = this.cache.get(contentType)
+parser !== undefined
+const parsed = safeParseContentType(contentType)
+parsed === defaultContentType
+i !== this.parserList.length
+const parserListItem = this.parserList[i]
+compareContentType(parsed, parserListItem)
+const parser = this.customParsers.get(parserListItem.name)

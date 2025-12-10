@@ -1,0 +1,14 @@
+process.on('message', async (message) => {
+    try {
+        const statusCode = await (0, run_1.run)(process.cwd(), process.env.NX_WORKSPACE_ROOT, message.targetDescription, message.overrides, message.isVerbose, message.taskGraph);
+        process.exit(statusCode);
+    }
+    catch (e) {
+        console.error(`Could not find 'nx' module in this workspace.`, e);
+        process.exit(1);
+    }
+})
+const statusCode = await (0, run_1.run)(process.cwd(), process.env.NX_WORKSPACE_ROOT, message.targetDescription, message.overrides, message.isVerbose, message.taskGraph)
+process.exit(statusCode)
+console.error(`Could not find 'nx' module in this workspace.`, e)
+process.exit(1)

@@ -1,0 +1,34 @@
+protected async traceState(turnContext: TurnContext): Promise<any> {
+        const session = await this.findSession(turnContext);
+        if (session !== undefined) {
+            if (this.userState !== undefined) {
+                await this.userState.load(turnContext, false);
+            }
+            if (this.conversationState != undefined) {
+                await this.conversationState.load(turnContext, false);
+            }
+
+            const botState: any = {};
+
+            if (this.userState !== undefined) {
+                botState.userState = this.userState.get(turnContext);
+            }
+
+            if (this.conversationState !== undefined) {
+                botState.conversationState = this.conversationState.get(turnContext);
+            }
+
+            await this.invokeSend(turnContext, session, TraceActivity.fromState(botState));
+        }
+    }
+const session = await this.findSession(turnContext)
+session !== undefined
+this.userState !== undefined
+await this.userState.load(turnContext, false)
+this.conversationState != undefined
+await this.conversationState.load(turnContext, false)
+const botState: any = {}
+this.userState !== undefined
+botState.userState = this.userState.get(turnContext)
+this.conversationState !== undefined
+botState.conversationState = this.conversationState.get(turnContext)

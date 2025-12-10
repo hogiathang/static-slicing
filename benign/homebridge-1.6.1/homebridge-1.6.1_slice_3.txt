@@ -1,0 +1,19 @@
+validateChildBridgeConfig(type, identifier, bridgeConfig) {
+        if (!mac.validMacAddress(bridgeConfig.username)) {
+            throw new Error(`Error loading the ${type} "${identifier}" requested in your config.json - ` +
+                `not a valid username in _bridge.username: "${bridgeConfig.username}". Must be 6 pairs of colon-separated hexadecimal chars (A-F 0-9), like a MAC address.`);
+        }
+        if (this.childBridges.has(bridgeConfig.username)) {
+            const childBridge = this.childBridges.get(bridgeConfig.username);
+            if (type === "platform" /* PLATFORM */) {
+                // only a single platform can exist on one child bridge
+                throw new Error(`Error loading the ${type} "${identifier}" requested in your config.json - ` +
+                    `Duplicate username found in _bridge.username: "${bridgeConfig.username}". Each platform child bridge must have it's own unique username.`);
+            }
+            else if ((childBridge ===...
+!mac.validMacAddress(bridgeConfig.username)
+throw new Error(`Error loading the ${type} "${identifier}" requested in your config.json - ` +
+                `not a valid username in _bridge.username: "${bridgeConfig.username}". Must be 6 pairs of colon-separated hexadecimal chars (A-F 0-9), like a MAC address.`);
+<operator>.formatString("not a valid username in _bridge.username: "", bridgeConfig.username, "". Must be 6 pairs of colon-separated hexadecimal chars (A-F 0-9), like a MAC address.")
+this.childBridges.has(bridgeConfig.username)
+const childBridge = this.childBridges.get(bridgeConfig.username)

@@ -1,0 +1,17 @@
+const getListenerMap = (target, type, capture) => {
+        const elMap = capture ? captureListenerMap : listenerMap;
+        let typeMap = elMap.get(target);
+        if (typeMap === undefined) {
+            elMap.set(target, (typeMap = new Map()));
+        }
+        let listeners = typeMap.get(type);
+        if (listeners === undefined) {
+            typeMap.set(type, (listeners = new WeakMap()));
+        }
+        return listeners;
+    }
+const elMap = capture ? captureListenerMap : listenerMap
+let typeMap = elMap.get(target)
+typeMap === undefined
+elMap.set(target, (typeMap = new Map()))
+let listeners = typeMap.get(type)

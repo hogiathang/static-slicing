@@ -1,0 +1,23 @@
+function registerConditionsToGroup = function registerConditionsToGroup(conditions) {
+            for (let i = 0; i < conditions.length; ++i) {
+                const condition = conditions[i];
+
+                if (condition.group) {
+                    let group = groupMap.get(condition.group);
+
+                    if (!group) {
+                        group = [];
+                        groupMap.set(condition.group, group);
+                    }
+                    group.push(condition);
+                }
+            }
+        }
+i < conditions.length
+const condition = conditions[i]
+condition.group
+let group = groupMap.get(condition.group)
+!group
+__ecma.Array.factory()
+groupMap.set(condition.group, group)
+group.push(condition)

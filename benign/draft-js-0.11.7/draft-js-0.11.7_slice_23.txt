@@ -1,0 +1,15 @@
+var updateSibling = function updateSibling(blockMap, prevKey, nextKey) {
+  var prevSibling = blockMap.get(prevKey);
+  var nextSibling = blockMap.get(nextKey);
+  !(prevSibling != null && nextSibling != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'siblings should exist in the block map') : invariant(false) : void 0;
+  var newBlocks = {};
+  newBlocks[prevKey] = prevSibling.merge({
+    nextSibling: nextKey
+  });
+  newBlocks[nextKey] = nextSibling.merge({
+    prevSibling: prevKey
+  });
+  return blockMap.merge(newBlocks);
+}
+var prevSibling = blockMap.get(prevKey)
+var nextSibling = blockMap.get(nextKey)

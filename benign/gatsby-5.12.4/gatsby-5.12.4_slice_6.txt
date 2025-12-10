@@ -1,0 +1,15 @@
+function _supports = function _supports() {
+  if (supportsCache) {
+    return supportsCache;
+  }
+  supportsCache = cache$1.get();
+  if (!supportsCache.time) {
+    cache$1.set(executeTests());
+    supportsCache = cache$1.get();
+  }
+  return supportsCache;
+}
+supportsCache = cache$1.get()
+!supportsCache.time
+cache$1.set(executeTests())
+supportsCache = cache$1.get()

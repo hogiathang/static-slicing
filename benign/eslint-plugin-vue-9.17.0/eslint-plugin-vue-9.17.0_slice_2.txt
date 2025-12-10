@@ -1,0 +1,18 @@
+function verifyRefObjectValue = function verifyRefObjectValue(node) {
+      const ref = refObjectReferences.get(node)
+      if (!ref) {
+        return
+      }
+      if (scopes.get(ref.define) !== scopeStack) {
+        // Not in the same scope
+        return
+      }
+
+      context.report({
+        node,
+        messageId: 'getValueInSameScope'
+      })
+    }
+const ref = refObjectReferences.get(node)
+!ref
+scopes.get(ref.define) !== scopeStack

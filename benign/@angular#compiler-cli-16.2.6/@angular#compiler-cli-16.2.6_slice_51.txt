@@ -1,0 +1,24 @@
+index(ctx) {
+    for (const clazz of this.classes.keys()) {
+      const record = this.classes.get(clazz);
+      for (const trait of record.traits) {
+        if (trait.state !== TraitState.Resolved) {
+          continue;
+        } else if (trait.handler.index === void 0) {
+          continue;
+        }
+        if (trait.resolution !== null) {
+          trait.handler.index(ctx, clazz, trait.analysis, trait.resolution);
+        }
+      }
+    }
+  }
+_iterator_87 = <operator>.iterator(this.classes.keys())
+const record = this.classes.get(clazz)
+_iterator_88 = <operator>.iterator(record.traits)
+trait.state !== TraitState.Resolved
+continue;
+trait.handler.index === void 0
+continue;
+trait.resolution !== null
+trait.handler.index(ctx, clazz, trait.analysis, trait.resolution)

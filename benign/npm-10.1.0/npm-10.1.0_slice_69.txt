@@ -1,0 +1,46 @@
+(_tmp_45 = list.map(dep => {
+      const {
+        name,
+        current,
+        wanted,
+        latest,
+        path,
+        dependent,
+        type,
+        homepage,
+      } = dep
+      const out = [
+        path,
+        name + '@' + wanted,
+        current ? (name + '@' + current) : 'MISSING',
+        name + '@' + latest,
+        dependent,
+      ]
+      if (this.npm.config.get('long')) {
+        out.push(type, homepage)
+      }
+
+      return out.join(':')
+    })).join
+_tmp_46 = dep
+name = _tmp_46.name
+current = _tmp_46.current
+wanted = _tmp_46.wanted
+latest = _tmp_46.latest
+path = _tmp_46.path
+dependent = _tmp_46.dependent
+type = _tmp_46.type
+homepage = _tmp_46.homepage
+const out = [
+        path,
+        name + '@' + wanted,
+        current ? (name + '@' + current) : 'MISSING',
+        name + '@' + latest,
+        dependent,
+      ]
+_tmp_47.push(path)
+_tmp_47.push(name + '@' + wanted)
+_tmp_47.push(current ? name + '@' + current : "MISSING")
+_tmp_47.push(name + '@' + latest)
+_tmp_47.push(dependent)
+(_tmp_48 = this.npm.config).get

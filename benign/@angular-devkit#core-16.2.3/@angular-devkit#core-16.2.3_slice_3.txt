@@ -1,0 +1,53 @@
+_updateWatchers(path, type) {
+        const time = new Date();
+        let currentPath = path;
+        let parent = null;
+        if (this._watchers.size == 0) {
+            // Nothing to do if there's no watchers.
+            return;
+        }
+        const maybeWatcher = this._watchers.get(currentPath);
+        if (maybeWatcher) {
+            maybeWatcher.forEach((watcher) => {
+                const [options, subject] = watcher;
+                subject.next({ path, time, type });
+                if (!options.persistent && type == 2 /* HostWatchEventType.Deleted */) {
+                    subject.complete();
+                    this._watchers.delete(currentPath);
+                }
+            });
+        }
+        do {
+            currentPath = parent !== null ? parent : currentPath;
+            parent = (0, path_1.dirname)(currentPath);
+            const maybeWatcher = this._watchers.get(currentPath);
+            if (maybeWatcher) {
+                maybeWatcher.forEach((watcher) =>...
+const time = new Date()
+let currentPath = path
+let parent = null
+this._watchers.size == 0
+const maybeWatcher = this._watchers.get(currentPath)
+maybeWatcher.forEach((watcher) => {
+                const [options, subject] = watcher;
+                subject.next({ path, time, type });
+                if (!options.persistent && type == 2 /* HostWatchEventType.Deleted */) {
+                    subject.complete();
+                    this._watchers.delete(currentPath);
+                }
+            })
+currentPath = parent !== null ? parent : currentPath
+parent = (0, path_1.dirname)(currentPath)
+const maybeWatcher = this._watchers.get(currentPath)
+maybeWatcher.forEach((watcher) => {
+                    const [options, subject] = watcher;
+                    if (!options.recursive) {
+                        return;
+                    }
+                    subject.next({ path, time, type });
+                    if (!options.persistent && type == 2 /* HostWatchEventType.Deleted */) {
+                        subject.complete();
+                        this._watchers.delete(currentPath);
+                    }
+                })
+parent != currentPath

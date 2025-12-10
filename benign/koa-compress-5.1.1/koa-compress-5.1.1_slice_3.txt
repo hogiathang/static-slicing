@@ -1,0 +1,48 @@
+getPreferredContentEncoding () {
+    const {
+      encodingWeights,
+      preferredEncodings
+    } = this
+
+    // get ordered list of accepted encodings
+    const acceptedEncodings = Array.from(encodingWeights.keys())
+      // sort by weight
+      .sort((a, b) => encodingWeights.get(b) - encodingWeights.get(a))
+      // filter by supported encodings
+      .filter((encoding) => encoding === 'identity' || typeof Encodings.encodingMethods[encoding] === 'function')
+
+    // group them by weights
+    const weightClasses = new Map()
+    acceptedEncodings.forEach((encoding) => {
+      const weight = encodingWeights.get(encoding)
+      if (!weightClasses.has(weight)) weightClasses.set(weight, new Set())
+      weightClasses.get(weight).add(encoding)
+    })
+
+    // search by weight, descending
+    const weights = Array.from(weightClasses.keys()).sort((a, b) => b - a)
+    for (let i = 0; i < weights.length; i++) {
+      // encodings at this weight
+      const encodings = weightClasses.get(weigh...
+_tmp_5 = this
+encodingWeights = _tmp_5.encodingWeights
+preferredEncodings = _tmp_5.preferredEncodings
+const acceptedEncodings = Array.from(encodingWeights.keys())
+      // sort by weight
+      .sort((a, b) => encodingWeights.get(b) - encodingWeights.get(a))
+      // filter by supported encodings
+      .filter((encoding) => encoding === 'identity' || typeof Encodings.encodingMethods[encoding] === 'function')
+encodingWeights.get(b) - encodingWeights.get(a)
+encoding === 'identity' || typeof Encodings.encodingMethods[encoding] === 'function'
+const weightClasses = new Map()
+acceptedEncodings.forEach((encoding) => {
+      const weight = encodingWeights.get(encoding)
+      if (!weightClasses.has(weight)) weightClasses.set(weight, new Set())
+      weightClasses.get(weight).add(encoding)
+    })
+const weights = Array.from(weightClasses.keys()).sort((a, b) => b - a)
+i < weights.length
+const encodings = weightClasses.get(weights[i])
+j < preferredEncodings.length
+const preferredEncoding = preferredEncodings[j]
+encodings.has(preferredEncoding)

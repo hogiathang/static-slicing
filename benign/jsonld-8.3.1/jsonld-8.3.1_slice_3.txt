@@ -1,0 +1,45 @@
+function _selectTerm = function _selectTerm(
+  activeCtx, iri, value, containers, typeOrLanguage, typeOrLanguageValue) {
+  if(typeOrLanguageValue === null) {
+    typeOrLanguageValue = '@null';
+  }
+
+  // preferences for the value of @type or @language
+  const prefs = [];
+
+  // determine prefs for @id based on whether or not value compacts to a term
+  if((typeOrLanguageValue === '@id' || typeOrLanguageValue === '@reverse') &&
+    _isObject(value) && '@id' in value) {
+    // prefer @reverse first
+    if(typeOrLanguageValue === '@reverse') {
+      prefs.push('@reverse');
+    }
+    // try to compact value to a term
+    const term = api.compactIri(
+      {activeCtx, iri: value['@id'], relativeTo: {vocab: true}});
+    if(activeCtx.mappings.has(term) &&
+      activeCtx.mappings.get(term) &&
+      activeCtx.mappings.get(term)['@id'] === value['@id']) {
+      // prefer @vocab
+      prefs.push.apply(prefs, ['@vocab', '@id']);
+    } else {
+      // prefer @id
+      prefs.push.apply(prefs, ['@id', '@vocab']);
+    }
+  ...
+typeOrLanguageValue === null
+typeOrLanguageValue = '@null'
+__ecma.Array.factory()
+(typeOrLanguageValue === '@id' || typeOrLanguageValue === '@reverse') &&
+    _isObject(value) && '@id' in value
+_isObject(value)
+typeOrLanguageValue === '@reverse'
+prefs.push('@reverse')
+const term = api.compactIri(
+      {activeCtx, iri: value['@id'], relativeTo: {vocab: true}})
+_tmp_0.relativeTo = {vocab: true}
+activeCtx.mappings.has(term) &&
+      activeCtx.mappings.get(term) &&
+      activeCtx.mappings.get(term)['@id'] === value['@id']
+(_tmp_3 = activeCtx.mappings).get
+activeCtx.mappings.get(term)['@id'] === value['@id']

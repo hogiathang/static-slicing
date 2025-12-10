@@ -1,0 +1,55 @@
+const write = (locale) => {
+    let stats, target, tmp
+
+    // don't write new locale information to disk if updateFiles isn't true
+    if (!updateFiles) {
+      return
+    }
+
+    // creating directory if necessary
+    try {
+      stats = fs.lstatSync(directory)
+    } catch (e) {
+      logDebug('creating locales dir in: ' + directory)
+      try {
+        fs.mkdirSync(directory, directoryPermissions)
+      } catch (e) {
+        // in case of parallel tasks utilizing in same dir
+        if (e.code !== 'EEXIST') throw e
+      }
+    }
+
+    // first time init has an empty file
+    if (!locales[locale]) {
+      locales[locale] = {}
+    }
+
+    // writing to tmp and rename on success
+    try {
+      target = getStorageFilePath(locale)
+      tmp = target + '.tmp'
+      fs.writeFileSync(
+        tmp,
+        parser.stringify(locales[locale], null, indent),
+        'utf8'
+      )
+      stats = fs.statSync(tmp)
+      if (stats.isFile()) {
+        fs.renameSync(tmp, target)
+      } else {
+        logE...
+!updateFiles
+stats = fs.lstatSync(directory)
+logDebug('creating locales dir in: ' + directory)
+fs.mkdirSync(directory, directoryPermissions)
+e.code !== 'EEXIST'
+!locales[locale]
+locales[locale] = {}
+target = getStorageFilePath(locale)
+tmp = target + '.tmp'
+fs.writeFileSync(
+        tmp,
+        parser.stringify(locales[locale], null, indent),
+        'utf8'
+      )
+parser.stringify(locales[locale], null, indent)

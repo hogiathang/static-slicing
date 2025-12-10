@@ -1,0 +1,46 @@
+client.onreadystatechange = function (/* e */) {
+				if (request.canceled) { return; }
+				if (client.readyState === (XHR.DONE || 4)) {
+					response.status = {
+						code: client.status,
+						text: client.statusText
+					};
+					response.headers = parseHeaders(client.getAllResponseHeaders());
+					response.entity = client.responseText;
+
+					// #125 -- Sometimes IE8-9 uses 1223 instead of 204
+					// http://stackoverflow.com/questions/10046972/msie-returns-status-code-of-1223-for-ajax-request
+					if (response.status.code === 1223) {
+						response.status.code = 204;
+					}
+
+					if (response.status.code > 0) {
+						// check status code as readystatechange fires before error event
+						resolve(response);
+					}
+					else {
+						// give the error callback a chance to fire before resolving
+						// requests for file:// URLs do not have a status code
+						setTimeout(function () {
+							resolve(response);
+						}, 0);
+					}
+				}
+			}
+request.canceled
+client.readyState === (XHR.DONE || 4)
+response.status = {
+						code: client.status,
+						text: client.statusText
+					}
+_tmp_14.code = client.status
+_tmp_14.text = client.statusText
+response.headers = parseHeaders(client.getAllResponseHeaders())
+response.entity = client.responseText
+response.status.code === 1223
+response.status.code = 204
+response.status.code > 0
+setTimeout(function () {
+							resolve(response);
+						}, 0)
+0

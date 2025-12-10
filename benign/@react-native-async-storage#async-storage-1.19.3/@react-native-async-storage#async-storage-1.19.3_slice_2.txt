@@ -1,0 +1,19 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+})
+_tmp_0.value = true
+exports.default = void 0
+var _reactNative = require("react-native")
+var _shouldFallbackToLegacyNativeModule = require("./shouldFallbackToLegacyNativeModule")
+let RCTAsyncStorage = _reactNative.TurboModuleRegistry ? _reactNative.TurboModuleRegistry.get('PlatformLocalStorage') ||
+// Support for external modules, like react-native-windows
+_reactNative.TurboModuleRegistry.get('RNC_AsyncSQLiteDBStorage') || _reactNative.TurboModuleRegistry.get('RNCAsyncStorage') : _reactNative.NativeModules['PlatformLocalStorage'] ||
+// Support for external modules, like react-native-windows
+_reactNative.NativeModules['RNC_AsyncSQLiteDBStorage'] || _reactNative.NativeModules['RNCAsyncStorage']
+_reactNative.NativeModules['PlatformLocalStorage'] ||
+// Support for external modules, like react-native-windows
+_reactNative.NativeModules['RNC_AsyncSQLiteDBStorage'] || _reactNative.NativeModules['RNCAsyncStorage']
+_reactNative.NativeModules["RNC_AsyncSQLiteDBStorage"]
+!RCTAsyncStorage && (0, _shouldFallbackToLegacyNativeModule.shouldFallbackToLegacyNativeModule)()
+_reactNative.TurboModuleRegistry
+RCTAsyncStorage = _reactNative.TurboModuleRegistry.get('AsyncSQLiteDBStorage') || _reactNative.TurboModuleRegistry.get('AsyncLocalStorage')

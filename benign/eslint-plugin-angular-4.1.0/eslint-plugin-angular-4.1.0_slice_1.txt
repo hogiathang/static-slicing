@@ -1,0 +1,27 @@
+function updateReadme = function updateReadme(readmePath, cb) {
+    ruleCategories.rulesByCategory = _.groupBy(this.rules, 'category');
+
+    // filter categories without rules
+    ruleCategories.categoryOrder = ruleCategories.categoryOrder.filter(function(categoryName) {
+        var rulesForCategory = ruleCategories.rulesByCategory[categoryName];
+        return rulesForCategory && rulesForCategory.length > 0;
+    });
+
+    var readmeContent = fs.readFileSync(readmePath).toString();
+    var newRuleSection = templates.readmeRuleSectionContent(ruleCategories);
+
+    // use split and join to prevent the replace() and dollar sign problem (http://stackoverflow.com/questions/9423722)
+    readmeContent = readmeContent.split(/## Rules[\S\s]*?----\n/).join(newRuleSection);
+
+    fs.writeFileSync(readmePath, readmeContent);
+    (cb || _.noop)();
+}
+ruleCategories.rulesByCategory = _.groupBy(this.rules, 'category')
+ruleCategories.categoryOrder = ruleCategories.categoryOrder.filter(function(categoryName) {
+        var rulesForCategory = ruleCategories.rulesByCategory[categoryName];
+        return rulesForCategory && rulesForCategory.length > 0;
+    })
+var readmeContent = fs.readFileSync(readmePath).toString()
+var newRuleSection = templates.readmeRuleSectionContent(ruleCategories)
+readmeContent = readmeContent.split(/## Rules[\S\s]*?----\n/).join(newRuleSection)
+fs.writeFileSync(readmePath, readmeContent)

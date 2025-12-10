@@ -1,0 +1,55 @@
+var nul = process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null'
+var bench = require('fastbench')
+var stream = require('fs').createWriteStream(nul)
+var alt0 = require('./')
+var largeStr = JSON.stringify(require('./package.json'))
+function alt1 = function alt1 (s) {
+  rx.test(s)
+  return s
+}
+function alt2 = function alt2 (s) {
+  rx.exec(s)
+  return s
+}
+function alt3 = function alt3 (s) {
+  s | 0
+  return s
+}
+function alt4 = function alt4 (s) {
+  ~s
+  return s
+}
+function alt5 = function alt5 (s) {
+  escape(s)
+  return s
+}
+function alt6 = function alt6 (s) {
+  unescape(s)
+  return s
+}
+function alt7 = function alt7 (s) {
+  parseInt(s, 10)
+  return s
+}
+function alt8 = function alt8 (s) {
+  parseFloat(s)
+  return s
+}
+function alt9 = function alt9 (s) {
+  alt9[s] = null
+  return s
+}
+function makeStr = function makeStr (str, concats) {
+  var s = ''
+  while (concats--) {
+    s += str
+  }
+  return s
+}
+function makeExpoStr = function makeExpoStr (str, concats) {
+  var s = str
+  while (concats--) {
+    s += s
+  }
+  return s
+}

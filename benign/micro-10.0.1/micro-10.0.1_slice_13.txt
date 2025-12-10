@@ -1,0 +1,14 @@
+(val) => {
+      if (val === null) {
+        send(res, 204, null);
+        return;
+      }
+
+      // Send value if it is not undefined, otherwise assume res.end
+      // will be called later
+      if (val !== undefined) {
+        send(res, res.statusCode || 200, val);
+      }
+    }
+val === null
+val !== undefined

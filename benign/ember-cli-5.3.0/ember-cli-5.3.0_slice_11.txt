@@ -1,0 +1,42 @@
+_tmp_14.addAddonsToProject = addAddonsToProject
+let taskOptions = {
+      packages: [],
+      extraArgs: options.extraArgs || [],
+      blueprintOptions: options.blueprintOptions || {},
+    }
+_tmp_76.packages = __ecma.Array.factory()
+_tmp_76.extraArgs = options.extraArgs || []
+_tmp_76.blueprintOptions = options.blueprintOptions || {}
+let packages = options.packages
+packages && packages.length
+taskOptions.packages = packages.map((pkg) => {
+        if (typeof pkg === 'string') {
+          return pkg;
+        }
+
+        if (!pkg.name) {
+          throw new SilentError('You must provide a package `name` to addAddonsToProject');
+        }
+
+        if (pkg.target) {
+          pkg.name += `@${pkg.target}`;
+        }
+
+        return pkg.name;
+      })
+throw new SilentError('You must provide package to addAddonsToProject');
+let installText = packages.length > 1 ? 'install addons' : 'install addon'
+this._writeStatusToUI(chalk.green, installText, taskOptions['packages'].join(', '))
+(_tmp_81 = this.project).isEmberCLIProject
+(_tmp_82 = this.project.packageInfoCache)._clear
+const Project = require('../../lib/models/project')
+this.project = taskOptions.blueprintOptions.project = Project.closestSync(
+        options.blueprintOptions.target,
+        this.project.ui,
+        this.project.cli
+      )
+options.blueprintOptions.target
+this.project.ui
+this.project.cli
+previousCwd = process.cwd()
+process.chdir(options.blueprintOptions.target)

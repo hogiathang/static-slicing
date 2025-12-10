@@ -1,0 +1,40 @@
+async install(directory, packageManager) {
+        const spinner = ora({
+            spinner: {
+                interval: 120,
+                frames: ['▹▹▹▹▹', '▸▹▹▹▹', '▹▸▹▹▹', '▹▹▸▹▹', '▹▹▹▸▹', '▹▹▹▹▸'],
+            },
+            text: ui_1.MESSAGES.PACKAGE_MANAGER_INSTALLATION_IN_PROGRESS,
+        });
+        spinner.start();
+        try {
+            const commandArgs = `${this.cli.install} ${this.cli.silentFlag}`;
+            const collect = true;
+            const normalizedDirectory = (0, formatting_1.normalizeToKebabOrSnakeCase)(directory);
+            await this.runner.run(commandArgs, collect, (0, path_1.join)(process.cwd(), normalizedDirectory));
+            spinner.succeed();
+            console.info();
+            console.info(ui_1.MESSAGES.PACKAGE_MANAGER_INSTALLATION_SUCCEED(directory));
+            console.info(ui_1.MESSAGES.GET_STARTED_INFORMATION);
+            console.info();
+            console.info(chalk.gray(ui_1.MESSAGES.CHANGE_DIR_COMMAND(directory)));
+     ...
+const spinner = ora({
+            spinner: {
+                interval: 120,
+                frames: ['▹▹▹▹▹', '▸▹▹▹▹', '▹▸▹▹▹', '▹▹▸▹▹', '▹▹▹▸▹', '▹▹▹▹▸'],
+            },
+            text: ui_1.MESSAGES.PACKAGE_MANAGER_INSTALLATION_IN_PROGRESS,
+        })
+_tmp_1.spinner = {
+                interval: 120,
+                frames: ['▹▹▹▹▹', '▸▹▹▹▹', '▹▸▹▹▹', '▹▹▸▹▹', '▹▹▹▸▹', '▹▹▹▹▸'],
+            }
+_tmp_2.interval = 120
+_tmp_2.frames = ['▹▹▹▹▹', '▸▹▹▹▹', '▹▸▹▹▹', '▹▹▸▹▹', '▹▹▹▸▹', '▹▹▹▹▸']
+_tmp_1.text = ui_1.MESSAGES.PACKAGE_MANAGER_INSTALLATION_IN_PROGRESS
+spinner.start()
+<operator>.formatString("", this.cli.install, " ", this.cli.silentFlag, "")
+const collect = true
+const normalizedDirectory = (0, formatting_1.normalizeToKebabOrSnakeCase)(directory)
+await this.runner.run(commandArgs, collect, (0, path_1.join)(process.cwd(), normalizedDirectory))

@@ -1,0 +1,79 @@
+static serialize(data: CMCD): string {
+    const results: string[] = [];
+    const isValid = (value: any) =>
+      !Number.isNaN(value) && value != null && value !== '' && value !== false;
+    const toRounded = (value: number) => Math.round(value);
+    const toHundred = (value: number) => toRounded(value / 100) * 100;
+    const toUrlSafe = (value: string) => encodeURIComponent(value);
+    const formatters = {
+      br: toRounded,
+      d: toRounded,
+      bl: toHundred,
+      dl: toHundred,
+      mtp: toHundred,
+      nor: toUrlSafe,
+      rtp: toHundred,
+      tb: toRounded,
+    };
+
+    const keys = Object.keys(data || {}).sort();
+
+    for (const key of keys) {
+      let value = data[key];
+
+      // ignore invalid values
+      if (!isValid(value)) {
+        continue;
+      }
+
+      // Version should only be reported if not equal to 1.
+      if (key === 'v' && value === 1) {
+        continue;
+      }
+
+      // Playback rate should only be sent if not equal to 1.
+      if (key == 'pr...
+const results: string[] = []
+const isValid = (value: any) =>
+      !Number.isNaN(value) && value != null && value !== '' && value !== false
+const toRounded = (value: number) => Math.round(value)
+const toHundred = (value: number) => toRounded(value / 100) * 100
+const toUrlSafe = (value: string) => encodeURIComponent(value)
+const formatters = {
+      br: toRounded,
+      d: toRounded,
+      bl: toHundred,
+      dl: toHundred,
+      mtp: toHundred,
+      nor: toUrlSafe,
+      rtp: toHundred,
+      tb: toRounded,
+    }
+_tmp_23.br = toRounded
+_tmp_23.d = toRounded
+_tmp_23.bl = toHundred
+_tmp_23.dl = toHundred
+_tmp_23.mtp = toHundred
+_tmp_23.nor = toUrlSafe
+_tmp_23.rtp = toHundred
+_tmp_23.tb = toRounded
+const keys = Object.keys(data || {}).sort()
+_iterator_1 = <operator>.iterator(keys)
+let value = data[key]
+!isValid(value)
+continue;
+key === 'v' && value === 1
+continue;
+key == 'pr' && value === 1
+continue;
+const formatter = formatters[key]
+value = formatter(value)
+const type = typeof value
+key === 'ot' || key === 'sf' || key === 'st'
+<operator>.formatString("", key, "=", value, "")
+type === 'boolean'
+result = key
+type === 'number'
+<operator>.formatString("", key, "=", value, "")
+<operator>.formatString("", key, "=", JSON.stringify(value), "")
+results.push(result)

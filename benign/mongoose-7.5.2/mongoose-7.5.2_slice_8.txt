@@ -1,0 +1,8 @@
+Connection.prototype.get = function(key) {
+  if (this.config.hasOwnProperty(key)) {
+    return this.config[key];
+  }
+
+  return get(this.options, key);
+}
+(_tmp_15 = this.config).hasOwnProperty

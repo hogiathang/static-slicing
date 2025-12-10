@@ -1,0 +1,57 @@
+var output = map($keys, function (key) {
+        var name, str;
+        if (value.__lookupGetter__) {
+          if (value.__lookupGetter__(key)) {
+            if (value.__lookupSetter__(key)) {
+              str = stylize('[Getter/Setter]', 'special');
+            } else {
+              str = stylize('[Getter]', 'special');
+            }
+          } else {
+            if (value.__lookupSetter__(key)) {
+              str = stylize('[Setter]', 'special');
+            }
+          }
+        }
+        if (indexOf(visible_keys, key) < 0) {
+          name = '[' + key + ']';
+        }
+        if (!str) {
+          if (indexOf(seen, value[key]) < 0) {
+            if (recurseTimes === null) {
+              str = format(value[key]);
+            } else {
+              str = format(value[key], recurseTimes - 1);
+            }
+            if (str.indexOf('\n') > -1) {
+              if (isArray(value)) {
+                str = map(str.split('\n'), function (line) {
+                  return '  ' + line;...
+value.__lookupGetter__
+value.__lookupGetter__(key)
+value.__lookupSetter__(key)
+str = stylize('[Getter/Setter]', 'special')
+str = stylize('[Getter]', 'special')
+value.__lookupSetter__(key)
+str = stylize('[Setter]', 'special')
+indexOf(visible_keys, key) < 0
+name = '[' + key + ']'
+!str
+indexOf(seen, value[key]) < 0
+recurseTimes === null
+str = format(value[key])
+str = format(value[key], recurseTimes - 1)
+str.indexOf('\n') > -1
+isArray(value)
+(_tmp_11 = map(str.split('\n'), function (line) {
+                  return '  ' + line;
+                }).join('\n')).substr
+2
+str = '\n' + map(str.split('\n'), function (line) {
+                  return '   ' + line;
+                }).join('\n')
+join
+str = stylize('[Circular]', 'special')
+typeof name === 'undefined'
+type === 'Array' && key.match(/^\d+$/)
+name = json.stringify('' + key)

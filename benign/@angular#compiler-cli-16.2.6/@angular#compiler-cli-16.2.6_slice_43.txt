@@ -1,0 +1,118 @@
+getScopeOfModuleReference(ref) {
+    if (this.cache.has(ref.node)) {
+      return this.cache.get(ref.node);
+    }
+    this.sealed = true;
+    const ngModule = this.localReader.getNgModuleMetadata(ref);
+    if (ngModule === null) {
+      this.cache.set(ref.node, null);
+      return null;
+    }
+    const diagnostics = [];
+    const compilationDirectives = /* @__PURE__ */ new Map();
+    const compilationPipes = /* @__PURE__ */ new Map();
+    const declared = /* @__PURE__ */ new Set();
+    const exportDirectives = /* @__PURE__ */ new Map();
+    const exportPipes = /* @__PURE__ */ new Map();
+    let isPoisoned = false;
+    if (this.modulesWithStructuralErrors.has(ngModule.ref.node)) {
+      isPoisoned = true;
+    }
+    for (const decl of ngModule.imports) {
+      const importScope = this.getExportedScope(decl, diagnostics, ref.node, "import");
+      if (importScope !== null) {
+        if (importScope === "invalid" || importScope.exported.isPoisoned) {
+          diagnostics.push(invalidTr...
+(_tmp_619 = this.cache).has
+this.sealed = true
+const ngModule = this.localReader.getNgModuleMetadata(ref)
+ngModule === null
+const diagnostics = []
+const compilationDirectives = /* @__PURE__ */ new Map()
+const compilationPipes = /* @__PURE__ */ new Map()
+const declared = /* @__PURE__ */ new Set()
+const exportDirectives = /* @__PURE__ */ new Map()
+const exportPipes = /* @__PURE__ */ new Map()
+let isPoisoned = false
+this.modulesWithStructuralErrors.has(ngModule.ref.node)
+isPoisoned = true
+_iterator_65 = <operator>.iterator(ngModule.imports)
+const importScope = this.getExportedScope(decl, diagnostics, ref.node, "import")
+importScope !== null
+importScope === "invalid" || importScope.exported.isPoisoned
+diagnostics.push(invalidTransitiveNgModuleRef(decl, ngModule.rawImports, "import"))
+isPoisoned = true
+importScope === "invalid"
+continue;
+_iterator_66 = <operator>.iterator(importScope.exported.dependencies)
+dep.kind === MetaKind.Directive
+compilationDirectives.set(dep.ref.node, dep)
+dep.kind === MetaKind.Pipe
+compilationPipes.set(dep.ref.node, dep)
+continue;
+const directive = this.fullReader.getDirectiveMetadata(decl)
+directive !== null
+directive.isStandalone
+compilationDirectives.set(directive.ref.node, directive)
+diagnostics.push(makeNotStandaloneDiagnostic(this, decl, ngModule.rawImports, directive.isComponent ? "component" : "directive"))
+isPoisoned = true
+continue;
+const pipe = this.fullReader.getPipeMetadata(decl)
+pipe !== null
+pipe.isStandalone
+compilationPipes.set(pipe.ref.node, pipe)
+diagnostics.push(makeNotStandaloneDiagnostic(this, decl, ngModule.rawImports, "pipe"))
+isPoisoned = true
+continue;
+diagnostics.push(invalidRef(decl, ngModule.rawImports, "import"))
+isPoisoned = true
+_iterator_67 = <operator>.iterator(ngModule.declarations)
+const directive = this.localReader.getDirectiveMetadata(decl)
+const pipe = this.localReader.getPipeMetadata(decl)
+directive !== null
+directive.isStandalone
+const refType = directive.isComponent ? "Component" : "Directive"
+diagnostics.push(makeDiagnostic(ErrorCode.NGMODULE_DECLARATION_IS_STANDALONE, decl.getOriginForDiagnostics(ngModule.rawDeclarations), `${refType} ${decl.node.name.text} is standalone, and cannot be declared in an NgModule. Did you mean to import it instead?`))
+isPoisoned = true
+continue;
+compilationDirectives.set(decl.node, { ...directive, ref: decl })
+directive.isPoisoned
+isPoisoned = true
+pipe !== null
+pipe.isStandalone
+diagnostics.push(makeDiagnostic(ErrorCode.NGMODULE_DECLARATION_IS_STANDALONE, decl.getOriginForDiagnostics(ngModule.rawDeclarations), `Pipe ${decl.node.name.text} is standalone, and cannot be declared in an NgModule. Did you mean to import it instead?`))
+isPoisoned = true
+continue;
+compilationPipes.set(decl.node, { ...pipe, ref: decl })
+const errorNode = decl.getOriginForDiagnostics(ngModule.rawDeclarations)
+diagnostics.push(makeDiagnostic(ErrorCode.NGMODULE_INVALID_DECLARATION, errorNode, `The class '${decl.node.name.text}' is listed in the declarations of the NgModule '${ngModule.ref.node.name.text}', but is not a directive, a component, or a pipe. Either remove it from the NgModule's declarations, or add an appropriate Angular decorator.`, [makeRelatedInformation(decl.node.name, `'${decl.node.name.text}' is declared here.`)]))
+isPoisoned = true
+continue;
+declared.add(decl.node)
+_iterator_68 = <operator>.iterator(ngModule.exports)
+const exportScope = this.getExportedScope(decl, diagnostics, ref.node, "export")
+exportScope === "invalid" || exportScope !== null && exportScope.exported.isPoisoned
+diagnostics.push(invalidTransitiveNgModuleRef(decl, ngModule.rawExports, "export"))
+isPoisoned = true
+exportScope === "invalid"
+continue;
+exportScope !== null
+_iterator_69 = <operator>.iterator(exportScope.exported.dependencies)
+dep.kind == MetaKind.Directive
+exportDirectives.set(dep.ref.node, dep)
+dep.kind === MetaKind.Pipe
+exportPipes.set(dep.ref.node, dep)
+compilationDirectives.has(decl.node)
+const directive = compilationDirectives.get(decl.node)
+exportDirectives.set(decl.node, directive)
+compilationPipes.has(decl.node)
+const pipe = compilationPipes.get(decl.node)
+exportPipes.set(decl.node, pipe)
+const dirMeta = this.fullReader.getDirectiveMetadata(decl)
+const pipeMeta = this.fullReader.getPipeMetadata(decl)
+dirMeta !== null || pipeMeta !== null
+const isStandalone = dirMeta !== null ? dirMeta.isStandalone : pipeMeta.isStandalone
+diagnostics.push(invalidReexport(decl, ngModule.rawExports, isStandalone))
+diagnostics.push(invalidRef(decl, ngModule.rawExports, "export"))
+isPoisoned = true
+continue;

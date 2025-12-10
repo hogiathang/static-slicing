@@ -1,0 +1,13 @@
+this.onBrowserLog = bCfg.terminal ? function (browser, log, type) {
+    type = type.toUpperCase();
+    if (LOG_PRIORITIES.indexOf(type) > bLogThreshold) return;
+    if (this._browsers && this._browsers.length === 1) {
+      this.write(this.LOG_SINGLE_BROWSER, type, this.USE_COLORS ? log.cyan : log);
+    } else {
+      this.write(this.LOG_MULTI_BROWSER, browser, type, this.USE_COLORS ? log.cyan : log);
+    }
+  } : noop
+type = type.toUpperCase()
+LOG_PRIORITIES.indexOf(type) > bLogThreshold
+this._browsers && this._browsers.length === 1
+this.write(this.LOG_SINGLE_BROWSER, type, this.USE_COLORS ? log.cyan : log)

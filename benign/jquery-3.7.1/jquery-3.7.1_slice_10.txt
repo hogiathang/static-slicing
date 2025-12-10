@@ -1,0 +1,4 @@
+_tmp_59.setup = <lambda>24
+leverageNative( this, type, true )
+document.documentMode
+attaches = dataPriv.get( this, delegateType )

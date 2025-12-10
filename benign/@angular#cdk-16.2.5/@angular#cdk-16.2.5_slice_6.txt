@@ -1,0 +1,10 @@
+get(token, notFoundValue) {
+        const value = this._customTokens.get(token);
+        if (typeof value !== 'undefined') {
+            return value;
+        }
+        return this._parentInjector.get(token, notFoundValue);
+    }
+const value = this._customTokens.get(token)
+typeof value !== 'undefined'
+this._parentInjector.get(token, notFoundValue)

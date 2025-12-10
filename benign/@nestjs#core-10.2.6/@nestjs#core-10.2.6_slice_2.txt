@@ -1,0 +1,6 @@
+static getProvidersByMetaKey(hostContainerRef, metaKey) {
+        const wrappersByMetaKey = this.providersByMetaKey.get(hostContainerRef);
+        return wrappersByMetaKey.get(metaKey);
+    }
+const wrappersByMetaKey = this.providersByMetaKey.get(hostContainerRef)
+wrappersByMetaKey.get(metaKey)

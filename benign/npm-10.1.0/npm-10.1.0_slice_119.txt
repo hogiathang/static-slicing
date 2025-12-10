@@ -1,0 +1,7 @@
+action = param1_1.action
+await this.setWorkspaces()
+(action === 'ls' && args.length > 0) || args.length > 1
+const implicitWorkspaces = this.npm.config.get('workspace', 'default')
+implicitWorkspaces.length === 0
+log.warn(`Ignoring specified workspace(s)`)
+_tmp_7 = __ecma.Array.factory()

@@ -1,0 +1,32 @@
+stageByBundling(bundling, skip) {
+        if (!this.sourceStats.isDirectory()) {
+            throw new Error(`Asset ${this.sourcePath} is expected to be a directory when bundling`);
+        }
+        if (skip) {
+            // We should have bundled, but didn't to save time. Still pretend to have a hash.
+            // If the asset uses OUTPUT or BUNDLE, we use a CUSTOM hash to avoid fingerprinting
+            // a potentially very large source directory. Other hash types are kept the same.
+            let hashType = this.hashType;
+            if (hashType === assets_1.AssetHashType.OUTPUT || hashType === assets_1.AssetHashType.BUNDLE) {
+                this.customSourceFingerprint = names_1.Names.uniqueId(this);
+                hashType = assets_1.AssetHashType.CUSTOM;
+            }
+            return {
+                assetHash: this.calculateHash(hashType, bundling),
+                stagedPath: this.sourcePath,
+                packaging: assets_1.FileAssetPackaging.ZIP_DIRECTORY,...
+(_tmp_32 = this.sourceStats).isDirectory
+<operator>.formatString("Asset ", this.sourcePath, " is expected to be a directory when bundling")
+let assetHash = this.hashType === assets_1.AssetHashType.SOURCE || this.hashType === assets_1.AssetHashType.CUSTOM
+            ? this.calculateHash(this.hashType, bundling)
+            : undefined
+this.calculateHash(this.hashType, bundling)
+const bundleDir = this.determineBundleDir(this.assetOutdir, assetHash)
+this.bundle(bundling, bundleDir)
+const bundlingOutputType = bundling.outputType ?? bundling_1.BundlingOutput.AUTO_DISCOVER
+const bundledAsset = determineBundledAsset(bundleDir, bundlingOutputType)
+assetHash = assetHash ?? this.calculateHash(this.hashType, bundling, bundledAsset.path)
+const stagedPath = path.resolve(this.assetOutdir, renderAssetFilename(assetHash, bundledAsset.extension))
+this.stageAsset(bundledAsset.path, stagedPath, 'move')
+bundledAsset.packaging === assets_1.FileAssetPackaging.FILE
+fs.closeSync(fs.openSync(bundledAsset.path, 'w'))

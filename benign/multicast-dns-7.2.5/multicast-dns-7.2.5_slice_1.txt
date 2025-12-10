@@ -1,0 +1,9 @@
+response.answers.forEach(function (answer) {
+      if (answer.name === hostname) {
+        console.log(answer.data)
+        process.exit()
+      }
+    })
+answer.name === hostname
+console.log(answer.data)
+process.exit()

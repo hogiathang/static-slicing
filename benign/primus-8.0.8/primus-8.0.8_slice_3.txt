@@ -1,0 +1,28 @@
+encodePacket(packet, _this3.supportsBinary, function (data) {
+            // always create a new object (GH-437)
+            var opts = {};
+            // Sometimes the websocket has already been closed but the browser didn't
+            // have a chance of informing us about it yet, in that case send will
+            // throw an error
+            try {
+              if (usingBrowserWebSocket) {
+                // TypeError is thrown when passing the second argument on Safari
+                _this3.ws.send(data);
+              }
+            } catch (e) {}
+            if (lastPacket) {
+              // fake drain
+              // defer to next tick to allow Socket to clear writeBuffer
+              nextTick(function () {
+                _this3.writable = true;
+                _this3.emitReserved("drain");
+              }, _this3.setTimeoutFn);
+            }
+          })
+var opts = {}
+(_tmp_155 = _this3.ws).send
+nextTick(function () {
+                _this3.writable = true;
+                _this3.emitReserved("drain");
+              }, _this3.setTimeoutFn)
+_this3.setTimeoutFn

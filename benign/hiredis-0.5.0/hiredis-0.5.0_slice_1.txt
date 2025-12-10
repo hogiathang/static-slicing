@@ -1,0 +1,15 @@
+s.on("data", function(data) {
+        var reply;
+        r.feed(data);
+        try {
+            while((reply = r.get()) !== undefined)
+                s.emit("reply", reply);
+        } catch(err) {
+            r = null;
+            s.emit("error", err);
+            s.destroy();
+        }
+    })
+r.feed(data)
+(reply = r.get()) !== undefined
+s.emit("reply", reply)

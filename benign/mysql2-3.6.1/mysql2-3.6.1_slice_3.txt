@@ -1,0 +1,55 @@
+end(cb) {
+    this._closed = true;
+    if (typeof cb !== 'function') {
+      cb = function(err) {
+        if (err) {
+          throw err;
+        }
+      };
+    }
+    let calledBack = false;
+    let closedConnections = 0;
+    let connection;
+    const endCB = function(err) {
+      if (calledBack) {
+        return;
+      }
+      if (err || ++closedConnections >= this._allConnections.length) {
+        calledBack = true;
+        cb(err);
+        return;
+      }
+    }.bind(this);
+    if (this._allConnections.length === 0) {
+      endCB();
+      return;
+    }
+    for (let i = 0; i < this._allConnections.length; i++) {
+      connection = this._allConnections.get(i);
+      connection._realEnd(endCB);
+    }
+  }
+this._closed = true
+typeof cb !== 'function'
+cb = function(err) {
+        if (err) {
+          throw err;
+        }
+      }
+let calledBack = false
+let closedConnections = 0
+const endCB = function(err) {
+      if (calledBack) {
+        return;
+      }
+      if (err || ++closedConnections >= this._allConnections.length) {
+        calledBack = true;
+        cb(err);
+        return;
+      }
+    }.bind(this)
+bind
+this._allConnections.length === 0
+i < this._allConnections.length
+connection = this._allConnections.get(i)
+connection._realEnd(endCB)

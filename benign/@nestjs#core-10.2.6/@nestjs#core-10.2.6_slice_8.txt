@@ -1,0 +1,14 @@
+addController(controller, token) {
+        if (!this.modules.has(token)) {
+            throw new exceptions_1.UnknownModuleException();
+        }
+        const moduleRef = this.modules.get(token);
+        moduleRef.addController(controller);
+        const controllerRef = moduleRef.controllers.get(controller);
+        discoverable_meta_host_collection_1.DiscoverableMetaHostCollection.inspectController(this.modules, controllerRef);
+    }
+(_tmp_45 = this.modules).has
+throw new exceptions_1.UnknownModuleException();
+const moduleRef = this.modules.get(token)
+moduleRef.addController(controller)
+const controllerRef = moduleRef.controllers.get(controller)

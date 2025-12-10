@@ -1,0 +1,70 @@
+function CopyUncompressedBlockToOutput = function CopyUncompressedBlockToOutput(output, len, pos, ringbuffer, ringbuffer_mask, br) {
+  var rb_size = ringbuffer_mask + 1;
+  var rb_pos = pos & ringbuffer_mask;
+  var br_pos = br.pos_ & BrotliBitReader.IBUF_MASK;
+  var nbytes;
+
+  /* For short lengths copy byte-by-byte */
+  if (len < 8 || br.bit_pos_ + (len << 3) < br.bit_end_pos_) {
+    while (len-- > 0) {
+      br.readMoreInput();
+      ringbuffer[rb_pos++] = br.readBits(8);
+      if (rb_pos === rb_size) {
+        output.write(ringbuffer, rb_size);
+        rb_pos = 0;
+      }
+    }
+    return;
+  }
+
+  if (br.bit_end_pos_ < 32) {
+    throw new Error('[CopyUncompressedBlockToOutput] br.bit_end_pos_ < 32');
+  }
+
+  /* Copy remaining 0-4 bytes from br.val_ to ringbuffer. */
+  while (br.bit_pos_ < 32) {
+    ringbuffer[rb_pos] = (br.val_ >>> br.bit_pos_);
+    br.bit_pos_ += 8;
+    ++rb_pos;
+    --len;
+  }
+
+  /* Copy remaining bytes from br.buf_ to ringbuffer. */
+  nbytes = (br.bit_end_pos_ - br.bit_pos_) >> 3;
+  if (br_pos + nbytes >...
+var rb_size = ringbuffer_mask + 1
+var rb_pos = pos & ringbuffer_mask
+var br_pos = br.pos_ & BrotliBitReader.IBUF_MASK
+len < 8 || br.bit_pos_ + (len << 3) < br.bit_end_pos_
+br.bit_end_pos_ < 32
+throw new Error('[CopyUncompressedBlockToOutput] br.bit_end_pos_ < 32');
+br.bit_pos_ < 32
+ringbuffer[rb_pos] = (br.val_ >>> br.bit_pos_)
+br.bit_pos_ += 8
+++rb_pos
+--len
+nbytes = (br.bit_end_pos_ - br.bit_pos_) >> 3
+br_pos + nbytes > BrotliBitReader.IBUF_MASK
+var tail = BrotliBitReader.IBUF_MASK + 1 - br_pos
+var x = 0
+ringbuffer[rb_pos + x] = br.buf_[br_pos + x]
+nbytes -= tail
+rb_pos += tail
+len -= tail
+br_pos = 0
+x < nbytes
+ringbuffer[rb_pos + x] = br.buf_[br_pos + x]
+rb_pos += nbytes
+len -= nbytes
+rb_pos >= rb_size
+output.write(ringbuffer, rb_size)
+rb_pos -= rb_size
+x < rb_pos
+ringbuffer[x] = ringbuffer[rb_size + x]
+rb_pos + len >= rb_size
+nbytes = rb_size - rb_pos
+br.input_.read(ringbuffer, rb_pos, nbytes) < nbytes
+throw new Error('[CopyUncompressedBlockToOutput] not enough bytes');
+output.write(ringbuffer, rb_size)
+len -= nbytes
+rb_pos = 0

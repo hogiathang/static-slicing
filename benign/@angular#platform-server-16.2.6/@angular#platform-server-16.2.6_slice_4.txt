@@ -1,0 +1,19 @@
+function appendServerContextInfo = function appendServerContextInfo(applicationRef) {
+    const injector = applicationRef.injector;
+    let serverContext = sanitizeServerContext(injector.get(SERVER_CONTEXT, DEFAULT_SERVER_CONTEXT));
+    const features = injector.get(ɵENABLED_SSR_FEATURES);
+    if (features.size > 0) {
+        // Append features information into the server context value.
+        serverContext += `|${Array.from(features).join(',')}`;
+    }
+    applicationRef.components.forEach(componentRef => {
+        const renderer = componentRef.injector.get(Renderer2);
+        const element = componentRef.location.nativeElement;
+        if (element) {
+            renderer.setAttribute(element, 'ng-server-context', serverContext);
+        }
+    });
+}
+const injector = applicationRef.injector
+let serverContext = sanitizeServerContext(injector.get(SERVER_CONTEXT, DEFAULT_SERVER_CONTEXT))
+const features = injector.get(ɵENABLED_SSR_FEATURES)

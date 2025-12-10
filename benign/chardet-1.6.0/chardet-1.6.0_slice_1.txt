@@ -1,0 +1,17 @@
+const detectFileSync = (filepath, opts = {}) => {
+    const fs = (0, node_1.default)();
+    if (opts && opts.sampleSize) {
+        const fd = fs.openSync(filepath, 'r');
+        const sample = Buffer.allocUnsafe(opts.sampleSize);
+        fs.readSync(fd, sample, 0, opts.sampleSize, opts.offset);
+        fs.closeSync(fd);
+        return (0, exports.detect)(sample);
+    }
+    return (0, exports.detect)(fs.readFileSync(filepath));
+}
+const fs = (0, node_1.default)()
+opts && opts.sampleSize
+const fd = fs.openSync(filepath, 'r')
+const sample = Buffer.allocUnsafe(opts.sampleSize)
+fs.readSync(fd, sample, 0, opts.sampleSize, opts.offset)
+fs.closeSync(fd)

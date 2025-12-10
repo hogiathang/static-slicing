@@ -1,0 +1,5 @@
+_tmp_40.produce = <lambda>4
+!(props.userDataCausesReplacement ?? props.initOptions)
+const md5 = crypto.createHash('md5')
+recursing = true
+md5.update(JSON.stringify(context.resolve(this.userData.render())))

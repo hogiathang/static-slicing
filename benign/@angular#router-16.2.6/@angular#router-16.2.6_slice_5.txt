@@ -1,0 +1,27 @@
+(bootstrappedComponentRef) => {
+        const ref = injector.get(ApplicationRef);
+        if (bootstrappedComponentRef !== ref.components[0]) {
+            return;
+        }
+        const router = injector.get(Router);
+        const bootstrapDone = injector.get(BOOTSTRAP_DONE);
+        if (injector.get(INITIAL_NAVIGATION) === 1 /* InitialNavigation.EnabledNonBlocking */) {
+            router.initialNavigation();
+        }
+        injector.get(ROUTER_PRELOADER, null, InjectFlags.Optional)?.setUpPreloading();
+        injector.get(ROUTER_SCROLLER, null, InjectFlags.Optional)?.init();
+        router.resetRootComponentType(ref.componentTypes[0]);
+        if (!bootstrapDone.closed) {
+            bootstrapDone.next();
+            bootstrapDone.complete();
+            bootstrapDone.unsubscribe();
+        }
+    }
+const ref = injector.get(ApplicationRef)
+bootstrappedComponentRef !== ref.components[0]
+const router = injector.get(Router)
+const bootstrapDone = injector.get(BOOTSTRAP_DONE)
+injector.get(INITIAL_NAVIGATION) === 1
+router.initialNavigation()
+injector.get(ROUTER_PRELOADER, null, InjectFlags.Optional)?.setUpPreloading()
+injector.get(ROUTER_SCROLLER, null, InjectFlags.Optional)?.init()

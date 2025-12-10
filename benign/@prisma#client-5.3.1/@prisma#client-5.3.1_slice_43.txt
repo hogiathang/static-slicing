@@ -1,0 +1,25 @@
+fs7.lchmodSync = function(path7, mode) {
+          var fd = fs7.openSync(path7, constants.O_WRONLY | constants.O_SYMLINK, mode);
+          var threw = true;
+          var ret;
+          try {
+            ret = fs7.fchmodSync(fd, mode);
+            threw = false;
+          } finally {
+            if (threw) {
+              try {
+                fs7.closeSync(fd);
+              } catch (er) {
+              }
+            } else {
+              fs7.closeSync(fd);
+            }
+          }
+          return ret;
+        }
+var fd = fs7.openSync(path7, constants.O_WRONLY | constants.O_SYMLINK, mode)
+var threw = true
+ret = fs7.fchmodSync(fd, mode)
+threw = false
+fs7.closeSync(fd)
+fs7.closeSync(fd)

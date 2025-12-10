@@ -1,0 +1,4 @@
+providerKey = param1_1.providerKey
+const modulesContainer = this.container.getModules()
+_tmp_63 = modulesContainer.get(moduleKey)
+const instanceWrapper = injectables.get(providerKey)

@@ -1,0 +1,48 @@
+const read = (locale) => {
+    let localeFile = {}
+    const file = getStorageFilePath(locale)
+    try {
+      logDebug('read ' + file + ' for locale: ' + locale)
+      localeFile = fs.readFileSync(file, 'utf-8')
+      try {
+        // parsing filecontents to locales[locale]
+        locales[locale] = parser.parse(localeFile)
+      } catch (parseError) {
+        logError(
+          'unable to parse locales from file (maybe ' +
+            file +
+            ' is empty or invalid json?): ',
+          parseError
+        )
+      }
+    } catch (readError) {
+      // unable to read, so intialize that file
+      // locales[locale] are already set in memory, so no extra read required
+      // or locales[locale] are empty, which initializes an empty locale.json file
+      // since the current invalid locale could exist, we should back it up
+      if (fs.existsSync(file)) {
+        logDebug(
+          'backing up invalid locale ' + locale + ' to ' + file + '.invalid'
+        )
+        fs.renameSync...
+let localeFile = {}
+const file = getStorageFilePath(locale)
+logDebug('read ' + file + ' for locale: ' + locale)
+localeFile = fs.readFileSync(file, 'utf-8')
+locales[locale] = parser.parse(localeFile)
+logError(
+          'unable to parse locales from file (maybe ' +
+            file +
+            ' is empty or invalid json?): ',
+          parseError
+        )
+'unable to parse locales from file (maybe ' +
+            file +
+            ' is empty or invalid json?): '
+" is empty or invalid json?): "
+fs.existsSync(file)
+logDebug(
+          'backing up invalid locale ' + locale + ' to ' + file + '.invalid'
+        )
+'backing up invalid locale ' + locale + ' to ' + file + '.invalid'
+fs.renameSync(file, file + '.invalid')

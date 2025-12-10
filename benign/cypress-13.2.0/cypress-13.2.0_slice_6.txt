@@ -1,0 +1,61 @@
+const spawn = linuxWithDisplayEnv => {
+    const random = _.random(0, 1000);
+    const args = ['--smoke-test', `--ping=${random}`];
+    if (needsSandbox()) {
+      // electron requires --no-sandbox to run as root
+      debug('disabling Electron sandbox');
+      args.unshift('--no-sandbox');
+    }
+    if (options.dev) {
+      executable = 'node';
+      args.unshift(path.resolve(__dirname, '..', '..', '..', 'scripts', 'start.js'));
+    }
+    const smokeTestCommand = `${executable} ${args.join(' ')}`;
+    debug('running smoke test');
+    debug('using Cypress executable %s', executable);
+    debug('smoke test command:', smokeTestCommand);
+    debug('smoke test timeout %d ms', options.smokeTestTimeout);
+    const env = _.extend({}, process.env, {
+      ELECTRON_ENABLE_LOGGING: true
+    });
+    const stdioOptions = _.extend({}, {
+      env,
+      timeout: options.smokeTestTimeout
+    });
+    return Promise.resolve(util.exec(executable, args, stdioOptions)).catch(onSmokeTestError(smokeTestComman...
+const random = _.random(0, 1000)
+_tmp_19.push(<operator>.formatString("--ping=", random, ""))
+needsSandbox()
+debug('disabling Electron sandbox')
+args.unshift('--no-sandbox')
+options.dev
+executable = 'node'
+args.unshift(path.resolve(__dirname, '..', '..', '..', 'scripts', 'start.js'))
+<operator>.formatString("", executable, " ", args.join(' '), "")
+debug('running smoke test')
+debug('using Cypress executable %s', executable)
+debug('smoke test command:', smokeTestCommand)
+debug('smoke test timeout %d ms', options.smokeTestTimeout)
+const env = _.extend({}, process.env, {
+      ELECTRON_ENABLE_LOGGING: true
+    })
+_tmp_21.ELECTRON_ENABLE_LOGGING = true
+const stdioOptions = _.extend({}, {
+      env,
+      timeout: options.smokeTestTimeout
+    })
+_tmp_23.env = env
+_tmp_23.timeout = options.smokeTestTimeout
+Promise.resolve(util.exec(executable, args, stdioOptions)).catch(onSmokeTestError(smokeTestCommand, linuxWithDisplayEnv)).then(result => {
+      // TODO: when execa > 1.1 is released
+      // change this to `result.all` for both stderr and stdout
+      // use lodash to be robust during tests against null result or missing stdout
+      const smokeTestStdout = _.get(result, 'stdout', '');
+      debug('smoke test stdout "%s"', smokeTestStdout);
+      if (!util.stdoutLineMatches(String(random), smokeTestStdout)) {
+        debug('Smoke test failed because could not find %d in:', random, result);
+        const smokeTestStderr = _.get(result, 'stderr', '');
+        const errorText = smokeTestStderr || smokeTestStdout;
+        return throwFormErrorText(errors.smokeTestFailure(smokeTestCommand, false))(errorText);
+      }
+    })

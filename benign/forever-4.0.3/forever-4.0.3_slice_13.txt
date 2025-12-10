@@ -1,0 +1,30 @@
+forever.startDaemon = function (script, options) {
+  options         = options || {};
+  options.uid     = options.uid || utils.randomString(4).replace(/^\-/, '_');
+  options.logFile = forever.logFilePath(options.logFile || forever.config.get('logFile') || options.uid + '.log');
+  options.pidFile = forever.pidFilePath(options.pidFile || forever.config.get('pidFile') || options.uid + '.pid');
+
+  //
+  // This log file is forever's log file - the user's outFile and errFile
+  // options are not taken into account here.  This will be an aggregate of all
+  // the app's output, as well as messages from the monitor process, where
+  // applicable.
+  //
+  const outFD = fs.openSync(options.logFile, 'a');
+  const errFD = fs.openSync(options.logFile, 'a');
+  const monitorPath = path.resolve(__dirname, '..', 'bin', 'monitor');
+
+  const monitor = spawn(process.execPath, [monitorPath, script], {
+    stdio: ['ipc', outFD, errFD],
+    detached: true
+  });
+
+  monitor.on('exit', function (code) {
+    co...
+options         = options || {}
+options.uid     = options.uid || utils.randomString(4).replace(/^\-/, '_')
+options.logFile = forever.logFilePath(options.logFile || forever.config.get('logFile') || options.uid + '.log')
+options.pidFile = forever.pidFilePath(options.pidFile || forever.config.get('pidFile') || options.uid + '.pid')
+const outFD = fs.openSync(options.logFile, 'a')
+const errFD = fs.openSync(options.logFile, 'a')
+const monitorPath = path.resolve(__dirname, '..', 'bin', 'monitor')

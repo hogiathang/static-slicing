@@ -1,0 +1,17 @@
+MultiSet.prototype.delete = function(item) {
+  var count = this.items.get(item);
+
+  if (count === 0)
+    return false;
+
+  this.size -= count;
+  this.dimension--;
+  this.items.delete(item);
+
+  return true;
+}
+var count = this.items.get(item)
+count === 0
+this.size -= count
+this.dimension--
+(_tmp_14 = this.items).delete

@@ -1,0 +1,54 @@
+consumer.eachMapping(function (m) {
+    if (m.originalLine === null) return;
+
+    var source = sources.get(m.source);
+    if (!source) {
+      source = {
+        path: m.source,
+        content: consumer.sourceContentFor(m.source, true)
+      };
+      sources.set(m.source, source);
+    }
+
+    var sourceData = mappings.get(source);
+    if (!sourceData) {
+      sourceData = {
+        source: source,
+        mappings: []
+      };
+      mappings.set(source, sourceData);
+    }
+
+    var obj = {
+      line: m.originalLine,
+      columnStart: m.originalColumn,
+      columnEnd: Infinity,
+      name: m.name
+    };
+
+    if (last && last.source === source && last.mapping.line === m.originalLine) {
+      last.mapping.columnEnd = m.originalColumn;
+    }
+
+    last = {
+      source: source,
+      mapping: obj
+    };
+
+    sourceData.mappings.push({
+      original: obj,
+      generated: consumer.allGeneratedPositionsFor({
+        source: m.source,
+        line: m.originalLine,
+        column: m.origi...
+m.originalLine === null
+var source = sources.get(m.source)
+!source
+source = {
+        path: m.source,
+        content: consumer.sourceContentFor(m.source, true)
+      }
+_tmp_15.path = m.source
+_tmp_15.content = consumer.sourceContentFor(m.source, true)
+sources.set(m.source, source)
+var sourceData = mappings.get(source)

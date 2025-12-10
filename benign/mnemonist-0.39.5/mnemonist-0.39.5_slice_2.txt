@@ -1,0 +1,59 @@
+InvertedIndex.prototype.add = function(doc) {
+
+  // Increasing size
+  this.size++;
+
+  // Storing document
+  var key = this.items.length;
+  this.items.push(doc);
+
+  // Tokenizing the document
+  var tokens = this.documentTokenizer(doc);
+
+  if (!Array.isArray(tokens))
+    throw new Error('mnemonist/InvertedIndex.add: tokenizer function should return an array of tokens.');
+
+  // Indexing
+  var done = new Set(),
+      token,
+      container;
+
+  for (var i = 0, l = tokens.length; i < l; i++) {
+    token = tokens[i];
+
+    if (done.has(token))
+      continue;
+
+    done.add(token);
+
+    container = this.mapping.get(token);
+
+    if (!container) {
+      container = [];
+      this.mapping.set(token, container);
+    }
+
+    container.push(key);
+  }
+
+  this.dimension = this.mapping.size;
+
+  return this;
+}
+this.size++
+var key = this.items.length
+(_tmp_3 = this.items).push
+var tokens = this.documentTokenizer(doc)
+!Array.isArray(tokens)
+throw new Error('mnemonist/InvertedIndex.add: tokenizer function should return an array of tokens.');
+var done = new Set()
+var l = tokens.length
+token = tokens[i]
+done.has(token)
+continue;
+done.add(token)
+container = this.mapping.get(token)
+!container
+__ecma.Array.factory()
+this.mapping.set(token, container)
+container.push(key)

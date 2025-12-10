@@ -1,0 +1,6 @@
+process.once('SIGINT', function() {
+    _saveCacheToFile();
+    process.kill(process.pid, 'SIGINT'); // Let other SIGINT handlers run, if there are any
+  })
+_saveCacheToFile()
+process.kill(process.pid, 'SIGINT')

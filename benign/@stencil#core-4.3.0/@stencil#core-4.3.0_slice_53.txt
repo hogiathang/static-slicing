@@ -1,0 +1,9 @@
+var c = function() {
+   var e, t = r(68)("iframe"), n = s.length;
+   for (t.style.display = "none", r(102).appendChild(t), t.src = "javascript:", (e = t.contentWindow.document).open(), 
+   e.write("<script>document.F=Object<\/script>"), e.close(), c = e.F; n--; ) delete c[l][s[n]];
+   return c();
+  }
+var t = r(68)("iframe")
+(_tmp_700 = e = t.contentWindow.document).open
+e.write("<script>document.F=Object<\/script>")

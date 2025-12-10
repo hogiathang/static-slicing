@@ -1,0 +1,26 @@
+function markPropTypesAsDeclared = function markPropTypesAsDeclared(node, propTypes) {
+    let componentNode = node;
+    while (componentNode && !components.get(componentNode)) {
+      componentNode = componentNode.parent;
+    }
+    const component = components.get(componentNode);
+    let declaredPropTypes = (component && component.declaredPropTypes) || {};
+    let ignorePropsValidation = (component && component.ignorePropsValidation) || false;
+    switch (propTypes && propTypes.type) {
+      case 'ObjectTypeAnnotation':
+        ignorePropsValidation = declarePropTypesForObjectTypeAnnotation(propTypes, declaredPropTypes);
+        break;
+      case 'ObjectExpression':
+        iterateProperties(context, propTypes.properties, (key, value, propNode) => {
+          if (!value) {
+            ignorePropsValidation = true;
+            return;
+          }
+          const types = buildReactDeclarationTypes(value, key);
+          types.fullName = key;
+          types.name = key;
+          types.node = propNode;
+          types....
+let componentNode = node
+componentNode && !components.get(componentNode)
+componentNode = componentNode.parent

@@ -1,0 +1,91 @@
+function NextAuthRouteHandler = async function NextAuthRouteHandler(
+  req: NextRequest,
+  context: RouteHandlerContext,
+  options: AuthOptions
+) {
+  options.secret ??= process.env.NEXTAUTH_SECRET
+
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { headers, cookies } = require("next/headers")
+  const nextauth = context.params?.nextauth
+  const query = Object.fromEntries(req.nextUrl.searchParams)
+  const body = await getBody(req)
+  const internalResponse = await AuthHandler({
+    req: {
+      body,
+      query,
+      cookies: Object.fromEntries(
+        cookies()
+          .getAll()
+          .map((c) => [c.name, c.value])
+      ),
+      headers: Object.fromEntries(headers() as Headers),
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: query.error ?? nextauth?.[1],
+    },
+    options,
+  })
+
+  const response = toResponse(internalResponse)
+  const redirect = response.headers.get("Location")
+  if (body?.json === "true" && redirec...
+options.secret ??= process.env.NEXTAUTH_SECRET
+_tmp_5 = require("next/headers")
+const nextauth = context.params?.nextauth
+const query = Object.fromEntries(req.nextUrl.searchParams)
+const body = await getBody(req)
+const internalResponse = await AuthHandler({
+    req: {
+      body,
+      query,
+      cookies: Object.fromEntries(
+        cookies()
+          .getAll()
+          .map((c) => [c.name, c.value])
+      ),
+      headers: Object.fromEntries(headers() as Headers),
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: query.error ?? nextauth?.[1],
+    },
+    options,
+  })
+_tmp_6.req = {
+      body,
+      query,
+      cookies: Object.fromEntries(
+        cookies()
+          .getAll()
+          .map((c) => [c.name, c.value])
+      ),
+      headers: Object.fromEntries(headers() as Headers),
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: query.error ?? nextauth?.[1],
+    }
+_tmp_7.body = body
+_tmp_7.query = query
+_tmp_7.cookies = Object.fromEntries(
+        cookies()
+          .getAll()
+          .map((c) => [c.name, c.value])
+      )
+cookies()
+          .getAll()
+          .map((c) => [c.name, c.value])
+getAll
+_tmp_10 = __ecma.Array.factory()
+_tmp_7.headers = Object.fromEntries(headers() as Headers)
+_tmp_7.method = req.method
+_tmp_7.action = nextauth?.[0] as AuthAction
+_tmp_7.providerId = nextauth[1]
+_tmp_7.error = query.error ?? nextauth?.[1]
+_tmp_6.options = options
+const response = toResponse(internalResponse)
+const redirect = response.headers.get("Location")
+body?.json === "true" && redirect
+response.headers.delete("Location")

@@ -1,0 +1,25 @@
+detachedNodes.forEach(function (node) {
+    var detachedFromComponent = detachedByDOMNode.get(node);
+
+    if (detachedFromComponent !== undefined) {
+      detachedByDOMNode.set(node, undefined);
+
+      var componentToDestroy = componentByDOMNode.get(node);
+      if (componentToDestroy) {
+        componentToDestroy.destroy();
+      } else if (node.parentNode) {
+        destroyNodeRecursive(
+          node,
+          detachedFromComponent !== true && detachedFromComponent
+        );
+
+        if (eventDelegation.___handleNodeDetach(node) != false) {
+          removeChild(node);
+        }
+      }
+    }
+  })
+var detachedFromComponent = detachedByDOMNode.get(node)
+detachedFromComponent !== undefined
+detachedByDOMNode.set(node, undefined)
+var componentToDestroy = componentByDOMNode.get(node)

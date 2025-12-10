@@ -1,0 +1,24 @@
+function handleStatelessComponent = function handleStatelessComponent(node) {
+      const params = evalParams(node.params);
+
+      const SFCComponent = components.get(context.getScope(node).block);
+      if (!SFCComponent) {
+        return;
+      }
+      sfcParams.push(params);
+
+      if (params[0] && params[0].destructuring && components.get(node) && configuration === 'never') {
+        report(context, messages.noDestructPropsInSFCArg, 'noDestructPropsInSFCArg', {
+          node,
+        });
+      } else if (params[1] && params[1].destructuring && components.get(node) && configuration === 'never') {
+        report(context, messages.noDestructContextInSFCArg, 'noDestructContextInSFCArg', {
+          node,
+        });
+      }
+    }
+const params = evalParams(node.params)
+const SFCComponent = components.get(context.getScope(node).block)
+!SFCComponent
+sfcParams.push(params)
+params[0] && params[0].destructuring && components.get(node) && configuration === 'never'

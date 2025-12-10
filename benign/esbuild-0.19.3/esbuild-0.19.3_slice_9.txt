@@ -1,0 +1,16 @@
+function applyManualBinaryPathOverride = function applyManualBinaryPathOverride(overridePath) {
+  const pathString = JSON.stringify(overridePath);
+  fs2.writeFileSync(toPath, `#!/usr/bin/env node
+require('child_process').execFileSync(${pathString}, process.argv.slice(2), { stdio: 'inherit' });
+`);
+  const libMain = path2.join(__dirname, "lib", "main.js");
+  const code = fs2.readFileSync(libMain, "utf8");
+  fs2.writeFileSync(libMain, `var ESBUILD_BINARY_PATH = ${pathString};
+${code}`);
+}
+const pathString = JSON.stringify(overridePath)
+<operator>.formatString("#!/usr/bin/env node
+require('child_process').execFileSync(", pathString, ", process.argv.slice(2), { stdio: 'inherit' });
+")
+", process.argv.slice(2), { stdio: 'inherit' });
+"

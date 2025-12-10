@@ -1,0 +1,23 @@
+getMetadata(metadatas, target) {
+        const metadataFromTargetMap = metadatas.get(target);
+        let metadataFromTarget;
+        if (metadataFromTargetMap) {
+            metadataFromTarget = Array.from(metadataFromTargetMap.values()).filter(meta => meta.propertyName !== undefined);
+        }
+        const metadataFromAncestors = [];
+        for (const ancestor of this.getAncestors(target)) {
+            const ancestorMetadataMap = metadatas.get(ancestor);
+            if (ancestorMetadataMap) {
+                const metadataFromAncestor = Array.from(ancestorMetadataMap.values()).filter(meta => meta.propertyName !== undefined);
+                metadataFromAncestors.push(...metadataFromAncestor);
+            }
+        }
+        return metadataFromAncestors.concat(metadataFromTarget || []);
+    }
+const metadataFromTargetMap = metadatas.get(target)
+metadataFromTarget = Array.from(metadataFromTargetMap.values()).filter(meta => meta.propertyName !== undefined)
+const metadataFromAncestors = []
+_iterator_0 = <operator>.iterator(this.getAncestors(target))
+const ancestorMetadataMap = metadatas.get(ancestor)
+const metadataFromAncestor = Array.from(ancestorMetadataMap.values()).filter(meta => meta.propertyName !== undefined)
+metadataFromAncestors.push(...metadataFromAncestor)

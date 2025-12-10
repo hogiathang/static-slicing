@@ -1,0 +1,29 @@
+removeNode(element, context) {
+        const engine = this._engine;
+        if (element.childElementCount) {
+            this._signalRemovalForInnerTriggers(element, context);
+        }
+        // this means that a * => VOID animation was detected and kicked off
+        if (this.triggerLeaveAnimation(element, context, true))
+            return;
+        // find the player that is animating and make sure that the
+        // removal is delayed until that player has completed
+        let containsPotentialParentTransition = false;
+        if (engine.totalAnimations) {
+            const currentPlayers = engine.players.length ? engine.playersByQueriedElement.get(element) : [];
+            // when this `if statement` does not continue forward it means that
+            // a previous animation query has selected the current element and
+            // is animating it. In this situation want to continue forwards and
+            // allow the element to be queued up for animation later.
+         ...
+const engine = this._engine
+element.childElementCount
+this._signalRemovalForInnerTriggers(element, context)
+this.triggerLeaveAnimation(element, context, true)
+let containsPotentialParentTransition = false
+engine.totalAnimations
+const currentPlayers = engine.players.length ? engine.playersByQueriedElement.get(element) : []
+currentPlayers && currentPlayers.length
+let parent = element
+parent = parent.parentNode
+const triggers = engine.statesByElement.get(parent)

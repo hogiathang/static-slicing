@@ -1,0 +1,24 @@
+scriptSetupVisitor['CallExpression:exit'] = (node) => {
+        callVisitor('CallExpression:exit', node)
+        for (const macroListener of macroListenerList) {
+          if (macroListener.paramsMap.has(node)) {
+            callVisitor(
+              macroListener.exitName,
+              node,
+              macroListener.paramsMap.get(node)
+            )
+            macroListener.paramsMap.delete(node)
+          }
+        }
+      }
+callVisitor('CallExpression:exit', node)
+_iterator_13 = <operator>.iterator(macroListenerList)
+(_tmp_134 = macroListener.paramsMap).has
+callVisitor(
+              macroListener.exitName,
+              node,
+              macroListener.paramsMap.get(node)
+            )
+macroListener.exitName
+(_tmp_135 = macroListener.paramsMap).get
+(_tmp_136 = macroListener.paramsMap).delete

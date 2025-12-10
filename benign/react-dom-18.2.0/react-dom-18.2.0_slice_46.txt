@@ -1,0 +1,5 @@
+var listener = function () {
+          abort(request, signal.reason);
+          signal.removeEventListener('abort', listener);
+        }
+abort(request, signal.reason)

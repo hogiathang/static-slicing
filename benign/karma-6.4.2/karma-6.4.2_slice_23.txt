@@ -1,0 +1,43 @@
+emitExitAsync (code) {
+    const name = 'exit'
+    let pending = this.listeners(name).length
+    const deferred = helper.defer()
+
+    function resolve () {
+      deferred.resolve(code)
+    }
+
+    try {
+      this.emit(name, (newCode) => {
+        if (newCode && typeof newCode === 'number') {
+          // Only update code if it is given and not zero
+          code = newCode
+        }
+        if (!--pending) {
+          resolve()
+        }
+      })
+
+      if (!pending) {
+        resolve()
+      }
+    } catch (err) {
+      deferred.reject(err)
+    }
+    return deferred.promise
+  }
+const name = 'exit'
+let pending = this.listeners(name).length
+const deferred = helper.defer()
+function resolve = function resolve () {
+      deferred.resolve(code)
+    }
+this.emit(name, (newCode) => {
+        if (newCode && typeof newCode === 'number') {
+          // Only update code if it is given and not zero
+          code = newCode
+        }
+        if (!--pending) {
+          resolve()
+        }
+      })

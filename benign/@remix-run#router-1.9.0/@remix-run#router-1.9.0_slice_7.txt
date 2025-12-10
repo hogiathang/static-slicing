@@ -1,0 +1,24 @@
+function markFetchRedirectsDone = function markFetchRedirectsDone(): boolean {
+    let doneKeys = [];
+    let updatedFetchers = false;
+    for (let key of fetchRedirectIds) {
+      let fetcher = state.fetchers.get(key);
+      invariant(fetcher, `Expected fetcher: ${key}`);
+      if (fetcher.state === "loading") {
+        fetchRedirectIds.delete(key);
+        doneKeys.push(key);
+        updatedFetchers = true;
+      }
+    }
+    markFetchersDone(doneKeys);
+    return updatedFetchers;
+  }
+__ecma.Array.factory()
+let updatedFetchers = false
+_iterator_6 = <operator>.iterator(fetchRedirectIds)
+let fetcher = state.fetchers.get(key)
+<operator>.formatString("Expected fetcher: ", key, "")
+fetcher.state === "loading"
+fetchRedirectIds.delete(key)
+doneKeys.push(key)
+updatedFetchers = true

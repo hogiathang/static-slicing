@@ -1,0 +1,52 @@
+Promise.all([loader.loadPage(`/dev-404-page/`), loader.loadPage(`/404.html`), loader.loadPage(window.location.pathname + window.location.search)]).then(() => {
+    (0, _navigation.init)();
+    function onHydrated() {
+      (0, _apiRunnerBrowser.apiRunner)(`onInitialClientRender`);
+
+      // Render query on demand overlay
+      if (process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR && process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`) {
+        const indicatorMountElement = document.createElement(`div`);
+        indicatorMountElement.setAttribute(`id`, `query-on-demand-indicator-element`);
+        document.body.append(indicatorMountElement);
+        renderer( /*#__PURE__*/_react.default.createElement(_loadingIndicator.LoadingIndicatorEventHandler, null), indicatorMountElement);
+      }
+    }
+    function App() {
+      const onClientEntryRanRef = _react.default.useRef(false);
+      _react.default.useEffect(() => {
+        if (!onClientEntryRanRef.current) {
+          o...
+(0, _navigation.init)()
+function onHydrated = function onHydrated() {
+      (0, _apiRunnerBrowser.apiRunner)(`onInitialClientRender`);
+
+      // Render query on demand overlay
+      if (process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR && process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`) {
+        const indicatorMountElement = document.createElement(`div`);
+        indicatorMountElement.setAttribute(`id`, `query-on-demand-indicator-element`);
+        document.body.append(indicatorMountElement);
+        renderer( /*#__PURE__*/_react.default.createElement(_loadingIndicator.LoadingIndicatorEventHandler, null), indicatorMountElement);
+      }
+    }
+function App = function App() {
+      const onClientEntryRanRef = _react.default.useRef(false);
+      _react.default.useEffect(() => {
+        if (!onClientEntryRanRef.current) {
+          onClientEntryRanRef.current = true;
+          onHydrated();
+        }
+      }, []);
+      return /*#__PURE__*/_react.default.createElement(_root.default, null);
+    }
+function runRender = function runRender() {
+      if (dismissLoadingIndicator) {
+        dismissLoadingIndicator();
+      }
+      renderer( /*#__PURE__*/_react.default.createElement(App, null), rootElement);
+    }
+const doc = document
+doc.readyState === `complete` || doc.readyState !== `loading` && !doc.documentElement.doScroll
+setTimeout(function () {
+        runRender();
+      }, 0)
+0

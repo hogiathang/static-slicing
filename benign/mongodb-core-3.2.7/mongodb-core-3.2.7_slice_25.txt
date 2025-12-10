@@ -1,0 +1,63 @@
+setTimeout(function() {
+      // Destroyed
+      if (self.state === DESTROYED || self.state === UNREFERENCED) {
+        return;
+      }
+
+      // Create a new server instance
+      var server = new Server(
+        Object.assign({}, self.s.options, {
+          host: _server.split(':')[0],
+          port: parseInt(_server.split(':')[1], 10),
+          reconnect: false,
+          monitoring: false,
+          parent: self,
+          clientInfo: clone(self.s.clientInfo)
+        })
+      );
+
+      // Add temp handlers
+      server.once('connect', _handleEvent(self, 'connect'));
+      server.once('close', _handleEvent(self, 'close'));
+      server.once('timeout', _handleEvent(self, 'timeout'));
+      server.once('error', _handleEvent(self, 'error'));
+      server.once('parseError', _handleEvent(self, 'parseError'));
+
+      // SDAM Monitoring events
+      server.on('serverOpening', e => self.emit('serverOpening', e));
+      server.on('serverDescriptionChanged', e => self.emit('serverDescrip...
+self.state === DESTROYED || self.state === UNREFERENCED
+var server = new Server(
+        Object.assign({}, self.s.options, {
+          host: _server.split(':')[0],
+          port: parseInt(_server.split(':')[1], 10),
+          reconnect: false,
+          monitoring: false,
+          parent: self,
+          clientInfo: clone(self.s.clientInfo)
+        })
+      )
+Object.assign({}, self.s.options, {
+          host: _server.split(':')[0],
+          port: parseInt(_server.split(':')[1], 10),
+          reconnect: false,
+          monitoring: false,
+          parent: self,
+          clientInfo: clone(self.s.clientInfo)
+        })
+_tmp_17.host = _server.split(':')[0]
+_tmp_17.port = parseInt(_server.split(':')[1], 10)
+_tmp_17.reconnect = false
+_tmp_17.monitoring = false
+_tmp_17.parent = self
+_tmp_17.clientInfo = clone(self.s.clientInfo)
+server.once('connect', _handleEvent(self, 'connect'))
+server.once('close', _handleEvent(self, 'close'))
+server.once('timeout', _handleEvent(self, 'timeout'))
+server.once('error', _handleEvent(self, 'error'))
+server.once('parseError', _handleEvent(self, 'parseError'))
+server.on('serverOpening', e => self.emit('serverOpening', e))
+server.on('serverDescriptionChanged', e => self.emit('serverDescriptionChanged', e))
+server.on('serverClosed', e => self.emit('serverClosed', e))
+relayEvents(server, self, ['commandStarted', 'commandSucceeded', 'commandFailed'])
+server.connect(self.s.connectOptions)

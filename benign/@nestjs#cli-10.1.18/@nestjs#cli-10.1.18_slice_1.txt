@@ -1,0 +1,6 @@
+_tmp_8.onTypeCheck = <lambda>2
+!fulfilled
+fulfilled = true
+resolve()
+readonlyVisitors.length > 0
+process.nextTick(() => console.log(constants_1.FOUND_NO_ISSUES_GENERATING_METADATA))

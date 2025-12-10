@@ -1,0 +1,39 @@
+BpmnUpdater.prototype.updateConnection = function(context) {
+  var connection = context.connection,
+      businessObject = getBusinessObject(connection),
+      newSource = connection.source,
+      newSourceBo = getBusinessObject(newSource),
+      newTarget = connection.target,
+      newTargetBo = getBusinessObject(connection.target),
+      visualParent;
+
+  if (!is(businessObject, 'bpmn:DataAssociation')) {
+
+    var inverseSet = is(businessObject, 'bpmn:SequenceFlow');
+
+    if (businessObject.sourceRef !== newSourceBo) {
+      if (inverseSet) {
+        collectionRemove(businessObject.sourceRef && businessObject.sourceRef.get('outgoing'), businessObject);
+
+        if (newSourceBo && newSourceBo.get('outgoing')) {
+          newSourceBo.get('outgoing').push(businessObject);
+        }
+      }
+
+      businessObject.sourceRef = newSourceBo;
+    }
+
+    if (businessObject.targetRef !== newTargetBo) {
+      if (inverseSet) {
+        collectionRemove(businessObject.targetRef && businessObject....
+var connection = context.connection
+var businessObject = getBusinessObject(connection)
+var newSource = connection.source
+var newSourceBo = getBusinessObject(newSource)
+var newTarget = connection.target
+var newTargetBo = getBusinessObject(connection.target)
+!is(businessObject, 'bpmn:DataAssociation')
+var inverseSet = is(businessObject, 'bpmn:SequenceFlow')
+businessObject.sourceRef !== newSourceBo
+collectionRemove(businessObject.sourceRef && businessObject.sourceRef.get('outgoing'), businessObject)
+newSourceBo && newSourceBo.get('outgoing')

@@ -1,0 +1,10 @@
+process.on('exit', () => {
+        this.child = null
+        if (signal) {
+          process.kill(process.pid, signal)
+        } else {
+          process.exit(code)
+        }
+      })
+this.child = null
+process.kill(process.pid, signal)

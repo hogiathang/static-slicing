@@ -1,0 +1,5 @@
+_tmp_8.JSXAttribute = JSXAttribute
+var name = (0, _jsxAstUtils.propName)(attribute).toLowerCase()
+name !== 'role'
+var type = elementType(attribute.parent)
+(_tmp_10 = _ariaQuery.dom).get

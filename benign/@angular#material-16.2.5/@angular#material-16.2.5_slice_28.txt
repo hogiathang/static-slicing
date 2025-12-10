@@ -1,0 +1,32 @@
+interpolationConfig = interpolationConfig === void 0 ? DEFAULT_INTERPOLATION_CONFIG : interpolationConfig
+__ecma.Array.factory()
+const expressions = []
+__ecma.Array.factory()
+const inputToTemplateIndexMap = interpolatedTokens ? getIndexMapForOriginalTemplate(interpolatedTokens) : null
+let i = 0
+let atInterpolation = false
+let extendLastString = false
+_tmp_2630 = interpolationConfig
+i < input.length
+!atInterpolation
+const start = i
+i = input.indexOf(interpStart, i)
+i === -1
+i = input.length
+const text2 = input.substring(start, i)
+strings.push({ text: text2, start, end: i })
+atInterpolation = true
+const fullStart = i
+const exprStart = fullStart + interpStart.length
+const exprEnd = this._getInterpolationEndIndex(input, interpEnd, exprStart)
+exprEnd === -1
+const fullEnd = exprEnd + interpEnd.length
+const text2 = input.substring(exprStart, exprEnd)
+text2.trim().length === 0
+this._reportError("Blank expressions are not allowed in interpolated strings", input, `at column ${i} in`, location)
+expressions.push({ text: text2, start: fullStart, end: fullEnd })
+const startInOriginalTemplate = (_a2 = inputToTemplateIndexMap == null ? void 0 : inputToTemplateIndexMap.get(fullStart)) != null ? _a2 : fullStart
+const offset = startInOriginalTemplate + interpStart.length
+offsets.push(offset)
+i = fullEnd
+atInterpolation = false

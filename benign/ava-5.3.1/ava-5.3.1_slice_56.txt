@@ -1,0 +1,12 @@
+get() {
+		if (!this.bound) {
+			const value = this.ref.get();
+			this.set(value !== null && typeof value === 'object' ? {...value} : value);
+		}
+
+		return super.get();
+	}
+!this.bound
+const value = this.ref.get()
+this.set(value !== null && typeof value === 'object' ? {...value} : value)
+(_tmp_4 = super).get

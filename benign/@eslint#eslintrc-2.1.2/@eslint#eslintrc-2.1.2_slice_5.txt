@@ -1,0 +1,17 @@
+extractConfig(filePath) {
+        const { cache } = internalSlotsMap.get(this);
+        const indices = getMatchedIndices(this, filePath);
+        const cacheKey = indices.join(",");
+
+        if (!cache.has(cacheKey)) {
+            cache.set(cacheKey, createConfig(this, indices));
+        }
+
+        return cache.get(cacheKey);
+    }
+_tmp_26 = internalSlotsMap.get(this)
+const indices = getMatchedIndices(this, filePath)
+const cacheKey = indices.join(",")
+!cache.has(cacheKey)
+cache.set(cacheKey, createConfig(this, indices))
+cache.get(cacheKey)

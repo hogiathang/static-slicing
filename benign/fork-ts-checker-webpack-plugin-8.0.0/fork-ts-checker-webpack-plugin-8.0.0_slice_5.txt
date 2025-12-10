@@ -1,0 +1,27 @@
+function getRealPath = function getRealPath(path) {
+    const normalizedPath = (0, path_1.normalize)(path);
+    if (!realPathCache.has(normalizedPath)) {
+        let base = normalizedPath;
+        let nested = '';
+        while (base !== (0, path_1.dirname)(base)) {
+            if (exists(base)) {
+                realPathCache.set(normalizedPath, (0, path_1.normalize)((0, path_1.join)(fs.realpathSync(base), nested)));
+                break;
+            }
+            nested = (0, path_1.join)((0, path_1.basename)(base), nested);
+            base = (0, path_1.dirname)(base);
+        }
+    }
+    return realPathCache.get(normalizedPath) || normalizedPath;
+}
+const normalizedPath = (0, path_1.normalize)(path)
+!realPathCache.has(normalizedPath)
+let base = normalizedPath
+let nested = ''
+base !== (0, path_1.dirname)(base)
+exists(base)
+realPathCache.set(normalizedPath, (0, path_1.normalize)((0, path_1.join)(fs.realpathSync(base), nested)))
+break;
+nested = (0, path_1.join)((0, path_1.basename)(base), nested)
+base = (0, path_1.dirname)(base)
+realPathCache.get(normalizedPath) || normalizedPath

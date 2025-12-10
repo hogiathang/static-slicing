@@ -1,0 +1,23 @@
+_tmp_1.TaggedTemplateExpression = TaggedTemplateExpression
+let processed = state.get("processed")
+!processed
+processed = new WeakSet()
+state.set("processed", processed)
+processed.has(path.node)
+const expressions = path.node.quasi.expressions
+let identity = state.get("identity")
+!identity
+identity = path.scope
+          .getProgramParent()
+          .generateDeclaredUidIdentifier("_")
+getProgramParent
+generateDeclaredUidIdentifier
+state.set("identity", identity)
+const binding = path.scope.getBinding(identity.name)
+binding.path.get("init").replaceWith(
+          t.arrowFunctionExpression(
+            // re-use the helper identifier for compressability
+            [t.identifier("t")],
+            t.identifier("t")
+          )
+        )

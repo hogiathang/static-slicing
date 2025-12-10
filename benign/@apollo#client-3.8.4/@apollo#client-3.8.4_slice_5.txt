@@ -1,0 +1,87 @@
+StoreWriter.prototype.processSelectionSet = function (_a) {
+        var _this = this;
+        var dataId = _a.dataId, result = _a.result, selectionSet = _a.selectionSet, context = _a.context, mergeTree = _a.mergeTree;
+        var policies = this.cache.policies;
+        var incoming = Object.create(null);
+        var typename = (dataId && policies.rootTypenamesById[dataId]) ||
+            getTypenameFromResult(result, selectionSet, context.fragmentMap) ||
+            (dataId && context.store.get(dataId, "__typename"));
+        if ("string" === typeof typename) {
+            incoming.__typename = typename;
+        }
+        var readField = function () {
+            var options = normalizeReadFieldOptions(arguments, incoming, context.variables);
+            if (isReference(options.from)) {
+                var info = context.incomingById.get(options.from.__ref);
+                if (info) {
+                    var result_1 = policies.readField(__assign(__assign({}, options), { from: info...
+var _this = this
+var selectionSet = _a.selectionSet
+var policies = this.cache.policies
+var incoming = Object.create(null)
+var typename = (dataId && policies.rootTypenamesById[dataId]) ||
+            getTypenameFromResult(result, selectionSet, context.fragmentMap) ||
+            (dataId && context.store.get(dataId, "__typename"))
+getTypenameFromResult(result, selectionSet, context.fragmentMap)
+dataId && context.store.get(dataId, "__typename")
+"string" === typeof typename
+incoming.__typename = typename
+var readField = function () {
+            var options = normalizeReadFieldOptions(arguments, incoming, context.variables);
+            if (isReference(options.from)) {
+                var info = context.incomingById.get(options.from.__ref);
+                if (info) {
+                    var result_1 = policies.readField(__assign(__assign({}, options), { from: info.storeObject }), context);
+                    if (result_1 !== void 0) {
+                        return result_1;
+                    }
+                }
+            }
+            return policies.readField(options, context);
+        }
+var fieldNodeSet = new Set()
+this.flattenFields(selectionSet, result, context, typename).forEach(function (context, field) {
+            var _a;
+            var resultFieldKey = resultKeyNameFromField(field);
+            var value = result[resultFieldKey];
+            fieldNodeSet.add(field);
+            if (value !== void 0) {
+                var storeFieldName = policies.getStoreFieldName({
+                    typename: typename,
+                    fieldName: field.name.value,
+                    field: field,
+                    variables: context.variables,
+                });
+                var childTree = getChildMergeTree(mergeTree, storeFieldName);
+                var incomingValue = _this.processFieldValue(value, field, field.selectionSet
+                    ? getContextFlavor(context, false, false)
+                    : context, childTree);
+                var childTypename = void 0;
+                if (field.selectionSet &&
+                    (isReference(incomingValue) || storeValueIsStoreObject(...
+var _b = policies.identify(result, {
+                typename: typename,
+                selectionSet: selectionSet,
+                fragmentMap: context.fragmentMap,
+                storeObject: incoming,
+                readField: readField,
+            })
+_tmp_44.typename = typename
+_tmp_44.selectionSet = selectionSet
+_tmp_44.fragmentMap = context.fragmentMap
+_tmp_44.storeObject = incoming
+_tmp_44.readField = readField
+var keyObject = _b[1]
+dataId = dataId || id
+incoming = context.merge(incoming, keyObject)
+!dataId
+throw e;
+"string" === typeof dataId
+var dataRef = makeReference(dataId)
+var sets = context.written[dataId] || (context.written[dataId] = [])
+sets.indexOf(selectionSet) >= 0
+sets.push(selectionSet)
+this.reader &&
+                this.reader.isFresh(result, dataRef, selectionSet, context)
+this.reader.isFresh(result, dataRef, selectionSet, context)
+var previous_1 = context.incomingById.get(dataId)

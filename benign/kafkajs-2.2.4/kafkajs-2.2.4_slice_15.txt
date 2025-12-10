@@ -1,0 +1,4 @@
+validateOnly = param1_1.validateOnly
+const request = require('./v1/request')
+const response = require('./v1/response')
+_tmp_3.request = request({ resources, validateOnly })

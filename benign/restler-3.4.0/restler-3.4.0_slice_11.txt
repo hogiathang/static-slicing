@@ -1,0 +1,4 @@
+function put = function put(url, options) {
+  return request(url, shortcutOptions(options, 'PUT'));
+}
+request(url, shortcutOptions(options, 'PUT'))

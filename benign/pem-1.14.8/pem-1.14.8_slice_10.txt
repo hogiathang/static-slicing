@@ -1,0 +1,43 @@
+function checkPkcs12 = function checkPkcs12(bufferOrPath, passphrase, callback) {
+  if (!callback && typeof passphrase === 'function') {
+    callback = passphrase
+    passphrase = ''
+  }
+
+  var tmpfiles = []
+  var delTempPWFiles = []
+  var args = ['pkcs12', '-info', '-in', bufferOrPath, '-noout', '-maciter', '-nodes']
+
+  helper.createPasswordFile({cipher: '', password: passphrase, passType: 'in'}, args, delTempPWFiles)
+
+  if (Buffer.isBuffer(bufferOrPath)) {
+    tmpfiles = [bufferOrPath]
+    args[3] = '--TMPFILE--'
+  }
+
+  if (openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3) {
+    args.splice(2, 0, '-legacy');
+  }
+
+  openssl.spawnWrapper(args, tmpfiles, function (sslErr, code, stdout, stderr) {
+    debug('checkPkcs12 error', {
+      err: sslErr,
+      code: code,
+      stdout: stdout,
+      stdoutResult: (/MAC verified OK/im.test(stderr) || (!(/MAC verified OK/im.test(stderr)) && !(/Mac verify error/im.test(stderr)))),
+      stderr: stderr
+    })
+
+    function done(err) {
+    ...
+!callback && typeof passphrase === 'function'
+callback = passphrase
+passphrase = ''
+__ecma.Array.factory()
+var delTempPWFiles = []
+var args = ['pkcs12', '-info', '-in', bufferOrPath, '-noout', '-maciter', '-nodes']
+helper.createPasswordFile({cipher: '', password: passphrase, passType: 'in'}, args, delTempPWFiles)
+Buffer.isBuffer(bufferOrPath)
+_tmp_93 = __ecma.Array.factory()
+args[3] = '--TMPFILE--'
+openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3

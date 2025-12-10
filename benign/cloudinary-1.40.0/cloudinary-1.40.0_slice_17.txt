@@ -1,0 +1,3 @@
+_tmp_3.value = init
+!fs.existsSync('test_cache')
+fs.mkdirSync('test_cache')

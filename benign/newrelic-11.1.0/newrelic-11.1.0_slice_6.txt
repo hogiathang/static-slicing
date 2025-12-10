@@ -1,0 +1,45 @@
+function createError = function createError(transaction, exception, config) {
+  const error = exception.error
+  const { name, message, type } = errorHelper.extractErrorInformation(
+    transaction,
+    error,
+    config,
+    urltils
+  )
+
+  const params = {
+    userAttributes: Object.create(null),
+    agentAttributes: Object.create(null),
+    intrinsics: Object.create(null)
+  }
+
+  if (transaction) {
+    // Copy all of the parameters off of the transaction.
+    params.intrinsics = transaction.getIntrinsicAttributes()
+    const transactionAgentAttributes =
+      transaction.trace.attributes.get(DESTINATIONS.ERROR_EVENT) || {}
+
+    // Merge the agent attributes specific to this error event with the transaction attributes
+    params.agentAttributes = Object.assign(exception.agentAttributes, transactionAgentAttributes)
+
+    // There should be no attributes to copy in HSM, but check status anyway
+    if (!config.high_security) {
+      urltils.overwriteParameters(
+        transaction.trace.custom.get(DESTINATIONS...
+const error = exception.error
+_tmp_0 = errorHelper.extractErrorInformation(
+    transaction,
+    error,
+    config,
+    urltils
+  )
+const params = {
+    userAttributes: Object.create(null),
+    agentAttributes: Object.create(null),
+    intrinsics: Object.create(null)
+  }
+_tmp_1.userAttributes = Object.create(null)
+_tmp_1.agentAttributes = Object.create(null)
+_tmp_1.intrinsics = Object.create(null)
+params.intrinsics = transaction.getIntrinsicAttributes()
+transaction.trace.attributes.get(DESTINATIONS.ERROR_EVENT) || {}

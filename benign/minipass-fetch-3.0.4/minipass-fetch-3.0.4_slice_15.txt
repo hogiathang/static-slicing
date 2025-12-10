@@ -1,0 +1,13 @@
+req.once('socket', socket => {
+        reqTimeout = setTimeout(() => {
+          reject(new FetchError(`network timeout at: ${
+            request.url}`, 'request-timeout'))
+          finalize()
+        }, request.timeout)
+      })
+reqTimeout = setTimeout(() => {
+          reject(new FetchError(`network timeout at: ${
+            request.url}`, 'request-timeout'))
+          finalize()
+        }, request.timeout)
+request.timeout

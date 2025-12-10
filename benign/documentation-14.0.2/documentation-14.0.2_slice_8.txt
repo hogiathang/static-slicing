@@ -1,0 +1,19 @@
+function findLendsIdentifiers = function findLendsIdentifiers(path) {
+  if (!path || !path.get('leadingComments')) {
+    return;
+  }
+
+  const leadingComments = path.get('leadingComments');
+
+  for (let i = 0; i < leadingComments.length; i++) {
+    const comment = leadingComments[i];
+    if (isJSDocComment(comment.node)) {
+      const lends = parse(comment.node.value).lends;
+      if (lends) {
+        return lends.split('.');
+      }
+    }
+  }
+}
+!path || !path.get('leadingComments')
+const leadingComments = path.get('leadingComments')

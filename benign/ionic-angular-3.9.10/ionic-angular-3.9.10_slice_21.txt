@@ -1,0 +1,7 @@
+InfiniteScrollContent.prototype.ngOnInit = function () {
+            if (!this.loadingSpinner) {
+                this.loadingSpinner = this._config.get('infiniteLoadingSpinner', this._config.get('spinner', 'ios'));
+            }
+        }
+!this.loadingSpinner
+this.loadingSpinner = this._config.get('infiniteLoadingSpinner', this._config.get('spinner', 'ios'))

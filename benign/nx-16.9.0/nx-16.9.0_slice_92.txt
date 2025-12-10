@@ -1,0 +1,43 @@
+function parseEnvFile = function parseEnvFile(tree, envFilePath) {
+    if (!tree.exists(envFilePath)) {
+        return;
+    }
+    let envFileContent = tree.read(envFilePath, 'utf-8');
+    envFileContent = envFileContent
+        .split('\n')
+        .map((line) => {
+        line = line.trim();
+        if (!line.includes('$')) {
+            return line;
+        }
+        const declarations = line.split('=');
+        if (declarations[1].includes('$') && !declarations[1].includes(`\\$`)) {
+            declarations[1] = declarations[1].replace('$', `\\$`);
+            line = declarations.join('=');
+        }
+        return line;
+    })
+        .join('\n');
+    tree.write(envFilePath, envFileContent);
+}
+!tree.exists(envFilePath)
+let envFileContent = tree.read(envFilePath, 'utf-8')
+envFileContent = envFileContent
+        .split('\n')
+        .map((line) => {
+        line = line.trim();
+        if (!line.includes('$')) {
+            return line;
+        }
+        const declarations = line.split('=');
+        if (declarations[1].includes('$') && !declarations[1].includes(`\\$`)) {
+            declarations[1] = declarations[1].replace('$', `\\$`);
+            line = declarations.join('=');
+        }
+        return line;
+    })
+        .join('\n')
+split
+<lambda>0
+join
+tree.write(envFilePath, envFileContent)

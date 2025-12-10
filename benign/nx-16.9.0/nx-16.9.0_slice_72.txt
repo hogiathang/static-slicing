@@ -1,0 +1,38 @@
+function readProjectConfigurationsFromRootMap = function readProjectConfigurationsFromRootMap(projectRootMap) {
+    const projects = {};
+    // If there are projects that have the same name, that is an error.
+    // This object tracks name -> (all roots of projects with that name)
+    // to provide better error messaging.
+    const errors = new Map();
+    for (const [root, configuration] of projectRootMap.entries()) {
+        if (!configuration.name) {
+            throw new Error(`Project at ${root} has no name provided.`);
+        }
+        else if (configuration.name in projects) {
+            let rootErrors = errors.get(configuration.name) ?? [
+                projects[configuration.name].root,
+            ];
+            rootErrors.push(root);
+            errors.set(configuration.name, rootErrors);
+        }
+        else {
+            projects[configuration.name] = configuration;
+        }
+    }
+    if (errors.size > 0) {
+        throw new Error([
+            `The following projects are defined in multiple locations:`,
+       ...
+const projects = {}
+const errors = new Map()
+_iterator_3 = <operator>.iterator(projectRootMap.entries())
+!configuration.name
+<operator>.formatString("Project at ", root, " has no name provided.")
+configuration.name in projects
+let rootErrors = errors.get(configuration.name) ?? [
+                projects[configuration.name].root,
+            ]
+_tmp_15.push(projects[configuration.name].root)
+rootErrors.push(root)
+errors.set(configuration.name, rootErrors)
+projects[configuration.name] = configuration

@@ -1,0 +1,16 @@
+getPlugin(pluginIdentifier) {
+        const plugin = this.plugins.get(pluginIdentifier);
+        if (plugin) {
+            return plugin;
+        }
+        else {
+            const translation = this.pluginIdentifierTranslation.get(pluginIdentifier);
+            if (translation) {
+                return this.plugins.get(translation);
+            }
+        }
+        return undefined;
+    }
+const plugin = this.plugins.get(pluginIdentifier)
+const translation = this.pluginIdentifierTranslation.get(pluginIdentifier)
+this.plugins.get(translation)

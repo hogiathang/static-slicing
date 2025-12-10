@@ -1,0 +1,9 @@
+() => {
+        send(message, false);
+        if (pongTimeoutWait != null)
+          return;
+        pongTimeoutWait = setTimeout(() => {
+          close();
+          explicitlyClosed = false;
+        }, pongTimeout);
+      }

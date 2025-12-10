@@ -1,0 +1,39 @@
+var fs = require('fs')
+var path = require('path')
+var root = path.join(path.dirname(fs.realpathSync(__filename)), '..')
+var escodegen = require(root)
+var optionator = require('optionator')({
+        prepend: 'Usage: esgenerate [options] file.json ...',
+        options: [
+            {
+                option: 'config',
+                alias: 'c',
+                type: 'String',
+                description: 'configuration json for escodegen'
+            }
+        ]
+    })
+_tmp_0.prepend = "Usage: esgenerate [options] file.json ..."
+_tmp_0.options = [
+            {
+                option: 'config',
+                alias: 'c',
+                type: 'String',
+                description: 'configuration json for escodegen'
+            }
+        ]
+_tmp_1.push({
+                option: 'config',
+                alias: 'c',
+                type: 'String',
+                description: 'configuration json for escodegen'
+            })
+_tmp_2.option = "config"
+_tmp_2.alias = "c"
+_tmp_2.type = "String"
+_tmp_2.description = "configuration json for escodegen"
+var args = optionator.parse(process.argv)
+var files = args._
+files.length === 0
+console.log(optionator.generateHelp())
+process.exit(1)

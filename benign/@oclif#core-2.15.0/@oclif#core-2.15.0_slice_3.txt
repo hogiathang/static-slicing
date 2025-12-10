@@ -1,0 +1,16 @@
+add(permutation, commandId) {
+        this.validPermutations.set(permutation, commandId);
+        for (const id of (0, util_2.collectUsableIds)([permutation])) {
+            if (this.has(id)) {
+                this.set(id, this.get(id).add(commandId));
+            }
+            else {
+                this.set(id, new Set([commandId]));
+            }
+        }
+    }
+this.validPermutations.set(permutation, commandId)
+_iterator_3 = <operator>.iterator((0, util_2.collectUsableIds)([permutation]))
+this.has(id)
+this.set(id, this.get(id).add(commandId))
+this.set(id, new Set([commandId]))

@@ -1,0 +1,88 @@
+FeedParser.prototype.handleItem = function handleItem (node, type, options){
+  if (!type || !node) return {};
+
+  var item = {}
+    , normalize = !options || (options && options.normalize)
+    ;
+
+  if (normalize) {
+    ['title','description','summary','date','pubdate','pubDate','link','guid','author','comments', 'origlink'].forEach(function (property){
+      item[property] = null;
+    });
+    item.image = {};
+    item.source = {};
+    item.categories = [];
+    item.enclosures = [];
+  }
+
+  Object.keys(node).forEach(function(name){
+    var el = node[name]
+      , attrs = _.get(el, '@')
+      , enclosure;
+    if (normalize) {
+      switch(name){
+      case('title'):
+        item.title = _.get(el);
+        break;
+      case('description'):
+      case('summary'):
+        item.summary = _.get(el);
+        if (!item.description) item.description = _.get(el);
+        break;
+      case('content'):
+      case('content:encoded'):
+        item.description = _.get(el);
+        break;
+      case('...
+!type || !node
+var item = {}
+var normalize = !options || (options && options.normalize)
+['title','description','summary','date','pubdate','pubDate','link','guid','author','comments', 'origlink'].forEach(function (property){
+      item[property] = null;
+    })
+item.image = {}
+item.source = {}
+__ecma.Array.factory()
+__ecma.Array.factory()
+Object.keys(node).forEach(function(name){
+    var el = node[name]
+      , attrs = _.get(el, '@')
+      , enclosure;
+    if (normalize) {
+      switch(name){
+      case('title'):
+        item.title = _.get(el);
+        break;
+      case('description'):
+      case('summary'):
+        item.summary = _.get(el);
+        if (!item.description) item.description = _.get(el);
+        break;
+      case('content'):
+      case('content:encoded'):
+        item.description = _.get(el);
+        break;
+      case('pubdate'):
+      case('published'):
+      case('issued'):
+      case('modified'):
+      case('updated'):
+      case('dc:date'):
+        var date = _.get(el) ? new Date(_.get(el)) : null;
+        if (!date) break;
+        if (item.pubdate === null || name == 'pubdate' || name == 'published' || name == 'issued')
+          item.pubdate = item.pubDate = date;
+        if (item.date === null || name == 'modified' || name == 'updated')
+          item.date = date;
+        break;
+      case('link'...
+!item.description
+item.description = _.get(node['itunes:summary'])
+!item.author
+item.author = _.get(node['itunes:author'])
+node['itunes:owner'] && node['itunes:owner']['itunes:name']
+item.author = _.get(node['dc:publisher'])
+!item.image.url
+item.image.url = _.get(node['itunes:image']['@'], 'href')
+node["media:thumbnail"]
+item.image.url = _.get(node['media:content']['media:thumbnail']['@'], 'url')

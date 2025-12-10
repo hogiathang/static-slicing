@@ -1,0 +1,27 @@
+MultiArray.prototype.inspect = function() {
+  var proxy = new Array(this.dimension),
+      i,
+      l;
+
+  for (i = 0, l = this.dimension; i < l; i++)
+    proxy[i] = Array.from(this.get(i));
+
+  if (this.hasFixedCapacity) {
+    proxy.type = this.Container.name;
+    proxy.capacity = this.capacity;
+  }
+
+  proxy.size = this.size;
+  proxy.dimension = this.dimension;
+
+  // Trick so that node displays the name of the constructor
+  Object.defineProperty(proxy, 'constructor', {
+    value: MultiArray,
+    enumerable: false
+  });
+
+  return proxy;
+}
+var proxy = new Array(this.dimension)
+l = this.dimension
+proxy[i] = Array.from(this.get(i))

@@ -1,0 +1,17 @@
+FastSet.prototype.get = function (value, equals) {
+    if (equals) {
+        throw new Error("FastSet#get does not support second argument: equals");
+    }
+    var hash = this.contentHash(value);
+    var buckets = this.buckets;
+    if (buckets.has(hash)) {
+        return buckets.get(hash).get(value);
+    } else {
+        return this.getDefault(value);
+    }
+}
+throw new Error("FastSet#get does not support second argument: equals");
+var hash = this.contentHash(value)
+var buckets = this.buckets
+buckets.has(hash)
+(_tmp_7 = buckets.get(hash)).get

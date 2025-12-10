@@ -1,0 +1,13 @@
+const ajvKeywords: Plugin<string | string[]> = (ajv: Ajv, keyword?: string | string[]): Ajv => {
+  if (Array.isArray(keyword)) {
+    for (const k of keyword) get(k)(ajv)
+    return ajv
+  }
+  if (keyword) {
+    get(keyword)(ajv)
+    return ajv
+  }
+  for (keyword in plugins) get(keyword)(ajv)
+  return ajv
+}
+Array.isArray(keyword)

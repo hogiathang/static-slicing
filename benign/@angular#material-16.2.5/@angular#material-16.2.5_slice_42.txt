@@ -1,0 +1,25 @@
+removeHandler(name, element, handler) {
+        const handlersForEvent = this._events.get(name);
+        if (!handlersForEvent) {
+            return;
+        }
+        const handlersForElement = handlersForEvent.get(element);
+        if (!handlersForElement) {
+            return;
+        }
+        handlersForElement.delete(handler);
+        if (handlersForElement.size === 0) {
+            handlersForEvent.delete(element);
+        }
+        if (handlersForEvent.size === 0) {
+            this._events.delete(name);
+            document.removeEventListener(name, this._delegateEventHandler, passiveCapturingEventOptions$1);
+        }
+    }
+const handlersForEvent = this._events.get(name)
+!handlersForEvent
+const handlersForElement = handlersForEvent.get(element)
+!handlersForElement
+handlersForElement.delete(handler)
+handlersForElement.size === 0
+handlersForEvent.delete(element)

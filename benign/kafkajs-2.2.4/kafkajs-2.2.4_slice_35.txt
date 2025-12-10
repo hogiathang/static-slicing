@@ -1,0 +1,26 @@
+_tmp_0.1 = <lambda>1
+resourceType = param1_1.resourceType
+resourceName = param1_1.resourceName
+resourcePatternType = param1_1.resourcePatternType
+principal = param1_1.principal
+host = param1_1.host
+operation = param1_1.operation
+permissionType = param1_1.permissionType
+const request = require('./v1/request')
+const response = require('./v1/response')
+_tmp_3.request = request({
+        resourceType,
+        resourceName,
+        resourcePatternType,
+        principal,
+        host,
+        operation,
+        permissionType,
+      })
+_tmp_4.resourceType = resourceType
+_tmp_4.resourceName = resourceName
+_tmp_4.resourcePatternType = resourcePatternType
+_tmp_4.principal = principal
+_tmp_4.host = host
+_tmp_4.operation = operation
+_tmp_4.permissionType = permissionType

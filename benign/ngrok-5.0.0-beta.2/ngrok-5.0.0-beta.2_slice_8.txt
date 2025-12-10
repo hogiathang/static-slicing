@@ -1,0 +1,18 @@
+() => {
+        const suffix = os.platform() === "win32" ? ".exe" : "";
+        if (suffix === ".exe") {
+          fs.writeFileSync(path.join(moduleBinPath, "ngrok.cmd"), "ngrok.exe");
+        }
+        const target = path.join(moduleBinPath, "ngrok" + suffix);
+        fs.chmodSync(target, 0o755);
+        if (!fs.existsSync(target) || fs.statSync(target).size <= 0) {
+          return cb(new Error("corrupted file " + target));
+        }
+        console.log("ngrok - binary unpacked to " + target);
+        cb(null);
+      }
+const suffix = os.platform() === "win32" ? ".exe" : ""
+suffix === ".exe"
+fs.writeFileSync(path.join(moduleBinPath, "ngrok.cmd"), "ngrok.exe")
+const target = path.join(moduleBinPath, "ngrok" + suffix)
+fs.chmodSync(target, 0o755)

@@ -1,0 +1,6 @@
+_tmp_173.element = element
+var iframe = _document.createElement('iframe')
+wrapper.appendChild(iframe)
+var iframeDocument = iframe.contentWindow.document
+iframeDocument.open()
+iframeDocument.close()

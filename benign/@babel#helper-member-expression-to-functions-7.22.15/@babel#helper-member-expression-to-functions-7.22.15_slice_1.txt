@@ -1,0 +1,28 @@
+function toNonOptional = function toNonOptional(path, base) {
+  const {
+    node
+  } = path;
+  if (isOptionalMemberExpression(node)) {
+    return memberExpression(base, node.property, node.computed);
+  }
+  if (path.isOptionalCallExpression()) {
+    const callee = path.get("callee");
+    if (path.node.optional && callee.isOptionalMemberExpression()) {
+      const object = callee.node.object;
+      const context = path.scope.maybeGenerateMemoised(object);
+      callee.get("object").replaceWith(assignmentExpression("=", context, object));
+      return callExpression(memberExpression(base, identifier("call")), [context, ...path.node.arguments]);
+    }
+    return callExpression(base, path.node.arguments);
+  }
+  return path.node;
+}
+_tmp_8 = path
+node = _tmp_8.node
+isOptionalMemberExpression(node)
+path.isOptionalCallExpression()
+const callee = path.get("callee")
+path.node.optional && callee.isOptionalMemberExpression()
+const object = callee.node.object
+const context = path.scope.maybeGenerateMemoised(object)
+callee.get("object").replaceWith(assignmentExpression("=", context, object))

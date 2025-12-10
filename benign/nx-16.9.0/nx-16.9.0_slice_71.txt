@@ -1,0 +1,19 @@
+function findProjectForPath = function findProjectForPath(filePath, projectRootMap) {
+    /**
+     * Project Mappings are in UNIX-style file paths
+     * Windows may pass Win-style file paths
+     * Ensure filePath is in UNIX-style
+     */
+    let currentPath = (0, path_2.normalizePath)(filePath);
+    for (; currentPath != (0, path_1.dirname)(currentPath); currentPath = (0, path_1.dirname)(currentPath)) {
+        const p = projectRootMap.get(currentPath);
+        if (p) {
+            return p;
+        }
+    }
+    return projectRootMap.get(currentPath);
+}
+let currentPath = (0, path_2.normalizePath)(filePath)
+currentPath != (0, path_1.dirname)(currentPath)
+const p = projectRootMap.get(currentPath)
+projectRootMap.get(currentPath)

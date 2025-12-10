@@ -1,0 +1,20 @@
+allProperties() {
+    const result = new Map()
+    for (const reference of this.references) {
+      for (const [name, { nodes }] of reference.allProperties()) {
+        const r = result.get(name)
+        if (r) {
+          r.nodes = [...new Set([...r.nodes, ...nodes])]
+        } else {
+          result.set(name, { nodes: [...nodes] })
+        }
+      }
+    }
+    return result
+  }
+const result = new Map()
+_iterator_6 = <operator>.iterator(this.references)
+_iterator_7 = <operator>.iterator(reference.allProperties())
+const r = result.get(name)
+_tmp_67.push(...new Set([...r.nodes, ...nodes]))
+result.set(name, { nodes: [...nodes] })

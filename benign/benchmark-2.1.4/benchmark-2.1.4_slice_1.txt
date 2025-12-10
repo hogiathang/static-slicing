@@ -1,0 +1,35 @@
+function update = function update(event) {
+        var clone = this,
+            type = event.type;
+
+        if (bench.running) {
+          if (type == 'start') {
+            // Note: `clone.minTime` prop is inited in `clock()`.
+            clone.count = bench.initCount;
+          }
+          else {
+            if (type == 'error') {
+              bench.error = clone.error;
+            }
+            if (type == 'abort') {
+              bench.abort();
+              bench.emit('cycle');
+            } else {
+              event.currentTarget = event.target = bench;
+              bench.emit(event);
+            }
+          }
+        } else if (bench.aborted) {
+          // Clear abort listeners to avoid triggering bench's abort/cycle again.
+          clone.events.abort.length = 0;
+          clone.abort();
+        }
+      }
+var clone = this
+var type = event.type
+bench.running
+type == 'start'
+type == 'error'
+bench.error = clone.error
+type == 'abort'
+bench.abort()

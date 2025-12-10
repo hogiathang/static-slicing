@@ -1,0 +1,331 @@
+function staticPage = async function staticPage({
+  pagePath,
+  pageData,
+  staticQueryContext,
+  styles,
+  scripts,
+  reversedStyles,
+  reversedScripts,
+  inlinePageData = false,
+  context = {},
+  webpackCompilationHash,
+  sliceData
+}) {
+  const renderContext = Object.assign(DEFAULT_CONTEXT, context);
+
+  // for this to work we need this function to be sync or at least ensure there is single execution of it at a time
+  global.unsafeBuiltinUsage = [];
+  try {
+    let bodyHtml = ``;
+    let headComponents = [/*#__PURE__*/React.createElement("meta", {
+      name: "generator",
+      content: `Gatsby ${gatsbyVersion}`,
+      key: `generator-${gatsbyVersion}`
+    })];
+    let htmlAttributes = {};
+    let bodyAttributes = {};
+    let preBodyComponents = [];
+    let postBodyComponents = [];
+    let bodyProps = {};
+    function loadPageDataSync(_pagePath) {
+      if (_pagePath === pagePath) {
+        // no need to use fs if we are asking for pageData of current page
+        return pageData;
+      }
+      const pa...
+pagePath = param1_0.pagePath
+pageData = param1_0.pageData
+staticQueryContext = param1_0.staticQueryContext
+styles = param1_0.styles
+scripts = param1_0.scripts
+reversedStyles = param1_0.reversedStyles
+reversedScripts = param1_0.reversedScripts
+inlinePageData = param1_0.inlinePageData
+context = param1_0.context
+webpackCompilationHash = param1_0.webpackCompilationHash
+sliceData = param1_0.sliceData
+const renderContext = Object.assign(DEFAULT_CONTEXT, context)
+global.unsafeBuiltinUsage = []
+let bodyHtml = ``
+let headComponents = [/*#__PURE__*/React.createElement("meta", {
+      name: "generator",
+      content: `Gatsby ${gatsbyVersion}`,
+      key: `generator-${gatsbyVersion}`
+    })]
+_tmp_4.name = "generator"
+_tmp_4.content = <operator>.formatString("Gatsby ", gatsbyVersion, "")
+_tmp_4.key = <operator>.formatString("generator-", gatsbyVersion, "")
+let htmlAttributes = {}
+let bodyAttributes = {}
+let preBodyComponents = []
+let postBodyComponents = []
+let bodyProps = {}
+function loadPageDataSync = function loadPageDataSync(_pagePath) {
+      if (_pagePath === pagePath) {
+        // no need to use fs if we are asking for pageData of current page
+        return pageData;
+      }
+      const pageDataPath = getPageDataPath(_pagePath);
+      const pageDataFile = join(process.cwd(), `public`, pageDataPath);
+      try {
+        // deprecation notice
+        const myErrorHolder = {
+          name: `Usage of loadPageDataSync for page other than currently generated page disables incremental html generation in future builds`
+        };
+        Error.captureStackTrace(myErrorHolder, loadPageDataSync);
+        global.unsafeBuiltinUsage.push(myErrorHolder.stack);
+        const pageDataJson = fs.readFileSync(pageDataFile);
+        return JSON.parse(pageDataJson);
+      } catch (error) {
+        // not an error if file is not found. There's just no page data
+        return null;
+      }
+    }
+const replaceBodyHTMLString = body => {
+      bodyHtml = body;
+    }
+const setHeadComponents = components => {
+      headComponents = headComponents.concat(sanitizeComponents(components));
+    }
+const setHtmlAttributes = attributes => {
+      // TODO - we should remove deep merges
+      htmlAttributes = deepMerge(htmlAttributes, attributes);
+    }
+const setBodyAttributes = attributes => {
+      // TODO - we should remove deep merges
+      bodyAttributes = deepMerge(bodyAttributes, attributes);
+    }
+const setPreBodyComponents = components => {
+      preBodyComponents = preBodyComponents.concat(sanitizeComponents(components));
+    }
+const setPostBodyComponents = components => {
+      postBodyComponents = postBodyComponents.concat(sanitizeComponents(components));
+    }
+const setBodyProps = props => {
+      // TODO - we should remove deep merges
+      bodyProps = deepMerge({}, bodyProps, props);
+    }
+const getHeadComponents = () => headComponents
+const replaceHeadComponents = components => {
+      headComponents = sanitizeComponents(components);
+    }
+const getPreBodyComponents = () => preBodyComponents
+const replacePreBodyComponents = components => {
+      preBodyComponents = sanitizeComponents(components);
+    }
+const getPostBodyComponents = () => postBodyComponents
+const replacePostBodyComponents = components => {
+      postBodyComponents = sanitizeComponents(components);
+    }
+_tmp_9 = pageData
+componentChunkName = _tmp_9.componentChunkName
+slicesMap = _tmp_9.slicesMap
+const pageComponent = await asyncRequires.components[componentChunkName]()
+RouteHandler = package\cache-dir\commonjs\static-entry.js::program:staticPage:RouteHandler:<init>
+const routerElement = /*#__PURE__*/React.createElement(ServerLocation, {
+      url: `${__BASE_PATH__}${pagePath}`
+    }, /*#__PURE__*/React.createElement(Router, {
+      id: "gatsby-focus-wrapper",
+      baseuri: __BASE_PATH__
+    }, /*#__PURE__*/React.createElement(RouteHandler, {
+      path: "/*"
+    })), /*#__PURE__*/React.createElement("div", RouteAnnouncerProps))
+_tmp_17.url = <operator>.formatString("", __BASE_PATH__, "", pagePath, "")
+React.createElement(Router, {
+      id: "gatsby-focus-wrapper",
+      baseuri: __BASE_PATH__
+    }, /*#__PURE__*/React.createElement(RouteHandler, {
+      path: "/*"
+    }))
+_tmp_18.id = "gatsby-focus-wrapper"
+_tmp_18.baseuri = __BASE_PATH__
+React.createElement(RouteHandler, {
+      path: "/*"
+    })
+_tmp_19.path = "/*"
+React.createElement("div", RouteAnnouncerProps)
+const sliceProps = {}
+let body = apiRunner(`wrapRootElement`, {
+      element: routerElement,
+      pathname: pagePath
+    }, routerElement, ({
+      result
+    }) => {
+      return {
+        element: result,
+        pathname: pagePath
+      };
+    }).pop()
+_tmp_22.element = routerElement
+_tmp_22.pathname = pagePath
+<lambda>16
+pop
+const slicesContext = {
+      // if we're in build now, we know we're on the server
+      // otherwise we're in an engine
+      renderEnvironment: renderContext.isDuringBuild ? `server` : `engines`
+    }
+_tmp_24.renderEnvironment = renderContext.isDuringBuild ? "server" : "engines"
+process.env.GATSBY_SLICES
+slicesContext.renderEnvironment === `engines`
+const slicesDb = new Map()
+_iterator_0 = <operator>.iterator(Object.values(slicesMap))
+const slice = sliceData[sliceName]
+_tmp_26 = await getPageChunk(slice)
+SliceComponent = _tmp_26.default
+await getPageChunk(slice)
+const sliceObject = {
+            component: SliceComponent,
+            sliceContext: slice.result.sliceContext,
+            data: slice.result.data
+          }
+_tmp_27.component = SliceComponent
+_tmp_27.sliceContext = slice.result.sliceContext
+_tmp_27.data = slice.result.data
+slicesDb.set(sliceName, sliceObject)
+body = /*#__PURE__*/React.createElement(SlicesResultsContext.Provider, {
+          value: slicesDb
+        }, body)
+_tmp_28.value = slicesDb
+body = /*#__PURE__*/React.createElement(SlicesContext.Provider, {
+        value: slicesContext
+      }, /*#__PURE__*/React.createElement(SlicesPropsContext.Provider, {
+        value: sliceProps
+      }, /*#__PURE__*/React.createElement(SlicesMapContext.Provider, {
+        value: slicesMap
+      }, body)))
+_tmp_29.value = slicesContext
+React.createElement(SlicesPropsContext.Provider, {
+        value: sliceProps
+      }, /*#__PURE__*/React.createElement(SlicesMapContext.Provider, {
+        value: slicesMap
+      }, body))
+_tmp_30.value = sliceProps
+React.createElement(SlicesMapContext.Provider, {
+        value: slicesMap
+      }, body)
+_tmp_31.value = slicesMap
+const bodyComponent = /*#__PURE__*/React.createElement(StaticQueryContext.Provider, {
+      value: staticQueryContext
+    }, body)
+_tmp_32.value = staticQueryContext
+await apiRunnerAsync(`replaceRenderer`, {
+      bodyComponent,
+      replaceBodyHTMLString,
+      setHeadComponents,
+      setHtmlAttributes,
+      setBodyAttributes,
+      setPreBodyComponents,
+      setPostBodyComponents,
+      setBodyProps,
+      pathname: pagePath,
+      pathPrefix: __PATH_PREFIX__
+    })
+_tmp_33.bodyComponent = bodyComponent
+_tmp_33.replaceBodyHTMLString = replaceBodyHTMLString
+_tmp_33.setHeadComponents = setHeadComponents
+_tmp_33.setHtmlAttributes = setHtmlAttributes
+_tmp_33.setBodyAttributes = setBodyAttributes
+_tmp_33.setPreBodyComponents = setPreBodyComponents
+_tmp_33.setPostBodyComponents = setPostBodyComponents
+_tmp_33.setBodyProps = setBodyProps
+_tmp_33.pathname = pagePath
+_tmp_33.pathPrefix = __PATH_PREFIX__
+!bodyHtml
+const writableStream = new WritableAsPromise()
+_tmp_36 = renderToPipeableStream(bodyComponent, {
+          onAllReady() {
+            pipe(writableStream);
+          },
+          onError(error) {
+            writableStream.destroy(error);
+          }
+        })
+pipe = _tmp_36.pipe
+renderToPipeableStream(bodyComponent, {
+          onAllReady() {
+            pipe(writableStream);
+          },
+          onError(error) {
+            writableStream.destroy(error);
+          }
+        })
+_tmp_35.onAllReady = onAllReady
+_tmp_35.onError = onError
+bodyHtml = await writableStream
+!isRedirect(e)
+apiRunner(`onRenderBody`, {
+      setHeadComponents,
+      setHtmlAttributes,
+      setBodyAttributes,
+      setPreBodyComponents,
+      setPostBodyComponents,
+      setBodyProps,
+      pathname: pagePath,
+      loadPageDataSync,
+      bodyHtml,
+      scripts,
+      styles,
+      pathPrefix: __PATH_PREFIX__
+    })
+_tmp_37.setHeadComponents = setHeadComponents
+_tmp_37.setHtmlAttributes = setHtmlAttributes
+_tmp_37.setBodyAttributes = setBodyAttributes
+_tmp_37.setPreBodyComponents = setPreBodyComponents
+_tmp_37.setPostBodyComponents = setPostBodyComponents
+_tmp_37.setBodyProps = setBodyProps
+_tmp_37.pathname = pagePath
+_tmp_37.loadPageDataSync = loadPageDataSync
+_tmp_37.bodyHtml = bodyHtml
+_tmp_37.scripts = scripts
+_tmp_37.styles = styles
+_tmp_37.pathPrefix = __PATH_PREFIX__
+headHandlerForSSR({
+      pageComponent,
+      setHeadComponents,
+      setHtmlAttributes,
+      setBodyAttributes,
+      staticQueryContext,
+      pageData,
+      pagePath
+    })
+_tmp_38.pageComponent = pageComponent
+_tmp_38.setHeadComponents = setHeadComponents
+_tmp_38.setHtmlAttributes = setHtmlAttributes
+_tmp_38.setBodyAttributes = setBodyAttributes
+_tmp_38.staticQueryContext = staticQueryContext
+_tmp_38.pageData = pageData
+_tmp_38.pagePath = pagePath
+reversedScripts.forEach(script => {
+      // Add preload/prefetch <link>s magic comments
+      if (script.shouldGenerateLink) {
+        headComponents.push( /*#__PURE__*/React.createElement("link", {
+          as: "script",
+          rel: script.rel,
+          key: script.name,
+          href: `${__PATH_PREFIX__}/${script.name}`
+        }));
+      }
+    })
+reversedStyles.forEach(style => {
+      // Add <link>s for styles that should be prefetched
+      // otherwise, inline as a <style> tag
+
+      if (style.rel === `prefetch`) {
+        headComponents.push( /*#__PURE__*/React.createElement("link", {
+          as: "style",
+          rel: style.rel,
+          key: style.name,
+          href: `${__PATH_PREFIX__}/${style.name}`
+        }));
+      } else {
+        headComponents.unshift( /*#__PURE__*/React.createElement("style", {
+          "data-href": `${__PATH_PREFIX__}/${style.name}`,
+          "data-identity": `gatsby-global-css`,
+          dangerouslySetInnerHTML: {
+            __html: style.content
+          }
+        }));
+      }
+    })
+<operator>.formatString("/*<![CDATA[*/window.pagePath=", JSON.stringify(pagePath), ";", process.env.GATSBY_SLICES ? `` : `window.___webpackCompilationHash="${webpackCompilationHash}";`, "", inlinePageData ? `window.pageData=${JSON.stringify(pageData)};` : ``, "/*]]>*/")

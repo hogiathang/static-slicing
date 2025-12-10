@@ -1,0 +1,41 @@
+function runReadOperation = function runReadOperation(firstTask) {
+    // do multiple reads at once simultaneously, because it's safe
+
+    var readTasks = [firstTask];
+    var i = 1;
+    var nextTask = db._queue.get(i);
+    while (typeof nextTask !== 'undefined' && nextTask.type === 'read') {
+      readTasks.push(nextTask);
+      i++;
+      nextTask = db._queue.get(i);
+    }
+
+    var numDone = 0;
+
+    readTasks.forEach(function (readTask) {
+      var args = readTask.args;
+      var callback = args[args.length - 1];
+      args[args.length - 1] = function (...cbArgs) {
+        callback.apply(null, cbArgs);
+        if (++numDone === readTasks.length) {
+          nextTick(function () {
+            // all read tasks have finished
+            readTasks.forEach(function () {
+              db._queue.shift();
+            });
+            if (db._queue.length) {
+              executeNext();
+            }
+          });
+        }
+      };
+      tryCode(readTask.fun, args);
+    });
+  }
+_tmp_269 = __ecma.Array.factory()
+var i = 1
+var nextTask = db._queue.get(i)
+typeof nextTask !== 'undefined' && nextTask.type === 'read'
+readTasks.push(nextTask)
+i++
+nextTask = db._queue.get(i)

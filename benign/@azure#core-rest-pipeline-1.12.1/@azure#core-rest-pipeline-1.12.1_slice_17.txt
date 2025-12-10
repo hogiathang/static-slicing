@@ -1,0 +1,36 @@
+async sendRequest(request) {
+        var _a, _b, _c;
+        const abortController = new AbortController();
+        let abortListener;
+        if (request.abortSignal) {
+            if (request.abortSignal.aborted) {
+                throw new AbortError("The operation was aborted.");
+            }
+            abortListener = (event) => {
+                if (event.type === "abort") {
+                    abortController.abort();
+                }
+            };
+            request.abortSignal.addEventListener("abort", abortListener);
+        }
+        if (request.timeout > 0) {
+            setTimeout(() => {
+                abortController.abort();
+            }, request.timeout);
+        }
+        const acceptEncoding = request.headers.get("Accept-Encoding");
+        const shouldDecompress = (acceptEncoding === null || acceptEncoding === void 0 ? void 0 : acceptEncoding.includes("gzip")) || (acceptEncoding === null || acceptEncoding === void 0 ? void 0 : acceptEncoding.includes("defl...
+const abortController = new AbortController()
+request.abortSignal
+request.abortSignal.aborted
+throw new AbortError("The operation was aborted.");
+abortListener = (event) => {
+                if (event.type === "abort") {
+                    abortController.abort();
+                }
+            }
+request.abortSignal.addEventListener("abort", abortListener)
+request.timeout > 0
+setTimeout(() => {
+                abortController.abort();
+            }, request.timeout)

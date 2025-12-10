@@ -1,0 +1,40 @@
+module.exports = function (options, callback) {
+    // set newman version used for collection run
+    options.newmanVersion = util.version;
+
+    // set working directory if not provided
+    options.workingDir = options.workingDir || process.cwd();
+
+    // allow insecure file read by default
+    options.insecureFileRead = Boolean(_.get(options, 'insecureFileRead', true));
+
+    config.get(options, { loaders: configLoaders, command: 'run' }, function (err, result) {
+        if (err) { return callback(err); }
+
+        !_.isEmpty(options.globalVar) && _.forEach(options.globalVar, function (variable) {
+            variable && (result.globals.set(variable.key, variable.value));
+        });
+
+        !_.isEmpty(options.envVar) && _.forEach(options.envVar, function (variable) {
+            variable && (result.environment.set(variable.key, variable.value));
+        });
+
+        callback(null, result);
+    });
+}
+options.newmanVersion = util.version
+options.workingDir = options.workingDir || process.cwd()
+options.insecureFileRead = Boolean(_.get(options, 'insecureFileRead', true))
+config.get(options, { loaders: configLoaders, command: 'run' }, function (err, result) {
+        if (err) { return callback(err); }
+
+        !_.isEmpty(options.globalVar) && _.forEach(options.globalVar, function (variable) {
+            variable && (result.globals.set(variable.key, variable.value));
+        });
+
+        !_.isEmpty(options.envVar) && _.forEach(options.envVar, function (variable) {
+            variable && (result.environment.set(variable.key, variable.value));
+        });
+
+        callback(null, result);
+    })

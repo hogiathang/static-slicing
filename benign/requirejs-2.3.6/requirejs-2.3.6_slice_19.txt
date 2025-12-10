@@ -1,0 +1,26 @@
+exports.writeNameCache = function(filename, key, cache) {
+    if (filename) {
+        var data;
+        try {
+            data = rjsFile.readFile(filename, "utf8");
+            data = JSON.parse(data);
+        } catch(ex) {
+            data = {};
+        }
+        data[key] = {
+            cname: cache.cname,
+            props: cache.props.toObject()
+        };
+        rjsFile.writeFile(filename, JSON.stringify(data, null, 2), "utf8");
+    }
+}
+data = rjsFile.readFile(filename, "utf8")
+data = JSON.parse(data)
+data = {}
+data[key] = {
+            cname: cache.cname,
+            props: cache.props.toObject()
+        }
+_tmp_2093.cname = cache.cname
+_tmp_2093.props = cache.props.toObject()
+rjsFile.writeFile(filename, JSON.stringify(data, null, 2), "utf8")

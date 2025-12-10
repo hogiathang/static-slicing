@@ -1,0 +1,30 @@
+delete(path) {
+        if (this._exists(path)) {
+            if (this._filesToCreate.has(path)) {
+                this._filesToCreate.delete(path);
+            }
+            else if (this._filesToOverwrite.has(path)) {
+                this._filesToOverwrite.delete(path);
+                this._filesToDelete.add(path);
+            }
+            else {
+                const maybeOrigin = this._filesToRenameRevert.get(path);
+                if (maybeOrigin) {
+                    this._filesToRenameRevert.delete(path);
+                    this._filesToRename.delete(maybeOrigin);
+                    this._filesToDelete.add(maybeOrigin);
+                }
+                else {
+                    return (0, rxjs_1.throwError)(new exception_1.UnknownException(`This should never happen. Path: ${JSON.stringify(path)}.`));
+                }
+            }
+            return super.delete(path);
+        }
+        else {
+            return this._back.exists(path).pipe((0, rxjs_1.switchMap)((exist...
+this._exists(path)
+(_tmp_52 = this._filesToCreate).has
+(_tmp_54 = this._filesToOverwrite).has
+const maybeOrigin = this._filesToRenameRevert.get(path)
+(_tmp_58 = this._filesToRenameRevert).delete
+this._filesToRename.delete(maybeOrigin)

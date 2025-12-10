@@ -1,0 +1,13 @@
+var set = function (newState) {
+                var prevState = get();
+                var rState = resolveHookState(newState, prevState);
+                if (prevState !== rState) {
+                    if (typeof min === 'number') {
+                        rState = Math.max(rState, min);
+                    }
+                    if (typeof max === 'number') {
+                        rState = Math.min(rState, max);
+                    }
+                    prevState !== rState && setInternal(rState);
+                }
+            }

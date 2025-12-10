@@ -1,0 +1,49 @@
+adopt(priorRecord) {
+    const record = {
+      hasPrimaryHandler: priorRecord.hasPrimaryHandler,
+      hasWeakHandlers: priorRecord.hasWeakHandlers,
+      metaDiagnostics: priorRecord.metaDiagnostics,
+      node: priorRecord.node,
+      traits: []
+    };
+    for (const priorTrait of priorRecord.traits) {
+      const handler = this.handlersByName.get(priorTrait.handler.name);
+      let trait = Trait.pending(handler, priorTrait.detected);
+      if (priorTrait.state === TraitState.Analyzed || priorTrait.state === TraitState.Resolved) {
+        const symbol = this.makeSymbolForTrait(handler, record.node, priorTrait.analysis);
+        trait = trait.toAnalyzed(priorTrait.analysis, priorTrait.analysisDiagnostics, symbol);
+        if (trait.analysis !== null && trait.handler.register !== void 0) {
+          trait.handler.register(record.node, trait.analysis);
+        }
+      } else if (priorTrait.state === TraitState.Skipped) {
+        trait = trait.toSkipped();
+      }
+      record.traits...
+const record = {
+      hasPrimaryHandler: priorRecord.hasPrimaryHandler,
+      hasWeakHandlers: priorRecord.hasWeakHandlers,
+      metaDiagnostics: priorRecord.metaDiagnostics,
+      node: priorRecord.node,
+      traits: []
+    }
+_tmp_704.hasPrimaryHandler = priorRecord.hasPrimaryHandler
+_tmp_704.hasWeakHandlers = priorRecord.hasWeakHandlers
+_tmp_704.metaDiagnostics = priorRecord.metaDiagnostics
+_tmp_704.node = priorRecord.node
+_tmp_704.traits = __ecma.Array.factory()
+_iterator_77 = <operator>.iterator(priorRecord.traits)
+const handler = this.handlersByName.get(priorTrait.handler.name)
+let trait = Trait.pending(handler, priorTrait.detected)
+priorTrait.state === TraitState.Analyzed || priorTrait.state === TraitState.Resolved
+const symbol = this.makeSymbolForTrait(handler, record.node, priorTrait.analysis)
+trait = trait.toAnalyzed(priorTrait.analysis, priorTrait.analysisDiagnostics, symbol)
+trait.analysis !== null && trait.handler.register !== void 0
+trait.handler.register(record.node, trait.analysis)
+priorTrait.state === TraitState.Skipped
+trait = trait.toSkipped()
+(_tmp_707 = record.traits).push
+this.classes.set(record.node, record)
+const sf = record.node.getSourceFile()
+(_tmp_710 = this.fileToClasses).has
+this.fileToClasses.set(sf, /* @__PURE__ */ new Set())
+this.fileToClasses.get(sf).add(record.node)

@@ -1,0 +1,44 @@
+constructor(context, userId) {
+        this.context = context;
+        const requestParameters = {
+            [analytics_parameters_1.RequestParameter.ProtocolVersion]: 2,
+            [analytics_parameters_1.RequestParameter.ClientId]: userId,
+            [analytics_parameters_1.RequestParameter.UserId]: userId,
+            [analytics_parameters_1.RequestParameter.TrackingId]: /^\d+\.\d+\.\d+$/.test(version_1.VERSION.full) && version_1.VERSION.full !== '0.0.0'
+                ? TRACKING_ID_PROD
+                : TRACKING_ID_STAGING,
+            // Built-in user properties
+            [analytics_parameters_1.RequestParameter.SessionId]: (0, crypto_1.randomUUID)(),
+            [analytics_parameters_1.RequestParameter.UserAgentArchitecture]: os.arch(),
+            [analytics_parameters_1.RequestParameter.UserAgentPlatform]: os.platform(),
+            [analytics_parameters_1.RequestParameter.UserAgentPlatformVersion]: os.release(),
+            [analytics_parameters_1.RequestParameter.U...
+this.context = context
+const requestParameters = {
+            [analytics_parameters_1.RequestParameter.ProtocolVersion]: 2,
+            [analytics_parameters_1.RequestParameter.ClientId]: userId,
+            [analytics_parameters_1.RequestParameter.UserId]: userId,
+            [analytics_parameters_1.RequestParameter.TrackingId]: /^\d+\.\d+\.\d+$/.test(version_1.VERSION.full) && version_1.VERSION.full !== '0.0.0'
+                ? TRACKING_ID_PROD
+                : TRACKING_ID_STAGING,
+            // Built-in user properties
+            [analytics_parameters_1.RequestParameter.SessionId]: (0, crypto_1.randomUUID)(),
+            [analytics_parameters_1.RequestParameter.UserAgentArchitecture]: os.arch(),
+            [analytics_parameters_1.RequestParameter.UserAgentPlatform]: os.platform(),
+            [analytics_parameters_1.RequestParameter.UserAgentPlatformVersion]: os.release(),
+            [analytics_parameters_1.RequestParameter.UserAgentMobile]: 0,
+            [analytics_parameters_1.RequestParameter.Sess...
+_tmp_5._computed_object_property_0 = 2
+_tmp_5._computed_object_property_1 = userId
+_tmp_5._computed_object_property_2 = userId
+_tmp_5._computed_object_property_3 = /^\d+\.\d+\.\d+$/.test(version_1.VERSION.full) && version_1.VERSION.full !== '0.0.0' ? TRACKING_ID_PROD : TRACKING_ID_STAGING
+_tmp_5._computed_object_property_4 = (0, crypto_1.randomUUID)()
+_tmp_5._computed_object_property_5 = os.arch()
+_tmp_5._computed_object_property_6 = os.platform()
+_tmp_5._computed_object_property_7 = os.release()
+_tmp_5._computed_object_property_8 = 0
+_tmp_5._computed_object_property_9 = 1
+_tmp_5._computed_object_property_10 = "Google%20Chrome;111.0.5563.64|Not(A%3ABrand;8.0.0.0|Chromium;111.0.5563.64"
+environment_options_1.ngDebug
+requestParameters[analytics_parameters_1.RequestParameter.DebugView] = 1
+this.requestParameterStringified = querystring.stringify(requestParameters)

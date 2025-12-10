@@ -1,0 +1,45 @@
+function _getAtomics = function _getAtomics(doc, previous) {
+  const pathToAtomics = new Map();
+  previous = previous || new Map();
+
+  const pathsToCheck = Object.keys(doc.$__.activePaths.init).concat(Object.keys(doc.$__.activePaths.modify));
+
+  for (const path of pathsToCheck) {
+    const val = doc.$__getValue(path);
+    if (val != null &&
+        Array.isArray(val) &&
+        utils.isMongooseDocumentArray(val) &&
+        val.length &&
+        val[arrayAtomicsSymbol] != null &&
+        Object.keys(val[arrayAtomicsSymbol]).length !== 0) {
+      const existing = previous.get(path) || {};
+      pathToAtomics.set(path, mergeAtomics(existing, val[arrayAtomicsSymbol]));
+    }
+  }
+
+  const dirty = doc.$__dirty();
+  for (const dirt of dirty) {
+    const path = dirt.path;
+
+    const val = dirt.value;
+    if (val != null && val[arrayAtomicsSymbol] != null && Object.keys(val[arrayAtomicsSymbol]).length !== 0) {
+      const existing = previous.get(path) || {};
+      pathToAtomics.set(path, mergeAtomics(existing, val...
+const pathToAtomics = new Map()
+previous = previous || new Map()
+const pathsToCheck = Object.keys(doc.$__.activePaths.init).concat(Object.keys(doc.$__.activePaths.modify))
+_iterator_0 = <operator>.iterator(pathsToCheck)
+const val = doc.$__getValue(path)
+val != null &&
+        Array.isArray(val) &&
+        utils.isMongooseDocumentArray(val) &&
+        val.length &&
+        val[arrayAtomicsSymbol] != null &&
+        Object.keys(val[arrayAtomicsSymbol]).length !== 0
+Array.isArray(val)
+utils.isMongooseDocumentArray(val)
+val.length
+val[arrayAtomicsSymbol] != null
+Object.keys(val[arrayAtomicsSymbol]).length !== 0
+const existing = previous.get(path) || {}
+pathToAtomics.set(path, mergeAtomics(existing, val[arrayAtomicsSymbol]))

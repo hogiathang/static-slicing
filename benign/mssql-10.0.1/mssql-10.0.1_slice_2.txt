@@ -1,0 +1,19 @@
+req.execute('sp_unprepare', err => {
+      if (err) return callback(err)
+
+      this.parent.release(this._acquiredConnection)
+      this._acquiredConnection = null
+      this._acquiredConfig = null
+      this._handle = 0
+      this.prepared = false
+
+      debug('ps(%d): unprepared', IDS.get(this))
+
+      return callback(null)
+    })
+this.parent.release(this._acquiredConnection)
+this._acquiredConnection = null
+this._acquiredConfig = null
+this._handle = 0
+this.prepared = false
+debug('ps(%d): unprepared', IDS.get(this))

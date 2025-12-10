@@ -1,0 +1,74 @@
+function applyVirtuals = function applyVirtuals(self, json, options, toObjectOptions) {
+  const schema = self.$__schema;
+  const paths = Object.keys(schema.virtuals);
+  let i = paths.length;
+  const numPaths = i;
+  let path;
+  let assignPath;
+  let cur = self._doc;
+  let v;
+  const aliases = typeof (toObjectOptions && toObjectOptions.aliases) === 'boolean'
+    ? toObjectOptions.aliases
+    : true;
+
+  let virtualsToApply = null;
+  if (Array.isArray(options.virtuals)) {
+    virtualsToApply = new Set(options.virtuals);
+  } else if (options.virtuals && options.virtuals.pathsToSkip) {
+    virtualsToApply = new Set(paths);
+    for (let i = 0; i < options.virtuals.pathsToSkip.length; i++) {
+      if (virtualsToApply.has(options.virtuals.pathsToSkip[i])) {
+        virtualsToApply.delete(options.virtuals.pathsToSkip[i]);
+      }
+    }
+  }
+
+  if (!cur) {
+    return json;
+  }
+
+  options = options || {};
+  for (i = 0; i < numPaths; ++i) {
+    path = paths[i];
+
+    if (virtualsToApply != null && !virtualsToApply.has(pat...
+const schema = self.$__schema
+const paths = Object.keys(schema.virtuals)
+let i = paths.length
+const numPaths = i
+let cur = self._doc
+const aliases = typeof (toObjectOptions && toObjectOptions.aliases) === 'boolean'
+    ? toObjectOptions.aliases
+    : true
+toObjectOptions.aliases
+let virtualsToApply = null
+Array.isArray(options.virtuals)
+virtualsToApply = new Set(options.virtuals)
+options.virtuals && options.virtuals.pathsToSkip
+virtualsToApply = new Set(paths)
+i < options.virtuals.pathsToSkip.length
+virtualsToApply.has(options.virtuals.pathsToSkip[i])
+virtualsToApply.delete(options.virtuals.pathsToSkip[i])
+!cur
+options = options || {}
+i < numPaths
+path = paths[i]
+virtualsToApply != null && !virtualsToApply.has(path)
+continue;
+!aliases && schema.aliases.hasOwnProperty(path)
+continue;
+assignPath = path
+options.path != null
+!path.startsWith(options.path + '.')
+continue;
+assignPath = path.substring(options.path.length + 1)
+const parts = assignPath.split('.')
+v = clone(self.get(path), options)
+v === void 0
+continue;
+const plen = parts.length
+cur = json
+j < plen - 1
+cur[parts[j]] = cur[parts[j]] || {}
+cur = cur[parts[j]]
+cur[parts[plen - 1]] = v

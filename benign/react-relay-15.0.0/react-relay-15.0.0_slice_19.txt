@@ -1,0 +1,37 @@
+_proto.networkWrite = function networkWrite(config) {
+    !this._environment.hasMockedNetwork ? process.env.NODE_ENV !== "production" ? invariant(false, 'You cannot resolve queries without a mocked environment. Did you mean ' + 'to use `writeDirect` instead?') : invariant(false) : void 0;
+    var query = config.query,
+      variables = config.variables,
+      payload = config.payload;
+    var ident = ReactRelayTestMocker.getIdentifier(query.params);
+    var usedVars;
+    if (variables) {
+      var operationDescriptor = createOperationDescriptor(query, variables);
+      usedVars = ReactRelayTestMocker.stripUnused(operationDescriptor.request.variables);
+    }
+    var toResolve;
+    this._pendingFetches.forEach(function (pending) {
+      var pendingVars = pending.variables;
+      if (pending.ident === ident) {
+        !(!toResolve || variables) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Multiple queries with the same name are currently pending. You ' + 'should pass var...
+!this._environment.hasMockedNetwork ? process.env.NODE_ENV !== "production" ? invariant(false, 'You cannot resolve queries without a mocked environment. Did you mean ' + 'to use `writeDirect` instead?') : invariant(false) : void 0
+var query = config.query
+var variables = config.variables
+var payload = config.payload
+var ident = ReactRelayTestMocker.getIdentifier(query.params)
+var operationDescriptor = createOperationDescriptor(query, variables)
+usedVars = ReactRelayTestMocker.stripUnused(operationDescriptor.request.variables)
+this._pendingFetches.forEach(function (pending) {
+      var pendingVars = pending.variables;
+      if (pending.ident === ident) {
+        !(!toResolve || variables) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Multiple queries with the same name are currently pending. You ' + 'should pass variables to `write` so that it can determine which ' + 'to resolve') : invariant(false) : void 0;
+        if (variables) {
+          if (areEqual(pendingVars, usedVars)) {
+            toResolve = pending;
+          }
+        } else {
+          toResolve = pending;
+        }
+      }
+    })
+var varMessage = usedVars ? ' - variables: ' + JSON.stringify(usedVars) : ''

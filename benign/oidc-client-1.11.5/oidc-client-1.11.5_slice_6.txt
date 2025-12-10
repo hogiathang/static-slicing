@@ -1,0 +1,69 @@
+new Promise(function (resolve, reject) {
+
+            var req = new _this2._XMLHttpRequest();
+            req.open('POST', url);
+
+            var allowedContentTypes = _this2._contentTypes;
+
+            req.onload = function () {
+                _Log.Log.debug("JsonService.postForm: HTTP response received, status", req.status);
+
+                if (req.status === 200) {
+
+                    var contentType = req.getResponseHeader("Content-Type");
+                    if (contentType) {
+
+                        var found = allowedContentTypes.find(function (item) {
+                            if (contentType.startsWith(item)) {
+                                return true;
+                            }
+                        });
+
+                        if (found) {
+                            try {
+                                resolve(JSON.parse(req.responseText));
+                                return;
+                            } catch (e) {
+                                _Lo...
+var req = new _this2._XMLHttpRequest()
+req.open('POST', url)
+var allowedContentTypes = _this2._contentTypes
+req.onload = function () {
+                _Log.Log.debug("JsonService.postForm: HTTP response received, status", req.status);
+
+                if (req.status === 200) {
+
+                    var contentType = req.getResponseHeader("Content-Type");
+                    if (contentType) {
+
+                        var found = allowedContentTypes.find(function (item) {
+                            if (contentType.startsWith(item)) {
+                                return true;
+                            }
+                        });
+
+                        if (found) {
+                            try {
+                                resolve(JSON.parse(req.responseText));
+                                return;
+                            } catch (e) {
+                                _Log.Log.error("JsonService.postForm: Error parsing JSON response", e.message);
+                                reject(e);
+                                return;
+                            }
+             ...
+req.onerror = function () {
+                _Log.Log.error("JsonService.postForm: network error");
+                reject(Error("Network Error"));
+            }
+var body = ""
+_iterator_7 = <operator>.iterator(payload)
+var value = payload[key]
+body.length > 0
+body += "&"
+body += encodeURIComponent(key)
+body += "="
+body += encodeURIComponent(value)
+req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+basicAuth !== undefined
+req.setRequestHeader("Authorization", "Basic " + btoa(basicAuth))

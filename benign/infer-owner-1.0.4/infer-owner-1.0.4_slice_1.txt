@@ -1,0 +1,22 @@
+const inferOwner = path => {
+  path = resolve(path)
+  if (cache.has(path))
+    return Promise.resolve(cache.get(path))
+
+  const statThen = st => {
+    const { uid, gid } = st
+    cache.set(path, { uid, gid })
+    return { uid, gid }
+  }
+  const parent = dirname(path)
+  const parentTrap = parent === path ? null : er => {
+    return inferOwner(parent).then((owner) => {
+      cache.set(path, owner)
+      return owner
+    })
+  }
+  return lstat(path).then(statThen, parentTrap)
+}
+path = resolve(path)
+cache.has(path)
+Promise.resolve(cache.get(path))

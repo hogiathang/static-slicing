@@ -1,0 +1,20 @@
+function callWithFlag = function callWithFlag(previous, flag, args) {
+	const combinedFlags = {[flag]: true};
+	do {
+		const step = chainRegistry.get(previous);
+		if (step.call) {
+			step.call({...step.defaults, ...combinedFlags}, args);
+			previous = null;
+		} else {
+			combinedFlags[step.flag] = true;
+			previous = step.prev;
+		}
+	} while (previous);
+}
+const combinedFlags = {[flag]: true}
+const step = chainRegistry.get(previous)
+step.call
+step.call({...step.defaults, ...combinedFlags}, args)
+previous = null
+combinedFlags[step.flag] = true
+previous = step.prev

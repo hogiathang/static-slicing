@@ -1,0 +1,4 @@
+var enforce = function (it) {
+  return has(it) ? get(it) : set(it, {});
+}
+has(it) ? get(it) : set(it, {})

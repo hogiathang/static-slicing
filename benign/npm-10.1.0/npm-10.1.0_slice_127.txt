@@ -1,0 +1,29 @@
+async getLatestNodejsVersion () {
+    // XXX get the latest in the current major as well
+    const current = process.version
+    const currentRange = `^${current}`
+    const url = 'https://nodejs.org/dist/index.json'
+    const tracker = log.newItem('getLatestNodejsVersion', 1)
+    tracker.info('getLatestNodejsVersion', 'Getting Node.js release information')
+    try {
+      const res = await fetch(url, { method: 'GET', ...this.npm.flatOptions })
+      const data = await res.json()
+      let maxCurrent = '0.0.0'
+      let maxLTS = '0.0.0'
+      for (const { lts, version } of data) {
+        if (lts && semver.gt(version, maxLTS)) {
+          maxLTS = version
+        }
+
+        if (semver.satisfies(version, currentRange) && semver.gt(version, maxCurrent)) {
+          maxCurrent = version
+        }
+      }
+      const recommended = semver.gt(maxCurrent, maxLTS) ? maxCurrent : maxLTS
+      if (semver.gte(process.version, recommended)) {
+        return `current: ${current}, recommended: ${...
+const current = process.version
+<operator>.formatString("^", current, "")
+const url = 'https://nodejs.org/dist/index.json'
+const tracker = log.newItem('getLatestNodejsVersion', 1)
+tracker.info('getLatestNodejsVersion', 'Getting Node.js release information')

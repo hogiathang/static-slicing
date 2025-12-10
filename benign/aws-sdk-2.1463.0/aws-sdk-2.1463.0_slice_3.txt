@@ -1,0 +1,10 @@
+_tmp_1.constructor = SsoCredentials
+(_tmp_2 = AWS.Credentials).call
+options = options || {}
+this.errorCode = 'SsoCredentialsProviderFailure'
+this.expired = true
+this.filename = options.filename
+this.profile = options.profile || process.env.AWS_PROFILE || AWS.util.defaultProfile
+this.service = options.ssoClient
+this.httpOptions = options.httpOptions || null
+this.get(options.callback || AWS.util.fn.noop)

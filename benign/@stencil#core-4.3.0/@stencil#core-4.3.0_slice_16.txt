@@ -1,0 +1,28 @@
+const addStyle = (styleContainerNode, cmpMeta, mode) => {
+    var _a;
+    const scopeId = getScopeId(cmpMeta, mode);
+    const style = styles.get(scopeId);
+    if (!BUILD.attachStyles) {
+        return scopeId;
+    }
+    // if an element is NOT connected then getRootNode() will return the wrong root node
+    // so the fallback is to always use the document for the root node in those cases
+    styleContainerNode = styleContainerNode.nodeType === 11 /* NODE_TYPE.DocumentFragment */ ? styleContainerNode : doc;
+    if (style) {
+        if (typeof style === 'string') {
+            styleContainerNode = styleContainerNode.head || styleContainerNode;
+            let appliedStyles = rootAppliedStyles.get(styleContainerNode);
+            let styleElm;
+            if (!appliedStyles) {
+                rootAppliedStyles.set(styleContainerNode, (appliedStyles = new Set()));
+            }
+            if (!appliedStyles.has(scopeId)) {
+                if (BUILD.hydrateClientSide &&
+                    s...
+const scopeId = getScopeId(cmpMeta, mode)
+const style = styles.get(scopeId)
+!BUILD.attachStyles
+styleContainerNode = styleContainerNode.nodeType === 11 /* NODE_TYPE.DocumentFragment */ ? styleContainerNode : doc
+typeof style === 'string'
+styleContainerNode = styleContainerNode.head || styleContainerNode
+let appliedStyles = rootAppliedStyles.get(styleContainerNode)

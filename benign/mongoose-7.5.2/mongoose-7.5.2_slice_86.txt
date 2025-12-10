@@ -1,0 +1,44 @@
+function _completeOneLean = function _completeOneLean(schema, doc, path, res, opts, callback) {
+  if (opts.lean && typeof opts.lean.transform === 'function') {
+    opts.lean.transform(doc);
+
+    for (let i = 0; i < schema.childSchemas.length; i++) {
+      const childPath = path ? path + '.' + schema.childSchemas[i].model.path : schema.childSchemas[i].model.path;
+      const _schema = schema.childSchemas[i].schema;
+      const obj = mpath.get(childPath, doc);
+      if (obj == null) {
+        continue;
+      }
+      if (Array.isArray(obj)) {
+        for (let i = 0; i < obj.length; i++) {
+          opts.lean.transform(obj[i]);
+        }
+      } else {
+        opts.lean.transform(obj);
+      }
+      _completeOneLean(_schema, obj, childPath, res, opts);
+    }
+    if (callback) {
+      return callback(null, doc);
+    } else {
+      return;
+    }
+  }
+  if (opts.rawResult) {
+    return callback(null, res);
+  }
+  return callback(null, doc);
+}
+opts.lean && typeof opts.lean.transform === 'function'
+(_tmp_4 = opts.lean).transform
+i < schema.childSchemas.length
+const childPath = path ? path + '.' + schema.childSchemas[i].model.path : schema.childSchemas[i].model.path
+const _schema = schema.childSchemas[i].schema
+const obj = mpath.get(childPath, doc)
+obj == null
+continue;
+Array.isArray(obj)
+i < obj.length
+(_tmp_5 = opts.lean).transform
+(_tmp_6 = opts.lean).transform
+_completeOneLean(_schema, obj, childPath, res, opts)

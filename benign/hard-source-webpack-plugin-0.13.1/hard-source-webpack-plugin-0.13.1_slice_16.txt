@@ -1,0 +1,20 @@
+(err, result) => {
+                      if (err) {
+                        callback(err, result);
+                      } else {
+                        module.__hardSource_resolved[
+                          JSON.stringify({ context, request })
+                        ] = {
+                          resource: result,
+                          resolveOptions: module.resolveOptions,
+                        };
+                        callback(err, result);
+                      }
+                    }
+module.__hardSource_resolved[
+                          JSON.stringify({ context, request })
+                        ] = {
+                          resource: result,
+                          resolveOptions: module.resolveOptions,
+                        }
+JSON.stringify({ context, request })

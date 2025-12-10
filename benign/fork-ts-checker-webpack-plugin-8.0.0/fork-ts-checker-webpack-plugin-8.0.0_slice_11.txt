@@ -1,0 +1,27 @@
+function writeFile = function writeFile(path, data) {
+    const normalizedPath = (0, path_1.normalize)(path);
+    if (!exists((0, path_1.dirname)(normalizedPath))) {
+        createDir((0, path_1.dirname)(normalizedPath));
+    }
+    fs.writeFileSync(normalizedPath, data);
+    // update cache
+    existsCache.set(normalizedPath, true);
+    if (readDirCache.has((0, path_1.dirname)(normalizedPath))) {
+        readDirCache.delete((0, path_1.dirname)(normalizedPath));
+    }
+    if (readStatsCache.has(normalizedPath)) {
+        readStatsCache.delete(normalizedPath);
+    }
+    if (readFileCache.has(normalizedPath)) {
+        readFileCache.delete(normalizedPath);
+    }
+}
+const normalizedPath = (0, path_1.normalize)(path)
+!exists((0, path_1.dirname)(normalizedPath))
+createDir((0, path_1.dirname)(normalizedPath))
+fs.writeFileSync(normalizedPath, data)
+existsCache.set(normalizedPath, true)
+readDirCache.has((0, path_1.dirname)(normalizedPath))
+readDirCache.delete((0, path_1.dirname)(normalizedPath))
+readStatsCache.has(normalizedPath)
+readStatsCache.delete(normalizedPath)

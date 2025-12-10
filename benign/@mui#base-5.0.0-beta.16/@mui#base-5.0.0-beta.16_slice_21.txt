@@ -1,0 +1,16 @@
+getOptionLabel = option => {
+    const optionLabel = getOptionLabelProp(option);
+    if (typeof optionLabel !== 'string') {
+      if (process.env.NODE_ENV !== 'production') {
+        const erroneousReturn = optionLabel === undefined ? 'undefined' : `${typeof optionLabel} (${optionLabel})`;
+        console.error(`MUI: The \`getOptionLabel\` method of ${componentName} returned ${erroneousReturn} instead of a string for ${JSON.stringify(option)}.`);
+      }
+      return String(optionLabel);
+    }
+    return optionLabel;
+  }
+const optionLabel = getOptionLabelProp(option)
+typeof optionLabel !== 'string'
+process.env.NODE_ENV !== 'production'
+optionLabel === undefined ? "undefined" : <operator>.formatString("", typeof optionLabel, " (", optionLabel, ")")
+<operator>.formatString("MUI: The \`getOptionLabel\` method of ", componentName, " returned ", erroneousReturn, " instead of a string for ", JSON.stringify(option), ".")

@@ -1,0 +1,90 @@
+function makeConnection = function makeConnection(options: MakeConnectionOptions, _callback: Callback<Stream>) {
+  const useTLS = options.tls ?? false;
+  const noDelay = options.noDelay ?? true;
+  const connectTimeoutMS = options.connectTimeoutMS ?? 30000;
+  const rejectUnauthorized = options.rejectUnauthorized ?? true;
+  const existingSocket = options.existingSocket;
+
+  let socket: Stream;
+  const callback: Callback<Stream> = function (err, ret) {
+    if (err && socket) {
+      socket.destroy();
+    }
+
+    _callback(err, ret);
+  };
+
+  if (options.proxyHost != null) {
+    // Currently, only Socks5 is supported.
+    return makeSocks5Connection(
+      {
+        ...options,
+        connectTimeoutMS // Should always be present for Socks5
+      },
+      callback
+    );
+  }
+
+  if (useTLS) {
+    const tlsSocket = tls.connect(parseSslOptions(options));
+    if (typeof tlsSocket.disableRenegotiation === 'function') {
+      tlsSocket.disableRenegotiation();
+    }
+    socket = tlsSocket;
+  } else if (existingSocket) {
+ ...
+const useTLS = options.tls ?? false
+const noDelay = options.noDelay ?? true
+const connectTimeoutMS = options.connectTimeoutMS ?? 30000
+const rejectUnauthorized = options.rejectUnauthorized ?? true
+const existingSocket = options.existingSocket
+const callback: Callback<Stream> = function (err, ret) {
+    if (err && socket) {
+      socket.destroy();
+    }
+
+    _callback(err, ret);
+  }
+options.proxyHost != null
+const tlsSocket = tls.connect(parseSslOptions(options))
+typeof tlsSocket.disableRenegotiation === 'function'
+tlsSocket.disableRenegotiation()
+socket = tlsSocket
+socket = existingSocket
+socket = net.createConnection(parseConnectOptions(options))
+socket.setKeepAlive(true, 300000)
+socket.setTimeout(connectTimeoutMS)
+socket.setNoDelay(noDelay)
+const connectEvent = useTLS ? 'secureConnect' : 'connect'
+function errorHandler = function errorHandler(eventName: ErrorHandlerEventName) {
+    return (err: Error) => {
+      SOCKET_ERROR_EVENTS.forEach(event => socket.removeAllListeners(event));
+      if (cancellationHandler && options.cancellationToken) {
+        options.cancellationToken.removeListener('cancel', cancellationHandler);
+      }
+
+      socket.removeListener(connectEvent, connectHandler);
+      callback(connectionFailureError(eventName, err));
+    };
+  }
+function connectHandler = function connectHandler() {
+    SOCKET_ERROR_EVENTS.forEach(event => socket.removeAllListeners(event));
+    if (cancellationHandler && options.cancellationToken) {
+      options.cancellationToken.removeListener('cancel', cancellationHandler);
+    }
+
+    if ('authorizationError' in socket) {
+      if (socket.authorizationError && rejectUnauthorized) {
+        // TODO(NODE-5192): wrap this with a MongoError subclass
+        return callback(socket.authorizationError);
+      }
+    }
+
+    socket.setTimeout(0);
+    callback(undefined, socket);
+  }
+SOCKET_ERROR_EVENTS.forEach(event => socket.once(event, errorHandler(event)))
+options.cancellationToken
+cancellationHandler = errorHandler('cancel')
+options.cancellationToken.once('cancel', cancellationHandler)
+process.nextTick(connectHandler)

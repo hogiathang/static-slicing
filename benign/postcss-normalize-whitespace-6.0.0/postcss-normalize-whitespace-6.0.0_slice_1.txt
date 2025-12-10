@@ -1,0 +1,40 @@
+css.walk((node) => {
+        const { type } = node;
+
+        if ([decl, rule, atrule].includes(type) && node.raws.before) {
+          node.raws.before = node.raws.before.replace(/\s/g, '');
+        }
+
+        if (type === decl) {
+          // Ensure that !important values do not have any excess whitespace
+          if (node.important) {
+            node.raws.important = '!important';
+          }
+
+          // Remove whitespaces around ie 9 hack
+          node.value = node.value.replace(/\s*(\\9)\s*/, '$1');
+          const value = node.value;
+
+          if (cache.has(value)) {
+            node.value = cache.get(value);
+          } else {
+            const parsed = valueParser(node.value);
+            const result = parsed.walk(reduceWhitespaces).toString();
+
+            // Trim whitespace inside functions & dividers
+            node.value = result;
+            cache.set(value, result);
+          }
+
+          if (node.prop.startsWith('--') && node.value === '') {
+            node.val...
+type = _tmp_5.type
+[decl, rule, atrule].includes(type) && node.raws.before
+node.raws.before = node.raws.before.replace(/\s/g, '')
+type === decl
+node.important
+node.raws.important = '!important'
+node.value = node.value.replace(/\s*(\\9)\s*/, '$1')
+const value = node.value
+cache.has(value)
+node.value = cache.get(value)

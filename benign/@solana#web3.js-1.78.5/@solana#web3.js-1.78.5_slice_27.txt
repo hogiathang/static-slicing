@@ -1,0 +1,4 @@
+new Promise(function (resolve) {
+                  return setTimeout(resolve, Math.round(MS_PER_SLOT / 2));
+                })
+setTimeout(resolve, Math.round(MS_PER_SLOT / 2))

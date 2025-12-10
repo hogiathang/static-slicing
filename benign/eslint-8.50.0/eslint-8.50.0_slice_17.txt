@@ -1,0 +1,9 @@
+function getRule = function getRule(slots, ruleId) {
+    return (
+        (slots.lastConfigArray && slots.lastConfigArray.pluginRules.get(ruleId)) ||
+        slots.ruleMap.get(ruleId)
+    );
+}
+(slots.lastConfigArray && slots.lastConfigArray.pluginRules.get(ruleId)) ||
+        slots.ruleMap.get(ruleId)
+(_tmp_108 = slots.ruleMap).get

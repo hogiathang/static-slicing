@@ -1,0 +1,52 @@
+send(requests) {
+        requests = requests.map((req) => {
+            req.headers = Object.assign({}, this.commonHeaders, req.headers);
+            return req;
+        });
+        const requestHeaders = {
+            'Content-Type': `multipart/mixed; boundary=${PART_BOUNDARY}`,
+        };
+        const request = {
+            method: 'POST',
+            url: this.batchUrl,
+            data: this.getMultipartPayload(requests),
+            headers: Object.assign({}, this.commonHeaders, requestHeaders),
+            timeout: TEN_SECONDS_IN_MILLIS,
+        };
+        return this.httpClient.send(request).then((response) => {
+            if (!response.multipart) {
+                throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INTERNAL_ERROR, 'Expected a multipart response.');
+            }
+            return response.multipart.map((buff) => {
+                return (0, api_request_1.parseHttpResponse)(buff, request);
+            });
+        });
+    }
+requests = requests.map((req) => {
+            req.headers = Object.assign({}, this.commonHeaders, req.headers);
+            return req;
+        })
+const requestHeaders = {
+            'Content-Type': `multipart/mixed; boundary=${PART_BOUNDARY}`,
+        }
+_tmp_3.Content-Type = <operator>.formatString("multipart/mixed; boundary=", PART_BOUNDARY, "")
+const request = {
+            method: 'POST',
+            url: this.batchUrl,
+            data: this.getMultipartPayload(requests),
+            headers: Object.assign({}, this.commonHeaders, requestHeaders),
+            timeout: TEN_SECONDS_IN_MILLIS,
+        }
+_tmp_4.method = "POST"
+_tmp_4.url = this.batchUrl
+_tmp_4.data = this.getMultipartPayload(requests)
+_tmp_4.headers = Object.assign({}, this.commonHeaders, requestHeaders)
+_tmp_4.timeout = TEN_SECONDS_IN_MILLIS
+this.httpClient.send(request).then((response) => {
+            if (!response.multipart) {
+                throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INTERNAL_ERROR, 'Expected a multipart response.');
+            }
+            return response.multipart.map((buff) => {
+                return (0, api_request_1.parseHttpResponse)(buff, request);
+            });
+        })

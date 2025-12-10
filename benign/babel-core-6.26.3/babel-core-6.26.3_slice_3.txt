@@ -1,0 +1,15 @@
+Plugin.prototype.init = function init(loc, i) {
+    if (this.initialized) return;
+    this.initialized = true;
+
+    this.maybeInherit(loc);
+
+    for (var key in this.raw) {
+      throw new Error(messages.get("pluginInvalidProperty", loc, i, key));
+    }
+  }
+this.initialized
+this.initialized = true
+this.maybeInherit(loc)
+_iterator_1 = <operator>.iterator(this.raw)
+throw new Error(messages.get("pluginInvalidProperty", loc, i, key));

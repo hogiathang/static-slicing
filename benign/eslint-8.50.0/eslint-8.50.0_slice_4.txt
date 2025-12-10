@@ -1,0 +1,58 @@
+validate(config) {
+
+        if (!config.rules) {
+            return;
+        }
+
+        for (const [ruleId, ruleOptions] of Object.entries(config.rules)) {
+
+            // check for edge case
+            if (ruleId === "__proto__") {
+                continue;
+            }
+
+            /*
+             * If a rule is disabled, we don't do any validation. This allows
+             * users to safely set any value to 0 or "off" without worrying
+             * that it will cause a validation error.
+             *
+             * Note: ruleOptions is always an array at this point because
+             * this validation occurs after FlatConfigArray has merged and
+             * normalized values.
+             */
+            if (ruleOptions[0] === 0) {
+                continue;
+            }
+
+            const rule = getRuleFromConfig(ruleId, config);
+
+            if (!rule) {
+                throwRuleNotFoundError(parseRuleId(ruleId), config);
+            }
+
+            // Precompile and cach...
+!config.rules
+_iterator_1 = <operator>.iterator(Object.entries(config.rules))
+ruleId === "__proto__"
+continue;
+ruleOptions[0] === 0
+continue;
+const rule = getRuleFromConfig(ruleId, config)
+!rule
+throwRuleNotFoundError(parseRuleId(ruleId), config)
+(_tmp_3 = this.validators).has
+const schema = getRuleOptionsSchema(rule)
+this.validators.set(rule, ajv.compile(schema))
+const validateRule = this.validators.get(rule)
+validateRule(ruleOptions.slice(1))
+validateRule.errors
+throw new Error(`Key "rules": Key "${ruleId}": ${
+                        validateRule.errors.map(
+                            error => `\tValue ${JSON.stringify(error.data)} ${error.message}.\n`
+                        ).join("")
+                    }`);
+(_tmp_7 = validateRule.errors.map(
+                            error => `\tValue ${JSON.stringify(error.data)} ${error.message}.\n`
+                        )).join
+<operator>.formatString("\tValue ", JSON.stringify(error.data), " ", error.message, ".\n")
+join

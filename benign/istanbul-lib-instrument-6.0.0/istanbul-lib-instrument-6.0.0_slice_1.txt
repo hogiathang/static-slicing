@@ -1,0 +1,8 @@
+_tmp_6.ObjectProperty = ObjectProperty
+node = _tmp_7.node
+!node.computed &&
+                path.get('key').isIdentifier() &&
+                node.key.name === MAGIC_KEY
+(_tmp_8 = path.get('key')).isIdentifier
+node.key.name === MAGIC_KEY
+const magicValue = path.get('value').evaluate()

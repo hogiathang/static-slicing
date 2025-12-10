@@ -1,0 +1,6 @@
+extDel = function (arg) {
+			if (resolve) arg = resolve(arguments)[0];
+			return conf.delete(arg);
+		}
+arg = resolve(arguments)[0]
+conf.delete(arg)

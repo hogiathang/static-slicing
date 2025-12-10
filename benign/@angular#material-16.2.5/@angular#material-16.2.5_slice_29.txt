@@ -1,0 +1,35 @@
+SCHEMA.forEach((encodedType) => {
+      const type = /* @__PURE__ */ new Map();
+      const events = /* @__PURE__ */ new Set();
+      const [strType, strProperties] = encodedType.split("|");
+      const properties = strProperties.split(",");
+      const [typeNames, superName] = strType.split("^");
+      typeNames.split(",").forEach((tag) => {
+        this._schema.set(tag.toLowerCase(), type);
+        this._eventSchema.set(tag.toLowerCase(), events);
+      });
+      const superType = superName && this._schema.get(superName.toLowerCase());
+      if (superType) {
+        for (const [prop, value] of superType) {
+          type.set(prop, value);
+        }
+        for (const superEvent of this._eventSchema.get(superName.toLowerCase())) {
+          events.add(superEvent);
+        }
+      }
+      properties.forEach((property2) => {
+        if (property2.length > 0) {
+          switch (property2[0]) {
+            case "*":
+              events.add(property2.substring(1));
+              break...
+const type = /* @__PURE__ */ new Map()
+const events = /* @__PURE__ */ new Set()
+_tmp_2743 = encodedType.split("|")
+const properties = strProperties.split(",")
+_tmp_2744 = strType.split("^")
+typeNames.split(",").forEach((tag) => {
+        this._schema.set(tag.toLowerCase(), type);
+        this._eventSchema.set(tag.toLowerCase(), events);
+      })
+const superType = superName && this._schema.get(superName.toLowerCase())

@@ -1,0 +1,47 @@
+consumeStateChange(event) { // eslint-disable-line complexity
+		const fileStats = this.stats && event.testFile ? this.stats.byFile.get(event.testFile) : null;
+
+		switch (event.type) { // eslint-disable-line default-case
+			case 'hook-failed': {
+				this.failures.push(event);
+				this.writeTestSummary(event);
+				break;
+			}
+
+			case 'stats': {
+				this.stats = event.stats;
+				break;
+			}
+
+			case 'test-failed': {
+				this.failures.push(event);
+				this.writeTestSummary(event);
+				break;
+			}
+
+			case 'test-passed': {
+				if (event.knownFailing) {
+					this.knownFailures.push(event);
+				}
+
+				this.writeTestSummary(event);
+				break;
+			}
+
+			case 'timeout': {
+				this.lineWriter.writeLine(colors.error(`\n${figures.cross} Timed out while running tests`));
+				this.lineWriter.writeLine('');
+				this.writePendingTests(event);
+				break;
+			}
+
+			case 'interrupt': {
+				this.lineWriter.writeLine(colors.error(`\n${figures.cross} Exiting due to SIGINT`));
+				this.lineWriter.writeLine(...
+const fileStats = this.stats && event.testFile ? this.stats.byFile.get(event.testFile) : null
+event.type
+"worker-finished"
+!event.forcedExit && !this.filesWithMissingAvaImports.has(event.testFile)
+fileStats.declaredTests === 0
+this.filesWithoutDeclaredTests.add(event.testFile)
+<operator>.formatString("", figures.cross, " No tests found in ", this.relativeFile(event.testFile), "")

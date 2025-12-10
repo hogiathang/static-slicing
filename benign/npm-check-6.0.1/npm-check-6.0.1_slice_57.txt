@@ -1,0 +1,34 @@
+function render = function render(pkg, currentState) {
+    const packageName = pkg.moduleName;
+    const rows = [];
+
+    const indent = '           ' + emoji('   ');
+
+    const installer = currentState.get('installer');
+    const isYarn = installer === 'yarn';
+
+    const args = [isYarn ? 'add' : 'install'];
+    if (currentState.get('global')) {
+        isYarn ? args.unshift('global') : args.push('--global');
+    }
+
+    const flags = [];
+    if (isYarn) {
+        pkg.devDependency && flags.push('--dev');
+    } else {
+        pkg.devDependency ? flags.push('--save-dev') : flags.push('--save');
+    }
+
+    const upgradeCommand = `${installer} ${args.join(' ')} ${packageName}@${pkg.latest} ${flags.join(' ')}`;
+    const upgradeMessage = `${chalk.green(upgradeCommand)} to go from ${pkg.installed} to ${pkg.latest}`;
+    // DYLAN: clean this up
+    const status = _([
+        pkg.notInstalled ? chalk.bgRed.white.bold(emoji(' :worried: ') + ' MISSING! ') + ' Not installed.' : '',
+        pkg.notInPackageJson ?...
+const packageName = pkg.moduleName
+__ecma.Array.factory()
+const indent = '           ' + emoji('   ')
+const installer = currentState.get('installer')
+const isYarn = installer === 'yarn'
+const args = [isYarn ? 'add' : 'install']
+currentState.get('global')

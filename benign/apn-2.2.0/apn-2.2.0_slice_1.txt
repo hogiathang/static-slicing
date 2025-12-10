@@ -1,0 +1,29 @@
+stream.on("end", () => {
+          if (status === "200") {
+            resolve({ device });
+          } else if (responseData !== "") {
+            const response = JSON.parse(responseData);
+
+            if (status === "403" && response.reason === "ExpiredProviderToken" && retryCount < 2) {
+              this.config.token.regenerate(tokenGeneration);
+              resolve(this.write(notification, device, retryCount + 1));
+              return;
+            } else if (status === "500" && response.reason === "InternalServerError") {
+              stream.connection.close();
+              let error = new VError("Error 500, stream ended unexpectedly");
+              resolve({ device, error });
+              return;
+            }
+
+            resolve({ device, status, response });
+          } else {
+            let error = new VError("stream ended unexpectedly");
+            resolve({ device, error });
+          }
+        })
+status === "200"
+responseData !== ""
+const response = JSON.parse(responseData)
+status === "403" && response.reason === "ExpiredProviderToken" && retryCount < 2
+this.config.token.regenerate(tokenGeneration)
+resolve(this.write(notification, device, retryCount + 1))

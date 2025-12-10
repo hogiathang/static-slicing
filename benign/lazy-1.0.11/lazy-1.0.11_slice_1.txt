@@ -1,0 +1,6 @@
+em.on('readable', function () {
+                var x = em.read();
+                self.emit(dataName, x);
+            })
+var x = em.read()
+self.emit(dataName, x)

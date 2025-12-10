@@ -1,0 +1,29 @@
+() => {
+      const type = (argv.x || 'js').toLowerCase();
+      if (filetypes.indexOf(type) === -1) {
+        exit(`Invalid filetype specified: ${type}`);
+      }
+      if (env.configuration) {
+        exit(`Error: ${env.knexfile} already exists`);
+      }
+      checkLocalModule(env);
+      const stubPath = `./knexfile.${type}`;
+      readFile(
+        path.dirname(env.modulePath) +
+          '/lib/migrations/migrate/stub/knexfile-' +
+          type +
+          '.stub'
+      )
+        .then((code) => {
+          return writeFile(stubPath, code);
+        })
+        .then(() => {
+          success(color.green(`Created ${stubPath}`));
+        })
+        .catch(exit);
+    }
+const type = (argv.x || 'js').toLowerCase()
+filetypes.indexOf(type) === -1
+<operator>.formatString("Invalid filetype specified: ", type, "")
+env.configuration
+<operator>.formatString("Error: ", env.knexfile, " already exists")

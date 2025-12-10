@@ -1,0 +1,21 @@
+dust.stream = function(nameOrTemplate, context) {
+    var stream = new Stream(),
+        chunk = stream.head;
+    dust.nextTick(function() {
+      try {
+        load(nameOrTemplate, chunk, context).end();
+      } catch (err) {
+        chunk.setError(err);
+      }
+    });
+    return stream;
+  }
+var stream = new Stream()
+var chunk = stream.head
+dust.nextTick(function() {
+      try {
+        load(nameOrTemplate, chunk, context).end();
+      } catch (err) {
+        chunk.setError(err);
+      }
+    })

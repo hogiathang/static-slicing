@@ -1,0 +1,32 @@
+function getProject = function getProject(projectGraph) {
+    const projectName = (0, calculate_default_project_name_1.calculateDefaultProjectName)(process.cwd(), workspace_root_1.workspaceRoot, (0, project_graph_1.readProjectsConfigurationFromProjectGraph)(projectGraph), (0, configuration_1.readNxJson)());
+    if (!projectName) {
+        output_1.output.error({
+            title: 'Unable to determine project name for `nx exec`',
+            bodyLines: [
+                "`nx exec` should be ran from within an Nx project's root directory.",
+                'Does this package.json belong to an Nx project?',
+            ],
+        });
+        process.exit(1);
+    }
+    const project = projectGraph.nodes[projectName];
+    return { projectName, project };
+}
+const projectName = (0, calculate_default_project_name_1.calculateDefaultProjectName)(process.cwd(), workspace_root_1.workspaceRoot, (0, project_graph_1.readProjectsConfigurationFromProjectGraph)(projectGraph), (0, configuration_1.readNxJson)())
+!projectName
+output_1.output.error({
+            title: 'Unable to determine project name for `nx exec`',
+            bodyLines: [
+                "`nx exec` should be ran from within an Nx project's root directory.",
+                'Does this package.json belong to an Nx project?',
+            ],
+        })
+_tmp_17.title = "Unable to determine project name for `nx exec`"
+_tmp_17.bodyLines = [
+                "`nx exec` should be ran from within an Nx project's root directory.",
+                'Does this package.json belong to an Nx project?',
+            ]
+_tmp_18.push("`nx exec` should be ran from within an Nx project's root directory.")
+_tmp_18.push("Does this package.json belong to an Nx project?")
+process.exit(1)

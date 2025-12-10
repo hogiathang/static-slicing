@@ -1,0 +1,25 @@
+async watch(options) {
+        const rootDir = path.dirname(path.resolve(settings_1.PROJECT_CONFIG));
+        (0, logging_1.debug)("root directory used for 'watch' is: %s", rootDir);
+        const watchSettings = this.props.configuration.settings.get(['watch']);
+        if (!watchSettings) {
+            throw new Error("Cannot use the 'watch' command without specifying at least one directory to monitor. " +
+                'Make sure to add a "watch" key to your cdk.json');
+        }
+        // For the "include" subkey under the "watch" key, the behavior is:
+        // 1. No "watch" setting? We error out.
+        // 2. "watch" setting without an "include" key? We default to observing "./**".
+        // 3. "watch" setting with an empty "include" key? We default to observing "./**".
+        // 4. Non-empty "include" key? Just use the "include" key.
+        const watchIncludes = this.patternsArrayForWatch(watchSettings.include, { rootDir, returnRootDirIfEmpty: true });
+        (0, logg...
+const rootDir = path.dirname(path.resolve(settings_1.PROJECT_CONFIG))
+(0, logging_1.debug)("root directory used for 'watch' is: %s", rootDir)
+const watchSettings = this.props.configuration.settings.get(['watch'])
+!watchSettings
+throw new Error("Cannot use the 'watch' command without specifying at least one directory to monitor. " +
+                'Make sure to add a "watch" key to your cdk.json');
+"Make sure to add a "watch" key to your cdk.json"
+const watchIncludes = this.patternsArrayForWatch(watchSettings.include, { rootDir, returnRootDirIfEmpty: true })
+(0, logging_1.debug)("'include' patterns for 'watch': %s", watchIncludes)
+const outputDir = this.props.configuration.settings.get(['output'])

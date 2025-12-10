@@ -1,0 +1,79 @@
+function getAllProcesses = function getAllProcesses(callback) {
+  const sockPath = forever.config.get("sockPath");
+
+  function getProcess(name, next) {
+    let fullPath = path.join(sockPath, name);
+    const socket = new nssocket.NsSocket();
+
+    if (process.platform === 'win32') {
+      // it needs the prefix
+      fullPath = '\\\\.\\pipe\\' + fullPath;
+    }
+
+    socket.connect(fullPath, function (err) {
+      if (err) {
+        next(err);
+      }
+
+      socket.dataOnce(['data'], function (data) {
+        data.socket = fullPath;
+        next(null, data);
+        socket.end();
+      });
+
+      socket.send(['data']);
+    });
+
+    socket.on('error', function (err) {
+      if (err.code === 'ECONNREFUSED') {
+        fs.unlink(fullPath, function () {
+          next();
+        });
+      }
+      else {
+        next();
+      }
+    });
+  }
+
+  getSockets(sockPath, function (err, sockets) {
+    if (err || (sockets && sockets.length === 0)) {
+      return callback(err);
+    }
+
+    async.map(sockets, getProcess, function...
+const sockPath = forever.config.get("sockPath")
+function getProcess = function getProcess(name, next) {
+    let fullPath = path.join(sockPath, name);
+    const socket = new nssocket.NsSocket();
+
+    if (process.platform === 'win32') {
+      // it needs the prefix
+      fullPath = '\\\\.\\pipe\\' + fullPath;
+    }
+
+    socket.connect(fullPath, function (err) {
+      if (err) {
+        next(err);
+      }
+
+      socket.dataOnce(['data'], function (data) {
+        data.socket = fullPath;
+        next(null, data);
+        socket.end();
+      });
+
+      socket.send(['data']);
+    });
+
+    socket.on('error', function (err) {
+      if (err.code === 'ECONNREFUSED') {
+        fs.unlink(fullPath, function () {
+          next();
+        });
+      }
+      else {
+        next();
+      }
+    });
+  }

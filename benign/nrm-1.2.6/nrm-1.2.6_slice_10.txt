@@ -1,0 +1,39 @@
+function onLogin = async function onLogin(name, base64, { alwaysAuth, username, password, email }) {
+  if (await isRegistryNotFound(name) || await isInternalRegistry(name, 'set authorization information of')) {
+    return;
+  }
+
+  const customRegistries = await readFile(NRMRC);
+  const registry = customRegistries[name];
+  if (base64) {
+    registry[AUTH] = base64;
+  } else if (username && password) {
+    registry[AUTH] = Buffer.from(`${username}:${password}`).toString('base64');
+  } else {
+    return exit('Authorization information in base64 format or username & password is required');
+  }
+
+  if (alwaysAuth) {
+    registry[ALWAYS_AUTH] = true;
+  }
+
+  if (email) {
+    registry[EMAIL] = email;
+  }
+
+  Object.assign(customRegistries, { [name]: registry });
+  await writeFile(NRMRC, customRegistries);
+  printSuccess(`Set the authorization information of the registry '${name}' success.`);
+
+  const currentRegistry = await getCurrentRegistry();
+  if (currentRegistry === registry[REGISTRY]) {
+    const npmrc = a...
+await isRegistryNotFound(name) || await isInternalRegistry(name, 'set authorization information of')
+const customRegistries = await readFile(NRMRC)
+const registry = customRegistries[name]
+registry[AUTH] = base64
+username && password
+registry[AUTH] = Buffer.from(`${username}:${password}`).toString('base64')
+registry[ALWAYS_AUTH] = true
+registry[EMAIL] = email
+Object.assign(customRegistries, { [name]: registry })

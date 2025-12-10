@@ -1,0 +1,37 @@
+async function () {
+		if (mountPoint) {
+			// Return memoized mount point value
+			return mountPoint;
+		}
+
+		const configFilePath = '/etc/wsl.conf';
+
+		let isConfigFileExists = false;
+		try {
+			await fs__default$2['default'].access(configFilePath, fs$1.constants.F_OK);
+			isConfigFileExists = true;
+		} catch {}
+
+		if (!isConfigFileExists) {
+			return defaultMountPoint;
+		}
+
+		const configContent = await fs__default$2['default'].readFile(configFilePath, {encoding: 'utf8'});
+		const configMountPoint = /(?<!#.*)root\s*=\s*(?<mountPoint>.*)/g.exec(configContent);
+
+		if (!configMountPoint) {
+			return defaultMountPoint;
+		}
+
+		mountPoint = configMountPoint.groups.mountPoint.trim();
+		mountPoint = mountPoint.endsWith('/') ? mountPoint : `${mountPoint}/`;
+
+		return mountPoint;
+	}
+const configFilePath = '/etc/wsl.conf'
+let isConfigFileExists = false
+await fs__default$2['default'].access(configFilePath, fs$1.constants.F_OK)
+isConfigFileExists = true
+!isConfigFileExists
+const configContent = await fs__default$2['default'].readFile(configFilePath, {encoding: 'utf8'})
+const configMountPoint = /(?<!#.*)root\s*=\s*(?<mountPoint>.*)/g.exec(configContent)

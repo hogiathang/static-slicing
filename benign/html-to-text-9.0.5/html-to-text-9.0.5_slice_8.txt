@@ -1,0 +1,6 @@
+maxLineLength = maxLineLength === void 0 ? undefined : maxLineLength
+__ecma.Array.factory()
+this.nextLineWords = []
+this.maxLineLength = maxLineLength || options.wordwrap || Number.MAX_VALUE
+this.nextLineAvailableChars = this.maxLineLength
+this.wrapCharacters = get(options, ['longWordSplit', 'wrapCharacters']) || []

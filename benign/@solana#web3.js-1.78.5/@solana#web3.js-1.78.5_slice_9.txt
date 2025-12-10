@@ -1,0 +1,25 @@
+new Promise(function (resolve, reject) {
+      // Do nothing if requests is empty
+      if (requests.length === 0) resolve([]);
+      var batch = requests.map(function (params) {
+        return client.request(params.methodName, params.args);
+      });
+      client.request(batch, function (err, response) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(response);
+      });
+    })
+__ecma.Array.factory()
+var batch = requests.map(function (params) {
+        return client.request(params.methodName, params.args);
+      })
+client.request(batch, function (err, response) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(response);
+      })

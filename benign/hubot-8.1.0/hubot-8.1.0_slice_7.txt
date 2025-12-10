@@ -1,0 +1,101 @@
+request (method, path, body, callback) {
+    const logger = this.robot.logger
+
+    const headers = {
+      Authorization: this.authorization,
+      Host: this.host,
+      'Content-Type': 'application/json',
+      'User-Agent': `Hubot/${this.robot != null ? this.robot.version : undefined} (${this.robot != null ? this.robot.name : undefined})`
+    }
+
+    const options = {
+      agent: false,
+      host: this.host,
+      port: 443,
+      path,
+      method,
+      headers
+    }
+
+    if (method === 'POST' || method === 'PUT') {
+      if (typeof body !== 'string') {
+        body = JSON.stringify(body)
+      }
+
+      body = Buffer.from(body)
+      options.headers['Content-Length'] = body.length
+    }
+
+    const request = HTTPS.request(options, function (response) {
+      let data = ''
+
+      response.on('data', chunk => {
+        data += chunk
+      })
+
+      response.on('end', function () {
+        if (response.statusCode >= 400) {
+          switch (response.statusCode) {
+            case...
+const logger = this.robot.logger
+const headers = {
+      Authorization: this.authorization,
+      Host: this.host,
+      'Content-Type': 'application/json',
+      'User-Agent': `Hubot/${this.robot != null ? this.robot.version : undefined} (${this.robot != null ? this.robot.name : undefined})`
+    }
+_tmp_66.Authorization = this.authorization
+_tmp_66.Host = this.host
+_tmp_66.Content-Type = "application/json"
+_tmp_66.User-Agent = <operator>.formatString("Hubot/", this.robot != null ? this.robot.version : undefined, " (", this.robot != null ? this.robot.name : undefined, ")")
+const options = {
+      agent: false,
+      host: this.host,
+      port: 443,
+      path,
+      method,
+      headers
+    }
+_tmp_67.agent = false
+_tmp_67.host = this.host
+_tmp_67.port = 443
+_tmp_67.path = path
+_tmp_67.method = method
+_tmp_67.headers = headers
+method === 'POST' || method === 'PUT'
+typeof body !== 'string'
+body = JSON.stringify(body)
+body = Buffer.from(body)
+options.headers['Content-Length'] = body.length
+const request = HTTPS.request(options, function (response) {
+      let data = ''
+
+      response.on('data', chunk => {
+        data += chunk
+      })
+
+      response.on('end', function () {
+        if (response.statusCode >= 400) {
+          switch (response.statusCode) {
+            case 401:
+              throw new Error('Invalid access token provided')
+            default:
+              logger.error(`Campfire HTTPS status code: ${response.statusCode}`)
+              logger.error(`Campfire HTTPS response data: ${data}`)
+          }
+        }
+
+        if (callback) {
+          try {
+            return callback(null, JSON.parse(data))
+          } catch (_err) {
+            return callback(null, data || {})
+          }
+        }
+      })
+
+      return response.on('error', function (err) {
+        logger.error(`Campfire HTTPS response error: ${err}`)
+        return callback(err, {})
+      })
+    })

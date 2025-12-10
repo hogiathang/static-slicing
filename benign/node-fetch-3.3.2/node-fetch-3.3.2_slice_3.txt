@@ -1,0 +1,54 @@
+new Promise((resolve, reject) => {
+		// Build request object
+		const request = new Request(url, options_);
+		const {parsedURL, options} = getNodeRequestOptions(request);
+		if (!supportedSchemas.has(parsedURL.protocol)) {
+			throw new TypeError(`node-fetch cannot load ${url}. URL scheme "${parsedURL.protocol.replace(/:$/, '')}" is not supported.`);
+		}
+
+		if (parsedURL.protocol === 'data:') {
+			const data = dataUriToBuffer(request.url);
+			const response = new Response(data, {headers: {'Content-Type': data.typeFull}});
+			resolve(response);
+			return;
+		}
+
+		// Wrap http.request into fetch
+		const send = (parsedURL.protocol === 'https:' ? https : http).request;
+		const {signal} = request;
+		let response = null;
+
+		const abort = () => {
+			const error = new AbortError('The operation was aborted.');
+			reject(error);
+			if (request.body && request.body instanceof Stream.Readable) {
+				request.body.destroy(error);
+			}
+
+			if (!response || !response.body) {
+				return;
+			}
+
+			respon...
+const request = new Request(url, options_)
+_tmp_6 = getNodeRequestOptions(request)
+!supportedSchemas.has(parsedURL.protocol)
+<operator>.formatString("node-fetch cannot load ", url, ". URL scheme "", parsedURL.protocol.replace(/:$/, ''), "" is not supported.")
+parsedURL.protocol === 'data:'
+const send = (parsedURL.protocol === 'https:' ? https : http).request
+signal = _tmp_12.signal
+let response = null
+const abort = () => {
+			const error = new AbortError('The operation was aborted.');
+			reject(error);
+			if (request.body && request.body instanceof Stream.Readable) {
+				request.body.destroy(error);
+			}
+
+			if (!response || !response.body) {
+				return;
+			}
+
+			response.body.emit('error', error);
+		}
+signal && signal.aborted

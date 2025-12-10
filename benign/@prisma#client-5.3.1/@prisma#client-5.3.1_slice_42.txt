@@ -1,0 +1,17 @@
+function readShebang = function readShebang(command) {
+      const size = 150;
+      const buffer = Buffer.alloc(size);
+      let fd;
+      try {
+        fd = fs6.openSync(command, "r");
+        fs6.readSync(fd, buffer, 0, size, 0);
+        fs6.closeSync(fd);
+      } catch (e) {
+      }
+      return shebangCommand(buffer.toString());
+    }
+const size = 150
+const buffer = Buffer.alloc(size)
+fd = fs6.openSync(command, "r")
+fs6.readSync(fd, buffer, 0, size, 0)
+fs6.closeSync(fd)

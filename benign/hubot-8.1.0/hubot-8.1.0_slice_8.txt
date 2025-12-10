@@ -1,0 +1,3 @@
+_tmp_57.message = message
+const body = { message: { body: text, type } }
+<operator>.formatString("/room/", id, "/speak")

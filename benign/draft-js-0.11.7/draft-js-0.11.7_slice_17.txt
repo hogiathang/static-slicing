@@ -1,0 +1,28 @@
+_tmp_0.isConnectedTree = isConnectedTree
+var eligibleFirstNodes = blockMap.toArray().filter(function (block) {
+      return block.getParentKey() == null && block.getPrevSiblingKey() == null;
+    })
+eligibleFirstNodes.length !== 1
+var firstNode = eligibleFirstNodes.shift()
+var nodesSeen = 0
+var currentKey = firstNode.getKey()
+__ecma.Array.factory()
+currentKey != null
+var currentNode = blockMap.get(currentKey)
+var childKeys = currentNode.getChildKeys()
+var nextSiblingKey = currentNode.getNextSiblingKey()
+childKeys.size > 0
+nextSiblingKey != null
+visitedStack.unshift(nextSiblingKey)
+var children = childKeys.map(function (k) {
+          return blockMap.get(k);
+        })
+var _firstNode = children.find(function (block) {
+          return block.getPrevSiblingKey() == null;
+        })
+_firstNode == null
+currentKey = _firstNode.getKey()
+currentNode.getNextSiblingKey() != null
+currentKey = currentNode.getNextSiblingKey()
+currentKey = visitedStack.shift()
+nodesSeen++

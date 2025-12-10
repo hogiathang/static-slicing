@@ -1,0 +1,40 @@
+module.exports.mkdir = function (dirpath, mode, callback, position) {
+	// Split all directories
+    var parts = path.normalize(dirpath).split('/');
+	// If the first part is empty then remove this part
+	if (parts[0] == "") 
+		parts = parts.slice(1);
+	
+	// Set the initial configuration
+    mode = mode || 0777;
+    position = position || 0;
+	
+	// Check se current position is greater than the list of folders
+	if (position > parts.length) {
+		// If isset the callback then it will be invoked
+		if (callback) 
+			callback();
+		// Exit and return a positive value
+		return true;
+	}
+
+	// Build the directory path
+	var directory = (dirpath.charAt(0) == '/' ? '/' : '') + parts.slice(0, position + 1).join('/');
+
+	// Check if directory exists
+	if (fs.existsSync(directory)) {
+		module.exports.mkdir(dirpath, mode, callback, position + 1);
+	} else {
+		if (fs.mkdirSync(directory, mode)) {
+			// If isset the callback then it will be invoked
+			if (callback) 
+				callback(errors.renderError('mkdir', dire...
+var parts = path.normalize(dirpath).split('/')
+parts[0] == ""
+parts = parts.slice(1)
+mode = mode || 0777
+position = position || 0
+position > parts.length
+var directory = (dirpath.charAt(0) == '/' ? '/' : '') + parts.slice(0, position + 1).join('/')
+fs.existsSync(directory)
+fs.mkdirSync(directory, mode)

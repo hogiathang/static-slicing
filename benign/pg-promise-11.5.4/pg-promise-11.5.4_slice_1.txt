@@ -1,0 +1,10 @@
+module.exports = config => {
+    const npmLocal = config.$npm;
+    npmLocal.connect = npmLocal.connect || npm.connect(config);
+    npmLocal.query = npmLocal.query || npm.query(config);
+    npmLocal.task = npmLocal.task || npm.task(config);
+    return Database;
+}
+const npmLocal = config.$npm
+npmLocal.connect = npmLocal.connect || npm.connect(config)
+npmLocal.query = npmLocal.query || npm.query(config)

@@ -1,0 +1,16 @@
+adapterPath = adapterPath === void 0 ? null : adapterPath
+<operator>.formatString("Loading adapter ", adapterPath ?? 'from npmjs:', " ", this.adapterName, "")
+const ext = path.extname(adapterPath ?? '') ?? '.js'
+Array.from(HUBOT_DEFAULT_ADAPTERS).indexOf(this.adapterName) > -1
+this.adapter = this.requireAdapterFrom(path.resolve(path.join(__dirname, 'adapters', this.adapterName)))
+(_tmp_68 = ['.js', '.cjs', '.coffee']).includes
+this.adapter = this.requireAdapterFrom(pathToFileURL(path.resolve(adapterPath)).pathname)
+_tmp_71 = __ecma.Array.factory()
+this.adapter = await this.importAdapterFrom(pathToFileURL(path.resolve(adapterPath)).href)
+const adapterPathInCurrentWorkingDirectory = this.adapterName
+this.adapter = this.requireAdapterFrom(adapterPathInCurrentWorkingDirectory)
+err.name === 'SyntaxError'
+this.adapter = await this.importAdapterFrom(adapterPathInCurrentWorkingDirectory)
+throw err
+<operator>.formatString("Cannot load adapter ", adapterPath ?? '[no path set]', " ", this.adapterName, " - ", err, "")
+process.exit(1)

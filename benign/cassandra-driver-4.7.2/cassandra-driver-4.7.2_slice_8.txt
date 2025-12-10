@@ -1,0 +1,31 @@
+removeMultiple(keys) {
+    // Clear value cache
+    this._values = null;
+
+    // Copy the values
+    const copy = new Map(this._items);
+    const removedHosts = [];
+
+    for (const key of keys) {
+      const h = copy.get(key);
+
+      if (!h) {
+        continue;
+      }
+
+      removedHosts.push(h);
+      copy.delete(key);
+    }
+
+    this._items = copy;
+    removedHosts.forEach(h => this.emit('remove', h));
+  }
+this._values = null
+const copy = new Map(this._items)
+const removedHosts = []
+_iterator_1 = <operator>.iterator(keys)
+const h = copy.get(key)
+!h
+continue;
+removedHosts.push(h)
+copy.delete(key)

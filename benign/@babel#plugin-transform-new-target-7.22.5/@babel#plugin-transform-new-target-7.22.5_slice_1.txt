@@ -1,0 +1,3 @@
+_tmp_2.MetaProperty = MetaProperty
+const meta = path.get("meta")
+const property = path.get("property")

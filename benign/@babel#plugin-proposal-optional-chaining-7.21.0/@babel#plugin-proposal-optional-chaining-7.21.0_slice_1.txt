@@ -1,0 +1,25 @@
+function needsMemoize = function needsMemoize(path) {
+  let optionalPath = path;
+  const {
+    scope
+  } = path;
+  while (optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()) {
+    const {
+      node
+    } = optionalPath;
+    const childPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.isOptionalMemberExpression() ? optionalPath.get("object") : optionalPath.get("callee"));
+    if (node.optional) {
+      return !scope.isStatic(childPath.node);
+    }
+    optionalPath = childPath;
+  }
+}
+let optionalPath = path
+_tmp_9 = path
+scope = _tmp_9.scope
+optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()
+_tmp_10 = optionalPath
+node = _tmp_10.node
+const childPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.isOptionalMemberExpression() ? optionalPath.get("object") : optionalPath.get("callee"))
+node.optional
+optionalPath = childPath

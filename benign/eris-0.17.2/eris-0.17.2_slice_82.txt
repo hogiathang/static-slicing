@@ -1,0 +1,50 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"MESSAGE_UPDATE"
+const channel = this.client.getChannel(packet.d.channel_id)
+!channel
+const message = channel.messages.get(packet.d.id)
+let oldMessage = null
+oldMessage = {
+                        attachments: message.attachments,
+                        channelMentions: message.channelMentions,
+                        content: message.content,
+                        editedTimestamp: message.editedTimestamp,
+                        embeds: message.embeds,
+                        flags: message.flags,
+                        mentionedBy: message.mentionedBy,
+                        mentions: message.mentions,
+                        pinned: message.pinned,
+                        roleMentions: message.roleMentions,
+                        tts: message.tts
+                    }
+_tmp_123.attachments = message.attachments
+_tmp_123.channelMentions = message.channelMentions
+_tmp_123.content = message.content
+_tmp_123.editedTimestamp = message.editedTimestamp
+_tmp_123.embeds = message.embeds
+_tmp_123.flags = message.flags
+_tmp_123.mentionedBy = message.mentionedBy
+_tmp_123.mentions = message.mentions
+_tmp_123.pinned = message.pinned
+_tmp_123.roleMentions = message.roleMentions
+_tmp_123.tts = message.tts
+!packet.d.timestamp
+this.emit("messageUpdate", channel.messages.update(packet.d, this.client), oldMessage)

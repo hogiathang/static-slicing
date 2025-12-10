@@ -1,0 +1,49 @@
+(_tmp_17 = function () {
+            var envelope = mail.message.getEnvelope();
+            var messageId = (mail.message.getHeader('message-id') || '').replace(/[<>\s]/g, '');
+            var recipients = [].concat(envelope.to || []);
+            if (recipients.length > 3) {
+                recipients.push('...and ' + recipients.splice(2).length + ' more');
+            }
+
+            this.logger.info('Sending message <%s> to <%s>', messageId, recipients.join(', '));
+
+            connection.send(envelope, mail.message.createReadStream(), function (err, info) {
+                if (returned) {
+                    return;
+                }
+                returned = true;
+
+                connection.close();
+                if (err) {
+                    return callback(err);
+                }
+                info.envelope = {
+                    from: envelope.from,
+                    to: envelope.to
+                };
+                info.messageId = messageId;
+                return callback(...).bind
+var envelope = mail.message.getEnvelope()
+var messageId = (mail.message.getHeader('message-id') || '').replace(/[<>\s]/g, '')
+var recipients = [].concat(envelope.to || [])
+recipients.length > 3
+recipients.push('...and ' + recipients.splice(2).length + ' more')
+this.logger.info('Sending message <%s> to <%s>', messageId, recipients.join(', '))
+connection.send(envelope, mail.message.createReadStream(), function (err, info) {
+                if (returned) {
+                    return;
+                }
+                returned = true;
+
+                connection.close();
+                if (err) {
+                    return callback(err);
+                }
+                info.envelope = {
+                    from: envelope.from,
+                    to: envelope.to
+                };
+                info.messageId = messageId;
+                return callback(null, info);
+            })

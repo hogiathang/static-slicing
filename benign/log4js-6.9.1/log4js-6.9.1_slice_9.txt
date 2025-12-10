@@ -1,0 +1,10 @@
+_tmp_1.send = <lambda>7
+isMaster()
+!pm2
+msg.cluster = {
+          workerId: cluster.worker.id,
+          worker: process.pid,
+        }
+_tmp_2.workerId = cluster.worker.id
+_tmp_2.worker = process.pid
+process.send({ topic: 'log4js:message', data: msg.serialise() })

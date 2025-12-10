@@ -1,0 +1,25 @@
+var entries = initialEntries.map(function (entry) {
+    var location = readOnly(_extends({
+      pathname: '/',
+      search: '',
+      hash: '',
+      state: null,
+      key: createKey()
+    }, typeof entry === 'string' ? parsePath(entry) : entry));
+    process.env.NODE_ENV !== "production" ? warning(location.pathname.charAt(0) === '/', "Relative pathnames are not supported in createMemoryHistory({ initialEntries }) (invalid entry: " + JSON.stringify(entry) + ")") : void 0;
+    return location;
+  })
+var location = readOnly(_extends({
+      pathname: '/',
+      search: '',
+      hash: '',
+      state: null,
+      key: createKey()
+    }, typeof entry === 'string' ? parsePath(entry) : entry))
+_tmp_42.pathname = "/"
+_tmp_42.search = ""
+_tmp_42.hash = ""
+_tmp_42.state = null
+_tmp_42.key = createKey()
+typeof entry === 'string' ? parsePath(entry) : entry
+process.env.NODE_ENV !== "production" ? warning(location.pathname.charAt(0) === '/', "Relative pathnames are not supported in createMemoryHistory({ initialEntries }) (invalid entry: " + JSON.stringify(entry) + ")") : void 0

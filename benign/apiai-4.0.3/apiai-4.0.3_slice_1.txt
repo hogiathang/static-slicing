@@ -1,0 +1,37 @@
+function Request = function Request (application, options) {
+    var self = this;
+
+    self.clientAccessToken = application.clientAccessToken;
+
+    self.hostname = application.hostname;
+
+    self.endpoint = options.endpoint;
+    self.requestSource = application.requestSource;
+
+    var _http = application.secure ? https : http;
+
+    var requestOptions = self._requestOptions();
+
+    requestOptions.agent = application._agent;
+
+    var request = _http.request(requestOptions, function(response) {
+        self._handleResponse(response);
+    });
+
+    request.on('error', function(error) {
+        self.emit('error', error);
+    });
+
+    self.request = request;
+}
+var self = this
+self.clientAccessToken = application.clientAccessToken
+self.hostname = application.hostname
+self.endpoint = options.endpoint
+self.requestSource = application.requestSource
+var _http = application.secure ? https : http
+var requestOptions = self._requestOptions()
+requestOptions.agent = application._agent
+var request = _http.request(requestOptions, function(response) {
+        self._handleResponse(response);
+    })

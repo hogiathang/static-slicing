@@ -1,0 +1,24 @@
+xi18n(bundle) {
+    for (const clazz of this.classes.keys()) {
+      const record = this.classes.get(clazz);
+      for (const trait of record.traits) {
+        if (trait.state !== TraitState.Analyzed && trait.state !== TraitState.Resolved) {
+          continue;
+        } else if (trait.handler.xi18n === void 0) {
+          continue;
+        }
+        if (trait.analysis !== null) {
+          trait.handler.xi18n(bundle, clazz, trait.analysis);
+        }
+      }
+    }
+  }
+_iterator_89 = <operator>.iterator(this.classes.keys())
+const record = this.classes.get(clazz)
+_iterator_90 = <operator>.iterator(record.traits)
+trait.state !== TraitState.Analyzed && trait.state !== TraitState.Resolved
+continue;
+trait.handler.xi18n === void 0
+continue;
+trait.analysis !== null
+trait.handler.xi18n(bundle, clazz, trait.analysis)

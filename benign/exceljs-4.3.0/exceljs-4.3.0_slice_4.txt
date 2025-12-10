@@ -1,0 +1,35 @@
+async read(input, options) {
+    try {
+      for await (const {eventType, value} of this.parse(input, options)) {
+        switch (eventType) {
+          case 'shared-strings':
+            this.emit(eventType, value);
+            break;
+          case 'worksheet':
+            this.emit(eventType, value);
+            await value.read();
+            break;
+          case 'hyperlinks':
+            this.emit(eventType, value);
+            break;
+        }
+      }
+      this.emit('end');
+      this.emit('finished');
+    } catch (error) {
+      this.emit('error', error);
+    }
+  }
+_iterator_0 = <operator>.iterator(this.parse(input, options))
+"shared-strings"
+this.emit(eventType, value)
+break;
+"worksheet"
+this.emit(eventType, value)
+await value.read()
+break;
+"hyperlinks"
+this.emit(eventType, value)
+break;
+this.emit('end')
+this.emit('finished')

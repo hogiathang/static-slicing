@@ -1,0 +1,56 @@
+function copydirSync = function copydirSync(from, to, options) {
+  if (typeof options === 'function') {
+    options = {
+      filter: options
+    };
+  }
+  if(typeof options === 'undefined') options = {};
+  if(typeof options.cover === 'undefined') {
+    options.cover = true;
+  }
+  options.filter = typeof options.filter === 'function' ? options.filter : function(state, filepath, filename) {
+    return options.filter;
+  };
+  var stats = fs.lstatSync(from);
+  var statsname = stats.isDirectory() ? 'directory' :
+    stats.isFile() ? 'file' :
+    stats.isSymbolicLink() ? 'symbolicLink' :
+    '';
+  var valid = options.filter(statsname, from, path.basename(from));
+  if (statsname === 'directory' || statsname === 'symbolicLink') {
+    // Directory or SymbolicLink
+    if(valid) {
+      try {
+        fs.statSync(to);
+      } catch(err) {
+        if(err.code === 'ENOENT') {
+          fs.mkdirSync(to);
+          options.debug && console.log('>> ' + to);
+        } else {
+          throw err;
+        }
+      }
+      rewr...
+typeof options === 'function'
+options = {
+      filter: options
+    }
+_tmp_0.filter = options
+typeof options === 'undefined'
+typeof options.cover === 'undefined'
+options.cover = true
+options.filter = typeof options.filter === 'function' ? options.filter : function(state, filepath, filename) {
+    return options.filter;
+  }
+var stats = fs.lstatSync(from)
+var statsname = stats.isDirectory() ? 'directory' :
+    stats.isFile() ? 'file' :
+    stats.isSymbolicLink() ? 'symbolicLink' :
+    ''
+stats.isFile() ? "file" : stats.isSymbolicLink() ? "symbolicLink" : ""
+stats.isSymbolicLink() ? "symbolicLink" : ""
+var valid = options.filter(statsname, from, path.basename(from))
+statsname === 'directory' || statsname === 'symbolicLink'
+fs.statSync(to)
+err.code === 'ENOENT'
+fs.mkdirSync(to)

@@ -1,0 +1,23 @@
+(0, workspace_1.updateWorkspace)((workspace) => {
+            const project = workspace.projects.get(options.project);
+            if (!project) {
+                return;
+            }
+            // Validation of targets is handled already in the main function.
+            // Duplicate keys means that we have configurations in both server and build builders.
+            const serverConfigKeys = project.targets.get('server')?.configurations ?? {};
+            const buildConfigKeys = project.targets.get('build')?.configurations ?? {};
+            const configurationNames = Object.keys({
+                ...serverConfigKeys,
+                ...buildConfigKeys,
+            });
+            const configurations = {};
+            for (const key of configurationNames) {
+                if (!serverConfigKeys[key]) {
+                    context.logger.warn(`Skipped adding "${key}" configuration to "app-shell" target as it's missing from "server" target.`);
+                    continue;
+      ...
+const project = workspace.projects.get(options.project)
+!project
+const serverConfigKeys = project.targets.get('server')?.configurations ?? {}
+const buildConfigKeys = project.targets.get('build')?.configurations ?? {}

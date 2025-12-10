@@ -1,0 +1,83 @@
+function chainingSubstitutionFormat3 = function chainingSubstitutionFormat3(contextParams, subtable) {
+    const lookupsCount = (
+        subtable.inputCoverage.length +
+        subtable.lookaheadCoverage.length +
+        subtable.backtrackCoverage.length
+    );
+    if (contextParams.context.length < lookupsCount) return [];
+    // INPUT LOOKUP //
+    let inputLookups = lookupCoverageList(
+        subtable.inputCoverage, contextParams
+    );
+    if (inputLookups === -1) return [];
+    // LOOKAHEAD LOOKUP //
+    const lookaheadOffset = subtable.inputCoverage.length - 1;
+    if (contextParams.lookahead.length < subtable.lookaheadCoverage.length) return [];
+    let lookaheadContext = contextParams.lookahead.slice(lookaheadOffset);
+    while (lookaheadContext.length && isTashkeelArabicChar(lookaheadContext[0].char)) {
+        lookaheadContext.shift();
+    }
+    const lookaheadParams = new ContextParams(lookaheadContext, 0);
+    let lookaheadLookups = lookupCoverageList(
+        subtable.lookaheadCoverage, lookaheadParams
+   ...
+const lookupsCount = (
+        subtable.inputCoverage.length +
+        subtable.lookaheadCoverage.length +
+        subtable.backtrackCoverage.length
+    )
+subtable.inputCoverage.length +
+        subtable.lookaheadCoverage.length +
+        subtable.backtrackCoverage.length
+subtable.lookaheadCoverage.length
+subtable.backtrackCoverage.length
+contextParams.context.length < lookupsCount
+let inputLookups = lookupCoverageList(
+        subtable.inputCoverage, contextParams
+    )
+subtable.inputCoverage
+__ecma.Array.factory()
+const lookaheadOffset = subtable.inputCoverage.length - 1
+contextParams.lookahead.length < subtable.lookaheadCoverage.length
+let lookaheadContext = contextParams.lookahead.slice(lookaheadOffset)
+lookaheadContext.length && isTashkeelArabicChar(lookaheadContext[0].char)
+lookaheadContext.shift()
+const lookaheadParams = new ContextParams(lookaheadContext, 0)
+let lookaheadLookups = lookupCoverageList(
+        subtable.lookaheadCoverage, lookaheadParams
+    )
+subtable.lookaheadCoverage
+let backtrackContext = [].concat(contextParams.backtrack)
+backtrackContext.reverse()
+backtrackContext.length && isTashkeelArabicChar(backtrackContext[0].char)
+backtrackContext.shift()
+backtrackContext.length < subtable.backtrackCoverage.length
+const backtrackParams = new ContextParams(backtrackContext, 0)
+let backtrackLookups = lookupCoverageList(
+        subtable.backtrackCoverage, backtrackParams
+    )
+subtable.backtrackCoverage
+const contextRulesMatch = (
+        inputLookups.length === subtable.inputCoverage.length &&
+        lookaheadLookups.length === subtable.lookaheadCoverage.length &&
+        backtrackLookups.length === subtable.backtrackCoverage.length
+    )
+inputLookups.length === subtable.inputCoverage.length &&
+        lookaheadLookups.length === subtable.lookaheadCoverage.length &&
+        backtrackLookups.length === subtable.backtrackCoverage.length
+lookaheadLookups.length === subtable.lookaheadCoverage.length
+backtrackLookups.length === subtable.backtrackCoverage.length
+let substitutions = []
+i < subtable.lookupRecords.length
+const lookupRecord = subtable.lookupRecords[i]
+const lookupListIndex = lookupRecord.lookupListIndex
+const lookupTable = this.getLookupByIndex(lookupListIndex)
+s < lookupTable.subtables.length
+const subtable = lookupTable.subtables[s]
+const lookup = this.getLookupMethod(lookupTable, subtable)
+const substitutionType = this.getSubstitutionType(lookupTable, subtable)
+substitutionType === '12'
+n < inputLookups.length
+const glyphIndex = contextParams.get(n)
+const substitution = lookup(glyphIndex)
+substitutions.push(substitution)

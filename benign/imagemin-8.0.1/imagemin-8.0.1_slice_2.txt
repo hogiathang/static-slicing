@@ -1,0 +1,45 @@
+const handleFile = async (sourcePath, {destination, plugins = []}) => {
+	if (plugins && !Array.isArray(plugins)) {
+		throw new TypeError('The `plugins` option should be an `Array`');
+	}
+
+	let data = await readFile(sourcePath);
+	data = await (plugins.length > 0 ? pPipe(...plugins)(data) : data);
+
+	const {ext} = await FileType.fromBuffer(data) || {ext: path.extname(sourcePath)};
+	let destinationPath = destination ? path.join(destination, path.basename(sourcePath)) : undefined;
+	destinationPath = ext === 'webp' ? replaceExt(destinationPath, '.webp') : destinationPath;
+
+	const returnValue = {
+		data,
+		sourcePath,
+		destinationPath,
+	};
+
+	if (!destinationPath) {
+		return returnValue;
+	}
+
+	await fsPromises.mkdir(path.dirname(returnValue.destinationPath), {recursive: true});
+	await writeFile(returnValue.destinationPath, returnValue.data);
+
+	return returnValue;
+}
+plugins && !Array.isArray(plugins)
+throw new TypeError('The `plugins` option should be an `Array`');
+let data = await readFile(sourcePath)
+data = await (plugins.length > 0 ? pPipe(...plugins)(data) : data)
+_tmp_2 = await FileType.fromBuffer(data) || {ext: path.extname(sourcePath)}
+let destinationPath = destination ? path.join(destination, path.basename(sourcePath)) : undefined
+destinationPath = ext === 'webp' ? replaceExt(destinationPath, '.webp') : destinationPath
+const returnValue = {
+		data,
+		sourcePath,
+		destinationPath,
+	}
+_tmp_3.data = data
+_tmp_3.sourcePath = sourcePath
+_tmp_3.destinationPath = destinationPath
+!destinationPath
+await fsPromises.mkdir(path.dirname(returnValue.destinationPath), {recursive: true})
+await writeFile(returnValue.destinationPath, returnValue.data)

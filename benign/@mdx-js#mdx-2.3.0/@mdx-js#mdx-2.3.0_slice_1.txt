@@ -1,0 +1,50 @@
+_tmp_12.enter = enter
+const newScope = /** @type {Scope | undefined} */ (
+          scopeInfo.map.get(node)
+        )
+(_tmp_13 = scopeInfo.map).get
+node.type === 'FunctionDeclaration' ||
+          node.type === 'FunctionExpression' ||
+          node.type === 'ArrowFunctionExpression'
+node.type === 'FunctionExpression'
+node.type === 'ArrowFunctionExpression'
+fnStack.push({
+            objects: [],
+            components: [],
+            tags: [],
+            references: {},
+            idToInvalidComponentName: new Map(),
+            node
+          })
+_tmp_14.objects = __ecma.Array.factory()
+_tmp_14.components = __ecma.Array.factory()
+_tmp_14.tags = __ecma.Array.factory()
+_tmp_14.references = {}
+_tmp_14.idToInvalidComponentName = new Map()
+_tmp_14.node = node
+isNamedFunction(node, 'MDXContent') &&
+            newScope &&
+            !inScope(newScope, 'MDXLayout')
+!inScope(newScope, 'MDXLayout')
+fnStack[0].components.push('MDXLayout')
+const fnScope = fnStack[0]
+!fnScope ||
+          (!isNamedFunction(fnScope.node, '_createMdxContent') &&
+            !providerImportSource)
+!isNamedFunction(fnScope.node, '_createMdxContent') &&
+            !providerImportSource
+!providerImportSource
+newScope.node = node
+currentScope = newScope
+currentScope && node.type === 'JSXElement'
+let name = node.openingElement.name
+name.type === 'JSXMemberExpression'
+name.type === 'JSXNamespacedName'
+isIdentifierName(name.name) && !/^[a-z]/.test(name.name)
+node.data && node.data._mdxExplicitJsx
+const id = name.name
+(_tmp_25 = fnScope.tags).includes
+(_tmp_26 = fnScope.tags).push
+let jsxIdExpression = ['_components', id]
+isIdentifierName(id) === false
+(_tmp_28 = fnScope.idToInvalidComponentName).get

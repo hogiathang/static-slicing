@@ -1,0 +1,22 @@
+function injectWrapper = function injectWrapper(path, wrapper) {
+  const {
+    body,
+    directives
+  } = path.node;
+  path.node.directives = [];
+  path.node.body = [];
+  const amdFactoryCall = path.pushContainer("body", wrapper)[0].get("expression");
+  const amdFactoryCallArgs = amdFactoryCall.get("arguments");
+  const amdFactory = amdFactoryCallArgs[amdFactoryCallArgs.length - 1].get("body");
+  amdFactory.pushContainer("directives", directives);
+  amdFactory.pushContainer("body", body);
+}
+_tmp_0 = path.node
+body = _tmp_0.body
+directives = _tmp_0.directives
+path.node
+path.node.directives = []
+__ecma.Array.factory()
+const amdFactoryCall = path.pushContainer("body", wrapper)[0].get("expression")
+const amdFactoryCallArgs = amdFactoryCall.get("arguments")
+const amdFactory = amdFactoryCallArgs[amdFactoryCallArgs.length - 1].get("body")

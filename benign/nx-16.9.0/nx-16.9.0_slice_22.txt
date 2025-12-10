@@ -1,0 +1,3 @@
+_tmp_1.handler = <lambda>1
+await (await Promise.resolve().then(() => require('./list'))).listHandler(args)
+process.exit(0)

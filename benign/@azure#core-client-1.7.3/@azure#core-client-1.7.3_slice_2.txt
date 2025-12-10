@@ -1,0 +1,36 @@
+function simpleParseQueryParams = function simpleParseQueryParams(queryString) {
+    const result = new Map();
+    if (!queryString || queryString[0] !== "?") {
+        return result;
+    }
+    // remove the leading ?
+    queryString = queryString.slice(1);
+    const pairs = queryString.split("&");
+    for (const pair of pairs) {
+        const [name, value] = pair.split("=", 2);
+        const existingValue = result.get(name);
+        if (existingValue) {
+            if (Array.isArray(existingValue)) {
+                existingValue.push(value);
+            }
+            else {
+                result.set(name, [existingValue, value]);
+            }
+        }
+        else {
+            result.set(name, value);
+        }
+    }
+    return result;
+}
+const result = new Map()
+!queryString || queryString[0] !== "?"
+queryString = queryString.slice(1)
+const pairs = queryString.split("&")
+_iterator_3 = <operator>.iterator(pairs)
+_tmp_9 = pair.split("=", 2)
+const existingValue = result.get(name)
+Array.isArray(existingValue)
+existingValue.push(value)
+result.set(name, [existingValue, value])
+result.set(name, value)

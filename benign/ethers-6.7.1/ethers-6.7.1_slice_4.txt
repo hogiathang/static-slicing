@@ -1,0 +1,19 @@
+function checkCircular = function checkCircular(type, found) {
+            (0, index_js_4.assertArgument)(!found.has(type), `circular type reference to ${JSON.stringify(type)}`, "types", types);
+            found.add(type);
+            for (const child of links.get(type)) {
+                if (!parents.has(child)) {
+                    continue;
+                }
+                // Recursively check children
+                checkCircular(child, found);
+                // Mark all ancestors as having this decendant
+                for (const subtype of found) {
+                    subtypes.get(subtype).add(child);
+                }
+            }
+            found.delete(type);
+        }
+(0, index_js_4.assertArgument)(!found.has(type), `circular type reference to ${JSON.stringify(type)}`, "types", types)
+found.add(type)
+_iterator_0 = <operator>.iterator(links.get(type))

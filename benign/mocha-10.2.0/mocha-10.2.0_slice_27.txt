@@ -1,0 +1,11 @@
+div.innerHTML = html.replace(/%([se])/g, function (_, type) {
+    switch (type) {
+      case 's':
+        return String(args[i++]);
+      case 'e':
+        return escape(args[i++]);
+      // no default
+    }
+  })
+"e"
+escape(args[i++])

@@ -1,0 +1,35 @@
+function filterItems = function filterItems(list, includes, excludes, targets, defaultIncludes, defaultExcludes, pluginSyntaxMap) {
+  const result = new Set();
+  const options = {
+    compatData: list,
+    includes,
+    excludes
+  };
+  for (const item in list) {
+    if (isRequired(item, targets, options)) {
+      result.add(item);
+    } else if (pluginSyntaxMap) {
+      const shippedProposalsSyntax = pluginSyntaxMap.get(item);
+      if (shippedProposalsSyntax) {
+        result.add(shippedProposalsSyntax);
+      }
+    }
+  }
+  defaultIncludes == null ? void 0 : defaultIncludes.forEach(item => !excludes.has(item) && result.add(item));
+  defaultExcludes == null ? void 0 : defaultExcludes.forEach(item => !includes.has(item) && result.delete(item));
+  return result;
+}
+const result = new Set()
+const options = {
+    compatData: list,
+    includes,
+    excludes
+  }
+_tmp_4.compatData = list
+_tmp_4.includes = includes
+_tmp_4.excludes = excludes
+_iterator_0 = <operator>.iterator(list)
+isRequired(item, targets, options)
+result.add(item)
+const shippedProposalsSyntax = pluginSyntaxMap.get(item)
+result.add(shippedProposalsSyntax)

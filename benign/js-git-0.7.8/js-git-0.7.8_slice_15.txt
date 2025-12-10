@@ -1,0 +1,11 @@
+function onReceiveError = function onReceiveError(info) {
+    if (info.socketId !== socketId) return;
+    open = false;
+    tcp.close(socketId);
+    socket.put();
+    // TODO: find a way to tell close and error apart.
+    // throw new Error("Code " + info.resultCode + " error while receiving.");
+  }
+info.socketId !== socketId
+open = false
+tcp.close(socketId)

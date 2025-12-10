@@ -1,0 +1,44 @@
+function TcpConnection = function TcpConnection(host, callback) {
+    var timeout;
+    if (!TcpConnection.isAvailable()) {
+      throw new err.ReqlDriverError("TCP sockets are not available in this environment");
+    }
+    TcpConnection.__super__.constructor.call(this, host, callback);
+    if (this.ssl) {
+      this.ssl.host = this.host;
+      this.ssl.port = this.port;
+      this.rawSocket = tls.connect(this.ssl);
+    } else {
+      this.rawSocket = net.connect(this.port, this.host);
+    }
+    this.rawSocket.setNoDelay();
+    this.rawSocket.setKeepAlive(true);
+    timeout = setTimeout(((function(_this) {
+      return function() {
+        _this.rawSocket.destroy();
+        return _this.emit('error', new err.ReqlTimeoutError("Could not connect to " + _this.host + ":" + _this.port + ", operation timed out."));
+      };
+    })(this)), this.timeout * 1000);
+    this.rawSocket.once('error', (function(_this) {
+      return function() {
+        return clearTimeout(timeout);
+      };
+    })(this));
+    this.rawSock...
+!TcpConnection.isAvailable()
+throw new err.ReqlDriverError("TCP sockets are not available in this environment");
+TcpConnection.__super__.constructor.call(this, host, callback)
+this.ssl
+this.ssl.host = this.host
+this.ssl.port = this.port
+this.rawSocket = tls.connect(this.ssl)
+this.rawSocket = net.connect(this.port, this.host)
+(_tmp_73 = this.rawSocket).setNoDelay
+(_tmp_74 = this.rawSocket).setKeepAlive
+timeout = setTimeout(((function(_this) {
+      return function() {
+        _this.rawSocket.destroy();
+        return _this.emit('error', new err.ReqlTimeoutError("Could not connect to " + _this.host + ":" + _this.port + ", operation timed out."));
+      };
+    })(this)), this.timeout * 1000)
+this.timeout * 1000

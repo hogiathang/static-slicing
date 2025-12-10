@@ -1,0 +1,39 @@
+LokiCatalog.prototype.getAppKey = function(app, key, callback) {
+      var transaction = this.db.transaction(['LokiAKV'], 'readonly');
+      var store = transaction.objectStore('LokiAKV');
+      var index = store.index('appkey');
+      var appkey = app + "," + key;
+      var request = index.get(appkey);
+
+      request.onsuccess = (function(usercallback) {
+        return function(e) {
+          var lres = e.target.result;
+
+          if (lres === null || typeof(lres) === 'undefined') {
+            lres = {
+              id: 0,
+              success: false
+            };
+          }
+
+          if (typeof(usercallback) === 'function') {
+            usercallback(lres);
+          }
+          else {
+            console.log(lres);
+          }
+        };
+      })(callback);
+
+      request.onerror = (function(usercallback) {
+        return function(e) {
+          if (typeof(usercallback) === 'function') {
+            usercallback({ id: 0, success: false });
+          }
+          else {
+      ...
+var transaction = this.db.transaction(['LokiAKV'], 'readonly')
+var store = transaction.objectStore('LokiAKV')
+var index = store.index('appkey')
+var appkey = app + "," + key
+var request = index.get(appkey)

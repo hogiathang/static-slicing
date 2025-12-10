@@ -1,0 +1,78 @@
+function runCommand(err, filenames) {
+      if (err) {
+        return self.emit('error', err);
+      }
+
+      var count = config.timemarks.length;
+      var split;
+      var filters = [split = {
+        filter: 'split',
+        options: count,
+        outputs: []
+      }];
+
+      if ('size' in config) {
+        // Set size to generate size filters
+        self.size(config.size);
+
+        // Get size filters and chain them with 'sizeN' stream names
+        var sizeFilters =  self._currentOutput.sizeFilters.get().map(function(f, i) {
+          if (i > 0) {
+            f.inputs = 'size' + (i - 1);
+          }
+
+          f.outputs = 'size' + i;
+
+          return f;
+        });
+
+        // Input last size filter output into split filter
+        split.inputs = 'size' + (sizeFilters.length - 1);
+
+        // Add size filters in front of split filter
+        filters = sizeFilters.concat(filters);
+
+        // Remove size filters
+        self._currentOutput.sizeFilters.clear();
+      }
+
+      ...
+var count = config.timemarks.length
+var filters = [split = {
+        filter: 'split',
+        options: count,
+        outputs: []
+      }]
+_tmp_37.filter = "split"
+_tmp_37.options = count
+_tmp_37.outputs = __ecma.Array.factory()
+'size' in config
+self.size(config.size)
+var sizeFilters =  self._currentOutput.sizeFilters.get().map(function(f, i) {
+          if (i > 0) {
+            f.inputs = 'size' + (i - 1);
+          }
+
+          f.outputs = 'size' + i;
+
+          return f;
+        })
+split.inputs = 'size' + (sizeFilters.length - 1)
+filters = sizeFilters.concat(filters)
+(_tmp_40 = self._currentOutput.sizeFilters).clear
+var first = 0
+var i = 0
+var stream = 'screen' + i
+(_tmp_41 = split.outputs).push
+i === 0
+first = config.timemarks[i]
+self.seekInput(first)
+self.output(path.join(config.folder, filenames[i]))
+          .frames(1)
+          .map(stream)
+1
+map
+i > 0
+self.seek(config.timemarks[i] - first)
+self.complexFilter(filters)
+self.run()

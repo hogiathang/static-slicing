@@ -1,0 +1,16 @@
+pageData.forEach((record, index) => {
+              const key = getRowKey(record, index);
+              const checkProps = checkboxPropsMap.get(key);
+              if (!(checkProps === null || checkProps === void 0 ? void 0 : checkProps.disabled)) {
+                if (keySet.has(key)) {
+                  keySet.delete(key);
+                } else {
+                  keySet.add(key);
+                }
+              }
+            })
+const key = getRowKey(record, index)
+const checkProps = checkboxPropsMap.get(key)
+!(checkProps === null || checkProps === void 0 ? void 0 : checkProps.disabled)
+keySet.has(key)
+keySet.delete(key)

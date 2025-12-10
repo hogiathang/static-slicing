@@ -1,0 +1,14 @@
+function fetchAzureKMSToken = async function fetchAzureKMSToken(
+  options: AzureKMSRequestOptions = {}
+): Promise<AzureTokenCacheEntry> {
+  const { headers, url } = prepareRequest(options);
+  const response = await get(url, { headers }).catch(error => {
+    if (error instanceof MongoCryptKMSRequestNetworkTimeoutError) {
+      throw new MongoCryptAzureKMSRequestError(`[Azure KMS] ${error.message}`);
+    }
+    throw error;
+  });
+  return parseResponse(response);
+}
+options = options === void 0 ? {} : options
+_tmp_15 = prepareRequest(options)

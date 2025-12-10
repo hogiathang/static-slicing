@@ -1,0 +1,12 @@
+child.get("specifiers").forEach(spec => {
+          const local = spec.get("local");
+          const exported = spec.get("exported");
+          const localMetadata = getLocalMetadata(local);
+          const exportName = getExportSpecifierName(exported, stringSpecifiers);
+          if (exportName === "__esModule") {
+            throw exported.buildCodeFrameError('Illegal export "__esModule".');
+          }
+          localMetadata.names.push(exportName);
+        })
+const local = spec.get("local")
+const exported = spec.get("exported")

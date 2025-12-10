@@ -1,0 +1,83 @@
+function iterate = async function iterate() {
+            const { semaphore, finish } = buildSemaphore();
+            const startTime = Date.now();
+            const bulkBody = [];
+            let actionBody = '';
+            let payloadBody = '';
+            let chunkBytes = 0;
+            timeoutRef = setTimeout(onFlushTimeout, flushInterval); // eslint-disable-line
+            // @ts-expect-error datasoruce is an iterable
+            for await (const chunk of datasource) {
+                if (shouldAbort)
+                    break;
+                timeoutRef.refresh();
+                const result = onDocument(chunk);
+                const [action, payload] = Array.isArray(result) ? result : [result, chunk];
+                const operation = Object.keys(action)[0];
+                if (operation === 'index' || operation === 'create') {
+                    actionBody = serializer.serialize(action);
+                    payloadBody = typeof payload === 'string'
+                        ? payload
+       ...
+semaphore = _tmp_49.semaphore
+const startTime = Date.now()
+__ecma.Array.factory()
+let actionBody = ''
+let payloadBody = ''
+let chunkBytes = 0
+timeoutRef = setTimeout(onFlushTimeout, flushInterval)
+_iterator_4 = <operator>.iterator(datasource)
+break;
+timeoutRef.refresh()
+const result = onDocument(chunk)
+_tmp_51 = Array.isArray(result) ? result : [result, chunk]
+const operation = Object.keys(action)[0]
+operation === 'index' || operation === 'create'
+actionBody = serializer.serialize(action)
+payloadBody = typeof payload === 'string'
+                        ? payload
+                        : serializer.serialize(payload)
+serializer.serialize(payload)
+chunkBytes += Buffer.byteLength(actionBody) + Buffer.byteLength(payloadBody)
+bulkBody.push(actionBody, payloadBody)
+operation === 'update'
+actionBody = serializer.serialize(action)
+payloadBody = typeof chunk === 'string'
+                        ? `{"doc":${chunk}}`
+                        : serializer.serialize({ doc: chunk, ...payload })
+<operator>.formatString("{"doc":", chunk, "}")
+serializer.serialize({ doc: chunk, ...payload })
+chunkBytes += Buffer.byteLength(actionBody) + Buffer.byteLength(payloadBody)
+bulkBody.push(actionBody, payloadBody)
+operation === 'delete'
+actionBody = serializer.serialize(action)
+chunkBytes += Buffer.byteLength(actionBody)
+bulkBody.push(actionBody)
+clearTimeout(timeoutRef)
+throw new ConfigurationError(`Bulk helper invalid action: '${operation}'`);
+chunkBytes >= flushBytes
+stats.bytes += chunkBytes
+const send = await semaphore()
+send(bulkBody.slice())
+bulkBody.length = 0
+chunkBytes = 0
+clearTimeout(timeoutRef)
+!shouldAbort && chunkBytes > 0
+const send = await semaphore()
+stats.bytes += chunkBytes
+function onFlushTimeout = async function onFlushTimeout() {
+                if (chunkBytes === 0)
+                    return;
+                stats.bytes += chunkBytes;
+                const bulkBodyCopy = bulkBody.slice();
+                bulkBody.length = 0;
+                chunkBytes = 0;
+                try {
+                    const send = await semaphore();
+                    send(bulkBodyCopy);
+                }
+                catch (err) {
+                    /* istanbul ignore next */
+                    helper.abort(); // eslint-disable-line
+                }
+            }

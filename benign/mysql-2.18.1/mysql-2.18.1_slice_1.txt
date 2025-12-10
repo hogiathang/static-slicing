@@ -1,0 +1,67 @@
+Connection.prototype.connect = function connect(options, callback) {
+  if (!callback && typeof options === 'function') {
+    callback = options;
+    options = {};
+  }
+
+  if (!this._connectCalled) {
+    this._connectCalled = true;
+
+    // Connect either via a UNIX domain socket or a TCP socket.
+    this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host);
+
+    // Connect socket to connection domain
+    if (Events.usingDomains) {
+      this._socket.domain = this.domain;
+    }
+
+    var connection = this;
+    this._protocol.on('data', function(data) {
+      connection._socket.write(data);
+    });
+    this._socket.on('data', wrapToDomain(connection, function (data) {
+      connection._protocol.write(data);
+    }));
+    this._protocol.on('end', function() {
+      connection._socket.end();
+    });
+    this._socket.on('end', wrapToDomain(connection, function () {
+      connection._protocol.e...
+!callback && typeof options === 'function'
+callback = options
+options = {}
+!this._connectCalled
+this._connectCalled = true
+this._socket = (this.config.socketPath)
+      ? Net.createConnection(this.config.socketPath)
+      : Net.createConnection(this.config.port, this.config.host)
+Net.createConnection(this.config.socketPath)
+Net.createConnection(this.config.port, this.config.host)
+Events.usingDomains
+this._socket.domain = this.domain
+var connection = this
+this._protocol.on('data', function(data) {
+      connection._socket.write(data);
+    })
+this._socket.on('data', wrapToDomain(connection, function (data) {
+      connection._protocol.write(data);
+    }))
+this._protocol.on('end', function() {
+      connection._socket.end();
+    })
+this._socket.on('end', wrapToDomain(connection, function () {
+      connection._protocol.end();
+    }))
+this._socket.on('error', this._handleNetworkError.bind(this))
+this._socket.on('connect', this._handleProtocolConnect.bind(this))
+this._protocol.on('handshake', this._handleProtocolHandshake.bind(this))
+this._protocol.on('initialize', this._handleProtocolInitialize.bind(this))
+this._protocol.on('unhandledError', this._handleProtocolError.bind(this))
+this._protocol.on('drain', this._handleProtocolDrain.bind(this))
+this._protocol.on('end', this._handleProtocolEnd.bind(this))
+this._protocol.on('enqueue', this._handleProtocolEnqueue.bind(this))
+this.config.connectTimeout
+var handleConnectTimeout = this._handleConnectTimeout.bind(this)
+this._socket.setTimeout(this.config.connectTimeout, handleConnectTimeout)

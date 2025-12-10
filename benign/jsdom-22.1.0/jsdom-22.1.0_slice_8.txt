@@ -1,0 +1,9 @@
+element = param2_0.element
+const request = this._resourceLoader.fetch(url, {
+      cookieJar: this._document._cookieJar,
+      element: idlUtils.wrapperForImpl(element),
+      referrer: this._document.URL
+    })
+_tmp_2.cookieJar = this._document._cookieJar
+_tmp_2.element = idlUtils.wrapperForImpl(element)
+_tmp_2.referrer = this._document.URL

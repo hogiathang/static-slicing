@@ -1,0 +1,37 @@
+function getOrCreateNodeByPath = function getOrCreateNodeByPath(rootNode, path) {
+    var keys = path.split('.');
+    var node = rootNode;
+
+    var _iterator3 = _createForOfIteratorHelper(keys),
+        _step3;
+
+    try {
+      for (_iterator3.s(); !(_step3 = _iterator3.n()).done;) {
+        var key = _step3.value;
+        var child = node.children.get(key);
+
+        if (!child) {
+          child = createDepTree();
+          node.children.set(key, child);
+        }
+
+        node = child;
+      }
+    } catch (err) {
+      _iterator3.e(err);
+    } finally {
+      _iterator3.f();
+    }
+
+    return node;
+  }
+var keys = path.split('.')
+var node = rootNode
+var _iterator3 = _createForOfIteratorHelper(keys)
+!(_step3 = _iterator3.n()).done
+var key = _step3.value
+var child = node.children.get(key)
+!child
+child = createDepTree()
+node.children.set(key, child)
+node = child

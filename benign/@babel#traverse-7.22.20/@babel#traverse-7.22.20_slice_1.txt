@@ -1,0 +1,9 @@
+function getCachedPaths = function getCachedPaths(hub, parent) {
+  var _pathsCache$get, _hub;
+  {
+    hub = null;
+  }
+  return (_pathsCache$get = pathsCache.get((_hub = hub) != null ? _hub : nullHub)) == null ? void 0 : _pathsCache$get.get(parent);
+}
+hub = null
+(_pathsCache$get = pathsCache.get((_hub = hub) != null ? _hub : nullHub)) == null ? void 0 : _pathsCache$get.get(parent)

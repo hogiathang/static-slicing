@@ -1,0 +1,36 @@
+Document.prototype.$toObject = function(options, json) {
+  let defaultOptions = {
+    transform: true,
+    flattenDecimals: true
+  };
+
+  const path = json ? 'toJSON' : 'toObject';
+  const baseOptions = this.constructor &&
+    this.constructor.base &&
+    this.constructor.base.options &&
+    get(this.constructor.base.options, path) || {};
+  const schemaOptions = this.$__schema && this.$__schema.options || {};
+  // merge base default options with Schema's set default options if available.
+  // `clone` is necessary here because `utils.options` directly modifies the second input.
+  defaultOptions = utils.options(defaultOptions, clone(baseOptions));
+  defaultOptions = utils.options(defaultOptions, clone(schemaOptions[path] || {}));
+
+  // If options do not exist or is not an object, set it to empty object
+  options = utils.isPOJO(options) ? { ...options } : {};
+  options._calledWithOptions = options._calledWithOptions || { ...options };
+
+  let _minimize;
+  if (options._calledWithOptions.m...
+let defaultOptions = {
+    transform: true,
+    flattenDecimals: true
+  }
+_tmp_249.transform = true
+_tmp_249.flattenDecimals = true
+const path = json ? 'toJSON' : 'toObject'
+const baseOptions = this.constructor &&
+    this.constructor.base &&
+    this.constructor.base.options &&
+    get(this.constructor.base.options, path) || {}
+this.constructor.base
+this.constructor.base.options

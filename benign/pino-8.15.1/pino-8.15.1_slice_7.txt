@@ -1,0 +1,53 @@
+const bench = require('fastbench')
+const pino = require('../')
+const bunyan = require('bunyan')
+const bole = require('bole')('bench')
+const winston = require('winston')
+const fs = require('fs')
+const dest = fs.createWriteStream('/dev/null')
+const plogNodeStream = pino(dest)
+delete require.cache[require.resolve('../')]
+const plogDest = require('../')(pino.destination('/dev/null'))
+delete require.cache[require.resolve('../')]
+const plogMinLength = require('../')(pino.destination({ dest: '/dev/null', sync: false, minLength: 4096 }))
+delete require.cache[require.resolve('../')]
+const loglevel = require('./utils/wrap-log-level')(dest)
+const deep = Object.assign({}, require('../package.json'), { level: 'info' })
+const max = 10
+const blog = bunyan.createLogger({
+  name: 'myapp',
+  streams: [{
+    level: 'trace',
+    stream: dest
+  }]
+})
+_tmp_3.name = "myapp"
+_tmp_3.streams = [{
+    level: 'trace',
+    stream: dest
+  }]
+_tmp_5.level = "trace"
+_tmp_5.stream = dest
+(_tmp_6 = require('bole').output({
+  level: 'info',
+  stream: dest
+})).setFastTime
+_tmp_8.level = "info"
+_tmp_8.stream = dest
+setFastTime
+const chill = winston.createLogger({
+  transports: [
+    new winston.transports.Stream({
+      stream: fs.createWriteStream('/dev/null')
+    })
+  ]
+})
+_tmp_9.transports = [
+    new winston.transports.Stream({
+      stream: fs.createWriteStream('/dev/null')
+    })
+  ]
+_tmp_10.push(new winston.transports.Stream({
+      stream: fs.createWriteStream('/dev/null')
+    }))
+_tmp_12.stream = fs.createWriteStream('/dev/null')

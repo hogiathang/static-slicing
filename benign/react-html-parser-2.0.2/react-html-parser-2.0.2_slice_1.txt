@@ -1,0 +1,15 @@
+var connect = require("react-redux").connect
+var updateHtml = require("../actions").updateHtml
+var Content = require("../components/Content")
+const mapStateToProps = state => {
+  return {
+    html: state.html
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateHtml: html => {
+      dispatch(updateHtml(html));
+    }
+  };
+}

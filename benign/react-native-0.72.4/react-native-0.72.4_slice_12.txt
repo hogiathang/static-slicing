@@ -1,0 +1,25 @@
+libraries.forEach(library => {
+    if (
+      !fabricEnabled &&
+      fabricEnabledTypes.indexOf(library.config.type) >= 0
+    ) {
+      console.log(
+        `[Codegen] ${library.config.name} skipped because fabric is not enabled.`,
+      );
+      return;
+    }
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), library.config.name));
+    const pathToSchema = generateSchema(tmpDir, library, node, codegenCliPath);
+    generateCode(iosOutputDir, library, tmpDir, node, pathToSchema);
+
+    // Filter the react native core library out.
+    // In the future, core library and third party library should
+    // use the same way to generate/register the fabric components.
+    if (!isReactNativeCoreLibrary(library.config.name)) {
+      schemaPaths[library.config.name] = pathToSchema;
+    }
+  })
+!fabricEnabled &&
+      fabricEnabledTypes.indexOf(library.config.type) >= 0
+fabricEnabledTypes.indexOf(library.config.type) >= 0
+const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), library.config.name))

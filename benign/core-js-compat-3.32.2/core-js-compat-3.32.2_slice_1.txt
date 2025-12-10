@@ -1,0 +1,17 @@
+const normalized = list.map(([engine, version]) => {
+    if (has(browserslist.aliases, engine)) {
+      engine = browserslist.aliases[engine];
+    }
+    if (aliases.has(engine)) {
+      engine = aliases.get(engine);
+    }
+    return [engine, String(version)];
+  }).filter(([engine]) => {
+    return validTargets.has(engine);
+  }).sort(([a], [b]) => {
+    return a < b ? -1 : a > b ? 1 : 0;
+  })
+has(browserslist.aliases, engine)
+engine = browserslist.aliases[engine]
+aliases.has(engine)
+engine = aliases.get(engine)

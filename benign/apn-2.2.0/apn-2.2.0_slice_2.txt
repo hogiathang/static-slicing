@@ -1,0 +1,4 @@
+stream.on("unprocessed", () => {
+          resolve(this.write(notification, device));
+        })
+resolve(this.write(notification, device))

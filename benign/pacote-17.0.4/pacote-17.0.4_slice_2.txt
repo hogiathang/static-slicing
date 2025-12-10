@@ -1,0 +1,1 @@
+(_tmp_3 = get(spec, opts)).extract

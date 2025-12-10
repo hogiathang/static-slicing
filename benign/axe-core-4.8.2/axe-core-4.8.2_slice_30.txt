@@ -1,0 +1,59 @@
+function _ColorSpace = function _ColorSpace(options) {
+        var _options$coords, _ref39, _options$white, _options$formats, _this$formats$functio, _this$formats, _this$formats2;
+        _classCallCheck(this, _ColorSpace);
+        _classPrivateMethodInitSpec(this, _getPath);
+        _classPrivateMethodInitSpec(this, _processFormat);
+        _classPrivateFieldInitSpec(this, _path, {
+          writable: true,
+          value: void 0
+        });
+        this.id = options.id;
+        this.name = options.name;
+        this.base = options.base ? _ColorSpace.get(options.base) : null;
+        this.aliases = options.aliases;
+        if (this.base) {
+          this.fromBase = options.fromBase;
+          this.toBase = options.toBase;
+        }
+        var _coords = (_options$coords = options.coords) !== null && _options$coords !== void 0 ? _options$coords : this.base.coords;
+        this.coords = _coords;
+        var white2 = (_ref39 = (_options$white = options.white) !== null && _options$white !== void 0 ? _option...
+_classCallCheck(this, _ColorSpace)
+_classPrivateMethodInitSpec(this, _getPath)
+_classPrivateMethodInitSpec(this, _processFormat)
+_classPrivateFieldInitSpec(this, _path, {
+          writable: true,
+          value: void 0
+        })
+_tmp_3036.writable = true
+_tmp_3036.value = void 0
+this.id = options.id
+this.name = options.name
+this.base = options.base ? _ColorSpace.get(options.base) : null
+this.aliases = options.aliases
+this.base
+this.fromBase = options.fromBase
+this.toBase = options.toBase
+var _coords = (_options$coords = options.coords) !== null && _options$coords !== void 0 ? _options$coords : this.base.coords
+this.coords = _coords
+var white2 = (_ref39 = (_options$white = options.white) !== null && _options$white !== void 0 ? _options$white : this.base.white) !== null && _ref39 !== void 0 ? _ref39 : 'D65'
+this.white = getWhite(white2)
+this.formats = (_options$formats = options.formats) !== null && _options$formats !== void 0 ? _options$formats : {}
+_iterator_16 = <operator>.iterator(this.formats)
+var format = this.formats[name]
+format.type || (format.type = 'function')
+format.name || (format.name = name)
+options.cssId && !((_this$formats$functio = this.formats.functions) !== null && _this$formats$functio !== void 0 && _this$formats$functio.color)
+this.formats.color = {
+            id: options.cssId
+          }
+_tmp_3038.id = options.cssId
+Object.defineProperty(this, 'cssId', {
+            value: options.cssId
+          })
+_tmp_3039.value = options.cssId
+(_this$formats = this.formats) !== null && _this$formats !== void 0 && _this$formats.color && !((_this$formats2 = this.formats) !== null && _this$formats2 !== void 0 && _this$formats2.color.id)
+this.formats.color.id = this.id
+this.referred = options.referred
+_classPrivateFieldSet(this, _path, _classPrivateMethodGet(this, _getPath, _getPath2).call(this).reverse())
+hooks.run('colorspace-init-end', this)

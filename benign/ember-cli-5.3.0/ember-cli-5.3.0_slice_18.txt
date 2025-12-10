@@ -1,0 +1,15 @@
+run(options) {
+    let ui = this.ui;
+    let packageJson = path.join(this.project.root, 'package.json');
+
+    if (!fs.existsSync(packageJson)) {
+      ui.writeWarnLine('Skipping npm install: package.json not found');
+      return Promise.resolve();
+    } else {
+      return super.run(options);
+    }
+  }
+let ui = this.ui
+let packageJson = path.join(this.project.root, 'package.json')
+!fs.existsSync(packageJson)
+(_tmp_0 = super).run

@@ -1,0 +1,30 @@
+update(data) {
+        if(data.channel_id !== undefined) {
+            if(data.channel_id !== null) {
+                if(this._client.guilds.get(data.guild_id)) {
+                    this.channel = this._client.guilds.get(data.guild_id).channels.get(data.channel_id) || {id: data.channel_id};
+                } else {
+                    this.channel = {id: data.channel_id};
+                }
+            } else {
+                this.channel = null;
+            }
+        }
+        if(data.name !== undefined) {
+            this.name = data.name;
+        }
+        if(data.description !== undefined) {
+            this.description = data.description;
+        }
+        if(data.scheduled_start_time !== undefined) {
+            this.scheduledStartTime = Date.parse(data.scheduled_start_time);
+        }
+        if(data.scheduled_end_time !== undefined) {
+            this.scheduledEndTime = Date.parse(data.scheduled_end_time);
+        }
+        if(data.privacy_level !== undefined) {
+           ...
+data.channel_id !== undefined
+data.channel_id !== null
+this._client.guilds.get(data.guild_id)
+this.channel = this._client.guilds.get(data.guild_id).channels.get(data.channel_id) || {id: data.channel_id}

@@ -1,0 +1,38 @@
+function updateReadmeFileSizes = function updateReadmeFileSizes() {
+	var files = require('./barcode-building.json');
+	var readme = fs.readFileSync('README.md', "utf-8");
+
+	// Update .all files
+	var allData = fs.readFileSync('dist/JsBarcode.all.min.js');
+	var allFilesize = gzipSize.sync(allData);
+
+	var allRegexp = new RegExp('\\|[^\\|]*\\|([ \\t\\*]*\\[JsBarcode\\.all\\.min\\.js\\])');
+	readme = readme.replace(allRegexp, "|  *" + formatSize(allFilesize) + "*  |$1");
+
+	// Update all barcodes files
+	for (var i in files) {
+		var filename = shared.minifiedFilename(files[i].name);
+
+		var fileData = fs.readFileSync('dist/barcodes/' + filename);
+		var fileFilesize = gzipSize.sync(fileData);
+
+		var fileRegexp = new RegExp('\\|[^\\|]*\\|([ \\t]*\\[' + RegExp.escape(filename) + '\\])');
+
+		readme = readme.replace(fileRegexp, "|  " + formatSize(fileFilesize) + "  |$1");
+	}
+
+	fs.writeFileSync('README.md', readme, 'utf8');
+}
+var files = require('./barcode-building.json')
+var readme = fs.readFileSync('README.md', "utf-8")
+var allData = fs.readFileSync('dist/JsBarcode.all.min.js')
+var allFilesize = gzipSize.sync(allData)
+var allRegexp = new RegExp('\\|[^\\|]*\\|([ \\t\\*]*\\[JsBarcode\\.all\\.min\\.js\\])')
+readme = readme.replace(allRegexp, "|  *" + formatSize(allFilesize) + "*  |$1")
+_iterator_0 = <operator>.iterator(files)
+var filename = shared.minifiedFilename(files[i].name)
+var fileData = fs.readFileSync('dist/barcodes/' + filename)
+var fileFilesize = gzipSize.sync(fileData)
+var fileRegexp = new RegExp('\\|[^\\|]*\\|([ \\t]*\\[' + RegExp.escape(filename) + '\\])')
+readme = readme.replace(fileRegexp, "|  " + formatSize(fileFilesize) + "  |$1")
+fs.writeFileSync('README.md', readme, 'utf8')

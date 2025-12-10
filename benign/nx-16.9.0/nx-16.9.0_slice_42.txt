@@ -1,0 +1,56 @@
+function runTasks = async function runTasks(executorName, batchTaskGraph, fullTaskGraph) {
+    const input = {};
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)();
+    const projectsConfigurations = (0, project_graph_1.readProjectsConfigurationFromProjectGraph)(projectGraph);
+    const nxJsonConfiguration = (0, configuration_1.readNxJson)();
+    const batchExecutor = getBatchExecutor(executorName);
+    const tasks = Object.values(batchTaskGraph.tasks);
+    const context = {
+        root: workspace_root_1.workspaceRoot,
+        cwd: process.cwd(),
+        projectsConfigurations,
+        nxJsonConfiguration,
+        workspace: { ...projectsConfigurations, ...nxJsonConfiguration },
+        isVerbose: false,
+        projectGraph,
+        taskGraph: fullTaskGraph,
+    };
+    for (const task of tasks) {
+        const projectConfiguration = projectsConfigurations.projects[task.target.project];
+        const targetConfiguration = projectConfiguration.targets[task.target.target];
+   ...
+const input = {}
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)()
+const projectsConfigurations = (0, project_graph_1.readProjectsConfigurationFromProjectGraph)(projectGraph)
+const nxJsonConfiguration = (0, configuration_1.readNxJson)()
+const batchExecutor = getBatchExecutor(executorName)
+const tasks = Object.values(batchTaskGraph.tasks)
+const context = {
+        root: workspace_root_1.workspaceRoot,
+        cwd: process.cwd(),
+        projectsConfigurations,
+        nxJsonConfiguration,
+        workspace: { ...projectsConfigurations, ...nxJsonConfiguration },
+        isVerbose: false,
+        projectGraph,
+        taskGraph: fullTaskGraph,
+    }
+_tmp_2.root = workspace_root_1.workspaceRoot
+_tmp_2.cwd = process.cwd()
+_tmp_2.projectsConfigurations = projectsConfigurations
+_tmp_2.nxJsonConfiguration = nxJsonConfiguration
+_tmp_2.workspace = { ...projectsConfigurations, ...nxJsonConfiguration }
+_tmp_2.isVerbose = false
+_tmp_2.projectGraph = projectGraph
+_tmp_2.taskGraph = fullTaskGraph
+_iterator_0 = <operator>.iterator(tasks)
+const projectConfiguration = projectsConfigurations.projects[task.target.project]
+const targetConfiguration = projectConfiguration.targets[task.target.target]
+input[task.id] = (0, params_1.combineOptionsForExecutor)(task.overrides, task.target.configuration, targetConfiguration, batchExecutor.schema, null, process.cwd())
+const results = await batchExecutor.batchImplementationFactory()(batchTaskGraph, input, tasks[0].overrides, context)
+typeof results !== 'object'
+<operator>.formatString(""", executorName, " returned invalid results: ", results, "")
+(0, async_iterator_1.isAsyncIterator)(results)
+const isVerbose = tasks[0].overrides.verbose
+console.error(isVerbose ? e : e.message)
+process.exit(1)

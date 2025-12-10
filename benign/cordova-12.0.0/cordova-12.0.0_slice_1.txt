@@ -1,0 +1,124 @@
+function cli = function cli (inputArgs) {
+    const args = nopt(knownOpts, shortHands, inputArgs);
+
+    process.on('uncaughtException', function (err) {
+        if (err.message) {
+            logger.error(err.message);
+        } else {
+            logger.error(err);
+        }
+        // Don't send exception details, just send that it happened
+        if (shouldCollectTelemetry) {
+            telemetry.track('uncaughtException');
+        }
+        process.exit(1);
+    });
+
+    logger.subscribe(events);
+
+    if (args.silent) {
+        logger.setLevel('error');
+    } else if (args.verbose) { // can't be both silent AND verbose, silent wins
+        logger.setLevel('verbose');
+    }
+
+    const cliVersion = pkg.version;
+    const usingPrerelease = !!semver.prerelease(cliVersion);
+    if (args.version || usingPrerelease) {
+        const libVersion = require('cordova-lib/package').version;
+        let toPrint = cliVersion;
+        if (cliVersion !== libVersion || usingPrerelease) {
+            toPrint += ...
+const args = nopt(knownOpts, shortHands, inputArgs)
+process.on('uncaughtException', function (err) {
+        if (err.message) {
+            logger.error(err.message);
+        } else {
+            logger.error(err);
+        }
+        // Don't send exception details, just send that it happened
+        if (shouldCollectTelemetry) {
+            telemetry.track('uncaughtException');
+        }
+        process.exit(1);
+    })
+logger.subscribe(events)
+args.silent
+logger.setLevel('error')
+args.verbose
+logger.setLevel('verbose')
+const cliVersion = pkg.version
+const usingPrerelease = !!semver.prerelease(cliVersion)
+args.version || usingPrerelease
+const libVersion = require('cordova-lib/package').version
+let toPrint = cliVersion
+cliVersion !== libVersion || usingPrerelease
+toPrint += ' (cordova-lib@' + libVersion + ')'
+args.version
+logger.warn('Warning: using prerelease version ' + toPrint)
+let warningPartial = null
+NODE_VERSION_REQUIREMENT &&
+        !semver.satisfies(NODE_VERSION, NODE_VERSION_REQUIREMENT)
+!semver.satisfies(NODE_VERSION, NODE_VERSION_REQUIREMENT)
+warningPartial = 'is no longer supported'
+NODE_VERSION_DEPRECATING_RANGE &&
+        semver.satisfies(NODE_VERSION, NODE_VERSION_DEPRECATING_RANGE)
+semver.satisfies(NODE_VERSION, NODE_VERSION_DEPRECATING_RANGE)
+warningPartial = 'has been deprecated'
+const upgradeMsg = 'Please upgrade to the latest Node.js version available (LTS version recommended).'
+<operator>.formatString("Warning: Node.js ", NODE_VERSION, " ", warningPartial, ". ", upgradeMsg, "")
+__ecma.Array.factory()
+const parseStopperIdx = args.argv.original.indexOf('--')
+parseStopperIdx !== -1
+unparsedArgs = args.argv.original.slice(parseStopperIdx + 1)
+const remain = args.argv.remain
+const undashed = remain.slice(0, remain.length - unparsedArgs.length)
+const cmd = undashed[0]
+!cmd || cmd === 'help' || args.help
+cmd === 'info'
+cmd === 'config'
+cmd === 'create'
+!Object.prototype.hasOwnProperty.call(cordova, cmd)
+const msg2 = 'Cordova does not know ' + cmd + '; try `' + cordova_lib.binname +
+            ' help` for a list of all the available commands.'
+" help` for a list of all the available commands."
+throw new CordovaError(msg2);
+const opts = {
+        platforms: [],
+        options: [],
+        verbose: args.verbose || false,
+        silent: args.silent || false,
+        nohooks: args.nohooks || [],
+        searchpath: args.searchpath
+    }
+_tmp_9.platforms = __ecma.Array.factory()
+_tmp_9.options = __ecma.Array.factory()
+_tmp_9.verbose = args.verbose || false
+_tmp_9.silent = args.silent || false
+_tmp_9.nohooks = args.nohooks || []
+_tmp_9.searchpath = args.searchpath
+const platformCommands = ['emulate', 'build', 'prepare', 'compile', 'run', 'clean']
+platformCommands.indexOf(cmd) !== -1
+cmd === 'requirements'
+cmd === 'serve'
+subcommand = undashed[1]
+const targets = undashed.slice(2)
+const cli_vars = {}
+args.variable
+args.variable.forEach(function (strVar) {
+                // CB-9171
+                const keyVal = strVar.split('=');
+                if (keyVal.length < 2) {
+                    throw new CordovaError('invalid variable format: ' + strVar);
+                } else {
+                    const key = keyVal.shift().toUpperCase();
+                    const val = keyVal.join('=');
+                    cli_vars[key] = val;
+                }
+            })
+args.save = !args.nosave
+args.production = !args.noprod
+args.searchpath === undefined
+args.searchpath = conf.get('searchpath')
+args['save-exact'] === undefined
+args['save-exact'] = conf.get('save-exact')

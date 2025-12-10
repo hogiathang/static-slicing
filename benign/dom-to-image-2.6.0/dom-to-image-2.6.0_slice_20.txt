@@ -1,0 +1,89 @@
+function defaultPrefilter = function defaultPrefilter( elem, props, opts ) {
+	/* jshint validthis: true */
+	var prop, value, toggle, tween, hooks, oldfire, display, checkDisplay,
+		anim = this,
+		orig = {},
+		style = elem.style,
+		hidden = elem.nodeType && isHidden( elem ),
+		dataShow = data_priv.get( elem, "fxshow" );
+
+	// Handle queue: false promises
+	if ( !opts.queue ) {
+		hooks = jQuery._queueHooks( elem, "fx" );
+		if ( hooks.unqueued == null ) {
+			hooks.unqueued = 0;
+			oldfire = hooks.empty.fire;
+			hooks.empty.fire = function() {
+				if ( !hooks.unqueued ) {
+					oldfire();
+				}
+			};
+		}
+		hooks.unqueued++;
+
+		anim.always(function() {
+			// Ensure the complete handler is called before this completes
+			anim.always(function() {
+				hooks.unqueued--;
+				if ( !jQuery.queue( elem, "fx" ).length ) {
+					hooks.empty.fire();
+				}
+			});
+		});
+	}
+
+	// Height/width overflow pass
+	if ( elem.nodeType === 1 && ( "height" in props || "width" in props ) ) {
+		// Make sure that nothing sneaks out
+		// Record all...
+var anim = this
+var orig = {}
+var style = elem.style
+var hidden = elem.nodeType && isHidden( elem )
+var dataShow = data_priv.get( elem, "fxshow" )
+!opts.queue
+hooks = jQuery._queueHooks( elem, "fx" )
+hooks.unqueued == null
+hooks.unqueued = 0
+oldfire = hooks.empty.fire
+hooks.empty.fire = function() {
+				if ( !hooks.unqueued ) {
+					oldfire();
+				}
+			}
+hooks.unqueued++
+anim.always(function() {
+			// Ensure the complete handler is called before this completes
+			anim.always(function() {
+				hooks.unqueued--;
+				if ( !jQuery.queue( elem, "fx" ).length ) {
+					hooks.empty.fire();
+				}
+			});
+		})
+elem.nodeType === 1 && ( "height" in props || "width" in props )
+opts.overflow = [ style.overflow, style.overflowX, style.overflowY ]
+display = jQuery.css( elem, "display" )
+checkDisplay = display === "none" ?
+			data_priv.get( elem, "olddisplay" ) || defaultDisplay( elem.nodeName ) : display
+data_priv.get( elem, "olddisplay" ) || defaultDisplay( elem.nodeName )
+checkDisplay === "inline" && jQuery.css( elem, "float" ) === "none"
+style.display = "inline-block"
+opts.overflow
+style.overflow = "hidden"
+anim.always(function() {
+			style.overflow = opts.overflow[ 0 ];
+			style.overflowX = opts.overflow[ 1 ];
+			style.overflowY = opts.overflow[ 2 ];
+		})
+_iterator_0 = <operator>.iterator(props)
+value = props[ prop ]
+rfxtypes.exec( value )
+delete props[ prop ]
+toggle = toggle || value === "toggle"
+value === ( hidden ? "hide" : "show" )
+value === "show" && dataShow && dataShow[ prop ] !== undefined
+hidden = true
+continue;
+orig[ prop ] = dataShow && dataShow[ prop ] || jQuery.style( elem, prop )
+display = undefined

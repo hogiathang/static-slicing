@@ -1,0 +1,15 @@
+#timeEndListener = (name) => {
+    if (this.#unfinished.has(name)) {
+      const ms = Date.now() - this.#unfinished.get(name)
+      this.#finished[name] = ms
+      this.#unfinished.delete(name)
+      this.emit(this.#onTimeEnd, name, ms)
+    } else {
+      log.silly('timing', "Tried to end timer that doesn't exist:", name)
+    }
+  }
+(_tmp_3 = this.#unfinished).has
+const ms = Date.now() - this.#unfinished.get(name)
+this.#finished[name] = ms
+(_tmp_5 = this.#unfinished).delete
+this.emit(this.#onTimeEnd, name, ms)

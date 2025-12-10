@@ -1,0 +1,11 @@
+function off = function off(listener) {
+    const listeners = events.get(key);
+    if (!listeners)
+      return;
+    listeners.delete(listener);
+    if (!listeners.size)
+      reset();
+  }
+const listeners = events.get(key)
+!listeners
+listeners.delete(listener)

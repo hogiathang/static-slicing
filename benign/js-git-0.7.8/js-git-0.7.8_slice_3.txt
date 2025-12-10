@@ -1,0 +1,27 @@
+function saveAs = function saveAs(type, body, callback, forcedHash) {
+  if (!callback) return saveAs.bind(this, type, body);
+  var hash;
+  try {
+    var buffer = codec.frame({type:type,body:body});
+    hash = forcedHash || sha1(buffer);
+  }
+  catch (err) { return callback(err); }
+  var trans = db.transaction(["objects"], "readwrite");
+  var store = trans.objectStore("objects");
+  var entry = { hash: hash, type: type, body: body };
+  var request = store.put(entry);
+  request.onsuccess = function() {
+    // console.warn("SAVE", type, hash);
+    callback(null, hash, body);
+  };
+  request.onerror = function(evt) {
+    callback(new Error(evt.value));
+  };
+}
+saveAs.bind(this, type, body)
+var buffer = codec.frame({type:type,body:body})
+hash = forcedHash || sha1(buffer)
+var trans = db.transaction(["objects"], "readwrite")
+var store = trans.objectStore("objects")
+var entry = { hash: hash, type: type, body: body }
+var request = store.put(entry)

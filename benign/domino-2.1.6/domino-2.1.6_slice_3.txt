@@ -1,0 +1,94 @@
+_tmp_64._stylesheet = <lambda>34
+var tokenStream = this._tokenStream
+this.fire("startstylesheet")
+this._charset()
+this._skipCruft()
+tokenStream.peek() === Tokens.IMPORT_SYM
+this._import()
+this._skipCruft()
+tokenStream.peek() === Tokens.NAMESPACE_SYM
+this._namespace()
+this._skipCruft()
+tt = tokenStream.peek()
+tt > Tokens.EOF
+Tokens.MEDIA_SYM
+this._media()
+this._skipCruft()
+break;
+Tokens.PAGE_SYM
+this._page()
+this._skipCruft()
+break;
+Tokens.FONT_FACE_SYM
+this._font_face()
+this._skipCruft()
+break;
+Tokens.KEYFRAMES_SYM
+this._keyframes()
+this._skipCruft()
+break;
+Tokens.VIEWPORT_SYM
+this._viewport()
+this._skipCruft()
+break;
+Tokens.DOCUMENT_SYM
+this._document()
+this._skipCruft()
+break;
+Tokens.UNKNOWN_SYM
+tokenStream.get()
+!this.options.strict
+this.fire({
+                                        type:       "error",
+                                        error:      null,
+                                        message:    "Unknown @ rule: " + tokenStream.LT(0).value + ".",
+                                        line:       tokenStream.LT(0).startLine,
+                                        col:        tokenStream.LT(0).startCol
+                                    })
+_tmp_65.type = "error"
+_tmp_65.error = null
+_tmp_65.message = "Unknown @ rule: " + tokenStream.LT(0).value + "."
+_tmp_65.line = tokenStream.LT(0).startLine
+_tmp_65.col = tokenStream.LT(0).startCol
+count=0
+tokenStream.advance([Tokens.LBRACE, Tokens.RBRACE]) === Tokens.LBRACE
+count++
+tokenStream.advance([Tokens.RBRACE])
+count--
+throw new SyntaxError("Unknown @ rule.", tokenStream.LT(0).startLine, tokenStream.LT(0).startCol);
+break;
+Tokens.S
+this._readWhitespace()
+break;
+default:
+!this._ruleset()
+Tokens.CHARSET_SYM
+token = tokenStream.LT(1)
+this._charset(false)
+throw new SyntaxError("@charset not allowed here.", token.startLine, token.startCol);
+Tokens.IMPORT_SYM
+token = tokenStream.LT(1)
+this._import(false)
+throw new SyntaxError("@import not allowed here.", token.startLine, token.startCol);
+Tokens.NAMESPACE_SYM
+token = tokenStream.LT(1)
+this._namespace(false)
+throw new SyntaxError("@namespace not allowed here.", token.startLine, token.startCol);
+default:
+tokenStream.get()
+this._unexpectedToken(tokenStream.token())
+ex instanceof SyntaxError && !this.options.strict
+this.fire({
+                                type:       "error",
+                                error:      ex,
+                                message:    ex.message,
+                                line:       ex.line,
+                                col:        ex.col
+                            })
+_tmp_72.type = "error"
+_tmp_72.error = ex
+_tmp_72.message = ex.message
+_tmp_72.line = ex.line
+_tmp_72.col = ex.col
+throw ex;
+tt = tokenStream.peek()

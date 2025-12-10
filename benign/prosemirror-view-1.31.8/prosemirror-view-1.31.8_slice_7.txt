@@ -1,0 +1,66 @@
+delayedSelectionSync = false
+mightDrag: {node: Node, pos: number, addAttr: boolean, setUneditable: boolean} | null = null
+constructor(
+    readonly view: EditorView,
+    readonly pos: {pos: number, inside: number},
+    readonly event: MouseEvent,
+    readonly flushed: boolean
+  ) {
+    this.startDoc = view.state.doc
+    this.selectNode = !!event[selectNodeModifier]
+    this.allowDefault = event.shiftKey
+
+    let targetNode: Node, targetPos
+    if (pos.inside > -1) {
+      targetNode = view.state.doc.nodeAt(pos.inside)!
+      targetPos = pos.inside
+    } else {
+      let $pos = view.state.doc.resolve(pos.pos)
+      targetNode = $pos.parent
+      targetPos = $pos.depth ? $pos.before() : 0
+    }
+
+    const target = flushed ? null : event.target as HTMLElement
+    const targetDesc = target ? view.docView.nearestDesc(target, true) : null
+    this.target = targetDesc ? targetDesc.dom as HTMLElement : null
+
+    let {selection} = view.state
+    if (event.button == 0 &&
+        targetNode.type.spec.draggable && targetNode.type.spec.selectable !== false ||
+        selection instanceof NodeSelection && selection....
+this.view = view
+this.pos = pos
+this.event = event
+this.flushed = flushed
+this.startDoc = view.state.doc
+this.selectNode = !!event[selectNodeModifier]
+this.allowDefault = event.shiftKey
+pos.inside > -1
+targetNode = view.state.doc.nodeAt(pos.inside)!
+targetPos = pos.inside
+let $pos = view.state.doc.resolve(pos.pos)
+targetNode = $pos.parent
+targetPos = $pos.depth ? $pos.before() : 0
+const target = flushed ? null : event.target as HTMLElement
+const targetDesc = target ? view.docView.nearestDesc(target, true) : null
+this.target = targetDesc ? targetDesc.dom as HTMLElement : null
+selection = _tmp_33.selection
+event.button == 0 &&
+        targetNode.type.spec.draggable && targetNode.type.spec.selectable !== false ||
+        selection instanceof NodeSelection && selection.from <= targetPos && selection.to > targetPos
+targetNode.type.spec.selectable !== false
+selection instanceof NodeSelection && selection.from <= targetPos && selection.to > targetPos
+this.mightDrag = {
+        node: targetNode,
+        pos: targetPos,
+        addAttr: !!(this.target && !this.target.draggable),
+        setUneditable: !!(this.target && browser.gecko && !this.target.hasAttribute("contentEditable"))
+      }
+_tmp_34.node = targetNode
+_tmp_34.pos = targetPos
+_tmp_34.addAttr = !!(this.target && !this.target.draggable)
+_tmp_34.setUneditable = !!(this.target && browser.gecko && !this.target.hasAttribute("contentEditable"))
+this.target && this.mightDrag && (this.mightDrag.addAttr || this.mightDrag.setUneditable)
+(_tmp_36 = this.view.domObserver).stop
+this.target.draggable = true
+this.mightDrag.setUneditable

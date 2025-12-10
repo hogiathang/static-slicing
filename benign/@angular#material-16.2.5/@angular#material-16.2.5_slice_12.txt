@@ -1,0 +1,58 @@
+function escapeBlocks = function escapeBlocks(input, charPairs, placeholder) {
+  const resultParts = [];
+  const escapedBlocks = [];
+  let openCharCount = 0;
+  let nonBlockStartIndex = 0;
+  let blockStartIndex = -1;
+  let openChar;
+  let closeChar;
+  for (let i = 0; i < input.length; i++) {
+    const char = input[i];
+    if (char === "\\") {
+      i++;
+    } else if (char === closeChar) {
+      openCharCount--;
+      if (openCharCount === 0) {
+        escapedBlocks.push(input.substring(blockStartIndex, i));
+        resultParts.push(placeholder);
+        nonBlockStartIndex = i;
+        blockStartIndex = -1;
+        openChar = closeChar = void 0;
+      }
+    } else if (char === openChar) {
+      openCharCount++;
+    } else if (openCharCount === 0 && charPairs.has(char)) {
+      openChar = char;
+      closeChar = charPairs.get(char);
+      openCharCount = 1;
+      blockStartIndex = i + 1;
+      resultParts.push(input.substring(nonBlockStartIndex, blockStartIndex));
+    }
+  }
+  if (blockStartIndex !== -1) {
+  ...
+const resultParts = []
+const escapedBlocks = []
+let openCharCount = 0
+let nonBlockStartIndex = 0
+let blockStartIndex = -1
+i < input.length
+const char = input[i]
+char === "\\"
+i++
+char === closeChar
+openCharCount--
+openCharCount === 0
+escapedBlocks.push(input.substring(blockStartIndex, i))
+resultParts.push(placeholder)
+nonBlockStartIndex = i
+blockStartIndex = -1
+openChar = closeChar = void 0
+char === openChar
+openCharCount++
+openCharCount === 0 && charPairs.has(char)
+openChar = char
+closeChar = charPairs.get(char)
+openCharCount = 1
+blockStartIndex = i + 1
+resultParts.push(input.substring(nonBlockStartIndex, blockStartIndex))

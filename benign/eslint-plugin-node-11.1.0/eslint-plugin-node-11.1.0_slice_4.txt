@@ -1,0 +1,7 @@
+module.exports = function getAllowModules(context) {
+    return (
+        get(context.options && context.options[0]) ||
+        get(context.settings && context.settings.node) ||
+        DEFAULT_VALUE
+    )
+}

@@ -1,0 +1,25 @@
+this.drop = async (collection, silent) => {
+            (0, util_2.assertType)(collection, 'drop', 'crudfs');
+            try {
+                const dir = await this.checkDir(collection);
+                const isRoot = dir === this.dir;
+                if (isRoot) {
+                    const list = (await this.fs.readdir(dir));
+                    for (const entry of list)
+                        await this.fs.rmdir(dir + entry, { recursive: true });
+                }
+                else {
+                    await this.fs.rmdir(dir, { recursive: true });
+                }
+            }
+            catch (error) {
+                if (!silent)
+                    throw error;
+            }
+        }
+(0, util_2.assertType)(collection, 'drop', 'crudfs')
+const dir = await this.checkDir(collection)
+const isRoot = dir === this.dir
+const list = (await this.fs.readdir(dir))
+_iterator_0 = <operator>.iterator(list)
+await this.fs.rmdir(dir + entry, { recursive: true })

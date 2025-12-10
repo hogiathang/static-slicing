@@ -1,0 +1,15 @@
+var fs = require('fs')
+var Parser = require('./jsonparse')
+var json = fs.readFileSync("samplejson/basic.json")
+var start = Date.now()
+var i = 0
+JSON.parse(json)
+var first = Date.now() - start
+start = Date.now()
+var p = new Parser()
+var i = 0
+p.write(json)
+var second = Date.now() - start
+console.log("JSON.parse took %s", first)
+console.log("streaming parser took %s", second)
+console.log("streaming is %s times slower", second / first)

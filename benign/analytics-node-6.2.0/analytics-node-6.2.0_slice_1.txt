@@ -1,0 +1,97 @@
+flush (callback) {
+    callback = callback || noop
+
+    if (!this.enable) {
+      setImmediate(callback)
+      return Promise.resolve()
+    }
+
+    if (this.timer) {
+      clearTimeout(this.timer)
+      this.timer = null
+    }
+
+    if (!this.queue.length) {
+      setImmediate(callback)
+      return Promise.resolve()
+    }
+
+    const items = this.queue.splice(0, this.flushAt)
+    const callbacks = items.map(item => item.callback)
+    const messages = items.map(item => item.message)
+
+    const data = {
+      batch: messages,
+      timestamp: new Date(),
+      sentAt: new Date()
+    }
+
+    const done = err => {
+      setImmediate(() => {
+        callbacks.forEach(callback => callback(err, data))
+        callback(err, data)
+      })
+    }
+
+    // Don't set the user agent if we're on a browser. The latest spec allows
+    // the User-Agent header (see https://fetch.spec.whatwg.org/#terminology-headers
+    // and https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHead...
+callback = callback || noop
+!this.enable
+this.timer
+clearTimeout(this.timer)
+this.timer = null
+!this.queue.length
+const items = this.queue.splice(0, this.flushAt)
+const callbacks = items.map(item => item.callback)
+const messages = items.map(item => item.message)
+const data = {
+      batch: messages,
+      timestamp: new Date(),
+      sentAt: new Date()
+    }
+_tmp_15.batch = messages
+_tmp_15.timestamp = new Date()
+_tmp_15.sentAt = new Date()
+const done = err => {
+      setImmediate(() => {
+        callbacks.forEach(callback => callback(err, data))
+        callback(err, data)
+      })
+    }
+const headers = {}
+typeof window === 'undefined'
+<operator>.formatString("analytics-node/", version, "")
+const req = {
+      auth: {
+        username: this.writeKey
+      },
+      headers
+    }
+_tmp_19.auth = {
+        username: this.writeKey
+      }
+_tmp_20.username = this.writeKey
+_tmp_19.headers = headers
+this.timeout
+req.timeout = typeof this.timeout === 'string' ? ms(this.timeout) : this.timeout
+this.axiosInstance.post(`${this.host}${this.path}`, data, req)
+      .then(() => {
+        done()
+        return Promise.resolve(data)
+      })
+      .catch(err => {
+        if (typeof this.errorHandler === 'function') {
+          done(err)
+          return this.errorHandler(err)
+        }
+
+        if (err.response) {
+          const error = new Error(err.response.statusText)
+          done(error)
+          throw error
+        }
+
+        done(err)
+        throw err
+      })

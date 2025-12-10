@@ -1,0 +1,18 @@
+function requestIDToken = function requestIDToken(client, request) {
+    return client.send(request).then((resp) => {
+        if (!resp.text) {
+            throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, 'Unexpected response while fetching id token: response.text is undefined');
+        }
+        return resp.text;
+    }).catch((err) => {
+        throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, getErrorMessage(err));
+    });
+}
+client.send(request).then((resp) => {
+        if (!resp.text) {
+            throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, 'Unexpected response while fetching id token: response.text is undefined');
+        }
+        return resp.text;
+    }).catch((err) => {
+        throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, getErrorMessage(err));
+    })

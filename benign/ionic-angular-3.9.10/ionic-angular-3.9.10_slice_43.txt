@@ -1,0 +1,6 @@
+MenuClose.prototype.close = function () {
+            var menu = this._menu.get(this.menuClose);
+            menu && menu.close();
+        }
+var menu = this._menu.get(this.menuClose)
+menu && menu.close()

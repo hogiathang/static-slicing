@@ -1,0 +1,45 @@
+const req = new tds.Request(procedure, err => {
+          // to make sure we handle no-sql errors as well
+          if (err && (!errors.length || (errors.length && err.message !== errors[errors.length - 1].message))) {
+            err = new RequestError(err, 'EREQUEST')
+            if (this.stream) this.emit('error', err)
+            errors.push(err)
+          }
+
+          delete this._cancel
+
+          let error
+          if (errors.length && !this.stream) {
+            error = errors.pop()
+            error.precedingErrors = errors
+          }
+
+          if (!hasReturned) {
+            for (const event in errorHandlers) {
+              connection.removeListener(event, errorHandlers[event])
+            }
+
+            this.parent.release(connection)
+            hasReturned = true
+
+            if (error) {
+              debug('request(%d): failed', IDS.get(this), error)
+            } else {
+              debug('request(%d): complete', IDS.get(this))
+            }
+
+            if (this.stre...
+err && (!errors.length || (errors.length && err.message !== errors[errors.length - 1].message))
+err = new RequestError(err, 'EREQUEST')
+this.emit('error', err)
+errors.push(err)
+delete this._cancel
+errors.length && !this.stream
+error = errors.pop()
+error.precedingErrors = errors
+!hasReturned
+_iterator_14 = <operator>.iterator(errorHandlers)
+connection.removeListener(event, errorHandlers[event])
+this.parent.release(connection)
+hasReturned = true
+debug('request(%d): complete', IDS.get(this))

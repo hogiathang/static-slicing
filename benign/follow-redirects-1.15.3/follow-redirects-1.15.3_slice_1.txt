@@ -1,0 +1,36 @@
+RedirectableRequest.prototype._performRequest = function () {
+  // Load the native protocol
+  var protocol = this._options.protocol;
+  var nativeProtocol = this._options.nativeProtocols[protocol];
+  if (!nativeProtocol) {
+    this.emit("error", new TypeError("Unsupported protocol " + protocol));
+    return;
+  }
+
+  // If specified, use the agent corresponding to the protocol
+  // (HTTP and HTTPS use different types of agents)
+  if (this._options.agents) {
+    var scheme = protocol.slice(0, -1);
+    this._options.agent = this._options.agents[scheme];
+  }
+
+  // Create the native request and set up its event handlers
+  var request = this._currentRequest =
+        nativeProtocol.request(this._options, this._onNativeResponse);
+  request._redirectable = this;
+  for (var event of events) {
+    request.on(event, eventHandlers[event]);
+  }
+
+  // RFC7230§5.3.1: When making a request directly to an origin server, […]
+  // a client MUST send only the absolute path […] as the request-target.
+  th...
+var protocol = this._options.protocol
+var nativeProtocol = this._options.nativeProtocols[protocol]
+!nativeProtocol
+this._options.agents
+var scheme = protocol.slice(0, -1)
+this._options.agent = this._options.agents[scheme]
+var request = this._currentRequest =
+        nativeProtocol.request(this._options, this._onNativeResponse)
+nativeProtocol.request(this._options, this._onNativeResponse)

@@ -1,0 +1,195 @@
+module.exports = function () {
+  const argv = yargs.config('config').usage('$0 [options] <source>').options({
+    port: {
+      alias: 'p',
+      description: 'Set port',
+      default: 3000
+    },
+    host: {
+      alias: 'H',
+      description: 'Set host',
+      default: 'localhost'
+    },
+    watch: {
+      alias: 'w',
+      description: 'Watch file(s)'
+    },
+    routes: {
+      alias: 'r',
+      description: 'Path to routes file'
+    },
+    middlewares: {
+      alias: 'm',
+      array: true,
+      description: 'Paths to middleware files'
+    },
+    static: {
+      alias: 's',
+      description: 'Set static files directory'
+    },
+    'read-only': {
+      alias: 'ro',
+      description: 'Allow only GET requests'
+    },
+    'no-cors': {
+      alias: 'nc',
+      description: 'Disable Cross-Origin Resource Sharing'
+    },
+    'no-gzip': {
+      alias: 'ng',
+      description: 'Disable GZIP Content-Encoding'
+    },
+    snapshots: {
+      alias: 'S',
+      description: 'Set snapshots...
+(_tmp_10 = yargs.config('config').usage('$0 [options] <source>').options({
+    port: {
+      alias: 'p',
+      description: 'Set port',
+      default: 3000
+    },
+    host: {
+      alias: 'H',
+      description: 'Set host',
+      default: 'localhost'
+    },
+    watch: {
+      alias: 'w',
+      description: 'Watch file(s)'
+    },
+    routes: {
+      alias: 'r',
+      description: 'Path to routes file'
+    },
+    middlewares: {
+      alias: 'm',
+      array: true,
+      description: 'Paths to middleware files'
+    },
+    static: {
+      alias: 's',
+      description: 'Set static files directory'
+    },
+    'read-only': {
+      alias: 'ro',
+      description: 'Allow only GET requests'
+    },
+    'no-cors': {
+      alias: 'nc',
+      description: 'Disable Cross-Origin Resource Sharing'
+    },
+    'no-gzip': {
+      alias: 'ng',
+      description: 'Disable GZIP Content-Encoding'
+    },
+    snapshots: {
+      alias: 'S',
+      description: 'Set snapshots directory',
+      default: '.'
+    },
+    del...).boolean
+_tmp_16.port = {
+      alias: 'p',
+      description: 'Set port',
+      default: 3000
+    }
+_tmp_17.alias = "p"
+_tmp_17.description = "Set port"
+_tmp_17.default = 3000
+_tmp_16.host = {
+      alias: 'H',
+      description: 'Set host',
+      default: 'localhost'
+    }
+_tmp_18.alias = "H"
+_tmp_18.description = "Set host"
+_tmp_18.default = "localhost"
+_tmp_16.watch = {
+      alias: 'w',
+      description: 'Watch file(s)'
+    }
+_tmp_19.alias = "w"
+_tmp_19.description = "Watch file(s)"
+_tmp_16.routes = {
+      alias: 'r',
+      description: 'Path to routes file'
+    }
+_tmp_20.alias = "r"
+_tmp_20.description = "Path to routes file"
+_tmp_16.middlewares = {
+      alias: 'm',
+      array: true,
+      description: 'Paths to middleware files'
+    }
+_tmp_21.alias = "m"
+_tmp_21.array = true
+_tmp_21.description = "Paths to middleware files"
+_tmp_16.static = {
+      alias: 's',
+      description: 'Set static files directory'
+    }
+_tmp_22.alias = "s"
+_tmp_22.description = "Set static files directory"
+_tmp_16.read-only = {
+      alias: 'ro',
+      description: 'Allow only GET requests'
+    }
+_tmp_23.alias = "ro"
+_tmp_23.description = "Allow only GET requests"
+_tmp_16.no-cors = {
+      alias: 'nc',
+      description: 'Disable Cross-Origin Resource Sharing'
+    }
+_tmp_24.alias = "nc"
+_tmp_24.description = "Disable Cross-Origin Resource Sharing"
+_tmp_16.no-gzip = {
+      alias: 'ng',
+      description: 'Disable GZIP Content-Encoding'
+    }
+_tmp_25.alias = "ng"
+_tmp_25.description = "Disable GZIP Content-Encoding"
+_tmp_16.snapshots = {
+      alias: 'S',
+      description: 'Set snapshots directory',
+      default: '.'
+    }
+_tmp_26.alias = "S"
+_tmp_26.description = "Set snapshots directory"
+_tmp_26.default = "."
+_tmp_16.delay = {
+      alias: 'd',
+      description: 'Add delay to responses (ms)'
+    }
+_tmp_27.alias = "d"
+_tmp_27.description = "Add delay to responses (ms)"
+_tmp_16.id = {
+      alias: 'i',
+      description: 'Set database id property (e.g. _id)',
+      default: 'id'
+    }
+_tmp_28.alias = "i"
+_tmp_28.description = "Set database id property (e.g. _id)"
+_tmp_28.default = "id"
+_tmp_16.foreignKeySuffix = {
+      alias: 'fks',
+      description: 'Set foreign key suffix (e.g. _id as in post_id)',
+      default: 'Id'
+    }
+_tmp_29.alias = "fks"
+_tmp_29.description = "Set foreign key suffix (e.g. _id as in post_id)"
+_tmp_29.default = "Id"
+_tmp_16.quiet = {
+      alias: 'q',
+      description: 'Suppress log messages from output'
+    }
+_tmp_30.alias = "q"
+_tmp_30.description = "Suppress log messages from output"
+_tmp_16.config = {
+      alias: 'c',
+      description: 'Path to config file',
+      default: 'json-server.json'
+    }
+_tmp_31.alias = "c"
+_tmp_31.description = "Path to config file"
+_tmp_31.default = "json-server.json"
+pkg.version

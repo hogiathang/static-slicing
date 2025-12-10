@@ -1,0 +1,18 @@
+stop() {
+  this.stopped = !0, this.tasks.forEach((e => e.reject(TASK_CANCELED_MSG))), this.tasks.clear(), 
+  this.successfulMessage ? (this.childProcess.send({
+   exit: !0
+  }), setTimeout((() => {
+   null === this.exitCode && this.childProcess.kill("SIGKILL");
+  }), 100)) : this.childProcess.kill("SIGKILL");
+ }
+this.tasks.forEach((e => e.reject(TASK_CANCELED_MSG)))
+this.successfulMessage ? this.childProcess.send({
+   exit: !0
+  }), setTimeout((() => {
+   null === this.exitCode && this.childProcess.kill("SIGKILL");
+  }), 100) : this.childProcess.kill("SIGKILL")
+_tmp_1038.exit = !0
+setTimeout((() => {
+   null === this.exitCode && this.childProcess.kill("SIGKILL");
+  }), 100)

@@ -1,0 +1,41 @@
+var mergeBlocks = function mergeBlocks(blockMap, key) {
+  verifyTree(blockMap); // current block must be a non-leaf
+
+  var block = blockMap.get(key);
+  !(block !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must exist in block map') : invariant(false) : void 0;
+  !(block.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must be a non-leaf') : invariant(false) : void 0; // next block must exist & be a non-leaf
+
+  var nextBlockKey = block.getNextSiblingKey();
+  !(nextBlockKey != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must have a next block') : invariant(false) : void 0;
+  var nextBlock = blockMap.get(nextBlockKey);
+  !(nextBlock != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'next block must exist in block map') : invariant(false) : void 0;
+  !(nextBlock.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'next block must be a no...
+verifyTree(blockMap)
+var block = blockMap.get(key)
+!(block !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must exist in block map') : invariant(false) : void 0
+!(block.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must be a non-leaf') : invariant(false) : void 0
+var nextBlockKey = block.getNextSiblingKey()
+!(nextBlockKey != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must have a next block') : invariant(false) : void 0
+var nextBlock = blockMap.get(nextBlockKey)
+!(nextBlock != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'next block must exist in block map') : invariant(false) : void 0
+!(nextBlock.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'next block must be a non-leaf') : invariant(false) : void 0
+var childKeys = block.getChildKeys().concat(nextBlock.getChildKeys())
+var newBlockMap = blockMap.set(key, block.merge({
+    nextSibling: nextBlock.getNextSiblingKey(),
+    children: childKeys
+  }))
+_tmp_65.nextSibling = nextBlock.getNextSiblingKey()
+_tmp_65.children = childKeys
+newBlockMap = newBlockMap.merge(Immutable.OrderedMap(childKeys.map(function (k, i) {
+    return [k, blockMap.get(k).merge({
+      parent: key,
+      prevSibling: i - 1 < 0 ? null : childKeys.get(i - 1),
+      nextSibling: i + 1 === childKeys.count() ? null : childKeys.get(i + 1)
+    })];
+  })))
+newBlockMap = newBlockMap["delete"](nextBlockKey)
+var nextNextBlockKey = nextBlock.getNextSiblingKey()
+nextNextBlockKey != null
+newBlockMap = newBlockMap.set(nextNextBlockKey, blockMap.get(nextNextBlockKey).merge({
+      prevSibling: key
+    }))

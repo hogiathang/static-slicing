@@ -1,0 +1,113 @@
+function verifyTypeScriptSetup = function verifyTypeScriptSetup() {
+  let firstTimeSetup = false;
+
+  if (!fs.existsSync(paths.appTsConfig)) {
+    if (verifyNoTypeScript()) {
+      return;
+    }
+    writeJson(paths.appTsConfig, {});
+    firstTimeSetup = true;
+  }
+
+  const isYarn = fs.existsSync(paths.yarnLockFile);
+
+  // Ensure typescript is installed
+  let ts;
+  try {
+    // TODO: Remove this hack once `globalThis` issue is resolved
+    // https://github.com/jsdom/jsdom/issues/2961
+    const globalThisWasDefined = !!global.globalThis;
+
+    ts = require(resolve.sync('typescript', {
+      basedir: paths.appNodeModules,
+    }));
+
+    if (!globalThisWasDefined && !!global.globalThis) {
+      delete global.globalThis;
+    }
+  } catch (_) {
+    console.error(
+      chalk.bold.red(
+        `It looks like you're trying to use TypeScript but do not have ${chalk.bold(
+          'typescript'
+        )} installed.`
+      )
+    );
+    console.error(
+      chalk.bold(
+        'Please install',
+        chalk.cyan.bold('typescript...
+let firstTimeSetup = false
+!fs.existsSync(paths.appTsConfig)
+verifyNoTypeScript()
+writeJson(paths.appTsConfig, {})
+firstTimeSetup = true
+const isYarn = fs.existsSync(paths.yarnLockFile)
+const globalThisWasDefined = !!global.globalThis
+ts = require(resolve.sync('typescript', {
+      basedir: paths.appNodeModules,
+    }))
+_tmp_4.basedir = paths.appNodeModules
+!globalThisWasDefined && !!global.globalThis
+delete global.globalThis
+console.error(
+      chalk.bold.red(
+        `It looks like you're trying to use TypeScript but do not have ${chalk.bold(
+          'typescript'
+        )} installed.`
+      )
+    )
+chalk.bold.red(
+        `It looks like you're trying to use TypeScript but do not have ${chalk.bold(
+          'typescript'
+        )} installed.`
+      )
+<operator>.formatString("It looks like you're trying to use TypeScript but do not have ", chalk.bold(
+          'typescript'
+        ), " installed.")
+"typescript"
+" installed."
+console.error(
+      chalk.bold(
+        'Please install',
+        chalk.cyan.bold('typescript'),
+        'by running',
+        chalk.cyan.bold(
+          isYarn ? 'yarn add typescript' : 'npm install typescript'
+        ) + '.'
+      )
+    )
+chalk.bold(
+        'Please install',
+        chalk.cyan.bold('typescript'),
+        'by running',
+        chalk.cyan.bold(
+          isYarn ? 'yarn add typescript' : 'npm install typescript'
+        ) + '.'
+      )
+"Please install"
+chalk.cyan.bold('typescript')
+"by running"
+chalk.cyan.bold(
+          isYarn ? 'yarn add typescript' : 'npm install typescript'
+        ) + '.'
+isYarn ? "yarn add typescript" : "npm install typescript"
+console.error(
+      chalk.bold(
+        'If you are not trying to use TypeScript, please remove the ' +
+          chalk.cyan('tsconfig.json') +
+          ' file from your package root (and any TypeScript files).'
+      )
+    )
+chalk.bold(
+        'If you are not trying to use TypeScript, please remove the ' +
+          chalk.cyan('tsconfig.json') +
+          ' file from your package root (and any TypeScript files).'
+      )
+'If you are not trying to use TypeScript, please remove the ' +
+          chalk.cyan('tsconfig.json') +
+          ' file from your package root (and any TypeScript files).'
+chalk.cyan('tsconfig.json')
+" file from your package root (and any TypeScript files)."
+console.error()
+process.exit(1)

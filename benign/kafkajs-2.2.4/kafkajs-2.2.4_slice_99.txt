@@ -1,0 +1,4 @@
+allowAutoTopicCreation = param1_6.allowAutoTopicCreation
+const request = require('./v6/request')
+const response = require('./v6/response')
+_tmp_13.request = request({ topics, allowAutoTopicCreation })

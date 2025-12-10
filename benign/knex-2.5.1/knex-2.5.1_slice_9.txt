@@ -1,0 +1,12 @@
+function () {
+            console.log('✓');
+            // Don't need the flag anymore as `postinstall` was already run.
+            // Change it back so the environment is minimally changed for the
+            // remaining commands.
+            process.env.POSTINSTALL_BUILD_CWD = POSTINSTALL_BUILD_CWD;
+            console.log('Building compiled files (' + BUILD_COMMAND + ')');
+            return exec(BUILD_COMMAND, opts);
+          }
+console.log('✓')
+process.env.POSTINSTALL_BUILD_CWD = POSTINSTALL_BUILD_CWD
+console.log('Building compiled files (' + BUILD_COMMAND + ')')

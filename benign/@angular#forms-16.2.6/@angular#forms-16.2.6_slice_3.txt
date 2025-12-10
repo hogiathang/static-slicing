@@ -1,0 +1,9 @@
+_getOptionId(value) {
+        for (const id of this._optionMap.keys()) {
+            if (this._compareWith(this._optionMap.get(id), value))
+                return id;
+        }
+        return null;
+    }
+_iterator_2 = <operator>.iterator(this._optionMap.keys())
+this._compareWith(this._optionMap.get(id), value)

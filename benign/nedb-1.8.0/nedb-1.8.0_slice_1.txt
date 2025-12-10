@@ -1,0 +1,6 @@
+fs.exists(filename, function (exists) {
+      if (exists) {
+        fs.unlink(filename, cb);
+      } else { return cb(); }
+    })
+fs.unlink(filename, cb)

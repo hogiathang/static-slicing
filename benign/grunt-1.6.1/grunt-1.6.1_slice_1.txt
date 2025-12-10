@@ -1,0 +1,45 @@
+file.delete = function(filepath, options) {
+  filepath = String(filepath);
+
+  var nowrite = grunt.option('no-write');
+  if (!options) {
+    options = {force: grunt.option('force') || false};
+  }
+
+  grunt.verbose.write((nowrite ? 'Not actually deleting ' : 'Deleting ') + filepath + '...');
+
+  if (!file.exists(filepath)) {
+    grunt.verbose.error();
+    grunt.log.warn('Cannot delete nonexistent file.');
+    return false;
+  }
+
+  // Only delete cwd or outside cwd if --force enabled. Be careful, people!
+  if (!options.force) {
+    if (file.isPathCwd(filepath)) {
+      grunt.verbose.error();
+      grunt.fail.warn('Cannot delete the current working directory.');
+      return false;
+    } else if (!file.isPathInCwd(filepath)) {
+      grunt.verbose.error();
+      grunt.fail.warn('Cannot delete files outside the current working directory.');
+      return false;
+    }
+  }
+
+  try {
+    // Actually delete. Or not.
+    if (!nowrite) {
+      fs.rmSync(filepath, { recursive: true, force: true });
+ ...
+filepath = String(filepath)
+var nowrite = grunt.option('no-write')
+!options
+options = {force: grunt.option('force') || false}
+grunt.verbose.write((nowrite ? 'Not actually deleting ' : 'Deleting ') + filepath + '...')
+!file.exists(filepath)
+!options.force
+file.isPathCwd(filepath)
+!file.isPathInCwd(filepath)
+!nowrite
+fs.rmSync(filepath, { recursive: true, force: true })

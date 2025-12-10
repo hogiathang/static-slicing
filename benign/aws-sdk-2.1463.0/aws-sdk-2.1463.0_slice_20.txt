@@ -1,0 +1,12 @@
+_tmp_3.createOutputDirectory = createOutputDirectory
+var pathObj = path.parse(outPath)
+var sep = path.sep
+var directoryStructure = pathObj.dir.split(sep) || []
+i < directoryStructure.length
+var pathToCheck = directoryStructure.slice(0, i + 1).join(sep)
+!pathToCheck
+continue;
+var stats = fs.statSync(pathToCheck)
+err.code === 'ENOENT'
+fs.mkdirSync(pathToCheck)
+throw err;

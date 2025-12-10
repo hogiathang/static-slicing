@@ -1,0 +1,14 @@
+var getAllIntegrations = function getAllIntegrations(callback) {
+  if (process.env.DATAFIRE_REGISTRY_DIR) {
+    var list = require(process.env.DATAFIRE_REGISTRY_DIR + '/list.json');
+    callback(null, list);
+  } else {
+    request.get(INTEGRATION_LIST_URL, { json: true }, function (err, resp, body) {
+      callback(err, body);
+    });
+  }
+}
+process.env.DATAFIRE_REGISTRY_DIR
+request.get(INTEGRATION_LIST_URL, { json: true }, function (err, resp, body) {
+      callback(err, body);
+    })

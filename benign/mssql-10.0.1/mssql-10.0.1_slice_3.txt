@@ -1,0 +1,25 @@
+const valueCorrection = function (value, metadata) {
+  const type = metadata && objectHasProperty(metadata, 'sqlType') && objectHasProperty(DECLARATIONS, metadata.sqlType)
+    ? DECLARATIONS[metadata.sqlType]
+    : null
+  if (type && valueHandler.has(type)) {
+    return valueHandler.get(type)(value)
+  } else if ((metadata.sqlType === 'time') && (value != null)) {
+    value.setFullYear(1970)
+    return value
+  } else if ((metadata.sqlType === 'udt') && (value != null)) {
+    if (UDT[metadata.udtType]) {
+      return UDT[metadata.udtType](value)
+    } else {
+      return value
+    }
+  } else {
+    return value
+  }
+}
+const type = metadata && objectHasProperty(metadata, 'sqlType') && objectHasProperty(DECLARATIONS, metadata.sqlType)
+    ? DECLARATIONS[metadata.sqlType]
+    : null
+DECLARATIONS[metadata.sqlType]
+type && valueHandler.has(type)
+valueHandler.get(type)(value)

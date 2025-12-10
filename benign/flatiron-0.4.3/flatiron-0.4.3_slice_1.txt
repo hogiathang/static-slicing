@@ -1,0 +1,10 @@
+var path = require('path')
+var fs = require('fs')
+var flatiron = require('../../flatiron')
+var common = flatiron.common
+var existsSync = fs.existsSync || path.existsSync
+resourceful = require('resourceful')
+console.warn('flatiron.plugins.resourceful requires the `resourceful` module from npm')
+console.warn('install using `npm install resourceful`.')
+console.trace()
+process.exit(1)

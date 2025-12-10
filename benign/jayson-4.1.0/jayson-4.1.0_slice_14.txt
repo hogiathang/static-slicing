@@ -1,0 +1,38 @@
+const conn = net.connect(options, function() {
+
+      conn.setEncoding(options.encoding);
+
+      // wont get anything for notifications, just end here
+      if(utils.Request.isNotification(request)) {
+
+        handled = true;
+        conn.end(body + delimiter);
+        callback();
+
+      } else {
+
+        utils.parseStream(conn, options, function(err, response) {
+          handled = true;
+          conn.end();
+          if(err) {
+            return callback(err);
+          }
+          callback(null, response);
+        });
+
+        conn.write(body + delimiter);
+
+      }
+
+    })
+conn.setEncoding(options.encoding)
+(_tmp_7 = utils.Request).isNotification
+utils.parseStream(conn, options, function(err, response) {
+          handled = true;
+          conn.end();
+          if(err) {
+            return callback(err);
+          }
+          callback(null, response);
+        })
+conn.write(body + delimiter)

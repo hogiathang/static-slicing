@@ -1,0 +1,73 @@
+grunt.registerMultiTask('shell', 'Run shell commands', function (...arguments_) {
+		const callback = this.async();
+		const options = this.options({
+			stdout: true,
+			stderr: true,
+			stdin: true,
+			failOnError: true,
+			stdinRawMode: false,
+			preferLocal: true,
+			execOptions: {
+				env: null
+			}
+		});
+
+		let cmd = (typeof this.data === 'string' || typeof this.data === 'function') ?
+			this.data :
+			this.data.command;
+
+		if (cmd === undefined) {
+			throw new Error('`command` required');
+		}
+
+		// Increase max buffer
+		options.execOptions = {...options.execOptions};
+		options.execOptions.maxBuffer = options.execOptions.maxBuffer || TEN_MEGABYTES;
+
+		cmd = grunt.template.process(typeof cmd === 'function' ? cmd.apply(grunt, arguments_) : cmd);
+
+		if (options.preferLocal === true) {
+			options.execOptions.env = npmRunPath.env({env: options.execOptions.env || process.env});
+		}
+
+		if (this.data.cwd) {
+			options.execOptions.cwd = this.data.cwd;
+		}
+
+		const cp = exec(cmd, options.e...
+const callback = this.async()
+const options = this.options({
+			stdout: true,
+			stderr: true,
+			stdin: true,
+			failOnError: true,
+			stdinRawMode: false,
+			preferLocal: true,
+			execOptions: {
+				env: null
+			}
+		})
+_tmp_1.stdout = true
+_tmp_1.stderr = true
+_tmp_1.stdin = true
+_tmp_1.failOnError = true
+_tmp_1.stdinRawMode = false
+_tmp_1.preferLocal = true
+_tmp_1.execOptions = {
+				env: null
+			}
+_tmp_2.env = null
+let cmd = (typeof this.data === 'string' || typeof this.data === 'function') ?
+			this.data :
+			this.data.command
+this.data
+this.data.command
+cmd === undefined
+throw new Error('`command` required');
+options.execOptions = {...options.execOptions}
+options.execOptions.maxBuffer = options.execOptions.maxBuffer || TEN_MEGABYTES
+cmd = grunt.template.process(typeof cmd === 'function' ? cmd.apply(grunt, arguments_) : cmd)
+options.preferLocal === true
+options.execOptions.env = npmRunPath.env({env: options.execOptions.env || process.env})
+this.data.cwd
+options.execOptions.cwd = this.data.cwd

@@ -1,0 +1,624 @@
+function _expandObject = async function _expandObject({
+  activeCtx,
+  activeProperty,
+  expandedActiveProperty,
+  element,
+  expandedParent,
+  options = {},
+  insideList,
+  typeKey,
+  typeScopedContext
+}) {
+  const keys = Object.keys(element).sort();
+  const nests = [];
+  let unexpandedValue;
+
+  // Figure out if this is the type for a JSON literal
+  const isJsonType = element[typeKey] &&
+    _expandIri(activeCtx,
+      (_isArray(element[typeKey]) ? element[typeKey][0] : element[typeKey]),
+      {vocab: true}, {
+        ...options,
+        typeExpansion: true
+      }) === '@json';
+
+  for(const key of keys) {
+    let value = element[key];
+    let expandedValue;
+
+    // skip @context
+    if(key === '@context') {
+      continue;
+    }
+
+    // expand property
+    const expandedProperty = _expandIri(activeCtx, key, {vocab: true}, options);
+
+    // drop non-absolute IRI keys that aren't keywords
+    if(expandedProperty === null ||
+      !(_isAbsoluteIri(expandedProperty) || _isKeyword(expandedProperty))) {
+      ...
+activeCtx = param1_1.activeCtx
+activeProperty = param1_1.activeProperty
+expandedActiveProperty = param1_1.expandedActiveProperty
+element = param1_1.element
+expandedParent = param1_1.expandedParent
+options = param1_1.options
+insideList = param1_1.insideList
+typeKey = param1_1.typeKey
+typeScopedContext = param1_1.typeScopedContext
+const keys = Object.keys(element).sort()
+__ecma.Array.factory()
+const isJsonType = element[typeKey] &&
+    _expandIri(activeCtx,
+      (_isArray(element[typeKey]) ? element[typeKey][0] : element[typeKey]),
+      {vocab: true}, {
+        ...options,
+        typeExpansion: true
+      }) === '@json'
+_expandIri(activeCtx,
+      (_isArray(element[typeKey]) ? element[typeKey][0] : element[typeKey]),
+      {vocab: true}, {
+        ...options,
+        typeExpansion: true
+      }) === '@json'
+_isArray(element[typeKey]) ? element[typeKey][0] : element[typeKey]
+_tmp_5.vocab = true
+...options
+_tmp_6.typeExpansion = true
+"@json"
+_iterator_0 = <operator>.iterator(keys)
+let value = element[key]
+key === '@context'
+continue;
+const expandedProperty = _expandIri(activeCtx, key, {vocab: true}, options)
+expandedProperty === null ||
+      !(_isAbsoluteIri(expandedProperty) || _isKeyword(expandedProperty))
+!(_isAbsoluteIri(expandedProperty) || _isKeyword(expandedProperty))
+options.eventHandler
+_handleEvent({
+          event: {
+            type: ['JsonLdEvent'],
+            code: 'invalid property',
+            level: 'warning',
+            message: 'Dropping property that did not expand into an ' +
+              'absolute IRI or keyword.',
+            details: {
+              property: key,
+              expandedProperty
+            }
+          },
+          options
+        })
+_tmp_8.event = {
+            type: ['JsonLdEvent'],
+            code: 'invalid property',
+            level: 'warning',
+            message: 'Dropping property that did not expand into an ' +
+              'absolute IRI or keyword.',
+            details: {
+              property: key,
+              expandedProperty
+            }
+          }
+_tmp_10 = __ecma.Array.factory()
+_tmp_9.code = "invalid property"
+_tmp_9.level = "warning"
+_tmp_9.message = 'Dropping property that did not expand into an ' +
+              'absolute IRI or keyword.'
+"absolute IRI or keyword."
+_tmp_9.details = {
+              property: key,
+              expandedProperty
+            }
+_tmp_11.property = key
+_tmp_11.expandedProperty = expandedProperty
+_tmp_8.options = options
+continue;
+_isKeyword(expandedProperty)
+expandedActiveProperty === '@reverse'
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; a keyword cannot be used as a @reverse ' +
+          'property.', 'jsonld.SyntaxError',
+          {code: 'invalid reverse property map', value});
+'Invalid JSON-LD syntax; a keyword cannot be used as a @reverse ' +
+          'property.'
+"jsonld.SyntaxError"
+_tmp_13.code = "invalid reverse property map"
+expandedProperty in expandedParent &&
+         expandedProperty !== '@included' &&
+         expandedProperty !== '@type'
+expandedProperty !== '@included'
+expandedProperty !== '@type'
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; colliding keywords detected.',
+          'jsonld.SyntaxError',
+          {code: 'colliding keywords', keyword: expandedProperty});
+"Invalid JSON-LD syntax; colliding keywords detected."
+"jsonld.SyntaxError"
+_tmp_15.code = "colliding keywords"
+expandedProperty === '@id'
+!_isString(value)
+!options.isFrame
+throw new JsonLdError(
+            'Invalid JSON-LD syntax; "@id" value must a string.',
+            'jsonld.SyntaxError', {code: 'invalid @id value', value});
+"Invalid JSON-LD syntax; "@id" value must a string."
+_tmp_17.code = "invalid @id value"
+_isObject(value)
+!_isEmptyObject(value)
+throw new JsonLdError(
+              'Invalid JSON-LD syntax; "@id" value an empty object or array ' +
+              'of strings, if framing',
+              'jsonld.SyntaxError', {code: 'invalid @id value', value});
+'Invalid JSON-LD syntax; "@id" value an empty object or array ' +
+              'of strings, if framing'
+"of strings, if framing"
+_tmp_19.code = "invalid @id value"
+_isArray(value)
+!value.every(v => _isString(v))
+throw new JsonLdError(
+              'Invalid JSON-LD syntax; "@id" value an empty object or array ' +
+              'of strings, if framing',
+              'jsonld.SyntaxError', {code: 'invalid @id value', value});
+'Invalid JSON-LD syntax; "@id" value an empty object or array ' +
+              'of strings, if framing'
+"of strings, if framing"
+_tmp_21.code = "invalid @id value"
+throw new JsonLdError(
+            'Invalid JSON-LD syntax; "@id" value an empty object or array ' +
+            'of strings, if framing',
+            'jsonld.SyntaxError', {code: 'invalid @id value', value});
+'Invalid JSON-LD syntax; "@id" value an empty object or array ' +
+            'of strings, if framing'
+"of strings, if framing"
+_tmp_23.code = "invalid @id value"
+_addValue(
+        expandedParent, '@id',
+        _asArray(value).map(v => {
+          if(_isString(v)) {
+            const ve = _expandIri(activeCtx, v, {base: true}, options);
+            if(options.eventHandler) {
+              if(ve === null) {
+                // NOTE: spec edge case
+                // See https://github.com/w3c/json-ld-api/issues/480
+                if(v === null) {
+                  _handleEvent({
+                    event: {
+                      type: ['JsonLdEvent'],
+                      code: 'null @id value',
+                      level: 'warning',
+                      message: 'Null @id found.',
+                      details: {
+                        id: v
+                      }
+                    },
+                    options
+                  });
+                } else {
+                  // matched KEYWORD regex
+                  _handleEvent({
+                    event: {
+                      type: ['JsonLdEvent'],
+                      code: ...
+"@id"
+_asArray(value).map(v => {
+          if(_isString(v)) {
+            const ve = _expandIri(activeCtx, v, {base: true}, options);
+            if(options.eventHandler) {
+              if(ve === null) {
+                // NOTE: spec edge case
+                // See https://github.com/w3c/json-ld-api/issues/480
+                if(v === null) {
+                  _handleEvent({
+                    event: {
+                      type: ['JsonLdEvent'],
+                      code: 'null @id value',
+                      level: 'warning',
+                      message: 'Null @id found.',
+                      details: {
+                        id: v
+                      }
+                    },
+                    options
+                  });
+                } else {
+                  // matched KEYWORD regex
+                  _handleEvent({
+                    event: {
+                      type: ['JsonLdEvent'],
+                      code: 'reserved @id value',
+                      level:...
+_tmp_38.propertyIsArray = options.isFrame
+continue;
+expandedProperty === '@type'
+_isObject(value)
+value = Object.fromEntries(Object.entries(value).map(([k, v]) => [
+          _expandIri(typeScopedContext, k, {vocab: true}),
+          _asArray(v).map(vv =>
+            _expandIri(typeScopedContext, vv, {base: true, vocab: true},
+              {...options, typeExpansion: true})
+          )
+        ]))
+_validateTypeValue(value, options.isFrame)
+_addValue(
+        expandedParent, '@type',
+        _asArray(value).map(v => {
+          if(_isString(v)) {
+            const ve = _expandIri(typeScopedContext, v,
+              {base: true, vocab: true},
+              {...options, typeExpansion: true});
+            if(ve !== '@json' && !_isAbsoluteIri(ve)) {
+              if(options.eventHandler) {
+                _handleEvent({
+                  event: {
+                    type: ['JsonLdEvent'],
+                    code: 'relative @type reference',
+                    level: 'warning',
+                    message: 'Relative @type reference found.',
+                    details: {
+                      type: v
+                    }
+                  },
+                  options
+                });
+              }
+            }
+            return ve;
+          }
+          return v;
+        }),
+        {propertyIsArray: !!options.isFrame})
+"@type"
+_asArray(value).map(v => {
+          if(_isString(v)) {
+            const ve = _expandIri(typeScopedContext, v,
+              {base: true, vocab: true},
+              {...options, typeExpansion: true});
+            if(ve !== '@json' && !_isAbsoluteIri(ve)) {
+              if(options.eventHandler) {
+                _handleEvent({
+                  event: {
+                    type: ['JsonLdEvent'],
+                    code: 'relative @type reference',
+                    level: 'warning',
+                    message: 'Relative @type reference found.',
+                    details: {
+                      type: v
+                    }
+                  },
+                  options
+                });
+              }
+            }
+            return ve;
+          }
+          return v;
+        })
+_tmp_52.propertyIsArray = !!options.isFrame
+continue;
+expandedProperty === '@included' && _processingMode(activeCtx, 1.1)
+const includedResult = _asArray(await api.expand({
+        activeCtx,
+        activeProperty,
+        element: value,
+        options
+      }))
+_tmp_53.activeCtx = activeCtx
+_tmp_53.activeProperty = activeProperty
+_tmp_53.element = value
+_tmp_53.options = options
+!includedResult.every(v => _isSubject(v))
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; ' +
+          'values of @included must expand to node objects.',
+          'jsonld.SyntaxError', {code: 'invalid @included value', value});
+'Invalid JSON-LD syntax; ' +
+          'values of @included must expand to node objects.'
+"values of @included must expand to node objects."
+_tmp_55.code = "invalid @included value"
+_addValue(
+        expandedParent, '@included', includedResult, {propertyIsArray: true})
+_tmp_56.propertyIsArray = true
+continue;
+expandedProperty === '@graph' &&
+      !(_isObject(value) || _isArray(value))
+!(_isObject(value) || _isArray(value))
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; "@graph" value must not be an ' +
+        'object or an array.',
+        'jsonld.SyntaxError', {code: 'invalid @graph value', value});
+'Invalid JSON-LD syntax; "@graph" value must not be an ' +
+        'object or an array.'
+"object or an array."
+_tmp_58.code = "invalid @graph value"
+expandedProperty === '@value'
+unexpandedValue = value
+isJsonType && _processingMode(activeCtx, 1.1)
+expandedParent['@value'] = value
+_addValue(
+          expandedParent, '@value', value, {propertyIsArray: options.isFrame})
+_tmp_59.propertyIsArray = options.isFrame
+continue;
+expandedProperty === '@language'
+value === null
+continue;
+!_isString(value) && !options.isFrame
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; "@language" value must be a string.',
+          'jsonld.SyntaxError',
+          {code: 'invalid language-tagged string', value});
+"Invalid JSON-LD syntax; "@language" value must be a string."
+"jsonld.SyntaxError"
+_tmp_61.code = "invalid language-tagged string"
+value = _asArray(value).map(v => _isString(v) ? v.toLowerCase() : v)
+_iterator_1 = <operator>.iterator(value)
+_isString(language) && !language.match(REGEX_BCP47)
+options.eventHandler
+_handleEvent({
+              event: {
+                type: ['JsonLdEvent'],
+                code: 'invalid @language value',
+                level: 'warning',
+                message: '@language value must be valid BCP47.',
+                details: {
+                  language
+                }
+              },
+              options
+            })
+_tmp_63.event = {
+                type: ['JsonLdEvent'],
+                code: 'invalid @language value',
+                level: 'warning',
+                message: '@language value must be valid BCP47.',
+                details: {
+                  language
+                }
+              }
+_tmp_65 = __ecma.Array.factory()
+_tmp_64.code = "invalid @language value"
+_tmp_64.level = "warning"
+_tmp_64.message = "@language value must be valid BCP47."
+_tmp_64.details = {
+                  language
+                }
+_tmp_66.language = language
+_tmp_63.options = options
+_addValue(
+        expandedParent, '@language', value, {propertyIsArray: options.isFrame})
+_tmp_67.propertyIsArray = options.isFrame
+continue;
+expandedProperty === '@direction'
+!_isString(value) && !options.isFrame
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; "@direction" value must be a string.',
+          'jsonld.SyntaxError',
+          {code: 'invalid base direction', value});
+"Invalid JSON-LD syntax; "@direction" value must be a string."
+"jsonld.SyntaxError"
+_tmp_69.code = "invalid base direction"
+value = _asArray(value)
+_iterator_2 = <operator>.iterator(value)
+_isString(dir) && dir !== 'ltr' && dir !== 'rtl'
+throw new JsonLdError(
+            'Invalid JSON-LD syntax; "@direction" must be "ltr" or "rtl".',
+            'jsonld.SyntaxError',
+            {code: 'invalid base direction', value});
+"Invalid JSON-LD syntax; "@direction" must be "ltr" or "rtl"."
+"jsonld.SyntaxError"
+_tmp_71.code = "invalid base direction"
+_addValue(
+        expandedParent, '@direction', value,
+        {propertyIsArray: options.isFrame})
+"@direction"
+_tmp_72.propertyIsArray = options.isFrame
+continue;
+expandedProperty === '@index'
+!_isString(value)
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; "@index" value must be a string.',
+          'jsonld.SyntaxError',
+          {code: 'invalid @index value', value});
+"Invalid JSON-LD syntax; "@index" value must be a string."
+"jsonld.SyntaxError"
+_tmp_74.code = "invalid @index value"
+_addValue(expandedParent, '@index', value)
+continue;
+expandedProperty === '@reverse'
+!_isObject(value)
+throw new JsonLdError(
+          'Invalid JSON-LD syntax; "@reverse" value must be an object.',
+          'jsonld.SyntaxError', {code: 'invalid @reverse value', value});
+"Invalid JSON-LD syntax; "@reverse" value must be an object."
+_tmp_76.code = "invalid @reverse value"
+expandedValue = await api.expand({
+        activeCtx,
+        activeProperty: '@reverse',
+        element: value,
+        options
+      })
+_tmp_77.activeCtx = activeCtx
+_tmp_77.activeProperty = "@reverse"
+_tmp_77.element = value
+_tmp_77.options = options
+'@reverse' in expandedValue
+_iterator_3 = <operator>.iterator(expandedValue['@reverse'])
+_addValue(
+            expandedParent, property, expandedValue['@reverse'][property],
+            {propertyIsArray: true})
+expandedValue["@reverse"][property]
+_tmp_78.propertyIsArray = true
+let reverseMap = expandedParent['@reverse'] || null
+_iterator_4 = <operator>.iterator(expandedValue)
+property === '@reverse'
+continue;
+reverseMap === null
+reverseMap = expandedParent['@reverse'] = {}
+_addValue(reverseMap, property, [], {propertyIsArray: true})
+const items = expandedValue[property]
+ii < items.length
+const item = items[ii]
+_isValue(item) || _isList(item)
+throw new JsonLdError(
+              'Invalid JSON-LD syntax; "@reverse" value must not be a ' +
+              '@value or an @list.', 'jsonld.SyntaxError',
+              {code: 'invalid reverse property value', value: expandedValue});
+'Invalid JSON-LD syntax; "@reverse" value must not be a ' +
+              '@value or an @list.'
+"jsonld.SyntaxError"
+_tmp_82.code = "invalid reverse property value"
+_addValue(reverseMap, property, item, {propertyIsArray: true})
+continue;
+expandedProperty === '@nest'
+nests.push(key)
+continue;
+let termCtx = activeCtx
+const ctx = _getContextValue(activeCtx, key, '@context')
+!_isUndefined(ctx)
+termCtx = await _processContext({
+        activeCtx,
+        localCtx: ctx,
+        propagate: true,
+        overrideProtected: true,
+        options
+      })
+_tmp_84.activeCtx = activeCtx
+_tmp_84.localCtx = ctx
+_tmp_84.propagate = true
+_tmp_84.overrideProtected = true
+_tmp_84.options = options
+const container = _getContextValue(termCtx, key, '@container') || []
+container.includes('@language') && _isObject(value)
+const direction = _getContextValue(termCtx, key, '@direction')
+expandedValue = _expandLanguageMap(termCtx, value, direction, options)
+container.includes('@index') && _isObject(value)
+const asGraph = container.includes('@graph')
+const indexKey = _getContextValue(termCtx, key, '@index') || '@index'
+const propertyIndex = indexKey !== '@index' &&
+        _expandIri(activeCtx, indexKey, {vocab: true}, options)
+_expandIri(activeCtx, indexKey, {vocab: true}, options)
+expandedValue = await _expandIndexMap({
+        activeCtx: termCtx,
+        options,
+        activeProperty: key,
+        value,
+        asGraph,
+        indexKey,
+        propertyIndex
+      })
+_tmp_86.activeCtx = termCtx
+_tmp_86.options = options
+_tmp_86.activeProperty = key
+_tmp_86.value = value
+_tmp_86.asGraph = asGraph
+_tmp_86.indexKey = indexKey
+_tmp_86.propertyIndex = propertyIndex
+container.includes('@id') && _isObject(value)
+const asGraph = container.includes('@graph')
+expandedValue = await _expandIndexMap({
+        activeCtx: termCtx,
+        options,
+        activeProperty: key,
+        value,
+        asGraph,
+        indexKey: '@id'
+      })
+_tmp_87.activeCtx = termCtx
+_tmp_87.options = options
+_tmp_87.activeProperty = key
+_tmp_87.value = value
+_tmp_87.asGraph = asGraph
+_tmp_87.indexKey = "@id"
+container.includes('@type') && _isObject(value)
+expandedValue = await _expandIndexMap({
+        // since container is `@type`, revert type scoped context when expanding
+        activeCtx: termCtx.revertToPreviousContext(),
+        options,
+        activeProperty: key,
+        value,
+        asGraph: false,
+        indexKey: '@type'
+      })
+_tmp_88.activeCtx = termCtx.revertToPreviousContext()
+_tmp_88.options = options
+_tmp_88.activeProperty = key
+_tmp_88.value = value
+_tmp_88.asGraph = false
+_tmp_88.indexKey = "@type"
+const isList = expandedProperty === '@list'
+isList || expandedProperty === '@set'
+let nextActiveProperty = activeProperty
+isList && expandedActiveProperty === '@graph'
+nextActiveProperty = null
+expandedValue = await api.expand({
+          activeCtx: termCtx,
+          activeProperty: nextActiveProperty,
+          element: value,
+          options,
+          insideList: isList
+        })
+_tmp_89.activeCtx = termCtx
+_tmp_89.activeProperty = nextActiveProperty
+_tmp_89.element = value
+_tmp_89.options = options
+_tmp_89.insideList = isList
+_getContextValue(activeCtx, key, '@type') === '@json'
+expandedValue = {
+          '@type': '@json',
+          '@value': value
+        }
+_tmp_90.@type = "@json"
+_tmp_90.@value = value
+expandedValue = await api.expand({
+          activeCtx: termCtx,
+          activeProperty: key,
+          element: value,
+          options,
+          insideList: false
+        })
+_tmp_91.activeCtx = termCtx
+_tmp_91.activeProperty = key
+_tmp_91.element = value
+_tmp_91.options = options
+_tmp_91.insideList = false
+expandedValue === null && expandedProperty !== '@value'
+continue;
+expandedProperty !== '@list' && !_isList(expandedValue) &&
+      container.includes('@list')
+container.includes('@list')
+expandedValue = {'@list': _asArray(expandedValue)}
+container.includes('@graph') &&
+      !container.some(key => key === '@id' || key === '@index')
+!container.some(key => key === '@id' || key === '@index')
+expandedValue = _asArray(expandedValue)
+!options.isFrame
+expandedValue = expandedValue.filter(v => {
+          const count = Object.keys(v).length;
+          return _dropUnsafeObject({value: v, count, options}) !== null;
+        })
+expandedValue.length === 0
+continue;
+expandedValue = expandedValue.map(v => ({'@graph': _asArray(v)}))
+termCtx.mappings.has(key) && termCtx.mappings.get(key).reverse
+const reverseMap =
+        expandedParent['@reverse'] = expandedParent['@reverse'] || {}
+expandedParent['@reverse'] = expandedParent['@reverse'] || {}
+expandedValue = _asArray(expandedValue)
+ii < expandedValue.length
+const item = expandedValue[ii]
+_isValue(item) || _isList(item)
+throw new JsonLdError(
+            'Invalid JSON-LD syntax; "@reverse" value must not be a ' +
+            '@value or an @list.', 'jsonld.SyntaxError',
+            {code: 'invalid reverse property value', value: expandedValue});
+'Invalid JSON-LD syntax; "@reverse" value must not be a ' +
+            '@value or an @list.'
+"jsonld.SyntaxError"
+_tmp_99.code = "invalid reverse property value"
+_addValue(reverseMap, expandedProperty, item, {propertyIsArray: true})
+continue;
+_addValue(expandedParent, expandedProperty, expandedValue, {
+      propertyIsArray: true
+    })
+_tmp_101.propertyIsArray = true

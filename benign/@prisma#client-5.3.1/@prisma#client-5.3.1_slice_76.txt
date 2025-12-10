@@ -1,0 +1,9 @@
+const enqueue = (fn, resolve, ...args) => {
+        if (activeCount < concurrency) {
+          run(fn, resolve, ...args);
+        } else {
+          queue.push(run.bind(null, fn, resolve, ...args));
+        }
+      }
+activeCount < concurrency
+run(fn, resolve, ...args)

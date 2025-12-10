@@ -1,0 +1,8 @@
+async _sendStartupEvent() {
+    const message = await this._getStartupMessage();
+    const request = new requests.QueryRequest(rpc, [message], ExecutionOptions.empty());
+    await this._client.controlConnection.query(request, false);
+  }
+const message = await this._getStartupMessage()
+const request = new requests.QueryRequest(rpc, [message], ExecutionOptions.empty())
+await this._client.controlConnection.query(request, false)

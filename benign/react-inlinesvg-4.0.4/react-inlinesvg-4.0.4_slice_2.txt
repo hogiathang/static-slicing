@@ -1,0 +1,17 @@
+function request = async function request(url: string, options?: RequestInit) {
+  const response = await fetch(url, options);
+  const contentType = response.headers.get('content-type');
+  const [fileType] = (contentType ?? '').split(/ ?; ?/);
+
+  if (response.status > 299) {
+    throw new Error('Not found');
+  }
+
+  if (!['image/svg+xml', 'text/plain'].some(d => fileType.includes(d))) {
+    throw new Error(`Content type isn't valid: ${fileType}`);
+  }
+
+  return response.text();
+}
+const response = await fetch(url, options)
+const contentType = response.headers.get('content-type')

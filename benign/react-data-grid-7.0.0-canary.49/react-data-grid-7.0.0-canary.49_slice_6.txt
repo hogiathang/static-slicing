@@ -1,0 +1,75 @@
+function scrollToCell = function scrollToCell({
+    idx,
+    rowIdx
+  }) {
+    const {
+      current
+    } = gridRef;
+    if (!current) return;
+
+    if (typeof idx === 'number' && idx > lastFrozenColumnIndex) {
+      var _rowIdx;
+
+      (_rowIdx = rowIdx) != null ? _rowIdx : rowIdx = selectedPosition.rowIdx;
+      if (!isCellWithinBounds({
+        rowIdx,
+        idx
+      })) return;
+      const {
+        clientWidth
+      } = current;
+      const column = columns[idx];
+      const {
+        left,
+        width
+      } = columnMetrics.get(column);
+      let right = left + width;
+      const row = rows[rowIdx];
+
+      if (!isGroupRow(row)) {
+        const colSpan = getColSpan(column, lastFrozenColumnIndex, {
+          type: 'ROW',
+          row
+        });
+
+        if (colSpan !== undefined) {
+          const {
+            left,
+            width
+          } = columnMetrics.get(columns[column.idx + colSpan - 1]);
+          right = left + width;
+        }
+      }
+
+      const isCellAtLeftBoundary = left < s...
+idx = param1_27.idx
+rowIdx = param1_27.rowIdx
+_tmp_169 = gridRef
+current = _tmp_169.current
+!current
+typeof idx === 'number' && idx > lastFrozenColumnIndex
+(_rowIdx = rowIdx) != null ? _rowIdx : rowIdx = selectedPosition.rowIdx
+!isCellWithinBounds({
+        rowIdx,
+        idx
+      })
+_tmp_170.rowIdx = rowIdx
+_tmp_170.idx = idx
+_tmp_171 = current
+clientWidth = _tmp_171.clientWidth
+const column = columns[idx]
+_tmp_172 = columnMetrics.get(column)
+left = _tmp_172.left
+width = _tmp_172.width
+columnMetrics.get(column)
+let right = left + width
+const row = rows[rowIdx]
+!isGroupRow(row)
+const colSpan = getColSpan(column, lastFrozenColumnIndex, {
+          type: 'ROW',
+          row
+        })
+_tmp_173.type = "ROW"
+_tmp_173.row = row
+colSpan !== undefined
+columnMetrics.get(columns[column.idx + colSpan - 1])

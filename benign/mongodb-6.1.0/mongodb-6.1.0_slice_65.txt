@@ -1,0 +1,39 @@
+connection.command(ns('admin.$cmd'), cmd, options, (err, hello) => {
+      if (err) {
+        return failureHandler(err);
+      }
+
+      if (!('isWritablePrimary' in hello)) {
+        // Provide hello-style response document.
+        hello.isWritablePrimary = hello[LEGACY_HELLO_COMMAND];
+      }
+
+      const rttPinger = monitor[kRTTPinger];
+      const duration =
+        isAwaitable && rttPinger ? rttPinger.roundTripTime : calculateDurationInMs(start);
+
+      monitor.emit(
+        Server.SERVER_HEARTBEAT_SUCCEEDED,
+        new ServerHeartbeatSucceededEvent(monitor.address, duration, hello)
+      );
+
+      // if we are using the streaming protocol then we immediately issue another `started`
+      // event, otherwise the "check" is complete and return to the main monitor loop
+      if (isAwaitable && hello.topologyVersion) {
+        monitor.emit(
+          Server.SERVER_HEARTBEAT_STARTED,
+          new ServerHeartbeatStartedEvent(monitor.address)
+        );
+        start = now();
+    ...
+!('isWritablePrimary' in hello)
+hello.isWritablePrimary = hello[LEGACY_HELLO_COMMAND]
+const rttPinger = monitor[kRTTPinger]
+const duration =
+        isAwaitable && rttPinger ? rttPinger.roundTripTime : calculateDurationInMs(start)
+isAwaitable && rttPinger ? rttPinger.roundTripTime : calculateDurationInMs(start)
+monitor.emit(
+        Server.SERVER_HEARTBEAT_SUCCEEDED,
+        new ServerHeartbeatSucceededEvent(monitor.address, duration, hello)
+      )
+Server.SERVER_HEARTBEAT_SUCCEEDED

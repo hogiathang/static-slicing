@@ -1,0 +1,4 @@
+_tmp_1.MemberExpression = MemberExpression
+const key = (0, _utils.resolveKey)(path.get("property"), path.node.computed)
+!key || key === "prototype"
+const object = path.get("object")

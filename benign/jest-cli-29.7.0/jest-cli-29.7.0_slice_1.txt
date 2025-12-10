@@ -1,0 +1,5 @@
+const importLocal = require('import-local')
+!importLocal(__filename)
+process.env.NODE_ENV == null
+process.env.NODE_ENV = 'test'
+(_tmp_0 = require('..')).run

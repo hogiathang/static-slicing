@@ -1,0 +1,62 @@
+const PouchDB = require('pouchdb')
+require('pouchdb/extras/memory')
+const db = new PouchDB('test', {adapter: 'memory'})
+let response = await db.put({
+  _id: 'mydoc',
+  title: 'Heroes'
+})
+_tmp_2._id = "mydoc"
+_tmp_2.title = "Heroes"
+await db.put({
+  _id: 'mydoc',
+  _rev: response.rev,
+  title: "Sound and Vision",
+})
+_tmp_3._id = "mydoc"
+_tmp_3._rev = response.rev
+_tmp_3.title = "Sound and Vision"
+console.log(await db.get('mydoc'))
+response = await db.bulkDocs([
+    {_id: 'myotherdoc', title: 'The Magisters', type: "fake band"},
+    {_id: 'another', title: 'Kowabunga', type: "fake band"},
+    {title: 'Without an _id', type: null}
+])
+_tmp_4.push({_id: 'myotherdoc', title: 'The Magisters', type: "fake band"})
+_tmp_4.push({_id: 'another', title: 'Kowabunga', type: "fake band"})
+_tmp_4.push({title: 'Without an _id', type: null})
+console.log('bulkDocs response: ' + JSON.stringify(response, null, 2))
+await db.put({
+  _id: '_design/fakebands',
+  views: {
+    fakebands: {
+      map: (function (doc) {
+        if (doc.type == "fake band") {
+          emit(doc.title)
+        }
+      }).toString()
+    }
+  }
+})
+_tmp_8._id = "_design/fakebands"
+_tmp_8.views = {
+    fakebands: {
+      map: (function (doc) {
+        if (doc.type == "fake band") {
+          emit(doc.title)
+        }
+      }).toString()
+    }
+  }
+_tmp_9.fakebands = {
+      map: (function (doc) {
+        if (doc.type == "fake band") {
+          emit(doc.title)
+        }
+      }).toString()
+    }
+_tmp_10.map = (function (doc) {
+        if (doc.type == "fake band") {
+          emit(doc.title)
+        }
+      }).toString()
+toString

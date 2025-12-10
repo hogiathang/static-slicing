@@ -1,0 +1,86 @@
+module.exports = function (api, opts, env) {
+  if (!opts) {
+    opts = {};
+  }
+
+  var isEnvDevelopment = env === 'development';
+  var isEnvProduction = env === 'production';
+  var isEnvTest = env === 'test';
+
+  var useESModules = validateBoolOption(
+    'useESModules',
+    opts.useESModules,
+    isEnvDevelopment || isEnvProduction
+  );
+  var isFlowEnabled = validateBoolOption('flow', opts.flow, true);
+  var isTypeScriptEnabled = validateBoolOption(
+    'typescript',
+    opts.typescript,
+    true
+  );
+  var areHelpersEnabled = validateBoolOption('helpers', opts.helpers, true);
+  var useAbsoluteRuntime = validateBoolOption(
+    'absoluteRuntime',
+    opts.absoluteRuntime,
+    true
+  );
+
+  var absoluteRuntimePath = undefined;
+  if (useAbsoluteRuntime) {
+    absoluteRuntimePath = path.dirname(
+      require.resolve('@babel/runtime/package.json')
+    );
+  }
+
+  if (!isEnvDevelopment && !isEnvProduction && !isEnvTest) {
+    throw new Error(
+      'Using `babel-preset-react-app` requires th...
+!opts
+opts = {}
+var isEnvDevelopment = env === 'development'
+var isEnvProduction = env === 'production'
+var isEnvTest = env === 'test'
+var useESModules = validateBoolOption(
+    'useESModules',
+    opts.useESModules,
+    isEnvDevelopment || isEnvProduction
+  )
+"useESModules"
+opts.useESModules
+isEnvDevelopment || isEnvProduction
+var isFlowEnabled = validateBoolOption('flow', opts.flow, true)
+var isTypeScriptEnabled = validateBoolOption(
+    'typescript',
+    opts.typescript,
+    true
+  )
+"typescript"
+opts.typescript
+var areHelpersEnabled = validateBoolOption('helpers', opts.helpers, true)
+var useAbsoluteRuntime = validateBoolOption(
+    'absoluteRuntime',
+    opts.absoluteRuntime,
+    true
+  )
+"absoluteRuntime"
+opts.absoluteRuntime
+var absoluteRuntimePath = undefined
+absoluteRuntimePath = path.dirname(
+      require.resolve('@babel/runtime/package.json')
+    )
+require.resolve('@babel/runtime/package.json')
+!isEnvDevelopment && !isEnvProduction && !isEnvTest
+throw new Error(
+      'Using `babel-preset-react-app` requires that you specify `NODE_ENV` or ' +
+        '`BABEL_ENV` environment variables. Valid values are "development", ' +
+        '"test", and "production". Instead, received: ' +
+        JSON.stringify(env) +
+        '.'
+    );
+'Using `babel-preset-react-app` requires that you specify `NODE_ENV` or ' +
+        '`BABEL_ENV` environment variables. Valid values are "development", ' +
+        '"test", and "production". Instead, received: ' +
+        JSON.stringify(env) +
+        '.'
+"`BABEL_ENV` environment variables. Valid values are "development", "
+""test", and "production". Instead, received: "

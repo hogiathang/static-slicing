@@ -1,0 +1,22 @@
+function enqueueProducers = function enqueueProducers(instance, eventName, eventData) {
+	const producers = producersMap.get(instance);
+	if (producers.has(eventName)) {
+		for (const producer of producers.get(eventName)) {
+			producer.enqueue(eventData);
+		}
+	}
+
+	if (producers.has(anyProducer)) {
+		const item = Promise.all([eventName, eventData]);
+		for (const producer of producers.get(anyProducer)) {
+			producer.enqueue(item);
+		}
+	}
+}
+const producers = producersMap.get(instance)
+producers.has(eventName)
+_iterator_0 = <operator>.iterator(producers.get(eventName))
+producer.enqueue(eventData)
+producers.has(anyProducer)
+const item = Promise.all([eventName, eventData])
+_iterator_1 = <operator>.iterator(producers.get(anyProducer))

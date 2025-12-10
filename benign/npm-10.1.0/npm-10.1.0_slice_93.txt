@@ -1,0 +1,22 @@
+path = _tmp_14.path === void 0 ? this.npm.localPrefix : _tmp_14.path
+const scriptShell = this.npm.config.get('script-shell') || undefined
+!pkg
+_tmp_16 = await pkgJson.normalize(path)
+pkg = content
+scripts = _tmp_17.scripts === void 0 ? {} : _tmp_17.scripts
+event === 'restart' && !scripts.restart
+scripts.restart = 'npm stop --if-present && npm start'
+event === 'env' && !scripts.env
+scripts.env = isWindowsShell ? 'SET' : 'env'
+pkg.scripts = scripts
+!Object.prototype.hasOwnProperty.call(scripts, event) &&
+      !(event === 'start' && (await isServerPackage(path)))
+!(event === 'start' && (await isServerPackage(path)))
+this.npm.config.get('if-present')
+const suggestions = await didYouMean(path, event)
+throw new Error(
+        `Missing script: "${event}"${suggestions}\n\nTo see a list of scripts, run:\n  npm run`
+      )
+<operator>.formatString("Missing script: "", event, """, suggestions, "\n\nTo see a list of scripts, run:\n  npm run")
+_tmp_22 = __ecma.Array.factory()
+!this.npm.config.get('ignore-scripts')

@@ -1,0 +1,75 @@
+let sendMessage = () => {
+                let envelope = mail.message.getEnvelope();
+                let messageId = mail.message.messageId();
+
+                let recipients = [].concat(envelope.to || []);
+                if (recipients.length > 3) {
+                    recipients.push('...and ' + recipients.splice(2).length + ' more');
+                }
+
+                if (mail.data.dsn) {
+                    envelope.dsn = mail.data.dsn;
+                }
+
+                this.logger.info(
+                    {
+                        tnx: 'send',
+                        messageId
+                    },
+                    'Sending message %s to <%s>',
+                    messageId,
+                    recipients.join(', ')
+                );
+
+                connection.send(envelope, mail.message.createReadStream(), (err, info) => {
+                    returned = true;
+                    connection.close();
+                    if (err) {
+                        this.logger.error(
+...
+let envelope = mail.message.getEnvelope()
+let messageId = mail.message.messageId()
+let recipients = [].concat(envelope.to || [])
+recipients.length > 3
+recipients.push('...and ' + recipients.splice(2).length + ' more')
+mail.data.dsn
+envelope.dsn = mail.data.dsn
+this.logger.info(
+                    {
+                        tnx: 'send',
+                        messageId
+                    },
+                    'Sending message %s to <%s>',
+                    messageId,
+                    recipients.join(', ')
+                )
+_tmp_29.tnx = "send"
+_tmp_29.messageId = messageId
+"Sending message %s to <%s>"
+recipients.join(', ')
+connection.send(envelope, mail.message.createReadStream(), (err, info) => {
+                    returned = true;
+                    connection.close();
+                    if (err) {
+                        this.logger.error(
+                            {
+                                err,
+                                tnx: 'send'
+                            },
+                            'Send error for %s: %s',
+                            messageId,
+                            err.message
+                        );
+                        return callback(err);
+                    }
+                    info.envelope = {
+                        from: envelope.from,
+                        to: envelope.to
+                    };
+                    info.messageId = messageId;
+                    try {
+                        return callback(null, info);
+                    } catch (E) {
+                        this.logger.error(
+                            {
+                     ...

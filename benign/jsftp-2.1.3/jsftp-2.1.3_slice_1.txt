@@ -1,0 +1,35 @@
+Ftp.prototype._createSocket = function(port, host, firstAction = NOOP) {
+  if (this.socket && this.socket.destroy) {
+    this.socket.destroy();
+  }
+
+  if (this.resParser) {
+    this.resParser.end();
+  }
+  this.resParser = new ResponseParser();
+
+  this.authenticated = false;
+  this.socket = this.createSocket
+    ? this.createSocket({ port, host }, firstAction)
+    : createConnection(port, host, firstAction);
+  this.socket.on("connect", this.reemit("connect"));
+  this.socket.on("timeout", this.reemit("timeout"));
+
+  this.pipeline = combine(this.socket, this.resParser);
+
+  this.pipeline.on("data", data => {
+    this.emit("data", data);
+    dbgResponse(data.text);
+    this.parseResponse(data);
+  });
+  this.pipeline.on("error", this.reemit("error"));
+}
+this.socket && this.socket.destroy
+(_tmp_3 = this.socket).destroy
+this.resParser
+(_tmp_4 = this.resParser).end
+this.resParser = new ResponseParser()
+this.authenticated = false
+this.socket = this.createSocket
+    ? this.createSocket({ port, host }, firstAction)
+    : createConnection(port, host, firstAction)

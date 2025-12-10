@@ -1,0 +1,46 @@
+function shouldTransform = function shouldTransform(path, file) {
+  let decoratorPath = null;
+  let publicFieldPath = null;
+  let privateFieldPath = null;
+  let privateMethodPath = null;
+  let staticBlockPath = null;
+  if ((0, _decorators.hasOwnDecorators)(path.node)) {
+    decoratorPath = path.get("decorators.0");
+  }
+  for (const el of path.get("body.body")) {
+    if (!decoratorPath && (0, _decorators.hasOwnDecorators)(el.node)) {
+      decoratorPath = el.get("decorators.0");
+    }
+    if (!publicFieldPath && el.isClassProperty()) {
+      publicFieldPath = el;
+    }
+    if (!privateFieldPath && el.isClassPrivateProperty()) {
+      privateFieldPath = el;
+    }
+    if (!privateMethodPath && el.isClassPrivateMethod != null && el.isClassPrivateMethod()) {
+      privateMethodPath = el;
+    }
+    if (!staticBlockPath && el.isStaticBlock != null && el.isStaticBlock()) {
+      staticBlockPath = el;
+    }
+  }
+  if (decoratorPath && privateFieldPath) {
+    throw privateFieldPath.buildCodeFrameError("Private fields in...
+let decoratorPath = null
+let publicFieldPath = null
+let privateFieldPath = null
+let privateMethodPath = null
+let staticBlockPath = null
+(0, _decorators.hasOwnDecorators)(path.node)
+decoratorPath = path.get("decorators.0")
+_iterator_2 = <operator>.iterator(path.get("body.body"))
+!decoratorPath && (0, _decorators.hasOwnDecorators)(el.node)
+decoratorPath = el.get("decorators.0")
+!publicFieldPath && el.isClassProperty()
+publicFieldPath = el
+!privateFieldPath && el.isClassPrivateProperty()
+privateFieldPath = el
+!privateMethodPath && el.isClassPrivateMethod != null && el.isClassPrivateMethod()
+privateMethodPath = el
+!staticBlockPath && el.isStaticBlock != null && el.isStaticBlock()
+staticBlockPath = el

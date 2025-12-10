@@ -1,0 +1,82 @@
+function iterator = function iterator(instance, eventNames) {
+	eventNames = Array.isArray(eventNames) ? eventNames : [eventNames];
+
+	let isFinished = false;
+	let flush = () => {};
+	let queue = [];
+
+	const producer = {
+		enqueue(item) {
+			queue.push(item);
+			flush();
+		},
+		finish() {
+			isFinished = true;
+			flush();
+		},
+	};
+
+	for (const eventName of eventNames) {
+		let set = getEventProducers(instance, eventName);
+		if (!set) {
+			set = new Set();
+			const producers = producersMap.get(instance);
+			producers.set(eventName, set);
+		}
+
+		set.add(producer);
+	}
+
+	return {
+		async next() {
+			if (!queue) {
+				return {done: true};
+			}
+
+			if (queue.length === 0) {
+				if (isFinished) {
+					queue = undefined;
+					return this.next();
+				}
+
+				await new Promise(resolve => {
+					flush = resolve;
+				});
+
+				return this.next();
+			}
+
+			return {
+				done: false,
+				value: await queue.shift(),
+			};
+		},
+
+		async return(value) {
+			queue = undefined;
+
+			for (const eventName of eventNames) {
+				const...
+eventNames = Array.isArray(eventNames) ? eventNames : [eventNames]
+let isFinished = false
+let flush = () => {}
+__ecma.Array.factory()
+const producer = {
+		enqueue(item) {
+			queue.push(item);
+			flush();
+		},
+		finish() {
+			isFinished = true;
+			flush();
+		},
+	}
+_tmp_4.enqueue = enqueue
+_tmp_4.finish = finish
+_iterator_2 = <operator>.iterator(eventNames)
+let set = getEventProducers(instance, eventName)
+!set
+set = new Set()
+const producers = producersMap.get(instance)
+producers.set(eventName, set)
+set.add(producer)

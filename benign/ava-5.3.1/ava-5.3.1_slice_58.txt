@@ -1,0 +1,36 @@
+function selectComparable = function selectComparable(actual, selector, circular = [selector]) {
+	if (isPrimitive(actual)) {
+		return actual;
+	}
+
+	const comparable = Array.isArray(selector) ? [] : {};
+	const enumerableKeys = Reflect.ownKeys(selector).filter(key => Reflect.getOwnPropertyDescriptor(selector, key).enumerable);
+	for (const key of enumerableKeys) {
+		const subselector = Reflect.get(selector, key);
+		if (isLikeSelector(subselector)) {
+			if (circular.includes(subselector)) {
+				throw CIRCULAR_SELECTOR;
+			}
+
+			circular.push(subselector);
+			comparable[key] = selectComparable(Reflect.get(actual, key), subselector, circular);
+			circular.pop();
+		} else {
+			comparable[key] = Reflect.get(actual, key);
+		}
+	}
+
+	return comparable;
+}
+isPrimitive(actual)
+Array.isArray(selector) ? __ecma.Array.factory() : {}
+const enumerableKeys = Reflect.ownKeys(selector).filter(key => Reflect.getOwnPropertyDescriptor(selector, key).enumerable)
+_iterator_0 = <operator>.iterator(enumerableKeys)
+const subselector = Reflect.get(selector, key)
+isLikeSelector(subselector)
+circular.includes(subselector)
+throw CIRCULAR_SELECTOR;
+circular.push(subselector)
+comparable[key] = selectComparable(Reflect.get(actual, key), subselector, circular)
+circular.pop()
+comparable[key] = Reflect.get(actual, key)

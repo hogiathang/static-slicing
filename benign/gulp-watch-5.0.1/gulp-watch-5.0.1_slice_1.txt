@@ -1,0 +1,35 @@
+function processEvent = function processEvent(event, filepath) {
+		filepath = resolveFilepath(filepath);
+		var fileOpts = assign({}, opts);
+
+		var glob;
+		var currentFilepath = filepath;
+		while (!(glob = globs[anymatch(globs, currentFilepath, true)]) && currentFilepath !== (currentFilepath = path.dirname(currentFilepath))) {} // eslint-disable-line no-empty-blocks/no-empty-blocks
+
+		if (!glob) {
+			fancyLog.info(
+				colors.cyan('[gulp-watch]'),
+				colors.yellow('Watched unexpected path. This is likely a bug. Please open this link to report the issue:\n') +
+				'https://github.com/floatdrop/gulp-watch/issues/new?title=' +
+				encodeURIComponent('Watched unexpected filepath') + '&body=' +
+				encodeURIComponent('Node.js version: `' + process.version + ' ' + process.platform + ' ' + process.arch + '`\ngulp-watch version: `' + require('./package.json').version + '`\nGlobs: `' + JSON.stringify(originalGlobs) + '`\nFilepath: `' + filepath + '`\nEvent: `' + event + '`\nProcess CWD: `' + process.cwd() + '`\nOpt...
+filepath = resolveFilepath(filepath)
+var fileOpts = assign({}, opts)
+var currentFilepath = filepath
+!(glob = globs[anymatch(globs, currentFilepath, true)]) && currentFilepath !== (currentFilepath = path.dirname(currentFilepath))
+!glob
+fancyLog.info(
+				colors.cyan('[gulp-watch]'),
+				colors.yellow('Watched unexpected path. This is likely a bug. Please open this link to report the issue:\n') +
+				'https://github.com/floatdrop/gulp-watch/issues/new?title=' +
+				encodeURIComponent('Watched unexpected filepath') + '&body=' +
+				encodeURIComponent('Node.js version: `' + process.version + ' ' + process.platform + ' ' + process.arch + '`\ngulp-watch version: `' + require('./package.json').version + '`\nGlobs: `' + JSON.stringify(originalGlobs) + '`\nFilepath: `' + filepath + '`\nEvent: `' + event + '`\nProcess CWD: `' + process.cwd() + '`\nOptions:\n```js\n' + JSON.stringify(opts, null, 2) + '\n```')
+			)
+colors.cyan('[gulp-watch]')
+colors.yellow('Watched unexpected path. This is likely a bug. Please open this link to report the issue:\n') +
+				'https://github.com/floatdrop/gulp-watch/issues/new?title=' +
+				encodeURIComponent('Watched unexpected filepath') + '&body=' +
+				encodeURIComponent('Node.js version: `' + process.version + ' ' + process.platform + ' ' + process.arch + '`\ngulp-watch version: `' + require('./package.json').version + '`\nGlobs: `' + JSON.stringify(originalGlobs) + '`\nFilepath: `' + filepath + '`\nEvent: `' + event + '`\nProcess CWD: `' + process.cwd() + '`\nOptions:\n```js\n' + JSON.stringify(opts, null, 2) + '\n```')
+"https://github.com/floatdrop/gulp-watch/issues/new?title="
+encodeURIComponent('Watched unexpected filepath')
+encodeURIComponent('Node.js version: `' + process.version + ' ' + process.platform + ' ' + process.arch + '`\ngulp-watch version: `' + require('./package.json').version + '`\nGlobs: `' + JSON.stringify(originalGlobs) + '`\nFilepath: `' + filepath + '`\nEvent: `' + event + '`\nProcess CWD: `' + process.cwd() + '`\nOptions:\n```js\n' + JSON.stringify(opts, null, 2) + '\n```')

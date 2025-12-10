@@ -1,0 +1,13 @@
+isOutdated(segments, variable) {
+        for (const segment of segments) {
+            const info = this.info.get(segment);
+
+            if (info && info.outdatedReadVariables.has(variable)) {
+                return true;
+            }
+        }
+        return false;
+    }
+_iterator_5 = <operator>.iterator(segments)
+const info = this.info.get(segment)
+info && info.outdatedReadVariables.has(variable)

@@ -1,0 +1,22 @@
+configureAndConnect(onPause, captureAll) {
+    this._session.connect();
+
+    this._session.on('Debugger.paused', event => {
+      onPause(event, () => {
+        // After the pause work is complete, resume execution or the exception context memory is leaked
+        this._session.post('Debugger.resume');
+      });
+    });
+
+    this._session.post('Debugger.enable');
+    this._session.post('Debugger.setPauseOnExceptions', { state: captureAll ? 'all' : 'uncaught' });
+  }
+(_tmp_7 = this._session).connect
+this._session.on('Debugger.paused', event => {
+      onPause(event, () => {
+        // After the pause work is complete, resume execution or the exception context memory is leaked
+        this._session.post('Debugger.resume');
+      });
+    })
+this._session.post('Debugger.enable')
+this._session.post('Debugger.setPauseOnExceptions', { state: captureAll ? 'all' : 'uncaught' })

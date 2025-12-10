@@ -1,0 +1,4 @@
+function (key) {
+            return componentsByDOMNode.get(lookup[key]);
+          }
+componentsByDOMNode.get(lookup[key])

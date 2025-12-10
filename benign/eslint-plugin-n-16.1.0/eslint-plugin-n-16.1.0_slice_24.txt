@@ -1,0 +1,17 @@
+get(key) {
+        const entry = this.map.get(key)
+        const now = Date.now()
+
+        if (entry) {
+            if (entry.expire > now) {
+                entry.expire = now + SKIP_TIME
+                return entry.value
+            }
+            this.map.delete(key)
+        }
+        return null
+    }
+const entry = this.map.get(key)
+const now = Date.now()
+entry.expire > now
+(_tmp_2 = this.map).delete

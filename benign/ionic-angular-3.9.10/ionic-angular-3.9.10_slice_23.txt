@@ -1,0 +1,46 @@
+function TextInput = function TextInput(config, _plt, _form, _app, elementRef, renderer, _content, _item, ngControl, _dom) {
+            var _this = _super.call(this, config, elementRef, renderer, 'input', '', _form, _item, ngControl) || this;
+            _this._plt = _plt;
+            _this._app = _app;
+            _this._content = _content;
+            _this.ngControl = ngControl;
+            _this._dom = _dom;
+            _this._clearInput = false;
+            _this._readonly = false;
+            _this._type = 'text';
+            _this._isTextarea = false;
+            _this._onDestroy = new Subject_1.Subject();
+            _this._useAssist = false;
+            _this._relocated = false;
+            /**
+             * @input {string} Set the input's autocomplete property. Values: `"on"`, `"off"`. Default `"off"`.
+             */
+            _this.autocomplete = '';
+            /**
+             * @input {string} Set the input's autocorrect property. Values: `"on"`, `"off"`. Default `"off"`.
+            ...
+var _this = _super.call(this, config, elementRef, renderer, 'input', '', _form, _item, ngControl) || this
+_this._plt = _plt
+_this._app = _app
+_this._content = _content
+_this.ngControl = ngControl
+_this._dom = _dom
+_this._clearInput = false
+_this._readonly = false
+_this._type = 'text'
+_this._isTextarea = false
+_this._onDestroy = new Subject_1.Subject()
+_this._useAssist = false
+_this._relocated = false
+_this.autocomplete = ''
+_this.autocorrect = ''
+_this.placeholder = ''
+_this.min = null
+_this.max = null
+_this.step = null
+_this.input = new core_1.EventEmitter()
+_this.blur = new core_1.EventEmitter()
+_this.focus = new core_1.EventEmitter()
+_this.autocomplete = config.get('autocomplete', 'off')
+_this.autocorrect = config.get('autocorrect', 'off')
+_this._autoFocusAssist = config.get('autoFocusAssist', 'delay')

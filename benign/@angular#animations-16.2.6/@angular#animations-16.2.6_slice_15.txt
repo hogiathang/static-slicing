@@ -1,0 +1,7 @@
+replaceNodes.forEach(node => {
+            const post = postStylesMap.get(node);
+            const pre = preStylesMap.get(node);
+            postStylesMap.set(node, new Map([...(post?.entries() ?? []), ...(pre?.entries() ?? [])]));
+        })
+const post = postStylesMap.get(node)
+const pre = preStylesMap.get(node)

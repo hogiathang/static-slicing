@@ -1,0 +1,23 @@
+async get (keys) {
+    if (!keys.length) {
+      return this.list()
+    }
+
+    const out = []
+    for (const key of keys) {
+      if (!publicVar(key)) {
+        throw new Error(`The ${key} option is protected, and can not be retrieved in this way`)
+      }
+
+      const pref = keys.length > 1 ? `${key}=` : ''
+      out.push(pref + this.npm.config.get(key))
+    }
+    this.npm.output(out.join('\n'))
+  }
+!keys.length
+__ecma.Array.factory()
+_iterator_1 = <operator>.iterator(keys)
+!publicVar(key)
+<operator>.formatString("The ", key, " option is protected, and can not be retrieved in this way")
+keys.length > 1 ? <operator>.formatString("", key, "=") : ""
+out.push(pref + this.npm.config.get(key))

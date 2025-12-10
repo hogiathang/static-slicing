@@ -1,0 +1,16 @@
+start() {
+    if (this.started) {
+      return
+    }
+
+    logger.trace('StreamingSpanEventAggregator starting up')
+    this.stream.connect(this.runId, this.requestHeadersMap)
+    this.started = true
+
+    this.emit('started')
+  }
+this.started
+logger.trace('StreamingSpanEventAggregator starting up')
+this.stream.connect(this.runId, this.requestHeadersMap)
+this.started = true
+this.emit('started')

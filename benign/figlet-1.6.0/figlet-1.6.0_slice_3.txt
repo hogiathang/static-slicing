@@ -1,0 +1,38 @@
+files.forEach(function (name) {
+    if (/\.flf$/.test(name)) {
+      console.log(name);
+      var fontData = fs.readFileSync(path.join(fontDir, name), {
+        encoding: "utf-8",
+      });
+      fontData =
+        "export default `" +
+        fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`") +
+        "`";
+      fs.writeFileSync(
+        path.join(exportDir, name.replace(/flf$/, "js")),
+        fontData,
+        { encoding: "utf-8" }
+      );
+    }
+  })
+(_tmp_0 = /\.flf$/).test
+console.log(name)
+var fontData = fs.readFileSync(path.join(fontDir, name), {
+        encoding: "utf-8",
+      })
+_tmp_1.encoding = "utf-8"
+fontData =
+        "export default `" +
+        fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`") +
+        "`"
+"export default `" +
+        fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`") +
+        "`"
+fontData.replace(/\\/g, "\\\\").replace(/`/g, "\\`")
+fs.writeFileSync(
+        path.join(exportDir, name.replace(/flf$/, "js")),
+        fontData,
+        { encoding: "utf-8" }
+      )
+path.join(exportDir, name.replace(/flf$/, "js"))
+_tmp_3.encoding = "utf-8"

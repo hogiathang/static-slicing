@@ -1,0 +1,6 @@
+var babylon = require("..")
+var fs      = require("fs")
+var filename = process.argv[2]
+!filename
+console.error("no filename specified")
+process.exit(0)

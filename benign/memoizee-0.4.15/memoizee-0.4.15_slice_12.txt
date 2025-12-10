@@ -1,0 +1,29 @@
+memoized = defineLength(function (arg) {
+			var id, result, args = arguments;
+			if (resolve) args = resolve(args);
+			id = get(args);
+			if (id !== null) {
+				if (hasOwnProperty.call(cache, id)) {
+					if (getListeners) conf.emit("get", id, args, this);
+					return cache[id];
+				}
+			}
+			if (args.length === 1) result = call.call(original, this, args[0]);
+			else result = apply.call(original, this, args);
+			if (id === null) {
+				id = get(args);
+				if (id !== null) throw customError("Circular invocation", "CIRCULAR_INVOCATION");
+				id = set(args);
+			} else if (hasOwnProperty.call(cache, id)) {
+				throw customError("Circular invocation", "CIRCULAR_INVOCATION");
+			}
+			cache[id] = result;
+			if (setListeners) conf.emit("set", id, null, result);
+			return result;
+		}, memLength)
+var args = arguments
+args = resolve(args)
+id = get(args)
+id !== null
+hasOwnProperty.call(cache, id)
+conf.emit("get", id, args, this)

@@ -1,0 +1,4 @@
+function chmod = function chmod(src, dest) {
+  fs.chmodSync(dest, fs.statSync(src).mode);
+}
+fs.chmodSync(dest, fs.statSync(src).mode)

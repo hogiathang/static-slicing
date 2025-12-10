@@ -1,0 +1,65 @@
+JsonRpcBatchProvider.prototype.send = function (method, params) {
+        var _this = this;
+        var request = {
+            method: method,
+            params: params,
+            id: (this._nextId++),
+            jsonrpc: "2.0"
+        };
+        if (this._pendingBatch == null) {
+            this._pendingBatch = [];
+        }
+        var inflightRequest = { request: request, resolve: null, reject: null };
+        var promise = new Promise(function (resolve, reject) {
+            inflightRequest.resolve = resolve;
+            inflightRequest.reject = reject;
+        });
+        this._pendingBatch.push(inflightRequest);
+        if (!this._pendingBatchAggregator) {
+            // Schedule batch for next event loop + short duration
+            this._pendingBatchAggregator = setTimeout(function () {
+                // Get teh current batch and clear it, so new requests
+                // go into the next batch
+                var batch = _this._pendingBatch;
+                _this._p...
+var _this = this
+var request = {
+            method: method,
+            params: params,
+            id: (this._nextId++),
+            jsonrpc: "2.0"
+        }
+_tmp_5.method = method
+_tmp_5.params = params
+_tmp_5.id = this._nextId++
+_tmp_5.jsonrpc = "2.0"
+this._pendingBatch == null
+this._pendingBatch = []
+var inflightRequest = { request: request, resolve: null, reject: null }
+var promise = new Promise(function (resolve, reject) {
+            inflightRequest.resolve = resolve;
+            inflightRequest.reject = reject;
+        })
+this._pendingBatch.push(inflightRequest)
+!this._pendingBatchAggregator
+this._pendingBatchAggregator = setTimeout(function () {
+                // Get teh current batch and clear it, so new requests
+                // go into the next batch
+                var batch = _this._pendingBatch;
+                _this._pendingBatch = null;
+                _this._pendingBatchAggregator = null;
+                // Get the request as an array of requests
+                var request = batch.map(function (inflight) { return inflight.request; });
+                _this.emit("debug", {
+                    action: "requestBatch",
+                    request: (0, properties_1.deepCopy)(request),
+                    provider: _this
+                });
+                return (0, web_1.fetchJson)(_this.connection, JSON.stringify(request)).then(function (result) {
+                    _this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: _this
+     ...
+10

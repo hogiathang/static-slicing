@@ -1,0 +1,37 @@
+new Promise(function (resolve, reject) {
+            _this.emit("debug", {
+                action: "request",
+                fetcher: fetcher,
+                request: (0, properties_1.deepCopy)(request),
+                provider: _this
+            });
+            sendFunc(request, function (error, response) {
+                if (error) {
+                    _this.emit("debug", {
+                        action: "response",
+                        fetcher: fetcher,
+                        error: error,
+                        request: request,
+                        provider: _this
+                    });
+                    return reject(error);
+                }
+                _this.emit("debug", {
+                    action: "response",
+                    fetcher: fetcher,
+                    request: request,
+                    response: response,
+                    provider: _this
+                });
+                if (response.error) {
+                    var error_1 = n...
+_this.emit("debug", {
+                action: "request",
+                fetcher: fetcher,
+                request: (0, properties_1.deepCopy)(request),
+                provider: _this
+            })
+_tmp_2.action = "request"
+_tmp_2.fetcher = fetcher
+_tmp_2.request = (0, properties_1.deepCopy)(request)
+_tmp_2.provider = _this

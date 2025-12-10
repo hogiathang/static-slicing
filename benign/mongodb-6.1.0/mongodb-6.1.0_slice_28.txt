@@ -1,0 +1,53 @@
+function resolveSRVRecord = async function resolveSRVRecord(options: MongoOptions): Promise<HostAddress[]> {
+  if (typeof options.srvHost !== 'string') {
+    throw new MongoAPIError('Option "srvHost" must not be empty');
+  }
+
+  if (options.srvHost.split('.').length < 3) {
+    // TODO(NODE-3484): Replace with MongoConnectionStringError
+    throw new MongoAPIError('URI must include hostname, domain name, and tld');
+  }
+
+  // Resolve the SRV record and use the result as the list of hosts to connect to.
+  const lookupAddress = options.srvHost;
+  const addresses = await dns.promises.resolveSrv(
+    `_${options.srvServiceName}._tcp.${lookupAddress}`
+  );
+
+  if (addresses.length === 0) {
+    throw new MongoAPIError('No addresses found at host');
+  }
+
+  for (const { name } of addresses) {
+    if (!matchesParentDomain(name, lookupAddress)) {
+      throw new MongoAPIError('Server record does not share hostname with parent URI');
+    }
+  }
+
+  const hostAddresses = addresses.map(r => HostAddress.fromString(`${r.name}:${r....
+typeof options.srvHost !== 'string'
+throw new MongoAPIError('Option "srvHost" must not be empty');
+options.srvHost.split('.').length < 3
+throw new MongoAPIError('URI must include hostname, domain name, and tld');
+const lookupAddress = options.srvHost
+const addresses = await dns.promises.resolveSrv(
+    `_${options.srvServiceName}._tcp.${lookupAddress}`
+  )
+<operator>.formatString("_", options.srvServiceName, "._tcp.", lookupAddress, "")
+addresses.length === 0
+throw new MongoAPIError('No addresses found at host');
+_iterator_1 = <operator>.iterator(addresses)
+!matchesParentDomain(name, lookupAddress)
+throw new MongoAPIError('Server record does not share hostname with parent URI');
+const hostAddresses = addresses.map(r => HostAddress.fromString(`${r.name}:${r.port ?? 27017}`))
+validateLoadBalancedOptions(hostAddresses, options, true)
+record = await dns.promises.resolveTxt(lookupAddress)
+record.length > 1
+throw new MongoParseError('Multiple text records not allowed');
+const txtRecordOptions = new URLSearchParams(record[0].join(''))
+const txtRecordOptionKeys = [...txtRecordOptions.keys()]
+txtRecordOptionKeys.some(key => !VALID_TXT_RECORDS.includes(key))
+throw new MongoParseError(`Text record may only set any of: ${VALID_TXT_RECORDS.join(', ')}`);
+VALID_TXT_RECORDS.some(option => txtRecordOptions.get(option) === '')
+throw new MongoParseError('Cannot have empty URI params in DNS TXT Record');
+const source = txtRecordOptions.get('authSource') ?? undefined

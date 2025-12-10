@@ -1,0 +1,106 @@
+BpmnUpdater.prototype.updateSemanticParent = function(businessObject, newParent, visualParent) {
+
+  var containment,
+      translate = this._translate;
+
+  if (businessObject.$parent === newParent) {
+    return;
+  }
+
+  if (is(businessObject, 'bpmn:DataInput') || is(businessObject, 'bpmn:DataOutput')) {
+
+    if (is(newParent, 'bpmn:Participant') && 'processRef' in newParent) {
+      newParent = newParent.processRef;
+    }
+
+    // already in correct ioSpecification
+    if ('ioSpecification' in newParent && newParent.ioSpecification === businessObject.$parent) {
+      return;
+    }
+  }
+
+  if (is(businessObject, 'bpmn:Lane')) {
+
+    if (newParent) {
+      newParent = this.getLaneSet(newParent);
+    }
+
+    containment = 'lanes';
+  } else
+
+  if (is(businessObject, 'bpmn:FlowElement')) {
+
+    if (newParent) {
+
+      if (is(newParent, 'bpmn:Participant')) {
+        newParent = newParent.processRef;
+      } else
+
+      if (is(newParent, 'bpmn:Lane')) {
+        do {
+
+          // unwrap Lane -...
+var translate = this._translate
+businessObject.$parent === newParent
+is(businessObject, 'bpmn:DataInput') || is(businessObject, 'bpmn:DataOutput')
+is(newParent, 'bpmn:Participant') && 'processRef' in newParent
+newParent = newParent.processRef
+'ioSpecification' in newParent && newParent.ioSpecification === businessObject.$parent
+is(businessObject, 'bpmn:Lane')
+newParent = this.getLaneSet(newParent)
+containment = 'lanes'
+is(businessObject, 'bpmn:FlowElement')
+is(newParent, 'bpmn:Participant')
+newParent = newParent.processRef
+is(newParent, 'bpmn:Lane')
+newParent = newParent.$parent.$parent
+is(newParent, 'bpmn:Lane')
+containment = 'flowElements'
+is(businessObject, 'bpmn:Artifact')
+newParent &&
+           !is(newParent, 'bpmn:Process') &&
+           !is(newParent, 'bpmn:SubProcess') &&
+           !is(newParent, 'bpmn:Collaboration')
+!is(newParent, 'bpmn:Process')
+!is(newParent, 'bpmn:SubProcess')
+!is(newParent, 'bpmn:Collaboration')
+is(newParent, 'bpmn:Participant')
+newParent = newParent.processRef
+break;
+newParent = newParent.$parent
+containment = 'artifacts'
+is(businessObject, 'bpmn:MessageFlow')
+containment = 'messageFlows'
+is(businessObject, 'bpmn:Participant')
+containment = 'participants'
+var process = businessObject.processRef
+definitions = getDefinitions(businessObject.$parent || newParent)
+businessObject.$parent
+collectionRemove(definitions.get('rootElements'), process)
+process.$parent = null
+collectionAdd(definitions.get('rootElements'), process)
+process.$parent = definitions
+is(businessObject, 'bpmn:DataOutputAssociation')
+containment = 'dataOutputAssociations'
+is(businessObject, 'bpmn:DataInputAssociation')
+containment = 'dataInputAssociations'
+!containment
+throw new Error(translate(
+      'no parent for {element} in {parent}',
+      {
+        element: businessObject.id,
+        parent: newParent.id
+      }
+    ));
+"no parent for {element} in {parent}"
+_tmp_27.element = businessObject.id
+_tmp_27.parent = newParent.id
+businessObject.$parent
+children = businessObject.$parent.get(containment)
+collectionRemove(children, businessObject)
+!newParent
+businessObject.$parent = null
+children = newParent.get(containment)
+children.push(businessObject)
+businessObject.$parent = newParent
+var diChildren = visualParent.get(containment)

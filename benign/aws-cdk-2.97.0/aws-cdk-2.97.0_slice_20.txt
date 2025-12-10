@@ -1,0 +1,117 @@
+function exec = async function exec(args, synthesizer) {
+    const argv = await parseCommandLineArguments(args);
+    if (argv.debug) {
+        (0, source_map_support_1.install)();
+    }
+    if (argv.verbose) {
+        (0, logging_1.setLogLevel)(argv.verbose);
+        if (argv.verbose > 2) {
+            (0, tracing_1.enableTracing)(true);
+        }
+    }
+    if (argv.ci) {
+        (0, logging_1.setCI)(true);
+    }
+    try {
+        await (0, platform_warnings_1.checkForPlatformWarnings)();
+    }
+    catch (e) {
+        (0, logging_1.debug)(`Error while checking for platform warnings: ${e}`);
+    }
+    (0, logging_1.debug)('CDK toolkit version:', version.DISPLAY_VERSION);
+    (0, logging_1.debug)('Command line arguments:', argv);
+    const configuration = new settings_1.Configuration({
+        commandLineArguments: {
+            ...argv,
+            _: argv._, // TypeScript at its best
+        },
+    });
+    await configuration.load();
+    if (shouldDisplayNotices()) {
+        void (0, notices_1.refr...
+const argv = await parseCommandLineArguments(args)
+argv.debug
+(0, source_map_support_1.install)()
+argv.verbose
+(0, logging_1.setLogLevel)(argv.verbose)
+argv.verbose > 2
+(0, tracing_1.enableTracing)(true)
+argv.ci
+(0, logging_1.setCI)(true)
+await (0, platform_warnings_1.checkForPlatformWarnings)()
+<operator>.formatString("Error while checking for platform warnings: ", e, "")
+(0, logging_1.debug)('CDK toolkit version:', version.DISPLAY_VERSION)
+(0, logging_1.debug)('Command line arguments:', argv)
+const configuration = new settings_1.Configuration({
+        commandLineArguments: {
+            ...argv,
+            _: argv._, // TypeScript at its best
+        },
+    })
+_tmp_331.commandLineArguments = {
+            ...argv,
+            _: argv._, // TypeScript at its best
+        }
+...argv
+_tmp_332._ = argv._
+await configuration.load()
+shouldDisplayNotices()
+void (0, notices_1.refreshNotices)()
+            .catch(e => (0, logging_1.debug)(`Could not refresh notices: ${e}`))
+<operator>.formatString("Could not refresh notices: ", e, "")
+const sdkProvider = await aws_auth_1.SdkProvider.withAwsCliCompatibleDefaults({
+        profile: configuration.settings.get(['profile']),
+        ec2creds: argv.ec2creds,
+        httpOptions: {
+            proxyAddress: argv.proxy,
+            caBundlePath: argv['ca-bundle-path'],
+        },
+    })
+_tmp_335.profile = configuration.settings.get(['profile'])
+function loadPlugins = function loadPlugins(...settings) {
+        const loaded = new Set();
+        for (const source of settings) {
+            const plugins = source.get(['plugin']) || [];
+            for (const plugin of plugins) {
+                const resolved = tryResolve(plugin);
+                if (loaded.has(resolved)) {
+                    continue;
+                }
+                (0, logging_1.debug)(`Loading plug-in: ${chalk.green(plugin)} from ${chalk.blue(resolved)}`);
+                plugin_1.PluginHost.instance.load(plugin);
+                loaded.add(resolved);
+            }
+        }
+        function tryResolve(plugin) {
+            try {
+                return require.resolve(plugin);
+            }
+            catch (e) {
+                (0, logging_1.error)(`Unable to resolve plugin ${chalk.green(plugin)}: ${e.stack}`);
+                throw new Error(`Unable to resolve plug-in: ${plugin}`);
+            }
+        }
+    }
+function shouldDisplayNotices = function shouldDisplayNotices() {
+        return configuration.settings.get(['notices']) ?? true;
+    }
+function main = async function main(command, args) {
+        const toolkitStackName = toolkit_info_1.ToolkitInfo.determineName(configuration.settings.get(['toolkitStackName']));
+        (0, logging_1.debug)(`Toolkit stack: ${chalk.bold(toolkitStackName)}`);
+        const cloudFormation = new deployments_1.Deployments({ sdkProvider, toolkitStackName });
+        if (args.all && args.STACKS) {
+            throw new Error('You must either specify a list of Stacks or the `--all` argument');
+        }
+        args.STACKS = args.STACKS ?? (args.STACK ? [args.STACK] : []);
+        args.ENVIRONMENTS = args.ENVIRONMENTS ?? [];
+        const selector = {
+            allTopLevel: args.all,
+            patterns: args.STACKS,
+        };
+        const cli = new cdk_toolkit_1.CdkToolkit({
+            cloudExecutable,
+            deployments: cloudFormation,
+            verbose: argv.trace || argv.verbose > 0,
+            ignoreErrors: argv['ignore-errors'],
+            strict: argv.strict,
+            configuratio...

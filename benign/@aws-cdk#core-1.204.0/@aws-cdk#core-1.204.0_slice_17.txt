@@ -1,0 +1,42 @@
+function isSeLinux = function isSeLinux() {
+    if (process.platform != 'linux') {
+        return false;
+    }
+    const prog = 'selinuxenabled';
+    const proc = child_process_1.spawnSync(prog, [], {
+        stdio: [
+            'pipe',
+            process.stderr,
+            'inherit',
+        ],
+    });
+    if (proc.error) {
+        // selinuxenabled not a valid command, therefore not enabled
+        return false;
+    }
+    if (proc.status == 0) {
+        // selinux enabled
+        return true;
+    }
+    else {
+        // selinux not enabled
+        return false;
+    }
+}
+process.platform != 'linux'
+const prog = 'selinuxenabled'
+const proc = child_process_1.spawnSync(prog, [], {
+        stdio: [
+            'pipe',
+            process.stderr,
+            'inherit',
+        ],
+    })
+_tmp_5.stdio = [
+            'pipe',
+            process.stderr,
+            'inherit',
+        ]
+_tmp_6.push("pipe")
+_tmp_6.push(process.stderr)
+_tmp_6.push("inherit")

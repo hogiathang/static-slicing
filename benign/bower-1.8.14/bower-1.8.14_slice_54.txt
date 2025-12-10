@@ -1,0 +1,18 @@
+function processRequest = function processRequest() {
+      // If we have a transport and it's a duplicated request, reply inmediatly
+      transport = unifyTransport(transport) || self.getTransport();
+      if (transport) {
+        var response = responses.get(id, from);
+        if (response)
+          return transport.send(response.message);
+      };
+
+      var idAck = (id != undefined) ? id : ack;
+      var request = new RpcRequest(method, params, idAck, from, transport);
+
+      if (self.emit('request', request)) return;
+      return request;
+    }
+transport = unifyTransport(transport) || self.getTransport()
+var response = responses.get(id, from)
+transport.send(response.message)

@@ -1,0 +1,59 @@
+function extractQueryMetadata = function extractQueryMetadata(exprNode, name, args, propertyName, reflector, evaluator) {
+  if (args.length === 0) {
+    throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARITY_WRONG, exprNode, `@${name} must have arguments`);
+  }
+  const first = name === "ViewChild" || name === "ContentChild";
+  const forwardReferenceTarget = tryUnwrapForwardRef(args[0], reflector);
+  const node = forwardReferenceTarget != null ? forwardReferenceTarget : args[0];
+  const arg = evaluator.evaluate(node);
+  let isStatic = false;
+  let predicate = null;
+  if (arg instanceof Reference || arg instanceof DynamicValue) {
+    predicate = createMayBeForwardRefExpression(new WrappedNodeExpr4(node), forwardReferenceTarget !== null ? 2 : 0);
+  } else if (typeof arg === "string") {
+    predicate = [arg];
+  } else if (isStringArrayOrDie(arg, `@${name} predicate`, node)) {
+    predicate = arg;
+  } else {
+    throw createValueHasWrongTypeError(node, arg, `@${name} predicate cannot be interpreted`);
+  }
+  let read ...
+args.length === 0
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARITY_WRONG, exprNode, `@${name} must have arguments`);
+const first = name === "ViewChild" || name === "ContentChild"
+const forwardReferenceTarget = tryUnwrapForwardRef(args[0], reflector)
+const node = forwardReferenceTarget != null ? forwardReferenceTarget : args[0]
+const arg = evaluator.evaluate(node)
+let isStatic = false
+let predicate = null
+arg instanceof Reference || arg instanceof DynamicValue
+predicate = createMayBeForwardRefExpression(new WrappedNodeExpr4(node), forwardReferenceTarget !== null ? 2 : 0)
+typeof arg === "string"
+_tmp_210 = __ecma.Array.factory()
+isStringArrayOrDie(arg, `@${name} predicate`, node)
+predicate = arg
+throw createValueHasWrongTypeError(node, arg, `@${name} predicate cannot be interpreted`);
+let read = null
+let descendants = name !== "ContentChildren"
+let emitDistinctChangesOnly = emitDistinctChangesOnlyDefaultValue
+args.length === 2
+const optionsExpr = unwrapExpression(args[1])
+!ts20.isObjectLiteralExpression(optionsExpr)
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, optionsExpr, `@${name} options must be an object literal`);
+const options = reflectObjectLiteral(optionsExpr)
+options.has("read")
+read = new WrappedNodeExpr4(options.get("read"))
+options.has("descendants")
+const descendantsExpr = options.get("descendants")
+const descendantsValue = evaluator.evaluate(descendantsExpr)
+typeof descendantsValue !== "boolean"
+throw createValueHasWrongTypeError(descendantsExpr, descendantsValue, `@${name} options.descendants must be a boolean`);
+descendants = descendantsValue
+options.has("emitDistinctChangesOnly")
+const emitDistinctChangesOnlyExpr = options.get("emitDistinctChangesOnly")
+const emitDistinctChangesOnlyValue = evaluator.evaluate(emitDistinctChangesOnlyExpr)
+typeof emitDistinctChangesOnlyValue !== "boolean"
+throw createValueHasWrongTypeError(emitDistinctChangesOnlyExpr, emitDistinctChangesOnlyValue, `@${name} options.emitDistinctChangesOnly must be a boolean`);
+emitDistinctChangesOnly = emitDistinctChangesOnlyValue
+options.has("static")
+const staticValue = evaluator.evaluate(options.get("static"))

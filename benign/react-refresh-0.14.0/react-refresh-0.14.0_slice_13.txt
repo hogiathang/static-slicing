@@ -1,0 +1,30 @@
+hook.onCommitFiberRoot = function (id, root, maybePriorityLevel, didError) {
+      var helpers = helpersByRendererID.get(id);
+
+      if (helpers !== undefined) {
+        helpersByRoot.set(root, helpers);
+        var current = root.current;
+        var alternate = current.alternate; // We need to determine whether this root has just (un)mounted.
+        // This logic is copy-pasted from similar logic in the DevTools backend.
+        // If this breaks with some refactoring, you'll want to update DevTools too.
+
+        if (alternate !== null) {
+          var wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null && mountedRoots.has(root);
+          var isMounted = current.memoizedState != null && current.memoizedState.element != null;
+
+          if (!wasMounted && isMounted) {
+            // Mount a new root.
+            mountedRoots.add(root);
+            failedRoots.delete(root);
+          } else if (wasMounted && isMounted) ; else if (wasMounted && !...
+var helpers = helpersByRendererID.get(id)
+helpers !== undefined
+helpersByRoot.set(root, helpers)
+var current = root.current
+var alternate = current.alternate
+alternate !== null
+var wasMounted = alternate.memoizedState != null && alternate.memoizedState.element != null && mountedRoots.has(root)
+var isMounted = current.memoizedState != null && current.memoizedState.element != null
+!wasMounted && isMounted
+wasMounted && !isMounted
+mountedRoots.delete(root)

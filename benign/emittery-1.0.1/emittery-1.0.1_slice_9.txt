@@ -1,0 +1,56 @@
+clearListeners(eventNames) {
+		eventNames = Array.isArray(eventNames) ? eventNames : [eventNames];
+
+		for (const eventName of eventNames) {
+			this.logIfDebugEnabled('clear', eventName, undefined);
+
+			if (typeof eventName === 'string' || typeof eventName === 'symbol' || typeof eventName === 'number') {
+				const set = getListeners(this, eventName);
+				if (set) {
+					set.clear();
+				}
+
+				const producers = getEventProducers(this, eventName);
+				if (producers) {
+					for (const producer of producers) {
+						producer.finish();
+					}
+
+					producers.clear();
+				}
+			} else {
+				anyMap.get(this).clear();
+
+				for (const [eventName, listeners] of eventsMap.get(this).entries()) {
+					listeners.clear();
+					eventsMap.get(this).delete(eventName);
+				}
+
+				for (const [eventName, producers] of producersMap.get(this).entries()) {
+					for (const producer of producers) {
+						producer.finish();
+					}
+
+					producers.clear();
+					producersMap.get(this).delete(eventName);
+				}
+		...
+eventNames = Array.isArray(eventNames) ? eventNames : [eventNames]
+_iterator_12 = <operator>.iterator(eventNames)
+this.logIfDebugEnabled('clear', eventName, undefined)
+typeof eventName === 'string' || typeof eventName === 'symbol' || typeof eventName === 'number'
+const set = getListeners(this, eventName)
+set.clear()
+const producers = getEventProducers(this, eventName)
+_iterator_13 = <operator>.iterator(producers)
+producer.finish()
+producers.clear()
+(_tmp_58 = anyMap.get(this)).clear
+_iterator_14 = <operator>.iterator(eventsMap.get(this).entries())
+listeners.clear()
+(_tmp_60 = eventsMap.get(this)).delete
+_iterator_15 = <operator>.iterator(producersMap.get(this).entries())
+_iterator_16 = <operator>.iterator(producers)
+producer.finish()
+producers.clear()
+(_tmp_62 = producersMap.get(this)).delete

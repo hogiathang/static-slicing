@@ -1,0 +1,50 @@
+function saveProjectsConfigurationsInWrappedSchematic = function saveProjectsConfigurationsInWrappedSchematic(host, content) {
+    const projects = (0, angular_json_1.toNewFormat)((0, json_2.parseJson)(content)).projects;
+    const existingProjects = (0, project_configuration_1.getProjects)(host);
+    const existingAngularJson = host.exists('angular.json')
+        ? (0, json_1.readJson)(host, 'angular.json')
+        : null;
+    const projectsInAngularJson = existingAngularJson
+        ? Object.keys(existingAngularJson.projects)
+        : [];
+    const newAngularJson = existingAngularJson || {};
+    // Reset projects in order to rebuild them, but leave other properties untouched
+    newAngularJson.projects = {};
+    Object.keys(projects).forEach((projectName) => {
+        if (projectsInAngularJson.includes(projectName)) {
+            newAngularJson.projects[projectName] = projects[projectName];
+        }
+        else {
+            if (existingProjects.has(projectName)) {
+                if (JSON.stringify(existingProjects.get(projectName)...
+const projects = (0, angular_json_1.toNewFormat)((0, json_2.parseJson)(content)).projects
+const existingProjects = (0, project_configuration_1.getProjects)(host)
+const existingAngularJson = host.exists('angular.json')
+        ? (0, json_1.readJson)(host, 'angular.json')
+        : null
+(0, json_1.readJson)(host, 'angular.json')
+const projectsInAngularJson = existingAngularJson
+        ? Object.keys(existingAngularJson.projects)
+        : []
+Object.keys(existingAngularJson.projects)
+__ecma.Array.factory()
+const newAngularJson = existingAngularJson || {}
+newAngularJson.projects = {}
+Object.keys(projects).forEach((projectName) => {
+        if (projectsInAngularJson.includes(projectName)) {
+            newAngularJson.projects[projectName] = projects[projectName];
+        }
+        else {
+            if (existingProjects.has(projectName)) {
+                if (JSON.stringify(existingProjects.get(projectName)) !==
+                    JSON.stringify(projects[projectName])) {
+                    (0, project_configuration_1.updateProjectConfiguration)(host, projectName, projects[projectName]);
+                }
+            }
+            else {
+                (0, project_configuration_1.addProjectConfiguration)(host, projectName, projects[projectName]);
+            }
+        }
+    })
+Object.keys(newAngularJson.projects).length > 0
+host.write('angular.json', JSON.stringify((0, angular_json_1.toOldFormat)(newAngularJson), null, 2))

@@ -1,0 +1,3 @@
+_tmp_13.handler = <lambda>2
+args._ = args._.slice(1)
+process.exit(await (await Promise.resolve().then(() => require('./generate'))).generate((0, path_1.getCwd)(), args))

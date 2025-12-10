@@ -1,0 +1,45 @@
+constructor(scope, id, props) {
+        super(scope, id);
+        try {
+            jsiiDeprecationWarnings._aws_cdk_aws_ec2_VpcEndpointServiceProps(props);
+        }
+        catch (error) {
+            if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                Error.captureStackTrace(error, VpcEndpointService);
+            }
+            throw error;
+        }
+        if (props.vpcEndpointServiceLoadBalancers === undefined || props.vpcEndpointServiceLoadBalancers.length === 0) {
+            throw new Error('VPC Endpoint Service must have at least one load balancer specified.');
+        }
+        this.vpcEndpointServiceLoadBalancers = props.vpcEndpointServiceLoadBalancers;
+        this.acceptanceRequired = props.acceptanceRequired ?? true;
+        if (props.allowedPrincipals && props.whitelistedPrincipals) {
+            throw new Error('`whitelistedPrincipals` is deprecated; please use `allowedPrincipals` instead');
+        }
+        this.allowedPrinci...
+super(scope, id)
+jsiiDeprecationWarnings._aws_cdk_aws_ec2_VpcEndpointServiceProps(props)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, VpcEndpointService)
+throw error;
+props.vpcEndpointServiceLoadBalancers === undefined || props.vpcEndpointServiceLoadBalancers.length === 0
+throw new Error('VPC Endpoint Service must have at least one load balancer specified.');
+this.vpcEndpointServiceLoadBalancers = props.vpcEndpointServiceLoadBalancers
+this.acceptanceRequired = props.acceptanceRequired ?? true
+props.allowedPrincipals && props.whitelistedPrincipals
+throw new Error('`whitelistedPrincipals` is deprecated; please use `allowedPrincipals` instead');
+this.allowedPrincipals = props.allowedPrincipals ?? props.whitelistedPrincipals ?? []
+this.whitelistedPrincipals = this.allowedPrincipals
+this.endpointService = new ec2_generated_1.CfnVPCEndpointService(this, id, {
+            networkLoadBalancerArns: this.vpcEndpointServiceLoadBalancers.map(lb => lb.loadBalancerArn),
+            acceptanceRequired: this.acceptanceRequired,
+        })
+_tmp_4.networkLoadBalancerArns = this.vpcEndpointServiceLoadBalancers.map(lb => lb.loadBalancerArn)
+_tmp_4.acceptanceRequired = this.acceptanceRequired
+this.vpcEndpointServiceId = this.endpointService.ref
+_tmp_7 = core_1.Stack.of(this)
+const serviceNamePrefix = !core_1.Token.isUnresolved(region) ?
+            (region_info_1.RegionInfo.get(region).vpcEndpointServiceNamePrefix ?? region_info_1.Default.VPC_ENDPOINT_SERVICE_NAME_PREFIX) :
+            region_info_1.Default.VPC_ENDPOINT_SERVICE_NAME_PREFIX
+region_info_1.RegionInfo.get(region).vpcEndpointServiceNamePrefix ?? region_info_1.Default.VPC_ENDPOINT_SERVICE_NAME_PREFIX

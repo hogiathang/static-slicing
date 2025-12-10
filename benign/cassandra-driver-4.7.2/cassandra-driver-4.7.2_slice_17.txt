@@ -1,0 +1,27 @@
+set(key, value) {
+    // Clear values cache
+    this._values = null;
+
+    const originalValue = this._items.get(key);
+    if (originalValue) {
+      //The internal structure does not change
+      this._items.set(key, value);
+      //emit a remove followed by a add
+      this.emit('remove', originalValue);
+      this.emit('add', value);
+      return;
+    }
+
+    // Copy the values
+    const copy = new Map(this._items);
+    copy.set(key, value);
+    this._items = copy;
+    this.emit('add', value);
+    return value;
+  }
+this._values = null
+const originalValue = this._items.get(key)
+const copy = new Map(this._items)
+copy.set(key, value)
+this._items = copy
+this.emit('add', value)

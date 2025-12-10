@@ -1,0 +1,3 @@
+var dependencies = inject.map(function(dep) {
+      return get(dep);
+    })

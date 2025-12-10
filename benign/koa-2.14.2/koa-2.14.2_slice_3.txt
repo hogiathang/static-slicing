@@ -1,0 +1,2 @@
+_tmp_0.type = type
+const type = this.get('Content-Type')

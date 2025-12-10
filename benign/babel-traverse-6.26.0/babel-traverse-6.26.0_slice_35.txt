@@ -1,0 +1,56 @@
+function replaceExpressionWithStatements = function replaceExpressionWithStatements(nodes) {
+  this.resync();
+
+  var toSequenceExpression = t.toSequenceExpression(nodes, this.scope);
+
+  if (t.isSequenceExpression(toSequenceExpression)) {
+    var exprs = toSequenceExpression.expressions;
+
+    if (exprs.length >= 2 && this.parentPath.isExpressionStatement()) {
+      this._maybePopFromStatements(exprs);
+    }
+
+    if (exprs.length === 1) {
+      this.replaceWith(exprs[0]);
+    } else {
+      this.replaceWith(toSequenceExpression);
+    }
+  } else if (toSequenceExpression) {
+    this.replaceWith(toSequenceExpression);
+  } else {
+    var container = t.functionExpression(null, [], t.blockStatement(nodes));
+    container.shadow = true;
+
+    this.replaceWith(t.callExpression(container, []));
+    this.traverse(hoistVariablesVisitor);
+
+    var completionRecords = this.get("callee").getCompletionRecords();
+    for (var _iterator2 = completionRecords, _isArray2 = Array.isArray(_iterator2), _i2 = 0, _iterator2 = _isArray2 ? _iterator2 : (...
+this.resync()
+var toSequenceExpression = t.toSequenceExpression(nodes, this.scope)
+t.isSequenceExpression(toSequenceExpression)
+var container = t.functionExpression(null, [], t.blockStatement(nodes))
+container.shadow = true
+this.replaceWith(t.callExpression(container, []))
+this.traverse(hoistVariablesVisitor)
+var completionRecords = this.get("callee").getCompletionRecords()
+var _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2)
+_i2 >= _iterator2.length
+_ref2 = _iterator2[_i2++]
+_i2 = _iterator2.next()
+_i2.done
+_ref2 = _i2.value
+var path = _ref2
+!path.isExpressionStatement()
+var loop = path.findParent(function (path) {
+        return path.isLoop();
+      })
+var uid = loop.getData("expressionReplacementReturnUid")
+!uid
+var callee = this.get("callee")
+uid = callee.scope.generateDeclaredUidIdentifier("ret")
+callee.get("body").pushContainer("body", t.returnStatement(uid))
+loop.setData("expressionReplacementReturnUid", uid)
+uid = t.identifier(uid.name)
+path.get("expression").replaceWith(t.assignmentExpression("=", uid, path.node.expression))
+path.replaceWith(t.returnStatement(path.node.expression))

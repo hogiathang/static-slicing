@@ -1,0 +1,215 @@
+function readStruct = function readStruct(src, position, srcEnd, unpackr) {
+	let recordId = src[position++] - 0x20;
+	if (recordId >= 24) {
+		switch(recordId) {
+			case 24: recordId = src[position++]; break;
+			// little endian:
+			case 25: recordId = src[position++] + (src[position++] << 8); break;
+			case 26: recordId = src[position++] + (src[position++] << 8) + (src[position++] << 16); break;
+			case 27: recordId = src[position++] + (src[position++] << 8) + (src[position++] << 16) + (src[position++] << 24); break;
+		}
+	}
+	let structure = unpackr.typedStructs && unpackr.typedStructs[recordId];
+	if (!structure) {
+		// copy src buffer because getStructures will override it
+		src = Uint8Array.prototype.slice.call(src, position, srcEnd);
+		srcEnd -= position;
+		position = 0;
+		unpackr._mergeStructures(unpackr.getStructures());
+		if (!unpackr.typedStructs)
+			throw new Error('Could not find any shared typed structures');
+		unpackr.lastTypedStructuresLength = unpackr.typedStructs.length;
+		structure = unpackr...
+let recordId = src[position++] - 0x20
+recordId >= 24
+recordId = src[position++]
+recordId = src[position++] + (src[position++] << 8)
+recordId = src[position++] + (src[position++] << 8) + (src[position++] << 16)
+recordId = src[position++] + (src[position++] << 8) + (src[position++] << 16) + (src[position++] << 24)
+let structure = unpackr.typedStructs && unpackr.typedStructs[recordId]
+!structure
+src = Uint8Array.prototype.slice.call(src, position, srcEnd)
+srcEnd -= position
+position = 0
+unpackr._mergeStructures(unpackr.getStructures())
+!unpackr.typedStructs
+throw new Error('Could not find any shared typed structures');
+unpackr.lastTypedStructuresLength = unpackr.typedStructs.length
+structure = unpackr.typedStructs[recordId]
+!structure
+throw new Error('Could not find typed structure ' + recordId);
+var construct = structure.construct
+!construct
+construct = structure.construct = function LazyObject() {
+		}
+var prototype = construct.prototype
+__ecma.Array.factory()
+let currentOffset = 0
+let l = structure.length
+let definition = structure[i]
+enumerationOffset = _tmp_7[3]
+key === '__proto__'
+key = '__proto_'
+let property = {
+				key,
+				offset: currentOffset,
+			}
+_tmp_8.key = key
+_tmp_8.offset = currentOffset
+properties.splice(i + enumerationOffset, 0, property)
+properties.push(property)
+getRef = () => 0
+1
+getRef = (source, position) => {
+						let ref = source.bytes[position + property.offset];
+						return ref >= 0xf6 ? toConstant(ref) : ref;
+					}
+break;
+2
+getRef = (source, position) => {
+						let src = source.bytes;
+						let dataView = src.dataView || (src.dataView = new DataView(src.buffer, src.byteOffset, src.byteLength));
+						let ref = dataView.getUint16(position + property.offset, true);
+						return ref >= 0xff00 ? toConstant(ref & 0xff) : ref;
+					}
+break;
+4
+getRef = (source, position) => {
+						let src = source.bytes;
+						let dataView = src.dataView || (src.dataView = new DataView(src.buffer, src.byteOffset, src.byteLength));
+						let ref = dataView.getUint32(position + property.offset, true);
+						return ref >= 0xffffff00 ? toConstant(ref & 0xff) : ref;
+					}
+break;
+property.getRef = getRef
+currentOffset += size
+case ASCII:
+lastRefProperty && !lastRefProperty.next
+lastRefProperty.next = property
+lastRefProperty = property
+property.multiGetCount = 0
+get = function(source) {
+						let src = source.bytes;
+						let position = source.position;
+						let refStart = currentOffset + position;
+						let ref = getRef(source, position);
+						if (typeof ref !== 'number') return ref;
+
+						let end, next = property.next;
+						while(next) {
+							end = next.getRef(source, position);
+							if (typeof end === 'number')
+								break;
+							else
+								end = null;
+							next = next.next;
+						}
+						if (end == null)
+							end = source.bytesEnd - refStart;
+						if (source.srcString) {
+							return source.srcString.slice(ref, end);
+						}
+						/*if (property.multiGetCount > 0) {
+							let asciiEnd;
+							next = firstRefProperty;
+							let dataView = src.dataView || (src.dataView = new DataView(src.buffer, src.byteOffset, src.byteLength));
+							do {
+								asciiEnd = dataView.getUint16(source.position + next.offset, true);
+								if (asciiEnd < 0xff00)
+									break;
+								else
+									asciiEnd = null;
+							} while((ne...
+break;
+case OBJECT_DATA:
+lastRefProperty && !lastRefProperty.next
+lastRefProperty.next = property
+lastRefProperty = property
+get = function(source) {
+						let position = source.position;
+						let refStart = currentOffset + position;
+						let ref = getRef(source, position);
+						if (typeof ref !== 'number') return ref;
+						let src = source.bytes;
+						let end, next = property.next;
+						while(next) {
+							end = next.getRef(source, position);
+							if (typeof end === 'number')
+								break;
+							else
+								end = null;
+							next = next.next;
+						}
+						if (end == null)
+							end = source.bytesEnd - refStart;
+						if (type === UTF8) {
+							return src.toString('utf8', ref + refStart, end + refStart);
+						} else {
+							currentSource = source;
+							try {
+								return unpackr.unpack(src, { start: ref + refStart, end: end + refStart });
+							} finally {
+								currentSource = null;
+							}
+						}
+					}
+break;
+case NUMBER:
+4
+get = function (source) {
+								let src = source.bytes;
+								let dataView = src.dataView || (src.dataView = new DataView(src.buffer, src.byteOffset, src.byteLength));
+								let position = source.position + property.offset;
+								let value = dataView.getInt32(position, true)
+								if (value < 0x20000000) {
+									if (value > -0x1f000000)
+										return value;
+									if (value > -0x20000000)
+										return toConstant(value & 0xff);
+								}
+								let fValue = dataView.getFloat32(position, true);
+								// this does rounding of numbers that were encoded in 32-bit float to nearest significant decimal digit that could be preserved
+								let multiplier = mult10[((src[position + 3] & 0x7f) << 1) | (src[position + 2] >> 7)]
+								return ((multiplier * fValue + (fValue > 0 ? 0.5 : -0.5)) >> 0) / multiplier;
+							}
+break;
+8
+get = function (source) {
+								let src = source.bytes;
+								let dataView = src.dataView || (src.dataView = new DataView(src.buffer, src.byteOffset, src.byteLength));
+								let value = dataView.getFloat64(source.position + property.offset, true);
+								if (isNaN(value)) {
+									let byte = src[source.position + property.offset];
+									if (byte >= 0xf6)
+										return toConstant(byte);
+								}
+								return value;
+							}
+break;
+1
+get = function (source) {
+								let src = source.bytes;
+								let value = src[source.position + property.offset];
+								return value < 0xf6 ? value : toConstant(value);
+							}
+break;
+break;
+case DATE:
+get = function (source) {
+						let src = source.bytes;
+						let dataView = src.dataView || (src.dataView = new DataView(src.buffer, src.byteOffset, src.byteLength));
+						return new Date(dataView.getFloat64(source.position + property.offset, true));
+					}
+break;
+property.get = get
+let objectLiteralProperties = []
+__ecma.Array.factory()
+let i = 0
+_iterator_2 = <operator>.iterator(properties)
+unpackr.alwaysLazyProperty && unpackr.alwaysLazyProperty(property.key)
+hasInheritedProperties = true
+continue;
+Object.defineProperty(prototype, property.key, { get: withSource(property.get), enumerable: true })
+let valueFunction = 'v' + i++
+args.push(valueFunction)
+objectLiteralProperties.push('[' + JSON.stringify(property.key) + ']:' + valueFunction + '(s)')

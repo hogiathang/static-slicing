@@ -1,0 +1,10 @@
+_tmp_368.postMessage = <lambda>258
+global.parent !== global
+global.parent.postMessage(JSON.stringify({
+        windowId: module.exports.currentWindowId
+      , type: type
+      , data: data || ''
+      }), '*')
+_tmp_371.windowId = module.exports.currentWindowId
+_tmp_371.type = type
+_tmp_371.data = data || ''

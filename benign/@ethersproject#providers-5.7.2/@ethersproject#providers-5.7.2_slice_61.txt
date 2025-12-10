@@ -1,0 +1,43 @@
+sendFunc(request, (error, response) => {
+
+                if (error) {
+                    this.emit("debug", {
+                        action: "response",
+                        fetcher,
+                        error,
+                        request,
+                        provider: this
+                    });
+
+                    return reject(error);
+                }
+
+                this.emit("debug", {
+                    action: "response",
+                    fetcher,
+                    request,
+                    response,
+                    provider: this
+                });
+
+                if (response.error) {
+                    const error = new Error(response.error.message);
+                    (<any>error).code = response.error.code;
+                    (<any>error).data = response.error.data;
+                    return reject(error);
+                }
+
+                resolve(response.result);
+            })
+this.emit("debug", {
+                    action: "response",
+                    fetcher,
+                    request,
+                    response,
+                    provider: this
+                })
+_tmp_4.action = "response"
+_tmp_4.fetcher = fetcher
+_tmp_4.request = request
+_tmp_4.response = response
+_tmp_4.provider = this

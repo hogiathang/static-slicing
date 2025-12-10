@@ -1,0 +1,20 @@
+getAnalyzedRecords() {
+    const result = /* @__PURE__ */ new Map();
+    for (const [sf, classes] of this.fileToClasses) {
+      const records = [];
+      for (const clazz of classes) {
+        records.push(this.classes.get(clazz));
+      }
+      result.set(sf, records);
+    }
+    for (const sf of this.filesWithoutTraits) {
+      result.set(sf, []);
+    }
+    return result;
+  }
+const result = /* @__PURE__ */ new Map()
+_iterator_74 = <operator>.iterator(this.fileToClasses)
+__ecma.Array.factory()
+_iterator_75 = <operator>.iterator(classes)
+records.push(this.classes.get(clazz))
+result.set(sf, records)

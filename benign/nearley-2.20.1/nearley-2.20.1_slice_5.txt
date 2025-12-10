@@ -1,0 +1,18 @@
+function() {
+        parser.feed('\n');
+        var c = Compile(
+            parser.results[0],
+            Object.assign({version: version}, opts)
+        );
+        if (!opts.quiet) lint(c, {'out': process.stderr, 'version': version});
+        output.write(generate(c, opts.export));
+    }
+parser.feed('\n')
+var c = Compile(
+            parser.results[0],
+            Object.assign({version: version}, opts)
+        )
+parser.results[0]
+Object.assign({version: version}, opts)
+lint(c, {'out': process.stderr, 'version': version})
+output.write(generate(c, opts.export))

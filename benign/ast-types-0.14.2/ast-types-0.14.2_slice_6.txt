@@ -1,0 +1,48 @@
+function visitChildren = function visitChildren(path, visitor) {
+        if (!(path instanceof NodePath)) {
+            throw new Error("");
+        }
+        if (!(visitor instanceof PathVisitor)) {
+            throw new Error("");
+        }
+        var value = path.value;
+        if (isArray.check(value)) {
+            path.each(visitor.visitWithoutReset, visitor);
+        }
+        else if (!isObject.check(value)) {
+            // No children to visit.
+        }
+        else {
+            var childNames = types.getFieldNames(value);
+            // The .comments field of the Node type is hidden, so we only
+            // visit it if the visitor defines visitBlock or visitLine, and
+            // value.comments is defined.
+            if (visitor._shouldVisitComments &&
+                value.comments &&
+                childNames.indexOf("comments") < 0) {
+                childNames.push("comments");
+            }
+            var childCount = childNames.length;
+            var childPaths = [];
+            ...
+!(path instanceof NodePath)
+throw new Error("");
+!(visitor instanceof PathVisitor)
+throw new Error("");
+var value = path.value
+isArray.check(value)
+!isObject.check(value)
+var childNames = types.getFieldNames(value)
+visitor._shouldVisitComments &&
+                value.comments &&
+                childNames.indexOf("comments") < 0
+value.comments
+childNames.indexOf("comments") < 0
+childNames.push("comments")
+var childCount = childNames.length
+__ecma.Array.factory()
+i < childCount
+var childName = childNames[i]
+!hasOwn.call(value, childName)
+value[childName] = types.getFieldValue(value, childName)
+childPaths.push(path.get(childName))

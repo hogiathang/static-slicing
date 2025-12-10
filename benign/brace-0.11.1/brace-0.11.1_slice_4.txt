@@ -1,0 +1,24 @@
+this.duplicateSelection = function() {
+        var sel = this.selection;
+        var doc = this.session;
+        var range = sel.getRange();
+        var reverse = sel.isBackwards();
+        if (range.isEmpty()) {
+            var row = range.start.row;
+            doc.duplicateLines(row, row);
+        } else {
+            var point = reverse ? range.start : range.end;
+            var endPoint = doc.insert(point, doc.getTextRange(range), false);
+            range.start = point;
+            range.end = endPoint;
+
+            sel.setSelectionRange(range, reverse);
+        }
+    }
+var sel = this.selection
+var doc = this.session
+var range = sel.getRange()
+var reverse = sel.isBackwards()
+range.isEmpty()
+var point = reverse ? range.start : range.end
+var endPoint = doc.insert(point, doc.getTextRange(range), false)

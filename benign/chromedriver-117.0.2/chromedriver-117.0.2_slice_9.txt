@@ -1,0 +1,27 @@
+function verifyIfChromedriverIsAvailableAndHasCorrectVersion = function verifyIfChromedriverIsAvailableAndHasCorrectVersion(chromedriverVersion, chromedriverBinaryFilePath) {
+  if (!fs.existsSync(chromedriverBinaryFilePath))
+    return Promise.resolve(false);
+  const forceDownload = process.env.npm_config_chromedriver_force_download === 'true' || process.env.CHROMEDRIVER_FORCE_DOWNLOAD === 'true';
+  if (forceDownload)
+    return Promise.resolve(false);
+  console.log('ChromeDriver binary exists. Validating...');
+  const deferred = new Deferred();
+  try {
+    fs.accessSync(chromedriverBinaryFilePath, fs.constants.X_OK);
+    const cp = child_process.spawn(chromedriverBinaryFilePath, ['--version']);
+    let str = '';
+    cp.stdout.on('data', data => str += data);
+    cp.on('error', () => deferred.resolve(false));
+    cp.on('close', code => {
+      if (code !== 0)
+        return deferred.resolve(false);
+      const parts = str.split(' ');
+      if (parts.length < 3)
+        return deferred.resolve(false);
+      if (parts[1].startsWith(chromedriverVe...
+!fs.existsSync(chromedriverBinaryFilePath)
+const forceDownload = process.env.npm_config_chromedriver_force_download === 'true' || process.env.CHROMEDRIVER_FORCE_DOWNLOAD === 'true'
+console.log('ChromeDriver binary exists. Validating...')
+const deferred = new Deferred()
+fs.accessSync(chromedriverBinaryFilePath, fs.constants.X_OK)
+const cp = child_process.spawn(chromedriverBinaryFilePath, ['--version'])

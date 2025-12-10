@@ -1,0 +1,7 @@
+async connect() {
+    await this.cluster.connect()
+    this.instrumentationEmitter.emit(CONNECT)
+    await this.cluster.refreshMetadataIfNecessary()
+  }
+(_tmp_16 = this.cluster).connect
+(_tmp_17 = this.instrumentationEmitter).emit

@@ -1,0 +1,56 @@
+internals.stringify = function (value, original, state, prefs, local, options = {}) {
+
+    const type = typeof value;
+    const wrap = prefs && prefs.errors && prefs.errors.wrap || {};
+
+    let skipWrap = false;
+    if (Ref.isRef(value) &&
+        value.render) {
+
+        skipWrap = value.in;
+        value = value.resolve(original, state, prefs, local, { in: value.in, ...options });
+    }
+
+    if (value === null) {
+        return 'null';
+    }
+
+    if (type === 'string') {
+        return internals.wrap(value, options.arrayItems && wrap.string);
+    }
+
+    if (type === 'number' ||
+        type === 'function' ||
+        type === 'symbol') {
+
+        return value.toString();
+    }
+
+    if (type !== 'object') {
+        return JSON.stringify(value);
+    }
+
+    if (value instanceof Date) {
+        return internals.Template.date(value, prefs);
+    }
+
+    if (value instanceof Map) {
+        const pairs = [];
+        for (const [key, sym] of value.entries()) {
+            pairs.push(`${key.t...
+const type = typeof value
+const wrap = prefs && prefs.errors && prefs.errors.wrap || {}
+let skipWrap = false
+Ref.isRef(value) &&
+        value.render
+value.render
+skipWrap = value.in
+value = value.resolve(original, state, prefs, local, { in: value.in, ...options })
+value === null
+type === 'string'
+type === 'number' ||
+        type === 'function' ||
+        type === 'symbol'
+type === 'function'
+type === 'symbol'
+type !== 'object'

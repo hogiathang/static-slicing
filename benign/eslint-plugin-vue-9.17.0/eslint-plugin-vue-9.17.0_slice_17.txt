@@ -1,0 +1,24 @@
+function extractFromFunctionParam = function extractFromFunctionParam(node, argIndex) {
+    let cacheForIndexes = cacheForFunction.get(node)
+    if (!cacheForIndexes) {
+      cacheForIndexes = new Map()
+      cacheForFunction.set(node, cacheForIndexes)
+    }
+    const ref = cacheForIndexes.get(argIndex)
+    if (ref) {
+      return ref
+    }
+    cacheForIndexes.set(argIndex, NEVER)
+    const arg = node.params[argIndex]
+    if (!arg) {
+      return NEVER
+    }
+    const result = extractFromPattern(arg)
+    cacheForIndexes.set(argIndex, result)
+    return result
+  }
+let cacheForIndexes = cacheForFunction.get(node)
+!cacheForIndexes
+cacheForIndexes = new Map()
+cacheForFunction.set(node, cacheForIndexes)
+const ref = cacheForIndexes.get(argIndex)

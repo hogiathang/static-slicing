@@ -1,0 +1,12 @@
+function addPackageJsonDependency = function addPackageJsonDependency(tree, dependency, pkgJsonPath = PKG_JSON_PATH) {
+    const json = new json_file_1.JSONFile(tree, pkgJsonPath);
+    const { overwrite, type, name, version } = dependency;
+    const path = [type, name];
+    if (overwrite || !json.get(path)) {
+        json.modify(path, version);
+    }
+}
+const json = new json_file_1.JSONFile(tree, pkgJsonPath)
+overwrite = _tmp_1.overwrite
+_tmp_2 = __ecma.Array.factory()
+overwrite || !json.get(path)

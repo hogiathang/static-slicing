@@ -1,0 +1,18 @@
+getChannel(channelID) {
+        if(!channelID) {
+            throw new Error(`Invalid channel ID: ${channelID}`);
+        }
+
+        if(this.channelGuildMap[channelID] && this.guilds.get(this.channelGuildMap[channelID])) {
+            return this.guilds.get(this.channelGuildMap[channelID]).channels.get(channelID);
+        }
+        if(this.threadGuildMap[channelID] && this.guilds.get(this.threadGuildMap[channelID])) {
+            return this.guilds.get(this.threadGuildMap[channelID]).threads.get(channelID);
+        }
+        return this.privateChannels.get(channelID) || this.groupChannels.get(channelID);
+    }
+!channelID
+<operator>.formatString("Invalid channel ID: ", channelID, "")
+this.channelGuildMap[channelID] && this.guilds.get(this.channelGuildMap[channelID])
+this.threadGuildMap[channelID] && this.guilds.get(this.threadGuildMap[channelID])
+(_tmp_325 = this.guilds.get(this.threadGuildMap[channelID]).threads).get

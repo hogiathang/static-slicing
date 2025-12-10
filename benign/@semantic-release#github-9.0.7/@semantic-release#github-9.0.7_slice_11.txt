@@ -1,0 +1,67 @@
+globbedAssets.map(async (asset) => {
+      const filePath = isPlainObject(asset) ? asset.path : asset;
+      let file;
+
+      try {
+        file = await stat(resolve(cwd, filePath));
+      } catch {
+        logger.error(
+          "The asset %s cannot be read, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      if (!file || !file.isFile()) {
+        logger.error(
+          "The asset %s is not a file, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      const fileName = template(asset.name || basename(filePath))(context);
+      const upload = {
+        method: "POST",
+        url: uploadUrl,
+        data: await readFile(resolve(cwd, filePath)),
+        name: fileName,
+        headers: {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        },
+      };
+
+      debug("file path: %o", filePath);
+      debug("file name: %o", fileName);
+
+      if (isPlainObj...
+const filePath = isPlainObject(asset) ? asset.path : asset
+file = await stat(resolve(cwd, filePath))
+!file || !file.isFile()
+const fileName = template(asset.name || basename(filePath))(context)
+const upload = {
+        method: "POST",
+        url: uploadUrl,
+        data: await readFile(resolve(cwd, filePath)),
+        name: fileName,
+        headers: {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        },
+      }
+_tmp_17.method = "POST"
+_tmp_17.url = uploadUrl
+_tmp_17.data = await readFile(resolve(cwd, filePath))
+_tmp_17.name = fileName
+_tmp_17.headers = {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        }
+_tmp_18.content-type = mime.getType(extname(fileName)) || "text/plain"
+_tmp_18.content-length = file.size
+debug("file path: %o", filePath)
+debug("file name: %o", fileName)
+isPlainObject(asset) && asset.label
+upload.label = template(asset.label)(context)
+await octokit.request(upload)

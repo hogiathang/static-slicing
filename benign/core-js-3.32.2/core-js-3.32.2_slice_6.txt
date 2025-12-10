@@ -1,0 +1,2 @@
+_tmp_6.getUint8 = getUint8
+get(this, 1, byteOffset)[0]

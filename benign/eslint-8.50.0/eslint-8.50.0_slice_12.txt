@@ -1,0 +1,27 @@
+function loadFlatConfigFile = async function loadFlatConfigFile(filePath) {
+    debug(`Loading config from ${filePath}`);
+
+    const fileURL = pathToFileURL(filePath);
+
+    debug(`Config file URL is ${fileURL}`);
+
+    const mtime = (await fs.stat(filePath)).mtime.getTime();
+
+    /*
+     * Append a query with the config file's modification time (`mtime`) in order
+     * to import the current version of the config file. Without the query, `import()` would
+     * cache the config file module by the pathname only, and then always return
+     * the same version (the one that was actual when the module was imported for the first time).
+     *
+     * This ensures that the config file module is loaded and executed again
+     * if it has been changed since the last time it was imported.
+     * If it hasn't been changed, `import()` will just return the cached version.
+     *
+     * Note that we should not overuse queries (e.g., by appending the current time
+     * to always reload the config file module) as that could cau...
+<operator>.formatString("Loading config from ", filePath, "")
+const fileURL = pathToFileURL(filePath)
+<operator>.formatString("Config file URL is ", fileURL, "")
+const mtime = (await fs.stat(filePath)).mtime.getTime()
+fileURL.searchParams.append("mtime", mtime)
+importedConfigFileModificationTime.get(filePath) !== mtime

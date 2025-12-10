@@ -1,0 +1,72 @@
+FastSet.prototype.log = function (charmap, logNode, callback, thisp) {
+    charmap = charmap || TreeLog.unicodeSharp;
+    logNode = logNode || this.logNode;
+    if (!callback) {
+        callback = console.log;
+        thisp = console;
+    }
+    callback = callback.bind(thisp);
+
+    var buckets = this.buckets, bucketsSize = buckets.size,
+        mapIter = buckets.keys(), hash, index = 0,
+        branch, leader, bucket;
+
+    while (hash = mapIter.next().value) {
+        if (index === bucketsSize - 1) {
+            branch = charmap.fromAbove;
+            leader = ' ';
+        } else if (index === 0) {
+            branch = charmap.branchDown;
+            leader = charmap.strafe;
+        } else {
+            branch = charmap.fromBoth;
+            leader = charmap.strafe;
+        }
+        bucket = buckets.get(hash);
+        callback.call(thisp, branch + charmap.through + charmap.branchDown + ' ' + hash);
+        bucket.forEach(function (value, node) {
+            var branch, below, writt...
+charmap = charmap || TreeLog.unicodeSharp
+logNode = logNode || this.logNode
+!callback
+callback = console.log
+thisp = console
+callback = callback.bind(thisp)
+var bucketsSize = buckets.size
+var mapIter = buckets.keys()
+hash = mapIter.next().value
+index === bucketsSize - 1
+branch = charmap.fromAbove
+leader = ' '
+index === 0
+branch = charmap.branchDown
+leader = charmap.strafe
+branch = charmap.fromBoth
+leader = charmap.strafe
+bucket = buckets.get(hash)
+callback.call(thisp, branch + charmap.through + charmap.branchDown + ' ' + hash)
+bucket.forEach(function (value, node) {
+            var branch, below, written;
+            if (node === bucket.head.prev) {
+                branch = charmap.fromAbove;
+                below = ' ';
+            } else {
+                branch = charmap.fromBoth;
+                below = charmap.strafe;
+            }
+            logNode(
+                node,
+                function (line) {
+                    if (!written) {
+                        callback.call(thisp, leader + ' ' + branch + charmap.through + charmap.through + line);
+                        written = true;
+                    } else {
+                        callback.call(thisp, leader + ' ' + below + '  ' + line);
+                    }
+                },
+                function (line) {
+                    callback.call(thisp, leader + ' ' + charmap.strafe + '  ' + line);
+                }
+            );
+        })
+index++

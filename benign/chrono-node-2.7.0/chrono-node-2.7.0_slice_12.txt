@@ -1,0 +1,43 @@
+function mergeDateTimeComponent = function mergeDateTimeComponent(
+    dateComponent: ParsingComponents,
+    timeComponent: ParsingComponents
+): ParsingComponents {
+    const dateTimeComponent = dateComponent.clone();
+
+    if (timeComponent.isCertain("hour")) {
+        dateTimeComponent.assign("hour", timeComponent.get("hour"));
+        dateTimeComponent.assign("minute", timeComponent.get("minute"));
+
+        if (timeComponent.isCertain("second")) {
+            dateTimeComponent.assign("second", timeComponent.get("second"));
+
+            if (timeComponent.isCertain("millisecond")) {
+                dateTimeComponent.assign("millisecond", timeComponent.get("millisecond"));
+            } else {
+                dateTimeComponent.imply("millisecond", timeComponent.get("millisecond"));
+            }
+        } else {
+            dateTimeComponent.imply("second", timeComponent.get("second"));
+            dateTimeComponent.imply("millisecond", timeComponent.get("millisecond"));
+        }
+    } else {
+        dateTimeCompone...
+const dateTimeComponent = dateComponent.clone()
+timeComponent.isCertain("hour")
+dateTimeComponent.assign("hour", timeComponent.get("hour"))
+dateTimeComponent.assign("minute", timeComponent.get("minute"))
+timeComponent.isCertain("second")
+dateTimeComponent.assign("second", timeComponent.get("second"))
+timeComponent.isCertain("millisecond")
+dateTimeComponent.assign("millisecond", timeComponent.get("millisecond"))
+dateTimeComponent.imply("millisecond", timeComponent.get("millisecond"))
+dateTimeComponent.imply("second", timeComponent.get("second"))
+dateTimeComponent.imply("millisecond", timeComponent.get("millisecond"))
+dateTimeComponent.imply("hour", timeComponent.get("hour"))
+dateTimeComponent.imply("minute", timeComponent.get("minute"))
+dateTimeComponent.imply("second", timeComponent.get("second"))
+dateTimeComponent.imply("millisecond", timeComponent.get("millisecond"))
+timeComponent.isCertain("timezoneOffset")
+dateTimeComponent.assign("timezoneOffset", timeComponent.get("timezoneOffset"))
+timeComponent.isCertain("meridiem")
+timeComponent.get("meridiem") != null && dateTimeComponent.get("meridiem") == null

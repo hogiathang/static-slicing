@@ -1,0 +1,14 @@
+function readStats = function readStats(path) {
+    const normalizedPath = (0, path_1.normalize)(path);
+    if (!readStatsCache.has(normalizedPath)) {
+        if (exists(normalizedPath)) {
+            readStatsCache.set(normalizedPath, fs.statSync(normalizedPath));
+        }
+    }
+    return readStatsCache.get(normalizedPath);
+}
+const normalizedPath = (0, path_1.normalize)(path)
+!readStatsCache.has(normalizedPath)
+exists(normalizedPath)
+readStatsCache.set(normalizedPath, fs.statSync(normalizedPath))
+readStatsCache.get(normalizedPath)

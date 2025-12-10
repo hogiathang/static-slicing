@@ -1,0 +1,40 @@
+this.wss.on("connection", (socket, request) => {
+            const u = url.parse(request.url, true);
+            const ns = u.pathname;
+            if (u.query.socket_id)
+                socket._id = u.query.socket_id;
+            else
+                socket._id = uuidv1();
+            // unauthenticated by default
+            socket["_authenticated"] = false;
+            // propagate socket errors
+            socket.on("error", (error) => this.emit("socket-error", socket, error));
+            // cleanup after the socket gets disconnected
+            socket.on("close", () => {
+                this.namespaces[ns].clients.delete(socket._id);
+                for (const event of Object.keys(this.namespaces[ns].events)) {
+                    const index = this.namespaces[ns].events[event].sockets.indexOf(socket._id);
+                    if (index >= 0)
+                        this.namespaces[ns].events[event].sockets.splice(index, 1);
+                }
+                this.emit("disconne...
+const u = url.parse(request.url, true)
+const ns = u.pathname
+u.query.socket_id
+socket._id = u.query.socket_id
+socket._id = uuidv1()
+socket["_authenticated"] = false
+socket.on("error", (error) => this.emit("socket-error", socket, error))
+socket.on("close", () => {
+                this.namespaces[ns].clients.delete(socket._id);
+                for (const event of Object.keys(this.namespaces[ns].events)) {
+                    const index = this.namespaces[ns].events[event].sockets.indexOf(socket._id);
+                    if (index >= 0)
+                        this.namespaces[ns].events[event].sockets.splice(index, 1);
+                }
+                this.emit("disconnection", socket);
+            })
+!this.namespaces[ns]
+this._generateNamespace(ns)
+this.namespaces[ns].clients.set(socket._id, socket)
+this.emit("connection", socket, request)

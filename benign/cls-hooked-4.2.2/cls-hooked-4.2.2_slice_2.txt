@@ -1,0 +1,8 @@
+_tmp_2.after = after
+currentUid = async_hooks.executionAsyncId()
+context = namespace._contexts.get(asyncId) || namespace._contexts.get(currentUid)
+const triggerId = async_hooks.triggerAsyncId()
+namespace._indent -= 2
+const indentStr = ' '.repeat(namespace._indent < 0 ? 0 : namespace._indent)
+<operator>.formatString("", indentStr, "AFTER (", name, ") asyncId:", asyncId, " currentUid:", currentUid, " triggerId:", triggerId, " active:", util.inspect(namespace.active, {showHidden:true, depth:2, colors:true}), " context:", util.inspect(context), "")
+namespace.exit(context)

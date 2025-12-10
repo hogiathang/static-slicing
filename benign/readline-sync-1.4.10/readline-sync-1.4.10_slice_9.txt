@@ -1,0 +1,3 @@
+var cipher = require('crypto').createCipher(
+      process.argv[2] /*algorithm*/, process.argv[3] /*password*/)
+process.argv[2]

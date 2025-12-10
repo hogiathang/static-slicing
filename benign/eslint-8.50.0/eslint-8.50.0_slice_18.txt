@@ -1,0 +1,42 @@
+_verifyWithoutProcessors(textOrSourceCode, providedConfig, providedOptions) {
+        const slots = internalSlotsMap.get(this);
+        const config = providedConfig || {};
+        const options = normalizeVerifyOptions(providedOptions, config);
+        let text;
+
+        // evaluate arguments
+        if (typeof textOrSourceCode === "string") {
+            slots.lastSourceCode = null;
+            text = textOrSourceCode;
+        } else {
+            slots.lastSourceCode = textOrSourceCode;
+            text = textOrSourceCode.text;
+        }
+
+        // Resolve parser.
+        let parserName = DEFAULT_PARSER_NAME;
+        let parser = espree;
+
+        if (typeof config.parser === "object" && config.parser !== null) {
+            parserName = config.parser.filePath;
+            parser = config.parser.definition;
+        } else if (typeof config.parser === "string") {
+            if (!slots.parserMap.has(config.parser)) {
+                return [{
+                    ruleId: null,
+    ...
+const slots = internalSlotsMap.get(this)
+const config = providedConfig || {}
+const options = normalizeVerifyOptions(providedOptions, config)
+typeof textOrSourceCode === "string"
+slots.lastSourceCode = null
+text = textOrSourceCode
+slots.lastSourceCode = textOrSourceCode
+text = textOrSourceCode.text
+let parserName = DEFAULT_PARSER_NAME
+let parser = espree
+typeof config.parser === "object" && config.parser !== null
+typeof config.parser === "string"
+!slots.parserMap.has(config.parser)
+parserName = config.parser
+parser = slots.parserMap.get(config.parser)

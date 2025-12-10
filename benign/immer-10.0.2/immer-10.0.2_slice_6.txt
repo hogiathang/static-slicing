@@ -1,0 +1,27 @@
+delete(value: any): any {
+			if (!this.has(value)) {
+				return false
+			}
+
+			const state: SetState = this[DRAFT_STATE]
+			assertUnrevoked(state)
+			prepareSetCopy(state)
+			markChanged(state)
+			return (
+				state.copy_!.delete(value) ||
+				(state.drafts_.has(value)
+					? state.copy_!.delete(state.drafts_.get(value))
+					: /* istanbul ignore next */ false)
+			)
+		}
+!this.has(value)
+const state: SetState = this[DRAFT_STATE]
+assertUnrevoked(state)
+prepareSetCopy(state)
+markChanged(state)
+state.copy_!.delete(value) ||
+				(state.drafts_.has(value)
+					? state.copy_!.delete(state.drafts_.get(value))
+					: /* istanbul ignore next */ false)
+state.drafts_.has(value) ? state.copy_!.delete(state.drafts_.get(value)) : false
+state.copy_!.delete(state.drafts_.get(value))

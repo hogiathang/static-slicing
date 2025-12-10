@@ -1,0 +1,24 @@
+function onMessage = function onMessage (message : ResponseMessage) {
+      const { taskId, result } = message;
+      // In case of success: Call the callback that was passed to `runTask`,
+      // remove the `TaskInfo` associated with the Worker, which marks it as
+      // free again.
+      const taskInfo = workerInfo.taskInfos.get(taskId);
+      workerInfo.taskInfos.delete(taskId);
+
+      pool.workers.maybeAvailable(workerInfo);
+
+      /* istanbul ignore if */
+      if (taskInfo === undefined) {
+        const err = new Error(
+          `Unexpected message from Worker: ${inspect(message)}`);
+        pool.publicInterface.emit('error', err);
+      } else {
+        taskInfo.done(message.error, result);
+      }
+
+      pool._processPendingMessages();
+    }
+taskId = _tmp_50.taskId
+const taskInfo = workerInfo.taskInfos.get(taskId)
+(_tmp_52 = workerInfo.taskInfos).delete

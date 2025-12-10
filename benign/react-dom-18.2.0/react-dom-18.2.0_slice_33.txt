@@ -1,0 +1,31 @@
+function findHostInstanceWithWarning = function findHostInstanceWithWarning(component, methodName) {
+    {
+      var fiber = get(component);
+
+      if (fiber === undefined) {
+        if (typeof component.render === 'function') {
+          throw new Error('Unable to find node on an unmounted component.');
+        } else {
+          var keys = Object.keys(component).join(',');
+          throw new Error("Argument appears to not be a ReactComponent. Keys: " + keys);
+        }
+      }
+
+      var hostFiber = findCurrentHostFiber(fiber);
+
+      if (hostFiber === null) {
+        return null;
+      }
+
+      if (hostFiber.mode & StrictLegacyMode) {
+        var componentName = getComponentNameFromFiber(fiber) || 'Component';
+
+        if (!didWarnAboutFindNodeInStrictMode[componentName]) {
+          didWarnAboutFindNodeInStrictMode[componentName] = true;
+          var previousFiber = current;
+
+          try {
+            setCurrentFiber(hostFiber);
+
+            if (fiber.mode & StrictLegacyMode) {
+              error('%s is deprecat...

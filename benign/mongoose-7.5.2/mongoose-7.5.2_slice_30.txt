@@ -1,0 +1,42 @@
+function setValue = function setValue(val) {
+    if (count) {
+      return val;
+    }
+    if (val instanceof SkipPopulateValue) {
+      return val.val;
+    }
+    if (val === void 0) {
+      return val;
+    }
+
+    const _allIds = o.allIds[i];
+
+    if (o.path.endsWith('.$*')) {
+      // Skip maps re: gh-12494
+      return valueFilter(val, options, populateOptions, _allIds);
+    }
+
+    if (o.justOne === true && Array.isArray(val)) {
+      // Might be an embedded discriminator (re: gh-9244) with multiple models, so make sure to pick the right
+      // model before assigning.
+      const ret = [];
+      for (const doc of val) {
+        const _docPopulatedModel = leanPopulateMap.get(doc);
+        if (_docPopulatedModel == null || _docPopulatedModel === populatedModel) {
+          ret.push(doc);
+        }
+      }
+      // Since we don't want to have to create a new mongoosearray, make sure to
+      // modify the array in place
+      while (val.length > ret.length) {
+        Array.prototype.pop.apply(val, []);...
+val instanceof SkipPopulateValue
+val === void 0
+const _allIds = o.allIds[i]
+(_tmp_2 = o.path).endsWith
+o.justOne === true && Array.isArray(val)
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(val)
+const _docPopulatedModel = leanPopulateMap.get(doc)
+_docPopulatedModel == null || _docPopulatedModel === populatedModel
+ret.push(doc)

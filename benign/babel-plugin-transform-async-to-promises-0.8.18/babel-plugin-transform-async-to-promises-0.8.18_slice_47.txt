@@ -1,0 +1,28 @@
+function extractDeclarations = function extractDeclarations(state, originalAwaitPath, awaitExpression, additionalConstantNames) {
+        let awaitPath = originalAwaitPath;
+        const reusingExisting = findDeclarationToReuse(awaitPath);
+        const reusingExistingId = reusingExisting ? reusingExisting.get("id") : undefined;
+        const existingIdentifier = reusingExistingId && (reusingExistingId.isIdentifier() || reusingExistingId.isPattern())
+            ? reusingExistingId.node
+            : undefined;
+        let resultIdentifier;
+        if (!awaitPath.parentPath.isSequenceExpression() ||
+            !(awaitPath.key < awaitPath.container.length - 1)) {
+            const argument = originalAwaitPath.get("argument");
+            if (argument.isExpression()) {
+                resultIdentifier = existingIdentifier || generateIdentifierForPath(argument);
+            }
+        }
+        originalAwaitPath.replaceWith(types.isIdentifier(resultIdentifier) ? resultIdentifier : types.numericLiteral(0));
+        l...
+let awaitPath = originalAwaitPath
+const reusingExisting = findDeclarationToReuse(awaitPath)
+const reusingExistingId = reusingExisting ? reusingExisting.get("id") : undefined
+const existingIdentifier = reusingExistingId && (reusingExistingId.isIdentifier() || reusingExistingId.isPattern())
+            ? reusingExistingId.node
+            : undefined
+reusingExistingId.node
+!awaitPath.parentPath.isSequenceExpression() ||
+            !(awaitPath.key < awaitPath.container.length - 1)
+!(awaitPath.key < awaitPath.container.length - 1)
+const argument = originalAwaitPath.get("argument")

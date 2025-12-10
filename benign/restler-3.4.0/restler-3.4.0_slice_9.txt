@@ -1,0 +1,4 @@
+function post = function post(url, options) {
+  return request(url, shortcutOptions(options, 'POST'));
+}
+request(url, shortcutOptions(options, 'POST'))

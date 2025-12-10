@@ -1,0 +1,80 @@
+processWaitQueue() {
+        if (this[kProcessingWaitQueue]) {
+            return;
+        }
+        this[kProcessingWaitQueue] = true;
+        while (this.waitQueueSize) {
+            const waitQueueMember = this[kWaitQueue].first();
+            if (!waitQueueMember) {
+                this[kWaitQueue].shift();
+                continue;
+            }
+            if (waitQueueMember[kCancelled]) {
+                this[kWaitQueue].shift();
+                continue;
+            }
+            if (this[kPoolState] !== exports.PoolState.ready) {
+                const reason = this.closed ? 'poolClosed' : 'connectionError';
+                const error = this.closed ? new errors_1.PoolClosedError(this) : new errors_1.PoolClearedError(this);
+                this.emitAndLog(ConnectionPool.CONNECTION_CHECK_OUT_FAILED, new connection_pool_events_1.ConnectionCheckOutFailedEvent(this, reason, error));
+                if (waitQueueMember.timer) {
+                    (0, timers_1.clearTimeout)(wait...
+this[kProcessingWaitQueue]
+this[kProcessingWaitQueue] = true
+this.waitQueueSize
+const waitQueueMember = this[kWaitQueue].first()
+!waitQueueMember
+(_tmp_72 = this[kWaitQueue]).shift
+continue;
+waitQueueMember[kCancelled]
+(_tmp_73 = this[kWaitQueue]).shift
+continue;
+this[kPoolState] !== exports.PoolState.ready
+const reason = this.closed ? 'poolClosed' : 'connectionError'
+const error = this.closed ? new errors_1.PoolClosedError(this) : new errors_1.PoolClearedError(this)
+this.emitAndLog(ConnectionPool.CONNECTION_CHECK_OUT_FAILED, new connection_pool_events_1.ConnectionCheckOutFailedEvent(this, reason, error))
+waitQueueMember.timer
+(0, timers_1.clearTimeout)(waitQueueMember.timer)
+(_tmp_77 = this[kWaitQueue]).shift
+waitQueueMember.callback(error)
+continue;
+!this.availableConnectionCount
+break;
+const connection = this[kConnections].shift()
+!connection
+break;
+!this.destroyConnectionIfPerished(connection)
+this[kCheckedOut].add(connection)
+this.emitAndLog(ConnectionPool.CONNECTION_CHECKED_OUT, new connection_pool_events_1.ConnectionCheckedOutEvent(this, connection))
+waitQueueMember.timer
+(0, timers_1.clearTimeout)(waitQueueMember.timer)
+(_tmp_81 = this[kWaitQueue]).shift
+waitQueueMember.callback(undefined, connection)
+maxConnecting = _tmp_82.maxConnecting
+this.waitQueueSize > 0 &&
+            this.pendingConnectionCount < maxConnecting &&
+            (maxPoolSize === 0 || this.totalConnectionCount < maxPoolSize)
+this.pendingConnectionCount < maxConnecting
+maxPoolSize === 0 || this.totalConnectionCount < maxPoolSize
+const waitQueueMember = this[kWaitQueue].shift()
+!waitQueueMember || waitQueueMember[kCancelled]
+continue;
+this.createConnection((err, connection) => {
+                if (waitQueueMember[kCancelled]) {
+                    if (!err && connection) {
+                        this[kConnections].push(connection);
+                    }
+                }
+                else {
+                    if (err) {
+                        this.emitAndLog(ConnectionPool.CONNECTION_CHECK_OUT_FAILED, 
+                        // TODO(NODE-5192): Remove this cast
+                        new connection_pool_events_1.ConnectionCheckOutFailedEvent(this, 'connectionError', err));
+                    }
+                    else if (connection) {
+                        this[kCheckedOut].add(connection);
+                        this.emitAndLog(ConnectionPool.CONNECTION_CHECKED_OUT, new connection_pool_events_1.ConnectionCheckedOutEvent(this, connection));
+                    }
+                    if (waitQueueMember.timer) {
+                        (0, timers_1.clearTimeout)(waitQueueMember.timer);
+               ...

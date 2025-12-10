@@ -1,0 +1,104 @@
+exports.validate = function (value, schema, state, prefs, overrides = {}) {
+
+    if (schema.$_terms.whens) {
+        schema = schema._generate(value, state, prefs).schema;
+    }
+
+    // Setup state and settings
+
+    if (schema._preferences) {
+        prefs = internals.prefs(schema, prefs);
+    }
+
+    // Cache
+
+    if (schema._cache &&
+        prefs.cache) {
+
+        const result = schema._cache.get(value);
+        state.mainstay.tracer.debug(state, 'validate', 'cached', !!result);
+        if (result) {
+            return result;
+        }
+    }
+
+    // Helpers
+
+    const createError = (code, local, localState) => schema.$_createError(code, value, local, localState || state, prefs);
+    const helpers = {
+        original: value,
+        prefs,
+        schema,
+        state,
+        error: createError,
+        errorsArray: internals.errorsArray,
+        warn: (code, local, localState) => state.mainstay.warnings.push(createError(code, local, localState)),
+        message: (messages, lo...
+schema.$_terms.whens
+schema = schema._generate(value, state, prefs).schema
+schema._preferences
+prefs = internals.prefs(schema, prefs)
+schema._cache &&
+        prefs.cache
+prefs.cache
+const result = schema._cache.get(value)
+state.mainstay.tracer.debug(state, 'validate', 'cached', !!result)
+const createError = (code, local, localState) => schema.$_createError(code, value, local, localState || state, prefs)
+const helpers = {
+        original: value,
+        prefs,
+        schema,
+        state,
+        error: createError,
+        errorsArray: internals.errorsArray,
+        warn: (code, local, localState) => state.mainstay.warnings.push(createError(code, local, localState)),
+        message: (messages, local) => schema.$_createError('custom', value, local, state, prefs, { messages })
+    }
+_tmp_39.original = value
+_tmp_39.prefs = prefs
+_tmp_39.schema = schema
+_tmp_39.state = state
+_tmp_39.error = createError
+_tmp_39.errorsArray = internals.errorsArray
+state.mainstay.warnings.push(createError(code, local, localState))
+schema.$_createError('custom', value, local, state, prefs, { messages })
+state.mainstay.tracer.entry(schema, state)
+const def = schema._definition
+def.prepare &&
+        value !== undefined &&
+        prefs.convert
+value !== undefined
+prefs.convert
+const prepared = def.prepare(value, helpers)
+state.mainstay.tracer.value(state, 'prepare', value, prepared.value)
+prepared.errors
+value = prepared.value
+def.coerce &&
+        value !== undefined &&
+        prefs.convert &&
+        (!def.coerce.from || def.coerce.from.includes(typeof value))
+value !== undefined
+prefs.convert
+!def.coerce.from || def.coerce.from.includes(typeof value)
+const coerced = def.coerce.method(value, helpers)
+state.mainstay.tracer.value(state, 'coerced', value, coerced.value)
+coerced.errors
+value = coerced.value
+const empty = schema._flags.empty
+empty &&
+        empty.$_match(internals.trim(value, schema), state.nest(empty), Common.defaults)
+empty.$_match(internals.trim(value, schema), state.nest(empty), Common.defaults)
+state.mainstay.tracer.value(state, 'empty', value, undefined)
+value = undefined
+const presence = overrides.presence || schema._flags.presence || (schema._flags._endedSwitch ? null : prefs.presence)
+value === undefined
+presence === 'forbidden'
+presence === 'required'
+presence === 'optional'
+schema._flags.default !== Common.symbols.deepDefault
+state.mainstay.tracer.value(state, 'default', value, {})
+value = {}
+presence === 'forbidden'
+__ecma.Array.factory()
+schema._valids
+const match = schema._valids.get(value, state, prefs, schema._flags.insensitive)

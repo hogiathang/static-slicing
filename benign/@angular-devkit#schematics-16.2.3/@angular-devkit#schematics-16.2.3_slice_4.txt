@@ -1,0 +1,27 @@
+originalBackend.list(base).pipe((0, rxjs_1.mergeMap)((x) => x), (0, rxjs_1.map)((path) => (0, core_1.join)(base, path)), (0, rxjs_1.concatMap)((path) => {
+                let isDirectory = false;
+                originalBackend.isDirectory(path).subscribe((val) => (isDirectory = val));
+                if (isDirectory) {
+                    return recurse(path);
+                }
+                let isFile = false;
+                originalBackend.isFile(path).subscribe((val) => (isFile = val));
+                if (!isFile || !filter(path)) {
+                    return rxjs_1.EMPTY;
+                }
+                let content = null;
+                originalBackend.read(path).subscribe((val) => (content = val));
+                if (!content) {
+                    return rxjs_1.EMPTY;
+                }
+                return newBackend.write(path, content);
+            }))
+let isDirectory = false
+originalBackend.isDirectory(path).subscribe((val) => (isDirectory = val))
+let isFile = false
+originalBackend.isFile(path).subscribe((val) => (isFile = val))
+!isFile || !filter(path)
+let content = null
+originalBackend.read(path).subscribe((val) => (content = val))
+!content
+newBackend.write(path, content)

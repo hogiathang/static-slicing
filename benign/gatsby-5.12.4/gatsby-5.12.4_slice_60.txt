@@ -1,0 +1,24 @@
+new Promise((resolve, reject) => {
+    const req = new XMLHttpRequest()
+    req.open(`GET`, url, true)
+
+    req.onload = () => {
+      if (req.status === 200) {
+        resolve()
+      } else {
+        reject()
+      }
+    }
+
+    req.send(null)
+  })
+const req = new XMLHttpRequest()
+req.open(`GET`, url, true)
+req.onload = () => {
+      if (req.status === 200) {
+        resolve()
+      } else {
+        reject()
+      }
+    }
+req.send(null)

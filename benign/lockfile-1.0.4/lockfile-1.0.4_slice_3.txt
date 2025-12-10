@@ -1,0 +1,37 @@
+exports.lockSync = function (path, opts) {
+  opts = opts || {}
+  opts.req = opts.req || req++
+  debug('lockSync', path, opts)
+  if (opts.wait || opts.retryWait) {
+    throw new Error('opts.wait not supported sync for obvious reasons')
+  }
+
+  try {
+    var fd = fs.openSync(path, wx)
+    locks[path] = fd
+    try { fs.closeSync(fd) } catch (er) {}
+    debug('locked sync!', path, fd)
+    return
+  } catch (er) {
+    if (er.code !== 'EEXIST') return retryThrow(path, opts, er)
+
+    if (opts.stale) {
+      var st = fs.statSync(path)
+      var ct = st[exports.filetime].getTime()
+      if (!(ct % 1000) && (opts.stale % 1000)) {
+        // probably don't have subsecond resolution.
+        // round up the staleness indicator.
+        // Yes, this will be wrong 1/1000 times on platforms
+        // with subsecond stat precision, but that's acceptable
+        // in exchange for not mistakenly removing locks on
+        // most other systems.
+        opts.stale = 1000 * Math.ceil(opts.stale / 1000)
+...
+opts = opts || {}
+opts.req = opts.req || req++
+debug('lockSync', path, opts)
+opts.wait || opts.retryWait
+throw new Error('opts.wait not supported sync for obvious reasons')
+var fd = fs.openSync(path, wx)
+locks[path] = fd
+fs.closeSync(fd)

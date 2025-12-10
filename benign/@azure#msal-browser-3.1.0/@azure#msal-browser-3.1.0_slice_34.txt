@@ -1,0 +1,47 @@
+async acquireTokenRedirect(request: RedirectRequest): Promise<void> {
+        this.logger.trace(
+            "NativeInteractionClient - acquireTokenRedirect called."
+        );
+        const nativeRequest = await this.initializeNativeRequest(request);
+
+        const messageBody: NativeExtensionRequestBody = {
+            method: NativeExtensionMethod.GetToken,
+            request: nativeRequest,
+        };
+
+        try {
+            const response: object =
+                await this.nativeMessageHandler.sendMessage(messageBody);
+            this.validateNativeResponse(response);
+        } catch (e) {
+            // Only throw fatal errors here to allow application to fallback to regular redirect. Otherwise proceed and the error will be thrown in handleRedirectPromise
+            if (e instanceof NativeAuthError && e.isFatal()) {
+                throw e;
+            }
+        }
+        this.browserStorage.setTemporaryCache(
+            TemporaryCacheKeys.NATIVE_REQUEST,
+            ...
+this.logger.trace(
+            "NativeInteractionClient - acquireTokenRedirect called."
+        )
+"NativeInteractionClient - acquireTokenRedirect called."
+const nativeRequest = await this.initializeNativeRequest(request)
+const messageBody: NativeExtensionRequestBody = {
+            method: NativeExtensionMethod.GetToken,
+            request: nativeRequest,
+        }
+_tmp_20.method = NativeExtensionMethod.GetToken
+_tmp_20.request = nativeRequest
+const response: object =
+                await this.nativeMessageHandler.sendMessage(messageBody)
+await this.nativeMessageHandler.sendMessage(messageBody)
+this.validateNativeResponse(response)
+e instanceof NativeAuthError && e.isFatal()
+throw e;
+this.browserStorage.setTemporaryCache(
+            TemporaryCacheKeys.NATIVE_REQUEST,
+            JSON.stringify(nativeRequest),
+            true
+        )
+TemporaryCacheKeys.NATIVE_REQUEST

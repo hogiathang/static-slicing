@@ -1,0 +1,49 @@
+function applyTestFileFilter = function applyTestFileFilter({ // eslint-disable-line complexity
+	cwd,
+	expandDirectories = true,
+	filter,
+	providers = [],
+	testFiles,
+	treatFilterPatternsAsFiles = true,
+}) {
+	const {individualMatchers} = processMatchingPatterns(filter);
+	const normalizedFiles = testFiles.map(file => ({file, matcheable: normalizeFileForMatching(cwd, file)}));
+
+	const selected = new Set();
+	const unmatchedPatterns = new Set(individualMatchers.map(({pattern}) => pattern));
+
+	for (const {pattern, match} of individualMatchers) {
+		for (const {file, matcheable} of normalizedFiles) {
+			if (match(matcheable)) {
+				unmatchedPatterns.delete(pattern);
+				selected.add(file);
+			}
+		}
+	}
+
+	if (expandDirectories && unmatchedPatterns.size > 0) {
+		const expansion = [];
+		for (const pattern of unmatchedPatterns) {
+			const directories = globDirectoriesSync(cwd, pattern);
+			if (directories.length > 0) {
+				unmatchedPatterns.delete(pattern);
+				expansion.push(directories);
+			}
+		}
+
+		const directories = exp...
+cwd = param1_4.cwd
+expandDirectories = param1_4.expandDirectories
+filter = param1_4.filter
+providers = param1_4.providers
+testFiles = param1_4.testFiles
+treatFilterPatternsAsFiles = param1_4.treatFilterPatternsAsFiles
+individualMatchers = _tmp_16.individualMatchers
+const normalizedFiles = testFiles.map(file => ({file, matcheable: normalizeFileForMatching(cwd, file)}))
+const selected = new Set()
+const unmatchedPatterns = new Set(individualMatchers.map(({pattern}) => pattern))
+_iterator_1 = <operator>.iterator(individualMatchers)
+_iterator_2 = <operator>.iterator(normalizedFiles)
+match(matcheable)
+unmatchedPatterns.delete(pattern)
+selected.add(file)

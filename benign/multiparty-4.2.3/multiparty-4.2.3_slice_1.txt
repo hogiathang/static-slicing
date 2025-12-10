@@ -1,0 +1,16 @@
+fieldStream.on('readable', function() {
+    var buffer = fieldStream.read();
+    if (!buffer) return;
+
+    self.totalFieldSize += buffer.length;
+    if (self.totalFieldSize > self.maxFieldsSize) {
+      self.handleError(createError(413, 'maxFieldsSize ' + self.maxFieldsSize + ' exceeded'));
+      return;
+    }
+    value += decoder.write(buffer);
+  })
+var buffer = fieldStream.read()
+!buffer
+self.totalFieldSize += buffer.length
+self.totalFieldSize > self.maxFieldsSize
+value += decoder.write(buffer)

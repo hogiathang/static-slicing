@@ -1,0 +1,20 @@
+const getLocalMetadata = idPath => {
+    const localName = idPath.node.name;
+    let metadata = localMetadata.get(localName);
+    if (!metadata) {
+      const kind = bindingKindLookup.get(localName);
+      if (kind === undefined) {
+        throw idPath.buildCodeFrameError(`Exporting local "${localName}", which is not declared.`);
+      }
+      metadata = {
+        names: [],
+        kind
+      };
+      localMetadata.set(localName, metadata);
+    }
+    return metadata;
+  }
+const localName = idPath.node.name
+let metadata = localMetadata.get(localName)
+!metadata
+const kind = bindingKindLookup.get(localName)

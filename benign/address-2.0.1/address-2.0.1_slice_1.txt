@@ -1,0 +1,53 @@
+function mac2 = function mac(interfaceNameOrCallback: string | MacCallback, callback?: MacCallback) {
+  let interfaceName: string | undefined;
+  if (typeof interfaceNameOrCallback === 'function') {
+    callback = interfaceNameOrCallback;
+  } else {
+    interfaceName = interfaceNameOrCallback;
+  }
+  interfaceName = interfaceName || getDefaultInterfaceName();
+  const item = getInterfaceAddress('IPv4', interfaceName);
+  if (!item) {
+    return callback!();
+  }
+
+  // https://github.com/nodejs/node/issues/13581
+  // bug in node 7.x and <= 8.4.0
+  if (!process.env.CI && (item.mac === 'ff:00:00:00:00:00' || item.mac === '00:00:00:00:00:00')) {
+    // wrong address, ignore it
+    item.mac = '';
+  }
+
+  if (item.mac) {
+    return callback!(null, item.mac);
+  }
+
+  childProcess.exec(getIfconfigCMD(), { timeout: 5000 }, (err, stdout) => {
+    if (err || !stdout) {
+      return callback!(err);
+    }
+
+    if (!interfaceName) {
+      return callback!();
+    }
+    const mac = getMAC(stdout || '', interfaceName, ite...
+typeof interfaceNameOrCallback === 'function'
+callback = interfaceNameOrCallback
+interfaceName = interfaceNameOrCallback
+interfaceName = interfaceName || getDefaultInterfaceName()
+const item = getInterfaceAddress('IPv4', interfaceName)
+!item
+!process.env.CI && (item.mac === 'ff:00:00:00:00:00' || item.mac === '00:00:00:00:00:00')
+item.mac = ''
+item.mac
+childProcess.exec(getIfconfigCMD(), { timeout: 5000 }, (err, stdout) => {
+    if (err || !stdout) {
+      return callback!(err);
+    }
+
+    if (!interfaceName) {
+      return callback!();
+    }
+    const mac = getMAC(stdout || '', interfaceName, item.address);
+    callback!(null, mac);
+  })

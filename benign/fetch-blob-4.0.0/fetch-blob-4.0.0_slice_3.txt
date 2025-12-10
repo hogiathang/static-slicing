@@ -1,0 +1,17 @@
+const createTemporaryBlob = async (data, {signal, type} = {}) => {
+  registry = registry || new FinalizationRegistry(fs.unlink)
+  tempDir = tempDir || await mkdtemp(realpathSync(tmpdir()) + sep)
+  const id = `${i++}`
+  const destination = join(tempDir, id)
+  if (data instanceof ArrayBuffer) data = new Uint8Array(data)
+  await fs.writeFile(destination, data, { signal })
+  const blob = await blobFrom(destination, type)
+  registry.register(blob, destination)
+  return blob
+}
+registry = registry || new FinalizationRegistry(fs.unlink)
+tempDir = tempDir || await mkdtemp(realpathSync(tmpdir()) + sep)
+<operator>.formatString("", i++, "")
+const destination = join(tempDir, id)
+data instanceof ArrayBuffer
+await fs.writeFile(destination, data, { signal })

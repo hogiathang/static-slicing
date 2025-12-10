@@ -1,0 +1,7 @@
+var rm = function (file) {
+                if (fs.existsSync(path.join(me.root, file))) {
+                  fs.unlinkSync(path.join(me.root, file));
+                }
+              }
+fs.existsSync(path.join(me.root, file))
+fs.unlinkSync(path.join(me.root, file))

@@ -1,0 +1,97 @@
+function main = async function main(command, args) {
+        const toolkitStackName = toolkit_info_1.ToolkitInfo.determineName(configuration.settings.get(['toolkitStackName']));
+        (0, logging_1.debug)(`Toolkit stack: ${chalk.bold(toolkitStackName)}`);
+        const cloudFormation = new deployments_1.Deployments({ sdkProvider, toolkitStackName });
+        if (args.all && args.STACKS) {
+            throw new Error('You must either specify a list of Stacks or the `--all` argument');
+        }
+        args.STACKS = args.STACKS ?? (args.STACK ? [args.STACK] : []);
+        args.ENVIRONMENTS = args.ENVIRONMENTS ?? [];
+        const selector = {
+            allTopLevel: args.all,
+            patterns: args.STACKS,
+        };
+        const cli = new cdk_toolkit_1.CdkToolkit({
+            cloudExecutable,
+            deployments: cloudFormation,
+            verbose: argv.trace || argv.verbose > 0,
+            ignoreErrors: argv['ignore-errors'],
+            strict: argv.strict,
+            configuratio...
+const toolkitStackName = toolkit_info_1.ToolkitInfo.determineName(configuration.settings.get(['toolkitStackName']))
+<operator>.formatString("Toolkit stack: ", chalk.bold(toolkitStackName), "")
+const cloudFormation = new deployments_1.Deployments({ sdkProvider, toolkitStackName })
+args.all && args.STACKS
+throw new Error('You must either specify a list of Stacks or the `--all` argument');
+args.STACKS = args.STACKS ?? (args.STACK ? [args.STACK] : [])
+args.ENVIRONMENTS = args.ENVIRONMENTS ?? []
+const selector = {
+            allTopLevel: args.all,
+            patterns: args.STACKS,
+        }
+_tmp_273.allTopLevel = args.all
+_tmp_273.patterns = args.STACKS
+const cli = new cdk_toolkit_1.CdkToolkit({
+            cloudExecutable,
+            deployments: cloudFormation,
+            verbose: argv.trace || argv.verbose > 0,
+            ignoreErrors: argv['ignore-errors'],
+            strict: argv.strict,
+            configuration,
+            sdkProvider,
+        })
+_tmp_275.cloudExecutable = cloudExecutable
+_tmp_275.deployments = cloudFormation
+_tmp_275.verbose = argv.trace || argv.verbose > 0
+_tmp_275.ignoreErrors = argv["ignore-errors"]
+_tmp_275.strict = argv.strict
+_tmp_275.configuration = configuration
+_tmp_275.sdkProvider = sdkProvider
+"deploy"
+const parameterMap = {}
+_iterator_2 = <operator>.iterator(args.parameters)
+typeof parameter === 'string'
+const keyValue = parameter.split('=')
+parameterMap[keyValue[0]] = keyValue.slice(1).join('=')
+args.execute !== undefined && args.method !== undefined
+throw new Error('Can not supply both --[no-]execute and --method at the same time');
+args.method
+"direct"
+args.changeSetName
+throw new Error('--change-set-name cannot be used with method=direct');
+deploymentMethod = { method: 'direct' }
+break;
+"change-set"
+deploymentMethod = { method: 'change-set', execute: true, changeSetName: args.changeSetName }
+break;
+"prepare-change-set"
+deploymentMethod = { method: 'change-set', execute: false, changeSetName: args.changeSetName }
+break;
+case undefined:
+deploymentMethod = { method: 'change-set', execute: args.execute ?? true, changeSetName: args.changeSetName }
+break;
+cli.deploy({
+                    selector,
+                    exclusively: args.exclusively,
+                    toolkitStackName,
+                    roleArn: args.roleArn,
+                    notificationArns: args.notificationArns,
+                    requireApproval: configuration.settings.get(['requireApproval']),
+                    reuseAssets: args['build-exclude'],
+                    tags: configuration.settings.get(['tags']),
+                    deploymentMethod,
+                    force: args.force,
+                    parameters: parameterMap,
+                    usePreviousParameters: args['previous-parameters'],
+                    outputsFile: configuration.settings.get(['outputsFile']),
+                    progress: configuration.settings.get(['progress']),
+                    ci: args.ci,
+                    rollback: configuration.settings.get(['rollback']),
+                    hotswap: determineHotswapMode(args.hotswap, args.hotswapFallback),
+                  ...
+_tmp_295.selector = selector
+_tmp_295.exclusively = args.exclusively
+_tmp_295.toolkitStackName = toolkitStackName
+_tmp_295.roleArn = args.roleArn
+_tmp_295.notificationArns = args.notificationArns
+_tmp_295.requireApproval = configuration.settings.get(['requireApproval'])

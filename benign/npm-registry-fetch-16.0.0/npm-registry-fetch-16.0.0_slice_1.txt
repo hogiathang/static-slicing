@@ -1,0 +1,17 @@
+function logRequest = function logRequest (method, res, startTime) {
+  const elapsedTime = Date.now() - startTime
+  const attempt = res.headers.get('x-fetch-attempts')
+  const attemptStr = attempt && attempt > 1 ? ` attempt #${attempt}` : ''
+  const cacheStatus = res.headers.get('x-local-cache-status')
+  const cacheStr = cacheStatus ? ` (cache ${cacheStatus})` : ''
+  const urlStr = cleanUrl(res.url)
+
+  log.http(
+    'fetch',
+    `${method.toUpperCase()} ${res.status} ${urlStr} ${elapsedTime}ms${attemptStr}${cacheStr}`
+  )
+}
+const elapsedTime = Date.now() - startTime
+const attempt = res.headers.get('x-fetch-attempts')
+attempt && attempt > 1 ? <operator>.formatString(" attempt #", attempt, "") : ""
+const cacheStatus = res.headers.get('x-local-cache-status')

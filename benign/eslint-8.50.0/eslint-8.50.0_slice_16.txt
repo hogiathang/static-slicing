@@ -1,0 +1,11 @@
+function getEnv = function getEnv(slots, envId) {
+    return (
+        (slots.lastConfigArray && slots.lastConfigArray.pluginEnvironments.get(envId)) ||
+        BuiltInEnvironments.get(envId) ||
+        null
+    );
+}
+(slots.lastConfigArray && slots.lastConfigArray.pluginEnvironments.get(envId)) ||
+        BuiltInEnvironments.get(envId) ||
+        null
+BuiltInEnvironments.get(envId)

@@ -1,0 +1,48 @@
+new Promise((resolve, reject) => {
+            let response = Buffer.alloc(0);
+
+            let stream = connect(this.path);
+
+            stream.on("data", (data) => {
+                response = Buffer.concat([ response, data ]);
+            });
+
+            stream.on("end", () => {
+                try {
+                    resolve(JSON.parse(response.toString()).result);
+                    // @TODO: Better pull apart the error
+                    stream.destroy();
+                } catch (error) {
+                    reject(error);
+                    stream.destroy();
+                }
+            });
+
+            stream.on("error", (error) => {
+                reject(error);
+                stream.destroy();
+            });
+
+            stream.write(payload);
+            stream.end();
+        })
+let response = Buffer.alloc(0)
+let stream = connect(this.path)
+stream.on("data", (data) => {
+                response = Buffer.concat([ response, data ]);
+            })
+stream.on("end", () => {
+                try {
+                    resolve(JSON.parse(response.toString()).result);
+                    // @TODO: Better pull apart the error
+                    stream.destroy();
+                } catch (error) {
+                    reject(error);
+                    stream.destroy();
+                }
+            })
+stream.on("error", (error) => {
+                reject(error);
+                stream.destroy();
+            })
+stream.write(payload)

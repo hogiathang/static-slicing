@@ -1,0 +1,44 @@
+function serveDirectoryIndex = async function serveDirectoryIndex(devServerConfig, serverCtx, req, res) {
+    const indexFilePath = path__default['default'].join(req.filePath, 'index.html');
+    req.stats = await serverCtx.sys.stat(indexFilePath);
+    if (req.stats.isFile) {
+        req.filePath = indexFilePath;
+        return serveFile(devServerConfig, serverCtx, req, res);
+    }
+    if (!req.pathname.endsWith('/')) {
+        return serverCtx.serve302(req, res, req.pathname + '/');
+    }
+    try {
+        const dirFilePaths = await serverCtx.sys.readDir(req.filePath);
+        try {
+            if (serverCtx.dirTemplate == null) {
+                const dirTemplatePath = path__default['default'].join(devServerConfig.devServerDir, 'templates', 'directory-index.html');
+                serverCtx.dirTemplate = serverCtx.sys.readFileSync(dirTemplatePath);
+            }
+            const files = await getFiles(serverCtx.sys, req.url, dirFilePaths);
+            const templateHtml = serverCtx.dirTemplate
+                ....
+const indexFilePath = path__default['default'].join(req.filePath, 'index.html')
+req.stats = await serverCtx.sys.stat(indexFilePath)
+req.stats.isFile
+(_tmp_184 = req.pathname).endsWith
+const dirFilePaths = await serverCtx.sys.readDir(req.filePath)
+serverCtx.dirTemplate == null
+const dirTemplatePath = path__default['default'].join(devServerConfig.devServerDir, 'templates', 'directory-index.html')
+serverCtx.dirTemplate = serverCtx.sys.readFileSync(dirTemplatePath)
+const files = await getFiles(serverCtx.sys, req.url, dirFilePaths)
+const templateHtml = serverCtx.dirTemplate
+                .replace('{{title}}', getTitle(req.pathname))
+                .replace('{{nav}}', getName(req.pathname))
+                .replace('{{files}}', files)
+getTitle(req.pathname)
+getName(req.pathname)
+"{{files}}"
+serverCtx.logRequest(req, 200)
+res.writeHead(200, responseHeaders({
+                'content-type': 'text/html; charset=utf-8',
+                'x-directory-index': req.pathname,
+            }))
+_tmp_191.content-type = "text/html; charset=utf-8"
+_tmp_191.x-directory-index = req.pathname
+res.write(templateHtml)

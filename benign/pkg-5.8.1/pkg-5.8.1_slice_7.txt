@@ -1,0 +1,29 @@
+process.dlopen = function dlopen() {
+    const args = cloneArgs(arguments);
+    const modulePath = revertMakingLong(args[1]);
+    const moduleBaseName = path.basename(modulePath);
+    const moduleFolder = path.dirname(modulePath);
+
+    if (insideSnapshot(modulePath)) {
+      const moduleContent = fs.readFileSync(modulePath);
+
+      // Node addon files and .so cannot be read with fs directly, they are loaded with process.dlopen which needs a filesystem path
+      // we need to write the file somewhere on disk first and then load it
+      // the hash is needed to be sure we reload the module in case it changes
+      const hash = createHash('sha256').update(moduleContent).digest('hex');
+
+      // Example: /tmp/pkg/<hash>
+      const tmpFolder = path.join(tmpdir(), 'pkg', hash);
+
+      createDirRecursively(tmpFolder);
+
+      // Example: moduleFolder = /snapshot/appname/node_modules/sharp/build/Release
+      const parts = moduleFolder.split(path.sep);
+      const mIndex = parts.indexOf('...
+const args = cloneArgs(arguments)
+const modulePath = revertMakingLong(args[1])
+const moduleBaseName = path.basename(modulePath)
+const moduleFolder = path.dirname(modulePath)
+insideSnapshot(modulePath)
+const moduleContent = fs.readFileSync(modulePath)
+const hash = createHash('sha256').update(moduleContent).digest('hex')

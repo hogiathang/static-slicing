@@ -1,0 +1,19 @@
+function readScriptArgV = function readScriptArgV(args) {
+    const { overrides } = (0, command_line_utils_1.splitArgsIntoNxArgsAndOverrides)(args, 'run-one', { printWarnings: false }, (0, configuration_1.readNxJson)());
+    const scriptSeparatorIdx = process.argv.findIndex((el) => el === '--');
+    if (scriptSeparatorIdx === -1) {
+        output_1.output.error({
+            title: '`nx exec` requires passing in a command after `--`',
+        });
+        process.exit(1);
+    }
+    return overrides.__overrides_unparsed__;
+}
+_tmp_6 = (0, command_line_utils_1.splitArgsIntoNxArgsAndOverrides)(args, 'run-one', { printWarnings: false }, (0, configuration_1.readNxJson)())
+const scriptSeparatorIdx = process.argv.findIndex((el) => el === '--')
+scriptSeparatorIdx === -1
+output_1.output.error({
+            title: '`nx exec` requires passing in a command after `--`',
+        })
+_tmp_9.title = "`nx exec` requires passing in a command after `--`"
+process.exit(1)

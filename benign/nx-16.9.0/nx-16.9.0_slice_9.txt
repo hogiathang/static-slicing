@@ -1,0 +1,3 @@
+_tmp_29.handler = <lambda>20
+await (await Promise.resolve().then(() => require('./affected'))).affected('print-affected', (0, shared_options_1.withOverrides)(args))
+process.exit(0)

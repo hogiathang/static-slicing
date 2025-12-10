@@ -1,0 +1,45 @@
+function parse = function parse(pattern, comment) {
+  const text = stripDirectiveComment(comment)
+  const match = pattern.exec(text)
+  if (match == null) {
+    return null
+  }
+
+  const type = match[1]
+
+  /** @type {RuleAndLocation[]} */
+  const rules = []
+
+  const rulesRe = /([^\s,]+)[\s,]*/g
+  let startIndex = match[0].length
+  rulesRe.lastIndex = startIndex
+
+  let res
+  while ((res = rulesRe.exec(text))) {
+    const ruleId = res[1].trim()
+    rules.push({
+      ruleId,
+      index: startIndex
+    })
+    startIndex = rulesRe.lastIndex
+  }
+
+  return { type, rules }
+}
+const text = stripDirectiveComment(comment)
+const match = pattern.exec(text)
+match == null
+const type = match[1]
+__ecma.Array.factory()
+const rulesRe = /([^\s,]+)[\s,]*/g
+let startIndex = match[0].length
+rulesRe.lastIndex = startIndex
+res = rulesRe.exec(text)
+const ruleId = res[1].trim()
+rules.push({
+      ruleId,
+      index: startIndex
+    })
+_tmp_1.ruleId = ruleId
+_tmp_1.index = startIndex
+startIndex = rulesRe.lastIndex

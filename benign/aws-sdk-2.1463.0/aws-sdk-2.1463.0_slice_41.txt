@@ -1,0 +1,19 @@
+_tmp_0.makeRequest = makeRequest
+typeof params === 'function'
+callback = params
+params = null
+params = params || {}
+this.config.params
+var rules = this.api.operations[operation]
+params = AWS.util.copy(params)
+AWS.util.each(this.config.params, function(key, value) {
+          if (rules.input.members[key]) {
+            if (params[key] === undefined || params[key] === null) {
+              params[key] = value;
+            }
+          }
+        })
+var request = new AWS.Request(this, operation, params)
+this.addAllRequestListeners(request)
+this.attachMonitoringEmitter(request)
+request.send(callback)

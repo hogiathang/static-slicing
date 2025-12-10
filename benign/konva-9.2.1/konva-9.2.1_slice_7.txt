@@ -1,0 +1,16 @@
+_clearCache(attr) {
+        if ((attr === TRANSFORM || attr === ABSOLUTE_TRANSFORM) &&
+            this._cache.get(attr)) {
+            this._cache.get(attr).dirty = true;
+        }
+        else if (attr) {
+            this._cache.delete(attr);
+        }
+        else {
+            this._cache.clear();
+        }
+    }
+(attr === TRANSFORM || attr === ABSOLUTE_TRANSFORM) &&
+            this._cache.get(attr)
+(_tmp_7 = this._cache).get
+(_tmp_9 = this._cache).delete

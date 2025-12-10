@@ -1,0 +1,44 @@
+EventEmitter.prototype._on = function(type, listener, prepend, options) {
+    if (typeof type === 'function') {
+      this._onAny(type, listener);
+      return this;
+    }
+
+    if (typeof listener !== 'function') {
+      throw new Error('on only accepts instances of Function');
+    }
+    this._events || init.call(this);
+
+    var returnValue= this, temp;
+
+    if (options !== undefined) {
+      temp = setupListener.call(this, type, listener, options);
+      listener = temp[0];
+      returnValue = temp[1];
+    }
+
+    // To avoid recursion in the case that type == "newListeners"! Before
+    // adding it to the listeners, first emit "newListeners".
+    if (this._newListener) {
+      this.emit('newListener', type, listener);
+    }
+
+    if (this.wildcard) {
+      growListenerTree.call(this, type, listener, prepend);
+      return returnValue;
+    }
+
+    if (!this._events[type]) {
+      // Optimize the case of one listener. Don't need the extra array object.
+      this._events[type] = listen...
+typeof type === 'function'
+typeof listener !== 'function'
+throw new Error('on only accepts instances of Function');
+this._events || init.call(this)
+var returnValue= this
+options !== undefined
+temp = setupListener.call(this, type, listener, options)
+listener = temp[0]
+returnValue = temp[1]
+this._newListener
+this.emit('newListener', type, listener)

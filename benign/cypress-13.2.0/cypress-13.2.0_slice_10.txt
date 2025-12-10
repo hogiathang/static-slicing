@@ -1,0 +1,112 @@
+const downloadAndUnzip = ({
+  version,
+  installDir,
+  downloadDir
+}) => {
+  const progress = {
+    throttle: 100,
+    onProgress: null
+  };
+  const downloadDestination = path.join(downloadDir, `cypress-${process.pid}.zip`);
+  const rendererOptions = getRendererOptions();
+
+  // let the user know what version of cypress we're downloading!
+  logger.log(`Installing Cypress ${chalk.gray(`(version: ${version})`)}`);
+  logger.log();
+  const tasks = new Listr([{
+    options: {
+      title: util.titleize('Downloading Cypress')
+    },
+    task: (ctx, task) => {
+      // as our download progresses indicate the status
+      progress.onProgress = progessify(task, 'Downloading Cypress');
+      return download.start({
+        version,
+        downloadDestination,
+        progress
+      }).then(redirectVersion => {
+        if (redirectVersion) version = redirectVersion;
+        debug(`finished downloading file: ${downloadDestination}`);
+      }).then(() => {
+        // save the download destination for ...
+version = param1_1.version
+installDir = param1_1.installDir
+downloadDir = param1_1.downloadDir
+const progress = {
+    throttle: 100,
+    onProgress: null
+  }
+_tmp_7.throttle = 100
+_tmp_7.onProgress = null
+const downloadDestination = path.join(downloadDir, `cypress-${process.pid}.zip`)
+const rendererOptions = getRendererOptions()
+<operator>.formatString("Installing Cypress ", chalk.gray(`(version: ${version})`), "")
+logger.log()
+const tasks = new Listr([{
+    options: {
+      title: util.titleize('Downloading Cypress')
+    },
+    task: (ctx, task) => {
+      // as our download progresses indicate the status
+      progress.onProgress = progessify(task, 'Downloading Cypress');
+      return download.start({
+        version,
+        downloadDestination,
+        progress
+      }).then(redirectVersion => {
+        if (redirectVersion) version = redirectVersion;
+        debug(`finished downloading file: ${downloadDestination}`);
+      }).then(() => {
+        // save the download destination for unzipping
+        util.setTaskTitle(task, util.titleize(chalk.green('Downloaded Cypress')), rendererOptions.renderer);
+      });
+    }
+  }, unzipTask({
+    progress,
+    zipFilePath: downloadDestination,
+    installDir,
+    rendererOptions
+  }), {
+    options: {
+      title: util.titleize('Finishing Installation')
+    },
+    task: (ctx, task) => {
+      const cleanup = () => {
+        debug('removing zip file %s', downloadDestina...
+_tmp_10.options = {
+      title: util.titleize('Downloading Cypress')
+    }
+_tmp_11.title = util.titleize('Downloading Cypress')
+_tmp_10.task = <lambda>3
+_tmp_9.push(unzipTask({
+    progress,
+    zipFilePath: downloadDestination,
+    installDir,
+    rendererOptions
+  }))
+_tmp_15.progress = progress
+_tmp_15.zipFilePath = downloadDestination
+_tmp_15.installDir = installDir
+_tmp_15.rendererOptions = rendererOptions
+_tmp_9.push({
+    options: {
+      title: util.titleize('Finishing Installation')
+    },
+    task: (ctx, task) => {
+      const cleanup = () => {
+        debug('removing zip file %s', downloadDestination);
+        return fs.removeAsync(downloadDestination);
+      };
+      return cleanup().then(() => {
+        debug('finished installation in', installDir);
+        util.setTaskTitle(task, util.titleize(chalk.green('Finished Installation'), chalk.gray(installDir)), rendererOptions.renderer);
+      });
+    }
+  })
+_tmp_16.options = {
+      title: util.titleize('Finishing Installation')
+    }
+_tmp_17.title = util.titleize('Finishing Installation')
+_tmp_16.task = <lambda>6
+_tmp_19.rendererOptions = rendererOptions
+Promise.resolve(tasks.run())

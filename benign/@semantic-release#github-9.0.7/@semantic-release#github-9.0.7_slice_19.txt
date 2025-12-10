@@ -1,0 +1,196 @@
+function publish = async function publish(pluginConfig, context, { Octokit }) {
+  const {
+    cwd,
+    options: { repositoryUrl },
+    branch,
+    nextRelease: { name, gitTag, notes },
+    logger,
+  } = context;
+  const {
+    githubToken,
+    githubUrl,
+    githubApiPathPrefix,
+    proxy,
+    assets,
+    draftRelease,
+  } = resolveConfig(pluginConfig, context);
+  const { owner, repo } = parseGithubUrl(repositoryUrl);
+  const octokit = new Octokit(
+    toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    }),
+  );
+  const release = {
+    owner,
+    repo,
+    tag_name: gitTag,
+    target_commitish: branch.name,
+    name,
+    body: notes,
+    prerelease: isPrerelease(branch),
+  };
+
+  debug("release object: %O", release);
+
+  const draftReleaseOptions = { ...release, draft: true };
+
+  // When there are no assets, we publish a release directly.
+  if (!assets || assets.length === 0) {
+    // If draftRelease is true we create a draft release instead.
+    if (draftR...
+_tmp_0 = context
+cwd = _tmp_0.cwd
+_tmp_1.repositoryUrl = repositoryUrl
+branch = _tmp_0.branch
+_tmp_2.gitTag = gitTag
+logger = _tmp_0.logger
+_tmp_3 = resolveConfig(pluginConfig, context)
+githubToken = _tmp_3.githubToken
+githubUrl = _tmp_3.githubUrl
+githubApiPathPrefix = _tmp_3.githubApiPathPrefix
+proxy = _tmp_3.proxy
+assets = _tmp_3.assets
+draftRelease = _tmp_3.draftRelease
+resolveConfig(pluginConfig, context)
+_tmp_4 = parseGithubUrl(repositoryUrl)
+const octokit = new Octokit(
+    toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    }),
+  )
+toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    })
+_tmp_6.githubToken = githubToken
+_tmp_6.githubUrl = githubUrl
+_tmp_6.githubApiPathPrefix = githubApiPathPrefix
+_tmp_6.proxy = proxy
+const release = {
+    owner,
+    repo,
+    tag_name: gitTag,
+    target_commitish: branch.name,
+    name,
+    body: notes,
+    prerelease: isPrerelease(branch),
+  }
+_tmp_7.owner = owner
+_tmp_7.repo = repo
+_tmp_7.tag_name = gitTag
+_tmp_7.target_commitish = branch.name
+_tmp_7.name = name
+_tmp_7.body = notes
+_tmp_7.prerelease = isPrerelease(branch)
+debug("release object: %O", release)
+const draftReleaseOptions = { ...release, draft: true }
+!assets || assets.length === 0
+_tmp_15 = await octokit.request(
+    "POST /repos/{owner}/{repo}/releases",
+    draftReleaseOptions,
+  )
+_tmp_16.upload_url = uploadUrl
+await octokit.request(
+    "POST /repos/{owner}/{repo}/releases",
+    draftReleaseOptions,
+  )
+"POST /repos/{owner}/{repo}/releases"
+const globbedAssets = await globAssets(context, assets)
+debug("globed assets: %o", globbedAssets)
+await Promise.all(
+    globbedAssets.map(async (asset) => {
+      const filePath = isPlainObject(asset) ? asset.path : asset;
+      let file;
+
+      try {
+        file = await stat(resolve(cwd, filePath));
+      } catch {
+        logger.error(
+          "The asset %s cannot be read, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      if (!file || !file.isFile()) {
+        logger.error(
+          "The asset %s is not a file, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      const fileName = template(asset.name || basename(filePath))(context);
+      const upload = {
+        method: "POST",
+        url: uploadUrl,
+        data: await readFile(resolve(cwd, filePath)),
+        name: fileName,
+        headers: {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        },
+      };
+
+      debug("file path: %o", filePath);
+      debug("file name: %o", fileName)...
+globbedAssets.map(async (asset) => {
+      const filePath = isPlainObject(asset) ? asset.path : asset;
+      let file;
+
+      try {
+        file = await stat(resolve(cwd, filePath));
+      } catch {
+        logger.error(
+          "The asset %s cannot be read, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      if (!file || !file.isFile()) {
+        logger.error(
+          "The asset %s is not a file, and will be ignored.",
+          filePath,
+        );
+        return;
+      }
+
+      const fileName = template(asset.name || basename(filePath))(context);
+      const upload = {
+        method: "POST",
+        url: uploadUrl,
+        data: await readFile(resolve(cwd, filePath)),
+        name: fileName,
+        headers: {
+          "content-type": mime.getType(extname(fileName)) || "text/plain",
+          "content-length": file.size,
+        },
+      };
+
+      debug("file path: %o", filePath);
+      debug("file name: %o", fileName);
+
+      if (isPlainObj...
+await octokit.request(
+    "PATCH /repos/{owner}/{repo}/releases/{release_id}",
+    {
+      owner,
+      repo,
+      release_id: releaseId,
+      draft: false,
+    },
+  )
+"PATCH /repos/{owner}/{repo}/releases/{release_id}"
+_tmp_22.owner = owner
+_tmp_22.repo = repo
+_tmp_22.release_id = releaseId
+_tmp_22.draft = false

@@ -1,0 +1,50 @@
+new Promise((res, rej) => {
+            try {
+                const args = (0, utils_1.getPrintableCommandArgsForTask)(task);
+                if (streamOutput) {
+                    output_1.output.logCommand(args.join(' '));
+                    output_1.output.addNewline();
+                }
+                const p = (0, child_process_1.fork)(this.cliPath, {
+                    stdio: ['inherit', 'pipe', 'pipe', 'ipc'],
+                    env: this.getEnvVariablesForTask(task, process.env.FORCE_COLOR === undefined
+                        ? 'true'
+                        : process.env.FORCE_COLOR, null, null),
+                });
+                this.processes.add(p);
+                // Re-emit any messages from the task process
+                p.on('message', (message) => {
+                    if (process.send) {
+                        process.send(message);
+                    }
+                });
+                // Send message to run the executor
+                p.send({
+    ...
+const args = (0, utils_1.getPrintableCommandArgsForTask)(task)
+output_1.output.logCommand(args.join(' '))
+(_tmp_22 = output_1.output).addNewline
+const p = (0, child_process_1.fork)(this.cliPath, {
+                    stdio: ['inherit', 'pipe', 'pipe', 'ipc'],
+                    env: this.getEnvVariablesForTask(task, process.env.FORCE_COLOR === undefined
+                        ? 'true'
+                        : process.env.FORCE_COLOR, null, null),
+                })
+_tmp_23.stdio = ['inherit', 'pipe', 'pipe', 'ipc']
+_tmp_23.env = this.getEnvVariablesForTask(task, process.env.FORCE_COLOR === undefined
+                        ? 'true'
+                        : process.env.FORCE_COLOR, null, null)
+"true"
+process.env.FORCE_COLOR
+(_tmp_25 = this.processes).add
+p.on('message', (message) => {
+                    if (process.send) {
+                        process.send(message);
+                    }
+                })
+p.send({
+                    targetDescription: task.target,
+                    overrides: task.overrides,
+                    taskGraph,
+                    isVerbose: this.verbose,
+                })

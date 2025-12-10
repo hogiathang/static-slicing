@@ -1,0 +1,23 @@
+function deleteDir = function deleteDir(path) {
+  if (_fs().existsSync(path)) {
+    _fs().readdirSync(path).forEach(function (file) {
+      const curPath = path + "/" + file;
+      if (_fs().lstatSync(curPath).isDirectory()) {
+        deleteDir(curPath);
+      } else {
+        _fs().unlinkSync(curPath);
+      }
+    });
+    _fs().rmdirSync(path);
+  }
+}
+(_tmp_16 = _fs()).existsSync
+_fs().readdirSync(path).forEach(function (file) {
+      const curPath = path + "/" + file;
+      if (_fs().lstatSync(curPath).isDirectory()) {
+        deleteDir(curPath);
+      } else {
+        _fs().unlinkSync(curPath);
+      }
+    })
+(_tmp_22 = _fs()).rmdirSync

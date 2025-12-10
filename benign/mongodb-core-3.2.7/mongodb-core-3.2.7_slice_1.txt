@@ -1,0 +1,38 @@
+const checkServer = callback => {
+    let start = process.hrtime();
+
+    // emit a signal indicating we have started the heartbeat
+    server.emit('serverHeartbeatStarted', new ServerHeartbeatStartedEvent(server.name));
+
+    // NOTE: legacy monitoring event
+    process.nextTick(() => server.emit('monitoring', server));
+
+    server.command(
+      'admin.$cmd',
+      { ismaster: true },
+      {
+        monitoring: true,
+        socketTimeout: server.s.options.connectionTimeout || 2000
+      },
+      (err, result) => {
+        let duration = calculateDurationInMs(start);
+
+        if (err) {
+          server.emit(
+            'serverHeartbeatFailed',
+            new ServerHeartbeatFailedEvent(duration, err, server.name)
+          );
+
+          return callback(err, null);
+        }
+
+        const isMaster = result.result;
+        server.emit(
+          'serverHeartbeatSucceded',
+          new ServerHeartbeatSucceededEvent(duration, isMaster, server.name)
+        );
+
+        return callback(nul...
+let start = process.hrtime()
+server.emit('serverHeartbeatStarted', new ServerHeartbeatStartedEvent(server.name))
+process.nextTick(() => server.emit('monitoring', server))

@@ -1,0 +1,13 @@
+files.forEach(function(file,index) {
+      var curPath = path.join(folder, file);
+      if(fs.lstatSync(curPath).isDirectory()) { // recurse
+        cleanFolderRecursive(curPath);
+        fs.rmdirSync(curPath);
+      } else if (BUILD_FILES.indexOf(curPath) < 0){ // delete file
+        fs.unlinkSync(curPath);
+      }
+    })
+var curPath = path.join(folder, file)
+(_tmp_1 = fs.lstatSync(curPath)).isDirectory
+BUILD_FILES.indexOf(curPath) < 0
+fs.unlinkSync(curPath)

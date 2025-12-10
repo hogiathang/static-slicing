@@ -1,0 +1,4 @@
+_tmp_8.ArrowFunctionExpression = ArrowFunctionExpression
+var classExp = path.get("body")
+!classExp.isClassExpression()
+var body = classExp.get("body")

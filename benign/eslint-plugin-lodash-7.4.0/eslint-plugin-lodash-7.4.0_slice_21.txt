@@ -1,0 +1,6 @@
+function isChainable = function isChainable(version, method) {
+    const data = getMethodData(version)
+    return _.get(data, [getMainAlias(version, method), 'chainable'], false)
+}
+const data = getMethodData(version)
+_.get(data, [getMainAlias(version, method), 'chainable'], false)

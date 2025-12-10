@@ -1,0 +1,45 @@
+function countPathsFromStart = function countPathsFromStart(segment, pathHistory) {
+          var cache = countPathsFromStart.cache;
+          var paths = cache.get(segment.id);
+          var pathList = new Set(pathHistory); // If `pathList` includes the current segment then we've found a cycle!
+          // We need to fill `cyclic` with all segments inside cycle
+
+          if (pathList.has(segment.id)) {
+            var pathArray = [].concat(pathList);
+            var cyclicSegments = pathArray.slice(pathArray.indexOf(segment.id) + 1);
+
+            var _iterator = _createForOfIteratorHelper(cyclicSegments),
+                _step;
+
+            try {
+              for (_iterator.s(); !(_step = _iterator.n()).done;) {
+                var cyclicSegment = _step.value;
+                cyclic.add(cyclicSegment);
+              }
+            } catch (err) {
+              _iterator.e(err);
+            } finally {
+              _iterator.f();
+            }
+
+            return BigInt('0');
+          } // add the current seg...
+var cache = countPathsFromStart.cache
+var paths = cache.get(segment.id)
+var pathList = new Set(pathHistory)
+pathList.has(segment.id)
+pathList.add(segment.id)
+paths !== undefined
+(_tmp_40 = codePath.thrownSegments).includes
+paths = BigInt('0')
+segment.prevSegments.length === 0
+paths = BigInt('1')
+paths = BigInt('0')
+var _iterator2 = _createForOfIteratorHelper(segment.prevSegments)
+!(_step2 = _iterator2.n()).done
+var prevSegment = _step2.value
+paths += countPathsFromStart(prevSegment, pathList)
+_iterator2.e(err)
+_iterator2.f()
+segment.reachable && paths === BigInt('0')
+cache.delete(segment.id)

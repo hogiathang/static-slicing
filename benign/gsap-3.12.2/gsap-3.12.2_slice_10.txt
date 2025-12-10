@@ -1,0 +1,338 @@
+constructor(target, vars) {
+		super();
+		_coreInitted || _initCore(1);
+		target = _toArray(target)[0]; //in case the target is a selector object or selector text
+		this.styles = _getStyleSaver && _getStyleSaver(target, "transform,left,top");
+		if (!InertiaPlugin) {
+			InertiaPlugin = gsap.plugins.inertia;
+		}
+		this.vars = vars = _copy(vars || {});
+		this.target = target;
+		this.x = this.y = this.rotation = 0;
+		this.dragResistance = parseFloat(vars.dragResistance) || 0;
+		this.edgeResistance = isNaN(vars.edgeResistance) ? 1 : parseFloat(vars.edgeResistance) || 0;
+		this.lockAxis = vars.lockAxis;
+		this.autoScroll = vars.autoScroll || 0;
+		this.lockedAxis = null;
+		this.allowEventDefault = !!vars.allowEventDefault;
+
+		gsap.getProperty(target, "x"); // to ensure that transforms are instantiated.
+
+		let type = (vars.type || "x,y").toLowerCase(),
+			xyMode = (~type.indexOf("x") || ~type.indexOf("y")),
+			rotationMode = (type.indexOf("rotation") !== -1),
+			xProp = rotationMode ? "rotat...
+super()
+_coreInitted || _initCore(1)
+target = _toArray(target)[0]
+this.styles = _getStyleSaver && _getStyleSaver(target, "transform,left,top")
+!InertiaPlugin
+InertiaPlugin = gsap.plugins.inertia
+this.vars = vars = _copy(vars || {})
+this.target = target
+this.x = this.y = this.rotation = 0
+this.dragResistance = parseFloat(vars.dragResistance) || 0
+this.edgeResistance = isNaN(vars.edgeResistance) ? 1 : parseFloat(vars.edgeResistance) || 0
+this.lockAxis = vars.lockAxis
+this.autoScroll = vars.autoScroll || 0
+this.lockedAxis = null
+this.allowEventDefault = !!vars.allowEventDefault
+gsap.getProperty(target, "x")
+let type = (vars.type || "x,y").toLowerCase()
+let xyMode = (~type.indexOf("x") || ~type.indexOf("y"))
+let rotationMode = (type.indexOf("rotation") !== -1)
+let xProp = rotationMode ? "rotation" : xyMode ? "x" : "left"
+let yProp = xyMode ? "y" : "top"
+let allowX = !!(~type.indexOf("x") || ~type.indexOf("left") || type === "scroll")
+let allowY = !!(~type.indexOf("y") || ~type.indexOf("top") || type === "scroll")
+let minimumMovement = vars.minimumMovement || 2
+let self = this
+let triggers = _toArray(vars.trigger || vars.handle || target)
+let killProps = {}
+let dragEndTime = 0
+let checkAutoScrollBounds = false
+let autoScrollMarginTop = vars.autoScrollMarginTop || 40
+let autoScrollMarginRight = vars.autoScrollMarginRight || 40
+let autoScrollMarginBottom = vars.autoScrollMarginBottom || 40
+let autoScrollMarginLeft = vars.autoScrollMarginLeft || 40
+let isClickable = vars.clickableTest || _isClickable
+let clickTime = 0
+let gsCache = target._gsap || gsap.core.getCache(target)
+let isFixed = _isFixed(target)
+let getPropAsNum = (property, unit) => parseFloat(gsCache.get(target, property, unit))
+let ownerDoc = target.ownerDocument || _doc
+let onContextMenu = e => { //used to prevent long-touch from triggering a context menu.
+				// (self.isPressed && e.which < 2) && self.endDrag() // previously ended drag when context menu was triggered, but instead we should just stop propagation and prevent the default event behavior.
+				_preventDefault(e);
+				e.stopImmediatePropagation && e.stopImmediatePropagation();
+				return false;
+			}
+let render = suppressEvents => {
+				if (self.autoScroll && self.isDragging && (checkAutoScrollBounds || dirty)) {
+					let e = target,
+						autoScrollFactor = self.autoScroll * 15, //multiplying by 15 just gives us a better "feel" speed-wise.
+						parent, isRoot, rect, pointerX, pointerY, changeX, changeY, gap;
+					checkAutoScrollBounds = false;
+					_windowProxy.scrollTop = ((_win.pageYOffset != null) ? _win.pageYOffset : (ownerDoc.documentElement.scrollTop != null) ? ownerDoc.documentElement.scrollTop : ownerDoc.body.scrollTop);
+					_windowProxy.scrollLeft = ((_win.pageXOffset != null) ? _win.pageXOffset : (ownerDoc.documentElement.scrollLeft != null) ? ownerDoc.documentElement.scrollLeft : ownerDoc.body.scrollLeft);
+					pointerX = self.pointerX - _windowProxy.scrollLeft;
+					pointerY = self.pointerY - _windowProxy.scrollTop;
+					while (e && !isRoot) { //walk up the chain and sense wherever the pointer is within 40px of an edge that's scrollable.
+						isRoot = _isRoot(e.paren...
+let syncXY = (skipOnUpdate, skipSnap) => {
+				let { x, y } = self,
+					snappedValue, cs;
+				if (!target._gsap) { //just in case the _gsap cache got wiped, like if the user called clearProps on the transform or something (very rare).
+					gsCache = gsap.core.getCache(target);
+				}
+				gsCache.uncache && gsap.getProperty(target, "x"); // trigger a re-cache
+				if (xyMode) {
+					self.x = parseFloat(gsCache.x);
+					self.y = parseFloat(gsCache.y);
+				} else if (rotationMode) {
+					self.x = self.rotation = parseFloat(gsCache.rotation);
+				} else if (scrollProxy) {
+					self.y = scrollProxy.top();
+					self.x = scrollProxy.left();
+				} else {
+					self.y = parseFloat(target.style.top || ((cs = _getComputedStyle(target)) && cs.top)) || 0;
+					self.x = parseFloat(target.style.left || (cs || {}).left) || 0;
+				}
+				if ((snapX || snapY || snapXY) && !skipSnap && (self.isDragging || self.isThrowing)) {
+					if (snapXY) {
+						_temp1.x = self.x;
+						_temp1.y = self.y;
+						snappedVa...
+let buildSnapFunc = (snap, min, max, factor) => {
+				if (min == null) {
+					min = -_bigNum;
+				}
+				if (max == null) {
+					max = _bigNum;
+				}
+				if (_isFunction(snap)) {
+					return n => {
+						let edgeTolerance = !self.isPressed ? 1 : 1 - self.edgeResistance; //if we're tweening, disable the edgeTolerance because it's already factored into the tweening values (we don't want to apply it multiple times)
+						return snap.call(self, (n > max ? max + (n - max) * edgeTolerance : (n < min) ? min + (n - min) * edgeTolerance : n) * factor) * factor;
+					};
+				}
+				if (_isArray(snap)) {
+					return n => {
+						let i = snap.length,
+							closest = 0,
+							absDif = _bigNum,
+							val, dif;
+						while (--i > -1) {
+							val = snap[i];
+							dif = val - n;
+							if (dif < 0) {
+								dif = -dif;
+							}
+							if (dif < absDif && val >= min && val <= max) {
+								closest = i;
+								absDif = dif;
+							}
+						}
+						return snap[closest];
+					};
+				}
+				return isNaN(s...
+let buildPointSnapFunc = (snap, minX, maxX, minY, maxY, radius, factor) => {
+				radius = (radius && radius < _bigNum) ? radius * radius : _bigNum; //so we don't have to Math.sqrt() in the functions. Performance optimization.
+				if (_isFunction(snap)) {
+					return point => {
+						let edgeTolerance = !self.isPressed ? 1 : 1 - self.edgeResistance,
+							x = point.x,
+							y = point.y,
+							result, dx, dy; //if we're tweening, disable the edgeTolerance because it's already factored into the tweening values (we don't want to apply it multiple times)
+						point.x = x = (x > maxX ? maxX + (x - maxX) * edgeTolerance : (x < minX) ? minX + (x - minX) * edgeTolerance : x);
+						point.y = y = (y > maxY ? maxY + (y - maxY) * edgeTolerance : (y < minY) ? minY + (y - minY) * edgeTolerance : y);
+						result = snap.call(self, point);
+						if (result !== point) {
+							point.x = result.x;
+							point.y = result.y;
+						}
+						if (factor !== 1) {
+							point.x *= factor;
+							point.y *=...
+let calculateBounds = () => {
+				let bounds, targetBounds, snap, snapIsRaw;
+				hasBounds = false;
+				if (scrollProxy) {
+					scrollProxy.calibrate();
+					self.minX = minX = -scrollProxy.maxScrollLeft();
+					self.minY = minY = -scrollProxy.maxScrollTop();
+					self.maxX = maxX = self.maxY = maxY = 0;
+					hasBounds = true;
+				} else if (!!vars.bounds) {
+					bounds = _getBounds(vars.bounds, target.parentNode); //could be a selector/jQuery object or a DOM element or a generic object like {top:0, left:100, width:1000, height:800} or {minX:100, maxX:1100, minY:0, maxY:800}
+					if (rotationMode) {
+						self.minX = minX = bounds.left;
+						self.maxX = maxX = bounds.left + bounds.width;
+						self.minY = minY = self.maxY = maxY = 0;
+					} else if (!_isUndefined(vars.bounds.maxX) || !_isUndefined(vars.bounds.maxY)) {
+						bounds = vars.bounds;
+						self.minX = minX = bounds.minX;
+						self.minY = minY = bounds.minY;
+						self.maxX = maxX = bounds.maxX;
+						self.maxY = maxY = bou...
+let onThrowComplete = () => {
+				self.isThrowing = false;
+				_dispatchEvent(self, "throwcomplete", "onThrowComplete");
+			}
+let onThrowInterrupt = () => {
+				self.isThrowing = false;
+			}
+let animate = (inertia, forceZeroVelocity) => {
+				let snap, snapIsRaw, tween, overshootTolerance;
+				if (inertia && InertiaPlugin) {
+					if (inertia === true) {
+						snap = vars.snap || vars.liveSnap || {};
+						snapIsRaw = (_isArray(snap) || _isFunction(snap));
+						inertia = {resistance:(vars.throwResistance || vars.resistance || 1000) / (rotationMode ? 10 : 1)};
+						if (rotationMode) {
+							inertia.rotation = _parseInertia(self, snapIsRaw ? snap : snap.rotation, maxX, minX, 1, forceZeroVelocity);
+						} else {
+							if (allowX) {
+								inertia[xProp] = _parseInertia(self, snapIsRaw ? snap : snap.points || snap.x || snap.left, maxX, minX, scrollProxy ? -1 : 1, forceZeroVelocity || (self.lockedAxis === "x"));
+							}
+							if (allowY) {
+								inertia[yProp] = _parseInertia(self, snapIsRaw ? snap : snap.points || snap.y || snap.top, maxY, minY, scrollProxy ? -1 : 1, forceZeroVelocity || (self.lockedAxis === "y"));
+							}
+							if (snap.points || (_isArray(snap) && ...
+let updateMatrix = shiftStart => {
+				let start = matrix,
+					p;
+				matrix = getGlobalMatrix(target.parentNode, true);
+				if (shiftStart && self.isPressed && !matrix.equals(start || new Matrix2D())) { //if the matrix changes WHILE the element is pressed, we must adjust the startPointerX and startPointerY accordingly, so we invert the original matrix and figure out where the pointerX and pointerY were in the global space, then apply the new matrix to get the updated coordinates.
+					p = start.inverse().apply({x:startPointerX, y:startPointerY});
+					matrix.apply(p, p);
+					startPointerX = p.x;
+					startPointerY = p.y;
+				}
+				if (matrix.equals(_identityMatrix)) { //if there are no transforms, we can optimize performance by not factoring in the matrix
+					matrix = null;
+				}
+			}
+let recordStartPositions = () => {
+				let edgeTolerance = 1 - self.edgeResistance,
+					offsetX = isFixed ? _getDocScrollLeft(ownerDoc) : 0,
+					offsetY = isFixed ? _getDocScrollTop(ownerDoc) : 0,
+					parsedOrigin, x, y;
+				if (xyMode) { // in case the user set it as a different unit, like animating the x to "100%". We must convert it back to px!
+					gsCache.x = getPropAsNum(xProp, "px") + "px";
+					gsCache.y = getPropAsNum(yProp, "px") + "px";
+					gsCache.renderTransform();
+				}
+				updateMatrix(false);
+				_point1.x = self.pointerX - offsetX;
+				_point1.y = self.pointerY - offsetY;
+				matrix && matrix.apply(_point1, _point1);
+				startPointerX = _point1.x; //translate to local coordinate system
+				startPointerY = _point1.y;
+				if (dirty) {
+					setPointerPosition(self.pointerX, self.pointerY);
+					render(true);
+				}
+				innerMatrix = getGlobalMatrix(target);
+				if (scrollProxy) {
+					calculateBounds();
+					startElementY = scrollProxy.top();
+					startElementX = scroll...
+let isTweening = () => self.tween && self.tween.isActive()
+let removePlaceholder = () => {
+				if (_placeholderDiv.parentNode && !isTweening() && !self.isDragging) { //_placeholderDiv just props open auto-scrolling containers so they don't collapse as the user drags left/up. We remove it after dragging (and throwing, if necessary) finishes.
+					_placeholderDiv.parentNode.removeChild(_placeholderDiv);
+				}
+			}
+let onPress = (e, force) => {
+				let i;
+				if (!enabled || self.isPressed || !e || ((e.type === "mousedown" || e.type === "pointerdown") && !force && _getTime() - clickTime < 30 && _touchEventLookup[self.pointerEvent.type])) { //when we DON'T preventDefault() in order to accommodate touch-scrolling and the user just taps, many browsers also fire a mousedown/mouseup sequence AFTER the touchstart/touchend sequence, thus it'd result in two quick "click" events being dispatched. This line senses that condition and halts it on the subsequent mousedown.
+					isPreventingDefault && e && enabled && _preventDefault(e); // in some browsers, we must listen for multiple event types like touchstart, pointerdown, mousedown. The first time this function is called, we record whether or not we _preventDefault() so that on duplicate calls, we can do the same if necessary.
+					return;
+				}
+				interrupted = isTweening();
+				dragged = false; // we need to track whether or not it was dragged in this in...
+let onMove = e => {
+				let originalEvent = e,
+					touches, pointerX, pointerY, i, dx, dy;
+				if (!enabled || _isMultiTouching || !self.isPressed || !e) {
+					isPreventingDefault && e && enabled && _preventDefault(e); // in some browsers, we must listen for multiple event types like touchmove, pointermove, mousemove. The first time this function is called, we record whether or not we _preventDefault() so that on duplicate calls, we can do the same if necessary.
+					return;
+				}
+				self.pointerEvent = e;
+				touches = e.changedTouches;
+				if (touches) { //touch events store the data slightly differently
+					e = touches[0];
+					if (e !== touch && e.identifier !== touchID) { //Usually changedTouches[0] will be what we're looking for, but in case it's not, look through the rest of the array...(and Android browsers don't reuse the event like iOS)
+						i = touches.length;
+						while (--i > -1 && (e = touches[i]).identifier !== touchID && e.target !== target) {} // Some Android devi...
+let setPointerPosition = (pointerX, pointerY, invokeOnMove) => {
+				let dragTolerance = 1 - self.dragResistance,
+					edgeTolerance = 1 - self.edgeResistance,
+					prevPointerX = self.pointerX,
+					prevPointerY = self.pointerY,
+					prevStartElementY = startElementY,
+					prevX = self.x,
+					prevY = self.y,
+					prevEndX = self.endX,
+					prevEndY = self.endY,
+					prevEndRotation = self.endRotation,
+					prevDirty = dirty,
+					xChange, yChange, x, y, dif, temp;
+				self.pointerX = pointerX;
+				self.pointerY = pointerY;
+				if (isFixed) {
+					pointerX -= _getDocScrollLeft(ownerDoc);
+					pointerY -= _getDocScrollTop(ownerDoc);
+				}
+				if (rotationMode) {
+					y = Math.atan2(rotationOrigin.y - pointerY, pointerX - rotationOrigin.x) * _RAD2DEG;
+					dif = self.y - y;
+					if (dif > 180) {
+						startElementY -= 360;
+						self.y = y;
+					} else if (dif < -180) {
+						startElementY += 360;
+						self.y = y;
+					}
+					if (self.x !== startElementX || Math.abs(startElementY - y) >...
+let onRelease = (e, force) => {
+				if (!enabled || !self.isPressed || (e && touchID != null && !force && ((e.pointerId && e.pointerId !== touchID && e.target !== target) || (e.changedTouches && !_hasTouchID(e.changedTouches, touchID))))) {  //for some Microsoft browsers, we must attach the listener to the doc rather than the trigger so that when the finger moves outside the bounds of the trigger, things still work. So if the event we're receiving has a pointerId that doesn't match the touchID, ignore it (for multi-touch)
+					isPreventingDefault && e && enabled && _preventDefault(e); // in some browsers, we must listen for multiple event types like touchend, pointerup, mouseup. The first time this function is called, we record whether or not we _preventDefault() so that on duplicate calls, we can do the same if necessary.
+					return;
+				}
+				self.isPressed = false;
+				let originalEvent = e,
+					wasDragging = self.isDragging,
+					isContextMenuRelease = (self.vars.allowContextMenu ...
+let updateScroll = e => {
+				if (e && self.isDragging && !scrollProxy) {
+					let parent = e.target || target.parentNode,
+						deltaX = parent.scrollLeft - parent._gsScrollX,
+						deltaY = parent.scrollTop - parent._gsScrollY;
+					if (deltaX || deltaY) {
+						if (matrix) {
+							startPointerX -= deltaX * matrix.a + deltaY * matrix.c;
+							startPointerY -= deltaY * matrix.d + deltaX * matrix.b;
+						} else {
+							startPointerX -= deltaX;
+							startPointerY -= deltaY;
+						}
+						parent._gsScrollX += deltaX;
+						parent._gsScrollY += deltaY;
+						setPointerPosition(self.pointerX, self.pointerY);
+					}
+				}
+			}
+let onClick = e => { //this was a huge pain in the neck to align all the various browsers and their behaviors. Chrome, Firefox, Safari, Opera, Android, and Microsoft Edge all handle events differently! Some will only trigger native behavior (like checkbox toggling) from trusted events. Others don't even support isTrusted, but require 2 events to flow through before triggering native behavior. Edge treats everything as trusted but also mandates that 2 flow through to trigger the correct native behavior.
+				let time = _getTime(),
+					recentlyClicked = (time - clickTime < 100),
+					recentlyDragged = (time - dragEndTime < 50),
+					alreadyDispatched = (recentlyClicked && clickDispatch === clickTime),
+					defaultPrevented = (self.pointerEvent && self.pointerEvent.defaultPrevented),
+					alreadyDispatchedTrusted = (recentlyClicked && trustedClickDispatch === clickTime),
+					trusted = e.isTrusted || (e.isTrusted == null && recentlyClicked && alreadyDispatched); //note: Safari doesn't supp...
+let localizePoint = p => matrix ? {x:p.x * matrix.a + p.y * matrix.c + matrix.e, y:p.x * matrix.b + p.y * matrix.d + matrix.f} : {x:p.x, y:p.y}
+old = Draggable.get(target)
+old && old.kill()

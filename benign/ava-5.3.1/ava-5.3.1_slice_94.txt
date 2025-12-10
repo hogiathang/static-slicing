@@ -1,0 +1,38 @@
+worker.on('message', message => {
+			if (!message.ava) {
+				return;
+			}
+
+			switch (message.ava.type) {
+				case 'ready-for-options': {
+					send({type: 'options', options});
+					break;
+				}
+
+				case 'shared-worker-connect': {
+					const {channelId, filename, initialData, port} = message.ava;
+					emitter.emit('connectSharedWorker', {
+						filename,
+						initialData,
+						port,
+						signalError() {
+							send({type: 'shared-worker-error', channelId});
+						},
+					});
+					break;
+				}
+
+				case 'ping': {
+					send({type: 'pong'});
+					break;
+				}
+
+				default: {
+					emitStateChange(message.ava);
+				}
+			}
+		})
+!message.ava
+message.ava.type
+"ready-for-options"
+send({type: 'options', options})

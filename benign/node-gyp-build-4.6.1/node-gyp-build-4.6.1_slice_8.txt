@@ -1,0 +1,19 @@
+function exec = function exec (cmd) {
+  if (process.platform !== 'win32') {
+    var shell = os.platform() === 'android' ? 'sh' : '/bin/sh'
+    return proc.spawn(shell, ['-c', '--', cmd], {
+      stdio: 'inherit'
+    })
+  }
+
+  return proc.spawn(process.env.comspec || 'cmd.exe', ['/s', '/c', '"' + cmd + '"'], {
+    windowsVerbatimArguments: true,
+    stdio: 'inherit'
+  })
+}
+process.platform !== 'win32'
+var shell = os.platform() === 'android' ? 'sh' : '/bin/sh'
+proc.spawn(shell, ['-c', '--', cmd], {
+      stdio: 'inherit'
+    })
+_tmp_7.stdio = "inherit"

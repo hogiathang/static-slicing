@@ -1,0 +1,175 @@
+api.compactIri = ({
+  activeCtx,
+  iri,
+  value = null,
+  relativeTo = {vocab: false},
+  reverse = false,
+  base = null
+}) => {
+  // can't compact null
+  if(iri === null) {
+    return iri;
+  }
+
+  // if context is from a property term scoped context composed with a
+  // type-scoped context, then use the previous context instead
+  if(activeCtx.isPropertyTermScoped && activeCtx.previousContext) {
+    activeCtx = activeCtx.previousContext;
+  }
+
+  const inverseCtx = activeCtx.getInverse();
+
+  // if term is a keyword, it may be compacted to a simple alias
+  if(_isKeyword(iri) &&
+    iri in inverseCtx &&
+    '@none' in inverseCtx[iri] &&
+    '@type' in inverseCtx[iri]['@none'] &&
+    '@none' in inverseCtx[iri]['@none']['@type']) {
+    return inverseCtx[iri]['@none']['@type']['@none'];
+  }
+
+  // use inverse context to pick a term if iri is relative to vocab
+  if(relativeTo.vocab && iri in inverseCtx) {
+    const defaultLanguage = activeCtx['@language'] || '@none';
+
+    // prefer @index if a...
+activeCtx = param1_1.activeCtx
+iri = param1_1.iri
+value = param1_1.value
+relativeTo = param1_1.relativeTo
+reverse = param1_1.reverse
+base = param1_1.base
+iri === null
+activeCtx.isPropertyTermScoped && activeCtx.previousContext
+activeCtx = activeCtx.previousContext
+const inverseCtx = activeCtx.getInverse()
+_isKeyword(iri) &&
+    iri in inverseCtx &&
+    '@none' in inverseCtx[iri] &&
+    '@type' in inverseCtx[iri]['@none'] &&
+    '@none' in inverseCtx[iri]['@none']['@type']
+iri in inverseCtx
+'@none' in inverseCtx[iri]
+'@type' in inverseCtx[iri]['@none']
+'@none' in inverseCtx[iri]['@none']['@type']
+relativeTo.vocab && iri in inverseCtx
+const defaultLanguage = activeCtx['@language'] || '@none'
+__ecma.Array.factory()
+_isObject(value) && '@index' in value && !('@graph' in value)
+containers.push('@index', '@index@set')
+_isObject(value) && '@preserve' in value
+value = value['@preserve'][0]
+_isGraph(value)
+'@index' in value
+containers.push(
+          '@graph@index', '@graph@index@set', '@index', '@index@set')
+"@index@set"
+'@id' in value
+containers.push(
+          '@graph@id', '@graph@id@set')
+"@graph@id@set"
+containers.push('@graph', '@graph@set', '@set')
+!('@index' in value)
+containers.push(
+          '@graph@index', '@graph@index@set', '@index', '@index@set')
+"@index@set"
+!('@id' in value)
+containers.push('@graph@id', '@graph@id@set')
+_isObject(value) && !_isValue(value)
+containers.push('@id', '@id@set', '@type', '@set@type')
+let typeOrLanguage = '@language'
+let typeOrLanguageValue = '@null'
+typeOrLanguage = '@type'
+typeOrLanguageValue = '@reverse'
+containers.push('@set')
+_isList(value)
+!('@index' in value)
+containers.push('@list')
+const list = value['@list']
+list.length === 0
+typeOrLanguage = '@any'
+typeOrLanguageValue = '@none'
+let commonLanguage = (list.length === 0) ? defaultLanguage : null
+let commonType = null
+i < list.length
+const item = list[i]
+let itemLanguage = '@none'
+let itemType = '@none'
+_isValue(item)
+'@direction' in item
+const lang = (item['@language'] || '').toLowerCase()
+const dir = item['@direction']
+<operator>.formatString("", lang, "_", dir, "")
+'@language' in item
+itemLanguage = item['@language'].toLowerCase()
+'@type' in item
+itemType = item['@type']
+itemLanguage = '@null'
+itemType = '@id'
+commonLanguage === null
+commonLanguage = itemLanguage
+itemLanguage !== commonLanguage && _isValue(item)
+commonLanguage = '@none'
+commonType === null
+commonType = itemType
+itemType !== commonType
+commonType = '@none'
+commonLanguage === '@none' && commonType === '@none'
+break;
+commonLanguage = commonLanguage || '@none'
+commonType = commonType || '@none'
+commonType !== '@none'
+typeOrLanguage = '@type'
+typeOrLanguageValue = commonType
+typeOrLanguageValue = commonLanguage
+_isValue(value)
+'@language' in value && !('@index' in value)
+containers.push('@language', '@language@set')
+typeOrLanguageValue = value['@language']
+const dir = value['@direction']
+<operator>.formatString("", typeOrLanguageValue, "_", dir, "")
+'@direction' in value && !('@index' in value)
+<operator>.formatString("_", value['@direction'], "")
+'@type' in value
+typeOrLanguage = '@type'
+typeOrLanguageValue = value['@type']
+typeOrLanguage = '@type'
+typeOrLanguageValue = '@id'
+containers.push('@set')
+containers.push('@none')
+_isObject(value) && !('@index' in value)
+containers.push('@index', '@index@set')
+_isValue(value) && Object.keys(value).length === 1
+containers.push('@language', '@language@set')
+const term = _selectTerm(
+      activeCtx, iri, value, containers, typeOrLanguage, typeOrLanguageValue)
+term !== null
+relativeTo.vocab
+'@vocab' in activeCtx
+const vocab = activeCtx['@vocab']
+iri.indexOf(vocab) === 0 && iri !== vocab
+const suffix = iri.substr(vocab.length)
+(_tmp_105 = activeCtx.mappings).has
+let choice = null
+const partialMatches = []
+let iriMap = activeCtx.fastCurieMap
+const maxPartialLength = iri.length - 1
+i < maxPartialLength && iri[i] in iriMap
+iriMap = iriMap[iri[i]]
+'' in iriMap
+partialMatches.push(iriMap[''][0])
+let i = partialMatches.length - 1
+const entry = partialMatches[i]
+const terms = entry.terms
+_iterator_6 = <operator>.iterator(terms)
+const curie = term + ':' + iri.substr(entry.iri.length)
+const isUsableCurie = (activeCtx.mappings.get(term)._prefix &&
+        (!activeCtx.mappings.has(curie) ||
+        (value === null && activeCtx.mappings.get(curie)['@id'] === iri)))
+!activeCtx.mappings.has(curie) ||
+        (value === null && activeCtx.mappings.get(curie)['@id'] === iri)
+value === null && activeCtx.mappings.get(curie)['@id'] === iri
+isUsableCurie && (choice === null ||
+        _compareShortestLeast(curie, choice) < 0)
+_compareShortestLeast(curie, choice) < 0
+choice = curie

@@ -1,0 +1,17 @@
+getAllCommands() {
+        const commands = [...this._commands.values()];
+        const validPermutations = [...this.commandPermutations.getAllValid()];
+        for (const permutation of validPermutations) {
+            if (!this._commands.has(permutation)) {
+                const cmd = this._commands.get(this.getCmdLookupId(permutation));
+                commands.push({ ...cmd, id: permutation });
+            }
+        }
+        return commands;
+    }
+const commands = [...this._commands.values()]
+const validPermutations = [...this.commandPermutations.getAllValid()]
+_iterator_7 = <operator>.iterator(validPermutations)
+!this._commands.has(permutation)
+const cmd = this._commands.get(this.getCmdLookupId(permutation))
+commands.push({ ...cmd, id: permutation })

@@ -1,0 +1,27 @@
+static fromParentTrees(parentTrees: ReadonlyArray<RangeTree>): StartEventQueue {
+    const startToTrees: Map<number, RangeTreeWithParent[]> = new Map();
+    for (const [parentIndex, parentTree] of parentTrees.entries()) {
+      for (const child of parentTree.children) {
+        let trees: RangeTreeWithParent[] | undefined = startToTrees.get(child.start);
+        if (trees === undefined) {
+          trees = [];
+          startToTrees.set(child.start, trees);
+        }
+        trees.push(new RangeTreeWithParent(parentIndex, child));
+      }
+    }
+    const queue: StartEvent[] = [];
+    for (const [startOffset, trees] of startToTrees) {
+      queue.push(new StartEvent(startOffset, trees));
+    }
+    queue.sort(StartEvent.compare);
+    return new StartEventQueue(queue);
+  }
+const startToTrees: Map<number, RangeTreeWithParent[]> = new Map()
+_iterator_11 = <operator>.iterator(parentTrees.entries())
+_iterator_12 = <operator>.iterator(parentTree.children)
+let trees: RangeTreeWithParent[] | undefined = startToTrees.get(child.start)
+trees === undefined
+__ecma.Array.factory()
+startToTrees.set(child.start, trees)
+trees.push(new RangeTreeWithParent(parentIndex, child))

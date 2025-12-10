@@ -1,0 +1,8 @@
+function jsonToJs = function jsonToJs(path) {
+	let contents = fs.readFileSync(path, 'utf-8')
+	contents = COMMENT + '\n' + 'export default ' + contents
+	fs.writeFileSync(path + '.js', contents)
+}
+let contents = fs.readFileSync(path, 'utf-8')
+contents = COMMENT + '\n' + 'export default ' + contents
+fs.writeFileSync(path + '.js', contents)

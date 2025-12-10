@@ -1,0 +1,77 @@
+resolve(node, analysis) {
+    const scope = this.scopeRegistry.getScopeOfModule(node);
+    const diagnostics = [];
+    const scopeDiagnostics = this.scopeRegistry.getDiagnosticsOfModule(node);
+    if (scopeDiagnostics !== null) {
+      diagnostics.push(...scopeDiagnostics);
+    }
+    if (analysis.providersRequiringFactory !== null) {
+      const providerDiagnostics = getProviderDiagnostics(analysis.providersRequiringFactory, analysis.providers, this.injectableRegistry);
+      diagnostics.push(...providerDiagnostics);
+    }
+    const data = {
+      injectorImports: []
+    };
+    for (const topLevelImport of analysis.imports) {
+      if (topLevelImport.hasModuleWithProviders) {
+        data.injectorImports.push(new WrappedNodeExpr6(topLevelImport.expression));
+        continue;
+      }
+      const refsToEmit = [];
+      let symbol = null;
+      if (this.semanticDepGraphUpdater !== null) {
+        const sym = this.semanticDepGraphUpdater.getSymbol(node);
+        if (sym instanceof NgMo...
+const scope = this.scopeRegistry.getScopeOfModule(node)
+const diagnostics = []
+const scopeDiagnostics = this.scopeRegistry.getDiagnosticsOfModule(node)
+scopeDiagnostics !== null
+diagnostics.push(...scopeDiagnostics)
+analysis.providersRequiringFactory !== null
+const providerDiagnostics = getProviderDiagnostics(analysis.providersRequiringFactory, analysis.providers, this.injectableRegistry)
+diagnostics.push(...providerDiagnostics)
+const data = {
+      injectorImports: []
+    }
+_tmp_927.injectorImports = __ecma.Array.factory()
+_iterator_109 = <operator>.iterator(analysis.imports)
+topLevelImport.hasModuleWithProviders
+data.injectorImports.push(new WrappedNodeExpr6(topLevelImport.expression))
+continue;
+__ecma.Array.factory()
+let symbol = null
+this.semanticDepGraphUpdater !== null
+const sym = this.semanticDepGraphUpdater.getSymbol(node)
+sym instanceof NgModuleSymbol
+symbol = sym
+_iterator_110 = <operator>.iterator(topLevelImport.resolvedReferences)
+const dirMeta = this.metaReader.getDirectiveMetadata(ref)
+dirMeta !== null
+!dirMeta.isComponent
+continue;
+const mayExportProviders = this.exportedProviderStatusResolver.mayExportProviders(dirMeta.ref, (importRef) => {
+            if (symbol !== null && this.semanticDepGraphUpdater !== null) {
+              const importSymbol = this.semanticDepGraphUpdater.getSymbol(importRef.node);
+              symbol.addTransitiveImportFromStandaloneComponent(importSymbol);
+            }
+          })
+!mayExportProviders
+continue;
+const pipeMeta = dirMeta === null ? this.metaReader.getPipeMetadata(ref) : null
+pipeMeta !== null
+continue;
+refsToEmit.push(ref)
+refsToEmit.length === topLevelImport.resolvedReferences.length
+data.injectorImports.push(new WrappedNodeExpr6(topLevelImport.expression))
+const context = node.getSourceFile()
+_iterator_111 = <operator>.iterator(refsToEmit)
+const emittedRef = this.refEmitter.emit(ref, context)
+assertSuccessfulReferenceEmit(emittedRef, topLevelImport.expression, "class")
+data.injectorImports.push(emittedRef.expression)
+scope !== null && !scope.compilation.isPoisoned
+const context = getSourceFile(node)
+_iterator_112 = <operator>.iterator(analysis.exports)
+isNgModule(exportRef.node, scope.compilation)
+const type = this.refEmitter.emit(exportRef, context)
+assertSuccessfulReferenceEmit(type, node, "NgModule")
+data.injectorImports.push(type.expression)

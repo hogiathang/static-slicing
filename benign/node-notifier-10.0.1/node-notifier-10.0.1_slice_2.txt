@@ -1,0 +1,20 @@
+module.exports.fileCommand = function (notifier, options, cb) {
+  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+    console.info('node-notifier debug info (fileCommand):');
+    console.info('[notifier path]', notifier);
+    console.info('[notifier options]', options.join(' '));
+  }
+
+  return cp.execFile(notifier, options, function (error, stdout, stderr) {
+    if (error) return cb(error, stdout);
+    cb(stderr, stdout);
+  });
+}
+process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1
+console.info('node-notifier debug info (fileCommand):')
+console.info('[notifier path]', notifier)
+console.info('[notifier options]', options.join(' '))
+cp.execFile(notifier, options, function (error, stdout, stderr) {
+    if (error) return cb(error, stdout);
+    cb(stderr, stdout);
+  })

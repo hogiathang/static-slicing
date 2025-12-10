@@ -1,0 +1,21 @@
+tracker.abandon = function abandonMessage (msgID) {
+    if (messages.has(msgID) === false) return false
+    const toAbandon = messages.get(msgID)
+    abandoned.set(msgID, {
+      age: currentID,
+      message: toAbandon.message,
+      cb: toAbandon.callback
+    })
+    return messages.delete(msgID)
+  }
+messages.has(msgID) === false
+const toAbandon = messages.get(msgID)
+abandoned.set(msgID, {
+      age: currentID,
+      message: toAbandon.message,
+      cb: toAbandon.callback
+    })
+_tmp_6.age = currentID
+_tmp_6.message = toAbandon.message
+_tmp_6.cb = toAbandon.callback
+messages.delete(msgID)

@@ -1,0 +1,23 @@
+var casper = require("casper").create({
+    onTimeout: function() {
+        this
+            .echo("NOPE.", "RED_BAR")
+            .exit()
+        ;
+    }
+})
+_tmp_1.onTimeout = <lambda>0
+var timeout = ~~casper.cli.get(0)
+timeout < 1
+casper
+        .echo("You must pass a valid timeout value")
+        .exit(1)
+"You must pass a valid timeout value"
+1
+casper.echo("Will google.com load in less than " + timeout + "ms?")
+casper.options.timeout = timeout
+casper.start("http://www.google.com/", function() {
+    this.echo("YES!", "GREEN_BAR");
+    this.exit();
+})
+casper.run()

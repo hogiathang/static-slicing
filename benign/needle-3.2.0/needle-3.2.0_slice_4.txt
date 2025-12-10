@@ -1,0 +1,32 @@
+function done = function done(err, resp) {
+    if (returned++ > 0)
+      return debug('Already finished, stopping here.');
+
+    if (timer) clearTimeout(timer);
+    request.removeListener('error', had_error);
+    out.done = true;
+
+    // An error can still be fired after closing.  In particular, on macOS.
+    // See also:
+    //  - https://github.com/tomas/needle/issues/391
+    //  - https://github.com/less/less.js/issues/3693
+    //  - https://github.com/nodejs/node/issues/27916
+    request.once('error', function() {});
+
+    if (callback)
+      return callback(err, resp, resp ? resp.body : undefined);
+
+    // NOTE: this event used to be called 'end', but the behaviour was confusing
+    // when errors ocurred, because the stream would still emit an 'end' event.
+    out.emit('done', err);
+
+    // trigger the 'done' event on streams we're being piped to, if any
+    var pipes = out._readableState.pipes || [];
+    if (!pipes.forEach) pipes = [pipes];
+    pipes.forEach(function(st) { st.emit('done', err)...
+returned++ > 0
+clearTimeout(timer)
+request.removeListener('error', had_error)
+out.done = true
+request.once('error', function() {})
+out.emit('done', err)

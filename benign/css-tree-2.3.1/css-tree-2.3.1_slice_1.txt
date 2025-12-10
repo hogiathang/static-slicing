@@ -1,0 +1,60 @@
+function consumeFunction = function consumeFunction(token, getNextToken) {
+    let balanceCloseType = 0;
+    let balanceStash = [];
+    let length = 0;
+
+    // balanced token consuming
+    scan:
+    do {
+        switch (token.type) {
+            case types.RightCurlyBracket:
+            case types.RightParenthesis:
+            case types.RightSquareBracket:
+                if (token.type !== balanceCloseType) {
+                    break scan;
+                }
+
+                balanceCloseType = balanceStash.pop();
+
+                if (balanceStash.length === 0) {
+                    length++;
+                    break scan;
+                }
+
+                break;
+
+            case types.Function:
+            case types.LeftParenthesis:
+            case types.LeftSquareBracket:
+            case types.LeftCurlyBracket:
+                balanceStash.push(balanceCloseType);
+                balanceCloseType = balancePair.get(token.type);
+                break;
+        }
+
+        length++;
+    } while (token = ge...
+let balanceCloseType = 0
+__ecma.Array.factory()
+let length = 0
+scan:
+token.type
+types.RightCurlyBracket
+types.RightParenthesis
+types.RightSquareBracket
+token.type !== balanceCloseType
+break scan;
+balanceCloseType = balanceStash.pop()
+balanceStash.length === 0
+length++
+break scan;
+break;
+types.Function
+types.LeftParenthesis
+types.LeftSquareBracket
+types.LeftCurlyBracket
+balanceStash.push(balanceCloseType)
+balanceCloseType = balancePair.get(token.type)
+break;
+length++
+token = getNextToken(length)

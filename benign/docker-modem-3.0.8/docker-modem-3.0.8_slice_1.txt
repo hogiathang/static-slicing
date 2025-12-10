@@ -1,0 +1,21 @@
+function(res) {
+          if (res.statusCode < 300 || res.statusCode > 399) {
+            return redirect.userCallback(res);
+          }
+
+          if (!('location' in res.headers)) {
+            return redirect.userCallback(res);
+          }
+
+          var redirectUrl = url.resolve(reqUrl, res.headers.location);
+
+          var proto = url.parse(redirectUrl).protocol;
+          proto = proto.substr(0, proto.length - 1);
+          return module.exports[proto].get(redirectUrl, redirectCallback(reqUrl, redirect), redirect);
+        }
+res.statusCode < 300 || res.statusCode > 399
+!('location' in res.headers)
+var redirectUrl = url.resolve(reqUrl, res.headers.location)
+var proto = url.parse(redirectUrl).protocol
+proto = proto.substr(0, proto.length - 1)
+module.exports[proto].get(redirectUrl, redirectCallback(reqUrl, redirect), redirect)

@@ -1,0 +1,4 @@
+_tmp_6.createDestDir = <lambda>15
+var destPath = path.dirname(path.resolve(destination))
+(_tmp_21 = this.writer).exists
+(_tmp_22 = this.writer).mkdir

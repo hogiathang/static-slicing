@@ -1,0 +1,57 @@
+run(configuration, tsConfigPath, appName, extras, onSuccess) {
+        const cwd = process.cwd();
+        const configPath = (0, path_1.join)(cwd, tsConfigPath);
+        if (!(0, fs_1.existsSync)(configPath)) {
+            throw new Error(`Could not find TypeScript configuration file "${tsConfigPath}".`);
+        }
+        const plugins = this.loadPlugins(configuration, tsConfigPath, appName);
+        const pathToSource = this.getPathToSource(configuration, tsConfigPath, appName);
+        const entryFile = (0, get_value_or_default_1.getValueOrDefault)(configuration, 'entryFile', appName, 'entryFile', extras.inputs);
+        const entryFileRoot = (0, get_value_or_default_1.getValueOrDefault)(configuration, 'root', appName) || '';
+        const defaultOptions = (0, webpack_defaults_1.webpackDefaultsFactory)(pathToSource, entryFileRoot, entryFile, extras.debug ?? false, tsConfigPath, plugins);
+        let compiler;
+        let watchOptions;
+        let watch;
+        if (Array.isArray(...
+const cwd = process.cwd()
+const configPath = (0, path_1.join)(cwd, tsConfigPath)
+!(0, fs_1.existsSync)(configPath)
+<operator>.formatString("Could not find TypeScript configuration file "", tsConfigPath, "".")
+const plugins = this.loadPlugins(configuration, tsConfigPath, appName)
+const pathToSource = this.getPathToSource(configuration, tsConfigPath, appName)
+const entryFile = (0, get_value_or_default_1.getValueOrDefault)(configuration, 'entryFile', appName, 'entryFile', extras.inputs)
+const entryFileRoot = (0, get_value_or_default_1.getValueOrDefault)(configuration, 'root', appName) || ''
+const defaultOptions = (0, webpack_defaults_1.webpackDefaultsFactory)(pathToSource, entryFileRoot, entryFile, extras.debug ?? false, tsConfigPath, plugins)
+Array.isArray(extras.webpackConfigFactoryOrConfig)
+const webpackConfigurations = extras.webpackConfigFactoryOrConfig.map((configOrFactory) => {
+                const unwrappedConfig = typeof configOrFactory !== 'function'
+                    ? configOrFactory
+                    : configOrFactory(defaultOptions, webpack);
+                return {
+                    ...defaultOptions,
+                    mode: extras.watchMode ? 'development' : defaultOptions.mode,
+                    ...unwrappedConfig,
+                };
+            })
+compiler = webpack(webpackConfigurations)
+watchOptions = webpackConfigurations.map((config) => config.watchOptions || {})
+watch = webpackConfigurations.some((config) => config.watch)
+const projectWebpackOptions = typeof extras.webpackConfigFactoryOrConfig !== 'function'
+                ? extras.webpackConfigFactoryOrConfig
+                : extras.webpackConfigFactoryOrConfig(defaultOptions, webpack)
+extras.webpackConfigFactoryOrConfig
+extras.webpackConfigFactoryOrConfig(defaultOptions, webpack)
+const webpackConfiguration = {
+                ...defaultOptions,
+                mode: extras.watchMode ? 'development' : defaultOptions.mode,
+                ...projectWebpackOptions,
+            }
+...defaultOptions
+_tmp_5.mode = extras.watchMode ? "development" : defaultOptions.mode
+...projectWebpackOptions
+compiler = webpack(webpackConfiguration)
+watchOptions = webpackConfiguration.watchOptions
+watch = webpackConfiguration.watch
+const afterCallback = this.createAfterCallback(onSuccess, extras.assetsManager, extras.watchMode ?? false, watch)
+extras.watchMode || watch
+compiler.run(afterCallback)

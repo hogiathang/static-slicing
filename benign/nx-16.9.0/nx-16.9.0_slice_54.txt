@@ -1,0 +1,43 @@
+function addV1NodeDependencies = function addV1NodeDependencies(path, snapshot, dependencies, keyMap, ctx) {
+    if (keyMap.has(path) && snapshot.requires) {
+        const source = keyMap.get(path).name;
+        Object.entries(snapshot.requires).forEach(([name, versionRange]) => {
+            const target = findTarget(path, keyMap, name, versionRange);
+            if (target) {
+                const dep = {
+                    source: source,
+                    target: target.name,
+                    type: project_graph_1.DependencyType.static,
+                };
+                (0, project_graph_builder_1.validateDependency)(dep, ctx);
+                dependencies.push(dep);
+            }
+        });
+    }
+    if (snapshot.dependencies) {
+        Object.entries(snapshot.dependencies).forEach(([depName, depSnapshot]) => {
+            addV1NodeDependencies(`${path}/node_modules/${depName}`, depSnapshot, dependencies, keyMap, ctx);
+        });
+    }
+    const { peerDependencies } = getPeerDependencies(path);
+    if...
+keyMap.has(path) && snapshot.requires
+const source = keyMap.get(path).name
+Object.entries(snapshot.requires).forEach(([name, versionRange]) => {
+            const target = findTarget(path, keyMap, name, versionRange);
+            if (target) {
+                const dep = {
+                    source: source,
+                    target: target.name,
+                    type: project_graph_1.DependencyType.static,
+                };
+                (0, project_graph_builder_1.validateDependency)(dep, ctx);
+                dependencies.push(dep);
+            }
+        })
+snapshot.dependencies
+Object.entries(snapshot.dependencies).forEach(([depName, depSnapshot]) => {
+            addV1NodeDependencies(`${path}/node_modules/${depName}`, depSnapshot, dependencies, keyMap, ctx);
+        })
+peerDependencies = _tmp_28.peerDependencies
+const node = keyMap.get(path)

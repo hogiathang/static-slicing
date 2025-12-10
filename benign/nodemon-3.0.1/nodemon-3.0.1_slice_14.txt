@@ -1,0 +1,61 @@
+function nodemon = function nodemon(settings) {
+  bus.emit('boot');
+  nodemon.reset();
+
+  // allow the cli string as the argument to nodemon, and allow for
+  // `node nodemon -V app.js` or just `-V app.js`
+  if (typeof settings === 'string') {
+    settings = settings.trim();
+    if (settings.indexOf('node') !== 0) {
+      if (settings.indexOf('nodemon') !== 0) {
+        settings = 'nodemon ' + settings;
+      }
+      settings = 'node ' + settings;
+    }
+    settings = cli.parse(settings);
+  }
+
+  // set the debug flag as early as possible to get all the detailed logging
+  if (settings.verbose) {
+    utils.debug = true;
+  }
+
+  if (settings.help) {
+    if (process.stdout.isTTY) {
+      process.stdout._handle.setBlocking(true); // nodejs/node#6456
+    }
+    console.log(help(settings.help));
+    if (!config.required) {
+      process.exit(0);
+    }
+  }
+
+  if (settings.version) {
+    version().then(function (v) {
+      console.log(v);
+      if (!config.required) {
+        process.exit(0);
+      }
+    });
+   ...
+bus.emit('boot')
+nodemon.reset()
+typeof settings === 'string'
+settings = settings.trim()
+settings.indexOf('node') !== 0
+settings.indexOf('nodemon') !== 0
+settings = 'nodemon ' + settings
+settings = 'node ' + settings
+settings = cli.parse(settings)
+settings.verbose
+utils.debug = true
+settings.help
+process.stdout.isTTY
+(_tmp_0 = process.stdout._handle).setBlocking
+console.log(help(settings.help))
+!config.required
+process.exit(0)
+settings.version
+settings.cwd
+process.cwd() !== path.resolve(config.system.cwd, settings.cwd)
+process.chdir(settings.cwd)

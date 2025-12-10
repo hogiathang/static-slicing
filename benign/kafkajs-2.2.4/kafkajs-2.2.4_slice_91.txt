@@ -1,0 +1,4 @@
+isolationLevel = param1_2.isolationLevel
+const request = require('./v2/request')
+const response = require('./v2/response')
+_tmp_5.request = request({ replicaId, isolationLevel, topics })

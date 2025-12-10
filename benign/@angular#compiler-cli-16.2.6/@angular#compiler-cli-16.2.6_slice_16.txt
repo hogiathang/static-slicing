@@ -1,0 +1,15 @@
+function reverseMapFromForwardMap = function reverseMapFromForwardMap(forwardMap) {
+  const reverseMap = /* @__PURE__ */ new Map();
+  for (const [_, inputOrOutput] of forwardMap) {
+    if (!reverseMap.has(inputOrOutput.bindingPropertyName)) {
+      reverseMap.set(inputOrOutput.bindingPropertyName, []);
+    }
+    reverseMap.get(inputOrOutput.bindingPropertyName).push(inputOrOutput);
+  }
+  return reverseMap;
+}
+const reverseMap = /* @__PURE__ */ new Map()
+_iterator_2 = <operator>.iterator(forwardMap)
+!reverseMap.has(inputOrOutput.bindingPropertyName)
+reverseMap.set(inputOrOutput.bindingPropertyName, [])
+reverseMap.get(inputOrOutput.bindingPropertyName).push(inputOrOutput)

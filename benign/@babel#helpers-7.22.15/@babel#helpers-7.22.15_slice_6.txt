@@ -1,0 +1,5 @@
+_tmp_4.ImportDeclaration = ImportDeclaration
+const name = child.node.source.value
+!_helpers.default[name]
+throw child.buildCodeFrameError(`Unknown helper ${name}`);
+child.get("specifiers").length !== 1 || !child.get("specifiers.0").isImportDefaultSpecifier()

@@ -1,0 +1,69 @@
+function UnixTerminal = function UnixTerminal(file, args, opt) {
+        var _a, _b;
+        var _this = _super.call(this, opt) || this;
+        _this._boundClose = false;
+        _this._emittedClose = false;
+        if (typeof args === 'string') {
+            throw new Error('args as a string is not supported on unix.');
+        }
+        // Initialize arguments
+        args = args || [];
+        file = file || DEFAULT_FILE;
+        opt = opt || {};
+        opt.env = opt.env || process.env;
+        _this._cols = opt.cols || terminal_1.DEFAULT_COLS;
+        _this._rows = opt.rows || terminal_1.DEFAULT_ROWS;
+        var uid = (_a = opt.uid) !== null && _a !== void 0 ? _a : -1;
+        var gid = (_b = opt.gid) !== null && _b !== void 0 ? _b : -1;
+        var env = utils_1.assign({}, opt.env);
+        if (opt.env === process.env) {
+            _this._sanitizeEnv(env);
+        }
+        var cwd = opt.cwd || process.cwd();
+        env.PWD = cwd;
+        var name = opt.name || env.TERM || DEFAULT_NAME;
+        e...
+var _this = _super.call(this, opt) || this
+_this._boundClose = false
+_this._emittedClose = false
+typeof args === 'string'
+throw new Error('args as a string is not supported on unix.');
+__ecma.Array.factory()
+file = file || DEFAULT_FILE
+opt = opt || {}
+opt.env = opt.env || process.env
+_this._cols = opt.cols || terminal_1.DEFAULT_COLS
+_this._rows = opt.rows || terminal_1.DEFAULT_ROWS
+var uid = (_a = opt.uid) !== null && _a !== void 0 ? _a : -1
+var gid = (_b = opt.gid) !== null && _b !== void 0 ? _b : -1
+var env = utils_1.assign({}, opt.env)
+opt.env === process.env
+_this._sanitizeEnv(env)
+var cwd = opt.cwd || process.cwd()
+env.PWD = cwd
+var name = opt.name || env.TERM || DEFAULT_NAME
+env.TERM = name
+var parsedEnv = _this._parseEnv(env)
+var encoding = (opt.encoding === undefined ? 'utf8' : opt.encoding)
+var onexit = function (code, signal) {
+            // XXX Sometimes a data event is emitted after exit. Wait til socket is
+            // destroyed.
+            if (!_this._emittedClose) {
+                if (_this._boundClose) {
+                    return;
+                }
+                _this._boundClose = true;
+                // From macOS High Sierra 10.13.2 sometimes the socket never gets
+                // closed. A timeout is applied here to avoid the terminal never being
+                // destroyed when this occurs.
+                var timeout_1 = setTimeout(function () {
+                    timeout_1 = null;
+                    // Destroying the socket now will cause the close event to fire
+                    _this._socket.destroy();
+                }, DESTROY_SOCKET_TIMEOUT_MS);
+                _this.once('close', function () {
+                    if (timeout_1 !== null) {
+                        clearTimeout(timeout_1);
+                    }
+                    _this.emi...
+var term = pty.fork(file, args, parsedEnv, cwd, _this._cols, _this._rows, uid, gid, (encoding === 'utf8'), helperPath, onexit)

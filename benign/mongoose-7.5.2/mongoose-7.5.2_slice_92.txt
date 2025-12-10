@@ -1,0 +1,121 @@
+Schema.prototype.add = function add(obj, prefix) {
+  if (obj instanceof Schema || (obj != null && obj.instanceOfSchema)) {
+    merge(this, obj);
+
+    return this;
+  }
+
+  // Special case: setting top-level `_id` to false should convert to disabling
+  // the `_id` option. This behavior never worked before 5.4.11 but numerous
+  // codebases use it (see gh-7516, gh-7512).
+  if (obj._id === false && prefix == null) {
+    this.options._id = false;
+  }
+
+  prefix = prefix || '';
+  // avoid prototype pollution
+  if (prefix === '__proto__.' || prefix === 'constructor.' || prefix === 'prototype.') {
+    return this;
+  }
+
+  const keys = Object.keys(obj);
+  const typeKey = this.options.typeKey;
+  for (const key of keys) {
+    if (utils.specialProperties.has(key)) {
+      continue;
+    }
+
+    const fullPath = prefix + key;
+    const val = obj[key];
+
+    if (val == null) {
+      throw new TypeError('Invalid value for schema path `' + fullPath +
+        '`, got value "' + val + '"');
+    }
+    // R...
+obj instanceof Schema || (obj != null && obj.instanceOfSchema)
+obj._id === false && prefix == null
+this.options._id = false
+prefix = prefix || ''
+prefix === '__proto__.' || prefix === 'constructor.' || prefix === 'prototype.'
+const keys = Object.keys(obj)
+const typeKey = this.options.typeKey
+_iterator_15 = <operator>.iterator(keys)
+(_tmp_72 = utils.specialProperties).has
+continue;
+const fullPath = prefix + key
+const val = obj[key]
+val == null
+throw new TypeError('Invalid value for schema path `' + fullPath +
+        '`, got value "' + val + '"');
+"`, got value ""
+key === '_id' && val === false
+continue;
+let isMongooseTypeString = false
+typeof val === 'string'
+const MongooseTypes = this.base != null ? this.base.Schema.Types : Schema.Types
+const upperVal = val.charAt(0).toUpperCase() + val.substring(1)
+isMongooseTypeString = MongooseTypes[upperVal] != null
+key !== '_id' &&
+      ((typeof val !== 'object' && typeof val !== 'function' && !isMongooseTypeString) ||
+      val == null)
+(typeof val !== 'object' && typeof val !== 'function' && !isMongooseTypeString) ||
+      val == null
+val == null
+throw new TypeError(`Invalid schema configuration: \`${val}\` is not ` +
+        `a valid type at path \`${key}\`. See ` +
+        'https://bit.ly/mongoose-schematypes for a list of valid schema types.');
+<operator>.formatString("a valid type at path \`", key, "\`. See ")
+"https://bit.ly/mongoose-schematypes for a list of valid schema types."
+val instanceof VirtualType || (val.constructor && val.constructor.name || null) === 'VirtualType'
+this.virtual(val)
+continue;
+Array.isArray(val) && val.length === 1 && val[0] == null
+throw new TypeError('Invalid value for schema Array path `' + fullPath +
+        '`, got value "' + val[0] + '"');
+val[0]
+!(isPOJO(val) || val instanceof SchemaTypeOptions)
+this.nested[prefix.substring(0, prefix.length - 1)] = true
+this.path(prefix + key, val)
+val[0] != null && !(val[0].instanceOfSchema) && utils.isPOJO(val[0].discriminators)
+const schemaType = this.path(prefix + key)
+_iterator_16 = <operator>.iterator(val[0].discriminators)
+schemaType.discriminator(key, val[0].discriminators[key])
+val[0] != null && val[0].instanceOfSchema && val[0]._applyDiscriminators instanceof Map
+const applyDiscriminators = val[0]._applyDiscriminators
+const schemaType = this.path(prefix + key)
+_iterator_17 = <operator>.iterator(applyDiscriminators.keys())
+schemaType.discriminator(disc, applyDiscriminators.get(disc))
+val != null && val.instanceOfSchema && val._applyDiscriminators instanceof Map
+const applyDiscriminators = val._applyDiscriminators
+const schemaType = this.path(prefix + key)
+_iterator_18 = <operator>.iterator(applyDiscriminators.keys())
+schemaType.discriminator(disc, applyDiscriminators.get(disc))
+Object.keys(val).length < 1
+this.nested[prefix.substring(0, prefix.length - 1)] = true
+this.path(fullPath, val)
+!val[typeKey] || (typeKey === 'type' && isPOJO(val.type) && val.type.type)
+this.nested[fullPath] = true
+this.add(val, fullPath + '.')
+const _typeDef = val[typeKey]
+isPOJO(_typeDef) && Object.keys(_typeDef).length > 0
+this.nested[prefix.substring(0, prefix.length - 1)] = true
+const childSchemaOptions = {}
+this._userProvidedOptions.typeKey
+childSchemaOptions.typeKey = this._userProvidedOptions.typeKey
+this._userProvidedOptions.strict != null
+childSchemaOptions.strict = this._userProvidedOptions.strict
+this._userProvidedOptions.toObject != null
+childSchemaOptions.toObject = utils.omit(this._userProvidedOptions.toObject, ['transform'])
+this._userProvidedOptions.toJSON != null
+childSchemaOptions.toJSON = utils.omit(this._userProvidedOptions.toJSON, ['transform'])
+const _schema = new Schema(_typeDef, childSchemaOptions)
+_schema.$implicitlyCreated = true
+const schemaWrappedPath = Object.assign({}, val, { [typeKey]: _schema })
+this.path(prefix + key, schemaWrappedPath)
+this.nested[prefix.substring(0, prefix.length - 1)] = true
+this.path(prefix + key, val)
+val != null && !(val.instanceOfSchema) && utils.isPOJO(val.discriminators)
+const schemaType = this.path(prefix + key)
+_iterator_19 = <operator>.iterator(val.discriminators)
+schemaType.discriminator(key, val.discriminators[key])

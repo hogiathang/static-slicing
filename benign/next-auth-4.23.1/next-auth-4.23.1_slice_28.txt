@@ -1,0 +1,62 @@
+function signOut = async function signOut<R extends boolean = true>(
+  options?: SignOutParams<R>
+): Promise<R extends true ? undefined : SignOutResponse> {
+  const { callbackUrl = window.location.href } = options ?? {}
+  const baseUrl = apiBaseUrl(__NEXTAUTH)
+  const fetchOptions = {
+    method: "post",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    // @ts-expect-error
+    body: new URLSearchParams({
+      csrfToken: await getCsrfToken(),
+      callbackUrl,
+      json: true,
+    }),
+  }
+  const res = await fetch(`${baseUrl}/signout`, fetchOptions)
+  const data = await res.json()
+
+  broadcast.post({ event: "session", data: { trigger: "signout" } })
+
+  if (options?.redirect ?? true) {
+    const url = data.url ?? callbackUrl
+    window.location.href = url
+    // If url contains a hash, the browser does not reload the page. We reload manually
+    if (url.includes("#")) window.location.reload()
+    // @ts-expect-error
+    return
+  }
+
+  await __NEXTAUTH._getSession({ e...
+callbackUrl = _tmp_27.callbackUrl === void 0 ? window.location.href : _tmp_27.callbackUrl
+const baseUrl = apiBaseUrl(__NEXTAUTH)
+const fetchOptions = {
+    method: "post",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    // @ts-expect-error
+    body: new URLSearchParams({
+      csrfToken: await getCsrfToken(),
+      callbackUrl,
+      json: true,
+    }),
+  }
+_tmp_28.method = "post"
+_tmp_28.headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    }
+_tmp_29.Content-Type = "application/x-www-form-urlencoded"
+_tmp_28.body = new URLSearchParams({
+      csrfToken: await getCsrfToken(),
+      callbackUrl,
+      json: true,
+    })
+_tmp_31.csrfToken = await getCsrfToken()
+_tmp_31.callbackUrl = callbackUrl
+_tmp_31.json = true
+const res = await fetch(`${baseUrl}/signout`, fetchOptions)
+const data = await res.json()
+broadcast.post({ event: "session", data: { trigger: "signout" } })

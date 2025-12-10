@@ -1,0 +1,25 @@
+Runner.prototype._removeEventListener = function (target, eventName, listener) {
+  target.removeListener(eventName, listener);
+
+  if (this._eventListeners.has(target)) {
+    const targetListeners = this._eventListeners.get(target);
+    if (targetListeners.has(eventName)) {
+      const targetEventListeners = targetListeners.get(eventName);
+      targetEventListeners.delete(listener);
+      if (!targetEventListeners.size) {
+        targetListeners.delete(eventName);
+      }
+    }
+    if (!targetListeners.size) {
+      this._eventListeners.delete(target);
+    }
+  } else {
+    debug('trying to remove listener for untracked object %s', target);
+  }
+}
+target.removeListener(eventName, listener)
+(_tmp_23 = this._eventListeners).has
+const targetListeners = this._eventListeners.get(target)
+targetListeners.has(eventName)
+const targetEventListeners = targetListeners.get(eventName)
+targetEventListeners.delete(listener)

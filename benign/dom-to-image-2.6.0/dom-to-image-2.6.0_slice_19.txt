@@ -1,0 +1,9 @@
+_tmp_7.style = <lambda>2
+!elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style
+var origName = jQuery.camelCase( name )
+var style = elem.style
+name = jQuery.cssProps[ origName ] || ( jQuery.cssProps[ origName ] = vendorPropName( style, origName ) )
+hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ]
+value !== undefined
+type = typeof value
+type === "string" && (ret = rrelNum.exec( value ))

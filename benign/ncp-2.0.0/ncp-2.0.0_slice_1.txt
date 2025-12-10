@@ -1,0 +1,25 @@
+function copyFile = function copyFile(file, target) {
+    var readStream = fs.createReadStream(file.name),
+        writeStream = fs.createWriteStream(target, { mode: file.mode });
+    
+    readStream.on('error', onError);
+    writeStream.on('error', onError);
+    
+    if(transform) {
+      transform(readStream, writeStream, file);
+    } else {
+      writeStream.on('open', function() {
+        readStream.pipe(writeStream);
+      });
+    }
+    writeStream.once('finish', function() {
+        if (modified) {
+            //target file modified date sync.
+            fs.utimesSync(target, file.atime, file.mtime);
+            cb();
+        }
+        else cb();
+    });
+  }
+var readStream = fs.createReadStream(file.name)
+var writeStream = fs.createWriteStream(target, { mode: file.mode })

@@ -1,0 +1,135 @@
+_proto.render = function render() {
+    var _this$props = this.props,
+        blockRenderMap = _this$props.blockRenderMap,
+        blockRendererFn = _this$props.blockRendererFn,
+        blockStyleFn = _this$props.blockStyleFn,
+        customStyleMap = _this$props.customStyleMap,
+        customStyleFn = _this$props.customStyleFn,
+        editorState = _this$props.editorState,
+        editorKey = _this$props.editorKey,
+        preventScroll = _this$props.preventScroll,
+        textDirectionality = _this$props.textDirectionality;
+    var content = editorState.getCurrentContent();
+    var selection = editorState.getSelection();
+    var forceSelection = editorState.mustForceSelection();
+    var decorator = editorState.getDecorator();
+    var directionMap = nullthrows(editorState.getDirectionMap());
+    var blocksAsArray = content.getBlocksAsArray();
+    var processedBlocks = [];
+    var currentDepth = null;
+    var lastWrapperTemplate = null;
+
+    for (var ii = 0; ii < blocksAsArray.leng...
+var _this$props = this.props
+var blockRenderMap = _this$props.blockRenderMap
+var blockRendererFn = _this$props.blockRendererFn
+var blockStyleFn = _this$props.blockStyleFn
+var customStyleMap = _this$props.customStyleMap
+var customStyleFn = _this$props.customStyleFn
+var editorState = _this$props.editorState
+var editorKey = _this$props.editorKey
+var preventScroll = _this$props.preventScroll
+var textDirectionality = _this$props.textDirectionality
+var content = editorState.getCurrentContent()
+var selection = editorState.getSelection()
+var forceSelection = editorState.mustForceSelection()
+var decorator = editorState.getDecorator()
+var directionMap = nullthrows(editorState.getDirectionMap())
+var blocksAsArray = content.getBlocksAsArray()
+var processedBlocks = []
+var currentDepth = null
+var lastWrapperTemplate = null
+ii < blocksAsArray.length
+var _block = blocksAsArray[ii]
+var key = _block.getKey()
+var blockType = _block.getType()
+var customRenderer = blockRendererFn(_block)
+var CustomComponent = void 0
+var customProps = void 0
+var customEditable = void 0
+CustomComponent = customRenderer.component
+customProps = customRenderer.props
+customEditable = customRenderer.editable
+var direction = textDirectionality ? textDirectionality : directionMap.get(key)
+var offsetKey = DraftOffsetKey.encode(key, 0, 0)
+var componentProps = {
+        contentState: content,
+        block: _block,
+        blockProps: customProps,
+        blockStyleFn: blockStyleFn,
+        customStyleMap: customStyleMap,
+        customStyleFn: customStyleFn,
+        decorator: decorator,
+        direction: direction,
+        forceSelection: forceSelection,
+        offsetKey: offsetKey,
+        preventScroll: preventScroll,
+        selection: selection,
+        tree: editorState.getBlockTree(key)
+      }
+_tmp_7.contentState = content
+_tmp_7.block = _block
+_tmp_7.blockProps = customProps
+_tmp_7.blockStyleFn = blockStyleFn
+_tmp_7.customStyleMap = customStyleMap
+_tmp_7.customStyleFn = customStyleFn
+_tmp_7.decorator = decorator
+_tmp_7.direction = direction
+_tmp_7.forceSelection = forceSelection
+_tmp_7.offsetKey = offsetKey
+_tmp_7.preventScroll = preventScroll
+_tmp_7.selection = selection
+_tmp_7.tree = editorState.getBlockTree(key)
+var configForType = blockRenderMap.get(blockType) || blockRenderMap.get('unstyled')
+var wrapperTemplate = configForType.wrapper
+var Element = configForType.element || blockRenderMap.get('unstyled').element
+var depth = _block.getDepth()
+var _className = ''
+_className = blockStyleFn(_block)
+Element === 'li'
+var shouldResetCount = lastWrapperTemplate !== wrapperTemplate || currentDepth === null || depth > currentDepth
+_className = joinClasses(_className, getListItemClasses(blockType, depth, shouldResetCount, direction))
+var Component = CustomComponent || DraftEditorBlock
+var childProps = {
+        className: _className,
+        'data-block': true,
+        'data-editor': editorKey,
+        'data-offset-key': offsetKey,
+        key: key
+      }
+_tmp_8.className = _className
+_tmp_8.data-block = true
+_tmp_8.data-editor = editorKey
+_tmp_8.data-offset-key = offsetKey
+_tmp_8.key = key
+customEditable !== undefined
+childProps = _objectSpread({}, childProps, {
+          contentEditable: customEditable,
+          suppressContentEditableWarning: true
+        })
+_tmp_10.contentEditable = customEditable
+_tmp_10.suppressContentEditableWarning = true
+var child = React.createElement(Element, childProps,
+      /* $FlowFixMe[incompatible-type] (>=0.112.0 site=www,mobile) This
+       * comment suppresses an error found when Flow v0.112 was deployed. To
+       * see the error delete this comment and run Flow. */
+      React.createElement(Component, _extends({}, componentProps, {
+        key: key
+      })))
+React.createElement(Component, _extends({}, componentProps, {
+        key: key
+      }))
+_tmp_12.key = key
+processedBlocks.push({
+        block: child,
+        wrapperTemplate: wrapperTemplate,
+        key: key,
+        offsetKey: offsetKey
+      })
+_tmp_13.block = child
+_tmp_13.wrapperTemplate = wrapperTemplate
+_tmp_13.key = key
+_tmp_13.offsetKey = offsetKey
+currentDepth = _block.getDepth()
+currentDepth = null
+lastWrapperTemplate = wrapperTemplate

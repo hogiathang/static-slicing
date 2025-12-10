@@ -1,0 +1,32 @@
+function resolveEnvironmentConfig = function resolveEnvironmentConfig(opts, allConfigs, configFilePath) {
+  const environment = opts.env || process.env.NODE_ENV || 'development';
+  const result = allConfigs[environment] || allConfigs;
+
+  if (allConfigs[environment]) {
+    console.log('Using environment:', color.magenta(environment));
+  }
+
+  if (!result) {
+    console.log(color.red('Warning: unable to read knexfile config'));
+    process.exit(1);
+  }
+
+  if (argv.debug !== undefined) {
+    result.debug = argv.debug;
+  }
+
+  // It is safe to assume that unless explicitly specified, we would want
+  // migrations, seeds etc. to be generated with same extension
+  if (configFilePath) {
+    result.ext = result.ext || path.extname(configFilePath).replace('.', '');
+  }
+
+  return result;
+}
+const environment = opts.env || process.env.NODE_ENV || 'development'
+const result = allConfigs[environment] || allConfigs
+allConfigs[environment]
+console.log('Using environment:', color.magenta(environment))
+!result
+console.log(color.red('Warning: unable to read knexfile config'))
+process.exit(1)

@@ -1,0 +1,80 @@
+constructor (options, WebSocket, Timer, handlers) {
+    this.options = options;
+    this.WebSocket = WebSocket;
+    this.Timer = Timer;
+    this.handlers = handlers;
+    const path = this.options.path ? `${this.options.path}` : 'livereload';
+    const port = this.options.port ? `:${this.options.port}` : '';
+    this._uri = `ws${this.options.https ? 's' : ''}://${this.options.host}${port}/${path}`;
+
+    this._nextDelay = this.options.mindelay;
+    this._connectionDesired = false;
+    this.protocol = 0;
+
+    this.protocolParser = new Parser({
+      connected: protocol => {
+        this.protocol = protocol;
+        this._handshakeTimeout.stop();
+        this._nextDelay = this.options.mindelay;
+        this._disconnectionReason = 'broken';
+
+        return this.handlers.connected(this.protocol);
+      },
+      error: e => {
+        this.handlers.error(e);
+
+        return this._closeOnError();
+      },
+      message: message => {
+        return this.handlers.message(message);
+      }
+    ...
+this.options = options
+this.WebSocket = WebSocket
+this.Timer = Timer
+this.handlers = handlers
+this.options.path ? <operator>.formatString("", this.options.path, "") : "livereload"
+this.options.port ? <operator>.formatString(":", this.options.port, "") : ""
+<operator>.formatString("ws", this.options.https ? 's' : '', "://", this.options.host, "", port, "/", path, "")
+this._nextDelay = this.options.mindelay
+this._connectionDesired = false
+this.protocol = 0
+this.protocolParser = new Parser({
+      connected: protocol => {
+        this.protocol = protocol;
+        this._handshakeTimeout.stop();
+        this._nextDelay = this.options.mindelay;
+        this._disconnectionReason = 'broken';
+
+        return this.handlers.connected(this.protocol);
+      },
+      error: e => {
+        this.handlers.error(e);
+
+        return this._closeOnError();
+      },
+      message: message => {
+        return this.handlers.message(message);
+      }
+    })
+_tmp_2.connected = <lambda>0
+_tmp_2.error = <lambda>1
+_tmp_2.message = <lambda>2
+this._handshakeTimeout = new this.Timer(() => {
+      if (!this._isSocketConnected()) {
+        return;
+      }
+
+      this._disconnectionReason = 'handshake-timeout';
+
+      return this.socket.close();
+    })
+this._reconnectTimer = new this.Timer(() => {
+      if (!this._connectionDesired) {
+        // shouldn't hit this, but just in case
+        return;
+      }
+
+      return this.connect();
+    })
+this.connect()

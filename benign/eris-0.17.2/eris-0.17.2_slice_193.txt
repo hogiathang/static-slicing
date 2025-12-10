@@ -1,0 +1,50 @@
+initializeWS() {
+        if(!this._token) {
+            return this.disconnect(null, new Error("Token not specified"));
+        }
+
+        this.status = "connecting";
+        if(this.client.options.compress) {
+            this.emit("debug", "Initializing zlib-sync-based compression");
+            this._zlibSync = new ZlibSync.Inflate({
+                chunkSize: 128 * 1024
+            });
+        }
+        if(this.sessionID) {
+            if(!this.resumeURL) {
+                this.emit("warn", "Resume url is not currently present. Discord may disconnect you quicker.");
+            }
+            this.ws = new WebSocket(this.resumeURL || this.client.gatewayURL, this.client.options.ws);
+        } else {
+            this.ws = new WebSocket(this.client.gatewayURL, this.client.options.ws);
+        }
+        this.ws.on("open", this._onWSOpen);
+        this.ws.on("message", this._onWSMessage);
+        this.ws.on("error", this._onWSError);
+        this.ws.on("close", this._onWSClose);
+
+     ...
+!this._token
+this.status = "connecting"
+this.client.options.compress
+this.emit("debug", "Initializing zlib-sync-based compression")
+this._zlibSync = new ZlibSync.Inflate({
+                chunkSize: 128 * 1024
+            })
+_tmp_42.chunkSize = 128 * 1024
+this.sessionID
+!this.resumeURL
+this.emit("warn", "Resume url is not currently present. Discord may disconnect you quicker.")
+this.ws = new WebSocket(this.resumeURL || this.client.gatewayURL, this.client.options.ws)
+this.ws = new WebSocket(this.client.gatewayURL, this.client.options.ws)
+this.ws.on("open", this._onWSOpen)
+this.ws.on("message", this._onWSMessage)
+this.ws.on("error", this._onWSError)
+this.ws.on("close", this._onWSClose)
+this.connectTimeout = setTimeout(() => {
+            if(this.connecting) {
+                this.disconnect({
+                    reconnect: "auto"
+                }, new Error("Connection timeout"));
+            }
+        }, this.client.options.connectionTimeout)

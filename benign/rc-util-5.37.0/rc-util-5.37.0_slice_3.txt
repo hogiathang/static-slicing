@@ -1,0 +1,30 @@
+function internalMerge = function internalMerge(path, parentLoopSet) {
+      var loopSet = new Set(parentLoopSet);
+      var value = get(src, path);
+      var isArr = Array.isArray(value);
+      if (isArr || isObject(value)) {
+        // Only add not loop obj
+        if (!loopSet.has(value)) {
+          loopSet.add(value);
+          var originValue = get(clone, path);
+          if (isArr) {
+            // Array will always be override
+            clone = set(clone, path, []);
+          } else if (!originValue || _typeof(originValue) !== 'object') {
+            // Init container if not exist
+            clone = set(clone, path, createEmpty(value));
+          }
+          keys(value).forEach(function (key) {
+            internalMerge([].concat(_toConsumableArray(path), [key]), loopSet);
+          });
+        }
+      } else {
+        clone = set(clone, path, value);
+      }
+    }
+var loopSet = new Set(parentLoopSet)
+var value = get(src, path)
+var isArr = Array.isArray(value)
+isArr || isObject(value)
+!loopSet.has(value)
+loopSet.add(value)

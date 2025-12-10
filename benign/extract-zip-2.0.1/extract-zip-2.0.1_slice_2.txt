@@ -1,0 +1,44 @@
+this.zipfile.on('entry', async entry => {
+        /* istanbul ignore if */
+        if (this.canceled) {
+          debug('skipping entry', entry.fileName, { cancelled: this.canceled })
+          return
+        }
+
+        debug('zipfile entry', entry.fileName)
+
+        if (entry.fileName.startsWith('__MACOSX/')) {
+          this.zipfile.readEntry()
+          return
+        }
+
+        const destDir = path.dirname(path.join(this.opts.dir, entry.fileName))
+
+        try {
+          await fs.mkdir(destDir, { recursive: true })
+
+          const canonicalDestDir = await fs.realpath(destDir)
+          const relativeDestDir = path.relative(this.opts.dir, canonicalDestDir)
+
+          if (relativeDestDir.split(path.sep).includes('..')) {
+            throw new Error(`Out of bound path "${canonicalDestDir}" found while processing file ${entry.fileName}`)
+          }
+
+          await this.extractEntry(entry)
+          debug('finished processing', entry.fileName)
+          this.zipfile.readEntry()
+ ...
+this.canceled
+debug('zipfile entry', entry.fileName)
+entry.fileName.startsWith('__MACOSX/')
+const destDir = path.dirname(path.join(this.opts.dir, entry.fileName))
+await fs.mkdir(destDir, { recursive: true })
+const canonicalDestDir = await fs.realpath(destDir)
+const relativeDestDir = path.relative(this.opts.dir, canonicalDestDir)
+(_tmp_12 = relativeDestDir.split(path.sep)).includes
+<operator>.formatString("Out of bound path "", canonicalDestDir, "" found while processing file ", entry.fileName, "")
+await this.extractEntry(entry)
+debug('finished processing', entry.fileName)
+(_tmp_14 = this.zipfile).readEntry
+this.canceled = true
+(_tmp_15 = this.zipfile).close

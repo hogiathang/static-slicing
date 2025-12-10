@@ -1,0 +1,126 @@
+const notifyListener = async (
+    entry: ListenerEntry<unknown, Dispatch<AnyAction>>,
+    action: AnyAction,
+    api: MiddlewareAPI,
+    getOriginalState: () => S
+  ) => {
+    const internalTaskController = new AbortController()
+    const take = createTakePattern(
+      startListening,
+      internalTaskController.signal
+    )
+
+    try {
+      entry.pending.add(internalTaskController)
+      await Promise.resolve(
+        entry.effect(
+          action,
+          // Use assign() rather than ... to avoid extra helper functions added to bundle
+          assign({}, api, {
+            getOriginalState,
+            condition: (
+              predicate: AnyListenerPredicate<any>,
+              timeout?: number
+            ) => take(predicate, timeout).then(Boolean),
+            take,
+            delay: createDelay(internalTaskController.signal),
+            pause: createPause<any>(internalTaskController.signal),
+            extra,
+            signal: internalTaskCont...
+const internalTaskController = new AbortController()
+const take = createTakePattern(
+      startListening,
+      internalTaskController.signal
+    )
+internalTaskController.signal
+entry.pending.add(internalTaskController)
+await Promise.resolve(
+        entry.effect(
+          action,
+          // Use assign() rather than ... to avoid extra helper functions added to bundle
+          assign({}, api, {
+            getOriginalState,
+            condition: (
+              predicate: AnyListenerPredicate<any>,
+              timeout?: number
+            ) => take(predicate, timeout).then(Boolean),
+            take,
+            delay: createDelay(internalTaskController.signal),
+            pause: createPause<any>(internalTaskController.signal),
+            extra,
+            signal: internalTaskController.signal,
+            fork: createFork(internalTaskController.signal),
+            unsubscribe: entry.unsubscribe,
+            subscribe: () => {
+              listenerMap.set(entry.id, entry)
+            },
+            cancelActiveListeners: () => {
+              entry.pending.forEach((controller, _, set) => {
+                if (controller !== internalTaskController) {
+               ...
+entry.effect(
+          action,
+          // Use assign() rather than ... to avoid extra helper functions added to bundle
+          assign({}, api, {
+            getOriginalState,
+            condition: (
+              predicate: AnyListenerPredicate<any>,
+              timeout?: number
+            ) => take(predicate, timeout).then(Boolean),
+            take,
+            delay: createDelay(internalTaskController.signal),
+            pause: createPause<any>(internalTaskController.signal),
+            extra,
+            signal: internalTaskController.signal,
+            fork: createFork(internalTaskController.signal),
+            unsubscribe: entry.unsubscribe,
+            subscribe: () => {
+              listenerMap.set(entry.id, entry)
+            },
+            cancelActiveListeners: () => {
+              entry.pending.forEach((controller, _, set) => {
+                if (controller !== internalTaskController) {
+                  abortControllerWithReason(con...
+assign({}, api, {
+            getOriginalState,
+            condition: (
+              predicate: AnyListenerPredicate<any>,
+              timeout?: number
+            ) => take(predicate, timeout).then(Boolean),
+            take,
+            delay: createDelay(internalTaskController.signal),
+            pause: createPause<any>(internalTaskController.signal),
+            extra,
+            signal: internalTaskController.signal,
+            fork: createFork(internalTaskController.signal),
+            unsubscribe: entry.unsubscribe,
+            subscribe: () => {
+              listenerMap.set(entry.id, entry)
+            },
+            cancelActiveListeners: () => {
+              entry.pending.forEach((controller, _, set) => {
+                if (controller !== internalTaskController) {
+                  abortControllerWithReason(controller, listenerCancelled)
+                  set.delete(controller)
+                }
+              })
+            },
+          })
+_tmp_25.getOriginalState = getOriginalState
+_tmp_25.condition = <lambda>33
+_tmp_25.take = take
+_tmp_25.delay = createDelay(internalTaskController.signal)
+_tmp_25.pause = createPause<any>(internalTaskController.signal)
+_tmp_25.extra = extra
+_tmp_25.signal = internalTaskController.signal
+_tmp_25.fork = createFork(internalTaskController.signal)
+_tmp_25.unsubscribe = entry.unsubscribe
+_tmp_25.subscribe = <lambda>34
+_tmp_25.cancelActiveListeners = <lambda>35
+!(listenerError instanceof TaskAbortError)
+safelyNotifyError(onError, listenerError, {
+          raisedBy: 'effect',
+        })
+_tmp_28.raisedBy = "effect"
+abortControllerWithReason(internalTaskController, listenerCompleted)
+entry.pending.delete(internalTaskController)

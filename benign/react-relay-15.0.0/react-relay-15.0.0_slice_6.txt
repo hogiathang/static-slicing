@@ -1,0 +1,33 @@
+function getQueryResultOrFetchQuery_REACT_CACHE = function getQueryResultOrFetchQuery_REACT_CACHE(environment, queryOperationDescriptor, options) {
+  var _options$fetchPolicy, _options$renderPolicy;
+  var fetchPolicy = (_options$fetchPolicy = options === null || options === void 0 ? void 0 : options.fetchPolicy) !== null && _options$fetchPolicy !== void 0 ? _options$fetchPolicy : DEFAULT_FETCH_POLICY;
+  var renderPolicy = (_options$renderPolicy = options === null || options === void 0 ? void 0 : options.renderPolicy) !== null && _options$renderPolicy !== void 0 ? _options$renderPolicy : environment.UNSTABLE_getDefaultRenderPolicy();
+  var cache = getCacheForType(createQueryCache);
+  var cacheKey = getQueryCacheKey(queryOperationDescriptor, fetchPolicy, renderPolicy, options === null || options === void 0 ? void 0 : options.fetchKey);
+  var initialEntry = cache.get(environment, cacheKey);
+  function updateCache(updater) {
+    var currentEntry = cache.get(environment, cacheKey);
+    if (!currentEntry) {
+      currentEntry = makeIniti...
+var fetchPolicy = (_options$fetchPolicy = options === null || options === void 0 ? void 0 : options.fetchPolicy) !== null && _options$fetchPolicy !== void 0 ? _options$fetchPolicy : DEFAULT_FETCH_POLICY
+var renderPolicy = (_options$renderPolicy = options === null || options === void 0 ? void 0 : options.renderPolicy) !== null && _options$renderPolicy !== void 0 ? _options$renderPolicy : environment.UNSTABLE_getDefaultRenderPolicy()
+var cache = getCacheForType(createQueryCache)
+var cacheKey = getQueryCacheKey(queryOperationDescriptor, fetchPolicy, renderPolicy, options === null || options === void 0 ? void 0 : options.fetchKey)
+var initialEntry = cache.get(environment, cacheKey)
+function updateCache = function updateCache(updater) {
+    var currentEntry = cache.get(environment, cacheKey);
+    if (!currentEntry) {
+      currentEntry = makeInitialCacheEntry();
+      cache.set(environment, cacheKey, currentEntry);
+    }
+    // $FlowExpectedError[prop-missing] Extra properties are passed in -- this is fine
+    var newStatus = updater(currentEntry);
+    // $FlowExpectedError[cannot-spread-inexact] Flow cannot understand that this is valid...
+    cache.set(environment, cacheKey, (0, _objectSpread2["default"])((0, _objectSpread2["default"])({}, currentEntry), newStatus));
+    // ... but we can because QueryCacheEntry spreads QueryCacheEntryStatus, so spreading
+    // a QueryCacheEntryStatus into a QueryCacheEntry will result in a valid QueryCacheEntry.
+  }
+RelayFeatureFlags.USE_REACT_CACHE_LEGACY_TIMEOUTS
+initialEntry === undefined
+onCacheMiss(environment, queryOperationDescriptor, fetchPolicy, renderPolicy, updateCache, options === null || options === void 0 ? void 0 : options.fetchObservable)
+var createdEntry = cache.get(environment, cacheKey)

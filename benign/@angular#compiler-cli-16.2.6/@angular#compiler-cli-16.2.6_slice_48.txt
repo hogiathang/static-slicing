@@ -1,0 +1,61 @@
+resolve() {
+    var _a, _b;
+    if (this.compilationMode === CompilationMode.LOCAL) {
+      return;
+    }
+    const classes = this.classes.keys();
+    for (const clazz of classes) {
+      const record = this.classes.get(clazz);
+      for (let trait of record.traits) {
+        const handler = trait.handler;
+        switch (trait.state) {
+          case TraitState.Skipped:
+            continue;
+          case TraitState.Pending:
+            throw new Error(`Resolving a trait that hasn't been analyzed: ${clazz.name.text} / ${trait.handler.name}`);
+          case TraitState.Resolved:
+            throw new Error(`Resolving an already resolved trait`);
+        }
+        if (trait.analysis === null) {
+          continue;
+        }
+        if (handler.resolve === void 0) {
+          trait = trait.toResolved(null, null);
+          continue;
+        }
+        let result;
+        try {
+          result = handler.resolve(clazz, trait.analysis, trait.symbol);
+        } catch (err) {
+          if...
+this.compilationMode === CompilationMode.LOCAL
+const classes = this.classes.keys()
+_iterator_80 = <operator>.iterator(classes)
+const record = this.classes.get(clazz)
+_iterator_81 = <operator>.iterator(record.traits)
+const handler = trait.handler
+trait.state
+TraitState.Skipped
+continue;
+TraitState.Pending
+<operator>.formatString("Resolving a trait that hasn't been analyzed: ", clazz.name.text, " / ", trait.handler.name, "")
+TraitState.Resolved
+throw new Error(`Resolving an already resolved trait`);
+trait.analysis === null
+continue;
+handler.resolve === void 0
+trait = trait.toResolved(null, null)
+continue;
+result = handler.resolve(clazz, trait.analysis, trait.symbol)
+err instanceof FatalDiagnosticError
+trait = trait.toResolved(null, [err.toDiagnostic()])
+continue;
+throw err;
+trait = trait.toResolved((_a = result.data) != null ? _a : null, (_b = result.diagnostics) != null ? _b : null)
+result.reexports !== void 0
+const fileName = clazz.getSourceFile().fileName
+(_tmp_743 = this.reexportMap).has
+this.reexportMap.set(fileName, /* @__PURE__ */ new Map())
+const fileReexports = this.reexportMap.get(fileName)
+_iterator_82 = <operator>.iterator(result.reexports)
+fileReexports.set(reexport.asAlias, [reexport.fromModule, reexport.symbolName])

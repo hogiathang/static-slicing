@@ -1,0 +1,25 @@
+Collection.prototype._getBufferTimeoutMS = function _getBufferTimeoutMS() {
+  const conn = this.conn;
+  const opts = this.opts;
+
+  if (opts.bufferTimeoutMS != null) {
+    return opts.bufferTimeoutMS;
+  }
+  if (opts && opts.schemaUserProvidedOptions != null && opts.schemaUserProvidedOptions.bufferTimeoutMS != null) {
+    return opts.schemaUserProvidedOptions.bufferTimeoutMS;
+  }
+  if (conn.config.bufferTimeoutMS != null) {
+    return conn.config.bufferTimeoutMS;
+  }
+  if (conn.base != null && conn.base.get('bufferTimeoutMS') != null) {
+    return conn.base.get('bufferTimeoutMS');
+  }
+  return 10000;
+}
+const conn = this.conn
+const opts = this.opts
+opts.bufferTimeoutMS != null
+opts && opts.schemaUserProvidedOptions != null && opts.schemaUserProvidedOptions.bufferTimeoutMS != null
+conn.config.bufferTimeoutMS != null
+conn.base != null && conn.base.get('bufferTimeoutMS') != null
+conn.base.get('bufferTimeoutMS')

@@ -1,0 +1,20 @@
+function buildConfigFileObject = function buildConfigFileObject(options, filepath) {
+  let configFilesByFilepath = cfboaf.get(options);
+  if (!configFilesByFilepath) {
+    cfboaf.set(options, configFilesByFilepath = new Map());
+  }
+  let configFile = configFilesByFilepath.get(filepath);
+  if (!configFile) {
+    configFile = {
+      filepath,
+      dirname: _path().dirname(filepath),
+      options
+    };
+    configFilesByFilepath.set(filepath, configFile);
+  }
+  return configFile;
+}
+let configFilesByFilepath = cfboaf.get(options)
+!configFilesByFilepath
+cfboaf.set(options, configFilesByFilepath = new Map())
+let configFile = configFilesByFilepath.get(filepath)

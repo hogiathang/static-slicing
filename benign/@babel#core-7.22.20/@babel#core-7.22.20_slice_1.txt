@@ -1,0 +1,54 @@
+function dedupDescriptors = function dedupDescriptors(items) {
+  const map = new Map();
+  const descriptors = [];
+  for (const item of items) {
+    if (typeof item.value === "function") {
+      const fnKey = item.value;
+      let nameMap = map.get(fnKey);
+      if (!nameMap) {
+        nameMap = new Map();
+        map.set(fnKey, nameMap);
+      }
+      let desc = nameMap.get(item.name);
+      if (!desc) {
+        desc = {
+          value: item
+        };
+        descriptors.push(desc);
+        if (!item.ownPass) nameMap.set(item.name, desc);
+      } else {
+        desc.value = item;
+      }
+    } else {
+      descriptors.push({
+        value: item
+      });
+    }
+  }
+  return descriptors.reduce((acc, desc) => {
+    acc.push(desc.value);
+    return acc;
+  }, []);
+}
+const map = new Map()
+const descriptors = []
+_iterator_2 = <operator>.iterator(items)
+typeof item.value === "function"
+const fnKey = item.value
+let nameMap = map.get(fnKey)
+!nameMap
+nameMap = new Map()
+map.set(fnKey, nameMap)
+let desc = nameMap.get(item.name)
+!desc
+desc = {
+          value: item
+        }
+_tmp_48.value = item
+descriptors.push(desc)
+nameMap.set(item.name, desc)
+desc.value = item
+descriptors.push({
+        value: item
+      })
+_tmp_49.value = item

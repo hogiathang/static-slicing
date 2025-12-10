@@ -1,0 +1,24 @@
+function markServerUnknown = function markServerUnknown(server: Server, error?: MongoServerError) {
+  // Load balancer servers can never be marked unknown.
+  if (server.loadBalanced) {
+    return;
+  }
+
+  if (error instanceof MongoNetworkError && !(error instanceof MongoNetworkTimeoutError)) {
+    server[kMonitor]?.reset();
+  }
+
+  server.emit(
+    Server.DESCRIPTION_RECEIVED,
+    new ServerDescription(server.description.hostAddress, undefined, { error })
+  );
+}
+server.loadBalanced
+error instanceof MongoNetworkError && !(error instanceof MongoNetworkTimeoutError)
+server[kMonitor]?.reset()
+server.emit(
+    Server.DESCRIPTION_RECEIVED,
+    new ServerDescription(server.description.hostAddress, undefined, { error })
+  )
+Server.DESCRIPTION_RECEIVED
+new ServerDescription(server.description.hostAddress, undefined, { error })

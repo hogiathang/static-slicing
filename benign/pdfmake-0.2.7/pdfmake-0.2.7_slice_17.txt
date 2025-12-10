@@ -1,0 +1,31 @@
+this.drawInDocument = function(isClip, isMask) {
+        if (this.get('visibility') === 'hidden' || !image) {return;}
+        doc.save();
+        this.transform();
+        if (this.get('overflow') === 'hidden') {
+          doc.rect(x, y, width, height).clip();
+        }
+        this.clip();
+        this.mask();
+        doc.translate(x, y);
+        doc.transform.apply(doc, parseAspectRatio(this.attr('preserveAspectRatio'), width, height, image ? image.width : width, image ? image.height : height));
+        if (!isClip) {
+          doc.fillOpacity(this.get('opacity'));
+          doc.image(image, 0, 0);
+        } else {
+          doc.rect(0, 0, image.width, image.height);
+          docFillColor(DefaultColors.white).fill();
+        }
+        doc.restore();
+      }
+this.get('visibility') === 'hidden' || !image
+doc.save()
+this.transform()
+this.get('overflow') === 'hidden'
+(_tmp_440 = doc.rect(x, y, width, height)).clip
+this.clip()
+this.mask()
+doc.translate(x, y)
+doc.transform.apply(doc, parseAspectRatio(this.attr('preserveAspectRatio'), width, height, image ? image.width : width, image ? image.height : height))
+!isClip
+doc.fillOpacity(this.get('opacity'))

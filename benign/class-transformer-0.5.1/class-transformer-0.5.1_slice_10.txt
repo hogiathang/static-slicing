@@ -1,0 +1,28 @@
+MetadataStorage.prototype.findMetadatas = function (metadatas, target, propertyName) {
+            var metadataFromTargetMap = metadatas.get(target);
+            var metadataFromTarget;
+            if (metadataFromTargetMap) {
+                metadataFromTarget = metadataFromTargetMap.get(propertyName);
+            }
+            var metadataFromAncestorsTarget = [];
+            for (var _i = 0, _a = this.getAncestors(target); _i < _a.length; _i++) {
+                var ancestor = _a[_i];
+                var ancestorMetadataMap = metadatas.get(ancestor);
+                if (ancestorMetadataMap) {
+                    if (ancestorMetadataMap.has(propertyName)) {
+                        metadataFromAncestorsTarget.push.apply(metadataFromAncestorsTarget, ancestorMetadataMap.get(propertyName));
+                    }
+                }
+            }
+            return metadataFromAncestorsTarget
+                .slice()
+                .reverse()
+                .concat((metadataFromTarget ...
+var metadataFromTargetMap = metadatas.get(target)
+metadataFromTarget = metadataFromTargetMap.get(propertyName)
+var metadataFromAncestorsTarget = []
+var _a = this.getAncestors(target)
+var ancestor = _a[_i]
+var ancestorMetadataMap = metadatas.get(ancestor)
+ancestorMetadataMap.has(propertyName)
+metadataFromAncestorsTarget.push.apply(metadataFromAncestorsTarget, ancestorMetadataMap.get(propertyName))

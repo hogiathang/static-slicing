@@ -1,0 +1,38 @@
+Hci.prototype.processCmdCompleteEvent = function(cmd, status, result) {
+  if (cmd === RESET_CMD) {
+    this.setEventMask();
+    this.setLeEventMask();
+    this.readLocalVersion();
+    this.readBdAddr();
+  } else if (cmd === READ_LE_HOST_SUPPORTED_CMD) {
+    if (status === 0) {
+      var le = result.readUInt8(0);
+      var simul = result.readUInt8(1);
+
+      debug('\t\t\tle = ' + le);
+      debug('\t\t\tsimul = ' + simul);
+    }
+  } else if (cmd === READ_LOCAL_VERSION_CMD) {
+    var hciVer = result.readUInt8(0);
+    var hciRev = result.readUInt16LE(1);
+    var lmpVer = result.readInt8(3);
+    var manufacturer = result.readUInt16LE(4);
+    var lmpSubVer = result.readUInt16LE(6);
+
+    if (hciVer < 0x06) {
+      this.emit('stateChange', 'unsupported');
+    } else if (this._state !== 'poweredOn') {
+      this.setScanEnabled(false, true);
+      this.setScanParameters();
+    }
+
+    this.emit('readLocalVersion', hciVer, hciRev, lmpVer, manufacturer, lmpSubVer);
+  } else if (cmd === READ_BD_...
+cmd === RESET_CMD
+cmd === READ_LE_HOST_SUPPORTED_CMD
+cmd === READ_LOCAL_VERSION_CMD
+cmd === READ_BD_ADDR_CMD
+this.addressType = 'public'
+this.address = result.toString('hex').match(/.{1,2}/g).reverse().join(':')
+debug('address = ' + this.address)
+this.emit('addressChange', this.address)

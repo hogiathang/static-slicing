@@ -1,0 +1,6 @@
+_tmp_1.delete = d(function (obj) {
+						if (resolve) obj = resolve(arguments)[0];
+						return map.delete(obj);
+					})
+obj = resolve(arguments)[0]
+map.delete(obj)

@@ -1,0 +1,49 @@
+ContentTypeParser.prototype.run = function (contentType, handler, request, reply) {
+  const parser = this.getParser(contentType)
+  const resource = new AsyncResource('content-type-parser:run', request)
+
+  if (parser === undefined) {
+    if (request.is404) {
+      handler(request, reply)
+    } else {
+      reply.send(new FST_ERR_CTP_INVALID_MEDIA_TYPE(contentType || undefined))
+    }
+  } else if (parser.asString === true || parser.asBuffer === true) {
+    rawBody(
+      request,
+      reply,
+      reply[kRouteContext]._parserOptions,
+      parser,
+      done
+    )
+  } else {
+    const result = parser.fn(request, request[kRequestPayloadStream], done)
+
+    if (result && typeof result.then === 'function') {
+      result.then(body => done(null, body), done)
+    }
+  }
+
+  function done (error, body) {
+    // We cannot use resource.bind() because it is broken in node v12 and v14
+    resource.runInAsyncScope(() => {
+      if (error) {
+        reply[kReplyIsError] = true
+        reply.send(er...
+const parser = this.getParser(contentType)
+const resource = new AsyncResource('content-type-parser:run', request)
+parser === undefined
+request.is404
+reply.send(new FST_ERR_CTP_INVALID_MEDIA_TYPE(contentType || undefined))
+function done = function done (error, body) {
+    // We cannot use resource.bind() because it is broken in node v12 and v14
+    resource.runInAsyncScope(() => {
+      if (error) {
+        reply[kReplyIsError] = true
+        reply.send(error)
+      } else {
+        request.body = body
+        handler(request, reply)
+      }
+    })
+  }

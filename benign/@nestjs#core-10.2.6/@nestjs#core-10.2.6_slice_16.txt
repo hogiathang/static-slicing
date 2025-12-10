@@ -1,0 +1,31 @@
+insertProvider(provider, token) {
+        const isCustomProvider = this.isCustomProvider(provider);
+        if (!isCustomProvider) {
+            return this.container.addProvider(provider, token);
+        }
+        const applyProvidersMap = this.getApplyProvidersMap();
+        const providersKeys = Object.keys(applyProvidersMap);
+        const type = provider.provide;
+        if (!providersKeys.includes(type)) {
+            return this.container.addProvider(provider, token);
+        }
+        const uuid = uuid_factory_1.UuidFactory.get(type.toString());
+        const providerToken = `${type} (UUID: ${uuid})`;
+        let scope = provider.scope;
+        if ((0, shared_utils_1.isNil)(scope) && provider.useClass) {
+            scope = (0, get_class_scope_1.getClassScope)(provider.useClass);
+        }
+        this.applicationProvidersApplyMap.push({
+            type,
+            moduleKey: token,
+            providerKey: providerToken,
+            scope,
+        });
+        const newPro...
+const isCustomProvider = this.isCustomProvider(provider)
+!isCustomProvider
+const applyProvidersMap = this.getApplyProvidersMap()
+const providersKeys = Object.keys(applyProvidersMap)
+const type = provider.provide
+!providersKeys.includes(type)
+const uuid = uuid_factory_1.UuidFactory.get(type.toString())

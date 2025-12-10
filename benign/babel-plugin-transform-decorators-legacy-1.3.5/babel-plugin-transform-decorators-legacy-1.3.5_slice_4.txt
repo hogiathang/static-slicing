@@ -1,0 +1,7 @@
+_tmp_44.AssignmentExpression = AssignmentExpression
+!state.initializerWarningHelper
+(_tmp_50 = path.get('left')).isMemberExpression
+(_tmp_51 = path.get('left.property')).isIdentifier
+(_tmp_52 = path.get('right')).isCallExpression
+!path.get('right.callee').isIdentifier({ name: state.initializerWarningHelper.name })
+path.replaceWith(t.callExpression(ensureInitializerDefineProp(path, state), [path.get('left.object').node, t.stringLiteral(path.get('left.property').node.name), path.get('right.arguments')[0].node, path.get('right.arguments')[1].node]))

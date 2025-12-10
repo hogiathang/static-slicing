@@ -1,0 +1,21 @@
+tuple.forEach((value, prop) => {
+                if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                    if (!this._driver.validateStyleProperty(prop)) {
+                        tuple.delete(prop);
+                        context.unsupportedCSSPropertiesFound.add(prop);
+                        return;
+                    }
+                }
+                // This is guaranteed to have a defined Map at this querySelector location making it
+                // safe to add the assertion here. It is set as a default empty map in prior methods.
+                const collectedStyles = context.collectedStyles.get(context.currentQuerySelector);
+                const collectedEntry = collectedStyles.get(prop);
+                let updateCollectedStyle = true;
+                if (collectedEntry) {
+                    if (startTime != endTime && startTime >= collectedEntry.startTime &&
+                        endTime <= collectedEntry.endTime) {
+                        context....
+typeof ngDevMode === 'undefined' || ngDevMode
+(_tmp_152 = this._driver).validateStyleProperty
+const collectedStyles = context.collectedStyles.get(context.currentQuerySelector)
+const collectedEntry = collectedStyles.get(prop)

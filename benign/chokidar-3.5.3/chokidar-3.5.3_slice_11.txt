@@ -1,0 +1,46 @@
+_remove(directory, item, isDirectory) {
+  // if what is being deleted is a directory, get that directory's paths
+  // for recursive deleting and cleaning of watched object
+  // if it is not a directory, nestedDirectoryChildren will be empty array
+  const path = sysPath.join(directory, item);
+  const fullPath = sysPath.resolve(path);
+  isDirectory = isDirectory != null
+    ? isDirectory
+    : this._watched.has(path) || this._watched.has(fullPath);
+
+  // prevent duplicate handling in case of arriving here nearly simultaneously
+  // via multiple paths (such as _handleFile and _handleDir)
+  if (!this._throttle('remove', path, 100)) return;
+
+  // if the only watched file is removed, watch for its return
+  if (!isDirectory && !this.options.useFsEvents && this._watched.size === 1) {
+    this.add(directory, item, true);
+  }
+
+  // This will create a new entry in the watched object in either case
+  // so we got to do the directory check beforehand
+  const wp = this._getWatchedDir(path);
+  con...
+const path = sysPath.join(directory, item)
+const fullPath = sysPath.resolve(path)
+isDirectory = isDirectory != null
+    ? isDirectory
+    : this._watched.has(path) || this._watched.has(fullPath)
+this._watched.has(path) || this._watched.has(fullPath)
+!this._throttle('remove', path, 100)
+!isDirectory && !this.options.useFsEvents && this._watched.size === 1
+this.add(directory, item, true)
+const wp = this._getWatchedDir(path)
+const nestedDirectoryChildren = wp.getChildren()
+nestedDirectoryChildren.forEach(nested => this._remove(path, nested))
+const parent = this._getWatchedDir(directory)
+const wasTracked = parent.has(item)
+parent.remove(item)
+(_tmp_96 = this._symlinkPaths).has
+(_tmp_97 = this._symlinkPaths).delete
+let relPath = path
+relPath = sysPath.relative(this.options.cwd, path)
+this.options.awaitWriteFinish && this._pendingWrites.has(relPath)
+const event = this._pendingWrites.get(relPath).cancelWait()
+event === EV_ADD
+(_tmp_101 = this._watched).delete

@@ -1,0 +1,20 @@
+function readFile = function readFile(path, encoding) {
+    const normalizedPath = (0, path_1.normalize)(path);
+    if (!readFileCache.has(normalizedPath)) {
+        const stats = readStats(normalizedPath);
+        if (stats && stats.isFile()) {
+            readFileCache.set(normalizedPath, fs.readFileSync(normalizedPath, { encoding: encoding }).toString());
+        }
+        else {
+            readFileCache.set(normalizedPath, undefined);
+        }
+    }
+    return readFileCache.get(normalizedPath);
+}
+const normalizedPath = (0, path_1.normalize)(path)
+!readFileCache.has(normalizedPath)
+const stats = readStats(normalizedPath)
+stats && stats.isFile()
+readFileCache.set(normalizedPath, fs.readFileSync(normalizedPath, { encoding: encoding }).toString())
+readFileCache.set(normalizedPath, undefined)
+readFileCache.get(normalizedPath)

@@ -1,0 +1,50 @@
+Ep.explodeStatement = function(path, labelId) {
+  const t = util.getTypes();
+  let stmt = path.node;
+  let self = this;
+  let before, after, head;
+
+  t.assertStatement(stmt);
+
+  if (labelId) {
+    t.assertIdentifier(labelId);
+  } else {
+    labelId = null;
+  }
+
+  // Explode BlockStatement nodes even if they do not contain a yield,
+  // because we don't want or need the curly braces.
+  if (t.isBlockStatement(stmt)) {
+    path.get("body").forEach(function (path) {
+      self.explodeStatement(path);
+    });
+    return;
+  }
+
+  if (!meta.containsLeap(stmt)) {
+    // Technically we should be able to avoid emitting the statement
+    // altogether if !meta.hasSideEffects(stmt), but that leads to
+    // confusing generated code (for instance, `while (true) {}` just
+    // disappears) and is probably a more appropriate job for a dedicated
+    // dead code elimination pass.
+    self.emit(stmt);
+    return;
+  }
+
+  switch (stmt.type) {
+  case "ExpressionStatement":
+    self.explodeExpression(pat...
+const t = util.getTypes()
+let stmt = path.node
+let self = this
+t.assertStatement(stmt)
+t.assertIdentifier(labelId)
+labelId = null
+t.isBlockStatement(stmt)
+!meta.containsLeap(stmt)
+stmt.type
+"ThrowStatement"
+self.emit(t.throwStatement(
+      self.explodeExpression(path.get("argument"))
+    ))
+self.explodeExpression(path.get("argument"))

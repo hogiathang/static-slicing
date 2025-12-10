@@ -1,0 +1,13 @@
+function checkNoUnwrappedItemOptionPairs = function checkNoUnwrappedItemOptionPairs(items, index, type, e) {
+  if (index === 0) return;
+  const lastItem = items[index - 1];
+  const thisItem = items[index];
+  if (lastItem.file && lastItem.options === undefined && typeof thisItem.value === "object") {
+    e.message += `\n- Maybe you meant to use\n` + `"${type}s": [\n  ["${lastItem.file.request}", ${JSON.stringify(thisItem.value, undefined, 2)}]\n]\n` + `To be a valid ${type}, its name and options should be wrapped in a pair of brackets`;
+  }
+}
+index === 0
+const lastItem = items[index - 1]
+const thisItem = items[index]
+lastItem.file && lastItem.options === undefined && typeof thisItem.value === "object"
+e.message += `\n- Maybe you meant to use\n` + `"${type}s": [\n  ["${lastItem.file.request}", ${JSON.stringify(thisItem.value, undefined, 2)}]\n]\n` + `To be a valid ${type}, its name and options should be wrapped in a pair of brackets`

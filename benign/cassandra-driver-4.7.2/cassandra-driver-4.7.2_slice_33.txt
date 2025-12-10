@@ -1,0 +1,12 @@
+const queryOnConnection = async () => {
+      if (!this.connection || this._isShuttingDown) {
+        throw new errors.NoHostAvailableError({}, 'ControlConnection is not connected at the time');
+      }
+
+      const request = typeof cqlQuery === 'string' ? new requests.QueryRequest(cqlQuery, null, null) : cqlQuery;
+      return await this.connection.send(request, null);
+    }
+!this.connection || this._isShuttingDown
+throw new errors.NoHostAvailableError({}, 'ControlConnection is not connected at the time');
+const request = typeof cqlQuery === 'string' ? new requests.QueryRequest(cqlQuery, null, null) : cqlQuery
+await this.connection.send(request, null)

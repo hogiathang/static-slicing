@@ -1,0 +1,4 @@
+_tmp_0.request = <lambda>2
+var content = Buffer.from(this.encode(messages), 'utf8')
+var params  = this._buildParams(content)
+var request = this._httpClient.request(params)

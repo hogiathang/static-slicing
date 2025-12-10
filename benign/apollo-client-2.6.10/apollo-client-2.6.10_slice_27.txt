@@ -1,0 +1,61 @@
+function ApolloClient = function ApolloClient(options) {
+      var _this = this;
+
+      this.defaultOptions = {};
+      this.resetStoreCallbacks = [];
+      this.clearStoreCallbacks = [];
+      var cache = options.cache,
+          _a = options.ssrMode,
+          ssrMode = _a === void 0 ? false : _a,
+          _b = options.ssrForceFetchDelay,
+          ssrForceFetchDelay = _b === void 0 ? 0 : _b,
+          connectToDevTools = options.connectToDevTools,
+          _c = options.queryDeduplication,
+          queryDeduplication = _c === void 0 ? true : _c,
+          defaultOptions = options.defaultOptions,
+          _d = options.assumeImmutableResults,
+          assumeImmutableResults = _d === void 0 ? false : _d,
+          resolvers = options.resolvers,
+          typeDefs = options.typeDefs,
+          fragmentMatcher = options.fragmentMatcher,
+          clientAwarenessName = options.name,
+          clientAwarenessVersion = options.version;
+      var link = options.link;
+
+      if (!link && resolvers) {
+        ...
+var _this = this
+this.defaultOptions = {}
+this.resetStoreCallbacks = []
+this.clearStoreCallbacks = []
+var cache = options.cache
+var _a = options.ssrMode
+var ssrMode = _a === void 0 ? false : _a
+var _b = options.ssrForceFetchDelay
+var ssrForceFetchDelay = _b === void 0 ? 0 : _b
+var connectToDevTools = options.connectToDevTools
+var _c = options.queryDeduplication
+var queryDeduplication = _c === void 0 ? true : _c
+var defaultOptions = options.defaultOptions
+var _d = options.assumeImmutableResults
+var assumeImmutableResults = _d === void 0 ? false : _d
+var resolvers = options.resolvers
+var typeDefs = options.typeDefs
+var fragmentMatcher = options.fragmentMatcher
+var clientAwarenessName = options.name
+var clientAwarenessVersion = options.version
+var link = options.link
+!link && resolvers
+(_tmp_349 = _apolloLink.ApolloLink).empty
+!link || !cache
+throw process.env.NODE_ENV === "production" ? new _tsInvariant.InvariantError(4) : new _tsInvariant.InvariantError("In order to initialize Apollo Client, you must specify 'link' and 'cache' properties in the options object.\n" + "These options are part of the upgrade requirements when migrating from Apollo Client 1.x to Apollo Client 2.x.\n" + "For more information, please visit: https://www.apollographql.com/docs/tutorial/client.html#apollo-client-setup");
+this.link = link
+this.cache = cache
+this.store = new DataStore(cache)
+this.disableNetworkFetches = ssrMode || ssrForceFetchDelay > 0
+this.queryDeduplication = queryDeduplication
+this.defaultOptions = defaultOptions || {}
+this.typeDefs = typeDefs
+setTimeout(function () {
+          return _this.disableNetworkFetches = false;
+        }, ssrForceFetchDelay)

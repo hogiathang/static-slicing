@@ -1,0 +1,49 @@
+function checkUsage = function checkUsage(node, exportedValue) {
+          if (!unusedExports) {
+            return;
+          }
+
+          if (ignoredFiles.has(file)) {
+            return;
+          }
+
+          if (fileIsInPkg(file)) {
+            return;
+          }
+
+          if (filesOutsideSrc.has(file)) {
+            return;
+          }
+
+          // make sure file to be linted is included in source files
+          if (!srcFiles.has(file)) {
+            srcFiles = resolveFiles(getSrc(src), ignoreExports, context);
+            if (!srcFiles.has(file)) {
+              filesOutsideSrc.add(file);
+              return;
+            }
+          }
+
+          exports = exportList.get(file);
+
+          // special case: export * from
+          var exportAll = exports.get(EXPORT_ALL_DECLARATION);
+          if (typeof exportAll !== 'undefined' && exportedValue !== IMPORT_DEFAULT_SPECIFIER) {
+            if (exportAll.whereUsed.size > 0) {
+              return;
+            }
+          }
+
+          // special ca...
+!unusedExports
+ignoredFiles.has(file)
+fileIsInPkg(file)
+filesOutsideSrc.has(file)
+!srcFiles.has(file)
+srcFiles = resolveFiles(getSrc(src), ignoreExports, context)
+!srcFiles.has(file)
+exports = exportList.get(file)
+var exportAll = exports.get(EXPORT_ALL_DECLARATION)
+typeof exportAll !== 'undefined' && exportedValue !== IMPORT_DEFAULT_SPECIFIER
+exportAll.whereUsed.size > 0
+var namespaceImports = exports.get(IMPORT_NAMESPACE_SPECIFIER)

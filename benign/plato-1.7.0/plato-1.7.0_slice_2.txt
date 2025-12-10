@@ -1,0 +1,17 @@
+function writeOverview = function writeOverview(outfile, report, options, templatePath) {
+  var overviewSource = fs.readFileSync(templatePath).toString();
+  var template = _.template(overviewSource);
+  var parsed = template({
+    report : report,
+    options : options
+  });
+  writeFile(outfile, parsed);
+}
+var overviewSource = fs.readFileSync(templatePath).toString()
+var template = _.template(overviewSource)
+var parsed = template({
+    report : report,
+    options : options
+  })
+_tmp_5.report = report
+_tmp_5.options = options

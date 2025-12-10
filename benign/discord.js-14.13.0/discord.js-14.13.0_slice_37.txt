@@ -1,0 +1,31 @@
+options = param2_0.options
+const id = this.client.users.resolveId(user)
+throw new DiscordjsTypeError(ErrorCodes.InvalidType, 'user', 'UserResolvable');
+options.channel
+options.channel = this.guild.channels.resolve(options.channel)
+!(options.channel instanceof BaseGuildVoiceChannel)
+throw new DiscordjsError(ErrorCodes.GuildVoiceChannelResolve);
+options.channel_id = options.channel.id
+options.channel = undefined
+options.channel === null
+options.channel_id = null
+options.channel = undefined
+options.roles &&= options.roles.map(role => (role instanceof Role ? role.id : role))
+options.communicationDisabledUntil !== undefined
+options.communication_disabled_until =
+        // eslint-disable-next-line eqeqeq
+        options.communicationDisabledUntil != null
+          ? new Date(options.communicationDisabledUntil).toISOString()
+          : options.communicationDisabledUntil
+options.communicationDisabledUntil != null ? new Date(options.communicationDisabledUntil).toISOString() : options.communicationDisabledUntil
+(_tmp_73 = new Date(options.communicationDisabledUntil)).toISOString
+options.communicationDisabledUntil
+options.flags !== undefined
+options.flags = GuildMemberFlagsBitField.resolve(options.flags)
+id === this.client.user.id
+const keys = Object.keys(options)
+endpoint = Routes.guildMember(this.guild.id)
+endpoint = Routes.guildMember(this.guild.id, id)
+endpoint = Routes.guildMember(this.guild.id, id)
+const d = await this.client.rest.patch(endpoint, { body: options, reason })
+const clone = this.cache.get(id)?._clone()

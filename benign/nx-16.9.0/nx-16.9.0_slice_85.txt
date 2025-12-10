@@ -1,0 +1,17 @@
+function generateDotNxSetup = function generateDotNxSetup(version) {
+    const host = new tree_1.FsTree(process.cwd(), false, '.nx setup');
+    writeMinimalNxJson(host, version);
+    updateGitIgnore(host);
+    host.write((0, exports.nxWrapperPath)(), getNxWrapperContents());
+    host.write('nx.bat', BATCH_SCRIPT_CONTENTS);
+    host.write('nx', SHELL_SCRIPT_CONTENTS, {
+        mode: fs_1.constants.S_IXUSR | fs_1.constants.S_IRUSR | fs_1.constants.S_IWUSR,
+    });
+    const changes = host.listChanges();
+    (0, tree_1.printChanges)(changes);
+    (0, tree_1.flushChanges)(host.root, changes);
+}
+const host = new tree_1.FsTree(process.cwd(), false, '.nx setup')
+writeMinimalNxJson(host, version)
+updateGitIgnore(host)
+host.write((0, exports.nxWrapperPath)(), getNxWrapperContents())

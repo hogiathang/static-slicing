@@ -1,0 +1,38 @@
+_init() {
+        var e, stat;
+        try {
+          stat = fs.statSync(this._location);
+          if ((stat != null) && !stat.isDirectory()) {
+            throw new Error(`A file exists at the location '${this._location}' when trying to create/open localStorage`);
+          }
+          // At this point, it exists and is definitely a directory. So read it.
+          this._sync();
+        } catch (error) {
+          e = error;
+          // If it errors, that might mean it didn't exist, so try to create it
+          if (e.code !== "ENOENT") {
+            throw e;
+          }
+          try {
+            fs.mkdirSync(this._location, {
+              recursive: true
+            });
+          } catch (error) {
+            e = error;
+            if (e.code !== "EEXIST") {
+              throw e;
+            }
+          }
+        }
+      }
+stat = fs.statSync(this._location)
+(stat != null) && !stat.isDirectory()
+<operator>.formatString("A file exists at the location '", this._location, "' when trying to create/open localStorage")
+this._sync()
+e = error
+e.code !== "ENOENT"
+throw e;
+fs.mkdirSync(this._location, {
+              recursive: true
+            })
+_tmp_11.recursive = true

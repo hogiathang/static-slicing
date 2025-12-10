@@ -1,0 +1,60 @@
+function iterate = async function iterate() {
+            const { semaphore, finish } = buildSemaphore();
+            const msearchBody = [];
+            const callbacks = [];
+            let loadedOperations = 0;
+            timeoutRef = setTimeout(onFlushTimeout, flushInterval); // eslint-disable-line
+            try {
+                for await (const operation of operationsStream) {
+                    timeoutRef.refresh();
+                    loadedOperations += 1;
+                    msearchBody.push(operation[0], operation[1]);
+                    callbacks.push(operation[2]);
+                    if (loadedOperations >= operations) {
+                        const send = await semaphore();
+                        send(msearchBody.slice(), callbacks.slice());
+                        msearchBody.length = 0;
+                        callbacks.length = 0;
+                        loadedOperations = 0;
+                    }
+                }
+            }
+            finally {
+                clearTimeo...
+semaphore = _tmp_27.semaphore
+const msearchBody = []
+__ecma.Array.factory()
+let loadedOperations = 0
+timeoutRef = setTimeout(onFlushTimeout, flushInterval)
+_iterator_2 = <operator>.iterator(operationsStream)
+timeoutRef.refresh()
+loadedOperations += 1
+msearchBody.push(operation[0], operation[1])
+callbacks.push(operation[2])
+loadedOperations >= operations
+const send = await semaphore()
+send(msearchBody.slice(), callbacks.slice())
+msearchBody.length = 0
+callbacks.length = 0
+loadedOperations = 0
+clearTimeout(timeoutRef)
+loadedOperations > 0
+const send = await semaphore()
+function onFlushTimeout = async function onFlushTimeout() {
+                if (loadedOperations === 0)
+                    return;
+                const msearchBodyCopy = msearchBody.slice();
+                const callbacksCopy = callbacks.slice();
+                msearchBody.length = 0;
+                callbacks.length = 0;
+                loadedOperations = 0;
+                try {
+                    const send = await semaphore();
+                    send(msearchBodyCopy, callbacksCopy);
+                }
+                catch (err) {
+                    /* istanbul ignore next */
+                    // @ts-expect-error
+                    helper.stop(err);
+                }
+            }

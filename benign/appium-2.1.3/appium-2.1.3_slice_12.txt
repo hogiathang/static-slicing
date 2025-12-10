@@ -1,0 +1,69 @@
+function init = async function init(args) {
+  const appiumHome = args?.appiumHome ?? (await resolveAppiumHome());
+  let appiumHomeSourceName = 'autodetected appium home path';
+  if (!_.isNil(args?.appiumHome)) {
+    appiumHomeSourceName = 'appiumHome config value';
+  } else if (process.env.APPIUM_HOME) {
+    appiumHomeSourceName = 'APPIUM_HOME environment variable';
+  }
+  await prepareAppiumHome(appiumHomeSourceName, appiumHome);
+
+  adjustNodePath();
+
+  const {driverConfig, pluginConfig} = await loadExtensions(appiumHome);
+
+  const parser = getParser();
+  let throwInsteadOfExit = false;
+  /** @type {Args<Cmd, SubCmd>} */
+  let preConfigArgs;
+
+  if (args) {
+    // if we have a containing package instead of running as a CLI process,
+    // that package might not appreciate us calling 'process.exit' willy-
+    // nilly, so give it the option to have us throw instead of exit
+    if (args.throwInsteadOfExit) {
+      throwInsteadOfExit = true;
+      // but remove it since it's not a real server arg per s...
+const appiumHome = args?.appiumHome ?? (await resolveAppiumHome())
+let appiumHomeSourceName = 'autodetected appium home path'
+!_.isNil(args?.appiumHome)
+appiumHomeSourceName = 'appiumHome config value'
+process.env.APPIUM_HOME
+appiumHomeSourceName = 'APPIUM_HOME environment variable'
+await prepareAppiumHome(appiumHomeSourceName, appiumHome)
+adjustNodePath()
+_tmp_10 = await loadExtensions(appiumHome)
+const parser = getParser()
+let throwInsteadOfExit = false
+args.throwInsteadOfExit
+throwInsteadOfExit = true
+delete args.throwInsteadOfExit
+preConfigArgs = {...args, subcommand: args.subcommand ?? SERVER_SUBCOMMAND}
+preConfigArgs = /** @type {Args<Cmd, SubCmd>} */ (parser.parseArgs())
+const configResult = await readConfigFile(preConfigArgs.configFile)
+!_.isEmpty(configResult.errors)
+throw new Error(
+      `Errors in config file ${configResult.filepath}:\n ${
+        configResult.reason ?? configResult.errors
+      }`
+    );
+<operator>.formatString("Errors in config file ", configResult.filepath, ":\n ", configResult.reason ?? configResult.errors, "")
+configResult.reason ?? configResult.errors
+isServerCommandArgs(preConfigArgs)
+const defaults = getDefaultsForSchema(false)
+const serverArgs = _.defaultsDeep({}, preConfigArgs, configResult.config?.server, defaults)
+preConfigArgs.showConfig
+await logsinkInit(serverArgs)
+serverArgs.logFilters
+_tmp_15 = await logFactory.loadSecureValuesPreprocessingRules(
+        serverArgs.logFilters
+      )
+serverArgs.logFilters
+!_.isEmpty(issues)
+throw new Error(
+          `The log filtering rules config '${serverArgs.logFilters}' has issues: ` +
+            JSON.stringify(issues, null, 2)
+        );
+`The log filtering rules config '${serverArgs.logFilters}' has issues: ` +
+            JSON.stringify(issues, null, 2)
+JSON.stringify(issues, null, 2)

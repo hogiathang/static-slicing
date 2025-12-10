@@ -1,0 +1,119 @@
+function translateESLintRC = function translateESLintRC(eslintrcConfig, {
+    resolveConfigRelativeTo,
+    resolvePluginsRelativeTo,
+    pluginEnvironments,
+    pluginProcessors
+}) {
+
+    const flatConfig = {};
+    const configs = [];
+    const languageOptions = {};
+    const linterOptions = {};
+    const keysToCopy = ["settings", "rules", "processor"];
+    const languageOptionsKeysToCopy = ["globals", "parser", "parserOptions"];
+    const linterOptionsKeysToCopy = ["noInlineConfig", "reportUnusedDisableDirectives"];
+
+    // copy over simple translations
+    for (const key of keysToCopy) {
+        if (key in eslintrcConfig && typeof eslintrcConfig[key] !== "undefined") {
+            flatConfig[key] = eslintrcConfig[key];
+        }
+    }
+
+    // copy over languageOptions
+    for (const key of languageOptionsKeysToCopy) {
+        if (key in eslintrcConfig && typeof eslintrcConfig[key] !== "undefined") {
+
+            // create the languageOptions key in the flat config
+            flatConfig.languageOptions = lang...
+resolveConfigRelativeTo = param2_0.resolveConfigRelativeTo
+resolvePluginsRelativeTo = param2_0.resolvePluginsRelativeTo
+pluginEnvironments = param2_0.pluginEnvironments
+pluginProcessors = param2_0.pluginProcessors
+const flatConfig = {}
+__ecma.Array.factory()
+const languageOptions = {}
+const linterOptions = {}
+const keysToCopy = ["settings", "rules", "processor"]
+const languageOptionsKeysToCopy = ["globals", "parser", "parserOptions"]
+const linterOptionsKeysToCopy = ["noInlineConfig", "reportUnusedDisableDirectives"]
+_iterator_0 = <operator>.iterator(keysToCopy)
+key in eslintrcConfig && typeof eslintrcConfig[key] !== "undefined"
+flatConfig[key] = eslintrcConfig[key]
+_iterator_1 = <operator>.iterator(languageOptionsKeysToCopy)
+key in eslintrcConfig && typeof eslintrcConfig[key] !== "undefined"
+flatConfig.languageOptions = languageOptions
+key === "parser"
+<operator>.formatString("Resolving parser '", languageOptions[key], "' relative to ", resolveConfigRelativeTo, "")
+eslintrcConfig[key].error
+throw eslintrcConfig[key].error;
+languageOptions[key] = eslintrcConfig[key].definition
+continue;
+eslintrcConfig[key] && typeof eslintrcConfig[key] === "object"
+languageOptions[key] = {
+                    ...eslintrcConfig[key]
+                }
+...eslintrcConfig[key]
+languageOptions[key] = eslintrcConfig[key]
+_iterator_2 = <operator>.iterator(linterOptionsKeysToCopy)
+key in eslintrcConfig && typeof eslintrcConfig[key] !== "undefined"
+flatConfig.linterOptions = linterOptions
+linterOptions[key] = eslintrcConfig[key]
+languageOptions.parserOptions
+"ecmaVersion" in languageOptions.parserOptions
+languageOptions.ecmaVersion = languageOptions.parserOptions.ecmaVersion
+delete languageOptions.parserOptions.ecmaVersion
+"sourceType" in languageOptions.parserOptions
+languageOptions.sourceType = languageOptions.parserOptions.sourceType
+delete languageOptions.parserOptions.sourceType
+Object.keys(languageOptions.parserOptions).length === 0
+delete languageOptions.parserOptions
+eslintrcConfig.criteria
+flatConfig.files = [absoluteFilePath => eslintrcConfig.criteria.test(absoluteFilePath)]
+eslintrcConfig.plugins && typeof eslintrcConfig.plugins === "object"
+<operator>.formatString("Translating plugins: ", eslintrcConfig.plugins, "")
+flatConfig.plugins = {}
+_iterator_3 = <operator>.iterator(Object.keys(eslintrcConfig.plugins))
+<operator>.formatString("Translating plugin: ", pluginName, "")
+<operator>.formatString("Resolving plugin '", pluginName, " relative to ", resolvePluginsRelativeTo, "")
+_tmp_10 = eslintrcConfig.plugins[pluginName]
+throw error;
+flatConfig.plugins[pluginName] = plugin
+plugin.processors
+_iterator_4 = <operator>.iterator(Object.keys(plugin.processors))
+processorName.startsWith(".")
+<operator>.formatString("Assigning processor: ", pluginName, "/", processorName, "")
+configs.unshift({
+                            files: [`**/*${processorName}`],
+                            processor: pluginProcessors.get(`${pluginName}/${processorName}`)
+                        })
+_tmp_12.push(<operator>.formatString("**/*", processorName, ""))
+_tmp_11.processor = pluginProcessors.get(`${pluginName}/${processorName}`)
+eslintrcConfig.env && typeof eslintrcConfig.env === "object"
+_iterator_5 = <operator>.iterator(Object.keys(eslintrcConfig.env))
+eslintrcConfig.env[envName]
+<operator>.formatString("Translating environment: ", envName, "")
+environments.has(envName)
+configs.unshift(...translateESLintRC({
+                        criteria: eslintrcConfig.criteria,
+                        ...environments.get(envName)
+                    }, {
+                        resolveConfigRelativeTo,
+                        resolvePluginsRelativeTo
+                    }))
+_tmp_13.criteria = eslintrcConfig.criteria
+...environments.get(envName)
+_tmp_14.resolveConfigRelativeTo = resolveConfigRelativeTo
+_tmp_14.resolvePluginsRelativeTo = resolvePluginsRelativeTo
+pluginEnvironments.has(envName)
+configs.push(...translateESLintRC({
+                        criteria: eslintrcConfig.criteria,
+                        ...pluginEnvironments.get(envName)
+                    }, {
+                        resolveConfigRelativeTo,
+                        resolvePluginsRelativeTo
+                    }))
+_tmp_15.criteria = eslintrcConfig.criteria
+...pluginEnvironments.get(envName)
+_tmp_16.resolveConfigRelativeTo = resolveConfigRelativeTo
+_tmp_16.resolvePluginsRelativeTo = resolvePluginsRelativeTo

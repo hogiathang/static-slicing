@@ -1,0 +1,37 @@
+this.parent.acquire(this, (err, connection) => {
+        let hasReturned = false
+        if (!err) {
+          debug('connection(%d): borrowed to request #%d', IDS.get(connection), IDS.get(this))
+
+          if (this.canceled) {
+            debug('request(%d): canceled', IDS.get(this))
+            this.parent.release(connection)
+            return callback(new RequestError('Canceled.', 'ECANCEL'))
+          }
+
+          const done = (err, rowCount) => {
+            if (hasReturned) {
+              return
+            }
+
+            hasReturned = true
+
+            if (err) {
+              if ((typeof err.sqlstate === 'string') && (err.sqlstate.toLowerCase() === '08s01')) {
+                connection.hasError = true
+              }
+
+              err = new RequestError(err)
+              err.code = 'EREQUEST'
+            }
+
+            this.parent.release(connection)
+
+            if (err) {
+              callback(err)
+            } else {
+              callback(null, table.rows.length)
+...
+let hasReturned = false
+!err
+debug('connection(%d): borrowed to request #%d', IDS.get(connection), IDS.get(this))

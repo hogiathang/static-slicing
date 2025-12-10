@@ -1,0 +1,16 @@
+async listJson () {
+    const publicConf = {}
+    for (const key in this.npm.config.list[0]) {
+      if (!publicVar(key)) {
+        continue
+      }
+
+      publicConf[key] = this.npm.config.get(key)
+    }
+    this.npm.output(JSON.stringify(publicConf, null, 2))
+  }
+const publicConf = {}
+_iterator_6 = <operator>.iterator(this.npm.config.list[0])
+!publicVar(key)
+continue
+publicConf[key] = this.npm.config.get(key)

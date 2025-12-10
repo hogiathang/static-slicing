@@ -1,0 +1,112 @@
+Kareem.prototype.execPre = function(name, context, args, callback) {
+  if (arguments.length === 3) {
+    callback = args;
+    args = [];
+  }
+  const pres = this._pres.get(name) || [];
+  const numPres = pres.length;
+  const numAsyncPres = pres.numAsync || 0;
+  let currentPre = 0;
+  let asyncPresLeft = numAsyncPres;
+  let done = false;
+  const $args = args;
+  let shouldSkipWrappedFunction = null;
+
+  if (!numPres) {
+    return nextTick(function() {
+      callback(null);
+    });
+  }
+
+  function next() {
+    if (currentPre >= numPres) {
+      return;
+    }
+    const pre = pres[currentPre];
+
+    if (pre.isAsync) {
+      const args = [
+        decorateNextFn(_next),
+        decorateNextFn(function(error) {
+          if (error) {
+            if (done) {
+              return;
+            }
+            if (error instanceof Kareem.skipWrappedFunction) {
+              shouldSkipWrappedFunction = error;
+            } else {
+              done = true;
+              return callback(error);
+       ...
+arguments.length === 3
+callback = args
+__ecma.Array.factory()
+const pres = this._pres.get(name) || []
+const numPres = pres.length
+const numAsyncPres = pres.numAsync || 0
+let currentPre = 0
+let asyncPresLeft = numAsyncPres
+let done = false
+const $args = args
+let shouldSkipWrappedFunction = null
+!numPres
+nextTick(function() {
+      callback(null);
+    })
+function next = function next() {
+    if (currentPre >= numPres) {
+      return;
+    }
+    const pre = pres[currentPre];
+
+    if (pre.isAsync) {
+      const args = [
+        decorateNextFn(_next),
+        decorateNextFn(function(error) {
+          if (error) {
+            if (done) {
+              return;
+            }
+            if (error instanceof Kareem.skipWrappedFunction) {
+              shouldSkipWrappedFunction = error;
+            } else {
+              done = true;
+              return callback(error);
+            }
+          }
+          if (--asyncPresLeft === 0 && currentPre >= numPres) {
+            return callback(shouldSkipWrappedFunction);
+          }
+        })
+      ];
+
+      callMiddlewareFunction(pre.fn, context, args, args[0]);
+    } else if (pre.fn.length > 0) {
+      const args = [decorateNextFn(_next)];
+      const _args = arguments.length >= 2 ? arguments : [null].concat($args);
+      for (let i = 1; i < _args.length; ++i) {
+        if (i === _args.length - 1 && typeof _ar...
+function _next = function _next(error) {
+    if (error) {
+      if (done) {
+        return;
+      }
+      if (error instanceof Kareem.skipWrappedFunction) {
+        shouldSkipWrappedFunction = error;
+      } else {
+        done = true;
+        return callback(error);
+      }
+    }
+
+    if (++currentPre >= numPres) {
+      if (asyncPresLeft > 0) {
+        // Leave parallel hooks to run
+        return;
+      } else {
+        return callback(shouldSkipWrappedFunction);
+      }
+    }
+
+    next.apply(context, arguments);
+  }

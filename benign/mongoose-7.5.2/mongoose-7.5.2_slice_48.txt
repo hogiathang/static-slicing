@@ -1,0 +1,73 @@
+function search = function search(parts, schema, subdoc, nestedPath) {
+    let p = parts.length + 1;
+    let foundschema;
+    let trypath;
+
+    while (p--) {
+      trypath = parts.slice(0, p).join('.');
+      foundschema = schema.path(trypath);
+      if (foundschema == null) {
+        continue;
+      }
+
+      if (foundschema.caster) {
+        // array of Mixed?
+        if (foundschema.caster instanceof Mixed) {
+          return foundschema.caster;
+        }
+
+        let schemas = null;
+        if (foundschema.schema != null && foundschema.schema.discriminators != null) {
+          const discriminators = foundschema.schema.discriminators;
+          const discriminatorKeyPath = trypath + '.' +
+            foundschema.schema.options.discriminatorKey;
+          const keys = subdoc ? mpath.get(discriminatorKeyPath, subdoc) || [] : [];
+          schemas = Object.keys(discriminators).
+            reduce(function(cur, discriminator) {
+              const tiedValue = discriminators[discriminator].discriminato...
+let p = parts.length + 1
+p--
+trypath = parts.slice(0, p).join('.')
+foundschema = schema.path(trypath)
+foundschema == null
+continue;
+foundschema.caster
+foundschema.caster instanceof Mixed
+let schemas = null
+foundschema.schema != null && foundschema.schema.discriminators != null
+const discriminators = foundschema.schema.discriminators
+const discriminatorKeyPath = trypath + '.' +
+            foundschema.schema.options.discriminatorKey
+foundschema.schema.options.discriminatorKey
+subdoc ? mpath.get(discriminatorKeyPath, subdoc) || [] : __ecma.Array.factory()
+schemas = Object.keys(discriminators).
+            reduce(function(cur, discriminator) {
+              const tiedValue = discriminators[discriminator].discriminatorMapping.value;
+              if (doc == null || keys.indexOf(discriminator) !== -1 || keys.indexOf(tiedValue) !== -1) {
+                cur.push(discriminators[discriminator]);
+              }
+              return cur;
+            }, [])
+<lambda>0
+__ecma.Array.factory()
+p !== parts.length && foundschema.schema
+parts[p] === '$'
+schemas != null && schemas.length > 0
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(schemas)
+const _ret = search(
+                parts.slice(p),
+                schema,
+                subdoc ? mpath.get(trypath, subdoc) : null,
+                nestedPath.concat(parts.slice(0, p))
+              )
+parts.slice(p)
+subdoc ? mpath.get(trypath, subdoc) : null
+nestedPath.concat(parts.slice(0, p))
+_ret != null
+_ret.$parentSchemaDocArray = _ret.$parentSchemaDocArray ||
+                  (foundschema.schema.$isSingleNested ? null : foundschema)
+foundschema.schema.$isSingleNested ? null : foundschema
+_ret.$parentSchemaDocArray
+ret.$parentSchemaDocArray = _ret.$parentSchemaDocArray
+ret.push(_ret)

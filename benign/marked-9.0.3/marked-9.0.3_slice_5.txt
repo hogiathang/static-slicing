@@ -1,0 +1,148 @@
+function main = async function main(nodeProcess) {
+  /**
+   * Man Page
+   */
+  async function help() {
+    const { spawn } = await import('child_process');
+    const { fileURLToPath } = await import('url');
+
+    const options = {
+      cwd: nodeProcess.cwd(),
+      env: nodeProcess.env,
+      stdio: 'inherit'
+    };
+
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const helpText = await readFile(resolve(__dirname, '../man/marked.1.md'), 'utf8');
+
+    // eslint-disable-next-line promise/param-names
+    await new Promise(res => {
+      spawn('man', [resolve(__dirname, '../man/marked.1')], options)
+        .on('error', () => {
+          console.log(helpText);
+        })
+        .on('close', res);
+    });
+  }
+
+  async function version() {
+    const pkg = require('../package.json');
+    console.log(pkg.version);
+  }
+
+  /**
+   * Main
+   */
+  async function start(argv) {
+    const files = [];
+    const options = {};
+    let input;
+    let output;
+    let string;
+    let arg;
+    let tok...
+function help = async function help() {
+    const { spawn } = await import('child_process');
+    const { fileURLToPath } = await import('url');
+
+    const options = {
+      cwd: nodeProcess.cwd(),
+      env: nodeProcess.env,
+      stdio: 'inherit'
+    };
+
+    const __dirname = dirname(fileURLToPath(import.meta.url));
+    const helpText = await readFile(resolve(__dirname, '../man/marked.1.md'), 'utf8');
+
+    // eslint-disable-next-line promise/param-names
+    await new Promise(res => {
+      spawn('man', [resolve(__dirname, '../man/marked.1')], options)
+        .on('error', () => {
+          console.log(helpText);
+        })
+        .on('close', res);
+    });
+  }
+function version = async function version() {
+    const pkg = require('../package.json');
+    console.log(pkg.version);
+  }
+function start = async function start(argv) {
+    const files = [];
+    const options = {};
+    let input;
+    let output;
+    let string;
+    let arg;
+    let tokens;
+    let config;
+    let opt;
+
+    function getArg() {
+      let arg = argv.shift();
+
+      if (arg.indexOf('--') === 0) {
+        // e.g. --opt
+        arg = arg.split('=');
+        if (arg.length > 1) {
+          // e.g. --opt=val
+          argv.unshift(arg.slice(1).join('='));
+        }
+        arg = arg[0];
+      } else if (arg[0] === '-') {
+        if (arg.length > 2) {
+          // e.g. -abc
+          argv = arg.substring(1).split('').map(function(ch) {
+            return '-' + ch;
+          }).concat(argv);
+          arg = argv.shift();
+        } else {
+          // e.g. -a
+        }
+      } else {
+        // e.g. foo
+      }
+
+      return arg;
+    }
+
+    while (argv.length) {
+      arg = getArg();
+      switch (arg) {
+        case '-o':
+        case '--output':
+          output = argv.shift();
+          break;
+        case '-i'...
+function getStdin = function getStdin() {
+    return new Promise((resolve, reject) => {
+      const stdin = nodeProcess.stdin;
+      let buff = '';
+
+      stdin.setEncoding('utf8');
+
+      stdin.on('data', function(data) {
+        buff += data;
+      });
+
+      stdin.on('error', function(err) {
+        reject(err);
+      });
+
+      stdin.on('end', function() {
+        resolve(buff);
+      });
+
+      stdin.resume();
+    });
+  }
+function camelize = function camelize(text) {
+    return text.replace(/(\w)-(\w)/g, function(_, a, b) {
+      return a + b.toUpperCase();
+    });
+  }
+await start(nodeProcess.argv.slice())
+nodeProcess.exit(0)
+err.code === 'ENOENT'
+nodeProcess.stderr.write('marked: output to ' + err.path + ': No such directory')
+(_tmp_20 = nodeProcess.stderr).write

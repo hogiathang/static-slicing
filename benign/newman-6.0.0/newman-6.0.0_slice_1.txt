@@ -1,0 +1,9 @@
+var semver = require('semver')
+var colors = require('colors/safe')
+var pkg = require('../../package.json')
+var requiredNodeVersion = pkg && pkg.engines && pkg.engines.node
+var currentNodeVersion = process && process.version
+!(requiredNodeVersion && currentNodeVersion)
+!semver.satisfies(currentNodeVersion, requiredNodeVersion)
+console.error([colors.red('newman:'), 'required node version', requiredNodeVersion].join(' '))
+process.exit(1)

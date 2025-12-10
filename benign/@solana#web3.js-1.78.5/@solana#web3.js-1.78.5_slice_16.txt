@@ -1,0 +1,76 @@
+const clientBrowser = new RpcClient(async (request, callback) => {
+    const options = {
+      method: 'POST',
+      body: request,
+      agent,
+      headers: Object.assign(
+        {
+          'Content-Type': 'application/json',
+        },
+        httpHeaders || {},
+        COMMON_HTTP_HEADERS,
+      ),
+    };
+
+    try {
+      let too_many_requests_retries = 5;
+      let res: Response;
+      let waitTime = 500;
+      for (;;) {
+        if (fetchWithMiddleware) {
+          res = await fetchWithMiddleware(url, options);
+        } else {
+          res = await fetch(url, options);
+        }
+
+        if (res.status !== 429 /* Too many requests */) {
+          break;
+        }
+        if (disableRetryOnRateLimit === true) {
+          break;
+        }
+        too_many_requests_retries -= 1;
+        if (too_many_requests_retries === 0) {
+          break;
+        }
+        console.log(
+          `Server responded with ${res.status} ${res.statusText}.  Retrying after ${waitTime}ms delay...`,
+    ...
+const options = {
+      method: 'POST',
+      body: request,
+      agent,
+      headers: Object.assign(
+        {
+          'Content-Type': 'application/json',
+        },
+        httpHeaders || {},
+        COMMON_HTTP_HEADERS,
+      ),
+    }
+_tmp_28.method = "POST"
+_tmp_28.body = request
+_tmp_28.agent = agent
+_tmp_28.headers = Object.assign(
+        {
+          'Content-Type': 'application/json',
+        },
+        httpHeaders || {},
+        COMMON_HTTP_HEADERS,
+      )
+_tmp_29.Content-Type = "application/json"
+httpHeaders || {}
+let too_many_requests_retries = 5
+let waitTime = 500
+res = await fetchWithMiddleware(url, options)
+res = await fetch(url, options)
+res.status !== 429
+disableRetryOnRateLimit === true
+too_many_requests_retries -= 1
+too_many_requests_retries === 0
+console.log(
+          `Server responded with ${res.status} ${res.statusText}.  Retrying after ${waitTime}ms delay...`,
+        )
+<operator>.formatString("Server responded with ", res.status, " ", res.statusText, ".  Retrying after ", waitTime, "ms delay...")
+await sleep(waitTime)
+waitTime *= 2

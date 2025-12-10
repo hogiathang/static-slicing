@@ -1,0 +1,22 @@
+(error) => {
+            this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                error,
+                provider: this
+            });
+            throw error;
+        }
+this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                error,
+                provider: this
+            })
+_tmp_10.action = "response"
+_tmp_10.fetcher = "Eip1193Fetcher"
+_tmp_10.request = request
+_tmp_10.error = error
+_tmp_10.provider = this

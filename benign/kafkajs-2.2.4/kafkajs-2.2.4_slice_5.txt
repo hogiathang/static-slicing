@@ -1,0 +1,12 @@
+_tmp_2.authenticate = <lambda>2
+!sasl.authorizationIdentity
+throw new KafkaJSSASLAuthenticationError('SASL AWS-IAM: Missing authorizationIdentity')
+!sasl.accessKeyId
+throw new KafkaJSSASLAuthenticationError('SASL AWS-IAM: Missing accessKeyId')
+!sasl.secretAccessKey
+throw new KafkaJSSASLAuthenticationError('SASL AWS-IAM: Missing secretAccessKey')
+!sasl.sessionToken
+sasl.sessionToken = ''
+<operator>.formatString("", host, ":", port, "")
+logger.debug('Authenticate with SASL AWS-IAM', { broker })
+await saslAuthenticate({ request: request(sasl), response })

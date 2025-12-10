@@ -1,0 +1,6 @@
+get token() {
+    const { tokenRef } = this.options;
+    return _.get(process.env, tokenRef, null);
+  }
+tokenRef = _tmp_3.tokenRef
+_.get(process.env, tokenRef, null)

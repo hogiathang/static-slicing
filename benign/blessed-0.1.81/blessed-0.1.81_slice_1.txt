@@ -1,0 +1,73 @@
+process.title = 'time.js'
+var argv = process.argv
+~argv.indexOf('-h') || ~argv.indexOf('--help')
+console.log('Options:')
+console.log('-s - Show seconds.')
+console.log('-n - No leading zero on hours.')
+console.log('-d - Show date box.')
+console.log('--skinny - Skinny text.')
+process.exit(0)
+function updateTime = function updateTime() {
+  var pos = 0
+    , d = new Date
+    , im = 'am'
+    , time
+    , h
+    , m
+    , s;
+
+  h = d.getHours();
+  if (h >= 12) {
+    im = 'pm';
+  }
+  if (h > 12) {
+    h -= 12;
+  }
+  if (h === 0) h = 12;
+  if (h < 10) {
+    h = '0' + h;
+  }
+
+  m = d.getMinutes();
+  if (m < 10) {
+    m = '0' + m;
+  }
+
+  s = d.getSeconds();
+  if (s < 10) {
+    s = '0' + s;
+  }
+
+  time = ~argv.indexOf('-s')
+    ? h + ':' + m + ':' + s + im
+    : h + ':' + m + im;
+
+  if (time === lastTime) return;
+  lastTime = time;
+
+  time = time.split('');
+
+  if (~argv.indexOf('-n')) {
+    if (time[0] === '0') time[0] = ' ';
+  }
+
+  Object.keys(positions).forEach(function(key) {
+    var symbols = positions[key];
+    Object.keys(symbols).forEach(function(key) {
+      symbols[key].hide();
+    });
+  });
+
+  time.forEach(function(ch, i) {
+    var symbols = positions[i]
+      , symbol = symbols[ch];
+
+    if (!symbol) return;
+
+    symbol.rleft = pos;
+    pos += symbol.width + 2;
+
+    symbol.show();
+  });
+
+  ...

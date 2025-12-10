@@ -1,0 +1,15 @@
+new Promise(resolve => {
+    if (!fs.existsSync(file)) {
+      resolve({});
+    } else {
+      try {
+        const content = ini.parse(fs.readFileSync(file, 'utf-8'));
+        resolve(content);
+      } catch (error) {
+        exit(error);
+      }
+    }
+  })
+!fs.existsSync(file)
+const content = ini.parse(fs.readFileSync(file, 'utf-8'))
+resolve(content)

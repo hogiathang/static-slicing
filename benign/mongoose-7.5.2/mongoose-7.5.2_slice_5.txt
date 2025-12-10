@@ -1,0 +1,279 @@
+module.exports = function cast(schema, obj, options, context) {
+  if (Array.isArray(obj)) {
+    throw new Error('Query filter must be an object, got an array ', util.inspect(obj));
+  }
+
+  if (obj == null) {
+    return obj;
+  }
+
+  if (schema != null && schema.discriminators != null && obj[schema.options.discriminatorKey] != null) {
+    schema = getSchemaDiscriminatorByValue(schema, obj[schema.options.discriminatorKey]) || schema;
+  }
+
+  const paths = Object.keys(obj);
+  let i = paths.length;
+  let _keys;
+  let any$conditionals;
+  let schematype;
+  let nested;
+  let path;
+  let type;
+  let val;
+
+  options = options || {};
+
+  while (i--) {
+    path = paths[i];
+    val = obj[path];
+
+    if (path === '$or' || path === '$nor' || path === '$and') {
+      if (!Array.isArray(val)) {
+        throw new CastError('Array', val, path);
+      }
+      for (let k = 0; k < val.length; ++k) {
+        if (val[k] == null || typeof val[k] !== 'object') {
+          throw new CastError('Object', val[k], pa...
+Array.isArray(obj)
+throw new Error('Query filter must be an object, got an array ', util.inspect(obj));
+obj == null
+schema != null && schema.discriminators != null && obj[schema.options.discriminatorKey] != null
+schema = getSchemaDiscriminatorByValue(schema, obj[schema.options.discriminatorKey]) || schema
+const paths = Object.keys(obj)
+let i = paths.length
+options = options || {}
+i--
+path = paths[i]
+val = obj[path]
+path === '$or' || path === '$nor' || path === '$and'
+!Array.isArray(val)
+throw new CastError('Array', val, path);
+k < val.length
+val[k] == null || typeof val[k] !== 'object'
+throw new CastError('Object', val[k], path + '.' + k);
+val[k] = cast(schema, val[k], options, context)
+path === '$where'
+type = typeof val
+type !== 'string' && type !== 'function'
+throw new Error('Must have a string or function for $where');
+type === 'function'
+obj[path] = val.toString()
+continue;
+path === '$expr'
+val = cast$expr(val, schema)
+continue;
+path === '$elemMatch'
+val = cast(schema, val, options, context)
+path === '$text'
+val = castTextSearch(val, path)
+!schema
+continue;
+schematype = schema.path(path)
+!schematype
+const split = path.split('.')
+let j = split.length
+j--
+const pathFirstHalf = split.slice(0, j).join('.')
+const pathLastHalf = split.slice(j).join('.')
+const _schematype = schema.path(pathFirstHalf)
+const discriminatorKey = _schematype &&
+            _schematype.schema &&
+            _schematype.schema.options &&
+            _schematype.schema.options.discriminatorKey
+_schematype.schema
+_schematype.schema.options
+_schematype.schema.options.discriminatorKey
+_schematype != null &&
+            (_schematype.schema && _schematype.schema.discriminators) != null &&
+            discriminatorKey != null &&
+            pathLastHalf !== discriminatorKey
+(_schematype.schema && _schematype.schema.discriminators) != null
+discriminatorKey != null
+pathLastHalf !== discriminatorKey
+const discriminatorVal = get(obj, pathFirstHalf + '.' + discriminatorKey)
+const discriminators = _schematype.schema.discriminators
+typeof discriminatorVal === 'string' && discriminators[discriminatorVal] != null
+schematype = discriminators[discriminatorVal].path(pathLastHalf)
+discriminatorVal != null &&
+              Object.keys(discriminatorVal).length === 1 &&
+              Array.isArray(discriminatorVal.$in) &&
+              discriminatorVal.$in.length === 1 &&
+              typeof discriminatorVal.$in[0] === 'string' &&
+              discriminators[discriminatorVal.$in[0]] != null
+Object.keys(discriminatorVal).length === 1
+Array.isArray(discriminatorVal.$in)
+discriminatorVal.$in.length === 1
+typeof discriminatorVal.$in[0] === 'string'
+discriminators[discriminatorVal.$in[0]] != null
+schematype = discriminators[discriminatorVal.$in[0]].path(pathLastHalf)
+!schematype
+const split = path.split('.')
+let j = split.length
+j--
+pathFirstHalf = split.slice(0, j).join('.')
+schematype = schema.path(pathFirstHalf)
+break;
+schematype.caster && schematype.caster.schema
+remainingConds = {}
+pathLastHalf = split.slice(j).join('.')
+remainingConds[pathLastHalf] = val
+const ret = cast(schematype.caster.schema, remainingConds, options, context)[pathLastHalf]
+ret === void 0
+delete obj[path]
+obj[path] = ret
+obj[path] = val
+continue;
+isObject(val)
+let geo = ''
+val.$near
+geo = '$near'
+val.$nearSphere
+geo = '$nearSphere'
+val.$within
+geo = '$within'
+val.$geoIntersects
+geo = '$geoIntersects'
+val.$geoWithin
+geo = '$geoWithin'
+const numbertype = new Types.Number('__QueryCasting__')
+let value = val[geo]
+val.$maxDistance != null
+val.$maxDistance = numbertype.castForQuery(
+                null,
+                val.$maxDistance,
+                context
+              )
+val.$maxDistance
+val.$minDistance != null
+val.$minDistance = numbertype.castForQuery(
+                null,
+                val.$minDistance,
+                context
+              )
+val.$minDistance
+geo === '$within'
+const withinType = value.$center
+                  || value.$centerSphere
+                  || value.$box
+                  || value.$polygon
+value.$centerSphere
+value.$box
+value.$polygon
+!withinType
+throw new Error('Bad $within parameter: ' + JSON.stringify(val));
+value = withinType
+geo === '$near' &&
+                typeof value.type === 'string' && Array.isArray(value.coordinates)
+Array.isArray(value.coordinates)
+value = value.coordinates
+(geo === '$near' || geo === '$nearSphere' || geo === '$geoIntersects') &&
+                value.$geometry && typeof value.$geometry.type === 'string' &&
+                Array.isArray(value.$geometry.coordinates)
+typeof value.$geometry.type === 'string'
+Array.isArray(value.$geometry.coordinates)
+value.$maxDistance != null
+value.$maxDistance = numbertype.castForQuery(
+                  null,
+                  value.$maxDistance,
+                  context
+                )
+value.$maxDistance
+value.$minDistance != null
+value.$minDistance = numbertype.castForQuery(
+                  null,
+                  value.$minDistance,
+                  context
+                )
+value.$minDistance
+isMongooseObject(value.$geometry)
+value.$geometry = value.$geometry.toObject({
+                  transform: false,
+                  virtuals: false
+                })
+_tmp_17.transform = false
+_tmp_17.virtuals = false
+value = value.$geometry.coordinates
+geo === '$geoWithin'
+value.$geometry
+isMongooseObject(value.$geometry)
+value.$geometry = value.$geometry.toObject({ virtuals: false })
+const geoWithinType = value.$geometry.type
+ALLOWED_GEOWITHIN_GEOJSON_TYPES.indexOf(geoWithinType) === -1
+throw new Error('Invalid geoJSON type for $geoWithin "' +
+                    geoWithinType + '", must be "Polygon" or "MultiPolygon"');
+"", must be "Polygon" or "MultiPolygon""
+value = value.$geometry.coordinates
+value = value.$box || value.$polygon || value.$center ||
+                  value.$centerSphere
+value.$centerSphere
+isMongooseObject(value)
+value = value.toObject({ virtuals: false })
+_cast(value, numbertype, context)
+continue;
+schema.nested[path]
+continue;
+const strict = 'strict' in options ? options.strict : schema.options.strict
+const strictQuery = getStrictQuery(options, schema._userProvidedOptions, schema.options, context)
+options.upsert && strict
+strict === 'throw'
+throw new StrictModeError(path);
+throw new StrictModeError(path, 'Path "' + path + '" is not in ' +
+            'schema, strict mode is `true`, and upsert is `true`.');
+"schema, strict mode is `true`, and upsert is `true`."
+strictQuery === 'throw'
+throw new StrictModeError(path, 'Path "' + path + '" is not in ' +
+            'schema and strictQuery is \'throw\'.');
+"schema and strictQuery is 'throw'."
+delete obj[path]
+val == null
+continue;
+utils.isPOJO(val)
+any$conditionals = Object.keys(val).some(isOperator)
+!any$conditionals
+obj[path] = schematype.castForQuery(
+            null,
+            val,
+            context
+          )
+const ks = Object.keys(val)
+let k = ks.length
+k--
+$cond = ks[k]
+nested = val[$cond]
+$cond === '$not'
+nested && schematype
+_keys = Object.keys(nested)
+_keys.length && isOperator(_keys[0])
+_iterator_0 = <operator>.iterator(nested)
+nested[key] = schematype.castForQuery(
+                      key,
+                      nested[key],
+                      context
+                    )
+nested[key]
+val[$cond] = schematype.castForQuery(
+                    $cond,
+                    nested,
+                    context
+                  )
+continue;
+val[$cond] = schematype.castForQuery(
+                $cond,
+                nested,
+                context
+              )
+Array.isArray(val) && ['Buffer', 'Array'].indexOf(schematype.instance) === -1
+__ecma.Array.factory()
+const valuesArray = val
+_iterator_1 = <operator>.iterator(valuesArray)
+casted.push(schematype.castForQuery(
+            null,
+            _val,
+            context
+          ))
+obj[path] = { $in: casted }
+obj[path] = schematype.castForQuery(
+          null,
+          val,
+          context
+        )

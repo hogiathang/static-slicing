@@ -1,0 +1,13 @@
+objectPath.coalesce = function (obj, paths, defaultValue) {
+      var value
+
+      for (var i = 0, len = paths.length; i < len; i++) {
+        if ((value = objectPath.get(obj, paths[i])) !== void 0) {
+          return value
+        }
+      }
+
+      return defaultValue
+    }
+var len = paths.length
+(value = objectPath.get(obj, paths[i])) !== void 0

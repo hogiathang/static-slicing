@@ -1,0 +1,62 @@
+function _performUpdate = function _performUpdate(tree, context, infoMap, logger, migrateOnly) {
+    const packageJsonContent = tree.read('/package.json');
+    if (!packageJsonContent) {
+        throw new schematics_1.SchematicsException('Could not find a package.json. Are you in a Node project?');
+    }
+    let packageJson;
+    try {
+        packageJson = JSON.parse(packageJsonContent.toString());
+    }
+    catch (e) {
+        (0, error_1.assertIsError)(e);
+        throw new schematics_1.SchematicsException('package.json could not be parsed: ' + e.message);
+    }
+    const updateDependency = (deps, name, newVersion) => {
+        const oldVersion = deps[name];
+        // We only respect caret and tilde ranges on update.
+        const execResult = /^[\^~]/.exec(oldVersion);
+        deps[name] = `${execResult ? execResult[0] : ''}${newVersion}`;
+    };
+    const toInstall = [...infoMap.values()]
+        .map((x) => [x.name, x.target, x.installed])
+        .filter(([name, target, installed]) => {
+        return...
+const packageJsonContent = tree.read('/package.json')
+!packageJsonContent
+throw new schematics_1.SchematicsException('Could not find a package.json. Are you in a Node project?');
+packageJson = JSON.parse(packageJsonContent.toString())
+(0, error_1.assertIsError)(e)
+throw new schematics_1.SchematicsException('package.json could not be parsed: ' + e.message);
+const updateDependency = (deps, name, newVersion) => {
+        const oldVersion = deps[name];
+        // We only respect caret and tilde ranges on update.
+        const execResult = /^[\^~]/.exec(oldVersion);
+        deps[name] = `${execResult ? execResult[0] : ''}${newVersion}`;
+    }
+const toInstall = [...infoMap.values()]
+        .map((x) => [x.name, x.target, x.installed])
+        .filter(([name, target, installed]) => {
+        return !!name && !!target && !!installed;
+    })
+_tmp_23 = __ecma.Array.factory()
+installed = param1_0.installed
+toInstall.forEach(([name, target, installed]) => {
+        logger.info(`Updating package.json with dependency ${name} ` +
+            `@ ${JSON.stringify(target.version)} (was ${JSON.stringify(installed.version)})...`);
+        if (packageJson.dependencies && packageJson.dependencies[name]) {
+            updateDependency(packageJson.dependencies, name, target.version);
+            if (packageJson.devDependencies && packageJson.devDependencies[name]) {
+                delete packageJson.devDependencies[name];
+            }
+            if (packageJson.peerDependencies && packageJson.peerDependencies[name]) {
+                delete packageJson.peerDependencies[name];
+            }
+        }
+        else if (packageJson.devDependencies && packageJson.devDependencies[name]) {
+            updateDependency(packageJson.devDependencies, name, target.version);
+            if (packageJson.peerDependencies && packageJson.peerDependencies[name]) {
+                delete packageJson.peerDependenc...
+const newContent = JSON.stringify(packageJson, null, 2)
+packageJsonContent.toString() != newContent || migrateOnly
+!migrateOnly
+tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2))

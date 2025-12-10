@@ -1,0 +1,7 @@
+function onChanged = function onChanged() {
+      if (!enableWrite)
+        return;
+      write(read(), true);
+    }
+!enableWrite
+write(read(), true)

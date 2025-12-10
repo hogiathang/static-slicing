@@ -1,0 +1,1 @@
+process.exit(await (await Promise.resolve().then(() => require('./migrate'))).migrate(process.cwd(), args, process.argv.slice(3)))

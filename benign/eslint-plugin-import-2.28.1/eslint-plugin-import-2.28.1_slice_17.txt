@@ -1,0 +1,32 @@
+newExportAll.forEach(function (value) {
+            if (!oldExportAll.has(value)) {
+              var imports = oldImportPaths.get(value);
+              if (typeof imports === 'undefined') {
+                imports = new Set();
+              }
+              imports.add(EXPORT_ALL_DECLARATION);
+              oldImportPaths.set(value, imports);
+
+              var _exports = exportList.get(value);
+              var currentExport = void 0;
+              if (typeof _exports !== 'undefined') {
+                currentExport = _exports.get(EXPORT_ALL_DECLARATION);
+              } else {
+                _exports = new Map();
+                exportList.set(value, _exports);
+              }
+
+              if (typeof currentExport !== 'undefined') {
+                currentExport.whereUsed.add(file);
+              } else {
+                var whereUsed = new Set();
+                whereUsed.add(file);
+                _exports.set(EXPORT_ALL_DECLARATION, { whereUsed: whereUsed });
+              }...
+!oldExportAll.has(value)
+var imports = oldImportPaths.get(value)
+typeof imports === 'undefined'
+imports = new Set()
+imports.add(EXPORT_ALL_DECLARATION)
+oldImportPaths.set(value, imports)
+var _exports = exportList.get(value)

@@ -1,0 +1,15 @@
+IframeTransport.prototype.postMessage = function(type, data) {
+  this.iframeObj.post(JSON.stringify({
+    windowId: this.windowId
+  , type: type
+  , data: data || ''
+  }), this.origin);
+}
+this.iframeObj.post(JSON.stringify({
+    windowId: this.windowId
+  , type: type
+  , data: data || ''
+  }), this.origin)
+_tmp_205.windowId = this.windowId
+_tmp_205.type = type
+_tmp_205.data = data || ''

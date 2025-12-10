@@ -1,0 +1,9 @@
+_tmp_0.call = <lambda>3
+var pathname = url.parse(request.url, true).pathname
+var filename = path.basename(pathname)
+filename = this._pathMap[filename] || filename
+this._index[filename] = this._index[filename] || {}
+var cache    = this._index[filename]
+var fullpath = path.join(this._directory, filename)
+cache.content = cache.content || fs.readFileSync(fullpath)
+cache.digest  = cache.digest  || crypto.createHash('sha1').update(cache.content).digest('hex')

@@ -1,0 +1,21 @@
+async _sendStatusEvent() {
+    const request = new requests.QueryRequest(rpc, [ this._getStatusEvent() ], ExecutionOptions.empty());
+
+    try {
+      await this._client.controlConnection.query(request, false);
+    } catch (err) {
+      if (this._closed) {
+        // Sending failed because the Client was shutdown
+        return;
+      }
+
+      if (this._statusErrorLogs < maxStatusErrorLogs) {
+        this._client.log('warning', `Insights status message could not be sent (${err})`, err);
+        this._statusErrorLogs++;
+      }
+
+      this._errorCallback(err);
+    }
+  }
+const request = new requests.QueryRequest(rpc, [ this._getStatusEvent() ], ExecutionOptions.empty())
+await this._client.controlConnection.query(request, false)

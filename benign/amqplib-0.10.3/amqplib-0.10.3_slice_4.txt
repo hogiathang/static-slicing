@@ -1,0 +1,91 @@
+function connect = function connect(url, socketOptions, openCallback) {
+  // tls.connect uses `util._extend()` on the options given it, which
+  // copies only properties mentioned in `Object.keys()`, when
+  // processing the options. So I have to make copies too, rather
+  // than using `Object.create()`.
+  var sockopts = clone(socketOptions || {});
+  url = url || 'amqp://localhost';
+
+  var noDelay = !!sockopts.noDelay;
+  var timeout = sockopts.timeout;
+  var keepAlive = !!sockopts.keepAlive;
+  // 0 is default for node
+  var keepAliveDelay = sockopts.keepAliveDelay || 0;
+
+  var extraClientProperties = sockopts.clientProperties || {};
+
+  var protocol, fields;
+  if (typeof url === 'object') {
+    protocol = (url.protocol || 'amqp') + ':';
+    sockopts.host = url.hostname;
+    sockopts.servername = sockopts.servername || url.hostname;
+    sockopts.port = url.port || ((protocol === 'amqp:') ? 5672 : 5671);
+
+    var user, pass;
+    // Only default if both are missing, to have the same behaviour as
+    // th...
+var sockopts = clone(socketOptions || {})
+url = url || 'amqp://localhost'
+var noDelay = !!sockopts.noDelay
+var timeout = sockopts.timeout
+var keepAlive = !!sockopts.keepAlive
+var keepAliveDelay = sockopts.keepAliveDelay || 0
+var extraClientProperties = sockopts.clientProperties || {}
+typeof url === 'object'
+protocol = (url.protocol || 'amqp') + ':'
+sockopts.host = url.hostname
+sockopts.servername = sockopts.servername || url.hostname
+sockopts.port = url.port || ((protocol === 'amqp:') ? 5672 : 5671)
+url.username == undefined && url.password == undefined
+user = 'guest'
+user = url.username || ''
+pass = url.password || ''
+var config = {
+      locale: url.locale,
+      channelMax: url.channelMax,
+      frameMax: url.frameMax,
+      heartbeat: url.heartbeat,
+    }
+_tmp_6.locale = url.locale
+_tmp_6.channelMax = url.channelMax
+_tmp_6.frameMax = url.frameMax
+_tmp_6.heartbeat = url.heartbeat
+fields = openFrames(url.vhost, config, sockopts.credentials || credentials.plain(user, pass), extraClientProperties)
+var parts = URL(url, true)
+protocol = parts.protocol
+sockopts.host = parts.hostname
+sockopts.servername = sockopts.servername || parts.hostname
+sockopts.port = parseInt(parts.port) || ((protocol === 'amqp:') ? 5672 : 5671)
+var vhost = parts.pathname ? parts.pathname.substr(1) : null
+fields = openFrames(vhost, parts.query, sockopts.credentials || credentialsFromUrl(parts), extraClientProperties)
+var sockok = false
+function onConnect = function onConnect() {
+    sockok = true;
+    sock.setNoDelay(noDelay);
+    if (keepAlive) sock.setKeepAlive(keepAlive, keepAliveDelay);
+
+    var c = new Connection(sock);
+    c.open(fields, function(err, ok) {
+      // disable timeout once the connection is open, we don't want
+      // it fouling things
+      if (timeout) sock.setTimeout(0);
+      if (err === null) {
+        openCallback(null, c);
+      } else {
+        // The connection isn't closed by the server on e.g. wrong password
+        sock.end();
+        sock.destroy();
+        openCallback(err);
+      }
+    });
+  }
+protocol === 'amqp:'
+sock = require('net').connect(sockopts, onConnect)
+protocol === 'amqps:'
+sock = require('tls').connect(sockopts, onConnect)
+throw new Error("Expected amqp: or amqps: as the protocol; got " + protocol);
+sock.setTimeout(timeout, function() {
+      sock.end();
+      sock.destroy();
+      openCallback(new Error('connect ETIMEDOUT'));
+    })

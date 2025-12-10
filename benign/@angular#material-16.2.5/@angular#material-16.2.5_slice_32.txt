@@ -1,0 +1,8 @@
+allKnownAttributesOfElement(tagName) {
+    const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown");
+    return Array.from(elementProperties.keys()).map((prop) => {
+      var _a2;
+      return (_a2 = _PROP_TO_ATTR.get(prop)) != null ? _a2 : prop;
+    });
+  }
+const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown")

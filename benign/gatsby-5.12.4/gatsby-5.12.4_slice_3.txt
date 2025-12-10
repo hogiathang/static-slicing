@@ -1,0 +1,31 @@
+updatePageData = (pagePath, newPageData) => {
+    var _this$pageDataDb$get;
+    const pageDataDbCacheKey = (0, _normalizePagePath.default)(pagePath);
+    const cachedPageData = (_this$pageDataDb$get = this.pageDataDb.get(pageDataDbCacheKey)) === null || _this$pageDataDb$get === void 0 ? void 0 : _this$pageDataDb$get.payload;
+    if (!(0, _isEqual.default)(newPageData, cachedPageData)) {
+      // TODO: if this is update for current page and there are any new static queries added
+      // that are not yet cached, there is currently no trigger to fetch them (yikes)
+      // always update canonical key for pageDataDb
+      this.pageDataDb.set(pageDataDbCacheKey, {
+        pagePath: pageDataDbCacheKey,
+        payload: newPageData,
+        status: `success`
+      });
+      const cachedPage = this.pageDb.get(pageDataDbCacheKey);
+      if (cachedPage) {
+        this.pageDb.set(pageDataDbCacheKey, mergePageEntry(cachedPage, newPageData));
+      }
+
+      // Additionally if those are query re...
+const pageDataDbCacheKey = (0, _normalizePagePath.default)(pagePath)
+const cachedPageData = (_this$pageDataDb$get = this.pageDataDb.get(pageDataDbCacheKey)) === null || _this$pageDataDb$get === void 0 ? void 0 : _this$pageDataDb$get.payload
+!(0, _isEqual.default)(newPageData, cachedPageData)
+this.pageDataDb.set(pageDataDbCacheKey, {
+        pagePath: pageDataDbCacheKey,
+        payload: newPageData,
+        status: `success`
+      })
+_tmp_6.pagePath = pageDataDbCacheKey
+_tmp_6.payload = newPageData
+_tmp_6.status = "success"
+const cachedPage = this.pageDb.get(pageDataDbCacheKey)

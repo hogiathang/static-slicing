@@ -1,0 +1,85 @@
+API.prototype.getBrowserTimingHeader = function getBrowserTimingHeader(options = {}) {
+  const metric = this.agent.metrics.getOrCreateMetric(
+    NAMES.SUPPORTABILITY.API + '/getBrowserTimingHeader'
+  )
+  metric.incrementCallCount()
+
+  const trans = this.agent.getTransaction()
+
+  const { isValidConfig, failureIdx, quietMode } = validateBrowserMonitoring(
+    this.agent.config,
+    trans,
+    options.allowTransactionlessInjection
+  )
+
+  if (!isValidConfig) {
+    return _gracefail(failureIdx, quietMode)
+  }
+
+  const config = this.agent.config
+
+  // This hash gets written directly into the browser.
+  const rumHash = {
+    agent: config.browser_monitoring.js_agent_file,
+    beacon: config.browser_monitoring.beacon,
+    errorBeacon: config.browser_monitoring.error_beacon,
+    licenseKey: config.browser_monitoring.browser_key,
+    applicationID: config.application_id,
+
+    // we don't use these parameters yet
+    agentToken: null
+  }
+
+  const hasActiveTransaction = trans !== null
+
+  if (h...
+const metric = this.agent.metrics.getOrCreateMetric(
+    NAMES.SUPPORTABILITY.API + '/getBrowserTimingHeader'
+  )
+NAMES.SUPPORTABILITY.API + '/getBrowserTimingHeader'
+metric.incrementCallCount()
+const trans = this.agent.getTransaction()
+_tmp_58 = validateBrowserMonitoring(
+    this.agent.config,
+    trans,
+    options.allowTransactionlessInjection
+  )
+this.agent.config
+options.allowTransactionlessInjection
+!isValidConfig
+const config = this.agent.config
+const rumHash = {
+    agent: config.browser_monitoring.js_agent_file,
+    beacon: config.browser_monitoring.beacon,
+    errorBeacon: config.browser_monitoring.error_beacon,
+    licenseKey: config.browser_monitoring.browser_key,
+    applicationID: config.application_id,
+
+    // we don't use these parameters yet
+    agentToken: null
+  }
+_tmp_59.agent = config.browser_monitoring.js_agent_file
+_tmp_59.beacon = config.browser_monitoring.beacon
+_tmp_59.errorBeacon = config.browser_monitoring.error_beacon
+_tmp_59.licenseKey = config.browser_monitoring.browser_key
+_tmp_59.applicationID = config.application_id
+_tmp_59.agentToken = null
+const hasActiveTransaction = trans !== null
+trans.isIgnored()
+const name = trans.getFullName()
+!name
+const time = trans.timer.getDurationInMillis()
+rumHash.applicationTime = time
+const key = config.license_key.substr(0, 13)
+rumHash.transactionName = hashes.obfuscateNameUsingKey(name, key)
+rumHash.queueTime = trans.queueTime
+rumHash.ttGuid = trans.id
+const attrs = Object.create(null)
+const customAttrs = trans.trace.custom.get(ATTR_DEST.BROWSER_EVENT)
+!properties.isEmpty(customAttrs)
+attrs.u = customAttrs
+const agentAttrs = trans.trace.attributes.get(ATTR_DEST.BROWSER_EVENT)
+!properties.isEmpty(agentAttrs)
+attrs.a = agentAttrs
+!properties.isEmpty(attrs)
+rumHash.atts = hashes.obfuscateNameUsingKey(JSON.stringify(attrs), key)

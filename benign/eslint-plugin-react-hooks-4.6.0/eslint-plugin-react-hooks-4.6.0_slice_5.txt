@@ -1,0 +1,31 @@
+missingDependencies.forEach(function (missingDep) {
+          if (missingCallbackDep) {
+            return;
+          } // Is this a variable from top scope?
+
+
+          var topScopeRef = componentScope.set.get(missingDep);
+          var usedDep = dependencies.get(missingDep);
+
+          if (usedDep.references[0].resolved !== topScopeRef) {
+            return;
+          } // Is this a destructured prop?
+
+
+          var def = topScopeRef.defs[0];
+
+          if (def == null || def.name == null || def.type !== 'Parameter') {
+            return;
+          } // Was it called in at least one case? Then it's a function.
+
+
+          var isFunctionCall = false;
+          var id;
+
+          for (var _i2 = 0; _i2 < usedDep.references.length; _i2++) {
+            id = usedDep.references[_i2].identifier;
+
+            if (id != null && id.parent != null && (id.parent.type === 'CallExpression' || id.parent.type === 'OptionalCallExpression') && id.parent.callee === id) {
+              isFunctionCal...
+var topScopeRef = componentScope.set.get(missingDep)
+var usedDep = dependencies.get(missingDep)

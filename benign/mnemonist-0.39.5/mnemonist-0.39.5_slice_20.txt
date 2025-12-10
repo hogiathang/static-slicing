@@ -1,0 +1,43 @@
+MultiSet.prototype.set = function(item, count) {
+  var currentCount;
+
+  if (typeof count !== 'number')
+    throw new Error('mnemonist/multi-set.set: given count should be a number.');
+
+  // Setting an item to 0 or to a negative number means deleting it from the set
+  if (count <= 0) {
+    currentCount = this.items.get(item);
+
+    if (typeof currentCount !== 'undefined') {
+      this.size -= currentCount;
+      this.dimension--;
+    }
+
+    this.items.delete(item);
+    return this;
+  }
+
+  count = count || 1;
+
+  currentCount = this.items.get(item);
+
+  if (typeof currentCount === 'number') {
+    this.items.set(item, currentCount + count);
+  }
+  else {
+    this.dimension++;
+    this.items.set(item, count);
+  }
+
+  this.size += count;
+
+  return this;
+}
+typeof count !== 'number'
+throw new Error('mnemonist/multi-set.set: given count should be a number.');
+count <= 0
+currentCount = this.items.get(item)
+typeof currentCount !== 'undefined'
+this.size -= currentCount
+this.dimension--
+(_tmp_8 = this.items).delete

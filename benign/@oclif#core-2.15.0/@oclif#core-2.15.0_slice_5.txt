@@ -1,0 +1,34 @@
+loadCommands(plugin) {
+        const marker = performance_1.Performance.mark(`config.loadCommands#${plugin.name}`, { plugin: plugin.name });
+        for (const command of plugin.commands) {
+            if (this._commands.has(command.id)) {
+                const prioritizedCommand = this.determinePriority([this._commands.get(command.id), command]);
+                this._commands.set(prioritizedCommand.id, prioritizedCommand);
+            }
+            else {
+                this._commands.set(command.id, command);
+            }
+            const permutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(command.id) : [command.id];
+            for (const permutation of permutations) {
+                this.commandPermutations.add(permutation, command.id);
+            }
+            for (const alias of command.aliases ?? []) {
+                if (this._commands.has(alias)) {
+                    const prioritizedCommand = this.determinePriority([this._commands.get(alias),...
+const marker = performance_1.Performance.mark(`config.loadCommands#${plugin.name}`, { plugin: plugin.name })
+_iterator_8 = <operator>.iterator(plugin.commands)
+(_tmp_159 = this._commands).has
+const prioritizedCommand = this.determinePriority([this._commands.get(command.id), command])
+this._commands.set(prioritizedCommand.id, prioritizedCommand)
+this._commands.set(command.id, command)
+const permutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(command.id) : [command.id]
+_iterator_9 = <operator>.iterator(permutations)
+this.commandPermutations.add(permutation, command.id)
+_iterator_10 = <operator>.iterator(command.aliases ?? [])
+(_tmp_166 = this._commands).has
+const prioritizedCommand = this.determinePriority([this._commands.get(alias), command])
+this._commands.set(alias, { ...prioritizedCommand, id: alias })
+this._commands.set(alias, { ...command, id: alias })
+const aliasPermutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(alias) : [alias]
+_iterator_11 = <operator>.iterator(aliasPermutations)
+this.commandPermutations.add(permutation, command.id)

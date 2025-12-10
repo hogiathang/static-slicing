@@ -1,0 +1,23 @@
+_tmp_0.9 = <lambda>10
+replicaId = param1_9.replicaId
+isolationLevel = param1_9.isolationLevel
+sessionId = param1_9.sessionId
+sessionEpoch = param1_9.sessionEpoch
+forgottenTopics = param1_9.forgottenTopics
+maxWaitTime = param1_9.maxWaitTime
+minBytes = param1_9.minBytes
+maxBytes = param1_9.maxBytes
+topics = param1_9.topics
+const request = require('./v9/request')
+const response = require('./v9/response')
+_tmp_19.request = request({
+        replicaId,
+        isolationLevel,
+        sessionId,
+        sessionEpoch,
+        forgottenTopics,
+        maxWaitTime,
+        minBytes,
+        maxBytes,
+        topics,
+      })

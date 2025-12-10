@@ -1,0 +1,87 @@
+function nmfetch = function nmfetch(url, options) {
+    options = options || {};
+
+    options.fetchRes = options.fetchRes || new PassThrough();
+    options.cookies = options.cookies || new Cookies();
+    options.redirects = options.redirects || 0;
+    options.maxRedirects = isNaN(options.maxRedirects) ? MAX_REDIRECTS : options.maxRedirects;
+
+    if (options.cookie) {
+        [].concat(options.cookie || []).forEach(cookie => {
+            options.cookies.set(cookie, url);
+        });
+        options.cookie = false;
+    }
+
+    let fetchRes = options.fetchRes;
+    let parsed = urllib.parse(url);
+    let method = (options.method || '').toString().trim().toUpperCase() || 'GET';
+    let finished = false;
+    let cookies;
+    let body;
+
+    let handler = parsed.protocol === 'https:' ? https : http;
+
+    let headers = {
+        'accept-encoding': 'gzip,deflate',
+        'user-agent': 'nodemailer/' + packageData.version
+    };
+
+    Object.keys(options.headers || {}).forEach(key => {
+        headers[key.toLower...
+options = options || {}
+options.fetchRes = options.fetchRes || new PassThrough()
+options.cookies = options.cookies || new Cookies()
+options.redirects = options.redirects || 0
+options.maxRedirects = isNaN(options.maxRedirects) ? MAX_REDIRECTS : options.maxRedirects
+options.cookie
+[].concat(options.cookie || []).forEach(cookie => {
+            options.cookies.set(cookie, url);
+        })
+options.cookie = false
+let fetchRes = options.fetchRes
+let parsed = urllib.parse(url)
+let method = (options.method || '').toString().trim().toUpperCase() || 'GET'
+let finished = false
+let handler = parsed.protocol === 'https:' ? https : http
+let headers = {
+        'accept-encoding': 'gzip,deflate',
+        'user-agent': 'nodemailer/' + packageData.version
+    }
+_tmp_9.accept-encoding = "gzip,deflate"
+_tmp_9.user-agent = 'nodemailer/' + packageData.version
+Object.keys(options.headers || {}).forEach(key => {
+        headers[key.toLowerCase().trim()] = options.headers[key];
+    })
+options.userAgent
+headers['user-agent'] = options.userAgent
+parsed.auth
+headers.Authorization = 'Basic ' + Buffer.from(parsed.auth).toString('base64')
+cookies = options.cookies.get(url)
+headers.cookie = cookies
+options.body
+options.contentType !== false
+headers['Content-Type'] = options.contentType || 'application/x-www-form-urlencoded'
+typeof options.body.pipe === 'function'
+options.body instanceof Buffer
+typeof options.body === 'object'
+body = Buffer.from(
+                        Object.keys(options.body)
+                            .map(key => {
+                                let value = options.body[key].toString().trim();
+                                return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+                            })
+                            .join('&')
+                    )
+Object.keys(options.body)
+                            .map(key => {
+                                let value = options.body[key].toString().trim();
+                                return encodeURIComponent(key) + '=' + encodeURIComponent(value);
+                            })
+                            .join('&')
+<lambda>3
+join
+finished = true
+E.type = 'FETCH'
+E.sourceUrl = url
+fetchRes.emit('error', E)

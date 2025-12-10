@@ -1,0 +1,37 @@
+function handleArguments = function handleArguments(env) {
+
+  // This translates the --continue flag in gulp
+  // To the settle env variable for undertaker
+  // We use the process.env so the user's gulpfile
+  // Can know about the flag
+  if (opts.continue) {
+    process.env.UNDERTAKER_SETTLE = 'true';
+  }
+
+  if (opts.help) {
+    parser.showHelp(console.log);
+    exit(0);
+  }
+
+  // Anything that needs to print outside of the logging mechanism should use console.log
+  if (opts.version) {
+    console.log('CLI version:', cliVersion);
+    console.log('Local version:', env.modulePackage.version || 'Unknown');
+    exit(0);
+  }
+
+  if (opts.verify) {
+    var pkgPath = opts.verify !== true ? opts.verify : 'package.json';
+    /* istanbul ignore else */
+    if (path.resolve(pkgPath) !== path.normalize(pkgPath)) {
+      pkgPath = path.join(env.cwd, pkgPath);
+    }
+    log.info('Verifying plugins in ' + pkgPath);
+    return getBlacklist(function(err, blacklist) {
+      /* istanbul ignore if */
+      if (err) {
+        retu...
+opts.continue
+process.env.UNDERTAKER_SETTLE = 'true'
+opts.help
+parser.showHelp(console.log)

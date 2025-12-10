@@ -1,0 +1,14 @@
+function _streamCopy = function _streamCopy() {
+      fs.createReadStream(src)
+        .on('error', callback)
+        .pipe(fs.createWriteStream(dest))
+        .on('error', callback)
+        .on('finish', callback);
+    }
+fs.createReadStream(src)
+        .on('error', callback)
+        .pipe(fs.createWriteStream(dest))
+        .on('error', callback)
+        .on('finish', callback)
+"error"
+fs.createWriteStream(dest)

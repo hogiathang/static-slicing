@@ -1,0 +1,64 @@
+detectTraits(clazz, decorators) {
+    let record = this.recordFor(clazz);
+    let foundTraits = [];
+    for (const handler of this.handlers) {
+      const result = handler.detect(clazz, decorators);
+      if (result === void 0) {
+        continue;
+      }
+      const isPrimaryHandler = handler.precedence === HandlerPrecedence.PRIMARY;
+      const isWeakHandler = handler.precedence === HandlerPrecedence.WEAK;
+      const trait = Trait.pending(handler, result);
+      foundTraits.push(trait);
+      if (record === null) {
+        record = {
+          node: clazz,
+          traits: [trait],
+          metaDiagnostics: null,
+          hasPrimaryHandler: isPrimaryHandler,
+          hasWeakHandlers: isWeakHandler
+        };
+        this.classes.set(clazz, record);
+        const sf = clazz.getSourceFile();
+        if (!this.fileToClasses.has(sf)) {
+          this.fileToClasses.set(sf, /* @__PURE__ */ new Set());
+        }
+        this.fileToClasses.get(sf).add(clazz);
+      } else {
+        i...
+let record = this.recordFor(clazz)
+__ecma.Array.factory()
+_iterator_78 = <operator>.iterator(this.handlers)
+const result = handler.detect(clazz, decorators)
+result === void 0
+continue;
+const isPrimaryHandler = handler.precedence === HandlerPrecedence.PRIMARY
+const isWeakHandler = handler.precedence === HandlerPrecedence.WEAK
+const trait = Trait.pending(handler, result)
+foundTraits.push(trait)
+record === null
+record = {
+          node: clazz,
+          traits: [trait],
+          metaDiagnostics: null,
+          hasPrimaryHandler: isPrimaryHandler,
+          hasWeakHandlers: isWeakHandler
+        }
+_tmp_717.node = clazz
+_tmp_718 = __ecma.Array.factory()
+_tmp_717.metaDiagnostics = null
+_tmp_717.hasPrimaryHandler = isPrimaryHandler
+_tmp_717.hasWeakHandlers = isWeakHandler
+this.classes.set(clazz, record)
+const sf = clazz.getSourceFile()
+(_tmp_720 = this.fileToClasses).has
+this.fileToClasses.set(sf, /* @__PURE__ */ new Set())
+(_tmp_723 = this.fileToClasses.get(sf)).add
+!isWeakHandler && record.hasWeakHandlers
+record.traits = record.traits.filter((field) => field.handler.precedence !== HandlerPrecedence.WEAK)
+record.hasWeakHandlers = false
+isWeakHandler && !record.hasWeakHandlers
+continue;
+isPrimaryHandler && record.hasPrimaryHandler
+(_tmp_728 = record.traits).push
+record.hasPrimaryHandler = record.hasPrimaryHandler || isPrimaryHandler

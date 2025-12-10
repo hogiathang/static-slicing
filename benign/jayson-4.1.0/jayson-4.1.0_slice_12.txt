@@ -1,0 +1,5 @@
+const callback = function(error, response) {
+    self.emit('response', request, response || error);
+    originalCallback.apply(null, arguments);
+  }
+self.emit('response', request, response || error)

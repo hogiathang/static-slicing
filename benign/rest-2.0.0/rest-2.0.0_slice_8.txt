@@ -1,0 +1,20 @@
+_tmp_0.request = <lambda>1
+timeout = 'timeout' in request ? request.timeout : config.timeout
+transient = 'transient' in request ? request.transient : config.transient
+timeout <= 0
+abort = new Promise(function (resolve, reject) {
+			triggerAbort = reject;
+		})
+this.timeout = setTimeout(function () {
+			triggerAbort({ request: request, error: 'timeout' });
+			if (request.cancel) {
+				request.cancel();
+				if (transient) {
+					// unmark request as canceled for future requests
+					request.canceled = false;
+				}
+			}
+			else if (!transient) {
+				request.canceled = true;
+			}
+		}, timeout)

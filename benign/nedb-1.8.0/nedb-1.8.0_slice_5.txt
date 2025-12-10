@@ -1,0 +1,37 @@
+new Promise(function (resolve, reject) {
+	            var xhr = new XMLHttpRequest();
+	            xhr.open('GET', url);
+	            xhr.withCredentials = true;
+	            xhr.responseType = 'arraybuffer';
+
+	            xhr.onreadystatechange = function () {
+	                if (xhr.readyState !== 4) {
+	                    return;
+	                }
+	                if (xhr.status === 200) {
+	                    return resolve({
+	                        response: xhr.response,
+	                        type: xhr.getResponseHeader('Content-Type')
+	                    });
+	                }
+	                reject({ status: xhr.status, response: xhr.response });
+	            };
+	            xhr.send();
+	        })
+var xhr = new XMLHttpRequest()
+xhr.open('GET', url)
+xhr.withCredentials = true
+xhr.responseType = 'arraybuffer'
+xhr.onreadystatechange = function () {
+	                if (xhr.readyState !== 4) {
+	                    return;
+	                }
+	                if (xhr.status === 200) {
+	                    return resolve({
+	                        response: xhr.response,
+	                        type: xhr.getResponseHeader('Content-Type')
+	                    });
+	                }
+	                reject({ status: xhr.status, response: xhr.response });
+	            }
+xhr.send()

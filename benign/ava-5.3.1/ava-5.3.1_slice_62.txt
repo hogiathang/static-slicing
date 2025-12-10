@@ -1,0 +1,3 @@
+aTitle = param1_1.aTitle
+const a = blockIndices.get(aTitle)
+const b = blockIndices.get(bTitle)

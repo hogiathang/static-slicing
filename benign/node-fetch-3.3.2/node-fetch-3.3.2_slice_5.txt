@@ -1,0 +1,19 @@
+const abort = () => {
+			const error = new AbortError('The operation was aborted.');
+			reject(error);
+			if (request.body && request.body instanceof Stream.Readable) {
+				request.body.destroy(error);
+			}
+
+			if (!response || !response.body) {
+				return;
+			}
+
+			response.body.emit('error', error);
+		}
+const error = new AbortError('The operation was aborted.')
+reject(error)
+request.body && request.body instanceof Stream.Readable
+(_tmp_14 = request.body).destroy
+!response || !response.body
+response.body.emit('error', error)

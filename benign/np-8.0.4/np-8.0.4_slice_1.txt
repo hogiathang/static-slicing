@@ -1,0 +1,447 @@
+const np = async (input = 'patch', options, {pkg, rootDir}) => {
+	if (!hasYarn() && options.yarn) {
+		throw new Error('Could not use Yarn without yarn.lock file');
+	}
+
+	// TODO: Remove sometime far in the future
+	if (options.skipCleanup) {
+		options.cleanup = false;
+	}
+
+	const runTests = options.tests && !options.yolo;
+	const runCleanup = options.cleanup && !options.yolo;
+	const pkgManager = options.yarn === true ? 'yarn' : 'npm';
+	const pkgManagerName = options.yarn === true ? 'Yarn' : 'npm';
+	const hasLockFile = fs.existsSync(path.resolve(rootDir, options.yarn ? 'yarn.lock' : 'package-lock.json')) || fs.existsSync(path.resolve(rootDir, 'npm-shrinkwrap.json'));
+	const isOnGitHub = options.repoUrl && hostedGitInfo.fromUrl(options.repoUrl)?.type === 'github';
+	const testScript = options.testScript || 'test';
+	const testCommand = options.testScript ? ['run', testScript] : [testScript];
+
+	if (options.releaseDraftOnly) {
+		await releaseTaskHelper(options, pkg);
+		return pkg;
+	}
+
+	let publishS...
+!hasYarn() && options.yarn
+throw new Error('Could not use Yarn without yarn.lock file');
+options.skipCleanup
+options.cleanup = false
+const runTests = options.tests && !options.yolo
+const runCleanup = options.cleanup && !options.yolo
+const pkgManager = options.yarn === true ? 'yarn' : 'npm'
+const pkgManagerName = options.yarn === true ? 'Yarn' : 'npm'
+const hasLockFile = fs.existsSync(path.resolve(rootDir, options.yarn ? 'yarn.lock' : 'package-lock.json')) || fs.existsSync(path.resolve(rootDir, 'npm-shrinkwrap.json'))
+const isOnGitHub = options.repoUrl && hostedGitInfo.fromUrl(options.repoUrl)?.type === 'github'
+const testScript = options.testScript || 'test'
+const testCommand = options.testScript ? ['run', testScript] : [testScript]
+options.releaseDraftOnly
+let publishStatus = 'UNKNOWN'
+const rollback = onetime(async () => {
+		console.log('\nPublish failed. Rolling back to the previous state…');
+
+		const tagVersionPrefix = await util.getTagVersionPrefix(options);
+
+		const latestTag = await git.latestTag();
+		const versionInLatestTag = latestTag.slice(tagVersionPrefix.length);
+
+		try {
+			// Verify that the package's version has been bumped before deleting the last tag and commit.
+			if (versionInLatestTag === util.readPkg().version && versionInLatestTag !== pkg.version) {
+				await git.deleteTag(latestTag);
+				await git.removeLastCommit();
+			}
+
+			console.log('Successfully rolled back the project to its previous state.');
+		} catch (error) {
+			console.log(`Couldn't roll back because of the following error:\n${error}`);
+		}
+	})
+asyncExitHook(async () => {
+		if (options.preview || publishStatus === 'SUCCESS') {
+			return;
+		}
+
+		if (publishStatus === 'FAILED') {
+			await rollback();
+		} else {
+			console.log('\nAborted!');
+		}
+	}, {minimumWait: 2000})
+_tmp_4.minimumWait = 2000
+const tasks = new Listr([
+		{
+			title: 'Prerequisite check',
+			enabled: () => options.runPublish,
+			task: () => prerequisiteTasks(input, pkg, options),
+		},
+		{
+			title: 'Git',
+			task: () => gitTasks(options),
+		},
+	], {
+		showSubtasks: false,
+		renderer: options.renderer ?? 'default',
+	})
+_tmp_6.push({
+			title: 'Prerequisite check',
+			enabled: () => options.runPublish,
+			task: () => prerequisiteTasks(input, pkg, options),
+		})
+_tmp_7.title = "Prerequisite check"
+_tmp_7.enabled = <lambda>4
+prerequisiteTasks(input, pkg, options)
+_tmp_6.push({
+			title: 'Git',
+			task: () => gitTasks(options),
+		})
+_tmp_8.title = "Git"
+_tmp_8.task = <lambda>6
+_tmp_9.showSubtasks = false
+_tmp_9.renderer = options.renderer ?? 'default'
+tasks.add([
+			{
+				title: 'Cleanup',
+				enabled: () => !hasLockFile,
+				task: () => deleteAsync('node_modules'),
+			},
+			{
+				title: 'Installing dependencies using Yarn',
+				enabled: () => options.yarn === true,
+				task: () => (
+					exec('yarn', ['install', '--frozen-lockfile', '--production=false']).pipe(
+						catchError(async error => {
+							if ((!error.stderr.startsWith('error Your lockfile needs to be updated'))) {
+								return;
+							}
+
+							if (await git.checkIfFileGitIgnored('yarn.lock')) {
+								return;
+							}
+
+							throw new Error('yarn.lock file is outdated. Run yarn, commit the updated lockfile and try again.');
+						}),
+					)
+				),
+			},
+			{
+				title: 'Installing dependencies using npm',
+				enabled: () => options.yarn === false,
+				task() {
+					const args = hasLockFile ? ['ci'] : ['install', '--no-package-lock', '--no-production'];
+					return exec('npm', [...args, '--engine-strict']);
+				},
+			},
+		])
+_tmp_10.push({
+				title: 'Cleanup',
+				enabled: () => !hasLockFile,
+				task: () => deleteAsync('node_modules'),
+			})
+_tmp_11.title = "Cleanup"
+_tmp_11.enabled = <lambda>7
+deleteAsync('node_modules')
+_tmp_10.push({
+				title: 'Installing dependencies using Yarn',
+				enabled: () => options.yarn === true,
+				task: () => (
+					exec('yarn', ['install', '--frozen-lockfile', '--production=false']).pipe(
+						catchError(async error => {
+							if ((!error.stderr.startsWith('error Your lockfile needs to be updated'))) {
+								return;
+							}
+
+							if (await git.checkIfFileGitIgnored('yarn.lock')) {
+								return;
+							}
+
+							throw new Error('yarn.lock file is outdated. Run yarn, commit the updated lockfile and try again.');
+						}),
+					)
+				),
+			})
+_tmp_12.title = "Installing dependencies using Yarn"
+_tmp_12.enabled = <lambda>9
+_tmp_12.task = <lambda>10
+_tmp_10.push({
+				title: 'Installing dependencies using npm',
+				enabled: () => options.yarn === false,
+				task() {
+					const args = hasLockFile ? ['ci'] : ['install', '--no-package-lock', '--no-production'];
+					return exec('npm', [...args, '--engine-strict']);
+				},
+			})
+_tmp_17.title = "Installing dependencies using npm"
+_tmp_17.enabled = <lambda>12
+_tmp_17.task = task
+tasks.add([
+			{
+				title: 'Running tests using npm',
+				enabled: () => options.yarn === false,
+				task: () => exec('npm', testCommand),
+			},
+			{
+				title: 'Running tests using Yarn',
+				enabled: () => options.yarn === true,
+				task: () => exec('yarn', testCommand).pipe(
+					catchError(error => {
+						if (error.message.includes(`Command "${testScript}" not found`)) {
+							return [];
+						}
+
+						return throwError(() => error);
+					}),
+				),
+			},
+		])
+_tmp_21.push({
+				title: 'Running tests using npm',
+				enabled: () => options.yarn === false,
+				task: () => exec('npm', testCommand),
+			})
+_tmp_22.title = "Running tests using npm"
+_tmp_22.enabled = <lambda>13
+_tmp_22.task = <lambda>14
+_tmp_21.push({
+				title: 'Running tests using Yarn',
+				enabled: () => options.yarn === true,
+				task: () => exec('yarn', testCommand).pipe(
+					catchError(error => {
+						if (error.message.includes(`Command "${testScript}" not found`)) {
+							return [];
+						}
+
+						return throwError(() => error);
+					}),
+				),
+			})
+_tmp_23.title = "Running tests using Yarn"
+_tmp_23.enabled = <lambda>15
+exec('yarn', testCommand).pipe(
+					catchError(error => {
+						if (error.message.includes(`Command "${testScript}" not found`)) {
+							return [];
+						}
+
+						return throwError(() => error);
+					}),
+				)
+tasks.add([
+		{
+			title: 'Bumping version using Yarn',
+			enabled: () => options.yarn === true,
+			skip() {
+				if (options.preview) {
+					let previewText = `[Preview] Command not executed: yarn version --new-version ${input}`;
+
+					if (options.message) {
+						previewText += ` --message '${options.message.replace(/%s/g, input)}'`;
+					}
+
+					return `${previewText}.`;
+				}
+			},
+			task() {
+				const args = ['version', '--new-version', input];
+
+				if (options.message) {
+					args.push('--message', options.message);
+				}
+
+				return exec('yarn', args);
+			},
+		},
+		{
+			title: 'Bumping version using npm',
+			enabled: () => options.yarn === false,
+			skip() {
+				if (options.preview) {
+					let previewText = `[Preview] Command not executed: npm version ${input}`;
+
+					if (options.message) {
+						previewText += ` --message '${options.message.replace(/%s/g, input)}'`;
+					}
+
+					return `${previewText}.`;
+				}
+			},
+			task() {
+				const args = ['version', input];
+
+				if (o...
+_tmp_26.push({
+			title: 'Bumping version using Yarn',
+			enabled: () => options.yarn === true,
+			skip() {
+				if (options.preview) {
+					let previewText = `[Preview] Command not executed: yarn version --new-version ${input}`;
+
+					if (options.message) {
+						previewText += ` --message '${options.message.replace(/%s/g, input)}'`;
+					}
+
+					return `${previewText}.`;
+				}
+			},
+			task() {
+				const args = ['version', '--new-version', input];
+
+				if (options.message) {
+					args.push('--message', options.message);
+				}
+
+				return exec('yarn', args);
+			},
+		})
+_tmp_27.title = "Bumping version using Yarn"
+_tmp_27.enabled = <lambda>19
+_tmp_27.skip = skip
+_tmp_27.task = task1
+_tmp_26.push({
+			title: 'Bumping version using npm',
+			enabled: () => options.yarn === false,
+			skip() {
+				if (options.preview) {
+					let previewText = `[Preview] Command not executed: npm version ${input}`;
+
+					if (options.message) {
+						previewText += ` --message '${options.message.replace(/%s/g, input)}'`;
+					}
+
+					return `${previewText}.`;
+				}
+			},
+			task() {
+				const args = ['version', input];
+
+				if (options.message) {
+					args.push('--message', options.message);
+				}
+
+				return exec('npm', args);
+			},
+		})
+_tmp_30.title = "Bumping version using npm"
+_tmp_30.enabled = <lambda>20
+_tmp_30.skip = skip1
+_tmp_30.task = task2
+options.runPublish
+tasks.add([
+			{
+				title: `Publishing package using ${pkgManagerName}`,
+				skip() {
+					if (options.preview) {
+						const args = getPackagePublishArguments(options);
+						return `[Preview] Command not executed: ${pkgManager} ${args.join(' ')}.`;
+					}
+				},
+				task(context, task) {
+					let hasError = false;
+
+					return publish(context, pkgManager, task, options)
+						.pipe(
+							catchError(async error => {
+								hasError = true;
+								await rollback();
+								throw new Error(`Error publishing package:\n${error.message}\n\nThe project was rolled back to its previous state.`);
+							}),
+							finalize(() => {
+								publishStatus = hasError ? 'FAILED' : 'SUCCESS';
+							}),
+						);
+				},
+			},
+		])
+_tmp_33.push({
+				title: `Publishing package using ${pkgManagerName}`,
+				skip() {
+					if (options.preview) {
+						const args = getPackagePublishArguments(options);
+						return `[Preview] Command not executed: ${pkgManager} ${args.join(' ')}.`;
+					}
+				},
+				task(context, task) {
+					let hasError = false;
+
+					return publish(context, pkgManager, task, options)
+						.pipe(
+							catchError(async error => {
+								hasError = true;
+								await rollback();
+								throw new Error(`Error publishing package:\n${error.message}\n\nThe project was rolled back to its previous state.`);
+							}),
+							finalize(() => {
+								publishStatus = hasError ? 'FAILED' : 'SUCCESS';
+							}),
+						);
+				},
+			})
+_tmp_34.title = <operator>.formatString("Publishing package using ", pkgManagerName, "")
+_tmp_34.skip = skip2
+_tmp_34.task = task3
+const isExternalRegistry = npm.isExternalRegistry(pkg)
+options['2fa'] && options.availability.isAvailable && !options.availability.isUnknown && !pkg.private && !isExternalRegistry
+tasks.add([
+				{
+					title: 'Enabling two-factor authentication',
+					skip() {
+						if (options.preview) {
+							const args = enable2fa.getEnable2faArgs(pkg.name, options);
+							return `[Preview] Command not executed: npm ${args.join(' ')}.`;
+						}
+					},
+					task: (context, task) => enable2fa(task, pkg.name, {otp: context.otp}),
+				},
+			])
+_tmp_37.push({
+					title: 'Enabling two-factor authentication',
+					skip() {
+						if (options.preview) {
+							const args = enable2fa.getEnable2faArgs(pkg.name, options);
+							return `[Preview] Command not executed: npm ${args.join(' ')}.`;
+						}
+					},
+					task: (context, task) => enable2fa(task, pkg.name, {otp: context.otp}),
+				})
+_tmp_38.title = "Enabling two-factor authentication"
+_tmp_38.skip = skip3
+enable2fa(task, pkg.name, {otp: context.otp})
+publishStatus = 'SUCCESS'
+tasks.add({
+		title: 'Pushing tags',
+		async skip() {
+			if (!(await git.hasUpstream())) {
+				return 'Upstream branch not found; not pushing.';
+			}
+
+			if (options.preview) {
+				return '[Preview] Command not executed: git push --follow-tags.';
+			}
+
+			if (publishStatus === 'FAILED' && options.runPublish) {
+				return 'Couldn\'t publish package to npm; not pushing.';
+			}
+		},
+		async task() {
+			pushedObjects = await git.pushGraceful(isOnGitHub);
+		},
+	})
+_tmp_40.title = "Pushing tags"
+_tmp_40.skip = skip4
+_tmp_40.task = task4
+options.releaseDraft
+tasks.add({
+			title: 'Creating release draft on GitHub',
+			enabled: () => isOnGitHub === true,
+			skip() {
+				if (options.preview) {
+					return '[Preview] GitHub Releases draft will not be opened in preview mode.';
+				}
+			},
+			task: () => releaseTaskHelper(options, pkg),
+		})
+_tmp_41.title = "Creating release draft on GitHub"
+_tmp_41.enabled = <lambda>24
+_tmp_41.skip = skip5
+releaseTaskHelper(options, pkg)
+await tasks.run()

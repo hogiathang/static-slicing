@@ -1,0 +1,46 @@
+api.compactValue = ({activeCtx, activeProperty, value, options}) => {
+  // value is a @value
+  if(_isValue(value)) {
+    // get context rules
+    const type = _getContextValue(activeCtx, activeProperty, '@type');
+    const language = _getContextValue(activeCtx, activeProperty, '@language');
+    const direction = _getContextValue(activeCtx, activeProperty, '@direction');
+    const container =
+      _getContextValue(activeCtx, activeProperty, '@container') || [];
+
+    // whether or not the value has an @index that must be preserved
+    const preserveIndex = '@index' in value && !container.includes('@index');
+
+    // if there's no @index to preserve ...
+    if(!preserveIndex && type !== '@none') {
+      // matching @type or @language specified in context, compact value
+      if(value['@type'] === type) {
+        return value['@value'];
+      }
+      if('@language' in value && value['@language'] === language &&
+         '@direction' in value && value['@direction'] === direction) {
+     ...
+_isValue(value)
+const type = _getContextValue(activeCtx, activeProperty, '@type')
+const language = _getContextValue(activeCtx, activeProperty, '@language')
+const direction = _getContextValue(activeCtx, activeProperty, '@direction')
+const container =
+      _getContextValue(activeCtx, activeProperty, '@container') || []
+_getContextValue(activeCtx, activeProperty, '@container') || []
+const preserveIndex = '@index' in value && !container.includes('@index')
+!preserveIndex && type !== '@none'
+value['@type'] === type
+'@language' in value && value['@language'] === language &&
+         '@direction' in value && value['@direction'] === direction
+value['@direction'] === direction
+'@language' in value && value['@language'] === language
+'@direction' in value && value['@direction'] === direction
+const keyCount = Object.keys(value).length
+const isValueOnlyKey = (keyCount === 1 ||
+      (keyCount === 2 && '@index' in value && !preserveIndex))
+keyCount === 2 && '@index' in value && !preserveIndex
+const hasDefaultLanguage = ('@language' in activeCtx)
+const isValueString = _isString(value['@value'])
+const hasNullMapping = (activeCtx.mappings.has(activeProperty) &&
+      activeCtx.mappings.get(activeProperty)['@language'] === null)
+activeCtx.mappings.get(activeProperty)['@language'] === null

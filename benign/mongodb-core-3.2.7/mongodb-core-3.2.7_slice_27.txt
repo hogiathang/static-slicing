@@ -1,0 +1,65 @@
+function makeConnection = function makeConnection(family, options, _callback) {
+  const useSsl = typeof options.ssl === 'boolean' ? options.ssl : false;
+  const keepAlive = typeof options.keepAlive === 'boolean' ? options.keepAlive : true;
+  let keepAliveInitialDelay =
+    typeof options.keepAliveInitialDelay === 'number' ? options.keepAliveInitialDelay : 300000;
+  const noDelay = typeof options.noDelay === 'boolean' ? options.noDelay : true;
+  const connectionTimeout =
+    typeof options.connectionTimeout === 'number' ? options.connectionTimeout : 30000;
+  const socketTimeout = typeof options.socketTimeout === 'number' ? options.socketTimeout : 360000;
+  const rejectUnauthorized =
+    typeof options.rejectUnauthorized === 'boolean' ? options.rejectUnauthorized : true;
+
+  if (keepAliveInitialDelay > socketTimeout) {
+    keepAliveInitialDelay = Math.round(socketTimeout / 2);
+  }
+
+  let socket;
+  const callback = function(err, ret) {
+    if (err && socket) {
+      socket.destroy();
+    }
+    _callback(err, ret...
+const useSsl = typeof options.ssl === 'boolean' ? options.ssl : false
+const keepAlive = typeof options.keepAlive === 'boolean' ? options.keepAlive : true
+let keepAliveInitialDelay =
+    typeof options.keepAliveInitialDelay === 'number' ? options.keepAliveInitialDelay : 300000
+typeof options.keepAliveInitialDelay === 'number' ? options.keepAliveInitialDelay : 300000
+const noDelay = typeof options.noDelay === 'boolean' ? options.noDelay : true
+const connectionTimeout =
+    typeof options.connectionTimeout === 'number' ? options.connectionTimeout : 30000
+typeof options.connectionTimeout === 'number' ? options.connectionTimeout : 30000
+const socketTimeout = typeof options.socketTimeout === 'number' ? options.socketTimeout : 360000
+const rejectUnauthorized =
+    typeof options.rejectUnauthorized === 'boolean' ? options.rejectUnauthorized : true
+typeof options.rejectUnauthorized === 'boolean' ? options.rejectUnauthorized : true
+keepAliveInitialDelay > socketTimeout
+keepAliveInitialDelay = Math.round(socketTimeout / 2)
+const callback = function(err, ret) {
+    if (err && socket) {
+      socket.destroy();
+    }
+    _callback(err, ret);
+  }
+socket = tls.connect(parseSslOptions(family, options))
+typeof socket.disableRenegotiation === 'function'
+socket.disableRenegotiation()
+socket = net.createConnection(parseConnectOptions(family, options))
+socket.setKeepAlive(keepAlive, keepAliveInitialDelay)
+socket.setTimeout(connectionTimeout)
+function errorHandler = function errorHandler(eventName) {
+    return err => {
+      errorEvents.forEach(event => socket.removeAllListeners(event));
+      socket.removeListener('connect', connectHandler);
+      callback(connectionFailureError(eventName, err), eventName);
+    };
+  }
+function connectHandler = function connectHandler() {
+    errorEvents.forEach(event => socket.removeAllListeners(event));
+    if (socket.authorizationError && rejectUnauthorized) {
+      return callback(socket.authorizationError);
+    }
+
+    socket.setTimeout(socketTimeout);
+    callback(null, socket);
+  }

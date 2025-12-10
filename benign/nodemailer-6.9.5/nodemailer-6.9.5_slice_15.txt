@@ -1,0 +1,50 @@
+_upgradeConnection(callback) {
+        // do not remove all listeners or it breaks node v0.10 as there's
+        // apparently a 'finish' event set that would be cleared as well
+
+        // we can safely keep 'error', 'end', 'close' etc. events
+        this._socket.removeListener('data', this._onSocketData); // incoming data is going to be gibberish from this point onwards
+        this._socket.removeListener('timeout', this._onSocketTimeout); // timeout will be re-set for the new socket object
+
+        let socketPlain = this._socket;
+        let opts = {
+            socket: this._socket,
+            host: this.host
+        };
+
+        Object.keys(this.options.tls || {}).forEach(key => {
+            opts[key] = this.options.tls[key];
+        });
+
+        this.upgrading = true;
+        // tls.connect is not an asynchronous function however it may still throw errors and requires to be wrapped with try/catch
+        try {
+            this._socket = tls.connect(opts, () => {
+            ...
+this._socket.removeListener('data', this._onSocketData)
+this._socket.removeListener('timeout', this._onSocketTimeout)
+let socketPlain = this._socket
+let opts = {
+            socket: this._socket,
+            host: this.host
+        }
+_tmp_99.socket = this._socket
+_tmp_99.host = this.host
+Object.keys(this.options.tls || {}).forEach(key => {
+            opts[key] = this.options.tls[key];
+        })
+this.upgrading = true
+this._socket = tls.connect(opts, () => {
+                this.secure = true;
+                this.upgrading = false;
+                this._socket.on('data', this._onSocketData);
+
+                socketPlain.removeListener('close', this._onSocketClose);
+                socketPlain.removeListener('end', this._onSocketEnd);
+
+                return callback(null, true);
+            })
+this._socket.on('error', this._onSocketError)
+this._socket.once('close', this._onSocketClose)
+this._socket.once('end', this._onSocketEnd)
+this._socket.setTimeout(this.options.socketTimeout || SOCKET_TIMEOUT)

@@ -1,0 +1,18 @@
+request.addNamedListener('API_CALL_ATTEMPT_RETRY', 'retry', function API_CALL_ATTEMPT_RETRY() {
+      var apiAttemptEvent = self.attemptFailEvent(request);
+      apiAttemptEvent.Timestamp = attemptTimestamp;
+      //attemptLatency may not be available if fail before response
+      attemptLatency = attemptLatency ||
+        Math.round(AWS.util.realClock.now() - attemptStartRealTime);
+      apiAttemptEvent.AttemptLatency = attemptLatency >= 0 ? attemptLatency : 0;
+      apiAttemptEvent.Region = region;
+      self.emit('apiCallAttempt', [apiAttemptEvent]);
+    })
+var apiAttemptEvent = self.attemptFailEvent(request)
+apiAttemptEvent.Timestamp = attemptTimestamp
+attemptLatency = attemptLatency ||
+        Math.round(AWS.util.realClock.now() - attemptStartRealTime)
+Math.round(AWS.util.realClock.now() - attemptStartRealTime)
+apiAttemptEvent.AttemptLatency = attemptLatency >= 0 ? attemptLatency : 0
+apiAttemptEvent.Region = region
+self.emit('apiCallAttempt', [apiAttemptEvent])

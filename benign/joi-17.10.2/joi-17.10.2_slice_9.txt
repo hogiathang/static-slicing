@@ -1,0 +1,2 @@
+schema = param2_0.schema
+const lookup = schema.$_terms.map.get(value)

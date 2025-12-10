@@ -1,0 +1,60 @@
+function queryKeyStore = async function queryKeyStore({ kid, kty, alg, use }, { allowMulti = false } = {}) {
+  const cache = lrus(this);
+
+  const def = {
+    kid,
+    kty,
+    alg,
+    use,
+  };
+
+  const defHash = objectHash(def, {
+    algorithm: 'sha256',
+    ignoreUnknown: true,
+    unorderedArrays: true,
+    unorderedSets: true,
+  });
+
+  // refresh keystore on every unknown key but also only upto once every minute
+  const freshJwksUri = cache.get(defHash) || cache.get('throttle');
+
+  const keystore = await getKeyStore.call(this, !freshJwksUri);
+  const keys = keystore.all(def);
+
+  delete def.use;
+  if (keys.length === 0) {
+    throw new RPError({
+      printf: ["no valid key found in issuer's jwks_uri for key parameters %j", def],
+      jwks: keystore,
+    });
+  }
+
+  if (!allowMulti && keys.length > 1 && !kid) {
+    throw new RPError({
+      printf: [
+        "multiple matching keys found in issuer's jwks_uri for key parameters %j, kid must be provided in this case",
+        def,
+      ],
+      jwks: key...
+const cache = lrus(this)
+const def = {
+    kid,
+    kty,
+    alg,
+    use,
+  }
+_tmp_6.kid = kid
+_tmp_6.kty = kty
+_tmp_6.alg = alg
+_tmp_6.use = use
+const defHash = objectHash(def, {
+    algorithm: 'sha256',
+    ignoreUnknown: true,
+    unorderedArrays: true,
+    unorderedSets: true,
+  })
+_tmp_7.algorithm = "sha256"
+_tmp_7.ignoreUnknown = true
+_tmp_7.unorderedArrays = true
+_tmp_7.unorderedSets = true
+const freshJwksUri = cache.get(defHash) || cache.get('throttle')

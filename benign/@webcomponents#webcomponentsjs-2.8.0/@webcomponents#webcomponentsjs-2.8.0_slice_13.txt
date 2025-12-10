@@ -1,0 +1,18 @@
+nativeEventTarget.prototype.removeEventListener = function (type, listener, options) {
+        if (listener == null) {
+            return;
+        }
+        const { capture } = parseEventOptions(options);
+        const map = getListenerMap(this, type, capture);
+        const cachedListener = map.get(listener);
+        if (cachedListener !== undefined) {
+            map.delete(listener);
+            // Note, the cached listener is null if no wrapper was used so that a
+            // strong ref to it is not kept.
+            origRemoveEventListener.call(this, type, cachedListener !== null && cachedListener !== void 0 ? cachedListener : listener, capture);
+        }
+    }
+listener == null
+_tmp_9 = parseEventOptions(options)
+const map = getListenerMap(this, type, capture)
+const cachedListener = map.get(listener)

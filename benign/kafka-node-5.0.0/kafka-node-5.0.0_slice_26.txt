@@ -1,0 +1,35 @@
+highLevelProducer.on('ready', () => {
+  const messages = [
+    { topic: 'topicName', messages: ['message body'], attributes: 2 },
+    { topic: 'topicName', messages: ['message body'], partition: 0 },
+    { topic: 'topicName', messages: ['message body'], attributes: 0 },
+    { topic: 'topicName', messages: ['message body'] },
+    { topic: 'topicName', messages: [new kafka.KeyedMessage('key', 'message')] }
+  ];
+
+  highLevelProducer.send(messages, (err: Error) => { });
+  highLevelProducer.send(messages, (err: Error, data: any) => { });
+
+  producer.createTopics(['t'], true, (err: Error, data: any) => { });
+  producer.createTopics(['t'], (err: Error, data: any) => { });
+  producer.createTopics(['t'], false, () => { });
+  producer.close();
+})
+const messages = [
+    { topic: 'topicName', messages: ['message body'], attributes: 2 },
+    { topic: 'topicName', messages: ['message body'], partition: 0 },
+    { topic: 'topicName', messages: ['message body'], attributes: 0 },
+    { topic: 'topicName', messages: ['message body'] },
+    { topic: 'topicName', messages: [new kafka.KeyedMessage('key', 'message')] }
+  ]
+_tmp_24.push({ topic: 'topicName', messages: ['message body'], attributes: 2 })
+_tmp_24.push({ topic: 'topicName', messages: ['message body'], partition: 0 })
+_tmp_24.push({ topic: 'topicName', messages: ['message body'], attributes: 0 })
+_tmp_24.push({ topic: 'topicName', messages: ['message body'] })
+_tmp_24.push({ topic: 'topicName', messages: [new kafka.KeyedMessage('key', 'message')] })
+highLevelProducer.send(messages, (err: Error) => { })
+highLevelProducer.send(messages, (err: Error, data: any) => { })
+producer.createTopics(['t'], true, (err: Error, data: any) => { })
+producer.createTopics(['t'], (err: Error, data: any) => { })
+producer.createTopics(['t'], false, () => { })
+producer.close()

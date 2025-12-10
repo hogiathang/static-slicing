@@ -1,0 +1,29 @@
+fs[link](lp, self._path, function (er) {
+    // if this is a hard link, and we're in the process of writing out a
+    // directory, it's very possible that the thing we're linking to
+    // doesn't exist yet (especially if it was intended as a symlink),
+    // so swallow ENOENT errors here and just soldier in.
+    // Additionally, an EPERM or EACCES can happen on win32 if it's trying
+    // to make a link to a directory.  Again, just skip it.
+    // A better solution would be to have fs.symlink be supported on
+    // windows in some nice fashion.
+    if (er) {
+      if ((er.code === 'ENOENT' ||
+        er.code === 'EACCES' ||
+        er.code === 'EPERM') && process.platform === 'win32') {
+        self.ready = true
+        self.emit('ready')
+        self.emit('end')
+        self.emit('close')
+        self.end = self._finish = function () {}
+      } else return self.error(er)
+    }
+    finish(self)
+  })
+(er.code === 'ENOENT' ||
+        er.code === 'EACCES' ||
+        er.code === 'EPERM') && process.platform === 'win32'
+er.code === 'EACCES'
+process.platform === 'win32'
+self.ready = true
+self.emit('ready')

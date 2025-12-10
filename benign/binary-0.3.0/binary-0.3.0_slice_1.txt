@@ -1,0 +1,15 @@
+self.into = function (key, cb) {
+            if (!vars.get(key)) vars.set(key, {});
+            var parent = vars;
+            vars = Vars(parent.get(key));
+            
+            saw.nest(function () {
+                cb.apply(this, arguments);
+                this.tap(function () {
+                    vars = parent;
+                });
+            }, vars.store);
+        }
+vars.set(key, {})
+var parent = vars
+vars = Vars(parent.get(key))

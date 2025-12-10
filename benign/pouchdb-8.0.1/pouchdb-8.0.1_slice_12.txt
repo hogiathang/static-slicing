@@ -1,0 +1,37 @@
+api._getAttachment = function (docId, attachId, attachment, opts, callback) {
+    var txn;
+    if (opts.ctx) {
+      txn = opts.ctx;
+    } else {
+      var txnResult = openTransactionSafely(idb,
+        [DOC_STORE, BY_SEQ_STORE, ATTACH_STORE], 'readonly');
+      if (txnResult.error) {
+        return callback(txnResult.error);
+      }
+      txn = txnResult.txn;
+    }
+    var digest = attachment.digest;
+    var type = attachment.content_type;
+
+    txn.objectStore(ATTACH_STORE).get(digest).onsuccess = function (e) {
+      var body = e.target.result.body;
+      readBlobData(body, type, opts.binary, function (blobData) {
+        callback(null, blobData);
+      });
+    };
+  }
+opts.ctx
+txn = opts.ctx
+var txnResult = openTransactionSafely(idb,
+        [DOC_STORE, BY_SEQ_STORE, ATTACH_STORE], 'readonly')
+_tmp_332 = __ecma.Array.factory()
+txnResult.error
+txn = txnResult.txn
+var digest = attachment.digest
+var type = attachment.content_type
+txn.objectStore(ATTACH_STORE).get(digest).onsuccess = function (e) {
+      var body = e.target.result.body;
+      readBlobData(body, type, opts.binary, function (blobData) {
+        callback(null, blobData);
+      });
+    }

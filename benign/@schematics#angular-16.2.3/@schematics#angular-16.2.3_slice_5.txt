@@ -1,0 +1,20 @@
+(0, utility_1.updateWorkspace)((workspace) => {
+        const project = workspace.projects.get(options.project);
+        if (!project) {
+            throw new schematics_1.SchematicsException(`Project name "${options.project}" doesn't not exist.`);
+        }
+        const testTarget = project.targets.get('test');
+        if (!testTarget) {
+            throw new schematics_1.SchematicsException(`No "test" target found for project "${options.project}".` +
+                ' A "test" target is required to generate a karma configuration.');
+        }
+        if (testTarget.builder !== utility_1.AngularBuilder.Karma) {
+            throw new schematics_1.SchematicsException(`Cannot add a karma configuration as builder for "test" target in project does not use "${utility_1.AngularBuilder.Karma}".`);
+        }
+        testTarget.options ?? (testTarget.options = {});
+        testTarget.options.karmaConfig = path_1.posix.join(project.root, 'karma.conf.js');
+        // If scoped project (i.e. "...
+const project = workspace.projects.get(options.project)
+!project
+throw new schematics_1.SchematicsException(`Project name "${options.project}" doesn't not exist.`);
+const testTarget = project.targets.get('test')

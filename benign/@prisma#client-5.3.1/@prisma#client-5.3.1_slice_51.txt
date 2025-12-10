@@ -1,0 +1,28 @@
+function createDefaultGeneratedThrowFiles = async function createDefaultGeneratedThrowFiles() {
+  try {
+    const dotPrismaClientDir = path.join(__dirname, '../../../.prisma/client')
+    const defaultNodeIndexPath = path.join(dotPrismaClientDir, 'index.js')
+    const defaultNodeIndexDtsPath = path.join(dotPrismaClientDir, 'index.d.ts')
+    const defaultBrowserIndexPath = path.join(dotPrismaClientDir, 'index-browser.js')
+    const defaultEdgeIndexPath = path.join(dotPrismaClientDir, 'edge.js')
+    const defaultEdgeIndexDtsPath = path.join(dotPrismaClientDir, 'edge.d.ts')
+    const defaultDenoClientDir = path.join(dotPrismaClientDir, 'deno')
+    const defaultDenoEdgeIndexPath = path.join(defaultDenoClientDir, 'edge.ts')
+    await makeDir(dotPrismaClientDir)
+    await makeDir(defaultDenoClientDir)
+
+    // `default-index.js` may not exist in scripts yet when the postinstall script is running
+    // in Prisma repo itself. It will always exist in the published package.
+    if (!fs.existsSync(defaultNodeIndexPath) && fs.existsSync(p...
+const dotPrismaClientDir = path.join(__dirname, '../../../.prisma/client')
+const defaultNodeIndexPath = path.join(dotPrismaClientDir, 'index.js')
+const defaultNodeIndexDtsPath = path.join(dotPrismaClientDir, 'index.d.ts')
+const defaultBrowserIndexPath = path.join(dotPrismaClientDir, 'index-browser.js')
+const defaultEdgeIndexPath = path.join(dotPrismaClientDir, 'edge.js')
+const defaultEdgeIndexDtsPath = path.join(dotPrismaClientDir, 'edge.d.ts')
+const defaultDenoClientDir = path.join(dotPrismaClientDir, 'deno')
+const defaultDenoEdgeIndexPath = path.join(defaultDenoClientDir, 'edge.ts')
+await makeDir(dotPrismaClientDir)
+await makeDir(defaultDenoClientDir)
+!fs.existsSync(defaultNodeIndexPath) && fs.existsSync(path.join(__dirname, 'default-index.js'))
+await fs.promises.copyFile(path.join(__dirname, 'default-index.js'), defaultNodeIndexPath)

@@ -1,0 +1,54 @@
+function phaseVarCounting = function phaseVarCounting(cpl) {
+  for (const [_, view] of cpl.views) {
+    let varCount = 0;
+    for (const op of view.ops()) {
+      if (hasConsumesVarsTrait(op)) {
+        varCount += varsUsedByOp(op);
+      }
+      visitExpressionsInOp(op, (expr) => {
+        if (!isIrExpression(expr)) {
+          return;
+        }
+        if (hasUsesVarOffsetTrait(expr)) {
+          expr.varOffset = varCount;
+        }
+        if (hasConsumesVarsTrait(expr)) {
+          varCount += varsUsedByIrExpression(expr);
+        }
+      });
+    }
+    view.vars = varCount;
+  }
+  for (const [_, view] of cpl.views) {
+    for (const op of view.create) {
+      if (op.kind !== OpKind.Template) {
+        continue;
+      }
+      const childView = cpl.views.get(op.xref);
+      op.vars = childView.vars;
+    }
+  }
+}
+_iterator_22 = <operator>.iterator(cpl.views)
+let varCount = 0
+_iterator_23 = <operator>.iterator(view.ops())
+hasConsumesVarsTrait(op)
+varCount += varsUsedByOp(op)
+visitExpressionsInOp(op, (expr) => {
+        if (!isIrExpression(expr)) {
+          return;
+        }
+        if (hasUsesVarOffsetTrait(expr)) {
+          expr.varOffset = varCount;
+        }
+        if (hasConsumesVarsTrait(expr)) {
+          varCount += varsUsedByIrExpression(expr);
+        }
+      })
+view.vars = varCount
+_iterator_24 = <operator>.iterator(cpl.views)
+_iterator_25 = <operator>.iterator(view.create)
+op.kind !== OpKind.Template
+continue;
+const childView = cpl.views.get(op.xref)
+op.vars = childView.vars

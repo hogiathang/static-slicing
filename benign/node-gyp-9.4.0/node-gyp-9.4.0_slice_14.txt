@@ -1,0 +1,66 @@
+fs.stat(commonGypi, function (err) {
+      if (err) {
+        commonGypi = path.resolve(nodeDir, 'common.gypi')
+      }
+
+      var outputDir = 'build'
+      if (win) {
+        // Windows expects an absolute path
+        outputDir = buildDir
+      }
+      var nodeGypDir = path.resolve(__dirname, '..')
+
+      var nodeLibFile = path.join(nodeDir,
+        !gyp.opts.nodedir ? '<(target_arch)' : '$(Configuration)',
+        release.name + '.lib')
+
+      argv.push('-I', addonGypi)
+      argv.push('-I', commonGypi)
+      argv.push('-Dlibrary=shared_library')
+      argv.push('-Dvisibility=default')
+      argv.push('-Dnode_root_dir=' + nodeDir)
+      if (process.platform === 'aix' || process.platform === 'os390' || process.platform === 'os400') {
+        argv.push('-Dnode_exp_file=' + nodeExpFile)
+        if (process.platform === 'os390' && zoslibIncDir) {
+          argv.push('-Dzoslib_include_dir=' + zoslibIncDir)
+        }
+      }
+      argv.push('-Dnode_gyp_dir=' + nodeGypDir)
+
+      // Do ...
+commonGypi = path.resolve(nodeDir, 'common.gypi')
+var outputDir = 'build'
+outputDir = buildDir
+var nodeGypDir = path.resolve(__dirname, '..')
+var nodeLibFile = path.join(nodeDir,
+        !gyp.opts.nodedir ? '<(target_arch)' : '$(Configuration)',
+        release.name + '.lib')
+!gyp.opts.nodedir ? "<(target_arch)" : "$(Configuration)"
+release.name + '.lib'
+argv.push('-I', addonGypi)
+argv.push('-I', commonGypi)
+argv.push('-Dlibrary=shared_library')
+argv.push('-Dvisibility=default')
+argv.push('-Dnode_root_dir=' + nodeDir)
+process.platform === 'aix' || process.platform === 'os390' || process.platform === 'os400'
+argv.push('-Dnode_exp_file=' + nodeExpFile)
+process.platform === 'os390' && zoslibIncDir
+argv.push('-Dzoslib_include_dir=' + zoslibIncDir)
+argv.push('-Dnode_gyp_dir=' + nodeGypDir)
+nodeLibFile = nodeLibFile.replace(/\\/g, '\\\\')
+argv.push('-Dnode_lib_file=' + nodeLibFile)
+argv.push('-Dmodule_root_dir=' + process.cwd())
+argv.push('-Dnode_engine=' +
+        (gyp.opts.node_engine || process.jsEngine || 'v8'))
+gyp.opts.node_engine || process.jsEngine || 'v8'
+argv.push('--depth=.')
+argv.push('--no-parallel')
+argv.push('--generator-output', outputDir)
+argv.push('-Goutput_dir=.')
+argv.unshift('binding.gyp')
+argv.unshift(gypScript)
+var pypath = [path.join(__dirname, '..', 'gyp', 'pylib')]
+process.env.PYTHONPATH
+pypath.push(process.env.PYTHONPATH)
+process.env.PYTHONPATH = pypath.join(win ? ';' : ':')
+var cp = gyp.spawn(python, argv)

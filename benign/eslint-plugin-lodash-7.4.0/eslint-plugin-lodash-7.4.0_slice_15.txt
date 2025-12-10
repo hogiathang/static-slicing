@@ -1,0 +1,5 @@
+_tmp_7.LogicalExpression = LogicalExpression
+const state = getState()
+shouldCheckDeeper(node, state.node)
+expStates.push({depth: state.depth + 1, node: node.right.left.object})
+isEquivalentMemberExp(get(node, 'left.left.object'), get(node, 'right.left.object')) && state.depth >= ruleDepth - 2

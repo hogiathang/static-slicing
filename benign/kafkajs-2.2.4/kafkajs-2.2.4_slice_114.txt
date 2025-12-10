@@ -1,0 +1,4 @@
+topicData = param1_0.topicData
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ acks, timeout, topicData })

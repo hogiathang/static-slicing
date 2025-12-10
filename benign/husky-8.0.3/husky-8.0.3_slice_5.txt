@@ -1,0 +1,38 @@
+function install = function install(dir = '.husky') {
+    if (process.env.HUSKY === '0') {
+        l('HUSKY env variable is set to 0, skipping install');
+        return;
+    }
+    if (git(['rev-parse']).status !== 0) {
+        l(`git command not found, skipping install`);
+        return;
+    }
+    const url = 'https://typicode.github.io/husky/#/?id=custom-directory';
+    if (!p.resolve(process.cwd(), dir).startsWith(process.cwd())) {
+        throw new Error(`.. not allowed (see ${url})`);
+    }
+    if (!fs.existsSync('.git')) {
+        throw new Error(`.git can't be found (see ${url})`);
+    }
+    try {
+        fs.mkdirSync(p.join(dir, '_'), { recursive: true });
+        fs.writeFileSync(p.join(dir, '_/.gitignore'), '*');
+        fs.copyFileSync(p.join(__dirname, '../husky.sh'), p.join(dir, '_/husky.sh'));
+        const { error } = git(['config', 'core.hooksPath', dir]);
+        if (error) {
+            throw error;
+        }
+    }
+    catch (e) {
+        l('Git hooks failed to install');
+        thro...
+process.env.HUSKY === '0'
+git(['rev-parse']).status !== 0
+const url = 'https://typicode.github.io/husky/#/?id=custom-directory'
+!p.resolve(process.cwd(), dir).startsWith(process.cwd())
+<operator>.formatString(".. not allowed (see ", url, ")")
+!fs.existsSync('.git')
+<operator>.formatString(".git can't be found (see ", url, ")")
+fs.mkdirSync(p.join(dir, '_'), { recursive: true })
+fs.writeFileSync(p.join(dir, '_/.gitignore'), '*')
+fs.copyFileSync(p.join(__dirname, '../husky.sh'), p.join(dir, '_/husky.sh'))

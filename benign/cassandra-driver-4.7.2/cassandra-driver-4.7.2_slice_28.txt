@@ -1,0 +1,74 @@
+function getMetadataServiceInfo = function getMetadataServiceInfo(cloudOptions, callback) {
+  const regex = /^(.+?):(\d+)(.*)$/;
+  const matches = regex.exec(cloudOptions.serviceUrl);
+  callback = utils.callbackOnce(callback);
+
+  if (!matches || matches.length !== 4) {
+    throw new TypeError('url should be composed of host, port number and path, without scheme');
+  }
+
+  const requestOptions = Object.assign({
+    hostname: matches[1],
+    port: matches[2],
+    path: matches[3] || undefined,
+    timeout: cloudOptions.clientOptions.socketOptions.connectTimeout
+  }, cloudOptions.clientOptions.sslOptions);
+
+  const req = https.get(requestOptions, res => {
+    let data = '';
+
+    utils.log('verbose', `Connected to metadata service with SSL/TLS protocol ${res.socket.getProtocol()}`, {}, cloudOptions);
+
+    res
+      .on('data', chunk => data += chunk.toString())
+      .on('end', () => {
+        if (res.statusCode !== 200) {
+          return callback(getServiceRequestError(new Error(`Obtained http status ${res.statusCode}`...
+const regex = /^(.+?):(\d+)(.*)$/
+const matches = regex.exec(cloudOptions.serviceUrl)
+callback = utils.callbackOnce(callback)
+!matches || matches.length !== 4
+throw new TypeError('url should be composed of host, port number and path, without scheme');
+const requestOptions = Object.assign({
+    hostname: matches[1],
+    port: matches[2],
+    path: matches[3] || undefined,
+    timeout: cloudOptions.clientOptions.socketOptions.connectTimeout
+  }, cloudOptions.clientOptions.sslOptions)
+_tmp_10.hostname = matches[1]
+_tmp_10.port = matches[2]
+_tmp_10.path = matches[3] || undefined
+_tmp_10.timeout = cloudOptions.clientOptions.socketOptions.connectTimeout
+cloudOptions.clientOptions.sslOptions
+const req = https.get(requestOptions, res => {
+    let data = '';
+
+    utils.log('verbose', `Connected to metadata service with SSL/TLS protocol ${res.socket.getProtocol()}`, {}, cloudOptions);
+
+    res
+      .on('data', chunk => data += chunk.toString())
+      .on('end', () => {
+        if (res.statusCode !== 200) {
+          return callback(getServiceRequestError(new Error(`Obtained http status ${res.statusCode}`), requestOptions));
+        }
+
+        let message;
+
+        try {
+          message = JSON.parse(data);
+
+          if (!message || !message['contact_info']) {
+            throw new TypeError('contact_info should be defined in response');
+          }
+
+        } catch (err) {
+          return callback(getServiceRequestError(err, requestOptions, true));
+        }
+
+        const contactInfo = message['contact_info'];
+
+        // Set the connect options
+        cloudOptions.clientOptions.contactPoints = contactInfo['contact_points'];
+        cloudOptions.clientOptions.localDataCent...
+req.on('error', err => callback(getServiceRequestError(err, requestOptions)))
+req.setTimeout(cloudOptions.clientOptions.socketOptions.connectTimeout, () => req.abort())

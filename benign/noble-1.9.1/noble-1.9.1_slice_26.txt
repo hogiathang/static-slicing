@@ -1,0 +1,94 @@
+NobleBindings.prototype.startScanning = function(options, allowDuplicates) {
+  var self = this;
+
+  if(Array.isArray(options)){
+    options = {services: options};
+  }
+
+  if(typeof options !== 'object'){
+    options = {services: options};
+  }
+
+  if(!Array.isArray(options.services)){
+    options.services = [options.services];
+  }
+
+  options.services = options.services.map(function(service){
+    //web bluetooth requires 4 char hex service names to be passed in as integers
+    if(typeof service === 'string' && service.length === 4){
+      service = parseInt('0x' + service);
+    }
+    else if(typeof service === 'string' && service.length === 6 && service.indexOf('0x') === 0){
+      service = parseInt(service);
+    }
+    return service;
+  });
+
+  var dashedUuids = options.services.map(addDashes);
+
+  var filterList = dashedUuids.map(makeList);
+  if(options.name){
+    filterList.push({name: options.name});
+  }
+  if(options.namePrefix){
+    filterList.push({namePrefix: options.namePrefix});
+  ...
+var self = this
+Array.isArray(options)
+options = {services: options}
+typeof options !== 'object'
+options = {services: options}
+!Array.isArray(options.services)
+options.services = [options.services]
+options.services = options.services.map(function(service){
+    //web bluetooth requires 4 char hex service names to be passed in as integers
+    if(typeof service === 'string' && service.length === 4){
+      service = parseInt('0x' + service);
+    }
+    else if(typeof service === 'string' && service.length === 6 && service.indexOf('0x') === 0){
+      service = parseInt(service);
+    }
+    return service;
+  })
+var dashedUuids = options.services.map(addDashes)
+var filterList = dashedUuids.map(makeList)
+options.name
+filterList.push({name: options.name})
+options.namePrefix
+filterList.push({namePrefix: options.namePrefix})
+var request = {filters: filterList}
+debug('startScanning', request, allowDuplicates)
+this._ble.requestDevice(request)
+    .then(function(device){
+      debug('scan finished', device);
+      self.emit('scanStop', {});
+      if(device){
+
+        var address = device.id;
+        //TODO use device.adData when api is ready
+        //rssi = device.adData.rssi;
+
+        self._peripherals[address] = {
+          uuid: address,
+          address: address,
+          advertisement: {localName:device.name}, //advertisement,
+          device: device,
+          cachedServices: {},
+          localName: device.name,
+          serviceUuids: options.services
+        };
+        if(device.adData){
+          self._peripherals[address].rssi = device.adData.rssi;
+        }
+
+        self.emit('discover', device.id, device.id, device.addressType, !device.paired, self._peripherals[address].advertisement, self._peripherals[address].rssi);
+      }
+    })
+    .catch(function(err){
+      debug('err scanning', err);
+      self.emit('scanStop', {});
+      self.emit('error', err);
+    })
+<lambda>7
+<lambda>8
+this.emit('scanStart')

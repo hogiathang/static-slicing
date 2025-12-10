@@ -1,0 +1,20 @@
+fs.lstat(dir, (err) => {
+        if (err) {
+          return rej(err)
+        }
+        const [bin, ...spawnArgs] = this.npm.config.get('editor').split(/\s+/)
+        const editor = cp.spawn(bin, [...spawnArgs, dir], { stdio: 'inherit' })
+        editor.on('exit', async (code) => {
+          if (code) {
+            return rej(new Error(`editor process exited with code: ${code}`))
+          }
+          try {
+            await this.npm.exec('rebuild', [dir])
+          } catch (execErr) {
+            rej(execErr)
+          }
+          res()
+        })
+      })
+_tmp_8 = this.npm.config.get('editor').split(/\s+/)
+const editor = cp.spawn(bin, [...spawnArgs, dir], { stdio: 'inherit' })

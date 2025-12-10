@@ -1,0 +1,12 @@
+e && [].concat(e).forEach(innerResource => {
+      const plural = pluralize(innerResource);
+
+      if (db.get(plural).value()) {
+        const prop = `${innerResource}${opts.foreignKeySuffix}`;
+        resource[innerResource] = db.get(plural).getById(resource[prop]).value();
+      }
+    })
+const plural = pluralize(innerResource)
+(_tmp_12 = db.get(plural)).value
+<operator>.formatString("", innerResource, "", opts.foreignKeySuffix, "")
+resource[innerResource] = db.get(plural).getById(resource[prop]).value()

@@ -1,0 +1,16 @@
+var doPing = function() {
+				if (!this.isReset) {
+					this._client._trace("Pinger.doPing", "Timed out");
+					this._client._disconnected( ERROR.PING_TIMEOUT.code , format(ERROR.PING_TIMEOUT));
+				} else {
+					this.isReset = false;
+					this._client._trace("Pinger.doPing", "send PINGREQ");
+					this._client.socket.send(pingReq);
+					this.timeout = setTimeout(doTimeout(this), this._keepAliveInterval);
+				}
+			}
+!this.isReset
+this.isReset = false
+this._client._trace("Pinger.doPing", "send PINGREQ")
+(_tmp_55 = this._client.socket).send
+this.timeout = setTimeout(doTimeout(this), this._keepAliveInterval)

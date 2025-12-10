@@ -1,0 +1,62 @@
+apiRunnerAsync(`onClientEntry`).then(() => {
+  // Hook up the client to socket.io on server
+  const socket = socketIo()
+  if (socket) {
+    socket.on(`reload`, () => {
+      window.location.reload()
+    })
+  }
+
+  /**
+   * Service Workers are persistent by nature. They stick around,
+   * serving a cached version of the site if they aren't removed.
+   * This is especially frustrating when you need to test the
+   * production build on your local machine.
+   *
+   * Let's warn if we find service workers in development.
+   */
+  if (`serviceWorker` in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      if (registrations.length > 0)
+        console.warn(
+          `Warning: found one or more service workers present.`,
+          `If your site isn't behaving as expected, you might want to remove these.`,
+          registrations
+        )
+    })
+  }
+
+  const rootElement = document.getElementById(`___gatsby`)
+  const renderer = apiRunner(
+    `replaceHydrat...
+const socket = socketIo()
+socket.on(`reload`, () => {
+      window.location.reload()
+    })
+`serviceWorker` in navigator
+navigator.serviceWorker.getRegistrations().then(registrations => {
+      if (registrations.length > 0)
+        console.warn(
+          `Warning: found one or more service workers present.`,
+          `If your site isn't behaving as expected, you might want to remove these.`,
+          registrations
+        )
+    })
+const rootElement = document.getElementById(`___gatsby`)
+const renderer = apiRunner(
+    `replaceHydrateFunction`,
+    undefined,
+    reactFirstRenderOrHydrate
+  )[0]
+"replaceHydrateFunction"
+0
+process.env.GATSBY_QUERY_ON_DEMAND &&
+    process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`
+process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`
+const showIndicatorTimeout = setTimeout(() => {
+      indicatorMountElement = document.createElement(
+        `first-render-loading-indicator`
+      )
+      document.body.append(indicatorMountElement)
+      cleanupFn = renderer(<Indicator />, indicatorMountElement)
+    }, 1000)

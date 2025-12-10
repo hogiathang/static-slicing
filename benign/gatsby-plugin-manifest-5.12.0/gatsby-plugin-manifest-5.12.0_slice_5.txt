@@ -1,0 +1,37 @@
+const getDetailedMessage = () => {
+  try {
+    // `npm list` seems to work in yarn installed projects as long
+    // as there is no package-lock.json, so let's bail out
+    // if both lock files exist
+
+    if (fs.existsSync(path.join(process.cwd(), `package-lock.json`)) && fs.existsSync(path.join(process.cwd(), `yarn.lock`))) {
+      return null;
+    }
+    let msg = [];
+    const {
+      dependencies
+    } = JSON.parse(childProcess.execSync(`npm list sharp --json`, {
+      encoding: `utf-8`
+    }));
+    const findSharpVersion = dependency => {
+      if (dependency.dependencies.sharp) {
+        return dependency.dependencies.sharp.version;
+      }
+      for (const depName of Object.keys(dependency.dependencies)) {
+        const v = findSharpVersion(dependency.dependencies[depName]);
+        if (v) {
+          return v;
+        }
+      }
+      return null;
+    };
+    const {
+      latestVersion,
+      topLevelPackages
+    } = Object.keys(dependencies).reduce((acc, depName) => {
+      const ...
+fs.existsSync(path.join(process.cwd(), `package-lock.json`)) && fs.existsSync(path.join(process.cwd(), `yarn.lock`))
+__ecma.Array.factory()
+JSON.parse(childProcess.execSync(`npm list sharp --json`, {
+      encoding: `utf-8`
+    }))

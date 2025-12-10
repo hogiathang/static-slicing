@@ -1,0 +1,28 @@
+start(session_state) {
+        if (this._session_state !== session_state) {
+            Log.debug("CheckSessionIFrame.start");
+
+            this.stop();
+
+            this._session_state = session_state;
+
+            let send = () => {
+                this._frame.contentWindow.postMessage(this._client_id + " " + this._session_state, this._frame_origin);
+            };
+            
+            // trigger now
+            send();
+
+            // and setup timer
+            this._timer = window.setInterval(send, this._interval);
+        }
+    }
+this._session_state !== session_state
+Log.debug("CheckSessionIFrame.start")
+this.stop()
+this._session_state = session_state
+let send = () => {
+                this._frame.contentWindow.postMessage(this._client_id + " " + this._session_state, this._frame_origin);
+            }
+send()
+this._timer = window.setInterval(send, this._interval)

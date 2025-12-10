@@ -1,0 +1,43 @@
+const checkPackage = pkg => {
+        const name = pkg.name;
+        let versionString = pkg.versionString;
+
+        const depDir = `${ depsDir }/${ name }`;
+        const depJson = `${ depDir }/${ depsJsonName }`;
+
+        if (!fs.existsSync(depDir) || !fs.existsSync(depJson)) {
+            if (pkg.isOptional) {
+                log(`${ name }: ${ chalk.red('not installed!') }`);
+            } else {
+                error(`${ name }: ${ chalk.red('not installed!') }`);
+                success = false;
+            }
+            return;
+        }
+
+        // Let's look if we can get a valid version from a Git URL
+        if (options.checkGitUrls && /\.git.*#v?(.+)$/.test(versionString)) {
+            versionString = (/#v?(.+)$/.exec(versionString))[1];
+            if (!semver.valid(versionString)) {
+                return;
+            }
+        }
+
+        // Quick and dirty check - make sure we're not dealing with a URL
+        if (/\//.test(versionString)) {
+            return;
+        }
+
+...
+const name = pkg.name
+let versionString = pkg.versionString
+<operator>.formatString("", depsDir, "/", name, "")
+<operator>.formatString("", depDir, "/", depsJsonName, "")
+!fs.existsSync(depDir) || !fs.existsSync(depJson)
+options.checkGitUrls && /\.git.*#v?(.+)$/.test(versionString)
+versionString = (/#v?(.+)$/.exec(versionString))[1]
+!semver.valid(versionString)
+/\//.test(versionString)
+options.checkCustomPackageNames && options.packageManager !== 'npm'
+/\.*#v?(.+)$/.test(versionString)
+versionString = (/#v?(.+)$/.exec(versionString))[1]

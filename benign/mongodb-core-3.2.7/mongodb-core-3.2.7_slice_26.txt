@@ -1,0 +1,49 @@
+function connectServers = function connectServers(self, servers) {
+  // Update connectingServers
+  self.s.connectingServers = self.s.connectingServers.concat(servers);
+
+  // Index used to interleaf the server connects, avoiding
+  // runtime issues on io constrained vm's
+  var timeoutInterval = 0;
+
+  function connect(server, timeoutInterval) {
+    setTimeout(function() {
+      // Add the server to the state
+      if (self.s.replicaSetState.update(server)) {
+        // Primary lastIsMaster store it
+        if (server.lastIsMaster() && server.lastIsMaster().ismaster) {
+          self.ismaster = server.lastIsMaster();
+        }
+      }
+
+      // Add event handlers
+      server.once('close', handleInitialConnectEvent(self, 'close'));
+      server.once('timeout', handleInitialConnectEvent(self, 'timeout'));
+      server.once('parseError', handleInitialConnectEvent(self, 'parseError'));
+      server.once('error', handleInitialConnectEvent(self, 'error'));
+      server.once('connect', handleInitialConnectEvent(self,...
+self.s.connectingServers = self.s.connectingServers.concat(servers)
+var timeoutInterval = 0
+function connect = function connect(server, timeoutInterval) {
+    setTimeout(function() {
+      // Add the server to the state
+      if (self.s.replicaSetState.update(server)) {
+        // Primary lastIsMaster store it
+        if (server.lastIsMaster() && server.lastIsMaster().ismaster) {
+          self.ismaster = server.lastIsMaster();
+        }
+      }
+
+      // Add event handlers
+      server.once('close', handleInitialConnectEvent(self, 'close'));
+      server.once('timeout', handleInitialConnectEvent(self, 'timeout'));
+      server.once('parseError', handleInitialConnectEvent(self, 'parseError'));
+      server.once('error', handleInitialConnectEvent(self, 'error'));
+      server.once('connect', handleInitialConnectEvent(self, 'connect'));
+
+      // SDAM Monitoring events
+      server.on('serverOpening', e => self.emit('serverOpening', e));
+      server.on('serverDescriptionChanged', e => self.emit('serverDescriptionChanged', e));
+      server.on('serverClosed', e => self.emit('serverClosed', e))...
+servers.length > 0
+connect(servers.shift(), timeoutInterval++)

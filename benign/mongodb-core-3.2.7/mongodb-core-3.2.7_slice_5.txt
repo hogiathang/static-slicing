@@ -1,0 +1,11 @@
+function checkHasPrimary = function checkHasPrimary(serverDescriptions) {
+  for (const addr of serverDescriptions.keys()) {
+    if (serverDescriptions.get(addr).type === ServerType.RSPrimary) {
+      return TopologyType.ReplicaSetWithPrimary;
+    }
+  }
+
+  return TopologyType.ReplicaSetNoPrimary;
+}
+_iterator_1 = <operator>.iterator(serverDescriptions.keys())
+serverDescriptions.get(addr).type === ServerType.RSPrimary

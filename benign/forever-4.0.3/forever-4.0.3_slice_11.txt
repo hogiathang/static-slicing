@@ -1,0 +1,159 @@
+const fs = require("fs")
+const path = require("path")
+const events2 = require('eventemitter2')
+const events = require("events")
+const exec = require("child_process").exec
+const spawn = require("child_process").spawn
+const cliff = require("cliff")
+const Configstore = require('configstore')
+const nssocket = require("nssocket")
+const utils = require("./util/utils")
+const winston = require("winston")
+const mkdirp = require("mkdirp")
+const async = require("async")
+const configUtils = require("./util/config-utils")
+const forever = exports
+const nodeVersion = process.versions.node
+function getNodeVersion = function getNodeVersion() {
+  const versionNumbers = nodeVersion.split('.')
+  return {
+    majorVersion: Number.parseInt(versionNumbers[0]),
+    minorVersion: Number.parseInt(versionNumbers[1]),
+    patchVersion: Number.parseInt(versionNumbers[2]),
+  }
+}
+const versionNumbers = getNodeVersion()
+function newEmitter = function newEmitter() {
+  if (versionNumbers.majorVersion > 6) {
+    return new events.EventEmitter()
+  }
+    return new events2.EventEmitter2()
+}
+forever.initialized  = false
+forever.kill         = require('forever-monitor').kill
+forever.checkProcess = require('forever-monitor').checkProcess
+forever.root         = process.env.FOREVER_ROOT || path.join(process.env.HOME || process.env.USERPROFILE || '/root', '.forever')
+forever.config       = configUtils.initConfigFile(forever.root)
+forever.Forever      = forever.Monitor = require('forever-monitor').Monitor
+forever.Worker       = require('./forever/worker').Worker
+forever.cli          = require('./forever/cli')
+exports.version = require('../package').version
+forever.log = winston.createLogger({
+  transports: [
+    new (winston.transports.Console)()
+  ],
+  levels: winston.config.cli.levels,
+  format: winston.format.cli(),
+})
+_tmp_19.transports = [
+    new (winston.transports.Console)()
+  ]
+_tmp_20.push(new (winston.transports.Console)())
+_tmp_19.levels = winston.config.cli.levels
+_tmp_19.format = winston.format.cli()
+forever.out = winston.createLogger({
+  format: (forever.config.get('timestamp') === 'true') ? winston.format.timestamp(): undefined,
+  transports: [
+    new winston.transports.Console(),
+  ],
+})
+_tmp_23.format = forever.config.get('timestamp') === 'true' ? winston.format.timestamp() : undefined
+function getSockets = function getSockets(sockPath, callback) {
+  let sockets;
+
+  try {
+    sockets = fs.readdirSync(sockPath);
+  }
+  catch (ex) {
+    if (ex.code !== 'ENOENT') {
+      return callback(ex);
+    }
+
+    return mkdirp(sockPath, '0755', function (err) {
+      return err ? callback(err) : callback(null, []);
+    });
+  }
+
+  callback(null, sockets);
+}
+function getAllProcesses = function getAllProcesses(callback) {
+  const sockPath = forever.config.get("sockPath");
+
+  function getProcess(name, next) {
+    let fullPath = path.join(sockPath, name);
+    const socket = new nssocket.NsSocket();
+
+    if (process.platform === 'win32') {
+      // it needs the prefix
+      fullPath = '\\\\.\\pipe\\' + fullPath;
+    }
+
+    socket.connect(fullPath, function (err) {
+      if (err) {
+        next(err);
+      }
+
+      socket.dataOnce(['data'], function (data) {
+        data.socket = fullPath;
+        next(null, data);
+        socket.end();
+      });
+
+      socket.send(['data']);
+    });
+
+    socket.on('error', function (err) {
+      if (err.code === 'ECONNREFUSED') {
+        fs.unlink(fullPath, function () {
+          next();
+        });
+      }
+      else {
+        next();
+      }
+    });
+  }
+
+  getSockets(sockPath, function (err, sockets) {
+    if (err || (sockets && sockets.length === 0)) {
+      return callback(err);
+    }
+
+    async.map(sockets, getProcess, function...
+function getAllPids = function getAllPids(processes) {
+  return !processes ? null : processes.map(function (proc) {
+    return {
+      pid: proc.pid,
+      foreverPid: proc.foreverPid
+    };
+  });
+}
+function stopOrRestart = function stopOrRestart(action, event, format, target) {
+  const emitter = newEmitter();
+
+  function sendAction(proc, next) {
+    const socket = new nssocket.NsSocket();
+
+    function onMessage(data) {
+      //
+      // Cleanup the socket.
+      //
+      socket.undata([action, 'ok'],    onMessage);
+      socket.undata([action, 'error'], onMessage);
+      socket.end();
+
+      //
+      // Messages are only sent back from error cases. The event
+      // calling context is available from `nssocket`.
+      //
+      const message = data && data.message
+      const type = this.event.slice().pop();
+
+      //
+      // Remark (Tjatse): This message comes from `forever-monitor`, the process is marked
+      // as `STOPPED`: message: Cannot stop process that is not running.
+      //
+      // Remark (indexzero): We should probably warn instead of emitting an error in `forever-monitor`,
+      // OR handle that error in `bin/worker` for better RPC.
+      //
+      return type === 'error' && /is not r...

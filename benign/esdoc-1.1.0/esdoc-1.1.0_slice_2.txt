@@ -1,0 +1,21 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+})
+_tmp_1.value = true
+var _fs = require('fs')
+var _fs2 = _interopRequireDefault(_fs)
+var _path = require('path')
+var _path2 = _interopRequireDefault(_path)
+var _minimist = require('minimist')
+var _minimist2 = _interopRequireDefault(_minimist)
+var _ESDoc = require('./ESDoc.js')
+var _ESDoc2 = _interopRequireDefault(_ESDoc)
+var _NPMUtil = require('./Util/NPMUtil.js')
+var _NPMUtil2 = _interopRequireDefault(_NPMUtil)
+function _interopRequireDefault = function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+ESDocCLI = package\out\src\ESDocCLI.js::program:ESDocCLI:<init>
+exports.default = ESDocCLI
+const executedFilePath = _fs2.default.realpathSync(process.argv[1])
+executedFilePath === __filename
+const cli = new ESDocCLI(process.argv)
+cli.exec()

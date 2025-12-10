@@ -1,0 +1,13 @@
+function checkCWD = function checkCWD() {
+    try {
+        process.cwd();
+    }
+    catch (error) {
+        if (error.code === 'ENOENT') {
+            stream_1.stderr.write('WARNING: current directory does not exist\n');
+        }
+    }
+}
+process.cwd()
+error.code === 'ENOENT'
+stream_1.stderr.write('WARNING: current directory does not exist\n')

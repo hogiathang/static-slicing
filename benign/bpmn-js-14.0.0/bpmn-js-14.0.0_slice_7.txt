@@ -1,0 +1,22 @@
+DrilldownOverlayBehavior.prototype._updateOverlayVisibility = function(element) {
+  var overlays = this._overlays;
+
+  var businessObject = getBusinessObject(element);
+
+  var overlay = overlays.get({ element: businessObject.id, type: 'drilldown' })[0];
+
+  if (!overlay) {
+    return;
+  }
+
+  var hasFlowElements = businessObject
+    && businessObject.get('flowElements')
+    && businessObject.get('flowElements').length;
+
+  classes(overlay.html).toggle(EMPTY_MARKER, !hasFlowElements);
+}
+var overlays = this._overlays
+var businessObject = getBusinessObject(element)
+var overlay = overlays.get({ element: businessObject.id, type: 'drilldown' })[0]
+!overlay
+businessObject.get('flowElements')

@@ -1,0 +1,18 @@
+function handleAngularCLIFallbacks = function handleAngularCLIFallbacks(workspace) {
+    if (process.argv[2] === 'update' && process.env.FORCE_NG_UPDATE != 'true') {
+        console.log(`Nx provides a much improved version of "ng update". It runs the same migrations, but allows you to:`);
+        console.log(`- rerun the same migration multiple times`);
+        console.log(`- reorder migrations, skip migrations`);
+        console.log(`- fix migrations that "almost work"`);
+        console.log(`- commit a partially migrated state`);
+        console.log(`- change versions of packages to match organizational requirements`);
+        console.log(`And, in general, it is lot more reliable for non-trivial workspaces. Read more at: https://nx.dev/getting-started/nx-and-angular#ng-update-and-nx-migrate`);
+        console.log(`Run "nx migrate latest" to update to the latest version of Nx.`);
+        console.log(`Running "ng update" can still be useful in some dev workflows, so we aren't planning to remove it.`);
+        console.l...
+process.argv[2] === 'update' && process.env.FORCE_NG_UPDATE != 'true'
+process.argv[2] === 'add'
+console.log('Ng add is not natively supported by Nx')
+const pkg = process.argv[2] === 'add' ? process.argv[3] : process.argv[4]
+!pkg
+process.exit(1)

@@ -1,0 +1,9 @@
+sendTo(pid, action, data) {
+    debug('[%s] send %s with %j to %s', this.pid, action, data, pid);
+    if (pid !== process.pid) return this;
+    this.send(action, data, 'both');
+    return this;
+  }
+debug('[%s] send %s with %j to %s', this.pid, action, data, pid)
+pid !== process.pid
+this.send(action, data, 'both')

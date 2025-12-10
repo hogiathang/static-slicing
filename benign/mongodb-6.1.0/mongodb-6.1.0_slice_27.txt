@@ -1,0 +1,59 @@
+function performInitialHandshake = async function performInitialHandshake(
+  conn: Connection,
+  options: ConnectionOptions
+): Promise<void> {
+  const credentials = options.credentials;
+
+  if (credentials) {
+    if (
+      !(credentials.mechanism === AuthMechanism.MONGODB_DEFAULT) &&
+      !AUTH_PROVIDERS.get(credentials.mechanism)
+    ) {
+      throw new MongoInvalidArgumentError(`AuthMechanism '${credentials.mechanism}' not supported`);
+    }
+  }
+
+  const authContext = new AuthContext(conn, credentials, options);
+  conn.authContext = authContext;
+
+  const handshakeDoc = await prepareHandshakeDocument(authContext);
+
+  // @ts-expect-error: TODO(NODE-5141): The options need to be filtered properly, Connection options differ from Command options
+  const handshakeOptions: CommandOptions = { ...options };
+  if (typeof options.connectTimeoutMS === 'number') {
+    // The handshake technically is a monitoring check, so its socket timeout should be connectTimeoutMS
+    handshakeOptions.socketTimeoutMS = options.connectTimeou...
+const credentials = options.credentials
+!(credentials.mechanism === AuthMechanism.MONGODB_DEFAULT) &&
+      !AUTH_PROVIDERS.get(credentials.mechanism)
+!AUTH_PROVIDERS.get(credentials.mechanism)
+throw new MongoInvalidArgumentError(`AuthMechanism '${credentials.mechanism}' not supported`);
+const authContext = new AuthContext(conn, credentials, options)
+conn.authContext = authContext
+const handshakeDoc = await prepareHandshakeDocument(authContext)
+const handshakeOptions: CommandOptions = { ...options }
+typeof options.connectTimeoutMS === 'number'
+handshakeOptions.socketTimeoutMS = options.connectTimeoutMS
+const start = new Date().getTime()
+const response = await conn.commandAsync(ns('admin.$cmd'), handshakeDoc, handshakeOptions)
+!('isWritablePrimary' in response)
+response.isWritablePrimary = response[LEGACY_HELLO_COMMAND]
+response.helloOk
+conn.helloOk = true
+const supportedServerErr = checkSupportedServer(response, options)
+throw supportedServerErr;
+options.loadBalanced
+!response.serviceId
+throw new MongoCompatibilityError(
+        'Driver attempted to initialize in load balancing mode, ' +
+          'but the server does not support this mode.'
+      );
+'Driver attempted to initialize in load balancing mode, ' +
+          'but the server does not support this mode.'
+"but the server does not support this mode."
+conn.hello = response
+conn.lastHelloMS = new Date().getTime() - start
+!response.arbiterOnly && credentials
+authContext.response = response
+const resolvedCredentials = credentials.resolveAuthMechanism(response)
+const provider = AUTH_PROVIDERS.get(resolvedCredentials.mechanism)

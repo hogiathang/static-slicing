@@ -1,0 +1,96 @@
+function getValidHeadNodesAndAttributesSSR = function getValidHeadNodesAndAttributesSSR(
+  rootNode,
+  htmlAndBodyAttributes = {
+    html: {},
+    body: {},
+  }
+) {
+  const seenIds = new Map()
+  const validHeadNodes = []
+
+  // Filter out non-element nodes before looping since we don't care about them
+  for (const node of rootNode.childNodes) {
+    const { rawTagName } = node
+    const id = node.attributes?.id
+
+    if (!isElementType(node)) continue
+
+    if (isValidNodeName(rawTagName)) {
+      if (rawTagName === `html` || rawTagName === `body`) {
+        const { style, ...nonStyleAttributes } = node.attributes
+
+        htmlAndBodyAttributes[rawTagName] = {
+          ...htmlAndBodyAttributes[rawTagName],
+          ...nonStyleAttributes,
+        }
+
+        // Unfortunately renderToString converts inline styles to a string, so we have to convert them back to an object
+        if (style) {
+          htmlAndBodyAttributes[rawTagName].style = {
+            ...htmlAndBodyAttributes[rawTagName]?.style,
+            ...styleToOjbect(sty...
+htmlAndBodyAttributes = htmlAndBodyAttributes === void 0 ? {
+    html: {},
+    body: {},
+  } : htmlAndBodyAttributes
+_tmp_7.html = {}
+_tmp_7.body = {}
+const seenIds = new Map()
+const validHeadNodes = []
+_iterator_0 = <operator>.iterator(rootNode.childNodes)
+rawTagName = _tmp_11.rawTagName
+const id = node.attributes?.id
+!isElementType(node)
+isValidNodeName(rawTagName)
+rawTagName === `html` || rawTagName === `body`
+_tmp_12 = node.attributes
+htmlAndBodyAttributes[rawTagName] = {
+          ...htmlAndBodyAttributes[rawTagName],
+          ...nonStyleAttributes,
+        }
+...htmlAndBodyAttributes[rawTagName]
+...nonStyleAttributes
+htmlAndBodyAttributes[rawTagName].style = {
+            ...htmlAndBodyAttributes[rawTagName]?.style,
+            ...styleToOjbect(style),
+          }
+...htmlAndBodyAttributes[rawTagName]?.style
+...styleToOjbect(style)
+const attributes = { ...node.attributes, "data-gatsby-head": true }
+rawTagName === `script` || rawTagName === `style`
+element = (
+            <node.rawTagName
+              {...attributes}
+              dangerouslySetInnerHTML={{
+                __html: node.text,
+              }}
+            />
+          )
+_tmp_16.__html = node.text
+element =
+            node.textContent.length > 0 ? (
+              <node.rawTagName {...attributes}>
+                {node.textContent}
+              </node.rawTagName>
+            ) : (
+              <node.rawTagName {...attributes} />
+            )
+node.textContent.length > 0 ? <node.rawTagName {...attributes}>
+                {node.textContent}
+              </node.rawTagName> : <node.rawTagName {...attributes} />
+node.textContent
+!seenIds.has(id)
+validHeadNodes.push(element)
+seenIds.set(id, validHeadNodes.length - 1)
+const indexOfPreviouslyInsertedNode = seenIds.get(id)
+validHeadNodes[indexOfPreviouslyInsertedNode] = element
+validHeadNodes.push(element)
+warnForInvalidTag(rawTagName)
+node.childNodes.length
+validHeadNodes.push(
+        ...getValidHeadNodesAndAttributesSSR(node, htmlAndBodyAttributes)
+          .validHeadNodes
+      )
+...getValidHeadNodesAndAttributesSSR(node, htmlAndBodyAttributes)
+          .validHeadNodes
+validHeadNodes

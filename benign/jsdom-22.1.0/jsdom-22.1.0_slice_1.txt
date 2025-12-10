@@ -1,0 +1,111 @@
+function createClient = function createClient(xhr) {
+  const { flag, properties } = xhr;
+  const urlObj = new URL(flag.uri);
+  const uri = urlObj.href;
+  const ucMethod = flag.method.toUpperCase();
+
+  const { requestManager } = flag;
+
+  if (urlObj.protocol === "file:") {
+    const response = new EventEmitter();
+    response.statusCode = 200;
+    response.rawHeaders = [];
+    response.headers = {};
+    const filePath = urlObj.pathname
+      .replace(/^file:\/\//, "")
+      .replace(/^\/([a-z]):\//i, "$1:/")
+      .replace(/%20/g, " ");
+
+    const client = new EventEmitter();
+
+    const readableStream = fs.createReadStream(filePath, { encoding: null });
+
+    readableStream.on("data", chunk => {
+      response.emit("data", chunk);
+      client.emit("data", chunk);
+    });
+
+    readableStream.on("end", () => {
+      response.emit("end");
+      client.emit("end");
+    });
+
+    readableStream.on("error", err => {
+      client.emit("error", err);
+    });
+
+    client.abort = function () {
+      readableStream.dest...
+properties = _tmp_18.properties
+const urlObj = new URL(flag.uri)
+const uri = urlObj.href
+const ucMethod = flag.method.toUpperCase()
+requestManager = _tmp_21.requestManager
+urlObj.protocol === "file:"
+const response = new EventEmitter()
+response.statusCode = 200
+response.rawHeaders = []
+response.headers = {}
+const filePath = urlObj.pathname
+      .replace(/^file:\/\//, "")
+      .replace(/^\/([a-z]):\//i, "$1:/")
+      .replace(/%20/g, " ")
+/^file:\/\//
+"$1:/"
+/%20/g
+const client = new EventEmitter()
+const readableStream = fs.createReadStream(filePath, { encoding: null })
+readableStream.on("data", chunk => {
+      response.emit("data", chunk);
+      client.emit("data", chunk);
+    })
+readableStream.on("end", () => {
+      response.emit("end");
+      client.emit("end");
+    })
+readableStream.on("error", err => {
+      client.emit("error", err);
+    })
+client.abort = function () {
+      readableStream.destroy();
+      client.emit("abort");
+    }
+const req = {
+        abort() {
+          properties.abortError = true;
+          xhr.abort();
+        }
+      }
+_tmp_29.abort = abort
+requestManager.add(req)
+const rmReq = requestManager.remove.bind(requestManager, req)
+client.on("abort", rmReq)
+client.on("error", rmReq)
+client.on("end", rmReq)
+process.nextTick(() => client.emit("response", response, urlObj.href))
+function doRequest = function doRequest() {
+    try {
+      let requestBody = body;
+      let len = 0;
+      if (hasBody) {
+        if (flag.formData) {
+          // TODO: implement https://html.spec.whatwg.org/#multipart-form-data
+          // directly instead of using an external library
+          requestBody = new FormData();
+          for (const entry of body) {
+            requestBody.append(entry.name, entry.value, entry.options);
+          }
+          len = requestBody.getLengthSync();
+          requestHeaders["Content-Type"] = `multipart/form-data; boundary=${requestBody.getBoundary()}`;
+        } else {
+          if (typeof body === "string") {
+            len = Buffer.byteLength(body);
+          } else {
+            len = body.length;
+          }
+          requestBody = Buffer.isBuffer(requestBody) ? requestBody : Buffer.from(requestBody);
+        }
+        requestHeaders["Content-Length"] = len;
+      }
+      requestHeaders["Accept-Encoding"] = "gzip, deflate";
+      const requestClient = new...

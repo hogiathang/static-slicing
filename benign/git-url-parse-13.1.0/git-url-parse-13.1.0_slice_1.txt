@@ -1,0 +1,4 @@
+urlInfo.toString = function (type) {
+        return gitUrlParse.stringify(this, type);
+    }
+gitUrlParse.stringify(this, type)

@@ -1,0 +1,15 @@
+(tree) => {
+        if (tree.exists(fromPath)) {
+            // fromPath is a file
+            tree.rename(fromPath, toPath);
+        }
+        else {
+            // fromPath is a directory
+            tree.getDir(fromPath).visit((path) => {
+                tree.rename(path, (0, core_1.join)(toPath, path.slice(fromPath.length)));
+            });
+        }
+        return tree;
+    }
+tree.exists(fromPath)
+tree.rename(fromPath, toPath)

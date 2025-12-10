@@ -1,0 +1,309 @@
+const runAll = async (
+  {
+    allowEmpty = false,
+    concurrent = true,
+    configObject,
+    configPath,
+    cwd,
+    debug = false,
+    diff,
+    diffFilter,
+    maxArgLength,
+    quiet = false,
+    relative = false,
+    shell = false,
+    // Stashing should be disabled by default when the `diff` option is used
+    stash = diff === undefined,
+    verbose = false,
+  },
+  logger = console
+) => {
+  debugLog('Running all linter scripts...')
+
+  // Resolve relative CWD option
+  const hasExplicitCwd = !!cwd
+  cwd = hasExplicitCwd ? path.resolve(cwd) : process.cwd()
+  debugLog('Using working directory `%s`', cwd)
+
+  const ctx = getInitialState({ quiet })
+
+  const { gitDir, gitConfigDir } = await resolveGitRepo(cwd)
+  if (!gitDir) {
+    if (!quiet) ctx.output.push(NOT_GIT_REPO)
+    ctx.errors.add(GitRepoError)
+    throw createError(ctx)
+  }
+
+  // Test whether we have any commits or not.
+  // Stashing must be disabled with no initial commit.
+  const hasInitialCommit = await execGit(['log', '-1'...
+allowEmpty = param1_0.allowEmpty
+concurrent = param1_0.concurrent
+configObject = param1_0.configObject
+configPath = param1_0.configPath
+cwd = param1_0.cwd
+debug = param1_0.debug
+diff = param1_0.diff
+diffFilter = param1_0.diffFilter
+maxArgLength = param1_0.maxArgLength
+quiet = param1_0.quiet
+relative = param1_0.relative
+shell = param1_0.shell
+stash = param1_0.stash
+verbose = param1_0.verbose
+logger = logger === void 0 ? console : logger
+debugLog('Running all linter scripts...')
+const hasExplicitCwd = !!cwd
+cwd = hasExplicitCwd ? path.resolve(cwd) : process.cwd()
+debugLog('Using working directory `%s`', cwd)
+const ctx = getInitialState({ quiet })
+_tmp_3 = await resolveGitRepo(cwd)
+!gitDir
+ctx.output.push(NOT_GIT_REPO)
+ctx.errors.add(GitRepoError)
+throw createError(ctx)
+const hasInitialCommit = await execGit(['log', '-1'], { cwd: gitDir })
+    .then(() => true)
+    .catch(() => false)
+<lambda>2
+<lambda>3
+ctx.shouldBackup = hasInitialCommit && stash
+!ctx.shouldBackup
+logger.warn(skippingBackup(hasInitialCommit, diff))
+const files = await getStagedFiles({ cwd: gitDir, diff, diffFilter })
+!files
+ctx.output.push(FAILED_GET_STAGED_FILES)
+ctx.errors.add(GetStagedFilesError)
+throw createError(ctx, GetStagedFilesError)
+debugLog('Loaded list of staged files in git:\n%O', files)
+files.length === 0
+const foundConfigs = await searchConfigs({ configObject, configPath, cwd, gitDir }, logger)
+const numberOfConfigs = Object.keys(foundConfigs).length
+numberOfConfigs === 0
+ctx.errors.add(ConfigNotFoundError)
+throw createError(ctx, ConfigNotFoundError)
+const filesByConfig = await groupFilesByConfig({
+    configs: foundConfigs,
+    files,
+    singleConfigMode: configObject || configPath !== undefined,
+  })
+_tmp_16.configs = foundConfigs
+_tmp_16.files = files
+_tmp_16.singleConfigMode = configObject || configPath !== undefined
+const hasMultipleConfigs = numberOfConfigs > 1
+let hasDeprecatedGitAdd = false
+const listrOptions = {
+    ctx,
+    exitOnError: false,
+    registerSignalListeners: false,
+    ...getRenderer({ debug, quiet }, logger),
+  }
+_tmp_17.ctx = ctx
+_tmp_17.exitOnError = false
+_tmp_17.registerSignalListeners = false
+...getRenderer({ debug, quiet }, logger)
+__ecma.Array.factory()
+const matchedFiles = new Set()
+_iterator_0 = <operator>.iterator(Object.entries(filesByConfig))
+const configName = configPath ? normalizePath(path.relative(cwd, configPath)) : 'Config object'
+const stagedFileChunks = chunkFiles({ baseDir: gitDir, files, maxArgLength, relative })
+const groupCwd = hasMultipleConfigs && !hasExplicitCwd ? path.dirname(configPath) : cwd
+const chunkCount = stagedFileChunks.length
+chunkCount > 1
+debugLog('Chunked staged files from `%s` into %d part', configPath, chunkCount)
+_iterator_1 = <operator>.iterator(stagedFileChunks.entries())
+const chunkListrTasks = await Promise.all(
+        generateTasks({ config, cwd: groupCwd, files, relative }).map((task) =>
+          makeCmdTasks({
+            commands: task.commands,
+            cwd: groupCwd,
+            files: task.fileList,
+            gitDir,
+            shell,
+            verbose,
+          }).then((subTasks) => {
+            // Add files from task to match set
+            task.fileList.forEach((file) => {
+              // Make sure relative files are normalized to the
+              // group cwd, because other there might be identical
+              // relative filenames in the entire set.
+              const normalizedFile = path.isAbsolute(file)
+                ? file
+                : normalizePath(path.join(groupCwd, file))
+
+              matchedFiles.add(normalizedFile)
+            })
+
+            hasDeprecatedGitAdd =
+              hasDeprecatedGitAdd || subTasks.some((subTask) => subTask.command === 'git add')
+
+            const fileCount = task.fileList.leng...
+generateTasks({ config, cwd: groupCwd, files, relative }).map((task) =>
+          makeCmdTasks({
+            commands: task.commands,
+            cwd: groupCwd,
+            files: task.fileList,
+            gitDir,
+            shell,
+            verbose,
+          }).then((subTasks) => {
+            // Add files from task to match set
+            task.fileList.forEach((file) => {
+              // Make sure relative files are normalized to the
+              // group cwd, because other there might be identical
+              // relative filenames in the entire set.
+              const normalizedFile = path.isAbsolute(file)
+                ? file
+                : normalizePath(path.join(groupCwd, file))
+
+              matchedFiles.add(normalizedFile)
+            })
+
+            hasDeprecatedGitAdd =
+              hasDeprecatedGitAdd || subTasks.some((subTask) => subTask.command === 'git add')
+
+            const fileCount = task.fileList.length
+
+            return {
+              title:...
+listrTasks.push({
+        title:
+          `${configName}${chalk.dim(` — ${files.length} ${files.length > 1 ? 'files' : 'file'}`)}` +
+          (chunkCount > 1 ? chalk.dim(` (chunk ${index + 1}/${chunkCount})...`) : ''),
+        task: (ctx, task) => task.newListr(chunkListrTasks, { concurrent, exitOnError: true }),
+        skip: () => {
+          // Skip if the first step (backup) failed
+          if (ctx.errors.has(GitError)) return SKIPPED_GIT_ERROR
+          // Skip chunk when no every task is skipped (due to no matches)
+          if (chunkListrTasks.every((task) => task.skip())) {
+            return `${configName}${chalk.dim(' — no tasks to run')}`
+          }
+          return false
+        },
+      })
+_tmp_28.title = `${configName}${chalk.dim(` — ${files.length} ${files.length > 1 ? 'files' : 'file'}`)}` +
+          (chunkCount > 1 ? chalk.dim(` (chunk ${index + 1}/${chunkCount})...`) : '')
+`${configName}${chalk.dim(` — ${files.length} ${files.length > 1 ? 'files' : 'file'}`)}` +
+          (chunkCount > 1 ? chalk.dim(` (chunk ${index + 1}/${chunkCount})...`) : '')
+chunkCount > 1 ? chalk.dim(` (chunk ${index + 1}/${chunkCount})...`) : ""
+task.newListr(chunkListrTasks, { concurrent, exitOnError: true })
+_tmp_28.skip = <lambda>11
+logger.warn(DEPRECATED_GIT_ADD)
+listrTasks.every((task) => task.skip())
+const matchedFileChunks = chunkFiles({
+    // matched files are relative to `cwd`, not `gitDir`, when `relative` is used
+    baseDir: cwd,
+    files: Array.from(matchedFiles),
+    maxArgLength,
+    relative: false,
+  })
+_tmp_32.baseDir = cwd
+_tmp_32.files = Array.from(matchedFiles)
+_tmp_32.maxArgLength = maxArgLength
+_tmp_32.relative = false
+const git = new GitWorkflow({
+    allowEmpty,
+    gitConfigDir,
+    gitDir,
+    matchedFileChunks,
+    diff,
+    diffFilter,
+  })
+_tmp_34.allowEmpty = allowEmpty
+_tmp_34.gitConfigDir = gitConfigDir
+_tmp_34.gitDir = gitDir
+_tmp_34.matchedFileChunks = matchedFileChunks
+_tmp_34.diff = diff
+_tmp_34.diffFilter = diffFilter
+const runner = new Listr(
+    [
+      {
+        title: 'Preparing lint-staged...',
+        task: (ctx) => git.prepare(ctx),
+      },
+      {
+        title: 'Hiding unstaged changes to partially staged files...',
+        task: (ctx) => git.hideUnstagedChanges(ctx),
+        enabled: hasPartiallyStagedFiles,
+      },
+      {
+        title: `Running tasks for staged files...`,
+        task: (ctx, task) => task.newListr(listrTasks, { concurrent }),
+        skip: () => listrTasks.every((task) => task.skip()),
+      },
+      {
+        title: 'Applying modifications from tasks...',
+        task: (ctx) => git.applyModifications(ctx),
+        skip: applyModificationsSkipped,
+      },
+      {
+        title: 'Restoring unstaged changes to partially staged files...',
+        task: (ctx) => git.restoreUnstagedChanges(ctx),
+        enabled: hasPartiallyStagedFiles,
+        skip: restoreUnstagedChangesSkipped,
+      },
+      {
+        title: 'Reverting to original state because of errors...',
+        tas...
+_tmp_36 = __ecma.Array.factory()
+_tmp_36.push({
+        title: 'Preparing lint-staged...',
+        task: (ctx) => git.prepare(ctx),
+      })
+_tmp_37.title = "Preparing lint-staged..."
+_tmp_37.task = <lambda>14
+_tmp_36.push({
+        title: 'Hiding unstaged changes to partially staged files...',
+        task: (ctx) => git.hideUnstagedChanges(ctx),
+        enabled: hasPartiallyStagedFiles,
+      })
+_tmp_38.title = "Hiding unstaged changes to partially staged files..."
+git.hideUnstagedChanges(ctx)
+_tmp_38.enabled = hasPartiallyStagedFiles
+_tmp_36.push({
+        title: `Running tasks for staged files...`,
+        task: (ctx, task) => task.newListr(listrTasks, { concurrent }),
+        skip: () => listrTasks.every((task) => task.skip()),
+      })
+_tmp_39.title = "Running tasks for staged files..."
+task.newListr(listrTasks, { concurrent })
+listrTasks.every((task) => task.skip())
+_tmp_36.push({
+        title: 'Applying modifications from tasks...',
+        task: (ctx) => git.applyModifications(ctx),
+        skip: applyModificationsSkipped,
+      })
+_tmp_41.title = "Applying modifications from tasks..."
+git.applyModifications(ctx)
+_tmp_41.skip = applyModificationsSkipped
+_tmp_36.push({
+        title: 'Restoring unstaged changes to partially staged files...',
+        task: (ctx) => git.restoreUnstagedChanges(ctx),
+        enabled: hasPartiallyStagedFiles,
+        skip: restoreUnstagedChangesSkipped,
+      })
+_tmp_42.title = "Restoring unstaged changes to partially staged files..."
+git.restoreUnstagedChanges(ctx)
+_tmp_42.enabled = hasPartiallyStagedFiles
+_tmp_42.skip = restoreUnstagedChangesSkipped
+_tmp_36.push({
+        title: 'Reverting to original state because of errors...',
+        task: (ctx) => git.restoreOriginalState(ctx),
+        enabled: restoreOriginalStateEnabled,
+        skip: restoreOriginalStateSkipped,
+      })
+_tmp_43.title = "Reverting to original state because of errors..."
+git.restoreOriginalState(ctx)
+_tmp_43.enabled = restoreOriginalStateEnabled
+_tmp_43.skip = restoreOriginalStateSkipped
+_tmp_36.push({
+        title: 'Cleaning up temporary files...',
+        task: (ctx) => git.cleanup(ctx),
+        enabled: cleanupEnabled,
+        skip: cleanupSkipped,
+      })
+_tmp_44.title = "Cleaning up temporary files..."
+_tmp_44.task = <lambda>22
+_tmp_44.enabled = cleanupEnabled
+_tmp_44.skip = cleanupSkipped
+await runner.run()

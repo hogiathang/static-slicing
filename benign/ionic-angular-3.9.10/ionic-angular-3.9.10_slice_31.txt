@@ -1,0 +1,50 @@
+ItemSliding.prototype._setOpenAmount = function (openAmount, isFinal) {
+            var _this = this;
+            var platform = this._plt;
+            if (this._tmr) {
+                platform.cancelTimeout(this._tmr);
+                this._tmr = null;
+            }
+            this._openAmount = openAmount;
+            if (isFinal) {
+                this.item.setElementStyle(platform.Css.transition, '');
+            }
+            if (openAmount > 0) {
+                var state = (openAmount >= (this._optsWidthRightSide + SWIPE_MARGIN))
+                    ? 8 /* Right */ | 32 /* SwipeRight */
+                    : 8 /* Right */;
+                this._setState(state);
+            }
+            else if (openAmount < 0) {
+                var state_1 = (openAmount <= (-this._optsWidthLeftSide - SWIPE_MARGIN))
+                    ? 16 /* Left */ | 64 /* SwipeLeft */
+                    : 16 /* Left */;
+                this._setState(state_1);
+            }
+            else {
+          ...
+var _this = this
+var platform = this._plt
+this._tmr
+platform.cancelTimeout(this._tmr)
+this._tmr = null
+this._openAmount = openAmount
+this.item.setElementStyle(platform.Css.transition, '')
+openAmount > 0
+var state = (openAmount >= (this._optsWidthRightSide + SWIPE_MARGIN))
+                    ? 8 /* Right */ | 32 /* SwipeRight */
+                    : 8
+8 /* Right */ | 32
+8
+this._setState(state)
+openAmount < 0
+var state_1 = (openAmount <= (-this._optsWidthLeftSide - SWIPE_MARGIN))
+                    ? 16 /* Left */ | 64 /* SwipeLeft */
+                    : 16
+16 /* Left */ | 64
+16
+this._setState(state_1)
+this.item.setElementStyle(platform.Css.transform, "translate3d(" + -openAmount + "px,0,0)")
+var ionDrag = this.ionDrag
+ionDrag.observers.length > 0
+ionDrag.emit(this)

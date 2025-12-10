@@ -1,0 +1,176 @@
+function generateClient = async function generateClient(options) {
+  const {
+    datamodel,
+    schemaPath,
+    outputDir,
+    transpile,
+    generator,
+    dmmf,
+    datasources,
+    binaryPaths,
+    testMode,
+    copyRuntime,
+    copyRuntimeSourceMaps = false,
+    clientVersion,
+    engineVersion,
+    activeProvider,
+    postinstall,
+    overrideEngineType,
+    noEngine
+  } = options;
+  const clientEngineType = overrideEngineType ?? getClientEngineType(generator);
+  const { runtimeDirs, finalOutputDir, projectRoot } = await getGenerationDirs(options);
+  const { prismaClientDmmf, fileMap } = await buildClient({
+    datamodel,
+    schemaPath,
+    transpile,
+    runtimeDirs,
+    outputDir: finalOutputDir,
+    generator,
+    dmmf,
+    datasources,
+    binaryPaths,
+    clientVersion,
+    engineVersion,
+    projectRoot,
+    activeProvider,
+    postinstall,
+    overrideEngineType,
+    noEngine
+  });
+  const denylistsErrors = validateDmmfAgainstDenylists(prismaClientDmmf);
+  if (denylistsErrors) {
+    let message ...
+_tmp_226 = options
+datamodel = _tmp_226.datamodel
+schemaPath = _tmp_226.schemaPath
+outputDir = _tmp_226.outputDir
+transpile = _tmp_226.transpile
+generator = _tmp_226.generator
+dmmf = _tmp_226.dmmf
+datasources = _tmp_226.datasources
+binaryPaths = _tmp_226.binaryPaths
+testMode = _tmp_226.testMode
+copyRuntime = _tmp_226.copyRuntime
+copyRuntimeSourceMaps = _tmp_226.copyRuntimeSourceMaps === void 0 ? false : _tmp_226.copyRuntimeSourceMaps
+clientVersion = _tmp_226.clientVersion
+engineVersion = _tmp_226.engineVersion
+activeProvider = _tmp_226.activeProvider
+postinstall = _tmp_226.postinstall
+overrideEngineType = _tmp_226.overrideEngineType
+noEngine = _tmp_226.noEngine
+const clientEngineType = overrideEngineType ?? getClientEngineType(generator)
+_tmp_227 = await getGenerationDirs(options)
+_tmp_229 = await buildClient({
+    datamodel,
+    schemaPath,
+    transpile,
+    runtimeDirs,
+    outputDir: finalOutputDir,
+    generator,
+    dmmf,
+    datasources,
+    binaryPaths,
+    clientVersion,
+    engineVersion,
+    projectRoot,
+    activeProvider,
+    postinstall,
+    overrideEngineType,
+    noEngine
+  })
+_tmp_228.datamodel = datamodel
+_tmp_228.schemaPath = schemaPath
+_tmp_228.transpile = transpile
+_tmp_228.runtimeDirs = runtimeDirs
+_tmp_228.outputDir = finalOutputDir
+_tmp_228.generator = generator
+_tmp_228.dmmf = dmmf
+_tmp_228.datasources = datasources
+_tmp_228.binaryPaths = binaryPaths
+_tmp_228.clientVersion = clientVersion
+_tmp_228.engineVersion = engineVersion
+_tmp_228.projectRoot = projectRoot
+_tmp_228.activeProvider = activeProvider
+_tmp_228.postinstall = postinstall
+_tmp_228.overrideEngineType = overrideEngineType
+_tmp_228.noEngine = noEngine
+const denylistsErrors = validateDmmfAgainstDenylists(prismaClientDmmf)
+<operator>.formatString("", bold(
+      red("Error: ")
+    ), "The schema at "", schemaPath, "" contains reserved keywords.
+       Rename the following items:")
+red("Error: ")
+"" contains reserved keywords.
+       Rename the following items:"
+_iterator_8 = <operator>.iterator(denylistsErrors)
+message += "\n         - " + error.message
+message += `
+To learn more about how to rename models, check out https://pris.ly/d/naming-models`
+throw new DenylistError(message);
+noEngine === true
+await deleteOutputDir(finalOutputDir)
+await (0, import_fs_extra.ensureDir)(finalOutputDir)
+await (0, import_fs_extra.ensureDir)(import_path7.default.join(outputDir, "runtime"))
+generator?.previewFeatures.includes("deno") && !!globalThis.Deno
+await (0, import_fs_extra.ensureDir)(import_path7.default.join(outputDir, "deno"))
+await Promise.all(
+    Object.entries(fileMap).map(async ([fileName, file]) => {
+      const filePath = import_path7.default.join(finalOutputDir, fileName);
+      if ((0, import_fs5.existsSync)(filePath)) {
+        await import_promises2.default.unlink(filePath);
+      }
+      await import_promises2.default.writeFile(filePath, file);
+    })
+  )
+Object.entries(fileMap).map(async ([fileName, file]) => {
+      const filePath = import_path7.default.join(finalOutputDir, fileName);
+      if ((0, import_fs5.existsSync)(filePath)) {
+        await import_promises2.default.unlink(filePath);
+      }
+      await import_promises2.default.writeFile(filePath, file);
+    })
+const runtimeSourceDir = testMode ? eval(`require('path').join(__dirname, '../../runtime')`) : eval(`require('path').join(__dirname, '../runtime')`)
+copyRuntime || !import_path7.default.resolve(outputDir).endsWith(`@prisma${import_path7.default.sep}client`)
+const copyTarget = import_path7.default.join(outputDir, "runtime")
+await (0, import_fs_extra.ensureDir)(copyTarget)
+runtimeSourceDir !== copyTarget
+await copyRuntimeFiles({
+        from: runtimeSourceDir,
+        to: copyTarget,
+        sourceMaps: copyRuntimeSourceMaps,
+        runtimeName: getNodeRuntimeName(clientEngineType)
+      })
+_tmp_240.from = runtimeSourceDir
+_tmp_240.to = copyTarget
+_tmp_240.sourceMaps = copyRuntimeSourceMaps
+_tmp_240.runtimeName = getNodeRuntimeName(clientEngineType)
+const enginePath = clientEngineType === "library" /* Library */ ? binaryPaths.libqueryEngine : binaryPaths.queryEngine
+!enginePath
+throw new Error(
+      `Prisma Client needs \`${clientEngineType === "library" /* Library */ ? "libqueryEngine" : "queryEngine"}\` in the \`binaryPaths\` object.`
+    );
+<operator>.formatString("Prisma Client needs \`", clientEngineType === "library" /* Library */ ? "libqueryEngine" : "queryEngine", "\` in the \`binaryPaths\` object.")
+transpile === true && noEngine !== true
+process.env.NETLIFY
+await (0, import_fs_extra.ensureDir)("/tmp/prisma-engines")
+_iterator_9 = <operator>.iterator(Object.entries(enginePath))
+const fileName = import_path7.default.basename(filePath)
+const target = process.env.NETLIFY && binaryTarget !== "rhel-openssl-1.0.x" ? import_path7.default.join("/tmp/prisma-engines", fileName) : import_path7.default.join(finalOutputDir, fileName)
+await overwriteFile(filePath, target)
+const schemaTargetPath = import_path7.default.join(finalOutputDir, "schema.prisma")
+schemaPath !== schemaTargetPath
+await import_promises2.default.copyFile(schemaPath, schemaTargetPath)
+const proxyIndexJsPath = import_path7.default.join(outputDir, "index.js")
+const proxyIndexBrowserJsPath = import_path7.default.join(outputDir, "index-browser.js")
+const proxyIndexDTSPath = import_path7.default.join(outputDir, "index.d.ts")
+!(0, import_fs5.existsSync)(proxyIndexJsPath)
+await import_promises2.default.copyFile(import_path7.default.join(__dirname, "../../index.js"), proxyIndexJsPath)
+!(0, import_fs5.existsSync)(proxyIndexDTSPath)
+await import_promises2.default.copyFile(import_path7.default.join(__dirname, "../../index.d.ts"), proxyIndexDTSPath)
+!(0, import_fs5.existsSync)(proxyIndexBrowserJsPath)
+await import_promises2.default.copyFile(import_path7.default.join(__dirname, "../../index-browser.js"), proxyIndexBrowserJsPath)
+const prismaCache = (0, import_env_paths.default)("prisma").cache
+const signalsPath = import_path7.default.join(prismaCache, "last-generate")
+await import_promises2.default.mkdir(prismaCache, { recursive: true })
+await import_promises2.default.writeFile(signalsPath, Date.now().toString())

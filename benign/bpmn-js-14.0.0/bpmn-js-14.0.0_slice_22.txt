@@ -1,0 +1,25 @@
+function getEmbeddedLabelBounds = function getEmbeddedLabelBounds(shape) {
+  if (!is(shape, 'bpmn:Activity')) {
+    return;
+  }
+
+  var di = getDi(shape);
+
+  if (!di) {
+    return;
+  }
+
+  var label = di.get('label');
+
+  if (!label) {
+    return;
+  }
+
+  return label.get('bounds');
+}
+!is(shape, 'bpmn:Activity')
+var di = getDi(shape)
+!di
+var label = di.get('label')
+!label
+label.get('bounds')

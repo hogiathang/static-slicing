@@ -1,0 +1,20 @@
+function create = function create(req, res, next) {
+    let resource;
+
+    if (opts._isFake) {
+      const id = db.get(name).createId().value();
+      resource = _objectSpread(_objectSpread({}, req.body), {}, {
+        id
+      });
+    } else {
+      resource = db.get(name).insert(req.body).value();
+    }
+
+    res.setHeader('Access-Control-Expose-Headers', 'Location');
+    res.location(`${getFullURL(req)}/${resource.id}`);
+    res.status(201);
+    res.locals.data = resource;
+    next();
+  }
+opts._isFake
+resource = db.get(name).insert(req.body).value()

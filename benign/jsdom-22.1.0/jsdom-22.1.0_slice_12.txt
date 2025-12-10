@@ -1,0 +1,76 @@
+_updateTheImageData() {
+    const document = this._ownerDocument;
+
+    if (!document._defaultView) {
+      return;
+    }
+
+    if (!Canvas) {
+      return;
+    }
+
+    if (!this._image) {
+      this._image = new Canvas.Image();
+    }
+    this._currentSrc = null;
+    this._currentRequestState = "unavailable";
+    const srcAttributeValue = this.getAttributeNS(null, "src");
+    let urlString = null;
+    if (srcAttributeValue !== null && srcAttributeValue !== "") {
+      const urlRecord = parseURLToResultingURLRecord(srcAttributeValue, this._ownerDocument);
+      if (urlRecord === null) {
+        return;
+      }
+      urlString = serializeURL(urlRecord);
+    }
+    if (urlString !== null) {
+      const resourceLoader = document._resourceLoader;
+      let request;
+
+      const onLoadImage = data => {
+        const { response } = request;
+
+        if (response && response.statusCode !== undefined && response.statusCode !== 200) {
+          throw new Error("Status code: " + response.statusCod...
+const document = this._ownerDocument
+!document._defaultView
+!Canvas
+!this._image
+this._image = new Canvas.Image()
+this._currentSrc = null
+this._currentRequestState = "unavailable"
+const srcAttributeValue = this.getAttributeNS(null, "src")
+let urlString = null
+srcAttributeValue !== null && srcAttributeValue !== ""
+const urlRecord = parseURLToResultingURLRecord(srcAttributeValue, this._ownerDocument)
+urlRecord === null
+urlString = serializeURL(urlRecord)
+urlString !== null
+const resourceLoader = document._resourceLoader
+const onLoadImage = data => {
+        const { response } = request;
+
+        if (response && response.statusCode !== undefined && response.statusCode !== 200) {
+          throw new Error("Status code: " + response.statusCode);
+        }
+        let error = null;
+        this._image.onerror = function (err) {
+          error = err;
+        };
+        this._image.src = data;
+        if (error) {
+          throw new Error(error);
+        }
+        this._currentSrc = srcAttributeValue;
+        this._currentRequestState = "completely available";
+      }
+request = resourceLoader.fetch(urlString, {
+        element: this,
+        onLoad: onLoadImage,
+        onError: () => {
+          this._currentRequestState = "broken";
+        }
+      })
+_tmp_8.element = this
+_tmp_8.onLoad = onLoadImage
+_tmp_8.onError = <lambda>2

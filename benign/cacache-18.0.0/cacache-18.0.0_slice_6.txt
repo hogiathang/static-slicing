@@ -1,0 +1,19 @@
+Promise.resolve().then(async () => {
+    const { stat, cpath, sri } = await withContentSri(cache, integrity, async (cpath, sri) => {
+      // just stat to ensure it exists
+      const stat = await fs.stat(cpath)
+      return { stat, cpath, sri }
+    })
+    if (typeof size === 'number' && size !== stat.size) {
+      return stream.emit('error', sizeError(size, stat.size))
+    }
+
+    return readPipeline(cpath, stat.size, sri, stream)
+  }).catch(err => stream.emit('error', err))
+_tmp_13 = await withContentSri(cache, integrity, async (cpath, sri) => {
+      // just stat to ensure it exists
+      const stat = await fs.stat(cpath)
+      return { stat, cpath, sri }
+    })
+typeof size === 'number' && size !== stat.size
+stream.emit('error', sizeError(size, stat.size))

@@ -1,0 +1,6 @@
+process.stdin.on('end', function() {
+    var parsedInput = JSON.parse(inputJSON);
+    console.log(JSON.stringify(jmespath.search(parsedInput, process.argv[2])));
+})
+var parsedInput = JSON.parse(inputJSON)
+console.log(JSON.stringify(jmespath.search(parsedInput, process.argv[2])))

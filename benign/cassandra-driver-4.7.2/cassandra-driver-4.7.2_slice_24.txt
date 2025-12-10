@@ -1,0 +1,50 @@
+open(callback) {
+    const self = this;
+    this.log('info', `Connecting to ${this.endpointFriendlyName}`);
+
+    if (!this.options.sslOptions) {
+      this.netClient = new net.Socket({ highWaterMark: this.options.socketOptions.coalescingThreshold });
+      this.netClient.connect(this.port, this.address, function connectCallback() {
+        self.log('verbose', `Socket connected to ${self.endpointFriendlyName}`);
+        self.bindSocketListeners();
+        self.startup(callback);
+      });
+    }
+    else {
+      // Use TLS
+      const sslOptions = utils.extend({ rejectUnauthorized: false }, this.options.sslOptions);
+
+      if (this.options.sni) {
+        sslOptions.servername = this._serverName;
+      }
+
+      this.netClient = tls.connect(this.port, this.address, sslOptions, function tlsConnectCallback() {
+        self.log('verbose', `Secure socket connected to ${self.endpointFriendlyName} with protocol ${self.netClient.getProtocol()}`);
+        self.bindSocketListeners();
+        sel...
+const self = this
+<operator>.formatString("Connecting to ", this.endpointFriendlyName, "")
+!this.options.sslOptions
+this.netClient = new net.Socket({ highWaterMark: this.options.socketOptions.coalescingThreshold })
+this.netClient.connect(this.port, this.address, function connectCallback() {
+        self.log('verbose', `Socket connected to ${self.endpointFriendlyName}`);
+        self.bindSocketListeners();
+        self.startup(callback);
+      })
+const sslOptions = utils.extend({ rejectUnauthorized: false }, this.options.sslOptions)
+this.options.sni
+sslOptions.servername = this._serverName
+this.netClient = tls.connect(this.port, this.address, sslOptions, function tlsConnectCallback() {
+        self.log('verbose', `Secure socket connected to ${self.endpointFriendlyName} with protocol ${self.netClient.getProtocol()}`);
+        self.bindSocketListeners();
+        self.startup(callback);
+      })
+this.netClient.setMaxSendFragment(this.options.socketOptions.coalescingThreshold)
+this.netClient.once('error', function socketError(err) {
+      self.errorConnecting(err, false, callback);
+    })
+this.netClient.once('timeout', function connectTimedOut() {
+      const err = new types.DriverError('Connection timeout');
+      self.errorConnecting(err, true, callback);
+    })
+this.netClient.setTimeout(this.options.socketOptions.connectTimeout)

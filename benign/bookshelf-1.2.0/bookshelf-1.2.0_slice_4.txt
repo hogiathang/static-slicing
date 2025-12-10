@@ -1,0 +1,9 @@
+const parentsByType = _.groupBy(this.parent, (model) => {
+      const type = model.get(typeColumn);
+
+      if (!type)
+        throw new Error("The target polymorphic model could not be determined because it's missing the type attribute");
+
+      return type;
+    })
+const type = model.get(typeColumn)

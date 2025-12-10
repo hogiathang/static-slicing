@@ -1,0 +1,5 @@
+_tmp_37.readFileAsync = <lambda>74
+var xhr = new XMLHttpRequest()
+var d = prim()
+xhr.open('GET', path, true)
+xhr.send()

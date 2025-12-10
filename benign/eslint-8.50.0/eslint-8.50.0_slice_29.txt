@@ -1,0 +1,34 @@
+function getUselessReturns = function getUselessReturns(uselessReturns, prevSegments, providedTraversedSegments) {
+            const traversedSegments = providedTraversedSegments || new WeakSet();
+
+            for (const segment of prevSegments) {
+                if (!segment.reachable) {
+                    if (!traversedSegments.has(segment)) {
+                        traversedSegments.add(segment);
+                        getUselessReturns(
+                            uselessReturns,
+                            segment.allPrevSegments.filter(isReturned),
+                            traversedSegments
+                        );
+                    }
+                    continue;
+                }
+
+                uselessReturns.push(...segmentInfoMap.get(segment).uselessReturns);
+            }
+
+            return uselessReturns;
+        }
+const traversedSegments = providedTraversedSegments || new WeakSet()
+_iterator_1 = <operator>.iterator(prevSegments)
+!segment.reachable
+!traversedSegments.has(segment)
+traversedSegments.add(segment)
+getUselessReturns(
+                            uselessReturns,
+                            segment.allPrevSegments.filter(isReturned),
+                            traversedSegments
+                        )
+segment.allPrevSegments.filter(isReturned)
+continue;
+uselessReturns.push(...segmentInfoMap.get(segment).uselessReturns)

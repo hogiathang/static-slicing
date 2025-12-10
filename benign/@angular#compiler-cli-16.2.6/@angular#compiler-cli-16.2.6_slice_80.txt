@@ -1,0 +1,6 @@
+const directives = remoteScope.directives.map((directive) => {
+          const type = this.refEmitter.emit(directive, context);
+          assertSuccessfulReferenceEmit(type, node, "directive");
+          return type.expression;
+        })
+const type = this.refEmitter.emit(directive, context)

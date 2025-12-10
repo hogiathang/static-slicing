@@ -1,0 +1,33 @@
+async changeKeyspace(keyspace) {
+    if (!keyspace || this.keyspace === keyspace) {
+      return;
+    }
+
+    if (this.toBeKeyspace === keyspace) {
+      // It will be invoked once the keyspace is changed
+      return promiseUtils.fromEvent(this, 'keyspaceChanged');
+    }
+
+    this.toBeKeyspace = keyspace;
+
+    const query = `USE "${keyspace}"`;
+
+    try {
+      await this.send(new requests.QueryRequest(query, null, null), null);
+      this.keyspace = keyspace;
+      this.emit('keyspaceChanged', null, keyspace);
+    } catch (err) {
+      this.log('error', `Connection to ${this.endpointFriendlyName} could not switch active keyspace: ${err}`, err);
+      this.emit('keyspaceChanged', err);
+      throw err;
+    } finally {
+      this.toBeKeyspace = null;
+    }
+  }
+!keyspace || this.keyspace === keyspace
+this.toBeKeyspace === keyspace
+this.toBeKeyspace = keyspace
+<operator>.formatString("USE "", keyspace, """)
+await this.send(new requests.QueryRequest(query, null, null), null)
+this.keyspace = keyspace
+this.emit('keyspaceChanged', null, keyspace)

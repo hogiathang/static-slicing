@@ -1,0 +1,93 @@
+function collectFieldsImpl = function collectFieldsImpl(
+  schema,
+  fragments,
+  variableValues,
+  runtimeType,
+  selectionSet,
+  fields,
+  visitedFragmentNames,
+) {
+  for (const selection of selectionSet.selections) {
+    switch (selection.kind) {
+      case _kinds.Kind.FIELD: {
+        if (!shouldIncludeNode(variableValues, selection)) {
+          continue;
+        }
+
+        const name = getFieldEntryKey(selection);
+        const fieldList = fields.get(name);
+
+        if (fieldList !== undefined) {
+          fieldList.push(selection);
+        } else {
+          fields.set(name, [selection]);
+        }
+
+        break;
+      }
+
+      case _kinds.Kind.INLINE_FRAGMENT: {
+        if (
+          !shouldIncludeNode(variableValues, selection) ||
+          !doesFragmentConditionMatch(schema, selection, runtimeType)
+        ) {
+          continue;
+        }
+
+        collectFieldsImpl(
+          schema,
+          fragments,
+          variableValues,
+          runtimeType,
+          selection.selectionSet,
+          fi...
+_iterator_1 = <operator>.iterator(selectionSet.selections)
+selection.kind
+_kinds.Kind.FIELD
+!shouldIncludeNode(variableValues, selection)
+continue;
+const name = getFieldEntryKey(selection)
+const fieldList = fields.get(name)
+fieldList !== undefined
+fieldList.push(selection)
+_tmp_4 = __ecma.Array.factory()
+break;
+_kinds.Kind.INLINE_FRAGMENT
+!shouldIncludeNode(variableValues, selection) ||
+          !doesFragmentConditionMatch(schema, selection, runtimeType)
+!doesFragmentConditionMatch(schema, selection, runtimeType)
+continue;
+collectFieldsImpl(
+          schema,
+          fragments,
+          variableValues,
+          runtimeType,
+          selection.selectionSet,
+          fields,
+          visitedFragmentNames,
+        )
+selection.selectionSet
+break;
+_kinds.Kind.FRAGMENT_SPREAD
+const fragName = selection.name.value
+visitedFragmentNames.has(fragName) ||
+          !shouldIncludeNode(variableValues, selection)
+!shouldIncludeNode(variableValues, selection)
+continue;
+visitedFragmentNames.add(fragName)
+const fragment = fragments[fragName]
+!fragment ||
+          !doesFragmentConditionMatch(schema, fragment, runtimeType)
+!doesFragmentConditionMatch(schema, fragment, runtimeType)
+continue;
+collectFieldsImpl(
+          schema,
+          fragments,
+          variableValues,
+          runtimeType,
+          fragment.selectionSet,
+          fields,
+          visitedFragmentNames,
+        )
+fragment.selectionSet
+break;

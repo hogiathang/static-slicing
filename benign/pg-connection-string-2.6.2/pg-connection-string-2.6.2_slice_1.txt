@@ -1,0 +1,51 @@
+function parse = function parse(str) {
+  //unix socket
+  if (str.charAt(0) === '/') {
+    const config = str.split(' ')
+    return { host: config[0], database: config[1] }
+  }
+
+  // Check for empty host in URL
+
+  const config = {}
+  let result
+  let dummyHost = false
+  if (/ |%[^a-f0-9]|%[a-f0-9][^a-f0-9]/i.test(str)) {
+    // Ensure spaces are encoded as %20
+    str = encodeURI(str).replace(/\%25(\d\d)/g, '%$1')
+  }
+
+  try {
+    result = new URL(str, 'postgres://base')
+  } catch (e) {
+    // The URL is invalid so try again with a dummy host
+    result = new URL(str.replace('@/', '@___DUMMY___/'), 'postgres://base')
+    dummyHost = true
+  }
+
+  // We'd like to use Object.fromEntries() here but Node.js 10 does not support it
+  for (const entry of result.searchParams.entries()) {
+    config[entry[0]] = entry[1]
+  }
+
+  config.user = config.user || decodeURIComponent(result.username)
+  config.password = config.password || decodeURIComponent(result.password)
+
+  if (result.protocol == 'socket:') {
+    conf...
+str.charAt(0) === '/'
+const config = {}
+let dummyHost = false
+(_tmp_2 = / |%[^a-f0-9]|%[a-f0-9][^a-f0-9]/i).test
+str = encodeURI(str).replace(/\%25(\d\d)/g, '%$1')
+result = new URL(str, 'postgres://base')
+result = new URL(str.replace('@/', '@___DUMMY___/'), 'postgres://base')
+dummyHost = true
+_iterator_0 = <operator>.iterator(result.searchParams.entries())
+config[entry[0]] = entry[1]
+config.user = config.user || decodeURIComponent(result.username)
+config.password = config.password || decodeURIComponent(result.password)
+result.protocol == 'socket:'
+config.host = decodeURI(result.pathname)
+config.database = result.searchParams.get('db')
+config.client_encoding = result.searchParams.get('encoding')

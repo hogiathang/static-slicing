@@ -1,0 +1,29 @@
+this._addressTranslator.translate(addressToTranslate, port, function translateCallback(endPoint) {
+      const host = self.hosts.get(endPoint);
+      if (!host) {
+        self.log('warning', 'Received status change event but host was not found: ' + addressToTranslate);
+        return;
+      }
+      const distance = self._profileManager.getDistance(host);
+      if (event.up) {
+        if (distance === types.distance.ignored) {
+          return host.setUp(true);
+        }
+        clearTimeout(self._nodeStatusChangeTimeout);
+        // Waits a couple of seconds before marking it as UP
+        self._nodeStatusChangeTimeout = setTimeout(() => host.checkIsUp(), newNodeDelay);
+        return;
+      }
+      // marked as down
+      if (distance === types.distance.ignored) {
+        return host.setDown();
+      }
+      self.log('warning', 'Received status change to DOWN for host ' + host.address);
+    })
+const host = self.hosts.get(endPoint)
+!host
+const distance = self._profileManager.getDistance(host)
+event.up
+distance === types.distance.ignored
+clearTimeout(self._nodeStatusChangeTimeout)
+self._nodeStatusChangeTimeout = setTimeout(() => host.checkIsUp(), newNodeDelay)

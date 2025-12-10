@@ -1,0 +1,15 @@
+_tmp_1.id = id
+casted = castObjectId(id).toString()
+casted = null
+_iterator_1 = <operator>.iterator(this)
+!val
+continue;
+_id = val.get('_id')
+_id === null || typeof _id === 'undefined'
+continue;
+_id instanceof Document
+sid || (sid = String(id))
+sid == _id._id
+!isBsonType(id, 'ObjectId') && !isBsonType(_id, 'ObjectId')
+id == _id || utils.deepEqual(id, _id)
+casted == _id

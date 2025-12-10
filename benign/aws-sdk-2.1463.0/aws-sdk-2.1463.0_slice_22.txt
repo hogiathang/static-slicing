@@ -1,0 +1,12 @@
+request.addNamedListener('API_CALL_ATTEMPT', 'success', function API_CALL_ATTEMPT() {
+      var apiAttemptEvent = self.apiAttemptEvent(request);
+      apiAttemptEvent.Timestamp = attemptTimestamp;
+      apiAttemptEvent.AttemptLatency = attemptLatency >= 0 ? attemptLatency : 0;
+      apiAttemptEvent.Region = region;
+      self.emit('apiCallAttempt', [apiAttemptEvent]);
+    })
+var apiAttemptEvent = self.apiAttemptEvent(request)
+apiAttemptEvent.Timestamp = attemptTimestamp
+apiAttemptEvent.AttemptLatency = attemptLatency >= 0 ? attemptLatency : 0
+apiAttemptEvent.Region = region
+self.emit('apiCallAttempt', [apiAttemptEvent])

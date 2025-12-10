@@ -1,0 +1,4 @@
+_tmp_21.close = <lambda>13
+stream.destroy()
+(_tmp_25 = process.version.split('.')).shift
+stream.emit('close')

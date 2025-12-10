@@ -1,0 +1,35 @@
+async exec (args) {
+    const all = this.npm.config.get('all')
+    const chalk = this.npm.chalk
+    const depth = this.npm.config.get('depth')
+    const global = this.npm.global
+    const json = this.npm.config.get('json')
+    const link = this.npm.config.get('link')
+    const long = this.npm.config.get('long')
+    const omit = this.npm.flatOptions.omit
+    const parseable = this.npm.config.get('parseable')
+    const unicode = this.npm.config.get('unicode')
+    const packageLockOnly = this.npm.config.get('package-lock-only')
+    const workspacesEnabled = this.npm.flatOptions.workspacesEnabled
+
+    const path = global ? resolve(this.npm.globalDir, '..') : this.npm.prefix
+
+    const Arborist = require('@npmcli/arborist')
+
+    const arb = new Arborist({
+      global,
+      ...this.npm.flatOptions,
+      legacyPeerDeps: false,
+      path,
+    })
+    const tree = await this.initTree({ arb, args, packageLockOnly })
+
+    // filters by workspaces nodes when using -w <workspace-name>
+    // ...
+const all = this.npm.config.get('all')
+const chalk = this.npm.chalk
+const depth = this.npm.config.get('depth')
+const global = this.npm.global
+const json = this.npm.config.get('json')
+const link = this.npm.config.get('link')
+const long = this.npm.config.get('long')

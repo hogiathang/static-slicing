@@ -1,0 +1,3 @@
+_tmp_5.CallExpression = CallExpression
+!path.get('callee').matchesPattern('Object.defineProperty')
+var _path$get = path.get('arguments')

@@ -1,0 +1,56 @@
+__awaiter(this, void 0, void 0, function* () {
+        const shouldTryOpenChromiumWithAppleScript = process.platform === 'darwin' &&
+            (typeof browser !== 'string' || browser === OSX_CHROME);
+        if (shouldTryOpenChromiumWithAppleScript) {
+            const supportedChromiumBrowsers = [
+                'Google Chrome Canary',
+                'Google Chrome',
+                'Microsoft Edge',
+                'Brave Browser',
+                'Vivaldi',
+                'Chromium',
+            ];
+            const _dirname = typeof __dirname === 'undefined'
+                ? path.dirname(fileURLToPath(import.meta.url))
+                : __dirname;
+            for (const chromiumBrowser of supportedChromiumBrowsers) {
+                try {
+                    execSync('ps cax | grep "' + chromiumBrowser + '"');
+                    execSync('osascript ../openChrome.applescript "' +
+                        encodeURI(url) +
+                        '" "' +
+                     ...
+const shouldTryOpenChromiumWithAppleScript = process.platform === 'darwin' &&
+            (typeof browser !== 'string' || browser === OSX_CHROME)
+typeof browser !== 'string' || browser === OSX_CHROME
+const supportedChromiumBrowsers = [
+                'Google Chrome Canary',
+                'Google Chrome',
+                'Microsoft Edge',
+                'Brave Browser',
+                'Vivaldi',
+                'Chromium',
+            ]
+_tmp_6.push("Google Chrome Canary")
+_tmp_6.push("Google Chrome")
+_tmp_6.push("Microsoft Edge")
+_tmp_6.push("Brave Browser")
+_tmp_6.push("Vivaldi")
+_tmp_6.push("Chromium")
+const _dirname = typeof __dirname === 'undefined'
+                ? path.dirname(fileURLToPath(import.meta.url))
+                : __dirname
+path.dirname(fileURLToPath(import.meta.url))
+_iterator_0 = <operator>.iterator(supportedChromiumBrowsers)
+execSync('ps cax | grep "' + chromiumBrowser + '"')
+execSync('osascript ../openChrome.applescript "' +
+                        encodeURI(url) +
+                        '" "' +
+                        chromiumBrowser +
+                        '"', {
+                        cwd: _dirname,
+                        stdio: 'ignore',
+                    })
+encodeURI(url)
+_tmp_7.cwd = _dirname
+_tmp_7.stdio = "ignore"

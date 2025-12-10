@@ -1,0 +1,16 @@
+_tmp_42.enter = enter
+_tmp_43 = node
+property = _tmp_43.property
+value = _tmp_43.value
+important = _tmp_43.important
+const name = property.trim()
+const camel = camelCase(name)
+const val = csstree.generate(value).trim()
+_iterator_2 = <operator>.iterator(matched)
+_tmp_45 = element
+style = _tmp_45.style
+priority = _tmp_45.priority
+const current = priority.get(name)
+current === undefined || current < important
+priority.set(name, important)
+style[camel] = val

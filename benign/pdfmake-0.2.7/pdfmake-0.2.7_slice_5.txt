@@ -1,0 +1,9 @@
+this.clip = function() {
+        if (this.get('clip-path') !== 'none') {
+          let clipPath = new SvgElemClipPath(this.get('clip-path'), null);
+          clipPath.useMask(this.getBoundingBox());
+          return true;
+        }
+      }
+this.get('clip-path') !== 'none'
+let clipPath = new SvgElemClipPath(this.get('clip-path'), null)

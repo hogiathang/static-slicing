@@ -1,0 +1,10 @@
+_tmp_6.For = For
+var _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4)
+_i4 >= _iterator4.length
+_ref4 = _iterator4[_i4++]
+_i4 = _iterator4.next()
+_i4.done
+_ref4 = _i4.value
+var key = _ref4
+var declar = path.get(key)
+path.scope.getFunctionParent().registerBinding("var", declar)

@@ -1,0 +1,26 @@
+function updateStyleUrls = function updateStyleUrls(url, oldCss) {
+    const versionId = url.searchParams.get('s-hmr');
+    const hmrUrls = url.searchParams.get('s-hmr-urls');
+    if (versionId && hmrUrls) {
+        hmrUrls.split(',').forEach((hmrUrl) => {
+            urlVersionIds.set(hmrUrl, versionId);
+        });
+    }
+    const reg = /url\((['"]?)(.*)\1\)/gi;
+    let result;
+    let newCss = oldCss;
+    while ((result = reg.exec(oldCss)) !== null) {
+        const oldUrl = result[2];
+        const parsedUrl = new URL(oldUrl, url);
+        const fileName = path__default['default'].basename(parsedUrl.pathname);
+        const versionId = urlVersionIds.get(fileName);
+        if (!versionId) {
+            continue;
+        }
+        parsedUrl.searchParams.set('s-hmr', versionId);
+        newCss = newCss.replace(oldUrl, parsedUrl.pathname);
+    }
+    return newCss;
+}
+const versionId = url.searchParams.get('s-hmr')
+const hmrUrls = url.searchParams.get('s-hmr-urls')

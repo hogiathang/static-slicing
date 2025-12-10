@@ -1,0 +1,8 @@
+removeTag(key, priority) {
+        if (priority >= (this.priorities.get(key) || 0)) {
+            this.tags.delete(key);
+            this.priorities.set(key, priority);
+        }
+    }
+priority >= (this.priorities.get(key) || 0)
+(_tmp_31 = this.tags).delete

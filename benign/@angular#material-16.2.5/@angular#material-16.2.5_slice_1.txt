@@ -1,0 +1,26 @@
+_resetActiveItem() {
+        const autocomplete = this.autocomplete;
+        if (autocomplete.autoActiveFirstOption) {
+            // Find the index of the first *enabled* option. Avoid calling `_keyManager.setActiveItem`
+            // because it activates the first option that passes the skip predicate, rather than the
+            // first *enabled* option.
+            let firstEnabledOptionIndex = -1;
+            for (let index = 0; index < autocomplete.options.length; index++) {
+                const option = autocomplete.options.get(index);
+                if (!option.disabled) {
+                    firstEnabledOptionIndex = index;
+                    break;
+                }
+            }
+            autocomplete._keyManager.setActiveItem(firstEnabledOptionIndex);
+        }
+        else {
+            autocomplete._keyManager.setActiveItem(-1);
+        }
+    }
+const autocomplete = this.autocomplete
+autocomplete.autoActiveFirstOption
+let firstEnabledOptionIndex = -1
+index < autocomplete.options.length
+const option = autocomplete.options.get(index)
+!option.disabled

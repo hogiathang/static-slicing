@@ -1,0 +1,107 @@
+const constructorArguments = {
+/** dependencies
+    dependencies: {
+      freeze(arg, dependency, extra, methods) {
+        return methods.mapFreeze('Dependency', null, arg, extra);
+      },
+      thaw(arg, frozen, extra, methods) {
+        return methods.mapThaw('Dependency', null, arg, extra);
+      },
+    },
+**/
+/** freeze dependencies
+        dependencies: methods.mapFreeze('Dependency', null, dependency.dependencies, extra),
+**/
+/** thaw dependencies
+        methods.mapThaw('Dependency', null, frozen.dependencies, extra),
+**/
+/** depsArray
+    depsArray: {
+      freeze(arg, dependency, extra, methods) {
+        return methods.mapFreeze('Dependency', null, arg, extra);
+      },
+      thaw(arg, frozen, extra, methods) {
+        return methods.mapThaw('Dependency', null, arg, extra);
+      },
+    },
+**/
+/** freeze depsArray
+        depsArray: methods.mapFreeze('Dependency', null, dependency.depsArray, extra),
+**/
+/** thaw depsArray
+        methods.mapThaw('Dependency', null, frozen.deps...
+const fs = require('graceful-fs')
+const path = require('path')
+const generateRaw = fs.readFileSync(path.join(__dirname, '_generate.js'), 'utf8')
+const generateBlocks = generateRaw
+.split(/((?:\/\*\*)((?!\*\*\/)[^\r\n]*\r?\n)+)/g)
+.filter(Boolean)
+.filter(str => !str.startsWith('**/'))
+.reduce((carry, item, index) => index % 2 === 0 ? [...carry, item] : carry, [])
+/((?:\/\*\*)((?!\*\*\/)[^\r\n]*\r?\n)+)/g
+filter
+!str.startsWith('**/')
+index % 2 === 0 ? [...carry, item] : carry
+const getBlock = name => {
+  let lines = generateBlocks
+    .find(block => block.startsWith(`/** ${name}`));
+  if (lines) {
+    lines = lines.split('\n');
+    lines = lines.slice(1, lines.length - 1);
+  }
+  return lines || [];
+}
+const dependencyInfo = require('./basic-dependency.json')
+let output = getBlock('prelude')
+_iterator_0 = <operator>.iterator(dependencyInfo)
+const DepName = dependency[0]
+const depName = DepName[0].toLowerCase() + DepName.slice(1)
+<operator>.formatString("", DepName, "Serial")
+<operator>.formatString("const ", dependency[0], " = require('webpack/lib/dependencies/", dependency[0], "');")
+<operator>.formatString("const ", DepNameSerial, " = serial.serial('", DepName, "', {")
+output.push(`  constructor: {`)
+output.push(`    freeze(_, dependency, extra, methods) {`)
+output.push(`      return {`)
+_iterator_1 = <operator>.iterator(dependency.slice(1))
+<operator>.formatString("freeze ", argument, "")
+!block.length
+_tmp_6.push(<operator>.formatString("        ", argument, ": dependency.", argument, ","))
+output.push(...block)
+output.push(`      };`)
+output.push(`    },`)
+output.push(`    thaw(thawed, frozen, extra, methods) {`)
+_iterator_2 = <operator>.iterator(dependency.slice(1))
+<operator>.formatString("thaw prep ", argument, "")
+output.push(...block)
+<operator>.formatString("      return new ", DepName, "(")
+_iterator_3 = <operator>.iterator(dependency.slice(1))
+<operator>.formatString("thaw ", argument, "")
+!block.length
+_tmp_7.push(<operator>.formatString("        frozen.", argument, ","))
+output.push(...block)
+output.push(`      );`)
+output.push(`    },`)
+output.push(`  },`)
+output.push(``)
+output.push(`  optional,`)
+DepName === 'AMDDefineDependency' || DepName === 'LocalModuleDependency'
+output.push(``)
+output.push(`  localModuleAssigned,`)
+output.push(``)
+output.push(`  warnings,`)
+DepName === 'HarmonyImportDependency'
+output.push(``)
+output.push(...getBlock('importDependencyState'))
+DepName === 'HarmonyExportImportedSpecifierDependency'
+output.push(``)
+output.push(...getBlock('exportImportedDependencyState'))
+output.push(`});`)
+output.push(``)
+output.push(`exports.map = new Map();`)
+_iterator_4 = <operator>.iterator(dependencyInfo)
+const DepName = dependency[0]
+<operator>.formatString("", DepName, "Serial")
+<operator>.formatString("exports.", DepName, " = ", DepNameSerial, ";")
+<operator>.formatString("exports.map.set(", DepName, ", ", DepNameSerial, ");")
+output.push(``)
+require('graceful-fs').writeFileSync(require('path').join(__dirname, 'index.js'), output.join('\n'), 'utf8')

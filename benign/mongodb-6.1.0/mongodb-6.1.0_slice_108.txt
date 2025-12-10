@@ -1,0 +1,27 @@
+function createAndConnectServer = function createAndConnectServer(topology: Topology, serverDescription: ServerDescription) {
+  topology.emit(
+    Topology.SERVER_OPENING,
+    new ServerOpeningEvent(topology.s.id, serverDescription.address)
+  );
+
+  const server = new Server(topology, serverDescription, topology.s.options);
+  for (const event of SERVER_RELAY_EVENTS) {
+    server.on(event, (e: any) => topology.emit(event, e));
+  }
+
+  server.on(Server.DESCRIPTION_RECEIVED, description => topology.serverUpdateHandler(description));
+
+  server.connect();
+  return server;
+}
+topology.emit(
+    Topology.SERVER_OPENING,
+    new ServerOpeningEvent(topology.s.id, serverDescription.address)
+  )
+Topology.SERVER_OPENING
+new ServerOpeningEvent(topology.s.id, serverDescription.address)
+const server = new Server(topology, serverDescription, topology.s.options)
+_iterator_2 = <operator>.iterator(SERVER_RELAY_EVENTS)
+server.on(event, (e: any) => topology.emit(event, e))
+server.on(Server.DESCRIPTION_RECEIVED, description => topology.serverUpdateHandler(description))
+server.connect()

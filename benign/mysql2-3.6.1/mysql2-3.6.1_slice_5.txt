@@ -1,0 +1,66 @@
+handlePacket(packet) {
+    if (this._paused) {
+      this._paused_packets.push(packet);
+      return;
+    }
+    if (this.config.debug) {
+      if (packet) {
+        // eslint-disable-next-line no-console
+        console.log(
+          ` raw: ${packet.buffer
+            .slice(packet.offset, packet.offset + packet.length())
+            .toString('hex')}`
+        );
+        // eslint-disable-next-line no-console
+        console.trace();
+        const commandName = this._command
+          ? this._command._commandName
+          : '(no command)';
+        const stateName = this._command
+          ? this._command.stateName()
+          : '(no command)';
+        // eslint-disable-next-line no-console
+        console.log(
+          `${this._internalId} ${this.connectionId} ==> ${commandName}#${stateName}(${[packet.sequenceId, packet.type(), packet.length()].join(',')})`
+        );
+      }
+    }
+    if (!this._command) {
+      const marker = packet.peekByte();
+      // If it's an Err Packet, w...
+this._paused
+this.config.debug
+console.log(
+          ` raw: ${packet.buffer
+            .slice(packet.offset, packet.offset + packet.length())
+            .toString('hex')}`
+        )
+<operator>.formatString(" raw: ", packet.buffer
+            .slice(packet.offset, packet.offset + packet.length())
+            .toString('hex'), "")
+packet.offset + packet.length()
+"hex"
+console.trace()
+const commandName = this._command
+          ? this._command._commandName
+          : '(no command)'
+this._command._commandName
+"(no command)"
+const stateName = this._command
+          ? this._command.stateName()
+          : '(no command)'
+(_tmp_46 = this._command).stateName
+"(no command)"
+console.log(
+          `${this._internalId} ${this.connectionId} ==> ${commandName}#${stateName}(${[packet.sequenceId, packet.type(), packet.length()].join(',')})`
+        )
+<operator>.formatString("", this._internalId, " ", this.connectionId, " ==> ", commandName, "#", stateName, "(", [packet.sequenceId, packet.type(), packet.length()].join(','), ")")
+!this._command
+this.sequenceId !== packet.sequenceId
+const err = new Error(
+          `Warning: got packets out of order. Expected ${this.sequenceId} but received ${packet.sequenceId}`
+        )
+<operator>.formatString("Warning: got packets out of order. Expected ", this.sequenceId, " but received ", packet.sequenceId, "")
+err.expected = this.sequenceId
+err.received = packet.sequenceId
+this.emit('warn', err)

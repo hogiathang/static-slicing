@@ -1,0 +1,49 @@
+(_tmp_9 = this.props.tree.map(function (leafSet, ii) {
+      var leavesForLeafSet = leafSet.get('leaves'); // T44088704
+
+      if (leavesForLeafSet.size === 0) {
+        return null;
+      }
+
+      var lastLeaf = leavesForLeafSet.size - 1;
+      var leaves = leavesForLeafSet.map(function (leaf, jj) {
+        var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+        var start = leaf.get('start');
+        var end = leaf.get('end');
+        return React.createElement(DraftEditorLeaf, {
+          key: offsetKey,
+          offsetKey: offsetKey,
+          block: block,
+          start: start,
+          selection: hasSelection ? _this2.props.selection : null,
+          forceSelection: _this2.props.forceSelection,
+          text: text.slice(start, end),
+          styleSet: block.getInlineStyleAt(start),
+          customStyleMap: _this2.props.customStyleMap,
+          customStyleFn: _this2.props.customStyleFn,
+          isLast: ii === lastLeafSet && jj === lastLeaf
+        });
+      }).toArray(...).toArray
+var leavesForLeafSet = leafSet.get('leaves')
+leavesForLeafSet.size === 0
+var lastLeaf = leavesForLeafSet.size - 1
+var leaves = leavesForLeafSet.map(function (leaf, jj) {
+        var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+        var start = leaf.get('start');
+        var end = leaf.get('end');
+        return React.createElement(DraftEditorLeaf, {
+          key: offsetKey,
+          offsetKey: offsetKey,
+          block: block,
+          start: start,
+          selection: hasSelection ? _this2.props.selection : null,
+          forceSelection: _this2.props.forceSelection,
+          text: text.slice(start, end),
+          styleSet: block.getInlineStyleAt(start),
+          customStyleMap: _this2.props.customStyleMap,
+          customStyleFn: _this2.props.customStyleFn,
+          isLast: ii === lastLeafSet && jj === lastLeaf
+        });
+      }).toArray()
+toArray
+var decoratorKey = leafSet.get('decoratorKey')

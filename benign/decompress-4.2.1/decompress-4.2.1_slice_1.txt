@@ -1,0 +1,19 @@
+() => {
+				if (x.type === 'link') {
+					return fsP.link(x.linkname, dest);
+				}
+
+				if (x.type === 'symlink' && process.platform === 'win32') {
+					return fsP.link(x.linkname, dest);
+				}
+
+				if (x.type === 'symlink') {
+					return fsP.symlink(x.linkname, dest);
+				}
+
+				return fsP.writeFile(dest, x.data, {mode});
+			}
+x.type === 'link'
+x.type === 'symlink' && process.platform === 'win32'
+x.type === 'symlink'
+fsP.symlink(x.linkname, dest)

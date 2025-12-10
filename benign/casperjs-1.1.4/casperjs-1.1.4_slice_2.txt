@@ -1,0 +1,372 @@
+var fs = (function patchFs(_fs) {
+    'use strict';
+    _fs.readlink = _fs.readlinkSync || _fs.readlink;
+    if (!_fs.hasOwnProperty('absolute')) {
+        var _path = require('path');
+        _fs.absolute = function absolute(path) {
+            return _path.resolve(path);
+        };
+    }
+    if (_fs.hasOwnProperty('base')) {
+        _fs.basename = _fs.base;
+    } else if (!_fs.hasOwnProperty('basename')) {
+        _fs.basename = function basename(path) {
+            return path.replace(/.*\//, '');
+        };
+    }
+    if (_fs.hasOwnProperty('directory')) {
+        _fs.dirname = _fs.directory;
+    } else if (!_fs.hasOwnProperty('dirname')) {
+        _fs.dirname = function dirname(path) {
+            if (!path) {
+                return null;
+            }
+            return path.toString().replace(/\\/g, '/').replace(/\/[^\/]*$/, '');
+        };
+    }
+    if (!_fs.hasOwnProperty('islink')) {
+        _fs.islink = function islink(path) {
+            return fs.lstatSync(path).isSymbolicLi...
+require('fs')
+var system = (function (){
+    'use strict';
+    if (typeof phantom !== 'undefined') {
+        var _system = require('system');
+        _system.exit = phantom.exit;
+        return _system;
+    }
+    if (typeof phantom === 'undefined') {
+        var process = require('process');
+        return {
+            'args': process.argv,
+            'env': process.env,
+            'stdout': process.stdout,
+            'stderr': process.stderr,
+            'stdin': process.stdin,
+            'exit': process.exit
+        };
+    }
+})()
+var spawn = require('child_process').spawn
+var SUPPORTED_ENGINES = {
+    'phantomjs': {
+        'native_args': [
+            'cookies-file',
+            'config',
+            'debug',
+            'disk-cache',
+            'disk-cache-path',
+            'ignore-ssl-errors',
+            'load-images',
+            'load-plugins',
+            'local-url-access',
+            'local-storage-path',
+            'local-storage-quota',
+            'offline-storage-path',
+            'offline-storage-quota',
+            'local-to-remote-url-access',
+            'max-disk-cache-size',
+            'output-encoding',
+            'proxy',
+            'proxy-auth',
+            'proxy-type',
+            'remote-debugger-port',
+            'remote-debugger-autorun',
+            'script-encoding',
+            'script-language',
+            'ssl-protocol',
+            'ssl-ciphers',
+            'ssl-certificates-path',
+            'ssl-client-certificate-file',
+            'ssl-client-key-file',
+            'ssl-client-key-passphrase',
+            ...
+_tmp_7.phantomjs = {
+        'native_args': [
+            'cookies-file',
+            'config',
+            'debug',
+            'disk-cache',
+            'disk-cache-path',
+            'ignore-ssl-errors',
+            'load-images',
+            'load-plugins',
+            'local-url-access',
+            'local-storage-path',
+            'local-storage-quota',
+            'offline-storage-path',
+            'offline-storage-quota',
+            'local-to-remote-url-access',
+            'max-disk-cache-size',
+            'output-encoding',
+            'proxy',
+            'proxy-auth',
+            'proxy-type',
+            'remote-debugger-port',
+            'remote-debugger-autorun',
+            'script-encoding',
+            'script-language',
+            'ssl-protocol',
+            'ssl-ciphers',
+            'ssl-certificates-path',
+            'ssl-client-certificate-file',
+            'ssl-client-key-file',
+            'ssl-client-key-passphrase',
+            'web-security',
+            'webdriver'...
+_tmp_8.native_args = [
+            'cookies-file',
+            'config',
+            'debug',
+            'disk-cache',
+            'disk-cache-path',
+            'ignore-ssl-errors',
+            'load-images',
+            'load-plugins',
+            'local-url-access',
+            'local-storage-path',
+            'local-storage-quota',
+            'offline-storage-path',
+            'offline-storage-quota',
+            'local-to-remote-url-access',
+            'max-disk-cache-size',
+            'output-encoding',
+            'proxy',
+            'proxy-auth',
+            'proxy-type',
+            'remote-debugger-port',
+            'remote-debugger-autorun',
+            'script-encoding',
+            'script-language',
+            'ssl-protocol',
+            'ssl-ciphers',
+            'ssl-certificates-path',
+            'ssl-client-certificate-file',
+            'ssl-client-key-file',
+            'ssl-client-key-passphrase',
+            'web-security',
+            'webdriver',
+            'webdriver-...
+_tmp_9.push("cookies-file")
+_tmp_9.push("config")
+_tmp_9.push("debug")
+_tmp_9.push("disk-cache")
+_tmp_9.push("disk-cache-path")
+_tmp_9.push("ignore-ssl-errors")
+_tmp_9.push("load-images")
+_tmp_9.push("load-plugins")
+_tmp_9.push("local-url-access")
+_tmp_9.push("local-storage-path")
+_tmp_9.push("local-storage-quota")
+_tmp_9.push("offline-storage-path")
+_tmp_9.push("offline-storage-quota")
+_tmp_9.push("local-to-remote-url-access")
+_tmp_9.push("max-disk-cache-size")
+_tmp_9.push("output-encoding")
+_tmp_9.push("proxy")
+_tmp_9.push("proxy-auth")
+_tmp_9.push("proxy-type")
+_tmp_9.push("remote-debugger-port")
+_tmp_9.push("remote-debugger-autorun")
+_tmp_9.push("script-encoding")
+_tmp_9.push("script-language")
+_tmp_9.push("ssl-protocol")
+_tmp_9.push("ssl-ciphers")
+_tmp_9.push("ssl-certificates-path")
+_tmp_9.push("ssl-client-certificate-file")
+_tmp_9.push("ssl-client-key-file")
+_tmp_9.push("ssl-client-key-passphrase")
+_tmp_9.push("web-security")
+_tmp_9.push("webdriver")
+_tmp_9.push("webdriver-logfile")
+_tmp_9.push("webdriver-loglevel")
+_tmp_9.push("webdriver-selenium-grid-hub")
+_tmp_9.push("wd")
+_tmp_9.push("w")
+_tmp_8.env_varname = "PHANTOMJS_EXECUTABLE"
+_tmp_8.default_exec = "phantomjs"
+_tmp_7.slimerjs = {
+        'native_args': [
+            // firefox
+            'no-remote',
+            'new-instance',
+            'safe-mode',
+            'browser',
+            'preferences',
+            'jsconsole',
+            'jsdebugger',
+            'devtools',
+            
+            // slimerjs
+            '-jsconsole',
+            'error-log-file',
+            'user-agent',
+            'viewport-width',
+            'viewport-height',
+            
+            // phantomjs options
+            'cookies-file',
+            'config',
+            'debug',
+            'disk-cache',
+            'ignore-ssl-errors',
+            'load-images',
+            'load-plugins',
+            'local-storage-path',
+            'local-storage-quota',
+            'local-to-remote-url-access',
+            'max-disk-cache-size',
+            'output-encoding',
+            'proxy',
+            'proxy-auth',
+            'proxy-type',
+            'remote-debugger-port',
+            'remote-debugger-autorun',
+        ...
+_tmp_10.native_args = [
+            // firefox
+            'no-remote',
+            'new-instance',
+            'safe-mode',
+            'browser',
+            'preferences',
+            'jsconsole',
+            'jsdebugger',
+            'devtools',
+            
+            // slimerjs
+            '-jsconsole',
+            'error-log-file',
+            'user-agent',
+            'viewport-width',
+            'viewport-height',
+            
+            // phantomjs options
+            'cookies-file',
+            'config',
+            'debug',
+            'disk-cache',
+            'ignore-ssl-errors',
+            'load-images',
+            'load-plugins',
+            'local-storage-path',
+            'local-storage-quota',
+            'local-to-remote-url-access',
+            'max-disk-cache-size',
+            'output-encoding',
+            'proxy',
+            'proxy-auth',
+            'proxy-type',
+            'remote-debugger-port',
+            'remote-debugger-autorun',
+            'script-encoding',
+  ...
+_tmp_11.push("no-remote")
+_tmp_11.push("new-instance")
+_tmp_11.push("safe-mode")
+_tmp_11.push("browser")
+_tmp_11.push("preferences")
+_tmp_11.push("jsconsole")
+_tmp_11.push("jsdebugger")
+_tmp_11.push("devtools")
+_tmp_11.push("-jsconsole")
+_tmp_11.push("error-log-file")
+_tmp_11.push("user-agent")
+_tmp_11.push("viewport-width")
+_tmp_11.push("viewport-height")
+_tmp_11.push("cookies-file")
+_tmp_11.push("config")
+_tmp_11.push("debug")
+_tmp_11.push("disk-cache")
+_tmp_11.push("ignore-ssl-errors")
+_tmp_11.push("load-images")
+_tmp_11.push("load-plugins")
+_tmp_11.push("local-storage-path")
+_tmp_11.push("local-storage-quota")
+_tmp_11.push("local-to-remote-url-access")
+_tmp_11.push("max-disk-cache-size")
+_tmp_11.push("output-encoding")
+_tmp_11.push("proxy")
+_tmp_11.push("proxy-auth")
+_tmp_11.push("proxy-type")
+_tmp_11.push("remote-debugger-port")
+_tmp_11.push("remote-debugger-autorun")
+_tmp_11.push("script-encoding")
+_tmp_11.push("ssl-protocol")
+_tmp_11.push("ssl-certificates-path")
+_tmp_11.push("web-security")
+_tmp_11.push("webdriver")
+_tmp_11.push("webdriver-logfile")
+_tmp_11.push("webdriver-loglevel")
+_tmp_11.push("webdriver-selenium-grid-hub")
+_tmp_11.push("wd")
+_tmp_11.push("w")
+_tmp_10.env_varname = "SLIMERJS_EXECUTABLE"
+_tmp_10.default_exec = "slimerjs"
+_tmp_10.native_args_with_space = [
+
+            '--createprofile',
+            '--profile',
+            '-P',
+            '-profile',
+            '--private-window',
+            '--UILocale',
+            '--new-window',
+            '--new-tab',
+            '--search',
+            '--recording',
+            '--recording-output'
+        ]
+_tmp_12.push("--createprofile")
+_tmp_12.push("--profile")
+_tmp_12.push("-P")
+_tmp_12.push("-profile")
+_tmp_12.push("--private-window")
+_tmp_12.push("--UILocale")
+_tmp_12.push("--new-window")
+_tmp_12.push("--new-tab")
+_tmp_12.push("--search")
+_tmp_12.push("--recording")
+_tmp_12.push("--recording-output")
+var ENGINE = system.env.CASPERJS_ENGINE || 'phantomjs'
+var ENGINE_ARGS = system.env.ENGINE_FLAGS && system.env.ENGINE_FLAGS.split(' ') || []
+__ecma.Array.factory()
+var CASPER_PATH = fs.absolute(fs.pathJoin(fs.dirname(fs.scriptDir(system.args)), '..'))
+var SYS_ARGS = typeof phantom !== 'undefined' ? system.args.slice(1) : system.args.slice(2)
+var ENVIRONMENT = system.env
+var l = SYS_ARGS.length
+SYS_ARGS[i].substr(0, 9) === '--engine='
+(_tmp_17 = SYS_ARGS[i].substring(9)).toLowerCase
+break;
+typeof SUPPORTED_ENGINES[ENGINE] === 'undefined'
+system.stderr.write('Bad engine name. Only phantomjs and slimerjs are supported\n')
+system.exit(1)
+var ENGINE_NATIVE_ARGS = SUPPORTED_ENGINES[ENGINE].native_args
+var ENGINE_NATIVE_ARGS_WITH_SPACE = SUPPORTED_ENGINES[ENGINE].native_args_with_space || []
+var ENGINE_EXECUTABLE = system.env[SUPPORTED_ENGINES[ENGINE].env_varname] ||
+                                   system.env.ENGINE_EXECUTABLE ||
+                                       SUPPORTED_ENGINES[ENGINE].default_exec
+system.env.ENGINE_EXECUTABLE
+SUPPORTED_ENGINES[ENGINE].default_exec
+var extract_arg_name = function extract_arg_name(arg) {
+    'use strict';
+//  "parse out any option name"
+    try {
+        return arg.split('=')[0].replace('--', '');
+    } catch(e) {
+        return arg;
+    }
+}
+l = SYS_ARGS.length
+var arg_name = extract_arg_name(SYS_ARGS[i])
+ENGINE_NATIVE_ARGS.indexOf(arg_name) !== -1
+ENGINE_ARGS.push(SYS_ARGS[i])
+arg_name === "env"
+var env = SYS_ARGS[i].substring(6).split('=')
+ENVIRONMENT[env[0]] = env[1].replace(/^['"]|['"]$/g, '')
+ENGINE_NATIVE_ARGS_WITH_SPACE.indexOf(SYS_ARGS[i]) !== -1
+!SYS_ARGS[i+1] || SYS_ARGS[i+1].substring(0,2) === '--'
+system.stderr.write('Fatal: Missing expected value for parameter "' + SYS_ARGS[i] + '"\n')
+system.exit(1)
+i++
+CASPER_ARGS.push(SYS_ARGS[i])

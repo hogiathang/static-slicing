@@ -1,0 +1,15 @@
+createMatcher(function (actual) {
+        if (
+            actual === undefined ||
+            actual === null ||
+            get(actual, property) === undefined
+        ) {
+            return false;
+        }
+        return onlyProperty || deepEqual(get(actual, property), value);
+    }, message)
+actual === undefined ||
+            actual === null ||
+            get(actual, property) === undefined
+actual === null
+get(actual, property) === undefined

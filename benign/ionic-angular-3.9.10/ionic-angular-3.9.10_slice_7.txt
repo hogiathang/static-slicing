@@ -1,0 +1,4 @@
+['monthNames', 'monthShortNames', 'dayNames', 'dayShortNames'].forEach(type => {
+            this._locale[type] = convertToArrayOfStrings(isPresent(this[type]) ? this[type] : this._config.get(type), type);
+        })
+this._locale[type] = convertToArrayOfStrings(isPresent(this[type]) ? this[type] : this._config.get(type), type)

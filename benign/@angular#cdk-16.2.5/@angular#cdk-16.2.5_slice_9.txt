@@ -1,0 +1,19 @@
+_updateContext() {
+        const count = this._data.length;
+        let i = this._viewContainerRef.length;
+        while (i--) {
+            const view = this._viewContainerRef.get(i);
+            view.context.index = this._renderedRange.start + i;
+            view.context.count = count;
+            this._updateComputedContextProperties(view.context);
+            view.detectChanges();
+        }
+    }
+const count = this._data.length
+let i = this._viewContainerRef.length
+i--
+const view = this._viewContainerRef.get(i)
+view.context.index = this._renderedRange.start + i
+view.context.count = count
+this._updateComputedContextProperties(view.context)
+view.detectChanges()

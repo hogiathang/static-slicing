@@ -1,0 +1,198 @@
+function LevelPouch = function LevelPouch(opts, callback) {
+  opts = clone(opts);
+  var api = this;
+  var instanceId;
+  var stores = {};
+  var revLimit = opts.revs_limit;
+  var db;
+  var name = opts.name;
+  // TODO: this is undocumented and unused probably
+  /* istanbul ignore else */
+  if (typeof opts.createIfMissing === 'undefined') {
+    opts.createIfMissing = true;
+  }
+
+  var leveldown = opts.db;
+
+  var dbStore;
+  var leveldownName = functionName(leveldown);
+  if (dbStores.has(leveldownName)) {
+    dbStore = dbStores.get(leveldownName);
+  } else {
+    dbStore = new ExportedMap();
+    dbStores.set(leveldownName, dbStore);
+  }
+  if (dbStore.has(name)) {
+    db = dbStore.get(name);
+    afterDBCreated();
+  } else {
+    dbStore.set(name, sublevelPouch(levelup(leveldown(name), opts, function (err) {
+      /* istanbul ignore if */
+      if (err) {
+        dbStore.delete(name);
+        return callback(err);
+      }
+      db = dbStore.get(name);
+      db._docCount  = -1;
+      db._queue = new Deque();
+      /...
+opts = clone(opts)
+var api = this
+var stores = {}
+var revLimit = opts.revs_limit
+var name = opts.name
+typeof opts.createIfMissing === 'undefined'
+opts.createIfMissing = true
+var leveldown = opts.db
+var leveldownName = functionName(leveldown)
+dbStores.has(leveldownName)
+dbStore = dbStores.get(leveldownName)
+dbStore = new ExportedMap()
+dbStores.set(leveldownName, dbStore)
+dbStore.has(name)
+db = dbStore.get(name)
+function afterDBCreated = function afterDBCreated() {
+    stores.docStore = db.sublevel(DOC_STORE, {valueEncoding: safeJsonEncoding});
+    stores.bySeqStore = db.sublevel(BY_SEQ_STORE, {valueEncoding: 'json'});
+    stores.attachmentStore =
+      db.sublevel(ATTACHMENT_STORE, {valueEncoding: 'json'});
+    stores.binaryStore = db.sublevel(BINARY_STORE, {valueEncoding: 'binary'});
+    stores.localStore = db.sublevel(LOCAL_STORE, {valueEncoding: 'json'});
+    stores.metaStore = db.sublevel(META_STORE, {valueEncoding: 'json'});
+    /* istanbul ignore else */
+    if (typeof opts.migrate === 'object') { // migration for leveldown
+      opts.migrate.doMigrationTwo(db, stores, afterLastMigration);
+    } else {
+      afterLastMigration();
+    }
+  }
+function afterLastMigration = function afterLastMigration() {
+    stores.metaStore.get(UPDATE_SEQ_KEY, function (err, value) {
+      if (typeof db._updateSeq === 'undefined') {
+        db._updateSeq = value || 0;
+      }
+      stores.metaStore.get(DOC_COUNT_KEY, function (err, value) {
+        db._docCount = !err ? value : 0;
+        stores.metaStore.get(UUID_KEY, function (err, value) {
+          instanceId = !err ? value : uuid();
+          stores.metaStore.put(UUID_KEY, instanceId, function () {
+            nextTick(function () {
+              callback(null, api);
+            });
+          });
+        });
+      });
+    });
+  }
+function countDocs = function countDocs(callback) {
+    /* istanbul ignore if */
+    if (db.isClosed()) {
+      return callback(new Error('database is closed'));
+    }
+    return callback(null, db._docCount); // use cached value
+  }
+function tryCode = function tryCode(fun, args) {
+    try {
+      fun.apply(null, args);
+    } catch (err) {
+      args[args.length - 1](err);
+    }
+  }
+function executeNext = function executeNext() {
+    var firstTask = db._queue.peekFront();
+
+    if (firstTask.type === 'read') {
+      runReadOperation(firstTask);
+    } else { // write, only do one at a time
+      runWriteOperation(firstTask);
+    }
+  }
+function runReadOperation = function runReadOperation(firstTask) {
+    // do multiple reads at once simultaneously, because it's safe
+
+    var readTasks = [firstTask];
+    var i = 1;
+    var nextTask = db._queue.get(i);
+    while (typeof nextTask !== 'undefined' && nextTask.type === 'read') {
+      readTasks.push(nextTask);
+      i++;
+      nextTask = db._queue.get(i);
+    }
+
+    var numDone = 0;
+
+    readTasks.forEach(function (readTask) {
+      var args = readTask.args;
+      var callback = args[args.length - 1];
+      args[args.length - 1] = function (...cbArgs) {
+        callback.apply(null, cbArgs);
+        if (++numDone === readTasks.length) {
+          nextTick(function () {
+            // all read tasks have finished
+            readTasks.forEach(function () {
+              db._queue.shift();
+            });
+            if (db._queue.length) {
+              executeNext();
+            }
+          });
+        }
+      };
+      tryCode(readTask.fun, args);
+    });
+  }
+function runWriteOperation = function runWriteOperation(firstTask) {
+    var args = firstTask.args;
+    var callback = args[args.length - 1];
+    args[args.length - 1] = function (...cbArgs) {
+      callback.apply(null, cbArgs);
+      nextTick(function () {
+        db._queue.shift();
+        if (db._queue.length) {
+          executeNext();
+        }
+      });
+    };
+    tryCode(firstTask.fun, args);
+  }
+function writeLock = function writeLock(fun) {
+    return function (...args) {
+      db._queue.push({
+        fun: fun,
+        args: args,
+        type: 'write'
+      });
+
+      if (db._queue.length === 1) {
+        nextTick(executeNext);
+      }
+    };
+  }
+function readLock = function readLock(fun) {
+    return function (...args) {
+      db._queue.push({
+        fun: fun,
+        args: args,
+        type: 'read'
+      });
+
+      if (db._queue.length === 1) {
+        nextTick(executeNext);
+      }
+    };
+  }
+function formatSeq = function formatSeq(n) {
+    return ('0000000000000000' + n).slice(-16);
+  }
+function parseSeq = function parseSeq(s) {
+    return parseInt(s, 10);
+  }
+function callDestroy = function callDestroy(name, cb) {
+    // May not exist if leveldown is backed by memory adapter
+    /* istanbul ignore else */
+    if ('destroy' in leveldown) {
+      leveldown.destroy(name, cb);
+    } else {
+      cb(null);
+    }
+  }

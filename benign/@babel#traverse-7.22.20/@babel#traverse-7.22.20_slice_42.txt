@@ -1,0 +1,6 @@
+function VariableDeclarator = function VariableDeclarator() {
+  if (!this.get("id").isIdentifier()) return;
+  return this.get("init").getTypeAnnotation();
+}
+(_tmp_0 = this.get("id")).isIdentifier
+(_tmp_1 = this.get("init")).getTypeAnnotation

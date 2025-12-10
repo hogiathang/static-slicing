@@ -1,0 +1,1 @@
+_tmp_6.getFloat32 = getFloat32

@@ -1,0 +1,10 @@
+const _sendBuffer = () => {
+      if (bufferedData.length && wsRef.value && status.value === "OPEN") {
+        for (const buffer of bufferedData)
+          wsRef.value.send(buffer);
+        bufferedData = [];
+      }
+    }
+bufferedData.length && wsRef.value && status.value === "OPEN"
+_iterator_15 = <operator>.iterator(bufferedData)
+(_tmp_886 = wsRef.value).send

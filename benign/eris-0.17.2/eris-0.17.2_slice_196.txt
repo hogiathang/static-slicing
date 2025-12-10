@@ -1,0 +1,44 @@
+tryConnect() {
+        // nothing in queue
+        if(this.connectQueue.length === 0) {
+            return;
+        }
+
+        // loop over the connectQueue
+        for(const shard of this.connectQueue) {
+            // find the bucket for our shard
+            const rateLimitKey = (shard.id % this.options.concurrency) || 0;
+            const lastConnect = this.buckets.get(rateLimitKey) || 0;
+
+            // has enough time passed since the last connect for this bucket (5s/bucket)?
+            // alternatively if we have a sessionID, we can skip this check
+            if(!shard.sessionID && Date.now() - lastConnect < 5000) {
+                continue;
+            }
+
+            // Are there any connecting shards in the same bucket we should wait on?
+            if(this.some((s) => s.connecting && ((s.id % this.options.concurrency) || 0) === rateLimitKey)) {
+                continue;
+            }
+
+            // connect the shard
+            shard.connect();
+            this.buckets....
+this.connectQueue.length === 0
+_iterator_3 = <operator>.iterator(this.connectQueue)
+const rateLimitKey = (shard.id % this.options.concurrency) || 0
+const lastConnect = this.buckets.get(rateLimitKey) || 0
+!shard.sessionID && Date.now() - lastConnect < 5000
+continue;
+this.some((s) => s.connecting && ((s.id % this.options.concurrency) || 0) === rateLimitKey)
+continue;
+shard.connect()
+this.buckets.set(rateLimitKey, Date.now())
+const index = this.connectQueue.findIndex((s) => s.id === shard.id)
+(_tmp_16 = this.connectQueue).splice
+!this.connectTimeout && this.connectQueue.length > 0
+this.connectTimeout = setTimeout(() => {
+                this.connectTimeout = null;
+                this.tryConnect();
+            }, 500)
+500

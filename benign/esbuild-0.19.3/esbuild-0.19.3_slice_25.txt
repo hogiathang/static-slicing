@@ -1,0 +1,3 @@
+_tmp_244.readFile = readFile
+let contents = fs2.readFileSync(tempFile, "utf8")
+fs2.unlinkSync(tempFile)

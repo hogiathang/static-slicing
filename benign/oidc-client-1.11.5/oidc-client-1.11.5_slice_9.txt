@@ -1,0 +1,64 @@
+new Promise(function (resolve, reject) {
+
+            var req = new _this._XMLHttpRequest();
+            req.open('GET', url);
+
+            var allowedContentTypes = _this._contentTypes;
+            var jwtHandler = _this._jwtHandler;
+
+            req.onload = function () {
+                _Log.Log.debug("JsonService.getJson: HTTP response received, status", req.status);
+
+                if (req.status === 200) {
+
+                    var contentType = req.getResponseHeader("Content-Type");
+                    if (contentType) {
+
+                        var found = allowedContentTypes.find(function (item) {
+                            if (contentType.startsWith(item)) {
+                                return true;
+                            }
+                        });
+
+                        if (found == "application/jwt") {
+                            jwtHandler(req).then(resolve, reject);
+                            return;
+                        }
+
+                        if ...
+var req = new _this._XMLHttpRequest()
+req.open('GET', url)
+var allowedContentTypes = _this._contentTypes
+var jwtHandler = _this._jwtHandler
+req.onload = function () {
+                _Log.Log.debug("JsonService.getJson: HTTP response received, status", req.status);
+
+                if (req.status === 200) {
+
+                    var contentType = req.getResponseHeader("Content-Type");
+                    if (contentType) {
+
+                        var found = allowedContentTypes.find(function (item) {
+                            if (contentType.startsWith(item)) {
+                                return true;
+                            }
+                        });
+
+                        if (found == "application/jwt") {
+                            jwtHandler(req).then(resolve, reject);
+                            return;
+                        }
+
+                        if (found) {
+                            try {
+                                resolve(JSON.parse(req.responseText));
+                                return;
+                            } catch (e) {
+                                _Log.Log.error("Jso...
+req.onerror = function () {
+                _Log.Log.error("JsonService.getJson: network error");
+                reject(Error("Network Error"));
+            }
+_Log.Log.debug("JsonService.getJson: token passed, setting Authorization header")
+req.setRequestHeader("Authorization", "Bearer " + token)
+req.send()

@@ -1,0 +1,14 @@
+AuthorizeHandler.prototype.getUser = function(request, response) {
+  if (this.authenticateHandler instanceof AuthenticateHandler) {
+    return this.authenticateHandler.handle(request, response).get('user');
+  }
+  return promisify(this.authenticateHandler.handle, 2)(request, response).then(function(user) {
+    if (!user) {
+      throw new ServerError('Server error: `handle()` did not return a `user` object');
+    }
+
+    return user;
+  });
+}
+this.authenticateHandler instanceof AuthenticateHandler
+(_tmp_40 = this.authenticateHandler.handle(request, response)).get

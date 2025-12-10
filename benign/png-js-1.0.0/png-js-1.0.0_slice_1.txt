@@ -1,0 +1,33 @@
+static load(url, canvas, callback) {
+      if (typeof canvas === 'function') {
+        callback = canvas;
+      }
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.responseType = 'arraybuffer';
+      xhr.onload = () => {
+        const data = new Uint8Array(xhr.response || xhr.mozResponseArrayBuffer);
+        const png = new PNG(data);
+        if (typeof (canvas && canvas.getContext) === 'function') {
+          png.render(canvas);
+        }
+        return typeof callback === 'function' ? callback(png) : undefined;
+      };
+
+      return xhr.send(null);
+    }
+typeof canvas === 'function'
+callback = canvas
+const xhr = new XMLHttpRequest()
+xhr.open('GET', url, true)
+xhr.responseType = 'arraybuffer'
+xhr.onload = () => {
+        const data = new Uint8Array(xhr.response || xhr.mozResponseArrayBuffer);
+        const png = new PNG(data);
+        if (typeof (canvas && canvas.getContext) === 'function') {
+          png.render(canvas);
+        }
+        return typeof callback === 'function' ? callback(png) : undefined;
+      }
+xhr.send(null)

@@ -1,0 +1,41 @@
+function relateContextToCacheDir = function relateContextToCacheDir(config) {
+  const hardSourcePlugin = config.plugins.find(
+    ({ constructor }) => constructor.name === 'HardSourceWebpackPlugin',
+  );
+  const cacheDir = hardSourcePlugin.getCachePath();
+  const context = path.resolve(process.cwd(), config.context);
+  const clone = Object.assign({}, config, {
+    context: path.relative(cacheDir, context),
+  });
+  const sorted = sort(clone)
+    .replace(new RegExp(`${context}[^,\\]}]*`, 'g'), match =>
+      path.relative(cacheDir, match),
+    )
+    .replace(/\\/g, '/');
+  return crypto
+    .createHash('sha256')
+    .update(sorted)
+    .digest('hex');
+}
+const hardSourcePlugin = config.plugins.find(
+    ({ constructor }) => constructor.name === 'HardSourceWebpackPlugin',
+  )
+constructor.name === 'HardSourceWebpackPlugin'
+const cacheDir = hardSourcePlugin.getCachePath()
+const context = path.resolve(process.cwd(), config.context)
+const clone = Object.assign({}, config, {
+    context: path.relative(cacheDir, context),
+  })
+_tmp_2.context = path.relative(cacheDir, context)
+const sorted = sort(clone)
+    .replace(new RegExp(`${context}[^,\\]}]*`, 'g'), match =>
+      path.relative(cacheDir, match),
+    )
+    .replace(/\\/g, '/')
+<operator>.formatString("", context, "[^,\\]}]*")
+/\\/g
+crypto
+    .createHash('sha256')
+    .update(sorted)
+    .digest('hex')
+"sha256"

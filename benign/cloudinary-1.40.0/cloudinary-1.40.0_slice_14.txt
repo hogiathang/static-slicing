@@ -1,0 +1,40 @@
+function url = function url(public_id, options = {}) {
+  let signature, source_to_sign;
+  utils.patchFetchFormat(options);
+  let type = consumeOption(options, "type", null);
+  let transformation = utils.generate_transformation_string(options);
+
+  let resource_type = consumeOption(options, "resource_type", "image");
+  let version = consumeOption(options, "version");
+  let force_version = consumeOption(options, "force_version", config().force_version);
+  if (force_version == null) {
+    force_version = true;
+  }
+  let long_url_signature = !!consumeOption(options, "long_url_signature", config().long_url_signature);
+  let format = consumeOption(options, "format");
+  let shorten = consumeOption(options, "shorten", config().shorten);
+  let sign_url = consumeOption(options, "sign_url", config().sign_url);
+  let api_secret = consumeOption(options, "api_secret", config().api_secret);
+  let url_suffix = consumeOption(options, "url_suffix");
+  let use_root_path = consumeOption(options, "use_root_path", confi...
+utils.patchFetchFormat(options)
+let type = consumeOption(options, "type", null)
+let transformation = utils.generate_transformation_string(options)
+let resource_type = consumeOption(options, "resource_type", "image")
+let version = consumeOption(options, "version")
+let force_version = consumeOption(options, "force_version", config().force_version)
+force_version == null
+force_version = true
+let long_url_signature = !!consumeOption(options, "long_url_signature", config().long_url_signature)
+let format = consumeOption(options, "format")
+let shorten = consumeOption(options, "shorten", config().shorten)
+let sign_url = consumeOption(options, "sign_url", config().sign_url)
+let api_secret = consumeOption(options, "api_secret", config().api_secret)
+let url_suffix = consumeOption(options, "url_suffix")
+let use_root_path = consumeOption(options, "use_root_path", config().use_root_path)
+let signature_algorithm = consumeOption(options, "signature_algorithm", config().signature_algorithm || DEFAULT_SIGNATURE_ALGORITHM)
+signature_algorithm = 'sha256'
+let auth_token = consumeOption(options, "auth_token")
+auth_token !== false
+auth_token = exports.merge(config().auth_token, auth_token)
+let preloaded = /^(image|raw)\/([a-z0-9_]+)\/v(\d+)\/([^#]+)$/.exec(public_id)

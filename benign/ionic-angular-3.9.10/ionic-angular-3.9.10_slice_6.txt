@@ -1,0 +1,19 @@
+constructor(ionButton, config, elementRef, renderer) {
+        super(config, elementRef, renderer);
+        /** @hidden */
+        this._role = 'button'; // bar-button
+        /** @hidden */
+        this._style = 'default'; // outline/clear/solid
+        this._mode = config.get('mode');
+        if (config.get('hoverCSS') === false) {
+            this.setElementClass('disable-hover', true);
+        }
+        if (ionButton.trim().length > 0) {
+            this.setRole(ionButton);
+        }
+    }
+super(config, elementRef, renderer)
+this._role = 'button'
+this._style = 'default'
+this._mode = config.get('mode')
+config.get('hoverCSS') === false

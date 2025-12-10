@@ -1,0 +1,20 @@
+function requestAccessToken = function requestAccessToken(client, request) {
+    return client.send(request).then((resp) => {
+        const json = resp.data;
+        if (!json.access_token || !json.expires_in) {
+            throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, `Unexpected response while fetching access token: ${JSON.stringify(json)}`);
+        }
+        return json;
+    }).catch((err) => {
+        throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, getErrorMessage(err));
+    });
+}
+client.send(request).then((resp) => {
+        const json = resp.data;
+        if (!json.access_token || !json.expires_in) {
+            throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, `Unexpected response while fetching access token: ${JSON.stringify(json)}`);
+        }
+        return json;
+    }).catch((err) => {
+        throw new error_1.FirebaseAppError(error_1.AppErrorCodes.INVALID_CREDENTIAL, getErrorMessage(err));
+    })

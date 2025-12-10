@@ -1,0 +1,19 @@
+close(menuId) {
+        let menu;
+        if (menuId) {
+            // find the menu by its id
+            menu = this.get(menuId);
+        }
+        else {
+            // find the menu that is open
+            menu = this.getOpen();
+        }
+        if (menu) {
+            // close the menu
+            return menu.close();
+        }
+        return Promise.resolve(false);
+    }
+menu = this.get(menuId)
+menu = this.getOpen()
+menu.close()

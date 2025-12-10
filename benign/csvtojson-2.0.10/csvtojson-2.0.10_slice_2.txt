@@ -1,0 +1,14 @@
+new bluebird_1.default(function (resolve, reject) {
+            // console.log("chunk", chunk.length);
+            _this.next = resolve;
+            // this.appendReadBuf(chunk);
+            _this.childProcess.stdin.write(chunk, function () {
+                // console.log("chunk callback");
+                _this.flushResult();
+            });
+        })
+_this.next = resolve
+_this.childProcess.stdin.write(chunk, function () {
+                // console.log("chunk callback");
+                _this.flushResult();
+            })

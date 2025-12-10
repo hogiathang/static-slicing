@@ -1,0 +1,13 @@
+function processFiles = function processFiles(files) {
+  if (files.length > 1) {
+    files.map(function(filename) {
+      prettifyFile(filename)
+    })
+    return
+  }
+  var str = fs.readFileSync(files[0]).toString()
+  process.stdout.write(prettify(str))
+}
+files.length > 1
+var str = fs.readFileSync(files[0]).toString()
+process.stdout.write(prettify(str))

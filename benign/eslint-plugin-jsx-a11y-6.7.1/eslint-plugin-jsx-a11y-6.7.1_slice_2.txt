@@ -1,0 +1,3 @@
+_tmp_15.JSXAttribute = JSXAttribute
+var type = elementType(attribute.parent)
+(_tmp_16 = _ariaQuery.dom).get

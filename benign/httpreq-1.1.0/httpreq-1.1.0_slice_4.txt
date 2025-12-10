@@ -1,0 +1,227 @@
+function doRequest = function doRequest (o, callback) {
+  // support promises and async/await:
+  if (callback === undefined) {
+    return new Promise((resolve, reject) => {
+      doRequest(o, (err, res) => {
+        err ? reject(err) : resolve(res);
+      });
+    });
+  }
+
+  // prevent multiple callbacks
+  var finalCallbackDone = false;
+  function finalCallback (err, res) {
+    if (!finalCallbackDone) {
+      finalCallbackDone = true;
+      callback (err, res);
+    }
+  }
+
+  if (o.maxRedirects === undefined) {
+    o.maxRedirects = 10;
+  }
+
+  if (o.encodePostParameters === undefined) {
+    o.encodePostParameters = true;
+  }
+
+  var chunks = [];
+  var body; // Buffer
+  var contentType;
+
+  var port;
+  var host;
+  var path;
+  var isHttps = false;
+
+  if (o.proxy) {
+    port = o.proxy.port;
+    host = o.proxy.host;
+    path = o.url; // complete url
+
+    if (o.proxy.protocol && o.proxy.protocol.match (/https/)) {
+      isHttps = true;
+    }
+  } else {
+    var reqUrl = url.parse (o.url);
+    host = reqUrl.hostname...
+callback === undefined
+var finalCallbackDone = false
+function finalCallback = function finalCallback (err, res) {
+    if (!finalCallbackDone) {
+      finalCallbackDone = true;
+      callback (err, res);
+    }
+  }
+o.maxRedirects === undefined
+o.maxRedirects = 10
+o.encodePostParameters === undefined
+o.encodePostParameters = true
+__ecma.Array.factory()
+var isHttps = false
+o.proxy
+port = o.proxy.port
+host = o.proxy.host
+path = o.url
+o.proxy.protocol && o.proxy.protocol.match (/https/)
+isHttps = true
+var reqUrl = url.parse (o.url)
+host = reqUrl.hostname
+path = reqUrl.path
+reqUrl.protocol === 'https:'
+isHttps = true
+reqUrl.port
+port = reqUrl.port
+port = 443
+port = 80
+o.files && o.files.length > 0 && o.method === 'GET'
+o.parameters
+o.method === 'GET'
+path += '?' + querystring.stringify (o.parameters)
+body = new Buffer (querystring.stringify (o.parameters), 'utf8')
+contentType = 'application/x-www-form-urlencoded; charset=UTF-8'
+o.json
+body = new Buffer (JSON.stringify (o.json), 'utf8')
+contentType = 'application/json'
+o.files
+var crlf = '\r\n'
+var boundary = generateBoundary ()
+var separator = '--' + boundary
+var bodyArray = new Array ()
+_iterator_0 = <operator>.iterator(o.parameters)
+var headerKey = o.encodePostParameters ? encodeURIComponent (key) : key
+var encodedParameter = separator + crlf
+        + 'Content-Disposition: form-data; name="' + headerKey + '"' + crlf
+        + crlf
+        + o.parameters[key] + crlf
+"Content-Disposition: form-data; name=""
+o.parameters[key]
+bodyArray.push (new Buffer (encodedParameter))
+var haveAlreadyAddedAFile = false
+_iterator_1 = <operator>.iterator(o.files)
+var files = o.files[name]
+_tmp_15 = __ecma.Array.factory()
+_iterator_2 = <operator>.iterator(files)
+var filename = file.replace (/\\/g, '/').replace (/.*\//, '')
+var encodedFile = separator + crlf
+          + 'Content-Disposition: form-data; name="' + name + '"; filename="' + filename + '"' + crlf
+          + 'Content-Type: application/octet-stream' + crlf
+          + crlf
+""; filename=""
+"Content-Type: application/octet-stream"
+encodedFile = crlf + encodedFile
+bodyArray.push (new Buffer (encodedFile))
+bodyArray.push (require ('fs').readFileSync (file))
+haveAlreadyAddedAFile = true
+var footer = crlf + separator + '--' + crlf
+bodyArray.push (new Buffer (footer))
+body = Buffer.concat (bodyArray)
+contentType = 'multipart/form-data; boundary=' + boundary
+o.body
+body = new Buffer (o.body, 'utf8')
+contentType = null
+var requestoptions = {
+    host: host,
+    port: port,
+    path: path,
+    method: o.method,
+    headers: {}
+  }
+_tmp_21.host = host
+_tmp_21.port = port
+_tmp_21.path = path
+_tmp_21.method = o.method
+_tmp_21.headers = {}
+!o.redirectCount
+o.redirectCount = 0
+requestoptions.headers['Content-Length'] = body.length
+requestoptions.headers['Content-Type'] = contentType
+o.cookies
+requestoptions.headers.Cookie = o.cookies.join ('; ')
+o.rejectUnauthorized !== undefined && isHttps
+requestoptions.rejectUnauthorized = o.rejectUnauthorized
+isHttps && o.key
+requestoptions.key = o.key
+isHttps && o.cert
+requestoptions.cert = o.cert
+isHttps && o.secureProtocol
+requestoptions.secureProtocol = o.secureProtocol
+isHttps && o.ciphers
+requestoptions.ciphers = o.ciphers
+isHttps && o.shuffleCiphers
+var shuffledChiphers = defaultCiphers.slice(0)
+let i = shuffledChiphers.length - 1
+const j = Math.floor(Math.random() * (i + 1))
+_tmp_25 = [shuffledChiphers[j], shuffledChiphers[i]]
+requestoptions.ciphers = shuffledChiphers.join(':')
+isHttps && o.passphrase
+requestoptions.passphrase = o.passphrase
+isHttps && o.pfx
+requestoptions.pfx = o.pfx
+isHttps && o.ca
+requestoptions.ca = o.ca
+o.headers
+_iterator_3 = <operator>.iterator(o.headers)
+requestoptions.headers[headerkey] = o.headers[headerkey]
+o.agent
+requestoptions.agent = o.agent
+o.auth
+requestoptions.auth = o.auth
+o.localAddress
+requestoptions.localAddress = o.localAddress
+o.secureOptions
+requestoptions.secureOptions = o.secureOptions
+function requestResponse = function requestResponse (res) {
+    var ended = false;
+    var currentsize = 0;
+
+    var downloadstream = null;
+    if (o.downloadlocation) {
+      downloadstream = fs.createWriteStream (o.downloadlocation);
+    }
+
+    res.on ('data', function (chunk) {
+      if (o.downloadlocation) {
+        downloadstream.write (chunk); //write it to disk, not to memory
+      } else {
+        chunks.push (chunk);
+      }
+
+      if (o.progressCallback) {
+        var totalsize = res.headers['content-length'];
+        if (totalsize) {
+          currentsize += chunk.length;
+
+          o.progressCallback (null, {
+            url: o.url,
+            totalsize: totalsize,
+            currentsize: currentsize,
+            percentage: currentsize * 100 / totalsize
+          });
+        } else {
+          o.progressCallback (new Error ('no content-length specified for file, so no progress monitoring possible'));
+        }
+      }
+    });
+
+    res.on ('end', function (err) {
+      ended = true;
+
+      // ch...
+_iterator_4 = <operator>.iterator(requestoptions.headers)
+var headerValue = requestoptions.headers[headerName]
+!headerName || !headerValue
+delete requestoptions.headers[headerName]
+request = https.request (requestoptions, requestResponse)
+request = http.request (requestoptions, requestResponse)
+o.timeout
+request.setTimeout (parseInt (o.timeout, 10), function () {
+      var err = new Error ('request timed out');
+      err.code = 'TIMEOUT';
+      finalCallback (err);
+      request.abort ();
+    })
+request.on ('error', function (err) {
+    finalCallback (err);
+  })
+request.write (body)

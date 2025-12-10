@@ -1,0 +1,111 @@
+_tmp_74.init = init
+let props = this._props
+let style = target.style
+let startAt = tween.vars.startAt
+_pluginInitted || _initCore()
+this.styles = this.styles || _getStyleSaver(target)
+inlineProps = this.styles.props
+this.tween = tween
+_iterator_3 = <operator>.iterator(vars)
+p === "autoRound"
+continue;
+endValue = vars[p]
+_plugins[p] && _checkPlugin(p, vars, tween, index, target, targets)
+continue;
+type = typeof(endValue)
+specialProp = _specialProps[p]
+type === "function"
+endValue = endValue.call(tween, index, target, targets)
+type = typeof(endValue)
+type === "string" && ~endValue.indexOf("random(")
+endValue = _replaceRandom(endValue)
+specialProp(this, target, p, endValue, tween) && (hasPriority = 1)
+p.substr(0,2) === "--"
+startValue = (getComputedStyle(target).getPropertyValue(p) + "").trim()
+endValue += ""
+_colorExp.lastIndex = 0
+!_colorExp.test(startValue)
+startUnit = getUnit(startValue)
+endUnit = getUnit(endValue)
+endUnit ? startUnit !== endUnit && (startValue = _convertToUnit(target, p, startValue, endUnit) + endUnit) : startUnit && (endValue += startUnit)
+this.add(style, "setProperty", startValue, endValue, index, targets, 0, 0, p)
+props.push(p)
+inlineProps.push(p, 0, style[p])
+type !== "undefined"
+startAt && p in startAt
+startValue = typeof(startAt[p]) === "function" ? startAt[p].call(tween, index, target, targets) : startAt[p]
+_isString(startValue) && ~startValue.indexOf("random(") && (startValue = _replaceRandom(startValue))
+getUnit(startValue + "") || (startValue += _config.units[p] || getUnit(_get(target, p)) || "")
+(startValue + "").charAt(1) === "=" && (startValue = _get(target, p))
+startValue = _get(target, p)
+startNum = parseFloat(startValue)
+relative = (type === "string" && endValue.charAt(1) === "=") && endValue.substr(0, 2)
+relative && (endValue = endValue.substr(2))
+endNum = parseFloat(endValue)
+p in _propertyAliases
+p === "autoAlpha"
+startNum === 1 && _get(target, "visibility") === "hidden" && endNum
+startNum = 0
+inlineProps.push("visibility", 0, style.visibility)
+_addNonTweeningPT(this, style, "visibility", startNum ? "inherit" : "hidden", endNum ? "inherit" : "hidden", !endNum)
+p !== "scale" && p !== "transform"
+p = _propertyAliases[p]
+~p.indexOf(",") && (p = p.split(",")[0])
+isTransformRelated = (p in _transformProps)
+(_tmp_79 = this.styles).save
+!transformPropTween
+cache = target._gsap
+(cache.renderTransform && !vars.parseTransform) || _parseTransform(target, vars.parseTransform)
+smooth = (vars.smoothOrigin !== false && cache.smooth)
+transformPropTween = this._pt = new PropTween(this._pt, style, _transformProp, 0, 1, cache.renderTransform, cache, 0, -1)
+transformPropTween.dep = 1
+p === "scale"
+this._pt = new PropTween(this._pt, cache, "scaleY", cache.scaleY, ((relative ? _parseRelative(cache.scaleY, relative + endNum) : endNum) - cache.scaleY) || 0, _renderCSSProp)
+this._pt.u = 0
+props.push("scaleY", p)
+p += "X"
+p === "transformOrigin"
+inlineProps.push(_transformOriginProp, 0, style[_transformOriginProp])
+endValue = _convertKeywordsToPercentages(endValue)
+cache.svg
+_applySVGOrigin(target, endValue, 0, smooth, 0, this)
+endUnit = parseFloat(endValue.split(" ")[2]) || 0
+endUnit !== cache.zOrigin && _addNonTweeningPT(this, cache, "zOrigin", cache.zOrigin, endUnit)
+_addNonTweeningPT(this, style, p, _firstTwoOnly(startValue), _firstTwoOnly(endValue))
+continue;
+p === "svgOrigin"
+_applySVGOrigin(target, endValue, 1, smooth, 0, this)
+continue;
+p in _rotationalProperties
+_addRotationalPropTween(this, cache, p, startNum, relative ? _parseRelative(startNum, relative + endValue) : endValue)
+continue;
+p === "smoothOrigin"
+_addNonTweeningPT(this, cache, "smooth", cache.smooth, endValue)
+continue;
+p === "force3D"
+cache[p] = endValue
+continue;
+p === "transform"
+_addRawTransformPTs(this, endValue, target)
+continue;
+!(p in style)
+p = _checkPropPrefix(p) || p
+isTransformRelated || ((endNum || endNum === 0) && (startNum || startNum === 0) && !_complexExp.test(endValue) && (p in style))
+startUnit = (startValue + "").substr((startNum + "").length)
+endNum || (endNum = 0)
+endUnit = getUnit(endValue) || ((p in _config.units) ? _config.units[p] : startUnit)
+startUnit !== endUnit && (startNum = _convertToUnit(target, p, startValue, endUnit))
+this._pt = new PropTween(this._pt, isTransformRelated ? cache : style, p, startNum, (relative ? _parseRelative(startNum, relative + endNum) : endNum) - startNum, (!isTransformRelated && (endUnit === "px" || p === "zIndex") && vars.autoRound !== false) ? _renderRoundedCSSProp : _renderCSSProp)
+this._pt.u = endUnit || 0
+startUnit !== endUnit && endUnit !== "%"
+this._pt.b = startValue
+this._pt.r = _renderCSSPropWithBeginning
+!(p in style)
+p in target
+this.add(target, p, startValue || target[p], relative ? relative + endValue : endValue, index, targets)
+p !== "parseTransform"
+_missingPlugin(p, endValue)
+continue;
+_tweenComplexCSSString.call(this, target, p, startValue, relative ? relative + endValue : endValue)
+isTransformRelated || (p in style ? inlineProps.push(p, 0, style[p]) : inlineProps.push(p, 1, startValue || target[p]))
+props.push(p)

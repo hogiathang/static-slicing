@@ -1,0 +1,11 @@
+function emitInvalidSegmentDeprecation = function emitInvalidSegmentDeprecation(target, request, match, packageJsonUrl, internal, base, isTarget) {
+  const pjsonPath = (0, import_node_url3.fileURLToPath)(packageJsonUrl);
+  const double = doubleSlashRegEx.exec(isTarget ? target : request) !== null;
+  import_node_process2.default.emitWarning(
+    `Use of deprecated ${double ? "double slash" : "leading or trailing slash matching"} resolving "${target}" for module request "${request}" ${request === match ? "" : `matched to "${match}" `}in the "${internal ? "imports" : "exports"}" field module resolution of the package at ${pjsonPath}${base ? ` imported from ${(0, import_node_url3.fileURLToPath)(base)}` : ""}.`,
+    "DeprecationWarning",
+    "DEP0166"
+  );
+}
+const pjsonPath = (0, import_node_url3.fileURLToPath)(packageJsonUrl)
+const double = doubleSlashRegEx.exec(isTarget ? target : request) !== null

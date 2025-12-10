@@ -1,0 +1,94 @@
+function jsonHelpUsage = function jsonHelpUsage() {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const localYargs = yargs_1.default;
+    const { deprecatedOptions, alias: aliases, array, string, boolean, number, choices, demandedOptions, default: defaultVal, hiddenOptions = [], } = localYargs.getOptions();
+    const internalMethods = localYargs.getInternalMethods();
+    const usageInstance = internalMethods.getUsageInstance();
+    const context = internalMethods.getContext();
+    const descriptions = usageInstance.getDescriptions();
+    const groups = localYargs.getGroups();
+    const positional = groups[usageInstance.getPositionalGroupName()];
+    const hidden = new Set(hiddenOptions);
+    const normalizeOptions = [];
+    const allAliases = new Set([...Object.values(aliases).flat()]);
+    for (const [names, type] of [
+        [array, 'array'],
+        [string, 'string'],
+        [boolean, 'boolean'],
+        [number, 'number'],
+    ]) {
+        for (const name of names) {
+        ...
+const localYargs = yargs_1.default
+hiddenOptions = _tmp_0.hiddenOptions === void 0 ? __ecma.Array.factory() : _tmp_0.hiddenOptions
+const internalMethods = localYargs.getInternalMethods()
+const usageInstance = internalMethods.getUsageInstance()
+const context = internalMethods.getContext()
+const descriptions = usageInstance.getDescriptions()
+const groups = localYargs.getGroups()
+const positional = groups[usageInstance.getPositionalGroupName()]
+const hidden = new Set(hiddenOptions)
+const normalizeOptions = []
+const allAliases = new Set([...Object.values(aliases).flat()])
+_iterator_0 = <operator>.iterator([
+        [array, 'array'],
+        [string, 'string'],
+        [boolean, 'boolean'],
+        [number, 'number'],
+    ])
+_tmp_6 = __ecma.Array.factory()
+_tmp_5.push([string, 'string'])
+_tmp_5.push([boolean, 'boolean'])
+_tmp_5.push([number, 'number'])
+_iterator_1 = <operator>.iterator(names)
+allAliases.has(name) || hidden.has(name)
+continue;
+const positionalIndex = positional?.indexOf(name) ?? -1
+const alias = aliases[name]
+normalizeOptions.push({
+                name,
+                type,
+                deprecated: deprecatedOptions[name],
+                aliases: alias?.length > 0 ? alias : undefined,
+                default: defaultVal[name],
+                required: demandedOptions[name],
+                enum: choices[name],
+                description: descriptions[name]?.replace('__yargsString__:', ''),
+                positional: positionalIndex >= 0 ? positionalIndex : undefined,
+            })
+_tmp_10.name = name
+_tmp_10.type = type
+_tmp_10.deprecated = deprecatedOptions[name]
+_tmp_10.aliases = alias?.length > 0 ? alias : undefined
+_tmp_10.default = defaultVal[name]
+_tmp_10.required = demandedOptions[name]
+_tmp_10.enum = choices[name]
+_tmp_10.description = descriptions[name]?.replace('__yargsString__:', '')
+_tmp_10.positional = positionalIndex >= 0 ? positionalIndex : undefined
+const subcommands = usageInstance.getCommands()
+        .map(([name, rawDescription, isDefault, aliases, deprecated]) => ({
+        name: name.split(' ', 1)[0].replace(yargsDefaultCommandRegExp, ''),
+        command: name.replace(yargsDefaultCommandRegExp, ''),
+        default: isDefault || undefined,
+        ...parseDescription(rawDescription),
+        aliases,
+        deprecated,
+    }))
+        .sort((a, b) => a.name.localeCompare(b.name))
+rawDescription = param1_0.rawDescription
+(_tmp_15 = a.name).localeCompare
+_tmp_16 = usageInstance.getUsage()[0] ?? []
+const defaultSubCommand = subcommands.find((x) => x.default)?.command ?? ''
+const otherSubcommands = subcommands.filter((s) => !s.default)
+const output = {
+        name: [...context.commands].pop(),
+        command: `${command?.replace(yargsDefaultCommandRegExp, localYargs['$0'])}${defaultSubCommand}`,
+        ...parseDescription(rawDescription),
+        options: normalizeOptions.sort((a, b) => a.name.localeCompare(b.name)),
+        subcommands: otherSubcommands.length ? otherSubcommands : undefined,
+    }
+_tmp_17.name = [...context.commands].pop()
+_tmp_17.command = <operator>.formatString("", command?.replace(yargsDefaultCommandRegExp, localYargs['$0']), "", defaultSubCommand, "")
+...parseDescription(rawDescription)
+_tmp_17.options = normalizeOptions.sort((a, b) => a.name.localeCompare(b.name))
+_tmp_17.subcommands = otherSubcommands.length ? otherSubcommands : undefined

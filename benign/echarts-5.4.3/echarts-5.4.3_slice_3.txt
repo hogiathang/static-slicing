@@ -1,0 +1,44 @@
+Radar.prototype.update = function (ecModel, api) {
+    var indicatorAxes = this._indicatorAxes;
+    var radarModel = this._model;
+    each(indicatorAxes, function (indicatorAxis) {
+      indicatorAxis.scale.setExtent(Infinity, -Infinity);
+    });
+    ecModel.eachSeriesByType('radar', function (radarSeries, idx) {
+      if (radarSeries.get('coordinateSystem') !== 'radar' // @ts-ignore
+      || ecModel.getComponent('radar', radarSeries.get('radarIndex')) !== radarModel) {
+        return;
+      }
+
+      var data = radarSeries.getData();
+      each(indicatorAxes, function (indicatorAxis) {
+        indicatorAxis.scale.unionExtentFromData(data, data.mapDimension(indicatorAxis.dim));
+      });
+    }, this);
+    var splitNumber = radarModel.get('splitNumber');
+    var dummyScale = new IntervalScale();
+    dummyScale.setExtent(0, splitNumber);
+    dummyScale.setInterval(1); // Force all the axis fixing the maxSplitNumber.
+
+    each(indicatorAxes, function (indicatorAxis, idx) {
+      alignSc...
+var indicatorAxes = this._indicatorAxes
+var radarModel = this._model
+each(indicatorAxes, function (indicatorAxis) {
+      indicatorAxis.scale.setExtent(Infinity, -Infinity);
+    })
+ecModel.eachSeriesByType('radar', function (radarSeries, idx) {
+      if (radarSeries.get('coordinateSystem') !== 'radar' // @ts-ignore
+      || ecModel.getComponent('radar', radarSeries.get('radarIndex')) !== radarModel) {
+        return;
+      }
+
+      var data = radarSeries.getData();
+      each(indicatorAxes, function (indicatorAxis) {
+        indicatorAxis.scale.unionExtentFromData(data, data.mapDimension(indicatorAxis.dim));
+      });
+    }, this)
+var splitNumber = radarModel.get('splitNumber')
+var dummyScale = new IntervalScale()
+dummyScale.setExtent(0, splitNumber)
+dummyScale.setInterval(1)

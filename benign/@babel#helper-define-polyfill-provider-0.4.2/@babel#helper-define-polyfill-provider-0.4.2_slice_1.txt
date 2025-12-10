@@ -1,0 +1,33 @@
+function resolveKey = function resolveKey(path, computed = false) {
+  const {
+    scope
+  } = path;
+  if (path.isStringLiteral()) return path.node.value;
+  const isIdentifier = path.isIdentifier();
+  if (isIdentifier && !(computed || path.parent.computed)) {
+    return path.node.name;
+  }
+  if (computed && path.isMemberExpression() && path.get("object").isIdentifier({
+    name: "Symbol"
+  }) && !scope.hasBinding("Symbol", /* noGlobals */true)) {
+    const sym = resolveKey(path.get("property"), path.node.computed);
+    if (sym) return "Symbol." + sym;
+  }
+  if (!isIdentifier || scope.hasBinding(path.node.name, /* noGlobals */true)) {
+    const {
+      value
+    } = path.evaluate();
+    if (typeof value === "string") return value;
+  }
+}
+_tmp_6 = path
+scope = _tmp_6.scope
+path.isStringLiteral()
+const isIdentifier = path.isIdentifier()
+isIdentifier && !(computed || path.parent.computed)
+computed && path.isMemberExpression() && path.get("object").isIdentifier({
+    name: "Symbol"
+  }) && !scope.hasBinding("Symbol", /* noGlobals */true)
+_tmp_8.name = "Symbol"
+!scope.hasBinding("Symbol", /* noGlobals */true)
+const sym = resolveKey(path.get("property"), path.node.computed)

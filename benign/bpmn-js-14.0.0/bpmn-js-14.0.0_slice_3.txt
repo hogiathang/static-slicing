@@ -1,0 +1,7 @@
+function getStrokeColor = function getStrokeColor(element, defaultColor) {
+  var di = getDi(element);
+
+  return di.get('color:border-color') || di.get('bioc:stroke') || defaultColor || black;
+}
+var di = getDi(element)
+di.get('color:border-color') || di.get('bioc:stroke') || defaultColor || black

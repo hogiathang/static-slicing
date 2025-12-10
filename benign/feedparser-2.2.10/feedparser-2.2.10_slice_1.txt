@@ -1,0 +1,26 @@
+el.forEach(function (link){
+            if (link['@']['href']) { // Atom
+              if (_.get(link['@'], 'rel')) {
+                if (link['@']['rel'] == 'alternate') {
+                  if (!meta.link) meta.link = link['@']['href'];
+                }
+                else if (link['@']['rel'] == 'self') {
+                  meta.xmlurl = meta.xmlUrl = link['@']['href'];
+                  if (_.isAbsoluteUrl(meta.xmlurl) && this.xmlbase && this.xmlbase.length === 0) {
+                    this.xmlbase.unshift({ '#name': 'xml', '#': meta.xmlurl });
+                    this.stack[0] = _.reresolve(this.stack[0], meta.xmlurl);
+                  }
+                  else if (this.xmlbase && this.xmlbase.length > 0) {
+                    meta.xmlurl = meta.xmlUrl = _.resolve(_.get(this.xmlbase[0], '#'), meta.xmlurl);
+                  }
+                }
+                else if (link['@']['rel'] == 'hub' && !(meta.cloud.href || meta.cloud.domain)) {
+                  meta.cloud.type = 'hu...
+link["@"]["href"]
+_.get(link['@'], 'rel')
+link['@']['rel'] == 'alternate'
+link['@']['rel'] == 'self'
+meta.xmlurl = meta.xmlUrl = link['@']['href']
+_.isAbsoluteUrl(meta.xmlurl) && this.xmlbase && this.xmlbase.length === 0
+this.xmlbase && this.xmlbase.length > 0
+meta.xmlurl = meta.xmlUrl = _.resolve(_.get(this.xmlbase[0], '#'), meta.xmlurl)

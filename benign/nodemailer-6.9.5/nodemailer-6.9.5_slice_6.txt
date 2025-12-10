@@ -1,0 +1,7 @@
+dns.resolve(proxy.hostname, (err, address) => {
+                        if (err) {
+                            return callback(err);
+                        }
+                        connect(Array.isArray(address) ? address[0] : address);
+                    })
+connect(Array.isArray(address) ? address[0] : address)

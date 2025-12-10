@@ -1,0 +1,26 @@
+function _render = async function _render(platformRef, applicationRef) {
+    const environmentInjector = applicationRef.injector;
+    // Block until application is stable.
+    await applicationRef.isStable.pipe((first((isStable) => isStable))).toPromise();
+    const platformState = platformRef.injector.get(PlatformState);
+    if (applicationRef.injector.get(ɵIS_HYDRATION_DOM_REUSE_ENABLED, false)) {
+        const doc = platformState.getDocument();
+        appendSsrContentIntegrityMarker(doc);
+        ɵannotateForHydration(applicationRef, doc);
+    }
+    // Run any BEFORE_APP_SERIALIZED callbacks just before rendering to string.
+    const callbacks = environmentInjector.get(BEFORE_APP_SERIALIZED, null);
+    if (callbacks) {
+        const asyncCallbacks = [];
+        for (const callback of callbacks) {
+            try {
+                const callbackResult = callback();
+                if (callbackResult) {
+                    asyncCallbacks.push(callbackResult);
+                }
+            }
+        ...
+const environmentInjector = applicationRef.injector
+(_tmp_12 = applicationRef.isStable.pipe((first((isStable) => isStable)))).toPromise
+const platformState = platformRef.injector.get(PlatformState)
+applicationRef.injector.get(ɵIS_HYDRATION_DOM_REUSE_ENABLED, false)

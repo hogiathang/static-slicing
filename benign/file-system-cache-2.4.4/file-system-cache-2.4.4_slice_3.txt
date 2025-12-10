@@ -1,0 +1,1 @@
+const toJson = (value, ttl) => JSON.stringify({ value, type: libs_1.R.type(value), created: new Date(), ttl })

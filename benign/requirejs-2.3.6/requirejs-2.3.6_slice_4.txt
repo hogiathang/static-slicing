@@ -1,0 +1,53 @@
+_tmp_2145.process = <lambda>1191
+var foundIndex = -1
+var pragmas = config.pragmas
+var kwArgs = pragmas
+lifecyclePragmas = config['pragmas' + onLifecycleName]
+lifecycleHas = config['has' + onLifecycleName]
+pragmas = create(pragmas || {}, lifecyclePragmas)
+hasConfig = create(hasConfig || {}, lifecycleHas)
+fileContents = fileContents.replace(pragma.hasRegExp, function (match, test) {
+                    if (hasConfig.hasOwnProperty(test)) {
+                        return !!hasConfig[test];
+                    }
+                    return match;
+                })
+!config.skipPragmas
+(foundIndex = fileContents.indexOf("//>>", startIndex)) !== -1
+lineEndIndex = fileContents.indexOf("\n", foundIndex)
+lineEndIndex === -1
+lineEndIndex = fileContents.length - 1
+startIndex = lineEndIndex + 1
+conditionLine = fileContents.substring(foundIndex, lineEndIndex + 1)
+matches = conditionLine.match(pragma.conditionalRegExp)
+type = matches[1]
+marker = matches[2]
+condition = matches[3]
+isTrue = false
+isTrue = !!eval("(" + condition + ")")
+throw "Error in file: " +
+                                   fileName +
+                                   ". Conditional comment: " +
+                                   conditionLine +
+                                   " failed with this error: " + e;
+". Conditional comment: "
+" failed with this error: "
+endRegExp = new RegExp('\\/\\/\\>\\>\\s*' + type + 'End\\(\\s*[\'"]' + marker + '[\'"]\\s*\\)', "g")
+endMatches = endRegExp.exec(fileContents.substring(startIndex, fileContents.length))
+endMarkerIndex = startIndex + endRegExp.lastIndex - endMatches[0].length
+lineEndIndex = fileContents.indexOf("\n", endMarkerIndex)
+lineEndIndex === -1
+lineEndIndex = fileContents.length - 1
+shouldInclude = ((type === "exclude" && !isTrue) || (type === "include" && isTrue))
+startLength = startIndex - foundIndex
+fileContents = fileContents.substring(0, foundIndex) +
+                                (shouldInclude ? fileContents.substring(startIndex, endMarkerIndex) : "") +
+                                fileContents.substring(lineEndIndex + 1, fileContents.length)
+shouldInclude ? fileContents.substring(startIndex, endMarkerIndex) : ""
+fileContents.substring(lineEndIndex + 1, fileContents.length)
+startIndex = foundIndex
+throw "Error in file: " +
+                                  fileName +
+                                  ". Cannot find end marker for conditional comment: " +
+                                  conditionLine;
+". Cannot find end marker for conditional comment: "

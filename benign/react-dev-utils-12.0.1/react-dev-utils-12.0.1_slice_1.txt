@@ -1,0 +1,66 @@
+function prepareProxy = function prepareProxy(proxy, appPublicFolder, servedPathname) {
+  // `proxy` lets you specify alternate servers for specific requests.
+  if (!proxy) {
+    return undefined;
+  }
+  if (typeof proxy !== 'string') {
+    console.log(
+      chalk.red('When specified, "proxy" in package.json must be a string.')
+    );
+    console.log(
+      chalk.red('Instead, the type of "proxy" was "' + typeof proxy + '".')
+    );
+    console.log(
+      chalk.red('Either remove "proxy" from package.json, or make it a string.')
+    );
+    process.exit(1);
+  }
+
+  // If proxy is specified, let it handle any request except for
+  // files in the public folder and requests to the WebpackDevServer socket endpoint.
+  // https://github.com/facebook/create-react-app/issues/6720
+  const sockPath = process.env.WDS_SOCKET_PATH || '/ws';
+  const isDefaultSockHost = !process.env.WDS_SOCKET_HOST;
+  function mayProxy(pathname) {
+    const maybePublicPath = path.resolve(
+      appPublicFolder,
+      pathname.replace(new R...
+!proxy
+typeof proxy !== 'string'
+console.log(
+      chalk.red('When specified, "proxy" in package.json must be a string.')
+    )
+chalk.red('When specified, "proxy" in package.json must be a string.')
+console.log(
+      chalk.red('Instead, the type of "proxy" was "' + typeof proxy + '".')
+    )
+chalk.red('Instead, the type of "proxy" was "' + typeof proxy + '".')
+console.log(
+      chalk.red('Either remove "proxy" from package.json, or make it a string.')
+    )
+chalk.red('Either remove "proxy" from package.json, or make it a string.')
+process.exit(1)
+const sockPath = process.env.WDS_SOCKET_PATH || '/ws'
+const isDefaultSockHost = !process.env.WDS_SOCKET_HOST
+function mayProxy = function mayProxy(pathname) {
+    const maybePublicPath = path.resolve(
+      appPublicFolder,
+      pathname.replace(new RegExp('^' + servedPathname), '')
+    );
+    const isPublicFileRequest = fs.existsSync(maybePublicPath);
+    // used by webpackHotDevClient
+    const isWdsEndpointRequest =
+      isDefaultSockHost && pathname.startsWith(sockPath);
+    return !(isPublicFileRequest || isWdsEndpointRequest);
+  }
+(_tmp_14 = /^http(s)?:\/\//).test
+console.log(
+      chalk.red(
+        'When "proxy" is specified in package.json it must start with either http:// or https://'
+      )
+    )
+chalk.red(
+        'When "proxy" is specified in package.json it must start with either http:// or https://'
+      )
+"When "proxy" is specified in package.json it must start with either http:// or https://"
+process.exit(1)

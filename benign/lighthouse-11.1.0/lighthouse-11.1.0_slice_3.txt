@@ -1,0 +1,88 @@
+static async audit_(artifacts, networkRecords, context) {
+    const ignoreThresholdInBytes =
+      context.options?.ignoreThresholdInBytes || IGNORE_THRESHOLD_IN_BYTES;
+    const duplication =
+      await DuplicatedJavascript._getDuplicationGroupedByNodeModules(artifacts, context);
+
+    /** @type {Map<string, number>} */
+    const transferRatioByUrl = new Map();
+
+    /** @type {Item[]} */
+    const items = [];
+
+    let overflowWastedBytes = 0;
+    const overflowUrls = new Set();
+
+    /** @type {Map<string, number>} */
+    const wastedBytesByUrl = new Map();
+    for (const [source, sourceDatas] of duplication.entries()) {
+      // One copy of this module is treated as the canonical version - the rest will have
+      // non-zero `wastedBytes`. In the case of all copies being the same version, all sizes are
+      // equal and the selection doesn't matter. When the copies are different versions, it does
+      // matter. Ideally the newest version would be the canonical copy, but version...
+const ignoreThresholdInBytes =
+      context.options?.ignoreThresholdInBytes || IGNORE_THRESHOLD_IN_BYTES
+context.options?.ignoreThresholdInBytes || IGNORE_THRESHOLD_IN_BYTES
+const duplication =
+      await DuplicatedJavascript._getDuplicationGroupedByNodeModules(artifacts, context)
+await DuplicatedJavascript._getDuplicationGroupedByNodeModules(artifacts, context)
+const transferRatioByUrl = new Map()
+__ecma.Array.factory()
+let overflowWastedBytes = 0
+const overflowUrls = new Set()
+const wastedBytesByUrl = new Map()
+_iterator_3 = <operator>.iterator(duplication.entries())
+__ecma.Array.factory()
+let wastedBytesTotal = 0
+i < sourceDatas.length
+const sourceData = sourceDatas[i]
+const scriptId = sourceData.scriptId
+const script = artifacts.Scripts.find(script => script.scriptId === scriptId)
+const url = script?.url || ''
+let transferRatio = transferRatioByUrl.get(url)
+transferRatio === undefined
+!script || script.length === undefined
+continue;
+const contentLength = script.length
+const networkRecord = getRequestForScript(networkRecords, script)
+transferRatio = DuplicatedJavascript._estimateTransferRatio(networkRecord, contentLength)
+transferRatioByUrl.set(url, transferRatio)
+transferRatio === undefined
+continue;
+const transferSize = Math.round(sourceData.resourceSize * transferRatio)
+subItems.push({
+          url,
+          sourceTransferBytes: transferSize,
+        })
+_tmp_9.url = url
+_tmp_9.sourceTransferBytes = transferSize
+i === 0
+wastedBytesTotal += transferSize
+wastedBytesByUrl.set(url, (wastedBytesByUrl.get(url) || 0) + transferSize)
+wastedBytesTotal <= ignoreThresholdInBytes
+overflowWastedBytes += wastedBytesTotal
+_iterator_4 = <operator>.iterator(subItems)
+overflowUrls.add(subItem.url)
+continue;
+items.push({
+        source,
+        wastedBytes: wastedBytesTotal,
+        // Not needed, but keeps typescript happy.
+        url: '',
+        // Not needed, but keeps typescript happy.
+        totalBytes: 0,
+        subItems: {
+          type: 'subitems',
+          items: subItems,
+        },
+      })
+_tmp_10.source = source
+_tmp_10.wastedBytes = wastedBytesTotal
+_tmp_10.url = ""
+_tmp_10.totalBytes = 0
+_tmp_10.subItems = {
+          type: 'subitems',
+          items: subItems,
+        }
+_tmp_11.type = "subitems"
+_tmp_11.items = subItems

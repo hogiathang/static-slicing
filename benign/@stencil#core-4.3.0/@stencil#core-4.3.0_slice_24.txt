@@ -1,0 +1,70 @@
+getLockfile(e) {
+    var t, n, i, o;
+    const c = {}, u = new Map;
+    for (t = Object.keys(e).sort((p || function f() {
+     return p = r(12);
+    }()).sortAlpha), i = 0, t = (n = Array.isArray(t)) ? t : t[Symbol.iterator](); ;) {
+     if (n) {
+      if (i >= t.length) break;
+      o = t[i++];
+     } else {
+      if ((i = t.next()).done) break;
+      o = i.value;
+     }
+     const r = o, f = e[r], h = f._remote, p = f._reference;
+     E(p, "Package is missing a reference"), E(h, "Package is missing a remote");
+     const d = a(h), m = d && u.get(d);
+     if (m) {
+      c[r] = m, m.name || s(r) === f.name || (m.name = f.name);
+      continue;
+     }
+     const g = l(r, {
+      name: f.name,
+      version: f.version,
+      uid: f._uid,
+      resolved: h.resolved,
+      integrity: h.integrity,
+      registry: h.registry,
+      dependencies: f.dependencies,
+      peerDependencies: f.peerDependencies,
+      optionalDependencies: f.optionalDependencies,
+      permissions: p.permissions,...
+const u = new Map
+t = Object.keys(e).sort((p || function f() {
+     return p = r(12);
+    }()).sortAlpha)
+t = (n = Array.isArray(t)) ? t : t[Symbol.iterator]()
+i >= t.length
+o = t[i++]
+i = t.next().done
+o = i.value
+const p = f._reference
+E(p, "Package is missing a reference")
+const m = d && u.get(d)
+m.name || s(r) === f.name || (m.name = f.name)
+continue;
+const g = l(r, {
+      name: f.name,
+      version: f.version,
+      uid: f._uid,
+      resolved: h.resolved,
+      integrity: h.integrity,
+      registry: h.registry,
+      dependencies: f.dependencies,
+      peerDependencies: f.peerDependencies,
+      optionalDependencies: f.optionalDependencies,
+      permissions: p.permissions,
+      prebuiltVariants: f.prebuiltVariants
+     })
+_tmp_299.name = f.name
+_tmp_299.version = f.version
+_tmp_299.uid = f._uid
+_tmp_299.resolved = h.resolved
+_tmp_299.integrity = h.integrity
+_tmp_299.registry = h.registry
+_tmp_299.dependencies = f.dependencies
+_tmp_299.peerDependencies = f.peerDependencies
+_tmp_299.optionalDependencies = f.optionalDependencies
+_tmp_299.permissions = p.permissions
+_tmp_299.prebuiltVariants = f.prebuiltVariants
+d && u.set(d, g)

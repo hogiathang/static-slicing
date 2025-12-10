@@ -1,0 +1,76 @@
+this.decode = function (message, transport) {
+    if (!message)
+      throw new TypeError("Message is not defined");
+
+    try {
+      message = packer.unpack(message);
+    } catch (e) {
+      // Ignore invalid messages
+      return console.debug(e, message);
+    };
+
+    var id = message.id;
+    var ack = message.ack;
+    var method = message.method;
+    var params = message.params || {};
+
+    var from = params.from;
+    var dest = params.dest;
+
+    // Ignore messages send by us
+    if (self.peerID != undefined && from == self.peerID) return;
+
+    // Notification
+    if (id == undefined && ack == undefined) {
+      var notification = new RpcNotification(method, params);
+
+      if (self.emit('request', notification)) return;
+      return notification;
+    };
+
+    function processRequest() {
+      // If we have a transport and it's a duplicated request, reply inmediatly
+      transport = unifyTransport(transport) || self.getTransport();
+      if (transport) {
+        var response = res...
+!message
+throw new TypeError("Message is not defined");
+message = packer.unpack(message)
+var id = message.id
+var ack = message.ack
+var method = message.method
+var params = message.params || {}
+var from = params.from
+var dest = params.dest
+self.peerID != undefined && from == self.peerID
+id == undefined && ack == undefined
+function processRequest = function processRequest() {
+      // If we have a transport and it's a duplicated request, reply inmediatly
+      transport = unifyTransport(transport) || self.getTransport();
+      if (transport) {
+        var response = responses.get(id, from);
+        if (response)
+          return transport.send(response.message);
+      };
+
+      var idAck = (id != undefined) ? id : ack;
+      var request = new RpcRequest(method, params, idAck, from, transport);
+
+      if (self.emit('request', request)) return;
+      return request;
+    }
+function processResponse = function processResponse(request, error, result) {
+      request.callback(error, result);
+    }
+function duplicatedResponse = function duplicatedResponse(timeout) {
+      console.warn("Response already processed", message);
+
+      // Update duplicated responses timeout
+      clearTimeout(timeout);
+      storeProcessedResponse(ack, from);
+    }
+var error = message.error
+var result = message.result
+error && error.dest && error.dest != self.peerID
+result && result.dest && result.dest != self.peerID
+var request = requests.get(ack, from)

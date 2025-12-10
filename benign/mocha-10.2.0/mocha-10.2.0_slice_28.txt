@@ -1,0 +1,4 @@
+new Promise(resolve => {
+    this.run(resolve, opts);
+  })
+this.run(resolve, opts)

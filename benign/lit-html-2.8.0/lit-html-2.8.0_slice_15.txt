@@ -1,0 +1,121 @@
+const getTemplateHtml = (strings, type) => {
+    // Insert makers into the template HTML to represent the position of
+    // bindings. The following code scans the template strings to determine the
+    // syntactic position of the bindings. They can be in text position, where
+    // we insert an HTML comment, attribute value position, where we insert a
+    // sentinel string and re-write the attribute name, or inside a tag where
+    // we insert the sentinel string.
+    const l = strings.length - 1;
+    // Stores the case-sensitive bound attribute names in the order of their
+    // parts. ElementParts are also reflected in this array as undefined
+    // rather than a string, to disambiguate from attribute bindings.
+    const attrNames = [];
+    let html = type === SVG_RESULT ? '<svg>' : '';
+    // When we're inside a raw text tag (not it's text content), the regex
+    // will still be tagRegex so we can find attributes, but will switch to
+    // this regex when the tag ends.
+    let rawTe...
+const l = strings.length - 1
+__ecma.Array.factory()
+let html = type === SVG_RESULT ? '<svg>' : ''
+let regex = textEndRegex
+let i = 0
+const s = strings[i]
+let attrNameEndIndex = -1
+let lastIndex = 0
+lastIndex < s.length
+regex.lastIndex = lastIndex
+match = regex.exec(s)
+match === null
+break;
+lastIndex = regex.lastIndex
+regex === textEndRegex
+match[COMMENT_START] === '!--'
+regex = commentEndRegex
+match[COMMENT_START] !== undefined
+regex = comment2EndRegex
+match[TAG_NAME] !== undefined
+rawTextElement.test(match[TAG_NAME])
+rawTextEndRegex = new RegExp(`</${match[TAG_NAME]}`, 'g')
+regex = tagEndRegex
+match[DYNAMIC_TAG_NAME] !== undefined
+throw new Error('Bindings in tag names are not supported. Please use static templates instead. ' +
+                            'See https://lit.dev/docs/templates/expressions/#static-expressions');
+"See https://lit.dev/docs/templates/expressions/#static-expressions"
+regex = tagEndRegex
+regex === tagEndRegex
+match[ENTIRE_MATCH] === '>'
+regex = rawTextEndRegex !== null && rawTextEndRegex !== void 0 ? rawTextEndRegex : textEndRegex
+attrNameEndIndex = -1
+match[ATTRIBUTE_NAME] === undefined
+attrNameEndIndex = -2
+attrNameEndIndex = regex.lastIndex - match[SPACES_AND_EQUALS].length
+attrName = match[ATTRIBUTE_NAME]
+regex =
+                        match[QUOTE_CHAR] === undefined
+                            ? tagEndRegex
+                            : match[QUOTE_CHAR] === '"'
+                                ? doubleQuoteAttrEndRegex
+                                : singleQuoteAttrEndRegex
+match[QUOTE_CHAR] === undefined ? tagEndRegex : match[QUOTE_CHAR] === '"' ? doubleQuoteAttrEndRegex : singleQuoteAttrEndRegex
+match[QUOTE_CHAR] === '"' ? doubleQuoteAttrEndRegex : singleQuoteAttrEndRegex
+regex === doubleQuoteAttrEndRegex ||
+                regex === singleQuoteAttrEndRegex
+regex === singleQuoteAttrEndRegex
+regex = tagEndRegex
+regex === commentEndRegex || regex === comment2EndRegex
+regex = textEndRegex
+regex = tagEndRegex
+rawTextEndRegex = undefined
+console.assert(attrNameEndIndex === -1 ||
+                regex === tagEndRegex ||
+                regex === singleQuoteAttrEndRegex ||
+                regex === doubleQuoteAttrEndRegex, 'unexpected parse state B')
+regex === tagEndRegex
+regex === singleQuoteAttrEndRegex
+regex === doubleQuoteAttrEndRegex
+const end = regex === tagEndRegex && strings[i + 1].startsWith('/>') ? ' ' : ''
+html +=
+            regex === textEndRegex
+                ? s + nodeMarker
+                : attrNameEndIndex >= 0
+                    ? (attrNames.push(attrName),
+                        s.slice(0, attrNameEndIndex) +
+                            boundAttributeSuffix +
+                            s.slice(attrNameEndIndex)) +
+                        marker +
+                        end
+                    : s +
+                        marker +
+                        (attrNameEndIndex === -2 ? (attrNames.push(undefined), i) : end)
+regex === textEndRegex ? s + nodeMarker : attrNameEndIndex >= 0 ? (attrNames.push(attrName),
+                        s.slice(0, attrNameEndIndex) +
+                            boundAttributeSuffix +
+                            s.slice(attrNameEndIndex)) +
+                        marker +
+                        end : s +
+                        marker +
+                        (attrNameEndIndex === -2 ? (attrNames.push(undefined), i) : end)
+s + nodeMarker
+attrNameEndIndex >= 0 ? (attrNames.push(attrName),
+                        s.slice(0, attrNameEndIndex) +
+                            boundAttributeSuffix +
+                            s.slice(attrNameEndIndex)) +
+                        marker +
+                        end : s +
+                        marker +
+                        (attrNameEndIndex === -2 ? (attrNames.push(undefined), i) : end)
+(attrNames.push(attrName),
+                        s.slice(0, attrNameEndIndex) +
+                            boundAttributeSuffix +
+                            s.slice(attrNameEndIndex)) +
+                        marker +
+                        end
+s.slice(0, attrNameEndIndex) +
+                            boundAttributeSuffix +
+                            s.slice(attrNameEndIndex)
+s.slice(attrNameEndIndex)
+s +
+                        marker +
+                        (attrNameEndIndex === -2 ? (attrNames.push(undefined), i) : end)
+attrNameEndIndex === -2 ? attrNames.push(undefined), i : end

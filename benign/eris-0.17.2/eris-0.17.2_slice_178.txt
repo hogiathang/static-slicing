@@ -1,0 +1,37 @@
+add(obj, extra, replace) {
+        if(this.limit === 0) {
+            return (obj instanceof this.baseObject || obj.constructor.name === this.baseObject.name) ? obj : new this.baseObject(obj, extra);
+        }
+        if(obj.id == null) {
+            throw new Error("Missing object id");
+        }
+        const existing = this.get(obj.id);
+        if(existing && !replace) {
+            return existing;
+        }
+        if(!(obj instanceof this.baseObject || obj.constructor.name === this.baseObject.name)) {
+            obj = new this.baseObject(obj, extra);
+        }
+
+        this.set(obj.id, obj);
+
+        if(this.limit && this.size > this.limit) {
+            const iter = this.keys();
+            while(this.size > this.limit) {
+                this.delete(iter.next().value);
+            }
+        }
+        return obj;
+    }
+this.limit === 0
+obj.id == null
+throw new Error("Missing object id");
+const existing = this.get(obj.id)
+existing && !replace
+!(obj instanceof this.baseObject || obj.constructor.name === this.baseObject.name)
+obj = new this.baseObject(obj, extra)
+this.set(obj.id, obj)
+this.limit && this.size > this.limit
+const iter = this.keys()
+this.size > this.limit
+this.delete(iter.next().value)

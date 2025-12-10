@@ -1,0 +1,32 @@
+function moveFileAcrossDevice = function moveFileAcrossDevice(source, dest, clobber, limit, cb) {
+  var outFlags = clobber ? 'w' : 'wx';
+  var ins = fs.createReadStream(source);
+  var outs = fs.createWriteStream(dest, {flags: outFlags});
+  ins.on('error', function(err){
+    ins.destroy();
+    outs.destroy();
+    outs.removeListener('close', onClose);
+    if (err.code === 'EISDIR' || err.code === 'EPERM') {
+      moveDirAcrossDevice(source, dest, clobber, limit, cb);
+    } else {
+      cb(err);
+    }
+  });
+  outs.on('error', function(err){
+    ins.destroy();
+    outs.destroy();
+    outs.removeListener('close', onClose);
+    cb(err);
+  });
+  outs.once('close', onClose);
+  ins.pipe(outs);
+  function onClose(){
+    fs.unlink(source, cb);
+  }
+}
+var outFlags = clobber ? 'w' : 'wx'
+var ins = fs.createReadStream(source)
+var outs = fs.createWriteStream(dest, {flags: outFlags})
+function onClose = function onClose(){
+    fs.unlink(source, cb);
+  }

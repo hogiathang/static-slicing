@@ -1,0 +1,44 @@
+function download = function download(cb) {
+    console.error("ngrok - downloading binary " + cdnUrl);
+
+    const certificateAuthority = tryToReadCaFile();
+
+    const gotOptions = { https: { certificateAuthority } };
+
+    if (process.env.HTTPS_PROXY) {
+      try {
+        const { HttpsProxyAgent } = require("hpagent");
+        gotOptions.agent = {
+          https: new HttpsProxyAgent({ proxy: process.env.HTTPS_PROXY }),
+        };
+      } catch (error) {
+        throw new Error(
+          "You have the HTTPS_PROXY environment variable set, but you are missing the optional dependency hpagent. Please install hpagent as a dependency and try again."
+        );
+      }
+    }
+
+    const downloadStream = got.stream(cdnUrl, gotOptions);
+    process.stderr.write("ngrok - downloading progress: ");
+    downloadStream
+      .on("response", (res) => {
+        if (!/2\d\d/.test(res.statusCode)) {
+          res.pause();
+          return downloadStream.emit(
+            "error",
+            new Error("wrong status cod...
+console.error("ngrok - downloading binary " + cdnUrl)
+const certificateAuthority = tryToReadCaFile()
+const gotOptions = { https: { certificateAuthority } }
+process.env.HTTPS_PROXY
+HttpsProxyAgent = _tmp_5.HttpsProxyAgent
+gotOptions.agent = {
+          https: new HttpsProxyAgent({ proxy: process.env.HTTPS_PROXY }),
+        }
+_tmp_6.https = new HttpsProxyAgent({ proxy: process.env.HTTPS_PROXY })
+throw new Error(
+          "You have the HTTPS_PROXY environment variable set, but you are missing the optional dependency hpagent. Please install hpagent as a dependency and try again."
+        );
+"You have the HTTPS_PROXY environment variable set, but you are missing the optional dependency hpagent. Please install hpagent as a dependency and try again."
+const downloadStream = got.stream(cdnUrl, gotOptions)
+process.stderr.write("ngrok - downloading progress: ")

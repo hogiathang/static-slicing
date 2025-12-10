@@ -1,0 +1,23 @@
+has(a, b, areMutuallyExclusive) {
+    var _this$_data$get;
+
+    const [key1, key2] = a < b ? [a, b] : [b, a];
+    const result =
+      (_this$_data$get = this._data.get(key1)) === null ||
+      _this$_data$get === void 0
+        ? void 0
+        : _this$_data$get.get(key2);
+
+    if (result === undefined) {
+      return false;
+    } // areMutuallyExclusive being false is a superset of being true, hence if
+    // we want to know if this PairSet "has" these two with no exclusivity,
+    // we have to ensure it was added as such.
+
+    return areMutuallyExclusive ? true : areMutuallyExclusive === result;
+  }
+_tmp_40 = a < b ? [a, b] : [b, a]
+(_this$_data$get = this._data.get(key1)) === null ||
+      _this$_data$get === void 0 ? void 0 : _this$_data$get.get(key2)
+_this$_data$get === void 0
+_this$_data$get.get(key2)

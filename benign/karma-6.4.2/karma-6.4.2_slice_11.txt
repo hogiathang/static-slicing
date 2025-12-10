@@ -1,0 +1,20 @@
+<operator>.formatString("Missing plugin "", pkgName, "". Installing...")
+const options = {
+    cwd: path.resolve(NODE_MODULES_DIR, '..')
+  }
+_tmp_0.cwd = path.resolve(NODE_MODULES_DIR, '..')
+exec(`npm install ${pkgName} --save-dev`, options, function (err, stdout, stderr) {
+    // Put the logs into the queue and print them after answering current question.
+    // Otherwise the log would clobber the interactive terminal.
+    logQueue.push(function () {
+      if (!err) {
+        log.debug(`${pkgName} successfully installed.`)
+      } else if (/is not in the npm registry/.test(stderr)) {
+        log.warn(`Failed to install "${pkgName}". It is not in the npm registry!\n  Please install it manually.`)
+      } else if (/Error: EACCES/.test(stderr)) {
+        log.warn(`Failed to install "${pkgName}". No permissions to write in ${options.cwd}!\n  Please install it manually.`)
+      } else {
+        log.warn(`Failed to install "${pkgName}"\n  Please install it manually.`)
+      }
+    })
+  })

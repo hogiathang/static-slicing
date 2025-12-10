@@ -1,0 +1,15 @@
+_stringify(type, typeString, useLongFormat) {
+        const context = new Context({
+            type: typeString || stringify(type, this._stringifyOptions)
+        });
+        const result = new Result();
+
+        addModifiers(this, context, result, type, useLongFormat);
+        result.description = this._translate('type', context).trim();
+
+        return result;
+    }
+const context = new Context({
+            type: typeString || stringify(type, this._stringifyOptions)
+        })
+_tmp_17.type = typeString || stringify(type, this._stringifyOptions)

@@ -1,0 +1,27 @@
+function getAccessibleRefs = function getAccessibleRefs(node) {
+      var _idRefs$get;
+      node = node.actualNode || node;
+      var root = get_root_node_default2(node);
+      root = root.documentElement || root;
+      var idRefsByRoot = cache_default.get('idRefsByRoot', function() {
+        return new Map();
+      });
+      var idRefs = idRefsByRoot.get(root);
+      if (!idRefs) {
+        idRefs = new Map();
+        idRefsByRoot.set(root, idRefs);
+        var refAttrs = Object.keys(standards_default.ariaAttrs).filter(function(attr) {
+          var type2 = standards_default.ariaAttrs[attr].type;
+          return idRefsRegex.test(type2);
+        });
+        cacheIdRefs(root, idRefs, refAttrs);
+      }
+      return (_idRefs$get = idRefs.get(node.id)) !== null && _idRefs$get !== void 0 ? _idRefs$get : [];
+    }
+node = node.actualNode || node
+var root = get_root_node_default2(node)
+root = root.documentElement || root
+var idRefsByRoot = cache_default.get('idRefsByRoot', function() {
+        return new Map();
+      })
+var idRefs = idRefsByRoot.get(root)

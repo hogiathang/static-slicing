@@ -1,0 +1,39 @@
+function range = function range(color1, color2) {
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+      if (isRange(color1)) {
+        var r = color1, options2 = color2;
+        return range.apply(void 0, _toConsumableArray(r.rangeArgs.colors).concat([ _extends({}, r.rangeArgs.options, options2) ]));
+      }
+      var space = options.space, outputSpace = options.outputSpace, progression = options.progression, premultiplied = options.premultiplied;
+      color1 = getColor(color1);
+      color2 = getColor(color2);
+      color1 = clone2(color1);
+      color2 = clone2(color2);
+      var rangeArgs = {
+        colors: [ color1, color2 ],
+        options: options
+      };
+      if (space) {
+        space = ColorSpace.get(space);
+      } else {
+        space = ColorSpace.registry[defaults.interpolationSpace] || color1.space;
+      }
+      outputSpace = outputSpace ? ColorSpace.get(outputSpace) : space;
+      color1 = to(color1, space);
+      color2 = to(color2, sp...
+var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {}
+isRange(color1)
+var premultiplied = options.premultiplied
+color1 = getColor(color1)
+color2 = getColor(color2)
+color1 = clone2(color1)
+color2 = clone2(color2)
+var rangeArgs = {
+        colors: [ color1, color2 ],
+        options: options
+      }
+_tmp_611.colors = [ color1, color2 ]
+_tmp_611.options = options
+space = ColorSpace.get(space)
+space = ColorSpace.registry[defaults.interpolationSpace] || color1.space
+outputSpace = outputSpace ? ColorSpace.get(outputSpace) : space

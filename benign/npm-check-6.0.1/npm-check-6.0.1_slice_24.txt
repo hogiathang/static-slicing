@@ -1,0 +1,30 @@
+function updateAll = function updateAll(currentState) {
+    var packages = currentState.get('packages');
+
+    if (currentState.get('debug')) {
+        console.log('packages', packages);
+    }
+
+    var packagesToUpdate = packages.filter(function (packageEntry) {
+        return packageEntry.mismatch || packageEntry.notInstalled || packageEntry.bump;
+    });
+
+    if (!packagesToUpdate.length) {
+        console.log(emoji(':heart:  ') + 'Your modules look ' + chalk.bold('amazing') + '. Keep up the great work.' + emoji(' :heart:'));
+        return;
+    }
+
+    var isYarn = currentState.get('installer') === 'yarn';
+    var saveExact = currentState.get('saveExact');
+
+    var saveDependencies = packagesToUpdate.filter(function (pkg) {
+        return !pkg.devDependency;
+    }).map(function (pkg) {
+        return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+    });
+
+    var saveDevDependencies = packagesToUpdate.filter(function (pkg) {
+        return pkg.devDependency;
+    }).map(function (p...
+var packages = currentState.get('packages')
+currentState.get('debug')

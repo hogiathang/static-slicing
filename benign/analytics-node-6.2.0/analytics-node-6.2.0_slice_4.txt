@@ -1,0 +1,60 @@
+enqueue (type, message, callback) {
+    callback = callback || noop
+
+    if (!this.enable) {
+      return setImmediate(callback)
+    }
+
+    message = Object.assign({}, message)
+    message.type = type
+    message.context = Object.assign({
+      library: {
+        name: 'analytics-node',
+        version
+      }
+    }, message.context)
+
+    message._metadata = Object.assign({
+      nodeVersion: process.versions.node
+    }, message._metadata)
+
+    if (!message.timestamp) {
+      message.timestamp = new Date()
+    }
+
+    if (!message.messageId) {
+      // We md5 the messaage to add more randomness. This is primarily meant
+      // for use in the browser where the uuid package falls back to Math.random()
+      // which is not a great source of randomness.
+      // Borrowed from analytics.js (https://github.com/segment-integrations/analytics.js-integration-segmentio/blob/a20d2a2d222aeb3ab2a8c7e72280f1df2618440e/lib/index.js#L255-L256).
+      message.messageId = `node-${md5(JSON.stringify(...
+callback = callback || noop
+!this.enable
+message = Object.assign({}, message)
+message.type = type
+message.context = Object.assign({
+      library: {
+        name: 'analytics-node',
+        version
+      }
+    }, message.context)
+_tmp_6.library = {
+        name: 'analytics-node',
+        version
+      }
+_tmp_7.name = "analytics-node"
+_tmp_7.version = version
+message.context
+message._metadata = Object.assign({
+      nodeVersion: process.versions.node
+    }, message._metadata)
+_tmp_8.nodeVersion = process.versions.node
+message._metadata
+!message.timestamp
+message.timestamp = new Date()
+!message.messageId
+<operator>.formatString("node-", md5(JSON.stringify(message)), "-", uuid(), "")
+message.anonymousId && !isString(message.anonymousId)
+message.anonymousId = JSON.stringify(message.anonymousId)
+message.userId && !isString(message.userId)
+message.userId = JSON.stringify(message.userId)

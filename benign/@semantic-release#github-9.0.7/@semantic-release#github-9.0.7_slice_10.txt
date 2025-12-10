@@ -1,0 +1,83 @@
+function fail = async function fail(pluginConfig, context, { Octokit }) {
+  const {
+    options: { repositoryUrl },
+    branch,
+    errors,
+    logger,
+  } = context;
+  const {
+    githubToken,
+    githubUrl,
+    githubApiPathPrefix,
+    proxy,
+    failComment,
+    failTitle,
+    labels,
+    assignees,
+  } = resolveConfig(pluginConfig, context);
+
+  if (failComment === false || failTitle === false) {
+    logger.log("Skip issue creation.");
+  } else {
+    const octokit = new Octokit(
+      toOctokitOptions({ githubToken, githubUrl, githubApiPathPrefix, proxy }),
+    );
+    // In case the repo changed name, get the new `repo`/`owner` as the search API will not follow redirects
+    const { data: repoData } = await octokit.request(
+      "GET /repos/{owner}/{repo}",
+      parseGithubUrl(repositoryUrl),
+    );
+    const [owner, repo] = repoData.full_name.split("/");
+    const body = failComment
+      ? template(failComment)({ branch, errors })
+      : getFailComment(branch, errors);
+    const [srIssue] =...
+_tmp_0 = context
+_tmp_1.repositoryUrl = repositoryUrl
+branch = _tmp_0.branch
+errors = _tmp_0.errors
+logger = _tmp_0.logger
+_tmp_2 = resolveConfig(pluginConfig, context)
+githubToken = _tmp_2.githubToken
+githubUrl = _tmp_2.githubUrl
+githubApiPathPrefix = _tmp_2.githubApiPathPrefix
+proxy = _tmp_2.proxy
+failComment = _tmp_2.failComment
+failTitle = _tmp_2.failTitle
+labels = _tmp_2.labels
+assignees = _tmp_2.assignees
+resolveConfig(pluginConfig, context)
+failComment === false || failTitle === false
+const octokit = new Octokit(
+      toOctokitOptions({ githubToken, githubUrl, githubApiPathPrefix, proxy }),
+    )
+toOctokitOptions({ githubToken, githubUrl, githubApiPathPrefix, proxy })
+_tmp_5 = await octokit.request(
+      "GET /repos/{owner}/{repo}",
+      parseGithubUrl(repositoryUrl),
+    )
+"GET /repos/{owner}/{repo}"
+parseGithubUrl(repositoryUrl)
+_tmp_7 = repoData.full_name.split("/")
+const body = failComment
+      ? template(failComment)({ branch, errors })
+      : getFailComment(branch, errors)
+template(failComment)({ branch, errors })
+getFailComment(branch, errors)
+_tmp_9 = await findSRIssues(octokit, failTitle, owner, repo)
+const newIssue = {
+        owner,
+        repo,
+        title: failTitle,
+        body: `${body}\n\n${ISSUE_ID}`,
+        labels: labels || [],
+        assignees,
+      }
+_tmp_13.owner = owner
+_tmp_13.repo = repo
+_tmp_13.title = failTitle
+_tmp_13.body = <operator>.formatString("", body, "\n\n", ISSUE_ID, "")
+_tmp_13.labels = labels || []
+_tmp_13.assignees = assignees
+debug("create issue: %O", newIssue)
+await octokit.request("POST /repos/{owner}/{repo}/issues", newIssue)

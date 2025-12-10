@@ -1,0 +1,28 @@
+emitter.on('request', function (err, o) {
+            if (!_.get(o, 'cursor.ref')) { return; }
+
+            var execution = cache[o.cursor.ref] = (cache[o.cursor.ref] || {});
+
+            executions.push(_.assignIn(execution, {
+                cursor: o.cursor,
+                request: o.request,
+                response: o.response,
+                id: _.get(o, 'item.id')
+            }, err && {
+                requestError: err || undefined
+            }));
+        })
+!_.get(o, 'cursor.ref')
+var execution = cache[o.cursor.ref] = (cache[o.cursor.ref] || {})
+executions.push(_.assignIn(execution, {
+                cursor: o.cursor,
+                request: o.request,
+                response: o.response,
+                id: _.get(o, 'item.id')
+            }, err && {
+                requestError: err || undefined
+            }))
+_tmp_19.cursor = o.cursor
+_tmp_19.request = o.request
+_tmp_19.response = o.response
+_tmp_19.id = _.get(o, 'item.id')

@@ -1,0 +1,17 @@
+new shared.Promise((resolve, reject) => {
+      if (!tds) {
+        resolve()
+        return
+      }
+      debug('connection(%d): destroying', IDS.get(tds))
+      tds.close(() => {
+        debug('connection(%d): destroyed', IDS.get(tds))
+        resolve()
+      })
+    })
+!tds
+debug('connection(%d): destroying', IDS.get(tds))
+tds.close(() => {
+        debug('connection(%d): destroyed', IDS.get(tds))
+        resolve()
+      })

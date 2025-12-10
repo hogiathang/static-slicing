@@ -1,0 +1,79 @@
+closingDelimiter = closingDelimiter === void 0 ? delimiter : closingDelimiter
+__ecma.Array.factory()
+offsetInChunk = delimiter.length
+this.chunk.slice(0, offsetInChunk) !== delimiter
+str = this.chunk.slice(offsetInChunk)
+_tmp_173 = regex.exec(str)
+this.validateEscapes(strPart, {
+          isRegex: delimiter.charAt(0) === '/',
+          offsetInChunk
+        })
+_tmp_174.isRegex = delimiter.charAt(0) === '/'
+_tmp_174.offsetInChunk = offsetInChunk
+tokens.push(this.makeToken('NEOSTRING', strPart, {
+          offset: offsetInChunk
+        }))
+_tmp_175.offset = offsetInChunk
+str = str.slice(strPart.length)
+offsetInChunk += strPart.length
+!(match = interpolators.exec(str))
+interpolator = _tmp_176[0]
+interpolationOffset = interpolator.length - 1
+_tmp_177 = this.getLineAndColumnFromChunk(offsetInChunk + interpolationOffset)
+rest = str.slice(interpolationOffset)
+_tmp_181 = new Lexer().tokenize(rest, {
+          line,
+          column,
+          offset,
+          untilBalanced: true,
+          locationDataCompensations: this.locationDataCompensations
+        })
+nested = _tmp_181.tokens
+index = _tmp_181.index
+new Lexer().tokenize(rest, {
+          line,
+          column,
+          offset,
+          untilBalanced: true,
+          locationDataCompensations: this.locationDataCompensations
+        })
+_tmp_180.line = line
+_tmp_180.column = column
+_tmp_180.offset = offset
+_tmp_180.untilBalanced = true
+_tmp_180.locationDataCompensations = this.locationDataCompensations
+index += interpolationOffset
+braceInterpolator = str[index - 1] === '}'
+_tmp_183 = slice.call(nested, -1)
+open[0] = 'INTERPOLATION_START'
+open[1] = '('
+open[2].first_column -= interpolationOffset
+open[2].range = [open[2].range[0] - interpolationOffset, open[2].range[1]]
+close[0] = 'INTERPOLATION_END'
+close[1] = ')'
+close.origin = ['', 'end of interpolation', close[2]]
+((ref = nested[1]) != null ? ref[0] : void 0) === 'TERMINATOR'
+nested.splice(1, 1)
+((ref1 = nested[nested.length - 3]) != null ? ref1[0] : void 0) === 'INDENT' && nested[nested.length - 2][0] === 'OUTDENT'
+nested.splice(-3, 2)
+!braceInterpolator
+open = this.makeToken('INTERPOLATION_START', '(', {
+            offset: offsetInChunk,
+            length: 0,
+            generated: true
+          })
+_tmp_186.offset = offsetInChunk
+_tmp_186.length = 0
+_tmp_186.generated = true
+close = this.makeToken('INTERPOLATION_END', ')', {
+            offset: offsetInChunk + index,
+            length: 0,
+            generated: true
+          })
+_tmp_187.offset = offsetInChunk + index
+_tmp_187.length = 0
+_tmp_187.generated = true
+nested = [open, ...nested, close]
+_tmp_189 = __ecma.Array.factory()
+str = str.slice(index)
+offsetInChunk += index

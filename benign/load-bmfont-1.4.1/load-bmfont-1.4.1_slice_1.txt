@@ -1,0 +1,28 @@
+module.exports = function loadFont(opt, cb) {
+  cb = typeof cb === 'function' ? cb : noop
+
+  if (typeof opt === 'string') opt = { uri: opt, url: opt }
+  else if (!opt) opt = {}
+
+  var file = opt.uri || opt.url
+  
+  function handleData(err, data) {
+    if (err) return cb(err)
+    parseFont(file, data.body || data, cb)
+  }
+
+  if (url.parse(file).host) {
+    request(opt, handleData)
+  } else {
+    fs.readFile(file, opt, handleData)
+  }
+}
+cb = typeof cb === 'function' ? cb : noop
+opt = { uri: opt, url: opt }
+opt = {}
+var file = opt.uri || opt.url
+function handleData = function handleData(err, data) {
+    if (err) return cb(err)
+    parseFont(file, data.body || data, cb)
+  }
+url.parse(file).host

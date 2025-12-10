@@ -1,0 +1,11 @@
+function getBlocker = function getBlocker(key: string, fn: BlockerFunction) {
+    let blocker: Blocker = state.blockers.get(key) || IDLE_BLOCKER;
+
+    if (blockerFunctions.get(key) !== fn) {
+      blockerFunctions.set(key, fn);
+    }
+
+    return blocker;
+  }
+let blocker: Blocker = state.blockers.get(key) || IDLE_BLOCKER
+blockerFunctions.get(key) !== fn

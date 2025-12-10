@@ -1,0 +1,18 @@
+mapAndValidateFlags() {
+        const flagTokenMap = new Map();
+        for (const token of this.raw.filter(o => o.type === 'flag')) {
+            // fail fast if there are any invalid flags
+            if (!(token.flag in this.input.flags)) {
+                throw new errors_1.CLIError(`Unexpected flag ${token.flag}`);
+            }
+            const existing = flagTokenMap.get(token.flag) ?? [];
+            flagTokenMap.set(token.flag, [...existing, token]);
+        }
+        return flagTokenMap;
+    }
+const flagTokenMap = new Map()
+_iterator_5 = <operator>.iterator(this.raw.filter(o => o.type === 'flag'))
+!(token.flag in this.input.flags)
+throw new errors_1.CLIError(`Unexpected flag ${token.flag}`);
+const existing = flagTokenMap.get(token.flag) ?? []
+flagTokenMap.set(token.flag, [...existing, token])

@@ -1,0 +1,8 @@
+_tmp_32.DoWhileStatement = DoWhileStatement
+const test = path.get("test")
+const result = evaluate(test, {
+        tdz: this.tdz
+      })
+_tmp_85.tdz = this.tdz
+result.confident && test.isPure() && !result.value
+const body = path.get("body")

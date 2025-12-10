@@ -1,0 +1,37 @@
+var updateParentChild = function updateParentChild(blockMap, parentKey, childKey, position) {
+  var parent = blockMap.get(parentKey);
+  var child = blockMap.get(childKey);
+  !(parent != null && child != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'parent & child should exist in the block map') : invariant(false) : void 0;
+  var newBlocks = {};
+  var existingChildren = parent.getChildKeys();
+  !(existingChildren != null && position >= 0 && position <= existingChildren.count()) ? process.env.NODE_ENV !== "production" ? invariant(false, 'position is not valid for the number of children') : invariant(false) : void 0; // add as parent's child
+
+  newBlocks[parentKey] = parent.merge({
+    children: existingChildren.splice(position, 0, childKey)
+  });
+  var nextSiblingKey = null;
+  var prevSiblingKey = null; // link new child as next sibling to the correct existing child
+
+  if (position > 0) {
+    prevSiblingKey = existingChildren.get(position - 1);
+    newBlocks[prevSiblin...
+var parent = blockMap.get(parentKey)
+var child = blockMap.get(childKey)
+!(parent != null && child != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'parent & child should exist in the block map') : invariant(false) : void 0
+var newBlocks = {}
+var existingChildren = parent.getChildKeys()
+!(existingChildren != null && position >= 0 && position <= existingChildren.count()) ? process.env.NODE_ENV !== "production" ? invariant(false, 'position is not valid for the number of children') : invariant(false) : void 0
+newBlocks[parentKey] = parent.merge({
+    children: existingChildren.splice(position, 0, childKey)
+  })
+_tmp_1.children = existingChildren.splice(position, 0, childKey)
+var nextSiblingKey = null
+var prevSiblingKey = null
+position > 0
+prevSiblingKey = existingChildren.get(position - 1)
+newBlocks[prevSiblingKey] = blockMap.get(prevSiblingKey).merge({
+      nextSibling: childKey
+    })
+_tmp_3.nextSibling = childKey
+position < existingChildren.count()
+nextSiblingKey = existingChildren.get(position)

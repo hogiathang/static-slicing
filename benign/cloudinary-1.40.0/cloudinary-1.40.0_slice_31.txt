@@ -1,0 +1,119 @@
+function execute_request = function execute_request(method, params, auth, api_url, callback) {
+  var options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {};
+
+  method = method.toUpperCase();
+  var deferred = Q.defer();
+
+  var query_params = void 0,
+      handle_response = void 0; // declare to user later
+  var key = auth.key;
+  var secret = auth.secret;
+  var oauth_token = auth.oauth_token;
+  var content_type = 'application/x-www-form-urlencoded';
+
+  if (options.content_type === 'json') {
+    query_params = JSON.stringify(params);
+    content_type = 'application/json';
+  } else {
+    query_params = querystring.stringify(params);
+  }
+
+  if (method === "GET") {
+    api_url += "?" + query_params;
+  }
+
+  var request_options = url.parse(api_url);
+
+  request_options = extend(request_options, {
+    method: method,
+    headers: {
+      'Content-Type': content_type,
+      'User-Agent': utils.getUserAgent()
+    }
+  });
+
+  if (oauth_token) {
+    request_options.headers.Authorization = `Bearer $...
+var options = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : {}
+method = method.toUpperCase()
+var deferred = Q.defer()
+var query_params = void 0
+var handle_response = void 0
+var key = auth.key
+var secret = auth.secret
+var oauth_token = auth.oauth_token
+var content_type = 'application/x-www-form-urlencoded'
+options.content_type === 'json'
+query_params = JSON.stringify(params)
+content_type = 'application/json'
+query_params = querystring.stringify(params)
+method === "GET"
+api_url += "?" + query_params
+var request_options = url.parse(api_url)
+request_options = extend(request_options, {
+    method: method,
+    headers: {
+      'Content-Type': content_type,
+      'User-Agent': utils.getUserAgent()
+    }
+  })
+_tmp_1.method = method
+_tmp_1.headers = {
+      'Content-Type': content_type,
+      'User-Agent': utils.getUserAgent()
+    }
+_tmp_2.Content-Type = content_type
+_tmp_2.User-Agent = utils.getUserAgent()
+request_options.headers.Authorization = `Bearer ${oauth_token}`
+request_options.auth = key + ":" + secret
+options.agent != null
+request_options.agent = options.agent
+var proxy = options.api_proxy || config().api_proxy
+!isEmpty(proxy)
+!request_options.agent && agent
+request_options.agent = agent
+!request_options.agent
+request_options.agent = new https.Agent(proxy)
+console.warn("Proxy is set, but request uses a custom agent, proxy is ignored.")
+method !== "GET"
+request_options.headers['Content-Length'] = Buffer.byteLength(query_params)
+handle_response = function handle_response(res) {
+    var _config = config(),
+        _config$hide_sensitiv = _config.hide_sensitive,
+        hide_sensitive = _config$hide_sensitiv === undefined ? false : _config$hide_sensitiv;
+
+    var sanitizedOptions = _extends({}, request_options);
+
+    if (hide_sensitive === true) {
+      if ("auth" in sanitizedOptions) {
+        delete sanitizedOptions.auth;
+      }
+      if ("Authorization" in sanitizedOptions.headers) {
+        delete sanitizedOptions.headers.Authorization;
+      }
+    }
+
+    if (includes([200, 400, 401, 403, 404, 409, 420, 500], res.statusCode)) {
+      var buffer = "";
+      var error = false;
+      res.on("data", function (d) {
+        buffer += d;
+        return buffer;
+      });
+      res.on("end", function () {
+        var result = void 0;
+        if (error) {
+          return;
+        }
+        try {
+          result = JSON.parse(buffer);
+        } catch (e) {
+          result = {
+            error: {
+              me...
+var request = https.request(request_options, handle_response)
+request.on("error", function (e) {
+    deferred.reject(e);
+    return typeof callback === "function" ? callback({ error: e }) : void 0;
+  })
+request.setTimeout(ensureOption(options, "timeout", 60000))

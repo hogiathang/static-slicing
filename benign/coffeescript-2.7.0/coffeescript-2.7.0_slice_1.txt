@@ -1,0 +1,43 @@
+compilePath = function(source, topLevel, base) {
+    var code, err, file, files, i, len, results, stats;
+    if (indexOf.call(sources, source) >= 0 || watchedDirs[source] || !topLevel && (notSources[source] || hidden(source))) {
+      return;
+    }
+    try {
+      stats = fs.statSync(source);
+    } catch (error) {
+      err = error;
+      if (err.code === 'ENOENT') {
+        console.error(`File not found: ${source}`);
+        process.exit(1);
+      }
+      throw err;
+    }
+    if (stats.isDirectory()) {
+      if (path.basename(source) === 'node_modules') {
+        notSources[source] = true;
+        return;
+      }
+      if (opts.run) {
+        compilePath(findDirectoryIndex(source), topLevel, base);
+        return;
+      }
+      if (opts.watch) {
+        watchDir(source, base);
+      }
+      try {
+        files = fs.readdirSync(source);
+      } catch (error) {
+        err = error;
+        if (err.code === 'ENOENT') {
+          return;
+        } else {
+          throw err;
+        }
+...
+indexOf.call(sources, source) >= 0 || watchedDirs[source] || !topLevel && (notSources[source] || hidden(source))
+stats = fs.statSync(source)
+err = error
+err.code === 'ENOENT'
+<operator>.formatString("File not found: ", source, "")
+process.exit(1)

@@ -1,0 +1,7 @@
+function utimesMillisSync = function utimesMillisSync (path, atime, mtime) {
+  const fd = fs.openSync(path, 'r+')
+  fs.futimesSync(fd, atime, mtime)
+  return fs.closeSync(fd)
+}
+const fd = fs.openSync(path, 'r+')
+fs.futimesSync(fd, atime, mtime)

@@ -1,0 +1,12 @@
+function findAllInRenderedTree = function findAllInRenderedTree(inst, test) {
+  validateClassInstance(inst, 'findAllInRenderedTree');
+
+  if (!inst) {
+    return [];
+  }
+
+  var internalInstance = get(inst);
+  return findAllInRenderedFiberTreeInternal(internalInstance, test);
+}
+validateClassInstance(inst, 'findAllInRenderedTree')
+!inst

@@ -1,0 +1,15 @@
+function stat = function stat(filename) {
+    filename = path._makeLong(filename);
+    var cache = stat.cache;
+    if (cache !== null) {
+      var _result = cache.get(filename);
+      if (_result !== undefined) return _result;
+    }
+    var result = internalModuleStat(filename);
+    if (cache !== null) cache.set(filename, result);
+    return result;
+  }
+filename = path._makeLong(filename)
+var cache = stat.cache
+cache !== null
+var _result = cache.get(filename)

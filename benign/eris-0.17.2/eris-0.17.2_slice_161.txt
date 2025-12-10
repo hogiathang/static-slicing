@@ -1,0 +1,46 @@
+encode(source, options) {
+        if(this.encoding || this.streams.length) {
+            this.emit("error", new Error("Already encoding"));
+            return false;
+        }
+
+        if(typeof source === "string") {
+            if(options.format === "dca" || options.format === "ogg" || options.format === "webm" || options.format === "pcm") {
+                if(source.startsWith("http://") || source.startsWith("https://")) {
+                    const passThrough = new PassThroughStream();
+                    if(source.startsWith("http://")) {
+                        HTTP.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e));
+                    } else {
+                        HTTPS.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e));
+                    }
+                    source = passThrough;
+                } else {
+                    try {
+                        FS.statSync(source);
+                    } catch(err) {
+    ...
+this.encoding || this.streams.length
+typeof source === "string"
+options.format === "dca" || options.format === "ogg" || options.format === "webm" || options.format === "pcm"
+source.startsWith("http://") || source.startsWith("https://")
+const passThrough = new PassThroughStream()
+source.startsWith("http://")
+HTTP.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e))
+HTTPS.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e))
+source = passThrough
+FS.statSync(source)
+source = FS.createReadStream(source)
+!(source instanceof Stream) || !source.pipe
+this._dataPacketMax = 30
+this._dataPacketMin = 15
+typeof source !== "string"
+this.streams.push(source.once("error", (e) => this.stop(e)))
+options.format === "opusPackets"
+options.format === "dca"
+options.format === "ogg"
+options.format === "webm"
+!options.format || options.format === "pcm"
+options.inlineVolume
+!options.format
+!this.converterCommand
+this.emit("error", new Error("FFmpeg/avconv was not found on this system. Playback of this audio format is impossible"))

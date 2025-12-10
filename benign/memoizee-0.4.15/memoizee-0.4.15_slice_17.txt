@@ -1,0 +1,12 @@
+extDel = defineLength(function (arg) {
+			var id, args = arguments;
+			if (resolve) args = resolve(args);
+			id = get(args);
+			if (id === null) return;
+			conf.delete(id);
+		}, memLength)
+var args = arguments
+args = resolve(args)
+id = get(args)
+id === null
+conf.delete(id)

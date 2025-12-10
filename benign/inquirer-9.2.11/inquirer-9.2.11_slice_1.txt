@@ -1,0 +1,7 @@
+onForceClose() {
+    this.close();
+    process.kill(process.pid, 'SIGINT');
+    console.log('');
+  }
+this.close()
+process.kill(process.pid, 'SIGINT')

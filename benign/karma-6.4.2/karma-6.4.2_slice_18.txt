@@ -1,0 +1,15 @@
+this._done = function (error) {
+    killingPromise = killingPromise || Promise.resolve()
+
+    this.error = this.error || error
+    this.emit('done')
+
+    if (this.error && this.state !== BEING_FORCE_KILLED && this.state !== RESTARTING) {
+      emitter.emit('browser_process_failure', this)
+    }
+
+    this.state = FINISHED
+  }
+killingPromise = killingPromise || Promise.resolve()
+this.error = this.error || error
+this.emit('done')

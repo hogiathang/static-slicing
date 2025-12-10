@@ -1,0 +1,68 @@
+getDesiredIndent(token) {
+        if (!this._desiredIndentCache.has(token)) {
+
+            if (this._ignoredTokens.has(token)) {
+
+                /*
+                 * If the token is ignored, use the actual indent of the token as the desired indent.
+                 * This ensures that no errors are reported for this token.
+                 */
+                this._desiredIndentCache.set(
+                    token,
+                    this._tokenInfo.getTokenIndent(token)
+                );
+            } else if (this._lockedFirstTokens.has(token)) {
+                const firstToken = this._lockedFirstTokens.get(token);
+
+                this._desiredIndentCache.set(
+                    token,
+
+                    // (indentation for the first element's line)
+                    this.getDesiredIndent(this._tokenInfo.getFirstTokenOfLine(firstToken)) +
+
+                        // (space between the start of the first element's line and the first element)
+                        this._...
+(_tmp_27 = this._desiredIndentCache).has
+(_tmp_28 = this._ignoredTokens).has
+this._desiredIndentCache.set(
+                    token,
+                    this._tokenInfo.getTokenIndent(token)
+                )
+(_tmp_30 = this._tokenInfo).getTokenIndent
+(_tmp_31 = this._lockedFirstTokens).has
+const firstToken = this._lockedFirstTokens.get(token)
+this._desiredIndentCache.set(
+                    token,
+
+                    // (indentation for the first element's line)
+                    this.getDesiredIndent(this._tokenInfo.getFirstTokenOfLine(firstToken)) +
+
+                        // (space between the start of the first element's line and the first element)
+                        this._indentType.repeat(firstToken.loc.start.column - this._tokenInfo.getFirstTokenOfLine(firstToken).loc.start.column)
+                )
+this.getDesiredIndent(this._tokenInfo.getFirstTokenOfLine(firstToken)) +
+
+                        // (space between the start of the first element's line and the first element)
+                        this._indentType.repeat(firstToken.loc.start.column - this._tokenInfo.getFirstTokenOfLine(firstToken).loc.start.column)
+this._indentType.repeat(firstToken.loc.start.column - this._tokenInfo.getFirstTokenOfLine(firstToken).loc.start.column)
+const offsetInfo = this._getOffsetDescriptor(token)
+const offset = (
+                    offsetInfo.from &&
+                    offsetInfo.from.loc.start.line === token.loc.start.line &&
+                    !/^\s*?\n/u.test(token.value) &&
+                    !offsetInfo.force
+                ) ? 0 : offsetInfo.offset * this._indentSize
+offsetInfo.from &&
+                    offsetInfo.from.loc.start.line === token.loc.start.line &&
+                    !/^\s*?\n/u.test(token.value) &&
+                    !offsetInfo.force
+offsetInfo.from.loc.start.line === token.loc.start.line
+!/^\s*?\n/u.test(token.value)
+!offsetInfo.force
+offsetInfo.offset * this._indentSize
+this._desiredIndentCache.set(
+                    token,
+                    (offsetInfo.from ? this.getDesiredIndent(offsetInfo.from) : "") + this._indentType.repeat(offset)
+                )
+(offsetInfo.from ? this.getDesiredIndent(offsetInfo.from) : "") + this._indentType.repeat(offset)
+(_tmp_40 = this._desiredIndentCache).get

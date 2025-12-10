@@ -1,0 +1,51 @@
+_addSelectable(cssSelector, callbackCtxt, listContext) {
+        let matcher = this;
+        const element = cssSelector.element;
+        const classNames = cssSelector.classNames;
+        const attrs = cssSelector.attrs;
+        const selectable = new SelectorContext(cssSelector, callbackCtxt, listContext);
+        if (element) {
+            const isTerminal = attrs.length === 0 && classNames.length === 0;
+            if (isTerminal) {
+                this._addTerminal(matcher._elementMap, element, selectable);
+            }
+            else {
+                matcher = this._addPartial(matcher._elementPartialMap, element);
+            }
+        }
+        if (classNames) {
+            for (let i = 0; i < classNames.length; i++) {
+                const isTerminal = attrs.length === 0 && i === classNames.length - 1;
+                const className = classNames[i];
+                if (isTerminal) {
+                    this._addTerminal(matcher._classMap, className, selectable);
+       ...
+let matcher = this
+const element = cssSelector.element
+const classNames = cssSelector.classNames
+const attrs = cssSelector.attrs
+const selectable = new SelectorContext(cssSelector, callbackCtxt, listContext)
+const isTerminal = attrs.length === 0 && classNames.length === 0
+this._addTerminal(matcher._elementMap, element, selectable)
+matcher = this._addPartial(matcher._elementPartialMap, element)
+i < classNames.length
+const isTerminal = attrs.length === 0 && i === classNames.length - 1
+const className = classNames[i]
+this._addTerminal(matcher._classMap, className, selectable)
+matcher = this._addPartial(matcher._classPartialMap, className)
+i < attrs.length
+const isTerminal = i === attrs.length - 2
+const name = attrs[i]
+const value = attrs[i + 1]
+const terminalMap = matcher._attrValueMap
+let terminalValuesMap = terminalMap.get(name)
+!terminalValuesMap
+terminalValuesMap = new Map()
+terminalMap.set(name, terminalValuesMap)
+this._addTerminal(terminalValuesMap, value, selectable)
+const partialMap = matcher._attrValuePartialMap
+let partialValuesMap = partialMap.get(name)
+!partialValuesMap
+partialValuesMap = new Map()
+partialMap.set(name, partialValuesMap)
+matcher = this._addPartial(partialValuesMap, value)

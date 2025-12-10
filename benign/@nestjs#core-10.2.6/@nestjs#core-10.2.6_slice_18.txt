@@ -1,0 +1,8 @@
+const getInstanceWrapper = (moduleKey, providerKey, collectionKey) => {
+            const modules = this.container.getModules();
+            const collection = modules.get(moduleKey)[collectionKey];
+            return collection.get(providerKey);
+        }
+const modules = this.container.getModules()
+const collection = modules.get(moduleKey)[collectionKey]
+collection.get(providerKey)

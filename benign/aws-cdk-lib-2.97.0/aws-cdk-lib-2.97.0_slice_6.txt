@@ -1,0 +1,1 @@
+this.endpointService=new ec2_generated_1.CfnVPCEndpointService(this,id,{networkLoadBalancerArns:this.vpcEndpointServiceLoadBalancers.map(lb=>lb.loadBalancerArn),acceptanceRequired:this.acceptanceRequired,contributorInsightsEnabled:this.contributorInsightsEnabled})

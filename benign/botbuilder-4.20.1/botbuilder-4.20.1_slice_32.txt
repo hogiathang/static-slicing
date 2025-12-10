@@ -1,0 +1,14 @@
+private async saveActivity(activity: Activity, transcriptPath: string, activityFilename: string): Promise<void> {
+        const json: string = JSON.stringify(activity, null, '\t');
+
+        const exists = await pathExists(transcriptPath);
+        if (!exists) {
+            await mkdirp(transcriptPath);
+        }
+        return writeFile(join(transcriptPath, activityFilename), json, 'utf8');
+    }
+const json: string = JSON.stringify(activity, null, '\t')
+const exists = await pathExists(transcriptPath)
+!exists
+await mkdirp(transcriptPath)
+writeFile(join(transcriptPath, activityFilename), json, 'utf8')

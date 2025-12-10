@@ -1,0 +1,38 @@
+function updateServers = function updateServers(topology, incomingServerDescription) {
+  // update the internal server's description
+  if (topology.s.servers.has(incomingServerDescription.address)) {
+    const server = topology.s.servers.get(incomingServerDescription.address);
+    server.s.description = incomingServerDescription;
+  }
+
+  // add new servers for all descriptions we currently don't know about locally
+  for (const serverDescription of topology.description.servers.values()) {
+    if (!topology.s.servers.has(serverDescription.address)) {
+      const server = createAndConnectServer(topology, serverDescription);
+      topology.s.servers.set(serverDescription.address, server);
+    }
+  }
+
+  // for all servers no longer known, remove their descriptions and destroy their instances
+  for (const entry of topology.s.servers) {
+    const serverAddress = entry[0];
+    if (topology.description.hasServer(serverAddress)) {
+      continue;
+    }
+
+    const server = topology.s.servers.get(serverAddress);
+    topo...
+topology.s.servers.has(incomingServerDescription.address)
+const server = topology.s.servers.get(incomingServerDescription.address)
+server.s.description = incomingServerDescription
+_iterator_0 = <operator>.iterator(topology.description.servers.values())
+!topology.s.servers.has(serverDescription.address)
+const server = createAndConnectServer(topology, serverDescription)
+topology.s.servers.set(serverDescription.address, server)
+_iterator_1 = <operator>.iterator(topology.s.servers)
+const serverAddress = entry[0]
+topology.description.hasServer(serverAddress)
+continue;
+const server = topology.s.servers.get(serverAddress)
+topology.s.servers.delete(serverAddress)
+destroyServer(server, topology)

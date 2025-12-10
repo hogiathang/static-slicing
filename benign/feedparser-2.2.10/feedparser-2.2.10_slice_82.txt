@@ -1,0 +1,38 @@
+Object.keys(node).forEach(function(name){
+    var el = node[name]
+      , attrs = _.get(el, '@')
+      , enclosure;
+    if (normalize) {
+      switch(name){
+      case('title'):
+        item.title = _.get(el);
+        break;
+      case('description'):
+      case('summary'):
+        item.summary = _.get(el);
+        if (!item.description) item.description = _.get(el);
+        break;
+      case('content'):
+      case('content:encoded'):
+        item.description = _.get(el);
+        break;
+      case('pubdate'):
+      case('published'):
+      case('issued'):
+      case('modified'):
+      case('updated'):
+      case('dc:date'):
+        var date = _.get(el) ? new Date(_.get(el)) : null;
+        if (!date) break;
+        if (item.pubdate === null || name == 'pubdate' || name == 'published' || name == 'issued')
+          item.pubdate = item.pubDate = date;
+        if (item.date === null || name == 'modified' || name == 'updated')
+          item.date = date;
+        break;
+      case('link'...
+var el = node[name]
+var attrs = _.get(el, '@')
+"source"
+'rss' == type
+item.source['title'] = _.get(el)
+item.source['url'] = _.get(el['@'], 'url')

@@ -1,0 +1,32 @@
+_observeElement(element) {
+        if (!this._observedElements.has(element)) {
+            const stream = new Subject();
+            const observer = this._mutationObserverFactory.create(mutations => stream.next(mutations));
+            if (observer) {
+                observer.observe(element, {
+                    characterData: true,
+                    childList: true,
+                    subtree: true,
+                });
+            }
+            this._observedElements.set(element, { observer, stream, count: 1 });
+        }
+        else {
+            this._observedElements.get(element).count++;
+        }
+        return this._observedElements.get(element).stream;
+    }
+(_tmp_10 = this._observedElements).has
+const stream = new Subject()
+const observer = this._mutationObserverFactory.create(mutations => stream.next(mutations))
+observer.observe(element, {
+                    characterData: true,
+                    childList: true,
+                    subtree: true,
+                })
+_tmp_13.characterData = true
+_tmp_13.childList = true
+_tmp_13.subtree = true
+this._observedElements.set(element, { observer, stream, count: 1 })
+this._observedElements.get(element).count++
+this._observedElements.get(element).stream

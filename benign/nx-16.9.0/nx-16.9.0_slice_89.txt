@@ -1,0 +1,6 @@
+function updateGitIgnore = function updateGitIgnore(host) {
+    const contents = host.read('.gitignore', 'utf-8') ?? '';
+    host.write('.gitignore', [contents, '.nx/installation', '.nx/cache'].join('\n'));
+}
+const contents = host.read('.gitignore', 'utf-8') ?? ''
+host.write('.gitignore', [contents, '.nx/installation', '.nx/cache'].join('\n'))

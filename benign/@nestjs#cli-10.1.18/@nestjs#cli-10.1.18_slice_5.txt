@@ -1,0 +1,18 @@
+async runSwc(configuration, appName, pathToTsconfig, watchMode, options, tsOptions, onSuccess) {
+        const { SwcCompiler } = await Promise.resolve().then(() => require('../lib/compiler/swc/swc-compiler'));
+        const swc = new SwcCompiler(this.pluginsLoader);
+        await swc.run(configuration, pathToTsconfig, appName, {
+            watch: watchMode,
+            typeCheck: (0, get_value_or_default_1.getValueOrDefault)(configuration, 'compilerOptions.typeCheck', appName, 'typeCheck', options),
+            tsOptions,
+            assetsManager: this.assetsManager,
+        }, onSuccess);
+    }
+_tmp_15 = await Promise.resolve().then(() => require('../lib/compiler/swc/swc-compiler'))
+const swc = new SwcCompiler(this.pluginsLoader)
+await swc.run(configuration, pathToTsconfig, appName, {
+            watch: watchMode,
+            typeCheck: (0, get_value_or_default_1.getValueOrDefault)(configuration, 'compilerOptions.typeCheck', appName, 'typeCheck', options),
+            tsOptions,
+            assetsManager: this.assetsManager,
+        }, onSuccess)

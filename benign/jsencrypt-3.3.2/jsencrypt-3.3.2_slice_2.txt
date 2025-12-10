@@ -1,0 +1,12 @@
+Stream.prototype.isASCII = function (start, end) {
+        for (var i = start; i < end; ++i) {
+            var c = this.get(i);
+            if (c < 32 || c > 176) {
+                return false;
+            }
+        }
+        return true;
+    }
+var i = start
+var c = this.get(i)
+c < 32 || c > 176

@@ -1,0 +1,69 @@
+module.exports = function spawnCommand(command, config, eventArgs) {
+  var stdio = ['pipe', 'pipe', 'pipe'];
+
+  if (config.options.stdout) {
+    stdio = ['pipe', process.stdout, process.stderr];
+  }
+
+  const env = merge(process.env, { FILENAME: eventArgs[0] });
+
+  var sh = 'sh';
+  var shFlag = '-c';
+  var spawnOptions = {
+    env: merge(config.options.execOptions.env, env),
+    stdio: stdio,
+  };
+
+  if (!Array.isArray(command)) {
+    command = [command];
+  }
+
+  if (utils.isWindows) {
+    // if the exec includes a forward slash, reverse it for windows compat
+    // but *only* apply to the first command, and none of the arguments.
+    // ref #1251 and #1236
+    command = command.map(executable => {
+      if (executable.indexOf('/') === -1) {
+        return executable;
+      }
+
+      return  executable.split(' ').map((e, i) => {
+        if (i === 0) {
+          return path.normalize(e);
+        }
+        return e;
+      }).join(' ');
+    });
+    // taken from npm's cli: https://git.io/...
+var stdio = ['pipe', 'pipe', 'pipe']
+config.options.stdout
+stdio = ['pipe', process.stdout, process.stderr]
+const env = merge(process.env, { FILENAME: eventArgs[0] })
+var sh = 'sh'
+var shFlag = '-c'
+var spawnOptions = {
+    env: merge(config.options.execOptions.env, env),
+    stdio: stdio,
+  }
+_tmp_3.env = merge(config.options.execOptions.env, env)
+_tmp_3.stdio = stdio
+!Array.isArray(command)
+_tmp_4 = __ecma.Array.factory()
+utils.isWindows
+command = command.map(executable => {
+      if (executable.indexOf('/') === -1) {
+        return executable;
+      }
+
+      return  executable.split(' ').map((e, i) => {
+        if (i === 0) {
+          return path.normalize(e);
+        }
+        return e;
+      }).join(' ');
+    })
+sh = process.env.comspec || 'cmd'
+shFlag = '/d /s /c'
+spawnOptions.windowsVerbatimArguments = true
+spawnOptions.windowsHide = true
+const args = command.join(' ')

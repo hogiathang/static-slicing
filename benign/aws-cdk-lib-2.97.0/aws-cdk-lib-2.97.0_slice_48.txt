@@ -1,0 +1,1 @@
+core_1.Annotations.of(this.resource).addWarningV2("@aws-cdk/aws-iam:unknownPrincipalAddStatementToRole",`Add statement to this resource's role: ${repr}`)

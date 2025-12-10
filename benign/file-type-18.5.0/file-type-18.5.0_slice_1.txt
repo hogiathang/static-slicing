@@ -1,0 +1,38 @@
+async readTiffHeader(bigEndian) {
+		const version = (bigEndian ? Token.UINT16_BE : Token.UINT16_LE).get(this.buffer, 2);
+		const ifdOffset = (bigEndian ? Token.UINT32_BE : Token.UINT32_LE).get(this.buffer, 4);
+
+		if (version === 42) {
+			// TIFF file header
+			if (ifdOffset >= 6) {
+				if (this.checkString('CR', {offset: 8})) {
+					return {
+						ext: 'cr2',
+						mime: 'image/x-canon-cr2',
+					};
+				}
+
+				if (ifdOffset >= 8 && (this.check([0x1C, 0x00, 0xFE, 0x00], {offset: 8}) || this.check([0x1F, 0x00, 0x0B, 0x00], {offset: 8}))) {
+					return {
+						ext: 'nef',
+						mime: 'image/x-nikon-nef',
+					};
+				}
+			}
+
+			await this.tokenizer.ignore(ifdOffset);
+			const fileType = await this.readTiffIFD(bigEndian);
+			return fileType ?? {
+				ext: 'tif',
+				mime: 'image/tiff',
+			};
+		}
+
+		if (version === 43) {	// Big TIFF file header
+			return {
+				ext: 'tif',
+				mime: 'image/tiff',
+			};
+		}
+	}
+const version = (bigEndian ? Token.UINT16_BE : Token.UINT16_LE).get(this.buffer, 2)

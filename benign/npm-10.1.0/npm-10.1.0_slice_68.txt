@@ -1,0 +1,36 @@
+makePretty (dep) {
+    const {
+      current = 'MISSING',
+      location = '-',
+      homepage = '',
+      name,
+      wanted,
+      latest,
+      type,
+      dependent,
+    } = dep
+
+    const columns = [name, current, wanted, latest, location, dependent]
+
+    if (this.npm.config.get('long')) {
+      columns[6] = type
+      columns[7] = homepage
+    }
+
+    columns[0] = this.npm.chalk[current === wanted ? 'yellow' : 'red'](columns[0]) // current
+    columns[2] = this.npm.chalk.green(columns[2]) // wanted
+    columns[3] = this.npm.chalk.magenta(columns[3]) // latest
+
+    return columns
+  }
+_tmp_39 = dep
+current = _tmp_39.current === void 0 ? "MISSING" : _tmp_39.current
+location = _tmp_39.location === void 0 ? "-" : _tmp_39.location
+homepage = _tmp_39.homepage === void 0 ? "" : _tmp_39.homepage
+name = _tmp_39.name
+wanted = _tmp_39.wanted
+latest = _tmp_39.latest
+type = _tmp_39.type
+dependent = _tmp_39.dependent
+const columns = [name, current, wanted, latest, location, dependent]
+(_tmp_41 = this.npm.config).get

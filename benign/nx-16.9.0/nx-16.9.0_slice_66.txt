@@ -1,0 +1,18 @@
+function processNonProjectFiles = function processNonProjectFiles(cachedFiles, nonProjectFiles, filesToProcess, cachedFileData) {
+    const cachedHashMap = new Map(cachedFiles.map((f) => [f.file, f]));
+    for (const f of nonProjectFiles) {
+        const cachedFile = cachedHashMap.get(f.file);
+        if (!cachedFile || cachedFile.hash !== f.hash) {
+            filesToProcess.push(f);
+        }
+        else {
+            cachedFileData[f.file] = cachedFile;
+        }
+    }
+}
+const cachedHashMap = new Map(cachedFiles.map((f) => [f.file, f]))
+_iterator_0 = <operator>.iterator(nonProjectFiles)
+const cachedFile = cachedHashMap.get(f.file)
+!cachedFile || cachedFile.hash !== f.hash
+filesToProcess.push(f)
+cachedFileData[f.file] = cachedFile

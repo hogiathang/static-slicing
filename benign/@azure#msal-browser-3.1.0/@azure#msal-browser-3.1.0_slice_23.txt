@@ -1,0 +1,171 @@
+protected async acquireTokenPopupAsync(
+        request: PopupRequest,
+        popupName: string,
+        popupWindowAttributes: PopupWindowAttributes,
+        popup?: Window | null
+    ): Promise<AuthenticationResult> {
+        this.logger.verbose("acquireTokenPopupAsync called");
+        const serverTelemetryManager = this.initializeServerTelemetryManager(
+            ApiId.acquireTokenPopup
+        );
+
+        this.performanceClient.setPreQueueTime(
+            PerformanceEvents.StandardInteractionClientInitializeAuthorizationRequest,
+            request.correlationId
+        );
+        const validRequest = await this.initializeAuthorizationRequest(
+            request,
+            InteractionType.Popup
+        );
+        this.browserStorage.updateCacheEntries(
+            validRequest.state,
+            validRequest.nonce,
+            validRequest.authority,
+            validRequest.loginHint || Constants.EMPTY_STRING,
+            validRequest.account || null
+        );
+
+       ...
+this.logger.verbose("acquireTokenPopupAsync called")
+const serverTelemetryManager = this.initializeServerTelemetryManager(
+            ApiId.acquireTokenPopup
+        )
+ApiId.acquireTokenPopup
+this.performanceClient.setPreQueueTime(
+            PerformanceEvents.StandardInteractionClientInitializeAuthorizationRequest,
+            request.correlationId
+        )
+PerformanceEvents.StandardInteractionClientInitializeAuthorizationRequest
+request.correlationId
+const validRequest = await this.initializeAuthorizationRequest(
+            request,
+            InteractionType.Popup
+        )
+InteractionType.Popup
+this.browserStorage.updateCacheEntries(
+            validRequest.state,
+            validRequest.nonce,
+            validRequest.authority,
+            validRequest.loginHint || Constants.EMPTY_STRING,
+            validRequest.account || null
+        )
+validRequest.state
+validRequest.nonce
+validRequest.authority
+validRequest.loginHint || Constants.EMPTY_STRING
+validRequest.account || null
+this.performanceClient.setPreQueueTime(
+                PerformanceEvents.StandardInteractionClientInitializeAuthorizationCodeRequest,
+                request.correlationId
+            )
+PerformanceEvents.StandardInteractionClientInitializeAuthorizationCodeRequest
+request.correlationId
+const authCodeRequest: CommonAuthorizationCodeRequest =
+                await this.initializeAuthorizationCodeRequest(validRequest)
+await this.initializeAuthorizationCodeRequest(validRequest)
+this.performanceClient.setPreQueueTime(
+                PerformanceEvents.StandardInteractionClientCreateAuthCodeClient,
+                request.correlationId
+            )
+PerformanceEvents.StandardInteractionClientCreateAuthCodeClient
+request.correlationId
+const authClient: AuthorizationCodeClient =
+                await this.createAuthCodeClient(
+                    serverTelemetryManager,
+                    validRequest.authority,
+                    validRequest.azureCloudOptions
+                )
+await this.createAuthCodeClient(
+                    serverTelemetryManager,
+                    validRequest.authority,
+                    validRequest.azureCloudOptions
+                )
+validRequest.authority
+validRequest.azureCloudOptions
+this.logger.verbose("Auth code client created")
+const isNativeBroker = NativeMessageHandler.isNativeAvailable(
+                this.config,
+                this.logger,
+                this.nativeMessageHandler,
+                request.authenticationScheme
+            )
+this.config
+this.logger
+this.nativeMessageHandler
+request.authenticationScheme
+fetchNativeAccountIdMeasurement =
+                    this.performanceClient.startMeasurement(
+                        PerformanceEvents.FetchAccountIdWithNativeBroker,
+                        request.correlationId
+                    )
+this.performanceClient.startMeasurement(
+                        PerformanceEvents.FetchAccountIdWithNativeBroker,
+                        request.correlationId
+                    )
+PerformanceEvents.FetchAccountIdWithNativeBroker
+request.correlationId
+const navigateUrl = await authClient.getAuthCodeUrl({
+                ...validRequest,
+                nativeBroker: isNativeBroker,
+            })
+...validRequest
+_tmp_15.nativeBroker = isNativeBroker
+const interactionHandler = new InteractionHandler(
+                authClient,
+                this.browserStorage,
+                authCodeRequest,
+                this.logger,
+                this.performanceClient
+            )
+this.browserStorage
+this.logger
+this.performanceClient
+const popupParameters: PopupParams = {
+                popup,
+                popupName,
+                popupWindowAttributes,
+            }
+_tmp_17.popup = popup
+_tmp_17.popupName = popupName
+_tmp_17.popupWindowAttributes = popupWindowAttributes
+const popupWindow: Window = this.initiateAuthRequest(
+                navigateUrl,
+                popupParameters
+            )
+this.eventHandler.emitEvent(
+                EventType.POPUP_OPENED,
+                InteractionType.Popup,
+                { popupWindow },
+                null
+            )
+EventType.POPUP_OPENED
+InteractionType.Popup
+_tmp_19.popupWindow = popupWindow
+const hash = await this.monitorPopupForHash(popupWindow)
+const serverParams: ServerAuthorizationCodeResponse =
+                UrlString.getDeserializedHash(hash)
+UrlString.getDeserializedHash(hash)
+const state = this.validateAndExtractStateFromHash(
+                serverParams,
+                InteractionType.Popup,
+                validRequest.correlationId
+            )
+InteractionType.Popup
+validRequest.correlationId
+ThrottlingUtils.removeThrottle(
+                this.browserStorage,
+                this.config.auth.clientId,
+                authCodeRequest
+            )
+this.browserStorage
+this.config.auth.clientId
+serverParams.accountId
+const result = await interactionHandler.handleCodeResponseFromHash(
+                hash,
+                state,
+                authClient.authority,
+                this.networkClient
+            )
+authClient.authority
+this.networkClient
+popup.close()

@@ -1,0 +1,4 @@
+function getLuminance = function getLuminance(color) {
+      return get(color, [ XYZ_D65, 'y' ]);
+    }
+_tmp_565 = __ecma.Array.factory()

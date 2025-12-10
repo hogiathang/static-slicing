@@ -1,0 +1,132 @@
+this.get = function(key) {
+        if (styleCache[key] !== undefined) {return styleCache[key];}
+        let keyInfo = Properties[key] || {}, value, result;
+        for (let i = 0; i < 3; i++) {
+          switch (i) {
+            case 0:
+              if (key !== 'transform') { // the CSS transform behaves strangely
+                value = this.css[keyInfo.css || key];
+              }
+              break;
+            case 1:
+              value = this.style[key];
+              break;
+            case 2:
+              value = this.attr(key);
+              break;
+          }
+          if (value === 'inherit') {
+            result = (this.inherits ? this.inherits.get(key) : keyInfo.initial);
+            if (result != null) {return styleCache[key] = result;}
+          }
+          if (keyInfo.values != null) {
+            result = keyInfo.values[value];
+            if (result != null) {return styleCache[key] = result;}
+          }
+          if (value != null) {
+ ...
+styleCache[key] !== undefined
+let keyInfo = Properties[key] || {}
+let i = 0
+0
+key !== 'transform'
+value = this.css[keyInfo.css || key]
+break;
+1
+value = this.style[key]
+break;
+2
+value = this.attr(key)
+break;
+value === 'inherit'
+result = (this.inherits ? this.inherits.get(key) : keyInfo.initial)
+styleCache[key] = result
+keyInfo.values != null
+result = keyInfo.values[value]
+styleCache[key] = result
+value != null
+"font-size"
+result = this.computeLength(value, this.inherits ? this.inherits.get(key) : keyInfo.initial, undefined, true)
+break;
+"baseline-shift"
+result = this.computeLength(value, this.get('font-size'))
+break;
+"font-family"
+result = value || undefined
+break;
+"stop-opacity"
+parsed = parseFloat(value)
+!isNaN(parsed)
+result = Math.max(0, Math.min(1, parsed))
+break;
+"transform"
+result = parseTranform(value)
+break;
+"stroke-dasharray"
+value === 'none'
+__ecma.Array.factory()
+parsed = this.computeLengthList(value, this.getViewport(), true)
+let error = false
+j < parsed.length
+parsed[j] < 0
+sum += parsed[j]
+!error
+parsed.length % 2 === 1
+parsed = parsed.concat(parsed)
+sum === 0 ? __ecma.Array.factory() : parsed
+break;
+"color"
+value === 'none' || value === 'transparent'
+result = 'none'
+result = parseColor(value)
+break;
+"stroke"
+value === 'none' || value === 'transparent'
+result = 'none'
+value === 'currentColor'
+result = this.get('color')
+parsed = parseColor(value)
+parsed = (value || '').split(' ')
+let object = this.resolveUrl(parsed[0])
+let fallbackColor = parseColor(parsed[1])
+object == null
+result = fallbackColor
+object.nodeName === 'linearGradient' || object.nodeName === 'radialGradient'
+result = new SvgElemGradient(object, null, fallbackColor)
+object.nodeName === 'pattern'
+result = new SvgElemPattern(object, null, fallbackColor)
+result = fallbackColor
+break;
+"stop-color"
+value === 'none' || value === 'transparent'
+result = 'none'
+value === 'currentColor'
+result = this.get('color')
+result = parseColor(value)
+break;
+"mask"
+value === 'none'
+result = 'none'
+result = this.resolveUrl(value)
+break;
+"stroke-width"
+parsed = this.computeLength(value, this.getViewport())
+parsed != null && parsed >= 0
+result = parsed
+break;
+"stroke-miterlimit"
+parsed = parseFloat(value)
+parsed != null && parsed >= 1
+result = parsed
+break;
+"letter-spacing"
+result = this.computeLength(value, this.getViewport())
+break;
+"stroke-dashoffset"
+result = this.computeLength(value, this.getViewport())
+result != null
+result < 0
+let dasharray = this.get('stroke-dasharray')
+result += dasharray[j]
+break;
+styleCache[key] = result

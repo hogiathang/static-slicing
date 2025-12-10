@@ -1,0 +1,78 @@
+function optimizeVariablesInOpList = function optimizeVariablesInOpList(ops, options) {
+  const varDecls = /* @__PURE__ */ new Map();
+  const varUsages = /* @__PURE__ */ new Map();
+  const varRemoteUsages = /* @__PURE__ */ new Set();
+  const opMap = /* @__PURE__ */ new Map();
+  for (const op of ops) {
+    if (op.kind === OpKind.Variable) {
+      if (varDecls.has(op.xref) || varUsages.has(op.xref)) {
+        throw new Error(`Should not see two declarations of the same variable: ${op.xref}`);
+      }
+      varDecls.set(op.xref, op);
+      varUsages.set(op.xref, 0);
+    }
+    opMap.set(op, collectOpInfo(op));
+    countVariableUsages(op, varUsages, varRemoteUsages);
+  }
+  let contextIsUsed = false;
+  for (const op of ops.reversed()) {
+    const opInfo = opMap.get(op);
+    if (op.kind === OpKind.Variable && varUsages.get(op.xref) === 0) {
+      if (contextIsUsed && opInfo.fences & Fence.ViewContextWrite || opInfo.fences & Fence.SideEffectful) {
+        const stmtOp = createStatementOp(op.initializer.toStmt());
+        opMap...
+const varDecls = /* @__PURE__ */ new Map()
+const varUsages = /* @__PURE__ */ new Map()
+const varRemoteUsages = /* @__PURE__ */ new Set()
+const opMap = /* @__PURE__ */ new Map()
+!(_result_44 = _iterator_44.next()).done
+op.kind === OpKind.Variable
+varDecls.has(op.xref) || varUsages.has(op.xref)
+<operator>.formatString("Should not see two declarations of the same variable: ", op.xref, "")
+varDecls.set(op.xref, op)
+varUsages.set(op.xref, 0)
+opMap.set(op, collectOpInfo(op))
+countVariableUsages(op, varUsages, varRemoteUsages)
+let contextIsUsed = false
+_iterator_45 = <operator>.iterator(ops.reversed())
+const opInfo = opMap.get(op)
+op.kind === OpKind.Variable && varUsages.get(op.xref) === 0
+contextIsUsed && opInfo.fences & Fence.ViewContextWrite || opInfo.fences & Fence.SideEffectful
+const stmtOp = createStatementOp(op.initializer.toStmt())
+opMap.set(stmtOp, opInfo)
+OpList.replace(op, stmtOp)
+uncountVariableUsages(op, varUsages)
+OpList.remove(op)
+opMap.delete(op)
+varDecls.delete(op.xref)
+varUsages.delete(op.xref)
+continue;
+opInfo.fences & Fence.ViewContextRead
+contextIsUsed = true
+__ecma.Array.factory()
+_iterator_46 = <operator>.iterator(varUsages)
+count !== 1
+continue;
+varRemoteUsages.has(id)
+continue;
+toInline.push(id)
+candidate = toInline.pop()
+const decl2 = varDecls.get(candidate)
+const varInfo = opMap.get(decl2)
+targetOp.kind !== OpKind.ListEnd
+const opInfo = opMap.get(targetOp)
+(_tmp_397 = opInfo.variablesUsed).has
+options.conservative && !allowConservativeInlining(decl2, targetOp)
+break;
+tryInlineVariableInitializer(candidate, decl2.initializer, targetOp, varInfo.fences)
+(_tmp_398 = opInfo.variablesUsed).delete
+_iterator_47 = <operator>.iterator(varInfo.variablesUsed)
+(_tmp_399 = opInfo.variablesUsed).add
+opInfo.fences |= varInfo.fences
+varDecls.delete(candidate)
+varUsages.delete(candidate)
+opMap.delete(decl2)
+OpList.remove(decl2)
+break;
+!safeToInlinePastFences(opInfo.fences, varInfo.fences)
+break;

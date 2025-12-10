@@ -1,0 +1,74 @@
+var tryToTransfer = function (rawTransfer, map) {
+  if (!isObject(rawTransfer)) throw TypeError('Transfer option cannot be converted to a sequence');
+
+  var transfer = [];
+
+  iterate(rawTransfer, function (value) {
+    push(transfer, anObject(value));
+  });
+
+  var i = 0;
+  var length = lengthOfArrayLike(transfer);
+  var buffers = [];
+  var value, type, C, transferred, canvas, context;
+
+  while (i < length) {
+    value = transfer[i++];
+
+    type = classof(value);
+
+    if (type === 'ArrayBuffer') {
+      push(buffers, value);
+      continue;
+    }
+
+    if (mapHas(map, value)) throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
+
+    if (PROPER_TRANSFER) {
+      transferred = nativeStructuredClone(value, { transfer: [value] });
+    } else switch (type) {
+      case 'ImageBitmap':
+        C = global.OffscreenCanvas;
+        if (!isConstructor(C)) throwUnpolyfillable(type, TRANSFERRING);
+        try {
+          canvas = new C(value.width, value.height);
+          context = can...
+throw TypeError('Transfer option cannot be converted to a sequence');
+__ecma.Array.factory()
+iterate(rawTransfer, function (value) {
+    push(transfer, anObject(value));
+  })
+var i = 0
+var length = lengthOfArrayLike(transfer)
+__ecma.Array.factory()
+i < length
+value = transfer[i++]
+type = classof(value)
+type === 'ArrayBuffer'
+push(buffers, value)
+continue;
+throw new DOMException('Duplicate transferable', DATA_CLONE_ERROR);
+transferred = nativeStructuredClone(value, { transfer: [value] })
+"ImageBitmap"
+C = global.OffscreenCanvas
+throwUnpolyfillable(type, TRANSFERRING)
+canvas = new C(value.width, value.height)
+context = canvas.getContext('bitmaprenderer')
+context.transferFromImageBitmap(value)
+transferred = canvas.transferToImageBitmap()
+break;
+"AudioData"
+"VideoFrame"
+!isCallable(value.clone) || !isCallable(value.close)
+transferred = value.clone()
+value.close()
+break;
+"MediaSourceHandle"
+"MessagePort"
+"OffscreenCanvas"
+"ReadableStream"
+"TransformStream"
+"WritableStream"
+throwUnpolyfillable(type, TRANSFERRING)
+throw new DOMException('This object cannot be transferred: ' + type, DATA_CLONE_ERROR);
+mapSet(map, value, transferred)

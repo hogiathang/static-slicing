@@ -1,0 +1,48 @@
+function _validateReversePeerDependencies = function _validateReversePeerDependencies(name, version, infoMap, logger, next) {
+    for (const [installed, installedInfo] of infoMap.entries()) {
+        const installedLogger = logger.createChild(installed);
+        installedLogger.debug(`${installed}...`);
+        const peers = (installedInfo.target || installedInfo.installed).packageJson.peerDependencies;
+        for (const [peer, range] of Object.entries(peers || {})) {
+            if (peer != name) {
+                // Only check peers to the packages we're updating. We don't care about peers
+                // that are unmet but we have no effect on.
+                continue;
+            }
+            // Ignore peerDependency mismatches for these packages.
+            // They are deprecated and removed via a migration.
+            const ignoredPackages = [
+                'codelyzer',
+                '@schematics/update',
+                '@angular-devkit/build-ng-packagr',
+                'tsickle',
+            ];
+          ...
+_iterator_1 = <operator>.iterator(infoMap.entries())
+const installedLogger = logger.createChild(installed)
+<operator>.formatString("", installed, "...")
+const peers = (installedInfo.target || installedInfo.installed).packageJson.peerDependencies
+_iterator_2 = <operator>.iterator(Object.entries(peers || {}))
+peer != name
+continue;
+const ignoredPackages = [
+                'codelyzer',
+                '@schematics/update',
+                '@angular-devkit/build-ng-packagr',
+                'tsickle',
+            ]
+_tmp_6.push("codelyzer")
+_tmp_6.push("@schematics/update")
+_tmp_6.push("@angular-devkit/build-ng-packagr")
+_tmp_6.push("tsickle")
+ignoredPackages.includes(installed)
+continue;
+const extendedRange = _updatePeerVersion(infoMap, peer, range)
+!semver.satisfies(version, extendedRange, { includePrerelease: next || undefined })
+logger.error([
+                    `Package ${JSON.stringify(installed)} has an incompatible peer dependency to`,
+                    `${JSON.stringify(name)} (requires`,
+                    `${JSON.stringify(range)}${extendedRange == range ? '' : ' (extended)'},`,
+                    `would install ${JSON.stringify(version)}).`,
+                ].join(' '))
+_tmp_9.push(<operator>.formatString("Package ", JSON.stringify(installed), " has an incompatible peer dependency to"))

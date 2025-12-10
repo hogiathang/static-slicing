@@ -1,0 +1,76 @@
+getScopeForComponent(clazz) {
+    var _a;
+    if (!this.cache.has(clazz)) {
+      const clazzRef = new Reference(clazz);
+      const clazzMeta = this.metaReader.getDirectiveMetadata(clazzRef);
+      if (clazzMeta === null || !clazzMeta.isComponent || !clazzMeta.isStandalone) {
+        this.cache.set(clazz, null);
+        return null;
+      }
+      const dependencies = /* @__PURE__ */ new Set([clazzMeta]);
+      const seen = /* @__PURE__ */ new Set([clazz]);
+      let isPoisoned = clazzMeta.isPoisoned;
+      if (clazzMeta.imports !== null) {
+        for (const ref of clazzMeta.imports) {
+          if (seen.has(ref.node)) {
+            continue;
+          }
+          seen.add(ref.node);
+          const dirMeta = this.metaReader.getDirectiveMetadata(ref);
+          if (dirMeta !== null) {
+            dependencies.add({ ...dirMeta, ref });
+            isPoisoned = isPoisoned || dirMeta.isPoisoned || !dirMeta.isStandalone;
+            continue;
+          }
+          const pipeMeta = this...
+(_tmp_495 = this.cache).has
+const clazzRef = new Reference(clazz)
+const clazzMeta = this.metaReader.getDirectiveMetadata(clazzRef)
+clazzMeta === null || !clazzMeta.isComponent || !clazzMeta.isStandalone
+const dependencies = /* @__PURE__ */ new Set([clazzMeta])
+const seen = /* @__PURE__ */ new Set([clazz])
+let isPoisoned = clazzMeta.isPoisoned
+clazzMeta.imports !== null
+_iterator_37 = <operator>.iterator(clazzMeta.imports)
+seen.has(ref.node)
+continue;
+seen.add(ref.node)
+const dirMeta = this.metaReader.getDirectiveMetadata(ref)
+dirMeta !== null
+dependencies.add({ ...dirMeta, ref })
+isPoisoned = isPoisoned || dirMeta.isPoisoned || !dirMeta.isStandalone
+continue;
+const pipeMeta = this.metaReader.getPipeMetadata(ref)
+pipeMeta !== null
+dependencies.add({ ...pipeMeta, ref })
+isPoisoned = isPoisoned || !pipeMeta.isStandalone
+continue;
+const ngModuleMeta = this.metaReader.getNgModuleMetadata(ref)
+ngModuleMeta !== null
+dependencies.add({ ...ngModuleMeta, ref })
+ref.node.getSourceFile().isDeclarationFile
+ngModuleScope = this.dtsModuleReader.resolve(ref)
+ngModuleScope = this.localModuleReader.getScopeOfModule(ref.node)
+ngModuleScope === null
+isPoisoned = true
+continue;
+isPoisoned = isPoisoned || ngModuleScope.exported.isPoisoned
+_iterator_38 = <operator>.iterator(ngModuleScope.exported.dependencies)
+!seen.has(dep.ref.node)
+seen.add(dep.ref.node)
+dependencies.add(dep)
+continue;
+isPoisoned = true
+this.cache.set(clazz, {
+        kind: ComponentScopeKind.Standalone,
+        component: clazz,
+        dependencies: Array.from(dependencies),
+        isPoisoned,
+        schemas: (_a = clazzMeta.schemas) != null ? _a : []
+      })
+_tmp_513.kind = ComponentScopeKind.Standalone
+_tmp_513.component = clazz
+_tmp_513.dependencies = Array.from(dependencies)
+_tmp_513.isPoisoned = isPoisoned
+_tmp_513.schemas = (_a = clazzMeta.schemas) != null ? _a : __ecma.Array.factory()
+(_tmp_514 = this.cache).get

@@ -1,0 +1,50 @@
+__awaiter(this, void 0, void 0, function* () {
+            (0, jsutil_1.validateStreamName)(stream);
+            if (cfg.deliver_group && cfg.flow_control) {
+                throw new Error("jetstream flow control is not supported with queue groups");
+            }
+            if (cfg.deliver_group && cfg.idle_heartbeat) {
+                throw new Error("jetstream idle heartbeat is not supported with queue groups");
+            }
+            const cr = {};
+            cr.config = cfg;
+            cr.stream_name = stream;
+            cr.action = action;
+            if (cr.config.durable_name) {
+                (0, jsutil_1.validateDurableName)(cr.config.durable_name);
+            }
+            const nci = this.nc;
+            let { min, ok: newAPI } = nci.features.get(semver_1.Feature.JS_NEW_CONSUMER_CREATE_API);
+            const name = cfg.name === "" ? undefined : cfg.name;
+            if (name && !newAPI) {
+                throw new Error(`consumer 'name' requires server ${min}`...
+(0, jsutil_1.validateStreamName)(stream)
+cfg.deliver_group && cfg.flow_control
+throw new Error("jetstream flow control is not supported with queue groups");
+cfg.deliver_group && cfg.idle_heartbeat
+throw new Error("jetstream idle heartbeat is not supported with queue groups");
+const cr = {}
+cr.config = cfg
+cr.stream_name = stream
+cr.action = action
+cr.config.durable_name
+(0, jsutil_1.validateDurableName)(cr.config.durable_name)
+const nci = this.nc
+_tmp_9 = nci.features.get(semver_1.Feature.JS_NEW_CONSUMER_CREATE_API)
+const name = cfg.name === "" ? undefined : cfg.name
+name && !newAPI
+<operator>.formatString("consumer 'name' requires server ", min, "")
+(0, jsutil_1.minValidation)("name", name)
+const m = err.message
+const idx = m.indexOf("cannot contain")
+idx !== -1
+<operator>.formatString("consumer 'name' ", m.substring(idx), "")
+throw err;
+let consumerName = ""
+Array.isArray(cfg.filter_subjects)
+_tmp_13 = nci.features.get(semver_1.Feature.JS_MULTIPLE_CONSUMER_FILTER)
+!ok
+<operator>.formatString("consumer 'filter_subjects' requires server ", min, "")
+newAPI = false
+cfg.metadata
+_tmp_16 = nci.features.get(semver_1.Feature.JS_STREAM_CONSUMER_METADATA)

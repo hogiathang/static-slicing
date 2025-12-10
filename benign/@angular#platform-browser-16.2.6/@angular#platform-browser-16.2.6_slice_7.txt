@@ -1,0 +1,8 @@
+onStyleRemoved(style) {
+        const styleRef = this.styleRef;
+        styleRef.get(style)?.elements?.forEach((node) => node.remove());
+        styleRef.delete(style);
+    }
+const styleRef = this.styleRef
+styleRef.get(style)?.elements?.forEach((node) => node.remove())
+styleRef.delete(style)

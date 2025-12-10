@@ -1,0 +1,32 @@
+private onChannelMessage(event: MessageEvent): void {
+        this.logger.trace("NativeMessageHandler - onChannelMessage called.");
+        const request = event.data;
+
+        const resolver = this.resolvers.get(request.responseId);
+        const handshakeResolver = this.handshakeResolvers.get(
+            request.responseId
+        );
+
+        try {
+            const method = request.body.method;
+
+            if (method === NativeExtensionMethod.Response) {
+                if (!resolver) {
+                    return;
+                }
+                const response = request.body.response;
+                this.logger.trace(
+                    "NativeMessageHandler - Received response from browser extension"
+                );
+                this.logger.tracePii(
+                    `NativeMessageHandler - Received response from browser extension: ${JSON.stringify(
+                        response
+                    )}`
+                );
+                if (response.status !== ...
+this.logger.trace("NativeMessageHandler - onChannelMessage called.")
+const request = event.data
+const resolver = this.resolvers.get(request.responseId)
+const handshakeResolver = this.handshakeResolvers.get(
+            request.responseId
+        )

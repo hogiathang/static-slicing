@@ -1,0 +1,35 @@
+const fetch = async (request, options) => {
+  const response = CachePolicy.storable(request, options)
+    ? await cache(request, options)
+    : await remote(request, options)
+
+  // if the request wasn't a GET or HEAD, and the response
+  // status is between 200 and 399 inclusive, invalidate the
+  // request url
+  if (!['GET', 'HEAD'].includes(request.method) &&
+      response.status >= 200 &&
+      response.status <= 399) {
+    await cache.invalidate(request, options)
+  }
+
+  if (!canFollowRedirect(request, response, options)) {
+    return response
+  }
+
+  const redirect = getRedirect(request, response, options)
+  return fetch(redirect.request, redirect.options)
+}
+const response = CachePolicy.storable(request, options)
+    ? await cache(request, options)
+    : await remote(request, options)
+await cache(request, options)
+await remote(request, options)
+!['GET', 'HEAD'].includes(request.method) &&
+      response.status >= 200 &&
+      response.status <= 399
+response.status >= 200
+response.status <= 399
+await cache.invalidate(request, options)
+!canFollowRedirect(request, response, options)
+const redirect = getRedirect(request, response, options)
+fetch(redirect.request, redirect.options)

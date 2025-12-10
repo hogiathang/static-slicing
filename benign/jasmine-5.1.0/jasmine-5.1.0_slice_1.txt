@@ -1,0 +1,74 @@
+function runJasmine = async function runJasmine(Jasmine, ParallelRunner, projectBaseDir, options) {
+  let runner;
+
+  if (options.numWorkers > 1) {
+    runner = new ParallelRunner({
+      projectBaseDir,
+      numWorkers: options.numWorkers
+    });
+  } else {
+    runner = new Jasmine({
+      projectBaseDir
+    });
+  }
+
+  await runner.loadConfigFile(options.configPath || process.env.JASMINE_CONFIG_PATH);
+
+  if (options.failFast !== undefined) {
+    runner.configureEnv({
+      stopSpecOnExpectationFailure: options.failFast,
+      stopOnSpecFailure: options.failFast
+    });
+  }
+
+  if (options.seed !== undefined) {
+    runner.seed(options.seed);
+  }
+
+  if (options.random !== undefined) {
+    runner.randomizeTests(options.random);
+  }
+
+  if (options.helpers !== undefined && options.helpers.length) {
+    runner.addMatchingHelperFiles(options.helpers);
+  }
+
+  if (options.requires !== undefined && options.requires.length) {
+    runner.addRequires(options.requires);
+  }
+
+  if (options.reporter !== undefined) {
+   ...
+options.numWorkers > 1
+runner = new ParallelRunner({
+      projectBaseDir,
+      numWorkers: options.numWorkers
+    })
+_tmp_6.projectBaseDir = projectBaseDir
+_tmp_6.numWorkers = options.numWorkers
+runner = new Jasmine({
+      projectBaseDir
+    })
+_tmp_8.projectBaseDir = projectBaseDir
+await runner.loadConfigFile(options.configPath || process.env.JASMINE_CONFIG_PATH)
+options.failFast !== undefined
+runner.configureEnv({
+      stopSpecOnExpectationFailure: options.failFast,
+      stopOnSpecFailure: options.failFast
+    })
+_tmp_9.stopSpecOnExpectationFailure = options.failFast
+_tmp_9.stopOnSpecFailure = options.failFast
+options.seed !== undefined
+runner.seed(options.seed)
+options.random !== undefined
+runner.randomizeTests(options.random)
+options.helpers !== undefined && options.helpers.length
+runner.addMatchingHelperFiles(options.helpers)
+options.requires !== undefined && options.requires.length
+runner.addRequires(options.requires)
+options.reporter !== undefined
+await registerReporter(options.reporter, runner)
+runner.showColors(options.color)
+await runner.execute(options.files, options.filter)
+console.error(error)
+process.exit(1)

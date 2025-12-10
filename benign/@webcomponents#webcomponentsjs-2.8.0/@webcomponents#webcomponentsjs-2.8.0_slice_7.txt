@@ -1,0 +1,2 @@
+kb.prototype.addEventListener=function(a,b,c){var d=this;if(null!=b){c=lb(c);var e=c.capture;
+c=c.once;var f=sb(this,a,e);if(!f.has(b)){var g=c?function(h){f.delete(b);nb.call(d,a,g,e);if("function"===typeof b)return b.call(d,h);if("function"===typeof(null===b||void 0===b?void 0:b.handleEvent))return b.handleEvent(h)}:null;f.set(b,g);mb.call(this,a,null!==g&&void 0!==g?g:b,e)}}}

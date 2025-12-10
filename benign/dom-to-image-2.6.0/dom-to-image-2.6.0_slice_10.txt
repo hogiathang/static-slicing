@@ -1,0 +1,26 @@
+jQuery.fn[ name ] = function( selector ) {
+		var elems,
+			ret = [],
+			insert = jQuery( selector ),
+			last = insert.length - 1,
+			i = 0;
+
+		for ( ; i <= last; i++ ) {
+			elems = i === last ? this : this.clone( true );
+			jQuery( insert[ i ] )[ original ]( elems );
+
+			// Support: QtWebKit
+			// .get() because push.apply(_, arraylike) throws
+			push.apply( ret, elems.get() );
+		}
+
+		return this.pushStack( ret );
+	}
+__ecma.Array.factory()
+var insert = jQuery( selector )
+var last = insert.length - 1
+var i = 0
+i <= last
+elems = i === last ? this : this.clone( true )
+jQuery( insert[ i ] )[ original ]( elems )
+push.apply( ret, elems.get() )

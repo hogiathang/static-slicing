@@ -1,0 +1,11 @@
+function recurse = function recurse(r){const remainingFailures=new Set(Array.from(r.failuresHere.keys()).filter(x=>x!==""));if(Array.isArray(r.target)){indents.push("  "),emit(`[
+`);for(const[first,i]of enumFirst(range(r.target.length))){first||emit(`,
+`),emitFailures(r,`${i}`,remainingFailures);const innerMatcher=r.innerMatchFailures.get(`${i}`);innerMatcher?(emitFailures(innerMatcher,""),recurseComparingValues(innerMatcher,r.target[i])):emit(renderAbridged(r.target[i]))}emitRemaining(),indents.pop(),emit(`
+]`);return}if(r.target&&typeof r.target=="object"){indents.push("  "),emit(`{
+`);const keys=Array.from(new Set([...Object.keys(r.target),...Array.from(remainingFailures)])).sort();for(const[first,key]of enumFirst(keys)){first||emit(`,
+`),emitFailures(r,key,remainingFailures);const innerMatcher=r.innerMatchFailures.get(key);innerMatcher?(emitFailures(innerMatcher,""),emit(`${jsonify(key)}: `),recurseComparingValues(innerMatcher,r.target[key])):(emit(`${jsonify(key)}: `),emit(renderAbridged(r.target...
+r.target&&typeof r.target=="object"
+const keys=Array.from(new Set([...Object.keys(r.target),...Array.from(remainingFailures)])).sort()
+innerMatcher ? emitFailures(innerMatcher,""),emit(`${jsonify(key)}: `),recurseComparingValues(innerMatcher,r.target[key]) : emit(`${jsonify(key)}: `),emit(renderAbridged(r.target[key]))
+function emitRemaining = function emitRemaining(){remainingFailures.size>0&&emit(`
+`);for(const key of remainingFailures)emitFailures(r,key)}

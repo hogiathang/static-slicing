@@ -1,0 +1,11 @@
+outputStream.target.on('error', function(err) {
+              self.logger.debug('Output stream error, killing ffmpeg process');
+              var reportingErr = new Error('Output stream error: ' + err.message);
+              reportingErr.outputStreamError = err;
+              emitEnd(reportingErr, stdoutRing.get(), stderrRing.get());
+              ffmpegProc.kill('SIGKILL');
+            })
+self.logger.debug('Output stream error, killing ffmpeg process')
+var reportingErr = new Error('Output stream error: ' + err.message)
+reportingErr.outputStreamError = err
+emitEnd(reportingErr, stdoutRing.get(), stderrRing.get())

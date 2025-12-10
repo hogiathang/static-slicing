@@ -1,0 +1,23 @@
+remove(key) {
+    const value = this._items.get(key);
+    if (value === undefined) {
+      return;
+    }
+
+    // Clear cache
+    this._values = null;
+
+    // Copy the values
+    const copy = new Map(this._items);
+    copy.delete(key);
+
+    this._items = copy;
+    this.emit('remove', value);
+  }
+const value = this._items.get(key)
+value === undefined
+this._values = null
+const copy = new Map(this._items)
+copy.delete(key)
+this._items = copy
+this.emit('remove', value)

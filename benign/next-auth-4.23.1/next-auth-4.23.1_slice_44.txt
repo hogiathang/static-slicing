@@ -1,0 +1,60 @@
+function NextAuthApiHandler = async function NextAuthApiHandler(req, res, options) {
+  var _options$secret, _options$jwt$secret, _options$jwt, _ref, _handler$status, _handler$cookies, _handler$headers;
+
+  const {
+    nextauth,
+    ...query
+  } = req.query;
+  (_options$secret = options.secret) !== null && _options$secret !== void 0 ? _options$secret : options.secret = (_options$jwt$secret = (_options$jwt = options.jwt) === null || _options$jwt === void 0 ? void 0 : _options$jwt.secret) !== null && _options$jwt$secret !== void 0 ? _options$jwt$secret : process.env.NEXTAUTH_SECRET;
+  const handler = await (0, _core.AuthHandler)({
+    req: {
+      body: req.body,
+      query,
+      cookies: req.cookies,
+      headers: req.headers,
+      method: req.method,
+      action: nextauth === null || nextauth === void 0 ? void 0 : nextauth[0],
+      providerId: nextauth === null || nextauth === void 0 ? void 0 : nextauth[1],
+      error: (_ref = req.query.error) !== null && _ref !== void 0 ? _ref : nextauth === null || nextau...
+_tmp_0 = req.query
+nextauth = _tmp_0.nextauth
+...query
+req.query
+(_options$secret = options.secret) !== null && _options$secret !== void 0 ? _options$secret : options.secret = (_options$jwt$secret = (_options$jwt = options.jwt) === null || _options$jwt === void 0 ? void 0 : _options$jwt.secret) !== null && _options$jwt$secret !== void 0 ? _options$jwt$secret : process.env.NEXTAUTH_SECRET
+const handler = await (0, _core.AuthHandler)({
+    req: {
+      body: req.body,
+      query,
+      cookies: req.cookies,
+      headers: req.headers,
+      method: req.method,
+      action: nextauth === null || nextauth === void 0 ? void 0 : nextauth[0],
+      providerId: nextauth === null || nextauth === void 0 ? void 0 : nextauth[1],
+      error: (_ref = req.query.error) !== null && _ref !== void 0 ? _ref : nextauth === null || nextauth === void 0 ? void 0 : nextauth[1]
+    },
+    options
+  })
+_tmp_1.req = {
+      body: req.body,
+      query,
+      cookies: req.cookies,
+      headers: req.headers,
+      method: req.method,
+      action: nextauth === null || nextauth === void 0 ? void 0 : nextauth[0],
+      providerId: nextauth === null || nextauth === void 0 ? void 0 : nextauth[1],
+      error: (_ref = req.query.error) !== null && _ref !== void 0 ? _ref : nextauth === null || nextauth === void 0 ? void 0 : nextauth[1]
+    }
+_tmp_2.body = req.body
+_tmp_2.query = query
+_tmp_2.cookies = req.cookies
+_tmp_2.headers = req.headers
+_tmp_2.method = req.method
+_tmp_2.action = nextauth === null || nextauth === void 0 ? void 0 : nextauth[0]
+_tmp_2.providerId = nextauth === null || nextauth === void 0 ? void 0 : nextauth[1]
+_tmp_2.error = (_ref = req.query.error) !== null && _ref !== void 0 ? _ref : nextauth === null || nextauth === void 0 ? void 0 : nextauth[1]
+_tmp_1.options = options
+res.status((_handler$status = handler.status) !== null && _handler$status !== void 0 ? _handler$status : 200)
+(_handler$cookies = handler.cookies) === null || _handler$cookies === void 0 ? void 0 : _handler$cookies.forEach(cookie => (0, _utils.setCookie)(res, cookie))
+(_handler$headers = handler.headers) === null || _handler$headers === void 0 ? void 0 : _handler$headers.forEach(h => res.setHeader(h.key, h.value))
+handler.redirect
+res.send(handler.body)

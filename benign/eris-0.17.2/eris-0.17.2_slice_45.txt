@@ -1,0 +1,82 @@
+constructor(data, client) {
+        super(data.id);
+        this._client = client;
+        this.type = data.type || 0;
+        this.timestamp = Date.parse(data.timestamp);
+        this.channel = this._client.getChannel(data.channel_id) || {
+            id: data.channel_id
+        };
+        this.content = "";
+        this.hit = !!data.hit;
+        this.reactions = {};
+        this.guildID = data.guild_id;
+        this.webhookID = data.webhook_id;
+
+        if(data.message_reference) {
+            this.messageReference = {
+                messageID: data.message_reference.message_id,
+                channelID: data.message_reference.channel_id,
+                guildID: data.message_reference.guild_id
+            };
+        } else {
+            this.messageReference = null;
+        }
+
+        this.flags = data.flags || 0;
+
+        if(data.author) {
+            if(data.author.discriminator !== "0000") {
+                this.author = this._client.users.update(data.author, client);
+      ...
+super(data.id)
+this._client = client
+this.type = data.type || 0
+this.timestamp = Date.parse(data.timestamp)
+this.channel = this._client.getChannel(data.channel_id) || {
+            id: data.channel_id
+        }
+_tmp_2.id = data.channel_id
+this.content = ""
+this.hit = !!data.hit
+this.reactions = {}
+this.guildID = data.guild_id
+this.webhookID = data.webhook_id
+data.message_reference
+this.messageReference = {
+                messageID: data.message_reference.message_id,
+                channelID: data.message_reference.channel_id,
+                guildID: data.message_reference.guild_id
+            }
+_tmp_4.messageID = data.message_reference.message_id
+_tmp_4.channelID = data.message_reference.channel_id
+_tmp_4.guildID = data.message_reference.guild_id
+this.messageReference = null
+this.flags = data.flags || 0
+data.author
+data.author.discriminator !== "0000"
+this.author = this._client.users.update(data.author, client)
+this.author = new User(data.author, client)
+this._client.emit("error", new Error("MESSAGE_CREATE but no message author:\n" + JSON.stringify(data, null, 2)))
+data.referenced_message
+const channel = this._client.getChannel(data.referenced_message.channel_id)
+this.referencedMessage = channel.messages.update(data.referenced_message, this._client)
+this.referencedMessage = new Message(data.referenced_message, this._client)
+this.referencedMessage = data.referenced_message
+data.interaction
+this.interaction = data.interaction
+const interactionUser = this._client.users.update(data.interaction.user, client)
+data.interaction.member
+data.interaction.member.id = data.interaction.user.id
+this.channel.guild
+interactionMember = this.channel.guild.members.update(data.interaction.member, this.channel.guild)
+interactionMember = data.interaction.member
+this.channel.guild && this.channel.guild.members.has(data.interaction.user.id)
+interactionMember = this.channel.guild.members.get(data.interaction.user.id)
+interactionMember = null
+this.interaction.user = interactionUser
+this.interaction.member = interactionMember
+this.interaction = null
+this.channel.guild
+data.member
+this.channel.guild.members.has(this.author.id)
+this.member = this.channel.guild.members.get(this.author.id)

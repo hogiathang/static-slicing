@@ -1,0 +1,38 @@
+options = options === void 0 ? {} : options
+typeof options === "string"
+this.emit("warn", "[DEPRECATED] createChannel() was called with a string `options` argument")
+options = {
+                parentID: options
+            }
+_tmp_77.parentID = options
+typeof reason === "string"
+this.emit("warn", "[DEPRECATED] createChannel() was called with a string `reason` argument")
+options.reason = reason
+reason = undefined
+typeof reason === "object" && reason !== null
+options = reason
+reason = undefined
+this.requestHandler.request("POST", Endpoints.GUILD_CHANNELS(guildID), true, {
+            name: name,
+            type: type,
+            bitrate: options.bitrate,
+            nsfw: options.nsfw,
+            parent_id: options.parentID,
+            permission_overwrites: options.permissionOverwrites,
+            position: options.position,
+            rate_limit_per_user: options.rateLimitPerUser,
+            reason: options.reason,
+            topic: options.topic,
+            user_limit: options.userLimit
+        }).then((channel) => Channel.from(channel, this))
+_tmp_80.name = name
+_tmp_80.type = type
+_tmp_80.bitrate = options.bitrate
+_tmp_80.nsfw = options.nsfw
+_tmp_80.parent_id = options.parentID
+_tmp_80.permission_overwrites = options.permissionOverwrites
+_tmp_80.position = options.position
+_tmp_80.rate_limit_per_user = options.rateLimitPerUser
+_tmp_80.reason = options.reason
+_tmp_80.topic = options.topic
+_tmp_80.user_limit = options.userLimit

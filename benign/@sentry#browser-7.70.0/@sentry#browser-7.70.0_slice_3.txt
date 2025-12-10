@@ -1,0 +1,45 @@
+client.on('beforeEnvelope', (envelope) => {
+        // if not profiles are in queue, there is nothing to add to the envelope.
+        if (!PROFILE_MAP['size']) {
+          return;
+        }
+
+        const profiledTransactionEvents = findProfiledTransactionsFromEnvelope(envelope);
+        if (!profiledTransactionEvents.length) {
+          return;
+        }
+
+        const profilesToAddToEnvelope = [];
+
+        for (const profiledTransaction of profiledTransactionEvents) {
+          const context = profiledTransaction && profiledTransaction.contexts;
+          const profile_id = context && context['profile'] && (context['profile']['profile_id'] );
+
+          if (!profile_id) {
+            (typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__) &&
+              logger.log('[Profiling] cannot find profile for a transaction without a profile context');
+            continue;
+          }
+
+          // Remove the profile from the transaction context before sending, relay will take care...
+!PROFILE_MAP['size']
+const profiledTransactionEvents = findProfiledTransactionsFromEnvelope(envelope)
+!profiledTransactionEvents.length
+const profilesToAddToEnvelope = []
+_iterator_0 = <operator>.iterator(profiledTransactionEvents)
+const context = profiledTransaction && profiledTransaction.contexts
+const profile_id = context && context['profile'] && (context['profile']['profile_id'] )
+!profile_id
+(typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__) &&
+              logger.log('[Profiling] cannot find profile for a transaction without a profile context')
+logger.log('[Profiling] cannot find profile for a transaction without a profile context')
+continue;
+context && context['profile']
+delete context.profile
+const profile = PROFILE_MAP.get(profile_id)
+!profile
+(typeof __SENTRY_DEBUG__ === 'undefined' || __SENTRY_DEBUG__) && logger.log(`[Profiling] Could not retrieve profile for transaction: ${profile_id}`)
+continue;
+PROFILE_MAP.delete(profile_id)
+const profileEvent = createProfilingEvent(profile_id, profile, profiledTransaction )
+profilesToAddToEnvelope.push(profileEvent)

@@ -1,0 +1,168 @@
+module.exports = (db, name, opts) => {
+  // Create router
+  const router = express.Router();
+  router.use(delay); // Embed function used in GET /name and GET /name/id
+
+  function embed(resource, e) {
+    e && [].concat(e).forEach(externalResource => {
+      if (db.get(externalResource).value) {
+        const query = {};
+        const singularResource = pluralize.singular(name);
+        query[`${singularResource}${opts.foreignKeySuffix}`] = resource.id;
+        resource[externalResource] = db.get(externalResource).filter(query).value();
+      }
+    });
+  } // Expand function used in GET /name and GET /name/id
+
+
+  function expand(resource, e) {
+    e && [].concat(e).forEach(innerResource => {
+      const plural = pluralize(innerResource);
+
+      if (db.get(plural).value()) {
+        const prop = `${innerResource}${opts.foreignKeySuffix}`;
+        resource[innerResource] = db.get(plural).getById(resource[prop]).value();
+      }
+    });
+  } // GET /name
+  // GET /name?q=
+  // GET /name?...
+const router = express.Router()
+router.use(delay)
+function embed = function embed(resource, e) {
+    e && [].concat(e).forEach(externalResource => {
+      if (db.get(externalResource).value) {
+        const query = {};
+        const singularResource = pluralize.singular(name);
+        query[`${singularResource}${opts.foreignKeySuffix}`] = resource.id;
+        resource[externalResource] = db.get(externalResource).filter(query).value();
+      }
+    });
+  }
+function expand = function expand(resource, e) {
+    e && [].concat(e).forEach(innerResource => {
+      const plural = pluralize(innerResource);
+
+      if (db.get(plural).value()) {
+        const prop = `${innerResource}${opts.foreignKeySuffix}`;
+        resource[innerResource] = db.get(plural).getById(resource[prop]).value();
+      }
+    });
+  }
+function list = function list(req, res, next) {
+    // Resource chain
+    let chain = db.get(name); // Remove q, _start, _end, ... from req.query to avoid filtering using those
+    // parameters
+
+    let q = req.query.q;
+    let _start = req.query._start;
+    let _end = req.query._end;
+    let _page = req.query._page;
+    const _sort = req.query._sort;
+    const _order = req.query._order;
+    let _limit = req.query._limit;
+    const _embed = req.query._embed;
+    const _expand = req.query._expand;
+    delete req.query.q;
+    delete req.query._start;
+    delete req.query._end;
+    delete req.query._sort;
+    delete req.query._order;
+    delete req.query._limit;
+    delete req.query._embed;
+    delete req.query._expand; // Automatically delete query parameters that can't be found
+    // in the database
+
+    Object.keys(req.query).forEach(query => {
+      const arr = db.get(name).value();
+
+      for (const i in arr) {
+        if (_.has(arr[i], query) || query === 'callback' || query === '_' || /_lte$/...
+function show = function show(req, res, next) {
+    const _embed = req.query._embed;
+    const _expand = req.query._expand;
+    const resource = db.get(name).getById(req.params.id).value();
+
+    if (resource) {
+      // Clone resource to avoid making changes to the underlying object
+      const clone = _.cloneDeep(resource); // Embed other resources based on resource id
+      // /posts/1?_embed=comments
+
+
+      embed(clone, _embed); // Expand inner resources based on id
+      // /posts/1?_expand=user
+
+      expand(clone, _expand);
+      res.locals.data = clone;
+    }
+
+    next();
+  }
+function create = function create(req, res, next) {
+    let resource;
+
+    if (opts._isFake) {
+      const id = db.get(name).createId().value();
+      resource = _objectSpread(_objectSpread({}, req.body), {}, {
+        id
+      });
+    } else {
+      resource = db.get(name).insert(req.body).value();
+    }
+
+    res.setHeader('Access-Control-Expose-Headers', 'Location');
+    res.location(`${getFullURL(req)}/${resource.id}`);
+    res.status(201);
+    res.locals.data = resource;
+    next();
+  }
+function update = function update(req, res, next) {
+    const id = req.params.id;
+    let resource;
+
+    if (opts._isFake) {
+      resource = db.get(name).getById(id).value();
+
+      if (req.method === 'PATCH') {
+        resource = _objectSpread(_objectSpread({}, resource), req.body);
+      } else {
+        resource = _objectSpread(_objectSpread({}, req.body), {}, {
+          id: resource.id
+        });
+      }
+    } else {
+      let chain = db.get(name);
+      chain = req.method === 'PATCH' ? chain.updateById(id, req.body) : chain.replaceById(id, req.body);
+      resource = chain.value();
+    }
+
+    if (resource) {
+      res.locals.data = resource;
+    }
+
+    next();
+  }
+function destroy = function destroy(req, res, next) {
+    let resource;
+
+    if (opts._isFake) {
+      resource = db.get(name).value();
+    } else {
+      resource = db.get(name).removeById(req.params.id).value(); // Remove dependents documents
+
+      const removable = db._.getRemovable(db.getState(), opts);
+
+      removable.forEach(item => {
+        db.get(item.name).removeById(item.id).value();
+      });
+    }
+
+    if (resource) {
+      res.locals.data = {};
+    }
+
+    next();
+  }
+const w = write(db)
+(_tmp_58 = router.route('/').get(list)).post
+router.route('/:id').get(show).put(update, w).patch(update, w).delete(destroy, w)

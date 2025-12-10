@@ -1,0 +1,21 @@
+queryIntersectsFeature(queryGeometry: TilespaceQueryGeometry,
+                           feature: IVectorTileFeature,
+                           featureState: FeatureState,
+                           geometry: Array<Array<Point>>,
+                           zoom: number,
+                           transform: Transform): boolean {
+        if (queryGeometry.queryGeometry.isAboveHorizon) return false;
+
+        const translatedPolygon = translate(queryGeometry.tilespaceGeometry,
+            this.paint.get('fill-translate'),
+            this.paint.get('fill-translate-anchor'),
+            transform.angle, queryGeometry.pixelToTileUnitsFactor);
+        return polygonIntersectsMultiPolygon(translatedPolygon, geometry);
+    }
+queryGeometry.queryGeometry.isAboveHorizon
+const translatedPolygon = translate(queryGeometry.tilespaceGeometry,
+            this.paint.get('fill-translate'),
+            this.paint.get('fill-translate-anchor'),
+            transform.angle, queryGeometry.pixelToTileUnitsFactor)
+this.paint.get('fill-translate')
+this.paint.get('fill-translate-anchor')

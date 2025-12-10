@@ -1,0 +1,53 @@
+function _validateForwardPeerDependencies = function _validateForwardPeerDependencies(name, infoMap, peers, peersMeta, logger, next) {
+    let validationFailed = false;
+    for (const [peer, range] of Object.entries(peers)) {
+        logger.debug(`Checking forward peer ${peer}...`);
+        const maybePeerInfo = infoMap.get(peer);
+        const isOptional = peersMeta[peer] && !!peersMeta[peer].optional;
+        if (!maybePeerInfo) {
+            if (!isOptional) {
+                logger.warn([
+                    `Package ${JSON.stringify(name)} has a missing peer dependency of`,
+                    `${JSON.stringify(peer)} @ ${JSON.stringify(range)}.`,
+                ].join(' '));
+            }
+            continue;
+        }
+        const peerVersion = maybePeerInfo.target && maybePeerInfo.target.packageJson.version
+            ? maybePeerInfo.target.packageJson.version
+            : maybePeerInfo.installed.version;
+        logger.debug(`  Range intersects(${range}, ${peerVersion})...`);
+        if (!semver.satisfies(peerVe...
+let validationFailed = false
+_iterator_0 = <operator>.iterator(Object.entries(peers))
+<operator>.formatString("Checking forward peer ", peer, "...")
+const maybePeerInfo = infoMap.get(peer)
+const isOptional = peersMeta[peer] && !!peersMeta[peer].optional
+!maybePeerInfo
+!isOptional
+logger.warn([
+                    `Package ${JSON.stringify(name)} has a missing peer dependency of`,
+                    `${JSON.stringify(peer)} @ ${JSON.stringify(range)}.`,
+                ].join(' '))
+_tmp_1.push(<operator>.formatString("Package ", JSON.stringify(name), " has a missing peer dependency of"))
+_tmp_1.push(<operator>.formatString("", JSON.stringify(peer), " @ ", JSON.stringify(range), "."))
+join
+continue;
+const peerVersion = maybePeerInfo.target && maybePeerInfo.target.packageJson.version
+            ? maybePeerInfo.target.packageJson.version
+            : maybePeerInfo.installed.version
+maybePeerInfo.target.packageJson.version
+maybePeerInfo.installed.version
+<operator>.formatString("  Range intersects(", range, ", ", peerVersion, ")...")
+!semver.satisfies(peerVersion, range, { includePrerelease: next || undefined })
+logger.error([
+                `Package ${JSON.stringify(name)} has an incompatible peer dependency to`,
+                `${JSON.stringify(peer)} (requires ${JSON.stringify(range)},`,
+                `would install ${JSON.stringify(peerVersion)})`,
+            ].join(' '))
+_tmp_4.push(<operator>.formatString("Package ", JSON.stringify(name), " has an incompatible peer dependency to"))
+_tmp_4.push(<operator>.formatString("", JSON.stringify(peer), " (requires ", JSON.stringify(range), ","))
+_tmp_4.push(<operator>.formatString("would install ", JSON.stringify(peerVersion), ")"))
+join
+validationFailed = true
+continue;

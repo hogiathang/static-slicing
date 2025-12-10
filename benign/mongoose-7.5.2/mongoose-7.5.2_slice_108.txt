@@ -1,0 +1,87 @@
+function collectIndexes = function collectIndexes(schema, prefix, baseSchema) {
+    // Ignore infinitely nested schemas, if we've already seen this schema
+    // along this path there must be a cycle
+    if (schemaStack.has(schema)) {
+      return;
+    }
+    schemaStack.set(schema, true);
+
+    prefix = prefix || '';
+    const keys = Object.keys(schema.paths);
+
+    for (const key of keys) {
+      const path = schema.paths[key];
+      if (baseSchema != null && baseSchema.paths[key]) {
+        // If looking at an embedded discriminator schema, don't look at paths
+        // that the
+        continue;
+      }
+
+      if (path.$isMongooseDocumentArray || path.$isSingleNested) {
+        if (get(path, 'options.excludeIndexes') !== true &&
+            get(path, 'schemaOptions.excludeIndexes') !== true &&
+            get(path, 'schema.options.excludeIndexes') !== true) {
+          collectIndexes(path.schema, prefix + key + '.');
+        }
+
+        if (path.schema.discriminators != null) {
+          const discriminator...
+schemaStack.has(schema)
+schemaStack.set(schema, true)
+prefix = prefix || ''
+const keys = Object.keys(schema.paths)
+_iterator_0 = <operator>.iterator(keys)
+const path = schema.paths[key]
+baseSchema != null && baseSchema.paths[key]
+continue;
+path.$isMongooseDocumentArray || path.$isSingleNested
+get(path, 'options.excludeIndexes') !== true &&
+            get(path, 'schemaOptions.excludeIndexes') !== true &&
+            get(path, 'schema.options.excludeIndexes') !== true
+get(path, 'schemaOptions.excludeIndexes') !== true
+get(path, 'schema.options.excludeIndexes') !== true
+collectIndexes(path.schema, prefix + key + '.')
+path.schema.discriminators != null
+const discriminators = path.schema.discriminators
+const discriminatorKeys = Object.keys(discriminators)
+_iterator_1 = <operator>.iterator(discriminatorKeys)
+collectIndexes(discriminators[discriminatorKey],
+              prefix + key + '.', path.schema)
+prefix + key + '.'
+path.$isMongooseDocumentArray
+continue;
+const index = path._index || (path.caster && path.caster._index)
+index !== false && index !== null && index !== undefined
+const field = {}
+const isObject = helperIsObject(index)
+const options = isObject ? index : {}
+const type = typeof index === 'string' ? index :
+          isObject ? index.type :
+            false
+isObject ? index.type : false
+type && indexTypes.indexOf(type) !== -1
+field[prefix + key] = type
+options.text
+field[prefix + key] = 'text'
+delete options.text
+let isDescendingIndex = false
+index === 'descending' || index === 'desc'
+isDescendingIndex = true
+index === 'ascending' || index === 'asc'
+isDescendingIndex = false
+isDescendingIndex = Number(index) === -1
+field[prefix + key] = isDescendingIndex ? -1 : 1
+delete options.type
+!('background' in options)
+options.background = true
+schema.options.autoIndex != null
+options._autoIndex = schema.options.autoIndex
+const indexName = options && options.name
+typeof indexName === 'string'
+indexByName.has(indexName)
+Object.assign(indexByName.get(indexName), field)
+_tmp_2 = __ecma.Array.factory()
+indexByName.set(indexName, field)
+_tmp_3 = __ecma.Array.factory()
+indexByName.set(indexName, field)
+schemaStack.delete(schema)

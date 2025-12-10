@@ -1,0 +1,41 @@
+function windowOpen = function windowOpen(url, _a, onClose) {
+    var height = _a.height, width = _a.width, configRest = __rest(_a, ["height", "width"]);
+    var config = __assign({ height: height, width: width, location: 'no', toolbar: 'no', status: 'no', directories: 'no', menubar: 'no', scrollbars: 'yes', resizable: 'no', centerscreen: 'yes', chrome: 'yes' }, configRest);
+    var shareDialog = window.open(url, '', Object.keys(config)
+        .map(function (key) { return "".concat(key, "=").concat(config[key]); })
+        .join(', '));
+    if (onClose) {
+        var interval_1 = window.setInterval(function () {
+            try {
+                if (shareDialog === null || shareDialog.closed) {
+                    window.clearInterval(interval_1);
+                    onClose(shareDialog);
+                }
+            }
+            catch (e) {
+                /* eslint-disable no-console */
+                console.error(e);
+                /* eslint-enable no-console */
+            }
+        }, 1000);
+ ...
+var configRest = __rest(_a, ["height", "width"])
+var config = __assign({ height: height, width: width, location: 'no', toolbar: 'no', status: 'no', directories: 'no', menubar: 'no', scrollbars: 'yes', resizable: 'no', centerscreen: 'yes', chrome: 'yes' }, configRest)
+var shareDialog = window.open(url, '', Object.keys(config)
+        .map(function (key) { return "".concat(key, "=").concat(config[key]); })
+        .join(', '))
+"".concat(key, "=").concat(config[key])
+join
+var interval_1 = window.setInterval(function () {
+            try {
+                if (shareDialog === null || shareDialog.closed) {
+                    window.clearInterval(interval_1);
+                    onClose(shareDialog);
+                }
+            }
+            catch (e) {
+                /* eslint-disable no-console */
+                console.error(e);
+                /* eslint-enable no-console */
+            }
+        }, 1000)

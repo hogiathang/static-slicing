@@ -1,0 +1,79 @@
+function post = function post(url, post_data, boundary, file, callback, options) {
+  let file_header;
+  let finish_buffer = Buffer.from("--" + boundary + "--", 'ascii');
+  let oauth_token = options.oauth_token || config().oauth_token;
+  if ((file != null) || options.stream) {
+    // eslint-disable-next-line no-nested-ternary
+    let filename = options.stream ? options.filename ? options.filename : "file" : basename(file);
+    file_header = Buffer.from(encodeFilePart(boundary, 'application/octet-stream', 'file', filename), 'binary');
+  }
+  let post_options = urlLib.parse(url);
+  let headers = {
+    'Content-Type': `multipart/form-data; boundary=${boundary}`,
+    'User-Agent': utils.getUserAgent()
+  };
+  if (options.content_range != null) {
+    headers['Content-Range'] = options.content_range;
+  }
+  if (options.x_unique_upload_id != null) {
+    headers['X-Unique-Upload-Id'] = options.x_unique_upload_id;
+  }
+  if (options.extra_headers !== null) {
+    headers = merge(headers, options.extra_headers);
+ ...
+let finish_buffer = Buffer.from("--" + boundary + "--", 'ascii')
+let oauth_token = options.oauth_token || config().oauth_token
+(file != null) || options.stream
+let filename = options.stream ? options.filename ? options.filename : "file" : basename(file)
+file_header = Buffer.from(encodeFilePart(boundary, 'application/octet-stream', 'file', filename), 'binary')
+let post_options = urlLib.parse(url)
+let headers = {
+    'Content-Type': `multipart/form-data; boundary=${boundary}`,
+    'User-Agent': utils.getUserAgent()
+  }
+_tmp_19.Content-Type = <operator>.formatString("multipart/form-data; boundary=", boundary, "")
+_tmp_19.User-Agent = utils.getUserAgent()
+options.content_range != null
+headers['Content-Range'] = options.content_range
+options.x_unique_upload_id != null
+headers['X-Unique-Upload-Id'] = options.x_unique_upload_id
+options.extra_headers !== null
+headers = merge(headers, options.extra_headers)
+oauth_token != null
+<operator>.formatString("Bearer ", oauth_token, "")
+post_options = extend(post_options, {
+    method: 'POST',
+    headers: headers
+  })
+_tmp_20.method = "POST"
+_tmp_20.headers = headers
+options.agent != null
+post_options.agent = options.agent
+let proxy = options.api_proxy || config().api_proxy
+!isEmpty(proxy)
+!post_options.agent && agent
+post_options.agent = agent
+!post_options.agent
+post_options.agent = new https.Agent(proxy)
+console.warn("Proxy is set, but request uses a custom agent, proxy is ignored.")
+let post_request = https.request(post_options, callback)
+let upload_stream = new UploadStream({ boundary })
+upload_stream.pipe(post_request)
+let timeout = false
+post_request.on("error", function (error) {
+    if (timeout) {
+      error = {
+        message: "Request Timeout",
+        http_code: 499,
+        name: "TimeoutError"
+      };
+    }
+    return callback({ error });
+  })
+post_request.setTimeout(options.timeout != null ? options.timeout : 60000, function () {
+    timeout = true;
+    return post_request.abort();
+  })
+post_data.forEach(postDatum => post_request.write(postDatum))
+options.stream
+post_request.write(file_header)

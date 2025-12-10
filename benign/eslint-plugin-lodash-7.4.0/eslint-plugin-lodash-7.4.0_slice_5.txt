@@ -1,0 +1,4 @@
+function isNonNullObjectCreate = function isNonNullObjectCreate(callerName, methodName, arg) {
+            return callerName === 'Object' && methodName === 'create' && get(arg, 'value') !== null
+        }
+callerName === 'Object' && methodName === 'create' && get(arg, 'value') !== null

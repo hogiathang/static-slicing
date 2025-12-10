@@ -1,0 +1,50 @@
+constructor(config, _plt, _form, _app, elementRef, renderer, _content, _item, ngControl, _dom) {
+        super(config, elementRef, renderer, 'input', '', _form, _item, ngControl);
+        this._plt = _plt;
+        this._app = _app;
+        this._content = _content;
+        this.ngControl = ngControl;
+        this._dom = _dom;
+        this._clearInput = false;
+        this._readonly = false;
+        this._type = 'text';
+        this._isTextarea = false;
+        this._onDestroy = new Subject();
+        this._useAssist = false;
+        this._relocated = false;
+        /**
+         * @input {string} Set the input's autocomplete property. Values: `"on"`, `"off"`. Default `"off"`.
+         */
+        this.autocomplete = '';
+        /**
+         * @input {string} Set the input's autocorrect property. Values: `"on"`, `"off"`. Default `"off"`.
+         */
+        this.autocorrect = '';
+        /**
+         * @input {string} Instructional text that shows before the input has a value.
+        ...
+super(config, elementRef, renderer, 'input', '', _form, _item, ngControl)
+this._plt = _plt
+this._app = _app
+this._content = _content
+this.ngControl = ngControl
+this._dom = _dom
+this._clearInput = false
+this._readonly = false
+this._type = 'text'
+this._isTextarea = false
+this._onDestroy = new Subject()
+this._useAssist = false
+this._relocated = false
+this.autocomplete = ''
+this.autocorrect = ''
+this.placeholder = ''
+this.min = null
+this.max = null
+this.step = null
+this.input = new EventEmitter()
+this.blur = new EventEmitter()
+this.focus = new EventEmitter()
+this.autocomplete = config.get('autocomplete', 'off')
+this.autocorrect = config.get('autocorrect', 'off')
+this._autoFocusAssist = config.get('autoFocusAssist', 'delay')

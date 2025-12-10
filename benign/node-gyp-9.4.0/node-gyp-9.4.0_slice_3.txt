@@ -1,0 +1,112 @@
+function go = async function go () {
+    log.verbose('ensuring devDir is created', devDir)
+
+    // first create the dir for the node dev files
+    try {
+      const created = await fs.promises.mkdir(devDir, { recursive: true })
+
+      if (created) {
+        log.verbose('created devDir', created)
+      }
+    } catch (err) {
+      if (err.code === 'EACCES') {
+        return eaccesFallback(err)
+      }
+
+      throw err
+    }
+
+    // now download the node tarball
+    const tarPath = gyp.opts.tarball
+    let extractErrors = false
+    let extractCount = 0
+    const contentShasums = {}
+    const expectShasums = {}
+
+    // checks if a file to be extracted from the tarball is valid.
+    // only .h header files and the gyp files get extracted
+    function isValid (path) {
+      const isValid = valid(path)
+      if (isValid) {
+        log.verbose('extracted file from tarball', path)
+        extractCount++
+      } else {
+        // invalid
+        log.silly('ignoring from tarball', path)
+      }
+      return...
+log.verbose('ensuring devDir is created', devDir)
+const created = await fs.promises.mkdir(devDir, { recursive: true })
+log.verbose('created devDir', created)
+err.code === 'EACCES'
+throw err
+const tarPath = gyp.opts.tarball
+let extractErrors = false
+let extractCount = 0
+const contentShasums = {}
+const expectShasums = {}
+function isValid = function isValid (path) {
+      const isValid = valid(path)
+      if (isValid) {
+        log.verbose('extracted file from tarball', path)
+        extractCount++
+      } else {
+        // invalid
+        log.silly('ignoring from tarball', path)
+      }
+      return isValid
+    }
+function onwarn = function onwarn (code, message) {
+      extractErrors = true
+      log.error('error while extracting tarball', code, message)
+    }
+const tarExtractDir = win ? await fs.promises.mkdtemp(path.join(os.tmpdir(), 'node-gyp-tmp-')) : devDir
+function downloadShasums = async function downloadShasums () {
+      log.verbose('check download content checksum, need to download `SHASUMS256.txt`...')
+      log.verbose('checksum url', release.shasumsUrl)
+
+      const res = await download(gyp, release.shasumsUrl)
+
+      if (res.status !== 200) {
+        throw new Error(`${res.status}  status code downloading checksum`)
+      }
+
+      for (const line of (await res.text()).trim().split('\n')) {
+        const items = line.trim().split(/\s+/)
+        if (items.length !== 2) {
+          return
+        }
+
+        // 0035d18e2dcf9aad669b1c7c07319e17abfe3762  ./node-v0.11.4.tar.gz
+        const name = items[1].replace(/^\.\//, '')
+        expectShasums[name] = items[0]
+      }
+
+      log.verbose('checksum data', JSON.stringify(expectShasums))
+    }
+function downloadNodeLib = async function downloadNodeLib () {
+      log.verbose('on Windows; need to download `' + release.name + '.lib`...')
+      const dir = path.resolve(tarExtractDir, arch)
+      const targetLibPath = path.resolve(dir, release.name + '.lib')
+      const { libUrl, libPath } = release[arch]
+      const name = `${arch} ${release.name}.lib`
+      log.verbose(name, 'dir', dir)
+      log.verbose(name, 'url', libUrl)
+
+      await fs.promises.mkdir(dir, { recursive: true })
+      log.verbose('streaming', name, 'to:', targetLibPath)
+
+      const res = await download(gyp, libUrl)
+
+      // Since only required node.lib is downloaded throw error if it is not fetched
+      if (res.status !== 200) {
+        throw new Error(`${res.status} status code downloading ${name}`)
+      }
+
+      return streamPipeline(
+        res.body,
+        new ShaSum((_, checksum) => {
+          contentShasums[libPath] = checksum
+          log.verbose('content checksum', libPath, checksum)
+        }),
+        fs.createWrite...

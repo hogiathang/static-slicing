@@ -1,0 +1,57 @@
+this.normal = function(options, callback){
+
+            var buffer = [],
+            protocol = (options.protocol === "http")?http:https,
+            clientRequest = options.clientRequest,
+            requestConfig = options.requestConfig,
+            responseConfig = options.responseConfig,
+            self = this;
+            
+                self.configureOptions(options);
+
+                // add request options to request returned to calling method
+                clientRequest.options = options;
+
+                var request = protocol.request(options, function(res){
+                        // configure response
+                        self.configureResponse(res,responseConfig, clientRequest);
+
+                        // concurrent data chunk handler
+                        res.on('data',function(chunk){
+                            buffer.push(Buffer.from(chunk));
+                        });
+
+                        res.on('end',function(){
+
+            ...
+__ecma.Array.factory()
+var protocol = (options.protocol === "http")?http:https
+var clientRequest = options.clientRequest
+var requestConfig = options.requestConfig
+var responseConfig = options.responseConfig
+var self = this
+self.configureOptions(options)
+clientRequest.options = options
+var request = protocol.request(options, function(res){
+                        // configure response
+                        self.configureResponse(res,responseConfig, clientRequest);
+
+                        // concurrent data chunk handler
+                        res.on('data',function(chunk){
+                            buffer.push(Buffer.from(chunk));
+                        });
+
+                        res.on('end',function(){
+
+                            self.handleEnd(res,buffer,callback);
+
+                        });
+
+                        // handler response errors
+                        res.on('error',function(err){
+                            if (clientRequest !== undefined && typeof clientRequest === 'object'){
+                            	// add request as property of error
+                                err.request = clientRequest;
+                                err.response = res;
+                                // request error handler
+        ...

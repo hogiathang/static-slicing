@@ -1,0 +1,137 @@
+config = require('../.config.js')
+!config || !config.uri
+console.error('No Config or config.URI given, please create a .config.js file with those values in the root of the repository')
+process.exit(-1)
+const cheerio = require('cheerio')
+const docsFilemap = require('../docs/source')
+const fs = require('fs')
+const pug = require('pug')
+const mongoose = require('../')
+_tmp_12 = require('../package.json')
+_tmp_13 = require('marked')
+const highlight = require('highlight.js')
+markdown.setOptions({
+  highlight: function(code) {
+    return highlight.highlight(code, { language: 'JavaScript' }).value;
+  }
+})
+_tmp_14.highlight = <lambda>1
+version = version.slice(0, version.indexOf('.')) + '.x'
+const contentSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  body: { type: String, required: true },
+  url: { type: String, required: true },
+  version: { type: String, required: true, default: version },
+  versionNumber: { type: Number, required: true, default: version.replace(/\.x$/, '') }
+})
+_tmp_17.title = { type: String, required: true }
+_tmp_17.body = { type: String, required: true }
+_tmp_17.url = { type: String, required: true }
+_tmp_17.version = { type: String, required: true, default: version }
+_tmp_17.versionNumber = { type: Number, required: true, default: version.replace(/\.x$/, '') }
+contentSchema.index({ title: 'text', body: 'text' })
+const Content = mongoose.model('Content', contentSchema, 'Content')
+__ecma.Array.factory()
+_iterator_1 = <operator>.iterator(Object.entries(docsFilemap.fileMap))
+file.api
+_iterator_2 = <operator>.iterator(file.props)
+const content = new Content({
+        title: `API: ${prop.name}`,
+        body: prop.description,
+        url: `${filename}#${prop.anchorId}`
+      })
+_tmp_25.title = <operator>.formatString("API: ", prop.name, "")
+_tmp_25.body = prop.description
+_tmp_25.url = <operator>.formatString("", filename, "#", prop.anchorId, "")
+const err = content.validateSync()
+err != null
+console.error(content)
+throw err;
+contents.push(content)
+file.markdown
+let text = fs.readFileSync(filename, 'utf8')
+text = markdown.parse(text)
+const content = new Content({
+      title: file.title,
+      body: text,
+      url: filename.replace('.md', '.html').replace(/^docs/, '')
+    })
+_tmp_27.title = file.title
+_tmp_27.body = text
+_tmp_27.url = filename.replace('.md', '.html').replace(/^docs/, '')
+content.validateSync()
+const $ = cheerio.load(text)
+contents.push(content)
+$('h3').each((index, el) => {
+      el = $(el);
+      const title = el.text();
+      const html = el.nextUntil('h3').html();
+      const content = new Content({
+        title: `${file.title}: ${title}`,
+        body: html,
+        url: `${filename.replace('.md', '.html').replace(/^docs/, '')}#${el.prop('id')}`
+      });
+
+      content.validateSync();
+      contents.push(content);
+    })
+file.guide
+let text = fs.readFileSync(filename, 'utf8')
+text = text.substr(text.indexOf('block content') + 'block content\n'.length)
+text = pug.render(`div\n${text}`, { filters: { markdown }, filename })
+const content = new Content({
+      title: file.title,
+      body: text,
+      url: filename.replace('.pug', '.html').replace(/^docs/, '')
+    })
+_tmp_37.title = file.title
+_tmp_37.body = text
+_tmp_37.url = filename.replace('.pug', '.html').replace(/^docs/, '')
+content.validateSync()
+const $ = cheerio.load(text)
+contents.push(content)
+$('h3').each((index, el) => {
+      el = $(el);
+      const title = el.text();
+      const html = el.nextUntil('h3').html();
+      const content = new Content({
+        title: `${file.title}: ${title}`,
+        body: html,
+        url: `${filename.replace('.pug', '.html').replace(/^docs/, '')}#${el.prop('id')}`
+      });
+
+      content.validateSync();
+      contents.push(content);
+    })
+function run = async function run() {
+  await mongoose.connect(config.uri, { dbName: 'mongoose', serverSelectionTimeoutMS: 5000 });
+
+  // wait for the index to be created
+  await Content.init();
+
+  await Content.deleteMany({ version });
+  for (const content of contents) {
+    if (version === '7.x') {
+      let url = content.url.startsWith('/') ? content.url : `/${content.url}`;
+      if (!url.startsWith('/docs')) {
+        url = '/docs' + url;
+      }
+      content.url = url;
+    } else {
+      const url = content.url.startsWith('/') ? content.url : `/${content.url}`;
+      content.url = `/docs/${version}/docs${url}`;
+    }
+    await content.save();
+  }
+
+  const results = await Content.
+    find({ $text: { $search: 'validate' }, version }, { score: { $meta: 'textScore' } }).
+    sort({ score: { $meta: 'textScore' } }).
+    limit(10);
+
+  console.log(results.map(res => res.url));
+
+  console.log(`Added ${contents.length} Content`);
+
+  process.exit(0);
+}

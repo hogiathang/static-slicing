@@ -1,0 +1,4 @@
+memberId = param1_2.memberId
+const request = require('./v2/request')
+const response = require('./v2/response')
+_tmp_5.request = request({ groupId, memberId })

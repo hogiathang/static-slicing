@@ -1,0 +1,19 @@
+function concurrent_test = function concurrent_test(test) {
+    var i = num_clients;
+    var client;
+
+    issued_requests = 0;
+    test_start = new Date;
+    while(i-- && issued_requests < num_requests) {
+        active_clients++;
+        client = hiredis.createConnection();
+        call(client, test);
+    }
+}
+var i = num_clients
+issued_requests = 0
+test_start = new Date
+i-- && issued_requests < num_requests
+active_clients++
+client = hiredis.createConnection()
+call(client, test)

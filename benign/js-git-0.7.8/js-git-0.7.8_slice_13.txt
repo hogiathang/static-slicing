@@ -1,0 +1,40 @@
+function emitObject = function emitObject() {
+    var body = bodec.join(parts);
+    if (body.length !== length) {
+      throw new Error("Body length mismatch");
+    }
+    var item = {
+      type: numToType[type],
+      size: length,
+      body: body,
+      offset: start
+    };
+    if (ref) item.ref = ref;
+    parts.length = 0;
+    start = 0;
+    offset = 0;
+    type = 0;
+    length = 0;
+    ref = null;
+    emit(item);
+  }
+var body = bodec.join(parts)
+body.length !== length
+throw new Error("Body length mismatch");
+var item = {
+      type: numToType[type],
+      size: length,
+      body: body,
+      offset: start
+    }
+_tmp_6.type = numToType[type]
+_tmp_6.size = length
+_tmp_6.body = body
+_tmp_6.offset = start
+item.ref = ref
+parts.length = 0
+start = 0
+offset = 0
+type = 0
+length = 0
+ref = null

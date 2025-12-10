@@ -1,0 +1,61 @@
+function main = function main (args) {
+  let fix = false;
+  while (args.length > 0) {
+    switch (args[0]) {
+      case '-f':
+      case '--fix':
+        fix = true;
+        break;
+      default:
+    }
+    args.shift();
+  }
+
+  const clangFormatPath = path.dirname(require.resolve('clang-format'));
+  const binary = process.platform === 'win32'
+    ? 'node_modules\\.bin\\clang-format.cmd'
+    : 'node_modules/.bin/clang-format';
+  const options = ['--binary=' + binary, '--style=file'];
+  if (fix) {
+    options.push(FORMAT_START);
+  } else {
+    options.push('--diff', FORMAT_START);
+  }
+
+  const gitClangFormatPath = path.join(clangFormatPath, 'bin/git-clang-format');
+  const result = spawn(
+    'python',
+    [gitClangFormatPath, ...options, '--', ...filesToCheck],
+    { encoding: 'utf-8' }
+  );
+
+  if (result.stderr) {
+    console.error('Error running git-clang-format:', result.stderr);
+    return 2;
+  }
+
+  const clangFormatOutput = result.stdout.trim();
+  // Bail fast if in fix mode.
+  if (fix) {
+    co...
+let fix = false
+args.length > 0
+args[0]
+"-f"
+"--fix"
+fix = true
+break;
+default:
+args.shift()
+const clangFormatPath = path.dirname(require.resolve('clang-format'))
+const binary = process.platform === 'win32'
+    ? 'node_modules\\.bin\\clang-format.cmd'
+    : 'node_modules/.bin/clang-format'
+"node_modules\.bin\clang-format.cmd"
+"node_modules/.bin/clang-format"
+const options = ['--binary=' + binary, '--style=file']
+options.push(FORMAT_START)
+options.push('--diff', FORMAT_START)
+const gitClangFormatPath = path.join(clangFormatPath, 'bin/git-clang-format')
+"python"
+_tmp_1 = __ecma.Array.factory()

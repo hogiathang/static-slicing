@@ -1,0 +1,46 @@
+const sendToBroker = async.ensureAsync((payload, leader, callback) => {
+    const broker = this.brokerForLeader(leader, longpolling);
+    if (!broker || !broker.isConnected()) {
+      this.refreshBrokerMetadata();
+      callback(new errors.BrokerNotAvailableError('Broker not available (sendRequest)'));
+      return;
+    }
+
+    if (!broker.isReady()) {
+      callback(new Error('Broker is not ready'));
+      return;
+    }
+
+    if (longpolling) {
+      if (broker.socket.waiting) {
+        callback(null);
+        return;
+      }
+      broker.socket.waiting = true;
+    }
+
+    const correlationId = this.nextId();
+    const coder = getSupportedForRequestType(broker, request.type);
+
+    const encoder = request.data.args != null ? coder.encoder.apply(null, request.data.args) : coder.encoder;
+    const decoder =
+      request.data.decoderArgs != null ? coder.decoder.apply(null, request.data.decoderArgs) : coder.decoder;
+
+    const requestData = encoder(this.clientId, correlationId, payload);
+
+    i...
+const broker = this.brokerForLeader(leader, longpolling)
+!broker || !broker.isConnected()
+!broker.isReady()
+broker.socket.waiting
+broker.socket.waiting = true
+const correlationId = this.nextId()
+const coder = getSupportedForRequestType(broker, request.type)
+const encoder = request.data.args != null ? coder.encoder.apply(null, request.data.args) : coder.encoder
+const decoder =
+      request.data.decoderArgs != null ? coder.decoder.apply(null, request.data.decoderArgs) : coder.decoder
+request.data.decoderArgs != null ? coder.decoder.apply(null, request.data.decoderArgs) : coder.decoder
+const requestData = encoder(this.clientId, correlationId, payload)
+request.data.requireAcks === 0
+this.queueCallback(broker.socket, correlationId, [decoder, callback])
+broker.write(requestData)

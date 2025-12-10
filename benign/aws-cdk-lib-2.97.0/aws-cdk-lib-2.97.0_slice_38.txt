@@ -1,0 +1,2 @@
+function emitFailures = function emitFailures(r,path,scrapSet){for(const fail of r.failuresHere.get(path)??[])emit(`!! ${fail.message}
+`);scrapSet?.delete(path)}

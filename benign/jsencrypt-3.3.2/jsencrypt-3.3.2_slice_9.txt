@@ -1,0 +1,26 @@
+Stream.prototype.parseOctetString = function (start, end, maxLength) {
+        if (this.isASCII(start, end)) {
+            return stringCut(this.parseStringISO(start, end), maxLength);
+        }
+        var len = end - start;
+        var s = "(" + len + " byte)\n";
+        maxLength /= 2; // we work in bytes
+        if (len > maxLength) {
+            end = start + maxLength;
+        }
+        for (var i = start; i < end; ++i) {
+            s += this.hexByte(this.get(i));
+        }
+        if (len > maxLength) {
+            s += ellipsis;
+        }
+        return s;
+    }
+this.isASCII(start, end)
+var len = end - start
+var s = "(" + len + " byte)\n"
+maxLength /= 2
+len > maxLength
+end = start + maxLength
+var i = start
+s += this.hexByte(this.get(i))

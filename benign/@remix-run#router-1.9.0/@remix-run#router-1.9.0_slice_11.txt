@@ -1,0 +1,9 @@
+function abortFetcher = function abortFetcher(key: string) {
+    let controller = fetchControllers.get(key);
+    invariant(controller, `Expected fetch controller: ${key}`);
+    controller.abort();
+    fetchControllers.delete(key);
+  }
+let controller = fetchControllers.get(key)
+<operator>.formatString("Expected fetch controller: ", key, "")
+controller.abort()

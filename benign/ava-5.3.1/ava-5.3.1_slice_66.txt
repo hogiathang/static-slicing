@@ -1,0 +1,44 @@
+function decodeSnapshots = function decodeSnapshots(buffer, snapPath) {
+	if (isLegacySnapshot(buffer)) {
+		throw new LegacyError(snapPath);
+	}
+
+	// The version starts after the readable prefix, which is ended by a newline
+	// byte (0x0A).
+	const newline = buffer.indexOf(0x0A);
+	if (newline === -1) {
+		throw new InvalidSnapshotError(snapPath);
+	}
+
+	const versionOffset = newline + 1;
+	const version = buffer.readUInt16LE(versionOffset);
+	if (version !== VERSION) {
+		throw new VersionMismatchError(snapPath, version);
+	}
+
+	const sha256sumOffset = versionOffset + 2;
+	const compressedOffset = sha256sumOffset + SHA_256_HASH_LENGTH;
+	const compressed = buffer.slice(compressedOffset);
+
+	const sha256sum = crypto.createHash('sha256').update(compressed).digest();
+	const expectedSum = buffer.slice(sha256sumOffset, compressedOffset);
+	if (!sha256sum.equals(expectedSum)) {
+		throw new ChecksumError(snapPath);
+	}
+
+	const decompressed = zlib.gunzipSync(compressed);
+	return cbor.decode(decompressed);
+}
+isLegacySnapshot(buffer)
+throw new LegacyError(snapPath);
+const newline = buffer.indexOf(0x0A)
+newline === -1
+throw new InvalidSnapshotError(snapPath);
+const versionOffset = newline + 1
+const version = buffer.readUInt16LE(versionOffset)
+version !== VERSION
+throw new VersionMismatchError(snapPath, version);
+const sha256sumOffset = versionOffset + 2
+const compressedOffset = sha256sumOffset + SHA_256_HASH_LENGTH
+const compressed = buffer.slice(compressedOffset)
+const sha256sum = crypto.createHash('sha256').update(compressed).digest()

@@ -1,0 +1,6 @@
+process.on('uncaughtException', error => {
+		channel.send({type: 'uncaught-exception', err: serializeError('Uncaught exception', true, error, runner.file)});
+		exit(1);
+	})
+channel.send({type: 'uncaught-exception', err: serializeError('Uncaught exception', true, error, runner.file)})
+exit(1)

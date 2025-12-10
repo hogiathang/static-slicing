@@ -1,0 +1,1 @@
+function recurse = function recurse(x,prefix){for(const fail of Array.from(x.failuresHere.values()).flat())failures.push({matcher:fail.matcher,message:fail.message,path:[...prefix,...fail.path]});for(const[key,inner]of x.innerMatchFailures.entries())recurse(inner,[...prefix,key])}

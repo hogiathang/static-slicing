@@ -1,0 +1,46 @@
+function createPrivateKey = function createPrivateKey(keyBitsize, options, callback) {
+  if (!callback && !options && typeof keyBitsize === 'function') {
+    callback = keyBitsize
+    keyBitsize = undefined
+    options = {}
+  } else if (!callback && keyBitsize && typeof options === 'function') {
+    callback = options
+    options = {}
+  }
+
+  keyBitsize = Number(keyBitsize) || 2048
+
+  var params = ['genrsa']
+
+  if (openssl.get('Vendor') === 'OPENSSL' && openssl.get('VendorVersionMajor') >= 3) {
+    params.push('-traditional')
+  }
+
+  var delTempPWFiles = []
+
+  if (options && options.cipher && (Number(helper.ciphers.indexOf(options.cipher)) !== -1) && options.password) {
+    debug('helper.createPasswordFile', {
+      cipher: options.cipher,
+      password: options.password,
+      passType: 'out'
+    })
+    helper.createPasswordFile({
+      cipher: options.cipher,
+      password: options.password,
+      passType: 'out'
+    }, params, delTempPWFiles)
+  }
+
+  params.push(keyBitsize)
+
+  debug('version', openssl.get('o...
+!callback && !options && typeof keyBitsize === 'function'
+callback = keyBitsize
+keyBitsize = undefined
+options = {}
+!callback && keyBitsize && typeof options === 'function'
+callback = options
+options = {}
+keyBitsize = Number(keyBitsize) || 2048
+_tmp_2 = __ecma.Array.factory()
+openssl.get('Vendor') === 'OPENSSL' && openssl.get('VendorVersionMajor') >= 3

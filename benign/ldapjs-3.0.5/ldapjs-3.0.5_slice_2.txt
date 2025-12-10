@@ -1,0 +1,20 @@
+tracker.fetch = function fetchMessage (msgID) {
+    const tracked = messages.get(msgID)
+    if (tracked) {
+      purgeAbandoned(msgID, abandoned)
+      return tracked
+    }
+
+    // We sent an abandon request but the server either wasn't able to process
+    // it or has not received it yet. Therefore, we received a response for the
+    // abandoned message. So we must return the abandoned message's callback
+    // to be processed normally.
+    const abandonedMsg = abandoned.get(msgID)
+    if (abandonedMsg) {
+      return { message: abandonedMsg, callback: abandonedMsg.cb }
+    }
+
+    return null
+  }
+const tracked = messages.get(msgID)
+const abandonedMsg = abandoned.get(msgID)

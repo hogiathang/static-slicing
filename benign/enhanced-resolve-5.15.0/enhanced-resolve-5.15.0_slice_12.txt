@@ -1,0 +1,16 @@
+function getCacheId = function getCacheId(type, request, withContext) {
+	return JSON.stringify({
+		type,
+		context: withContext ? request.context : "",
+		path: request.path,
+		query: request.query,
+		fragment: request.fragment,
+		request: request.request
+	});
+}
+_tmp_0.type = type
+_tmp_0.context = withContext ? request.context : ""
+_tmp_0.path = request.path
+_tmp_0.query = request.query
+_tmp_0.fragment = request.fragment
+_tmp_0.request = request.request

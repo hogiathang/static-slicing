@@ -1,0 +1,12 @@
+const errorHandler = (error) => {
+        if (error.stack) {
+            log.error(error.stack);
+        }
+        if (!shuttingDown) {
+            process.kill(process.pid, "SIGTERM");
+        }
+    }
+error.stack
+log.error(error.stack)
+!shuttingDown
+process.kill(process.pid, "SIGTERM")

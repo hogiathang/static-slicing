@@ -1,0 +1,44 @@
+function findDeclarationToReuse = function findDeclarationToReuse(path) {
+        while (path) {
+            const parent = path.parentPath;
+            if (parent === null) {
+                break;
+            }
+            if (parent.isVariableDeclarator()) {
+                const id = parent.get("id");
+                if (id.isIdentifier() || id.isPattern()) {
+                    return parent;
+                }
+            }
+            let other;
+            if (parent.isConditionalExpression()) {
+                const test = parent.get("test");
+                if (path === test) {
+                    break;
+                }
+                const consequent = parent.get("consequent");
+                const alternate = parent.get("alternate");
+                other = consequent === path ? alternate : consequent;
+            }
+            else if (parent.isLogicalExpression()) {
+                const left = parent.get("left");
+                const right = parent.get("right");
+                other = left === pa...
+const parent = path.parentPath
+parent === null
+parent.isVariableDeclarator()
+const id = parent.get("id")
+id.isIdentifier() || id.isPattern()
+parent.isConditionalExpression()
+const test = parent.get("test")
+path === test
+const consequent = parent.get("consequent")
+const alternate = parent.get("alternate")
+other = consequent === path ? alternate : consequent
+parent.isLogicalExpression()
+const left = parent.get("left")
+const right = parent.get("right")
+other = left === path ? right : left
+const otherAwaitPath = findAwaitOrYieldPath(other)
+otherAwaitPath === other || !otherAwaitPath
+path = parent

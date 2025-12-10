@@ -1,0 +1,10 @@
+function maybeGetBrowserRedirect = function maybeGetBrowserRedirect(pathname) {
+  let redirect = redirectMap.get(pathname);
+  if (!redirect) {
+    redirect = redirectIgnoreCaseMap.get(pathname.toLowerCase());
+  }
+  return redirect;
+}
+let redirect = redirectMap.get(pathname)
+!redirect
+redirect = redirectIgnoreCaseMap.get(pathname.toLowerCase())

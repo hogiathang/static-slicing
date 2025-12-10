@@ -1,0 +1,23 @@
+function getReadFileSystem = function getReadFileSystem(path) {
+    if ((mode === 'readonly' || mode === 'write-tsbuildinfo') && isArtifact(path)) {
+        if (isInitialRun && !mem_file_system_1.memFileSystem.exists(path) && passive_file_system_1.passiveFileSystem.exists(path)) {
+            // copy file to memory on initial run
+            const stats = passive_file_system_1.passiveFileSystem.readStats(path);
+            if (stats === null || stats === void 0 ? void 0 : stats.isFile()) {
+                const content = passive_file_system_1.passiveFileSystem.readFile(path);
+                if (content) {
+                    mem_file_system_1.memFileSystem.writeFile(path, content);
+                    mem_file_system_1.memFileSystem.updateTimes(path, stats.atime, stats.mtime);
+                }
+            }
+            return mem_file_system_1.memFileSystem;
+        }
+    }
+    return passive_file_system_1.passiveFileSystem;
+}
+(mode === 'readonly' || mode === 'write-tsbuildinfo') && isArtifact(path)
+isInitialRun && !mem_file_system_1.memFileSystem.exists(path) && passive_file_system_1.passiveFileSystem.exists(path)
+const stats = passive_file_system_1.passiveFileSystem.readStats(path)
+stats === null || stats === void 0 ? void 0 : stats.isFile()
+const content = passive_file_system_1.passiveFileSystem.readFile(path)
+mem_file_system_1.memFileSystem.writeFile(path, content)

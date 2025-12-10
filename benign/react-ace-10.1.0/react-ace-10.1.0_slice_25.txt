@@ -1,0 +1,62 @@
+split.forEach((editor: IAceEditorClass, index: number) => {
+      if (nextProps.mode !== oldProps.mode) {
+        editor.getSession().setMode("ace/mode/" + nextProps.mode);
+      }
+      if (nextProps.keyboardHandler !== oldProps.keyboardHandler) {
+        if (nextProps.keyboardHandler) {
+          editor.setKeyboardHandler(
+            "ace/keyboard/" + nextProps.keyboardHandler
+          );
+        } else {
+          editor.setKeyboardHandler(null);
+        }
+      }
+      if (nextProps.fontSize !== oldProps.fontSize) {
+        editor.setFontSize(nextProps.fontSize as any);
+      }
+      if (nextProps.wrapEnabled !== oldProps.wrapEnabled) {
+        editor.getSession().setUseWrapMode(nextProps.wrapEnabled);
+      }
+      if (nextProps.showPrintMargin !== oldProps.showPrintMargin) {
+        editor.setShowPrintMargin(nextProps.showPrintMargin);
+      }
+      if (nextProps.showGutter !== oldProps.showGutter) {
+        editor.renderer.setShowGutter(nextProps.showGutter);
+      }
+
+     ...
+nextProps.mode !== oldProps.mode
+editor.getSession().setMode("ace/mode/" + nextProps.mode)
+nextProps.keyboardHandler !== oldProps.keyboardHandler
+nextProps.keyboardHandler
+editor.setKeyboardHandler(
+            "ace/keyboard/" + nextProps.keyboardHandler
+          )
+"ace/keyboard/" + nextProps.keyboardHandler
+editor.setKeyboardHandler(null)
+nextProps.fontSize !== oldProps.fontSize
+editor.setFontSize(nextProps.fontSize as any)
+nextProps.wrapEnabled !== oldProps.wrapEnabled
+editor.getSession().setUseWrapMode(nextProps.wrapEnabled)
+nextProps.showPrintMargin !== oldProps.showPrintMargin
+editor.setShowPrintMargin(nextProps.showPrintMargin)
+nextProps.showGutter !== oldProps.showGutter
+editor.renderer.setShowGutter(nextProps.showGutter)
+i < editorOptions.length
+const option = editorOptions[i]
+nextProps[option] !== oldProps[option]
+editor.setOption(option as any, nextProps[option])
+!isEqual(nextProps.setOptions, oldProps.setOptions)
+this.handleOptions(nextProps, editor)
+const nextValue = get(nextProps.value, index, "")
+editor.getValue() !== nextValue
+this.silent = true
+const pos = (editor.session.selection as any).toJSON()
+editor.setValue(nextValue, nextProps.cursorStart)
+(_tmp_25 = editor.session.selection as any).fromJSON
+this.silent = false
+const newAnnotations = get(nextProps.annotations, index, [])
+const oldAnnotations = get(oldProps.annotations, index, [])
+!isEqual(newAnnotations, oldAnnotations)
+editor.getSession().setAnnotations(newAnnotations)
+const newMarkers = get(nextProps.markers, index, [])

@@ -1,0 +1,12 @@
+new Promise((resolve) => {
+      const file = path.join(originPath, name);
+      const reader = fs.createReadStream(file);
+      const targetFile = path.join(targetPath, name);
+      const writer = fs.createWriteStream(targetFile);
+      writer.on("close", () => resolve());
+      reader.pipe(writer);
+    })
+const file = path.join(originPath, name)
+const reader = fs.createReadStream(file)
+const targetFile = path.join(targetPath, name)
+const writer = fs.createWriteStream(targetFile)

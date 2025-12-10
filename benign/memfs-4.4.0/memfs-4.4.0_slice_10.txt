@@ -1,0 +1,17 @@
+const removeLinkNodeListeners = (curLink) => {
+                    const ino = curLink.getNode().ino;
+                    const removers = this._listenerRemovers.get(ino);
+                    if (removers) {
+                        removers.forEach(r => r());
+                        this._listenerRemovers.delete(ino);
+                    }
+                    for (const [name, childLink] of curLink.children.entries()) {
+                        if (childLink && name !== '.' && name !== '..') {
+                            removeLinkNodeListeners(childLink);
+                        }
+                    }
+                }
+const ino = curLink.getNode().ino
+const removers = this._listenerRemovers.get(ino)
+removers.forEach(r => r())
+(_tmp_164 = this._listenerRemovers).delete

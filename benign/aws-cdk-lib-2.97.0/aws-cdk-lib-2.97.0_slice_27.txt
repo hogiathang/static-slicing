@@ -1,0 +1,1 @@
+function createTokenDouble = function createTokenDouble(x){if(Math.floor(x)!==x||x<0)throw new Error("Can only encode positive integers");if(x>MAX_ENCODABLE_INTEGER)throw new Error(`Got an index too large to encode: ${x}`);const buf=new ArrayBuffer(8),ints=new Uint32Array(buf);return ints[0]=x&4294967295,ints[1]=shr32(x)&65535|DOUBLE_TOKEN_MARKER_BITS,new Float64Array(buf)[0]}

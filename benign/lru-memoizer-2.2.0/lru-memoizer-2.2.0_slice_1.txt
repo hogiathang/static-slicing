@@ -1,0 +1,38 @@
+function memoizedFunction = function memoizedFunction() {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        var parameters = args.slice(0, -1);
+        var callback = args.slice(-1).pop();
+        var key;
+        if (bypass && bypass.apply(void 0, __spread(parameters))) {
+            emit.apply(void 0, __spread(['miss'], parameters));
+            return load.apply(void 0, __spread(args));
+        }
+        if (parameters.length === 0 && !hash) {
+            //the load function only receives callback.
+            key = '_';
+        }
+        else {
+            key = hash.apply(void 0, __spread(parameters));
+        }
+        var fromCache = cache.get(key);
+        if (fromCache) {
+            emit.apply(void 0, __spread(['hit'], parameters));
+            // found, invoke callback
+            return runCallbacks([callback], [null].concat(fromCache));
+        }
+        var pendingLoad = loading.get(key);
+        if (pendingLoad ...
+__ecma.Array.factory()
+_i < arguments.length
+args[_i] = arguments[_i]
+var parameters = args.slice(0, -1)
+var callback = args.slice(-1).pop()
+bypass && bypass.apply(void 0, __spread(parameters))
+parameters.length === 0 && !hash
+key = '_'
+key = hash.apply(void 0, __spread(parameters))
+var fromCache = cache.get(key)
+var pendingLoad = loading.get(key)

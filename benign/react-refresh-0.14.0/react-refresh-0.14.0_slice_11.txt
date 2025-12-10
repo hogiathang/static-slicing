@@ -1,0 +1,7 @@
+_tmp_47.exit = <lambda>18
+var registrations = registrationsByProgramPath.get(path)
+registrations === undefined
+var node = path.node
+seenForOutro.has(node)
+seenForOutro.add(node)
+registrationsByProgramPath.delete(path)

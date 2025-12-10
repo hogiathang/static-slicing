@@ -1,0 +1,5 @@
+chokidar.watch(this.watchDirectory, opts).on('all', function(event, f, stat) {
+    monitor.emit('watch:restart', { file: f, stat: stat });
+    monitor.restart();
+  })
+monitor.emit('watch:restart', { file: f, stat: stat })

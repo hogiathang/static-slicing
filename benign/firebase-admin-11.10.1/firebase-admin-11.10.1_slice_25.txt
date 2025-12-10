@@ -1,0 +1,28 @@
+apiVersion = apiVersion === void 0 ? "v1" : apiVersion
+const baseUrlToUse = (apiVersion === 'v1') ? this.baseUrl : this.baseBetaUrl
+const request = {
+            method,
+            url: `${baseUrlToUse}${path}`,
+            headers: PROJECT_MANAGEMENT_HEADERS,
+            data: requestData,
+            timeout: PROJECT_MANAGEMENT_TIMEOUT_MILLIS,
+        }
+_tmp_17.method = method
+_tmp_17.url = <operator>.formatString("", baseUrlToUse, "", path, "")
+_tmp_17.headers = PROJECT_MANAGEMENT_HEADERS
+_tmp_17.data = requestData
+_tmp_17.timeout = PROJECT_MANAGEMENT_TIMEOUT_MILLIS
+this.httpClient.send(request)
+            .then((response) => {
+            // Send non-JSON responses to the catch() below, where they will be treated as errors.
+            if (!response.isJson()) {
+                throw new api_request_1.HttpError(response);
+            }
+            return response.data;
+        })
+            .catch((err) => {
+            if (err instanceof api_request_1.HttpError) {
+                ProjectManagementRequestHandler.wrapAndRethrowHttpError(err.response.status, err.response.text);
+            }
+            throw err;
+        })

@@ -1,0 +1,34 @@
+function cleanupEmptyFilesAndFolders = function cleanupEmptyFilesAndFolders(filepath) {
+  const stats = fs.statSync(filepath);
+
+  if (stats.isFile() && stats.size === 0) {
+    fs.rmSync(filepath);
+    return;
+  } else if (stats.isFile()) {
+    return;
+  }
+
+  const dirContent = fs.readdirSync(filepath);
+  dirContent.forEach(contentPath =>
+    cleanupEmptyFilesAndFolders(path.join(filepath, contentPath)),
+  );
+
+  // The original folder may be filled with empty folders
+  // if that the case, we would also like to remove the parent.
+  // Hence, we need to read the folder again.
+  const newContent = fs.readdirSync(filepath);
+  if (newContent.length === 0) {
+    fs.rmdirSync(filepath);
+    return;
+  }
+}
+const stats = fs.statSync(filepath)
+stats.isFile() && stats.size === 0
+stats.isFile()
+const dirContent = fs.readdirSync(filepath)
+dirContent.forEach(contentPath =>
+    cleanupEmptyFilesAndFolders(path.join(filepath, contentPath)),
+  )
+const newContent = fs.readdirSync(filepath)
+newContent.length === 0
+fs.rmdirSync(filepath)

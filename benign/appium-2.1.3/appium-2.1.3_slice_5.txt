@@ -1,0 +1,9 @@
+args = args === void 0 ? __ecma.Array.factory() : args
+spawn(process.execPath, [script, ...args], {
+      cwd,
+      stdio: 'inherit',
+      ...opts,
+    })
+_tmp_76.cwd = cwd
+_tmp_76.stdio = "inherit"
+...opts

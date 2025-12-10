@@ -1,0 +1,107 @@
+function _createInverseContext = function _createInverseContext() {
+    const activeCtx = this;
+
+    // lazily create inverse
+    if(activeCtx.inverse) {
+      return activeCtx.inverse;
+    }
+    const inverse = activeCtx.inverse = {};
+
+    // variables for building fast CURIE map
+    const fastCurieMap = activeCtx.fastCurieMap = {};
+    const irisToTerms = {};
+
+    // handle default language
+    const defaultLanguage = (activeCtx['@language'] || '@none').toLowerCase();
+
+    // handle default direction
+    const defaultDirection = activeCtx['@direction'];
+
+    // create term selections for each mapping in the context, ordered by
+    // shortest and then lexicographically least
+    const mappings = activeCtx.mappings;
+    const terms = [...mappings.keys()].sort(_compareShortestLeast);
+    for(const term of terms) {
+      const mapping = mappings.get(term);
+      if(mapping === null) {
+        continue;
+      }
+
+      let container = mapping['@container'] || '@none';
+      container = [].concat(container).sort().join...
+const activeCtx = this
+activeCtx.inverse
+const inverse = activeCtx.inverse = {}
+const fastCurieMap = activeCtx.fastCurieMap = {}
+const irisToTerms = {}
+const defaultLanguage = (activeCtx['@language'] || '@none').toLowerCase()
+const defaultDirection = activeCtx['@direction']
+const mappings = activeCtx.mappings
+const terms = [...mappings.keys()].sort(_compareShortestLeast)
+_iterator_6 = <operator>.iterator(terms)
+const mapping = mappings.get(term)
+mapping === null
+continue;
+let container = mapping['@container'] || '@none'
+container = [].concat(container).sort().join('')
+mapping['@id'] === null
+continue;
+const ids = _asArray(mapping['@id'])
+_iterator_7 = <operator>.iterator(ids)
+let entry = inverse[iri]
+const isKeyword = api.isKeyword(iri)
+!entry
+inverse[iri] = entry = {}
+!isKeyword && !mapping._termHasColon
+_tmp_188 = __ecma.Array.factory()
+const fastCurieEntry = {iri, terms: irisToTerms[iri]}
+iri[0] in fastCurieMap
+fastCurieMap[iri[0]].push(fastCurieEntry)
+fastCurieMap[iri[0]] = [fastCurieEntry]
+!isKeyword && !mapping._termHasColon
+(_tmp_192 = irisToTerms[iri]).push
+!entry[container]
+entry[container] = {
+            '@language': {},
+            '@type': {},
+            '@any': {}
+          }
+_tmp_193.@language = {}
+_tmp_193.@type = {}
+_tmp_193.@any = {}
+entry = entry[container]
+_addPreferredTerm(term, entry['@any'], '@none')
+mapping.reverse
+_addPreferredTerm(term, entry['@type'], '@reverse')
+mapping['@type'] === '@none'
+_addPreferredTerm(term, entry['@any'], '@none')
+_addPreferredTerm(term, entry['@language'], '@none')
+_addPreferredTerm(term, entry['@type'], '@none')
+'@type' in mapping
+_addPreferredTerm(term, entry['@type'], mapping['@type'])
+'@language' in mapping && '@direction' in mapping
+const language = mapping['@language']
+const direction = mapping['@direction']
+language && direction
+_addPreferredTerm(term, entry['@language'],
+              `${language}_${direction}`.toLowerCase())
+<operator>.formatString("", language, "_", direction, "")
+_addPreferredTerm(term, entry['@language'], language.toLowerCase())
+_addPreferredTerm(term, entry['@language'], `_${direction}`)
+_addPreferredTerm(term, entry['@language'], '@null')
+'@language' in mapping
+_addPreferredTerm(term, entry['@language'],
+            (mapping['@language'] || '@null').toLowerCase())
+(_tmp_198 = mapping['@language'] || '@null').toLowerCase
+'@direction' in mapping
+mapping["@direction"]
+_addPreferredTerm(term, entry['@language'],
+              `_${mapping['@direction']}`)
+<operator>.formatString("_", mapping['@direction'], "")
+_addPreferredTerm(term, entry['@language'], '@none')
+_addPreferredTerm(term, entry['@language'], `_${defaultDirection}`)
+_addPreferredTerm(term, entry['@language'], '@none')
+_addPreferredTerm(term, entry['@type'], '@none')
+_addPreferredTerm(term, entry['@language'], defaultLanguage)
+_addPreferredTerm(term, entry['@language'], '@none')
+_addPreferredTerm(term, entry['@type'], '@none')

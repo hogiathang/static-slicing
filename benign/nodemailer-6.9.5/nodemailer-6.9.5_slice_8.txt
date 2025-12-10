@@ -1,0 +1,53 @@
+this.getSocket = (options, callback) => {
+            let protocol = proxy.protocol.replace(/:$/, '').toLowerCase();
+
+            if (this.meta.has('proxy_handler_' + protocol)) {
+                return this.meta.get('proxy_handler_' + protocol)(proxy, options, callback);
+            }
+
+            switch (protocol) {
+                // Connect using a HTTP CONNECT method
+                case 'http':
+                case 'https':
+                    httpProxyClient(proxy.href, options.port, options.host, (err, socket) => {
+                        if (err) {
+                            return callback(err);
+                        }
+                        return callback(null, {
+                            connection: socket
+                        });
+                    });
+                    return;
+                case 'socks':
+                case 'socks5':
+                case 'socks4':
+                case 'socks4a': {
+                    if (!this.meta.has('proxy_socks_modu...
+let protocol = proxy.protocol.replace(/:$/, '').toLowerCase()
+this.meta.has('proxy_handler_' + protocol)
+"socks"
+"socks5"
+"socks4"
+"socks4a"
+!this.meta.has('proxy_socks_module')
+let connect = ipaddress => {
+                        let proxyV2 = !!this.meta.get('proxy_socks_module').SocksClient;
+                        let socksClient = proxyV2 ? this.meta.get('proxy_socks_module').SocksClient : this.meta.get('proxy_socks_module');
+                        let proxyType = Number(proxy.protocol.replace(/\D/g, '')) || 5;
+                        let connectionOpts = {
+                            proxy: {
+                                ipaddress,
+                                port: Number(proxy.port),
+                                type: proxyType
+                            },
+                            [proxyV2 ? 'destination' : 'target']: {
+                                host: options.host,
+                                port: options.port
+                            },
+                            command: 'connect'
+                        };
+
+                        if (proxy.auth) {
+                            let username = decodeURIComponent(proxy.auth....
+net.isIP(proxy.hostname)
+connect(proxy.hostname)

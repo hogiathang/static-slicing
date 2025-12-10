@@ -1,0 +1,6 @@
+runner.on('error', error => {
+		channel.send({type: 'internal-error', err: serializeError('Internal runner error', false, error, runner.file)});
+		exit(1);
+	})
+channel.send({type: 'internal-error', err: serializeError('Internal runner error', false, error, runner.file)})
+exit(1)

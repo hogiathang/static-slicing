@@ -1,0 +1,57 @@
+function removeListener(type, listener) {
+      var list, events, position, i, originalListener;
+
+      if (typeof listener !== 'function')
+        throw new TypeError('"listener" argument must be a function');
+
+      events = this._events;
+      if (!events)
+        return this;
+
+      list = events[type];
+      if (!list)
+        return this;
+
+      if (list === listener || list.listener === listener) {
+        if (--this._eventsCount === 0)
+          this._events = objectCreate(null);
+        else {
+          delete events[type];
+          if (events.removeListener)
+            this.emit('removeListener', type, list.listener || listener);
+        }
+      } else if (typeof list !== 'function') {
+        position = -1;
+
+        for (i = list.length - 1; i >= 0; i--) {
+          if (list[i] === listener || list[i].listener === listener) {
+            originalListener = list[i].listener;
+            position = i;
+            break;
+          }
+        }
+
+        if (position < 0)
+   ...
+typeof listener !== 'function'
+throw new TypeError('"listener" argument must be a function');
+events = this._events
+!events
+list = events[type]
+!list
+list === listener || list.listener === listener
+typeof list !== 'function'
+position = -1
+i = list.length - 1
+list[i] === listener || list[i].listener === listener
+originalListener = list[i].listener
+position = i
+break;
+position < 0
+position === 0
+list.shift()
+spliceOne(list, position)
+list.length === 1
+events[type] = list[0]
+events.removeListener
+this.emit('removeListener', type, originalListener || listener)

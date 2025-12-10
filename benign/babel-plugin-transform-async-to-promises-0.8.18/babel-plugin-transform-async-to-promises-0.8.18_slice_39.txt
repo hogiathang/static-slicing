@@ -1,0 +1,71 @@
+function hoistFunctionExpressionHandler = function hoistFunctionExpressionHandler(path) {
+        path.skip();
+        const bodyPath = path.get("body");
+        if (bodyPath.isBlockStatement() &&
+            bodyPath.node.body.length === 0 &&
+            !readConfigKey(this.state.opts, "inlineHelpers")) {
+            path.replaceWith(emptyFunction(this.state, path));
+            return;
+        }
+        const argumentNames = [];
+        for (const param of path.node.params) {
+            if (types.isIdentifier(param) || types.isPattern(param) || types.isRestElement(param)) {
+                addConstantNames(argumentNames, param);
+            }
+            else {
+                return;
+            }
+        }
+        const scopes = [];
+        const pathScopes = allScopes(path.scope.parent);
+        path.traverse(hoistCallArgumentsInnerVisitor, {
+            argumentNames,
+            scopes,
+            pathScopes,
+            path,
+            additionalConstantNames: this.additionalConstantNames,
+        });
+        le...
+path.skip()
+const bodyPath = path.get("body")
+bodyPath.isBlockStatement() &&
+            bodyPath.node.body.length === 0 &&
+            !readConfigKey(this.state.opts, "inlineHelpers")
+bodyPath.node.body.length === 0
+!readConfigKey(this.state.opts, "inlineHelpers")
+const argumentNames = []
+_iterator_2 = <operator>.iterator(path.node.params)
+types.isIdentifier(param) || types.isPattern(param) || types.isRestElement(param)
+addConstantNames(argumentNames, param)
+__ecma.Array.factory()
+const pathScopes = allScopes(path.scope.parent)
+path.traverse(hoistCallArgumentsInnerVisitor, {
+            argumentNames,
+            scopes,
+            pathScopes,
+            path,
+            additionalConstantNames: this.additionalConstantNames,
+        })
+_tmp_54.argumentNames = argumentNames
+_tmp_54.scopes = scopes
+_tmp_54.pathScopes = pathScopes
+_tmp_54.path = path
+_tmp_54.additionalConstantNames = this.additionalConstantNames
+let scope = path.scope.getProgramParent()
+_tmp_56 = __ecma.Array.factory()
+_iterator_3 = <operator>.iterator(scopes)
+ancestry.indexOf(otherScope) === -1
+scope = otherScope
+ancestry = ancestry.concat(allScopes(otherScope))
+ancestry.indexOf(path.scope.parent) === -1
+const bindings = scope.bindings
+const filter = nodesAreEquivalent([...path.node.params, path.node.body])
+_iterator_4 = <operator>.iterator(Object.getOwnPropertyNames(bindings))
+const binding = bindings[key]
+const bindingPath = binding.path
+bindingPath.isFunctionDeclaration()
+filter([...bindingPath.node.params, bindingPath.node.body])
+bindingPath.isVariableDeclarator()
+const init = bindingPath.get("init")
+init.node && isContinuation(init.node)
+filter([...init.node.params, init.node.body])

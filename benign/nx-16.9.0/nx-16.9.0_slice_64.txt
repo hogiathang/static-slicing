@@ -1,0 +1,28 @@
+snapshotMap.forEach((snapshotValue, snapshotKey) => {
+        for (const key of snapshotValue.values()) {
+            const packageName = key.slice(0, key.indexOf('@', 1));
+            let normalizedKey = key;
+            if (isBerry && key.includes('@patch:') && key.includes('#')) {
+                normalizedKey = key
+                    .slice(0, key.indexOf('#'))
+                    .replace(`@patch:${packageName}@`, '@npm:');
+            }
+            if (!existingKeys.get(packageName) ||
+                !existingKeys.get(packageName).has(normalizedKey)) {
+                snapshotValue.delete(key);
+            }
+        }
+    })
+_iterator_1 = <operator>.iterator(snapshotValue.values())
+const packageName = key.slice(0, key.indexOf('@', 1))
+let normalizedKey = key
+isBerry && key.includes('@patch:') && key.includes('#')
+normalizedKey = key
+                    .slice(0, key.indexOf('#'))
+                    .replace(`@patch:${packageName}@`, '@npm:')
+key.indexOf('#')
+<operator>.formatString("@patch:", packageName, "@")
+!existingKeys.get(packageName) ||
+                !existingKeys.get(packageName).has(normalizedKey)
+!existingKeys.get(packageName).has(normalizedKey)
+snapshotValue.delete(key)

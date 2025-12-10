@@ -1,0 +1,36 @@
+function dockerExec = function dockerExec(args, options) {
+    const prog = process.env.CDK_DOCKER ?? 'docker';
+    const proc = child_process_1.spawnSync(prog, args, options ?? {
+        stdio: [
+            'ignore',
+            process.stderr,
+            'inherit',
+        ],
+    });
+    if (proc.error) {
+        throw proc.error;
+    }
+    if (proc.status !== 0) {
+        if (proc.stdout || proc.stderr) {
+            throw new Error(`[Status ${proc.status}] stdout: ${proc.stdout?.toString().trim()}\n\n\nstderr: ${proc.stderr?.toString().trim()}`);
+        }
+        throw new Error(`${prog} exited with status ${proc.status}`);
+    }
+    return proc;
+}
+const prog = process.env.CDK_DOCKER ?? 'docker'
+const proc = child_process_1.spawnSync(prog, args, options ?? {
+        stdio: [
+            'ignore',
+            process.stderr,
+            'inherit',
+        ],
+    })
+_tmp_1.stdio = [
+            'ignore',
+            process.stderr,
+            'inherit',
+        ]
+_tmp_2.push("ignore")
+_tmp_2.push(process.stderr)
+_tmp_2.push("inherit")

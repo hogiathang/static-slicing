@@ -1,0 +1,26 @@
+childRenderNodes.map((c) => {
+        const orgLocationId = c.$hostId$ + '.' + c.$nodeId$;
+        const orgLocationNode = plt.$orgLocNodes$.get(orgLocationId);
+        const node = c.$elm$;
+        if (orgLocationNode && supportsShadow && orgLocationNode['s-en'] === '') {
+            orgLocationNode.parentNode.insertBefore(node, orgLocationNode.nextSibling);
+        }
+        if (!shadowRoot) {
+            node['s-hn'] = tagName;
+            if (orgLocationNode) {
+                node['s-ol'] = orgLocationNode;
+                node['s-ol']['s-nr'] = node;
+            }
+        }
+        plt.$orgLocNodes$.delete(orgLocationId);
+    })
+const orgLocationId = c.$hostId$ + '.' + c.$nodeId$
+const orgLocationNode = plt.$orgLocNodes$.get(orgLocationId)
+const node = c.$elm$
+orgLocationNode && supportsShadow && orgLocationNode['s-en'] === ''
+orgLocationNode.parentNode.insertBefore(node, orgLocationNode.nextSibling)
+!shadowRoot
+node['s-hn'] = tagName
+node['s-ol'] = orgLocationNode
+node['s-ol']['s-nr'] = node
+plt.$orgLocNodes$.delete(orgLocationId)

@@ -1,0 +1,134 @@
+function test = async function test() {
+		let interval;
+		try {
+			if (+new Date() - startTime > timeoutConnection * second) {
+				exit(
+					`Aborting connection to webdriver after ${timeoutConnection} seconds`
+				);
+			}
+
+			const mochaUrl = url.parse(
+				`http://localhost:${port}/test/mocha.html`,
+				true
+			);
+			delete mochaUrl.search;
+			if (process.env.filter) {
+				mochaUrl.query.grep = process.env.filter;
+				mochaUrl.query.invert = "true";
+			}
+			mochaUrl.query.browser = fullBrowserName;
+			await client.url(url.format(mochaUrl));
+
+			await waitForExist("li.test", 120000);
+			let index = 0;
+			let running = false;
+			interval = setInterval(async function () {
+				if (interval === null || running) {
+					return;
+				}
+				running = true;
+				logE("get h1,h2");
+				const texts = await client.$$("li h1, li h2");
+				if (index === texts.length) {
+					return;
+				}
+				for (let i = index, len = texts.length; i < len; i++) {
+					if (interval === null) {
+						return;
+					}
+					logE("get ...
++new Date() - startTime > timeoutConnection * second
+exit(
+					`Aborting connection to webdriver after ${timeoutConnection} seconds`
+				)
+<operator>.formatString("Aborting connection to webdriver after ", timeoutConnection, " seconds")
+const mochaUrl = url.parse(
+				`http://localhost:${port}/test/mocha.html`,
+				true
+			)
+<operator>.formatString("http://localhost:", port, "/test/mocha.html")
+delete mochaUrl.search
+process.env.filter
+mochaUrl.query.grep = process.env.filter
+mochaUrl.query.invert = "true"
+mochaUrl.query.browser = fullBrowserName
+await client.url(url.format(mochaUrl))
+await waitForExist("li.test", 120000)
+let index = 0
+let running = false
+interval = setInterval(async function () {
+				if (interval === null || running) {
+					return;
+				}
+				running = true;
+				logE("get h1,h2");
+				const texts = await client.$$("li h1, li h2");
+				if (index === texts.length) {
+					return;
+				}
+				for (let i = index, len = texts.length; i < len; i++) {
+					if (interval === null) {
+						return;
+					}
+					logE("get text[i]" + i);
+					const text = await texts[i].getText();
+					console.log(
+						text
+							.replace(/^(.*)\n(.*)$/g, "$2 $1")
+							.replace(/^(.*[^0-9])([0-9]+ms)$/g, "$1 $2")
+					);
+				}
+				index = texts.length;
+				running = false;
+			}, 100)
+100
+await waitForText("#status", 120000)
+await client.pause(5000)
+await waitForExist("li.failures a", 5000)
+const text = await (await client.$("#mocha-stats")).getText()
+clearInterval(interval)
+setTimeout(function () {
+				interval = null;
+			}, 1000)
+1000
+const passes = parseInt(text.replace(passesRegex, "$1"), 10)
+const failures = parseInt(text.replace(failuresRegex, "$1"), 10)
+failures > 0
+await sleep(1000)
+const failedSuites = await client.$$("li.test.fail")
+let len = failedSuites.length
+const titleElement = await await failedSuites[i].$("h2")
+const title = await client.execute((parent) => {
+						let child = parent.firstChild;
+						let ret = "";
+						while (child) {
+							if (child.nodeType === Node.TEXT_NODE) {
+								ret += child.textContent;
+							}
+							child = child.nextSibling;
+						}
+						return ret;
+					}, titleElement)
+const error = await (await failedSuites[i].$("pre.error")).getText()
+console.log(title.replace(/./g, "="))
+console.log(title)
+console.log(title.replace(/./g, "="))
+console.log(error)
+console.log()
+<operator>.formatString("", failures, " failures happened on ", fullBrowserName, "")
+(_tmp_32 = expect(passes).to.be).above
+await sleep(1000)
+console.log(
+				chalk.green(
+					`browser tests successful (${passes} passes) on ${fullBrowserName}`
+				)
+			)
+chalk.green(
+					`browser tests successful (${passes} passes) on ${fullBrowserName}`
+				)
+<operator>.formatString("browser tests successful (", passes, " passes) on ", fullBrowserName, "")
+server.close()
+logPostRequest = true
+setTimeout(function () {
+				client.deleteSession();
+			}, 5000)

@@ -1,0 +1,26 @@
+async getKeys() {
+    logger(`Fetching keys from '${this.options.jwksUri}'`);
+
+    try {
+      const res = await request({
+        uri: this.options.jwksUri,
+        headers: this.options.requestHeaders,
+        agent: this.options.requestAgent,
+        timeout: this.options.timeout,
+        fetcher: this.options.fetcher
+      });
+
+      logger('Keys:', res.keys);
+      return res.keys;
+    } catch (err) {
+      const { errorMsg } = err;
+      logger('Failure:', errorMsg || err);
+      throw (errorMsg ? new JwksError(errorMsg) : err);
+    }
+  }
+<operator>.formatString("Fetching keys from '", this.options.jwksUri, "'")
+_tmp_3.uri = this.options.jwksUri
+_tmp_3.headers = this.options.requestHeaders
+_tmp_3.agent = this.options.requestAgent
+_tmp_3.timeout = this.options.timeout
+_tmp_3.fetcher = this.options.fetcher

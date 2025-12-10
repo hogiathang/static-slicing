@@ -1,0 +1,15 @@
+measure(key, startKey, endKey) {
+        const s = this.timers.get(startKey);
+        if (s === undefined) {
+            throw new Error(`${startKey} is not defined`);
+        }
+        const e = this.timers.get(endKey);
+        if (e === undefined) {
+            throw new Error(`${endKey} is not defined`);
+        }
+        this.measures.set(key, e - s);
+    }
+const s = this.timers.get(startKey)
+s === undefined
+<operator>.formatString("", startKey, " is not defined")
+const e = this.timers.get(endKey)

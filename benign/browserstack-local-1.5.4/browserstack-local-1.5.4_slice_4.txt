@@ -1,0 +1,6 @@
+const https = require('https')
+const fs = require('fs')
+const HttpsProxyAgent = require('https-proxy-agent')
+const url = require('url')
+const useCaCertificate = process.argv[6]
+var fileStream = fs.createWriteStream(binaryPath)

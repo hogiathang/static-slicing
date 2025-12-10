@@ -1,0 +1,29 @@
+fork(e) {
+  const t = {
+   execArgv: process.execArgv.filter((e => !/^--(debug|inspect)/.test(e))),
+   env: process.env,
+   cwd: process.cwd(),
+   silent: !0
+  };
+  this.childProcess = cp__namespace.fork(e, [], t), this.childProcess.stdout.setEncoding("utf8"), 
+  this.childProcess.stdout.on("data", (e => {
+   console.log(e);
+  })), this.childProcess.stderr.setEncoding("utf8"), this.childProcess.stderr.on("data", (e => {
+   console.log(e);
+  })), this.childProcess.on("message", this.receiveFromWorker.bind(this)), this.childProcess.on("error", (e => {
+   this.emit("error", e);
+  })), this.childProcess.once("exit", (e => {
+   this.exitCode = e, this.emit("exit", e);
+  }));
+ }
+const t = {
+   execArgv: process.execArgv.filter((e => !/^--(debug|inspect)/.test(e))),
+   env: process.env,
+   cwd: process.cwd(),
+   silent: !0
+  }
+_tmp_1016.execArgv = process.execArgv.filter((e => !/^--(debug|inspect)/.test(e)))
+_tmp_1016.env = process.env
+_tmp_1016.cwd = process.cwd()
+_tmp_1016.silent = !0
+(_tmp_1019 = this.childProcess.stdout).setEncoding

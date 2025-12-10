@@ -1,0 +1,48 @@
+flatSuperProps.forEach(superProp => {
+      const key = superProp.node.computed ? "" : superProp.get("property").node.name;
+      const superParentPath = superProp.parentPath;
+      const isAssignment = superParentPath.isAssignmentExpression({
+        left: superProp.node
+      });
+      const isCall = superParentPath.isCallExpression({
+        callee: superProp.node
+      });
+      const isTaggedTemplate = superParentPath.isTaggedTemplateExpression({
+        tag: superProp.node
+      });
+      const superBinding = getSuperPropBinding(thisEnvFn, isAssignment, key);
+      const args = [];
+      if (superProp.node.computed) {
+        args.push(superProp.get("property").node);
+      }
+      if (isAssignment) {
+        const value = superParentPath.node.right;
+        args.push(value);
+      }
+      const call = callExpression(identifier(superBinding), args);
+      if (isCall) {
+        superParentPath.unshiftContainer("arguments", thisExpression());
+        superProp.replaceWith(member...
+const key = superProp.node.computed ? "" : superProp.get("property").node.name
+const superParentPath = superProp.parentPath
+const isAssignment = superParentPath.isAssignmentExpression({
+        left: superProp.node
+      })
+_tmp_24.left = superProp.node
+const isCall = superParentPath.isCallExpression({
+        callee: superProp.node
+      })
+_tmp_25.callee = superProp.node
+const isTaggedTemplate = superParentPath.isTaggedTemplateExpression({
+        tag: superProp.node
+      })
+_tmp_26.tag = superProp.node
+const superBinding = getSuperPropBinding(thisEnvFn, isAssignment, key)
+__ecma.Array.factory()
+superProp.node.computed
+args.push(superProp.get("property").node)
+const value = superParentPath.node.right
+args.push(value)
+const call = callExpression(identifier(superBinding), args)
+superProp.replaceWith(callExpression(memberExpression(call, identifier("bind"), false), [thisExpression()]))
+thisPaths.push(superProp.get("arguments.0"))

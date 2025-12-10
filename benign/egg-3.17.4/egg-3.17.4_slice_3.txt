@@ -1,0 +1,42 @@
+async [DNSLOOKUP](url, args) {
+    let parsed;
+    if (typeof url === 'string') {
+      parsed = utils.safeParseURL(url);
+      // invalid url or relative url
+      if (!parsed) return { url, args };
+    } else {
+      parsed = url;
+    }
+    // hostname must exists
+    const hostname = parsed.hostname;
+
+    // don't lookup when hostname is IP
+    if (hostname && IP_REGEX.test(hostname)) {
+      return { url, args };
+    }
+
+    args = args || {};
+    args.headers = args.headers || {};
+    // set when host header doesn't exist
+    if (!args.headers.host && !args.headers.Host) {
+      // host must combine with hostname:port, node won't use `parsed.host`
+      args.headers.host = parsed.port ? `${hostname}:${parsed.port}` : hostname;
+    }
+
+    const record = this.dnsCache.get(hostname);
+    const now = Date.now();
+    if (record) {
+      if (now - record.timestamp >= this.dnsCacheLookupInterval) {
+        // make sure the next request doesn't refresh dns query
+        record.timestamp...
+typeof url === 'string'
+parsed = utils.safeParseURL(url)
+_tmp_6.args = args
+parsed = url
+const hostname = parsed.hostname
+hostname && IP_REGEX.test(hostname)
+args = args || {}
+args.headers = args.headers || {}
+!args.headers.host && !args.headers.Host
+parsed.port ? <operator>.formatString("", hostname, ":", parsed.port, "") : hostname
+const record = this.dnsCache.get(hostname)

@@ -1,0 +1,20 @@
+function readFileSyncFromEnd = function readFileSyncFromEnd(filePath, bytesCount) {
+  const buffer = Buffer.alloc(bytesCount);
+  const stats = fs.statSync(filePath);
+
+  const readLength = Math.min(stats.size, bytesCount);
+  const offset = Math.max(0, stats.size - bytesCount);
+
+  const fd = fs.openSync(filePath, 'r');
+  const totalBytes = fs.readSync(fd, buffer, 0, readLength, offset);
+  fs.closeSync(fd);
+
+  return buffer.toString('utf8', 0, totalBytes);
+}
+const buffer = Buffer.alloc(bytesCount)
+const stats = fs.statSync(filePath)
+const readLength = Math.min(stats.size, bytesCount)
+const offset = Math.max(0, stats.size - bytesCount)
+const fd = fs.openSync(filePath, 'r')
+const totalBytes = fs.readSync(fd, buffer, 0, readLength, offset)
+fs.closeSync(fd)

@@ -1,0 +1,17 @@
+process.on('SIGTERM', () => {
+    if (child && child.connected) {
+      if (gracefulIPC) {
+        log.info('Sending IPC: ' + JSON.stringify(gracefulIPC));
+        child.send(gracefulIPC);
+      } else {
+        child.kill('SIGTERM');
+      }
+    }
+
+    process.exit(0);
+  })
+child && child.connected
+log.info('Sending IPC: ' + JSON.stringify(gracefulIPC))
+child.send(gracefulIPC)
+child.kill('SIGTERM')
+process.exit(0)

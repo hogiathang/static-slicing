@@ -1,0 +1,21 @@
+(_tmp_9 = promiseRetry(async (retryHandler, attemptNum) => {
+    const req = new fetch.Request(request, _opts)
+    try {
+      let res = await fetch(req, _opts)
+      if (_opts.integrity && res.status === 200) {
+        // we got a 200 response and the user has specified an expected
+        // integrity value, so wrap the response in an ssri stream to verify it
+        const integrityStream = ssri.integrityStream({
+          algorithms: _opts.algorithms,
+          integrity: _opts.integrity,
+          size: _opts.size,
+        })
+        const pipeline = new CachingMinipassPipeline({
+          events: ['integrity', 'size'],
+        }, res.body, integrityStream)
+        // we also propagate the integrity and size events out to the pipeline so we can use
+        // this new response body as an integrityEmitter for cacache
+        integrityStream.on('integrity', i => pipeline.emit('integrity', i))
+        integrityStream.on('size', s => pipeline.emit('size', s))
+        res = new fetch.Response(...).catch
+const req = new fetch.Request(request, _opts)

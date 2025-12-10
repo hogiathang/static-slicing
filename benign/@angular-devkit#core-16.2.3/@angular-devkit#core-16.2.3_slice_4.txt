@@ -1,0 +1,37 @@
+_write(path, content) {
+        path = this._toAbsolute(path);
+        const old = this._cache.get(path);
+        if (old && old.isDirectory()) {
+            throw new exception_1.PathIsDirectoryException(path);
+        }
+        // Update all directories. If we find a file we know it's an invalid write.
+        const fragments = (0, path_1.split)(path);
+        let curr = (0, path_1.normalize)('/');
+        for (const fr of fragments) {
+            curr = (0, path_1.join)(curr, fr);
+            const maybeStats = this._cache.get(fr);
+            if (maybeStats) {
+                if (maybeStats.isFile()) {
+                    throw new exception_1.PathIsFileException(curr);
+                }
+            }
+            else {
+                this._cache.set(curr, this._newDirStats());
+            }
+        }
+        // Create the stats.
+        const stats = this._newFileStats(content, old);
+        this._cache.set(path, stats);
+        this._updateWatchers(path, old ? 0 /* HostWatchE...
+path = this._toAbsolute(path)
+const old = this._cache.get(path)
+old && old.isDirectory()
+throw new exception_1.PathIsDirectoryException(path);
+const fragments = (0, path_1.split)(path)
+let curr = (0, path_1.normalize)('/')
+_iterator_0 = <operator>.iterator(fragments)
+curr = (0, path_1.join)(curr, fr)
+const maybeStats = this._cache.get(fr)
+maybeStats.isFile()
+throw new exception_1.PathIsFileException(curr);
+this._cache.set(curr, this._newDirStats())

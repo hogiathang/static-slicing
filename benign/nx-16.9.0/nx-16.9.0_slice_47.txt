@@ -1,0 +1,27 @@
+await Promise.all([..._authors.keys()].map(async (authorName) => {
+        const meta = _authors.get(authorName);
+        for (const email of meta.email) {
+            // For these pseudo-anonymized emails we can just extract the Github username from before the @
+            if (email.endsWith('@users.noreply.github.com')) {
+                meta.github = email.split('@')[0];
+                break;
+            }
+            // Look up any other emails against the ungh.cc API
+            const { data } = await axios
+                .get(`https://ungh.cc/users/find/${email}`)
+                .catch(() => ({ data: { user: null } }));
+            if (data?.user) {
+                meta.github = data.user.username;
+                break;
+            }
+        }
+    }))
+const meta = _authors.get(authorName)
+_iterator_3 = <operator>.iterator(meta.email)
+email.endsWith('@users.noreply.github.com')
+_tmp_31 = await axios
+                .get(`https://ungh.cc/users/find/${email}`)
+                .catch(() => ({ data: { user: null } }))
+<operator>.formatString("https://ungh.cc/users/find/", email, "")
+_tmp_29.data = { user: null }
+data.user

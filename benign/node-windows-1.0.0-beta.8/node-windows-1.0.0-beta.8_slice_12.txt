@@ -1,0 +1,10 @@
+winsw.createExe(me.id, dir, function () {
+              me.execute('"' + path.resolve(dir, me._exe) + '" install', function () {
+                sleep(2);
+                me.emit('install');
+              });
+            })
+me.execute('"' + path.resolve(dir, me._exe) + '" install', function () {
+                sleep(2);
+                me.emit('install');
+              })

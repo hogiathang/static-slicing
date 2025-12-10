@@ -1,0 +1,28 @@
+exports.parseAngle = function parseAngle(val) {
+  var type = exports.valueType(val);
+  if (type === exports.TYPES.NULL_OR_EMPTY_STR) {
+    return val;
+  }
+  if (type !== exports.TYPES.ANGLE) {
+    return undefined;
+  }
+  var res = angleRegEx.exec(val);
+  var flt = parseFloat(res[1]);
+  if (res[2] === 'rad') {
+    flt *= 180 / Math.PI;
+  } else if (res[2] === 'grad') {
+    flt *= 360 / 400;
+  }
+
+  while (flt < 0) {
+    flt += 360;
+  }
+  while (flt > 360) {
+    flt -= 360;
+  }
+  return flt + 'deg';
+}
+var type = exports.valueType(val)
+type === exports.TYPES.NULL_OR_EMPTY_STR
+type !== exports.TYPES.ANGLE
+var res = angleRegEx.exec(val)

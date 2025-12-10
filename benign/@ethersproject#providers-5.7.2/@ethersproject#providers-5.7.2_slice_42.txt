@@ -1,0 +1,38 @@
+sendFunc(request, function (error, response) {
+                if (error) {
+                    _this.emit("debug", {
+                        action: "response",
+                        fetcher: fetcher,
+                        error: error,
+                        request: request,
+                        provider: _this
+                    });
+                    return reject(error);
+                }
+                _this.emit("debug", {
+                    action: "response",
+                    fetcher: fetcher,
+                    request: request,
+                    response: response,
+                    provider: _this
+                });
+                if (response.error) {
+                    var error_1 = new Error(response.error.message);
+                    error_1.code = response.error.code;
+                    error_1.data = response.error.data;
+                    return reject(error_1);
+                }
+                resolve(response.result);
+            })
+_this.emit("debug", {
+                    action: "response",
+                    fetcher: fetcher,
+                    request: request,
+                    response: response,
+                    provider: _this
+                })
+_tmp_4.action = "response"
+_tmp_4.fetcher = fetcher
+_tmp_4.request = request
+_tmp_4.response = response
+_tmp_4.provider = _this

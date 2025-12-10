@@ -1,0 +1,39 @@
+Error.prepareStackTrace = function stackTraceRewriter(err, trace) {
+    let newTrace = [];
+    const isExpected = expectedErrors.has(err);
+    let status = isExpected ? "hiding" : "unknown";
+    for (let i = 0; i < trace.length; i++) {
+      const name = trace[i].getFunctionName();
+      if (name === START_HIDING) {
+        status = "hiding";
+      } else if (name === STOP_HIDING) {
+        if (status === "hiding") {
+          status = "showing";
+          if (virtualFrames.has(err)) {
+            newTrace.unshift(...virtualFrames.get(err));
+          }
+        } else if (status === "unknown") {
+          newTrace = trace;
+          break;
+        }
+      } else if (status !== "hiding") {
+        newTrace.push(trace[i]);
+      }
+    }
+    return prepareStackTrace(err, newTrace);
+  }
+__ecma.Array.factory()
+const isExpected = expectedErrors.has(err)
+let status = isExpected ? "hiding" : "unknown"
+i < trace.length
+const name = trace[i].getFunctionName()
+name === START_HIDING
+status = "hiding"
+name === STOP_HIDING
+status === "hiding"
+status = "showing"
+virtualFrames.has(err)
+newTrace.unshift(...virtualFrames.get(err))
+status === "unknown"
+status !== "hiding"
+newTrace.push(trace[i])

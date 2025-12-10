@@ -1,0 +1,36 @@
+(tree, context) => {
+        const manifest = tree.readJson(packageJsonPath);
+        const dependencySection = manifest[type];
+        if (!dependencySection) {
+            // Section is not present. The dependency can be added to a new object literal for the section.
+            manifest[type] = { [name]: specifier };
+        }
+        else {
+            const existingSpecifier = dependencySection[name];
+            if (existingSpecifier === specifier) {
+                // Already present with same specifier
+                return;
+            }
+            if (existingSpecifier) {
+                // Already present but different specifier
+                if (existing === ExistingBehavior.Skip) {
+                    return;
+                }
+                // ExistingBehavior.Replace is the only other behavior currently
+                context.logger.warn(`Package dependency "${name}" already exists with a different specifier. ` +
+                    `"${existingSpecifier}" will ...
+const manifest = tree.readJson(packageJsonPath)
+const dependencySection = manifest[type]
+!dependencySection
+manifest[type] = { [name]: specifier }
+const existingSpecifier = dependencySection[name]
+existingSpecifier === specifier
+existing === ExistingBehavior.Skip
+context.logger.warn(`Package dependency "${name}" already exists with a different specifier. ` +
+                    `"${existingSpecifier}" will be replaced with "${specifier}".`)
+<operator>.formatString(""", existingSpecifier, "" will be replaced with "", specifier, "".")
+const entries = Object.entries(dependencySection)
+entries.push([name, specifier])
+entries.sort((a, b) => a[0].localeCompare(b[0]))
+manifest[type] = Object.fromEntries(entries)
+tree.overwrite(packageJsonPath, JSON.stringify(manifest, null, 2))

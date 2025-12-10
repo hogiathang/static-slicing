@@ -1,0 +1,47 @@
+(async function install() {
+  const cdnUrl = (process.env.npm_config_chromedriver_cdnurl || process.env.CHROMEDRIVER_CDNURL || 'https://googlechromelabs.github.io').replace(/\/+$/, '');
+  const legacyCdnUrl = (process.env.npm_config_chromedriver_legacy_cdnurl || process.env.CHROMEDRIVER_LEGACY_CDNURL || 'https://chromedriver.storage.googleapis.com').replace(/\/+$/, '');
+  let chromedriverVersion = process.env.npm_config_chromedriver_version || process.env.CHROMEDRIVER_VERSION || helper.version;
+  const detectChromedriverVersion = (process.env.npm_config_detect_chromedriver_version || process.env.DETECT_CHROMEDRIVER_VERSION) === 'true';
+  try {
+    if (detectChromedriverVersion) {
+      const includeChromium = (process.env.npm_config_include_chromium || process.env.INCLUDE_CHROMIUM) === 'true';
+      // Refer http://chromedriver.chromium.org/downloads/version-selection
+      const chromeVersion = await getChromeVersion(includeChromium);
+      console.log("Your Chrome version is " + c...
+const cdnUrl = (process.env.npm_config_chromedriver_cdnurl || process.env.CHROMEDRIVER_CDNURL || 'https://googlechromelabs.github.io').replace(/\/+$/, '')
+const legacyCdnUrl = (process.env.npm_config_chromedriver_legacy_cdnurl || process.env.CHROMEDRIVER_LEGACY_CDNURL || 'https://chromedriver.storage.googleapis.com').replace(/\/+$/, '')
+let chromedriverVersion = process.env.npm_config_chromedriver_version || process.env.CHROMEDRIVER_VERSION || helper.version
+const detectChromedriverVersion = (process.env.npm_config_detect_chromedriver_version || process.env.DETECT_CHROMEDRIVER_VERSION) === 'true'
+const includeChromium = (process.env.npm_config_include_chromium || process.env.INCLUDE_CHROMIUM) === 'true'
+const chromeVersion = await getChromeVersion(includeChromium)
+console.log("Your Chrome version is " + chromeVersion)
+const versionMatch = /^(.*?)\.\d+$/.exec(chromeVersion)
+chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt(versionMatch[1]))
+console.log("Compatible ChromeDriver version is " + chromedriverVersion)
+chromedriverVersion === 'LATEST'
+chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl)
+const latestReleaseForVersionMatch = chromedriverVersion.match(/LATEST_(\d+)/)
+chromedriverVersion = await getChromeDriverVersion(cdnUrl, legacyCdnUrl, parseInt(latestReleaseForVersionMatch[1]))
+let tmpPath = findSuitableTempDirectory(chromedriverVersion)
+const extractDirectory = tmpPath
+const majorVersion = parseInt(chromedriverVersion.split('.')[0])
+const useLegacyMethod = majorVersion <= 114
+const platform = getPlatform(chromedriverVersion)
+let downloadedFile = getDownloadFilePath(useLegacyMethod, tmpPath, platform)
+!useLegacyMethod
+tmpPath = path.join(tmpPath, path.basename(downloadedFile, path.extname(downloadedFile)))
+const chromedriverBinaryFileName = process.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver'
+const chromedriverBinaryFilePath = path.resolve(tmpPath, chromedriverBinaryFileName)
+const chromedriverIsAvailable = await verifyIfChromedriverIsAvailableAndHasCorrectVersion(chromedriverVersion, chromedriverBinaryFilePath)
+!chromedriverIsAvailable
+console.log('Current existing ChromeDriver binary is unavailable, proceeding with download and extraction.')
+const cdnBinariesUrl = (process.env.npm_config_chromedriver_cdnbinariesurl || process.env.CHROMEDRIVER_CDNBINARIESURL || 'https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing').replace(/\/+$/, '')
+downloadedFile = await downloadFile(useLegacyMethod ? legacyCdnUrl : cdnBinariesUrl, useLegacyMethod, downloadedFile, chromedriverVersion, platform)
+await extractDownload(extractDirectory, chromedriverBinaryFilePath, downloadedFile)
+const libPath = path.join(__dirname, 'lib', 'chromedriver')
+await copyIntoPlace(tmpPath, libPath)
+fixFilePermissions()
+console.log('Done. ChromeDriver binary available at', helper.path)
+console.error('ChromeDriver installation failed', err)
+process.exit(1)

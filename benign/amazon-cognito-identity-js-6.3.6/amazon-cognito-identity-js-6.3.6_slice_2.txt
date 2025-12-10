@@ -1,0 +1,31 @@
+err => {
+				// first check if we have a service error
+				if (
+					response &&
+					response.headers &&
+					response.headers.get('x-amzn-errortype')
+				) {
+					try {
+						const code = response.headers.get('x-amzn-errortype').split(':')[0];
+						const error = new Error(
+							response.status ? response.status.toString() : null
+						);
+						error.code = code;
+						error.name = code;
+						error.statusCode = response.status;
+						return callback(error);
+					} catch (ex) {
+						return callback(err);
+					}
+					// otherwise check if error is Network error
+				} else if (err instanceof Error && err.message === 'Network error') {
+					err.code = 'NetworkError';
+				}
+				return callback(err);
+			}
+response &&
+					response.headers &&
+					response.headers.get('x-amzn-errortype')
+response.headers
+response.headers.get('x-amzn-errortype')
+const code = response.headers.get('x-amzn-errortype').split(':')[0]

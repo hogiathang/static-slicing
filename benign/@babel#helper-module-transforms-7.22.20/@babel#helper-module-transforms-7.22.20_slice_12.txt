@@ -1,0 +1,26 @@
+programPath.get("body").forEach(child => {
+    if (child.isExportNamedDeclaration() && (initializeReexports || !child.node.source)) {
+      if (child.node.declaration) {
+        const declaration = child.get("declaration");
+        const ids = declaration.getOuterBindingIdentifierPaths();
+        Object.keys(ids).forEach(name => {
+          if (name === "__esModule") {
+            throw declaration.buildCodeFrameError('Illegal export "__esModule".');
+          }
+          getLocalMetadata(ids[name]).names.push(name);
+        });
+      } else {
+        child.get("specifiers").forEach(spec => {
+          const local = spec.get("local");
+          const exported = spec.get("exported");
+          const localMetadata = getLocalMetadata(local);
+          const exportName = getExportSpecifierName(exported, stringSpecifiers);
+          if (exportName === "__esModule") {
+            throw exported.buildCodeFrameError('Illegal export "__esModule".');
+          }
+          localMetadata.names....
+child.isExportNamedDeclaration() && (initializeReexports || !child.node.source)
+child.isExportDefaultDeclaration()
+const declaration = child.get("declaration")
+declaration.isFunctionDeclaration() || declaration.isClassDeclaration()
+(_tmp_49 = getLocalMetadata(declaration.get("id")).names).push

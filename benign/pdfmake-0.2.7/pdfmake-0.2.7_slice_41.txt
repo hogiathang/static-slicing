@@ -1,0 +1,33 @@
+this.decorate = function(lineWidth, linePosition, isClip, isMask) {
+        let fill = this.getFill(isClip, isMask),
+            stroke = this.getStroke(isClip, isMask);
+        if (fill) {
+          docFillColor(fill);
+        }
+        if (stroke) {
+          docStrokeColor(stroke);
+          doc.lineWidth(this.get('stroke-width'))
+             .miterLimit(this.get('stroke-miterlimit'))
+             .lineJoin(this.get('stroke-linejoin'))
+             .lineCap(this.get('stroke-linecap'))
+             .dash(this.get('stroke-dasharray'), {phase:this.get('stroke-dashoffset')});
+        }
+        for (let j = 0, pos = this._pos; j < pos.length; j++) {
+          if (!pos[j].hidden && isNotEqual(pos[j].width, 0)) {
+            let dx0 = (linePosition + lineWidth / 2) * Math.sin(pos[j].rotate),
+                dy0 = -(linePosition + lineWidth / 2) * Math.cos(pos[j].rotate),
+                dx1 = (linePosition - lineWidth / 2) * Math.sin(pos[j].rotate),
+                d...
+let fill = this.getFill(isClip, isMask)
+let stroke = this.getStroke(isClip, isMask)
+docFillColor(fill)
+docStrokeColor(stroke)
+doc.lineWidth(this.get('stroke-width'))
+             .miterLimit(this.get('stroke-miterlimit'))
+             .lineJoin(this.get('stroke-linejoin'))
+             .lineCap(this.get('stroke-linecap'))
+             .dash(this.get('stroke-dasharray'), {phase:this.get('stroke-dashoffset')})
+this.get('stroke-miterlimit')
+this.get('stroke-linejoin')
+this.get('stroke-linecap')
+_tmp_543.phase = this.get('stroke-dashoffset')

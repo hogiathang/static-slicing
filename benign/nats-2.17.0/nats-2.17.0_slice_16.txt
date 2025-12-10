@@ -1,0 +1,6 @@
+timer.catch((_err) => {
+            d.resolve(null);
+            iter.close().catch();
+        })
+d.resolve(null)
+(_tmp_73 = iter.close()).catch

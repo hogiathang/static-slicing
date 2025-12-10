@@ -1,0 +1,29 @@
+source = nodes.reduceRight((acc, attr, index) => {
+        const sortedAttr = sortedAttributes[index];
+        const sourceCodeText = sourceCode.getText();
+        const commentNode = commentnodeMap.get(sortedAttr);
+        let sortedAttrText = sourceCodeText.slice(commentNode.start, commentNode.end);
+        if (sortShapeProp && isShapeProp(sortedAttr.value)) {
+          const shape = getShapeProperties(sortedAttr.value);
+          if (shape) {
+            const attrSource = sortInSource(
+              shape,
+              originalSource
+            );
+            sortedAttrText = attrSource.slice(sortedAttr.range[0], sortedAttr.range[1]);
+          }
+        }
+        return `${acc.slice(0, commentnodeMap.get(attr).start)}${sortedAttrText}${acc.slice(commentnodeMap.get(attr).end)}`;
+      }, source)
+const sortedAttr = sortedAttributes[index]
+const sourceCodeText = sourceCode.getText()
+const commentNode = commentnodeMap.get(sortedAttr)
+let sortedAttrText = sourceCodeText.slice(commentNode.start, commentNode.end)
+sortShapeProp && isShapeProp(sortedAttr.value)
+const shape = getShapeProperties(sortedAttr.value)
+const attrSource = sortInSource(
+              shape,
+              originalSource
+            )
+sortedAttrText = attrSource.slice(sortedAttr.range[0], sortedAttr.range[1])
+<operator>.formatString("", acc.slice(0, commentnodeMap.get(attr).start), "", sortedAttrText, "", acc.slice(commentnodeMap.get(attr).end), "")

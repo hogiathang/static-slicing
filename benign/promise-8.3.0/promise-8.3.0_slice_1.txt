@@ -1,0 +1,8 @@
+fs.readdirSync(__dirname + '/src').forEach(function (filename) {
+  var src = fs.readFileSync(__dirname + '/src/' + filename, 'utf8');
+  var out = fixup(src);
+  fs.writeFileSync(__dirname + '/lib/' + filename, out);
+})
+var src = fs.readFileSync(__dirname + '/src/' + filename, 'utf8')
+var out = fixup(src)
+fs.writeFileSync(__dirname + '/lib/' + filename, out)

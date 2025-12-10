@@ -1,0 +1,10 @@
+glob.sync(path.join(dir, '**', 'package.json')).forEach(function(file) {
+    console.log(file);
+    var json = JSON.parse(fs.readFileSync(file));
+    delete json.files;
+    fs.writeFileSync(file, JSON.stringify(json, null, '  ') + '\n');
+})
+console.log(file)
+var json = JSON.parse(fs.readFileSync(file))
+delete json.files
+fs.writeFileSync(file, JSON.stringify(json, null, '  ') + '\n')

@@ -1,0 +1,51 @@
+function copyDirectory = function copyDirectory(srcDir, destDir, options = {}, rootDir) {
+    const follow = options.follow ?? options_1.SymlinkFollowMode.EXTERNAL;
+    rootDir = rootDir || srcDir;
+    const ignoreStrategy = ignore_1.IgnoreStrategy.fromCopyOptions(options, rootDir);
+    if (!fs.statSync(srcDir).isDirectory()) {
+        throw new Error(`${srcDir} is not a directory`);
+    }
+    const files = fs.readdirSync(srcDir);
+    for (const file of files) {
+        const sourceFilePath = path.join(srcDir, file);
+        if (ignoreStrategy.ignores(sourceFilePath)) {
+            continue;
+        }
+        const destFilePath = path.join(destDir, file);
+        let stat = follow === options_1.SymlinkFollowMode.ALWAYS
+            ? fs.statSync(sourceFilePath)
+            : fs.lstatSync(sourceFilePath);
+        if (stat && stat.isSymbolicLink()) {
+            const target = fs.readlinkSync(sourceFilePath);
+            // determine if this is an external link (i.e. the target's absolute path
+            // i...
+const follow = options.follow ?? options_1.SymlinkFollowMode.EXTERNAL
+rootDir = rootDir || srcDir
+const ignoreStrategy = ignore_1.IgnoreStrategy.fromCopyOptions(options, rootDir)
+(_tmp_2 = fs.statSync(srcDir)).isDirectory
+<operator>.formatString("", srcDir, " is not a directory")
+const files = fs.readdirSync(srcDir)
+_iterator_0 = <operator>.iterator(files)
+const sourceFilePath = path.join(srcDir, file)
+ignoreStrategy.ignores(sourceFilePath)
+continue;
+const destFilePath = path.join(destDir, file)
+let stat = follow === options_1.SymlinkFollowMode.ALWAYS
+            ? fs.statSync(sourceFilePath)
+            : fs.lstatSync(sourceFilePath)
+fs.statSync(sourceFilePath)
+fs.lstatSync(sourceFilePath)
+stat && stat.isSymbolicLink()
+const target = fs.readlinkSync(sourceFilePath)
+const targetPath = path.normalize(path.resolve(srcDir, target))
+utils_1.shouldFollow(follow, rootDir, targetPath)
+stat = fs.statSync(sourceFilePath)
+fs.symlinkSync(target, destFilePath)
+stat = undefined
+stat && stat.isDirectory()
+fs.mkdirSync(destFilePath)
+copyDirectory(sourceFilePath, destFilePath, options, rootDir)
+stat = undefined
+stat && stat.isFile()
+fs.copyFileSync(sourceFilePath, destFilePath)
+stat = undefined

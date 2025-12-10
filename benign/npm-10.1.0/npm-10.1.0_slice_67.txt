@@ -1,0 +1,19 @@
+maybeWorkspaceName (node) {
+    if (!node.isWorkspace) {
+      return node.name
+    }
+
+    const humanOutput =
+      !this.npm.config.get('json') && !this.npm.config.get('parseable')
+
+    const workspaceName =
+      humanOutput
+        ? node.pkgid
+        : node.name
+
+    return humanOutput
+      ? this.npm.chalk.green(workspaceName)
+      : workspaceName
+  }
+!node.isWorkspace
+!this.npm.config.get('json') && !this.npm.config.get('parseable')

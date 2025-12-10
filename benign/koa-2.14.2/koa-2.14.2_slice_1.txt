@@ -1,0 +1,5 @@
+_tmp_0.host = host
+const proxy = this.app.proxy
+let host = proxy && this.get('X-Forwarded-Host')
+!host
+this.req.httpVersionMajor >= 2

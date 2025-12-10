@@ -1,0 +1,13 @@
+function createTempFileWith = function createTempFileWith(content, filename, extension) {
+  const info = temp.openSync({ suffix: extension });
+  let filePath = info.path;
+  fs.writeSync(info.fd, content);
+  fs.closeSync(info.fd);
+  if (filename) {
+    filePath = renameFileTo(filePath, filename);
+  }
+  return filePath;
+}
+const info = temp.openSync({ suffix: extension })
+let filePath = info.path
+fs.writeSync(info.fd, content)

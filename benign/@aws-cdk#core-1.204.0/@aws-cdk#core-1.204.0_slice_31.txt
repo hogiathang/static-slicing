@@ -1,0 +1,21 @@
+reportMissingContext(report) {
+        try {
+            jsiiDeprecationWarnings.print("@aws-cdk/core.Stack#reportMissingContext", "use `reportMissingContextKey()`");
+        }
+        catch (error) {
+            if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                Error.captureStackTrace(error, this.reportMissingContext);
+            }
+            throw error;
+        }
+        if (!Object.values(cxschema.ContextProvider).includes(report.provider)) {
+            throw new Error(`Unknown context provider requested in: ${JSON.stringify(report)}`);
+        }
+        this.reportMissingContextKey(report);
+    }
+jsiiDeprecationWarnings.print("@aws-cdk/core.Stack#reportMissingContext", "use `reportMissingContextKey()`")
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, this.reportMissingContext)
+throw error;
+!Object.values(cxschema.ContextProvider).includes(report.provider)
+<operator>.formatString("Unknown context provider requested in: ", JSON.stringify(report), "")

@@ -1,0 +1,20 @@
+PropertiesReader.prototype.getByRoot = function (root) {
+   var keys = Object.keys(this._properties);
+   var outObj = {};
+
+   for (var i = 0, prefixLength = String(root).length; i < keys.length; i++) {
+      var key = keys[i];
+
+      if (key.indexOf(root) === 0 && key.charAt(prefixLength) === '.') {
+         outObj[key.substr(prefixLength + 1)] = this.get(key);
+      }
+   }
+
+   return outObj;
+}
+var keys = Object.keys(this._properties)
+var outObj = {}
+var prefixLength = String(root).length
+var key = keys[i]
+key.indexOf(root) === 0 && key.charAt(prefixLength) === '.'
+outObj[key.substr(prefixLength + 1)] = this.get(key)

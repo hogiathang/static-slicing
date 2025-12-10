@@ -1,0 +1,95 @@
+function rawBody = function rawBody (request, reply, options, parser, done) {
+  const asString = parser.asString
+  const limit = options.limit === null ? parser.bodyLimit : options.limit
+  const contentLength = request.headers['content-length'] === undefined
+    ? NaN
+    : Number(request.headers['content-length'])
+
+  if (contentLength > limit) {
+    // We must close the connection as the client is going
+    // to send this data anyway
+    reply.header('connection', 'close')
+    reply.send(new FST_ERR_CTP_BODY_TOO_LARGE())
+    return
+  }
+
+  let receivedLength = 0
+  let body = asString === true ? '' : []
+
+  const payload = request[kRequestPayloadStream] || request.raw
+
+  if (asString === true) {
+    payload.setEncoding('utf8')
+  }
+
+  payload.on('data', onData)
+  payload.on('end', onEnd)
+  payload.on('error', onEnd)
+  payload.resume()
+
+  function onData (chunk) {
+    receivedLength += chunk.length
+    const { receivedEncodedLength = 0 } = payload
+    // The resulting body length must not exceed bodyLimi...
+const asString = parser.asString
+const limit = options.limit === null ? parser.bodyLimit : options.limit
+const contentLength = request.headers['content-length'] === undefined
+    ? NaN
+    : Number(request.headers['content-length'])
+Number(request.headers['content-length'])
+contentLength > limit
+reply.header('connection', 'close')
+reply.send(new FST_ERR_CTP_BODY_TOO_LARGE())
+function onData = function onData (chunk) {
+    receivedLength += chunk.length
+    const { receivedEncodedLength = 0 } = payload
+    // The resulting body length must not exceed bodyLimit (see "zip bomb").
+    // The case when encoded length is larger than received length is rather theoretical,
+    // unless the stream returned by preParsing hook is broken and reports wrong value.
+    if (receivedLength > limit || receivedEncodedLength > limit) {
+      payload.removeListener('data', onData)
+      payload.removeListener('end', onEnd)
+      payload.removeListener('error', onEnd)
+      reply.send(new FST_ERR_CTP_BODY_TOO_LARGE())
+      return
+    }
+
+    if (asString === true) {
+      body += chunk
+    } else {
+      body.push(chunk)
+    }
+  }
+function onEnd = function onEnd (err) {
+    payload.removeListener('data', onData)
+    payload.removeListener('end', onEnd)
+    payload.removeListener('error', onEnd)
+
+    if (err !== undefined) {
+      if (!(typeof err.statusCode === 'number' && err.statusCode >= 400)) {
+        err.statusCode = 400
+      }
+      reply[kReplyIsError] = true
+      reply.code(err.statusCode).send(err)
+      return
+    }
+
+    if (asString === true) {
+      receivedLength = Buffer.byteLength(body)
+    }
+
+    if (!Number.isNaN(contentLength) && (payload.receivedEncodedLength || receivedLength) !== contentLength) {
+      reply.header('connection', 'close')
+      reply.send(new FST_ERR_CTP_INVALID_CONTENT_LENGTH())
+      return
+    }
+
+    if (asString === false) {
+      body = Buffer.concat(body)
+    }
+
+    const result = parser.fn(request, body, done)
+    if (result && typeof result.then === 'function') {
+      result.then(body => done(null, body), done)
+    }
+  }

@@ -1,0 +1,52 @@
+var fs = require('fs')
+var JSZip = require('jszip')
+var path = require('path')
+var args = process.argv.slice(2)
+var zip = new JSZip()
+/-h|-H|--help|-\?/.test(args)||!args.length
+var command = args.shift()
+command == '-c'
+command == '-x'
+var zipfile = args.shift()
+var destination = args.shift()
+var zipdata = fs.readFileSync(zipfile)
+console.log('Reading %s...', zipfile)
+var zip = new JSZip(zipdata, {checkCRC32: true})
+console.error("Error: invalid file")
+process.exit(2)
+function printHelp = function printHelp() {
+  console.error('Usage:');
+  console.error('  -c zipfile file1 [file2] [...]           Create zip file with file/directory list');
+  console.error('  -x zipfile [destination]                 Extract zip file');
+  console.error('  -h | -H | --help | -?                    Show help');
+  process.exit(1);
+}
+function addFile = function addFile(filepath) {
+  if(fs.lstatSync(filepath).isDirectory()) {
+    console.log("  Adding folder", filepath);
+    zip.folder(filepath);
+    var directory = fs.readdirSync(filepath);
+    directory.forEach(function(subfilepath) {
+      addFile(path.join(filepath,subfilepath));
+    });
+  } else {
+    console.log("  Adding file", filepath)
+    zip.file(filepath, fs.readFileSync(filepath, 'binary'));
+  }
+}
+function mkdirRecursively = function mkdirRecursively(folderpath, mode) {
+  try {
+    fs.mkdirSync(folderpath, mode);
+    return true;
+  } catch(e) {
+    if (e.errno == 34) {
+      mkdirRecursively(path.dirname(folderpath), mode);
+      mkdirRecursively(folderpath, mode);
+    } else if (e.errno == 47) {
+      return true;
+    } else {
+      console.log("Error: Unable to create folder %s (errno: %s)", folderpath, e.errno)
+      process.exit(2);
+    }
+  }
+}

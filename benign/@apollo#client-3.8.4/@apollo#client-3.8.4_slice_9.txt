@@ -1,0 +1,6 @@
+left.map.forEach(function (leftTree, key) {
+            merged.map.set(key, mergeMergeTrees(leftTree, right.map.get(key)));
+            remainingRightKeys_1.delete(key);
+        })
+merged.map.set(key, mergeMergeTrees(leftTree, right.map.get(key)))
+remainingRightKeys_1.delete(key)

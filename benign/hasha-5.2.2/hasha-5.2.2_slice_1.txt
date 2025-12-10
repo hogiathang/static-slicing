@@ -1,0 +1,16 @@
+worker.on('message', message => {
+		const task = tasks.get(message.id);
+		tasks.delete(message.id);
+
+		if (tasks.size === 0) {
+			worker.unref();
+		}
+
+		if (message.error === undefined) {
+			task.resolve(message.value);
+		} else {
+			task.reject(recreateWorkerError(message.error));
+		}
+	})
+const task = tasks.get(message.id)
+tasks.delete(message.id)

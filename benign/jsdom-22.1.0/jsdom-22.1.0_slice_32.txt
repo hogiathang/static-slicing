@@ -1,0 +1,60 @@
+function onFrameLoaded = function onFrameLoaded(data) {
+    const sniffOptions = {
+      defaultEncoding: document._encoding
+    };
+
+    if (request.response) {
+      const contentType = MIMEType.parse(request.response.headers["content-type"]) || new MIMEType("text/plain");
+      sniffOptions.transportLayerEncodingLabel = contentType.parameters.get("charset");
+
+      if (contentType) {
+        if (contentType.isXML()) {
+          contentDoc._parsingMode = "xml";
+        }
+        contentDoc.contentType = contentType.essence;
+      }
+    }
+
+    const encoding = sniffHTMLEncoding(data, sniffOptions);
+    contentDoc._encoding = encoding;
+
+    const html = whatwgEncoding.decode(data, contentDoc._encoding);
+
+    try {
+      parseIntoDocument(html, contentDoc);
+    } catch (error) {
+      const { DOMException } = contentDoc._globalObject;
+
+      if (
+        error.constructor.name === "DOMException" &&
+        error.code === DOMException.SYNTAX_ERR &&
+        contentDoc._parsingMode === "xml"
+      ) {
+        //...
+const sniffOptions = {
+      defaultEncoding: document._encoding
+    }
+_tmp_1.defaultEncoding = document._encoding
+request.response
+const contentType = MIMEType.parse(request.response.headers["content-type"]) || new MIMEType("text/plain")
+sniffOptions.transportLayerEncodingLabel = contentType.parameters.get("charset")
+contentType.isXML()
+contentDoc._parsingMode = "xml"
+contentDoc.contentType = contentType.essence
+const encoding = sniffHTMLEncoding(data, sniffOptions)
+contentDoc._encoding = encoding
+const html = whatwgEncoding.decode(data, contentDoc._encoding)
+parseIntoDocument(html, contentDoc)
+DOMException = _tmp_4.DOMException
+error.constructor.name === "DOMException" &&
+        error.code === DOMException.SYNTAX_ERR &&
+        contentDoc._parsingMode === "xml"
+error.code === DOMException.SYNTAX_ERR
+contentDoc._parsingMode === "xml"
+const element = contentDoc.createElementNS("http://www.mozilla.org/newlayout/xml/parsererror.xml", "parsererror")
+element.textContent = error.message
+contentDoc.childNodes.length > 0
+contentDoc.removeChild(contentDoc.lastChild)
+contentDoc.appendChild(element)
+throw error;
+contentDoc.close()

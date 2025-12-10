@@ -1,0 +1,2 @@
+t.prototype.addEventListener=function(a,b,d){var c=this;if(null!=b){d=u(d);var e=d.capture;d=
+d.once;var f=w(this,a,e);if(!f.has(b)){var g=d?function(U){f.delete(b);v.call(c,a,g,e);if("function"===typeof b)return b.call(c,U);if("function"===typeof(null===b||void 0===b?void 0:b.handleEvent))return b.handleEvent(U)}:null;f.set(b,g);da.call(this,a,null!==g&&void 0!==g?g:b,e)}}}

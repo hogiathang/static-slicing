@@ -1,0 +1,10 @@
+#onFetchError(event) {
+        const request = this.#requestMap.get(event.request.request);
+        if (!request) {
+            return;
+        }
+        request._failureText = event.errorText;
+        this.emit(NetworkManager_js_1.NetworkManagerEvent.RequestFailed, request);
+        this.#requestMap.delete(event.request.request);
+    }
+const request = this.#requestMap.get(event.request.request)

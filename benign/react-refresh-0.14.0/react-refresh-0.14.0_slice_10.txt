@@ -1,0 +1,6 @@
+function getFamilyByType = function getFamilyByType(type) {
+  {
+    return allFamiliesByType.get(type);
+  }
+}
+allFamiliesByType.get(type)

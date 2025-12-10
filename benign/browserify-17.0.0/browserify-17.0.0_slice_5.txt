@@ -1,0 +1,98 @@
+Browserify.prototype._createPipeline = function (opts) {
+    var self = this;
+    if (!opts) opts = {};
+    this._mdeps = this._createDeps(opts);
+    this._mdeps.on('file', function (file, id) {
+        pipeline.emit('file', file, id);
+        self.emit('file', file, id);
+    });
+    this._mdeps.on('package', function (pkg) {
+        pipeline.emit('package', pkg);
+        self.emit('package', pkg);
+    });
+    this._mdeps.on('transform', function (tr, file) {
+        pipeline.emit('transform', tr, file);
+        self.emit('transform', tr, file);
+    });
+    
+    var dopts = {
+        index: !opts.fullPaths && !opts.exposeAll,
+        dedupe: opts.dedupe,
+        expose: this._expose
+    };
+    this._bpack = bpack(xtend(opts, { raw: true }));
+    
+    var pipeline = splicer.obj([
+        'record', [ this._recorder() ],
+        'deps', [ this._mdeps ],
+        'json', [ this._json() ],
+        'unbom', [ this._unbom() ],
+        'unshebang', [ this._unshebang() ],
+        'syntax', [ ...
+var self = this
+opts = {}
+this._mdeps = this._createDeps(opts)
+this._mdeps.on('file', function (file, id) {
+        pipeline.emit('file', file, id);
+        self.emit('file', file, id);
+    })
+this._mdeps.on('package', function (pkg) {
+        pipeline.emit('package', pkg);
+        self.emit('package', pkg);
+    })
+this._mdeps.on('transform', function (tr, file) {
+        pipeline.emit('transform', tr, file);
+        self.emit('transform', tr, file);
+    })
+var dopts = {
+        index: !opts.fullPaths && !opts.exposeAll,
+        dedupe: opts.dedupe,
+        expose: this._expose
+    }
+_tmp_71.index = !opts.fullPaths && !opts.exposeAll
+_tmp_71.dedupe = opts.dedupe
+_tmp_71.expose = this._expose
+this._bpack = bpack(xtend(opts, { raw: true }))
+var pipeline = splicer.obj([
+        'record', [ this._recorder() ],
+        'deps', [ this._mdeps ],
+        'json', [ this._json() ],
+        'unbom', [ this._unbom() ],
+        'unshebang', [ this._unshebang() ],
+        'syntax', [ this._syntax() ],
+        'sort', [ depsSort(dopts) ],
+        'dedupe', [ this._dedupe() ],
+        'label', [ this._label(opts) ],
+        'emit-deps', [ this._emitDeps() ],
+        'debug', [ this._debug(opts) ],
+        'pack', [ this._bpack ],
+        'wrap', []
+    ])
+_tmp_73.push([ this._recorder() ])
+_tmp_75 = __ecma.Array.factory()
+_tmp_76 = __ecma.Array.factory()
+_tmp_77 = __ecma.Array.factory()
+_tmp_73.push([ this._unshebang() ])
+_tmp_73.push([ this._syntax() ])
+_tmp_73.push([ depsSort(dopts) ])
+_tmp_73.push([ this._dedupe() ])
+_tmp_73.push([ this._label(opts) ])
+_tmp_73.push([ this._emitDeps() ])
+_tmp_73.push([ this._debug(opts) ])
+_tmp_85 = __ecma.Array.factory()
+_tmp_73.push(__ecma.Array.factory())
+opts.exposeAll
+var basedir = defined(opts.basedir, process.cwd())
+pipeline.get('deps').push(through.obj(function (row, enc, next) {
+            if (self._external.indexOf(row.id) >= 0) return next();
+            if (self._external.indexOf(row.file) >= 0) return next();
+            
+            if (isAbsolutePath(row.id)) {
+                row.id = '/' + relativePath(basedir, row.file);
+            }
+            Object.keys(row.deps || {}).forEach(function (key) {
+                row.deps[key] = '/' + relativePath(basedir, row.deps[key]);
+            });
+            this.push(row);
+            next();
+        }))

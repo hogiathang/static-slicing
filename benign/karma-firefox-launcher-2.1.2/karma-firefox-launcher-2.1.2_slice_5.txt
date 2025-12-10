@@ -1,0 +1,39 @@
+const getAllPrefixesWsl = function () {
+  const drives = []
+  // Some folks configure their wsl.conf to mount Windows drives without the
+  // /mnt prefix (e.g. see https://nickjanetakis.com/blog/setting-up-docker-for-windows-and-wsl-to-work-flawlessly)
+  //
+  // In fact, they could configure this to be any number of things. So we
+  // take each path, convert it to a Windows path, check if it looks like
+  // it starts with a drive and then record that.
+  const re = /^([A-Z]):\\/i
+  for (const pathElem of process.env.PATH.split(':')) {
+    if (fs.existsSync(pathElem)) {
+      const windowsPath = execSync('wslpath -w "' + pathElem + '"').toString()
+      const matches = windowsPath.match(re)
+      if (matches !== null && drives.indexOf(matches[1]) === -1) {
+        drives.push(matches[1])
+      }
+    }
+  }
+
+  const result = []
+  // We don't have the PROGRAMFILES or PROGRAMFILES(X86) environment variables
+  // in WSL so we just hard code them.
+  const prefixes = ['Program Files', 'Program Fil...
+__ecma.Array.factory()
+const re = /^([A-Z]):\\/i
+_iterator_2 = <operator>.iterator(process.env.PATH.split(':'))
+fs.existsSync(pathElem)
+const windowsPath = execSync('wslpath -w "' + pathElem + '"').toString()
+const matches = windowsPath.match(re)
+matches !== null && drives.indexOf(matches[1]) === -1
+drives.push(matches[1])
+__ecma.Array.factory()
+const prefixes = ['Program Files', 'Program Files (x86)']
+_iterator_3 = <operator>.iterator(prefixes)
+_iterator_4 = <operator>.iterator(drives)
+const wslPath =
+        execSync('wslpath "' + drive + ':\\' + prefix + '"').toString().trim()
+(_tmp_16 = execSync('wslpath "' + drive + ':\\' + prefix + '"').toString()).trim
+result.push(wslPath)

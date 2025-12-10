@@ -1,0 +1,29 @@
+var splitBlockInContentState = function splitBlockInContentState(contentState, selectionState) {
+  !selectionState.isCollapsed() ? process.env.NODE_ENV !== "production" ? invariant(false, 'Selection range must be collapsed.') : invariant(false) : void 0;
+  var key = selectionState.getAnchorKey();
+  var blockMap = contentState.getBlockMap();
+  var blockToSplit = blockMap.get(key);
+  var text = blockToSplit.getText();
+
+  if (!text) {
+    var blockType = blockToSplit.getType();
+
+    if (blockType === 'unordered-list-item' || blockType === 'ordered-list-item') {
+      return modifyBlockForContentState(contentState, selectionState, function (block) {
+        return block.merge({
+          type: 'unstyled',
+          depth: 0
+        });
+      });
+    }
+  }
+
+  var offset = selectionState.getAnchorOffset();
+  var chars = blockToSplit.getCharacterList();
+  var keyBelow = generateRandomKey();
+  var isExperimentalTreeBlock = blockToSplit instanceof ContentBlockNode;
+  var blockAbove = blockToSpli...
+!selectionState.isCollapsed() ? process.env.NODE_ENV !== "production" ? invariant(false, 'Selection range must be collapsed.') : invariant(false) : void 0
+var key = selectionState.getAnchorKey()
+var blockMap = contentState.getBlockMap()
+var blockToSplit = blockMap.get(key)

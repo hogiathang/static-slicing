@@ -1,0 +1,42 @@
+function(node) {
+      var close = node.close;
+      var open = !node.escaped ? '[' : '\\[';
+      var negated = node.negated;
+      var inner = node.inner;
+      var val = node.val;
+
+      if (node.escaped === true) {
+        inner = inner.replace(/\\?(\W)/g, '\\$1');
+        negated = '';
+      }
+
+      if (inner === ']-') {
+        inner = '\\]\\-';
+      }
+
+      if (negated && inner.indexOf('.') === -1) {
+        inner += '.';
+      }
+      if (negated && inner.indexOf('/') === -1) {
+        inner += '/';
+      }
+
+      val = open + negated + inner + close;
+      return this.emit(val, node);
+    }
+var close = node.close
+var open = !node.escaped ? '[' : '\\['
+var negated = node.negated
+var inner = node.inner
+var val = node.val
+node.escaped === true
+inner = inner.replace(/\\?(\W)/g, '\\$1')
+negated = ''
+inner === ']-'
+inner = '\\]\\-'
+negated && inner.indexOf('.') === -1
+inner += '.'
+negated && inner.indexOf('/') === -1
+inner += '/'
+val = open + negated + inner + close
+this.emit(val, node)

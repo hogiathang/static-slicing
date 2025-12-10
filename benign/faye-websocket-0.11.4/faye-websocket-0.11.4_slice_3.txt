@@ -1,0 +1,66 @@
+var EventSource = function(request, response, options) {
+  this.writable = true;
+  options = options || {};
+
+  this._stream = response.socket;
+  this._ping   = options.ping  || this.DEFAULT_PING;
+  this._retry  = options.retry || this.DEFAULT_RETRY;
+
+  var scheme       = driver.isSecureRequest(request) ? 'https:' : 'http:';
+  this.url         = scheme + '//' + request.headers.host + request.url;
+  this.lastEventId = request.headers['last-event-id'] || '';
+  this.readyState  = API.CONNECTING;
+
+  var headers = new Headers(),
+      self    = this;
+
+  if (options.headers) {
+    for (var key in options.headers) headers.set(key, options.headers[key]);
+  }
+
+  if (!this._stream || !this._stream.writable) return;
+  process.nextTick(function() { self._open() });
+
+  this._stream.setTimeout(0);
+  this._stream.setNoDelay(true);
+
+  var handshake = 'HTTP/1.1 200 OK\r\n' +
+                  'Content-Type: text/event-stream\r\n' +
+                  'Cache-Control: no-cache, no-store\r\n' +
+             ...
+this.writable = true
+options = options || {}
+this._stream = response.socket
+this._ping   = options.ping  || this.DEFAULT_PING
+this._retry  = options.retry || this.DEFAULT_RETRY
+var scheme       = driver.isSecureRequest(request) ? 'https:' : 'http:'
+this.url         = scheme + '//' + request.headers.host + request.url
+this.lastEventId = request.headers['last-event-id'] || ''
+this.readyState  = API.CONNECTING
+var headers = new Headers()
+var self    = this
+options.headers
+_iterator_0 = <operator>.iterator(options.headers)
+!this._stream || !this._stream.writable
+process.nextTick(function() { self._open() })
+(_tmp_2 = this._stream).setTimeout
+(_tmp_3 = this._stream).setNoDelay
+var handshake = 'HTTP/1.1 200 OK\r\n' +
+                  'Content-Type: text/event-stream\r\n' +
+                  'Cache-Control: no-cache, no-store\r\n' +
+                  'Connection: close\r\n' +
+                  headers.toString() +
+                  '\r\n' +
+                  'retry: ' + Math.floor(this._retry * 1000) + '\r\n\r\n'
+"Content-Type: text/event-stream
+"
+"Cache-Control: no-cache, no-store
+"
+"Connection: close
+"
+headers.toString()
+Math.floor(this._retry * 1000)
+this._write(handshake)
+this._stream.on('drain', function() { self.emit('drain') })
+this._ping
+this._pingTimer = setInterval(function() { self.ping() }, this._ping * 1000)

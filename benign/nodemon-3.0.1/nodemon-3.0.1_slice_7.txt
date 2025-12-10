@@ -1,0 +1,4 @@
+process.nextTick(() => {
+    bus.emit('log', { type: type, message: text, colour: msg });
+  })
+bus.emit('log', { type: type, message: text, colour: msg })

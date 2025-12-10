@@ -1,0 +1,16 @@
+isValidDate(): boolean {
+        const date = this.dateWithoutTimezoneAdjustment();
+
+        if (date.getFullYear() !== this.get("year")) return false;
+        if (date.getMonth() !== this.get("month") - 1) return false;
+        if (date.getDate() !== this.get("day")) return false;
+        if (this.get("hour") != null && date.getHours() != this.get("hour")) return false;
+        if (this.get("minute") != null && date.getMinutes() != this.get("minute")) return false;
+
+        return true;
+    }
+const date = this.dateWithoutTimezoneAdjustment()
+date.getFullYear() !== this.get("year")
+date.getMonth() !== this.get("month") - 1
+date.getDate() !== this.get("day")
+this.get("hour") != null && date.getHours() != this.get("hour")

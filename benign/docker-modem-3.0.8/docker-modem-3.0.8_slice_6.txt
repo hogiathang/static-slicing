@@ -1,0 +1,64 @@
+Modem.prototype.buildRequest = function (options, context, data, callback) {
+  var self = this;
+  var connectionTimeoutTimer;
+  var finished = false;
+
+  var opts = self.protocol === 'ssh' ? Object.assign(options, {
+    agent: ssh(Object.assign({}, self.sshOptions, {
+      'host': self.host,
+      'port': self.port,
+      'username': self.username,
+      'password': self.password,
+    })),
+    protocol: 'http:',
+  }) : options;
+
+  var req = http[self.protocol === 'ssh' ? 'http' : self.protocol].request(opts, function () { });
+
+  debug('Sending: %s', util.inspect(options, {
+    showHidden: true,
+    depth: null
+  }));
+
+  if (self.connectionTimeout) {
+    connectionTimeoutTimer = setTimeout(function () {
+      debug('Connection Timeout of %s ms exceeded', self.connectionTimeout);
+      req.abort();
+    }, self.connectionTimeout);
+  }
+
+  if (self.timeout) {
+    req.on('socket', function (socket) {
+      socket.setTimeout(self.timeout);
+      socket.on('timeout', function () {
+        de...
+var self = this
+var finished = false
+var opts = self.protocol === 'ssh' ? Object.assign(options, {
+    agent: ssh(Object.assign({}, self.sshOptions, {
+      'host': self.host,
+      'port': self.port,
+      'username': self.username,
+      'password': self.password,
+    })),
+    protocol: 'http:',
+  }) : options
+_tmp_21.agent = ssh(Object.assign({}, self.sshOptions, {
+      'host': self.host,
+      'port': self.port,
+      'username': self.username,
+      'password': self.password,
+    }))
+_tmp_23.host = self.host
+_tmp_23.port = self.port
+_tmp_23.username = self.username
+_tmp_23.password = self.password
+_tmp_21.protocol = "http:"
+var req = http[self.protocol === 'ssh' ? 'http' : self.protocol].request(opts, function () { })
+debug('Sending: %s', util.inspect(options, {
+    showHidden: true,
+    depth: null
+  }))
+_tmp_25.showHidden = true
+_tmp_25.depth = null
+self.connectionTimeout

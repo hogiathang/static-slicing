@@ -1,0 +1,21 @@
+function createAttachment = function createAttachment(doc) {
+        var prevrevpos = '_rev' in doc ? parseInt(doc._rev, 10) : 0;
+        doc._attachments = doc._attachments || {};
+        doc._attachments[attachmentId] = {
+          content_type: type,
+          data: blob,
+          revpos: ++prevrevpos
+        };
+        return api.put(doc);
+      }
+var prevrevpos = '_rev' in doc ? parseInt(doc._rev, 10) : 0
+doc._attachments = doc._attachments || {}
+doc._attachments[attachmentId] = {
+          content_type: type,
+          data: blob,
+          revpos: ++prevrevpos
+        }
+_tmp_838.content_type = type
+_tmp_838.data = blob
+_tmp_838.revpos = ++prevrevpos
+api.put(doc)

@@ -1,0 +1,7 @@
+_tmp_2.post = post
+currentUid = uid
+let context = namespace._contexts.get(uid)
+debug2(' POST ' + name + ' uid:' + uid + ' handle:' + getFunctionName(handle) + ' context:' +
+            util.inspect(context))
+util.inspect(context)
+namespace.exit(context)

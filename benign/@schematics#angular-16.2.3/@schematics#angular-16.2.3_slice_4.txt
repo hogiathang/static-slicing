@@ -1,0 +1,23 @@
+async (tree) => {
+        const workspace = await (0, workspace_1.getWorkspace)(tree);
+        const clientProject = workspace.projects.get(options.project);
+        if (!clientProject || clientProject.extensions.projectType !== 'application') {
+            throw new schematics_1.SchematicsException(`A client project type of "application" is required.`);
+        }
+        const clientBuildTarget = clientProject.targets.get('build');
+        if (!clientBuildTarget) {
+            throw (0, project_targets_1.targetBuildNotFoundError)();
+        }
+        const clientBuildOptions = (clientBuildTarget.options ||
+            {});
+        const isStandalone = (0, ng_ast_utils_1.isStandaloneApp)(tree, clientBuildOptions.main);
+        return (0, schematics_1.chain)([
+            validateProject(clientBuildOptions.main),
+            clientProject.targets.has('server') ? (0, schematics_1.noop)() : addUniversalTarget(options),
+            addAppShellConfigToWorkspace(options),
+            isSt...
+const workspace = await (0, workspace_1.getWorkspace)(tree)
+const clientProject = workspace.projects.get(options.project)
+!clientProject || clientProject.extensions.projectType !== 'application'
+throw new schematics_1.SchematicsException(`A client project type of "application" is required.`);
+const clientBuildTarget = clientProject.targets.get('build')

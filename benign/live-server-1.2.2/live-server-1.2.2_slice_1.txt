@@ -1,0 +1,124 @@
+var path = require('path')
+var fs = require('fs')
+var assign = require('object-assign')
+var liveServer = require("./index")
+var opts = {
+	host: process.env.IP,
+	port: process.env.PORT,
+	open: true,
+	mount: [],
+	proxy: [],
+	middleware: [],
+	logLevel: 2,
+}
+_tmp_0.host = process.env.IP
+_tmp_0.port = process.env.PORT
+_tmp_0.open = true
+_tmp_0.mount = __ecma.Array.factory()
+_tmp_0.proxy = __ecma.Array.factory()
+_tmp_0.middleware = __ecma.Array.factory()
+_tmp_0.logLevel = 2
+var homeDir = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME']
+var configPath = path.join(homeDir, '.live-server.json')
+fs.existsSync(configPath)
+var userConfig = fs.readFileSync(configPath, 'utf8')
+assign(opts, JSON.parse(userConfig))
+opts.ignorePattern = new RegExp(opts.ignorePattern)
+var i = process.argv.length - 1
+var arg = process.argv[i]
+arg.indexOf("--port=") > -1
+var portString = arg.substring(7)
+var portNumber = parseInt(portString, 10)
+portNumber === +portString
+opts.port = portNumber
+(_tmp_2 = process.argv).splice
+arg.indexOf("--host=") > -1
+opts.host = arg.substring(7)
+(_tmp_3 = process.argv).splice
+arg.indexOf("--open=") > -1
+var open = arg.substring(7)
+open.indexOf('/') !== 0
+open = '/' + open
+typeof opts.open
+"boolean"
+opts.open = open
+break;
+"string"
+_tmp_4 = __ecma.Array.factory()
+break;
+"object"
+(_tmp_5 = opts.open).push
+break;
+(_tmp_6 = process.argv).splice
+arg.indexOf("--watch=") > -1
+opts.watch = arg.substring(8).split(",")
+(_tmp_8 = process.argv).splice
+arg.indexOf("--ignore=") > -1
+opts.ignore = arg.substring(9).split(",")
+(_tmp_10 = process.argv).splice
+arg.indexOf("--ignorePattern=") > -1
+opts.ignorePattern = new RegExp(arg.substring(16))
+(_tmp_12 = process.argv).splice
+arg === "--no-css-inject"
+opts.noCssInject = true
+(_tmp_13 = process.argv).splice
+arg === "--no-browser"
+opts.open = false
+(_tmp_14 = process.argv).splice
+arg.indexOf("--browser=") > -1
+opts.browser = arg.substring(10).split(",")
+(_tmp_16 = process.argv).splice
+arg.indexOf("--entry-file=") > -1
+var file = arg.substring(13)
+file.length
+opts.file = file
+(_tmp_17 = process.argv).splice
+arg === "--spa"
+(_tmp_18 = opts.middleware).push
+(_tmp_19 = process.argv).splice
+arg === "--quiet" || arg === "-q"
+opts.logLevel = 0
+(_tmp_20 = process.argv).splice
+arg === "--verbose" || arg === "-V"
+opts.logLevel = 3
+(_tmp_21 = process.argv).splice
+arg.indexOf("--mount=") > -1
+var match = arg.substring(8).match(/([^:]+):(.+)$/)
+match[2] = path.resolve(process.cwd(), match[2])
+opts.mount.push([ match[1], match[2] ])
+(_tmp_25 = process.argv).splice
+arg.indexOf("--wait=") > -1
+var waitString = arg.substring(7)
+var waitNumber = parseInt(waitString, 10)
+waitNumber === +waitString
+opts.wait = waitNumber
+(_tmp_26 = process.argv).splice
+arg === "--version" || arg === "-v"
+var packageJson = require('./package.json')
+console.log(packageJson.name, packageJson.version)
+process.exit()
+arg.indexOf("--htpasswd=") > -1
+opts.htpasswd = arg.substring(11)
+(_tmp_27 = process.argv).splice
+arg === "--cors"
+opts.cors = true
+(_tmp_28 = process.argv).splice
+arg.indexOf("--https=") > -1
+opts.https = arg.substring(8)
+(_tmp_29 = process.argv).splice
+arg.indexOf("--https-module=") > -1
+opts.httpsModule = arg.substring(15)
+(_tmp_30 = process.argv).splice
+arg.indexOf("--proxy=") > -1
+var match = arg.substring(8).match(/([^:]+):(.+)$/)
+opts.proxy.push([ match[1], match[2] ])
+(_tmp_34 = process.argv).splice
+arg.indexOf("--middleware=") > -1
+opts.middleware.push(arg.substring(13))
+(_tmp_36 = process.argv).splice
+arg === "--help" || arg === "-h"
+console.log('Usage: live-server [-v|--version] [-h|--help] [-q|--quiet] [--port=PORT] [--host=HOST] [--open=PATH] [--no-browser] [--browser=BROWSER] [--ignore=PATH] [--ignorePattern=RGXP] [--no-css-inject] [--entry-file=PATH] [--spa] [--mount=ROUTE:PATH] [--wait=MILLISECONDS] [--htpasswd=PATH] [--cors] [--https=PATH] [--https-module=MODULE_NAME] [--proxy=PATH] [PATH]')
+process.exit()
+arg === "--test"
+setTimeout(liveServer.shutdown, 500)
+(_tmp_37 = process.argv).splice

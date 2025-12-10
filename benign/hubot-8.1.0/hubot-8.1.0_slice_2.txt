@@ -1,0 +1,58 @@
+setupExpress () {
+    const user = process.env.EXPRESS_USER
+    const pass = process.env.EXPRESS_PASSWORD
+    const stat = process.env.EXPRESS_STATIC
+    const port = process.env.EXPRESS_PORT || process.env.PORT || 8080
+    const address = process.env.EXPRESS_BIND_ADDRESS || process.env.BIND_ADDRESS || '0.0.0.0'
+    const limit = process.env.EXPRESS_LIMIT || '100kb'
+    const paramLimit = parseInt(process.env.EXPRESS_PARAMETER_LIMIT) || 1000
+
+    const express = require('express')
+    const basicAuth = require('express-basic-auth')
+    const multipart = require('connect-multiparty')
+
+    const app = express()
+
+    app.use((req, res, next) => {
+      res.setHeader('X-Powered-By', `hubot/${encodeURI(this.name)}`)
+      return next()
+    })
+
+    if (user && pass) {
+      const authUser = {}
+      authUser[user] = pass
+      app.use(basicAuth({ users: authUser }))
+    }
+    app.use(express.query())
+
+    app.use(express.json({ limit }))
+    app.use(express.urlencoded({ limit, parameterLi...
+const user = process.env.EXPRESS_USER
+const pass = process.env.EXPRESS_PASSWORD
+const stat = process.env.EXPRESS_STATIC
+const port = process.env.EXPRESS_PORT || process.env.PORT || 8080
+const address = process.env.EXPRESS_BIND_ADDRESS || process.env.BIND_ADDRESS || '0.0.0.0'
+const limit = process.env.EXPRESS_LIMIT || '100kb'
+const paramLimit = parseInt(process.env.EXPRESS_PARAMETER_LIMIT) || 1000
+const express = require('express')
+const basicAuth = require('express-basic-auth')
+const multipart = require('connect-multiparty')
+const app = express()
+app.use((req, res, next) => {
+      res.setHeader('X-Powered-By', `hubot/${encodeURI(this.name)}`)
+      return next()
+    })
+user && pass
+const authUser = {}
+authUser[user] = pass
+app.use(basicAuth({ users: authUser }))
+app.use(express.query())
+app.use(express.json({ limit }))
+app.use(express.urlencoded({ limit, parameterLimit: paramLimit, extended: true }))
+app.use(multipart({ maxFilesSize: 100 * 1024 * 1024 }))
+app.use(express.static(stat))
+this.server = app.listen(port, address)
+this.router = app
+const err = error
+<operator>.formatString("Error trying to start HTTP server: ", err, "\n", err.stack, "")
+process.exit(1)

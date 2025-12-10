@@ -1,0 +1,22 @@
+function _getCompletionRecords = function _getCompletionRecords(path, context) {
+  let records = [];
+  if (path.isIfStatement()) {
+    records = addCompletionRecords(path.get("consequent"), records, context);
+    records = addCompletionRecords(path.get("alternate"), records, context);
+  } else if (path.isDoExpression() || path.isFor() || path.isWhile() || path.isLabeledStatement()) {
+    return addCompletionRecords(path.get("body"), records, context);
+  } else if (path.isProgram() || path.isBlockStatement()) {
+    return getStatementListCompletion(path.get("body"), context);
+  } else if (path.isFunction()) {
+    return _getCompletionRecords(path.get("body"), context);
+  } else if (path.isTryStatement()) {
+    records = addCompletionRecords(path.get("block"), records, context);
+    records = addCompletionRecords(path.get("handler"), records, context);
+  } else if (path.isCatchClause()) {
+    return addCompletionRecords(path.get("body"), records, context);
+  } else if (path.isSwitchStatement()) {
+    return completio...
+__ecma.Array.factory()
+path.isIfStatement()
+records = addCompletionRecords(path.get("consequent"), records, context)
+records = addCompletionRecords(path.get("alternate"), records, context)

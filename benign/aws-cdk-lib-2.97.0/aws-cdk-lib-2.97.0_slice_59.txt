@@ -1,0 +1,1 @@
+function describeAssets = function describeAssets(type,assets){const ret=new Array;for(const[assetId,asset]of Object.entries(assets||{})){ret.push(`${assetId} ${type} ${JSON.stringify(asset.source)}`);const destStrings=Object.entries(asset.destinations).map(([destId,dest])=>` ${assetId}:${destId} ${JSON.stringify(dest)}`);ret.push(...prefixTreeChars(destStrings,"  "))}return ret}

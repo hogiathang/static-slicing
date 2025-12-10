@@ -1,0 +1,13 @@
+function getOperationRequestInfo = function getOperationRequestInfo(request) {
+    if (hasOriginalRequest(request)) {
+        return getOperationRequestInfo(request[originalRequestSymbol]);
+    }
+    let info = operationRequestMap.get(request);
+    if (!info) {
+        info = {};
+        operationRequestMap.set(request, info);
+    }
+    return info;
+}
+hasOriginalRequest(request)
+let info = operationRequestMap.get(request)

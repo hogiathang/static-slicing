@@ -1,0 +1,49 @@
+async setWorkspace (pkg, workspacePath) {
+    const workspaces = await mapWorkspaces({ cwd: this.npm.localPrefix, pkg })
+
+    // skip setting workspace if current package.json glob already satisfies it
+    for (const wPath of workspaces.values()) {
+      if (wPath === workspacePath) {
+        return
+      }
+    }
+
+    // if a create-pkg didn't generate a package.json at the workspace
+    // folder level, it might not be recognized as a workspace by
+    // mapWorkspaces, so we're just going to avoid touching the
+    // top-level package.json
+    try {
+      fs.statSync(resolve(workspacePath, 'package.json'))
+    } catch (err) {
+      return
+    }
+
+    const pkgJson = await PackageJson.load(this.npm.localPrefix)
+
+    pkgJson.update({
+      workspaces: [
+        ...(pkgJson.content.workspaces || []),
+        posixPath(relative(this.npm.localPrefix, workspacePath)),
+      ],
+    })
+
+    await pkgJson.save()
+  }
+const workspaces = await mapWorkspaces({ cwd: this.npm.localPrefix, pkg })
+_iterator_2 = <operator>.iterator(workspaces.values())
+wPath === workspacePath
+fs.statSync(resolve(workspacePath, 'package.json'))
+const pkgJson = await PackageJson.load(this.npm.localPrefix)
+pkgJson.update({
+      workspaces: [
+        ...(pkgJson.content.workspaces || []),
+        posixPath(relative(this.npm.localPrefix, workspacePath)),
+      ],
+    })
+_tmp_28.workspaces = [
+        ...(pkgJson.content.workspaces || []),
+        posixPath(relative(this.npm.localPrefix, workspacePath)),
+      ]
+_tmp_29.push(...(pkgJson.content.workspaces || []))
+_tmp_29.push(posixPath(relative(this.npm.localPrefix, workspacePath)))
+await pkgJson.save()

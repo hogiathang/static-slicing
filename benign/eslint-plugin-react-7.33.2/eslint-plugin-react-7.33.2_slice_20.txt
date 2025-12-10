@@ -1,0 +1,17 @@
+_tmp_18.VariableDeclarator = VariableDeclarator
+const unwrappedInitNode = ast.unwrapTSAsExpression(node.init)
+isThisDotProps(unwrappedInitNode) && isInClassComponent(context) && node.id.type === 'Identifier'
+propVariables.set(node.id.name, [])
+node.id.type !== 'ObjectPattern' || !unwrappedInitNode
+const propsProperty = node.id.properties.find((property) => (
+        property.key
+        && (property.key.name === 'props' || property.key.value === 'props')
+      ))
+unwrappedInitNode.type === 'ThisExpression' && propsProperty && propsProperty.value.type === 'ObjectPattern'
+unwrappedInitNode.type === 'ThisExpression' && propsProperty && propsProperty.value.name === 'props'
+isCommonVariableNameForProps(unwrappedInitNode.name)
+        && (utils.getParentStatelessComponent() || isInLifeCycleMethod(node, checkAsyncSafeLifeCycles))
+utils.getParentStatelessComponent() || isInLifeCycleMethod(node, checkAsyncSafeLifeCycles)
+isThisDotProps(unwrappedInitNode) && isInClassComponent(context)
+propVariables.get(unwrappedInitNode.name)
+markPropTypesAsUsed(node.id, propVariables.get(unwrappedInitNode.name))

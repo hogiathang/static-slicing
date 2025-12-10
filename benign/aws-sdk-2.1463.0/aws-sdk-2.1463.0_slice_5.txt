@@ -1,0 +1,30 @@
+function requiredDiscoverEndpoint = function requiredDiscoverEndpoint(request, done) {
+  var service = request.service;
+  var api = service.api;
+  var operationModel = api.operations ? api.operations[request.operation] : undefined;
+  var inputShape = operationModel ? operationModel.input : undefined;
+
+  var identifiers = marshallCustomIdentifiers(request, inputShape);
+  var cacheKey = getCacheKey(request);
+  if (Object.keys(identifiers).length > 0) {
+    cacheKey = util.update(cacheKey, identifiers);
+    if (operationModel) cacheKey.operation = operationModel.name;
+  }
+  var cacheKeyStr = AWS.EndpointCache.getKeyString(cacheKey);
+  var endpoints = AWS.endpointCache.get(cacheKeyStr); //endpoint cache also accepts string keys
+  if (endpoints && endpoints.length === 1 && endpoints[0].Address === '') {
+    //endpoint operation is being made but response not yet received
+    //push request object to a pending queue
+    if (!requestQueue[cacheKeyStr]) requestQueue[cacheKeyStr] = [];
+    requestQueue[cacheKeyStr].push({reque...
+var service = request.service
+var api = service.api
+var operationModel = api.operations ? api.operations[request.operation] : undefined
+var inputShape = operationModel ? operationModel.input : undefined
+var identifiers = marshallCustomIdentifiers(request, inputShape)
+var cacheKey = getCacheKey(request)
+Object.keys(identifiers).length > 0
+cacheKey = util.update(cacheKey, identifiers)
+cacheKey.operation = operationModel.name
+var cacheKeyStr = AWS.EndpointCache.getKeyString(cacheKey)
+var endpoints = AWS.endpointCache.get(cacheKeyStr)

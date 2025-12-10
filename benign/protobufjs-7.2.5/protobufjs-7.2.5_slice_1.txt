@@ -1,0 +1,21 @@
+OneOf.prototype.onAdd = function onAdd(parent) {
+    ReflectionObject.prototype.onAdd.call(this, parent);
+    var self = this;
+    // Collect present fields
+    for (var i = 0; i < this.oneof.length; ++i) {
+        var field = parent.get(this.oneof[i]);
+        if (field && !field.partOf) {
+            field.partOf = self;
+            self.fieldsArray.push(field);
+        }
+    }
+    // Add not yet present fields
+    addFieldsToParent(this);
+}
+ReflectionObject.prototype.onAdd.call(this, parent)
+var self = this
+i < this.oneof.length
+var field = parent.get(this.oneof[i])
+field && !field.partOf
+field.partOf = self
+(_tmp_11 = self.fieldsArray).push

@@ -1,0 +1,26 @@
+_tmp_70.VariableDeclarator = VariableDeclarator
+(_tmp_75 = path.get("id")).isObjectPattern
+let insertionPath = path
+const originalPath = path
+visitRestElements(path.get("id"), path => {
+          if (!path.parentPath.isObjectPattern()) {
+            return;
+          }
+          if (
+          shouldStoreRHSInTemporaryVariable(originalPath.node.id) && !core.types.isIdentifier(originalPath.node.init)) {
+            const initRef = path.scope.generateUidIdentifierBasedOnNode(originalPath.node.init, "ref");
+            originalPath.insertBefore(core.types.variableDeclarator(initRef, originalPath.node.init));
+            originalPath.replaceWith(core.types.variableDeclarator(originalPath.node.id, core.types.cloneNode(initRef)));
+            return;
+          }
+          let ref = originalPath.node.init;
+          const refPropertyPath = [];
+          let kind;
+          path.findParent(path => {
+            if (path.isObjectProperty()) {
+              refPropertyPath.unshift(path);
+            } else if (path.isVariableDeclarator()) {
+              kind = path.parentPath.node.kind;
+              return true;
+            }
+   ...

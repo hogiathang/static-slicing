@@ -1,0 +1,29 @@
+_applyChanges(changes) {
+        this._viewRepeater.applyChanges(changes, this._viewContainerRef, (record, _adjustedPreviousIndex, currentIndex) => this._getEmbeddedViewArgs(record, currentIndex), record => record.item);
+        // Update $implicit for any items that had an identity change.
+        changes.forEachIdentityChange((record) => {
+            const view = this._viewContainerRef.get(record.currentIndex);
+            view.context.$implicit = record.item;
+        });
+        // Update the context variables on all items.
+        const count = this._data.length;
+        let i = this._viewContainerRef.length;
+        while (i--) {
+            const view = this._viewContainerRef.get(i);
+            view.context.index = this._renderedRange.start + i;
+            view.context.count = count;
+            this._updateComputedContextProperties(view.context);
+        }
+    }
+this._viewRepeater.applyChanges(changes, this._viewContainerRef, (record, _adjustedPreviousIndex, currentIndex) => this._getEmbeddedViewArgs(record, currentIndex), record => record.item)
+changes.forEachIdentityChange((record) => {
+            const view = this._viewContainerRef.get(record.currentIndex);
+            view.context.$implicit = record.item;
+        })
+const count = this._data.length
+let i = this._viewContainerRef.length
+i--
+const view = this._viewContainerRef.get(i)
+view.context.index = this._renderedRange.start + i
+view.context.count = count
+this._updateComputedContextProperties(view.context)

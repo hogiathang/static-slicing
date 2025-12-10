@@ -1,0 +1,11 @@
+_tmp_1.copySync = <lambda>46
+sources = fs.readdirSync(sourcePath)
+mkdirp.sync(destinationPath)
+__ecma.Array.factory()
+_len = sources.length
+source = sources[_i]
+sourceFilePath = path.join(sourcePath, source)
+destinationFilePath = path.join(destinationPath, source)
+fsPlus.isDirectorySync(sourceFilePath)
+_results.push(fsPlus.copySync(sourceFilePath, destinationFilePath))
+_results.push(fsPlus.copyFileSync(sourceFilePath, destinationFilePath))

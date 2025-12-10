@@ -1,0 +1,3 @@
+addressTranslator.translate(hostName, this._client.options.protocolOptions.port, (endpoint) =>
+          resolve(this._client.hosts.get(endpoint)))
+resolve(this._client.hosts.get(endpoint))

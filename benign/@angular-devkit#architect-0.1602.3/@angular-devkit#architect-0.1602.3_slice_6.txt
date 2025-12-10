@@ -1,0 +1,6 @@
+replaceInFile(path, match, replacement) {
+        const content = core_1.virtualFs.fileBufferToString(this.scopedSync().read((0, core_1.normalize)(path)));
+        this.scopedSync().write((0, core_1.normalize)(path), core_1.virtualFs.stringToFileBuffer(content.replace(match, replacement)));
+    }
+const content = core_1.virtualFs.fileBufferToString(this.scopedSync().read((0, core_1.normalize)(path)))
+this.scopedSync().write((0, core_1.normalize)(path), core_1.virtualFs.stringToFileBuffer(content.replace(match, replacement)))

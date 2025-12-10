@@ -1,0 +1,5 @@
+var writeFileSync = require("fs").writeFileSync
+var resolve = require("path").resolve
+const clients = require('../clients/all')
+const metadata = require('../apis/metadata')
+const api_loader = require('../lib/api_loader')

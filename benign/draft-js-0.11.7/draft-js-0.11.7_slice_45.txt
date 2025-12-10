@@ -1,0 +1,15 @@
+newBlockMap = newBlockMap.merge(Immutable.OrderedMap(childKeys.map(function (k, i) {
+    return [k, blockMap.get(k).merge({
+      parent: key,
+      prevSibling: i - 1 < 0 ? null : childKeys.get(i - 1),
+      nextSibling: i + 1 === childKeys.count() ? null : childKeys.get(i + 1)
+    })];
+  })))
+_tmp_66.push(blockMap.get(k).merge({
+      parent: key,
+      prevSibling: i - 1 < 0 ? null : childKeys.get(i - 1),
+      nextSibling: i + 1 === childKeys.count() ? null : childKeys.get(i + 1)
+    }))
+_tmp_68.parent = key
+_tmp_68.prevSibling = i - 1 < 0 ? null : childKeys.get(i - 1)
+_tmp_68.nextSibling = i + 1 === childKeys.count() ? null : childKeys.get(i + 1)

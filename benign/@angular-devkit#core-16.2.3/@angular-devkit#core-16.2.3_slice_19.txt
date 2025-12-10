@@ -1,0 +1,13 @@
+(0, rxjs_1.switchMap)((exists) => {
+            if (!exists) {
+                return (0, rxjs_1.throwError)(new exception_1.FileDoesNotExistException(path));
+            }
+            if (!this._filesToCreate.has(path)) {
+                this._filesToOverwrite.add(path);
+            }
+            return super.write(path, content);
+        })
+!exists
+(_tmp_46 = this._filesToCreate).has
+(_tmp_47 = this._filesToOverwrite).add
+super.write(path, content)

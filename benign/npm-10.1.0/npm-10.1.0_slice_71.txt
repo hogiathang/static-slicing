@@ -1,0 +1,34 @@
+async exec (args) {
+    if (args.length === 0) {
+      args = ['.']
+    }
+
+    const unicode = this.npm.config.get('unicode')
+    const json = this.npm.config.get('json')
+
+    // Get the manifests and filenames first so we can bail early on manifest
+    // errors before making any tarballs
+    const manifests = []
+    for (const arg of args) {
+      const spec = npa(arg)
+      const manifest = await pacote.manifest(spec, this.npm.flatOptions)
+      if (!manifest._id) {
+        throw new Error('Invalid package, must have name and version')
+      }
+      manifests.push({ arg, manifest })
+    }
+
+    // Load tarball names up for printing afterward to isolate from the
+    // noise generated during packing
+    const tarballs = []
+    for (const { arg, manifest } of manifests) {
+      const tarballData = await libpack(arg, {
+        ...this.npm.flatOptions,
+        prefix: this.npm.localPrefix,
+        workspaces: this.workspacePaths,
+      })
+      const pkgContents = await getContents(ma...
+args.length === 0
+_tmp_1 = __ecma.Array.factory()
+const unicode = this.npm.config.get('unicode')
+const json = this.npm.config.get('json')

@@ -1,0 +1,41 @@
+module.exports = function copySync(src, dst, _ref) {
+    var preserve = _ref.preserve;
+    var update = _ref.update;
+
+    var stat = fs.statSync(src);
+
+    if (update) {
+        try {
+            var dstStat = fs.statSync(dst);
+            if (dstStat.mtime.getTime() > stat.mtime.getTime()) {
+                // Don't overwrite because the file on destination is newer than
+                // the source file.
+                return;
+            }
+        } catch (_err) {
+            // ignore - The file may not exist.
+        }
+    }
+
+    if (stat.isDirectory()) {
+        mkdirSync(dst);
+    } else {
+        copyBodySync(src, dst);
+    }
+    fs.chmodSync(dst, stat.mode);
+
+    if (preserve) {
+        fs.chownSync(dst, stat.uid, stat.gid);
+        fs.utimesSync(dst, stat.atime, stat.mtime);
+    }
+}
+var preserve = _ref.preserve
+var update = _ref.update
+var stat = fs.statSync(src)
+var dstStat = fs.statSync(dst)
+dstStat.mtime.getTime() > stat.mtime.getTime()
+stat.isDirectory()
+mkdirSync(dst)
+copyBodySync(src, dst)
+fs.chmodSync(dst, stat.mode)
+fs.chownSync(dst, stat.uid, stat.gid)

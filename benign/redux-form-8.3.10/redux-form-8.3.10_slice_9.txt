@@ -1,0 +1,78 @@
+function createConnectedFields = function createConnectedFields(structure) {
+  var deepEqual = structure.deepEqual,
+      getIn = structure.getIn,
+      size = structure.size;
+
+  var getSyncError = function getSyncError(syncErrors, name) {
+    // Because the error for this field might not be at a level in the error structure where
+    // it can be set directly, it might need to be unwrapped from the _error property
+    return plain.getIn(syncErrors, name + "._error") || plain.getIn(syncErrors, name);
+  };
+
+  var getSyncWarning = function getSyncWarning(syncWarnings, name) {
+    var warning = getIn(syncWarnings, name); // Because the warning for this field might not be at a level in the warning structure where
+    // it can be set directly, it might need to be unwrapped from the _warning property
+
+    return warning && warning._warning ? warning._warning : warning;
+  };
+
+  var ConnectedFields = /*#__PURE__*/function (_React$Component) {
+    _inheritsLoose(ConnectedFields, _React$Component);
+
+    function ConnectedFi...
+var deepEqual = structure.deepEqual
+var getIn = structure.getIn
+var size = structure.size
+var getSyncError = function getSyncError(syncErrors, name) {
+    // Because the error for this field might not be at a level in the error structure where
+    // it can be set directly, it might need to be unwrapped from the _error property
+    return plain.getIn(syncErrors, name + "._error") || plain.getIn(syncErrors, name);
+  }
+var getSyncWarning = function getSyncWarning(syncWarnings, name) {
+    var warning = getIn(syncWarnings, name); // Because the warning for this field might not be at a level in the warning structure where
+    // it can be set directly, it might need to be unwrapped from the _warning property
+
+    return warning && warning._warning ? warning._warning : warning;
+  }
+var ConnectedFields = /*#__PURE__*/function (_React$Component) {
+    _inheritsLoose(ConnectedFields, _React$Component);
+
+    function ConnectedFields(props) {
+      var _this;
+
+      _this = _React$Component.call(this, props) || this;
+      _this.onChangeFns = {};
+      _this.onFocusFns = {};
+      _this.onBlurFns = {};
+      _this.ref = React.createRef();
+
+      _this.prepareEventHandlers = function (_ref) {
+        var names = _ref.names;
+        return names.forEach(function (name) {
+          _this.onChangeFns[name] = function (event) {
+            return _this.handleChange(name, event);
+          };
+
+          _this.onFocusFns[name] = function () {
+            return _this.handleFocus(name);
+          };
+
+          _this.onBlurFns[name] = function (event) {
+            return _this.handleBlur(name, event);
+          };
+        });
+      };
+
+      _this.handleChange = function (name, event) {
+        var _this$props = _this.props,
+            dispatch = _this$props.dispatch,
+       ...
+React.Component
+ConnectedFields.propTypes = {
+    component: validateComponentProp,
+    _fields: PropTypes.object.isRequired,
+    props: PropTypes.object
+  }
+_tmp_20.component = validateComponentProp
+_tmp_20._fields = PropTypes.object.isRequired
+_tmp_20.props = PropTypes.object

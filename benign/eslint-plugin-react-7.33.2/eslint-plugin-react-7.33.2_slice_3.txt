@@ -1,0 +1,6 @@
+_tmp_20.MemberExpression = MemberExpression
+let scope = context.getScope(node)
+let SFCComponent = components.get(scope.block)
+!SFCComponent && scope.upper && scope.upper !== scope
+SFCComponent = components.get(scope.upper.block)
+scope = scope.upper

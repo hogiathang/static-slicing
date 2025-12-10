@@ -1,0 +1,30 @@
+async sendRequest(httpRequest: WebResource): Promise<HttpOperationResponse> {
+        if (!httpRequest) {
+            throw new Error('StreamingHttpClient.sendRequest(): missing "httpRequest" parameter');
+        }
+        if (!this.server.isConnected) {
+            throw new Error(
+                'StreamingHttpClient.sendRequest(): Streaming connection is disconnected, and the request could not be sent.'
+            );
+        }
+
+        const request = this.mapHttpRequestToProtocolRequest(httpRequest);
+        request.path = request.path.substring(request.path.indexOf('/v3'));
+        const res = await this.server.send(request);
+        return {
+            request: httpRequest,
+            status: res.statusCode,
+            headers: httpRequest.headers,
+            readableStreamBody: res.streams.length > 0 ? res.streams[0].getStream() : undefined,
+        };
+    }
+!httpRequest
+throw new Error('StreamingHttpClient.sendRequest(): missing "httpRequest" parameter');
+!this.server.isConnected
+throw new Error(
+                'StreamingHttpClient.sendRequest(): Streaming connection is disconnected, and the request could not be sent.'
+            );
+"StreamingHttpClient.sendRequest(): Streaming connection is disconnected, and the request could not be sent."
+const request = this.mapHttpRequestToProtocolRequest(httpRequest)
+request.path = request.path.substring(request.path.indexOf('/v3'))
+const res = await this.server.send(request)

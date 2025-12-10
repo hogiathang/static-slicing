@@ -1,0 +1,79 @@
+(function() { // try read
+    var isCooked = !options.hideEchoBack && !options.keyIn,
+      atEol, limit, buffer, reqSize, readSize, chunk, line;
+    rawInput = '';
+
+    // Node.js v0.10- returns an error if same mode is set.
+    function setRawMode(mode) {
+      if (mode === isRawMode) { return true; }
+      if (ttyR.setRawMode(mode) !== 0) { return false; }
+      isRawMode = mode;
+      return true;
+    }
+
+    if (_DBG_useExt || !ttyR ||
+        typeof fdW !== 'number' && (options.display || !isCooked)) {
+      input = tryExt();
+      return;
+    }
+
+    if (options.display) {
+      fs.writeSync(fdW, options.display);
+      options.display = '';
+    }
+    if (options.displayOnly) { return; }
+
+    if (!setRawMode(!isCooked)) {
+      input = tryExt();
+      return;
+    }
+
+    reqSize = options.keyIn ? 1 : options.bufferSize;
+    // Check `allocUnsafe` to make sure of the new API.
+    buffer = Buffer.allocUnsafe && Buffer.alloc ? Buffer.alloc(reqSize) : new Buffer(reqSize);
+
+    if (o...
+var isCooked = !options.hideEchoBack && !options.keyIn
+rawInput = ''
+function setRawMode = function setRawMode(mode) {
+      if (mode === isRawMode) { return true; }
+      if (ttyR.setRawMode(mode) !== 0) { return false; }
+      isRawMode = mode;
+      return true;
+    }
+_DBG_useExt || !ttyR ||
+        typeof fdW !== 'number' && (options.display || !isCooked)
+typeof fdW !== 'number' && (options.display || !isCooked)
+options.display
+fs.writeSync(fdW, options.display)
+options.display = ''
+options.displayOnly
+!setRawMode(!isCooked)
+reqSize = options.keyIn ? 1 : options.bufferSize
+buffer = Buffer.allocUnsafe && Buffer.alloc ? Buffer.alloc(reqSize) : new Buffer(reqSize)
+options.keyIn && options.limit
+limit = new RegExp('[^' + options.limit + ']',
+        'g' + (options.caseSensitive ? '' : 'i'))
+'g' + (options.caseSensitive ? '' : 'i')
+readSize = 0
+readSize = fs.readSync(fdR, buffer, 0, reqSize)
+e.code !== 'EOF'
+readSize > 0
+chunk = buffer.toString(options.encoding, 0, readSize)
+rawInput += chunk
+chunk = '\n'
+rawInput += String.fromCharCode(0)
+chunk && typeof (line = (chunk.match(/^(.*?)[\r\n]/) || [])[1]) === 'string'
+chunk = line
+atEol = true
+chunk = chunk.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '')
+chunk = chunk.replace(limit, '')
+!isCooked
+!options.hideEchoBack
+fs.writeSync(fdW, chunk)
+options.mask
+fs.writeSync(fdW, (new Array(chunk.length + 1)).join(options.mask))
+input += chunk
+!options.keyIn && atEol ||
+        options.keyIn && input.length >= reqSize
+options.keyIn && input.length >= reqSize

@@ -1,0 +1,38 @@
+ConfigChain.prototype.save = function (where, type, cb) {
+  if (typeof type === 'function') cb = type, type = null
+  var target = this.sources[where]
+  if (!target || !(target.path || target.source) || !target.data) {
+    // TODO: maybe save() to a url target could be a PUT or something?
+    // would be easy to swap out with a reddis type thing, too
+    return this.emit('error', new Error('bad save target: '+where))
+  }
+
+  if (target.source) {
+    var pref = target.prefix || ''
+    Object.keys(target.data).forEach(function (k) {
+      target.source[pref + k] = target.data[k]
+    })
+    return this
+  }
+
+  var type = type || target.type
+  var data = target.data
+  if (target.type === 'json') {
+    data = JSON.stringify(data)
+  } else {
+    data = ini.stringify(data)
+  }
+
+  this._saving ++
+  fs.writeFile(target.path, data, 'utf8', function (er) {
+    this._saving --
+    if (er) {
+      if (cb) return cb(er)
+      else return this.emit('error', er)
+    }
+    if (this._saving === 0) {
+   ...
+typeof type === 'function'
+var target = this.sources[where]
+!target || !(target.path || target.source) || !target.data
+this.emit('error', new Error('bad save target: '+where))

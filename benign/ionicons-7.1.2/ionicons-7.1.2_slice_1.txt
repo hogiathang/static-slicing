@@ -1,0 +1,31 @@
+const getSvgContent = (url, sanitize) => {
+  // see if we already have a request for this url
+  let req = requests.get(url);
+  if (!req) {
+    if (typeof fetch !== 'undefined' && typeof document !== 'undefined') {
+      /**
+       * If the url is a data url of an svg, then try to parse it
+       * with the DOMParser. This works with content security policies enabled.
+       */
+      if (isSvgDataUrl(url) && isEncodedDataUrl(url)) {
+        if (!parser) {
+          /**
+           * Create an instance of the DOM parser. This creates a single
+           * parser instance for the entire app, which is more efficient.
+           */
+          parser = new DOMParser();
+        }
+        const doc = parser.parseFromString(url, 'text/html');
+        const svg = doc.querySelector('svg');
+        if (svg) {
+          ioniconContent.set(url, svg.outerHTML);
+        }
+        return Promise.resolve();
+      }
+      else {
+        // we don't already have a request
+        req = fetch(url).then((rsp) =>...
+let req = requests.get(url)
+!req
+typeof fetch !== 'undefined' && typeof document !== 'undefined'
+isSvgDataUrl(url) && isEncodedDataUrl(url)

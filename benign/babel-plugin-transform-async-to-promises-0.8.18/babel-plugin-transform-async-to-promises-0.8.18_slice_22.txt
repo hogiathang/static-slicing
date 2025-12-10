@@ -1,0 +1,23 @@
+function identifiersInForToLengthStatement = function identifiersInForToLengthStatement(statement) {
+        const init = statement.get("init");
+        if (init.isVariableDeclaration() && init.node.declarations.length === 1) {
+            const declaration = init.get("declarations")[0];
+            if (types.isNumericLiteral(declaration.node.init) && declaration.node.init.value === 0) {
+                const i = declaration.node.id;
+                const test = statement.get("test");
+                if (types.isIdentifier(i) &&
+                    test.isBinaryExpression() &&
+                    test.node.operator === "<" &&
+                    types.isIdentifier(test.node.left) &&
+                    test.node.left.name === i.name) {
+                    const right = test.get("right");
+                    if (right.isMemberExpression()) {
+                        const object = right.node.object;
+                        if (types.isIdentifier(object) && propertyNameOfMemberExpression(right.node) === "length") {
+              ...
+const init = statement.get("init")
+init.isVariableDeclaration() && init.node.declarations.length === 1
+const declaration = init.get("declarations")[0]
+types.isNumericLiteral(declaration.node.init) && declaration.node.init.value === 0
+const i = declaration.node.id
+const test = statement.get("test")

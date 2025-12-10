@@ -1,0 +1,69 @@
+function recursiveCopy = function recursiveCopy(value, clone, references, visited, customizer) {
+  const type = (0, _detector.detectType)(value);
+  const copiedValue = (0, _copier.copy)(value, type); // return if not a collection value
+
+  if (!(0, _collection.isCollection)(type)) {
+    return copiedValue;
+  }
+
+  let keys;
+
+  switch (type) {
+    case 'Arguments':
+    case 'Array':
+      keys = Object.keys(value);
+      break;
+
+    case 'Object':
+      keys = Object.keys(value);
+      keys.push(...Object.getOwnPropertySymbols(value));
+      break;
+
+    case 'Map':
+    case 'Set':
+      keys = value.keys();
+      break;
+
+    default:
+  } // walk within collection with iterator
+
+
+  var _iterator = _createForOfIteratorHelper(keys),
+      _step;
+
+  try {
+    for (_iterator.s(); !(_step = _iterator.n()).done;) {
+      let collectionKey = _step.value;
+      const collectionValue = (0, _collection.get)(value, collectionKey, type);
+
+      if (visited.has(collectionValue)) {
+        // for [Circular]
+        (0, _coll...
+const type = (0, _detector.detectType)(value)
+const copiedValue = (0, _copier.copy)(value, type)
+!(0, _collection.isCollection)(type)
+"Arguments"
+"Array"
+keys = Object.keys(value)
+break;
+"Object"
+keys = Object.keys(value)
+keys.push(...Object.getOwnPropertySymbols(value))
+break;
+"Map"
+"Set"
+keys = value.keys()
+break;
+default:
+var _iterator = _createForOfIteratorHelper(keys)
+!(_step = _iterator.n()).done
+let collectionKey = _step.value
+const collectionValue = (0, _collection.get)(value, collectionKey, type)
+visited.has(collectionValue)
+(0, _collection.set)(clone, collectionKey, references.get(collectionValue), type)
+const collectionValueType = (0, _detector.detectType)(collectionValue)
+const copiedCollectionValue = (0, _copier.copy)(collectionValue, collectionValueType)
+(0, _collection.isCollection)(collectionValueType)
+references.set(collectionValue, copiedCollectionValue)
+visited.add(collectionValue)
+(0, _collection.set)(clone, collectionKey, recursiveCopy(collectionValue, copiedCollectionValue, references, visited, customizer), type)

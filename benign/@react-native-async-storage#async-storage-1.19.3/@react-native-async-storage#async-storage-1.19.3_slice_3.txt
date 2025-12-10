@@ -1,0 +1,10 @@
+var TurboModuleRegistry = require("react-native").TurboModuleRegistry
+var shouldFallbackToLegacyNativeModule = require("./shouldFallbackToLegacyNativeModule").shouldFallbackToLegacyNativeModule
+let RCTAsyncStorage = TurboModuleRegistry ? TurboModuleRegistry.get('PlatformLocalStorage') ||
+// Support for external modules, like react-native-windows
+TurboModuleRegistry.get('RNC_AsyncSQLiteDBStorage') || TurboModuleRegistry.get('RNCAsyncStorage') : NativeModules['PlatformLocalStorage'] ||
+// Support for external modules, like react-native-windows
+NativeModules['RNC_AsyncSQLiteDBStorage'] || NativeModules['RNCAsyncStorage']
+NativeModules['PlatformLocalStorage'] ||
+// Support for external modules, like react-native-windows
+NativeModules['RNC_AsyncSQLiteDBStorage'] || NativeModules['RNCAsyncStorage']

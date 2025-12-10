@@ -1,0 +1,26 @@
+function addNxToAngularCliRepo = async function addNxToAngularCliRepo(options) {
+    repoRoot = process.cwd();
+    output_1.output.log({ title: '🧐 Checking versions compatibility' });
+    const legacyMigrationFn = await (0, legacy_angular_versions_1.getLegacyMigrationFunctionIfApplicable)(repoRoot, options);
+    if (legacyMigrationFn) {
+        output_1.output.log({ title: '💽 Running migration for a legacy Angular version' });
+        await legacyMigrationFn();
+        process.exit(0);
+    }
+    output_1.output.success({
+        title: '✅ The Angular version is compatible with the latest version of Nx!',
+    });
+    output_1.output.log({ title: '🐳 Nx initialization' });
+    const cacheableOperations = !options.integrated
+        ? await collectCacheableOperations(options)
+        : [];
+    const useNxCloud = options.nxCloud ?? (options.interactive ? await (0, utils_1.askAboutNxCloud)() : false);
+    output_1.output.log({ title: '📦 Installing dependencies' });
+    installDependencies(useNxCloud);
+    output_1.ou...
+repoRoot = process.cwd()
+output_1.output.log({ title: '🧐 Checking versions compatibility' })
+const legacyMigrationFn = await (0, legacy_angular_versions_1.getLegacyMigrationFunctionIfApplicable)(repoRoot, options)
+output_1.output.log({ title: '💽 Running migration for a legacy Angular version' })
+await legacyMigrationFn()
+process.exit(0)

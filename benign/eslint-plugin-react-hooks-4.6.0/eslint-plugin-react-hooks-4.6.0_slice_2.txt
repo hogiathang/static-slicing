@@ -1,0 +1,34 @@
+function markAllParentsByPath = function markAllParentsByPath(rootNode, path, fn) {
+    var keys = path.split('.');
+    var node = rootNode;
+
+    var _iterator4 = _createForOfIteratorHelper(keys),
+        _step4;
+
+    try {
+      for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+        var key = _step4.value;
+        var child = node.children.get(key);
+
+        if (!child) {
+          return;
+        }
+
+        fn(child);
+        node = child;
+      }
+    } catch (err) {
+      _iterator4.e(err);
+    } finally {
+      _iterator4.f();
+    }
+  }
+var keys = path.split('.')
+var node = rootNode
+var _iterator4 = _createForOfIteratorHelper(keys)
+!(_step4 = _iterator4.n()).done
+var key = _step4.value
+var child = node.children.get(key)
+!child
+fn(child)
+node = child

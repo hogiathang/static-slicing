@@ -1,0 +1,27 @@
+exports[key] = function (cb) {
+    var val = lookup()
+    if (!val && !fell && !falling && fallback) {
+      fell = true
+      falling = true
+      exec(fallback, function (er, output, stderr) {
+        falling = false
+        if (er) return // oh well, we tried
+        val = output.trim()
+      })
+    }
+    exports[key] = function (cb) {
+      if (cb) process.nextTick(cb.bind(null, null, val))
+      return val
+    }
+    if (cb && !falling) process.nextTick(cb.bind(null, null, val))
+    return val
+  }
+var val = lookup()
+!val && !fell && !falling && fallback
+fell = true
+falling = true
+exec(fallback, function (er, output, stderr) {
+        falling = false
+        if (er) return // oh well, we tried
+        val = output.trim()
+      })

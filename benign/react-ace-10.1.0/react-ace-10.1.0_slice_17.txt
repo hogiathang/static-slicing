@@ -1,0 +1,66 @@
+split.forEach((editor: IAceEditorClass, index: number) => {
+      for (let i = 0; i < editorProps.length; i++) {
+        editor[editorProps[i]] = this.props.editorProps[editorProps[i]];
+      }
+      const defaultValueForEditor = get(defaultValue, index);
+      const valueForEditor = get(value, index, "");
+      editor.session.setUndoManager(new ace.UndoManager());
+      editor.setTheme(`ace/theme/${theme}`);
+      editor.renderer.setScrollMargin(
+        scrollMargin[0],
+        scrollMargin[1],
+        scrollMargin[2],
+        scrollMargin[3]
+      );
+      editor.getSession().setMode(`ace/mode/${mode}`);
+      editor.setFontSize(fontSize as any);
+      editor.renderer.setShowGutter(showGutter);
+      editor.getSession().setUseWrapMode(wrapEnabled);
+      editor.setShowPrintMargin(showPrintMargin);
+      editor.on("focus", this.onFocus);
+      editor.on("blur", this.onBlur);
+      editor.on("input" as any, this.onInput);
+      editor.on("copy", this.onCopy as any);
+      editor.on...
+i < editorProps.length
+editor[editorProps[i]] = this.props.editorProps[editorProps[i]]
+const defaultValueForEditor = get(defaultValue, index)
+const valueForEditor = get(value, index, "")
+editor.session.setUndoManager(new ace.UndoManager())
+<operator>.formatString("ace/theme/", theme, "")
+editor.renderer.setScrollMargin(
+        scrollMargin[0],
+        scrollMargin[1],
+        scrollMargin[2],
+        scrollMargin[3]
+      )
+scrollMargin[0]
+scrollMargin[1]
+scrollMargin[2]
+scrollMargin[3]
+editor.getSession().setMode(`ace/mode/${mode}`)
+editor.setFontSize(fontSize as any)
+editor.renderer.setShowGutter(showGutter)
+editor.getSession().setUseWrapMode(wrapEnabled)
+editor.setShowPrintMargin(showPrintMargin)
+editor.on("focus", this.onFocus)
+editor.on("blur", this.onBlur)
+editor.on("input" as any, this.onInput)
+editor.on("copy", this.onCopy as any)
+editor.on("paste", this.onPaste as any)
+editor.on("change", this.onChange)
+editor
+        .getSession()
+        .selection.on("changeSelection", this.onSelectionChange)
+getSession
+this.onSelectionChange
+editor.getSession().selection.on("changeCursor", this.onCursorChange)
+editor.session.on("changeScrollTop", this.onScroll)
+editor.setValue(
+        defaultValueForEditor === undefined
+          ? valueForEditor
+          : defaultValueForEditor,
+        cursorStart
+      )
+defaultValueForEditor === undefined ? valueForEditor : defaultValueForEditor
+const newAnnotations = get(annotations, index, [])

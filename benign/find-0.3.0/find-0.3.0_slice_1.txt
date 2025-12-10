@@ -1,0 +1,6 @@
+var handleFile = function() {
+            if (type == 'file') action(dir);
+            process.nextTick(function() { chain.next() });
+          }
+type == 'file'
+process.nextTick(function() { chain.next() })

@@ -1,0 +1,48 @@
+const send = (
+  res: ServerResponse,
+  code: number,
+  obj: unknown = null,
+) => {
+  res.statusCode = code;
+
+  if (obj === null) {
+    res.end();
+    return;
+  }
+
+  if (Buffer.isBuffer(obj)) {
+    if (!res.getHeader('Content-Type')) {
+      res.setHeader('Content-Type', 'application/octet-stream');
+    }
+
+    res.setHeader('Content-Length', obj.length);
+    res.end(obj);
+    return;
+  }
+
+  if (obj instanceof Stream || readable(obj)) {
+    //TODO: Wouldn't (obj instanceof Stream) be the only check here? Do we specifically need a Readable stream or a Stream object that's not of NodeJS Stream?
+    if (!res.getHeader('Content-Type')) {
+      res.setHeader('Content-Type', 'application/octet-stream');
+    }
+
+    obj.pipe(res);
+    return;
+  }
+
+  let str = obj;
+
+  if (typeof obj === 'object' || typeof obj === 'number') {
+    // We stringify before setting the header
+    // in case `JSON.stringify` throws and a
+    // 500 has to be sent instead
+    str = JSON.stringify(obj);
+
+    if (!res.getHea...
+obj = obj === void 0 ? null : obj
+res.statusCode = code
+obj === null
+Buffer.isBuffer(obj)
+obj instanceof Stream || readable(obj)
+let str = obj
+typeof obj === 'object' || typeof obj === 'number'

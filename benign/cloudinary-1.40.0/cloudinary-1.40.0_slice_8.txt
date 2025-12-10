@@ -1,0 +1,9 @@
+static generateCacheKey(publicId, type, resourceType, transformation, format) {
+    type = type || "upload";
+    resourceType = resourceType || "image";
+    let sha1 = crypto.createHash('sha1');
+    return sha1.update([publicId, type, resourceType, transformation, format].filter(i => i).join('/')).digest('hex');
+  }
+type = type || "upload"
+resourceType = resourceType || "image"
+let sha1 = crypto.createHash('sha1')

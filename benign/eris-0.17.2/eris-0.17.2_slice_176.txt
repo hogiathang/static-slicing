@@ -1,0 +1,36 @@
+process(type, info) {
+        if(type === TAG_TYPE_TAG) {
+            if(info.name === "SimpleBlock" && (info.data.readUInt8(0) & 0xF) === this.firstAudioTrack.TrackNumber) {
+                this.push(info.data.subarray(4));
+                return;
+            }
+            if(info.name === "CodecPrivate") {
+                const head = info.data.toString("utf8", 0, 8);
+                if(head !== "OpusHead") {
+                    this.emit("error", new Error("Invalid codec: " + head));
+                    return;
+                }
+
+                this.codecData = {
+                    version: info.data.readUInt8(8),
+                    channelCount: info.data.readUInt8(9),
+                    preSkip: info.data.readUInt16LE(10),
+                    inputSampleRate: info.data.readUInt32LE(12),
+                    outputGain: info.data.readUInt16LE(16),
+                    mappingFamily: info.data.readUInt8(18)
+                };
+                return;
+            }
+        }
+
+   ...
+type === TAG_TYPE_TAG
+info.name === "SimpleBlock" && (info.data.readUInt8(0) & 0xF) === this.firstAudioTrack.TrackNumber
+info.name === "CodecPrivate"
+!this.firstAudioTrack
+info.name === "TrackEntry"
+this.parsingTrack
+info.name === "TrackNumber"
+info.name === "TrackType"
+type === TAG_TYPE_END && info.name === "Tracks"
+this.emit("error", new Error("No audio track"))

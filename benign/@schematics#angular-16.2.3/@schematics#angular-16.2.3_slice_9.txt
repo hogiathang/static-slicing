@@ -1,0 +1,27 @@
+async (host, context) => {
+        const workspace = await (0, utility_1.readWorkspace)(host);
+        const project = workspace.projects.get(options.project);
+        if (!project) {
+            throw new schematics_1.SchematicsException(`Invalid project name (${options.project})`);
+        }
+        if (project.extensions.projectType !== 'application') {
+            throw new schematics_1.SchematicsException(`Service worker requires a project type of "application".`);
+        }
+        const buildTarget = project.targets.get('build');
+        if (!buildTarget) {
+            throw (0, project_targets_1.targetBuildNotFoundError)();
+        }
+        const buildOptions = (buildTarget.options || {});
+        const root = project.root;
+        buildOptions.serviceWorker = true;
+        buildOptions.ngswConfigPath = (0, core_1.join)((0, core_1.normalize)(root), 'ngsw-config.json');
+        let { resourcesOutputPath = '' } = buildOptions;
+        if (resourcesOutputPath) {
+            re...
+const workspace = await (0, utility_1.readWorkspace)(host)
+const project = workspace.projects.get(options.project)
+!project
+throw new schematics_1.SchematicsException(`Invalid project name (${options.project})`);
+project.extensions.projectType !== 'application'
+throw new schematics_1.SchematicsException(`Service worker requires a project type of "application".`);
+const buildTarget = project.targets.get('build')

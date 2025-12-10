@@ -1,0 +1,9 @@
+_tmp_1.moveSync = <lambda>35
+!isMoveTargetValidSync(source, target)
+error = new Error("'" + target + "' already exists.")
+error.code = 'EEXIST'
+throw error;
+targetParentPath = path.dirname(target)
+!fs.existsSync(targetParentPath)
+fsPlus.makeTreeSync(targetParentPath)
+fs.renameSync(source, target)

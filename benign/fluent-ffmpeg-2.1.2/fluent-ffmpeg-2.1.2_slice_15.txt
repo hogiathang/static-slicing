@@ -1,0 +1,25 @@
+proto.stream = function(stream, options) {
+    if (stream && !('writable' in stream)) {
+      options = stream;
+      stream = undefined;
+    }
+
+    if (!stream) {
+      if (process.version.match(/v0\.8\./)) {
+        throw new Error('PassThrough stream is not supported on node v0.8');
+      }
+
+      stream = new PassThrough();
+    }
+
+    this.output(stream, options).run();
+    return stream;
+  }
+stream && !('writable' in stream)
+options = stream
+stream = undefined
+!stream
+process.version.match(/v0\.8\./)
+throw new Error('PassThrough stream is not supported on node v0.8');
+stream = new PassThrough()
+(_tmp_4 = this.output(stream, options)).run

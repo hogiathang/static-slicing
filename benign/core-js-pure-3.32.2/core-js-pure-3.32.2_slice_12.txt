@@ -1,0 +1,7 @@
+_tmp_1.update = update
+var map = aMap(this)
+var length = arguments.length
+aCallable(callback)
+var isPresentInMap = has(map, key)
+!isPresentInMap && length < 3
+throw $TypeError('Updating absent value');

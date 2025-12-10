@@ -1,0 +1,40 @@
+getFirstSupportedPlatform = _tmp_0.getFirstSupportedPlatform
+const parseArgs = require('minimist')
+const compilerFlags = parseArgs(process.argv.slice(2))
+compilerFlags.hasOwnProperty('platform')
+platform = getFirstSupportedPlatform(compilerFlags.platform.split(','))
+delete compilerFlags.platform
+platform = getFirstSupportedPlatform(['native', 'java'])
+compilerFlags.hasOwnProperty('_') && compilerFlags['_'].length > 0
+let existingJsFlags = []
+compilerFlags.js
+Array.isArray(compilerFlags.js)
+existingJsFlags = compilerFlags.js
+existingJsFlags = [compilerFlags.js]
+compilerFlags.js = existingJsFlags.concat(compilerFlags['_'])
+delete compilerFlags['_']
+delete compilerFlags['_']
+Object.keys(compilerFlags).forEach((flag) => {
+  if (compilerFlags[flag] === 'true') {
+    compilerFlags[flag] = true;
+  } else if (compilerFlags[flag] === 'false') {
+    compilerFlags[flag] = false;
+  }
+})
+const Compiler = require('./lib/node/closure-compiler')
+let args = process.argv.slice(2)
+i < args.length
+(_tmp_7 = /^--platform/).test
+let delCount = 1
+args[i].indexOf('=') < 0 && args.length > i + 1
+delCount++
+args.splice(i, delCount)
+break;
+const compiler = new Compiler(args)
+compiler.spawnOptions = {stdio: 'inherit'}
+platform === 'native'
+compiler.JAR_PATH = null
+compiler.javaPath = getNativeImagePath()
+compiler.run((exitCode) => {
+  process.exitCode = exitCode;
+})

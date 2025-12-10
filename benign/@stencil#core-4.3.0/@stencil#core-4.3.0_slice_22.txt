@@ -1,0 +1,22 @@
+entries() {
+    const entries = [];
+    for (const kv of this.keys()) {
+      entries.push([kv, this.get(kv)]);
+    }
+    let index = -1;
+    return {
+      next() {
+        index++;
+        return {
+          value: entries[index],
+          done: !entries[index],
+        };
+      },
+      [Symbol.iterator]() {
+        return this;
+      },
+    };
+  }
+__ecma.Array.factory()
+_iterator_9 = <operator>.iterator(this.keys())
+_tmp_1166 = __ecma.Array.factory()

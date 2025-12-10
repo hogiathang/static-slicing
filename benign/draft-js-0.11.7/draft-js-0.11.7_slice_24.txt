@@ -1,0 +1,16 @@
+var replaceParentChild = function replaceParentChild(blockMap, parentKey, existingChildKey, newChildKey) {
+  var parent = blockMap.get(parentKey);
+  var newChild = blockMap.get(newChildKey);
+  !(parent != null && newChild != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'parent & child should exist in the block map') : invariant(false) : void 0;
+  var existingChildren = parent.getChildKeys();
+  var newBlocks = {};
+  newBlocks[parentKey] = parent.merge({
+    children: existingChildren.set(existingChildren.indexOf(existingChildKey), newChildKey)
+  });
+  newBlocks[newChildKey] = newChild.merge({
+    parent: parentKey
+  });
+  return blockMap.merge(newBlocks);
+}
+var parent = blockMap.get(parentKey)
+var newChild = blockMap.get(newChildKey)

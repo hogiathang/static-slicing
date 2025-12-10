@@ -1,0 +1,18 @@
+function getPackageJsonDependency = function getPackageJsonDependency(tree, name, pkgJsonPath = PKG_JSON_PATH) {
+    const json = new json_file_1.JSONFile(tree, pkgJsonPath);
+    for (const depType of ALL_DEPENDENCY_TYPE) {
+        const version = json.get([depType, name]);
+        if (typeof version === 'string') {
+            return {
+                type: depType,
+                name: name,
+                version,
+            };
+        }
+    }
+    return null;
+}
+const json = new json_file_1.JSONFile(tree, pkgJsonPath)
+_iterator_1 = <operator>.iterator(ALL_DEPENDENCY_TYPE)
+const version = json.get([depType, name])
+typeof version === 'string'

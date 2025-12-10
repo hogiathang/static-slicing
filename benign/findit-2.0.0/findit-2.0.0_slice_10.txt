@@ -1,0 +1,30 @@
+function onstat = function onstat (file, stat, original) {
+        if (emitter._seen[stat.ino || file]) return check();
+        emitter._seen[stat.ino || file] = true;
+        
+        if (stat.isDirectory()) {
+            if (original) opts._original = original;
+            walk(file, opts, emitter, stat);
+            check();
+        }
+        else if (stat.isSymbolicLink() && opts.followSymlinks) {
+            emitter.emit('link', file, stat);
+            
+            fs.readlink(file, function (err, rfile) {
+                if (emitter._stopped) return;
+                if (err) {
+                    if (!err.path) err.path = file;
+                    emitter.emit('error', err);
+                    return check();
+                }
+                var file_ = path.resolve(path.dirname(file), rfile);
+                
+                emitter.emit('readlink', file, file_);
+                emitter._pending ++;
+                fs.lstat(file_, function (err, stat_) {
+                    emitter._pending...
+emitter._seen[stat.ino || file]
+emitter._seen[stat.ino || file] = true
+stat.isDirectory()
+stat.isSymbolicLink() && opts.followSymlinks
+emitter.emit('link', file, stat)

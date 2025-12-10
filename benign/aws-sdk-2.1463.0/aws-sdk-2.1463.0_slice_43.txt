@@ -1,0 +1,24 @@
+_tmp_3.reqRegionForNetworkingError = reqRegionForNetworkingError
+(_tmp_83 = AWS.util).isBrowser
+var error = resp.error
+var request = resp.request
+var bucket = request.params.Bucket
+!error || error.code !== 'NetworkingError' || !bucket ||
+        request.httpRequest.region === 'us-east-1'
+request.httpRequest.region === 'us-east-1'
+var service = request.service
+var bucketRegionCache = service.bucketRegionCache
+var cachedRegion = bucketRegionCache[bucket] || null
+cachedRegion && cachedRegion !== request.httpRequest.region
+!s3util.dnsCompatibleBucketName(bucket)
+request.httpRequest.virtualHostedBucket
+var getRegionReq = service.listObjects({Bucket: bucket, MaxKeys: 0})
+service.updateReqBucketRegion(getRegionReq, 'us-east-1')
+getRegionReq._requestRegionForBucket = bucket
+getRegionReq.send(function() {
+        var region = service.bucketRegionCache[bucket] || null;
+        if (region && region !== request.httpRequest.region) {
+          service.updateReqBucketRegion(request, region);
+        }
+        done();
+      })

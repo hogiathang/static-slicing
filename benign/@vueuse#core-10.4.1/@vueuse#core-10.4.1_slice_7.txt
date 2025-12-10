@@ -1,0 +1,8 @@
+function request = async function request(type) {
+      if (!isSupported.value)
+        return;
+      wakeLock = await navigator.wakeLock.request(type);
+      isActive.value = !wakeLock.released;
+    }
+!isSupported.value
+wakeLock = await navigator.wakeLock.request(type)

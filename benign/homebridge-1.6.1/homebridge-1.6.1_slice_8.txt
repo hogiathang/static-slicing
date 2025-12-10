@@ -1,0 +1,8 @@
+const callback = (port) => {
+                clearTimeout(requestTimeout);
+                resolve(port);
+                this.portRequestCallback.delete(username);
+            }
+clearTimeout(requestTimeout)
+resolve(port)
+(_tmp_39 = this.portRequestCallback).delete

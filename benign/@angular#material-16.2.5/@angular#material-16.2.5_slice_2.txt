@@ -1,0 +1,20 @@
+addHandler(ngZone, name, element, handler) {
+        const handlersForEvent = this._events.get(name);
+        if (handlersForEvent) {
+            const handlersForElement = handlersForEvent.get(element);
+            if (handlersForElement) {
+                handlersForElement.add(handler);
+            }
+            else {
+                handlersForEvent.set(element, new Set([handler]));
+            }
+        }
+        else {
+            this._events.set(name, new Map([[element, new Set([handler])]]));
+            ngZone.runOutsideAngular(() => {
+                document.addEventListener(name, this._delegateEventHandler, passiveCapturingEventOptions);
+            });
+        }
+    }
+const handlersForEvent = this._events.get(name)
+const handlersForElement = handlersForEvent.get(element)

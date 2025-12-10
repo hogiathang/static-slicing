@@ -1,0 +1,40 @@
+var moveChildUp = function moveChildUp(blockMap, key) {
+  verifyTree(blockMap);
+  var block = blockMap.get(key);
+  !(block != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must exist in block map') : invariant(false) : void 0; // if there is no parent, do nothing
+
+  var parentKey = block.getParentKey();
+
+  if (parentKey == null) {
+    return blockMap;
+  }
+
+  var parent = blockMap.get(parentKey);
+  !(parent !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'parent must exist in block map') : invariant(false) : void 0;
+  var newBlockMap = blockMap;
+  var childIndex = parent.getChildKeys().indexOf(key);
+  !(childIndex === 0 || childIndex === parent.getChildKeys().count() - 1) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block is not first or last child of its parent') : invariant(false) : void 0; // If it's the first child, move as previous sibling of parent
+
+  if (childIndex === 0) {
+    var parentPrevSibling = parent.getPrevSibl...
+verifyTree(blockMap)
+var block = blockMap.get(key)
+!(block != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must exist in block map') : invariant(false) : void 0
+var parentKey = block.getParentKey()
+parentKey == null
+var parent = blockMap.get(parentKey)
+!(parent !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'parent must exist in block map') : invariant(false) : void 0
+var newBlockMap = blockMap
+var childIndex = parent.getChildKeys().indexOf(key)
+!(childIndex === 0 || childIndex === parent.getChildKeys().count() - 1) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block is not first or last child of its parent') : invariant(false) : void 0
+childIndex === 0
+var parentPrevSibling = parent.getPrevSiblingKey()
+newBlockMap = updateSibling(newBlockMap, key, parentKey)
+parentPrevSibling != null
+newBlockMap = updateSibling(newBlockMap, parentPrevSibling, key)
+parent = newBlockMap.get(parentKey)
+newBlockMap = newBlockMap.set(parentKey, parent.merge({
+      children: parent.getChildKeys().slice(1)
+    }))
+_tmp_35.children = parent.getChildKeys().slice(1)
+parent = newBlockMap.get(parentKey)

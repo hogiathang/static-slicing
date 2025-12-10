@@ -1,0 +1,34 @@
+Queue.prototype.getMetrics = async function(type, start = 0, end = -1) {
+    const metricsKey = this.toKey(`metrics:${type}`);
+    const dataKey = `${metricsKey}:data`;
+
+    const multi = this.multi();
+    multi.hmget(metricsKey, 'count', 'prevTS', 'prevCount');
+    multi.lrange(dataKey, start, end);
+    multi.llen(dataKey);
+
+    const [hmget, range, len] = await multi.exec();
+    const [err, [count, prevTS, prevCount]] = hmget;
+    const [err2, data] = range;
+    const [err3, numPoints] = len;
+    if (err || err2) {
+      throw err || err2 || err3;
+    }
+
+    return {
+      meta: {
+        count: parseInt(count || '0', 10),
+        prevTS: parseInt(prevTS || '0', 10),
+        prevCount: parseInt(prevCount || '0', 10)
+      },
+      data,
+      count: numPoints
+    };
+  }
+const metricsKey = this.toKey(`metrics:${type}`)
+<operator>.formatString("", metricsKey, ":data")
+const multi = this.multi()
+multi.hmget(metricsKey, 'count', 'prevTS', 'prevCount')
+multi.lrange(dataKey, start, end)
+multi.llen(dataKey)
+_tmp_20 = await multi.exec()

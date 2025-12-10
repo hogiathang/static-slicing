@@ -1,0 +1,40 @@
+function getConditionalAnnotation = function getConditionalAnnotation(binding, path, name) {
+  const ifStatement = getParentConditionalPath(binding, path, name);
+  if (!ifStatement) return;
+  const test = ifStatement.get("test");
+  const paths = [test];
+  const types = [];
+  for (let i = 0; i < paths.length; i++) {
+    const path = paths[i];
+    if (path.isLogicalExpression()) {
+      if (path.node.operator === "&&") {
+        paths.push(path.get("left"));
+        paths.push(path.get("right"));
+      }
+    } else if (path.isBinaryExpression()) {
+      const type = inferAnnotationFromBinaryExpression(name, path);
+      if (type) types.push(type);
+    }
+  }
+  if (types.length) {
+    return {
+      typeAnnotation: (0, _util.createUnionType)(types),
+      ifStatement
+    };
+  }
+  return getConditionalAnnotation(binding, ifStatement, name);
+}
+const ifStatement = getParentConditionalPath(binding, path, name)
+!ifStatement
+const test = ifStatement.get("test")
+_tmp_11 = __ecma.Array.factory()
+__ecma.Array.factory()
+i < paths.length
+const path = paths[i]
+path.isLogicalExpression()
+path.node.operator === "&&"
+paths.push(path.get("left"))
+paths.push(path.get("right"))
+path.isBinaryExpression()
+const type = inferAnnotationFromBinaryExpression(name, path)
+types.push(type)

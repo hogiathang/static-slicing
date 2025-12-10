@@ -1,0 +1,20 @@
+const copySymlinkSync = (from, to) => {
+  const symlinkPointsAt = fs.readlinkSync(from);
+  try {
+    fs.symlinkSync(symlinkPointsAt, to);
+  } catch (err) {
+    // There is already file/symlink with this name on destination location.
+    // Must erase it manually, otherwise system won't allow us to place symlink there.
+    if (err.code === "EEXIST") {
+      fs.unlinkSync(to);
+      // Retry...
+      fs.symlinkSync(symlinkPointsAt, to);
+    } else {
+      throw err;
+    }
+  }
+}
+const symlinkPointsAt = fs.readlinkSync(from)
+fs.symlinkSync(symlinkPointsAt, to)
+err.code === "EEXIST"
+fs.unlinkSync(to)

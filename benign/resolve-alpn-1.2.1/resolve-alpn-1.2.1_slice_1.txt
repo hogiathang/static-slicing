@@ -1,0 +1,25 @@
+const callback = async () => {
+		await socketPromise;
+
+		socket.off('timeout', onTimeout);
+		socket.off('error', reject);
+
+		if (options.resolveSocket) {
+			resolve({alpnProtocol: socket.alpnProtocol, socket, timeout});
+
+			if (timeout) {
+				await Promise.resolve();
+				socket.emit('timeout');
+			}
+		} else {
+			socket.destroy();
+			resolve({alpnProtocol: socket.alpnProtocol, timeout});
+		}
+	}
+await socketPromise
+socket.off('timeout', onTimeout)
+socket.off('error', reject)
+options.resolveSocket
+resolve({alpnProtocol: socket.alpnProtocol, socket, timeout})
+await Promise.resolve()
+socket.emit('timeout')

@@ -1,0 +1,37 @@
+(function again(scripts) {
+    if (!scripts.length) return hooked.exit(0);
+
+    var script = scripts.shift();
+
+    //
+    // There's a reason on why we're using an async `spawn` here instead of the
+    // `shelljs.exec`. The sync `exec` is a hack that writes writes a file to
+    // disk and they poll with sync fs calls to see for results. The problem is
+    // that the way they capture the output which us using input redirection and
+    // this doesn't have the required `isAtty` information that libraries use to
+    // output colors resulting in script output that doesn't have any color.
+    //
+    spawn(hooked.npm, ['run', script, '--silent'], {
+      env: process.env,
+      cwd: hooked.root,
+      stdio: [0, 1, 2]
+    }).once('close', function closed(code) {
+      if (code) return hooked.log(hooked.format(Hook.log.failure, script, code));
+
+      again(scripts);
+    });
+  })(hooked.config.run.slice(0))
+!scripts.length
+var script = scripts.shift()
+spawn(hooked.npm, ['run', script, '--silent'], {
+      env: process.env,
+      cwd: hooked.root,
+      stdio: [0, 1, 2]
+    }).once('close', function closed(code) {
+      if (code) return hooked.log(hooked.format(Hook.log.failure, script, code));
+
+      again(scripts);
+    })
+_tmp_23.env = process.env
+_tmp_23.cwd = hooked.root
+_tmp_24 = __ecma.Array.factory()

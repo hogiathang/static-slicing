@@ -1,0 +1,14 @@
+function addPackageVersion = function addPackageVersion(packageName, version, collection, isBerry) {
+    if (!collection.has(packageName)) {
+        collection.set(packageName, new Set());
+    }
+    collection.get(packageName).add(`${packageName}@${version}`);
+    if (isBerry && !version.startsWith('npm:')) {
+        collection.get(packageName).add(`${packageName}@npm:${version}`);
+    }
+}
+!collection.has(packageName)
+collection.set(packageName, new Set())
+collection.get(packageName).add(`${packageName}@${version}`)
+isBerry && !version.startsWith('npm:')
+collection.get(packageName).add(`${packageName}@npm:${version}`)

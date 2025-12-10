@@ -1,0 +1,14 @@
+function unknownOption = function unknownOption(flag, type = 'option') {
+  if (this._allowUnknownOption) return;
+  logger.error();
+  logger.error(`  error: unknown ${type}:`, flag);
+  logger.error();
+  this.outputHelp();
+  util.exit(1);
+}
+this._allowUnknownOption
+logger.error()
+<operator>.formatString("  error: unknown ", type, ":")
+logger.error()
+this.outputHelp()
+util.exit(1)

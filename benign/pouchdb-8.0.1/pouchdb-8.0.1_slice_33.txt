@@ -1,0 +1,25 @@
+Pouch.on('unref', function onConstructorUnref(db) {
+    if (!destructListeners.has(db.name)) {
+      return;
+    }
+    var dbList = destructListeners.get(db.name);
+    var pos = dbList.indexOf(db);
+    if (pos < 0) {
+      /* istanbul ignore next */
+      return;
+    }
+    dbList.splice(pos, 1);
+    if (dbList.length > 1) {
+      /* istanbul ignore next */
+      destructListeners.set(db.name, dbList);
+    } else {
+      destructListeners.delete(db.name);
+    }
+  })
+!destructListeners.has(db.name)
+var dbList = destructListeners.get(db.name)
+var pos = dbList.indexOf(db)
+pos < 0
+dbList.splice(pos, 1)
+dbList.length > 1
+destructListeners.delete(db.name)

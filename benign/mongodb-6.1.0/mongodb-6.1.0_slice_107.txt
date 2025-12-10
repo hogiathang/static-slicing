@@ -1,0 +1,73 @@
+function measureRoundTripTime = function measureRoundTripTime(rttPinger: RTTPinger, options: RTTPingerOptions) {
+  const start = now();
+  options.cancellationToken = rttPinger[kCancellationToken];
+  const heartbeatFrequencyMS = options.heartbeatFrequencyMS;
+
+  if (rttPinger.closed) {
+    return;
+  }
+
+  function measureAndReschedule(conn?: Connection) {
+    if (rttPinger.closed) {
+      conn?.destroy({ force: true });
+      return;
+    }
+
+    if (rttPinger[kConnection] == null) {
+      rttPinger[kConnection] = conn;
+    }
+
+    rttPinger[kRoundTripTime] = calculateDurationInMs(start);
+    rttPinger[kMonitorId] = setTimeout(
+      () => measureRoundTripTime(rttPinger, options),
+      heartbeatFrequencyMS
+    );
+  }
+
+  const connection = rttPinger[kConnection];
+  if (connection == null) {
+    connect(options, (err, conn) => {
+      if (err) {
+        rttPinger[kConnection] = undefined;
+        rttPinger[kRoundTripTime] = 0;
+        return;
+      }
+
+      measureAndReschedule(conn);
+    });
+
+    return;
+  }
+
+  connecti...
+const start = now()
+options.cancellationToken = rttPinger[kCancellationToken]
+const heartbeatFrequencyMS = options.heartbeatFrequencyMS
+rttPinger.closed
+function measureAndReschedule = function measureAndReschedule(conn?: Connection) {
+    if (rttPinger.closed) {
+      conn?.destroy({ force: true });
+      return;
+    }
+
+    if (rttPinger[kConnection] == null) {
+      rttPinger[kConnection] = conn;
+    }
+
+    rttPinger[kRoundTripTime] = calculateDurationInMs(start);
+    rttPinger[kMonitorId] = setTimeout(
+      () => measureRoundTripTime(rttPinger, options),
+      heartbeatFrequencyMS
+    );
+  }
+const connection = rttPinger[kConnection]
+connection == null
+connect(options, (err, conn) => {
+      if (err) {
+        rttPinger[kConnection] = undefined;
+        rttPinger[kRoundTripTime] = 0;
+        return;
+      }
+
+      measureAndReschedule(conn);
+    })

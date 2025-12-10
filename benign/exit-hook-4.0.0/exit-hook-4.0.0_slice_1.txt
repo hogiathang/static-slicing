@@ -1,0 +1,67 @@
+function exit = async function exit(shouldManuallyExit, isSynchronous, signal) {
+	if (isCalled) {
+		return;
+	}
+
+	isCalled = true;
+
+	if (asyncCallbacks.size > 0 && isSynchronous) {
+		console.error([
+			'SYNCHRONOUS TERMINATION NOTICE:',
+			'When explicitly exiting the process via process.exit or via a parent process,',
+			'asynchronous tasks in your exitHooks will not run. Either remove these tasks,',
+			'use gracefulExit() instead of process.exit(), or ensure your parent process',
+			'sends a SIGINT to the process running this code.',
+		].join(' '));
+	}
+
+	const exitCode = 128 + signal;
+
+	const done = (force = false) => {
+		if (force === true || shouldManuallyExit === true) {
+			process.exit(exitCode); // eslint-disable-line unicorn/no-process-exit
+		}
+	};
+
+	for (const callback of callbacks) {
+		callback(exitCode);
+	}
+
+	if (isSynchronous) {
+		done();
+		return;
+	}
+
+	const promises = [];
+	let forceAfter = 0;
+	for (const [callback, wait] of asyncCallbacks) {
+		forceAfter = Math.max(forceAfter, wait);
+	...
+isCalled = true
+asyncCallbacks.size > 0 && isSynchronous
+console.error([
+			'SYNCHRONOUS TERMINATION NOTICE:',
+			'When explicitly exiting the process via process.exit or via a parent process,',
+			'asynchronous tasks in your exitHooks will not run. Either remove these tasks,',
+			'use gracefulExit() instead of process.exit(), or ensure your parent process',
+			'sends a SIGINT to the process running this code.',
+		].join(' '))
+_tmp_1.push("SYNCHRONOUS TERMINATION NOTICE:")
+_tmp_1.push("When explicitly exiting the process via process.exit or via a parent process,")
+_tmp_1.push("asynchronous tasks in your exitHooks will not run. Either remove these tasks,")
+_tmp_1.push("use gracefulExit() instead of process.exit(), or ensure your parent process")
+_tmp_1.push("sends a SIGINT to the process running this code.")
+join
+const exitCode = 128 + signal
+const done = (force = false) => {
+		if (force === true || shouldManuallyExit === true) {
+			process.exit(exitCode); // eslint-disable-line unicorn/no-process-exit
+		}
+	}
+_iterator_0 = <operator>.iterator(callbacks)
+callback(exitCode)
+__ecma.Array.factory()
+let forceAfter = 0
+_iterator_1 = <operator>.iterator(asyncCallbacks)
+forceAfter = Math.max(forceAfter, wait)
+promises.push(Promise.resolve(callback(exitCode)))

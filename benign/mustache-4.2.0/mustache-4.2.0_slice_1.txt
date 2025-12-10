@@ -1,0 +1,10 @@
+Writer.prototype.escapedValue = function escapedValue (token, context, config) {
+    var escape = this.getConfigEscape(config) || mustache.escape;
+    var value = context.lookup(token[1]);
+    if (value != null)
+      return (typeof value === 'number' && escape === mustache.escape) ? String(value) : escape(value);
+  }
+var escape = this.getConfigEscape(config) || mustache.escape
+var value = context.lookup(token[1])
+value != null
+typeof value === 'number' && escape === mustache.escape ? String(value) : escape(value)

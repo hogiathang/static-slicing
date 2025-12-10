@@ -1,0 +1,54 @@
+var integrateOpenAPI = function integrateOpenAPI(dir, name, url, patch, callback) {
+  function finish(body) {
+    if (patch) patch(body);
+    for (var _path in body.paths) {
+      for (var method in body.paths[_path]) {
+        var op = body.paths[_path][method];
+        op.operationId = openapiUtil.getOperationId(method, _path, op);
+      }
+    }
+    addIntegration(dir, name, 'openapi', body, callback);
+  }
+
+  if (fs.existsSync(url)) {
+    var content = fs.readFileSync(url);
+    if (url.endsWith('.json')) {
+      content = JSON.parse(content);
+    } else {
+      content = YAML.parse(content);
+    }
+    finish(content);
+  } else {
+    request.get(url, function (err, resp, body) {
+      if (err) return callback(err);
+      resp.headers['content-type'] = resp.headers['content-type'] || '';
+      if (resp.headers['content-type'].indexOf('yaml') !== -1) {
+        body = YAML.parse(body);
+      } else {
+        body = JSON.parse(body);
+      }
+      finish(body);
+    });
+  }
+}
+function finish = function finish(body) {
+    if (patch) patch(body);
+    for (var _path in body.paths) {
+      for (var method in body.paths[_path]) {
+        var op = body.paths[_path][method];
+        op.operationId = openapiUtil.getOperationId(method, _path, op);
+      }
+    }
+    addIntegration(dir, name, 'openapi', body, callback);
+  }
+fs.existsSync(url)
+request.get(url, function (err, resp, body) {
+      if (err) return callback(err);
+      resp.headers['content-type'] = resp.headers['content-type'] || '';
+      if (resp.headers['content-type'].indexOf('yaml') !== -1) {
+        body = YAML.parse(body);
+      } else {
+        body = JSON.parse(body);
+      }
+      finish(body);
+    })

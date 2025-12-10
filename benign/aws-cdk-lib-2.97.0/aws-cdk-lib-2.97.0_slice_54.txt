@@ -1,0 +1,3 @@
+this.queue.encryptionMasterKey.addToResourcePolicy(statement,!0).statementAdded||core_1.Annotations.of(this.queue.encryptionMasterKey).addWarningV2("@aws-cdk/aws-s3-notifications:sqsKMSPermissionsNotAdded",`Can not change key policy of imported kms key. Ensure that your key policy contains the following permissions: 
+${JSON.stringify(statement.toJSON(),null,2)}`)
+SqsDestination[_a]={fqn:"aws-cdk-lib.aws_s3_notifications.SqsDestination",version:"2.97.0"}

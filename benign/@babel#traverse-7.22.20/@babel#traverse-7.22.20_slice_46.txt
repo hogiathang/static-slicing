@@ -1,0 +1,19 @@
+function _guessExecutionStatusRelativeToDifferentFunctionsCached = function _guessExecutionStatusRelativeToDifferentFunctionsCached(base, target, cache) {
+  let nodeMap = cache.get(base.node);
+  let cached;
+  if (!nodeMap) {
+    cache.set(base.node, nodeMap = new Map());
+  } else if (cached = nodeMap.get(target.node)) {
+    if (cached === SYMBOL_CHECKING) {
+      return "unknown";
+    }
+    return cached;
+  }
+  nodeMap.set(target.node, SYMBOL_CHECKING);
+  const result = _guessExecutionStatusRelativeToDifferentFunctionsInternal(base, target, cache);
+  nodeMap.set(target.node, result);
+  return result;
+}
+let nodeMap = cache.get(base.node)
+!nodeMap
+cached = nodeMap.get(target.node)

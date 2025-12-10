@@ -1,0 +1,4 @@
+autoModerationRule = param1_1.autoModerationRule
+!force
+const existing = this.cache.get(autoModerationRule)
+const data = await this.client.rest.get(Routes.guildAutoModerationRule(this.guild.id, autoModerationRule))

@@ -1,0 +1,62 @@
+function phaseSlotAllocation = function phaseSlotAllocation(cpl) {
+  const slotMap = /* @__PURE__ */ new Map();
+  for (const [_, view] of cpl.views) {
+    let slotCount = 0;
+    for (const op of view.create) {
+      if (!hasConsumesSlotTrait(op)) {
+        continue;
+      }
+      op.slot = slotCount;
+      slotMap.set(op.xref, op.slot);
+      slotCount += op.numSlotsUsed;
+    }
+    view.decls = slotCount;
+  }
+  for (const [_, view] of cpl.views) {
+    for (const op of view.ops()) {
+      if (op.kind === OpKind.Template) {
+        const childView = cpl.views.get(op.xref);
+        op.decls = childView.decls;
+      }
+      if (hasUsesSlotIndexTrait(op) && op.slot === null) {
+        if (!slotMap.has(op.target)) {
+          throw new Error(`AssertionError: no slot allocated for ${OpKind[op.kind]} target ${op.target}`);
+        }
+        op.slot = slotMap.get(op.target);
+      }
+      visitExpressionsInOp(op, (expr) => {
+        if (!isIrExpression(expr)) {
+          return;
+        }
+        if (!hasUsesSlotIndexTrai...
+const slotMap = /* @__PURE__ */ new Map()
+_iterator_18 = <operator>.iterator(cpl.views)
+let slotCount = 0
+_iterator_19 = <operator>.iterator(view.create)
+!hasConsumesSlotTrait(op)
+continue;
+op.slot = slotCount
+slotMap.set(op.xref, op.slot)
+slotCount += op.numSlotsUsed
+view.decls = slotCount
+_iterator_20 = <operator>.iterator(cpl.views)
+_iterator_21 = <operator>.iterator(view.ops())
+op.kind === OpKind.Template
+const childView = cpl.views.get(op.xref)
+op.decls = childView.decls
+hasUsesSlotIndexTrait(op) && op.slot === null
+!slotMap.has(op.target)
+<operator>.formatString("AssertionError: no slot allocated for ", OpKind[op.kind], " target ", op.target, "")
+op.slot = slotMap.get(op.target)
+visitExpressionsInOp(op, (expr) => {
+        if (!isIrExpression(expr)) {
+          return;
+        }
+        if (!hasUsesSlotIndexTrait(expr) || expr.slot !== null) {
+          return;
+        }
+        if (!slotMap.has(expr.target)) {
+          throw new Error(`AssertionError: no slot allocated for ${expr.constructor.name} target ${expr.target}`);
+        }
+        expr.slot = slotMap.get(expr.target);
+      })

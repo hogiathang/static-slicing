@@ -1,0 +1,23 @@
+var canonicalStringify = Object.assign(function (value) {
+    if (isNonNullObject(value)) {
+        if (stringifyCanon === void 0) {
+            resetCanonicalStringify();
+        }
+        var canonical = stringifyCanon.admit(value);
+        var json = stringifyCache.get(canonical);
+        if (json === void 0) {
+            stringifyCache.set(canonical, (json = JSON.stringify(canonical)));
+        }
+        return json;
+    }
+    return JSON.stringify(value);
+}, {
+    reset: resetCanonicalStringify,
+})
+isNonNullObject(value)
+stringifyCanon === void 0
+resetCanonicalStringify()
+var canonical = stringifyCanon.admit(value)
+var json = stringifyCache.get(canonical)
+json === void 0
+stringifyCache.set(canonical, (json = JSON.stringify(canonical)))

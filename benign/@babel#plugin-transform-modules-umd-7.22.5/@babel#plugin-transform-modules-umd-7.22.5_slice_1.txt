@@ -1,0 +1,79 @@
+_tmp_33.exit = exit
+!(0, _helperModuleTransforms.isModule)(path)
+const browserGlobals = globals || {}
+const moduleName = (0, _helperModuleTransforms.getModuleName)(this.file.opts, options)
+moduleNameLiteral = _core.types.stringLiteral(moduleName)
+_tmp_37 = (0, _helperModuleTransforms.rewriteModuleStatementsAndPrepareHeader)(path, {
+            constantReexports,
+            enumerableModuleMeta,
+            strict,
+            strictMode,
+            allowTopLevelThis,
+            noInterop,
+            importInterop,
+            filename: this.file.opts.filename
+          })
+meta = _tmp_37.meta
+headers = _tmp_37.headers
+(0, _helperModuleTransforms.rewriteModuleStatementsAndPrepareHeader)(path, {
+            constantReexports,
+            enumerableModuleMeta,
+            strict,
+            strictMode,
+            allowTopLevelThis,
+            noInterop,
+            importInterop,
+            filename: this.file.opts.filename
+          })
+_tmp_36.constantReexports = constantReexports
+_tmp_36.enumerableModuleMeta = enumerableModuleMeta
+_tmp_36.strict = strict
+_tmp_36.strictMode = strictMode
+_tmp_36.allowTopLevelThis = allowTopLevelThis
+_tmp_36.noInterop = noInterop
+_tmp_36.importInterop = importInterop
+_tmp_36.filename = this.file.opts.filename
+__ecma.Array.factory()
+const commonjsArgs = []
+const browserArgs = []
+const importNames = []
+(0, _helperModuleTransforms.hasExports)(meta)
+amdArgs.push(_core.types.stringLiteral("exports"))
+commonjsArgs.push(_core.types.identifier("exports"))
+browserArgs.push(_core.types.memberExpression(_core.types.identifier("mod"), _core.types.identifier("exports")))
+importNames.push(_core.types.identifier(meta.exportName))
+_iterator_0 = <operator>.iterator(meta.source)
+amdArgs.push(_core.types.stringLiteral(source))
+commonjsArgs.push(_core.types.callExpression(_core.types.identifier("require"), [_core.types.stringLiteral(source)]))
+browserArgs.push(buildBrowserArg(browserGlobals, exactGlobals, source))
+importNames.push(_core.types.identifier(metadata.name))
+!(0, _helperModuleTransforms.isSideEffectImport)(metadata)
+const interop = (0, _helperModuleTransforms.wrapInterop)(path, _core.types.identifier(metadata.name), metadata.interop)
+const header = _core.types.expressionStatement(_core.types.assignmentExpression("=", _core.types.identifier(metadata.name), interop))
+header.loc = meta.loc
+headers.push(header)
+headers.push(...(0, _helperModuleTransforms.buildNamespaceInitStatements)(meta, metadata, constantReexports))
+(0, _helperModuleTransforms.ensureStatementsHoisted)(headers)
+path.unshiftContainer("body", headers)
+_tmp_54 = path.node
+body = _tmp_54.body
+directives = _tmp_54.directives
+path.node
+path.node.directives = []
+__ecma.Array.factory()
+const umdWrapper = path.pushContainer("body", [buildWrapper({
+            MODULE_NAME: moduleNameLiteral,
+            AMD_ARGUMENTS: _core.types.arrayExpression(amdArgs),
+            COMMONJS_ARGUMENTS: commonjsArgs,
+            BROWSER_ARGUMENTS: browserArgs,
+            IMPORT_NAMES: importNames,
+            GLOBAL_TO_ASSIGN: buildBrowserInit(browserGlobals, exactGlobals, this.filename || "unknown", moduleNameLiteral)
+          })])[0]
+_tmp_56.MODULE_NAME = moduleNameLiteral
+_tmp_56.AMD_ARGUMENTS = _core.types.arrayExpression(amdArgs)
+_tmp_56.COMMONJS_ARGUMENTS = commonjsArgs
+_tmp_56.BROWSER_ARGUMENTS = browserArgs
+_tmp_56.IMPORT_NAMES = importNames
+_tmp_56.GLOBAL_TO_ASSIGN = buildBrowserInit(browserGlobals, exactGlobals, this.filename || "unknown", moduleNameLiteral)
+0
+const umdFactory = umdWrapper.get("expression.arguments")[1].get("body")

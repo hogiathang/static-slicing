@@ -1,0 +1,26 @@
+function createContext = function createContext (canvas, contextAttributes) {
+  function get (name) {
+    try {
+      return canvas.getContext(name, contextAttributes)
+    } catch (e) {
+      return null
+    }
+  }
+  return (
+    get('webgl') ||
+    get('experimental-webgl') ||
+    get('webgl-experimental')
+  )
+}
+function get = function get (name) {
+    try {
+      return canvas.getContext(name, contextAttributes)
+    } catch (e) {
+      return null
+    }
+  }
+get('webgl') ||
+    get('experimental-webgl') ||
+    get('webgl-experimental')
+get('experimental-webgl')
+get('webgl-experimental')

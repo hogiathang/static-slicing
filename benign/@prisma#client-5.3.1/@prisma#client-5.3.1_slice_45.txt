@@ -1,0 +1,8 @@
+function utimesMillisSync = function utimesMillisSync(path7, atime, mtime) {
+      const fd = fs6.openSync(path7, "r+");
+      fs6.futimesSync(fd, atime, mtime);
+      return fs6.closeSync(fd);
+    }
+const fd = fs6.openSync(path7, "r+")
+fs6.futimesSync(fd, atime, mtime)
+fs6.closeSync(fd)

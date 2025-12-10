@@ -1,0 +1,5 @@
+_tmp_32.next = <lambda>18
+resolve(result)
+(_tmp_33 = _this.observers).delete
+!_this.observers.size
+_this.queryManager.removeQuery(_this.queryId)

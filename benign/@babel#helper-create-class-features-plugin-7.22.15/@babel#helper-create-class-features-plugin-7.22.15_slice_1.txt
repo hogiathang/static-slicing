@@ -1,0 +1,27 @@
+function enableFeature = function enableFeature(file, feature, loose) {
+  if (!hasFeature(file, feature) || canIgnoreLoose(file, feature)) {
+    file.set(featuresKey, file.get(featuresKey) | feature);
+    if (loose === "#__internal__@babel/preset-env__prefer-true-but-false-is-ok-if-it-prevents-an-error") {
+      setLoose(file, feature, true);
+      file.set(looseLowPriorityKey, file.get(looseLowPriorityKey) | feature);
+    } else if (loose === "#__internal__@babel/preset-env__prefer-false-but-true-is-ok-if-it-prevents-an-error") {
+      setLoose(file, feature, false);
+      file.set(looseLowPriorityKey, file.get(looseLowPriorityKey) | feature);
+    } else {
+      setLoose(file, feature, loose);
+    }
+  }
+  let resolvedLoose;
+  let higherPriorityPluginName;
+  for (const [mask, name] of featuresSameLoose) {
+    if (!hasFeature(file, mask)) continue;
+    const loose = isLoose(file, mask);
+    if (canIgnoreLoose(file, mask)) {
+      continue;
+    } else if (resolvedLoose === !loose) {
+      throw new Error("'lo...
+!hasFeature(file, feature) || canIgnoreLoose(file, feature)
+file.set(featuresKey, file.get(featuresKey) | feature)
+loose === "#__internal__@babel/preset-env__prefer-true-but-false-is-ok-if-it-prevents-an-error"
+setLoose(file, feature, true)
+file.set(looseLowPriorityKey, file.get(looseLowPriorityKey) | feature)

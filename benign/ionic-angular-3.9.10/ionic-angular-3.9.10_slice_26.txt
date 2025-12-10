@@ -1,0 +1,11 @@
+function TabButton = function TabButton(config, elementRef, renderer) {
+            var _this = _super.call(this, config, elementRef, renderer) || this;
+            _this.ionSelect = new core_1.EventEmitter();
+            _this.disHover = (config.get('hoverCSS') === false);
+            _this.layout = config.get('tabsLayout');
+            return _this;
+        }
+var _this = _super.call(this, config, elementRef, renderer) || this
+_this.ionSelect = new core_1.EventEmitter()
+_this.disHover = (config.get('hoverCSS') === false)
+_this.layout = config.get('tabsLayout')

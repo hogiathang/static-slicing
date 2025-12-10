@@ -1,0 +1,25 @@
+markAsDeferrableCandidate(identifier, importDecl) {
+    if (!this.imports.has(importDecl)) {
+      const symbolMap2 = this.extractImportedSymbols(importDecl);
+      this.imports.set(importDecl, symbolMap2);
+    }
+    const symbolMap = this.imports.get(importDecl);
+    if (!symbolMap.has(identifier.text)) {
+      throw new Error(`The '${identifier.text}' identifier doesn't belong to the provided import declaration.`);
+    }
+    if (symbolMap.get(identifier.text) === AssumeEager) {
+      symbolMap.set(identifier.text, this.lookupIdentifiersInSourceFile(identifier.text, importDecl));
+    }
+    const identifiers = symbolMap.get(identifier.text);
+    identifiers.delete(identifier);
+  }
+!this.imports.has(importDecl)
+const symbolMap2 = this.extractImportedSymbols(importDecl)
+this.imports.set(importDecl, symbolMap2)
+const symbolMap = this.imports.get(importDecl)
+!symbolMap.has(identifier.text)
+<operator>.formatString("The '", identifier.text, "' identifier doesn't belong to the provided import declaration.")
+symbolMap.get(identifier.text) === AssumeEager
+symbolMap.set(identifier.text, this.lookupIdentifiersInSourceFile(identifier.text, importDecl))
+const identifiers = symbolMap.get(identifier.text)
+identifiers.delete(identifier)

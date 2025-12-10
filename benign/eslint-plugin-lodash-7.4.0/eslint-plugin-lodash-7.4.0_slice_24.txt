@@ -1,0 +1,4 @@
+function isAliasOfMethod = function isAliasOfMethod(version, method, suspect) {
+    return method === suspect || _.includes(_.get(getMethodData(version), [method, 'aliases']), suspect)
+}
+method === suspect || _.includes(_.get(getMethodData(version), [method, 'aliases']), suspect)

@@ -1,0 +1,16 @@
+$q(function (resolve, reject) {
+                var current = 0;
+                for (var x = 0; x < lokidbs.length; x++) {
+                    current++;
+                    lokidbs[x].close();
+                    if (x === (lokidbs.length - 1)) {
+                        resolve();
+                    }
+                }
+            })
+var current = 0
+x < lokidbs.length
+current++
+(_tmp_19 = lokidbs[x]).close
+x === (lokidbs.length - 1)
+resolve()

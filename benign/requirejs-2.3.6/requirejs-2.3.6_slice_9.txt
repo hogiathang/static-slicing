@@ -1,0 +1,7 @@
+function mkDir = function mkDir(dir) {
+        if (!exists(dir) && (!isWindows || !windowsDriveRegExp.test(dir))) {
+            fs.mkdirSync(dir, 511);
+        }
+    }
+!exists(dir) && (!isWindows || !windowsDriveRegExp.test(dir))
+fs.mkdirSync(dir, 511)

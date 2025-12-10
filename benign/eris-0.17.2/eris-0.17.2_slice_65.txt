@@ -1,0 +1,26 @@
+options = options === void 0 ? {} : options
+!this.ws
+this.heartbeatInterval
+clearInterval(this.heartbeatInterval)
+this.heartbeatInterval = null
+this.ws.readyState !== WebSocket.CLOSED
+this.ws.removeListener("message", this._onWSMessage)
+this.ws.removeListener("close", this._onWSClose)
+options.reconnect && this.sessionID
+this.ws.readyState === WebSocket.OPEN
+this.ws.close(4901, "Eris: reconnect")
+this.emit("debug", `Terminating websocket (state: ${this.ws.readyState})`, this.id)
+(_tmp_14 = this.ws).terminate
+this.ws.close(1000, "Eris: normal")
+this.emit("error", err, this.id)
+this.ws = null
+this.reset()
+this.emit("error", error, this.id)
+super.emit("disconnect", error)
+this.sessionID && this.connectAttempts >= this.client.options.maxResumeAttempts
+this.emit("debug", `Automatically invalidating session due to excessive resume attempts | Attempt ${this.connectAttempts}`, this.id)
+this.sessionID = null
+this.resumeURL = null
+options.reconnect === "auto" && this.client.options.autoreconnect
+this.sessionID
+<operator>.formatString("Queueing reconnect in ", this.reconnectInterval, "ms | Attempt ", this.connectAttempts, "")

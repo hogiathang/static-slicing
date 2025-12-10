@@ -1,0 +1,4 @@
+_tmp_194.dependencyRoots = dependencyRoots
+const ret = new Array()
+_iterator_10 = <operator>.iterator(self.dependables)
+ret.push(...core_1.DependableTrait.get(dep).dependencyRoots)

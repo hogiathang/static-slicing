@@ -1,0 +1,48 @@
+resolver.resolve = function(info, context, request, cb, cb2) {
+          let numArgs = 4;
+          if (!cb) {
+            numArgs = 3;
+            cb = request;
+            request = context;
+            context = info;
+          }
+          let resolveContext;
+          if (cb2) {
+            numArgs = 5;
+            resolveContext = cb;
+            cb = cb2;
+          }
+
+          if (info && info.resolveOptions) {
+            key = `normal-${new nodeObjectHash({ sort: false }).hash(
+              info.resolveOptions,
+            )}`;
+            resolverCache[key] = resolverCache[key] || {};
+            missingCache[key] = missingCache[key] || {};
+          }
+
+          const resolveId = JSON.stringify([context, request]);
+          const absResolveId = JSON.stringify([
+            context,
+            relateContext.relateAbsolutePath(context, request),
+          ]);
+          const resolve =
+            resolverCache[key][resolveId] || resolverCache[key][absResolveId];
+        ...
+let numArgs = 4
+!cb
+numArgs = 3
+cb = request
+request = context
+context = info
+numArgs = 5
+resolveContext = cb
+cb = cb2
+info && info.resolveOptions
+<operator>.formatString("normal-", new nodeObjectHash({ sort: false }).hash(
+              info.resolveOptions,
+            ), "")
+info.resolveOptions
+resolverCache[key] = resolverCache[key] || {}
+missingCache[key] = missingCache[key] || {}
+const resolveId = JSON.stringify([context, request])

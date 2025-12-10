@@ -1,0 +1,50 @@
+function findSuitableTempDirectory = function findSuitableTempDirectory(chromedriverVersion) {
+  const now = Date.now();
+  const candidateTmpDirs = [
+    process.env.npm_config_tmp,
+    process.env.XDG_CACHE_HOME,
+    // Platform specific default, including TMPDIR/TMP/TEMP env
+    os.tmpdir(),
+    path.join(process.cwd(), 'tmp')
+  ];
+
+  for (const tempDir of candidateTmpDirs) {
+    if (!tempDir) continue;
+    const namespace = chromedriverVersion;
+    const candidatePath = path.join(tempDir, namespace, 'chromedriver');
+    try {
+      fs.mkdirSync(candidatePath, { recursive: true });
+      const testFile = path.join(candidatePath, now + '.tmp');
+      fs.writeFileSync(testFile, 'test');
+      fs.unlinkSync(testFile);
+      return candidatePath;
+    } catch (e) {
+      console.log(candidatePath, 'is not writable:', e.message);
+    }
+  }
+  console.error('Can not find a writable tmp directory, please report issue on https://github.com/giggio/chromedriver/issues/ with as much information as possible.');
+  process.exit(1);
+}
+const now = Date.now()
+const candidateTmpDirs = [
+    process.env.npm_config_tmp,
+    process.env.XDG_CACHE_HOME,
+    // Platform specific default, including TMPDIR/TMP/TEMP env
+    os.tmpdir(),
+    path.join(process.cwd(), 'tmp')
+  ]
+_tmp_4.push(process.env.npm_config_tmp)
+_tmp_4.push(process.env.XDG_CACHE_HOME)
+_tmp_4.push(os.tmpdir())
+_tmp_4.push(path.join(process.cwd(), 'tmp'))
+_iterator_0 = <operator>.iterator(candidateTmpDirs)
+!tempDir
+const namespace = chromedriverVersion
+const candidatePath = path.join(tempDir, namespace, 'chromedriver')
+fs.mkdirSync(candidatePath, { recursive: true })
+const testFile = path.join(candidatePath, now + '.tmp')
+fs.writeFileSync(testFile, 'test')
+fs.unlinkSync(testFile)
+console.log(candidatePath, 'is not writable:', e.message)
+console.error('Can not find a writable tmp directory, please report issue on https://github.com/giggio/chromedriver/issues/ with as much information as possible.')
+process.exit(1)

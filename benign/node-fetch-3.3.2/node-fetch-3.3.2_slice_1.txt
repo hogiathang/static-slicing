@@ -1,0 +1,3 @@
+thisArg = thisArg === void 0 ? undefined : thisArg
+_iterator_1 = <operator>.iterator(this.keys())
+Reflect.apply(callback, thisArg, [this.get(name), name, this])

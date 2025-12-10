@@ -1,0 +1,13 @@
+Sp.injectTemporary = function (identifier, init) {
+        identifier || (identifier = this.declareTemporary());
+        var bodyPath = this.path.get("body");
+        if (namedTypes.BlockStatement.check(bodyPath.value)) {
+            bodyPath = bodyPath.get("body");
+        }
+        bodyPath.unshift(b.variableDeclaration("var", [b.variableDeclarator(identifier, init || null)]));
+        return identifier;
+    }
+identifier || (identifier = this.declareTemporary())
+var bodyPath = this.path.get("body")
+namedTypes.BlockStatement.check(bodyPath.value)
+bodyPath = bodyPath.get("body")

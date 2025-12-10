@@ -1,0 +1,133 @@
+const translate = (locale, singular, plural, skipSyncToAllFiles) => {
+    // add same key to all translations
+    if (!skipSyncToAllFiles && syncFiles) {
+      syncToAllFiles(singular, plural)
+    }
+
+    if (locale === undefined) {
+      logWarn(
+        'WARN: No locale found - check the context of the call to __(). Using ' +
+          defaultLocale +
+          ' as current locale'
+      )
+      locale = defaultLocale
+    }
+
+    // try to get a fallback
+    if (!locales[locale]) {
+      locale = getFallback(locale, fallbacks) || locale
+    }
+
+    // attempt to read when defined as valid locale
+    if (!locales[locale]) {
+      read(locale)
+    }
+
+    // fallback to default when missed
+    if (!locales[locale]) {
+      logWarn(
+        'WARN: Locale ' +
+          locale +
+          " couldn't be read - check the context of the call to $__. Using " +
+          defaultLocale +
+          ' (default) as current locale'
+      )
+
+      locale = defaultLocale
+      read(locale)
+    }
+
+    // dot...
+!skipSyncToAllFiles && syncFiles
+syncToAllFiles(singular, plural)
+locale === undefined
+logWarn(
+        'WARN: No locale found - check the context of the call to __(). Using ' +
+          defaultLocale +
+          ' as current locale'
+      )
+'WARN: No locale found - check the context of the call to __(). Using ' +
+          defaultLocale +
+          ' as current locale'
+" as current locale"
+locale = defaultLocale
+!locales[locale]
+locale = getFallback(locale, fallbacks) || locale
+!locales[locale]
+read(locale)
+!locales[locale]
+logWarn(
+        'WARN: Locale ' +
+          locale +
+          " couldn't be read - check the context of the call to $__. Using " +
+          defaultLocale +
+          ' (default) as current locale'
+      )
+'WARN: Locale ' +
+          locale +
+          " couldn't be read - check the context of the call to $__. Using " +
+          defaultLocale +
+          ' (default) as current locale'
+" couldn't be read - check the context of the call to $__. Using "
+" (default) as current locale"
+locale = defaultLocale
+read(locale)
+let defaultSingular = singular
+let defaultPlural = plural
+let indexOfColon = singular.indexOf(':')
+indexOfColon > 0
+defaultSingular = singular.substring(indexOfColon + 1)
+singular = singular.substring(0, indexOfColon)
+plural && typeof plural !== 'number'
+indexOfColon = plural.indexOf(':')
+indexOfColon > 0
+defaultPlural = plural.substring(indexOfColon + 1)
+plural = plural.substring(0, indexOfColon)
+const accessor = localeAccessor(locale, singular)
+const mutator = localeMutator(locale, singular)
+accessor() == null
+retryInDefaultLocale && locale !== defaultLocale
+logDebug(
+            'Missing ' +
+              singular +
+              ' in ' +
+              locale +
+              ' retrying in ' +
+              defaultLocale
+          )
+'Missing ' +
+              singular +
+              ' in ' +
+              locale +
+              ' retrying in ' +
+              defaultLocale
+" in "
+" retrying in "
+mutator(translate(defaultLocale, singular, plural, true))
+mutator({
+            one: defaultSingular || singular,
+            other: defaultPlural || plural
+          })
+_tmp_48.one = defaultSingular || singular
+_tmp_48.other = defaultPlural || plural
+write(locale)
+accessor() == null
+retryInDefaultLocale && locale !== defaultLocale
+logDebug(
+          'Missing ' +
+            singular +
+            ' in ' +
+            locale +
+            ' retrying in ' +
+            defaultLocale
+        )
+'Missing ' +
+            singular +
+            ' in ' +
+            locale +
+            ' retrying in ' +
+            defaultLocale
+" in "
+" retrying in "
+mutator(translate(defaultLocale, singular, plural, true))
+mutator(defaultSingular || singular)

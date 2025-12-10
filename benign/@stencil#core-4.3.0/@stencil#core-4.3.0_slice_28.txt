@@ -1,0 +1,3 @@
+peek(e) {
+  return get(this, e, !1);
+ }

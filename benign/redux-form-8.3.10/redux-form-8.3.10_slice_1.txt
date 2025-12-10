@@ -1,0 +1,4 @@
+var getFieldWarnAndValidate = function getFieldWarnAndValidate(prop, name) {
+  return Array.isArray(prop) || typeof prop === 'function' ? prop : get(prop, name, undefined);
+}
+Array.isArray(prop) || typeof prop === 'function' ? prop : get(prop, name, undefined)

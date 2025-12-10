@@ -1,0 +1,8 @@
+function getRequestCacheKey = function getRequestCacheKey(request, variables) {
+  return JSON.stringify({
+    id: request.cacheID ? request.cacheID : request.id,
+    variables: variables
+  });
+}
+_tmp_5.id = request.cacheID ? request.cacheID : request.id
+_tmp_5.variables = variables

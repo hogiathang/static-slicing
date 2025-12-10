@@ -1,0 +1,39 @@
+static fromExtendedJSON(
+    doc: BinaryExtendedLegacy | BinaryExtended | UUIDExtended,
+    options?: EJSONOptions
+  ): Binary {
+    options = options || {};
+    let data: Uint8Array | undefined;
+    let type;
+    if ('$binary' in doc) {
+      if (options.legacy && typeof doc.$binary === 'string' && '$type' in doc) {
+        type = doc.$type ? parseInt(doc.$type, 16) : 0;
+        data = ByteUtils.fromBase64(doc.$binary);
+      } else {
+        if (typeof doc.$binary !== 'string') {
+          type = doc.$binary.subType ? parseInt(doc.$binary.subType, 16) : 0;
+          data = ByteUtils.fromBase64(doc.$binary.base64);
+        }
+      }
+    } else if ('$uuid' in doc) {
+      type = 4;
+      data = UUID.bytesFromString(doc.$uuid);
+    }
+    if (!data) {
+      throw new BSONError(`Unexpected Binary Extended JSON format ${JSON.stringify(doc)}`);
+    }
+    return type === BSON_BINARY_SUBTYPE_UUID_NEW ? new UUID(data) : new Binary(data, type);
+  }
+options = options || {}
+'$binary' in doc
+options.legacy && typeof doc.$binary === 'string' && '$type' in doc
+type = doc.$type ? parseInt(doc.$type, 16) : 0
+data = ByteUtils.fromBase64(doc.$binary)
+typeof doc.$binary !== 'string'
+type = doc.$binary.subType ? parseInt(doc.$binary.subType, 16) : 0
+data = ByteUtils.fromBase64(doc.$binary.base64)
+'$uuid' in doc
+type = 4
+data = UUID.bytesFromString(doc.$uuid)
+!data
+<operator>.formatString("Unexpected Binary Extended JSON format ", JSON.stringify(doc), "")

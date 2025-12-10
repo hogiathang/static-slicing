@@ -1,0 +1,50 @@
+split.forEach(function (editor, index) {
+            if (nextProps.mode !== oldProps.mode) {
+                editor.getSession().setMode("ace/mode/" + nextProps.mode);
+            }
+            if (nextProps.keyboardHandler !== oldProps.keyboardHandler) {
+                if (nextProps.keyboardHandler) {
+                    editor.setKeyboardHandler("ace/keyboard/" + nextProps.keyboardHandler);
+                }
+                else {
+                    editor.setKeyboardHandler(null);
+                }
+            }
+            if (nextProps.fontSize !== oldProps.fontSize) {
+                editor.setFontSize(nextProps.fontSize);
+            }
+            if (nextProps.wrapEnabled !== oldProps.wrapEnabled) {
+                editor.getSession().setUseWrapMode(nextProps.wrapEnabled);
+            }
+            if (nextProps.showPrintMargin !== oldProps.showPrintMargin) {
+                editor.setShowPrintMargin(nextProps.showPrintMargin);
+            }
+            if (nextProps.showG...
+nextProps.mode !== oldProps.mode
+editor.getSession().setMode("ace/mode/" + nextProps.mode)
+nextProps.keyboardHandler !== oldProps.keyboardHandler
+nextProps.keyboardHandler
+editor.setKeyboardHandler("ace/keyboard/" + nextProps.keyboardHandler)
+editor.setKeyboardHandler(null)
+nextProps.fontSize !== oldProps.fontSize
+editor.setFontSize(nextProps.fontSize)
+nextProps.wrapEnabled !== oldProps.wrapEnabled
+editor.getSession().setUseWrapMode(nextProps.wrapEnabled)
+nextProps.showPrintMargin !== oldProps.showPrintMargin
+editor.setShowPrintMargin(nextProps.showPrintMargin)
+nextProps.showGutter !== oldProps.showGutter
+editor.renderer.setShowGutter(nextProps.showGutter)
+i < editorOptions_1.editorOptions.length
+var option = editorOptions_1.editorOptions[i]
+nextProps[option] !== oldProps[option]
+editor.setOption(option, nextProps[option])
+!isEqual(nextProps.setOptions, oldProps.setOptions)
+_this.handleOptions(nextProps, editor)
+var nextValue = get(nextProps.value, index, "")
+editor.getValue() !== nextValue
+_this.silent = true
+var pos = editor.session.selection.toJSON()
+editor.setValue(nextValue, nextProps.cursorStart)
+(_tmp_36 = editor.session.selection).fromJSON
+_this.silent = false
+var newAnnotations = get(nextProps.annotations, index, [])

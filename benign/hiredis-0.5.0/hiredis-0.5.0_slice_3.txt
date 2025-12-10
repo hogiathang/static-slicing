@@ -1,0 +1,31 @@
+function call = function call(client, test) {
+    client.on("reply", function() {
+        if (issued_requests < num_requests) {
+            request();
+        } else {
+            client.end();
+            if (--active_clients == 0)
+                done(test);
+        }
+    });
+
+    function request() {
+        issued_requests++;
+        client.write.apply(client,test.command);
+    };
+
+    request();
+}
+client.on("reply", function() {
+        if (issued_requests < num_requests) {
+            request();
+        } else {
+            client.end();
+            if (--active_clients == 0)
+                done(test);
+        }
+    })
+function request = function request() {
+        issued_requests++;
+        client.write.apply(client,test.command);
+    }

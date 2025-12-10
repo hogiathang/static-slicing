@@ -1,0 +1,14 @@
+results = results === void 0 ? {} : results
+const pj = resolve(this.npm.prefix, 'package.json')
+const pkg = await readFile(pj, 'utf8')
+      .then(data => JSON.parse(data))
+      .catch(() => ({}))
+JSON.parse(data)
+<lambda>1
+pkg.name && pkg.version
+results[pkg.name] = pkg.version
+results.npm = this.npm.version
+_iterator_1 = <operator>.iterator(Object.entries(process.versions))
+results[key] = version
+(_tmp_17 = this.npm.config).get
+this.npm.output(JSON.stringify(results, null, 2))

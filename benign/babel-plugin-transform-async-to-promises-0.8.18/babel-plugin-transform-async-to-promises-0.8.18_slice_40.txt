@@ -1,0 +1,29 @@
+function unwrapReturnCallWithEmptyArguments = function unwrapReturnCallWithEmptyArguments(node, scope, additionalConstantNames) {
+        if (isContinuation(node)) {
+            const expression = expressionInSingleReturnStatement(node);
+            if (expression && types.isCallExpression(expression)) {
+                let callTarget;
+                switch (expression.arguments.length) {
+                    case 0:
+                        callTarget = expression.callee;
+                        break;
+                    case 1: {
+                        const callee = expression.callee;
+                        const onlyArgument = expression.arguments[0];
+                        if (types.isIdentifier(callee) && helperNameMap.get(callee) === "_call") {
+                            callTarget = onlyArgument;
+                        }
+                        if (types.isIdentifier(callee) || types.isMemberExpression(callee)) {
+                            switch (helperNameMap.get(callee)) {
+                                case "...
+isContinuation(node)
+const expression = expressionInSingleReturnStatement(node)
+expression && types.isCallExpression(expression)
+expression.arguments.length
+1
+const callee = expression.callee
+const onlyArgument = expression.arguments[0]
+types.isIdentifier(callee) && helperNameMap.get(callee) === "_call"
+callTarget = onlyArgument
+types.isIdentifier(callee) || types.isMemberExpression(callee)
+helperNameMap.get(callee)

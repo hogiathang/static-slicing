@@ -1,0 +1,50 @@
+async exec (args) {
+    if (!args.length) {
+      args = ['.']
+    }
+    let pkg = args.shift()
+    const local = /^\.@/.test(pkg) || pkg === '.'
+
+    if (local) {
+      if (this.npm.global) {
+        throw new Error('Cannot use view command in global mode.')
+      }
+      const dir = this.npm.prefix
+      const manifest = await readJson(resolve(dir, 'package.json'))
+      if (!manifest.name) {
+        throw new Error('Invalid package.json, no "name" field')
+      }
+      // put the version back if it existed
+      pkg = `${manifest.name}${pkg.slice(1)}`
+    }
+
+    let wholePackument = false
+    if (!args.length) {
+      args = ['']
+      wholePackument = true
+    }
+    const [pckmnt, data] = await this.getData(pkg, args)
+
+    if (!this.npm.config.get('json') && wholePackument) {
+      // pretty view (entire packument)
+      data.map((v) => this.prettyView(pckmnt, v[Object.keys(v)[0]]['']))
+    } else {
+      // JSON formatted output (JSON or specific attributes from packument)
+    ...
+!args.length
+_tmp_23 = __ecma.Array.factory()
+let pkg = args.shift()
+const local = /^\.@/.test(pkg) || pkg === '.'
+this.npm.global
+throw new Error('Cannot use view command in global mode.')
+const dir = this.npm.prefix
+const manifest = await readJson(resolve(dir, 'package.json'))
+!manifest.name
+throw new Error('Invalid package.json, no "name" field')
+<operator>.formatString("", manifest.name, "", pkg.slice(1), "")
+let wholePackument = false
+!args.length
+_tmp_27 = __ecma.Array.factory()
+wholePackument = true
+_tmp_28 = await this.getData(pkg, args)
+!this.npm.config.get('json') && wholePackument

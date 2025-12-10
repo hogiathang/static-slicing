@@ -1,0 +1,30 @@
+KafkaClient.prototype.getApiVersions = function (broker, cb) {
+  if (!broker || !broker.isConnected()) {
+    return cb(new errors.BrokerNotAvailableError('Broker not available (getApiVersions)'));
+  }
+
+  logger.debug(`${this.clientId} sending versions request to ${broker.socket.addr}`);
+
+  const correlationId = this.nextId();
+  const request = protocol.encodeVersionsRequest(this.clientId, correlationId);
+
+  this.queueCallback(broker.socket, correlationId, [
+    protocol.decodeVersionsResponse,
+    cb,
+    this.options.versions.requestTimeout
+  ]);
+  broker.write(request);
+}
+!broker || !broker.isConnected()
+<operator>.formatString("", this.clientId, " sending versions request to ", broker.socket.addr, "")
+const correlationId = this.nextId()
+const request = protocol.encodeVersionsRequest(this.clientId, correlationId)
+this.queueCallback(broker.socket, correlationId, [
+    protocol.decodeVersionsResponse,
+    cb,
+    this.options.versions.requestTimeout
+  ])
+_tmp_30.push(protocol.decodeVersionsResponse)
+_tmp_30.push(cb)
+_tmp_30.push(this.options.versions.requestTimeout)
+broker.write(request)

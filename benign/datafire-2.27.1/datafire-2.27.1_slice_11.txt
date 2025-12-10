@@ -1,0 +1,71 @@
+(_tmp_21 = http.createServer(function (req, res) {
+      var urlObj = urlParser.parse(req.url);
+      if (urlObj.pathname !== '/') {
+        res.writeHead(404);
+        res.end();
+        return;
+      }
+      var search = urlParser.parse(req.url).search || '?';
+      search = search.substring(1);
+      search = querystring.parse(search);
+      if (search.code) {
+        request.post({
+          url: secDef.tokenUrl,
+          form: {
+            code: search.code,
+            client_id: clientAccount.client_id,
+            client_secret: clientAccount.client_secret,
+            redirect_uri: redirectURI,
+            grant_type: 'authorization_code'
+          },
+          json: true
+        }, function (err, resp, body) {
+          if (err) return reject(err);
+          if (resp.statusCode >= 300) return reject(resp.statusCode);
+          var newURL = '/?saved=true#access_token=' + encodeURIComponent(body.access_token);
+          newURL += '&refresh_token=' + encodeURIComponent(body.refresh_to...).listen
+var urlObj = urlParser.parse(req.url)
+urlObj.pathname !== '/'
+var search = urlParser.parse(req.url).search || '?'
+search = search.substring(1)
+search = querystring.parse(search)
+search.code
+request.post({
+          url: secDef.tokenUrl,
+          form: {
+            code: search.code,
+            client_id: clientAccount.client_id,
+            client_secret: clientAccount.client_secret,
+            redirect_uri: redirectURI,
+            grant_type: 'authorization_code'
+          },
+          json: true
+        }, function (err, resp, body) {
+          if (err) return reject(err);
+          if (resp.statusCode >= 300) return reject(resp.statusCode);
+          var newURL = '/?saved=true#access_token=' + encodeURIComponent(body.access_token);
+          newURL += '&refresh_token=' + encodeURIComponent(body.refresh_token);
+          newURL += '&saved=true';
+          res.writeHead(302, {
+            'Location': newURL
+          });
+          res.end();
+          accountToEdit.access_token = body.access_token;
+          accountToEdit.refresh_token = body.refresh_token;
+          accountToEdit.client_id = clientAccount.client_id;
+          accountToEdit.client_secret = client...
+_tmp_22.url = secDef.tokenUrl
+_tmp_22.form = {
+            code: search.code,
+            client_id: clientAccount.client_id,
+            client_secret: clientAccount.client_secret,
+            redirect_uri: redirectURI,
+            grant_type: 'authorization_code'
+          }
+_tmp_23.code = search.code
+_tmp_23.client_id = clientAccount.client_id
+_tmp_23.client_secret = clientAccount.client_secret
+_tmp_23.redirect_uri = redirectURI
+_tmp_23.grant_type = "authorization_code"
+_tmp_22.json = true
+<lambda>8

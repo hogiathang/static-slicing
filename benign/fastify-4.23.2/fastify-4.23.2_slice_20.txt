@@ -1,0 +1,21 @@
+function basic404 = function basic404 (request, reply) {
+    const { url, method } = request.raw
+    const message = `Route ${method}:${url} not found`
+    request.log.info(message)
+    reply.code(404).send({
+      message,
+      error: 'Not Found',
+      statusCode: 404
+    })
+  }
+method = _tmp_2.method
+<operator>.formatString("Route ", method, ":", url, " not found")
+(_tmp_3 = request.log).info
+reply.code(404).send({
+      message,
+      error: 'Not Found',
+      statusCode: 404
+    })
+_tmp_5.message = message
+_tmp_5.error = "Not Found"
+_tmp_5.statusCode = 404

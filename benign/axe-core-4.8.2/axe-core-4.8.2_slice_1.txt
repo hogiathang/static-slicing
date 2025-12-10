@@ -1,0 +1,6 @@
+function getNodeFromTree = function getNodeFromTree(vNode, node) {
+      var el = node || vNode;
+      return cache_default.get('nodeMap') ? cache_default.get('nodeMap').get(el) : null;
+    }
+var el = node || vNode
+cache_default.get('nodeMap') ? cache_default.get('nodeMap').get(el) : null

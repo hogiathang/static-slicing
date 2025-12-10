@@ -1,0 +1,30 @@
+const copyFile = (src, dst, callback) => {
+  // cbCalled flag and runCb helps to run cb only once.
+  let cbCalled = false;
+  let runCb = (err) => {
+    if (cbCalled) return;
+    cbCalled = true;
+    callback(err);
+  };
+  // Create read stream
+  let readable = fs.createReadStream(src);
+  readable.on('error', runCb);
+  // Create write stream
+  let writable = fs.createWriteStream(dst);
+  writable.on('error', (err)=>{
+    readable.destroy();
+    runCb(err);
+  });
+  writable.on('close', () => runCb());
+  // Copy file via piping streams.
+  readable.pipe(writable);
+}
+let cbCalled = false
+let runCb = (err) => {
+    if (cbCalled) return;
+    cbCalled = true;
+    callback(err);
+  }
+let readable = fs.createReadStream(src)
+readable.on('error', runCb)
+let writable = fs.createWriteStream(dst)

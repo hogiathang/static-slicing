@@ -1,0 +1,331 @@
+function verifyTypeScriptSetup = function verifyTypeScriptSetup() {
+  let firstTimeSetup = false;
+
+  if (!fs.existsSync(paths.appTsConfig)) {
+    if (verifyNoTypeScript()) {
+      return;
+    }
+    writeJson(paths.appTsConfig, {});
+    firstTimeSetup = true;
+  }
+
+  const isYarn = fs.existsSync(paths.yarnLockFile);
+
+  // Ensure typescript is installed
+  let ts;
+  try {
+    // TODO: Remove this hack once `globalThis` issue is resolved
+    // https://github.com/jsdom/jsdom/issues/2961
+    const globalThisWasDefined = !!global.globalThis;
+
+    ts = require(resolve.sync('typescript', {
+      basedir: paths.appNodeModules,
+    }));
+
+    if (!globalThisWasDefined && !!global.globalThis) {
+      delete global.globalThis;
+    }
+  } catch (_) {
+    console.error(
+      chalk.bold.red(
+        `It looks like you're trying to use TypeScript but do not have ${chalk.bold(
+          'typescript'
+        )} installed.`
+      )
+    );
+    console.error(
+      chalk.bold(
+        'Please install',
+        chalk.cyan.bold('typescript...
+let firstTimeSetup = false
+!fs.existsSync(paths.appTsConfig)
+verifyNoTypeScript()
+writeJson(paths.appTsConfig, {})
+firstTimeSetup = true
+const isYarn = fs.existsSync(paths.yarnLockFile)
+const globalThisWasDefined = !!global.globalThis
+ts = require(resolve.sync('typescript', {
+      basedir: paths.appNodeModules,
+    }))
+_tmp_4.basedir = paths.appNodeModules
+!globalThisWasDefined && !!global.globalThis
+delete global.globalThis
+console.error(
+      chalk.bold.red(
+        `It looks like you're trying to use TypeScript but do not have ${chalk.bold(
+          'typescript'
+        )} installed.`
+      )
+    )
+chalk.bold.red(
+        `It looks like you're trying to use TypeScript but do not have ${chalk.bold(
+          'typescript'
+        )} installed.`
+      )
+<operator>.formatString("It looks like you're trying to use TypeScript but do not have ", chalk.bold(
+          'typescript'
+        ), " installed.")
+"typescript"
+" installed."
+console.error(
+      chalk.bold(
+        'Please install',
+        chalk.cyan.bold('typescript'),
+        'by running',
+        chalk.cyan.bold(
+          isYarn ? 'yarn add typescript' : 'npm install typescript'
+        ) + '.'
+      )
+    )
+chalk.bold(
+        'Please install',
+        chalk.cyan.bold('typescript'),
+        'by running',
+        chalk.cyan.bold(
+          isYarn ? 'yarn add typescript' : 'npm install typescript'
+        ) + '.'
+      )
+"Please install"
+chalk.cyan.bold('typescript')
+"by running"
+chalk.cyan.bold(
+          isYarn ? 'yarn add typescript' : 'npm install typescript'
+        ) + '.'
+isYarn ? "yarn add typescript" : "npm install typescript"
+console.error(
+      chalk.bold(
+        'If you are not trying to use TypeScript, please remove the ' +
+          chalk.cyan('tsconfig.json') +
+          ' file from your package root (and any TypeScript files).'
+      )
+    )
+chalk.bold(
+        'If you are not trying to use TypeScript, please remove the ' +
+          chalk.cyan('tsconfig.json') +
+          ' file from your package root (and any TypeScript files).'
+      )
+'If you are not trying to use TypeScript, please remove the ' +
+          chalk.cyan('tsconfig.json') +
+          ' file from your package root (and any TypeScript files).'
+chalk.cyan('tsconfig.json')
+" file from your package root (and any TypeScript files)."
+console.error()
+process.exit(1)
+const compilerOptions = {
+    // These are suggested values and will be set when not present in the
+    // tsconfig.json
+    // 'parsedValue' matches the output value from ts.parseJsonConfigFileContent()
+    target: {
+      parsedValue: ts.ScriptTarget.ES5,
+      suggested: 'es5',
+    },
+    lib: { suggested: ['dom', 'dom.iterable', 'esnext'] },
+    allowJs: { suggested: true },
+    skipLibCheck: { suggested: true },
+    esModuleInterop: { suggested: true },
+    allowSyntheticDefaultImports: { suggested: true },
+    strict: { suggested: true },
+    forceConsistentCasingInFileNames: { suggested: true },
+    noFallthroughCasesInSwitch: { suggested: true },
+
+    // These values are required and cannot be changed by the user
+    // Keep this in sync with the webpack config
+    module: {
+      parsedValue: ts.ModuleKind.ESNext,
+      value: 'esnext',
+      reason: 'for import() and import/export',
+    },
+    moduleResolution: {
+      parsedValue: ts.ModuleResolutionKind.NodeJs,
+      value: 'n...
+_tmp_8.target = {
+      parsedValue: ts.ScriptTarget.ES5,
+      suggested: 'es5',
+    }
+_tmp_9.parsedValue = ts.ScriptTarget.ES5
+_tmp_9.suggested = "es5"
+_tmp_8.lib = { suggested: ['dom', 'dom.iterable', 'esnext'] }
+_tmp_8.allowJs = { suggested: true }
+_tmp_8.skipLibCheck = { suggested: true }
+_tmp_8.esModuleInterop = { suggested: true }
+_tmp_8.allowSyntheticDefaultImports = { suggested: true }
+_tmp_8.strict = { suggested: true }
+_tmp_8.forceConsistentCasingInFileNames = { suggested: true }
+_tmp_8.noFallthroughCasesInSwitch = { suggested: true }
+_tmp_8.module = {
+      parsedValue: ts.ModuleKind.ESNext,
+      value: 'esnext',
+      reason: 'for import() and import/export',
+    }
+_tmp_19.parsedValue = ts.ModuleKind.ESNext
+_tmp_19.value = "esnext"
+_tmp_19.reason = "for import() and import/export"
+_tmp_8.moduleResolution = {
+      parsedValue: ts.ModuleResolutionKind.NodeJs,
+      value: 'node',
+      reason: 'to match webpack resolution',
+    }
+_tmp_20.parsedValue = ts.ModuleResolutionKind.NodeJs
+_tmp_20.value = "node"
+_tmp_20.reason = "to match webpack resolution"
+_tmp_8.resolveJsonModule = { value: true, reason: 'to match webpack loader' }
+_tmp_8.isolatedModules = { value: true, reason: 'implementation limitation' }
+_tmp_8.noEmit = { value: true }
+_tmp_8.jsx = {
+      parsedValue:
+        hasJsxRuntime && semver.gte(ts.version, '4.1.0-beta')
+          ? ts.JsxEmit.ReactJSX
+          : ts.JsxEmit.React,
+      value:
+        hasJsxRuntime && semver.gte(ts.version, '4.1.0-beta')
+          ? 'react-jsx'
+          : 'react',
+      reason: 'to support the new JSX transform in React 17',
+    }
+_tmp_24.parsedValue = hasJsxRuntime && semver.gte(ts.version, '4.1.0-beta') ? ts.JsxEmit.ReactJSX : ts.JsxEmit.React
+hasJsxRuntime && semver.gte(ts.version, '4.1.0-beta') ? ts.JsxEmit.ReactJSX : ts.JsxEmit.React
+ts.JsxEmit.ReactJSX
+ts.JsxEmit.React
+_tmp_24.value = hasJsxRuntime && semver.gte(ts.version, '4.1.0-beta') ? "react-jsx" : "react"
+hasJsxRuntime && semver.gte(ts.version, '4.1.0-beta') ? "react-jsx" : "react"
+"react-jsx"
+"react"
+_tmp_24.reason = "to support the new JSX transform in React 17"
+_tmp_8.paths = { value: undefined, reason: 'aliased imports are not supported' }
+const formatDiagnosticHost = {
+    getCanonicalFileName: fileName => fileName,
+    getCurrentDirectory: ts.sys.getCurrentDirectory,
+    getNewLine: () => os.EOL,
+  }
+_tmp_26.getCanonicalFileName = <lambda>0
+_tmp_26.getCurrentDirectory = ts.sys.getCurrentDirectory
+_tmp_26.getNewLine = <lambda>1
+__ecma.Array.factory()
+_tmp_27 = ts.readConfigFile(
+      paths.appTsConfig,
+      ts.sys.readFile
+    )
+paths.appTsConfig
+ts.sys.readFile
+throw new Error(ts.formatDiagnostic(error, formatDiagnosticHost));
+appTsConfig = readTsConfig
+parsedTsConfig = immer(readTsConfig, config => {
+      result = ts.parseJsonConfigFileContent(
+        config,
+        ts.sys,
+        path.dirname(paths.appTsConfig)
+      );
+    })
+result.errors && result.errors.length
+throw new Error(
+        ts.formatDiagnostic(result.errors[0], formatDiagnosticHost)
+      );
+ts.formatDiagnostic(result.errors[0], formatDiagnosticHost)
+parsedCompilerOptions = result.options
+e && e.name === 'SyntaxError'
+console.error(
+        chalk.red.bold(
+          'Could not parse',
+          chalk.cyan('tsconfig.json') + '.',
+          'Please make sure it contains syntactically correct JSON.'
+        )
+      )
+chalk.red.bold(
+          'Could not parse',
+          chalk.cyan('tsconfig.json') + '.',
+          'Please make sure it contains syntactically correct JSON.'
+        )
+"Could not parse"
+chalk.cyan('tsconfig.json') + '.'
+"Please make sure it contains syntactically correct JSON."
+e && e.message ? <operator>.formatString("", e.message, "") : ""
+process.exit(1)
+appTsConfig.compilerOptions == null
+appTsConfig.compilerOptions = {}
+firstTimeSetup = true
+_iterator_0 = <operator>.iterator(Object.keys(compilerOptions))
+_tmp_32 = compilerOptions[option]
+const valueToCheck = parsedValue === undefined ? value : parsedValue
+const coloredOption = chalk.cyan('compilerOptions.' + option)
+suggested != null
+parsedCompilerOptions[option] === undefined
+appTsConfig = immer(appTsConfig, config => {
+          config.compilerOptions[option] = suggested;
+        })
+messages.push(
+          `${coloredOption} to be ${chalk.bold(
+            'suggested'
+          )} value: ${chalk.cyan.bold(suggested)} (this can be changed)`
+        )
+<operator>.formatString("", coloredOption, " to be ", chalk.bold(
+            'suggested'
+          ), " value: ", chalk.cyan.bold(suggested), " (this can be changed)")
+"suggested"
+(_tmp_33 = chalk.cyan).bold
+parsedCompilerOptions[option] !== valueToCheck
+appTsConfig = immer(appTsConfig, config => {
+        config.compilerOptions[option] = value;
+      })
+messages.push(
+        `${coloredOption} ${chalk.bold(
+          valueToCheck == null ? 'must not' : 'must'
+        )} be ${valueToCheck == null ? 'set' : chalk.cyan.bold(value)}` +
+          (reason != null ? ` (${reason})` : '')
+      )
+`${coloredOption} ${chalk.bold(
+          valueToCheck == null ? 'must not' : 'must'
+        )} be ${valueToCheck == null ? 'set' : chalk.cyan.bold(value)}` +
+          (reason != null ? ` (${reason})` : '')
+valueToCheck == null ? "must not" : "must"
+valueToCheck == null ? "set" : chalk.cyan.bold(value)
+reason != null ? <operator>.formatString(" (", reason, ")") : ""
+parsedTsConfig.include == null
+appTsConfig = immer(appTsConfig, config => {
+      config.include = ['src'];
+    })
+messages.push(
+      `${chalk.cyan('include')} should be ${chalk.cyan.bold('src')}`
+    )
+<operator>.formatString("", chalk.cyan('include'), " should be ", chalk.cyan.bold('src'), "")
+messages.length > 0
+console.log(
+        chalk.bold(
+          'Your',
+          chalk.cyan('tsconfig.json'),
+          'has been populated with default values.'
+        )
+      )
+chalk.bold(
+          'Your',
+          chalk.cyan('tsconfig.json'),
+          'has been populated with default values.'
+        )
+"Your"
+chalk.cyan('tsconfig.json')
+"has been populated with default values."
+console.log()
+console.warn(
+        chalk.bold(
+          'The following changes are being made to your',
+          chalk.cyan('tsconfig.json'),
+          'file:'
+        )
+      )
+chalk.bold(
+          'The following changes are being made to your',
+          chalk.cyan('tsconfig.json'),
+          'file:'
+        )
+"The following changes are being made to your"
+chalk.cyan('tsconfig.json')
+"file:"
+messages.forEach(message => {
+        console.warn('  - ' + message);
+      })
+console.warn()
+writeJson(paths.appTsConfig, appTsConfig)
+!fs.existsSync(paths.appTypeDeclarations)
+fs.writeFileSync(
+      paths.appTypeDeclarations,
+      `/// <reference types="react-scripts" />${os.EOL}`
+    )

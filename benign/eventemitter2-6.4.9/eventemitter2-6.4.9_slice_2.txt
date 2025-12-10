@@ -1,0 +1,72 @@
+EventEmitter.prototype.off = function(type, listener) {
+    if (typeof listener !== 'function') {
+      throw new Error('removeListener only takes instances of Function');
+    }
+
+    var handlers,leafs=[];
+
+    if(this.wildcard) {
+      var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice();
+      leafs = searchListenerTree.call(this, null, ns, this.listenerTree, 0);
+      if(!leafs) return this;
+    } else {
+      // does not use listeners(), so no side effect of creating _events[type]
+      if (!this._events[type]) return this;
+      handlers = this._events[type];
+      leafs.push({_listeners:handlers});
+    }
+
+    for (var iLeaf=0; iLeaf<leafs.length; iLeaf++) {
+      var leaf = leafs[iLeaf];
+      handlers = leaf._listeners;
+      if (isArray(handlers)) {
+
+        var position = -1;
+
+        for (var i = 0, length = handlers.length; i < length; i++) {
+          if (handlers[i] === listener ||
+            (handlers[i].listener && handlers[i].listener === li...
+typeof listener !== 'function'
+throw new Error('removeListener only takes instances of Function');
+__ecma.Array.factory()
+this.wildcard
+var ns = typeof type === 'string' ? type.split(this.delimiter) : type.slice()
+leafs = searchListenerTree.call(this, null, ns, this.listenerTree, 0)
+!leafs
+!this._events[type]
+handlers = this._events[type]
+leafs.push({_listeners:handlers})
+iLeaf<leafs.length
+var leaf = leafs[iLeaf]
+handlers = leaf._listeners
+isArray(handlers)
+var position = -1
+var length = handlers.length
+handlers[i] === listener ||
+            (handlers[i].listener && handlers[i].listener === listener) ||
+            (handlers[i]._origin && handlers[i]._origin === listener)
+handlers[i].listener && handlers[i].listener === listener
+handlers[i]._origin && handlers[i]._origin === listener
+position = i
+break;
+position < 0
+continue;
+this.wildcard
+leaf._listeners.splice(position, 1)
+this._events[type].splice(position, 1)
+handlers.length === 0
+this.wildcard
+delete leaf._listeners
+delete this._events[type]
+this._removeListener
+this.emit("removeListener", type, listener)
+handlers === listener ||
+        (handlers.listener && handlers.listener === listener) ||
+        (handlers._origin && handlers._origin === listener)
+handlers.listener && handlers.listener === listener
+handlers._origin && handlers._origin === listener
+this.wildcard
+delete leaf._listeners
+delete this._events[type]
+this._removeListener
+this.emit("removeListener", type, listener)

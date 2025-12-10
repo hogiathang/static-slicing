@@ -1,0 +1,32 @@
+_tmp_20.push(new Promise(function (resolve, reject) {
+      utils.JSON.stringify(request, options, function(err, body) {
+        if (err) {
+          return resolve(err);
+        }
+
+        ws.send(body);
+
+        if (utils.Request.isNotification(request)) {
+          // notifications callback immediately since they don't have a reply
+          return resolve();
+        }
+
+        outstandingItem = [request, resolve, reject];
+        self.outstandingRequests.push(outstandingItem);
+      });
+    }))
+utils.JSON.stringify(request, options, function(err, body) {
+        if (err) {
+          return resolve(err);
+        }
+
+        ws.send(body);
+
+        if (utils.Request.isNotification(request)) {
+          // notifications callback immediately since they don't have a reply
+          return resolve();
+        }
+
+        outstandingItem = [request, resolve, reject];
+        self.outstandingRequests.push(outstandingItem);
+      })

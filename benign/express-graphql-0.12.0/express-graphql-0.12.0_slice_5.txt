@@ -1,0 +1,149 @@
+async function graphqlMiddleware(request, response) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
+        // Higher scoped variables are referred to at various stages in the asynchronous state machine below.
+        let params;
+        let showGraphiQL = false;
+        let graphiqlOptions;
+        let formatErrorFn = graphql_1.formatError;
+        let pretty = false;
+        let result;
+        try {
+            // Parse the Request to get GraphQL request parameters.
+            try {
+                params = await getGraphQLParams(request);
+            }
+            catch (error) {
+                // When we failed to parse the GraphQL parameters, we still need to get
+                // the options object, so make an options call to resolve just that.
+                const optionsData = await resolveOptions();
+                pretty = (_a = optionsData.pretty) !== null && _a !== void 0 ? _a : false;
+                formatErrorFn = (_c = (_b = optionsData.customF...
+let showGraphiQL = false
+let formatErrorFn = graphql_1.formatError
+let pretty = false
+params = await getGraphQLParams(request)
+const optionsData = await resolveOptions()
+pretty = (_a = optionsData.pretty) !== null && _a !== void 0 ? _a : false
+formatErrorFn = (_c = (_b = optionsData.customFormatErrorFn) !== null && _b !== void 0 ? _b : optionsData.formatError) !== null && _c !== void 0 ? _c : formatErrorFn
+throw error;
+const optionsData = await resolveOptions(params)
+const schema = optionsData.schema
+const rootValue = optionsData.rootValue
+const validationRules = (_d = optionsData.validationRules) !== null && _d !== void 0 ? _d : []
+const fieldResolver = optionsData.fieldResolver
+const typeResolver = optionsData.typeResolver
+const graphiql = (_e = optionsData.graphiql) !== null && _e !== void 0 ? _e : false
+const extensionsFn = optionsData.extensions
+const context = (_f = optionsData.context) !== null && _f !== void 0 ? _f : request
+const parseFn = (_g = optionsData.customParseFn) !== null && _g !== void 0 ? _g : graphql_1.parse
+const executeFn = (_h = optionsData.customExecuteFn) !== null && _h !== void 0 ? _h : graphql_1.execute
+const validateFn = (_j = optionsData.customValidateFn) !== null && _j !== void 0 ? _j : graphql_1.validate
+pretty = (_k = optionsData.pretty) !== null && _k !== void 0 ? _k : false
+formatErrorFn = (_m = (_l = optionsData.customFormatErrorFn) !== null && _l !== void 0 ? _l : optionsData.formatError) !== null && _m !== void 0 ? _m : formatErrorFn
+devAssert(schema != null, 'GraphQL middleware options must contain a schema.')
+request.method !== 'GET' && request.method !== 'POST'
+throw http_errors_1.default(405, 'GraphQL only supports GET and POST requests.', {
+                    headers: { Allow: 'GET, POST' },
+                });
+_tmp_0.headers = { Allow: 'GET, POST' }
+operationName = _tmp_2.operationName
+showGraphiQL = canDisplayGraphiQL(request, params) && graphiql !== false
+typeof graphiql !== 'boolean'
+graphiqlOptions = graphiql
+query == null
+throw http_errors_1.default(400, 'Must provide query string.');
+const schemaValidationErrors = graphql_1.validateSchema(schema)
+schemaValidationErrors.length > 0
+throw http_errors_1.default(500, 'GraphQL schema validation error.', {
+                    graphqlErrors: schemaValidationErrors,
+                });
+_tmp_3.graphqlErrors = schemaValidationErrors
+documentAST = parseFn(new graphql_1.Source(query, 'GraphQL request'))
+throw http_errors_1.default(400, 'GraphQL syntax error.', {
+                    graphqlErrors: [syntaxError],
+                });
+_tmp_5.graphqlErrors = [syntaxError]
+const validationErrors = validateFn(schema, documentAST, [
+                ...graphql_1.specifiedRules,
+                ...validationRules,
+            ])
+_tmp_7.push(...graphql_1.specifiedRules)
+_tmp_7.push(...validationRules)
+validationErrors.length > 0
+throw http_errors_1.default(400, 'GraphQL validation error.', {
+                    graphqlErrors: validationErrors,
+                });
+_tmp_8.graphqlErrors = validationErrors
+request.method === 'GET'
+const operationAST = graphql_1.getOperationAST(documentAST, operationName)
+operationAST && operationAST.operation !== 'query'
+throw http_errors_1.default(405, `Can only perform a ${operationAST.operation} operation from a POST request.`, { headers: { Allow: 'POST' } });
+result = await executeFn({
+                    schema,
+                    document: documentAST,
+                    rootValue,
+                    contextValue: context,
+                    variableValues: variables,
+                    operationName,
+                    fieldResolver,
+                    typeResolver,
+                })
+_tmp_11.schema = schema
+_tmp_11.document = documentAST
+_tmp_11.rootValue = rootValue
+_tmp_11.contextValue = context
+_tmp_11.variableValues = variables
+_tmp_11.operationName = operationName
+_tmp_11.fieldResolver = fieldResolver
+_tmp_11.typeResolver = typeResolver
+throw http_errors_1.default(400, 'GraphQL execution context error.', {
+                    graphqlErrors: [contextError],
+                });
+_tmp_12.graphqlErrors = [contextError]
+const extensions = await extensionsFn({
+                    document: documentAST,
+                    variables,
+                    operationName,
+                    result,
+                    context,
+                })
+_tmp_14.document = documentAST
+_tmp_14.variables = variables
+_tmp_14.operationName = operationName
+_tmp_14.result = result
+_tmp_14.context = context
+extensions != null
+result = { ...result, extensions }
+const error = http_errors_1.default(500, 
+            /* istanbul ignore next: Thrown by underlying library. */
+            rawError instanceof Error ? rawError : String(rawError))
+rawError instanceof Error ? rawError : String(rawError)
+response.statusCode = error.status
+headers = _tmp_16.headers
+headers != null
+_iterator_0 = <operator>.iterator(Object.entries(headers))
+response.setHeader(key, String(value))
+error.graphqlErrors == null
+const graphqlError = new graphql_1.GraphQLError(error.message, undefined, undefined, undefined, undefined, error)
+result = { data: undefined, errors: [graphqlError] }
+result = { data: undefined, errors: error.graphqlErrors }
+response.statusCode === 200 && result.data == null
+response.statusCode = 500
+const formattedResult = {
+            ...result,
+            errors: (_o = result.errors) === null || _o === void 0 ? void 0 : _o.map(formatErrorFn),
+        }
+...result
+_tmp_21.errors = (_o = result.errors) === null || _o === void 0 ? void 0 : _o.map(formatErrorFn)
+!pretty && typeof response.json === 'function'
+function resolveOptions = async function resolveOptions(requestParams) {
+            const optionsResult = await Promise.resolve(typeof options === 'function'
+                ? options(request, response, requestParams)
+                : options);
+            devAssert(optionsResult != null && typeof optionsResult === 'object', 'GraphQL middleware option function must return an options object or a promise which will be resolved to an options object.');
+            if (optionsResult.formatError) {
+                // eslint-disable-next-line no-console
+                console.warn('`formatError` is deprecated and replaced by `customFormatErrorFn`. It will be removed in version 1.0.0.');
+            }
+            return optionsResult;
+        }

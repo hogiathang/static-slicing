@@ -1,0 +1,29 @@
+_tmp_0.items = (0, legacy_js_1.getElementsByTagName)("entry", childs).map(function (item) {
+            var _a;
+            var children = item.children;
+            var entry = { media: getMediaElements(children) };
+            addConditionally(entry, "id", "id", children);
+            addConditionally(entry, "title", "title", children);
+            var href = (_a = getOneElement("link", children)) === null || _a === void 0 ? void 0 : _a.attribs["href"];
+            if (href) {
+                entry.link = href;
+            }
+            var description = fetch("summary", children) || fetch("content", children);
+            if (description) {
+                entry.description = description;
+            }
+            var pubDate = fetch("updated", children);
+            if (pubDate) {
+                entry.pubDate = new Date(pubDate);
+            }
+            return entry;
+        })
+var children = item.children
+var entry = { media: getMediaElements(children) }
+addConditionally(entry, "id", "id", children)
+addConditionally(entry, "title", "title", children)
+var href = (_a = getOneElement("link", children)) === null || _a === void 0 ? void 0 : _a.attribs["href"]
+entry.link = href
+var description = fetch("summary", children) || fetch("content", children)
+entry.description = description
+var pubDate = fetch("updated", children)

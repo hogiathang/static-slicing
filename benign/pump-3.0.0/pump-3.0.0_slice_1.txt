@@ -1,0 +1,3 @@
+var pump = require('./index')
+var rs = require('fs').createReadStream('/dev/random')
+var ws = require('fs').createWriteStream('/dev/null')

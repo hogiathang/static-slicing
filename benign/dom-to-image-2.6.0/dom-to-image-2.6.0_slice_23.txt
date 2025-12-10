@@ -1,0 +1,22 @@
+_tmp_14.buildFragment = <lambda>2
+var fragment = context.createDocumentFragment()
+__ecma.Array.factory()
+var i = 0
+var l = elems.length
+i < l
+elem = elems[ i ]
+elem || elem === 0
+jQuery.type( elem ) === "object"
+jQuery.merge( nodes, elem.nodeType ? [ elem ] : elem )
+!rhtml.test( elem )
+nodes.push( context.createTextNode( elem ) )
+tmp = tmp || fragment.appendChild( context.createElement("div") )
+(_tmp_16 = ( rtagName.exec( elem ) || [ "", "" ] )[ 1 ]).toLowerCase
+wrap = wrapMap[ tag ] || wrapMap._default
+tmp.innerHTML = wrap[ 1 ] + elem.replace( rxhtmlTag, "<$1></$2>" ) + wrap[ 2 ]
+j = wrap[ 0 ]
+j--
+tmp = tmp.lastChild
+jQuery.merge( nodes, tmp.childNodes )
+tmp = fragment.firstChild
+tmp.textContent = ""

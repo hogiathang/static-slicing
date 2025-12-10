@@ -1,0 +1,18 @@
+_tmp_0.update = update
+const header = `
+/**
+ * Generated file - do not edit.
+ * See:
+ *    - generator:  script.ts/generate-hashtype.ts
+ *    - command:    yarn run gen:hashtype
+ */    
+`
+      .substring(1)
+      .slice(0, -1)
+1
+-1
+_tmp_5 = HashUnionType.generate()
+<operator>.formatString("", header, "\n", type, "\n")
+const importT = `import { type t } from '../common.t';`
+<operator>.formatString("", header, "\n", importT, "\n\n", constants, "\n")
+fs.writeFileSync(fsPath.resolve('./src/types.hashes.ts'), typeDef)

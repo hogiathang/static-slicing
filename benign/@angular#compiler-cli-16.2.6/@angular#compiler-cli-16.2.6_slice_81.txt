@@ -1,0 +1,6 @@
+const pipes = remoteScope.pipes.map((pipe) => {
+          const type = this.refEmitter.emit(pipe, context);
+          assertSuccessfulReferenceEmit(type, node, "pipe");
+          return type.expression;
+        })
+const type = this.refEmitter.emit(pipe, context)

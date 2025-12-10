@@ -1,0 +1,142 @@
+function prompt = function prompt(ask, value, opts) {
+    var insert = 0, savedinsert = 0, res, i, savedstr;
+    opts = opts || {};
+
+    if (Object(ask) === ask) {
+      opts = ask;
+      ask = opts.ask;
+    } else if (Object(value) === value) {
+      opts = value;
+      value = opts.value;
+    }
+    ask = ask || '';
+    var echo = opts.echo;
+    var masked = 'echo' in opts;
+    autocomplete = opts.autocomplete || autocomplete;
+
+    var fd = (process.platform === 'win32') ?
+      process.stdin.fd :
+      fs.openSync('/dev/tty', 'rs');
+
+    var wasRaw = process.stdin.isRaw;
+    if (!wasRaw) { process.stdin.setRawMode && process.stdin.setRawMode(true); }
+
+    var buf = Buffer.alloc(3);
+    var str = '', character, read;
+
+    savedstr = '';
+
+    if (ask) {
+      process.stdout.write(ask);
+    }
+
+    var cycle = 0;
+    var prevComplete;
+
+    while (true) {
+      read = fs.readSync(fd, buf, 0, 3);
+      if (read > 1) { // received a control sequence
+        switch(buf.toString()) {
+          case '\u001b[...
+var savedinsert = 0
+opts = opts || {}
+Object(ask) === ask
+opts = ask
+ask = opts.ask
+Object(value) === value
+opts = value
+value = opts.value
+ask = ask || ''
+var echo = opts.echo
+var masked = 'echo' in opts
+autocomplete = opts.autocomplete || autocomplete
+var fd = (process.platform === 'win32') ?
+      process.stdin.fd :
+      fs.openSync('/dev/tty', 'rs')
+process.stdin.fd
+fs.openSync('/dev/tty', 'rs')
+var wasRaw = process.stdin.isRaw
+process.stdin.setRawMode && process.stdin.setRawMode(true)
+var buf = Buffer.alloc(3)
+var str = ''
+savedstr = ''
+(_tmp_2 = process.stdout).write
+var cycle = 0
+read = fs.readSync(fd, buf, 0, 3)
+read > 1
+buf.toString()
+"[A"
+break;
+!history
+history.atStart()
+history.atEnd()
+savedstr = str
+savedinsert = insert
+str = history.prev()
+insert = str.length
+process.stdout.write('\u001b[2K\u001b[0G' + ask + str)
+break;
+"[B"
+break;
+!history
+history.pastEnd()
+history.atPenultimate()
+str = savedstr
+insert = savedinsert
+history.next()
+str = history.next()
+insert = str.length
+process.stdout.write('\u001b[2K\u001b[0G'+ ask + str + '\u001b['+(insert+ask.length+1)+'G')
+break;
+"[D"
+break;
+var before = insert
+insert = (--insert < 0) ? 0 : insert
+before - insert
+process.stdout.write('\u001b[1D')
+break;
+"[C"
+break;
+insert = (++insert > str.length) ? str.length : insert
+process.stdout.write('\u001b[' + (insert+ask.length+1) + 'G')
+break;
+default:
+buf.toString()
+str = str + buf.toString()
+str = str.replace(/\0/g, '')
+insert = str.length
+promptPrint(masked, ask, echo, str, insert)
+process.stdout.write('\u001b[' + (insert+ask.length+1) + 'G')
+buf = Buffer.alloc(3)
+continue;
+character = buf[read-1]
+character == 3
+(_tmp_8 = process.stdout).write
+fs.closeSync(fd)
+character == 4
+str.length == 0 && eot
+(_tmp_10 = process.stdout).write
+process.exit(0)
+character == term
+character == 9
+res = autocomplete(str)
+str == res[0]
+res = autocomplete('')
+prevComplete = res.length
+res.length == 0
+(_tmp_11 = process.stdout).write
+continue;
+var item = res[cycle++] || res[cycle = 0, cycle++]
+process.stdout.write('\r\u001b[K' + ask + item)
+str = item
+insert = item.length
+character == 127 || (process.platform == 'win32' && character == 8)
+!insert
+str = str.slice(0, insert-1) + str.slice(insert)
+insert--
+process.stdout.write('\u001b[2D')
+(character < 32 ) || (character > 126)
+continue;
+str = str.slice(0, insert) + String.fromCharCode(character) + str.slice(insert)
+insert++
+promptPrint(masked, ask, echo, str, insert)

@@ -1,0 +1,26 @@
+function default_1 = async function default_1(options) {
+    // This node version check ensures that the requirements of the project instance of the CLI are met
+    const [major, minor] = process.versions.node.split('.').map((part) => Number(part));
+    if (major < MIN_NODEJS_VERSION[0] ||
+        (major === MIN_NODEJS_VERSION[0] && minor < MIN_NODEJS_VERSION[1])) {
+        process.stderr.write(`Node.js version ${process.version} detected.\n` +
+            `The Angular CLI requires a minimum of v${MIN_NODEJS_VERSION[0]}.${MIN_NODEJS_VERSION[1]}.\n\n` +
+            'Please update your Node.js version or visit https://nodejs.org/ for additional instructions.\n');
+        return 3;
+    }
+    const colorLevels = {
+        info: (s) => s,
+        debug: (s) => s,
+        warn: (s) => color_1.colors.bold.yellow(s),
+        error: (s) => color_1.colors.bold.red(s),
+        fatal: (s) => color_1.colors.bold.red(s),
+    };
+    const logger = new core_1.logging.IndentLogger('cli-main-logger');
+    const logInfo =...
+_tmp_2 = process.versions.node.split('.').map((part) => Number(part))
+major < MIN_NODEJS_VERSION[0] ||
+        (major === MIN_NODEJS_VERSION[0] && minor < MIN_NODEJS_VERSION[1])
+major === MIN_NODEJS_VERSION[0] && minor < MIN_NODEJS_VERSION[1]
+process.stderr.write(`Node.js version ${process.version} detected.\n` +
+            `The Angular CLI requires a minimum of v${MIN_NODEJS_VERSION[0]}.${MIN_NODEJS_VERSION[1]}.\n\n` +
+            'Please update your Node.js version or visit https://nodejs.org/ for additional instructions.\n')

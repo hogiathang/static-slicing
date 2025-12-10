@@ -1,0 +1,4 @@
+img.onload = () => {
+				connect(img)
+				connected = true
+			}

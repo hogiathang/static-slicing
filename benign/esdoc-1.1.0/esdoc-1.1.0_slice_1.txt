@@ -1,0 +1,46 @@
+static _publish(config) {
+    try {
+      const write = (filePath, content, option) => {
+        const _filePath = _path2.default.resolve(config.destination, filePath);
+        content = _Plugin2.default.onHandleContent(content, _filePath);
+
+        console.log(`output: ${_filePath}`);
+        _fsExtra2.default.outputFileSync(_filePath, content, option);
+      };
+
+      const copy = (srcPath, destPath) => {
+        const _destPath = _path2.default.resolve(config.destination, destPath);
+        console.log(`output: ${_destPath}`);
+        _fsExtra2.default.copySync(srcPath, _destPath);
+      };
+
+      const read = filePath => {
+        const _filePath = _path2.default.resolve(config.destination, filePath);
+        return _fsExtra2.default.readFileSync(_filePath).toString();
+      };
+
+      _Plugin2.default.onPublish(write, copy, read);
+    } catch (e) {
+      _InvalidCodeLogger2.default.showError(e);
+      process.exit(1);
+    }
+  }
+const write = (filePath, content, option) => {
+        const _filePath = _path2.default.resolve(config.destination, filePath);
+        content = _Plugin2.default.onHandleContent(content, _filePath);
+
+        console.log(`output: ${_filePath}`);
+        _fsExtra2.default.outputFileSync(_filePath, content, option);
+      }
+const copy = (srcPath, destPath) => {
+        const _destPath = _path2.default.resolve(config.destination, destPath);
+        console.log(`output: ${_destPath}`);
+        _fsExtra2.default.copySync(srcPath, _destPath);
+      }
+const read = filePath => {
+        const _filePath = _path2.default.resolve(config.destination, filePath);
+        return _fsExtra2.default.readFileSync(_filePath).toString();
+      }
+_Plugin2.default.onPublish(write, copy, read)
+(_tmp_68 = _InvalidCodeLogger2.default).showError
+process.exit(1)

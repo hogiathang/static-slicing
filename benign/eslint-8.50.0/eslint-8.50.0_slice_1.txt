@@ -1,0 +1,54 @@
+async lintFiles(patterns) {
+        if (!isNonEmptyString(patterns) && !isArrayOfNonEmptyString(patterns)) {
+            throw new Error("'patterns' must be a non-empty string or an array of non-empty strings");
+        }
+
+        const {
+            cacheFilePath,
+            lintResultCache,
+            linter,
+            options: eslintOptions
+        } = privateMembers.get(this);
+        const configs = await calculateConfigArray(this, eslintOptions);
+        const {
+            allowInlineConfig,
+            cache,
+            cwd,
+            fix,
+            fixTypes,
+            reportUnusedDisableDirectives,
+            globInputPaths,
+            errorOnUnmatchedPattern
+        } = eslintOptions;
+        const startTime = Date.now();
+        const fixTypesSet = fixTypes ? new Set(fixTypes) : null;
+
+        // Delete cache file; should this be done here?
+        if (!cache && cacheFilePath) {
+            debug(`Deleting cache file at ${cacheFilePath}`);
+
+            try {
+...
+!isNonEmptyString(patterns) && !isArrayOfNonEmptyString(patterns)
+throw new Error("'patterns' must be a non-empty string or an array of non-empty strings");
+_tmp_55 = privateMembers.get(this)
+cacheFilePath = _tmp_55.cacheFilePath
+lintResultCache = _tmp_55.lintResultCache
+linter = _tmp_55.linter
+eslintOptions = _tmp_55.options
+privateMembers.get(this)
+const configs = await calculateConfigArray(this, eslintOptions)
+_tmp_56 = eslintOptions
+allowInlineConfig = _tmp_56.allowInlineConfig
+cache = _tmp_56.cache
+cwd = _tmp_56.cwd
+fix = _tmp_56.fix
+fixTypes = _tmp_56.fixTypes
+reportUnusedDisableDirectives = _tmp_56.reportUnusedDisableDirectives
+globInputPaths = _tmp_56.globInputPaths
+errorOnUnmatchedPattern = _tmp_56.errorOnUnmatchedPattern
+const startTime = Date.now()
+const fixTypesSet = fixTypes ? new Set(fixTypes) : null
+!cache && cacheFilePath
+<operator>.formatString("Deleting cache file at ", cacheFilePath, "")
+await fs.unlink(cacheFilePath)

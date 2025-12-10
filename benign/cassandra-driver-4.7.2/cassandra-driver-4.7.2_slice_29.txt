@@ -1,0 +1,49 @@
+Client.prototype._batch = async function (queries, options) {
+  if (!Array.isArray(queries)) {
+    throw new errors.ArgumentError('Queries should be an Array');
+  }
+
+  if (queries.length === 0) {
+    throw new errors.ArgumentError('Queries array should not be empty');
+  }
+
+  await this._connect();
+
+  const execOptions = DefaultExecutionOptions.create(options, this);
+  let queryItems;
+
+  if (execOptions.isPrepared()) {
+    // use keyspace from query options if protocol supports per-query keyspace, otherwise use connection keyspace.
+    const version = this.controlConnection.protocolVersion;
+    const queryKeyspace = types.protocolVersion.supportsKeyspaceInRequest(version) && options.keyspace || this.keyspace;
+    queryItems = await PrepareHandler.getPreparedMultiple(
+      this, execOptions.getLoadBalancingPolicy(), queries, queryKeyspace);
+  } else {
+    queryItems = new Array(queries.length);
+
+    for (let i = 0; i < queries.length; i++) {
+      const item = queries[i];
+      if (!...
+!Array.isArray(queries)
+throw new errors.ArgumentError('Queries should be an Array');
+queries.length === 0
+throw new errors.ArgumentError('Queries array should not be empty');
+await this._connect()
+const execOptions = DefaultExecutionOptions.create(options, this)
+execOptions.isPrepared()
+const version = this.controlConnection.protocolVersion
+const queryKeyspace = types.protocolVersion.supportsKeyspaceInRequest(version) && options.keyspace || this.keyspace
+queryItems = await PrepareHandler.getPreparedMultiple(
+      this, execOptions.getLoadBalancingPolicy(), queries, queryKeyspace)
+execOptions.getLoadBalancingPolicy()
+queryItems = new Array(queries.length)
+i < queries.length
+const item = queries[i]
+!item
+throw new errors.ArgumentError(`Invalid query at index ${i}`);
+const query = typeof item === 'string' ? item : item.query
+!query
+throw new errors.ArgumentError(`Invalid query at index ${i}`);
+queryItems[i] = { query, params: item.params }
+const request = await this._createBatchRequest(queryItems, execOptions)
+await RequestHandler.send(request, execOptions, this)

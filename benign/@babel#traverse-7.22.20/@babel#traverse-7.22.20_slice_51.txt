@@ -1,0 +1,39 @@
+function _resolve = function _resolve(dangerous, resolved) {
+  if (resolved && resolved.indexOf(this) >= 0) return;
+  resolved = resolved || [];
+  resolved.push(this);
+  if (this.isVariableDeclarator()) {
+    if (this.get("id").isIdentifier()) {
+      return this.get("init").resolve(dangerous, resolved);
+    } else {}
+  } else if (this.isReferencedIdentifier()) {
+    const binding = this.scope.getBinding(this.node.name);
+    if (!binding) return;
+    if (!binding.constant) return;
+    if (binding.kind === "module") return;
+    if (binding.path !== this) {
+      const ret = binding.path.resolve(dangerous, resolved);
+      if (this.find(parent => parent.node === ret.node)) return;
+      return ret;
+    }
+  } else if (this.isTypeCastExpression()) {
+    return this.get("expression").resolve(dangerous, resolved);
+  } else if (dangerous && this.isMemberExpression()) {
+    const targetKey = this.toComputedKey();
+    if (!isLiteral(targetKey)) return;
+    const targetName = targetKey.value;
+    const target = ...
+resolved && resolved.indexOf(this) >= 0
+resolved = resolved || []
+resolved.push(this)
+this.isVariableDeclarator()
+this.isReferencedIdentifier()
+this.isTypeCastExpression()
+dangerous && this.isMemberExpression()
+const targetKey = this.toComputedKey()
+!isLiteral(targetKey)
+const targetName = targetKey.value
+const target = this.get("object").resolve(dangerous, resolved)
+target.isObjectExpression()
+target.isArrayExpression() && !isNaN(+targetName)
+const elems = target.get("elements")

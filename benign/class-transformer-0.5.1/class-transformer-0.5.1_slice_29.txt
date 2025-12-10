@@ -1,0 +1,25 @@
+MetadataStorage.prototype.getMetadata = function (metadatas, target) {
+        var metadataFromTargetMap = metadatas.get(target);
+        var metadataFromTarget;
+        if (metadataFromTargetMap) {
+            metadataFromTarget = Array.from(metadataFromTargetMap.values()).filter(function (meta) { return meta.propertyName !== undefined; });
+        }
+        var metadataFromAncestors = [];
+        for (var _i = 0, _a = this.getAncestors(target); _i < _a.length; _i++) {
+            var ancestor = _a[_i];
+            var ancestorMetadataMap = metadatas.get(ancestor);
+            if (ancestorMetadataMap) {
+                var metadataFromAncestor = Array.from(ancestorMetadataMap.values()).filter(function (meta) { return meta.propertyName !== undefined; });
+                metadataFromAncestors.push.apply(metadataFromAncestors, metadataFromAncestor);
+            }
+        }
+        return metadataFromAncestors.concat(metadataFromTarget || []);
+    }
+var metadataFromTargetMap = metadatas.get(target)
+metadataFromTarget = Array.from(metadataFromTargetMap.values()).filter(function (meta) { return meta.propertyName !== undefined; })
+var metadataFromAncestors = []
+var _a = this.getAncestors(target)
+var ancestor = _a[_i]
+var ancestorMetadataMap = metadatas.get(ancestor)
+var metadataFromAncestor = Array.from(ancestorMetadataMap.values()).filter(function (meta) { return meta.propertyName !== undefined; })
+metadataFromAncestors.push.apply(metadataFromAncestors, metadataFromAncestor)

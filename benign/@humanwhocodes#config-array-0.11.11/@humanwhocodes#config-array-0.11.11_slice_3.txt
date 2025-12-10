@@ -1,0 +1,44 @@
+isDirectoryIgnored(directoryPath) {
+
+		assertNormalized(this);
+
+		const relativeDirectoryPath = path.relative(this.basePath, directoryPath)
+			.replace(/\\/g, '/');
+
+		if (relativeDirectoryPath.startsWith('..')) {
+			return true;
+		}
+
+		// first check the cache
+		const cache = dataCache.get(this).directoryMatches;
+
+		if (cache.has(relativeDirectoryPath)) {
+			return cache.get(relativeDirectoryPath);
+		}
+
+		const directoryParts = relativeDirectoryPath.split('/');
+		let relativeDirectoryToCheck = '';
+		let result = false;
+
+		/*
+		 * In order to get the correct gitignore-style ignores, where an
+		 * ignored parent directory cannot have any descendants unignored,
+		 * we need to check every directory starting at the parent all
+		 * the way down to the actual requested directory.
+		 * 
+		 * We aggressively cache all of this info to make sure we don't
+		 * have to recalculate everything for every call.
+		 */
+		do {
+
+			relativeDirectoryToCheck += directoryParts.shift() + '/';
+
+			result =...
+assertNormalized(this)
+const relativeDirectoryPath = path.relative(this.basePath, directoryPath)
+			.replace(/\\/g, '/')
+/\\/g
+relativeDirectoryPath.startsWith('..')
+const cache = dataCache.get(this).directoryMatches
+cache.has(relativeDirectoryPath)
+cache.get(relativeDirectoryPath)

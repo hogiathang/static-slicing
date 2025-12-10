@@ -1,0 +1,42 @@
+QueryManager.prototype.getObservableFromLink = function (query, context, variables, deduplication) {
+        var _this = this;
+        var _a;
+        if (deduplication === void 0) { deduplication = (_a = context === null || context === void 0 ? void 0 : context.queryDeduplication) !== null && _a !== void 0 ? _a : this.queryDeduplication; }
+        var observable;
+        var _b = this.getDocumentInfo(query), serverQuery = _b.serverQuery, clientQuery = _b.clientQuery;
+        if (serverQuery) {
+            var _c = this, inFlightLinkObservables_1 = _c.inFlightLinkObservables, link = _c.link;
+            var operation = {
+                query: serverQuery,
+                variables: variables,
+                operationName: utilities.getOperationName(serverQuery) || void 0,
+                context: this.prepareContext(tslib.__assign(tslib.__assign({}, context), { forceFetch: !deduplication })),
+            };
+            context = operation.context;
+            if (deduplication) {
+...
+var _this = this
+deduplication = (_a = context === null || context === void 0 ? void 0 : context.queryDeduplication) !== null && _a !== void 0 ? _a : this.queryDeduplication
+var _b = this.getDocumentInfo(query)
+var inFlightLinkObservables_1 = _c.inFlightLinkObservables
+var operation = {
+                query: serverQuery,
+                variables: variables,
+                operationName: utilities.getOperationName(serverQuery) || void 0,
+                context: this.prepareContext(tslib.__assign(tslib.__assign({}, context), { forceFetch: !deduplication })),
+            }
+_tmp_295.query = serverQuery
+_tmp_295.variables = variables
+_tmp_295.operationName = utilities.getOperationName(serverQuery) || void 0
+_tmp_295.context = this.prepareContext(tslib.__assign(tslib.__assign({}, context), { forceFetch: !deduplication }))
+context = operation.context
+var printedServerQuery_1 = utilities.print(serverQuery)
+var byVariables_1 = inFlightLinkObservables_1.get(printedServerQuery_1) || new Map()
+inFlightLinkObservables_1.set(printedServerQuery_1, byVariables_1)
+var varJson_1 = cache.canonicalStringify(variables)
+observable = byVariables_1.get(varJson_1)
+!observable
+var concast = new utilities.Concast([
+                        core.execute(link, operation),
+                    ])
+_tmp_300.push(core.execute(link, operation))

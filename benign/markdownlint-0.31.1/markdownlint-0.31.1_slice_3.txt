@@ -1,0 +1,19 @@
+_tmp_844.function = MD051
+var tokens = params.parsers.micromark.tokens
+var fragments = new Map()
+var headingTexts = filterByTypes(tokens, ["atxHeadingText", "setextHeadingText"])
+var _iterator = _createForOfIteratorHelper(headingTexts)
+!(_step = _iterator.n()).done
+var headingText = _step.value
+var fragment = convertHeadingToHTMLFragment(headingText)
+fragment !== "#"
+var count = fragments.get(fragment) || 0
+fragments.set("".concat(fragment, "-").concat(count), 0)
+fragments.set(fragment, count + 1)
+var match = null
+(match = anchorRe.exec(headingText.text)) !== null
+var _match = match
+var _match2 = _slicedToArray(_match, 2)
+var anchor = _match2[1]
+!fragments.has(anchor)
+fragments.set(anchor, 1)

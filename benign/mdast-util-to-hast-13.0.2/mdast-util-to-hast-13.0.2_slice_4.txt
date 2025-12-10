@@ -1,0 +1,28 @@
+function imageReference = function imageReference(state, node) {
+  const id = String(node.identifier).toUpperCase()
+  const def = state.definitionById.get(id)
+
+  if (!def) {
+    return revert(state, node)
+  }
+
+  /** @type {Properties} */
+  const properties = {src: normalizeUri(def.url || ''), alt: node.alt}
+
+  if (def.title !== null && def.title !== undefined) {
+    properties.title = def.title
+  }
+
+  /** @type {Element} */
+  const result = {type: 'element', tagName: 'img', properties, children: []}
+  state.patch(node, result)
+  return state.applyData(node, result)
+}
+const id = String(node.identifier).toUpperCase()
+const def = state.definitionById.get(id)
+!def
+const properties = {src: normalizeUri(def.url || ''), alt: node.alt}
+def.title !== null && def.title !== undefined
+properties.title = def.title
+const result = {type: 'element', tagName: 'img', properties, children: []}
+state.patch(node, result)

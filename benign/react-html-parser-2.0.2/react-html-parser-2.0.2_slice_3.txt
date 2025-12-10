@@ -1,0 +1,8 @@
+var connect = require("react-redux").connect
+var Content = require("../components/Html")
+const mapStateToProps = state => {
+  return {
+    html: state.html,
+    selectedExample: state.selectedExample
+  };
+}

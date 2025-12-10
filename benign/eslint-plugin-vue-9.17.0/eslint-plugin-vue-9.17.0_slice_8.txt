@@ -1,0 +1,20 @@
+_tmp_36.CallExpression = CallExpression
+const callee = utils.skipChainExpression(node.callee)
+const nameWithLoc = getNameParamNode(node)
+!nameWithLoc
+const vueDefineNode = info ? info.node : programNode
+const emitsDeclarations = vueEmitsDeclarations.get(vueDefineNode)
+!emitsDeclarations
+callee.type === 'MemberExpression'
+const name = utils.getStaticPropertyName(callee)
+name === 'emit' || name === '$emit'
+emit = { name, member: callee }
+const setupContext = setupContexts.get(vueDefineNode)
+contextReferenceIds = _tmp_38.contextReferenceIds
+callee.type === 'Identifier' && emitReferenceIds.has(callee)
+emit && emit.name === 'emit'
+const memObject = utils.skipChainExpression(emit.member.object)
+memObject.type === 'Identifier' &&
+              contextReferenceIds.has(memObject)
+contextReferenceIds.has(memObject)
+vuePropsDeclarations.get(vueDefineNode) || []

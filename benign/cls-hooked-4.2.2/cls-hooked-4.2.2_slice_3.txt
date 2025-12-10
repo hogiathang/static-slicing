@@ -1,0 +1,3 @@
+_tmp_2.before = before
+currentUid = async_hooks.executionAsyncId()
+context = namespace._contexts.get(asyncId) || namespace._contexts.get(currentUid)

@@ -1,0 +1,64 @@
+async processActivity(
+        req: WebRequest,
+        res: WebResponse,
+        logic: (context: TurnContext) => Promise<any>
+    ): Promise<void> {
+        let body: any;
+        let status: number;
+        let processError: Error;
+        try {
+            // Parse body of request
+            status = 400;
+            const request = await parseRequest(req);
+
+            // Authenticate the incoming request
+            status = 401;
+            const authHeader: string = req.headers.authorization || req.headers.Authorization || '';
+
+            const identity = await this.authenticateRequestInternal(request, authHeader);
+
+            // Set the correct callerId value and discard values received over the wire
+            request.callerId = await this.generateCallerId(identity);
+
+            // Process received activity
+            status = 500;
+            const context: TurnContext = this.createContext(request);
+            context.turnState.set(this.BotIdentityKey, identity);
+ ...
+status = 400
+const request = await parseRequest(req)
+status = 401
+const authHeader: string = req.headers.authorization || req.headers.Authorization || ''
+const identity = await this.authenticateRequestInternal(request, authHeader)
+request.callerId = await this.generateCallerId(identity)
+status = 500
+const context: TurnContext = this.createContext(request)
+context.turnState.set(this.BotIdentityKey, identity)
+const connectorClient = await this.createConnectorClientWithIdentity(request.serviceUrl, identity)
+context.turnState.set(this.ConnectorClientKey, connectorClient)
+const oAuthScope: string = SkillValidation.isSkillClaim(identity.claims)
+                ? JwtTokenValidation.getAppIdFromClaims(identity.claims)
+                : this.credentials.oAuthScope
+JwtTokenValidation.getAppIdFromClaims(identity.claims)
+this.credentials.oAuthScope
+context.turnState.set(this.OAuthScopeKey, oAuthScope)
+context.turnState.set(BotCallbackHandlerKey, logic)
+await this.runMiddleware(context, logic)
+request.deliveryMode === DeliveryModes.ExpectReplies
+let activities = context.bufferedReplyActivities
+request.channelId !== Channels.Emulator
+activities = activities.filter((a) => a.type !== ActivityTypes.Trace)
+body = { activities } as ExpectedReplies
+status = StatusCodes.OK
+request.type === ActivityTypes.Invoke
+const invokeResponse: any = context.turnState.get(INVOKE_RESPONSE_KEY)
+invokeResponse && invokeResponse.value
+const value: InvokeResponse = invokeResponse.value
+status = value.status
+body = value.body
+status = StatusCodes.NOT_IMPLEMENTED
+status = StatusCodes.OK
+processError = err
+body = err.toString()
+res.status(status)
+res.send(body)

@@ -1,0 +1,15 @@
+ast.traverse(function(node, i, parent, lastLevel) {
+      var type = node.type;
+      var spaces = new Array(lastLevel).join(' |');
+      if (typeof node.content === 'string') {
+        var content = JSON.stringify(node.content);
+        console.log(spaces, '->', type);
+        console.log(spaces, '  ', content);
+      } else {
+        console.log(spaces, '->', type);
+      }
+    })
+var type = node.type
+var spaces = new Array(lastLevel).join(' |')
+typeof node.content === 'string'
+var content = JSON.stringify(node.content)

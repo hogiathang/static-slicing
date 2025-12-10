@@ -1,0 +1,14 @@
+self.into = function (key, cb) {
+        if (!vars.get(key)) {
+            vars.set(key, {});
+        }
+        var parent = vars;
+        vars = Vars(parent.get(key));
+        cb.call(self, vars.store);
+        vars = parent;
+        return self;
+    }
+!vars.get(key)
+vars.set(key, {})
+var parent = vars
+vars = Vars(parent.get(key))

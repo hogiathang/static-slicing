@@ -1,0 +1,15 @@
+_tmp_29.Identifier = Identifier
+referenceMap = _tmp_36.referenceMap
+const reference = referenceMap && referenceMap.get(node)
+!reference
+const variable = reference.resolved
+const writeExpr = getWriteExpr(reference)
+const isMemberAccess = reference.identifier.parent.type === "MemberExpression"
+reference.isRead() && !(writeExpr && writeExpr.parent.operator === "=")
+segmentInfo.markAsRead(stack.currentSegments, variable)
+writeExpr &&
+                    writeExpr.parent.right === writeExpr && // ← exclude variable declarations.
+                    !isLocalVariableWithoutEscape(variable, isMemberAccess)
+writeExpr.parent.right === writeExpr
+!isLocalVariableWithoutEscape(variable, isMemberAccess)
+let refs = assignmentReferences.get(writeExpr)

@@ -1,0 +1,10 @@
+filepaths.forEach(function(filepath) {
+      var abspath = path.resolve(filepath);
+      if (require.cache[abspath]) {
+        grunt.verbose.write('Clearing require cache for "' + filepath + '" file...').ok();
+        delete require.cache[abspath];
+      }
+    })
+var abspath = path.resolve(filepath)
+require.cache[abspath]
+(_tmp_46 = grunt.verbose.write('Clearing require cache for "' + filepath + '" file...')).ok

@@ -1,0 +1,37 @@
+filePair.src.forEach(function(src) {
+        src = unixifyPath(src);
+        var dest = unixifyPath(filePair.dest);
+
+        if (detectDestType(dest) === 'directory') {
+          dest = isExpandedPair ? dest : path.join(dest, src);
+        }
+
+        if (grunt.file.isDir(src)) {
+          grunt.verbose.writeln('Creating ' + chalk.cyan(dest));
+          grunt.file.mkdir(dest);
+          if (options.mode !== false) {
+            fs.chmodSync(dest, (options.mode === true) ? fs.lstatSync(src).mode : options.mode);
+          }
+
+          if (options.timestamp) {
+            dirs[dest] = src;
+          }
+
+          tally.dirs++;
+        } else {
+          grunt.verbose.writeln('Copying ' + chalk.cyan(src) + ' -> ' + chalk.cyan(dest));
+          grunt.file.copy(src, dest, copyOptions);
+          syncTimestamp(src, dest);
+          if (options.mode !== false) {
+            fs.chmodSync(dest, (options.mode === true) ? fs.lstatSync(src).mode : options.mode);
+          }
+          tally.files+...
+src = unixifyPath(src)
+var dest = unixifyPath(filePair.dest)
+detectDestType(dest) === 'directory'
+dest = isExpandedPair ? dest : path.join(dest, src)
+(_tmp_7 = grunt.file).isDir
+grunt.verbose.writeln('Creating ' + chalk.cyan(dest))
+(_tmp_9 = grunt.file).mkdir
+options.mode !== false
+fs.chmodSync(dest, (options.mode === true) ? fs.lstatSync(src).mode : options.mode)

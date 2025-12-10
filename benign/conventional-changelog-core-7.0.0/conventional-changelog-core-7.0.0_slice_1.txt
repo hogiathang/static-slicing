@@ -1,0 +1,45 @@
+function (data) {
+      options = data.options
+      context = data.context
+      gitRawCommitsOpts = data.gitRawCommitsOpts
+      parserOpts = data.parserOpts
+      writerOpts = data.writerOpts
+      gitRawExecOpts = data.gitRawExecOpts
+
+      try {
+        execFileSync('git', ['rev-parse', '--verify', 'HEAD'], {
+          cwd,
+          stdio: 'ignore'
+        })
+        let reverseTags = context.gitSemverTags.slice(0).reverse()
+        reverseTags.push('HEAD')
+
+        if (gitRawCommitsOpts.from) {
+          if (reverseTags.indexOf(gitRawCommitsOpts.from) !== -1) {
+            reverseTags = reverseTags.slice(reverseTags.indexOf(gitRawCommitsOpts.from))
+          } else {
+            reverseTags = [gitRawCommitsOpts.from, 'HEAD']
+          }
+        }
+
+        let streams = reverseTags.map((to, i) => {
+          const from = i > 0
+            ? reverseTags[i - 1]
+            : ''
+          return commitsRange(from, to)
+        })
+
+        if (gitRawCommitsOpts.from) {
+          st...
+options = data.options
+context = data.context
+gitRawCommitsOpts = data.gitRawCommitsOpts
+parserOpts = data.parserOpts
+writerOpts = data.writerOpts
+gitRawExecOpts = data.gitRawExecOpts
+execFileSync('git', ['rev-parse', '--verify', 'HEAD'], {
+          cwd,
+          stdio: 'ignore'
+        })
+_tmp_12.cwd = cwd
+_tmp_12.stdio = "ignore"

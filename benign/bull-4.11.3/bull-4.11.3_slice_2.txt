@@ -1,0 +1,22 @@
+process.on('uncaughtException', err => {
+  if (!err.message) {
+    err = new Error(err);
+  }
+  process.send({
+    cmd: 'failed',
+    value: err
+  });
+
+  // An uncaughException leaves this process in a potentially undetermined state so
+  // we must exit
+  process.exit(-1);
+})
+!err.message
+err = new Error(err)
+process.send({
+    cmd: 'failed',
+    value: err
+  })
+_tmp_19.cmd = "failed"
+_tmp_19.value = err
+process.exit(-1)

@@ -1,0 +1,58 @@
+async ensureRushVersionInstalledAsync(version, configuration, executeOptions) {
+        const isLegacyRushVersion = semver.lt(version, '4.0.0');
+        const expectedRushPath = path.join(this._rushGlobalFolder.nodeSpecificPath, `rush-${version}`);
+        const installMarker = new rush_lib_1._LastInstallFlag(expectedRushPath, {
+            node: process.versions.node
+        });
+        if (!installMarker.isValid()) {
+            // Need to install Rush
+            console.log(`Rush version ${version} is not currently installed. Installing...`);
+            const resourceName = `rush-${version}`;
+            console.log(`Trying to acquire lock for ${resourceName}`);
+            const lock = await node_core_library_1.LockFile.acquire(expectedRushPath, resourceName);
+            if (installMarker.isValid()) {
+                console.log('Another process performed the installation.');
+            }
+            else {
+                Utilities_1.Utilities.installPackageInDirectory({
+  ...
+const isLegacyRushVersion = semver.lt(version, '4.0.0')
+const expectedRushPath = path.join(this._rushGlobalFolder.nodeSpecificPath, `rush-${version}`)
+const installMarker = new rush_lib_1._LastInstallFlag(expectedRushPath, {
+            node: process.versions.node
+        })
+_tmp_7.node = process.versions.node
+!installMarker.isValid()
+<operator>.formatString("Rush version ", version, " is not currently installed. Installing...")
+<operator>.formatString("rush-", version, "")
+<operator>.formatString("Trying to acquire lock for ", resourceName, "")
+const lock = await node_core_library_1.LockFile.acquire(expectedRushPath, resourceName)
+installMarker.isValid()
+console.log('Another process performed the installation.')
+Utilities_1.Utilities.installPackageInDirectory({
+                    directory: expectedRushPath,
+                    packageName: isLegacyRushVersion ? '@microsoft/rush' : '@microsoft/rush-lib',
+                    version: version,
+                    tempPackageTitle: 'rush-local-install',
+                    maxInstallAttempts: MAX_INSTALL_ATTEMPTS,
+                    // This is using a local configuration to install a package in a shared global location.
+                    // Generally that's a bad practice, but in this case if we can successfully install
+                    // the package at all, we can reasonably assume it's good for all the repositories.
+                    // In particular, we'll assume that two different NPM registries cannot have two
+                    // different implementations of the same version of the same package.
+                    // This was needed for: https://github.com/microsoft/rushstack/issues/691
+                    commonRushConfigFo...
+_tmp_10.directory = expectedRushPath
+_tmp_10.packageName = isLegacyRushVersion ? "@microsoft/rush" : "@microsoft/rush-lib"
+_tmp_10.version = version
+_tmp_10.tempPackageTitle = "rush-local-install"
+_tmp_10.maxInstallAttempts = MAX_INSTALL_ATTEMPTS
+_tmp_10.commonRushConfigFolder = configuration ? configuration.commonRushConfigFolder : undefined
+_tmp_10.suppressOutput = true
+<operator>.formatString("Successfully installed Rush version ", version, " in ", expectedRushPath, ".")
+installMarker.create()
+lock.release()
+semver.lt(version, '3.0.20')
+semver.lt(version, '4.0.0')
+const rushCliEntrypoint = require(path.join(expectedRushPath, 'node_modules', '@microsoft', 'rush-lib', 'lib', 'index'))
+RushCommandSelector_1.RushCommandSelector.execute(this._currentPackageVersion, rushCliEntrypoint, executeOptions)

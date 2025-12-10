@@ -1,0 +1,80 @@
+exports.access = ({request:client}) => async ({provider, input, input:{session, query}}) => {
+  if (!query.oauth_token && !session.request.code) {
+    var output = Object.keys(query).length
+      ? query : {error: 'Grant: OAuth1 missing oauth_token parameter'}
+    return {provider, input, output}
+  }
+  var options = {
+    method: 'POST',
+    url: provider.access_url,
+    oauth: {
+      consumer_key: provider.key,
+      consumer_secret: provider.secret,
+      token: query.oauth_token,
+      token_secret: session.request.oauth_token_secret,
+      verifier: query.oauth_verifier
+    }
+  }
+  if (provider.private_key) {
+    options.oauth.signature_method = 'RSA-SHA1'
+    options.oauth.private_key = provider.private_key
+    delete options.oauth.consumer_secret
+  }
+  if (provider.freshbooks) {
+    options.oauth.signature_method = 'PLAINTEXT'
+  }
+  if (provider.getpocket) {
+    delete options.oauth
+    options.headers = {
+      'x-accept': 'application/x-www-form-urlencoded'
+    }
+    option...
+!query.oauth_token && !session.request.code
+var options = {
+    method: 'POST',
+    url: provider.access_url,
+    oauth: {
+      consumer_key: provider.key,
+      consumer_secret: provider.secret,
+      token: query.oauth_token,
+      token_secret: session.request.oauth_token_secret,
+      verifier: query.oauth_verifier
+    }
+  }
+_tmp_21.method = "POST"
+_tmp_21.url = provider.access_url
+_tmp_21.oauth = {
+      consumer_key: provider.key,
+      consumer_secret: provider.secret,
+      token: query.oauth_token,
+      token_secret: session.request.oauth_token_secret,
+      verifier: query.oauth_verifier
+    }
+_tmp_22.consumer_key = provider.key
+_tmp_22.consumer_secret = provider.secret
+_tmp_22.token = query.oauth_token
+_tmp_22.token_secret = session.request.oauth_token_secret
+_tmp_22.verifier = query.oauth_verifier
+provider.private_key
+options.oauth.signature_method = 'RSA-SHA1'
+options.oauth.private_key = provider.private_key
+delete options.oauth.consumer_secret
+provider.freshbooks
+options.oauth.signature_method = 'PLAINTEXT'
+provider.getpocket
+delete options.oauth
+options.headers = {
+      'x-accept': 'application/x-www-form-urlencoded'
+    }
+_tmp_23.x-accept = "application/x-www-form-urlencoded"
+options.form = {
+      consumer_key: provider.key,
+      code: session.request.code
+    }
+_tmp_24.consumer_key = provider.key
+_tmp_24.code = session.request.code
+provider.goodreads || provider.tripit
+delete options.oauth.verifier
+provider.subdomain
+options.url = options.url.replace('[subdomain]', provider.subdomain)
+_tmp_27 = await request({...client, ...options})

@@ -1,0 +1,19 @@
+function setVersion = function setVersion() {
+  var pathBin = get('pathOpenSSL') || process.env.OPENSSL_BIN || 'openssl'
+  var output = spawnSync(pathBin, ['version'])
+  var text = String(output.stdout) + '\n' + String(output.stderr) + '\n' + String(output.error)
+  let version = versionRegEx.exec(text)
+  if (version === null || version.length <= 7) return
+  set('openSslVersion', (version[1]).toUpperCase())
+  set('Vendor', (version[1]).toUpperCase())
+  set('VendorVersion', version[2])
+  set('VendorVersionMajorMinor', version[3])
+  set('VendorVersionMajor', version[4])
+  set('VendorVersionMinor', version[5])
+  set('VendorVersionPatch', version[6])
+  set('VendorVersionBuildChar', typeof version[7] === 'undefined' ? '' : version[7])
+}
+var pathBin = get('pathOpenSSL') || process.env.OPENSSL_BIN || 'openssl'
+var output = spawnSync(pathBin, ['version'])
+var text = String(output.stdout) + '\n' + String(output.stderr) + '\n' + String(output.error)
+let version = versionRegEx.exec(text)

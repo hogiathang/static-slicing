@@ -1,0 +1,5 @@
+allowUnknownGuild = _tmp_14.allowUnknownGuild === void 0 ? false : _tmp_14.allowUnknownGuild
+!force
+const existing = this.cache.get(id)
+existing && !existing.partial
+const data = await this.client.rest.get(Routes.channel(id))

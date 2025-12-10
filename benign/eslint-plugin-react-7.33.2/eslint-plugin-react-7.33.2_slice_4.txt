@@ -1,0 +1,44 @@
+_tmp_20.VariableDeclarator = VariableDeclarator
+const classComponent = utils.getParentComponent(node)
+const SFCComponent = components.get(context.getScope(node).block)
+const destructuring = (node.init && node.id && node.id.type === 'ObjectPattern')
+const destructuringSFC = destructuring && (node.init.name === 'props' || node.init.name === 'context')
+const destructuringClass = destructuring && node.init.object && node.init.object.type === 'ThisExpression' && (
+          node.init.property.name === 'props' || node.init.property.name === 'context' || node.init.property.name === 'state'
+        )
+node.init.property.name === 'props' || node.init.property.name === 'context' || node.init.property.name === 'state'
+SFCComponent && destructuringSFC && configuration === 'never'
+report(context, messages.noDestructAssignment, 'noDestructAssignment', {
+            node,
+            data: {
+              type: node.init.name,
+            },
+          })
+_tmp_21.node = node
+_tmp_21.data = {
+              type: node.init.name,
+            }
+_tmp_22.type = node.init.name
+classComponent && destructuringClass && configuration === 'never'
+          && !(ignoreClassFields && (node.parent.type === 'ClassProperty' || node.parent.type === 'PropertyDefinition'))
+!(ignoreClassFields && (node.parent.type === 'ClassProperty' || node.parent.type === 'PropertyDefinition'))
+report(context, messages.noDestructAssignment, 'noDestructAssignment', {
+            node,
+            data: {
+              type: node.init.property.name,
+            },
+          })
+_tmp_23.node = node
+_tmp_23.data = {
+              type: node.init.property.name,
+            }
+_tmp_24.type = node.init.property.name
+SFCComponent
+          && destructuringSFC
+          && configuration === 'always'
+          && destructureInSignature === 'always'
+          && node.init.name === 'props'
+configuration === 'always'
+destructureInSignature === 'always'
+node.init.name === 'props'
+const scopeSetProps = context.getScope().set.get('props')

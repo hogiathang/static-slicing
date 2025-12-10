@@ -1,0 +1,5 @@
+setTimeout(() => {
+                request.abort();
+                reject(new Error("Response ends without calling any handlers"));
+            }, 10000)
+request.abort()

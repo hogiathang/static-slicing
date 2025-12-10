@@ -1,0 +1,48 @@
+function buildPrivateNamesMap = function buildPrivateNamesMap(props) {
+  const privateNamesMap = new Map();
+  for (const prop of props) {
+    if (prop.isPrivate()) {
+      const {
+        name
+      } = prop.node.key.id;
+      const update = privateNamesMap.has(name) ? privateNamesMap.get(name) : {
+        id: prop.scope.generateUidIdentifier(name),
+        static: prop.node.static,
+        method: !prop.isProperty()
+      };
+      if (prop.isClassPrivateMethod()) {
+        if (prop.node.kind === "get") {
+          update.getId = prop.scope.generateUidIdentifier(`get_${name}`);
+        } else if (prop.node.kind === "set") {
+          update.setId = prop.scope.generateUidIdentifier(`set_${name}`);
+        } else if (prop.node.kind === "method") {
+          update.methodId = prop.scope.generateUidIdentifier(name);
+        }
+      }
+      privateNamesMap.set(name, update);
+    }
+  }
+  return privateNamesMap;
+}
+const privateNamesMap = new Map()
+_iterator_0 = <operator>.iterator(props)
+prop.isPrivate()
+_tmp_1 = prop.node.key.id
+name = _tmp_1.name
+prop.node.key.id
+const update = privateNamesMap.has(name) ? privateNamesMap.get(name) : {
+        id: prop.scope.generateUidIdentifier(name),
+        static: prop.node.static,
+        method: !prop.isProperty()
+      }
+_tmp_2.id = prop.scope.generateUidIdentifier(name)
+_tmp_2.static = prop.node.static
+_tmp_2.method = !prop.isProperty()
+prop.isClassPrivateMethod()
+prop.node.kind === "get"
+update.getId = prop.scope.generateUidIdentifier(`get_${name}`)
+prop.node.kind === "set"
+update.setId = prop.scope.generateUidIdentifier(`set_${name}`)
+prop.node.kind === "method"
+update.methodId = prop.scope.generateUidIdentifier(name)
+privateNamesMap.set(name, update)

@@ -1,0 +1,27 @@
+function logResults = function logResults() {
+    console.log('** Generated', api.metadata.endpointPrefix + '-' +
+      api.metadata.apiVersion +'.min.json' +
+      (process.env.DEBUG ? ':' : ''));
+
+    if (process.env.DEBUG) {
+      var pruned = Object.keys(debugInfo.pruned);
+      var flattened = Object.keys(debugInfo.flattened);
+      var newLength = JSON.stringify(api, null, 2).length;
+      console.log('- Pruned Shapes:', pruned.length);
+      console.log('- Flattened Shapes:', flattened.length);
+      console.log('- Remaining Shapes:', Object.keys(api.shapes).length);
+      console.log('- Original Size:', origLength / 1024.0, 'kb');
+      console.log('- Minified Size:', newLength / 1024.0, 'kb');
+      console.log('- Size Saving:', (origLength - newLength) / 1024.0, 'kb');
+      console.log('');
+    }
+  }
+console.log('** Generated', api.metadata.endpointPrefix + '-' +
+      api.metadata.apiVersion +'.min.json' +
+      (process.env.DEBUG ? ':' : ''))
+api.metadata.apiVersion
+process.env.DEBUG ? ":" : ""
+process.env.DEBUG
+var pruned = Object.keys(debugInfo.pruned)
+var flattened = Object.keys(debugInfo.flattened)
+var newLength = JSON.stringify(api, null, 2).length

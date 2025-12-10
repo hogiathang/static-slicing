@@ -1,0 +1,15 @@
+BufferList.prototype._match = function (offset, search) {
+  if (this.length - offset < search.length) {
+    return false
+  }
+
+  for (let searchOffset = 0; searchOffset < search.length; searchOffset++) {
+    if (this.get(offset + searchOffset) !== search[searchOffset]) {
+      return false
+    }
+  }
+  return true
+}
+this.length - offset < search.length
+searchOffset < search.length
+this.get(offset + searchOffset) !== search[searchOffset]

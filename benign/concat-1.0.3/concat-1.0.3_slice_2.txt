@@ -1,0 +1,12 @@
+const write = (fName: string, str: string) => new Promise((res, rej) => {
+  writeFile(resolve(fName), str, (err: Error) => {
+    if (err) return rej(err)
+    
+    return res(str)
+  })
+})
+writeFile(resolve(fName), str, (err: Error) => {
+    if (err) return rej(err)
+    
+    return res(str)
+  })

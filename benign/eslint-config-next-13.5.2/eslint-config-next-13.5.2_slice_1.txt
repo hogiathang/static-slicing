@@ -1,0 +1,8 @@
+mod._resolveFilename = function (request, parent, isMain, options) {
+  const hookResolved = hookPropertyMap.get(request)
+  if (hookResolved) {
+    request = hookResolved
+  }
+  return resolveFilename.call(mod, request, parent, isMain, options)
+}
+const hookResolved = hookPropertyMap.get(request)

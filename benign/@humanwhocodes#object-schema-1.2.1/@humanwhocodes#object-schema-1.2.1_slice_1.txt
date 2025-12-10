@@ -1,0 +1,40 @@
+validate(object) {
+
+        // check existing keys first
+        for (const key of Object.keys(object)) {
+
+            // check to see if the key is defined
+            if (!this.hasKey(key)) {
+                throw new Error(`Unexpected key "${key}" found.`);
+            }
+
+            // validate existing keys
+            const strategy = this[strategies].get(key);
+
+            // first check to see if any other keys are required
+            if (Array.isArray(strategy.requires)) {
+                if (!strategy.requires.every(otherKey => otherKey in object)) {
+                    throw new Error(`Key "${key}" requires keys "${strategy.requires.join("\", \"")}".`);
+                }
+            }
+
+            // now apply remaining validation strategy
+            try {
+                strategy.validate.call(strategy, object[key]);
+            } catch (ex) {
+                ex.message = `Key "${key}": ` + ex.message;
+                throw ex;
+            }
+        }
+
+        // ensur...
+_iterator_2 = <operator>.iterator(Object.keys(object))
+!this.hasKey(key)
+<operator>.formatString("Unexpected key "", key, "" found.")
+const strategy = this[strategies].get(key)
+Array.isArray(strategy.requires)
+!strategy.requires.every(otherKey => otherKey in object)
+<operator>.formatString("Key "", key, "" requires keys "", strategy.requires.join("\", \""), "".")
+strategy.validate.call(strategy, object[key])
+<operator>.formatString("Key "", key, "": ")
+throw ex;

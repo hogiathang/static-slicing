@@ -1,0 +1,9 @@
+getEncoder(type) {
+        let encoder = this.#encoderCache.get(type);
+        if (!encoder) {
+            encoder = this.#getEncoder(type);
+            this.#encoderCache.set(type, encoder);
+        }
+        return encoder;
+    }
+let encoder = this.#encoderCache.get(type)

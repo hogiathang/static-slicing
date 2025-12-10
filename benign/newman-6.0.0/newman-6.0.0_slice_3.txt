@@ -1,0 +1,42 @@
+emitter.on('request', function (err, o) {
+        if (err) {
+            print.lf(colors.red('[errored]'));
+            print.lf(colors.red('     %s'), err.message);
+
+            return;
+        }
+
+        if (!(o.request && o.response)) {
+            print.lf(colors.red('[errored]'));
+            print.lf(colors.red('     %s'), 'Internal error! Could not read response data.');
+
+            return;
+        }
+
+        // quickly print out basic non verbose response meta and exit
+        if (!options.verbose) {
+            print.lf(colors.gray('[%d %s, %s, %s]'), o.response.code, o.response.reason(),
+                util.filesize(o.response.size().total), util.prettyms(o.response.responseTime));
+
+            return;
+        }
+
+        // this point onwards the output is verbose. a tonne of variables are created here for
+        // keeping the output clean and readable
+
+        let req = o.request,
+            res = o.response,
+
+            // set values here with abundance of caution ...
+!(o.request && o.response)
+!options.verbose
+let req = o.request
+let res = o.response
+let reqSize = util.filesize(req.size().total)
+let resSize = util.filesize(res.size().total)
+let code = res.code
+let reason = res.reason()
+let mime = res.contentInfo() || {}
+let timings = _.last(_.get(o, 'history.execution.data'))
+let reqHeadersLen = _.get(req, 'headers.members.length')
+let resHeadersLen = _.get(res, 'headers.members.length')

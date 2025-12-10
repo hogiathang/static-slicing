@@ -1,0 +1,59 @@
+function updateExportUsage = function updateExportUsage(node) {
+          if (ignoredFiles.has(file)) {
+            return;
+          }
+
+          var exports = exportList.get(file);
+
+          // new module has been created during runtime
+          // include it in further processing
+          if (typeof exports === 'undefined') {
+            exports = new Map();
+          }
+
+          var newExports = new Map();
+          var newExportIdentifiers = new Set();
+
+          node.body.forEach(function (_ref9) {var type = _ref9.type,declaration = _ref9.declaration,specifiers = _ref9.specifiers;
+            if (type === EXPORT_DEFAULT_DECLARATION) {
+              newExportIdentifiers.add(IMPORT_DEFAULT_SPECIFIER);
+            }
+            if (type === EXPORT_NAMED_DECLARATION) {
+              if (specifiers.length > 0) {
+                specifiers.forEach(function (specifier) {
+                  if (specifier.exported) {
+                    newExportIdentifiers.add(specifier.exported.name || specifier.exported.valu...
+ignoredFiles.has(file)
+var exports = exportList.get(file)
+typeof exports === 'undefined'
+exports = new Map()
+var newExports = new Map()
+var newExportIdentifiers = new Set()
+node.body.forEach(function (_ref9) {var type = _ref9.type,declaration = _ref9.declaration,specifiers = _ref9.specifiers;
+            if (type === EXPORT_DEFAULT_DECLARATION) {
+              newExportIdentifiers.add(IMPORT_DEFAULT_SPECIFIER);
+            }
+            if (type === EXPORT_NAMED_DECLARATION) {
+              if (specifiers.length > 0) {
+                specifiers.forEach(function (specifier) {
+                  if (specifier.exported) {
+                    newExportIdentifiers.add(specifier.exported.name || specifier.exported.value);
+                  }
+                });
+              }
+              forEachDeclarationIdentifier(declaration, function (name) {
+                newExportIdentifiers.add(name);
+              });
+            }
+          })
+exports.forEach(function (value, key) {
+            if (newExportIdentifiers.has(key)) {
+              newExports.set(key, value);
+            }
+          })
+newExportIdentifiers.forEach(function (key) {
+            if (!exports.has(key)) {
+              newExports.set(key, { whereUsed: new Set() });
+            }
+          })
+var exportAll = exports.get(EXPORT_ALL_DECLARATION)

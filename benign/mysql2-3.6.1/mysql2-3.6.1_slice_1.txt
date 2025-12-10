@@ -1,0 +1,14 @@
+function getParser = function getParser(type, fields, options, config, compiler) {
+  const key = keyFromFields(type, fields, options, config);
+  let parser = parserCache.get(key);
+
+  if (parser) {
+    return parser;
+  }
+
+  parser = compiler(fields, options, config);
+  parserCache.set(key, parser);
+  return parser;
+}
+const key = keyFromFields(type, fields, options, config)
+let parser = parserCache.get(key)

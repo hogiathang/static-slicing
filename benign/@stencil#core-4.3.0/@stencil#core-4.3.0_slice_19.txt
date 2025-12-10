@@ -1,0 +1,24 @@
+const addStyle = (e, t, o) => {
+ var n;
+ const s = getScopeId(t, o), l = styles.get(s);
+ if (!BUILD.attachStyles) return s;
+ if (e = 11 === e.nodeType ? e : doc, l) if ("string" == typeof l) {
+  e = e.head || e;
+  let t, o = rootAppliedStyles.get(e);
+  if (o || rootAppliedStyles.set(e, o = new Set), !o.has(s)) {
+   if (BUILD.hydrateClientSide && e.host && (t = e.querySelector(`[sty-id="${s}"]`))) t.innerHTML = l; else {
+    t = doc.createElement("style"), t.innerHTML = l;
+    const o = null !== (n = plt.$nonce$) && void 0 !== n ? n : queryNonceMetaTagContent(doc);
+    null != o && t.setAttribute("nonce", o), (BUILD.hydrateServerSide || BUILD.hotModuleReplacement) && t.setAttribute("sty-id", s), 
+    e.insertBefore(t, e.querySelector("link"));
+   }
+   o && o.add(s);
+  }
+ } else BUILD.constructableCSS && !e.adoptedStyleSheets.includes(l) && (e.adoptedStyleSheets = [ ...e.adoptedStyleSheets, l ]);
+ return s;
+}
+const s = getScopeId(t, o)
+!BUILD.attachStyles
+e = 11 === e.nodeType ? e : doc
+e = e.head || e
+let o = rootAppliedStyles.get(e)

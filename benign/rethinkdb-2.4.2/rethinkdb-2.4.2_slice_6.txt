@@ -1,0 +1,44 @@
+function HttpConnection = function HttpConnection(host, callback) {
+    var protocol, url, xhr;
+    if (!HttpConnection.isAvailable()) {
+      throw new err.ReqlDriverError("XMLHttpRequest is not available in this environment");
+    }
+    HttpConnection.__super__.constructor.call(this, host, callback);
+    protocol = host.protocol === 'https' ? 'https' : this.DEFAULT_PROTOCOL;
+    url = protocol + "://" + this.host + ":" + this.port + host.pathname + "ajax/reql/";
+    xhr = new XMLHttpRequest;
+    xhr.open("POST", url + ("open-new-connection?cacheBuster=" + (Math.random())), true);
+    xhr.responseType = "text";
+    xhr.onreadystatechange = (function(_this) {
+      return function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            _this._url = url;
+            _this._connId = xhr.response;
+            return _this.emit('connect');
+          } else {
+            return _this.emit('error', new err.ReqlDriverError("XHR error, http status " + xhr.status + "."));
+          }
+...
+!HttpConnection.isAvailable()
+throw new err.ReqlDriverError("XMLHttpRequest is not available in this environment");
+HttpConnection.__super__.constructor.call(this, host, callback)
+protocol = host.protocol === 'https' ? 'https' : this.DEFAULT_PROTOCOL
+url = protocol + "://" + this.host + ":" + this.port + host.pathname + "ajax/reql/"
+xhr = new XMLHttpRequest
+xhr.open("POST", url + ("open-new-connection?cacheBuster=" + (Math.random())), true)
+xhr.responseType = "text"
+xhr.onreadystatechange = (function(_this) {
+      return function(e) {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            _this._url = url;
+            _this._connId = xhr.response;
+            return _this.emit('connect');
+          } else {
+            return _this.emit('error', new err.ReqlDriverError("XHR error, http status " + xhr.status + "."));
+          }
+        }
+      };
+    })(this)
+xhr.send()

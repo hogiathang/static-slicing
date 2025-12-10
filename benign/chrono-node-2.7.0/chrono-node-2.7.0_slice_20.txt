@@ -1,0 +1,76 @@
+extractFollowingTimeComponents(
+        context: ParsingContext,
+        match: RegExpMatchArray,
+        result: ParsingResult
+    ): null | ParsingComponents {
+        const components = context.createParsingComponents();
+
+        // ----- Millisecond
+        if (match[MILLI_SECOND_GROUP] != null) {
+            const millisecond = parseInt(match[MILLI_SECOND_GROUP].substring(0, 3));
+            if (millisecond >= 1000) return null;
+
+            components.assign("millisecond", millisecond);
+        }
+
+        // ----- Second
+        if (match[SECOND_GROUP] != null) {
+            const second = parseInt(match[SECOND_GROUP]);
+            if (second >= 60) return null;
+
+            components.assign("second", second);
+        }
+
+        let hour = parseInt(match[HOUR_GROUP]);
+        let minute = 0;
+        let meridiem = -1;
+
+        // ----- Minute
+        if (match[MINUTE_GROUP] != null) {
+            minute = parseInt(match[MINUTE_GROUP]);
+        } else if (hour > 100) {
+       ...
+const components = context.createParsingComponents()
+match[MILLI_SECOND_GROUP] != null
+const millisecond = parseInt(match[MILLI_SECOND_GROUP].substring(0, 3))
+millisecond >= 1000
+components.assign("millisecond", millisecond)
+match[SECOND_GROUP] != null
+const second = parseInt(match[SECOND_GROUP])
+second >= 60
+components.assign("second", second)
+let hour = parseInt(match[HOUR_GROUP])
+let minute = 0
+let meridiem = -1
+match[MINUTE_GROUP] != null
+minute = parseInt(match[MINUTE_GROUP])
+hour > 100
+minute = hour % 100
+hour = Math.floor(hour / 100)
+minute >= 60 || hour > 24
+hour >= 12
+meridiem = Meridiem.PM
+match[AM_PM_HOUR_GROUP] != null
+hour > 12
+const ampm = match[AM_PM_HOUR_GROUP][0].toLowerCase()
+ampm == "a"
+meridiem = Meridiem.AM
+hour == 12
+hour = 0
+!components.isCertain("day")
+components.imply("day", components.get("day") + 1)
+ampm == "p"
+meridiem = Meridiem.PM
+hour != 12
+!result.start.isCertain("meridiem")
+meridiem == Meridiem.AM
+result.start.imply("meridiem", Meridiem.AM)
+result.start.get("hour") == 12
+(_tmp_13 = result.start).assign
+result.start.imply("meridiem", Meridiem.PM)
+result.start.get("hour") != 12
+result.start.assign("hour", result.start.get("hour") + 12)
+components.assign("hour", hour)
+components.assign("minute", minute)
+meridiem >= 0
+const startAtPM = result.start.isCertain("meridiem") && result.start.get("hour") > 12

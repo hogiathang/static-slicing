@@ -1,0 +1,14 @@
+_tmp_5 = param2_0 === void 0 ? {} : param2_0
+const localPrefix = this.npm.localPrefix
+!runPath
+runPath = process.cwd()
+const call = this.npm.config.get('call')
+_tmp_7 = this.npm
+flatOptions = _tmp_7.flatOptions
+localBin = _tmp_7.localBin
+globalBin = _tmp_7.globalBin
+globalDir = _tmp_7.globalDir
+chalk = _tmp_7.chalk
+this.npm
+const output = this.npm.output.bind(this.npm)
+const scriptShell = this.npm.config.get('script-shell') || undefined

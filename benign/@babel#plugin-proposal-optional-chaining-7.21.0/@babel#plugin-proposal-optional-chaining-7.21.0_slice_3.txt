@@ -1,0 +1,115 @@
+function transform = function transform(path, {
+  pureGetters,
+  noDocumentAll
+}) {
+  const {
+    scope
+  } = path;
+  const maybeWrapped = findOutermostTransparentParent(path);
+  const {
+    parentPath
+  } = maybeWrapped;
+  const willReplacementCastToBoolean = willPathCastToBoolean(maybeWrapped);
+  let isDeleteOperation = false;
+  const parentIsCall = parentPath.isCallExpression({
+    callee: maybeWrapped.node
+  }) && path.isOptionalMemberExpression();
+  const optionals = [];
+  let optionalPath = path;
+  if (scope.path.isPattern() && needsMemoize(optionalPath)) {
+    path.replaceWith(core.template.ast`(() => ${path.node})()`);
+    return;
+  }
+  while (optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()) {
+    const {
+      node
+    } = optionalPath;
+    if (node.optional) {
+      optionals.push(node);
+    }
+    if (optionalPath.isOptionalMemberExpression()) {
+      optionalPath.node.type = "MemberExpression";
+      optionalPath = helperSkipTransparentExpressionWrappers.s...
+pureGetters = param2_0.pureGetters
+noDocumentAll = param2_0.noDocumentAll
+_tmp_11 = path
+scope = _tmp_11.scope
+const maybeWrapped = findOutermostTransparentParent(path)
+_tmp_12 = maybeWrapped
+parentPath = _tmp_12.parentPath
+const willReplacementCastToBoolean = willPathCastToBoolean(maybeWrapped)
+let isDeleteOperation = false
+const parentIsCall = parentPath.isCallExpression({
+    callee: maybeWrapped.node
+  }) && path.isOptionalMemberExpression()
+_tmp_13.callee = maybeWrapped.node
+path.isOptionalMemberExpression()
+__ecma.Array.factory()
+let optionalPath = path
+scope.path.isPattern() && needsMemoize(optionalPath)
+optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()
+_tmp_17 = optionalPath
+node = _tmp_17.node
+node.optional
+optionals.push(node)
+optionalPath.isOptionalMemberExpression()
+optionalPath.node.type = "MemberExpression"
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("object"))
+optionalPath.isOptionalCallExpression()
+optionalPath.node.type = "CallExpression"
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("callee"))
+let replacementPath = path
+parentPath.isUnaryExpression({
+    operator: "delete"
+  })
+_tmp_18.operator = "delete"
+replacementPath = parentPath
+isDeleteOperation = true
+let i = optionals.length - 1
+const node = optionals[i]
+const isCall = core.types.isCallExpression(node)
+const chainWithTypes = isCall ? node.callee : node.object
+const chain = helperSkipTransparentExpressionWrappers.skipTransparentExprWrapperNodes(chainWithTypes)
+isCall && core.types.isIdentifier(chain, {
+      name: "eval"
+    })
+_tmp_21.name = "eval"
+check = ref = chain
+node.callee = core.types.sequenceExpression([core.types.numericLiteral(0), ref])
+pureGetters && isCall && isSimpleMemberExpression(chain)
+check = ref = node.callee
+ref = scope.maybeGenerateMemoised(chain)
+check = core.types.assignmentExpression("=", core.types.cloneNode(ref), chainWithTypes)
+isCall ? node.callee = ref : node.object = ref
+check = ref = chainWithTypes
+isCall && core.types.isMemberExpression(chain)
+pureGetters && isSimpleMemberExpression(chain)
+node.callee = chainWithTypes
+_tmp_28 = chain
+object = _tmp_28.object
+(_tmp_29 = core.types).isSuper
+context = core.types.thisExpression()
+const memoized = scope.maybeGenerateMemoised(object)
+context = memoized
+chain.object = core.types.assignmentExpression("=", memoized, object)
+context = object
+node.arguments.unshift(core.types.cloneNode(context))
+node.callee = core.types.memberExpression(node.callee, core.types.identifier("call"))
+let replacement = replacementPath.node
+i === 0 && parentIsCall
+const object = helperSkipTransparentExpressionWrappers.skipTransparentExprWrapperNodes(replacement.object)
+!pureGetters || !isSimpleMemberExpression(object)
+baseRef = scope.maybeGenerateMemoised(object)
+replacement.object = core.types.assignmentExpression("=", baseRef, object)
+replacement = core.types.callExpression(core.types.memberExpression(replacement, core.types.identifier("bind")), [core.types.cloneNode((_baseRef = baseRef) != null ? _baseRef : object)])
+const nonNullishCheck = noDocumentAll ? ast`${core.types.cloneNode(check)} != null` : ast`
+            ${core.types.cloneNode(check)} !== null && ${core.types.cloneNode(ref)} !== void 0`
+(_tmp_44 = core.types).cloneNode
+replacementPath.replaceWith(core.types.logicalExpression("&&", nonNullishCheck, replacement))
+replacementPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(replacementPath.get("right"))
+const nullishCheck = noDocumentAll ? ast`${core.types.cloneNode(check)} == null` : ast`
+            ${core.types.cloneNode(check)} === null || ${core.types.cloneNode(ref)} === void 0`
+(_tmp_50 = core.types).cloneNode
+const returnValue = isDeleteOperation ? ast`true` : ast`void 0`
+replacementPath.replaceWith(core.types.conditionalExpression(nullishCheck, returnValue, replacement))
+replacementPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(replacementPath.get("alternate"))

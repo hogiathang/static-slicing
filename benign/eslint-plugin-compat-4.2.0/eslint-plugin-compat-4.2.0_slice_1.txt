@@ -1,0 +1,27 @@
+function isSupportedByMDN = function isSupportedByMDN(node, { version, target: mdnTarget }) {
+    // @ts-ignore
+    const target = reversedTargetMappings[mdnTarget];
+    // If no record could be found, return true. Rules might not
+    // be found because they could belong to another provider
+    if (!mdnRecords.has(node.protoChainId))
+        return true;
+    const record = mdnRecords.get(node.protoChainId);
+    if (!record || !record.compat.support)
+        return true;
+    const compatRecord = record.compat.support[target];
+    if (!compatRecord)
+        return true;
+    if (!Array.isArray(compatRecord) && !("version_added" in compatRecord))
+        return true;
+    const { version_added: versionAdded } = Array.isArray(compatRecord)
+        ? compatRecord.find((e) => "version_added" in e)
+        : compatRecord;
+    // If a version is true then it is supported but version is unsure
+    if (typeof versionAdded === "boolean")
+        return versionAdded;
+    if (versionAdded === null)
+        return true;
+    ...
+const target = reversedTargetMappings[mdnTarget]
+!mdnRecords.has(node.protoChainId)
+const record = mdnRecords.get(node.protoChainId)

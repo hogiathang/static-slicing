@@ -1,0 +1,6 @@
+(0, _react.useEffect)(function () {
+    if (!manual && socketUrl) {
+      connect();
+    }
+  }, [socketUrl, manual])
+!manual && socketUrl

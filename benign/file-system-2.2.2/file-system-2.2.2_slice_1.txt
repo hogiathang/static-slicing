@@ -1,0 +1,33 @@
+exports.copyFileSync = function(srcpath, destpath, options) {
+  options = util.extend({
+    encoding: 'utf8' 
+  }, options || {});
+  var contents;
+
+  if (options.process) {
+    contents = fs.readFileSync(srcpath, options);
+    contents = options.process(contents, srcpath, options.relative);
+
+    if (util.isObject(contents) && contents.filepath) {
+      destpath = contents.filepath;
+      contents = contents.contents;
+    }
+
+    exports.writeFileSync(destpath, contents, options);    
+  } else {
+    contents = fs.readFileSync(srcpath);
+    exports.writeFileSync(destpath, contents);
+  }
+}
+options = util.extend({
+    encoding: 'utf8' 
+  }, options || {})
+_tmp_6.encoding = "utf8"
+options || {}
+options.process
+contents = fs.readFileSync(srcpath, options)
+contents = options.process(contents, srcpath, options.relative)
+util.isObject(contents) && contents.filepath
+destpath = contents.filepath
+contents = contents.contents
+exports.writeFileSync(destpath, contents, options)

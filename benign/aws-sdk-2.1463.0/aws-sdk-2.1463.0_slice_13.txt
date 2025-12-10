@@ -1,0 +1,43 @@
+_tmp_1.handleRequest = handleRequest
+var self = this
+var endpoint = httpRequest.endpoint
+var pathPrefix = ''
+httpOptions = {}
+httpOptions.proxy
+pathPrefix = endpoint.protocol + '//' + endpoint.hostname
+endpoint.port !== 80 && endpoint.port !== 443
+pathPrefix += ':' + endpoint.port
+endpoint = new AWS.Endpoint(httpOptions.proxy)
+var useSSL = endpoint.protocol === 'https:'
+var http = useSSL ? require('https') : require('http')
+var options = {
+      host: endpoint.hostname,
+      port: endpoint.port,
+      method: httpRequest.method,
+      headers: httpRequest.headers,
+      path: pathPrefix + httpRequest.path
+    }
+_tmp_4.host = endpoint.hostname
+_tmp_4.port = endpoint.port
+_tmp_4.method = httpRequest.method
+_tmp_4.headers = httpRequest.headers
+_tmp_4.path = pathPrefix + httpRequest.path
+AWS.util.update(options, httpOptions)
+!httpOptions.agent
+options.agent = this.getAgent(useSSL, {
+        keepAlive: process.env[CONNECTION_REUSE_ENV_NAME] === '1' ? true : false
+      })
+_tmp_6.keepAlive = process.env[CONNECTION_REUSE_ENV_NAME] === '1' ? true : false
+delete options.proxy
+delete options.timeout
+var stream = http.request(options, function (httpResp) {
+      if (stream.didCallback) return;
+
+      callback(httpResp);
+      httpResp.emit(
+        'headers',
+        httpResp.statusCode,
+        httpResp.headers,
+        httpResp.statusMessage
+      );
+    })

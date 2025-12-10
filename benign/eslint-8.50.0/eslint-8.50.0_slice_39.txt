@@ -1,0 +1,36 @@
+getScope(currentNode) {
+
+        if (!currentNode) {
+            throw new TypeError("Missing required argument: node.");
+        }
+
+        // check cache first
+        const cache = this[caches].get("scopes");
+        const cachedScope = cache.get(currentNode);
+
+        if (cachedScope) {
+            return cachedScope;
+        }
+
+        // On Program node, get the outermost scope to avoid return Node.js special function scope or ES modules scope.
+        const inner = currentNode.type !== "Program";
+
+        for (let node = currentNode; node; node = node.parent) {
+            const scope = this.scopeManager.acquire(node, inner);
+
+            if (scope) {
+                if (scope.type === "function-expression-name") {
+                    cache.set(currentNode, scope.childScopes[0]);
+                    return scope.childScopes[0];
+                }
+
+                cache.set(currentNode, scope);
+                return scope;
+            }
+        }
+
+        cache.set(currentNode...
+!currentNode
+throw new TypeError("Missing required argument: node.");
+const cache = this[caches].get("scopes")
+const cachedScope = cache.get(currentNode)

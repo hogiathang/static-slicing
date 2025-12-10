@@ -1,0 +1,35 @@
+async getMetricsAsJSON() {
+		const metrics = [];
+		const defaultLabelNames = Object.keys(this._defaultLabels);
+
+		const promises = [];
+
+		for (const metric of this.getMetricsAsArray()) {
+			promises.push(metric.get());
+		}
+
+		const resolves = await Promise.all(promises);
+
+		for (const item of resolves) {
+			if (item.values && defaultLabelNames.length > 0) {
+				for (const val of item.values) {
+					// Make a copy before mutating
+					val.labels = Object.assign({}, val.labels);
+
+					for (const labelName of defaultLabelNames) {
+						val.labels[labelName] =
+							val.labels[labelName] || this._defaultLabels[labelName];
+					}
+				}
+			}
+
+			metrics.push(item);
+		}
+
+		return metrics;
+	}
+__ecma.Array.factory()
+const defaultLabelNames = Object.keys(this._defaultLabels)
+__ecma.Array.factory()
+_iterator_2 = <operator>.iterator(this.getMetricsAsArray())
+promises.push(metric.get())

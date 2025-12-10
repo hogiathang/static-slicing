@@ -1,0 +1,7 @@
+belongsTo = param1_3.belongsTo
+let block = this.newBlocksByTitle.get(belongsTo)
+!block
+_tmp_34.snapshots = __ecma.Array.factory()
+snapshots = _tmp_35.snapshots
+index > snapshots.length
+<operator>.formatString("Cannot record snapshot ", index, " for ", JSON.stringify(belongsTo), ", exceeds expected index of ", snapshots.length, "")

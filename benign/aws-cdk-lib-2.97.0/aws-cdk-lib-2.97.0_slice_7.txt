@@ -1,0 +1,1 @@
+function findDocWithSpace = function findDocWithSpace(size){let j=0;for(;j<newDocs.length&&polSize(newDocs[j])+size>splitMaximumSize;)j++;if(j<newDocs.length)return newDocs[j];const newDoc=new PolicyDocument({assignSids:self.autoAssignSids,minimize:self.minimize});return newDocs.push(newDoc),newDoc}

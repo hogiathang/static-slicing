@@ -1,0 +1,25 @@
+function drawSky = function drawSky(painter: Painter, sourceCache: SourceCache, layer: SkyLayer) {
+    const tr = painter.transform;
+    const globeOrMercator = (tr.projection.name === 'mercator' || tr.projection.name === 'globe');
+    // For non-mercator projection, use a forced opacity transition. This transition is set to be
+    // 1.0 after the sheer adjustment upper bound which ensures to be in the mercator projection.
+    // Note: we only render sky for globe projection during the transition to mercator.
+    const transitionOpacity = globeOrMercator ? 1.0 : smoothstep(TRANSITION_OPACITY_ZOOM_START, TRANSITION_OPACITY_ZOOM_END, tr.zoom);
+    const opacity = layer.paint.get('sky-opacity') * transitionOpacity;
+    if (opacity === 0) {
+        return;
+    }
+
+    const context = painter.context;
+    const type = layer.paint.get('sky-type');
+    const depthMode = new DepthMode(context.gl.LEQUAL, DepthMode.ReadOnly, [0, 1]);
+    const temporalOffset = (painter.frameCounter / 1000.0) % 1;
+
+    if (type ...
+const tr = painter.transform
+const globeOrMercator = (tr.projection.name === 'mercator' || tr.projection.name === 'globe')
+const transitionOpacity = globeOrMercator ? 1.0 : smoothstep(TRANSITION_OPACITY_ZOOM_START, TRANSITION_OPACITY_ZOOM_END, tr.zoom)
+const opacity = layer.paint.get('sky-opacity') * transitionOpacity
+opacity === 0
+const context = painter.context
+const type = layer.paint.get('sky-type')

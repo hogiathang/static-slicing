@@ -1,0 +1,40 @@
+function(prevCode, type, value) {
+        const nextCode = code(type, value);
+        const nextCharCode = value.charCodeAt(0);
+        const emitWs =
+            (nextCharCode === HYPHENMINUS &&
+                type !== types.Ident &&
+                type !== types.Function &&
+                type !== types.CDC) ||
+            (nextCharCode === PLUSSIGN)
+                ? isWhiteSpaceRequired.has(prevCode << 16 | nextCharCode << 8)
+                : isWhiteSpaceRequired.has(prevCode << 16 | nextCode);
+
+        if (emitWs) {
+            this.emit(' ', types.WhiteSpace, true);
+        }
+
+        return nextCode;
+    }
+const nextCode = code(type, value)
+const nextCharCode = value.charCodeAt(0)
+const emitWs =
+            (nextCharCode === HYPHENMINUS &&
+                type !== types.Ident &&
+                type !== types.Function &&
+                type !== types.CDC) ||
+            (nextCharCode === PLUSSIGN)
+                ? isWhiteSpaceRequired.has(prevCode << 16 | nextCharCode << 8)
+                : isWhiteSpaceRequired.has(prevCode << 16 | nextCode)
+(nextCharCode === HYPHENMINUS &&
+                type !== types.Ident &&
+                type !== types.Function &&
+                type !== types.CDC) ||
+            (nextCharCode === PLUSSIGN) ? isWhiteSpaceRequired.has(prevCode << 16 | nextCharCode << 8) : isWhiteSpaceRequired.has(prevCode << 16 | nextCode)
+type !== types.Ident
+type !== types.Function
+type !== types.CDC
+nextCharCode === PLUSSIGN
+isWhiteSpaceRequired.has(prevCode << 16 | nextCharCode << 8)
+isWhiteSpaceRequired.has(prevCode << 16 | nextCode)
+this.emit(' ', types.WhiteSpace, true)

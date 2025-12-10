@@ -1,0 +1,5 @@
+_tmp_6.emit = <lambda>26
+var events = this.___state.___events
+arguments.length
+1
+events.emit(type)

@@ -1,0 +1,8 @@
+function onlyHasPush = function onlyHasPush(func) {
+            const firstLine = getFirstFunctionLine(func)
+            const firstParam = get(func, 'params[0]')
+            const exp = func && !isFunctionDefinitionWithBlock(func) ? firstLine : firstLine && firstLine.expression
+            return func && hasOnlyOneStatement(func) && getMethodName(exp) === 'push' && !includes(collectParameterValues(firstParam), get(exp, 'callee.object.name'))
+        }
+const firstLine = getFirstFunctionLine(func)
+const firstParam = get(func, 'params[0]')

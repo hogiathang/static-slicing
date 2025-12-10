@@ -1,0 +1,41 @@
+function parseServerFirstMessage = function parseServerFirstMessage(data) {
+  const attrPairs = parseAttributePairs(data)
+
+  const nonce = attrPairs.get('r')
+  if (!nonce) {
+    throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: nonce missing')
+  } else if (!isPrintableChars(nonce)) {
+    throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: nonce must only contain printable characters')
+  }
+  const salt = attrPairs.get('s')
+  if (!salt) {
+    throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: salt missing')
+  } else if (!isBase64(salt)) {
+    throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: salt must be base64')
+  }
+  const iterationText = attrPairs.get('i')
+  if (!iterationText) {
+    throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: iteration missing')
+  } else if (!/^[1-9][0-9]*$/.test(iterationText)) {
+    throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: invalid iteration count')
+  }
+  const iteration = parseInt(iterationText, 10)
+
+  return {
+    nonce,
+    salt,
+    iteration,
+  }
+}
+const attrPairs = parseAttributePairs(data)
+const nonce = attrPairs.get('r')
+!nonce
+throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: nonce missing')
+!isPrintableChars(nonce)
+throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: nonce must only contain printable characters')
+const salt = attrPairs.get('s')
+!salt
+throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: salt missing')
+!isBase64(salt)
+throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: salt must be base64')
+const iterationText = attrPairs.get('i')

@@ -1,0 +1,11 @@
+props = props === void 0 ? {} : props
+jsiiDeprecationWarnings._aws_cdk_core_StackProps(props)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, Stack)
+throw error;
+scope = scope ?? new app_1.App({
+            autoSynth: false,
+            outdir: fs_1.FileSystem.mkdtemp('cdk-test-app-'),
+        })
+_tmp_20.autoSynth = false
+_tmp_20.outdir = fs_1.FileSystem.mkdtemp('cdk-test-app-')

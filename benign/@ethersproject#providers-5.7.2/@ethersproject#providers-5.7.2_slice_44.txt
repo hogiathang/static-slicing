@@ -1,0 +1,31 @@
+provider.request(request).then(function (response) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                response: response,
+                provider: _this
+            });
+            return response;
+        }, function (error) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                error: error,
+                provider: _this
+            });
+            throw error;
+        })
+_this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                response: response,
+                provider: _this
+            })
+_tmp_9.action = "response"
+_tmp_9.fetcher = "Eip1193Fetcher"
+_tmp_9.request = request
+_tmp_9.response = response
+_tmp_9.provider = _this

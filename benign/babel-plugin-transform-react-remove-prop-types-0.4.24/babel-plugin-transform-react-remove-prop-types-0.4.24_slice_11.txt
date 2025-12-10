@@ -1,0 +1,6 @@
+_tmp_2.ReturnStatement = ReturnStatement
+const argument = path2.get('argument')
+!argument.node
+isJSXElementOrReactCreateElement(path2)
+argument.node.type === 'CallExpression'
+const name = argument.get('callee').node.name

@@ -1,0 +1,23 @@
+function drawBackground = function drawBackground(painter: Painter, sourceCache: SourceCache, layer: BackgroundStyleLayer, coords: Array<OverscaledTileID>) {
+    const color = layer.paint.get('background-color');
+    const opacity = layer.paint.get('background-opacity');
+
+    if (opacity === 0) return;
+
+    const context = painter.context;
+    const gl = context.gl;
+    const transform = painter.transform;
+    const tileSize = transform.tileSize;
+    const image = layer.paint.get('background-pattern');
+    if (painter.isPatternMissing(image)) return;
+
+    const pass = (!image && color.a === 1 && opacity === 1 && painter.opaquePassEnabledForLayer()) ? 'opaque' : 'translucent';
+    if (painter.renderPass !== pass) return;
+
+    const stencilMode = StencilMode.disabled;
+    const depthMode = painter.depthModeForSublayer(0, pass === 'opaque' ? DepthMode.ReadWrite : DepthMode.ReadOnly);
+    const colorMode = painter.colorModeForRenderPass();
+
+    const program = painter.useProgram(image ? 'backgroundPattern' : 'ba...
+const color = layer.paint.get('background-color')
+const opacity = layer.paint.get('background-opacity')

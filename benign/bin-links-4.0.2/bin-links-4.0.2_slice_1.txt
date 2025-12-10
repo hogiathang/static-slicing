@@ -1,0 +1,15 @@
+readlink(to).then(target => {
+        if (target === from) {
+          return SKIP
+        } // skip it, already set up like we want it.
+
+        target = resolve(dirname(to), target)
+        if (target.indexOf(path) === 0 || force) {
+          return rm(to, rmOpts).then(() => CLOBBER)
+        }
+        // neither skip nor clobber
+        return false
+      })
+target === from
+target = resolve(dirname(to), target)
+target.indexOf(path) === 0 || force

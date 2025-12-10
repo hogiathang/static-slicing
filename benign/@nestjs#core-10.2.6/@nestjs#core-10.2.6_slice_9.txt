@@ -1,0 +1,22 @@
+moduleRegistry = moduleRegistry === void 0 ? __ecma.Array.factory() : moduleRegistry
+let instanceWrapperRef = null
+const imports = moduleRef.imports || new Set()
+const identity = (item) => item
+let children = [...imports.values()].filter(identity)
+const contextModuleExports = moduleRef.exports
+children = children.filter(child => contextModuleExports.has(child.metatype))
+_iterator_0 = <operator>.iterator(children)
+moduleRegistry.includes(relatedModule.id)
+continue;
+this.printLookingForProviderLog(name, relatedModule)
+moduleRegistry.push(relatedModule.id)
+providers = _tmp_27.providers
+!exports.has(name) || !providers.has(name)
+const instanceRef = await this.lookupComponentInImports(relatedModule, name, wrapper, moduleRegistry, contextId, inquirer, keyOrIndex, true)
+continue;
+this.printFoundInModuleLog(name, relatedModule)
+instanceWrapperRef = providers.get(name)
+this.addDependencyMetadata(keyOrIndex, wrapper, instanceWrapperRef)
+const inquirerId = this.getInquirerId(inquirer)
+const instanceHost = instanceWrapperRef.getInstanceByContextId(this.getContextId(contextId, instanceWrapperRef), inquirerId)
+!instanceHost.isResolved && !instanceWrapperRef.forwardRef

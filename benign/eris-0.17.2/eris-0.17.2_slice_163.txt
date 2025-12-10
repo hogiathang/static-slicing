@@ -1,0 +1,149 @@
+encode(source, options) {
+        if(this.encoding || this.streams.length) {
+            this.emit("error", new Error("Already encoding"));
+            return false;
+        }
+
+        if(typeof source === "string") {
+            if(options.format === "dca" || options.format === "ogg" || options.format === "webm" || options.format === "pcm") {
+                if(source.startsWith("http://") || source.startsWith("https://")) {
+                    const passThrough = new PassThroughStream();
+                    if(source.startsWith("http://")) {
+                        HTTP.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e));
+                    } else {
+                        HTTPS.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e));
+                    }
+                    source = passThrough;
+                } else {
+                    try {
+                        FS.statSync(source);
+                    } catch(err) {
+    ...
+this.encoding || this.streams.length
+typeof source === "string"
+options.format === "dca" || options.format === "ogg" || options.format === "webm" || options.format === "pcm"
+source.startsWith("http://") || source.startsWith("https://")
+const passThrough = new PassThroughStream()
+source.startsWith("http://")
+HTTP.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e))
+HTTPS.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e))
+source = passThrough
+FS.statSync(source)
+source = FS.createReadStream(source)
+!(source instanceof Stream) || !source.pipe
+this._dataPacketMax = 30
+this._dataPacketMin = 15
+typeof source !== "string"
+this.streams.push(source.once("error", (e) => this.stop(e)))
+options.format === "opusPackets"
+options.format === "dca"
+this.streams.push(source.pipe(new DCAOpusTransformer()).once("error", (e) => this.stop(e)))
+options.format === "ogg"
+this.streams.push(source.pipe(new OggOpusTransformer()).once("error", (e) => this.stop(e)))
+options.format === "webm"
+this.streams.push(source.pipe(new WebmOpusTransformer()).once("error", (e) => this.stop(e)))
+!options.format || options.format === "pcm"
+options.inlineVolume
+!options.format
+!this.converterCommand
+typeof source === "string"
+this.streams.push(source = new FFmpegPCMTransformer({
+                            command: this.converterCommand,
+                            input: source,
+                            encoderArgs: options.encoderArgs,
+                            inputArgs: options.inputArgs
+                        }).once("error", (e) => this.stop(e)))
+_tmp_24.command = this.converterCommand
+_tmp_24.input = source
+_tmp_24.encoderArgs = options.encoderArgs
+_tmp_24.inputArgs = options.inputArgs
+this.stop(e)
+this.streams.push(source = source.pipe(new FFmpegPCMTransformer({
+                            command: this.converterCommand,
+                            encoderArgs: options.encoderArgs,
+                            inputArgs: options.inputArgs
+                        })).once("error", (e) => this.stop(e)))
+_tmp_28.command = this.converterCommand
+_tmp_28.encoderArgs = options.encoderArgs
+_tmp_28.inputArgs = options.inputArgs
+this.stop(e)
+this.streams.push(this.volume = source = source.pipe(new VolumeTransformer()).once("error", (e) => this.stop(e)))
+this.volume.setVolume(this.volumeLevel)
+this.streams.push(this.volume.pipe(new PCMOpusTransformer({
+                    opusFactory: this.opusFactory,
+                    frameSize: options.frameSize,
+                    pcmSize: options.pcmSize
+                })).once("error", (e) => this.stop(e)))
+_tmp_37.opusFactory = this.opusFactory
+_tmp_37.frameSize = options.frameSize
+_tmp_37.pcmSize = options.pcmSize
+this.stop(e)
+this._dataPacketMax = 1
+this._dataPacketMin = 4
+this.libopus
+typeof source === "string"
+this.streams.push(source = new FFmpegOggTransformer({
+                            command: this.converterCommand,
+                            input: source,
+                            encoderArgs: options.encoderArgs,
+                            inputArgs: options.inputArgs,
+                            format: options.format,
+                            frameDuration: options.frameDuration
+                        }).once("error", (e) => this.stop(e)))
+_tmp_41.command = this.converterCommand
+_tmp_41.input = source
+_tmp_41.encoderArgs = options.encoderArgs
+_tmp_41.inputArgs = options.inputArgs
+_tmp_41.format = options.format
+_tmp_41.frameDuration = options.frameDuration
+this.stop(e)
+this.streams.push(source = source.pipe(new FFmpegOggTransformer({
+                            command: this.converterCommand,
+                            encoderArgs: options.encoderArgs,
+                            inputArgs: options.inputArgs,
+                            format: options.format,
+                            frameDuration: options.frameDuration
+                        })).once("error", (e) => this.stop(e)))
+_tmp_45.command = this.converterCommand
+_tmp_45.encoderArgs = options.encoderArgs
+_tmp_45.inputArgs = options.inputArgs
+_tmp_45.format = options.format
+_tmp_45.frameDuration = options.frameDuration
+this.stop(e)
+this.streams.push(source.pipe(new OggOpusTransformer()).once("error", (e) => this.stop(e)))
+typeof source === "string"
+this.streams.push(source = new FFmpegPCMTransformer({
+                            command: this.converterCommand,
+                            input: source,
+                            encoderArgs: options.encoderArgs,
+                            inputArgs: options.inputArgs
+                        }).once("error", (e) => this.stop(e)))
+_tmp_52.command = this.converterCommand
+_tmp_52.input = source
+_tmp_52.encoderArgs = options.encoderArgs
+_tmp_52.inputArgs = options.inputArgs
+this.stop(e)
+this.streams.push(source = source.pipe(new FFmpegPCMTransformer({
+                            command: this.converterCommand,
+                            encoderArgs: options.encoderArgs,
+                            inputArgs: options.inputArgs
+                        })).once("error", (e) => this.stop(e)))
+_tmp_56.command = this.converterCommand
+_tmp_56.encoderArgs = options.encoderArgs
+_tmp_56.inputArgs = options.inputArgs
+this.stop(e)
+this.streams.push(source.pipe(new PCMOpusTransformer({
+                        opusFactory: this.opusFactory,
+                        frameSize: options.frameSize,
+                        pcmSize: options.pcmSize
+                    })).once("error", (e) => this.stop(e)))
+_tmp_60.opusFactory = this.opusFactory
+_tmp_60.frameSize = options.frameSize
+_tmp_60.pcmSize = options.pcmSize
+this.stop(e)
+this._endStream = this.streams[this.streams.length - 1]
+this._endStream.hasOwnProperty("manualCB")
+this._endStream.manualCB = true
+this._endStream.on("data", this.addDataPacket)
+this._endStream.once("end", () => this.stop(null, source))
+this.emit("start")

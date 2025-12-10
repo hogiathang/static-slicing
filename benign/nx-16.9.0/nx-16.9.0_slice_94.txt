@@ -1,0 +1,21 @@
+Object.keys(projects).forEach((projectName) => {
+        if (projectsInAngularJson.includes(projectName)) {
+            newAngularJson.projects[projectName] = projects[projectName];
+        }
+        else {
+            if (existingProjects.has(projectName)) {
+                if (JSON.stringify(existingProjects.get(projectName)) !==
+                    JSON.stringify(projects[projectName])) {
+                    (0, project_configuration_1.updateProjectConfiguration)(host, projectName, projects[projectName]);
+                }
+            }
+            else {
+                (0, project_configuration_1.addProjectConfiguration)(host, projectName, projects[projectName]);
+            }
+        }
+    })
+projectsInAngularJson.includes(projectName)
+existingProjects.has(projectName)
+JSON.stringify(existingProjects.get(projectName)) !==
+                    JSON.stringify(projects[projectName])
+JSON.stringify(projects[projectName])

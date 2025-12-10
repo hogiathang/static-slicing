@@ -1,0 +1,60 @@
+var onTimeout = function () {
+      timeout = 0;
+
+      if (currentState !== WAITING) {
+        if (!wasActivity && abortController != undefined) {
+          onFinish(new Error("No activity within " + heartbeatTimeout + " milliseconds." + " " + (currentState === CONNECTING ? "No response received." : textLength + " chars received.") + " " + "Reconnecting."));
+          if (abortController != undefined) {
+            abortController.abort();
+            abortController = undefined;
+          }
+        } else {
+          var nextHeartbeat = Math.max((wasActivity || Date.now()) + heartbeatTimeout - Date.now(), 1);
+          wasActivity = false;
+          timeout = setTimeout(function () {
+            onTimeout();
+          }, nextHeartbeat);
+        }
+        return;
+      }
+
+      wasActivity = false;
+      textLength = 0;
+      timeout = setTimeout(function () {
+        onTimeout();
+      }, heartbeatTimeout);
+
+      currentState = CONNECTING;
+      dataBuffer ...
+timeout = 0
+currentState !== WAITING
+wasActivity = false
+textLength = 0
+timeout = setTimeout(function () {
+        onTimeout();
+      }, heartbeatTimeout)
+currentState = CONNECTING
+dataBuffer = ""
+eventTypeBuffer = ""
+lastEventIdBuffer = lastEventId
+textBuffer = ""
+fieldStart = 0
+valueStart = 0
+state = FIELD_START
+var requestURL = url
+url.slice(0, 5) !== "data:" && url.slice(0, 5) !== "blob:"
+lastEventId !== ""
+var i = url.indexOf("?")
+requestURL = i === -1 ? url : url.slice(0, i + 1) + url.slice(i + 1).replace(/(?:^|&)([^=&]*)(?:=[^&]*)?/g, function (p, paramName) {
+            return paramName === lastEventIdQueryParameterName ? '' : p;
+          })
+requestURL += (url.indexOf("?") === -1 ? "?" : "&") + lastEventIdQueryParameterName +"=" + encodeURIComponent(lastEventId)
+var withCredentials = es.withCredentials
+var requestHeaders = {}
+requestHeaders["Accept"] = "text/event-stream"
+var headers = es.headers
+headers != undefined
+_iterator_0 = <operator>.iterator(headers)
+Object.prototype.hasOwnProperty.call(headers, name)
+requestHeaders[name] = headers[name]
+abortController = transport.open(xhr, onStart, onProgress, onFinish, requestURL, withCredentials, requestHeaders)

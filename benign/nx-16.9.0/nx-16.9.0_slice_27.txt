@@ -1,0 +1,53 @@
+function runPublishOnProjects = async function runPublishOnProjects(args, projectGraph, nxJson, projectNames) {
+    const projectsToRun = projectNames.map((projectName) => projectGraph.nodes[projectName]);
+    const overrides = (0, command_line_utils_1.createOverrides)(args.__overrides_unparsed__);
+    if (args.registry) {
+        overrides.registry = args.registry;
+    }
+    if (args.tag) {
+        overrides.tag = args.tag;
+    }
+    if (args.dryRun) {
+        overrides.dryRun = args.dryRun;
+    }
+    if (args.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    const targets = ['nx-release-publish'];
+    if (args.graph) {
+        const file = (0, command_line_utils_1.readGraphFileFromGraphArg)(args);
+        const projectNames = projectsToRun.map((t) => t.name);
+        return await (0, graph_1.generateGraph)({
+            watch: false,
+            all: false,
+            open: true,
+            view: 'tasks',
+            targets,
+            projects: projectNames,
+            file,
+        }, ...
+const projectsToRun = projectNames.map((projectName) => projectGraph.nodes[projectName])
+const overrides = (0, command_line_utils_1.createOverrides)(args.__overrides_unparsed__)
+args.registry
+overrides.registry = args.registry
+args.tag
+overrides.tag = args.tag
+args.dryRun
+overrides.dryRun = args.dryRun
+args.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+const targets = ['nx-release-publish']
+args.graph
+const status = await (0, run_command_1.runCommand)(projectsToRun, projectGraph, { nxJson }, {
+            targets,
+            outputStyle: 'static',
+            ...args,
+        }, overrides, null, {}, { excludeTaskDependencies: false, loadDotEnvFiles: true })
+_tmp_18.targets = targets
+_tmp_18.outputStyle = "static"
+...args
+_tmp_20.excludeTaskDependencies = false
+status !== 0
+process.stdin["unref"]
+(_tmp_21 = process.stdin).unref
+process.exit(status)

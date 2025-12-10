@@ -1,0 +1,30 @@
+child.get("specifiers").forEach(spec => {
+        if (spec.isImportDefaultSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.imports.set(localName, "default");
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexports.set(name, "default");
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportNamespaceSpecifier()) {
+          const localName = spec.get("local").node.name;
+          data.importsNamespace.add(localName);
+          const reexport = localData.get(localName);
+          if (reexport) {
+            localData.delete(localName);
+            reexport.names.forEach(name => {
+              data.reexportNamespace.add(name);
+            });
+            data.referenced = true;
+          }
+        } else if (spec.isImportSpecifier()) {
+          const importName = getExpo...
+spec.isImportDefaultSpecifier()
+spec.isImportNamespaceSpecifier()
+spec.isImportSpecifier()
+const importName = getExportSpecifierName(spec.get("imported"), stringSpecifiers)
+const localName = spec.get("local").node.name

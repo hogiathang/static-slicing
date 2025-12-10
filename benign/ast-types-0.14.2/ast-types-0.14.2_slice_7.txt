@@ -1,0 +1,59 @@
+function getMoves = function getMoves(path, offset, start, end) {
+        isArray.assert(path.value);
+        if (offset === 0) {
+            return emptyMoves;
+        }
+        var length = path.value.length;
+        if (length < 1) {
+            return emptyMoves;
+        }
+        var argc = arguments.length;
+        if (argc === 2) {
+            start = 0;
+            end = length;
+        }
+        else if (argc === 3) {
+            start = Math.max(start, 0);
+            end = length;
+        }
+        else {
+            start = Math.max(start, 0);
+            end = Math.min(end, length);
+        }
+        isNumber.assert(start);
+        isNumber.assert(end);
+        var moves = Object.create(null);
+        var cache = getChildCache(path);
+        for (var i = start; i < end; ++i) {
+            if (hasOwn.call(path.value, i)) {
+                var childPath = path.get(i);
+                if (childPath.name !== i) {
+                    throw new Error("");
+                }
+                var ne...
+isArray.assert(path.value)
+offset === 0
+var length = path.value.length
+length < 1
+var argc = arguments.length
+argc === 2
+start = 0
+end = length
+argc === 3
+start = Math.max(start, 0)
+end = length
+start = Math.max(start, 0)
+end = Math.min(end, length)
+isNumber.assert(start)
+isNumber.assert(end)
+var moves = Object.create(null)
+var cache = getChildCache(path)
+var i = start
+hasOwn.call(path.value, i)
+var childPath = path.get(i)
+childPath.name !== i
+throw new Error("");
+var newIndex = i + offset
+childPath.name = newIndex
+moves[newIndex] = childPath
+delete cache[i]

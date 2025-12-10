@@ -1,0 +1,10 @@
+db => {
+                    taskCtx.connect(db);
+                    npm.utils.addReadProp(tsk.ctx, 'useCount', db.useCount);
+                    addServerVersion(tsk.ctx, db.client);
+                    return config.$npm.task.execute(taskCtx, tsk, isTX, config);
+                }
+taskCtx.connect(db)
+npm.utils.addReadProp(tsk.ctx, 'useCount', db.useCount)
+addServerVersion(tsk.ctx, db.client)
+config.$npm.task.execute(taskCtx, tsk, isTX, config)

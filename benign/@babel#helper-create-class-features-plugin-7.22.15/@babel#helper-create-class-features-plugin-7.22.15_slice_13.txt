@@ -1,0 +1,49 @@
+function extractComputedKeys = function extractComputedKeys(path, computedPaths, file) {
+  const declarations = [];
+  const state = {
+    classBinding: path.node.id && path.scope.getBinding(path.node.id.name),
+    file
+  };
+  for (const computedPath of computedPaths) {
+    const computedKey = computedPath.get("key");
+    if (computedKey.isReferencedIdentifier()) {
+      handleClassTDZ(computedKey, state);
+    } else {
+      computedKey.traverse(classFieldDefinitionEvaluationTDZVisitor, state);
+    }
+    const computedNode = computedPath.node;
+    if (!computedKey.isConstantExpression()) {
+      const ident = path.scope.generateUidIdentifierBasedOnNode(computedNode.key);
+      path.scope.push({
+        id: ident,
+        kind: "let"
+      });
+      declarations.push(_core.types.expressionStatement(_core.types.assignmentExpression("=", _core.types.cloneNode(ident), computedNode.key)));
+      computedNode.key = _core.types.cloneNode(ident);
+    }
+  }
+  return declarations;
+}
+const declarations = []
+const state = {
+    classBinding: path.node.id && path.scope.getBinding(path.node.id.name),
+    file
+  }
+_tmp_21.classBinding = path.node.id && path.scope.getBinding(path.node.id.name)
+_tmp_21.file = file
+_iterator_1 = <operator>.iterator(computedPaths)
+const computedKey = computedPath.get("key")
+computedKey.isReferencedIdentifier()
+handleClassTDZ(computedKey, state)
+computedKey.traverse(classFieldDefinitionEvaluationTDZVisitor, state)
+const computedNode = computedPath.node
+!computedKey.isConstantExpression()
+const ident = path.scope.generateUidIdentifierBasedOnNode(computedNode.key)
+path.scope.push({
+        id: ident,
+        kind: "let"
+      })
+_tmp_25.id = ident
+_tmp_25.kind = "let"
+declarations.push(_core.types.expressionStatement(_core.types.assignmentExpression("=", _core.types.cloneNode(ident), computedNode.key)))
+computedNode.key = _core.types.cloneNode(ident)

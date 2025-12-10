@@ -1,0 +1,20 @@
+periodFlush() {
+        let analyticsFlushPromise = Promise.resolve();
+        const analyticsFlushInterval = setInterval(() => {
+            if (this.trackingEventsQueue?.length) {
+                analyticsFlushPromise = analyticsFlushPromise.then(() => this.flush());
+            }
+        }, 4000);
+        return () => {
+            clearInterval(analyticsFlushInterval);
+            // Flush one last time.
+            return analyticsFlushPromise.then(() => this.flush());
+        };
+    }
+let analyticsFlushPromise = Promise.resolve()
+const analyticsFlushInterval = setInterval(() => {
+            if (this.trackingEventsQueue?.length) {
+                analyticsFlushPromise = analyticsFlushPromise.then(() => this.flush());
+            }
+        }, 4000)
+4000

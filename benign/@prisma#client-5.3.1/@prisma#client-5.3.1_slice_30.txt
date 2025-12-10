@@ -1,0 +1,5 @@
+this.child.on("exit",a=>{if(qs("removing startPromise"),this.startPromise=void 0,this.engineStopDeferred){this.engineStopDeferred.resolve(a);return}if(this.connection.close(),a!==0&&this.engineStartDeferred&&this.startCount===1){let c,g=this.stderrLogs;this.lastError&&(g=Fn(this.lastError)),a!==null?(c=new ae(`Query engine exited with code ${a}
+`+g,this.clientVersion),c.retryable=!0):this.child?.signalCode?(c=new ae(`Query engine process killed with signal ${this.child.signalCode} for unknown reason.
+Make sure that the engine binary at ${n} is not corrupt.
+`+g,this.clientVersion),c.retryable=!0):c=new ae(g,this.clientVersion),this.engineStartDeferred.reject(c)}this.child&&(this.lastError||a===126&&this.setError({timestamp:new Date,target:"binary engine process exit",level:"error",fields:{message:`Couldn't start query engine as it's not executable on this operating system.
+You very likely have the wrong "binaryTarget" defined in the schema.prisma file.`}}))})

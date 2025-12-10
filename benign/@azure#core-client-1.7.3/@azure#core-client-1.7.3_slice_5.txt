@@ -1,0 +1,61 @@
+function serializeRequestBody = function serializeRequestBody(request, operationArguments, operationSpec, stringifyXML = function () {
+    throw new Error("XML serialization unsupported!");
+}) {
+    var _a, _b, _c, _d, _e;
+    const serializerOptions = (_a = operationArguments.options) === null || _a === void 0 ? void 0 : _a.serializerOptions;
+    const updatedOptions = {
+        xml: {
+            rootName: (_b = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.rootName) !== null && _b !== void 0 ? _b : "",
+            includeRoot: (_c = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.includeRoot) !== null && _c !== void 0 ? _c : false,
+            xmlCharKey: (_d = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.xmlCharKey) !== null && _d !== void 0 ? _d : XML_CHARKEY,
+        },
+    };
+    const xmlCharKey = updatedOptions.xml.xmlCharKey;
+    if (operationSpec.requestBody && operati...
+const serializerOptions = (_a = operationArguments.options) === null || _a === void 0 ? void 0 : _a.serializerOptions
+const updatedOptions = {
+        xml: {
+            rootName: (_b = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.rootName) !== null && _b !== void 0 ? _b : "",
+            includeRoot: (_c = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.includeRoot) !== null && _c !== void 0 ? _c : false,
+            xmlCharKey: (_d = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.xmlCharKey) !== null && _d !== void 0 ? _d : XML_CHARKEY,
+        },
+    }
+_tmp_15.xml = {
+            rootName: (_b = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.rootName) !== null && _b !== void 0 ? _b : "",
+            includeRoot: (_c = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.includeRoot) !== null && _c !== void 0 ? _c : false,
+            xmlCharKey: (_d = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.xmlCharKey) !== null && _d !== void 0 ? _d : XML_CHARKEY,
+        }
+_tmp_16.rootName = (_b = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.rootName) !== null && _b !== void 0 ? _b : ""
+_tmp_16.includeRoot = (_c = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.includeRoot) !== null && _c !== void 0 ? _c : false
+_tmp_16.xmlCharKey = (_d = serializerOptions === null || serializerOptions === void 0 ? void 0 : serializerOptions.xml.xmlCharKey) !== null && _d !== void 0 ? _d : XML_CHARKEY
+const xmlCharKey = updatedOptions.xml.xmlCharKey
+operationSpec.requestBody && operationSpec.requestBody.mapper
+request.body = getOperationArgumentValueFromParameter(operationArguments, operationSpec.requestBody)
+const bodyMapper = operationSpec.requestBody.mapper
+xmlNamespacePrefix = _tmp_17.xmlNamespacePrefix
+const typeName = bodyMapper.type.name
+(request.body !== undefined && request.body !== null) ||
+                (nullable && request.body === null) ||
+                required
+nullable && request.body === null
+const requestBodyParameterPathString = getPathStringFromParameter(operationSpec.requestBody)
+request.body = operationSpec.serializer.serialize(bodyMapper, request.body, requestBodyParameterPathString, updatedOptions)
+const isStream = typeName === MapperTypeNames.Stream
+operationSpec.isXML
+xmlNamespacePrefix ? <operator>.formatString("xmlns:", xmlNamespacePrefix, "") : "xmlns"
+const value = getXmlValueWithNamespace(xmlNamespace, xmlnsKey, typeName, request.body, updatedOptions)
+typeName === MapperTypeNames.Sequence
+request.body = stringifyXML(prepareXMLRootList(value, xmlElementName || xmlName || serializedName, xmlnsKey, xmlNamespace), { rootName: xmlName || serializedName, xmlCharKey })
+!isStream
+request.body = stringifyXML(value, {
+                            rootName: xmlName || serializedName,
+                            xmlCharKey,
+                        })
+_tmp_20.rootName = xmlName || serializedName
+_tmp_20.xmlCharKey = xmlCharKey
+typeName === MapperTypeNames.String &&
+                    (((_e = operationSpec.contentType) === null || _e === void 0 ? void 0 : _e.match("text/plain")) || operationSpec.mediaType === "text")
+((_e = operationSpec.contentType) === null || _e === void 0 ? void 0 : _e.match("text/plain")) || operationSpec.mediaType === "text"
+!isStream
+request.body = JSON.stringify(request.body)
+<operator>.formatString("Error "", error.message, "" occurred in serializing the payload - ", JSON.stringify(serializedName, undefined, "  "), ".")

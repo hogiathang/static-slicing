@@ -1,0 +1,14 @@
+var duplexify = require('duplexify')
+var http = require('http')
+var request = function(opts) {
+  var req = http.request(opts)
+  var dup = duplexify()
+  dup.setWritable(req)
+  req.on('response', function(res) {
+    dup.setReadable(res)
+  })
+  return dup
+}
+_tmp_0.method = "GET"
+_tmp_0.host = "www.google.com"
+_tmp_0.port = 80

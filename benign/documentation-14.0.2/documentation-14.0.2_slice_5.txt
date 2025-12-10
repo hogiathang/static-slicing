@@ -1,0 +1,37 @@
+function findTarget = function findTarget(path) {
+  if (!path) {
+    return path;
+  }
+
+  if (
+    t.isExportDefaultDeclaration(path) ||
+    (t.isExportNamedDeclaration(path) && path.has('declaration'))
+  ) {
+    path = path.get('declaration');
+  }
+
+  if (t.isVariableDeclaration(path)) {
+    // var x = init;
+    path = path.get('declarations')[0];
+  } else if (t.isExpressionStatement(path)) {
+    // foo.x = TARGET
+    path = path.get('expression').get('right');
+  } else if (t.isObjectProperty(path) || t.isObjectTypeProperty(path)) {
+    // var foo = { x: TARGET }; object property
+    path = path.get('value');
+  } else if (t.isClassProperty(path) && path.get('value').node) {
+    // var foo = { x = TARGET }; class property
+    path = path.get('value');
+  }
+
+  return path.node && path;
+}
+!path
+t.isExportDefaultDeclaration(path) ||
+    (t.isExportNamedDeclaration(path) && path.has('declaration'))
+t.isExportNamedDeclaration(path) && path.has('declaration')
+path = path.get('declaration')
+t.isVariableDeclaration(path)
+t.isExpressionStatement(path)
+t.isObjectProperty(path) || t.isObjectTypeProperty(path)
+path = path.get('value')

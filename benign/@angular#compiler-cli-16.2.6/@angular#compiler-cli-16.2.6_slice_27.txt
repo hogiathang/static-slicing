@@ -1,0 +1,69 @@
+function parseInputsArray = function parseInputsArray(clazz, decoratorMetadata, evaluator, reflector, refEmitter) {
+  const inputsField = decoratorMetadata.get("inputs");
+  if (inputsField === void 0) {
+    return {};
+  }
+  const inputs = {};
+  const inputsArray = evaluator.evaluate(inputsField);
+  if (!Array.isArray(inputsArray)) {
+    throw createValueHasWrongTypeError(inputsField, inputsArray, `Failed to resolve @Directive.inputs to an array`);
+  }
+  for (let i = 0; i < inputsArray.length; i++) {
+    const value = inputsArray[i];
+    if (typeof value === "string") {
+      const [bindingPropertyName, classPropertyName] = parseMappingString(value);
+      inputs[classPropertyName] = {
+        bindingPropertyName,
+        classPropertyName,
+        required: false,
+        transform: null
+      };
+    } else if (value instanceof Map) {
+      const name = value.get("name");
+      const alias = value.get("alias");
+      const required = value.get("required");
+      let transform = null;
+      if (typeof name !== ...
+const inputsField = decoratorMetadata.get("inputs")
+inputsField === void 0
+const inputs = {}
+const inputsArray = evaluator.evaluate(inputsField)
+!Array.isArray(inputsArray)
+throw createValueHasWrongTypeError(inputsField, inputsArray, `Failed to resolve @Directive.inputs to an array`);
+i < inputsArray.length
+const value = inputsArray[i]
+typeof value === "string"
+_tmp_240 = parseMappingString(value)
+inputs[classPropertyName] = {
+        bindingPropertyName,
+        classPropertyName,
+        required: false,
+        transform: null
+      }
+_tmp_241.bindingPropertyName = bindingPropertyName
+_tmp_241.classPropertyName = classPropertyName
+_tmp_241.required = false
+_tmp_241.transform = null
+value instanceof Map
+const name = value.get("name")
+const alias = value.get("alias")
+const required = value.get("required")
+let transform = null
+typeof name !== "string"
+throw createValueHasWrongTypeError(inputsField, name, `Value at position ${i} of @Directive.inputs array must have a "name" property`);
+value.has("transform")
+const transformValue = value.get("transform")
+!(transformValue instanceof DynamicValue) && !(transformValue instanceof Reference)
+throw createValueHasWrongTypeError(inputsField, transformValue, `Transform of value at position ${i} of @Directive.inputs array must be a function`);
+transform = parseInputTransformFunction(clazz, name, transformValue, reflector, refEmitter)
+inputs[name] = {
+        classPropertyName: name,
+        bindingPropertyName: typeof alias === "string" ? alias : name,
+        required: required === true,
+        transform
+      }
+_tmp_242.classPropertyName = name
+_tmp_242.bindingPropertyName = typeof alias === "string" ? alias : name
+_tmp_242.required = required === true
+_tmp_242.transform = transform
+throw createValueHasWrongTypeError(inputsField, value, `@Directive.inputs array can only contain strings or object literals`);

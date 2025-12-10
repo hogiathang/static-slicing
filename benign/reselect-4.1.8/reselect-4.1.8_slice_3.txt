@@ -1,0 +1,32 @@
+function memoized = function memoized() {
+    var value = cache.get(arguments);
+
+    if (value === NOT_FOUND) {
+      // @ts-ignore
+      value = func.apply(null, arguments);
+
+      if (resultEqualityCheck) {
+        var entries = cache.getEntries();
+        var matchingEntry = entries.find(function (entry) {
+          return resultEqualityCheck(entry.value, value);
+        });
+
+        if (matchingEntry) {
+          value = matchingEntry.value;
+        }
+      }
+
+      cache.put(arguments, value);
+    }
+
+    return value;
+  }
+var value = cache.get(arguments)
+value === NOT_FOUND
+value = func.apply(null, arguments)
+var entries = cache.getEntries()
+var matchingEntry = entries.find(function (entry) {
+          return resultEqualityCheck(entry.value, value);
+        })
+value = matchingEntry.value
+cache.put(arguments, value)

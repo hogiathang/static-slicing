@@ -1,0 +1,50 @@
+function analyzePath = function analyzePath(path, type) {
+    if (fields == null) {
+      return;
+    }
+
+    // If schema-level selected not set, nothing to do
+    if (typeof type.selected !== 'boolean') {
+      return;
+    }
+
+    // User overwriting default exclusion
+    if (type.selected === false && fields[path]) {
+      return;
+    }
+
+    // If set to 0, we're explicitly excluding the discriminator key. Can't do this for all fields,
+    // because we have tests that assert that using `-path` to exclude schema-level `select: true`
+    // fields counts as an exclusive projection. See gh-11546
+    if (!exclude && type.selected && path === schema.options.discriminatorKey && fields[path] != null && !fields[path]) {
+      delete fields[path];
+      return;
+    }
+
+    if (exclude === false && type.selected && fields[path] != null && !fields[path]) {
+      delete fields[path];
+      return;
+    }
+
+    const plusPath = '+' + path;
+    const hasPlusPath = fields && plusPath in fields;
+    if (hasPlusPath) {
+   ...
+fields == null
+typeof type.selected !== 'boolean'
+type.selected === false && fields[path]
+!exclude && type.selected && path === schema.options.discriminatorKey && fields[path] != null && !fields[path]
+exclude === false && type.selected && fields[path] != null && !fields[path]
+const plusPath = '+' + path
+const hasPlusPath = fields && plusPath in fields
+const pieces = path.split('.')
+let cur = ''
+i < pieces.length
+cur += cur.length ? '.' + pieces[i] : pieces[i]
+excluded.indexOf(cur) !== -1
+!exclude && (type && type.options && type.options.$skipDiscriminatorCheck || false)
+let cur = ''
+i < pieces.length
+cur += (cur.length === 0 ? '' : '.') + pieces[i]
+const projection = get(fields, cur, false) || get(fields, cur + '.$', false)
+projection && typeof projection !== 'object'

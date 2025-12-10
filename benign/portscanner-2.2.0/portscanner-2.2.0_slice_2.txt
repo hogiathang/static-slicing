@@ -1,0 +1,71 @@
+function checkPortStatus = function checkPortStatus (port) {
+  var args, host, opts, callback
+
+  args = [].slice.call(arguments, 1)
+
+  if (typeof args[0] === 'string') {
+    host = args[0]
+  } else if (typeof args[0] === 'object') {
+    opts = args[0]
+  } else if (typeof args[0] === 'function') {
+    callback = args[0]
+  }
+
+  if (typeof args[1] === 'object') {
+    opts = args[1]
+  } else if (typeof args[1] === 'function') {
+    callback = args[1]
+  }
+
+  if (typeof args[2] === 'function') {
+    callback = args[2]
+  }
+
+  if (!callback) return promisify(checkPortStatus, arguments)
+
+  opts = opts || {}
+
+  host = host || opts.host || '127.0.0.1'
+
+  var timeout = opts.timeout || 400
+  var connectionRefused = false
+
+  var socket = new Socket()
+  var status = null
+  var error = null
+
+  // Socket connection established, port is open
+  socket.on('connect', function () {
+    status = 'open'
+    socket.destroy()
+  })
+
+  // If no response, assume port is not listening
+  socket.setTimeout(timeout)
+  socket.on('timeout', fu...
+args = [].slice.call(arguments, 1)
+typeof args[0] === 'string'
+host = args[0]
+typeof args[0] === 'object'
+opts = args[0]
+typeof args[0] === 'function'
+callback = args[0]
+typeof args[1] === 'object'
+opts = args[1]
+typeof args[1] === 'function'
+callback = args[1]
+typeof args[2] === 'function'
+callback = args[2]
+promisify(checkPortStatus, arguments)
+opts = opts || {}
+host = host || opts.host || '127.0.0.1'
+var timeout = opts.timeout || 400
+var connectionRefused = false
+var socket = new Socket()
+var status = null
+var error = null
+socket.on('connect', function () {
+    status = 'open'
+    socket.destroy()
+  })
+socket.setTimeout(timeout)

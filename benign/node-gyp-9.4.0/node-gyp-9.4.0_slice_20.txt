@@ -1,0 +1,34 @@
+function downloadShasums = async function downloadShasums () {
+      log.verbose('check download content checksum, need to download `SHASUMS256.txt`...')
+      log.verbose('checksum url', release.shasumsUrl)
+
+      const res = await download(gyp, release.shasumsUrl)
+
+      if (res.status !== 200) {
+        throw new Error(`${res.status}  status code downloading checksum`)
+      }
+
+      for (const line of (await res.text()).trim().split('\n')) {
+        const items = line.trim().split(/\s+/)
+        if (items.length !== 2) {
+          return
+        }
+
+        // 0035d18e2dcf9aad669b1c7c07319e17abfe3762  ./node-v0.11.4.tar.gz
+        const name = items[1].replace(/^\.\//, '')
+        expectShasums[name] = items[0]
+      }
+
+      log.verbose('checksum data', JSON.stringify(expectShasums))
+    }
+log.verbose('check download content checksum, need to download `SHASUMS256.txt`...')
+log.verbose('checksum url', release.shasumsUrl)
+const res = await download(gyp, release.shasumsUrl)
+res.status !== 200
+<operator>.formatString("", res.status, "  status code downloading checksum")
+_iterator_1 = <operator>.iterator((await res.text()).trim().split('\n'))
+const items = line.trim().split(/\s+/)
+items.length !== 2
+const name = items[1].replace(/^\.\//, '')
+expectShasums[name] = items[0]
+log.verbose('checksum data', JSON.stringify(expectShasums))

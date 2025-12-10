@@ -1,0 +1,42 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"GUILD_SYNC"
+const guild = this.client.guilds.get(packet.d.id)
+_iterator_3 = <operator>.iterator(packet.d.members)
+member.id = member.user.id
+guild.members.add(member, guild)
+_iterator_4 = <operator>.iterator(packet.d.presences)
+!guild.members.get(presence.user.id)
+let userData = this.client.users.get(presence.user.id)
+<operator>.formatString("{username: ", userData.username, ", id: ", userData.id, ", discriminator: ", userData.discriminator, "}")
+this.emit("debug", `Presence without member. ${presence.user.id}. In global user cache: ${userData}. ` + JSON.stringify(presence), this.id)
+continue;
+presence.id = presence.user.id
+(_tmp_268 = guild.members).update
+guild.pendingVoiceStates && guild.pendingVoiceStates.length > 0
+_iterator_5 = <operator>.iterator(guild.pendingVoiceStates)
+!guild.members.get(voiceState.user_id)
+continue;
+voiceState.id = voiceState.user_id
+const channel = guild.channels.get(voiceState.channel_id)
+channel.voiceMembers.add(guild.members.update(voiceState))
+this.client.options.seedVoiceConnections && voiceState.id === this.client.user.id && !this.client.voiceConnections.get(channel.guild ? channel.guild.id : "call")
+(_tmp_274 = this.client).joinVoiceChannel
+this.client.emit("debug", "Phantom voice state received but channel not found | Guild: " + guild.id + " | Channel: " + voiceState.channel_id)

@@ -1,0 +1,11 @@
+function jobIdForGroup = function jobIdForGroup(limiter, opts, data) {
+  const jobId = opts && opts.jobId;
+  const groupKey = _.get(limiter, 'groupKey');
+  if (groupKey) {
+    return `${jobId || uuid.v4()}:${_.get(data, groupKey)}`;
+  }
+  return jobId;
+}
+const jobId = opts && opts.jobId
+const groupKey = _.get(limiter, 'groupKey')
+<operator>.formatString("", jobId || uuid.v4(), ":", _.get(data, groupKey), "")

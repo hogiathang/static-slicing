@@ -1,0 +1,4 @@
+get(e) {
+  return get(this, e, !0);
+ }
+get(this, e, !0)

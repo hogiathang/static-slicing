@@ -1,0 +1,9 @@
+_tmp_33.value = componentDidUpdate
+process.env.NODE_ENV !== "production"
+prevProps.bodyOpenClassName !== this.props.bodyOpenClassName
+console.warn('React-Modal: "bodyOpenClassName" prop has been modified. ' + "This may cause unexpected behavior when multiple modals are open.")
+prevProps.htmlOpenClassName !== this.props.htmlOpenClassName
+console.warn('React-Modal: "htmlOpenClassName" prop has been modified. ' + "This may cause unexpected behavior when multiple modals are open.")
+this.props.isOpen && !prevProps.isOpen
+!this.props.isOpen && prevProps.isOpen
+this.close()

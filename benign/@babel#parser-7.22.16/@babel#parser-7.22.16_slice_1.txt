@@ -1,0 +1,8 @@
+inClassScope = inClassScope === void 0 ? false : inClassScope
+this.initFunction(node, isAsync)
+node.generator = isGenerator
+this.scope.enter(2 | 16 | (inClassScope ? 64 : 0) | (allowDirectSuper ? 32 : 0))
+this.prodParam.enter(functionFlags(isAsync, node.generator))
+this.parseFunctionParams(node, isConstructor)
+const finishedNode = this.parseFunctionBodyAndFinish(node, type, true)
+(_tmp_1355 = this.prodParam).exit

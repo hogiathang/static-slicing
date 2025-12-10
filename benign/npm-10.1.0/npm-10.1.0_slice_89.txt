@@ -1,0 +1,39 @@
+async exec (args) {
+    if (args.length === 0) {
+      args = ['.']
+    }
+    if (args.length !== 1) {
+      throw this.usageError()
+    }
+
+    log.verbose('publish', replaceInfo(args))
+
+    const unicode = this.npm.config.get('unicode')
+    const dryRun = this.npm.config.get('dry-run')
+    const json = this.npm.config.get('json')
+    const defaultTag = this.npm.config.get('tag')
+    const ignoreScripts = this.npm.config.get('ignore-scripts')
+    const { silent } = this.npm
+
+    if (semver.validRange(defaultTag)) {
+      throw new Error('Tag name must not be a valid SemVer range: ' + defaultTag.trim())
+    }
+
+    const opts = { ...this.npm.flatOptions, progress: false }
+    log.disableProgress()
+
+    // you can publish name@version, ./foo.tgz, etc.
+    // even though the default is the 'file:.' cwd.
+    const spec = npa(args[0])
+    let manifest = await this.getManifest(spec, opts)
+
+    // only run scripts for directory type publishes
+    if (spec.type === 'directory' && !ignoreScri...
+args.length === 0
+_tmp_2 = __ecma.Array.factory()
+args.length !== 1
+throw this.usageError()
+log.verbose('publish', replaceInfo(args))
+const unicode = this.npm.config.get('unicode')
+const dryRun = this.npm.config.get('dry-run')
+const json = this.npm.config.get('json')

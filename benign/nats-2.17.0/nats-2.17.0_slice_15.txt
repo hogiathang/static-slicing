@@ -1,0 +1,34 @@
+readFrom(r) {
+        let n = 0;
+        const tmp = new Uint8Array(MIN_READ);
+        while (true) {
+            const shouldGrow = this.capacity - this.length < MIN_READ;
+            // read into tmp buffer if there's not enough room
+            // otherwise read directly into the internal buffer
+            const buf = shouldGrow
+                ? tmp
+                : new Uint8Array(this._buf.buffer, this.length);
+            const nread = r.read(buf);
+            if (nread === null) {
+                return n;
+            }
+            // write will grow if needed
+            if (shouldGrow)
+                this.write(buf.subarray(0, nread));
+            else
+                this._reslice(this.length + nread);
+            n += nread;
+        }
+    }
+let n = 0
+const tmp = new Uint8Array(MIN_READ)
+const shouldGrow = this.capacity - this.length < MIN_READ
+const buf = shouldGrow
+                ? tmp
+                : new Uint8Array(this._buf.buffer, this.length)
+new Uint8Array(this._buf.buffer, this.length)
+const nread = r.read(buf)
+nread === null
+this.write(buf.subarray(0, nread))
+this._reslice(this.length + nread)
+n += nread

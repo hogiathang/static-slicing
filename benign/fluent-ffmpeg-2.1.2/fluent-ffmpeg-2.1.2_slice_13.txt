@@ -1,0 +1,9 @@
+processTimer = setTimeout(function() {
+              var msg = 'process ran into a timeout (' + self.options.timeout + 's)';
+
+              emitEnd(new Error(msg), stdoutRing.get(), stderrRing.get());
+              ffmpegProc.kill();
+            }, self.options.timeout * 1000)
+var msg = 'process ran into a timeout (' + self.options.timeout + 's)'
+emitEnd(new Error(msg), stdoutRing.get(), stderrRing.get())
+ffmpegProc.kill()

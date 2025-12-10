@@ -1,0 +1,40 @@
+Client.prototype._execute = async function (query, params, execOptions) {
+  const version = this.controlConnection.protocolVersion;
+
+  if (!execOptions.isPrepared() && params && !Array.isArray(params) &&
+    !types.protocolVersion.supportsNamedParameters(version)) {
+    // Only Cassandra 2.1 and above supports named parameters
+    throw new errors.ArgumentError('Named parameters for simple statements are not supported, use prepare flag');
+  }
+
+  let request;
+
+  if (!this.connected) {
+    // Micro optimization to avoid an async execution for a simple check
+    await this._connect();
+  }
+
+  if (!execOptions.isPrepared()) {
+    request = await this._createQueryRequest(query, execOptions, params);
+  } else {
+    const lbp = execOptions.getLoadBalancingPolicy();
+
+    // Use keyspace from query options if protocol supports per-query keyspace, otherwise use connection keyspace.
+    const queryKeyspace = types.protocolVersion.supportsKeyspaceInRequest(version) &&
+      execOptions.getKeyspa...
+const version = this.controlConnection.protocolVersion
+!execOptions.isPrepared() && params && !Array.isArray(params) &&
+    !types.protocolVersion.supportsNamedParameters(version)
+(_tmp_39 = types.protocolVersion).supportsNamedParameters
+throw new errors.ArgumentError('Named parameters for simple statements are not supported, use prepare flag');
+!this.connected
+await this._connect()
+!execOptions.isPrepared()
+request = await this._createQueryRequest(query, execOptions, params)
+const lbp = execOptions.getLoadBalancingPolicy()
+const queryKeyspace = types.protocolVersion.supportsKeyspaceInRequest(version) &&
+      execOptions.getKeyspace() || this.keyspace
+execOptions.getKeyspace()
+_tmp_42 = await PrepareHandler.getPrepared(this, lbp, query, queryKeyspace)
+request = await this._createExecuteRequest(query, queryId, execOptions, params, meta)
+await RequestHandler.send(request, execOptions, this)

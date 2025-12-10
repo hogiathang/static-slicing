@@ -1,0 +1,80 @@
+function verify = async function verify(pluginConfig, context, { Octokit }) {
+  const {
+    env,
+    options: { repositoryUrl },
+    logger,
+  } = context;
+  const { githubToken, githubUrl, githubApiPathPrefix, proxy, ...options } =
+    resolveConfig(pluginConfig, context);
+
+  const errors = Object.entries({ ...options, proxy }).reduce(
+    (errors, [option, value]) =>
+      !isNil(value) && !VALIDATORS[option](value)
+        ? [
+            ...errors,
+            getError(`EINVALID${option.toUpperCase()}`, { [option]: value }),
+          ]
+        : errors,
+    [],
+  );
+
+  if (githubUrl) {
+    logger.log(
+      "Verify GitHub authentication (%s)",
+      urlJoin(githubUrl, githubApiPathPrefix),
+    );
+  } else {
+    logger.log("Verify GitHub authentication");
+  }
+
+  const { repo, owner } = parseGithubUrl(repositoryUrl);
+  if (!owner || !repo) {
+    errors.push(getError("EINVALIDGITHUBURL"));
+  } else if (
+    githubToken &&
+    !errors.find(({ code }) => code === "EINVALIDPROXY")
+  ) {
+    const octo...
+_tmp_2 = context
+env = _tmp_2.env
+_tmp_3.repositoryUrl = repositoryUrl
+logger = _tmp_2.logger
+githubApiPathPrefix = _tmp_4.githubApiPathPrefix
+resolveConfig(pluginConfig, context)
+const errors = Object.entries({ ...options, proxy }).reduce(
+    (errors, [option, value]) =>
+      !isNil(value) && !VALIDATORS[option](value)
+        ? [
+            ...errors,
+            getError(`EINVALID${option.toUpperCase()}`, { [option]: value }),
+          ]
+        : errors,
+    [],
+  )
+option = param2_0.option
+__ecma.Array.factory()
+logger.log(
+      "Verify GitHub authentication (%s)",
+      urlJoin(githubUrl, githubApiPathPrefix),
+    )
+"Verify GitHub authentication (%s)"
+urlJoin(githubUrl, githubApiPathPrefix)
+logger.log("Verify GitHub authentication")
+_tmp_9 = parseGithubUrl(repositoryUrl)
+!owner || !repo
+githubToken &&
+    !errors.find(({ code }) => code === "EINVALIDPROXY")
+!errors.find(({ code }) => code === "EINVALIDPROXY")
+const octokit = new Octokit(
+      toOctokitOptions({ githubToken, githubUrl, githubApiPathPrefix, proxy }),
+    )
+toOctokitOptions({ githubToken, githubUrl, githubApiPathPrefix, proxy })
+env.GITHUB_ACTION
+_tmp_13 = await octokit.request("GET /repos/{owner}/{repo}", { repo, owner })
+_tmp_14.permissions = { push }
+await octokit.request("GET /repos/{owner}/{repo}", { repo, owner })
+!push
+await octokit
+            .request("HEAD /installation/repositories", { per_page: 1 })
+            .catch(() => false)
+_tmp_17.per_page = 1

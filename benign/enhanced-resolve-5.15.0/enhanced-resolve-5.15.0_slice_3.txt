@@ -1,0 +1,49 @@
+provide(path, options, callback) {
+		if (typeof options === "function") {
+			callback = options;
+			options = undefined;
+		}
+		if (typeof path !== "string") {
+			callback(new TypeError("path must be a string"));
+			return;
+		}
+		if (options) {
+			return this._provider.call(
+				this._providerContext,
+				path,
+				options,
+				callback
+			);
+		}
+
+		// When in sync mode we can move to async mode
+		if (this._mode === STORAGE_MODE_SYNC) {
+			this._enterAsyncMode();
+		}
+
+		// Check in cache
+		let cacheEntry = this._data.get(path);
+		if (cacheEntry !== undefined) {
+			if (cacheEntry.err) return nextTick(callback, cacheEntry.err);
+			return nextTick(callback, null, cacheEntry.result);
+		}
+
+		// Check if there is already the same operation running
+		let callbacks = this._activeAsyncOperations.get(path);
+		if (callbacks !== undefined) {
+			callbacks.push(callback);
+			return;
+		}
+		this._activeAsyncOperations.set(path, (callbacks = [callback]));
+
+		// Run the operation
+		this._provider.call...
+typeof options === "function"
+callback = options
+options = undefined
+typeof path !== "string"
+this._mode === STORAGE_MODE_SYNC
+this._enterAsyncMode()
+let cacheEntry = this._data.get(path)
+cacheEntry !== undefined
+let callbacks = this._activeAsyncOperations.get(path)

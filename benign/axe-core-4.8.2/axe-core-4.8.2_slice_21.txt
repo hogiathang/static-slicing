@@ -1,0 +1,14 @@
+function resetGlobals = function resetGlobals() {
+      if (cache_default.get('globalDocumentSet')) {
+        cache_default.set('globalDocumentSet', false);
+        document = null;
+      }
+      if (cache_default.get('globalWindowSet')) {
+        cache_default.set('globalWindowSet', false);
+        window = null;
+      }
+    }
+cache_default.get('globalDocumentSet')
+cache_default.set('globalDocumentSet', false)
+document = null
+cache_default.get('globalWindowSet')

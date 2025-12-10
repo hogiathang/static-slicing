@@ -1,0 +1,9 @@
+() => {
+                    const errorMessage = formatError(scopes, `${url.searchParams.get("error")}. ${url.searchParams.get("error_description")}`);
+                    res.writeHead(500);
+                    res.end(errorMessage);
+                    this.logger.getToken.info(errorMessage);
+                    reject(new Error(`Interactive Browser Authentication Error "Did not receive token with a valid expiration"`));
+                    cleanup();
+                }
+const errorMessage = formatError(scopes, `${url.searchParams.get("error")}. ${url.searchParams.get("error_description")}`)

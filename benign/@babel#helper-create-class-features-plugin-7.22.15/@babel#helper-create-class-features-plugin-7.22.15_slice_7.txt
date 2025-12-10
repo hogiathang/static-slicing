@@ -1,0 +1,17 @@
+_tmp_24.Class = Class
+_tmp_25 = this
+privateNamesMap = _tmp_25.privateNamesMap
+const body = path.get("body.body")
+const visiblePrivateNames = new Map(privateNamesMap)
+__ecma.Array.factory()
+_iterator_2 = <operator>.iterator(body)
+!prop.isPrivate()
+_tmp_27 = prop.node.key.id
+name = _tmp_27.name
+prop.node.key.id
+visiblePrivateNames.delete(name)
+redeclared.push(name)
+!redeclared.length
+path.get("body").traverse(nestedVisitor, Object.assign({}, this, {
+        redeclared
+      }))

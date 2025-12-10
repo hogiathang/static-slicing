@@ -1,0 +1,29 @@
+_tmp_1.loadViaCredentialProcess = loadViaCredentialProcess
+proc.exec(profile['credential_process'], { env: process.env }, function(err, stdOut, stdErr) {
+      if (err) {
+        callback(AWS.util.error(
+          new Error('credential_process returned error'),
+          { code: 'ProcessCredentialsProviderFailure'}
+        ), null);
+      } else {
+        try {
+          var credData = JSON.parse(stdOut);
+          if (credData.Expiration) {
+            var currentTime = AWS.util.date.getDate();
+            var expireTime = new Date(credData.Expiration);
+            if (expireTime < currentTime) {
+              throw Error('credential_process returned expired credentials');
+            }
+          }
+
+          if (credData.Version !== 1) {
+            throw Error('credential_process does not return Version == 1');
+          }
+          callback(null, credData);
+        } catch (err) {
+          callback(AWS.util.error(
+            new Error(err.message),
+            { code: 'ProcessCredentialsProviderFailure'}
+          ), null);
+        }
+...

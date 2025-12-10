@@ -1,0 +1,53 @@
+function checkServer = function checkServer(monitor: Monitor, callback: Callback<Document | null>) {
+  let start = now();
+  monitor.emit(Server.SERVER_HEARTBEAT_STARTED, new ServerHeartbeatStartedEvent(monitor.address));
+
+  function failureHandler(err: Error) {
+    monitor[kConnection]?.destroy({ force: true });
+    monitor[kConnection] = undefined;
+
+    monitor.emit(
+      Server.SERVER_HEARTBEAT_FAILED,
+      new ServerHeartbeatFailedEvent(monitor.address, calculateDurationInMs(start), err)
+    );
+
+    const error = !(err instanceof MongoError)
+      ? new MongoError(MongoError.buildErrorMessage(err), { cause: err })
+      : err;
+    error.addErrorLabel(MongoErrorLabel.ResetPool);
+    if (error instanceof MongoNetworkTimeoutError) {
+      error.addErrorLabel(MongoErrorLabel.InterruptInUseConnections);
+    }
+
+    monitor.emit('resetServer', error);
+    callback(err);
+  }
+
+  const connection = monitor[kConnection];
+  if (connection && !connection.closed) {
+    const { serverApi, helloOk } = connection;
+  ...
+let start = now()
+monitor.emit(Server.SERVER_HEARTBEAT_STARTED, new ServerHeartbeatStartedEvent(monitor.address))
+function failureHandler = function failureHandler(err: Error) {
+    monitor[kConnection]?.destroy({ force: true });
+    monitor[kConnection] = undefined;
+
+    monitor.emit(
+      Server.SERVER_HEARTBEAT_FAILED,
+      new ServerHeartbeatFailedEvent(monitor.address, calculateDurationInMs(start), err)
+    );
+
+    const error = !(err instanceof MongoError)
+      ? new MongoError(MongoError.buildErrorMessage(err), { cause: err })
+      : err;
+    error.addErrorLabel(MongoErrorLabel.ResetPool);
+    if (error instanceof MongoNetworkTimeoutError) {
+      error.addErrorLabel(MongoErrorLabel.InterruptInUseConnections);
+    }
+
+    monitor.emit('resetServer', error);
+    callback(err);
+  }
+const connection = monitor[kConnection]
+connection && !connection.closed

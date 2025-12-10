@@ -1,0 +1,97 @@
+function parseOptions = function parseOptions(optionGroup, context) {
+  const {
+    schemaJson,
+    // Schema via JSON object
+    schemaJsonFilepath,
+    // Or Schema via absolute filepath
+    schemaString,
+    // Or Schema as string,
+    env,
+    projectName,
+    tagName: tagNameOption,
+    validators: validatorNamesOption
+  } = optionGroup;
+  const cacheHit = schemaCache[JSON.stringify(optionGroup)];
+
+  if (cacheHit && env !== "literal") {
+    return cacheHit;
+  } // Validate and unpack schema
+
+
+  let schema;
+
+  if (schemaJson) {
+    schema = initSchema(schemaJson);
+  } else if (schemaJsonFilepath) {
+    schema = initSchemaFromFile(schemaJsonFilepath);
+  } else if (schemaString) {
+    schema = initSchemaFromString(schemaString);
+  } else {
+    try {
+      const config = (0, _graphqlConfig.loadConfigSync)({
+        rootDir: _path.default.resolve(process.cwd(), _path.default.dirname(context.getFilename()))
+      });
+      let projectConfig;
+
+      if (projectName) {
+        projectConfig = config.getProjec...
+_tmp_0 = optionGroup
+schemaJson = _tmp_0.schemaJson
+schemaJsonFilepath = _tmp_0.schemaJsonFilepath
+schemaString = _tmp_0.schemaString
+env = _tmp_0.env
+projectName = _tmp_0.projectName
+tagNameOption = _tmp_0.tagName
+validatorNamesOption = _tmp_0.validators
+const cacheHit = schemaCache[JSON.stringify(optionGroup)]
+cacheHit && env !== "literal"
+schema = initSchema(schemaJson)
+schema = initSchemaFromFile(schemaJsonFilepath)
+schema = initSchemaFromString(schemaString)
+const config = (0, _graphqlConfig.loadConfigSync)({
+        rootDir: _path.default.resolve(process.cwd(), _path.default.dirname(context.getFilename()))
+      })
+_tmp_1.rootDir = _path.default.resolve(process.cwd(), _path.default.dirname(context.getFilename()))
+projectConfig = config.getProject(projectName)
+!projectConfig
+<operator>.formatString("Project with name "", projectName, "" not found in ", config.filepath, ".")
+projectConfig = config.getProjectForFile(context.getFilename())
+!(e instanceof _graphqlConfig.ProjectNotFoundError)
+throw e;
+<operator>.formatString("", config.filepath, "[", projectConfig.name, "]")
+schema = projectCache[key]
+!schema
+schema = projectConfig.getSchemaSync()
+projectCache[key] = schema
+e instanceof _graphqlConfig.ConfigNotFoundError
+throw new Error("Must provide GraphQL Config file or pass in `schemaJson` option " + "with schema object or `schemaJsonFilepath` with absolute path to the json file.");
+throw e;
+env && env !== "lokka" && env !== "fraql" && env !== "relay" && env !== "apollo" && env !== "literal"
+throw new Error("Invalid option for env, only `apollo`, `lokka`, `fraql`, `relay`, and `literal` supported.");
+tagName = tagNameOption
+env === "relay"
+tagName = "Relay.QL"
+env === "literal"
+tagName = _constants.internalTag
+tagName = "gql"
+validatorNamesOption === "all"
+validatorNames = allGraphQLValidatorNames
+validatorNames = validatorNamesOption
+validatorNames = envGraphQLValidatorNames[env] || allGraphQLValidatorNames
+const validators = validatorNames.map(name => {
+    if (name in customRules) {
+      return customRules[name];
+    } else {
+      return require(`graphql/validation/rules/${name}`)[name];
+    }
+  })
+const results = {
+    schema,
+    env,
+    tagName,
+    validators
+  }
+_tmp_8.schema = schema
+_tmp_8.env = env
+_tmp_8.tagName = tagName
+_tmp_8.validators = validators

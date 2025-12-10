@@ -1,0 +1,24 @@
+async (host) => {
+        // The workspace gets updated so this needs to be reloaded
+        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const clientProject = workspace.projects.get(options.project);
+        if (!clientProject) {
+            throw new Error('Universal schematic removed client project.');
+        }
+        const clientServerTarget = clientProject.targets.get('server');
+        if (!clientServerTarget) {
+            throw new Error('Universal schematic did not add server target to client project.');
+        }
+        const clientServerOptions = clientServerTarget.options;
+        if (!clientServerOptions) {
+            throw new schematics_1.SchematicsException('Server target does not contain options.');
+        }
+        const modulePath = getServerModulePath(host, clientProject.sourceRoot || 'src', options.main);
+        if (modulePath === null) {
+            throw new schematics_1.SchematicsException('Universal/server module not found.');
+ ...
+const workspace = await (0, workspace_1.getWorkspace)(host)
+const clientProject = workspace.projects.get(options.project)
+!clientProject
+throw new Error('Universal schematic removed client project.');
+const clientServerTarget = clientProject.targets.get('server')

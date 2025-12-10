@@ -1,0 +1,91 @@
+send(mail, callback) {
+        if (!this._connected) {
+            return this.connect(err => {
+                if (err) {
+                    return callback(err);
+                }
+                return this.send(mail, callback);
+            });
+        }
+
+        let envelope = mail.message.getEnvelope();
+        let messageId = mail.message.messageId();
+
+        let recipients = [].concat(envelope.to || []);
+        if (recipients.length > 3) {
+            recipients.push('...and ' + recipients.splice(2).length + ' more');
+        }
+        this.logger.info(
+            {
+                tnx: 'send',
+                messageId,
+                cid: this.id
+            },
+            'Sending message %s using #%s to <%s>',
+            messageId,
+            this.id,
+            recipients.join(', ')
+        );
+
+        if (mail.data.dsn) {
+            envelope.dsn = mail.data.dsn;
+        }
+
+        this.connection.send(envelope, mail.message.createReadStream(), (err, info) => {
+...
+!this._connected
+let envelope = mail.message.getEnvelope()
+let messageId = mail.message.messageId()
+let recipients = [].concat(envelope.to || [])
+recipients.length > 3
+recipients.push('...and ' + recipients.splice(2).length + ' more')
+this.logger.info(
+            {
+                tnx: 'send',
+                messageId,
+                cid: this.id
+            },
+            'Sending message %s using #%s to <%s>',
+            messageId,
+            this.id,
+            recipients.join(', ')
+        )
+_tmp_27.tnx = "send"
+_tmp_27.messageId = messageId
+_tmp_27.cid = this.id
+"Sending message %s using #%s to <%s>"
+this.id
+recipients.join(', ')
+mail.data.dsn
+envelope.dsn = mail.data.dsn
+this.connection.send(envelope, mail.message.createReadStream(), (err, info) => {
+            this.messages++;
+
+            if (err) {
+                this.connection.close();
+                this.emit('error', err);
+                return callback(err);
+            }
+
+            info.envelope = {
+                from: envelope.from,
+                to: envelope.to
+            };
+            info.messageId = messageId;
+
+            setImmediate(() => {
+                let err;
+                if (this.messages >= this.options.maxMessages) {
+                    err = new Error('Resource exhausted');
+                    err.code = 'EMAXLIMIT';
+                    this.connection.close();
+                    this.emit('error', err);
+                } else {
+                    this.pool._checkRateLimit(() => {
+                        this.available = true;
+                        this.emit('available');
+                    });
+                }
+            });
+
+            callback(nul...

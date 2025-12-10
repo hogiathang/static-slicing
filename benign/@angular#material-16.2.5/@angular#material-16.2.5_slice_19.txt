@@ -1,0 +1,27 @@
+function recursivelyProcessView = function recursivelyProcessView(view, parentScope) {
+  const scope = getScopeForView(view, parentScope);
+  if (view.parent !== null) {
+  }
+  for (const op of view.create) {
+    switch (op.kind) {
+      case OpKind.Template:
+        recursivelyProcessView(view.tpl.views.get(op.xref), scope);
+        break;
+      case OpKind.Listener:
+        op.handlerOps.prepend(generateVariablesInScopeForView(view, scope));
+        break;
+    }
+  }
+  const preambleOps = generateVariablesInScopeForView(view, scope);
+  view.update.prepend(preambleOps);
+}
+const scope = getScopeForView(view, parentScope)
+view.parent !== null
+_iterator_31 = <operator>.iterator(view.create)
+op.kind
+OpKind.Template
+recursivelyProcessView(view.tpl.views.get(op.xref), scope)
+break;
+OpKind.Listener
+op.handlerOps.prepend(generateVariablesInScopeForView(view, scope))
+break;

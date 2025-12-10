@@ -1,0 +1,45 @@
+makeRequest() {
+		if (!this.running) {
+			return
+		}
+		if (!this.latency.shouldSend()) {
+			return
+		}
+		const id = this.latency.begin();
+		const params = {...this.params, headers: {...this.params.headers}}
+		this.customizeIndex(params)
+		const request = this.getRequest(id, params)
+		if (this.options.timeout) {
+			const timeout = parseInt(this.options.timeout);
+			if (!timeout) {
+				console.error(`Invalid timeout ${this.options.timeout}`);
+			}
+			request.setTimeout(timeout, () => {
+				this.finishRequest(id, 'Connection timed out');
+			});
+		}
+		const message = this.getMessage(id, params)
+		if (message) {
+			request.write(message);
+			params.headers['Content-Length'] = Buffer.byteLength(message);
+		}
+		request.on('error', error => {
+			this.finishRequest(id, `Connection error: ${error.message}`);
+		});
+		request.end();
+	}
+!this.running
+(_tmp_8 = this.latency).shouldSend
+const id = this.latency.begin()
+const params = {...this.params, headers: {...this.params.headers}}
+this.customizeIndex(params)
+const request = this.getRequest(id, params)
+this.options.timeout
+const timeout = parseInt(this.options.timeout)
+!timeout
+<operator>.formatString("Invalid timeout ", this.options.timeout, "")
+request.setTimeout(timeout, () => {
+				this.finishRequest(id, 'Connection timed out');
+			})
+const message = this.getMessage(id, params)
+request.write(message)

@@ -1,0 +1,10 @@
+_tmp_8.CallExpression:exit = getLodashMethodCallExpVisitor(lodashContext, (node, iteratee, {method, version}) => {
+                if ((isCollectionMethod(version, method) || /^forEach(Right)?$/.test(method)) && funcInfos.has(iteratee)) {
+                    const {thisUses} = funcInfos.get(iteratee)
+                    if (isFunctionExpression(iteratee) && thisUses.length) {
+                        thisUses.forEach(thisNode => {context.report({node: thisNode, message: 'Do not use `this` without binding in collection methods'})})
+                    }
+                }
+            })
+(isCollectionMethod(version, method) || /^forEach(Right)?$/.test(method)) && funcInfos.has(iteratee)
+_tmp_10 = funcInfos.get(iteratee)

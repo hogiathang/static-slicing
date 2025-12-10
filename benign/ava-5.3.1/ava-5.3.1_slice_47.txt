@@ -1,0 +1,32 @@
+runner.on('finish', async () => {
+		try {
+			const {touchedFiles} = await runner.saveSnapshotState();
+			if (touchedFiles) {
+				channel.send({type: 'touched-files', files: touchedFiles});
+			}
+		} catch (error) {
+			channel.send({type: 'internal-error', err: serializeError('Internal runner error', false, error, runner.file)});
+			exit(1);
+			return;
+		}
+
+		try {
+			await Promise.all(sharedWorkerTeardowns.map(fn => fn()));
+		} catch (error) {
+			channel.send({type: 'uncaught-exception', err: serializeError('Shared worker teardown error', false, error, runner.file)});
+			exit(1);
+			return;
+		}
+
+		nowAndTimers.setImmediate(() => {
+			for (const rejection of currentlyUnhandled()) {
+				channel.send({type: 'unhandled-rejection', err: serializeError('Unhandled rejection', true, rejection.reason, runner.file)});
+			}
+
+			exit(0);
+		});
+	})
+_tmp_16 = await runner.saveSnapshotState()
+channel.send({type: 'touched-files', files: touchedFiles})
+await Promise.all(sharedWorkerTeardowns.map(fn => fn()))
+channel.send({type: 'uncaught-exception', err: serializeError('Shared worker teardown error', false, error, runner.file)})

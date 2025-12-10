@@ -1,0 +1,20 @@
+(url) => {
+            const request = {
+                method: 'POST',
+                url: `${url}/remoteConfig:rollback`,
+                headers: FIREBASE_REMOTE_CONFIG_HEADERS,
+                data
+            };
+            return this.httpClient.send(request);
+        }
+const request = {
+                method: 'POST',
+                url: `${url}/remoteConfig:rollback`,
+                headers: FIREBASE_REMOTE_CONFIG_HEADERS,
+                data
+            }
+_tmp_23.method = "POST"
+_tmp_23.url = <operator>.formatString("", url, "/remoteConfig:rollback")
+_tmp_23.headers = FIREBASE_REMOTE_CONFIG_HEADERS
+_tmp_23.data = data
+(_tmp_24 = this.httpClient).send

@@ -1,0 +1,4 @@
+function load = function load(fileName) {
+        eval(file.readFile(fileName));
+    }
+eval(file.readFile(fileName))

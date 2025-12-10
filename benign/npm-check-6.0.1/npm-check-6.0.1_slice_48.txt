@@ -1,0 +1,4 @@
+const spinner = ora(`Checking npm registries for updated packages.`)
+spinner.enabled = spinner.enabled && currentState.get('spinner')
+spinner.start()
+const cwdPackageJson = currentState.get('cwdPackageJson')

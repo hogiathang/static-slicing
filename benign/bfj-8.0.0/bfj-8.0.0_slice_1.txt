@@ -1,0 +1,4 @@
+function value = function value (datum, type) {
+    return emit(events[type], datum)
+  }
+emit(events[type], datum)

@@ -1,0 +1,98 @@
+blockMap.withMutations(function (blocks) {
+    // update start block if its retained
+    transformBlock(startBlock.getKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    }); // update endblock if its retained
+
+    transformBlock(endBlock.getKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    }); // update start block parent ancestors
+
+    getAncestorsKeys(startBlock.getKey(), originalBlockMap).forEach(function (parentKey) {
+      return transformBlock(parentKey, blocks, function (block) {
+        return block.merge({
+          children: block.getChildKeys().filter(function (key) {
+            return blocks.get(key);
+          }),
+          nextS...
+transformBlock(startBlock.getKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    })
+transformBlock(endBlock.getKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    })
+getAncestorsKeys(startBlock.getKey(), originalBlockMap).forEach(function (parentKey) {
+      return transformBlock(parentKey, blocks, function (block) {
+        return block.merge({
+          children: block.getChildKeys().filter(function (key) {
+            return blocks.get(key);
+          }),
+          nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+          prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+        });
+      });
+    })
+transformBlock(startBlock.getNextSiblingKey(), blocks, function (block) {
+      return block.merge({
+        prevSibling: startBlock.getPrevSiblingKey()
+      });
+    })
+transformBlock(startBlock.getPrevSiblingKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: getNextValidSibling(block, blocks, originalBlockMap)
+      });
+    })
+transformBlock(endBlock.getNextSiblingKey(), blocks, function (block) {
+      return block.merge({
+        prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+      });
+    })
+transformBlock(endBlock.getPrevSiblingKey(), blocks, function (block) {
+      return block.merge({
+        nextSibling: endBlock.getNextSiblingKey()
+      });
+    })
+getAncestorsKeys(endBlock.getKey(), originalBlockMap).forEach(function (parentKey) {
+      transformBlock(parentKey, blocks, function (block) {
+        return block.merge({
+          children: block.getChildKeys().filter(function (key) {
+            return blocks.get(key);
+          }),
+          nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+          prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+        });
+      });
+    })
+getNextDelimitersBlockKeys(endBlock, originalBlockMap).forEach(function (delimiterKey) {
+      return transformBlock(delimiterKey, blocks, function (block) {
+        return block.merge({
+          nextSibling: getNextValidSibling(block, blocks, originalBlockMap),
+          prevSibling: getPrevValidSibling(block, blocks, originalBlockMap)
+        });
+      });
+    })
+blockMap.get(startBlock.getKey()) == null && blockMap.get(endBlock.getKey()) != null && endBlock.getParentKey() === startBlock.getKey() && endBlock.getPrevSiblingKey() == null
+var prevSiblingKey = startBlock.getPrevSiblingKey()
+transformBlock(endBlock.getKey(), blocks, function (block) {
+        return block.merge({
+          prevSibling: prevSiblingKey
+        });
+      })
+transformBlock(prevSiblingKey, blocks, function (block) {
+        return block.merge({
+          nextSibling: endBlock.getKey()
+        });
+      })
+var prevSibling = prevSiblingKey ? blockMap.get(prevSiblingKey) : null

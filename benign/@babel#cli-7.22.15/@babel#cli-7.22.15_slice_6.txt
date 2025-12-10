@@ -1,0 +1,11 @@
+function outputFileSync = function outputFileSync(filePath, data) {
+  (((v, w) => (v = v.split("."), w = w.split("."), +v[0] > +w[0] || v[0] == w[0] && +v[1] >= +w[1]))(process.versions.node, "10.12") ? _fs().mkdirSync : require("make-dir").sync)(_path().dirname(filePath), {
+    recursive: true
+  });
+  _fs().writeFileSync(filePath, data);
+}
+(((v, w) => (v = v.split("."), w = w.split("."), +v[0] > +w[0] || v[0] == w[0] && +v[1] >= +w[1]))(process.versions.node, "10.12") ? _fs().mkdirSync : require("make-dir").sync)(_path().dirname(filePath), {
+    recursive: true
+  })
+_tmp_3.recursive = true
+_fs().writeFileSync(filePath, data)

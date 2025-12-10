@@ -1,0 +1,26 @@
+get(jsonFile, options) {
+        const { logger } = this.context;
+        const value = options.jsonPath
+            ? jsonFile.get(parseJsonPath(options.jsonPath))
+            : jsonFile.content;
+        if (value === undefined) {
+            logger.error('Value cannot be found.');
+            return 1;
+        }
+        else if (typeof value === 'string') {
+            logger.info(value);
+        }
+        else {
+            logger.info(JSON.stringify(value, null, 2));
+        }
+        return 0;
+    }
+logger = _tmp_17.logger
+const value = options.jsonPath
+            ? jsonFile.get(parseJsonPath(options.jsonPath))
+            : jsonFile.content
+jsonFile.get(parseJsonPath(options.jsonPath))
+jsonFile.content
+value === undefined
+typeof value === 'string'
+logger.info(JSON.stringify(value, null, 2))

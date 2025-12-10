@@ -1,0 +1,20 @@
+function getTokenOrFunctionIdentity = function getTokenOrFunctionIdentity(tokenOrFunction, injector) {
+    const NOT_FOUND = Symbol();
+    const result = injector.get(tokenOrFunction, NOT_FOUND);
+    if (result === NOT_FOUND) {
+        if (typeof tokenOrFunction === 'function' && !isInjectable(tokenOrFunction)) {
+            // We think the token is just a function so return it as-is
+            return tokenOrFunction;
+        }
+        else {
+            // This will throw the not found error
+            return injector.get(tokenOrFunction);
+        }
+    }
+    return result;
+}
+const NOT_FOUND = Symbol()
+const result = injector.get(tokenOrFunction, NOT_FOUND)
+result === NOT_FOUND
+typeof tokenOrFunction === 'function' && !isInjectable(tokenOrFunction)
+injector.get(tokenOrFunction)

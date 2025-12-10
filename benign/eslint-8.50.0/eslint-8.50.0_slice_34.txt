@@ -1,0 +1,14 @@
+makeOutdated(segments) {
+        for (const segment of segments) {
+            const info = this.info.get(segment);
+
+            if (info) {
+                info.freshReadVariables.forEach(Set.prototype.add, info.outdatedReadVariables);
+                info.freshReadVariables.clear();
+            }
+        }
+    }
+_iterator_4 = <operator>.iterator(segments)
+const info = this.info.get(segment)
+info.freshReadVariables.forEach(Set.prototype.add, info.outdatedReadVariables)
+(_tmp_16 = info.freshReadVariables).clear

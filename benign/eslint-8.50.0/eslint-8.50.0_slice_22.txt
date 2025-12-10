@@ -1,0 +1,37 @@
+_tmp_162.Program:exit = "Program:exit"
+options.ignoreComments
+sourceCode.getAllComments()
+                            .forEach(comment => offsets.ignoreToken(comment))
+offsets.ignoreToken(comment)
+i < listenerCallQueue.length
+const nodeInfo = listenerCallQueue[i]
+!ignoredNodes.has(nodeInfo.node)
+nodeInfo.listener(nodeInfo.node)
+ignoredNodes.forEach(ignoreNode)
+addParensIndent(sourceCode.ast.tokens)
+const precedingTokens = new WeakMap()
+i < sourceCode.ast.comments.length
+const comment = sourceCode.ast.comments[i]
+const tokenOrCommentBefore = sourceCode.getTokenBefore(comment, { includeComments: true })
+const hasToken = precedingTokens.has(tokenOrCommentBefore) ? precedingTokens.get(tokenOrCommentBefore) : tokenOrCommentBefore
+precedingTokens.set(comment, hasToken)
+i < sourceCode.lines.length + 1
+(_tmp_166 = tokenInfo.firstTokensByLineNumber).has
+continue;
+const firstTokenOfLine = tokenInfo.firstTokensByLineNumber.get(i)
+firstTokenOfLine.loc.start.line !== i
+continue;
+astUtils.isCommentToken(firstTokenOfLine)
+const tokenBefore = precedingTokens.get(firstTokenOfLine)
+const tokenAfter = tokenBefore ? sourceCode.getTokenAfter(tokenBefore) : sourceCode.ast.tokens[0]
+const mayAlignWithBefore = tokenBefore && !hasBlankLinesBetween(tokenBefore, firstTokenOfLine)
+const mayAlignWithAfter = tokenAfter && !hasBlankLinesBetween(firstTokenOfLine, tokenAfter)
+tokenAfter && astUtils.isSemicolonToken(tokenAfter) && !astUtils.isTokenOnSameLine(firstTokenOfLine, tokenAfter)
+offsets.setDesiredOffset(firstTokenOfLine, tokenAfter, 0)
+mayAlignWithBefore && validateTokenIndent(firstTokenOfLine, offsets.getDesiredIndent(tokenBefore)) ||
+                                mayAlignWithAfter && validateTokenIndent(firstTokenOfLine, offsets.getDesiredIndent(tokenAfter))
+mayAlignWithAfter && validateTokenIndent(firstTokenOfLine, offsets.getDesiredIndent(tokenAfter))
+continue;
+validateTokenIndent(firstTokenOfLine, offsets.getDesiredIndent(firstTokenOfLine))
+continue;
+report(firstTokenOfLine, offsets.getDesiredIndent(firstTokenOfLine))

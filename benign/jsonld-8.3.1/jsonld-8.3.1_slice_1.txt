@@ -1,0 +1,19 @@
+_get(key) {
+    // get key from per operation cache; no `tag` is used with this cache so
+    // any retrieved context will always be the same during a single operation
+    let resolved = this.perOpCache.get(key);
+    if(!resolved) {
+      // see if the shared cache has a `static` entry for this URL
+      const tagMap = this.sharedCache.get(key);
+      if(tagMap) {
+        resolved = tagMap.get('static');
+        if(resolved) {
+          this.perOpCache.set(key, resolved);
+        }
+      }
+    }
+    return resolved;
+  }
+let resolved = this.perOpCache.get(key)
+!resolved
+const tagMap = this.sharedCache.get(key)

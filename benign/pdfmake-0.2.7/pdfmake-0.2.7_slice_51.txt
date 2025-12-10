@@ -1,0 +1,17 @@
+const fs = require('fs')
+const vfsBefore = "this.pdfMake = this.pdfMake || {}; this.pdfMake.vfs = "
+const vfsAfter = ";"
+const sourcePath = process.argv[2]
+const vfsFilename = process.argv[3] ? process.argv[3] : './build/vfs_fonts.js'
+var vfs = {}
+sourcePath === undefined
+!fs.existsSync(sourcePath)
+console.log('Source path:', sourcePath)
+console.log('')
+var files = fs.readdirSync(sourcePath)
+files.forEach(function (file) {
+	var fileBase64 = fs.readFileSync(sourcePath + '/' + file).toString('base64');
+	console.log('FILE:', file);
+
+	vfs[file] = fileBase64;
+})

@@ -1,0 +1,6 @@
+_tmp_29.:expression:exit = ":expression:exit"
+!stack.referenceMap
+node.type === "AwaitExpression" || node.type === "YieldExpression"
+segmentInfo.makeOutdated(stack.currentSegments)
+const references = assignmentReferences.get(node)
+assignmentReferences.delete(node)

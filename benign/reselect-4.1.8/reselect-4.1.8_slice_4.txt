@@ -1,0 +1,30 @@
+function memoized = function memoized() {
+    let value = cache.get(arguments)
+    if (value === NOT_FOUND) {
+      // @ts-ignore
+      value = func.apply(null, arguments)
+
+      if (resultEqualityCheck) {
+        const entries = cache.getEntries()
+        const matchingEntry = entries.find(entry =>
+          resultEqualityCheck(entry.value, value)
+        )
+
+        if (matchingEntry) {
+          value = matchingEntry.value
+        }
+      }
+
+      cache.put(arguments, value)
+    }
+    return value
+  }
+let value = cache.get(arguments)
+value === NOT_FOUND
+value = func.apply(null, arguments)
+const entries = cache.getEntries()
+const matchingEntry = entries.find(entry =>
+          resultEqualityCheck(entry.value, value)
+        )
+value = matchingEntry.value
+cache.put(arguments, value)

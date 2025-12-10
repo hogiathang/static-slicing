@@ -1,0 +1,5 @@
+_tmp_7.JSXAttribute = JSXAttribute
+var options = context.options[0] || {}
+var ignoreNonDOM = !!options.ignoreNonDOM
+var type = elementType(attribute.parent)
+(_tmp_9 = _ariaQuery.dom).get

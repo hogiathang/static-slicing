@@ -1,0 +1,13 @@
+_tmp_2.Function = Function
+var params = path.get("params")
+var hoistTweak = t.isRestElement(params[params.length - 1]) ? 1 : 0
+var outputParamsLength = params.length - hoistTweak
+i < outputParamsLength
+var param = params[i]
+param.isArrayPattern() || param.isObjectPattern()
+var uid = path.scope.generateUidIdentifier("ref")
+var declar = t.variableDeclaration("let", [t.variableDeclarator(param.node, uid)])
+declar._blockHoist = outputParamsLength - i
+path.ensureBlock()
+path.get("body").unshiftContainer("body", declar)
+param.replaceWith(uid)

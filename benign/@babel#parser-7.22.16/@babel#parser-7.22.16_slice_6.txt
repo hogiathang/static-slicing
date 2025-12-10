@@ -1,0 +1,7 @@
+var parser = require("..")
+var fs = require("fs")
+var filename = process.argv[2]
+!filename
+var file = fs.readFileSync(filename, "utf8")
+var ast = parser.parse(file)
+console.log(JSON.stringify(ast, null, "  "))

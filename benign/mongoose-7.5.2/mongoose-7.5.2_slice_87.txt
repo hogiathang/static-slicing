@@ -1,0 +1,36 @@
+function _completeManyLean = function _completeManyLean(schema, docs, path, opts) {
+  if (opts.lean && typeof opts.lean.transform === 'function') {
+    for (const doc of docs) {
+      opts.lean.transform(doc);
+    }
+
+    for (let i = 0; i < schema.childSchemas.length; i++) {
+      const childPath = path ? path + '.' + schema.childSchemas[i].model.path : schema.childSchemas[i].model.path;
+      const _schema = schema.childSchemas[i].schema;
+      let doc = mpath.get(childPath, docs);
+      if (doc == null) {
+        continue;
+      }
+      doc = doc.flat();
+      for (let i = 0; i < doc.length; i++) {
+        opts.lean.transform(doc[i]);
+      }
+      _completeManyLean(_schema, doc, childPath, opts);
+    }
+  }
+
+  return docs;
+}
+opts.lean && typeof opts.lean.transform === 'function'
+_iterator_1 = <operator>.iterator(docs)
+(_tmp_7 = opts.lean).transform
+i < schema.childSchemas.length
+const childPath = path ? path + '.' + schema.childSchemas[i].model.path : schema.childSchemas[i].model.path
+const _schema = schema.childSchemas[i].schema
+let doc = mpath.get(childPath, docs)
+doc == null
+continue;
+doc = doc.flat()
+i < doc.length
+(_tmp_8 = opts.lean).transform
+_completeManyLean(_schema, doc, childPath, opts)

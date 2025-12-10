@@ -1,0 +1,72 @@
+Document.prototype.$__set = function(pathToMark, path, options, constructing, parts, schema, val, priorVal) {
+  Embedded = Embedded || require('./types/ArraySubdocument');
+
+  const shouldModify = this.$__shouldModify(pathToMark, path, options, constructing, parts,
+    schema, val, priorVal);
+
+  if (shouldModify) {
+    if (this.$__.primitiveAtomics && this.$__.primitiveAtomics[path]) {
+      delete this.$__.primitiveAtomics[path];
+      if (Object.keys(this.$__.primitiveAtomics).length === 0) {
+        delete this.$__.primitiveAtomics;
+      }
+    }
+    this.markModified(pathToMark);
+
+    // handle directly setting arrays (gh-1126)
+    MongooseArray || (MongooseArray = require('./types/array'));
+    if (val && utils.isMongooseArray(val)) {
+      val._registerAtomic('$set', val);
+
+      // Update embedded document parent references (gh-5189)
+      if (utils.isMongooseDocumentArray(val)) {
+        val.forEach(function(item) {
+          item && item.__parentArray && (item.__parentArray ...
+Embedded = Embedded || require('./types/ArraySubdocument')
+const shouldModify = this.$__shouldModify(pathToMark, path, options, constructing, parts,
+    schema, val, priorVal)
+this.$__.primitiveAtomics && this.$__.primitiveAtomics[path]
+delete this.$__.primitiveAtomics[path]
+Object.keys(this.$__.primitiveAtomics).length === 0
+delete this.$__.primitiveAtomics
+this.markModified(pathToMark)
+MongooseArray || (MongooseArray = require('./types/array'))
+val && utils.isMongooseArray(val)
+val._registerAtomic('$set', val)
+utils.isMongooseDocumentArray(val)
+val.forEach(function(item) {
+          item && item.__parentArray && (item.__parentArray = val);
+        })
+Array.isArray(val) && Array.isArray(priorVal) && utils.isMongooseArray(val) && utils.isMongooseArray(priorVal)
+val[arrayAtomicsSymbol] = priorVal[arrayAtomicsSymbol]
+val[arrayAtomicsBackupSymbol] = priorVal[arrayAtomicsBackupSymbol]
+utils.isMongooseDocumentArray(val)
+val.forEach(doc => { doc.isNew = false; })
+let obj = this._doc
+let i = 0
+const l = parts.length
+let cur = ''
+i < l
+const next = i + 1
+const last = next === l
+cur += (cur ? '.' + parts[i] : parts[i])
+specialProperties.has(parts[i])
+obj instanceof Map
+obj.set(parts[i], val)
+obj[parts[i]] = val
+const isMap = obj instanceof Map
+let value = isMap ? obj.get(parts[i]) : obj[parts[i]]
+utils.isPOJO(value)
+obj = value
+value && value instanceof Embedded
+obj = value
+value && !Array.isArray(value) && value.$isSingleNested
+obj = value._doc
+value && Array.isArray(value)
+obj = value
+value == null
+value = {}
+obj.set(parts[i], value)
+obj[parts[i]] = value
+obj = value
+obj = value

@@ -1,0 +1,24 @@
+function phaseEmptyElements = function phaseEmptyElements(cpl) {
+  for (const [_, view] of cpl.views) {
+    for (const op of view.create) {
+      const opReplacements = REPLACEMENTS.get(op.kind);
+      if (opReplacements === void 0) {
+        continue;
+      }
+      const [startKind, mergedKind] = opReplacements;
+      if (op.prev !== null && op.prev.kind === startKind) {
+        op.prev.kind = mergedKind;
+        OpList.remove(op);
+      }
+    }
+  }
+}
+_iterator_9 = <operator>.iterator(cpl.views)
+_iterator_10 = <operator>.iterator(view.create)
+const opReplacements = REPLACEMENTS.get(op.kind)
+opReplacements === void 0
+continue;
+_tmp_288 = opReplacements
+op.prev !== null && op.prev.kind === startKind
+op.prev.kind = mergedKind
+OpList.remove(op)

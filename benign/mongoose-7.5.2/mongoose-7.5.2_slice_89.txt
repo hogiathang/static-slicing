@@ -1,0 +1,81 @@
+function Schema = function Schema(obj, options) {
+  if (!(this instanceof Schema)) {
+    return new Schema(obj, options);
+  }
+
+  this.obj = obj;
+  this.paths = {};
+  this.aliases = {};
+  this.subpaths = {};
+  this.virtuals = {};
+  this.singleNestedPaths = {};
+  this.nested = {};
+  this.inherits = {};
+  this.callQueue = [];
+  this._indexes = [];
+  this.methods = (options && options.methods) || {};
+  this.methodOptions = {};
+  this.statics = (options && options.statics) || {};
+  this.tree = {};
+  this.query = (options && options.query) || {};
+  this.childSchemas = [];
+  this.plugins = [];
+  // For internal debugging. Do not use this to try to save a schema in MDB.
+  this.$id = ++id;
+  this.mapPaths = [];
+
+  this.s = {
+    hooks: new Kareem()
+  };
+  this.options = this.defaultOptions(options);
+
+  // build paths
+  if (Array.isArray(obj)) {
+    for (const definition of obj) {
+      this.add(definition);
+    }
+  } else if (obj) {
+    this.add(obj);
+  }
+
+  // build virtual paths
+  if (options && options.vir...
+!(this instanceof Schema)
+this.obj = obj
+this.paths = {}
+this.aliases = {}
+this.subpaths = {}
+this.virtuals = {}
+this.singleNestedPaths = {}
+this.nested = {}
+this.inherits = {}
+__ecma.Array.factory()
+__ecma.Array.factory()
+this.methods = (options && options.methods) || {}
+this.methodOptions = {}
+this.statics = (options && options.statics) || {}
+this.tree = {}
+this.query = (options && options.query) || {}
+this.childSchemas = []
+__ecma.Array.factory()
+this.$id = ++id
+__ecma.Array.factory()
+this.s = {
+    hooks: new Kareem()
+  }
+_tmp_13.hooks = new Kareem()
+this.options = this.defaultOptions(options)
+Array.isArray(obj)
+_iterator_0 = <operator>.iterator(obj)
+this.add(definition)
+this.add(obj)
+options && options.virtuals
+const virtuals = options.virtuals
+const pathNames = Object.keys(virtuals)
+_iterator_1 = <operator>.iterator(pathNames)
+const pathOptions = virtuals[pathName].options ? virtuals[pathName].options : undefined
+const virtual = this.virtual(pathName, pathOptions)
+virtuals[pathName].get
+virtual.get(virtuals[pathName].get)
+virtuals[pathName].set
+virtual.set(virtuals[pathName].set)

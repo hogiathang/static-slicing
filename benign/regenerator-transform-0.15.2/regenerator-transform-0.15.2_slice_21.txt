@@ -1,0 +1,8 @@
+_tmp_14.Method = Method
+var node = path.node
+!shouldRegenerate(node, state)
+var container = t.functionExpression(null, [], t.cloneNode(node.body, false), node.generator, node.async)
+path.get("body").set("body", [t.returnStatement(t.callExpression(container, []))])
+node.async = false
+node.generator = false
+(_tmp_17 = path.get("body.body.0.argument.callee")).unwrapFunctionEnvironment

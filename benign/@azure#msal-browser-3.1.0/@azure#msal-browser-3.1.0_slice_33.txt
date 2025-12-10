@@ -1,0 +1,62 @@
+async acquireTokenSilent(
+        request: SilentRequest
+    ): Promise<AuthenticationResult> {
+        const correlationId = this.getRequestCorrelationId(request);
+        const atsMeasurement = this.performanceClient.startMeasurement(
+            PerformanceEvents.AcquireTokenSilent,
+            correlationId
+        );
+        atsMeasurement.add({
+            cacheLookupPolicy: request.cacheLookupPolicy,
+        });
+
+        this.preflightBrowserEnvironmentCheck(InteractionType.Silent);
+        this.logger.verbose("acquireTokenSilent called", correlationId);
+
+        const account = request.account || this.getActiveAccount();
+        if (!account) {
+            throw createBrowserAuthError(BrowserAuthErrorCodes.noAccountError);
+        }
+
+        const thumbprint: RequestThumbprint = {
+            clientId: this.config.auth.clientId,
+            authority: request.authority || Constants.EMPTY_STRING,
+            scopes: request.scopes,
+            homeAccountIdentifier: account.h...
+const correlationId = this.getRequestCorrelationId(request)
+const atsMeasurement = this.performanceClient.startMeasurement(
+            PerformanceEvents.AcquireTokenSilent,
+            correlationId
+        )
+PerformanceEvents.AcquireTokenSilent
+atsMeasurement.add({
+            cacheLookupPolicy: request.cacheLookupPolicy,
+        })
+_tmp_184.cacheLookupPolicy = request.cacheLookupPolicy
+this.preflightBrowserEnvironmentCheck(InteractionType.Silent)
+this.logger.verbose("acquireTokenSilent called", correlationId)
+const account = request.account || this.getActiveAccount()
+!account
+throw createBrowserAuthError(BrowserAuthErrorCodes.noAccountError);
+const thumbprint: RequestThumbprint = {
+            clientId: this.config.auth.clientId,
+            authority: request.authority || Constants.EMPTY_STRING,
+            scopes: request.scopes,
+            homeAccountIdentifier: account.homeAccountId,
+            claims: request.claims,
+            authenticationScheme: request.authenticationScheme,
+            resourceRequestMethod: request.resourceRequestMethod,
+            resourceRequestUri: request.resourceRequestUri,
+            shrClaims: request.shrClaims,
+            sshKid: request.sshKid,
+        }
+_tmp_186.clientId = this.config.auth.clientId
+_tmp_186.authority = request.authority || Constants.EMPTY_STRING
+_tmp_186.scopes = request.scopes
+_tmp_186.homeAccountIdentifier = account.homeAccountId
+_tmp_186.claims = request.claims
+_tmp_186.authenticationScheme = request.authenticationScheme
+_tmp_186.resourceRequestMethod = request.resourceRequestMethod
+_tmp_186.resourceRequestUri = request.resourceRequestUri
+_tmp_186.shrClaims = request.shrClaims
+_tmp_186.sshKid = request.sshKid

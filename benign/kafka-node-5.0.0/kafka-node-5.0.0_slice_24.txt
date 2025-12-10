@@ -1,0 +1,12 @@
+transform.on('readable', function () {
+    var bulkMessage = null;
+    self._lastWrite = Date.now();
+    while ((bulkMessage = transform.read())) {
+      // eslint-disable-line no-cond-assign
+      self.socket.write(bulkMessage);
+    }
+  })
+var bulkMessage = null
+self._lastWrite = Date.now()
+bulkMessage = transform.read()
+self.socket.write(bulkMessage)

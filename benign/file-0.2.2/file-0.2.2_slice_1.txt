@@ -1,0 +1,20 @@
+dirs.reduce(function (acc, d) {
+    acc.push(d);
+    var dir = acc.join(path.sep);
+    
+    try {
+      var stat = fs.statSync(dir);
+      if (!stat.isDirectory()) {
+        throw "Failed to mkdir " + dir + ": File exists";
+      }
+    } catch (err) {
+      fs.mkdirSync(dir, mode);
+    }
+    return acc;
+  }, walker)
+acc.push(d)
+var dir = acc.join(path.sep)
+var stat = fs.statSync(dir)
+!stat.isDirectory()
+throw "Failed to mkdir " + dir + ": File exists";
+fs.mkdirSync(dir, mode)

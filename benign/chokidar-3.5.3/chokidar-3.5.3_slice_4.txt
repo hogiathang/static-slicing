@@ -1,0 +1,10 @@
+_getWatchedDir(directory) {
+  if (!this._boundRemove) this._boundRemove = this._remove.bind(this);
+  const dir = sysPath.resolve(directory);
+  if (!this._watched.has(dir)) this._watched.set(dir, new DirEntry(dir, this._boundRemove));
+  return this._watched.get(dir);
+}
+this._boundRemove = this._remove.bind(this)
+const dir = sysPath.resolve(directory)
+this._watched.set(dir, new DirEntry(dir, this._boundRemove))
+(_tmp_93 = this._watched).get

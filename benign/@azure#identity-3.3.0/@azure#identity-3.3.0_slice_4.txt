@@ -1,0 +1,26 @@
+abortRequests(correlationId) {
+        const key = correlationId || noCorrelationId;
+        const controllers = [
+            ...(this.abortControllers.get(key) || []),
+            // MSAL passes no correlation ID to the get requests...
+            ...(this.abortControllers.get(noCorrelationId) || []),
+        ];
+        if (!controllers.length) {
+            return;
+        }
+        for (const controller of controllers) {
+            controller.abort();
+        }
+        this.abortControllers.set(key, undefined);
+    }
+const key = correlationId || noCorrelationId
+const controllers = [
+            ...(this.abortControllers.get(key) || []),
+            // MSAL passes no correlation ID to the get requests...
+            ...(this.abortControllers.get(noCorrelationId) || []),
+        ]
+_tmp_19.push(...(this.abortControllers.get(key) || []))
+_tmp_19.push(...(this.abortControllers.get(noCorrelationId) || []))
+!controllers.length
+_iterator_0 = <operator>.iterator(controllers)
+controller.abort()

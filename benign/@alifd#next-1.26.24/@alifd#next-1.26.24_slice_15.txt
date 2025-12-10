@@ -1,0 +1,16 @@
+function open = function open(config, type) {
+    close();
+    config = handleConfig(config, type);
+    var timeoutId = (0, _util.guid)();
+    instance = create((0, _extends3.default)({}, config, { timeoutId: timeoutId }));
+
+    if (config.duration > 0) {
+        var timeout = setTimeout(close, config.duration);
+        timeouts[timeoutId] = timeout;
+    }
+}
+close()
+config = handleConfig(config, type)
+var timeoutId = (0, _util.guid)()
+instance = create((0, _extends3.default)({}, config, { timeoutId: timeoutId }))
+config.duration > 0

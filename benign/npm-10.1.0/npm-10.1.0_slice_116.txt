@@ -1,0 +1,31 @@
+function validateLockfile = function validateLockfile (virtualTree, idealTree) {
+  const errors = []
+
+  // loops through the inventory of packages resulted by ideal tree,
+  // for each package compares the versions with the version stored in the
+  // package-lock and adds an error to the list in case of mismatches
+  for (const [key, entry] of idealTree.entries()) {
+    const lock = virtualTree.get(key)
+
+    if (!lock) {
+      errors.push(`Missing: ${entry.name}@${entry.version} from lock file`)
+      continue
+    }
+
+    if (entry.version !== lock.version) {
+      errors.push(`Invalid: lock file's ${lock.name}@${lock.version} does ` +
+      `not satisfy ${entry.name}@${entry.version}`)
+    }
+  }
+  return errors
+}
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(idealTree.entries())
+const lock = virtualTree.get(key)
+!lock
+<operator>.formatString("Missing: ", entry.name, "@", entry.version, " from lock file")
+continue
+entry.version !== lock.version
+errors.push(`Invalid: lock file's ${lock.name}@${lock.version} does ` +
+      `not satisfy ${entry.name}@${entry.version}`)
+<operator>.formatString("not satisfy ", entry.name, "@", entry.version, "")

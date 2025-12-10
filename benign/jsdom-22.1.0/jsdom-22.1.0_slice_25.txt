@@ -1,0 +1,16 @@
+_onConnectionClosed(code, reason) {
+    const openSocketsForWindow = openSockets.get(this._ownerDocument._defaultView);
+    openSocketsForWindow.delete(this);
+
+    const wasClean = !this._requiredToFail;
+    if (this._requiredToFail) {
+      fireAnEvent("error", this);
+    }
+    fireAnEvent("close", this, CloseEvent, {
+      wasClean,
+      code,
+      reason: reason.toString()
+    });
+  }
+const openSocketsForWindow = openSockets.get(this._ownerDocument._defaultView)
+openSocketsForWindow.delete(this)

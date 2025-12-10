@@ -1,0 +1,33 @@
+override async cleanUserDataDir(
+    userDataDir: string,
+    opts: {isTemp: boolean}
+  ): Promise<void> {
+    if (opts.isTemp) {
+      try {
+        await rm(userDataDir);
+      } catch (error) {
+        debugError(error);
+        throw error;
+      }
+    } else {
+      try {
+        // When an existing user profile has been used remove the user
+        // preferences file and restore possibly backuped preferences.
+        await unlink(path.join(userDataDir, 'user.js'));
+
+        const prefsBackupPath = path.join(userDataDir, 'prefs.js.puppeteer');
+        if (fs.existsSync(prefsBackupPath)) {
+          const prefsPath = path.join(userDataDir, 'prefs.js');
+          await unlink(prefsPath);
+          await rename(prefsBackupPath, prefsPath);
+        }
+      } catch (error) {
+        debugError(error);
+      }
+    }
+  }
+opts.isTemp
+await unlink(path.join(userDataDir, 'user.js'))
+const prefsBackupPath = path.join(userDataDir, 'prefs.js.puppeteer')
+fs.existsSync(prefsBackupPath)
+const prefsPath = path.join(userDataDir, 'prefs.js')

@@ -1,0 +1,20 @@
+oldNamespaceImports.forEach(function (value) {
+            if (!newNamespaceImports.has(value)) {
+              var imports = oldImportPaths.get(value);
+              imports['delete'](IMPORT_NAMESPACE_SPECIFIER);
+
+              var _exports6 = exportList.get(value);
+              if (typeof _exports6 !== 'undefined') {
+                var currentExport = _exports6.get(IMPORT_NAMESPACE_SPECIFIER);
+                if (typeof currentExport !== 'undefined') {
+                  currentExport.whereUsed['delete'](file);
+                }
+              }
+            }
+          })
+!newNamespaceImports.has(value)
+var imports = oldImportPaths.get(value)
+imports['delete'](IMPORT_NAMESPACE_SPECIFIER)
+var _exports6 = exportList.get(value)
+typeof _exports6 !== 'undefined'
+var currentExport = _exports6.get(IMPORT_NAMESPACE_SPECIFIER)

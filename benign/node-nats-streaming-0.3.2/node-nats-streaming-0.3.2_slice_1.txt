@@ -1,0 +1,26 @@
+sc.nc.requestOne(reqSubject, Buffer.from(ur.serializeBinary()), sc.options.connectTimeout, (msg) => {
+    let err
+    if (msg instanceof nats.NatsError) {
+      const type = doClose ? CLOSE_REQ_TIMEOUT : UNSUB_REQ_TIMEOUT
+      err = new nats.NatsError(type, type, msg)
+      if (msg.code === nats.REQ_TIMEOUT) {
+        this.emit('timeout', err)
+      } else {
+        this.emit('error', err)
+      }
+      return
+    }
+    // noinspection JSUnresolvedVariable
+    const r = proto.pb.SubscriptionResponse.deserializeBinary(Buffer.from(msg, 'binary'))
+    err = r.getError()
+    if (err && err.length > 0) {
+      this.emit('error', new Error(r.getError()))
+    } else {
+      this.emit(doClose ? 'closed' : 'unsubscribed')
+    }
+  })
+msg instanceof nats.NatsError
+const type = doClose ? CLOSE_REQ_TIMEOUT : UNSUB_REQ_TIMEOUT
+err = new nats.NatsError(type, type, msg)
+msg.code === nats.REQ_TIMEOUT
+this.emit('timeout', err)

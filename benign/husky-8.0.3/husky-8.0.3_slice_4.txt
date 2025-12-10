@@ -1,0 +1,21 @@
+function set = function set(file, cmd) {
+    const dir = p.dirname(file);
+    if (!fs.existsSync(dir)) {
+        throw new Error(`can't create hook, ${dir} directory doesn't exist (try running husky install)`);
+    }
+    fs.writeFileSync(file, `#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+${cmd}
+`, { mode: 0o0755 });
+    l(`created ${file}`);
+}
+const dir = p.dirname(file)
+!fs.existsSync(dir)
+<operator>.formatString("can't create hook, ", dir, " directory doesn't exist (try running husky install)")
+fs.writeFileSync(file, `#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+${cmd}
+`, { mode: 0o0755 })
+_tmp_8.mode = 0o0755

@@ -1,0 +1,13 @@
+function maybeRecycleChildMergeTree = function maybeRecycleChildMergeTree(_a, name) {
+    var map = _a.map;
+    var childTree = map.get(name);
+    if (childTree && mergeTreeIsEmpty(childTree)) {
+        emptyMergeTreePool.push(childTree);
+        map.delete(name);
+    }
+}
+var map = _a.map
+var childTree = map.get(name)
+childTree && mergeTreeIsEmpty(childTree)
+emptyMergeTreePool.push(childTree)
+map.delete(name)

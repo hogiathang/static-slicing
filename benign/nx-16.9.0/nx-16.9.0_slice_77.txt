@@ -1,0 +1,23 @@
+const migrations = await Promise.all(Object.keys(this.packageUpdates).map(async (packageName) => {
+            const currentVersion = this.getPkgVersion(packageName);
+            if (currentVersion === null)
+                return [];
+            const { version } = this.packageUpdates[packageName];
+            const { generators } = await this.fetch(packageName, version);
+            if (!generators)
+                return [];
+            return Object.entries(generators)
+                .filter(([, migration]) => migration.version &&
+                this.gt(migration.version, currentVersion) &&
+                this.lte(migration.version, version) &&
+                this.areMigrationRequirementsMet(packageName, migration))
+                .map(([migrationName, migration]) => ({
+                ...migration,
+                package: packageName,
+                name: migrationName,
+            }));
+        }))
+const currentVersion = this.getPkgVersion(packageName)
+currentVersion === null
+_tmp_157 = this.packageUpdates[packageName]
+_tmp_158 = await this.fetch(packageName, version)

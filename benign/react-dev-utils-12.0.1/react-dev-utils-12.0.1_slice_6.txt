@@ -1,0 +1,35 @@
+function guessEditor = function guessEditor() {
+  // Explicit config always wins
+  if (process.env.REACT_EDITOR) {
+    return shellQuote.parse(process.env.REACT_EDITOR);
+  }
+
+  // We can find out which editor is currently running by:
+  // `ps x` on macOS and Linux
+  // `Get-Process` on Windows
+  try {
+    if (process.platform === 'darwin') {
+      const output = child_process.execSync('ps x').toString();
+      const processNames = Object.keys(COMMON_EDITORS_OSX);
+      for (let i = 0; i < processNames.length; i++) {
+        const processName = processNames[i];
+        if (output.indexOf(processName) !== -1) {
+          return [COMMON_EDITORS_OSX[processName]];
+        }
+      }
+    } else if (process.platform === 'win32') {
+      // Some processes need elevated rights to get its executable path.
+      // Just filter them out upfront. This also saves 10-20ms on the command.
+      const output = child_process
+        .execSync(
+          'wmic process where "executablepath is not null" get executablepath'
+ ...
+process.env.REACT_EDITOR
+process.platform === 'darwin'
+process.platform === 'win32'
+const output = child_process
+        .execSync(
+          'wmic process where "executablepath is not null" get executablepath'
+        )
+        .toString()
+execSync

@@ -1,0 +1,25 @@
+forModel(name) {
+    let modelMapper = this._modelMappers.get(name);
+
+    if (modelMapper === undefined) {
+      let mappingInfo = this._modelMappingInfos.get(name);
+
+      if (mappingInfo === undefined) {
+        if (!this.client.keyspace) {
+          throw new Error(`No mapping information found for model '${name}'. ` +
+            `Mapper is unable to create default mappings without setting the keyspace`);
+        }
+
+        mappingInfo = ModelMappingInfo.createDefault(name, this.client.keyspace);
+        this.client.log('info', `Mapping information for model '${name}' not found, creating default mapping. ` +
+          `Keyspace: ${mappingInfo.keyspace}; Table: ${mappingInfo.tables[0].name}.`);
+      } else {
+        this.client.log('info', `Creating model mapper for '${name}' using mapping information. Keyspace: ${
+          mappingInfo.keyspace}; Table${mappingInfo.tables.length > 1? 's' : ''}: ${
+          mappingInfo.tables.map(t => t.name)}.`);
+      }
+
+      modelMapper = n...
+let modelMapper = this._modelMappers.get(name)
+modelMapper === undefined
+let mappingInfo = this._modelMappingInfos.get(name)

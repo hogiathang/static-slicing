@@ -1,0 +1,54 @@
+__async(this, null, function* () {
+    const shouldTryOpenChromiumWithAppleScript = process.platform === "darwin" && (typeof browser !== "string" || browser === OSX_CHROME);
+    if (shouldTryOpenChromiumWithAppleScript) {
+      const supportedChromiumBrowsers = [
+        "Google Chrome Canary",
+        "Google Chrome",
+        "Microsoft Edge",
+        "Brave Browser",
+        "Vivaldi",
+        "Chromium"
+      ];
+      const _dirname = typeof __dirname === "undefined" ? path.dirname(node_url.fileURLToPath(import_meta$1.url)) : __dirname;
+      for (const chromiumBrowser of supportedChromiumBrowsers) {
+        try {
+          node_child_process.execSync('ps cax | grep "' + chromiumBrowser + '"');
+          node_child_process.execSync(
+            'osascript ../openChrome.applescript "' + // lgtm [js/shell-command-constructed-from-input]
+            encodeURI(url) + '" "' + chromiumBrowser + '"',
+            {
+              cwd: _dirname,
+              stdio: "ignore"
+            }
+...
+const shouldTryOpenChromiumWithAppleScript = process.platform === "darwin" && (typeof browser !== "string" || browser === OSX_CHROME)
+const supportedChromiumBrowsers = [
+        "Google Chrome Canary",
+        "Google Chrome",
+        "Microsoft Edge",
+        "Brave Browser",
+        "Vivaldi",
+        "Chromium"
+      ]
+_tmp_6.push("Google Chrome Canary")
+_tmp_6.push("Google Chrome")
+_tmp_6.push("Microsoft Edge")
+_tmp_6.push("Brave Browser")
+_tmp_6.push("Vivaldi")
+_tmp_6.push("Chromium")
+const _dirname = typeof __dirname === "undefined" ? path.dirname(node_url.fileURLToPath(import_meta$1.url)) : __dirname
+_iterator_0 = <operator>.iterator(supportedChromiumBrowsers)
+node_child_process.execSync('ps cax | grep "' + chromiumBrowser + '"')
+node_child_process.execSync(
+            'osascript ../openChrome.applescript "' + // lgtm [js/shell-command-constructed-from-input]
+            encodeURI(url) + '" "' + chromiumBrowser + '"',
+            {
+              cwd: _dirname,
+              stdio: "ignore"
+            }
+          )
+'osascript ../openChrome.applescript "' + // lgtm [js/shell-command-constructed-from-input]
+            encodeURI(url) + '" "' + chromiumBrowser + '"'
+encodeURI(url)
+_tmp_7.cwd = _dirname
+_tmp_7.stdio = "ignore"

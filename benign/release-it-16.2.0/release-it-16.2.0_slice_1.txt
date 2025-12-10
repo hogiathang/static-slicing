@@ -1,0 +1,89 @@
+const runTasks = async (opts, di) => {
+  let container = {};
+
+  try {
+    Object.assign(container, di);
+    container.config = container.config || new Config(opts);
+
+    const { config } = container;
+    const { isCI, isVerbose, verbosityLevel, isDryRun, isChangelog, isReleaseVersion } = config;
+
+    container.log = container.log || new Logger({ isCI, isVerbose, verbosityLevel, isDryRun });
+    container.spinner = container.spinner || new Spinner({ container, config });
+    container.prompt = container.prompt || new Prompt({ container: { config } });
+    container.shell = container.shell || new Shell({ container });
+
+    const { log, shell, spinner } = container;
+
+    const options = config.getContext();
+
+    const { hooks } = options;
+
+    const runHook = async (...name) => {
+      const scripts = hooks[name.join(':')];
+      if (!scripts || !scripts.length) return;
+      const context = config.getContext();
+      const external = true;
+      for (const script of _.castArray(scripts)) {
+...
+let container = {}
+Object.assign(container, di)
+container.config = container.config || new Config(opts)
+config = _tmp_2.config
+isReleaseVersion = _tmp_3.isReleaseVersion
+container.log = container.log || new Logger({ isCI, isVerbose, verbosityLevel, isDryRun })
+container.spinner = container.spinner || new Spinner({ container, config })
+container.prompt = container.prompt || new Prompt({ container: { config } })
+container.shell = container.shell || new Shell({ container })
+spinner = _tmp_13.spinner
+const options = config.getContext()
+hooks = _tmp_14.hooks
+const runHook = async (...name) => {
+      const scripts = hooks[name.join(':')];
+      if (!scripts || !scripts.length) return;
+      const context = config.getContext();
+      const external = true;
+      for (const script of _.castArray(scripts)) {
+        const task = () => shell.exec(script, { external }, context);
+        await spinner.show({ task, label: script, context, external });
+      }
+    }
+const runLifeCycleHook = async (plugin, name, ...args) => {
+      if (plugin === _.first(plugins)) await runHook('before', name);
+      await runHook('before', plugin.namespace, name);
+      const willHookRun = (await plugin[name](...args)) !== false;
+      if (willHookRun) {
+        await runHook('after', plugin.namespace, name);
+      }
+      if (plugin === _.last(plugins)) await runHook('after', name);
+    }
+_tmp_17 = await getPlugins(config, container)
+let plugins = [...external, ...internal]
+_iterator_1 = <operator>.iterator(plugins)
+await runLifeCycleHook(plugin, 'init')
+isPreRelease = _tmp_19.isPreRelease
+const name = await reduceUntil(plugins, plugin => plugin.getName())
+const latestVersion = (await reduceUntil(plugins, plugin => plugin.getLatestVersion())) || '0.0.0'
+const changelog = await reduceUntil(plugins, plugin => plugin.getChangelog(latestVersion))
+console.log(changelog)
+process.exit(0)
+const incrementBase = { latestVersion, increment, isPreRelease, preReleaseId }
+snapshot = _tmp_21.snapshot
+snapshot && !incrementBase.latestVersion.startsWith('0.0.0')
+incrementBase.latestVersion = `0.0.0-${snapshot}.-1`
+config.isIncrement
+incrementBase.increment = await reduceUntil(plugins, plugin => plugin.getIncrement(incrementBase))
+version = await reduceUntil(plugins, plugin => plugin.getIncrementedVersionCI(incrementBase))
+version = latestVersion
+config.setContext({ name, latestVersion, version, changelog })
+!isReleaseVersion
+const action = config.isIncrement ? 'release' : 'update'
+version && config.isIncrement ? <operator>.formatString("", latestVersion, "...", version, "") : <operator>.formatString("currently at ", latestVersion, "")
+<operator>.formatString("🚀 Let's ", action, " ", name, " (", suffix, ")")
+log.preview({ title: 'changelog', text: changelog })
+config.isIncrement
+version = version || (await reduceUntil(plugins, plugin => plugin.getIncrementedVersion(incrementBase)))
+!version
+log.obtrusive(`No new version to release`)
+console.log(version)
+process.exit(0)

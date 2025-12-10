@@ -1,0 +1,107 @@
+_tmp_24.signRequest = signRequest
+assert.object(request, 'request')
+assert.object(options, 'options')
+assert.optionalString(options.algorithm, 'options.algorithm')
+assert.string(options.keyId, 'options.keyId')
+assert.optionalString(options.opaque, 'options.opaque')
+assert.optionalArrayOfString(options.headers, 'options.headers')
+assert.optionalString(options.httpVersion, 'options.httpVersion')
+assert.optionalNumber(options.expiresIn, 'options.expiresIn')
+assert.optionalString(options.keyPassphrase, 'options.keyPassphrase')
+!request.getHeader('Date')
+request.setHeader('Date', jsprim.rfc1123(new Date()))
+_tmp_27 = __ecma.Array.factory()
+options.headers
+headers = options.headers
+!options.httpVersion
+options.httpVersion = '1.1'
+__ecma.Array.factory()
+options.algorithm
+options.algorithm = options.algorithm.toLowerCase()
+alg = validateAlgorithm(options.algorithm)
+var key = options.key
+alg[0] === 'hmac'
+typeof (key) !== 'string' && !Buffer.isBuffer(key)
+throw (new TypeError('options.key must be a string or Buffer'));
+typeof (key) === 'string' || Buffer.isBuffer(key)
+key = sshpk.parsePrivateKey(options.key, 'auto', {
+          passphrase: options.keyPassphrase
+        })
+_tmp_30.passphrase = options.keyPassphrase
+assert.ok(sshpk.PrivateKey.isPrivateKey(key, [1, 2]),
+        'options.key must be a sshpk.PrivateKey')
+"options.key must be a sshpk.PrivateKey"
+!PK_ALGOS[key.type]
+throw (new InvalidAlgorithmError(key.type.toUpperCase() + ' type ' +
+          'keys are not supported'));
+"keys are not supported"
+alg[0] === undefined
+alg[0] = key.type
+key.type !== alg[0]
+throw (new InvalidAlgorithmError('options.key must be a ' +
+          alg[0].toUpperCase() + ' key, was given a ' +
+          key.type.toUpperCase() + ' key instead'));
+(_tmp_36 = alg[0]).toUpperCase
+(_tmp_37 = key.type).toUpperCase
+alg[1] === undefined
+alg[1] = key.defaultHashAlgorithm()
+options.algorithm = alg[0] + '-' + alg[1]
+var params = {
+      'keyId': options.keyId,
+      'algorithm': options.algorithm
+    }
+_tmp_38.keyId = options.keyId
+_tmp_38.algorithm = options.algorithm
+var stringToSign = ''
+i < headers.length
+typeof (headers[i]) !== 'string'
+throw new TypeError('options.headers must be an array of Strings');
+(_tmp_40 = headers[i]).toLowerCase
+h === 'request-line'
+!options.strict
+stringToSign +=
+            request.method + ' ' + request.path + ' HTTP/' +
+            options.httpVersion
+request.method + ' ' + request.path + ' HTTP/' +
+            options.httpVersion
+options.httpVersion
+throw (new StrictParsingError('request-line is not a valid header ' +
+            'with strict parsing enabled.'));
+"with strict parsing enabled."
+h === '(request-target)'
+stringToSign +=
+          '(request-target): ' + request.method.toLowerCase() + ' ' +
+          request.path
+'(request-target): ' + request.method.toLowerCase() + ' ' +
+          request.path
+request.path
+h === '(keyid)'
+stringToSign += '(keyid): ' + options.keyId
+h === '(algorithm)'
+stringToSign += '(algorithm): ' + options.algorithm
+h === '(opaque)'
+var opaque = options.opaque
+opaque == undefined || opaque === ''
+throw new MissingHeaderError('options.opaque was not in the request');
+stringToSign += '(opaque): ' + opaque
+h === '(created)'
+var created = Math.floor(Date.now() / 1000)
+params.created = created
+stringToSign += '(created): ' + created
+h === '(expires)'
+var expiresIn = options.expiresIn
+expiresIn === undefined
+expiresIn = 60
+const expires = Math.floor(Date.now() / 1000) + expiresIn
+params.expires = expires
+stringToSign += '(expires): ' + expires
+var value = request.getHeader(h)
+value === undefined || value === ''
+throw new MissingHeaderError(h + ' was not in the request');
+stringToSign += h + ': ' + value
+(i + 1) < headers.length
+stringToSign += '\n'
+request.hasOwnProperty('_stringToSign')
+request._stringToSign = stringToSign
+alg[0] === 'hmac'
+var hmac = crypto.createHmac(alg[1].toUpperCase(), key)

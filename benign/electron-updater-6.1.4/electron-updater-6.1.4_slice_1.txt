@@ -1,0 +1,67 @@
+async handleData(chunk) {
+        let start = 0;
+        if (this.ignoreByteCount !== 0 && this.remainingPartDataCount !== 0) {
+            throw (0, builder_util_runtime_1.newError)("Internal error", "ERR_DATA_SPLITTER_BYTE_COUNT_MISMATCH");
+        }
+        if (this.ignoreByteCount > 0) {
+            const toIgnore = Math.min(this.ignoreByteCount, chunk.length);
+            this.ignoreByteCount -= toIgnore;
+            start = toIgnore;
+        }
+        else if (this.remainingPartDataCount > 0) {
+            const toRead = Math.min(this.remainingPartDataCount, chunk.length);
+            this.remainingPartDataCount -= toRead;
+            await this.processPartData(chunk, 0, toRead);
+            start = toRead;
+        }
+        if (start === chunk.length) {
+            return;
+        }
+        if (this.readState === ReadState.HEADER) {
+            const headerListEnd = this.searchHeaderListEnd(chunk, start);
+            if (headerListEnd === -1) {
+                return;
+       ...
+let start = 0
+this.ignoreByteCount !== 0 && this.remainingPartDataCount !== 0
+throw (0, builder_util_runtime_1.newError)("Internal error", "ERR_DATA_SPLITTER_BYTE_COUNT_MISMATCH");
+this.ignoreByteCount > 0
+const toIgnore = Math.min(this.ignoreByteCount, chunk.length)
+this.ignoreByteCount -= toIgnore
+start = toIgnore
+this.remainingPartDataCount > 0
+const toRead = Math.min(this.remainingPartDataCount, chunk.length)
+this.remainingPartDataCount -= toRead
+await this.processPartData(chunk, 0, toRead)
+start = toRead
+start === chunk.length
+this.readState === ReadState.HEADER
+const headerListEnd = this.searchHeaderListEnd(chunk, start)
+headerListEnd === -1
+start = headerListEnd
+this.readState = ReadState.BODY
+this.headerListBuffer = null
+this.readState === ReadState.BODY
+this.readState = ReadState.INIT
+this.partIndex++
+let taskIndex = this.partIndexToTaskIndex.get(this.partIndex)
+taskIndex == null
+this.isFinished
+taskIndex = this.options.end
+throw (0, builder_util_runtime_1.newError)("taskIndex is null", "ERR_DATA_SPLITTER_TASK_INDEX_IS_NULL");
+const prevTaskIndex = this.partIndex === 0 ? this.options.start : this.partIndexToTaskIndex.get(this.partIndex - 1) + 1
+prevTaskIndex < taskIndex
+await this.copyExistingData(prevTaskIndex, taskIndex)
+prevTaskIndex > taskIndex
+throw (0, builder_util_runtime_1.newError)("prevTaskIndex must be < taskIndex", "ERR_DATA_SPLITTER_TASK_INDEX_ASSERT_FAILED");
+this.isFinished
+start = this.searchHeaderListEnd(chunk, start)
+start === -1
+const partLength = this.partIndexToLength[this.partIndex]
+const end = start + partLength
+const effectiveEnd = Math.min(end, chunk.length)
+await this.processPartStarted(chunk, start, effectiveEnd)
+this.remainingPartDataCount = partLength - (effectiveEnd - start)
+this.remainingPartDataCount > 0
+start = end + this.boundaryLength
+start >= chunk.length

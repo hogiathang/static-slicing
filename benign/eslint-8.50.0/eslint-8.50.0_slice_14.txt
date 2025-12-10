@@ -1,0 +1,21 @@
+function groupByParentComment = function groupByParentComment(directives) {
+    const groups = new Map();
+
+    for (const directive of directives) {
+        const { unprocessedDirective: { parentComment } } = directive;
+
+        if (groups.has(parentComment)) {
+            groups.get(parentComment).push(directive);
+        } else {
+            groups.set(parentComment, [directive]);
+        }
+    }
+
+    return [...groups.values()];
+}
+const groups = new Map()
+_iterator_0 = <operator>.iterator(directives)
+_tmp_2.parentComment = parentComment
+groups.has(parentComment)
+groups.get(parentComment).push(directive)
+groups.set(parentComment, [directive])

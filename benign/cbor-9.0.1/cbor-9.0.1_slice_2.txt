@@ -1,0 +1,19 @@
+options = options === void 0 ? {} : options
+input == null
+throw new TypeError('input required')
+_tmp_28 = normalizeOptions(options)
+encoding = _tmp_29.encoding === void 0 ? "hex" : _tmp_29.encoding
+const c = new Decoder(opts)
+const s = utils.guessEncoding(input, encoding)
+__ecma.Array.factory()
+s.length > 0
+const parser = c._parse()
+let state = parser.next()
+!state.done
+const b = s.read(state.value)
+(b == null) || (b.length !== state.value)
+throw new Error('Insufficient data')
+c.extendedResults
+(_tmp_32 = c.valueBytes).write
+state = parser.next(b)
+res.push(Decoder.nullcheck(state.value))

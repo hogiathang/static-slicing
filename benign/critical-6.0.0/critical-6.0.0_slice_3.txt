@@ -1,0 +1,49 @@
+function getDocumentPath = async function getDocumentPath(file, options = {}) {
+  let {base} = options;
+
+  // Check remote
+  if (file.remote) {
+    let {pathname} = file.urlObj;
+    if (/\/$/.test(pathname)) {
+      pathname += 'index.html';
+    }
+
+    return pathname;
+  }
+
+  // If we don't have a file path and
+  if (!file.path) {
+    return '';
+  }
+
+  if (base) {
+    base = path.resolve(base);
+    return normalizePath(`/${path.relative(base, file.path || base)}`);
+  }
+
+  // Check local and assume base path based on relative stylesheets
+  if (file.stylesheets) {
+    const relativeRefs = file.stylesheets.filter((href) => isRelative(href));
+    const absoluteRefs = file.stylesheets.filter((href) => isAbsolute(href));
+
+    // If we have no stylesheets inside, fall back to path relative to process cwd
+    if (relativeRefs.length === 0 && absoluteRefs.length === 0) {
+      process.stderr.write(BASE_WARNING);
+
+      return normalizePath(`/${path.relative(process.cwd(), file.path)}`);
+    }
+
+    // Compute base path...
+base = _tmp_98.base
+file.remote
+!file.path
+file.stylesheets
+const relativeRefs = file.stylesheets.filter((href) => isRelative(href))
+const absoluteRefs = file.stylesheets.filter((href) => isAbsolute(href))
+relativeRefs.length === 0 && absoluteRefs.length === 0
+relativeRefs.length === 0
+_tmp_104 = absoluteRefs
+const paths = await getAssetPaths(file, ref, options)
+const filepath = await resolve(ref, paths, options)
+<operator>.formatString("/", path.relative(normalizePath(filepath).replace(ref, ''), file.path), "")
+process.stderr.write(BASE_WARNING)

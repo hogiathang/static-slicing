@@ -1,0 +1,57 @@
+*iterateFiles(patternOrPatterns) {
+        const { globInputPaths, errorOnUnmatchedPattern } = internalSlotsMap.get(this);
+        const patterns = Array.isArray(patternOrPatterns)
+            ? patternOrPatterns
+            : [patternOrPatterns];
+
+        debug("Start to iterate files: %o", patterns);
+
+        // The set of paths to remove duplicate.
+        const set = new Set();
+
+        for (const pattern of patterns) {
+            let foundRegardlessOfIgnored = false;
+            let found = false;
+
+            // Skip empty string.
+            if (!pattern) {
+                continue;
+            }
+
+            // Iterate files of this pattern.
+            for (const { config, filePath, flag } of this._iterateFiles(pattern)) {
+                foundRegardlessOfIgnored = true;
+                if (flag === IGNORED_SILENTLY) {
+                    continue;
+                }
+                found = true;
+
+                // Remove duplicate paths while yielding paths.
+             ...
+errorOnUnmatchedPattern = _tmp_16.errorOnUnmatchedPattern
+const patterns = Array.isArray(patternOrPatterns)
+            ? patternOrPatterns
+            : [patternOrPatterns]
+_tmp_17 = __ecma.Array.factory()
+debug("Start to iterate files: %o", patterns)
+const set = new Set()
+_iterator_0 = <operator>.iterator(patterns)
+let foundRegardlessOfIgnored = false
+let found = false
+!pattern
+continue;
+_iterator_1 = <operator>.iterator(this._iterateFiles(pattern))
+foundRegardlessOfIgnored = true
+flag === IGNORED_SILENTLY
+continue;
+found = true
+!set.has(filePath)
+!foundRegardlessOfIgnored
+throw new NoFilesFoundError(
+                        pattern,
+                        !globInputPaths && isGlob(pattern)
+                    );
+!globInputPaths && isGlob(pattern)
+!found
+throw new AllFilesIgnoredError(pattern);
+<operator>.formatString("Complete iterating files: ", JSON.stringify(patterns), "")

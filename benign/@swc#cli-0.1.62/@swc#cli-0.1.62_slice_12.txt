@@ -1,0 +1,46 @@
+function outputResult = async function outputResult(output, sourceFile, destFile, options) {
+    const destDir = (0, _path.dirname)(destFile);
+    const { sourceMap , sourceMapPath , sourceCode  } = withSourceMap(output, options, destFile, destDir);
+    await mkdir(destDir, {
+        recursive: true
+    });
+    const { mode  } = await stat(sourceFile);
+    if (!sourceMapPath) {
+        await writeFile(destFile, sourceCode, {
+            mode
+        });
+    } else {
+        await Promise.all([
+            writeFile(destFile, sourceCode, {
+                mode
+            }),
+            writeFile(sourceMapPath, sourceMap, {
+                mode
+            })
+        ]);
+    }
+}
+const destDir = (0, _path.dirname)(destFile)
+_tmp_4 = withSourceMap(output, options, destFile, destDir)
+await mkdir(destDir, {
+        recursive: true
+    })
+_tmp_5.recursive = true
+_tmp_6 = await stat(sourceFile)
+!sourceMapPath
+await Promise.all([
+            writeFile(destFile, sourceCode, {
+                mode
+            }),
+            writeFile(sourceMapPath, sourceMap, {
+                mode
+            })
+        ])
+_tmp_8.push(writeFile(destFile, sourceCode, {
+                mode
+            }))
+_tmp_9.mode = mode
+_tmp_8.push(writeFile(sourceMapPath, sourceMap, {
+                mode
+            }))
+_tmp_10.mode = mode

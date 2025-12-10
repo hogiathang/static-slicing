@@ -1,0 +1,154 @@
+function parseLookup = function parseLookup(lookup, lookupDelim) {
+    var debug = function () {};
+    // var debug = console.warn;
+
+    var bits = [];
+    debug('\n*** ' + lookup + ' ***');
+
+    bits = [];
+    lookupDelim = lookupDelim || '.';
+    var bit = '';
+    var states = [null];
+    var escaped = false;
+    var ch = null;
+    for (var i = 0; i < lookup.length; ++i) {
+        var ch = lookup[i];
+        debug('-- i=' + i + ', ch=' + JSON.stringify(ch) + ' escaped=' +
+            JSON.stringify(escaped));
+        debug('states: ' + JSON.stringify(states));
+
+        // Handle a *limited subset* of JS string escapes.
+        // JSSTYLED
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#Escape_notation
+        var SUPPORTED_ESCAPES = {
+            '\'': '\'',
+            '\"': '\"',
+            '\`': '\`',
+            '\\': '\\',
+            'n': '\n',
+            'r': '\r',
+            't': '\t',
+            'v': '\v',
+            'b': '\b',
+           ...
+var debug = function () {}
+__ecma.Array.factory()
+debug('\n*** ' + lookup + ' ***')
+__ecma.Array.factory()
+lookupDelim = lookupDelim || '.'
+var bit = ''
+_tmp_28 = __ecma.Array.factory()
+var escaped = false
+var ch = null
+i < lookup.length
+var ch = lookup[i]
+debug('-- i=' + i + ', ch=' + JSON.stringify(ch) + ' escaped=' +
+            JSON.stringify(escaped))
+JSON.stringify(escaped)
+debug('states: ' + JSON.stringify(states))
+var SUPPORTED_ESCAPES = {
+            '\'': '\'',
+            '\"': '\"',
+            '\`': '\`',
+            '\\': '\\',
+            'n': '\n',
+            'r': '\r',
+            't': '\t',
+            'v': '\v',
+            'b': '\b',
+            'f': '\f'
+        }
+_tmp_29.\' = "'"
+_tmp_29.\" = """
+_tmp_29.\ = "`"
+_tmp_29.\\ = "\"
+_tmp_29.n = "
+"
+_tmp_29.r = ""
+_tmp_29.t = "	"
+_tmp_29.v = ""
+_tmp_29.b = ""
+_tmp_29.f = ""
+ch === '\\' && i+1 < lookup.length
+var nextCh = lookup[i+1]
+var escapedCh = SUPPORTED_ESCAPES[nextCh]
+escapedCh !== undefined
+debug('escaped: %j -> %j', ch+nextCh, escapedCh)
+bit += escapedCh
+i++
+continue;
+states[states.length - 1]
+case null:
+case '"':
+case '\'':
+states.push(ch)
+bit += ch
+break;
+case '[':
+states.push(ch)
+bit !== ''
+bits.push(bit)
+bit = ''
+bit += ch
+break;
+case lookupDelim:
+bit !== ''
+bits.push(bit)
+bit = ''
+break;
+default:
+bit += ch
+break;
+break;
+case '[':
+bit += ch
+case '"':
+case '\'':
+case '[':
+states.push(ch)
+break;
+case ']':
+states.pop()
+states[states.length - 1] === null
+var VALID_QUOTES = '"\'`'
+var sQuote = bit[1]
+var eQuote = bit.slice(-2, -1)
+VALID_QUOTES.indexOf(sQuote) === -1 ||
+                        sQuote !== eQuote
+sQuote !== eQuote
+throw new Error(format('invalid bracketed lookup ' +
+                            'string: %j (must be of the form [\'...\'], ' +
+                            '["..."], or [`...`])', bit));
+"string: %j (must be of the form ['...'], "
+"["..."], or [`...`])"
+bits.push(bit.slice(2, -2))
+bit = ''
+break;
+break;
+case '"':
+bit += ch
+case '"':
+states.pop()
+states[states.length - 1] === null
+bits.push(bit)
+bit = ''
+break;
+break;
+case '\'':
+bit += ch
+case '\'':
+states.pop()
+states[states.length - 1] === null
+bits.push(bit)
+bit = ''
+break;
+break;
+debug('bit: ' + JSON.stringify(bit))
+debug('bits: ' + JSON.stringify(bits))
+bit !== ''
+bits.push(bit)
+bit = ''
+var negIntPat = /^-\d+$/
+i < bits.length
+negIntPat.test(bits[i])
+bits[i] = Number(bits[i])

@@ -1,0 +1,28 @@
+this.udpSocket.on("message", (msg) => {
+            if(msg[1] !== 0x78) { // unknown payload type, ignore
+                return;
+            }
+
+            const nonce = Buffer.alloc(24);
+            msg.copy(nonce, 0, 0, 12);
+            let data;
+            if(Sodium) {
+                data = Buffer.alloc(msg.length - 12 - Sodium.crypto_secretbox_MACBYTES);
+                Sodium.crypto_secretbox_open_easy(data, msg.subarray(12), nonce, this.secret);
+            } else {
+                if(!(data = NaCl.secretbox.open(msg.subarray(12), nonce, this.secret))) {
+                    /**
+                    * Fired to warn of something weird but non-breaking happening
+                    * @event VoiceConnection#warn
+                    * @prop {String} message The warning message
+                    */
+                    this.emit("warn", "Failed to decrypt received packet");
+                    return;
+                }
+            }
+            const hasExtension = !!(msg[0] & 0b...
+msg[1] !== 0x78
+const nonce = Buffer.alloc(24)
+msg.copy(nonce, 0, 0, 12)
+!(data = NaCl.secretbox.open(msg.subarray(12), nonce, this.secret))
+this.emit("warn", "Failed to decrypt received packet")

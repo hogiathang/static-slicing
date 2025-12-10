@@ -1,0 +1,13 @@
+this.clearTimeout = function (handle = 0) {
+    handle = webIDLConversions.long(handle);
+
+    const nodejsTimer = listOfActiveTimers.get(handle);
+    if (nodejsTimer) {
+      clearTimeout(nodejsTimer);
+      listOfActiveTimers.delete(handle);
+    }
+  }
+handle = webIDLConversions.long(handle)
+const nodejsTimer = listOfActiveTimers.get(handle)
+clearTimeout(nodejsTimer)
+listOfActiveTimers.delete(handle)

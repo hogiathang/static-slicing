@@ -1,0 +1,27 @@
+function onAdd = async function onAdd(name, url, home) {
+  const registries = await getRegistries();
+  const registryNames = Object.keys(registries);
+  const registryUrls = registryNames.map(name => registries[name][REGISTRY]);
+  if (registryNames.includes(name) || registryUrls.some(eachUrl => isLowerCaseEqual(eachUrl, url))) {
+    return exit('The registry name or url is already included in the nrm registries. Please make sure that the name and url are unique.');
+  }
+
+  const newRegistry = {};
+  newRegistry[REGISTRY] = /\/$/.test(url) ? url : url + '/';
+  if (home) {
+    newRegistry[HOME] = home;
+  }
+  const customRegistries = await readFile(NRMRC);
+  const newCustomRegistries = Object.assign(customRegistries, { [name]: newRegistry });
+  await writeFile(NRMRC, newCustomRegistries);
+  printSuccess(`Add registry ${name} success, run ${chalk.green('nrm use ' + name)} command to use ${name} registry.`);
+}
+const registries = await getRegistries()
+const registryNames = Object.keys(registries)
+const registryUrls = registryNames.map(name => registries[name][REGISTRY])
+registryNames.includes(name) || registryUrls.some(eachUrl => isLowerCaseEqual(eachUrl, url))
+const newRegistry = {}
+newRegistry[REGISTRY] = /\/$/.test(url) ? url : url + '/'
+newRegistry[HOME] = home
+const customRegistries = await readFile(NRMRC)
+const newCustomRegistries = Object.assign(customRegistries, { [name]: newRegistry })

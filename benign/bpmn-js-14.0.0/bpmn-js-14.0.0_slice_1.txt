@@ -1,0 +1,35 @@
+BaseViewer.prototype.attachTo = function(parentNode) {
+
+  if (!parentNode) {
+    throw new Error('parentNode required');
+  }
+
+  // ensure we detach from the
+  // previous, old parent
+  this.detach();
+
+  // unwrap jQuery if provided
+  if (parentNode.get && parentNode.constructor.prototype.jquery) {
+    parentNode = parentNode.get(0);
+  }
+
+  if (typeof parentNode === 'string') {
+    parentNode = domQuery(parentNode);
+  }
+
+  parentNode.appendChild(this._container);
+
+  this._emit('attach', {});
+
+  this.get('canvas').resized();
+}
+!parentNode
+throw new Error('parentNode required');
+this.detach()
+parentNode.get && parentNode.constructor.prototype.jquery
+parentNode = parentNode.get(0)
+typeof parentNode === 'string'
+parentNode = domQuery(parentNode)
+parentNode.appendChild(this._container)
+this._emit('attach', {})
+(_tmp_30 = this.get('canvas')).resized

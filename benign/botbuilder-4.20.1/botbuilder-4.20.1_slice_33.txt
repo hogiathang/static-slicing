@@ -1,0 +1,56 @@
+__awaiter(this, void 0, void 0, function* () {
+            let body;
+            let status;
+            let processError;
+            try {
+                // Parse body of request
+                status = 400;
+                const request = yield parseRequest(req);
+                // Authenticate the incoming request
+                status = 401;
+                const authHeader = req.headers.authorization || req.headers.Authorization || '';
+                const identity = yield this.authenticateRequestInternal(request, authHeader);
+                // Set the correct callerId value and discard values received over the wire
+                request.callerId = yield this.generateCallerId(identity);
+                // Process received activity
+                status = 500;
+                const context = this.createContext(request);
+                context.turnState.set(this.BotIdentityKey, identity);
+                const connectorClient = yield this.createConnectorClientWithIdenti...
+status = 400
+const request = yield parseRequest(req)
+status = 401
+const authHeader = req.headers.authorization || req.headers.Authorization || ''
+const identity = yield this.authenticateRequestInternal(request, authHeader)
+request.callerId = yield this.generateCallerId(identity)
+status = 500
+const context = this.createContext(request)
+context.turnState.set(this.BotIdentityKey, identity)
+const connectorClient = yield this.createConnectorClientWithIdentity(request.serviceUrl, identity)
+context.turnState.set(this.ConnectorClientKey, connectorClient)
+const oAuthScope = botframework_connector_1.SkillValidation.isSkillClaim(identity.claims)
+                    ? botframework_connector_1.JwtTokenValidation.getAppIdFromClaims(identity.claims)
+                    : this.credentials.oAuthScope
+botframework_connector_1.JwtTokenValidation.getAppIdFromClaims(identity.claims)
+this.credentials.oAuthScope
+context.turnState.set(this.OAuthScopeKey, oAuthScope)
+context.turnState.set(botbuilder_core_1.BotCallbackHandlerKey, logic)
+this.runMiddleware(context, logic)
+request.deliveryMode === botbuilder_core_1.DeliveryModes.ExpectReplies
+let activities = context.bufferedReplyActivities
+request.channelId !== botbuilder_core_1.Channels.Emulator
+activities = activities.filter((a) => a.type !== botbuilder_core_1.ActivityTypes.Trace)
+_tmp_101.activities = activities
+status = botbuilder_core_1.StatusCodes.OK
+request.type === botbuilder_core_1.ActivityTypes.Invoke
+const invokeResponse = context.turnState.get(botbuilder_core_1.INVOKE_RESPONSE_KEY)
+invokeResponse && invokeResponse.value
+const value = invokeResponse.value
+status = value.status
+body = value.body
+status = botbuilder_core_1.StatusCodes.NOT_IMPLEMENTED
+status = botbuilder_core_1.StatusCodes.OK
+processError = err
+body = err.toString()
+res.status(status)
+res.send(body)

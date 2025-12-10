@@ -1,0 +1,18 @@
+obtain(object, key, init) {
+        let kvMap = this.cache.get(object);
+        if (!kvMap) {
+            kvMap = new Map();
+            this.cache.set(object, kvMap);
+        }
+        let ret = kvMap.get(key);
+        if (ret === undefined) {
+            ret = init();
+            kvMap.set(key, ret);
+        }
+        return ret;
+    }
+let kvMap = this.cache.get(object)
+!kvMap
+kvMap = new Map()
+this.cache.set(object, kvMap)
+let ret = kvMap.get(key)

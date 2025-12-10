@@ -1,0 +1,28 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"THREAD_LIST_SYNC"
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+const deletedThreads = (packet.d.channel_ids || guild.threads.map((c) => c.id)) // REVIEW Is this a good name?
+                    .filter((c) => !packet.d.threads.some((t) => t.id === c)).map((id) => guild.threads.remove({id}) || {id})
+!packet.d.threads.some((t) => t.id === c)
+const activeThreads = packet.d.threads.map((t) => guild.threads.update(t, this.client))
+const joinedThreadsMember = packet.d.members.map((m) => guild.threads.get(m.id).members.update(m, this.client))
+this.emit("threadListSync", guild, deletedThreads, activeThreads, joinedThreadsMember)

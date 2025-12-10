@@ -1,0 +1,5 @@
+this._request(request, function(err, response) {
+    self.emit('response', request, response);
+    self._parseResponse(err, response, callback);
+  })
+self.emit('response', request, response)

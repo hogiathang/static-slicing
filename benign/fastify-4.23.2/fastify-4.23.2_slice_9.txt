@@ -1,0 +1,73 @@
+function sendTrailer = function sendTrailer (payload, res, reply) {
+  if (reply[kReplyTrailers] === null) {
+    // when no trailer, we close the stream
+    res.end(null, null, null) // avoid ArgumentsAdaptorTrampoline from V8
+    return
+  }
+  const trailerHeaders = Object.keys(reply[kReplyTrailers])
+  const trailers = {}
+  let handled = 0
+  let skipped = true
+  function send () {
+    // add trailers when all handler handled
+    /* istanbul ignore else */
+    if (handled === 0) {
+      res.addTrailers(trailers)
+      // we need to properly close the stream
+      // after trailers sent
+      res.end(null, null, null) // avoid ArgumentsAdaptorTrampoline from V8
+    }
+  }
+
+  for (const trailerName of trailerHeaders) {
+    if (typeof reply[kReplyTrailers][trailerName] !== 'function') continue
+    skipped = false
+    handled--
+
+    function cb (err, value) {
+      // TODO: we may protect multiple callback calls
+      //       or mixing async-await with callback
+      handled++
+
+      // we can safely ignore err...
+reply[kReplyTrailers] === null
+const trailerHeaders = Object.keys(reply[kReplyTrailers])
+const trailers = {}
+let handled = 0
+let skipped = true
+function send = function send () {
+    // add trailers when all handler handled
+    /* istanbul ignore else */
+    if (handled === 0) {
+      res.addTrailers(trailers)
+      // we need to properly close the stream
+      // after trailers sent
+      res.end(null, null, null) // avoid ArgumentsAdaptorTrampoline from V8
+    }
+  }
+_iterator_2 = <operator>.iterator(trailerHeaders)
+typeof reply[kReplyTrailers][trailerName] !== 'function'
+skipped = false
+handled--
+function cb = function cb (err, value) {
+      // TODO: we may protect multiple callback calls
+      //       or mixing async-await with callback
+      handled++
+
+      // we can safely ignore error for trailer
+      // since it does affect the client
+      // we log in here only for debug usage
+      if (err) reply.log.debug(err)
+      else trailers[trailerName] = value
+
+      // we push the check to the end of event
+      // loop, so the registration continue to
+      // process.
+      process.nextTick(send)
+    }
+const result = reply[kReplyTrailers][trailerName](reply, payload, cb)
+typeof result === 'object' && typeof result.then === 'function'
+result.then((v) => cb(null, v), cb)
+result !== null && result !== undefined
+warning.emit('FSTDEP013')
+cb(null, result)

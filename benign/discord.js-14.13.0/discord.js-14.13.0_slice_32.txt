@@ -1,0 +1,5 @@
+cache = param1_0.cache
+!force
+const existing = this.cache.get(code)
+const invites = await this._fetchMany(cache)
+const invite = invites.get(code)

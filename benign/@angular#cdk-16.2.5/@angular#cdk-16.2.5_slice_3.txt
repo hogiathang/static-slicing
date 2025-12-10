@@ -1,0 +1,28 @@
+this.options.changes.pipe(startWith(this.options), takeUntil(this.destroyed)).subscribe(() => {
+            const isEqual = this.compareWith ?? Object.is;
+            for (let i = 0; i < this.options.length; i++) {
+                const option = this.options.get(i);
+                let duplicate = null;
+                for (let j = i + 1; j < this.options.length; j++) {
+                    const other = this.options.get(j);
+                    if (isEqual(option.value, other.value)) {
+                        duplicate = other;
+                        break;
+                    }
+                }
+                if (duplicate) {
+                    // TODO(mmalerba): Link to docs about this.
+                    if (this.compareWith) {
+                        console.warn(`Found multiple CdkOption representing the same value under the given compareWith function`, {
+                            option1: option.element,
+                            option2: duplicate.element,
+           ...
+const isEqual = this.compareWith ?? Object.is
+i < this.options.length
+const option = this.options.get(i)
+let duplicate = null
+j < this.options.length
+const other = this.options.get(j)
+isEqual(option.value, other.value)
+duplicate = other
+break;

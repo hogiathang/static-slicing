@@ -1,0 +1,11 @@
+_tmp_20.Loop = Loop
+const isForStatement = path.isForStatement()
+const headPath = isForStatement ? path.get("init") : path.isForXStatement() ? path.get("left") : null
+let needsBodyWrap = false
+const markNeedsBodyWrap = () => {
+          if (throwIfClosureRequired) {
+            throw path.buildCodeFrameError("Compiling let/const in this block would add a closure " + "(throwIfClosureRequired).");
+          }
+          needsBodyWrap = true;
+        }
+const body = path.get("body")

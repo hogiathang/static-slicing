@@ -1,0 +1,3 @@
+_tmp_7.value = get
+var key = KeyValueCacheAdapter.generateCacheKey(publicId, type, resourceType, transformation, format)
+KeyValueCacheAdapter.extractData(this.storage.get(key))

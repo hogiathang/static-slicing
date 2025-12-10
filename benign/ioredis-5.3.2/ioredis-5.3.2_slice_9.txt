@@ -1,0 +1,30 @@
+sendCommand(command, stream) {
+        var _a, _b;
+        if (this.status === "wait") {
+            this.connect().catch(lodash_1.noop);
+        }
+        if (this.status === "end") {
+            command.reject(new Error(utils_1.CONNECTION_CLOSED_ERROR_MSG));
+            return command.promise;
+        }
+        if (((_a = this.condition) === null || _a === void 0 ? void 0 : _a.subscriber) &&
+            !Command_1.default.checkFlag("VALID_IN_SUBSCRIBER_MODE", command.name)) {
+            command.reject(new Error("Connection in subscriber mode, only subscriber commands may be used"));
+            return command.promise;
+        }
+        if (typeof this.options.commandTimeout === "number") {
+            command.setTimeout(this.options.commandTimeout);
+        }
+        let writable = this.status === "ready" ||
+            (!stream &&
+                this.status === "connect" &&
+                (0, commands_1.exists)(command.name) &&
+                (0, commands_1.hasFlag)(command.n...
+this.status === "wait"
+this.connect().catch(lodash_1.noop)
+this.status === "end"
+((_a = this.condition) === null || _a === void 0 ? void 0 : _a.subscriber) &&
+            !Command_1.default.checkFlag("VALID_IN_SUBSCRIBER_MODE", command.name)
+!Command_1.default.checkFlag("VALID_IN_SUBSCRIBER_MODE", command.name)
+typeof this.options.commandTimeout === "number"
+command.setTimeout(this.options.commandTimeout)

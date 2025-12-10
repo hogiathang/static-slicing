@@ -1,0 +1,41 @@
+invokeRequestHandlerForSendResponse(host, path, requestData) {
+        const request = {
+            method: FIREBASE_MESSAGING_HTTP_METHOD,
+            url: `https://${host}${path}`,
+            data: requestData,
+            headers: LEGACY_FIREBASE_MESSAGING_HEADERS,
+            timeout: FIREBASE_MESSAGING_TIMEOUT,
+        };
+        return this.httpClient.send(request).then((response) => {
+            return this.buildSendResponse(response);
+        })
+            .catch((err) => {
+            if (err instanceof api_request_1.HttpError) {
+                return this.buildSendResponseFromError(err);
+            }
+            // Re-throw the error if it already has the proper format.
+            throw err;
+        });
+    }
+const request = {
+            method: FIREBASE_MESSAGING_HTTP_METHOD,
+            url: `https://${host}${path}`,
+            data: requestData,
+            headers: LEGACY_FIREBASE_MESSAGING_HEADERS,
+            timeout: FIREBASE_MESSAGING_TIMEOUT,
+        }
+_tmp_11.method = FIREBASE_MESSAGING_HTTP_METHOD
+_tmp_11.url = <operator>.formatString("https://", host, "", path, "")
+_tmp_11.data = requestData
+_tmp_11.headers = LEGACY_FIREBASE_MESSAGING_HEADERS
+_tmp_11.timeout = FIREBASE_MESSAGING_TIMEOUT
+this.httpClient.send(request).then((response) => {
+            return this.buildSendResponse(response);
+        })
+            .catch((err) => {
+            if (err instanceof api_request_1.HttpError) {
+                return this.buildSendResponseFromError(err);
+            }
+            // Re-throw the error if it already has the proper format.
+            throw err;
+        })

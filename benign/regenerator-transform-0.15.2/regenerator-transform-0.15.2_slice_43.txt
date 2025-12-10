@@ -1,0 +1,132 @@
+exports.hoist = function(funPath) {
+  const t = util.getTypes();
+  t.assertFunction(funPath.node);
+
+  let vars = {};
+
+  function varDeclToExpr({ node: vdec, scope }, includeIdentifiers) {
+    t.assertVariableDeclaration(vdec);
+    // TODO assert.equal(vdec.kind, "var");
+    let exprs = [];
+
+    vdec.declarations.forEach(function(dec) {
+      // Note: We duplicate 'dec.id' here to ensure that the variable declaration IDs don't
+      // have the same 'loc' value, since that can make sourcemaps and retainLines behave poorly.
+      vars[dec.id.name] = t.identifier(dec.id.name);
+
+      // Remove the binding, to avoid "duplicate declaration" errors when it will
+      // be injected again.
+      scope.removeBinding(dec.id.name);
+
+      if (dec.init) {
+        exprs.push(t.assignmentExpression(
+          "=", dec.id, dec.init
+        ));
+      } else if (includeIdentifiers) {
+        exprs.push(dec.id);
+      }
+    });
+
+    if (exprs.length === 0)
+      return null;
+
+    if (exprs.length ==...
+const t = util.getTypes()
+t.assertFunction(funPath.node)
+let vars = {}
+function varDeclToExpr = function varDeclToExpr({ node: vdec, scope }, includeIdentifiers) {
+    t.assertVariableDeclaration(vdec);
+    // TODO assert.equal(vdec.kind, "var");
+    let exprs = [];
+
+    vdec.declarations.forEach(function(dec) {
+      // Note: We duplicate 'dec.id' here to ensure that the variable declaration IDs don't
+      // have the same 'loc' value, since that can make sourcemaps and retainLines behave poorly.
+      vars[dec.id.name] = t.identifier(dec.id.name);
+
+      // Remove the binding, to avoid "duplicate declaration" errors when it will
+      // be injected again.
+      scope.removeBinding(dec.id.name);
+
+      if (dec.init) {
+        exprs.push(t.assignmentExpression(
+          "=", dec.id, dec.init
+        ));
+      } else if (includeIdentifiers) {
+        exprs.push(dec.id);
+      }
+    });
+
+    if (exprs.length === 0)
+      return null;
+
+    if (exprs.length === 1)
+      return exprs[0];
+
+    return t.sequenceExpression(exprs);
+  }
+funPath.get("body").traverse({
+    VariableDeclaration: {
+      exit: function(path) {
+        let expr = varDeclToExpr(path, false);
+        if (expr === null) {
+          path.remove();
+        } else {
+          // We don't need to traverse this expression any further because
+          // there can't be any new declarations inside an expression.
+          util.replaceWithOrRemove(path, t.expressionStatement(expr));
+        }
+
+        // Since the original node has been either removed or replaced,
+        // avoid traversing it any further.
+        path.skip();
+      }
+    },
+
+    ForStatement: function(path) {
+      let init = path.get("init");
+      if (init.isVariableDeclaration()) {
+        util.replaceWithOrRemove(init, varDeclToExpr(init, false));
+      }
+    },
+
+    ForXStatement: function(path) {
+      let left = path.get("left");
+      if (left.isVariableDeclaration()) {
+        util.replaceWithOrRemove(left, varDeclToExpr(left, true));
+      }
+    },
+
+    FunctionDeclara...
+_tmp_3.VariableDeclaration = {
+      exit: function(path) {
+        let expr = varDeclToExpr(path, false);
+        if (expr === null) {
+          path.remove();
+        } else {
+          // We don't need to traverse this expression any further because
+          // there can't be any new declarations inside an expression.
+          util.replaceWithOrRemove(path, t.expressionStatement(expr));
+        }
+
+        // Since the original node has been either removed or replaced,
+        // avoid traversing it any further.
+        path.skip();
+      }
+    }
+_tmp_4.exit = <lambda>2
+_tmp_3.ForStatement = <lambda>3
+_tmp_3.ForXStatement = <lambda>4
+_tmp_3.FunctionDeclaration = <lambda>5
+_tmp_3.FunctionExpression = <lambda>6
+_tmp_3.ArrowFunctionExpression = <lambda>7
+let paramNames = {}
+funPath.get("params").forEach(function(paramPath) {
+    let param = paramPath.node;
+    if (t.isIdentifier(param)) {
+      paramNames[param.name] = param;
+    } else {
+      // Variables declared by destructuring parameter patterns will be
+      // harmlessly re-declared.
+    }
+  })

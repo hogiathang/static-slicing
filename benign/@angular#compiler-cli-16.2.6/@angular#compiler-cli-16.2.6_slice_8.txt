@@ -1,0 +1,27 @@
+execute() {
+    var _a;
+    if (this.checkElement) {
+      this.tcb.domSchemaChecker.checkElement(this.tcb.id, this.element, this.tcb.schemas, this.tcb.hostIsStandalone);
+    }
+    for (const binding of this.element.inputs) {
+      if (binding.type === 0 && this.claimedInputs.has(binding.name)) {
+        continue;
+      }
+      if (binding.type === 0) {
+        if (binding.name !== "style" && binding.name !== "class") {
+          const propertyName = (_a = ATTR_TO_PROP.get(binding.name)) != null ? _a : binding.name;
+          this.tcb.domSchemaChecker.checkProperty(this.tcb.id, this.element, propertyName, binding.sourceSpan, this.tcb.schemas, this.tcb.hostIsStandalone);
+        }
+      }
+    }
+    return null;
+  }
+this.checkElement
+this.tcb.domSchemaChecker.checkElement(this.tcb.id, this.element, this.tcb.schemas, this.tcb.hostIsStandalone)
+_iterator_48 = <operator>.iterator(this.element.inputs)
+binding.type === 0 && this.claimedInputs.has(binding.name)
+continue;
+binding.type === 0
+binding.name !== "style" && binding.name !== "class"
+const propertyName = (_a = ATTR_TO_PROP.get(binding.name)) != null ? _a : binding.name
+this.tcb.domSchemaChecker.checkProperty(this.tcb.id, this.element, propertyName, binding.sourceSpan, this.tcb.schemas, this.tcb.hostIsStandalone)

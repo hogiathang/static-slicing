@@ -1,0 +1,10 @@
+destroyByType(type) {
+        const comps = this.components.get(type);
+        if (comps && comps.length) {
+            let i = comps.length - 1;
+            while (i >= 0) {
+                this.destroy(comps[i--]);
+            }
+        }
+    }
+const comps = this.components.get(type)

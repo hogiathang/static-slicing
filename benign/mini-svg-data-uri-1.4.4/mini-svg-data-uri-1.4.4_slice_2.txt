@@ -1,0 +1,21 @@
+let help = `
+Usage: mini-svg-data-uri <source> [dest]
+
+Options:
+-v, --version  Output the version number
+-h, --help     Display help for command
+
+Examples:
+  mini-svg-data-uri file.svg           Write to stdout
+  mini-svg-data-uri icon.svg icon.uri  Write to file
+`
+_tmp_1 = process.argv.slice(2)
+"-h"
+"--help"
+case undefined:
+console.log(help)
+process.exit()
+"-v"
+"--version"
+console.log(require('./package').version)
+process.exit()

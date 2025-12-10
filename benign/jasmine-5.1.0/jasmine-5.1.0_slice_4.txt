@@ -1,0 +1,12 @@
+splitPath.forEach(function(dir, index) {
+    if(index > 1) {
+      const fullPath = path.join(splitPath.slice(0, index).join('/'), dir);
+      if (!fs.existsSync(fullPath)) {
+        fs.mkdirSync(fullPath);
+      }
+    }
+  })
+index > 1
+const fullPath = path.join(splitPath.slice(0, index).join('/'), dir)
+!fs.existsSync(fullPath)
+fs.mkdirSync(fullPath)

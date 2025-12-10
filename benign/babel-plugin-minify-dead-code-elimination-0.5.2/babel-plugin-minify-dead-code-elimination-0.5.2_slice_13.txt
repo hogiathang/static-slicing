@@ -1,0 +1,4 @@
+_tmp_100.exit = exit4
+opts = param2_0.opts
+const consequent = path.get("consequent")
+const alternate = path.get("alternate")

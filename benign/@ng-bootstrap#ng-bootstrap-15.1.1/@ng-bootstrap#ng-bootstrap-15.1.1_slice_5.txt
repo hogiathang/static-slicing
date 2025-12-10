@@ -1,0 +1,27 @@
+const ngbRunTransition = (zone, element, startFn, options) => {
+    // Getting initial context from options
+    let context = options.context || {};
+    // Checking if there are already running transitions on the given element.
+    const running = runningTransitions.get(element);
+    if (running) {
+        switch (options.runningTransition) {
+            // If there is one running and we want for it to 'continue' to run, we have to cancel the new one.
+            // We're not emitting any values, but simply completing the observable (EMPTY).
+            case 'continue':
+                return EMPTY;
+            // If there is one running and we want for it to 'stop', we have to complete the running one.
+            // We're simply completing the running one and not emitting any values and merging newly provided context
+            // with the one coming from currently running transition.
+            case 'stop':
+                zone.run(() => running.transition$.complete());
+             ...
+let context = options.context || {}
+const running = runningTransitions.get(element)
+options.runningTransition
+"stop"
+zone.run(() => running.transition$.complete())
+context = Object.assign(running.context, context)
+runningTransitions.delete(element)
+const endFn = startFn(element, options.animation, context) || noopFn
+!options.animation || window.getComputedStyle(element).transitionProperty === 'none'
+zone.run(() => endFn())

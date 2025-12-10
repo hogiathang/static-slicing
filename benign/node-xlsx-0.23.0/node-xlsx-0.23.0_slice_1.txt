@@ -1,0 +1,21 @@
+const main = async () => {
+    switch (action) {
+        case 'build': {
+            const stdin = JSON.parse((await readStdin()).toString('utf8'));
+            const result = (0, __1.build)(stdin);
+            await (0, promises_1.writeFile)(args[0] || `${process.cwd()}/out.xlsx`, result);
+            break;
+        }
+        default:
+            console.log('Sorry, that is not something I know how to do.');
+    }
+    process.exit(0);
+}
+"build"
+const stdin = JSON.parse((await readStdin()).toString('utf8'))
+const result = (0, __1.build)(stdin)
+await (0, promises_1.writeFile)(args[0] || `${process.cwd()}/out.xlsx`, result)
+break;
+default:
+console.log('Sorry, that is not something I know how to do.')
+process.exit(0)

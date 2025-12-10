@@ -1,0 +1,22 @@
+exports.getApp = function (appId, credentials, fn) {
+    var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId,
+        method: 'GET',
+        headers: headers
+    };
+    get(credentials, options, fn);
+}
+var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId,
+        method: 'GET',
+        headers: headers
+    }
+_tmp_4.host = host
+_tmp_4.port = 80
+_tmp_4.path = '/v3/apps/' + appId
+_tmp_4.method = "GET"
+_tmp_4.headers = headers

@@ -1,0 +1,113 @@
+require('../lib/node-version-check')
+const _ = require('lodash')
+const waterfall = require('async/waterfall')
+_tmp_2 = require('commander')
+const program = new Command()
+const version = require('../package.json').version
+const newman = require('../')
+const util = require('./util')
+program
+    .name('newman')
+    .addHelpCommand(false)
+    .version(version, '-v, --version')
+"newman"
+addHelpCommand
+"-v, --version"
+(_tmp_10 = program
+    .command('run <collection>')
+    .description('Initiate a Postman Collection run from a given URL or path')
+    .usage('<collection> [options]')
+    .option('-e, --environment <path>', 'Specify a URL or path to a Postman Environment')
+    .option('-g, --globals <path>', 'Specify a URL or path to a file containing Postman Globals')
+    .option('-r, --reporters [reporters]', 'Specify the reporters to use for this run', util.cast.csvParse, ['cli'])
+    .option('-n, --iteration-count <n>', 'Define the number of iterations to run', util.cast.integer)
+    .option('-d, --iteration-data <path>', 'Specify a data file to use for iterations (either JSON or CSV)')
+    .option('--folder <path>',
+        'Specify the folder to run from a collection. Can be specified multiple times to run multiple folders',
+        util.cast.memoize, [])
+    .option('--global-var <value>',
+        'Allows the specification of global variables via the command line, in a key=value format',
+        util.c...).option
+"run <collection>"
+"Initiate a Postman Collection run from a given URL or path"
+"<collection> [options]"
+"Specify a URL or path to a Postman Environment"
+"Specify a URL or path to a file containing Postman Globals"
+_tmp_42 = __ecma.Array.factory()
+util.cast.integer
+"Specify a data file to use for iterations (either JSON or CSV)"
+"--folder <path>"
+"Specify the folder to run from a collection. Can be specified multiple times to run multiple folders"
+__ecma.Array.factory()
+"--global-var <value>"
+"Allows the specification of global variables via the command line, in a key=value format"
+util.cast.memoizeKeyVal
+"--env-var <value>"
+"Allows the specification of environment variables via the command line, in a key=value format"
+util.cast.memoizeKeyVal
+"Exports the final environment to a file after completing the run"
+"Exports the final globals to a file after completing the run"
+"Exports the executed collection to a file after completing the run"
+"API Key used to load the resources from the Postman API"
+"--bail [modifiers]"
+'Specify whether or not to gracefully stop a collection run on encountering an error' +
+        ' and whether to end the run with an error based on the optional modifier'
+util.cast.csvParse
+"Prevents Newman from automatically following 3XX redirect responses"
+"Specify whether or not to override the default exit code for the current run"
+"Prevents Newman from showing output to CLI"
+"Forces Unicode compliant symbols to be replaced by their plain text equivalents"
+util.cast.colorOptions
+util.cast.integer
+util.cast.integer
+util.cast.integer
+util.cast.integer
+"Specify the path to the working directory"
+"Prevents reading the files situated outside of the working directory"
+"Disables SSL validations"
+"Specify the path to a client certificates configurations (JSON)"
+"Specify the path to a client certificate (PEM)"
+"Specify the path to a client certificate private key"
+"Specify the client certificate passphrase (for protected key)"
+"Specify additionally trusted CA certificates (PEM)"
+"Specify the path to a custom cookie jar (serialized tough-cookie JSON) "
+"Exports the cookie jar to a file after completing the run"
+"Show detailed information of collection run and each request sent"
+<lambda>4
+program.addHelpText('after', `
+To get available options for a command:
+  newman <command> -h`)
+program.on('command:*', (command) => {
+    console.error(`error: invalid command \`${command}\`\n`);
+    program.help();
+})
+function run = function run (argv, callback) {
+    waterfall([
+        (next) => {
+            // cache original argv, required to parse nested options later.
+            program._originalArgs = argv;
+            // omit custom nested options, otherwise commander will throw unknown options error
+            next(null, util.omitNestedOptions(argv, '--reporter-'));
+        },
+        (args, next) => {
+            let error = null;
+
+            try {
+                program.parse(args);
+            }
+            catch (err) {
+                error = err;
+            }
+            next(error);
+        },
+        (next) => {
+            // throw error if no argument is provided.
+            next(program.args.length ? null : new Error('no arguments provided'));
+        }
+    ], (error) => {
+        // invoke callback if this is required as module, used in tests.
+        if (callback) { return callback(error); }
+
+        // in case of an error, log error message and print help message.
+        if (error)...
+!module.parent && run(process.argv)

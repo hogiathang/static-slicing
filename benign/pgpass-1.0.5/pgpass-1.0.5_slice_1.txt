@@ -1,0 +1,20 @@
+function warn = function warn() {
+    var isWritable = (
+        warnStream instanceof Stream &&
+          true === warnStream.writable
+    );
+
+    if (isWritable) {
+        var args = Array.prototype.slice.call(arguments).concat("\n");
+        warnStream.write( util.format.apply(util, args) );
+    }
+}
+var isWritable = (
+        warnStream instanceof Stream &&
+          true === warnStream.writable
+    )
+warnStream instanceof Stream &&
+          true === warnStream.writable
+true === warnStream.writable
+var args = Array.prototype.slice.call(arguments).concat("\n")
+warnStream.write( util.format.apply(util, args) )

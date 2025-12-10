@@ -1,0 +1,23 @@
+function getDefaultWriteTest = function getDefaultWriteTest(ctx, field) {
+    var def = ctx._defaults[field.name];
+    var type = getType(ctx, field);
+    var code = '    if (obj.' + field.name;
+
+    if (!field.repeated && (!type || !type._proto.fields)) {
+        if (def === undefined || def) {
+            code += ' != undefined';
+        }
+        if (def) {
+            code += ' && obj.' + field.name + ' !== ' + JSON.stringify(def);
+        }
+    }
+
+    return code + ') ';
+}
+var def = ctx._defaults[field.name]
+var type = getType(ctx, field)
+var code = '    if (obj.' + field.name
+!field.repeated && (!type || !type._proto.fields)
+def === undefined || def
+code += ' != undefined'
+code += ' && obj.' + field.name + ' !== ' + JSON.stringify(def)

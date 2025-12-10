@@ -1,0 +1,11 @@
+_tmp_0.(([\\w\\-\\/\\.]+)\\.(css|js|json|jsonp|html|xml)$) = <lambda>5
+res.writeHead(200, {
+        'Expires': 0
+      , 'Cache-Control': 'max-age=0, no-cache, no-store'
+      , 'Content-Type': getMime(ext)
+    })
+_tmp_3.Expires = 0
+_tmp_3.Cache-Control = "max-age=0, no-cache, no-store"
+_tmp_3.Content-Type = getMime(ext)
+req.query.echo !== undefined
+res.write(fs.readFileSync('./' + file + '.' + ext))

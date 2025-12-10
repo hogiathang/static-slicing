@@ -1,0 +1,14 @@
+fs.stat(exports.HOSTS, function (err, stat) {
+    if (err) {
+      return cb(err)
+    }
+    var s = fs.createWriteStream(exports.HOSTS, { mode: stat.mode })
+    s.on('close', cb)
+    s.on('error', cb)
+
+    lines.forEach(function (data) {
+      s.write(data)
+    })
+    s.end()
+  })
+var s = fs.createWriteStream(exports.HOSTS, { mode: stat.mode })

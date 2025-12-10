@@ -1,0 +1,49 @@
+module.exports = function getPixels(url, type, cb) {
+  if(!cb) {
+    cb = type
+    type = ''
+  }
+  if(Buffer.isBuffer(url)) {
+    if(!type) {
+      cb(new Error('Invalid file type'))
+      return
+    }
+    doParse(type, url, cb)
+  } else if(url.indexOf('data:') === 0) {
+    try {
+      var buffer = parseDataURI(url)
+      if(buffer) {
+        process.nextTick(function() {
+          doParse(type || buffer.mimeType, buffer.data, cb)
+        })
+      } else {
+        process.nextTick(function() {
+          cb(new Error('Error parsing data URI'))
+        })
+      }
+    } catch(err) {
+      process.nextTick(function() {
+        cb(err)
+      })
+    }
+  } else if(url.indexOf('http://') === 0 || url.indexOf('https://') === 0) {
+    request({url:url, encoding:null}, function(err, response, body) {
+      if(err) {
+        cb(err)
+        return
+      }
+
+      type = type;
+      if(!type){
+        if(response.getHeader !== undefined){
+	  type = response.getHeader('content-type');
+	}else if(re...
+!cb
+cb = type
+type = ''
+Buffer.isBuffer(url)
+url.indexOf('data:') === 0
+var buffer = parseDataURI(url)
+process.nextTick(function() {
+          doParse(type || buffer.mimeType, buffer.data, cb)
+        })

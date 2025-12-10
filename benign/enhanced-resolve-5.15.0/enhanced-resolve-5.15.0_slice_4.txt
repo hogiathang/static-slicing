@@ -1,0 +1,41 @@
+provideSync(path, options) {
+		if (typeof path !== "string") {
+			throw new TypeError("path must be a string");
+		}
+		if (options) {
+			return this._syncProvider.call(this._providerContext, path, options);
+		}
+
+		// In sync mode we may have to decay some cache items
+		if (this._mode === STORAGE_MODE_SYNC) {
+			this._runDecays();
+		}
+
+		// Check in cache
+		let cacheEntry = this._data.get(path);
+		if (cacheEntry !== undefined) {
+			if (cacheEntry.err) throw cacheEntry.err;
+			return cacheEntry.result;
+		}
+
+		// Get all active async operations
+		// This sync operation will also complete them
+		const callbacks = this._activeAsyncOperations.get(path);
+		this._activeAsyncOperations.delete(path);
+
+		// Run the operation
+		// When in idle mode, we will enter sync mode
+		let result;
+		try {
+			result = this._syncProvider.call(this._providerContext, path);
+		} catch (err) {
+			this._storeResult(path, /** @type {Error} */ (err), undefined);
+			this._enterSyncModeWhenIdle();
+			if (callbacks) {...
+typeof path !== "string"
+throw new TypeError("path must be a string");
+this._mode === STORAGE_MODE_SYNC
+this._runDecays()
+let cacheEntry = this._data.get(path)
+cacheEntry !== undefined
+const callbacks = this._activeAsyncOperations.get(path)

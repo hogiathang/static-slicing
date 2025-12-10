@@ -1,0 +1,3 @@
+function(node) {
+    return get(node, id).value[name];
+  }

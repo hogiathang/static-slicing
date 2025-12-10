@@ -1,0 +1,52 @@
+var casper = require("casper").create({
+    verbose: true
+})
+_tmp_2.verbose = true
+var links = [
+    "http://google.com/",
+    "http://yahoo.com/",
+    "http://bing.com/"
+]
+_tmp_3.push("http://google.com/")
+_tmp_3.push("http://yahoo.com/")
+_tmp_3.push("http://bing.com/")
+var upTo = ~~casper.cli.get(0) || 10
+var currentLink = 0
+function addLinks = function addLinks(link) {
+    this.then(function() {
+        var found = this.evaluate(searchLinks);
+        this.echo(found.length + " links found on " + link);
+        links = links.concat(found);
+    });
+}
+function searchLinks = function searchLinks() {
+    var filter, map;
+    filter = Array.prototype.filter;
+    map = Array.prototype.map;
+    return map.call(filter.call(document.querySelectorAll("a"), function(a) {
+        return (/^http:\/\/.*/i).test(a.getAttribute("href"));
+    }), function(a) {
+        return a.getAttribute("href");
+    });
+}
+function start = function start(link) {
+    this.start(link, function() {
+        this.echo('Page title: ' + this.getTitle());
+    });
+}
+function check = function check() {
+    if (links[currentLink] && currentLink < upTo) {
+        this.echo('--- Link ' + currentLink + ' ---');
+        start.call(this, links[currentLink]);
+        addLinks.call(this, links[currentLink]);
+        currentLink++;
+        this.run(check);
+    } else {
+        this.echo("All done.");
+        this.exit();
+    }
+}
+casper.start().then(function() {
+    this.echo("Starting");
+})
+casper.run(check)

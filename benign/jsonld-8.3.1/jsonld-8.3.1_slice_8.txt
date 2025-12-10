@@ -1,0 +1,63 @@
+function _expandIri = function _expandIri(activeCtx, value, relativeTo, localCtx, defined, options) {
+  // already expanded
+  if(value === null || !_isString(value) || api.isKeyword(value)) {
+    return value;
+  }
+
+  // ignore non-keyword things that look like a keyword
+  if(value.match(REGEX_KEYWORD)) {
+    return null;
+  }
+
+  // define term dependency if not defined
+  if(localCtx && localCtx.hasOwnProperty(value) &&
+    defined.get(value) !== true) {
+    api.createTermDefinition({
+      activeCtx, localCtx, term: value, defined, options
+    });
+  }
+
+  relativeTo = relativeTo || {};
+  if(relativeTo.vocab) {
+    const mapping = activeCtx.mappings.get(value);
+
+    // value is explicitly ignored with a null mapping
+    if(mapping === null) {
+      return null;
+    }
+
+    if(_isObject(mapping) && '@id' in mapping) {
+      // value is a term
+      return mapping['@id'];
+    }
+  }
+
+  // split value into prefix:suffix
+  const colon = value.indexOf(':');
+  if(colon > 0) {
+    const prefix = value.substr(0, colo...
+value === null || !_isString(value) || api.isKeyword(value)
+value.match(REGEX_KEYWORD)
+localCtx && localCtx.hasOwnProperty(value) &&
+    defined.get(value) !== true
+defined.get(value) !== true
+api.createTermDefinition({
+      activeCtx, localCtx, term: value, defined, options
+    })
+_tmp_0.activeCtx = activeCtx
+relativeTo = relativeTo || {}
+relativeTo.vocab
+const mapping = activeCtx.mappings.get(value)
+mapping === null
+_isObject(mapping) && '@id' in mapping
+const colon = value.indexOf(':')
+colon > 0
+const prefix = value.substr(0, colon)
+const suffix = value.substr(colon + 1)
+prefix === '_' || suffix.indexOf('//') === 0
+localCtx && localCtx.hasOwnProperty(prefix)
+api.createTermDefinition({
+        activeCtx, localCtx, term: prefix, defined, options
+      })
+_tmp_3.activeCtx = activeCtx
+const mapping = activeCtx.mappings.get(prefix)

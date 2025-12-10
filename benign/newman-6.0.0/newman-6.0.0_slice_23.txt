@@ -1,0 +1,22 @@
+_tmp_5.fetch = <lambda>10
+!callback && _.isFunction(options) && (callback = options, options = {})
+(/^https?:\/\/.*/).test(location) ? request.get({ url: location }, (err, response, body) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(null, body);
+            }) : fs.readFile(String(location), function (err, value) {
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(null, value.toString(util.detectEncoding(value)));
+            })
+request.get({ url: location }, (err, response, body) => {
+                if (err) {
+                    return callback(err);
+                }
+
+                return callback(null, body);
+            })

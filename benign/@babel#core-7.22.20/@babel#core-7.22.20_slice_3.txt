@@ -1,0 +1,27 @@
+function assertNoDuplicates = function assertNoDuplicates(items) {
+  const map = new Map();
+  for (const item of items) {
+    if (typeof item.value !== "function") continue;
+    let nameMap = map.get(item.value);
+    if (!nameMap) {
+      nameMap = new Set();
+      map.set(item.value, nameMap);
+    }
+    if (nameMap.has(item.name)) {
+      const conflicts = items.filter(i => i.value === item.value);
+      throw new Error([`Duplicate plugin/preset detected.`, `If you'd like to use two separate instances of a plugin,`, `they need separate names, e.g.`, ``, `  plugins: [`, `    ['some-plugin', {}],`, `    ['some-plugin', {}, 'some unique name'],`, `  ]`, ``, `Duplicates detected are:`, `${JSON.stringify(conflicts, null, 2)}`].join("\n"));
+    }
+    nameMap.add(item.name);
+  }
+}
+const map = new Map()
+_iterator_0 = <operator>.iterator(items)
+typeof item.value !== "function"
+let nameMap = map.get(item.value)
+!nameMap
+nameMap = new Set()
+map.set(item.value, nameMap)
+nameMap.has(item.name)
+const conflicts = items.filter(i => i.value === item.value)
+throw new Error([`Duplicate plugin/preset detected.`, `If you'd like to use two separate instances of a plugin,`, `they need separate names, e.g.`, ``, `  plugins: [`, `    ['some-plugin', {}],`, `    ['some-plugin', {}, 'some unique name'],`, `  ]`, ``, `Duplicates detected are:`, `${JSON.stringify(conflicts, null, 2)}`].join("\n"));
+nameMap.add(item.name)

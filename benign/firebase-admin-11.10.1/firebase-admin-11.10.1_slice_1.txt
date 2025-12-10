@@ -1,0 +1,20 @@
+initializeDatabase(databaseId, settings) {
+        const existingInstance = this.databases.get(databaseId);
+        if (existingInstance) {
+            const initialSettings = this.firestoreSettings.get(databaseId) ?? {};
+            if (this.checkIfSameSettings(settings, initialSettings)) {
+                return existingInstance;
+            }
+            throw new error_1.FirebaseFirestoreError({
+                code: 'failed-precondition',
+                message: 'initializeFirestore() has already been called with ' +
+                    'different options. To avoid this error, call initializeFirestore() with the ' +
+                    'same options as when it was originally called, or call getFirestore() to return the' +
+                    ' already initialized instance.'
+            });
+        }
+        const newInstance = initFirestore(this.app, databaseId, settings);
+        this.databases.set(databaseId, newInstance);
+        this.firestoreSettings.set(databaseId, setti...
+const existingInstance = this.databases.get(databaseId)
+const initialSettings = this.firestoreSettings.get(databaseId) ?? {}

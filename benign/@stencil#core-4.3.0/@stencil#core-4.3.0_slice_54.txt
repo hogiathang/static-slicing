@@ -1,0 +1,9 @@
+_tmp_1059.createLineUpdater = <lambda>700
+const e = await Promise.resolve().then((function() {
+     return _interopNamespace(require("readline"));
+    }))
+let t = Promise.resolve()
+const r = r => (r = r.substring(0, process.stdout.columns - 5) + "[0m", t = t.then((() => new Promise((t => {
+     e.clearLine(process.stdout, 0), e.cursorTo(process.stdout, 0, null), process.stdout.write(r, t);
+    })))))
+(_tmp_1067 = process.stdout).write

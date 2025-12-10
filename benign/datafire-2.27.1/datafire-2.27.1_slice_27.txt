@@ -1,0 +1,41 @@
+var addIntegration = function addIntegration(directory, name, type, spec, callback) {
+  name = name || getNameFromHost(spec.host);
+  var baseDir = path.join(directory, name);
+  var openapiFilename = path.join(baseDir, 'openapi.json');
+  var integFilename = path.join(baseDir, 'index.js');
+  var detailsFilename = path.join(baseDir, 'details.json');
+  spec.info['x-datafire'] = { name: name, type: type };
+  fs.mkdir(directory, function (err) {
+    if (err && err.code !== 'EEXIST') return callback(err);
+    fs.mkdir(path.join(directory, name), function (err) {
+      if (err && err.code !== 'EEXIST') return callback(err);
+      fs.writeFile(openapiFilename, JSON.stringify(spec, null, 2), function (e) {
+        if (e) return callback(e);
+        fs.writeFile(integFilename, integrationCode(name), function (e) {
+          if (e) return callback(e);
+          var integ = require(integFilename);
+          fs.writeFile(detailsFilename, JSON.stringify(integ.getDetails(true), null, 2), function (e) {...
+name = name || getNameFromHost(spec.host)
+var baseDir = path.join(directory, name)
+var openapiFilename = path.join(baseDir, 'openapi.json')
+var integFilename = path.join(baseDir, 'index.js')
+var detailsFilename = path.join(baseDir, 'details.json')
+spec.info['x-datafire'] = { name: name, type: type }
+fs.mkdir(directory, function (err) {
+    if (err && err.code !== 'EEXIST') return callback(err);
+    fs.mkdir(path.join(directory, name), function (err) {
+      if (err && err.code !== 'EEXIST') return callback(err);
+      fs.writeFile(openapiFilename, JSON.stringify(spec, null, 2), function (e) {
+        if (e) return callback(e);
+        fs.writeFile(integFilename, integrationCode(name), function (e) {
+          if (e) return callback(e);
+          var integ = require(integFilename);
+          fs.writeFile(detailsFilename, JSON.stringify(integ.getDetails(true), null, 2), function (e) {
+            if (e) return callback(e);
+            logger.log('Created integration ' + name + ' in ' + baseDir.replace(process.cwd(), '.'));
+            callback(null, spec);
+          });
+        });
+      });
+    });
+  })

@@ -1,0 +1,36 @@
+function getData = async function getData (cache, key, opts = {}) {
+  const { integrity, memoize, size } = opts
+  const memoized = memo.get(cache, key, opts)
+  if (memoized && memoize !== false) {
+    return {
+      metadata: memoized.entry.metadata,
+      data: memoized.data,
+      integrity: memoized.entry.integrity,
+      size: memoized.entry.size,
+    }
+  }
+
+  const entry = await index.find(cache, key, opts)
+  if (!entry) {
+    throw new index.NotFoundError(cache, key)
+  }
+  const data = await read(cache, entry.integrity, { integrity, size })
+  if (memoize) {
+    memo.put(cache, entry, data, opts)
+  }
+
+  return {
+    data,
+    metadata: entry.metadata,
+    size: entry.size,
+    integrity: entry.integrity,
+  }
+}
+integrity = _tmp_1.integrity
+const memoized = memo.get(cache, key, opts)
+memoized && memoize !== false
+const entry = await index.find(cache, key, opts)
+!entry
+throw new index.NotFoundError(cache, key)
+const data = await read(cache, entry.integrity, { integrity, size })
+memo.put(cache, entry, data, opts)

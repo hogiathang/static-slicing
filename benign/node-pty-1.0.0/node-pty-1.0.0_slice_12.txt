@@ -1,0 +1,83 @@
+private _pid: number = 0;
+private _innerPid: number = 0;
+private _innerPidHandle: number = 0;
+constructor(
+    file: string,
+    args: ArgvOrCommandLine,
+    env: string[],
+    cwd: string,
+    cols: number,
+    rows: number,
+    debug: boolean,
+    private _useConpty: boolean | undefined,
+    conptyInheritCursor: boolean = false
+  ) {
+    if (this._useConpty === undefined || this._useConpty === true) {
+      this._useConpty = this._getWindowsBuildNumber() >= 18309;
+    }
+    if (this._useConpty) {
+      if (!conptyNative) {
+        try {
+          conptyNative = require('../build/Release/conpty.node');
+        } catch (outerError) {
+          try {
+            conptyNative = require('../build/Debug/conpty.node');
+          } catch (innerError) {
+            console.error('innerError', innerError);
+            // Re-throw the exception from the Release require if the Debug require fails as well
+            throw outerError;
+          }
+        }
+      }
+    } else {
+      if (!winptyNative) {
+        try {
+          winptyNative = require('../build/Release/pty.node');
+      ...
+this._useConpty = _useConpty
+conptyInheritCursor = conptyInheritCursor === void 0 ? false : conptyInheritCursor
+this._useConpty === undefined || this._useConpty === true
+this._useConpty = this._getWindowsBuildNumber() >= 18309
+this._useConpty
+!conptyNative
+conptyNative = require('../build/Release/conpty.node')
+conptyNative = require('../build/Debug/conpty.node')
+console.error('innerError', innerError)
+throw outerError;
+!winptyNative
+winptyNative = require('../build/Release/pty.node')
+winptyNative = require('../build/Debug/pty.node')
+console.error('innerError', innerError)
+throw outerError;
+this._ptyNative = this._useConpty ? conptyNative : winptyNative
+cwd = path.resolve(cwd)
+const commandLine = argsToCommandLine(file, args)
+this._useConpty
+term = (this._ptyNative as IConptyNative).startProcess(file, cols, rows, debug, this._generatePipeName(), conptyInheritCursor)
+term = (this._ptyNative as IWinptyNative).startProcess(file, commandLine, env, cwd, cols, rows, debug)
+this._pid = (term as IWinptyProcess).pid
+this._innerPid = (term as IWinptyProcess).innerPid
+this._innerPidHandle = (term as IWinptyProcess).innerPidHandle
+this._fd = term.fd
+this._pty = term.pty
+this._outSocket = new Socket()
+(_tmp_3 = this._outSocket).setEncoding
+this._conoutSocketWorker = new ConoutConnection(term.conout)
+this._conoutSocketWorker.onReady(() => {
+      this._conoutSocketWorker.connectSocket(this._outSocket);
+    })
+this._outSocket.on('connect', () => {
+      this._outSocket.emit('ready_datapipe');
+    })
+const inSocketFD = fs.openSync(term.conin, 'w')
+this._inSocket = new Socket({
+      fd: inSocketFD,
+      readable: false,
+      writable: true
+    })
+_tmp_10.fd = inSocketFD
+_tmp_10.readable = false
+_tmp_10.writable = true
+(_tmp_11 = this._inSocket).setEncoding
+this._useConpty
+const connect = (this._ptyNative as IConptyNative).connect(this._pty, commandLine, cwd, env, c => this._$onProcessExit(c))

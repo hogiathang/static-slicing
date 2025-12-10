@@ -1,0 +1,11 @@
+options = options === void 0 ? {} : options
+!this.ws
+this.heartbeatInterval
+clearInterval(this.heartbeatInterval)
+this.heartbeatInterval = null
+this.ws.readyState !== WebSocket.CLOSED
+this.ws.removeListener("message", this._onWSMessage)
+this.ws.removeListener("close", this._onWSClose)
+options.reconnect && this.sessionID
+this.ws.readyState === WebSocket.OPEN
+this.emit("debug", `Terminating websocket (state: ${this.ws.readyState})`, this.id)

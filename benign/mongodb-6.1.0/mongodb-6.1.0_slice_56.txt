@@ -1,0 +1,30 @@
+serverUpdateHandler(serverDescription) {
+        if (!this.s.description.hasServer(serverDescription.address)) {
+            return;
+        }
+        // ignore this server update if its from an outdated topologyVersion
+        if (isStaleServerDescription(this.s.description, serverDescription)) {
+            return;
+        }
+        // these will be used for monitoring events later
+        const previousTopologyDescription = this.s.description;
+        const previousServerDescription = this.s.description.servers.get(serverDescription.address);
+        if (!previousServerDescription) {
+            return;
+        }
+        // Driver Sessions Spec: "Whenever a driver receives a cluster time from
+        // a server it MUST compare it to the current highest seen cluster time
+        // for the deployment. If the new cluster time is higher than the
+        // highest seen cluster time it MUST become the new highest seen cluster
+        // time. Two cluster times are compared using onl...
+!this.s.description.hasServer(serverDescription.address)
+isStaleServerDescription(this.s.description, serverDescription)
+const previousTopologyDescription = this.s.description
+const previousServerDescription = this.s.description.servers.get(serverDescription.address)
+!previousServerDescription
+const clusterTime = serverDescription.$clusterTime
+(0, common_1._advanceClusterTime)(this, clusterTime)
+const equalDescriptions = previousServerDescription && previousServerDescription.equals(serverDescription)
+this.s.description = this.s.description.update(serverDescription)
+this.s.description.compatibilityError
+this.emit(Topology.ERROR, new error_1.MongoCompatibilityError(this.s.description.compatibilityError))

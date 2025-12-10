@@ -1,0 +1,57 @@
+(request, resolveContext, callback) => {
+				// When there is no description file, abort
+				if (!request.descriptionFilePath || request.request === undefined) {
+					return callback();
+				}
+
+				const remainingRequest =
+					request.request + request.query + request.fragment;
+				const importsField =
+					/** @type {ImportsField|null|undefined} */
+					(
+						DescriptionFileUtils.getField(
+							/** @type {JsonObject} */ (request.descriptionFileData),
+							this.fieldName
+						)
+					);
+				if (!importsField) return callback();
+
+				if (request.directory) {
+					return callback(
+						new Error(
+							`Resolving to directories is not possible with the imports field (request was ${remainingRequest}/)`
+						)
+					);
+				}
+
+				/** @type {string[]} */
+				let paths;
+
+				try {
+					// We attach the cache to the description file instead of the importsField value
+					// because we use a WeakMap and the importsField could be a string too.
+					// Description file is always an ob...
+!request.descriptionFilePath || request.request === undefined
+const remainingRequest =
+					request.request + request.query + request.fragment
+request.request + request.query + request.fragment
+const importsField =
+					/** @type {ImportsField|null|undefined} */
+					(
+						DescriptionFileUtils.getField(
+							/** @type {JsonObject} */ (request.descriptionFileData),
+							this.fieldName
+						)
+					)
+DescriptionFileUtils.getField(
+							/** @type {JsonObject} */ (request.descriptionFileData),
+							this.fieldName
+						)
+request.descriptionFileData
+this.fieldName
+!importsField
+request.directory
+let fieldProcessor = this.fieldProcessorCache.get(
+						/** @type {JsonObject} */ (request.descriptionFileData)
+					)
+request.descriptionFileData

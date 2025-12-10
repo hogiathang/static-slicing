@@ -1,0 +1,27 @@
+q.push(function (next) {
+        if (stat.isDirectory()) {
+            mkdir(dst, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            });
+        } else {
+            copyBody(src, dst, transformFactories, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            });
+        }
+    })
+stat.isDirectory()
+mkdir(dst, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            })

@@ -1,0 +1,64 @@
+Connection.prototype._createSocket = function() {
+  var hostName = this._chooseHost(), self = this, port = this.options.port;
+  var parsedHost = URL.parse(hostName);
+  if(parsedHost.port){
+    hostName = parsedHost.hostname;
+    port = parsedHost.port;
+  }
+
+  var options = {
+    port: port,
+    host: hostName
+  };
+
+  // Disable tcp nagle's algo
+  // Default: true, makes small messages faster
+  var noDelay = this.options.noDelay || true;
+
+  var resetConnectionTimeout = function () {
+    debug && debug('connected so resetting connection timeout');
+    this.setTimeout(0);
+  };
+
+  // Connect socket
+  if (this.options.ssl.enabled) {
+    debug && debug('making ssl connection');
+    options = _.assignIn(options, this._getSSLOptions());
+    this.socket = tls.connect(options, resetConnectionTimeout);
+  } else {
+    debug && debug('making non-ssl connection');
+    this.socket = net.connect(options, resetConnectionTimeout);
+  }
+  var connTimeout = this.options.connectionTimeout;
+  if (connTime...
+var hostName = this._chooseHost()
+var parsedHost = URL.parse(hostName)
+parsedHost.port
+hostName = parsedHost.hostname
+port = parsedHost.port
+var options = {
+    port: port,
+    host: hostName
+  }
+_tmp_62.port = port
+_tmp_62.host = hostName
+var noDelay = this.options.noDelay || true
+var resetConnectionTimeout = function () {
+    debug && debug('connected so resetting connection timeout');
+    this.setTimeout(0);
+  }
+this.options.ssl.enabled
+debug && debug('making ssl connection')
+options = _.assignIn(options, this._getSSLOptions())
+this.socket = tls.connect(options, resetConnectionTimeout)
+debug && debug('making non-ssl connection')
+this.socket = net.connect(options, resetConnectionTimeout)
+var connTimeout = this.options.connectionTimeout
+debug && debug('setting connection timeout to ' + connTimeout)
+this.socket.setTimeout(connTimeout, function () {
+      debug && debug('connection timeout');
+      this.destroy();
+      var e = new Error('connection timeout');
+      e.name = 'TimeoutError';
+      self.emit('error', e);
+    })

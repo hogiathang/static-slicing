@@ -1,0 +1,11 @@
+_tmp_3.push([endKey, blockMap.get(endKey)])
+startKey === endKey
+sliceStart = startOffset
+sliceEnd = endOffset
+sliceStart = blockKey === startKey ? startOffset : 0
+sliceEnd = blockKey === endKey ? endOffset : block.getLength()
+var chars = block.getCharacterList()
+sliceStart < sliceEnd
+current = chars.get(sliceStart)
+chars = chars.set(sliceStart, addOrRemove ? CharacterMetadata.applyStyle(current, inlineStyle) : CharacterMetadata.removeStyle(current, inlineStyle))
+sliceStart++

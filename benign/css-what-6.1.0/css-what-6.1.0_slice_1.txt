@@ -1,0 +1,319 @@
+function parseSelector = function parseSelector(subselects, selector, selectorIndex) {
+    var tokens = [];
+    function getName(offset) {
+        var match = selector.slice(selectorIndex + offset).match(reName);
+        if (!match) {
+            throw new Error("Expected name, found ".concat(selector.slice(selectorIndex)));
+        }
+        var name = match[0];
+        selectorIndex += offset + name.length;
+        return unescapeCSS(name);
+    }
+    function stripWhitespace(offset) {
+        selectorIndex += offset;
+        while (selectorIndex < selector.length &&
+            isWhitespace(selector.charCodeAt(selectorIndex))) {
+            selectorIndex++;
+        }
+    }
+    function readValueWithParenthesis() {
+        selectorIndex += 1;
+        var start = selectorIndex;
+        var counter = 1;
+        for (; counter > 0 && selectorIndex < selector.length; selectorIndex++) {
+            if (selector.charCodeAt(selectorIndex) ===
+                40 /* LeftParenthesis */ &&
+                !isEscaped(...
+__ecma.Array.factory()
+function getName = function getName(offset) {
+        var match = selector.slice(selectorIndex + offset).match(reName);
+        if (!match) {
+            throw new Error("Expected name, found ".concat(selector.slice(selectorIndex)));
+        }
+        var name = match[0];
+        selectorIndex += offset + name.length;
+        return unescapeCSS(name);
+    }
+function stripWhitespace = function stripWhitespace(offset) {
+        selectorIndex += offset;
+        while (selectorIndex < selector.length &&
+            isWhitespace(selector.charCodeAt(selectorIndex))) {
+            selectorIndex++;
+        }
+    }
+function readValueWithParenthesis = function readValueWithParenthesis() {
+        selectorIndex += 1;
+        var start = selectorIndex;
+        var counter = 1;
+        for (; counter > 0 && selectorIndex < selector.length; selectorIndex++) {
+            if (selector.charCodeAt(selectorIndex) ===
+                40 /* LeftParenthesis */ &&
+                !isEscaped(selectorIndex)) {
+                counter++;
+            }
+            else if (selector.charCodeAt(selectorIndex) ===
+                41 /* RightParenthesis */ &&
+                !isEscaped(selectorIndex)) {
+                counter--;
+            }
+        }
+        if (counter) {
+            throw new Error("Parenthesis not matched");
+        }
+        return unescapeCSS(selector.slice(start, selectorIndex - 1));
+    }
+function isEscaped = function isEscaped(pos) {
+        var slashCount = 0;
+        while (selector.charCodeAt(--pos) === 92 /* BackSlash */)
+            slashCount++;
+        return (slashCount & 1) === 1;
+    }
+function ensureNotTraversal = function ensureNotTraversal() {
+        if (tokens.length > 0 && isTraversal(tokens[tokens.length - 1])) {
+            throw new Error("Did not expect successive traversals.");
+        }
+    }
+function addTraversal = function addTraversal(type) {
+        if (tokens.length > 0 &&
+            tokens[tokens.length - 1].type === types_1.SelectorType.Descendant) {
+            tokens[tokens.length - 1].type = type;
+            return;
+        }
+        ensureNotTraversal();
+        tokens.push({ type: type });
+    }
+function addSpecialAttribute = function addSpecialAttribute(name, action) {
+        tokens.push({
+            type: types_1.SelectorType.Attribute,
+            name: name,
+            action: action,
+            value: getName(1),
+            namespace: null,
+            ignoreCase: "quirks",
+        });
+    }
+function finalizeSubselector = function finalizeSubselector() {
+        if (tokens.length &&
+            tokens[tokens.length - 1].type === types_1.SelectorType.Descendant) {
+            tokens.pop();
+        }
+        if (tokens.length === 0) {
+            throw new Error("Empty sub-selector");
+        }
+        subselects.push(tokens);
+    }
+stripWhitespace(0)
+selector.length === selectorIndex
+selectorIndex < selector.length
+var firstChar = selector.charCodeAt(selectorIndex)
+32
+9
+10
+12
+13
+tokens.length === 0 ||
+                    tokens[0].type !== types_1.SelectorType.Descendant
+tokens[0].type !== types_1.SelectorType.Descendant
+ensureNotTraversal()
+tokens.push({ type: types_1.SelectorType.Descendant })
+stripWhitespace(1)
+break;
+62
+addTraversal(types_1.SelectorType.Child)
+stripWhitespace(1)
+break;
+60
+addTraversal(types_1.SelectorType.Parent)
+stripWhitespace(1)
+break;
+126
+addTraversal(types_1.SelectorType.Sibling)
+stripWhitespace(1)
+break;
+43
+addTraversal(types_1.SelectorType.Adjacent)
+stripWhitespace(1)
+break;
+46
+addSpecialAttribute("class", types_1.AttributeAction.Element)
+break;
+35
+addSpecialAttribute("id", types_1.AttributeAction.Equals)
+break;
+91
+stripWhitespace(1)
+var name_1 = void 0
+var namespace = null
+selector.charCodeAt(selectorIndex) === 124
+name_1 = getName(1)
+selector.startsWith("*|", selectorIndex)
+namespace = "*"
+name_1 = getName(2)
+name_1 = getName(0)
+selector.charCodeAt(selectorIndex) === 124 /* Pipe */ &&
+                        selector.charCodeAt(selectorIndex + 1) !==
+                            61
+selector.charCodeAt(selectorIndex + 1) !==
+                            61
+61
+namespace = name_1
+name_1 = getName(1)
+stripWhitespace(0)
+var action = types_1.AttributeAction.Exists
+var possibleAction = actionTypes.get(selector.charCodeAt(selectorIndex))
+action = possibleAction
+selector.charCodeAt(selectorIndex + 1) !==
+                        61
+61
+throw new Error("Expected `=`");
+stripWhitespace(2)
+selector.charCodeAt(selectorIndex) === 61
+action = types_1.AttributeAction.Equals
+stripWhitespace(1)
+var value = ""
+var ignoreCase = null
+action !== "exists"
+isQuote(selector.charCodeAt(selectorIndex))
+var quote = selector.charCodeAt(selectorIndex)
+var sectionEnd = selectorIndex + 1
+sectionEnd < selector.length &&
+                            (selector.charCodeAt(sectionEnd) !== quote ||
+                                isEscaped(sectionEnd))
+selector.charCodeAt(sectionEnd) !== quote ||
+                                isEscaped(sectionEnd)
+isEscaped(sectionEnd)
+sectionEnd += 1
+selector.charCodeAt(sectionEnd) !== quote
+throw new Error("Attribute value didn't end");
+value = unescapeCSS(selector.slice(selectorIndex + 1, sectionEnd))
+selectorIndex = sectionEnd + 1
+var valueStart = selectorIndex
+selectorIndex < selector.length &&
+                            ((!isWhitespace(selector.charCodeAt(selectorIndex)) &&
+                                selector.charCodeAt(selectorIndex) !==
+                                    93 /* RightSquareBracket */) ||
+                                isEscaped(selectorIndex))
+(!isWhitespace(selector.charCodeAt(selectorIndex)) &&
+                                selector.charCodeAt(selectorIndex) !==
+                                    93 /* RightSquareBracket */) ||
+                                isEscaped(selectorIndex)
+selector.charCodeAt(selectorIndex) !==
+                                    93
+93
+isEscaped(selectorIndex)
+selectorIndex += 1
+value = unescapeCSS(selector.slice(valueStart, selectorIndex))
+stripWhitespace(0)
+var forceIgnore = selector.charCodeAt(selectorIndex) | 0x20
+forceIgnore === 115
+ignoreCase = false
+stripWhitespace(1)
+forceIgnore === 105
+ignoreCase = true
+stripWhitespace(1)
+selector.charCodeAt(selectorIndex) !==
+                    93
+93
+throw new Error("Attribute selector didn't terminate");
+selectorIndex += 1
+var attributeSelector = {
+                    type: types_1.SelectorType.Attribute,
+                    name: name_1,
+                    action: action,
+                    value: value,
+                    namespace: namespace,
+                    ignoreCase: ignoreCase,
+                }
+_tmp_15.type = types_1.SelectorType.Attribute
+_tmp_15.name = name_1
+_tmp_15.action = action
+_tmp_15.value = value
+_tmp_15.namespace = namespace
+_tmp_15.ignoreCase = ignoreCase
+tokens.push(attributeSelector)
+break;
+58
+selector.charCodeAt(selectorIndex + 1) === 58
+tokens.push({
+                        type: types_1.SelectorType.PseudoElement,
+                        name: getName(2).toLowerCase(),
+                        data: selector.charCodeAt(selectorIndex) ===
+                            40 /* LeftParenthesis */
+                            ? readValueWithParenthesis()
+                            : null,
+                    })
+_tmp_16.type = types_1.SelectorType.PseudoElement
+_tmp_16.name = getName(2).toLowerCase()
+_tmp_16.data = selector.charCodeAt(selectorIndex) ===
+                            40 ? readValueWithParenthesis() : null
+40
+readValueWithParenthesis()
+continue;
+var name_2 = getName(1).toLowerCase()
+var data = null
+selector.charCodeAt(selectorIndex) ===
+                    40
+40
+unpackPseudos.has(name_2)
+isQuote(selector.charCodeAt(selectorIndex + 1))
+throw new Error("Pseudo-selector ".concat(name_2, " cannot be quoted"));
+__ecma.Array.factory()
+selectorIndex = parseSelector(data, selector, selectorIndex + 1)
+selector.charCodeAt(selectorIndex) !==
+                            41
+41
+throw new Error("Missing closing parenthesis in :".concat(name_2, " (").concat(selector, ")"));
+selectorIndex += 1
+data = readValueWithParenthesis()
+stripQuotesFromPseudos.has(name_2)
+var quot = data.charCodeAt(0)
+quot === data.charCodeAt(data.length - 1) &&
+                                isQuote(quot)
+isQuote(quot)
+data = data.slice(1, -1)
+data = unescapeCSS(data)
+tokens.push({ type: types_1.SelectorType.Pseudo, name: name_2, data: data })
+break;
+44
+finalizeSubselector()
+__ecma.Array.factory()
+stripWhitespace(1)
+break;
+default:
+selector.startsWith("/*", selectorIndex)
+var endIndex = selector.indexOf("*/", selectorIndex + 2)
+endIndex < 0
+throw new Error("Comment was not terminated");
+selectorIndex = endIndex + 2
+tokens.length === 0
+stripWhitespace(0)
+break;
+var namespace = null
+var name_3 = void 0
+firstChar === 42
+selectorIndex += 1
+name_3 = "*"
+firstChar === 124
+name_3 = ""
+selector.charCodeAt(selectorIndex + 1) === 124
+addTraversal(types_1.SelectorType.ColumnCombinator)
+stripWhitespace(2)
+break;
+reName.test(selector.slice(selectorIndex))
+name_3 = getName(0)
+break loop;
+selector.charCodeAt(selectorIndex) === 124 /* Pipe */ &&
+                    selector.charCodeAt(selectorIndex + 1) !== 124
+selector.charCodeAt(selectorIndex + 1) !== 124
+namespace = name_3
+selector.charCodeAt(selectorIndex + 1) ===
+                        42
+42
+name_3 = "*"
+selectorIndex += 2
+name_3 = getName(1)
+tokens.push(name_3 === "*"
+                    ? { type: types_1.SelectorType.Universal, namespace: namespace }
+                    : { type: types_1.SelectorType.Tag, name: name_3, namespace: namespace })
+_tmp_26.type = types_1.SelectorType.Universal
+_tmp_27.type = types_1.SelectorType.Tag

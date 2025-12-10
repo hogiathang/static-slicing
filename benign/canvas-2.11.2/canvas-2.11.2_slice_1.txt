@@ -1,0 +1,9 @@
+paths.forEach(function (path) {
+  if (exists(path)) {
+    process.stdout.write(path)
+    process.exit()
+  }
+})
+exists(path)
+(_tmp_2 = process.stdout).write
+process.exit()

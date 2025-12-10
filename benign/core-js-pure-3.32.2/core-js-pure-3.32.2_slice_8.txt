@@ -1,0 +1,12 @@
+microtask(function () {
+    var reactions = state.reactions;
+    var reaction;
+    while (reaction = reactions.get()) {
+      callReaction(reaction, state);
+    }
+    state.notified = false;
+    if (isReject && !state.rejection) onUnhandled(state);
+  })
+var reactions = state.reactions
+reaction = reactions.get()
+callReaction(reaction, state)

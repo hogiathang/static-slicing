@@ -1,0 +1,6 @@
+function setLoose = function setLoose(file, feature, loose) {
+  if (loose) file.set(looseKey, file.get(looseKey) | feature);else file.set(looseKey, file.get(looseKey) & ~feature);
+  file.set(looseLowPriorityKey, file.get(looseLowPriorityKey) & ~feature);
+}
+file.set(looseKey, file.get(looseKey) & ~feature)
+file.set(looseLowPriorityKey, file.get(looseLowPriorityKey) & ~feature)

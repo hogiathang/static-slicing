@@ -1,0 +1,36 @@
+await Promise.all(symlinks.map(async ({ source: symSource, destination: symDestination }) => {
+      let target = await fs.readlink(symSource)
+      // junction symlinks in windows will be absolute paths, so we need to
+      // make sure they point to the symlink destination
+      if (isAbsolute(target)) {
+        target = resolve(symDestination, relative(symSource, target))
+      }
+      // try to determine what the actual file is so we can create the correct
+      // type of symlink in windows
+      let targetStat = 'file'
+      try {
+        targetStat = await fs.stat(resolve(dirname(symSource), target))
+        if (targetStat.isDirectory()) {
+          targetStat = 'junction'
+        }
+      } catch {
+        // targetStat remains 'file'
+      }
+      await fs.symlink(
+        target,
+        symDestination,
+        targetStat
+      )
+    }))
+let target = await fs.readlink(symSource)
+isAbsolute(target)
+target = resolve(symDestination, relative(symSource, target))
+let targetStat = 'file'
+targetStat = await fs.stat(resolve(dirname(symSource), target))
+targetStat.isDirectory()
+targetStat = 'junction'
+await fs.symlink(
+        target,
+        symDestination,
+        targetStat
+      )

@@ -1,0 +1,12 @@
+function outputFileSync = function outputFileSync (file, ...args) {
+  const dir = path.dirname(file)
+  if (fs.existsSync(dir)) {
+    return fs.writeFileSync(file, ...args)
+  }
+  mkdir.mkdirsSync(dir)
+  fs.writeFileSync(file, ...args)
+}
+const dir = path.dirname(file)
+fs.existsSync(dir)
+mkdir.mkdirsSync(dir)
+fs.writeFileSync(file, ...args)

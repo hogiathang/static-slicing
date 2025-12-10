@@ -1,0 +1,8 @@
+_tmp_1.TaggedTemplateExpression = TaggedTemplateExpression
+let processed = state.get("processed")
+!processed
+processed = new WeakSet()
+state.set("processed", processed)
+processed.has(path.node)
+const expressions = path.node.quasi.expressions
+let identity = state.get("identity")

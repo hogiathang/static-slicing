@@ -1,0 +1,29 @@
+function WriteStreamAtomic = function WriteStreamAtomic (path, options) {
+  if (!(this instanceof WriteStreamAtomic)) {
+    return new WriteStreamAtomic(path, options)
+  }
+  Writable.call(this, options)
+
+  this.__isWin = options && options.hasOwnProperty('isWin') ? options.isWin : process.platform === 'win32'
+
+  this.__atomicTarget = path
+  this.__atomicTmp = getTmpname(path)
+
+  this.__atomicChown = options && options.chown
+
+  this.__atomicClosed = false
+
+  this.__atomicStream = fs.WriteStream(this.__atomicTmp, options)
+
+  this.__atomicStream.once('open', handleOpen(this))
+  this.__atomicStream.once('close', handleClose(this))
+  this.__atomicStream.once('error', handleError(this))
+}
+!(this instanceof WriteStreamAtomic)
+Writable.call(this, options)
+this.__isWin = options && options.hasOwnProperty('isWin') ? options.isWin : process.platform === 'win32'
+this.__atomicTarget = path
+this.__atomicTmp = getTmpname(path)
+this.__atomicChown = options && options.chown
+this.__atomicClosed = false
+this.__atomicStream = fs.WriteStream(this.__atomicTmp, options)

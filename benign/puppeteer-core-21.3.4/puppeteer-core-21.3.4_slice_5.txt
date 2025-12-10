@@ -1,0 +1,22 @@
+getTopLevelContext(contextId) {
+        let currentContext = this.#browsingContexts.get(contextId);
+        if (!currentContext) {
+            throw new Error(`BrowsingContext ${contextId} does not exist.`);
+        }
+        while (currentContext.parent) {
+            contextId = currentContext.parent;
+            currentContext = this.#browsingContexts.get(contextId);
+            if (!currentContext) {
+                throw new Error(`BrowsingContext ${contextId} does not exist.`);
+            }
+        }
+        return currentContext;
+    }
+let currentContext = this.#browsingContexts.get(contextId)
+!currentContext
+<operator>.formatString("BrowsingContext ", contextId, " does not exist.")
+currentContext.parent
+contextId = currentContext.parent
+currentContext = this.#browsingContexts.get(contextId)
+!currentContext
+<operator>.formatString("BrowsingContext ", contextId, " does not exist.")

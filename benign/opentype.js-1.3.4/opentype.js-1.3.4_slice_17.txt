@@ -1,0 +1,76 @@
+execGlyph = function(glyph, prepState) {
+    // original point positions
+    const xScale = prepState.ppem / prepState.font.unitsPerEm;
+    const yScale = xScale;
+    let components = glyph.components;
+    let contours;
+    let gZone;
+    let state;
+
+    State.prototype = prepState;
+    if (!components) {
+        state = new State('glyf', glyph.instructions);
+        if (exports.DEBUG) {
+            console.log('---EXEC GLYPH---');
+            state.step = -1;
+        }
+        execComponent(glyph, state, xScale, yScale);
+        gZone = state.gZone;
+    } else {
+        const font = prepState.font;
+        gZone = [];
+        contours = [];
+        for (let i = 0; i < components.length; i++) {
+            const c = components[i];
+            const cg = font.glyphs.get(c.glyphIndex);
+
+            state = new State('glyf', cg.instructions);
+
+            if (exports.DEBUG) {
+                console.log('---EXEC COMP ' + i + '---');
+                state.step = -1;
+            }
+
+     ...
+const xScale = prepState.ppem / prepState.font.unitsPerEm
+const yScale = xScale
+let components = glyph.components
+State.prototype = prepState
+!components
+const font = prepState.font
+__ecma.Array.factory()
+__ecma.Array.factory()
+i < components.length
+const c = components[i]
+const cg = font.glyphs.get(c.glyphIndex)
+state = new State('glyf', cg.instructions)
+exports.DEBUG
+console.log('---EXEC COMP ' + i + '---')
+state.step = -1
+execComponent(cg, state, xScale, yScale)
+const dx = Math.round(c.dx * xScale)
+const dy = Math.round(c.dy * yScale)
+const gz = state.gZone
+const cc = state.contours
+pi < gz.length
+const p = gz[pi]
+p.xTouched = p.yTouched = false
+p.xo = p.x = p.x + dx
+p.yo = p.y = p.y + dy
+const gLen = gZone.length
+(_tmp_50 = gZone.push).apply
+j < cc.length
+contours.push(cc[j] + gLen)
+glyph.instructions && !state.inhibitGridFit
+state = new State('glyf', glyph.instructions)
+state.gZone = state.z0 = state.z1 = state.z2 = gZone
+state.contours = contours
+gZone.push(
+                new HPoint(0, 0),
+                new HPoint(Math.round(glyph.advanceWidth * xScale), 0)
+            )
+_tmp_52 = .alloc
+new HPoint(Math.round(glyph.advanceWidth * xScale), 0)
+exports.DEBUG
+console.log('---EXEC COMPOSITE---')
+state.step = -1

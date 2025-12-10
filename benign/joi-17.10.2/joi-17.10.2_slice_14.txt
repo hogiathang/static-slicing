@@ -1,0 +1,102 @@
+report(file) {
+
+        const coverage = [];
+
+        // Process each registered schema
+
+        for (const { filename, line, store } of this._schemas.values()) {
+            if (file &&
+                file !== filename) {
+
+                continue;
+            }
+
+            // Process sub schemas of the registered root
+
+            const missing = [];
+            const skipped = [];
+
+            for (const [schema, log] of store._sources.entries()) {
+
+                // Check if sub schema parent skipped
+
+                if (internals.sub(log.paths, skipped)) {
+                    continue;
+                }
+
+                // Check if sub schema reached
+
+                if (!log.entry) {
+                    missing.push({
+                        status: 'never reached',
+                        paths: [...log.paths]
+                    });
+
+                    skipped.push(...log.paths);
+                    continue;
+                }
+
+                // Check values
+
+          ...
+__ecma.Array.factory()
+_iterator_1 = <operator>.iterator(this._schemas.values())
+file &&
+                file !== filename
+file !== filename
+continue;
+__ecma.Array.factory()
+__ecma.Array.factory()
+_iterator_2 = <operator>.iterator(store._sources.entries())
+internals.sub(log.paths, skipped)
+continue;
+!log.entry
+missing.push({
+                        status: 'never reached',
+                        paths: [...log.paths]
+                    })
+_tmp_13.status = "never reached"
+_tmp_14 = __ecma.Array.factory()
+skipped.push(...log.paths)
+continue;
+_iterator_3 = <operator>.iterator(['valid', 'invalid'])
+schema[<operator>.formatString("_", type, "s")]
+!set
+continue;
+const values = new Set(set._values)
+const refs = new Set(set._refs)
+_iterator_4 = <operator>.iterator(log[type])
+values.delete(value)
+refs.delete(ref)
+values.size ||
+                        refs.size
+refs.size
+missing.push({
+                            status: [...values, ...[...refs].map((ref) => ref.display)],
+                            rule: `${type}s`
+                        })
+_tmp_18.status = [...values, ...[...refs].map((ref) => ref.display)]
+_tmp_18.rule = <operator>.formatString("", type, "s")
+const rules = schema._rules.map((rule) => rule.name)
+_iterator_5 = <operator>.iterator(['default', 'failover'])
+schema._flags[type] !== undefined
+rules.push(type)
+_iterator_6 = <operator>.iterator(rules)
+const status = internals.labels[log.rule[name] || 0]
+const report = { rule: name, status }
+log.paths.size
+_tmp_25 = __ecma.Array.factory()
+missing.push(report)
+missing.length
+coverage.push({
+                    filename,
+                    line,
+                    missing,
+                    severity: 'error',
+                    message: `Schema missing tests for ${missing.map(internals.message).join(', ')}`
+                })
+_tmp_26.filename = filename
+_tmp_26.line = line
+_tmp_26.missing = missing
+_tmp_26.severity = "error"
+_tmp_26.message = <operator>.formatString("Schema missing tests for ", missing.map(internals.message).join(', '), "")

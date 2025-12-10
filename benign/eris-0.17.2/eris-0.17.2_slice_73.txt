@@ -1,0 +1,46 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"VOICE_STATE_UPDATE"
+packet.d.guild_id && packet.d.user_id === this.client.user.id
+const voiceConnection = this.client.voiceConnections.get(packet.d.guild_id)
+packet.d.channel_id === null
+this.client.voiceConnections.leave(packet.d.guild_id)
+voiceConnection.channelID !== packet.d.channel_id
+voiceConnection.switchChannel(packet.d.channel_id, true)
+packet.d.self_stream === undefined
+packet.d.self_stream = false
+packet.d.guild_id === undefined
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+guild.pendingVoiceStates
+let member = guild.members.get(packet.d.id = packet.d.user_id)
+!member
+!packet.d.member
+this.emit("voiceStateUpdate", {
+                            id: packet.d.user_id,
+                            voiceState: {
+                                deaf: packet.d.deaf,
+                                mute: packet.d.mute,
+                                selfDeaf: packet.d.self_deaf,
+                                selfMute: packet.d.self_mute,
+                                selfStream: packet.d.self_stream,
+                                selfVideo: packet.d.self_video
+                            }
+                        }, null)

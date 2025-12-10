@@ -1,0 +1,52 @@
+this._plt.raf(() => {
+            const nodes = this._nodes;
+            const cells = this._cells;
+            const data = this._data;
+            const records = this._records;
+            if (needClean) {
+                // ******** DOM WRITE ****************
+                updateDimensions(this._plt, nodes, cells, data, true);
+                data.topCell = 0;
+                data.bottomCell = (cells.length - 1);
+            }
+            adjustRendered(cells, data);
+            this._zone.run(() => {
+                populateNodeData(data.topCell, data.bottomCell, true, cells, records, nodes, this._itmTmp.viewContainer, this._itmTmp.templateRef, this._hdrTmp && this._hdrTmp.templateRef, this._ftrTmp && this._ftrTmp.templateRef);
+            });
+            if (needClean) {
+                this._cd.detectChanges();
+            }
+            // at this point, this fn was called from within another
+            // requestAnimationFrame, so the next dom reads/writes within the next...
+const nodes = this._nodes
+const cells = this._cells
+const data = this._data
+const records = this._records
+updateDimensions(this._plt, nodes, cells, data, true)
+data.topCell = 0
+data.bottomCell = (cells.length - 1)
+adjustRendered(cells, data)
+this._zone.run(() => {
+                populateNodeData(data.topCell, data.bottomCell, true, cells, records, nodes, this._itmTmp.viewContainer, this._itmTmp.templateRef, this._hdrTmp && this._hdrTmp.templateRef, this._ftrTmp && this._ftrTmp.templateRef);
+            })
+(_tmp_9 = this._cd).detectChanges
+this._dom.read(() => initReadNodes(this._plt, nodes, cells, data))
+this._dom.write(() => {
+                // update the bound context for each node
+                updateNodeContext(nodes, cells, data);
+                // ******** DOM WRITE ****************
+                this._stepChangeDetection();
+                // ******** DOM WRITE ****************
+                this._stepDOMWrite();
+                // ******** DOM WRITE ****************
+                this._content.imgsUpdate();
+                // First time load
+                if (!this._lastEle) {
+                    // add an element at the end so :last-child css doesn't get messed up
+                    // ******** DOM WRITE ****************
+                    var ele = this._elementRef.nativeElement;
+                    var lastEle = this._renderer.createElement(ele, 'div');
+                    lastEle.className = 'virtual-last';
+                    this._lastEle = true;
+                    // ******** DOM WRITE ****************
+                    this.setElementClass('virtual-s...

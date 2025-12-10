@@ -1,0 +1,43 @@
+function getWithOptions = function getWithOptions (requestURI, options, callbackFunc) {
+    let headers = options.headers || {};
+    const mac = options.mac || new digest.Mac();
+
+    if (!headers['Content-Type']) {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    }
+
+    headers = addAuthHeaders(headers, mac);
+
+    // if there are V3, V4 token generator in the future, extends options with signVersion
+    const token = util.generateAccessTokenV2(
+        mac,
+        requestURI,
+        'GET',
+        headers['Content-Type'],
+        null,
+        headers
+    );
+
+    if (mac.accessKey) {
+        headers.Authorization = token;
+    }
+
+    return get(requestURI, headers, callbackFunc);
+}
+let headers = options.headers || {}
+const mac = options.mac || new digest.Mac()
+!headers['Content-Type']
+headers['Content-Type'] = 'application/x-www-form-urlencoded'
+headers = addAuthHeaders(headers, mac)
+const token = util.generateAccessTokenV2(
+        mac,
+        requestURI,
+        'GET',
+        headers['Content-Type'],
+        null,
+        headers
+    )
+"GET"
+headers["Content-Type"]
+mac.accessKey
+headers.Authorization = token

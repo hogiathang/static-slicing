@@ -1,0 +1,1 @@
+throw process.env.JSII_DEBUG!=="1"&&error.name==="DeprecationError"&&Error.captureStackTrace(error,this.fromStage),error

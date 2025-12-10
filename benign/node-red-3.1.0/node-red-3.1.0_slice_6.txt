@@ -1,0 +1,86 @@
+(_tmp_30 = httpsPromise.then(function(startupHttps) {
+    if (startupHttps) {
+        server = https.createServer(startupHttps,function(req,res) {app(req,res);});
+
+        if (settings.httpsRefreshInterval) {
+            var httpsRefreshInterval = parseFloat(settings.httpsRefreshInterval)||12;
+            if (httpsRefreshInterval > 596) {
+                // Max value based on (2^31-1)ms - the max that setInterval can accept
+                httpsRefreshInterval = 596;
+            }
+            // Check whether setSecureContext is available (Node.js 11+)
+            if (server.setSecureContext) {
+                // Check whether `http` is a callable function
+                if (typeof settings.https === "function") {
+                    delayedLogItems.push({type:"info", id:"server.https.refresh-interval", params:{interval:httpsRefreshInterval}});
+                    setInterval(function () {
+                        try {
+                            // Get the result of the function, because cre...).catch
+server = https.createServer(startupHttps,function(req,res) {app(req,res);})
+settings.httpsRefreshInterval
+var httpsRefreshInterval = parseFloat(settings.httpsRefreshInterval)||12
+httpsRefreshInterval > 596
+httpsRefreshInterval = 596
+server.setSecureContext
+typeof settings.https === "function"
+delayedLogItems.push({type:"info", id:"server.https.refresh-interval", params:{interval:httpsRefreshInterval}})
+function formatRoot = function formatRoot(root) {
+        if (root[0] != "/") {
+            root = "/" + root;
+        }
+        if (root.slice(-1) != "/") {
+            root = root + "/";
+        }
+        return root;
+    }
+function basicAuthMiddleware = function basicAuthMiddleware(user,pass) {
+        var basicAuth = require('basic-auth');
+        var checkPassword;
+        var localCachedPassword;
+        if (pass.length == "32") {
+            // Assume its a legacy md5 password
+            checkPassword = function(p) {
+                return crypto.createHash('md5').update(p,'utf8').digest('hex') === pass;
+            }
+        } else {
+            checkPassword = function(p) {
+                return bcrypt.compareSync(p,pass);
+            }
+        }
+
+        var checkPasswordAndCache = function(p) {
+            // For BasicAuth routes we know the password cannot change without
+            // a restart of Node-RED. This means we can cache the provided crypted
+            // version to save recalculating each time.
+            if (localCachedPassword === p) {
+                return true;
+            }
+            var result = checkPassword(p);
+            if (result) {
+                localCachedPassword = p;
+            }
+     ...
+function getListenPath = function getListenPath() {
+        var port = settings.serverPort;
+        if (port === undefined){
+            port = settings.uiPort;
+        }
+
+        var listenPath = 'http'+(settings.https?'s':'')+'://'+
+                        (settings.uiHost == '::'?'localhost':(settings.uiHost == '0.0.0.0'?'127.0.0.1':settings.uiHost))+
+                        ':'+port;
+        if (settings.httpAdminRoot !== false) {
+            listenPath += settings.httpAdminRoot;
+        } else if (settings.httpStatic) {
+            listenPath += "/";
+        }
+        return listenPath;
+    }
+function exitWhenStopped = function exitWhenStopped() {
+        if (!stopping) {
+            stopping = true;
+            RED.stop().then(function() {
+                process.exit();
+            });
+        }
+    }

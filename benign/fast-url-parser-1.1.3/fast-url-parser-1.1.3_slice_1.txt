@@ -1,0 +1,54 @@
+Url.prototype.format = function Url$format() {
+    var auth = this.auth || "";
+
+    if (auth) {
+        auth = encodeURIComponent(auth);
+        auth = auth.replace(/%3A/i, ":");
+        auth += "@";
+    }
+
+    var protocol = this.protocol || "";
+    var pathname = this.pathname || "";
+    var hash = this.hash || "";
+    var search = this.search || "";
+    var query = "";
+    var hostname = this.hostname || "";
+    var port = this.port || "";
+    var host = false;
+    var scheme = "";
+
+    //Cache the result of the getter function
+    var q = this.query;
+    if (q && typeof q === "object") {
+        query = Url.queryString.stringify(q);
+    }
+
+    if (!search) {
+        search = query ? "?" + query : "";
+    }
+
+    if (protocol && protocol.charCodeAt(protocol.length - 1) !== 0x3A /*':'*/)
+        protocol += ":";
+
+    if (this.host) {
+        host = auth + this.host;
+    }
+    else if (hostname) {
+        var ip6 = hostname.indexOf(":") > -1;
+        if (ip6) hostname = "[" + hostna...
+var auth = this.auth || ""
+auth = encodeURIComponent(auth)
+auth = auth.replace(/%3A/i, ":")
+auth += "@"
+var protocol = this.protocol || ""
+var pathname = this.pathname || ""
+var hash = this.hash || ""
+var search = this.search || ""
+var query = ""
+var hostname = this.hostname || ""
+var port = this.port || ""
+var host = false
+var scheme = ""
+var q = this.query
+q && typeof q === "object"
+query = Url.queryString.stringify(q)

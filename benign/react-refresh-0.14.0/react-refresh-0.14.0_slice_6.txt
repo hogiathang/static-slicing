@@ -1,0 +1,5 @@
+function resolveFamily = function resolveFamily(type) {
+  // Only check updated types to keep lookups fast.
+  return updatedFamiliesByType.get(type);
+}
+updatedFamiliesByType.get(type)

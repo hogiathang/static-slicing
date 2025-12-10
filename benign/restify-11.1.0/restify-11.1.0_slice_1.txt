@@ -1,0 +1,78 @@
+function call = function call(handler, err, req, res, _next) {
+    var arity = handler.length;
+    var hasError = err === false || Boolean(err);
+
+    // Meassure handler timings
+    // _name is assigned in the server and router
+    req._currentHandler = handler._name;
+    req.startHandlerTimer(handler._name);
+
+    function next(nextErr) {
+        req.endHandlerTimer(handler._name);
+        _next(nextErr, req, res);
+    }
+
+    function resolve(value) {
+        if (value && req.log) {
+            // logs resolved value
+            req.log.warn(
+                { value },
+                'Discarded returned value from async handler'
+            );
+        }
+
+        return next();
+    }
+
+    function reject(error) {
+        if (!(error instanceof Error)) {
+            error = new customErrorTypes.AsyncError(
+                {
+                    info: {
+                        cause: error,
+                        handler: handler._name,
+                        method: req.method,
+                    ...
+var arity = handler.length
+var hasError = err === false || Boolean(err)
+req._currentHandler = handler._name
+req.startHandlerTimer(handler._name)
+function next = function next(nextErr) {
+        req.endHandlerTimer(handler._name);
+        _next(nextErr, req, res);
+    }
+function resolve = function resolve(value) {
+        if (value && req.log) {
+            // logs resolved value
+            req.log.warn(
+                { value },
+                'Discarded returned value from async handler'
+            );
+        }
+
+        return next();
+    }
+function reject = function reject(error) {
+        if (!(error instanceof Error)) {
+            error = new customErrorTypes.AsyncError(
+                {
+                    info: {
+                        cause: error,
+                        handler: handler._name,
+                        method: req.method,
+                        path: req.path ? req.path() : undefined
+                    }
+                },
+                'Async middleware rejected without an error'
+            );
+        }
+        return next(error);
+    }
+hasError && arity === 4
+!hasError && arity < 4
+process.nextTick(function nextTick() {
+            const result = handler(req, res, next);
+            if (result && typeof result.then === 'function') {
+                result.then(resolve, reject);
+            }
+        })

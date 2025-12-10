@@ -1,0 +1,9 @@
+aP.prototype.unlink=function(a,b){try{var
+c=this.fs.existsSync(this.nm(a))?1:0;this.fs.unlinkSync(this.nm(a));return c}catch(f){this.raise_nodejs_error(f,b)}}
+aP.prototype.open=function(a,b,c){var
+d=require("constants"),e=0;for(var
+h
+in
+b)switch(h){case"rdonly":e|=d.O_RDONLY;break;case"wronly":e|=d.O_WRONLY;break;case"append":e|=d.O_WRONLY|d.O_APPEND;break;case"create":e|=d.O_CREAT;break;case"truncate":e|=d.O_TRUNC;break;case"excl":e|=d.O_EXCL;break;case"binary":e|=d.O_BINARY;break;case"text":e|=d.O_TEXT;break;case"nonblock":e|=d.O_NONBLOCK;break}try{var
+f=this.fs.openSync(this.nm(a),e),g=this.fs.lstatSync(this.nm(a)).isCharacterDevice();b.isCharacterDevice=g;return new
+cE(f,b)}catch(f){this.raise_nodejs_error(f,c)}}

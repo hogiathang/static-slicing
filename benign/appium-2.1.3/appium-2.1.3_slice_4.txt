@@ -1,0 +1,36 @@
+function prepareAppiumHome = async function prepareAppiumHome(name, appiumHome) {
+  let stat;
+  try {
+    stat = await fs.stat(appiumHome);
+  } catch (e) {
+    let err = e;
+    if (e.code === 'ENOENT') {
+      try {
+        await fs.mkdir(appiumHome, {recursive: true});
+        return appiumHome;
+      } catch (e1) {
+        err = e1;
+      }
+    }
+    throw new Error(
+      `The path '${appiumHome}' provided in the ${name} must point ` +
+        `to a valid folder writeable for the current user account '${os.userInfo().username}'. ` +
+        `Original error: ${err.message}`
+    );
+  }
+  if (!stat.isDirectory()) {
+    throw new Error(
+      `The path '${appiumHome}' provided in the ${name} must point to a valid folder`
+    );
+  }
+  try {
+    await fs.access(appiumHome, fs.constants.W_OK);
+  } catch (e) {
+    throw new Error(
+      `The folder path '${appiumHome}' provided in the ${name} must be ` +
+        `writeable for the current user account '${os.userInfo().username}. ` +
+        `Original error: ${e.mess...
+stat = await fs.stat(appiumHome)
+let err = e
+e.code === 'ENOENT'
+await fs.mkdir(appiumHome, {recursive: true})

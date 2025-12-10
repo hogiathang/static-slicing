@@ -1,0 +1,19 @@
+_tmp_0.isValidBlock = isValidBlock
+var key = block.getKey()
+var parentKey = block.getParentKey()
+parentKey != null
+var parent = blockMap.get(parentKey)
+(_tmp_1 = parent.getChildKeys()).includes
+var children = block.getChildKeys().map(function (k) {
+      return blockMap.get(k);
+    })
+!children.every(function (c) {
+      return c.getParentKey() === key;
+    })
+var prevSiblingKey = block.getPrevSiblingKey()
+prevSiblingKey != null
+var prevSibling = blockMap.get(prevSiblingKey)
+prevSibling.getNextSiblingKey() !== key
+var nextSiblingKey = block.getNextSiblingKey()
+nextSiblingKey != null
+var nextSibling = blockMap.get(nextSiblingKey)

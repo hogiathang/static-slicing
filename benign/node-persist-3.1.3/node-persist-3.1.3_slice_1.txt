@@ -1,0 +1,28 @@
+fs.exists(file, (exists) => {
+				if (exists) {
+					this.log(`Removing file:${file}`);
+					fs.unlink(file, (err) => {
+						/* Only throw the error if the error is something else */
+						if (err && err.code !== 'ENOENT') {
+							return reject(err);
+						}
+						let result = {file: file, removed: !err, existed: exists};
+						err && this.log(`Failed to remove file:${file} because it doesn't exist anymore.`);
+						resolve(result);
+					});
+				} else {
+					this.log(`Not removing file:${file} because it doesn't exist`);
+					let result = {file: file, removed: false, existed: exists};
+					resolve(result);
+				}
+			})
+<operator>.formatString("Removing file:", file, "")
+fs.unlink(file, (err) => {
+						/* Only throw the error if the error is something else */
+						if (err && err.code !== 'ENOENT') {
+							return reject(err);
+						}
+						let result = {file: file, removed: !err, existed: exists};
+						err && this.log(`Failed to remove file:${file} because it doesn't exist anymore.`);
+						resolve(result);
+					})

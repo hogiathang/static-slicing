@@ -1,0 +1,48 @@
+(_tmp_2284 = prim().start(function () {
+            var prop;
+
+            //Can now run the patches to require.js to allow it to be used for
+            //build generation. Do it here instead of at the top of the module
+            //because we want normal require behavior to load the build tool
+            //then want to switch to build mode.
+            requirePatch();
+
+            config = build.createConfig(cmdConfig);
+            paths = config.paths;
+
+            //Remove the previous build dir, in case it contains source transforms,
+            //like the ones done with onBuildRead and onBuildWrite.
+            if (config.dir && !config.keepBuildDir && file.exists(config.dir)) {
+                file.deleteFile(config.dir);
+            }
+
+            if (!config.out && !config.cssIn) {
+                //This is not just a one-off file build but a full build profile, with
+                //lots of files to process.
+
+                //First copy all the baseUrl content
+                file....).then
+requirePatch()
+config = build.createConfig(cmdConfig)
+paths = config.paths
+config.dir && !config.keepBuildDir && file.exists(config.dir)
+file.deleteFile(config.dir)
+!config.out && !config.cssIn
+file.copyDir((config.appDir || config.baseUrl), config.dir, /\w/, true)
+buildPaths = {}
+config.appDir
+_iterator_17 = <operator>.iterator(paths)
+hasProp(paths, prop)
+paths[prop].indexOf(config.baseUrl) === 0
+buildPaths[prop] = paths[prop].replace(config.baseUrl, config.dirBaseUrl)
+buildPaths[prop] = paths[prop] === 'empty:' ? 'empty:' : prop
+srcPath = paths[prop]
+srcPath.indexOf('/') !== 0 && srcPath.indexOf(':') === -1
+srcPath = config.baseUrl + srcPath
+destPath = config.dirBaseUrl + buildPaths[prop]
+srcPath !== 'empty:'
+file.exists(srcPath) && file.isDirectory(srcPath)
+file.copyDir(srcPath, destPath, /\w/, true)
+srcPath += '.js'
+destPath += '.js'
+file.copyFile(srcPath, destPath)

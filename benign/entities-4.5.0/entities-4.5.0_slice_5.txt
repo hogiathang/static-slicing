@@ -1,0 +1,22 @@
+function escape(data) {
+        let match;
+        let lastIdx = 0;
+        let result = "";
+        while ((match = regex.exec(data))) {
+            if (lastIdx !== match.index) {
+                result += data.substring(lastIdx, match.index);
+            }
+            // We know that this character will be in the map.
+            result += map.get(match[0].charCodeAt(0));
+            // Every match will be of length 1
+            lastIdx = match.index + 1;
+        }
+        return result + data.substring(lastIdx);
+    }
+let lastIdx = 0
+let result = ""
+match = regex.exec(data)
+lastIdx !== match.index
+result += data.substring(lastIdx, match.index)
+result += map.get(match[0].charCodeAt(0))
+lastIdx = match.index + 1

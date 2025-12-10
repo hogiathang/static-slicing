@@ -1,0 +1,114 @@
+constructor(
+    // This property needs to remain unminified.
+    { strings, ['_$litType$']: type }, options) {
+        this.parts = [];
+        let node;
+        let nodeIndex = 0;
+        let attrNameIndex = 0;
+        const partCount = strings.length - 1;
+        const parts = this.parts;
+        // Create template element
+        const [html, attrNames] = getTemplateHtml(strings, type);
+        this.el = Template.createElement(html, options);
+        walker.currentNode = this.el.content;
+        // Reparent SVG nodes into template root
+        if (type === SVG_RESULT) {
+            const content = this.el.content;
+            const svgElement = content.firstChild;
+            svgElement.remove();
+            content.append(...svgElement.childNodes);
+        }
+        // Walk the template to find binding markers and create TemplateParts
+        while ((node = walker.nextNode()) !== null && parts.length < partCount) {
+            if (node.nodeType === 1) {
+                if (DEV_...
+'_$litType$' = param1_0.'_$litType$'
+__ecma.Array.factory()
+let nodeIndex = 0
+let attrNameIndex = 0
+const partCount = strings.length - 1
+const parts = this.parts
+_tmp_21 = getTemplateHtml(strings, type)
+this.el = Template.createElement(html, options)
+walker.currentNode = this.el.content
+type === SVG_RESULT
+const content = this.el.content
+const svgElement = content.firstChild
+svgElement.remove()
+content.append(...svgElement.childNodes)
+(node = walker.nextNode()) !== null && parts.length < partCount
+node.nodeType === 1
+const tag = node.localName
+/^(?:textarea|template)$/i.test(tag) &&
+                        node.innerHTML.includes(marker)
+(_tmp_23 = node.innerHTML).includes
+const m = `Expressions are not supported inside \`${tag}\` ` +
+                            `elements. See https://lit.dev/msg/expression-in-${tag} for more ` +
+                            `information.`
+<operator>.formatString("elements. See https://lit.dev/msg/expression-in-", tag, " for more ")
+"information."
+tag === 'template'
+throw new Error(m);
+issueWarning('', m)
+node.hasAttributes()
+const attrsToRemove = []
+_iterator_0 = <operator>.iterator(node.getAttributeNames())
+name.endsWith(boundAttributeSuffix) ||
+                            name.startsWith(marker)
+name.startsWith(marker)
+const realName = attrNames[attrNameIndex++]
+attrsToRemove.push(name)
+realName !== undefined
+const value = node.getAttribute(realName.toLowerCase() + boundAttributeSuffix)
+const statics = value.split(marker)
+const m = /([.?@])?(.*)/.exec(realName)
+parts.push({
+                                    type: ATTRIBUTE_PART,
+                                    index: nodeIndex,
+                                    name: m[2],
+                                    strings: statics,
+                                    ctor: m[1] === '.'
+                                        ? PropertyPart
+                                        : m[1] === '?'
+                                            ? BooleanAttributePart
+                                            : m[1] === '@'
+                                                ? EventPart
+                                                : AttributePart,
+                                })
+_tmp_26.type = ATTRIBUTE_PART
+_tmp_26.index = nodeIndex
+_tmp_26.name = m[2]
+_tmp_26.strings = statics
+_tmp_26.ctor = m[1] === '.' ? PropertyPart : m[1] === '?' ? BooleanAttributePart : m[1] === '@' ? EventPart : AttributePart
+m[1] === '?' ? BooleanAttributePart : m[1] === '@' ? EventPart : AttributePart
+m[1] === '@' ? EventPart : AttributePart
+parts.push({
+                                    type: ELEMENT_PART,
+                                    index: nodeIndex,
+                                })
+_tmp_27.type = ELEMENT_PART
+_tmp_27.index = nodeIndex
+_iterator_1 = <operator>.iterator(attrsToRemove)
+node.removeAttribute(name)
+rawTextElement.test(node.tagName)
+const strings = node.textContent.split(marker)
+const lastIndex = strings.length - 1
+lastIndex > 0
+node.textContent = trustedTypes
+                            ? trustedTypes.emptyScript
+                            : ''
+trustedTypes.emptyScript
+i < lastIndex
+node.append(strings[i], createMarker())
+walker.nextNode()
+parts.push({ type: CHILD_PART, index: ++nodeIndex })
+node.append(strings[lastIndex], createMarker())
+node.nodeType === 8
+const data = node.data
+data === markerMatch
+parts.push({ type: CHILD_PART, index: nodeIndex })
+let i = -1
+(i = node.data.indexOf(marker, i + 1)) !== -1
+parts.push({ type: COMMENT_PART, index: nodeIndex })
+i += marker.length - 1
+nodeIndex++

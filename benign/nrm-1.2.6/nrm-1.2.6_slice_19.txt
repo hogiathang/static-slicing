@@ -1,0 +1,31 @@
+function onSetAttribute = async function onSetAttribute(name, { attr, value }) {
+  if (await isRegistryNotFound(name) || await isInternalRegistry(name, 'set attribute of')) {
+    return;
+  }
+
+  if (REPOSITORY === attr) {
+    return exit(`Use the ${chalk.green('nrm set-hosted-repo <name> <repo>')} command to set repository.`);
+  }
+  const customRegistries = await readFile(NRMRC);
+  const registry = customRegistries[name];
+  Object.assign(registry, { [attr]: value });
+  await writeFile(NRMRC, customRegistries);
+  printSuccess(`Set attribute '${attr}=${value}' of the registry '${name}' successfully.`);
+
+  const currentRegistry = await getCurrentRegistry();
+  if (currentRegistry === registry[REGISTRY]) {
+    const npmrc = await readFile(NPMRC);
+    await writeFile(NPMRC, Object.assign(npmrc, { [attr]: value }));
+  }
+}
+await isRegistryNotFound(name) || await isInternalRegistry(name, 'set attribute of')
+REPOSITORY === attr
+const customRegistries = await readFile(NRMRC)
+const registry = customRegistries[name]
+Object.assign(registry, { [attr]: value })
+await writeFile(NRMRC, customRegistries)
+<operator>.formatString("Set attribute '", attr, "=", value, "' of the registry '", name, "' successfully.")
+const currentRegistry = await getCurrentRegistry()
+currentRegistry === registry[REGISTRY]
+const npmrc = await readFile(NPMRC)
+await writeFile(NPMRC, Object.assign(npmrc, { [attr]: value }))

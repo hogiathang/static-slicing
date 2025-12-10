@@ -1,0 +1,26 @@
+function checkDefault = function checkDefault(specifierType, node) {
+        var defaultSpecifier = node.specifiers.find(
+        function (specifier) {return specifier.type === specifierType;});
+
+
+        if (!defaultSpecifier) {return;}
+        var imports = _ExportMap2['default'].get(node.source.value, context);
+        if (imports == null) {return;}
+
+        if (imports.errors.length) {
+          imports.reportErrors(context, node);
+        } else if (imports.get('default') === undefined) {
+          context.report({
+            node: defaultSpecifier,
+            message: 'No default export found in imported module "' + String(node.source.value) + '".' });
+
+        }
+      }
+var defaultSpecifier = node.specifiers.find(
+        function (specifier) {return specifier.type === specifierType;})
+specifier.type === specifierType
+!defaultSpecifier
+var imports = _ExportMap2['default'].get(node.source.value, context)
+imports == null
+imports.errors.length
+imports.get('default') === undefined

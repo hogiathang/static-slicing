@@ -1,0 +1,4 @@
+_tmp_70.ExportNamedDeclaration = ExportNamedDeclaration
+const declaration = path.get("declaration")
+!declaration.isVariableDeclaration()
+const hasRest = declaration.get("declarations").some(path => hasObjectPatternRestElement(path.get("id")))

@@ -1,0 +1,41 @@
+task.init = function(tasks, options) {
+  if (!options) { options = {}; }
+
+  // Were only init tasks specified?
+  var allInit = tasks.length > 0 && tasks.every(function(name) {
+    var obj = task._taskPlusArgs(name).task;
+    return obj && obj.init;
+  });
+
+  // Get any local Gruntfile or tasks that might exist. Use --gruntfile override
+  // if specified, otherwise search the current directory or any parent.
+  var gruntfile, msg;
+  if (allInit || options.gruntfile === false) {
+    gruntfile = null;
+  } else {
+    gruntfile = grunt.option('gruntfile') ||
+      grunt.file.findup('Gruntfile.{js,cjs,coffee}', {nocase: true});
+    msg = 'Reading "' + (gruntfile ? path.basename(gruntfile) : '???') + '" Gruntfile...';
+  }
+
+  if (options.gruntfile === false) {
+    // Grunt was run as a lib with {gruntfile: false}.
+  } else if (gruntfile && grunt.file.exists(gruntfile)) {
+    grunt.verbose.writeln().write(msg).ok();
+    // Change working directory so that all paths are relative to the
+    // G...
+options = {}
+var allInit = tasks.length > 0 && tasks.every(function(name) {
+    var obj = task._taskPlusArgs(name).task;
+    return obj && obj.init;
+  })
+allInit || options.gruntfile === false
+gruntfile = null
+gruntfile = grunt.option('gruntfile') ||
+      grunt.file.findup('Gruntfile.{js,cjs,coffee}', {nocase: true})
+grunt.file.findup('Gruntfile.{js,cjs,coffee}', {nocase: true})
+msg = 'Reading "' + (gruntfile ? path.basename(gruntfile) : '???') + '" Gruntfile...'
+options.gruntfile === false
+gruntfile && grunt.file.exists(gruntfile)
+(_tmp_140 = grunt.verbose.writeln().write(msg)).ok
+process.chdir(grunt.option('base') || path.dirname(gruntfile))

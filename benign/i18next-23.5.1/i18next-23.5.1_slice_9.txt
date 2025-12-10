@@ -1,0 +1,97 @@
+translate(keys, options, lastKey) {
+      if (typeof options !== 'object' && this.options.overloadTranslationOptionHandler) {
+        options = this.options.overloadTranslationOptionHandler(arguments);
+      }
+      if (typeof options === 'object') options = {
+        ...options
+      };
+      if (!options) options = {};
+      if (keys === undefined || keys === null) return '';
+      if (!Array.isArray(keys)) keys = [String(keys)];
+      const returnDetails = options.returnDetails !== undefined ? options.returnDetails : this.options.returnDetails;
+      const keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator;
+      const {
+        key,
+        namespaces
+      } = this.extractFromKey(keys[keys.length - 1], options);
+      const namespace = namespaces[namespaces.length - 1];
+      const lng = options.lng || this.language;
+      const appendNamespaceToCIMode = options.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode;
+  ...
+typeof options !== 'object' && this.options.overloadTranslationOptionHandler
+options = this.options.overloadTranslationOptionHandler(arguments)
+options = {
+        ...options
+      }
+...options
+options = {}
+keys === undefined || keys === null
+_tmp_105 = __ecma.Array.factory()
+const returnDetails = options.returnDetails !== undefined ? options.returnDetails : this.options.returnDetails
+const keySeparator = options.keySeparator !== undefined ? options.keySeparator : this.options.keySeparator
+_tmp_106 = this.extractFromKey(keys[keys.length - 1], options)
+key = _tmp_106.key
+namespaces = _tmp_106.namespaces
+this.extractFromKey(keys[keys.length - 1], options)
+const namespace = namespaces[namespaces.length - 1]
+const lng = options.lng || this.language
+const appendNamespaceToCIMode = options.appendNamespaceToCIMode || this.options.appendNamespaceToCIMode
+lng && lng.toLowerCase() === 'cimode'
+const resolved = this.resolve(keys, options)
+let res = resolved && resolved.res
+const resUsedKey = resolved && resolved.usedKey || key
+const resExactUsedKey = resolved && resolved.exactUsedKey || key
+const resType = Object.prototype.toString.apply(res)
+const noObject = ['[object Number]', '[object Function]', '[object RegExp]']
+const joinArrays = options.joinArrays !== undefined ? options.joinArrays : this.options.joinArrays
+const handleAsObjectInI18nFormat = !this.i18nFormat || this.i18nFormat.handleAsObject
+const handleAsObject = typeof res !== 'string' && typeof res !== 'boolean' && typeof res !== 'number'
+handleAsObjectInI18nFormat && res && handleAsObject && noObject.indexOf(resType) < 0 && !(typeof joinArrays === 'string' && resType === '[object Array]')
+handleAsObjectInI18nFormat && typeof joinArrays === 'string' && resType === '[object Array]'
+let usedDefault = false
+let usedKey = false
+const needsPluralHandling = options.count !== undefined && typeof options.count !== 'string'
+const hasDefaultValue = Translator.hasDefaultValue(options)
+const defaultValueSuffix = needsPluralHandling ? this.pluralResolver.getSuffix(lng, options.count, options) : ''
+const defaultValueSuffixOrdinalFallback = options.ordinal && needsPluralHandling ? this.pluralResolver.getSuffix(lng, options.count, {
+          ordinal: false
+        }) : ''
+_tmp_120.ordinal = false
+const defaultValue = options[`defaultValue${defaultValueSuffix}`] || options[`defaultValue${defaultValueSuffixOrdinalFallback}`] || options.defaultValue
+!this.isValidLookup(res) && hasDefaultValue
+usedDefault = true
+res = defaultValue
+!this.isValidLookup(res)
+usedKey = true
+res = key
+const missingKeyNoValueFallbackToKey = options.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey
+const resForMissing = missingKeyNoValueFallbackToKey && usedKey ? undefined : res
+const updateMissing = hasDefaultValue && defaultValue !== res && this.options.updateMissing
+usedKey || usedDefault || updateMissing
+this.logger.log(updateMissing ? 'updateKey' : 'missingKey', lng, namespace, key, updateMissing ? defaultValue : res)
+const fk = this.resolve(key, {
+              ...options,
+              keySeparator: false
+            })
+...options
+_tmp_122.keySeparator = false
+this.logger.warn('Seems the loaded translations were in flat JSON format instead of nested. Either set keySeparator: false on init or make sure your translations are published in nested format.')
+__ecma.Array.factory()
+const fallbackLngs = this.languageUtils.getFallbackCodes(this.options.fallbackLng, options.lng || this.language)
+this.options.saveMissingTo === 'fallback' && fallbackLngs && fallbackLngs[0]
+i < fallbackLngs.length
+lngs.push(fallbackLngs[i])
+this.options.saveMissingTo === 'all'
+lngs = this.languageUtils.toResolveHierarchy(options.lng || this.language)
+lngs.push(options.lng || this.language)
+const send = (l, k, specificDefaultValue) => {
+            const defaultForMissing = hasDefaultValue && specificDefaultValue !== res ? specificDefaultValue : resForMissing;
+            if (this.options.missingKeyHandler) {
+              this.options.missingKeyHandler(l, namespace, k, defaultForMissing, updateMissing, options);
+            } else if (this.backendConnector && this.backendConnector.saveMissing) {
+              this.backendConnector.saveMissing(l, namespace, k, defaultForMissing, updateMissing, options);
+            }
+            this.emit('missingKey', l, namespace, k, res);
+          }
+this.options.saveMissing
+this.options.saveMissingPlurals && needsPluralHandling

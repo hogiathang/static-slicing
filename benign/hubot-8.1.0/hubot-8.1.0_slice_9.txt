@@ -1,0 +1,89 @@
+run () {
+    const self = this
+
+    const options = {
+      token: process.env.HUBOT_CAMPFIRE_TOKEN,
+      rooms: process.env.HUBOT_CAMPFIRE_ROOMS,
+      account: process.env.HUBOT_CAMPFIRE_ACCOUNT
+    }
+
+    const bot = new CampfireStreaming(options, this.robot)
+
+    function withAuthor (callback) {
+      return function (id, created, room, user, body) {
+        bot.User(user, function (_err, userData) {
+          if (userData.user) {
+            const author = self.robot.brain.userForId(userData.user.id, userData.user)
+            const userId = userData.user.id
+            self.robot.brain.data.users[userId].name = userData.user.name
+            self.robot.brain.data.users[userId].email_address = userData.user.email_address
+            author.room = room
+            return callback(id, created, room, user, body, author)
+          }
+        })
+      }
+    }
+
+    bot.on('TextMessage', withAuthor(function (id, created, room, user, body, author) {
+      if (bot.info.id !== author.id)...
+const self = this
+const options = {
+      token: process.env.HUBOT_CAMPFIRE_TOKEN,
+      rooms: process.env.HUBOT_CAMPFIRE_ROOMS,
+      account: process.env.HUBOT_CAMPFIRE_ACCOUNT
+    }
+_tmp_41.token = process.env.HUBOT_CAMPFIRE_TOKEN
+_tmp_41.rooms = process.env.HUBOT_CAMPFIRE_ROOMS
+_tmp_41.account = process.env.HUBOT_CAMPFIRE_ACCOUNT
+const bot = new CampfireStreaming(options, this.robot)
+function withAuthor = function withAuthor (callback) {
+      return function (id, created, room, user, body) {
+        bot.User(user, function (_err, userData) {
+          if (userData.user) {
+            const author = self.robot.brain.userForId(userData.user.id, userData.user)
+            const userId = userData.user.id
+            self.robot.brain.data.users[userId].name = userData.user.name
+            self.robot.brain.data.users[userId].email_address = userData.user.email_address
+            author.room = room
+            return callback(id, created, room, user, body, author)
+          }
+        })
+      }
+    }
+bot.on('TextMessage', withAuthor(function (id, created, room, user, body, author) {
+      if (bot.info.id !== author.id) {
+        const message = new TextMessage(author, body, id)
+        message.private = bot.private[room]
+        self.receive(message)
+      }
+    }))
+bot.on('EnterMessage', withAuthor(function (id, created, room, user, body, author) {
+      if (bot.info.id !== author.id) {
+        self.receive(new EnterMessage(author, null, id))
+      }
+    }))
+bot.on('LeaveMessage', withAuthor(function (id, created, room, user, body, author) {
+      if (bot.info.id !== author.id) {
+        self.receive(new LeaveMessage(author, null, id))
+      }
+    }))
+bot.on('TopicChangeMessage', withAuthor(function (id, created, room, user, body, author) {
+      if (bot.info.id !== author.id) {
+        self.receive(new TopicMessage(author, body, id))
+      }
+    }))
+bot.on('LockMessage', withAuthor((id, created, room, user, body, author) => {
+      bot.private[room] = true
+    }))
+bot.on('UnlockMessage', withAuthor((id, created, room, user, body, author) => {
+      bot.private[room] = false
+    }))
+bot.Me(function (_err, data) {
+      bot.info = data.user
+      bot.name = bot.info.name
+
+      return Array.from(bot.rooms).map(roomId => (roomId => bot.Room(roomId).join((_err, callback) => bot.Room(roomId).listen()))(roomId))
+    })
+bot.on('reconnect', roomId => bot.Room(roomId).join((_err, callback) => bot.Room(roomId).listen()))
+this.bot = bot
+self.emit('connected')

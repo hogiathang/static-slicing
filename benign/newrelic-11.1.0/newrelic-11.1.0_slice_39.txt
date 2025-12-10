@@ -1,0 +1,21 @@
+sendQueue() {
+    if (!this.spans.length) {
+      logger.trace('Queue is empty, not sending spans.')
+      return
+    }
+
+    for (let i = 0; i < this.spans.length; i += this.batchSize) {
+      const spans = this.spans.slice(i, i + this.batchSize)
+      logger.trace('Sending spans from queue: %s', spans.length)
+      this.send({ spans }, spans.length)
+    }
+
+    this.spans = []
+
+    logger.trace('Finished sending spans from queue.')
+  }
+!this.spans.length
+i < this.spans.length
+const spans = this.spans.slice(i, i + this.batchSize)
+logger.trace('Sending spans from queue: %s', spans.length)
+this.send({ spans }, spans.length)

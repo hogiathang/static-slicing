@@ -1,0 +1,83 @@
+_tmp_71.exit = exit2
+const discriminantPath = path.get("discriminant")
+const evaluated = evaluate(discriminantPath, {
+          tdz: this.tdz
+        })
+_tmp_77.tdz = this.tdz
+!evaluated.confident
+__ecma.Array.factory()
+t.isSequenceExpression(discriminantPath.node)
+const expressions = discriminantPath.get("expressions")
+const lastExpression = expressions[expressions.length - 1]
+!lastExpression.isPure()
+beforeTest = [t.expressionStatement(t.sequenceExpression(expressions.slice(0, expressions.length - 1).map(path => path.node)))]
+!discriminantPath.isPure()
+const discriminant = evaluated.value
+const cases = path.get("cases")
+let matchingCaseIndex = -1
+let defaultCaseIndex = -1
+i < cases.length
+const test = cases[i].get("test")
+test.node === null
+defaultCaseIndex = i
+continue;
+const testResult = evaluate(test, {
+            tdz: this.tdz
+          })
+_tmp_81.tdz = this.tdz
+!testResult.confident
+testResult.value === discriminant
+function getStatementsUntilBreak = function getStatementsUntilBreak(start) {
+          const result = {
+            bail: false,
+            statements: []
+          };
+
+          for (let i = start; i < cases.length; i++) {
+            const consequent = cases[i].get("consequent");
+
+            for (let j = 0; j < consequent.length; j++) {
+              const _isBreaking = isBreaking(consequent[j], path);
+
+              if (_isBreaking.bail) {
+                result.bail = true;
+                return result;
+              }
+
+              if (_isBreaking.break) {
+                // compute no more
+                // exit out of the loop
+                return result;
+              } else {
+                result.statements.push(consequent[j].node);
+              }
+            }
+          }
+
+          return result;
+        }
+function replaceSwitch = function replaceSwitch(statements) {
+          let isBlockRequired = false;
+
+          for (let i = 0; i < statements.length; i++) {
+            if (t.isVariableDeclaration(statements[i], {
+              kind: "let"
+            })) {
+              isBlockRequired = true;
+              break;
+            }
+
+            if (t.isVariableDeclaration(statements[i], {
+              kind: "const"
+            })) {
+              isBlockRequired = true;
+              break;
+            }
+          }
+
+          if (isBlockRequired) {
+            path.replaceWith(t.BlockStatement(statements));
+          } else {
+            path.replaceWithMultiple(statements);
+          }
+        }

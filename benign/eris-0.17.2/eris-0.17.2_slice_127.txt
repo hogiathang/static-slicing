@@ -1,0 +1,44 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"GUILD_MEMBERS_CHUNK"
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+const members = packet.d.members.map((member) => {
+                    member.id = member.user.id;
+                    return guild.members.add(member, guild);
+                })
+packet.d.presences
+packet.d.presences.forEach((presence) => {
+                        const member = guild.members.get(presence.user.id);
+                        if(member) {
+                            member.update(presence);
+                        }
+                    })
+this.requestMembersPromise.hasOwnProperty(packet.d.nonce)
+(_tmp_260 = this.requestMembersPromise[packet.d.nonce].members).push
+packet.d.chunk_index >= packet.d.chunk_count - 1
+this.requestMembersPromise.hasOwnProperty(packet.d.nonce)
+clearTimeout(this.requestMembersPromise[packet.d.nonce].timeout)
+this.requestMembersPromise[packet.d.nonce].res(this.requestMembersPromise[packet.d.nonce].members)
+delete this.requestMembersPromise[packet.d.nonce]
+(_tmp_263 = this.getAllUsersCount).hasOwnProperty
+delete this.getAllUsersCount[guild.id]
+this.checkReady()
+this.emit("guildMemberChunk", guild, members)

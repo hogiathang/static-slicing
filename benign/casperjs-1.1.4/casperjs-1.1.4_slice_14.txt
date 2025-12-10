@@ -1,0 +1,14 @@
+var casper = require("casper").create({
+    viewportSize: {
+        width: 1024,
+        height: 768
+    }
+})
+_tmp_1.viewportSize = {
+        width: 1024,
+        height: 768
+    }
+_tmp_2.width = 1024
+_tmp_2.height = 768
+var twitterAccount = casper.cli.get(0)
+var filename       = casper.cli.get(1)

@@ -1,0 +1,33 @@
+function serveDevClientScript = async function serveDevClientScript(devServerConfig, serverCtx, req, res) {
+    try {
+        if (serverCtx.connectorHtml == null) {
+            const filePath = path__default['default'].join(devServerConfig.devServerDir, 'connector.html');
+            serverCtx.connectorHtml = serverCtx.sys.readFileSync(filePath, 'utf8');
+            if (typeof serverCtx.connectorHtml !== 'string') {
+                return serverCtx.serve404(req, res, `serveDevClientScript`);
+            }
+            const devClientConfig = {
+                basePath: devServerConfig.basePath,
+                editors: await getEditors(),
+                reloadStrategy: devServerConfig.reloadStrategy,
+            };
+            serverCtx.connectorHtml = serverCtx.connectorHtml.replace('window.__DEV_CLIENT_CONFIG__', JSON.stringify(devClientConfig));
+        }
+        res.writeHead(200, responseHeaders({
+            'content-type': 'text/html; charset=utf-8',
+        }));
+        res.write(serverCtx.connectorHtml);
+...
+serverCtx.connectorHtml == null
+const filePath = path__default['default'].join(devServerConfig.devServerDir, 'connector.html')
+serverCtx.connectorHtml = serverCtx.sys.readFileSync(filePath, 'utf8')
+typeof serverCtx.connectorHtml !== 'string'
+const devClientConfig = {
+                basePath: devServerConfig.basePath,
+                editors: await getEditors(),
+                reloadStrategy: devServerConfig.reloadStrategy,
+            }
+_tmp_178.basePath = devServerConfig.basePath
+_tmp_178.editors = await getEditors()
+_tmp_178.reloadStrategy = devServerConfig.reloadStrategy
+serverCtx.connectorHtml = serverCtx.connectorHtml.replace('window.__DEV_CLIENT_CONFIG__', JSON.stringify(devClientConfig))

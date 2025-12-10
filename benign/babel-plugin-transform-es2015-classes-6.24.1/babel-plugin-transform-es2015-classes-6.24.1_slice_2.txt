@@ -1,0 +1,71 @@
+ClassTransformer.prototype.verifyConstructor = function verifyConstructor() {
+    var _this2 = this;
+
+    if (!this.isDerived) return;
+
+    var path = this.userConstructorPath;
+    var body = path.get("body");
+
+    path.traverse(findThisesVisitor, this);
+
+    var guaranteedSuperBeforeFinish = !!this.bareSupers.length;
+
+    var superRef = this.superName || t.identifier("Function");
+    var thisRef = path.scope.generateUidIdentifier("this");
+
+    for (var _iterator3 = this.bareSupers, _isArray3 = Array.isArray(_iterator3), _i3 = 0, _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3);;) {
+      var _ref3;
+
+      if (_isArray3) {
+        if (_i3 >= _iterator3.length) break;
+        _ref3 = _iterator3[_i3++];
+      } else {
+        _i3 = _iterator3.next();
+        if (_i3.done) break;
+        _ref3 = _i3.value;
+      }
+
+      var bareSuper = _ref3;
+
+      this.wrapSuperCall(bareSuper, superRef, thisRef, body);
+
+      if (guaranteedSuperBeforeFinish) {
+        bar...
+var _this2 = this
+!this.isDerived
+var path = this.userConstructorPath
+var body = path.get("body")
+path.traverse(findThisesVisitor, this)
+var guaranteedSuperBeforeFinish = !!this.bareSupers.length
+var superRef = this.superName || t.identifier("Function")
+var thisRef = path.scope.generateUidIdentifier("this")
+var _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3)
+_i3 >= _iterator3.length
+_ref3 = _iterator3[_i3++]
+_i3 = _iterator3.next()
+_i3.done
+_ref3 = _i3.value
+var bareSuper = _ref3
+this.wrapSuperCall(bareSuper, superRef, thisRef, body)
+bareSuper.find(function (parentPath) {
+          if (parentPath === path) {
+            return true;
+          }
+
+          if (parentPath.isLoop() || parentPath.isConditional()) {
+            guaranteedSuperBeforeFinish = false;
+            return true;
+          }
+        })
+var _iterator4 = _isArray4 ? _iterator4 : (0, _getIterator3.default)(_iterator4)
+_i4 >= _iterator4.length
+_ref4 = _iterator4[_i4++]
+_i4 = _iterator4.next()
+_i4.done
+_ref4 = _i4.value
+var thisPath = _ref4
+thisPath.replaceWith(thisRef)
+var wrapReturn = function wrapReturn(returnArg) {
+      return t.callExpression(_this2.file.addHelper("possibleConstructorReturn"), [thisRef].concat(returnArg || []));
+    }
+var bodyPaths = body.get("body")

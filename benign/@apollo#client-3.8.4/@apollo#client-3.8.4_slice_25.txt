@@ -1,0 +1,10 @@
+function requestToKey = function requestToKey(request, addTypename) {
+    var queryString = request.query &&
+        utilities.print(addTypename ? utilities.addTypenameToDocument(request.query) : request.query);
+    var requestKey = { query: queryString };
+    return JSON.stringify(requestKey);
+}
+var queryString = request.query &&
+        utilities.print(addTypename ? utilities.addTypenameToDocument(request.query) : request.query)
+utilities.print(addTypename ? utilities.addTypenameToDocument(request.query) : request.query)
+var requestKey = { query: queryString }

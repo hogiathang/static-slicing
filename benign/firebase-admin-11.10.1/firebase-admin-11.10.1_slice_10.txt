@@ -1,0 +1,40 @@
+execute() {
+        const transport = this.options.protocol === 'https:' ? https : http;
+        const req = transport.request(this.options, (res) => {
+            this.handleResponse(res, req);
+        });
+        // Handle errors
+        req.on('error', (err) => {
+            if (req.aborted) {
+                return;
+            }
+            this.enhanceAndReject(err, null, req);
+        });
+        const timeout = this.config.timeout;
+        const timeoutCallback = () => {
+            req.abort();
+            this.rejectWithError(`timeout of ${timeout}ms exceeded`, 'ETIMEDOUT', req);
+        };
+        if (timeout) {
+            // Listen to timeouts and throw an error.
+            req.setTimeout(timeout, timeoutCallback);
+        }
+        // Send the request
+        req.end(this.entity);
+    }
+const transport = this.options.protocol === 'https:' ? https : http
+const req = transport.request(this.options, (res) => {
+            this.handleResponse(res, req);
+        })
+req.on('error', (err) => {
+            if (req.aborted) {
+                return;
+            }
+            this.enhanceAndReject(err, null, req);
+        })
+const timeout = this.config.timeout
+const timeoutCallback = () => {
+            req.abort();
+            this.rejectWithError(`timeout of ${timeout}ms exceeded`, 'ETIMEDOUT', req);
+        }
+req.setTimeout(timeout, timeoutCallback)

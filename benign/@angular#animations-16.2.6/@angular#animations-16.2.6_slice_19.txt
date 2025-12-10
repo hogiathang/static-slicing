@@ -1,0 +1,34 @@
+const allNewPlayers = instruction.timelines.map(timelineInstruction => {
+            const element = timelineInstruction.element;
+            allConsumedElements.add(element);
+            // FIXME (matsko): make sure to-be-removed animations are removed properly
+            const details = element[REMOVAL_FLAG];
+            if (details && details.removedBeforeQueried)
+                return new NoopAnimationPlayer(timelineInstruction.duration, timelineInstruction.delay);
+            const isQueriedElement = element !== rootElement;
+            const previousPlayers = flattenGroupPlayers((allPreviousPlayersMap.get(element) || EMPTY_PLAYER_ARRAY)
+                .map(p => p.getRealPlayer()))
+                .filter(p => {
+                // the `element` is not apart of the AnimationPlayer definition, but
+                // Mock/WebAnimations
+                // use the element within their implementation. This will be added in Angular5 to
+                // AnimationPlayer
+                c...
+const element = timelineInstruction.element
+allConsumedElements.add(element)
+const details = element[REMOVAL_FLAG]
+details && details.removedBeforeQueried
+const isQueriedElement = element !== rootElement
+const previousPlayers = flattenGroupPlayers((allPreviousPlayersMap.get(element) || EMPTY_PLAYER_ARRAY)
+                .map(p => p.getRealPlayer()))
+                .filter(p => {
+                // the `element` is not apart of the AnimationPlayer definition, but
+                // Mock/WebAnimations
+                // use the element within their implementation. This will be added in Angular5 to
+                // AnimationPlayer
+                const pp = p;
+                return pp.element ? pp.element === element : false;
+            })
+p.getRealPlayer()
+<lambda>96
+const preStyles = preStylesMap.get(element)

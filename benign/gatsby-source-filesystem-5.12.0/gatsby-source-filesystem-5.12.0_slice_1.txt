@@ -1,0 +1,45 @@
+exports.createFileNode = async (pathToFile, createNodeId, pluginOptions = {}, cache = null) => {
+  const slashed = slash(pathToFile);
+  const parsedSlashed = path.parse(slashed);
+  const slashedFile = {
+    ...parsedSlashed,
+    absolutePath: slashed,
+    // Useful for limiting graphql query with certain parent directory
+    relativeDirectory: slash(path.relative(pluginOptions.path || process.cwd(), parsedSlashed.dir))
+  };
+  const stats = await fs.stat(slashedFile.absolutePath);
+  let internal;
+  if (stats.isDirectory()) {
+    const contentDigest = createContentDigest({
+      stats: stats,
+      absolutePath: slashedFile.absolutePath
+    });
+    internal = {
+      contentDigest,
+      type: `Directory`,
+      description: `Directory "${path.relative(process.cwd(), slashed)}"`
+    };
+  } else {
+    const key = stats.mtimeMs.toString() + stats.ino.toString();
+    let contentDigest;
+    if (pluginOptions.fastHash) {
+      // Skip hashing.
+      contentDigest = key;
+    } else {
+      ...
+const slashed = slash(pathToFile)
+const parsedSlashed = path.parse(slashed)
+const slashedFile = {
+    ...parsedSlashed,
+    absolutePath: slashed,
+    // Useful for limiting graphql query with certain parent directory
+    relativeDirectory: slash(path.relative(pluginOptions.path || process.cwd(), parsedSlashed.dir))
+  }
+...parsedSlashed
+_tmp_2.absolutePath = slashed
+_tmp_2.relativeDirectory = slash(path.relative(pluginOptions.path || process.cwd(), parsedSlashed.dir))
+const stats = await fs.stat(slashedFile.absolutePath)
+stats.isDirectory()
+const key = stats.mtimeMs.toString() + stats.ino.toString()
+pluginOptions.fastHash
+contentDigest = cache && (await cache.get(key))

@@ -1,0 +1,46 @@
+function (method, params) {
+        var _this = this;
+        if (params == null) {
+            params = [];
+        }
+        var request = { method: method, params: params };
+        this.emit("debug", {
+            action: "request",
+            fetcher: "Eip1193Fetcher",
+            request: (0, properties_1.deepCopy)(request),
+            provider: this
+        });
+        return provider.request(request).then(function (response) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                response: response,
+                provider: _this
+            });
+            return response;
+        }, function (error) {
+            _this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request: request,
+                error: error,
+                provider: _this
+            });
+            throw error;
+        });
+    }
+var _this = this
+params == null
+__ecma.Array.factory()
+var request = { method: method, params: params }
+this.emit("debug", {
+            action: "request",
+            fetcher: "Eip1193Fetcher",
+            request: (0, properties_1.deepCopy)(request),
+            provider: this
+        })
+_tmp_7.action = "request"
+_tmp_7.fetcher = "Eip1193Fetcher"
+_tmp_7.request = (0, properties_1.deepCopy)(request)
+_tmp_7.provider = this

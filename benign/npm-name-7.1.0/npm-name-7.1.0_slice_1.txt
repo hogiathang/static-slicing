@@ -1,0 +1,15 @@
+function npmName = async function npmName(name, options = {}) {
+	if (!(typeof name === 'string' && name.length > 0)) {
+		throw new Error('Package name required');
+	}
+
+	if (typeof options.registryUrl !== 'undefined' && !(typeof options.registryUrl === 'string' && isUrl(options.registryUrl))) {
+		throw new Error('The `registryUrl` option must be a valid string URL');
+	}
+
+	return request(name, options);
+}
+!(typeof name === 'string' && name.length > 0)
+throw new Error('Package name required');
+typeof options.registryUrl !== 'undefined' && !(typeof options.registryUrl === 'string' && isUrl(options.registryUrl))
+throw new Error('The `registryUrl` option must be a valid string URL');

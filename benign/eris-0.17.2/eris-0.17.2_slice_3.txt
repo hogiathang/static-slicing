@@ -1,0 +1,26 @@
+editRolePosition(guildID, roleID, position) {
+        if(guildID === roleID) {
+            return Promise.reject(new Error("Cannot move default role"));
+        }
+        let roles = this.guilds.get(guildID).roles;
+        const role = roles.get(roleID);
+        if(!role) {
+            return Promise.reject(new Error(`Role ${roleID} not found`));
+        }
+        if(role.position === position) {
+            return Promise.resolve();
+        }
+        const min = Math.min(position, role.position);
+        const max = Math.max(position, role.position);
+        roles = roles.filter((role) => min <= role.position && role.position <= max && role.id !== roleID).sort((a, b) => a.position - b.position);
+        if(position > role.position) {
+            roles.push(role);
+        } else {
+            roles.unshift(role);
+        }
+        return this.requestHandler.request("PATCH", Endpoints.GUILD_ROLES(guildID), true, roles.map((role, index) => ({
+            id: role.id,
+            posit...
+guildID === roleID
+let roles = this.guilds.get(guildID).roles
+const role = roles.get(roleID)

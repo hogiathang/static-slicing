@@ -1,0 +1,49 @@
+(_tmp_38 = function(data) {
+    var opcode = data[0];
+    var i = 0;
+
+    if (opcode === ATT_OP_READ_BY_GROUP_RESP) {
+      var type = data[1];
+      var num = (data.length - 2) / type;
+
+      for (i = 0; i < num; i++) {
+        services.push({
+          startHandle: data.readUInt16LE(2 + i * type + 0),
+          endHandle: data.readUInt16LE(2 + i * type + 2),
+          uuid: (type == 6) ? data.readUInt16LE(2 + i * type + 4).toString(16) : data.slice(2 + i * type + 4).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+        });
+      }
+    }
+
+    if (opcode !== ATT_OP_READ_BY_GROUP_RESP || services[services.length - 1].endHandle === 0xffff) {
+      var serviceUuids = [];
+      for (i = 0; i < services.length; i++) {
+        if (uuids.length === 0 || uuids.indexOf(services[i].uuid) !== -1) {
+          serviceUuids.push(services[i].uuid);
+        }
+
+        this._services[services[i].uuid] = services[i];
+      }
+      this.emit('servicesDiscover', this._address, serviceUuids);
+  ...).bind
+var opcode = data[0]
+var i = 0
+opcode === ATT_OP_READ_BY_GROUP_RESP
+var type = data[1]
+var num = (data.length - 2) / type
+i < num
+services.push({
+          startHandle: data.readUInt16LE(2 + i * type + 0),
+          endHandle: data.readUInt16LE(2 + i * type + 2),
+          uuid: (type == 6) ? data.readUInt16LE(2 + i * type + 4).toString(16) : data.slice(2 + i * type + 4).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+        })
+_tmp_39.startHandle = data.readUInt16LE(2 + i * type + 0)
+_tmp_39.endHandle = data.readUInt16LE(2 + i * type + 2)
+_tmp_39.uuid = type == 6 ? data.readUInt16LE(2 + i * type + 4).toString(16) : data.slice(2 + i * type + 4).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+opcode !== ATT_OP_READ_BY_GROUP_RESP || services[services.length - 1].endHandle === 0xffff
+__ecma.Array.factory()
+i < services.length
+uuids.length === 0 || uuids.indexOf(services[i].uuid) !== -1
+serviceUuids.push(services[i].uuid)
+this._services[services[i].uuid] = services[i]
+this.emit('servicesDiscover', this._address, serviceUuids)

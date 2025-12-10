@@ -1,0 +1,17 @@
+dependencies = function dependencies(pkg) {
+                            if (currentState.get('global')) {
+                                return currentState.get('globalPackages');
+                            }
+
+                            if (currentState.get('ignoreDev')) {
+                                return pkg.dependencies;
+                            }
+
+                            if (currentState.get('devOnly')) {
+                                return pkg.devDependencies;
+                            }
+
+                            return extend(pkg.dependencies, pkg.devDependencies);
+                        }
+currentState.get('global')
+currentState.get('globalPackages')

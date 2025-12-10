@@ -1,0 +1,39 @@
+static forNodes(tcb, parent, templateOrNodes, guard) {
+    const scope = new Scope(tcb, parent, guard);
+    if (parent === null && tcb.env.config.enableTemplateTypeChecker) {
+      scope.opQueue.push(new TcbComponentContextCompletionOp(scope));
+    }
+    let children;
+    if (templateOrNodes instanceof TmplAstTemplate2) {
+      const varMap = /* @__PURE__ */ new Map();
+      for (const v of templateOrNodes.variables) {
+        if (!varMap.has(v.name)) {
+          varMap.set(v.name, v);
+        } else {
+          const firstDecl = varMap.get(v.name);
+          tcb.oobRecorder.duplicateTemplateVar(tcb.id, v, firstDecl);
+        }
+        const opIndex = scope.opQueue.push(new TcbVariableOp(tcb, scope, templateOrNodes, v)) - 1;
+        scope.varMap.set(v, opIndex);
+      }
+      children = templateOrNodes.children;
+    } else {
+      children = templateOrNodes;
+    }
+    for (const node of children) {
+      scope.appendNode(node);
+    }
+    return scope;
+  }
+const scope = new Scope(tcb, parent, guard)
+parent === null && tcb.env.config.enableTemplateTypeChecker
+scope.opQueue.push(new TcbComponentContextCompletionOp(scope))
+templateOrNodes instanceof TmplAstTemplate2
+const varMap = /* @__PURE__ */ new Map()
+_iterator_52 = <operator>.iterator(templateOrNodes.variables)
+!varMap.has(v.name)
+varMap.set(v.name, v)
+const firstDecl = varMap.get(v.name)
+tcb.oobRecorder.duplicateTemplateVar(tcb.id, v, firstDecl)
+const opIndex = scope.opQueue.push(new TcbVariableOp(tcb, scope, templateOrNodes, v)) - 1
+(_tmp_912 = scope.varMap).set

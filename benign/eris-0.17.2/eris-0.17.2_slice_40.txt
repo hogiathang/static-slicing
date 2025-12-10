@@ -1,0 +1,25 @@
+permissionsOf(memberID) {
+        const member = typeof memberID === "string" ? this.guild.members.get(memberID) : memberID;
+        let permission = this.guild.permissionsOf(member).allow;
+        if(permission & Permissions.administrator) {
+            return new Permission(Permissions.all);
+        }
+        const channel = this instanceof ThreadChannel ? this.guild.channels.get(this.parentID) : this;
+        let overwrite = channel && channel.permissionOverwrites.get(this.guild.id);
+        if(overwrite) {
+            permission = (permission & ~overwrite.deny) | overwrite.allow;
+        }
+        let deny = 0n;
+        let allow = 0n;
+        for(const roleID of member.roles) {
+            if((overwrite = channel && channel.permissionOverwrites.get(roleID))) {
+                deny |= overwrite.deny;
+                allow |= overwrite.allow;
+            }
+        }
+        permission = (permission & ~deny) | allow;
+        overwrite = channel && channel.permissionOverwrites.get(...
+const member = typeof memberID === "string" ? this.guild.members.get(memberID) : memberID
+let permission = this.guild.permissionsOf(member).allow
+permission & Permissions.administrator
+const channel = this instanceof ThreadChannel ? this.guild.channels.get(this.parentID) : this

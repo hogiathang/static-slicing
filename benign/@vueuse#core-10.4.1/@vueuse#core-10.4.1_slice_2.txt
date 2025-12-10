@@ -1,0 +1,30 @@
+function update = function update(event) {
+      if (event && event.storageArea !== storage)
+        return;
+      if (event && event.key == null) {
+        data.value = rawInit;
+        return;
+      }
+      if (event && event.key !== key)
+        return;
+      pauseWatch();
+      try {
+        if ((event == null ? void 0 : event.newValue) !== serializer.write(data.value))
+          data.value = read(event);
+      } catch (e) {
+        onError(e);
+      } finally {
+        if (event)
+          vueDemi.nextTick(resumeWatch);
+        else
+          resumeWatch();
+      }
+    }
+event && event.storageArea !== storage
+event && event.key == null
+event && event.key !== key
+pauseWatch()
+(event == null ? void 0 : event.newValue) !== serializer.write(data.value)
+data.value = read(event)
+onError(e)
+vueDemi.nextTick(resumeWatch)

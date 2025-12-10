@@ -1,0 +1,66 @@
+_tmp_2.function = MD037
+parsers = _tmp_5.parsers
+const emphasisTokensByMarker = new Map()
+_iterator_0 = <operator>.iterator([ "_", "__", "___", "*", "**", "***" ])
+emphasisTokensByMarker.set(marker, [])
+const tokens = filterByPredicate(
+      parsers.micromark.tokens,
+      (token) => token.children.some((child) => child.type === "data")
+    )
+parsers.micromark.tokens
+token.children.some((child) => child.type === "data")
+_iterator_1 = <operator>.iterator(tokens)
+_iterator_2 = <operator>.iterator(emphasisTokensByMarker.values())
+emphasisTokens.length = 0
+_iterator_3 = <operator>.iterator(token.children)
+text = _tmp_9.text
+(type === "data") && (text.length <= 3)
+const emphasisTokens = emphasisTokensByMarker.get(text)
+emphasisTokens.push(child)
+_iterator_4 = <operator>.iterator(emphasisTokensByMarker.entries())
+emphasisTokens = _tmp_10[1]
+i + 1 < emphasisTokens.length
+const startToken = emphasisTokens[i]
+const startLine = lines[startToken.startLine - 1]
+const startSlice = startLine.slice(startToken.endColumn - 1)
+const startMatch = startSlice.match(/^\s+\S/)
+startSpaceCharacter = _tmp_11[0]
+<operator>.formatString("", marker, "", startSpaceCharacter, "")
+addError(
+              onError,
+              startToken.startLine,
+              undefined,
+              startContext,
+              [ startToken.startColumn, startContext.length ],
+              {
+                "editColumn": startToken.endColumn,
+                "deleteCount": startSpaceCharacter.length - 1
+              }
+            )
+startToken.startLine
+_tmp_12.push(startToken.startColumn)
+_tmp_13.editColumn = startToken.endColumn
+_tmp_13.deleteCount = startSpaceCharacter.length - 1
+const endToken = emphasisTokens[i + 1]
+const endLine = lines[endToken.startLine - 1]
+const endSlice = endLine.slice(0, endToken.startColumn - 1)
+const endMatch = endSlice.match(/\S\s+$/)
+endSpaceCharacter = _tmp_14[0]
+<operator>.formatString("", endSpaceCharacter, "", marker, "")
+addError(
+              onError,
+              endToken.startLine,
+              undefined,
+              endContext,
+              [ endToken.endColumn - endContext.length, endContext.length ],
+              {
+                "editColumn":
+                  endToken.startColumn - (endSpaceCharacter.length - 1),
+                "deleteCount": endSpaceCharacter.length - 1
+              }
+            )
+endToken.startLine
+_tmp_15.push(endToken.endColumn - endContext.length)
+_tmp_16.editColumn = endToken.startColumn - (endSpaceCharacter.length - 1)
+endToken.startColumn - (endSpaceCharacter.length - 1)
+_tmp_16.deleteCount = endSpaceCharacter.length - 1

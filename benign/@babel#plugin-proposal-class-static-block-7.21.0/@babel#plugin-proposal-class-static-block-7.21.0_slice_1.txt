@@ -1,0 +1,8 @@
+_tmp_2.ClassBody = ClassBody
+_tmp_3 = classBody
+scope = _tmp_3.scope
+const privateNames = new Set()
+const body = classBody.get("body")
+_iterator_0 = <operator>.iterator(body)
+path.isPrivate()
+privateNames.add(path.get("key.id").node.name)

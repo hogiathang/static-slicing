@@ -1,0 +1,20 @@
+function deleteFile = function deleteFile(path) {
+    if (exists(path)) {
+        const normalizedPath = (0, path_1.normalize)(path);
+        fs.unlinkSync(normalizedPath);
+        // update cache
+        existsCache.set(normalizedPath, false);
+        if (readDirCache.has((0, path_1.dirname)(normalizedPath))) {
+            readDirCache.delete((0, path_1.dirname)(normalizedPath));
+        }
+        if (readStatsCache.has(normalizedPath)) {
+            readStatsCache.delete(normalizedPath);
+        }
+        if (readFileCache.has(normalizedPath)) {
+            readFileCache.delete(normalizedPath);
+        }
+    }
+}
+exists(path)
+const normalizedPath = (0, path_1.normalize)(path)
+fs.unlinkSync(normalizedPath)

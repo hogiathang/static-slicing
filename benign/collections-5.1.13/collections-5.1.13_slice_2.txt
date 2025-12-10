@@ -1,0 +1,19 @@
+FastSet.prototype.add = function (value) {
+    var hash = this.contentHash(value);
+    var buckets = this.buckets;
+    if (!buckets.has(hash)) {
+        buckets.set(hash, new this.Bucket(null, this.contentEquals));
+    }
+    if (!buckets.get(hash).has(value)) {
+        buckets.get(hash).add(value);
+        this.length++;
+        return true;
+    }
+    return false;
+}
+var hash = this.contentHash(value)
+var buckets = this.buckets
+!buckets.has(hash)
+buckets.set(hash, new this.Bucket(null, this.contentEquals))
+(_tmp_11 = buckets.get(hash)).has
+(_tmp_12 = buckets.get(hash)).add

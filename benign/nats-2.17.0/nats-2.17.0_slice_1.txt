@@ -1,0 +1,24 @@
+parseDiscard(headers) {
+        const discard = {
+            msgsLeft: 0,
+            bytesLeft: 0,
+        };
+        const msgsLeft = headers === null || headers === void 0 ? void 0 : headers.get(types_1.JsHeaders.PendingMessagesHdr);
+        if (msgsLeft) {
+            discard.msgsLeft = parseInt(msgsLeft);
+        }
+        const bytesLeft = headers === null || headers === void 0 ? void 0 : headers.get(types_1.JsHeaders.PendingBytesHdr);
+        if (bytesLeft) {
+            discard.bytesLeft = parseInt(bytesLeft);
+        }
+        return discard;
+    }
+const discard = {
+            msgsLeft: 0,
+            bytesLeft: 0,
+        }
+_tmp_44.msgsLeft = 0
+_tmp_44.bytesLeft = 0
+const msgsLeft = headers === null || headers === void 0 ? void 0 : headers.get(types_1.JsHeaders.PendingMessagesHdr)
+discard.msgsLeft = parseInt(msgsLeft)
+const bytesLeft = headers === null || headers === void 0 ? void 0 : headers.get(types_1.JsHeaders.PendingBytesHdr)

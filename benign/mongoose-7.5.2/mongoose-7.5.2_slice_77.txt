@@ -1,0 +1,4 @@
+validationErrors.sort((err1, err2) => {
+        return validationErrorsToOriginalOrder.get(err1) - validationErrorsToOriginalOrder.get(err2);
+      })
+validationErrorsToOriginalOrder.get(err1) - validationErrorsToOriginalOrder.get(err2)

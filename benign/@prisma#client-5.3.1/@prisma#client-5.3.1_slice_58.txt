@@ -1,0 +1,13 @@
+function doRename = function doRename(src, dest, overwrite, isChangingCase) {
+      if (isChangingCase)
+        return rename(src, dest, overwrite);
+      if (overwrite) {
+        removeSync(dest);
+        return rename(src, dest, overwrite);
+      }
+      if (fs6.existsSync(dest))
+        throw new Error("dest already exists.");
+      return rename(src, dest, overwrite);
+    }
+fs6.existsSync(dest)
+throw new Error("dest already exists.");

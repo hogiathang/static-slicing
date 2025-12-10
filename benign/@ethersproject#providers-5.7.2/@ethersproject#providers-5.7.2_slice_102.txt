@@ -1,0 +1,33 @@
+async _uncachedDetectNetwork(): Promise<Network> {
+        await timer(0);
+
+        let chainId = null;
+        try {
+            chainId = await this.send("eth_chainId", [ ]);
+        } catch (error) {
+            try {
+                chainId = await this.send("net_version", [ ]);
+            } catch (error) { }
+        }
+
+        if (chainId != null) {
+            const getNetwork = getStatic<(network: Networkish) => Network>(this.constructor, "getNetwork");
+            try {
+                return getNetwork(BigNumber.from(chainId).toNumber());
+            } catch (error) {
+                return logger.throwError("could not detect network", Logger.errors.NETWORK_ERROR, {
+                    chainId: chainId,
+                    event: "invalidNetwork",
+                    serverError: error
+                });
+            }
+        }
+
+        return logger.throwError("could not detect network", Logger.errors.NETWORK_ERROR, {
+            event: "noNetwork"
+        });
+    }
+await timer(0)
+let chainId = null
+chainId = await this.send("eth_chainId", [ ])
+chainId = await this.send("net_version", [ ])

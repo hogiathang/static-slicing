@@ -1,0 +1,26 @@
+function mergeDuplicatesPreferLast = function mergeDuplicatesPreferLast (items, getKey) {
+  const map = new Map();
+  for (let i = items.length; i-- > 0;) {
+    const item = items[i];
+    const key = getKey(item);
+    map.set(
+      key,
+      (map.has(key))
+        ? merge(item, map.get(key), { arrayMerge: overwriteMerge$1 })
+        : item
+    );
+  }
+  return [...map.values()].reverse();
+}
+const map = new Map()
+let i = items.length
+const item = items[i]
+const key = getKey(item)
+map.set(
+      key,
+      (map.has(key))
+        ? merge(item, map.get(key), { arrayMerge: overwriteMerge$1 })
+        : item
+    )
+map.has(key) ? merge(item, map.get(key), { arrayMerge: overwriteMerge$1 }) : item
+merge(item, map.get(key), { arrayMerge: overwriteMerge$1 })

@@ -1,0 +1,59 @@
+function renderToStringImpl = function renderToStringImpl(children, options, generateStaticMarkup, abortReason) {
+  var didFatal = false;
+  var fatalError = null;
+  var result = '';
+  var destination = {
+    push: function (chunk) {
+      if (chunk !== null) {
+        result += chunk;
+      }
+
+      return true;
+    },
+    destroy: function (error) {
+      didFatal = true;
+      fatalError = error;
+    }
+  };
+  var readyToStream = false;
+
+  function onShellReady() {
+    readyToStream = true;
+  }
+
+  var request = createRequest(children, createResponseState$1(generateStaticMarkup, options ? options.identifierPrefix : undefined), createRootFormatContext(), Infinity, onError, undefined, onShellReady, undefined, undefined);
+  startWork(request); // If anything suspended and is still pending, we'll abort it before writing.
+  // That way we write only client-rendered boundaries from the start.
+
+  abort(request, abortReason);
+  startFlowing(request, destination);
+
+  if (didFatal) {
+    throw fatalError;
+  }
+
+  if (!read...
+var didFatal = false
+var fatalError = null
+var result = ''
+var destination = {
+    push: function (chunk) {
+      if (chunk !== null) {
+        result += chunk;
+      }
+
+      return true;
+    },
+    destroy: function (error) {
+      didFatal = true;
+      fatalError = error;
+    }
+  }
+_tmp_134.push = <lambda>13
+_tmp_134.destroy = <lambda>14
+var readyToStream = false
+function onShellReady = function onShellReady() {
+    readyToStream = true;
+  }
+var request = createRequest(children, createResponseState$1(generateStaticMarkup, options ? options.identifierPrefix : undefined), createRootFormatContext(), Infinity, onError, undefined, onShellReady, undefined, undefined)
+startWork(request)

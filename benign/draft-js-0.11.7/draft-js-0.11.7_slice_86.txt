@@ -1,0 +1,19 @@
+var getNextValidSibling = function getNextValidSibling(block, blockMap, originalBlockMap) {
+  if (!block) {
+    return null;
+  } // note that we need to make sure we refer to the original block since this
+  // function is called within a withMutations
+
+
+  var nextValidSiblingKey = originalBlockMap.get(block.getKey()).getNextSiblingKey();
+
+  while (nextValidSiblingKey && !blockMap.get(nextValidSiblingKey)) {
+    nextValidSiblingKey = originalBlockMap.get(nextValidSiblingKey).getNextSiblingKey() || null;
+  }
+
+  return nextValidSiblingKey;
+}
+!block
+var nextValidSiblingKey = originalBlockMap.get(block.getKey()).getNextSiblingKey()
+nextValidSiblingKey && !blockMap.get(nextValidSiblingKey)
+nextValidSiblingKey = originalBlockMap.get(nextValidSiblingKey).getNextSiblingKey() || null

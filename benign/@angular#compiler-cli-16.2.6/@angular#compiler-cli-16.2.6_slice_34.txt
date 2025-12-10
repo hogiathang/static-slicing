@@ -1,0 +1,33 @@
+function extractInjectableMetadata = function extractInjectableMetadata(clazz, decorator, reflector) {
+  const name = clazz.name.text;
+  const type = wrapTypeReference(reflector, clazz);
+  const typeArgumentCount = reflector.getGenericArityOfClass(clazz) || 0;
+  if (decorator.args === null) {
+    throw new FatalDiagnosticError(ErrorCode.DECORATOR_NOT_CALLED, decorator.node, "@Injectable must be called");
+  }
+  if (decorator.args.length === 0) {
+    return {
+      name,
+      type,
+      typeArgumentCount,
+      providedIn: createMayBeForwardRefExpression2(new LiteralExpr3(null), 0)
+    };
+  } else if (decorator.args.length === 1) {
+    const metaNode = decorator.args[0];
+    if (!ts25.isObjectLiteralExpression(metaNode)) {
+      throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, metaNode, `@Injectable argument must be an object literal`);
+    }
+    const meta = reflectObjectLiteral(metaNode);
+    const providedIn = meta.has("providedIn") ? getProviderExpression(meta.get("providedIn"), reflector) : crea...
+const name = clazz.name.text
+const type = wrapTypeReference(reflector, clazz)
+const typeArgumentCount = reflector.getGenericArityOfClass(clazz) || 0
+decorator.args === null
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_NOT_CALLED, decorator.node, "@Injectable must be called");
+decorator.args.length === 0
+decorator.args.length === 1
+const metaNode = decorator.args[0]
+!ts25.isObjectLiteralExpression(metaNode)
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, metaNode, `@Injectable argument must be an object literal`);
+const meta = reflectObjectLiteral(metaNode)
+const providedIn = meta.has("providedIn") ? getProviderExpression(meta.get("providedIn"), reflector) : createMayBeForwardRefExpression2(new LiteralExpr3(null), 0)

@@ -1,0 +1,13 @@
+function run = function run(paths, options) {
+  Runner.run(
+    /^https?/.test(options.transform) ? options.transform : path.resolve(options.transform),
+    paths,
+    options
+  );
+}
+Runner.run(
+    /^https?/.test(options.transform) ? options.transform : path.resolve(options.transform),
+    paths,
+    options
+  )
+/^https?/.test(options.transform) ? options.transform : path.resolve(options.transform)

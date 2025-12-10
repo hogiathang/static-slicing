@@ -1,0 +1,18 @@
+childPartProto._$getTemplate = function (result) {
+        var _a;
+        var scope = (_a = this.options) === null || _a === void 0 ? void 0 : _a.scope;
+        var templateCache = scopedTemplateCache.get(scope);
+        if (templateCache === undefined) {
+            scopedTemplateCache.set(scope, (templateCache = new Map()));
+        }
+        var template = templateCache.get(result.strings);
+        if (template === undefined) {
+            templateCache.set(result.strings, (template = new Template(result, this.options)));
+        }
+        return template;
+    }
+var scope = (_a = this.options) === null || _a === void 0 ? void 0 : _a.scope
+var templateCache = scopedTemplateCache.get(scope)
+templateCache === undefined
+scopedTemplateCache.set(scope, (templateCache = new Map()))
+var template = templateCache.get(result.strings)

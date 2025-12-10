@@ -1,0 +1,28 @@
+typeCheck(sf, ctx) {
+    if (!this.fileToClasses.has(sf)) {
+      return;
+    }
+    for (const clazz of this.fileToClasses.get(sf)) {
+      const record = this.classes.get(clazz);
+      for (const trait of record.traits) {
+        if (trait.state !== TraitState.Resolved) {
+          continue;
+        } else if (trait.handler.typeCheck === void 0) {
+          continue;
+        }
+        if (trait.resolution !== null) {
+          trait.handler.typeCheck(ctx, clazz, trait.analysis, trait.resolution);
+        }
+      }
+    }
+  }
+(_tmp_748 = this.fileToClasses).has
+_iterator_83 = <operator>.iterator(this.fileToClasses.get(sf))
+const record = this.classes.get(clazz)
+_iterator_84 = <operator>.iterator(record.traits)
+trait.state !== TraitState.Resolved
+continue;
+trait.handler.typeCheck === void 0
+continue;
+trait.resolution !== null
+trait.handler.typeCheck(ctx, clazz, trait.analysis, trait.resolution)

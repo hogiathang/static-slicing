@@ -1,0 +1,15 @@
+sortableGroup.forEach((attr, jj) => {
+        const sortedAttr = sortedAttributeGroups[ii][jj];
+        const sortedAttrText = source.slice(sortedAttr.range[0], attributeMap.get(sortedAttr).end);
+        fixers.push({
+          range: [attr.range[0], attributeMap.get(attr).end],
+          text: sortedAttrText,
+        });
+      })
+const sortedAttr = sortedAttributeGroups[ii][jj]
+const sortedAttrText = source.slice(sortedAttr.range[0], attributeMap.get(sortedAttr).end)
+fixers.push({
+          range: [attr.range[0], attributeMap.get(attr).end],
+          text: sortedAttrText,
+        })
+_tmp_13.range = [attr.range[0], attributeMap.get(attr).end]

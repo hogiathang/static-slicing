@@ -1,0 +1,57 @@
+Queue.prototype.subscribeRaw = function (options, messageListener, oldConsumerTag) {
+  var self = this;
+
+  // multiple method signatures
+  if (typeof options === "function") {
+    oldConsumerTag = messageListener;
+    messageListener = options;
+    options = {};
+  }
+
+  var consumerTag;
+  if (options.consumerTag !== undefined) {
+    consumerTag = options.consumerTag + '-' + Math.random();
+  } else {
+    consumerTag = 'node-amqp-' + process.pid + '-' + Math.random();
+  }
+  this.consumerTagListeners[consumerTag] = messageListener;
+
+  options = options || {};
+  options['state'] = 'opening';
+  this.consumerTagOptions[consumerTag] = options;
+  if (options.prefetchCount !== undefined) {
+    self.connection._sendMethod(self.channel, methods.basicQos,
+        { reserved1: 0
+        , prefetchSize: 0
+        , prefetchCount: options.prefetchCount
+        , global: false
+        });
+  }
+
+  // If this is a reconnection, we should probably tell folks their tag has changed
+  if (oldConsumerTag) {...
+var self = this
+typeof options === "function"
+oldConsumerTag = messageListener
+messageListener = options
+options = {}
+options.consumerTag !== undefined
+consumerTag = options.consumerTag + '-' + Math.random()
+consumerTag = 'node-amqp-' + process.pid + '-' + Math.random()
+this.consumerTagListeners[consumerTag] = messageListener
+options = options || {}
+options['state'] = 'opening'
+this.consumerTagOptions[consumerTag] = options
+options.prefetchCount !== undefined
+self.connection._sendMethod(self.channel, methods.basicQos,
+        { reserved1: 0
+        , prefetchSize: 0
+        , prefetchCount: options.prefetchCount
+        , global: false
+        })
+_tmp_9.reserved1 = 0
+_tmp_9.prefetchSize = 0
+_tmp_9.prefetchCount = options.prefetchCount
+_tmp_9.global = false
+debug && debug('Existing consumer tag changed', util.inspect({ oldConsumerTag: oldConsumerTag, consumerTag: consumerTag }))
+self.connection.emit('tag.change', { oldConsumerTag: oldConsumerTag, consumerTag: consumerTag })

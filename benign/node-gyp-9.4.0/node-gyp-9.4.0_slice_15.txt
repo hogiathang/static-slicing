@@ -1,0 +1,44 @@
+function downloadNodeLib = async function downloadNodeLib () {
+      log.verbose('on Windows; need to download `' + release.name + '.lib`...')
+      const dir = path.resolve(tarExtractDir, arch)
+      const targetLibPath = path.resolve(dir, release.name + '.lib')
+      const { libUrl, libPath } = release[arch]
+      const name = `${arch} ${release.name}.lib`
+      log.verbose(name, 'dir', dir)
+      log.verbose(name, 'url', libUrl)
+
+      await fs.promises.mkdir(dir, { recursive: true })
+      log.verbose('streaming', name, 'to:', targetLibPath)
+
+      const res = await download(gyp, libUrl)
+
+      // Since only required node.lib is downloaded throw error if it is not fetched
+      if (res.status !== 200) {
+        throw new Error(`${res.status} status code downloading ${name}`)
+      }
+
+      return streamPipeline(
+        res.body,
+        new ShaSum((_, checksum) => {
+          contentShasums[libPath] = checksum
+          log.verbose('content checksum', libPath, checksum)
+        }),
+        fs.createWrite...
+log.verbose('on Windows; need to download `' + release.name + '.lib`...')
+const dir = path.resolve(tarExtractDir, arch)
+const targetLibPath = path.resolve(dir, release.name + '.lib')
+libPath = _tmp_14.libPath
+<operator>.formatString("", arch, " ", release.name, ".lib")
+log.verbose(name, 'dir', dir)
+log.verbose(name, 'url', libUrl)
+await fs.promises.mkdir(dir, { recursive: true })
+log.verbose('streaming', name, 'to:', targetLibPath)
+const res = await download(gyp, libUrl)
+res.status !== 200
+<operator>.formatString("", res.status, " status code downloading ", name, "")
+res.body
+new ShaSum((_, checksum) => {
+          contentShasums[libPath] = checksum
+          log.verbose('content checksum', libPath, checksum)
+        })
+fs.createWriteStream(targetLibPath)

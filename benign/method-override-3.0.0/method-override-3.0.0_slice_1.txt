@@ -1,0 +1,26 @@
+function methodOverride (req, res, next) {
+    var method
+    var val
+
+    req.originalMethod = req.originalMethod || req.method
+
+    // validate request is an allowed method
+    if (methods && methods.indexOf(req.originalMethod) === -1) {
+      return next()
+    }
+
+    val = get(req, res)
+    method = Array.isArray(val)
+      ? val[0]
+      : val
+
+    // replace
+    if (method !== undefined && supports(method)) {
+      req.method = method.toUpperCase()
+      debug('override %s as %s', req.originalMethod, req.method)
+    }
+
+    next()
+  }
+req.originalMethod = req.originalMethod || req.method
+methods && methods.indexOf(req.originalMethod) === -1

@@ -1,0 +1,19 @@
+Kareem.prototype.clone = function() {
+  const n = new Kareem();
+
+  for (const key of this._pres.keys()) {
+    const clone = this._pres.get(key).slice();
+    clone.numAsync = this._pres.get(key).numAsync;
+    n._pres.set(key, clone);
+  }
+  for (const key of this._posts.keys()) {
+    n._posts.set(key, this._posts.get(key).slice());
+  }
+
+  return n;
+}
+const n = new Kareem()
+_iterator_2 = <operator>.iterator(this._pres.keys())
+const clone = this._pres.get(key).slice()
+clone.numAsync = this._pres.get(key).numAsync
+n._pres.set(key, clone)

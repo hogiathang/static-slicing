@@ -1,0 +1,20 @@
+forever._debug = function () {
+  const debug = forever.config.get("debug");
+
+  if (!debug) {
+    forever.config.set('debug', true);
+    forever.log.add(new winston.transports.File({
+      level: 'silly',
+      filename: path.join(forever.config.get('root'), 'forever.debug.log'),
+    }));
+  }
+}
+const debug = forever.config.get("debug")
+!debug
+forever.config.set('debug', true)
+forever.log.add(new winston.transports.File({
+      level: 'silly',
+      filename: path.join(forever.config.get('root'), 'forever.debug.log'),
+    }))
+_tmp_47.level = "silly"
+_tmp_47.filename = path.join(forever.config.get('root'), 'forever.debug.log')

@@ -1,0 +1,9 @@
+const session = yield this.findSession(turnContext)
+session !== undefined
+this.userState !== undefined
+this.conversationState != undefined
+const botState = {}
+this.userState !== undefined
+botState.userState = this.userState.get(turnContext)
+this.conversationState !== undefined
+botState.conversationState = this.conversationState.get(turnContext)

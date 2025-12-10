@@ -1,0 +1,75 @@
+new Promise(function (resolve, reject) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', url, true);
+		for (var headerName in headers) {
+			xhr.setRequestHeader(headerName, headers[headerName]);
+		}
+		xhr.responseType = 'arraybuffer';
+
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState !== 4) {
+				return;
+			}
+
+			var ok = xhr.status >= 200 && xhr.status < 300;
+			if (!ok) {
+				setTimeout(function () {
+					reject(new TypeError('Failed to fetch (url: "' + url + '")'));
+				}, 0);
+			}
+		};
+
+		xhr.onload = function () {
+			var ok = xhr.status >= 200 && xhr.status < 300;
+			if (ok) {
+				resolve(xhr.response);
+			}
+		};
+
+		xhr.onerror = function () {
+			setTimeout(function () {
+				reject(new TypeError('Network request failed (url: "' + url + '")'));
+			}, 0);
+		};
+
+		xhr.ontimeout = function () {
+			setTimeout(function () {
+				reject(new TypeError('Network request failed (url: "' + url + '")'));
+			}, 0);
+		};
+
+		xhr.send();...
+var xhr = new XMLHttpRequest()
+xhr.open('GET', url, true)
+_iterator_0 = <operator>.iterator(headers)
+xhr.setRequestHeader(headerName, headers[headerName])
+xhr.responseType = 'arraybuffer'
+xhr.onreadystatechange = function () {
+			if (xhr.readyState !== 4) {
+				return;
+			}
+
+			var ok = xhr.status >= 200 && xhr.status < 300;
+			if (!ok) {
+				setTimeout(function () {
+					reject(new TypeError('Failed to fetch (url: "' + url + '")'));
+				}, 0);
+			}
+		}
+xhr.onload = function () {
+			var ok = xhr.status >= 200 && xhr.status < 300;
+			if (ok) {
+				resolve(xhr.response);
+			}
+		}
+xhr.onerror = function () {
+			setTimeout(function () {
+				reject(new TypeError('Network request failed (url: "' + url + '")'));
+			}, 0);
+		}
+xhr.ontimeout = function () {
+			setTimeout(function () {
+				reject(new TypeError('Network request failed (url: "' + url + '")'));
+			}, 0);
+		}
+xhr.send()

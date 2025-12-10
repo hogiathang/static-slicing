@@ -1,0 +1,28 @@
+function() {
+              var port = foundPort;
+              var scheme = options.protocol === 'http2' ? 'https' : options.protocol;
+              var hostname = options.hostname;
+              var targetHostname = hostname === '::' ? 'localhost' : hostname;
+              var target = scheme + '://' + targetHostname + ':' + port;
+
+              grunt.log.writeln('Started connect web server on ' + target);
+              grunt.config.set('connect.' + taskTarget + '.options.hostname', hostname);
+              grunt.config.set('connect.' + taskTarget + '.options.port', port);
+
+              grunt.event.emit('connect.' + taskTarget + '.listening', hostname, port);
+
+              if (options.open === true) {
+                open(target);
+              } else if (typeof options.open === 'object') {
+                options.open.target = options.open.target || target;
+                options.open.appName = options.open.appName || null;
+                options.open.callback = options.open.c...
+var port = foundPort
+var scheme = options.protocol === 'http2' ? 'https' : options.protocol
+var hostname = options.hostname
+var targetHostname = hostname === '::' ? 'localhost' : hostname
+var target = scheme + '://' + targetHostname + ':' + port
+grunt.log.writeln('Started connect web server on ' + target)
+grunt.config.set('connect.' + taskTarget + '.options.hostname', hostname)
+grunt.config.set('connect.' + taskTarget + '.options.port', port)
+grunt.event.emit('connect.' + taskTarget + '.listening', hostname, port)

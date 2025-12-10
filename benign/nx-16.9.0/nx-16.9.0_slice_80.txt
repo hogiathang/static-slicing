@@ -1,0 +1,16 @@
+function removeProjectConfiguration = function removeProjectConfiguration(tree, projectName) {
+    const projectConfiguration = readProjectConfiguration(tree, projectName);
+    if (!projectConfiguration) {
+        throw new Error(`Cannot delete Project ${projectName}`);
+    }
+    const projectConfigFile = (0, path_2.joinPathFragments)(projectConfiguration.root, 'project.json');
+    if (tree.exists(projectConfigFile)) {
+        tree.delete(projectConfigFile);
+    }
+}
+const projectConfiguration = readProjectConfiguration(tree, projectName)
+!projectConfiguration
+<operator>.formatString("Cannot delete Project ", projectName, "")
+const projectConfigFile = (0, path_2.joinPathFragments)(projectConfiguration.root, 'project.json')
+tree.exists(projectConfigFile)
+tree.delete(projectConfigFile)

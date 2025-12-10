@@ -1,0 +1,13 @@
+error => {
+		if (error) {
+			const q2 = config.get('queue') || {};
+			Object.assign(q2, q);
+			config.set('queue', q2);
+		}
+
+		process.exit();
+	}
+const q2 = config.get('queue') || {}
+Object.assign(q2, q)
+config.set('queue', q2)
+process.exit()

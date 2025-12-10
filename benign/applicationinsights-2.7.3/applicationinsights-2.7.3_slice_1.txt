@@ -1,0 +1,54 @@
+AutoCollectPerformance.prototype.enable = function (isEnabled, collectionInterval) {
+        var _this = this;
+        this._isEnabled = isEnabled;
+        if (this._isEnabled && !this._isInitialized) {
+            this._isInitialized = true;
+        }
+        if (isEnabled) {
+            if (!this._handle) {
+                this._lastCpus = os.cpus();
+                this._lastRequests = {
+                    totalRequestCount: AutoCollectPerformance._totalRequestCount,
+                    totalFailedRequestCount: AutoCollectPerformance._totalFailedRequestCount,
+                    time: +new Date
+                };
+                this._lastDependencies = {
+                    totalDependencyCount: AutoCollectPerformance._totalDependencyCount,
+                    totalFailedDependencyCount: AutoCollectPerformance._totalFailedDependencyCount,
+                    time: +new Date
+                };
+                this._lastExceptions = {
+                    total...
+var _this = this
+this._isEnabled = isEnabled
+this._isEnabled && !this._isInitialized
+this._isInitialized = true
+!this._handle
+this._lastCpus = os.cpus()
+this._lastRequests = {
+                    totalRequestCount: AutoCollectPerformance._totalRequestCount,
+                    totalFailedRequestCount: AutoCollectPerformance._totalFailedRequestCount,
+                    time: +new Date
+                }
+_tmp_3.totalRequestCount = AutoCollectPerformance._totalRequestCount
+_tmp_3.totalFailedRequestCount = AutoCollectPerformance._totalFailedRequestCount
+_tmp_3.time = +new Date
+this._lastDependencies = {
+                    totalDependencyCount: AutoCollectPerformance._totalDependencyCount,
+                    totalFailedDependencyCount: AutoCollectPerformance._totalFailedDependencyCount,
+                    time: +new Date
+                }
+_tmp_5.totalDependencyCount = AutoCollectPerformance._totalDependencyCount
+_tmp_5.totalFailedDependencyCount = AutoCollectPerformance._totalFailedDependencyCount
+_tmp_5.time = +new Date
+this._lastExceptions = {
+                    totalExceptionCount: AutoCollectPerformance._totalExceptionCount,
+                    time: +new Date
+                }
+_tmp_7.totalExceptionCount = AutoCollectPerformance._totalExceptionCount
+_tmp_7.time = +new Date
+typeof process.cpuUsage === "function"
+this._lastAppCpuUsage = process.cpuUsage()
+this._lastHrtime = process.hrtime()
+this._collectionInterval = collectionInterval || this._collectionInterval
+this._handle = setInterval(function () { return _this.trackPerformance(); }, this._collectionInterval)

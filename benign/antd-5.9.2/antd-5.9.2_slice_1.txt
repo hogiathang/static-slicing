@@ -1,0 +1,18 @@
+const appendWatermark = (base64Url, markWidth, container) => {
+    if (container) {
+      if (!watermarkMap.get(container)) {
+        const newWatermarkEle = document.createElement('div');
+        watermarkMap.set(container, newWatermarkEle);
+      }
+      const watermarkEle = watermarkMap.get(container);
+      watermarkEle.setAttribute('style', getStyleStr(Object.assign(Object.assign({}, markStyle), {
+        backgroundImage: `url('${base64Url}')`,
+        backgroundSize: `${Math.floor(markWidth)}px`
+      })));
+      container.append(watermarkEle);
+    }
+  }
+!watermarkMap.get(container)
+const newWatermarkEle = document.createElement('div')
+watermarkMap.set(container, newWatermarkEle)
+const watermarkEle = watermarkMap.get(container)

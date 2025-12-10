@@ -1,0 +1,60 @@
+constructor(types) {
+        this.#types = JSON.stringify(types);
+        this.#fullTypes = new Map();
+        this.#encoderCache = new Map();
+        // Link struct types to their direct child structs
+        const links = new Map();
+        // Link structs to structs which contain them as a child
+        const parents = new Map();
+        // Link all subtypes within a given struct
+        const subtypes = new Map();
+        Object.keys(types).forEach((type) => {
+            links.set(type, new Set());
+            parents.set(type, []);
+            subtypes.set(type, new Set());
+        });
+        for (const name in types) {
+            const uniqueNames = new Set();
+            for (const field of types[name]) {
+                // Check each field has a unique name
+                (0, index_js_4.assertArgument)(!uniqueNames.has(field.name), `duplicate variable name ${JSON.stringify(field.name)} in ${JSON.stringify(name)}`, "types", types);
+                uniqueNames.add(field.na...
+this.#types = JSON.stringify(types)
+this.#fullTypes = new Map()
+this.#encoderCache = new Map()
+const links = new Map()
+const parents = new Map()
+const subtypes = new Map()
+Object.keys(types).forEach((type) => {
+            links.set(type, new Set());
+            parents.set(type, []);
+            subtypes.set(type, new Set());
+        })
+_iterator_2 = <operator>.iterator(types)
+const uniqueNames = new Set()
+_iterator_3 = <operator>.iterator(types[name])
+(0, index_js_4.assertArgument)(!uniqueNames.has(field.name), `duplicate variable name ${JSON.stringify(field.name)} in ${JSON.stringify(name)}`, "types", types)
+uniqueNames.add(field.name)
+const baseType = (field.type.match(/^([^\x5b]*)(\x5b|$)/))[1] || null
+(0, index_js_4.assertArgument)(baseType !== name, `circular type reference to ${JSON.stringify(baseType)}`, "types", types)
+const encoder = getBaseEncoder(baseType)
+continue;
+(0, index_js_4.assertArgument)(parents.has(baseType), `unknown type ${JSON.stringify(baseType)}`, "types", types)
+(_tmp_19 = parents.get(baseType)).push
+(_tmp_20 = links.get(name)).add
+function checkCircular = function checkCircular(type, found) {
+            (0, index_js_4.assertArgument)(!found.has(type), `circular type reference to ${JSON.stringify(type)}`, "types", types);
+            found.add(type);
+            for (const child of links.get(type)) {
+                if (!parents.has(child)) {
+                    continue;
+                }
+                // Recursively check children
+                checkCircular(child, found);
+                // Mark all ancestors as having this decendant
+                for (const subtype of found) {
+                    subtypes.get(subtype).add(child);
+                }
+            }
+            found.delete(type);
+        }

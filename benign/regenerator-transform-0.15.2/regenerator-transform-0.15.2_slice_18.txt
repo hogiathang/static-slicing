@@ -1,0 +1,32 @@
+Ep.explodeClass = function (path) {
+  var explodingChildren = [];
+  if (path.node.superClass) {
+    explodingChildren.push(path.get("superClass"));
+  }
+  path.get("body.body").forEach(function (member) {
+    if (member.node.computed) {
+      explodingChildren.push(member.get("key"));
+    }
+  });
+  var hasLeapingChildren = explodingChildren.some(function (child) {
+    return meta.containsLeap(child);
+  });
+  for (var i = 0; i < explodingChildren.length; i++) {
+    var child = explodingChildren[i];
+    var isLast = i === explodingChildren.length - 1;
+    if (isLast) {
+      child.replaceWith(this.explodeExpression(child));
+    } else {
+      child.replaceWith(this.explodeViaTempVar(null, child, hasLeapingChildren));
+    }
+  }
+  return path.node;
+}
+var explodingChildren = []
+path.node.superClass
+explodingChildren.push(path.get("superClass"))
+path.get("body.body").forEach(function (member) {
+    if (member.node.computed) {
+      explodingChildren.push(member.get("key"));
+    }
+  })

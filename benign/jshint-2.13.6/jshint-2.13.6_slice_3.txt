@@ -1,0 +1,35 @@
+files.forEach(function(file) {
+      var config = opts.config || exports.getConfig(file);
+      var code;
+      var errors = [];
+
+      try {
+        code = fsUtils.readFile(file);
+      } catch (err) {
+        cli.error("Can't open " + file);
+        exports.exit(1);
+      }
+
+      mergeCLIPrereq(config);
+
+      lint(extract(code, opts.extract), errors, config, data, file);
+
+      if (errors.length) {
+        var offsets = extractOffsets(code, opts.extract);
+        if (offsets && offsets.length) {
+          errors.forEach(function(errorInfo) {
+            var line = errorInfo.error.line;
+            if (line >= 0 && line < offsets.length && offsets[line]) {
+              errorInfo.error.character += offsets[line];
+            }
+          });
+        }
+
+        results = results.concat(errors);
+      }
+    })
+var config = opts.config || exports.getConfig(file)
+__ecma.Array.factory()
+code = fsUtils.readFile(file)
+cli.error("Can't open " + file)
+exports.exit(1)

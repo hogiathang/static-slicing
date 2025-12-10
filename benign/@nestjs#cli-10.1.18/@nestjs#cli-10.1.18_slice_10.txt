@@ -1,0 +1,16 @@
+async runTsc(watchMode, options, configuration, pathToTsconfig, appName, onSuccess) {
+        if (watchMode) {
+            const { WatchCompiler } = await Promise.resolve().then(() => require('../lib/compiler/watch-compiler'));
+            const watchCompiler = new WatchCompiler(this.pluginsLoader, this.tsConfigProvider, this.tsLoader);
+            const isPreserveWatchOutputEnabled = options.find((option) => option.name === 'preserveWatchOutput' && option.value === true)?.value;
+            watchCompiler.run(configuration, pathToTsconfig, appName, { preserveWatchOutput: isPreserveWatchOutputEnabled }, onSuccess);
+        }
+        else {
+            const { Compiler } = await Promise.resolve().then(() => require('../lib/compiler/compiler'));
+            const compiler = new Compiler(this.pluginsLoader, this.tsConfigProvider, this.tsLoader);
+            compiler.run(configuration, pathToTsconfig, appName, undefined, onSuccess);
+            this.assetsManager.closeWatchers();
+       ...
+_tmp_27 = await Promise.resolve().then(() => require('../lib/compiler/compiler'))
+const compiler = new Compiler(this.pluginsLoader, this.tsConfigProvider, this.tsLoader)
+compiler.run(configuration, pathToTsconfig, appName, undefined, onSuccess)

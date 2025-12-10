@@ -1,0 +1,13 @@
+stat(absoluteDest).catch(function () { return null }).then(function (destStat) {
+        var isDir = destStat && destStat.isDirectory()
+        var type = isDir ? 'dir' : 'file'
+        return symlink(linkFrom, to, type).catch(function (err) {
+          if (type === 'dir') {
+            return symlink(linkFrom, to, 'junction')
+          } else {
+            return Promise.reject(err)
+          }
+        })
+      })
+var isDir = destStat && destStat.isDirectory()
+var type = isDir ? 'dir' : 'file'

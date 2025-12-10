@@ -1,0 +1,14 @@
+el.forEach(function (enc){
+            enclosure = {};
+            enclosure.url = _.get(enc['@'], 'url');
+            enclosure.type = _.get(enc['@'], 'type');
+            enclosure.length = _.get(enc['@'], 'length');
+            if (~indexOfObject(item.enclosures, enclosure, ['url', 'type'])) {
+              item.enclosures.splice(indexOfObject(item.enclosures, enclosure, ['url', 'type']), 1, enclosure);
+            } else {
+              item.enclosures.push(enclosure);
+            }
+          })
+enclosure = {}
+enclosure.url = _.get(enc['@'], 'url')
+enclosure.type = _.get(enc['@'], 'type')

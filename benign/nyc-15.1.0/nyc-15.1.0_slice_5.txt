@@ -1,0 +1,25 @@
+exports.handler = cliWrapper(async argv => {
+  process.env.NYC_CWD = process.cwd()
+  const nyc = new NYC(argv)
+  const inputStat = await fs.stat(argv.inputDirectory).catch(error => {
+    throw new Error(`failed access input directory ${argv.inputDirectory} with error:\n\n${error.message}`)
+  })
+
+  if (!inputStat.isDirectory()) {
+    throw new Error(`${argv.inputDirectory} was not a directory`)
+  }
+  await makeDir(path.dirname(argv.outputFile))
+  const map = await nyc.getCoverageMapFromAllCoverageFiles(argv.inputDirectory)
+  await fs.writeFile(argv.outputFile, JSON.stringify(map, null, 2), 'utf8')
+  console.info(`coverage files in ${argv.inputDirectory} merged into ${argv.outputFile}`)
+})
+process.env.NYC_CWD = process.cwd()
+const nyc = new NYC(argv)
+const inputStat = await fs.stat(argv.inputDirectory).catch(error => {
+    throw new Error(`failed access input directory ${argv.inputDirectory} with error:\n\n${error.message}`)
+  })
+!inputStat.isDirectory()
+<operator>.formatString("", argv.inputDirectory, " was not a directory")
+await makeDir(path.dirname(argv.outputFile))
+const map = await nyc.getCoverageMapFromAllCoverageFiles(argv.inputDirectory)
+await fs.writeFile(argv.outputFile, JSON.stringify(map, null, 2), 'utf8')

@@ -1,0 +1,14 @@
+SubprocessCompatibility.prototype._moveToDiPlane = function(diElement, newPlane) {
+  var containingDiagram = findRootDiagram(diElement);
+
+  // remove DI from old Plane and add it to the new one
+  var parentPlaneElement = containingDiagram.plane.get('planeElement');
+
+  parentPlaneElement.splice(parentPlaneElement.indexOf(diElement), 1);
+
+  newPlane.get('planeElement').push(diElement);
+}
+var containingDiagram = findRootDiagram(diElement)
+var parentPlaneElement = containingDiagram.plane.get('planeElement')
+parentPlaneElement.splice(parentPlaneElement.indexOf(diElement), 1)
+(_tmp_13 = newPlane.get('planeElement')).push

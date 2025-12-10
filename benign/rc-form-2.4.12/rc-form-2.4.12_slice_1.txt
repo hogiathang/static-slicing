@@ -1,0 +1,53 @@
+errors.forEach(function (e) {
+              var errorFieldName = e.field;
+              var fieldName = errorFieldName;
+
+              // Handle using array validation rule.
+              // ref: https://github.com/ant-design/ant-design/issues/14275
+              Object.keys(allRules).some(function (ruleFieldName) {
+                var rules = allRules[ruleFieldName] || [];
+
+                // Exist if match rule
+                if (ruleFieldName === errorFieldName) {
+                  fieldName = ruleFieldName;
+                  return true;
+                }
+
+                // Skip if not match array type
+                if (rules.every(function (_ref2) {
+                  var type = _ref2.type;
+                  return type !== 'array';
+                }) || errorFieldName.indexOf(ruleFieldName + '.') !== 0) {
+                  return false;
+                }
+
+                // Exist if match the field name
+                var restPath = errorFieldName.slice(ruleFieldName.lengt...
+var errorFieldName = e.field
+var fieldName = errorFieldName
+Object.keys(allRules).some(function (ruleFieldName) {
+                var rules = allRules[ruleFieldName] || [];
+
+                // Exist if match rule
+                if (ruleFieldName === errorFieldName) {
+                  fieldName = ruleFieldName;
+                  return true;
+                }
+
+                // Skip if not match array type
+                if (rules.every(function (_ref2) {
+                  var type = _ref2.type;
+                  return type !== 'array';
+                }) || errorFieldName.indexOf(ruleFieldName + '.') !== 0) {
+                  return false;
+                }
+
+                // Exist if match the field name
+                var restPath = errorFieldName.slice(ruleFieldName.length + 1);
+                if (/^\d+$/.test(restPath)) {
+                  fieldName = ruleFieldName;
+                  return true;
+                }
+
+                return false;
+              })

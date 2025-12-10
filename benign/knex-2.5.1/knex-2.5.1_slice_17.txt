@@ -1,0 +1,21 @@
+function formatDefault = function formatDefault(value, type, client) {
+  if (value === void 0) {
+    return '';
+  } else if (value === null) {
+    return 'null';
+  } else if (value && value.isRawInstance) {
+    return value.toQuery();
+  } else if (type === 'bool') {
+    if (value === 'false') value = 0;
+    return `'${value ? 1 : 0}'`;
+  } else if ((type === 'json' || type === 'jsonb') && isObject(value)) {
+    return `'${JSON.stringify(value)}'`;
+  } else {
+    return client._escapeBinding(value.toString());
+  }
+}
+value === void 0
+value === null
+value && value.isRawInstance
+type === 'bool'
+(type === 'json' || type === 'jsonb') && isObject(value)

@@ -1,0 +1,10 @@
+function onSetScope = async function onSetScope(scopeName, url) {
+  const scopeRegistryKey = `${scopeName}:${REGISTRY}`;
+  const npmrc = await readFile(NPMRC);
+  Object.assign(npmrc, { [scopeRegistryKey]: url });
+  await writeFile(NPMRC, npmrc);
+  printSuccess(`Set scope '${scopeRegistryKey}=${url}' success.`);
+}
+<operator>.formatString("", scopeName, ":", REGISTRY, "")
+const npmrc = await readFile(NPMRC)
+Object.assign(npmrc, { [scopeRegistryKey]: url })

@@ -1,0 +1,29 @@
+constructor(scope, id, props) {
+        super(scope, id);
+        try {
+            jsiiDeprecationWarnings._aws_cdk_core_CustomResourceProviderProps(props);
+        }
+        catch (error) {
+            if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                Error.captureStackTrace(error, CustomResourceProvider);
+            }
+            throw error;
+        }
+        const stack = stack_1.Stack.of(scope);
+        // copy the entry point to the code directory
+        fs.copyFileSync(ENTRYPOINT_NODEJS_SOURCE, path.join(props.codeDirectory, `${ENTRYPOINT_FILENAME}.js`));
+        // verify we have an index file there
+        if (!fs.existsSync(path.join(props.codeDirectory, 'index.js'))) {
+            throw new Error(`cannot find ${props.codeDirectory}/index.js`);
+        }
+        const staging = new asset_staging_1.AssetStaging(this, 'Staging', {
+            sourcePath: props.codeDirectory,
+        });
+        const assetFileName = staging.relativ...
+super(scope, id)
+jsiiDeprecationWarnings._aws_cdk_core_CustomResourceProviderProps(props)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, CustomResourceProvider)
+throw error;
+const stack = stack_1.Stack.of(scope)
+fs.copyFileSync(ENTRYPOINT_NODEJS_SOURCE, path.join(props.codeDirectory, `${ENTRYPOINT_FILENAME}.js`))

@@ -1,0 +1,25 @@
+var mkdir = function (dir, cache, mode) {
+    dir = path.normalize(path.resolve(process.cwd(), dir) + path.sep);
+    if (mode === undefined) {
+        mode = parseInt('777', 8) & (~process.umask());
+    }
+
+    if (!cache[dir]) {
+        var parent;
+
+        if (fs.existsSync(dir)) {
+            parent = new Q();
+        } else {
+            parent = mkdir(path.dirname(dir), cache, mode);
+        }
+
+        cache[dir] = parent.then(function () {
+            return mkpath(dir, mode);
+        });
+    }
+
+    return cache[dir];
+}
+dir = path.normalize(path.resolve(process.cwd(), dir) + path.sep)
+mode === undefined
+mode = parseInt('777', 8) & (~process.umask())

@@ -1,0 +1,33 @@
+const braketHelper = (one) => (context) => {
+    const left = context.consumeArg().tokens;
+    const middle = context.consumeArg().tokens;
+    const middleDouble = context.consumeArg().tokens;
+    const right = context.consumeArg().tokens;
+    const oldMiddle = context.macros.get("|");
+    const oldMiddleDouble = context.macros.get("\\|");
+    context.macros.beginGroup();
+    const midMacro = (double) => (context) => {
+        if (one) {
+            // Only modify the first instance of | or \|
+            context.macros.set("|", oldMiddle);
+            if (middleDouble.length) {
+                context.macros.set("\\|", oldMiddleDouble);
+            }
+        }
+        let doubled = double;
+        if (!double && middleDouble.length) {
+            // Mimic \@ifnextchar
+            const nextToken = context.future();
+            if (nextToken.text === "|") {
+                context.popToken();
+                doubled = true;
+            }
+        }
+        return {
+            tokens: doub...
+const left = context.consumeArg().tokens
+const middle = context.consumeArg().tokens
+const middleDouble = context.consumeArg().tokens
+const right = context.consumeArg().tokens
+const oldMiddle = context.macros.get("|")
+const oldMiddleDouble = context.macros.get("\\|")

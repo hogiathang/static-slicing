@@ -1,0 +1,44 @@
+require("./download")((err) => {
+  // Fix default executable path on Windows Git Bash
+  if (!err && process.env.MSYSTEM && os.release().includes("10")) {
+    const exeFile = path.resolve(
+      process.env.APPDATA,
+      path.join("npm", pkgName)
+    );
+
+    if (fs.existsSync(exeFile)) {
+      const parsedContent = fs
+        .readFileSync(exeFile)
+        .toString()
+        .replace(
+          `"$basedir/node_modules/${pkgName}/bin/${pkgName}"`,
+          `"winpty" "$basedir/node_modules/${pkgName}/bin/${pkgName}.exe"`
+        );
+
+      fs.writeFileSync(exeFile, parsedContent);
+    }
+  }
+
+  process.exit(err ? 1 : 0);
+})
+!err && process.env.MSYSTEM && os.release().includes("10")
+const exeFile = path.resolve(
+      process.env.APPDATA,
+      path.join("npm", pkgName)
+    )
+process.env.APPDATA
+path.join("npm", pkgName)
+fs.existsSync(exeFile)
+const parsedContent = fs
+        .readFileSync(exeFile)
+        .toString()
+        .replace(
+          `"$basedir/node_modules/${pkgName}/bin/${pkgName}"`,
+          `"winpty" "$basedir/node_modules/${pkgName}/bin/${pkgName}.exe"`
+        )
+readFileSync
+toString
+replace
+<operator>.formatString(""$basedir/node_modules/", pkgName, "/bin/", pkgName, """)
+<operator>.formatString(""winpty" "$basedir/node_modules/", pkgName, "/bin/", pkgName, ".exe"")
+fs.writeFileSync(exeFile, parsedContent)

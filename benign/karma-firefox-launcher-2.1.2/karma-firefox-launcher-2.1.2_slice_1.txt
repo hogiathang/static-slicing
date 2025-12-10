@@ -1,0 +1,8 @@
+args.extensions.forEach(function (ext) {
+        const extBuffer = fs.readFileSync(ext)
+        const copyDestination = path.resolve(extensionsDir, path.basename(ext))
+        fs.writeFileSync(copyDestination, extBuffer)
+      })
+const extBuffer = fs.readFileSync(ext)
+const copyDestination = path.resolve(extensionsDir, path.basename(ext))
+fs.writeFileSync(copyDestination, extBuffer)

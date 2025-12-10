@@ -1,0 +1,18 @@
+process.on('uncaughtException', err => {
+  // Sometimes uncaught exceptions are not errors
+  const { message, name, stack } =
+    err instanceof Error ? err : new Error(`uncaughtException ${err}`);
+
+  console.error(stack);
+
+  // If there's a custom uncaughtException handler expect it to terminate
+  // the process.
+  const willTerminate = process.listenerCount('uncaughtException') > 1;
+
+  send({ error: name, message, willTerminate });
+})
+_tmp_7 = err instanceof Error ? err : new Error(`uncaughtException ${err}`)
+err instanceof Error ? err : new Error(`uncaughtException ${err}`)
+console.error(stack)
+const willTerminate = process.listenerCount('uncaughtException') > 1
+send({ error: name, message, willTerminate })

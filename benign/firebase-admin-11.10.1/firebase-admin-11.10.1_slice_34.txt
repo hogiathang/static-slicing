@@ -1,0 +1,52 @@
+refresh() {
+        const client = new api_request_1.HttpClient();
+        const request = {
+            method: 'GET',
+            url: this.clientCertUrl,
+            httpAgent: this.httpAgent,
+        };
+        return client.send(request).then((resp) => {
+            if (!resp.isJson() || resp.data.error) {
+                // Treat all non-json messages and messages with an 'error' field as
+                // error responses.
+                throw new api_request_1.HttpError(resp);
+            }
+            // reset expire at from previous set of keys.
+            this.publicKeysExpireAt = 0;
+            if (Object.prototype.hasOwnProperty.call(resp.headers, 'cache-control')) {
+                const cacheControlHeader = resp.headers['cache-control'];
+                const parts = cacheControlHeader.split(',');
+                parts.forEach((part) => {
+                    const subParts = part.trim().split('=');
+                    if (subParts[0] === 'max-age') {
+               ...
+const client = new api_request_1.HttpClient()
+const request = {
+            method: 'GET',
+            url: this.clientCertUrl,
+            httpAgent: this.httpAgent,
+        }
+_tmp_27.method = "GET"
+_tmp_27.url = this.clientCertUrl
+_tmp_27.httpAgent = this.httpAgent
+(_tmp_28 = client.send(request).then((resp) => {
+            if (!resp.isJson() || resp.data.error) {
+                // Treat all non-json messages and messages with an 'error' field as
+                // error responses.
+                throw new api_request_1.HttpError(resp);
+            }
+            // reset expire at from previous set of keys.
+            this.publicKeysExpireAt = 0;
+            if (Object.prototype.hasOwnProperty.call(resp.headers, 'cache-control')) {
+                const cacheControlHeader = resp.headers['cache-control'];
+                const parts = cacheControlHeader.split(',');
+                parts.forEach((part) => {
+                    const subParts = part.trim().split('=');
+                    if (subParts[0] === 'max-age') {
+                        const maxAge = +subParts[1];
+                        this.publicKeysExpireAt = Date.now() + (maxAge * 1000);
+                    }
+                });
+            }
+            this.publicKeys = resp.data;
+       ...).catch

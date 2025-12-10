@@ -1,0 +1,28 @@
+function addPatternDependencies = function addPatternDependencies(type: string, layers: PatternStyleLayers, patternFeature: BucketFeature, zoom: number, options: PopulateParameters): BucketFeature {
+    const patterns = options.patternDependencies;
+    for (const layer of layers) {
+        const patternProperty = layer.paint.get(`${type}-pattern`);
+
+        const patternPropertyValue = patternProperty.value;
+        if (patternPropertyValue.kind !== "constant") {
+            let pattern = patternPropertyValue.evaluate({zoom}, patternFeature, {}, options.availableImages);
+            pattern = pattern && pattern.name ? pattern.name : pattern;
+
+            // add to patternDependencies
+            patterns[pattern] = true;
+
+            // save for layout
+            patternFeature.patterns[layer.id] = pattern;
+        }
+    }
+    return patternFeature;
+}
+const patterns = options.patternDependencies
+_iterator_1 = <operator>.iterator(layers)
+const patternProperty = layer.paint.get(`${type}-pattern`)
+const patternPropertyValue = patternProperty.value
+patternPropertyValue.kind !== "constant"
+let pattern = patternPropertyValue.evaluate({zoom}, patternFeature, {}, options.availableImages)
+pattern = pattern && pattern.name ? pattern.name : pattern
+patterns[pattern] = true
+patternFeature.patterns[layer.id] = pattern

@@ -1,0 +1,24 @@
+setStyles(input, easing, errors, options) {
+        if (easing) {
+            this._previousKeyframe.set('easing', easing);
+        }
+        const params = (options && options.params) || {};
+        const styles = flattenStyles(input, this._globalTimelineStyles);
+        for (let [prop, value] of styles) {
+            const val = interpolateParams(value, params, errors);
+            this._pendingStyles.set(prop, val);
+            if (!this._localTimelineStyles.has(prop)) {
+                this._backFill.set(prop, this._globalTimelineStyles.get(prop) ?? AUTO_STYLE);
+            }
+            this._updateStyle(prop, val);
+        }
+    }
+this._previousKeyframe.set('easing', easing)
+const params = (options && options.params) || {}
+const styles = flattenStyles(input, this._globalTimelineStyles)
+_iterator_9 = <operator>.iterator(styles)
+const val = interpolateParams(value, params, errors)
+(_tmp_250 = this._pendingStyles).set
+(_tmp_251 = this._localTimelineStyles).has
+this._backFill.set(prop, this._globalTimelineStyles.get(prop) ?? AUTO_STYLE)
+this._updateStyle(prop, val)

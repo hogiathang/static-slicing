@@ -1,0 +1,29 @@
+function isExportCurrent = function isExportCurrent(path, exportName, t) {
+  if (t.isExportDefaultDeclaration(path)) {
+    var decl = path.get('declaration');
+    var identifier = decl.isIdentifier() // export default MyComp
+    ? decl.node.name : getComponentFromHoC(decl); // export default withHoC(MyComp)
+
+    if (identifier === exportName) {
+      return true;
+    }
+  }
+
+  if (t.isExportNamedDeclaration(path)) {
+    return path.get('specifiers').find(function (sp) {
+      return sp.node.exported.name === exportName;
+    });
+  }
+
+  return false;
+}
+t.isExportDefaultDeclaration(path)
+var decl = path.get('declaration')
+var identifier = decl.isIdentifier() // export default MyComp
+    ? decl.node.name : getComponentFromHoC(decl)
+getComponentFromHoC(decl)
+identifier === exportName
+t.isExportNamedDeclaration(path)
+path.get('specifiers').find(function (sp) {
+      return sp.node.exported.name === exportName;
+    })

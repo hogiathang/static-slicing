@@ -1,0 +1,44 @@
+const taskTest = async (config) => {
+    config.buildDocs = false;
+    const testingRunOpts = {
+        e2e: !!config.flags.e2e,
+        screenshot: !!config.flags.screenshot,
+        spec: !!config.flags.spec,
+        updateScreenshot: !!config.flags.updateScreenshot,
+    };
+    // always ensure we have jest modules installed
+    const ensureModuleIds = ['@types/jest', 'jest', 'jest-cli'];
+    if (testingRunOpts.e2e) {
+        // if it's an e2e test, also make sure we're got
+        // puppeteer modules installed and if browserExecutablePath is provided don't download Chromium use only puppeteer-core instead
+        const puppeteer = config.testing.browserExecutablePath ? 'puppeteer-core' : 'puppeteer';
+        ensureModuleIds.push(puppeteer);
+        if (testingRunOpts.screenshot) {
+            // ensure we've got pixelmatch for screenshots
+            config.logger.warn(config.logger.yellow(`EXPERIMENTAL: screenshot visual diff testing is currently under heavy development and has not r...
+config.buildDocs = false
+const testingRunOpts = {
+        e2e: !!config.flags.e2e,
+        screenshot: !!config.flags.screenshot,
+        spec: !!config.flags.spec,
+        updateScreenshot: !!config.flags.updateScreenshot,
+    }
+_tmp_180.e2e = !!config.flags.e2e
+_tmp_180.screenshot = !!config.flags.screenshot
+_tmp_180.spec = !!config.flags.spec
+_tmp_180.updateScreenshot = !!config.flags.updateScreenshot
+const ensureModuleIds = ['@types/jest', 'jest', 'jest-cli']
+testingRunOpts.e2e
+const puppeteer = config.testing.browserExecutablePath ? 'puppeteer-core' : 'puppeteer'
+ensureModuleIds.push(puppeteer)
+testingRunOpts.screenshot
+config.logger.warn(config.logger.yellow(`EXPERIMENTAL: screenshot visual diff testing is currently under heavy development and has not reached a stable status. However, any assistance testing would be appreciated.`))
+const diagnostics = await config.sys.lazyRequire.ensure(config.rootDir, ensureModuleIds)
+diagnostics.length > 0
+_tmp_188 = await Promise.resolve().then(function () { return /*#__PURE__*/_interopNamespace(require('../testing/index.js')); })
+const testing = await createTesting(config)
+const passed = await testing.run(testingRunOpts)
+await testing.destroy()
+!passed
+(_tmp_190 = config.logger).error
+(_tmp_191 = config.sys).exit

@@ -1,0 +1,51 @@
+const next = async () => {
+			if (isResolved) {
+				return;
+			}
+
+			const nextItem = await iterator.next();
+
+			const index = currentIndex;
+			currentIndex++;
+
+			// Note: `iterator.next()` can be called many times in parallel.
+			// This can cause multiple calls to this `next()` function to
+			// receive a `nextItem` with `done === true`.
+			// The shutdown logic that rejects/resolves must be protected
+			// so it runs only one time as the `skippedIndex` logic is
+			// non-idempotent.
+			if (nextItem.done) {
+				isIterableDone = true;
+
+				if (resolvingCount === 0 && !isResolved) {
+					if (!stopOnError && errors.length > 0) {
+						reject(new AggregateError(errors)); // eslint-disable-line unicorn/error-message
+						return;
+					}
+
+					isResolved = true;
+
+					if (skippedIndexesMap.size === 0) {
+						resolve(result);
+						return;
+					}
+
+					const pureResult = [];
+
+					// Support multiple `pMapSkip`'s.
+					for (const [index, value] of result.entries()) {
+						if (skippedIndexes...
+const nextItem = await iterator.next()
+const index = currentIndex
+currentIndex++
+nextItem.done
+isIterableDone = true
+resolvingCount === 0 && !isResolved
+!stopOnError && errors.length > 0
+isResolved = true
+skippedIndexesMap.size === 0
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(result.entries())
+skippedIndexesMap.get(index) === pMapSkip
+continue;
+pureResult.push(value)

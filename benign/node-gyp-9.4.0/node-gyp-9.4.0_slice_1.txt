@@ -1,0 +1,3 @@
+_tmp_3.succeed = succeed
+<operator>.formatString("using Python version ", version, " found at "", execPath, """)
+process.nextTick(this.callback.bind(null, null, execPath))

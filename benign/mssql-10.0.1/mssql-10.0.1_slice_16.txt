@@ -1,0 +1,17 @@
+const valueCorrection = function (value, metadata) {
+  const type = getMssqlType(metadata.type)
+  if (valueHandler.has(type)) {
+    return valueHandler.get(type)(value)
+  } else if ((metadata.type === tds.TYPES.UDT) && (value != null)) {
+    if (UDT[metadata.udtInfo.typeName]) {
+      return UDT[metadata.udtInfo.typeName](value)
+    } else {
+      return value
+    }
+  } else {
+    return value
+  }
+}
+const type = getMssqlType(metadata.type)
+valueHandler.has(type)
+valueHandler.get(type)(value)

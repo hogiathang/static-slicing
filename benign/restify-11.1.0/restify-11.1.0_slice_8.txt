@@ -1,0 +1,26 @@
+function handleServeStaticFiles(req, res, next) {
+        // Check to make sure that this was either a GET or a HEAD request
+        if (req.method !== 'GET' && req.method !== 'HEAD') {
+            return next(new MethodNotAllowedError('%s', req.method));
+        }
+        // we expect the params to have `*`:
+        // This allows the router to accept any file path
+        var requestedFile = req.params['*'] || 'index.html';
+        // This is used only for sending back correct error message text
+        var requestedFullPath = req.url;
+        // Rely on `send` library to create a stream
+        var stream = send(req, requestedFile, optionsSend);
+
+        // Lets handle the various events being emitted by send module
+
+        // stream has ended, must call `next()`
+        stream.on('end', function handleEnd() {
+            return next();
+        });
+
+        // when `send` encounters any `error`, we have the opportunity
+        // to handle the errors here
+        stream.on('erro...
+req.method !== 'GET' && req.method !== 'HEAD'
+var requestedFile = req.params['*'] || 'index.html'
+var requestedFullPath = req.url

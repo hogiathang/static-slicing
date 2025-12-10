@@ -1,0 +1,3 @@
+_tmp_1.emplace = emplace
+var map = aWeakMap(this)
+has(map, key)

@@ -1,0 +1,136 @@
+var nul = process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null'
+var bench = require('fastbench')
+var stream = require('fs').createWriteStream(nul)
+var alt0 = require('./')
+var largeStr = JSON.stringify(require('./package.json'))
+largeStr += largeStr
+largeStr += largeStr
+var run = bench([
+  function alt0ManySmallConcats (cb) {
+    stream.write(alt0(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt1ManySmallConcats (cb) {
+    stream.write(alt1(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt2ManySmallConcats (cb) {
+    stream.write(alt2(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt3ManySmallConcats (cb) {
+    stream.write(alt3(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt4ManySmallConcats (cb) {
+    stream.write(alt4(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt5ManySmallConcats (cb) {
+    stream.write(alt5(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt6ManySmallConcats (cb) {
+    stream.write(alt6(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt7ManySmallConcats (cb) {
+    stream.write(alt7(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt8ManySmallConcats (cb) {
+    stream.write(alt8(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function alt9ManyS...
+_tmp_1.push(alt0ManySmallConcats)
+_tmp_1.push(alt1ManySmallConcats)
+_tmp_1.push(alt2ManySmallConcats)
+_tmp_1.push(alt3ManySmallConcats)
+_tmp_1.push(alt4ManySmallConcats)
+_tmp_1.push(alt5ManySmallConcats)
+_tmp_1.push(alt6ManySmallConcats)
+_tmp_1.push(alt7ManySmallConcats)
+_tmp_1.push(alt8ManySmallConcats)
+_tmp_1.push(alt9ManySmallConcats)
+_tmp_1.push(alt0SeveralLargeConcats)
+_tmp_1.push(alt1SeveralLargeConcats)
+_tmp_1.push(alt2SeveralLargeConcats)
+_tmp_1.push(alt3SeveralLargeConcats)
+_tmp_1.push(alt4SeveralLargeConcats)
+_tmp_1.push(alt5SeveralLargeConcats)
+_tmp_1.push(alt6SeveralLargeConcats)
+_tmp_1.push(alt7SeveralLargeConcats)
+_tmp_1.push(alt8SeveralLargeConcats)
+_tmp_1.push(alt9SeveralLargeConcats)
+_tmp_1.push(alt0ExponentialSmallConcats)
+_tmp_1.push(alt1ExponentialSmallConcats)
+_tmp_1.push(alt2ExponentialSmallConcats)
+_tmp_1.push(alt3ExponentialSmallConcats)
+_tmp_1.push(alt4ExponentialSmallConcats)
+_tmp_1.push(alt5ExponentialSmallConcats)
+_tmp_1.push(alt6ExponentialSmallConcats)
+_tmp_1.push(alt7ExponentialSmallConcats)
+_tmp_1.push(alt8ExponentialSmallConcats)
+_tmp_1.push(alt9ExponentialSmallConcats)
+_tmp_1.push(alt0ExponentialLargeConcats)
+_tmp_1.push(alt1ExponentialLargeConcats)
+_tmp_1.push(alt2ExponentialLargeConcats)
+_tmp_1.push(alt3ExponentialLargeConcats)
+_tmp_1.push(alt4ExponentialLargeConcats)
+_tmp_1.push(alt5ExponentialLargeConcats)
+_tmp_1.push(alt6ExponentialLargeConcats)
+_tmp_1.push(alt7ExponentialLargeConcats)
+_tmp_1.push(alt8ExponentialLargeConcats)
+_tmp_1.push(alt9ExponentialLargeConcats)
+10000
+function alt1 = function alt1 (s) {
+  rx.test(s)
+  return s
+}
+function alt2 = function alt2 (s) {
+  rx.exec(s)
+  return s
+}
+function alt3 = function alt3 (s) {
+  s | 0
+  return s
+}
+function alt4 = function alt4 (s) {
+  ~s
+  return s
+}
+function alt5 = function alt5 (s) {
+  escape(s)
+  return s
+}
+function alt6 = function alt6 (s) {
+  unescape(s)
+  return s
+}
+function alt7 = function alt7 (s) {
+  parseInt(s, 10)
+  return s
+}
+function alt8 = function alt8 (s) {
+  parseFloat(s)
+  return s
+}
+function alt9 = function alt9 (s) {
+  alt9[s] = null
+  return s
+}
+function makeStr = function makeStr (str, concats) {
+  var s = ''
+  while (concats--) {
+    s += str
+  }
+  return s
+}
+function makeExpoStr = function makeExpoStr (str, concats) {
+  var s = str
+  while (concats--) {
+    s += s
+  }
+  return s
+}

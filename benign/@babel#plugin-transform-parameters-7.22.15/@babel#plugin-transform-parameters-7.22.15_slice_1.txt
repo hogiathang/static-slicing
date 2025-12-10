@@ -1,0 +1,112 @@
+function convertFunctionParams = function convertFunctionParams(path, ignoreFunctionLength, shouldTransformParam, replaceRestElement) {
+  const params = path.get("params");
+  const isSimpleParameterList = params.every(param => param.isIdentifier());
+  if (isSimpleParameterList) return false;
+  const {
+    node,
+    scope
+  } = path;
+  const body = [];
+  const shadowedParams = new Set();
+  for (const param of params) {
+    (0, _shadowUtils.collectShadowedParamsNames)(param, scope, shadowedParams);
+  }
+  const state = {
+    needsOuterBinding: false,
+    scope
+  };
+  if (shadowedParams.size === 0) {
+    for (const param of params) {
+      if (!param.isIdentifier()) param.traverse(_shadowUtils.iifeVisitor, state);
+      if (state.needsOuterBinding) break;
+    }
+  }
+  let firstOptionalIndex = null;
+  for (let i = 0; i < params.length; i++) {
+    const param = params[i];
+    if (shouldTransformParam && !shouldTransformParam(i)) {
+      continue;
+    }
+    const transformedRestNodes = [];
+    if (replaceRestElement) {
+   ...
+const params = path.get("params")
+const isSimpleParameterList = params.every(param => param.isIdentifier())
+_tmp_0 = path
+node = _tmp_0.node
+scope = _tmp_0.scope
+__ecma.Array.factory()
+const shadowedParams = new Set()
+_iterator_0 = <operator>.iterator(params)
+(0, _shadowUtils.collectShadowedParamsNames)(param, scope, shadowedParams)
+const state = {
+    needsOuterBinding: false,
+    scope
+  }
+_tmp_2.needsOuterBinding = false
+_tmp_2.scope = scope
+shadowedParams.size === 0
+_iterator_1 = <operator>.iterator(params)
+param.traverse(_shadowUtils.iifeVisitor, state)
+state.needsOuterBinding
+let firstOptionalIndex = null
+i < params.length
+const param = params[i]
+shouldTransformParam && !shouldTransformParam(i)
+continue;
+const transformedRestNodes = []
+replaceRestElement(path, param, transformedRestNodes)
+const paramIsAssignmentPattern = param.isAssignmentPattern()
+paramIsAssignmentPattern && (ignoreFunctionLength || _core.types.isMethod(node, {
+      kind: "set"
+    }))
+_tmp_4.kind = "set"
+const left = param.get("left")
+const right = param.get("right")
+const undefinedNode = scope.buildUndefinedNode()
+left.isIdentifier()
+body.push(buildLooseDefaultParam({
+          ASSIGNMENT_IDENTIFIER: _core.types.cloneNode(left.node),
+          DEFAULT_VALUE: right.node,
+          UNDEFINED: undefinedNode
+        }))
+_tmp_5.ASSIGNMENT_IDENTIFIER = _core.types.cloneNode(left.node)
+_tmp_5.DEFAULT_VALUE = right.node
+_tmp_5.UNDEFINED = undefinedNode
+param.replaceWith(left.node)
+left.isObjectPattern() || left.isArrayPattern()
+const paramName = scope.generateUidIdentifier()
+body.push(buildLooseDestructuredDefaultParam({
+          ASSIGNMENT_IDENTIFIER: left.node,
+          DEFAULT_VALUE: right.node,
+          PARAMETER_NAME: _core.types.cloneNode(paramName),
+          UNDEFINED: undefinedNode
+        }))
+_tmp_7.ASSIGNMENT_IDENTIFIER = left.node
+_tmp_7.DEFAULT_VALUE = right.node
+_tmp_7.PARAMETER_NAME = _core.types.cloneNode(paramName)
+_tmp_7.UNDEFINED = undefinedNode
+param.replaceWith(paramName)
+firstOptionalIndex === null
+const left = param.get("left")
+const right = param.get("right")
+const defNode = buildDefaultParam({
+        VARIABLE_NAME: left.node,
+        DEFAULT_VALUE: right.node,
+        ARGUMENT_KEY: _core.types.numericLiteral(i)
+      })
+_tmp_9.VARIABLE_NAME = left.node
+_tmp_9.DEFAULT_VALUE = right.node
+_tmp_9.ARGUMENT_KEY = _core.types.numericLiteral(i)
+body.push(defNode)
+firstOptionalIndex !== null
+const defNode = buildSafeArgumentsAccess([param.node, _core.types.numericLiteral(i)])
+body.push(defNode)
+param.isObjectPattern() || param.isArrayPattern()
+const uid = path.scope.generateUidIdentifier("ref")
+uid.typeAnnotation = param.node.typeAnnotation
+const defNode = _core.types.variableDeclaration("let", [_core.types.variableDeclarator(param.node, uid)])
+body.push(defNode)
+param.replaceWith(_core.types.cloneNode(uid))
+_iterator_2 = <operator>.iterator(transformedRestNodes)
+body.push(transformedNode)

@@ -1,0 +1,25 @@
+async acquireTokenByCode(request) {
+        const correlationId = this.getRequestCorrelationId(request);
+        this.preflightBrowserEnvironmentCheck(exports.InteractionType.Silent);
+        this.logger.trace("acquireTokenByCode called", correlationId);
+        this.eventHandler.emitEvent(EventType.ACQUIRE_TOKEN_BY_CODE_START, exports.InteractionType.Silent, request);
+        const atbcMeasurement = this.performanceClient.startMeasurement(PerformanceEvents.AcquireTokenByCode, request.correlationId);
+        try {
+            if (request.code && request.nativeAccountId) {
+                // Throw error in case server returns both spa_code and spa_accountid in exchange for auth code.
+                throw createBrowserAuthError(spaCodeAndNativeAccountIdPresent);
+            }
+            else if (request.code) {
+                const hybridAuthCode = request.code;
+                let response = this.hybridAuthCodeResponses.get(hybridAuthCode);
+                if (!response) {
+       ...
+const correlationId = this.getRequestCorrelationId(request)
+this.preflightBrowserEnvironmentCheck(exports.InteractionType.Silent)
+this.logger.trace("acquireTokenByCode called", correlationId)
+this.eventHandler.emitEvent(EventType.ACQUIRE_TOKEN_BY_CODE_START, exports.InteractionType.Silent, request)
+const atbcMeasurement = this.performanceClient.startMeasurement(PerformanceEvents.AcquireTokenByCode, request.correlationId)
+request.code && request.nativeAccountId
+request.code
+const hybridAuthCode = request.code
+let response = this.hybridAuthCodeResponses.get(hybridAuthCode)

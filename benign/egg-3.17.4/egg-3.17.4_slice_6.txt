@@ -1,0 +1,25 @@
+dumpTiming() {
+    try {
+      const items = this.timing.toJSON();
+      const rundir = this.config.rundir;
+      const dumpFile = path.join(rundir, `${this.type}_timing_${process.pid}.json`);
+      fs.writeFileSync(dumpFile, CircularJSON.stringify(items, null, 2));
+      this.coreLogger.info(this.timing.toString());
+      // only disable, not clear bootstrap timing data.
+      this.timing.disable();
+      // show duration >= ${slowBootActionMinDuration}ms action to warnning log
+      for (const item of items) {
+        // ignore #0 name: Process Start
+        if (item.index > 0 && item.duration >= this.config.dump.timing.slowBootActionMinDuration) {
+          this.coreLogger.warn('[egg:core][slow-boot-action] #%d %dms, name: %s',
+            item.index, item.duration, item.name);
+        }
+      }
+    } catch (err) {
+      this.coreLogger.warn(`dumpTiming error: ${err.message}`);
+    }
+  }
+const items = this.timing.toJSON()
+const rundir = this.config.rundir
+const dumpFile = path.join(rundir, `${this.type}_timing_${process.pid}.json`)
+fs.writeFileSync(dumpFile, CircularJSON.stringify(items, null, 2))

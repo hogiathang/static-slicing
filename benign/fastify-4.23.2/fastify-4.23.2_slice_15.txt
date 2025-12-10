@@ -1,0 +1,6 @@
+fastify.delete('/delete/:id', async function (request, reply) {
+  const { id } = request.params
+  reply.code(204).send({ data: `${id}` })
+})
+_tmp_9 = request.params
+_tmp_11.data = <operator>.formatString("", id, "")

@@ -1,0 +1,6 @@
+_tmp_2.authenticate = <lambda>2
+sasl.username == null || sasl.password == null
+throw new KafkaJSSASLAuthenticationError('SASL Plain: Invalid username or password')
+<operator>.formatString("", host, ":", port, "")
+logger.debug('Authenticate with SASL PLAIN', { broker })
+await saslAuthenticate({ request: request(sasl), response })

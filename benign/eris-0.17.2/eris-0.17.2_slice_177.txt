@@ -1,0 +1,36 @@
+update(data) {
+        if(data.status !== undefined) {
+            this.status = data.status;
+        }
+        if(data.joined_at !== undefined) {
+            this.joinedAt = data.joined_at ?  Date.parse(data.joined_at) : null;
+        }
+        if(data.client_status !== undefined) {
+            this.clientStatus = Object.assign({web: "offline", desktop: "offline", mobile: "offline"}, data.client_status);
+        }
+        if(data.activities !== undefined) {
+            this.activities = data.activities;
+        }
+        if(data.premium_since !== undefined) {
+            this.premiumSince = data.premium_since === null ? null : Date.parse(data.premium_since);
+        }
+        if(data.hasOwnProperty("mute") && this.guild) {
+            const state = this.guild.voiceStates.get(this.id);
+            if(data.channel_id === null && !data.mute && !data.deaf && !data.suppress) {
+                this.guild.voiceStates.delete(this.id);
+            } else if(state) {
+                state.up...
+data.status !== undefined
+this.status = data.status
+data.joined_at !== undefined
+this.joinedAt = data.joined_at ?  Date.parse(data.joined_at) : null
+data.client_status !== undefined
+this.clientStatus = Object.assign({web: "offline", desktop: "offline", mobile: "offline"}, data.client_status)
+data.activities !== undefined
+this.activities = data.activities
+data.premium_since !== undefined
+this.premiumSince = data.premium_since === null ? null : Date.parse(data.premium_since)
+data.hasOwnProperty("mute") && this.guild
+const state = this.guild.voiceStates.get(this.id)
+data.channel_id === null && !data.mute && !data.deaf && !data.suppress
+(_tmp_7 = this.guild.voiceStates).delete

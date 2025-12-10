@@ -1,0 +1,75 @@
+function handleFetcherLoader = async function handleFetcherLoader(
+    key: string,
+    routeId: string,
+    path: string,
+    match: AgnosticDataRouteMatch,
+    matches: AgnosticDataRouteMatch[],
+    submission?: Submission
+  ) {
+    let existingFetcher = state.fetchers.get(key);
+    // Put this fetcher into it's loading state
+    let loadingFetcher = getLoadingFetcher(
+      submission,
+      existingFetcher ? existingFetcher.data : undefined
+    );
+    state.fetchers.set(key, loadingFetcher);
+    updateState({ fetchers: new Map(state.fetchers) });
+
+    // Call the loader for this fetcher route match
+    let abortController = new AbortController();
+    let fetchRequest = createClientSideRequest(
+      init.history,
+      path,
+      abortController.signal
+    );
+    fetchControllers.set(key, abortController);
+
+    let originatingLoadId = incrementingLoadId;
+    let result: DataResult = await callLoaderOrAction(
+      "loader",
+      fetchRequest,
+      match,
+      matches,
+      manifest,
+      mapRoutePropert...
+let existingFetcher = state.fetchers.get(key)
+let loadingFetcher = getLoadingFetcher(
+      submission,
+      existingFetcher ? existingFetcher.data : undefined
+    )
+existingFetcher ? existingFetcher.data : undefined
+state.fetchers.set(key, loadingFetcher)
+updateState({ fetchers: new Map(state.fetchers) })
+let abortController = new AbortController()
+let fetchRequest = createClientSideRequest(
+      init.history,
+      path,
+      abortController.signal
+    )
+init.history
+abortController.signal
+fetchControllers.set(key, abortController)
+let originatingLoadId = incrementingLoadId
+let result: DataResult = await callLoaderOrAction(
+      "loader",
+      fetchRequest,
+      match,
+      matches,
+      manifest,
+      mapRouteProperties,
+      basename
+    )
+"loader"
+isDeferredResult(result)
+result =
+        (await resolveDeferredData(result, fetchRequest.signal, true)) ||
+        result
+(await resolveDeferredData(result, fetchRequest.signal, true)) ||
+        result
+fetchControllers.get(key) === abortController
+fetchControllers.delete(key)
+fetchRequest.signal.aborted
+isRedirectResult(result)
+isErrorResult(result)
+let boundaryMatch = findNearestBoundary(state.matches, routeId)
+(_tmp_258 = state.fetchers).delete

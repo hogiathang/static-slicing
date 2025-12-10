@@ -1,0 +1,3 @@
+_tmp_14.handler = <lambda>4
+await (await Promise.resolve().then(() => require('./format'))).format('write', args)
+process.exit(0)

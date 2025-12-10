@@ -1,0 +1,4 @@
+deleteSelfConnection(platform, id) {
+        return this.requestHandler.request("DELETE", Endpoints.USER_CONNECTION_PLATFORM("@me", platform, id), true);
+    }
+this.requestHandler.request("DELETE", Endpoints.USER_CONNECTION_PLATFORM("@me", platform, id), true)

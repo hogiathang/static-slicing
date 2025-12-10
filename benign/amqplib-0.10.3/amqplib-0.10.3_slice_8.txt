@@ -1,0 +1,20 @@
+function onStart = function onStart(start) {
+    var mechanisms = start.fields.mechanisms.toString().split(' ');
+    if (mechanisms.indexOf(allFields.mechanism) < 0) {
+      bail(new Error(fmt('SASL mechanism %s is not provided by the server',
+                         allFields.mechanism)));
+      return;
+    }
+    self.serverProperties = start.fields.serverProperties;
+    try {
+      send(defs.ConnectionStartOk);
+    } catch (err) {
+      bail(err);
+      return;
+    }
+    wait(afterStartOk);
+  }
+var mechanisms = start.fields.mechanisms.toString().split(' ')
+mechanisms.indexOf(allFields.mechanism) < 0
+self.serverProperties = start.fields.serverProperties
+send(defs.ConnectionStartOk)

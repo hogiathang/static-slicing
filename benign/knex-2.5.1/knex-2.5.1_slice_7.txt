@@ -1,0 +1,8 @@
+_useTransaction(migrationContent, allTransactionsDisabled) {
+    const singleTransactionValue = get(migrationContent, 'config.transaction');
+
+    return isBoolean(singleTransactionValue)
+      ? singleTransactionValue
+      : !allTransactionsDisabled;
+  }
+const singleTransactionValue = get(migrationContent, 'config.transaction')

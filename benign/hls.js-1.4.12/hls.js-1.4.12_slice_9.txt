@@ -1,0 +1,183 @@
+static parseMasterPlaylist(
+    string: string,
+    baseurl: string
+  ): ParsedMultivariantPlaylist {
+    const hasVariableRefs = __USE_VARIABLE_SUBSTITUTION__
+      ? hasVariableReferences(string)
+      : false;
+    const parsed: ParsedMultivariantPlaylist = {
+      contentSteering: null,
+      levels: [],
+      playlistParsingError: null,
+      sessionData: null,
+      sessionKeys: null,
+      startTimeOffset: null,
+      variableList: null,
+      hasVariableRefs,
+    };
+    const levelsWithKnownCodecs: LevelParsed[] = [];
+
+    MASTER_PLAYLIST_REGEX.lastIndex = 0;
+
+    let result: RegExpExecArray | null;
+    while ((result = MASTER_PLAYLIST_REGEX.exec(string)) != null) {
+      if (result[1]) {
+        // '#EXT-X-STREAM-INF' is found, parse level tag  in group 1
+        const attrs = new AttrList(result[1]) as LevelAttributes;
+        if (__USE_VARIABLE_SUBSTITUTION__) {
+          substituteVariablesInAttributes(parsed, attrs, [
+            'CODECS',
+            'SUPPLEMENTAL-CODEC...
+const hasVariableRefs = __USE_VARIABLE_SUBSTITUTION__
+      ? hasVariableReferences(string)
+      : false
+hasVariableReferences(string)
+const parsed: ParsedMultivariantPlaylist = {
+      contentSteering: null,
+      levels: [],
+      playlistParsingError: null,
+      sessionData: null,
+      sessionKeys: null,
+      startTimeOffset: null,
+      variableList: null,
+      hasVariableRefs,
+    }
+_tmp_21.contentSteering = null
+_tmp_21.levels = __ecma.Array.factory()
+_tmp_21.playlistParsingError = null
+_tmp_21.sessionData = null
+_tmp_21.sessionKeys = null
+_tmp_21.startTimeOffset = null
+_tmp_21.variableList = null
+_tmp_21.hasVariableRefs = hasVariableRefs
+const levelsWithKnownCodecs: LevelParsed[] = []
+MASTER_PLAYLIST_REGEX.lastIndex = 0
+(result = MASTER_PLAYLIST_REGEX.exec(string)) != null
+result[1]
+const attrs = new AttrList(result[1]) as LevelAttributes
+substituteVariablesInAttributes(parsed, attrs, [
+            'CODECS',
+            'SUPPLEMENTAL-CODECS',
+            'ALLOWED-CPC',
+            'PATHWAY-ID',
+            'STABLE-VARIANT-ID',
+            'AUDIO',
+            'VIDEO',
+            'SUBTITLES',
+            'CLOSED-CAPTIONS',
+            'NAME',
+          ])
+_tmp_23.push("CODECS")
+_tmp_23.push("SUPPLEMENTAL-CODECS")
+_tmp_23.push("ALLOWED-CPC")
+_tmp_23.push("PATHWAY-ID")
+_tmp_23.push("STABLE-VARIANT-ID")
+_tmp_23.push("AUDIO")
+_tmp_23.push("VIDEO")
+_tmp_23.push("SUBTITLES")
+_tmp_23.push("CLOSED-CAPTIONS")
+_tmp_23.push("NAME")
+const uri = __USE_VARIABLE_SUBSTITUTION__
+          ? substituteVariables(parsed, result[2])
+          : result[2]
+substituteVariables(parsed, result[2])
+result[2]
+const level: LevelParsed = {
+          attrs,
+          bitrate:
+            attrs.decimalInteger('AVERAGE-BANDWIDTH') ||
+            attrs.decimalInteger('BANDWIDTH'),
+          name: attrs.NAME,
+          url: M3U8Parser.resolve(uri, baseurl),
+        }
+_tmp_24.attrs = attrs
+_tmp_24.bitrate = attrs.decimalInteger('AVERAGE-BANDWIDTH') ||
+            attrs.decimalInteger('BANDWIDTH')
+attrs.decimalInteger('AVERAGE-BANDWIDTH') ||
+            attrs.decimalInteger('BANDWIDTH')
+attrs.decimalInteger('BANDWIDTH')
+_tmp_24.name = attrs.NAME
+_tmp_24.url = M3U8Parser.resolve(uri, baseurl)
+const resolution = attrs.decimalResolution('RESOLUTION')
+level.width = resolution.width
+level.height = resolution.height
+setCodecs(
+          ((attrs.CODECS as string) || '').split(/[ ,]+/).filter((c) => c),
+          level
+        )
+(_tmp_25 = ((attrs.CODECS as string) || '').split(/[ ,]+/)).filter
+level.videoCodec && level.videoCodec.indexOf('avc1') !== -1
+level.videoCodec = M3U8Parser.convertAVC1ToAVCOTI(level.videoCodec)
+!level.unknownCodecs?.length
+levelsWithKnownCodecs.push(level)
+(_tmp_28 = parsed.levels).push
+result[3]
+const tag = result[3]
+const attributes = result[4]
+"SESSION-DATA"
+const sessionAttrs = new AttrList(attributes)
+substituteVariablesInAttributes(parsed, sessionAttrs, [
+                'DATA-ID',
+                'LANGUAGE',
+                'VALUE',
+                'URI',
+              ])
+_tmp_30.push("DATA-ID")
+_tmp_30.push("LANGUAGE")
+_tmp_30.push("VALUE")
+_tmp_30.push("URI")
+const dataId = sessionAttrs['DATA-ID']
+parsed.sessionData === null
+parsed.sessionData = {}
+parsed.sessionData[dataId] = sessionAttrs
+break;
+"SESSION-KEY"
+const sessionKey = parseKey(attributes, baseurl, parsed)
+sessionKey.encrypted && sessionKey.isSupported()
+parsed.sessionKeys === null
+parsed.sessionKeys = []
+parsed.sessionKeys.push(sessionKey)
+logger.warn(
+                `[Keys] Ignoring invalid EXT-X-SESSION-KEY tag: "${attributes}"`
+              )
+<operator>.formatString("[Keys] Ignoring invalid EXT-X-SESSION-KEY tag: "", attributes, """)
+break;
+"DEFINE"
+const variableAttributes = new AttrList(attributes)
+substituteVariablesInAttributes(parsed, variableAttributes, [
+                'NAME',
+                'VALUE',
+                'QUERYPARAM',
+              ])
+_tmp_34.push("NAME")
+_tmp_34.push("VALUE")
+_tmp_34.push("QUERYPARAM")
+addVariableDefinition(parsed, variableAttributes, baseurl)
+break;
+"CONTENT-STEERING"
+const contentSteeringAttributes = new AttrList(attributes)
+substituteVariablesInAttributes(
+                parsed,
+                contentSteeringAttributes,
+                ['SERVER-URI', 'PATHWAY-ID']
+              )
+_tmp_36 = __ecma.Array.factory()
+parsed.contentSteering = {
+              uri: M3U8Parser.resolve(
+                contentSteeringAttributes['SERVER-URI'],
+                baseurl
+              ),
+              pathwayId: contentSteeringAttributes['PATHWAY-ID'] || '.',
+            }
+_tmp_37.uri = M3U8Parser.resolve(
+                contentSteeringAttributes['SERVER-URI'],
+                baseurl
+              )
+contentSteeringAttributes["SERVER-URI"]
+_tmp_37.pathwayId = contentSteeringAttributes['PATHWAY-ID'] || '.'
+break;
+"START"
+parsed.startTimeOffset = parseStartTimeOffset(attributes)
+break;
+default:
+break;

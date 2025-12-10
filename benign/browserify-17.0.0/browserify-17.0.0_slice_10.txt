@@ -1,0 +1,60 @@
+Browserify.prototype.require = function (file, opts) {
+    var self = this;
+    if (isArray(file)) {
+        file.forEach(function (x) {
+            if (typeof x === 'object') {
+                self.require(x.file, xtend(opts, x));
+            }
+            else self.require(x, opts);
+        });
+        return this;
+    }
+    
+    if (!opts) opts = {};
+    var basedir = defined(opts.basedir, self._options.basedir, process.cwd());
+    var expose = opts.expose;
+    if (file === expose && /^[\.]/.test(expose)) {
+        expose = '/' + relativePath(basedir, expose);
+    }
+    if (expose === undefined && this._options.exposeAll) {
+        expose = true;
+    }
+    if (expose === true) {
+        expose = '/' + relativePath(basedir, file);
+    }
+    
+    if (isStream(file)) {
+        self._pending ++;
+        var order = self._entryOrder ++;
+        file.pipe(concat(function (buf) {
+            var filename = opts.file || file.file || path.join(
+                basedir,
+                '_s...
+var self = this
+isArray(file)
+opts = {}
+var basedir = defined(opts.basedir, self._options.basedir, process.cwd())
+var expose = opts.expose
+file === expose && /^[\.]/.test(expose)
+expose = '/' + relativePath(basedir, expose)
+expose === undefined && this._options.exposeAll
+expose = true
+expose === true
+expose = '/' + relativePath(basedir, file)
+isStream(file)
+typeof file === 'object'
+row = xtend(file, opts)
+!opts.entry && isExternalModule(file)
+row = xtend(opts, { id: expose || file, file: file })
+row = xtend(opts, { file: path.resolve(basedir, file) })
+!row.id
+row.id = expose || row.file
+expose || !row.entry
+row.expose = row.id
+self.external(file, opts)
+row.entry === undefined
+!row.entry && self._options.exports === undefined
+self._bpack.hasExports = true
+row.order = self._entryOrder ++
+opts.transform === false
+(_tmp_36 = self.pipeline).write

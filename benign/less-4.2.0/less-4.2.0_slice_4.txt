@@ -1,0 +1,17 @@
+_tmp_3.doXHR = <lambda>3
+var xhr = new XMLHttpRequest()
+var async = options.isFileProtocol ? options.fileAsync : true
+typeof xhr.overrideMimeType === 'function'
+xhr.overrideMimeType('text/css')
+logger.debug("XHR: Getting '" + url + "'")
+xhr.open('GET', url, async)
+xhr.setRequestHeader('Accept', type || 'text/x-less, text/css; q=0.9, */*; q=0.5')
+xhr.send(null)
+function handleResponse = function handleResponse(xhr, callback, errback) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                callback(xhr.responseText, xhr.getResponseHeader('Last-Modified'));
+            }
+            else if (typeof errback === 'function') {
+                errback(xhr.status, url);
+            }
+        }

@@ -1,0 +1,49 @@
+Pp.replace = function replace(replacement) {
+        var results = [];
+        var parentValue = this.parentPath.value;
+        var parentCache = getChildCache(this.parentPath);
+        var count = arguments.length;
+        repairRelationshipWithParent(this);
+        if (isArray.check(parentValue)) {
+            var originalLength = parentValue.length;
+            var move = getMoves(this.parentPath, count - 1, this.name + 1);
+            var spliceArgs = [this.name, 1];
+            for (var i = 0; i < count; ++i) {
+                spliceArgs.push(arguments[i]);
+            }
+            var splicedOut = parentValue.splice.apply(parentValue, spliceArgs);
+            if (splicedOut[0] !== this.value) {
+                throw new Error("");
+            }
+            if (parentValue.length !== (originalLength - 1 + count)) {
+                throw new Error("");
+            }
+            move();
+            if (count === 0) {
+                delete this.value;
+                delete pare...
+__ecma.Array.factory()
+var parentValue = this.parentPath.value
+var parentCache = getChildCache(this.parentPath)
+var count = arguments.length
+repairRelationshipWithParent(this)
+isArray.check(parentValue)
+var originalLength = parentValue.length
+var move = getMoves(this.parentPath, count - 1, this.name + 1)
+_tmp_17 = __ecma.Array.factory()
+var i = 0
+spliceArgs.push(arguments[i])
+var splicedOut = parentValue.splice.apply(parentValue, spliceArgs)
+splicedOut[0] !== this.value
+throw new Error("");
+parentValue.length !== (originalLength - 1 + count)
+throw new Error("");
+move()
+count === 0
+parentValue[this.name] !== replacement
+throw new Error("");
+this.value !== replacement
+this.value = replacement
+this.__childCache = null
+i < count
+results.push(this.parentPath.get(this.name + i))

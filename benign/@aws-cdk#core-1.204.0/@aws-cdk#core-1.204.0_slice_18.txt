@@ -1,0 +1,30 @@
+stageAsset(sourcePath, targetPath, style) {
+        // Is the work already done?
+        const isAlreadyStaged = fs.existsSync(targetPath);
+        if (isAlreadyStaged) {
+            if (style === 'move' && sourcePath !== targetPath) {
+                fs.removeSync(sourcePath);
+            }
+            return;
+        }
+        // Moving can be done quickly
+        if (style == 'move') {
+            fs.renameSync(sourcePath, targetPath);
+            return;
+        }
+        // Copy file/directory to staging directory
+        if (this.sourceStats.isFile()) {
+            fs.copyFileSync(sourcePath, targetPath);
+        }
+        else if (this.sourceStats.isDirectory()) {
+            fs.mkdirSync(targetPath);
+            fs_1.FileSystem.copyDirectory(sourcePath, targetPath, this.fingerprintOptions);
+        }
+        else {
+            throw new Error(`Unknown file type: ${sourcePath}`);
+        }
+    }
+const isAlreadyStaged = fs.existsSync(targetPath)
+style == 'move'
+(_tmp_38 = this.sourceStats).isFile
+fs.copyFileSync(sourcePath, targetPath)

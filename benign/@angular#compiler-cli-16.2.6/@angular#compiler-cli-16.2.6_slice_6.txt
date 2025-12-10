@@ -1,0 +1,22 @@
+getNgModulesExporting(directiveOrPipe) {
+    if (!this.indexed) {
+      this.index();
+    }
+    if (!this.typeToExportingModules.has(directiveOrPipe)) {
+      return [];
+    }
+    const refs = [];
+    for (const ngModule of this.typeToExportingModules.get(directiveOrPipe)) {
+      if (this.ngModuleAuthoritativeReference.has(ngModule)) {
+        refs.push(this.ngModuleAuthoritativeReference.get(ngModule));
+      }
+    }
+    return refs;
+  }
+!this.indexed
+this.index()
+!this.typeToExportingModules.has(directiveOrPipe)
+__ecma.Array.factory()
+_iterator_35 = <operator>.iterator(this.typeToExportingModules.get(directiveOrPipe))
+(_tmp_461 = this.ngModuleAuthoritativeReference).has
+refs.push(this.ngModuleAuthoritativeReference.get(ngModule))

@@ -1,0 +1,102 @@
+var system = require("system")
+phantom.args
+args = phantom.args
+(_tmp_11 = system.args).slice
+args.length === 0
+var fs = require("fs")
+__ecma.Array.factory()
+var setupPageFn = function(p, k) {
+        return function() {
+            setupWriteFileFunction(p, k, fs.separator);
+        };
+    }
+l = args.length
+address = args[i]
+console.log("Loading " + address)
+address = address.indexOf("://") === -1 ? "file://" + address : address
+(_tmp_12 = require("webpage")).create
+page.url = address
+resultsKey = "__jr" + Math.ceil(Math.random() * 1000000)
+page.onInitialized = setupPageFn(page, resultsKey)
+page.open(address, processPage(null, page, resultsKey))
+pages.push(page)
+page.onConsoleMessage = logAndWorkAroundDefaultLineBreaking
+setInterval(function(){
+        var exit_code = 0;
+        for (i = 0, l = pages.length; i < l; i++) {
+            page = pages[i];
+            if (page.__exit_code === null) {
+                // wait until later
+                return;
+            }
+            exit_code |= page.__exit_code;
+        }
+        phantom.exit(exit_code);
+    }, 100)
+function logAndWorkAroundDefaultLineBreaking = function logAndWorkAroundDefaultLineBreaking(msg) {
+    var interpretAsWithoutNewline = /(^(\u001b\[\d+m)*[.F](\u001b\[\d+m)*$)|( \.\.\.$)/;
+    if (navigator.userAgent.indexOf("Windows") < 0 && interpretAsWithoutNewline.test(msg)) {
+        try {
+            system.stdout.write(msg);
+        } catch (e) {
+            var fs = require("fs");
+            fs.write("/dev/stdout", msg, "w");
+        }
+    } else {
+        console.log(msg);
+    }
+}
+function replaceFunctionPlaceholders = function replaceFunctionPlaceholders(fn, replacements) {
+    if (replacements && typeof replacements === "object") {
+        fn = fn.toString();
+        for (var p in replacements) {
+            if (replacements.hasOwnProperty(p)) {
+                var match = new RegExp("%" + p + "%", "g");
+                do {
+                    fn = fn.replace(match, replacements[p]);
+                } while(fn.indexOf(match) !== -1);
+            }
+        }
+    }
+    return fn;
+}
+function evaluate = function evaluate(page, fn, replacements) {
+    return page.evaluate(replaceFunctionPlaceholders(fn, replacements));
+}
+function setupWriteFileFunction = function setupWriteFileFunction(page, key, path_separator) {
+    evaluate(page, function(){
+        window["%resultsObj%"] = {};
+        window.fs_path_separator = "%fs_path_separator%";
+        window.__phantom_writeFile = function(filename, text) {
+            window["%resultsObj%"][filename] = text;
+        };
+    }, {resultsObj: key, fs_path_separator: path_separator.replace("\\", "\\\\")});
+}
+function getXmlResults = function getXmlResults(page, key) {
+    return evaluate(page, function(){
+        return window["%resultsObj%"] || {};
+    }, {resultsObj: key});
+}
+function processPage = function processPage(status, page, resultsKey) {
+    if (status === null && page) {
+        page.__exit_code = null;
+        return function(stat){
+            processPage(stat, page, resultsKey);
+        };
+    }
+    if (status !== "success") {
+        console.error("Unable to load resource: " + address);
+        page.__exit_code = 2;
+    }
+    else {
+        var isFinished = function() {
+            return evaluate(page, function(){
+                // if there's a JUnitXmlReporter, return a boolean indicating if it is finished
+                if (window.jasmineReporters && window.jasmineReporters.startTime) {
+                    return !!window.jasmineReporters.endTime;
+                }
+                // otherwise, scrape the DOM for the HtmlReporter "finished in ..." output
+                var durElem = document.querySelector(".html-reporter .duration");
+                if (!durElem) {
+                    durElem = document.querySelector(".jasmine_html-reporter .duration");
+   ...

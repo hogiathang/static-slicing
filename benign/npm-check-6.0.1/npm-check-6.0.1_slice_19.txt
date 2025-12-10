@@ -1,0 +1,27 @@
+inquirer.prompt(questions).then(function (answers) {
+        var packagesToUpdate = answers.packages;
+        var isYarn = currentState.get('installer') === 'yarn';
+        var saveExact = currentState.get('saveExact');
+
+        if (!packagesToUpdate || !packagesToUpdate.length) {
+            console.log('No packages selected for update.');
+            return false;
+        }
+
+        var saveDependencies = packagesToUpdate.filter(function (pkg) {
+            return !pkg.devDependency;
+        }).map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        });
+
+        var saveDevDependencies = packagesToUpdate.filter(function (pkg) {
+            return pkg.devDependency;
+        }).map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        });
+
+        var updatedPackages = packagesToUpdate.map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg...
+var packagesToUpdate = answers.packages
+var isYarn = currentState.get('installer') === 'yarn'
+var saveExact = currentState.get('saveExact')

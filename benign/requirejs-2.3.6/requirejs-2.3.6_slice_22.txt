@@ -1,0 +1,14 @@
+function exists = function exists(path) {
+        var status, xhr = new XMLHttpRequest();
+
+        //Oh yeah, that is right SYNC IO. Behold its glory
+        //and horrible blocking behavior.
+        xhr.open('HEAD', path, false);
+        xhr.send();
+        status = xhr.status;
+
+        return status === 200 || status === 304;
+    }
+var xhr = new XMLHttpRequest()
+xhr.open('HEAD', path, false)
+xhr.send()

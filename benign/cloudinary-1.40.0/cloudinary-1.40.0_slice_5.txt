@@ -1,0 +1,4 @@
+_tmp_3.value = init
+!fs.existsSync('test_cache')
+fs.mkdirSync('test_cache')
+this.baseFolder = fs.mkdtempSync('test_cache/cloudinary_cache_')

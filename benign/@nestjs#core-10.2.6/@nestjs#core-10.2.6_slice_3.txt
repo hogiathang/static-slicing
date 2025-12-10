@@ -1,0 +1,6 @@
+static getControllersByMetaKey(hostContainerRef, metaKey) {
+        const wrappersByMetaKey = this.controllersByMetaKey.get(hostContainerRef);
+        return wrappersByMetaKey.get(metaKey);
+    }
+const wrappersByMetaKey = this.controllersByMetaKey.get(hostContainerRef)
+wrappersByMetaKey.get(metaKey)

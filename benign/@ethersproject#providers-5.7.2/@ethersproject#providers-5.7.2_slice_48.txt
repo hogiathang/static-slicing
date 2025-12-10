@@ -1,0 +1,36 @@
+_this.websocket.onmessage = function (messageEvent) {
+            var data = messageEvent.data;
+            var result = JSON.parse(data);
+            if (result.id != null) {
+                var id = String(result.id);
+                var request = _this._requests[id];
+                delete _this._requests[id];
+                if (result.result !== undefined) {
+                    request.callback(null, result.result);
+                    _this.emit("debug", {
+                        action: "response",
+                        request: JSON.parse(request.payload),
+                        response: result.result,
+                        provider: _this
+                    });
+                }
+                else {
+                    var error = null;
+                    if (result.error) {
+                        error = new Error(result.error.message || "unknown error");
+                        (0, properties_1.defineReadOnly)(error, "code", result.error.code || null);
+        ...
+var data = messageEvent.data
+var result = JSON.parse(data)
+result.id != null
+var id = String(result.id)
+var request = _this._requests[id]
+delete _this._requests[id]
+result.result !== undefined
+request.callback(null, result.result)
+_this.emit("debug", {
+                        action: "response",
+                        request: JSON.parse(request.payload),
+                        response: result.result,
+                        provider: _this
+                    })

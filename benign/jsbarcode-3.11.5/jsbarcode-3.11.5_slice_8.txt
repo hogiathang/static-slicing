@@ -1,0 +1,12 @@
+fs.writeFile("src/barcodes/index.js", toFile, function () {
+		// Remove the compiled barcodes/index file (if it exist)
+		if (fs.existsSync("bin/barcodes/index.js")) {
+			fs.unlinkSync("bin/barcodes/index.js");
+		}
+		// Re-compile with babel and webpack everything
+		babelFunc().on('end', function () {
+			webpackMin(barcode.name, 'barcodes/').on('end', callback);
+		});
+	})
+fs.existsSync("bin/barcodes/index.js")
+fs.unlinkSync("bin/barcodes/index.js")

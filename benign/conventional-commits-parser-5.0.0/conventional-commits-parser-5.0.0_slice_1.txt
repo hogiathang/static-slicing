@@ -1,0 +1,40 @@
+function processFile = function processFile (fileIndex) {
+  const filePath = filePaths[fileIndex]
+  fs.createReadStream(filePath)
+    .on('error', (err) => {
+      console.warn('Failed to read file ' + filePath + '\n' + err)
+      if (++fileIndex < length) {
+        processFile(fileIndex)
+      }
+    })
+    .pipe(split(separator))
+    .pipe(conventionalCommitsParser(options))
+    .pipe(JSONStream.stringify())
+    .on('end', () => {
+      if (++fileIndex < length) {
+        processFile(fileIndex)
+      }
+    })
+    .pipe(process.stdout)
+}
+const filePath = filePaths[fileIndex]
+fs.createReadStream(filePath)
+    .on('error', (err) => {
+      console.warn('Failed to read file ' + filePath + '\n' + err)
+      if (++fileIndex < length) {
+        processFile(fileIndex)
+      }
+    })
+    .pipe(split(separator))
+    .pipe(conventionalCommitsParser(options))
+    .pipe(JSONStream.stringify())
+    .on('end', () => {
+      if (++fileIndex < length) {
+        processFile(fileIndex)
+      }
+    })
+    .pipe(process.stdout)
+<lambda>0
+split(separator)
+conventionalCommitsParser(options)
+JSONStream.stringify()

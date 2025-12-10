@@ -1,0 +1,45 @@
+function fetchQueryAndComputeStateFromProps = function fetchQueryAndComputeStateFromProps(props, queryFetcher, retryCallbacks, requestCacheKey) {
+  var environment = props.environment,
+    query = props.query,
+    variables = props.variables,
+    cacheConfig = props.cacheConfig;
+  var genericEnvironment = environment;
+  if (query) {
+    var request = getRequest(query);
+    var operation = createOperationDescriptor(request, variables, cacheConfig);
+    var relayContext = {
+      environment: genericEnvironment
+    };
+    if (typeof requestCacheKey === 'string' && requestCache[requestCacheKey]) {
+      // This same request is already in flight.
+
+      var snapshot = requestCache[requestCacheKey].snapshot;
+      if (snapshot) {
+        // Use the cached response
+        return {
+          error: null,
+          relayContext: relayContext,
+          renderProps: getRenderProps(null, snapshot, queryFetcher, retryCallbacks),
+          snapshot: snapshot,
+          requestCacheKey: requestCacheKey
+        };
+      } else {
+        // ...
+var environment = props.environment
+var query = props.query
+var variables = props.variables
+var cacheConfig = props.cacheConfig
+var genericEnvironment = environment
+var request = getRequest(query)
+var operation = createOperationDescriptor(request, variables, cacheConfig)
+var relayContext = {
+      environment: genericEnvironment
+    }
+_tmp_11.environment = genericEnvironment
+typeof requestCacheKey === 'string' && requestCache[requestCacheKey]
+var storeSnapshot = queryFetcher.lookupInStore(genericEnvironment, operation, props.fetchPolicy)
+var querySnapshot = queryFetcher.fetch({
+        environment: genericEnvironment,
+        onDataChange: null,
+        operation: operation
+      })

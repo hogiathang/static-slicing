@@ -1,0 +1,40 @@
+function isExpressionOfLiterals = function isExpressionOfLiterals(path, literalNames) {
+        if (path.node === null || path.node === undefined) {
+            return true;
+        }
+        if (path.isIdentifier()) {
+            const name = path.node.name;
+            if (name === "undefined" && !path.scope.getBinding("undefined")) {
+                return true;
+            }
+            const binding = path.parentPath.scope.getBinding(name);
+            if (binding) {
+                return binding.constant;
+            }
+            if (literalNames.indexOf(name) !== -1) {
+                return true;
+            }
+            if (Object.hasOwnProperty.call(constantStaticMethods, name) && !path.scope.getBinding(name)) {
+                return true;
+            }
+            return false;
+        }
+        if (path.isMemberExpression()) {
+            const object = path.get("object");
+            if (object.isIdentifier()) {
+                const propertyName = propertyNameOfMemberExpression(path.node);
+        ...
+path.node === null || path.node === undefined
+path.isIdentifier()
+path.isMemberExpression()
+path.isBooleanLiteral()
+path.isNumericLiteral()
+path.isStringLiteral()
+path.isArrayExpression()
+path.isNullLiteral()
+path.isObjectExpression()
+path.isUnaryExpression()
+path.isLogicalExpression()
+isExpressionOfLiterals(path.get("left"), literalNames) &&
+                isExpressionOfLiterals(path.get("right"), literalNames)
+isExpressionOfLiterals(path.get("right"), literalNames)

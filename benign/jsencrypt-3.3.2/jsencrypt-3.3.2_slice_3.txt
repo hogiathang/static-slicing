@@ -1,0 +1,10 @@
+Stream.prototype.parseStringISO = function (start, end) {
+        var s = "";
+        for (var i = start; i < end; ++i) {
+            s += String.fromCharCode(this.get(i));
+        }
+        return s;
+    }
+var s = ""
+var i = start
+s += String.fromCharCode(this.get(i))

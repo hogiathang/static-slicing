@@ -1,0 +1,21 @@
+function addNamed = function addNamed(name, node, parent, isType) {
+        if (!namespace.has(parent)) {
+          namespace.set(parent, new Map());
+        }
+        var named = namespace.get(parent);
+
+        var key = isType ? '' + tsTypePrefix + String(name) : name;
+        var nodes = named.get(key);
+
+        if (nodes == null) {
+          nodes = new Set();
+          named.set(key, nodes);
+        }
+
+        nodes.add(node);
+      }
+!namespace.has(parent)
+namespace.set(parent, new Map())
+var named = namespace.get(parent)
+var key = isType ? '' + tsTypePrefix + String(name) : name
+var nodes = named.get(key)

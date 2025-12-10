@@ -1,0 +1,109 @@
+function footnoteReference = function footnoteReference(state, node) {
+  const clobberPrefix =
+    typeof state.options.clobberPrefix === 'string'
+      ? state.options.clobberPrefix
+      : 'user-content-'
+  const id = String(node.identifier).toUpperCase()
+  const safeId = normalizeUri(id.toLowerCase())
+  const index = state.footnoteOrder.indexOf(id)
+  /** @type {number} */
+  let counter
+
+  let reuseCounter = state.footnoteCounts.get(id)
+
+  if (reuseCounter === undefined) {
+    reuseCounter = 0
+    state.footnoteOrder.push(id)
+    counter = state.footnoteOrder.length
+  } else {
+    counter = index + 1
+  }
+
+  reuseCounter += 1
+  state.footnoteCounts.set(id, reuseCounter)
+
+  /** @type {Element} */
+  const link = {
+    type: 'element',
+    tagName: 'a',
+    properties: {
+      href: '#' + clobberPrefix + 'fn-' + safeId,
+      id:
+        clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : ''),
+      dataFootnoteRef: true,
+      ariaDescribedBy: ['footnote-label']
+ ...
+const clobberPrefix =
+    typeof state.options.clobberPrefix === 'string'
+      ? state.options.clobberPrefix
+      : 'user-content-'
+typeof state.options.clobberPrefix === 'string' ? state.options.clobberPrefix : "user-content-"
+state.options.clobberPrefix
+"user-content-"
+const id = String(node.identifier).toUpperCase()
+const safeId = normalizeUri(id.toLowerCase())
+const index = state.footnoteOrder.indexOf(id)
+let reuseCounter = state.footnoteCounts.get(id)
+reuseCounter === undefined
+reuseCounter = 0
+(_tmp_3 = state.footnoteOrder).push
+counter = state.footnoteOrder.length
+counter = index + 1
+reuseCounter += 1
+state.footnoteCounts.set(id, reuseCounter)
+const link = {
+    type: 'element',
+    tagName: 'a',
+    properties: {
+      href: '#' + clobberPrefix + 'fn-' + safeId,
+      id:
+        clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : ''),
+      dataFootnoteRef: true,
+      ariaDescribedBy: ['footnote-label']
+    },
+    children: [{type: 'text', value: String(counter)}]
+  }
+_tmp_5.type = "element"
+_tmp_5.tagName = "a"
+_tmp_5.properties = {
+      href: '#' + clobberPrefix + 'fn-' + safeId,
+      id:
+        clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : ''),
+      dataFootnoteRef: true,
+      ariaDescribedBy: ['footnote-label']
+    }
+_tmp_6.href = '#' + clobberPrefix + 'fn-' + safeId
+_tmp_6.id = clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : '')
+clobberPrefix +
+        'fnref-' +
+        safeId +
+        (reuseCounter > 1 ? '-' + reuseCounter : '')
+"fnref-"
+reuseCounter > 1 ? '-' + reuseCounter : ""
+_tmp_6.dataFootnoteRef = true
+_tmp_6.ariaDescribedBy = ['footnote-label']
+_tmp_5.children = [{type: 'text', value: String(counter)}]
+state.patch(node, link)
+const sup = {
+    type: 'element',
+    tagName: 'sup',
+    properties: {},
+    children: [link]
+  }
+_tmp_10.type = "element"
+_tmp_10.tagName = "sup"
+_tmp_10.properties = {}
+_tmp_12 = __ecma.Array.factory()
+state.patch(node, sup)

@@ -1,0 +1,66 @@
+function fixPropTypesSort = function fixPropTypesSort(
+  fixer,
+  context,
+  declarations,
+  ignoreCase,
+  requiredFirst,
+  callbacksLast,
+  noSortAlphabetically,
+  sortShapeProp
+) {
+  function sortInSource(allNodes, source) {
+    const originalSource = source;
+    const sourceCode = context.getSourceCode();
+    for (let i = 0; i < allNodes.length; i++) {
+      const node = allNodes[i];
+      let commentAfter = [];
+      let commentBefore = [];
+      let newStart = 0;
+      let newEnd = 0;
+      try {
+        commentBefore = sourceCode.getCommentsBefore(node);
+        commentAfter = sourceCode.getCommentsAfter(node);
+      } catch (e) { /**/ }
+
+      if (commentAfter.length === 0 || commentBefore.length === 0) {
+        newStart = node.range[0];
+        newEnd = node.range[1];
+      }
+
+      const firstCommentBefore = commentBefore[0];
+      if (commentBefore.length >= 1) {
+        newStart = firstCommentBefore.range[0];
+      }
+      const lastCommentAfter = commentAfter[commentAfter.length - 1];
+      if (co...
+function sortInSource = function sortInSource(allNodes, source) {
+    const originalSource = source;
+    const sourceCode = context.getSourceCode();
+    for (let i = 0; i < allNodes.length; i++) {
+      const node = allNodes[i];
+      let commentAfter = [];
+      let commentBefore = [];
+      let newStart = 0;
+      let newEnd = 0;
+      try {
+        commentBefore = sourceCode.getCommentsBefore(node);
+        commentAfter = sourceCode.getCommentsAfter(node);
+      } catch (e) { /**/ }
+
+      if (commentAfter.length === 0 || commentBefore.length === 0) {
+        newStart = node.range[0];
+        newEnd = node.range[1];
+      }
+
+      const firstCommentBefore = commentBefore[0];
+      if (commentBefore.length >= 1) {
+        newStart = firstCommentBefore.range[0];
+      }
+      const lastCommentAfter = commentAfter[commentAfter.length - 1];
+      if (commentAfter.length >= 1) {
+        newEnd = lastCommentAfter.range[1];
+      }
+      commentnodeMap.set(node, { start: newStart, end: newEnd, hasComment: true...
+const source = sortInSource(declarations, context.getSourceCode().getText())
+const rangeStart = commentnodeMap.get(declarations[0]).start
+const rangeEnd = commentnodeMap.get(declarations[declarations.length - 1]).end

@@ -1,0 +1,50 @@
+this._plt.raf(function () {
+                var nodes = _this._nodes;
+                var cells = _this._cells;
+                var data = _this._data;
+                var records = _this._records;
+                if (needClean) {
+                    // ******** DOM WRITE ****************
+                    virtual_util_1.updateDimensions(_this._plt, nodes, cells, data, true);
+                    data.topCell = 0;
+                    data.bottomCell = (cells.length - 1);
+                }
+                virtual_util_1.adjustRendered(cells, data);
+                _this._zone.run(function () {
+                    virtual_util_1.populateNodeData(data.topCell, data.bottomCell, true, cells, records, nodes, _this._itmTmp.viewContainer, _this._itmTmp.templateRef, _this._hdrTmp && _this._hdrTmp.templateRef, _this._ftrTmp && _this._ftrTmp.templateRef);
+                });
+                if (needClean) {
+                    _this._cd.detectChanges();
+                }
+                // at...
+var nodes = _this._nodes
+var cells = _this._cells
+var data = _this._data
+var records = _this._records
+virtual_util_1.updateDimensions(_this._plt, nodes, cells, data, true)
+data.topCell = 0
+data.bottomCell = (cells.length - 1)
+virtual_util_1.adjustRendered(cells, data)
+_this._zone.run(function () {
+                    virtual_util_1.populateNodeData(data.topCell, data.bottomCell, true, cells, records, nodes, _this._itmTmp.viewContainer, _this._itmTmp.templateRef, _this._hdrTmp && _this._hdrTmp.templateRef, _this._ftrTmp && _this._ftrTmp.templateRef);
+                })
+(_tmp_14 = _this._cd).detectChanges
+_this._dom.read(function () { return virtual_util_1.initReadNodes(_this._plt, nodes, cells, data); })
+_this._dom.write(function () {
+                    // update the bound context for each node
+                    virtual_util_1.updateNodeContext(nodes, cells, data);
+                    // ******** DOM WRITE ****************
+                    _this._stepChangeDetection();
+                    // ******** DOM WRITE ****************
+                    _this._stepDOMWrite();
+                    // ******** DOM WRITE ****************
+                    _this._content.imgsUpdate();
+                    // First time load
+                    if (!_this._lastEle) {
+                        // add an element at the end so :last-child css doesn't get messed up
+                        // ******** DOM WRITE ****************
+                        var ele = _this._elementRef.nativeElement;
+                        var lastEle = _this._renderer.createElement(ele, 'div');
+                        lastEle.className = 'virtual-last';
+                        _this._lastEle = true;
+                 ...

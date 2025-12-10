@@ -1,0 +1,23 @@
+function deleteFetcher = function deleteFetcher(key: string): void {
+    let fetcher = state.fetchers.get(key);
+    // Don't abort the controller if this is a deletion of a fetcher.submit()
+    // in it's loading phase since - we don't want to abort the corresponding
+    // revalidation and want them to complete and land
+    if (
+      fetchControllers.has(key) &&
+      !(fetcher && fetcher.state === "loading" && fetchReloadIds.has(key))
+    ) {
+      abortFetcher(key);
+    }
+    fetchLoadMatches.delete(key);
+    fetchReloadIds.delete(key);
+    fetchRedirectIds.delete(key);
+    state.fetchers.delete(key);
+  }
+let fetcher = state.fetchers.get(key)
+fetchControllers.has(key) &&
+      !(fetcher && fetcher.state === "loading" && fetchReloadIds.has(key))
+!(fetcher && fetcher.state === "loading" && fetchReloadIds.has(key))
+abortFetcher(key)
+fetchLoadMatches.delete(key)
+fetchReloadIds.delete(key)

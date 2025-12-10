@@ -1,0 +1,32 @@
+function _getLocalFieldValues = function _getLocalFieldValues(doc, localField, model, options, virtual, schema) {
+  // Get Local fields
+  const localFieldPathType = model.schema._getPathType(localField);
+  const localFieldPath = localFieldPathType === 'real' ?
+    model.schema.path(localField) :
+    localFieldPathType.schema;
+  const localFieldGetters = localFieldPath && localFieldPath.getters ?
+    localFieldPath.getters : [];
+
+  localField = localFieldPath != null && localFieldPath.instance === 'Embedded' ? localField + '._id' : localField;
+
+  const _populateOptions = get(options, 'options', {});
+
+  const getters = 'getters' in _populateOptions ?
+    _populateOptions.getters :
+    get(virtual, 'options.getters', false);
+  if (localFieldGetters.length !== 0 && getters) {
+    const hydratedDoc = (doc.$__ != null) ? doc : model.hydrate(doc);
+    const localFieldValue = utils.getValue(localField, doc);
+    if (Array.isArray(localFieldValue)) {
+      const localFieldHydratedValue = utils.getValue(localField.split('.'...
+const localFieldPathType = model.schema._getPathType(localField)
+const localFieldPath = localFieldPathType === 'real' ?
+    model.schema.path(localField) :
+    localFieldPathType.schema
+model.schema.path(localField)
+localFieldPathType.schema
+const localFieldGetters = localFieldPath && localFieldPath.getters ?
+    localFieldPath.getters : []
+localFieldPath.getters
+localField = localFieldPath != null && localFieldPath.instance === 'Embedded' ? localField + '._id' : localField
+const _populateOptions = get(options, 'options', {})

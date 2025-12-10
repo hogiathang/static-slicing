@@ -1,0 +1,23 @@
+new shared.Promise((resolve, reject) => {
+      if (!tedious) {
+        resolve()
+        return
+      }
+      debug('connection(%d): destroying', IDS.get(tedious))
+
+      if (tedious.closed) {
+        debug('connection(%d): already closed', IDS.get(tedious))
+        resolve()
+      } else {
+        tedious.once('end', () => {
+          debug('connection(%d): destroyed', IDS.get(tedious))
+          resolve()
+        })
+
+        tedious.close()
+      }
+    })
+!tedious
+debug('connection(%d): destroying', IDS.get(tedious))
+tedious.closed
+debug('connection(%d): already closed', IDS.get(tedious))

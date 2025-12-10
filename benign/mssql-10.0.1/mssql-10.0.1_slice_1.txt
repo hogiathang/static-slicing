@@ -1,0 +1,34 @@
+_close (callback) {
+    // we don't allow pools in a connecting state to be closed because it means there are far too many
+    // edge cases to deal with
+    if (this._connecting) {
+      debug('pool(%d): close called while connecting', IDS.get(this))
+      setImmediate(callback, new ConnectionError('Cannot close a pool while it is connecting'))
+    }
+
+    if (!this.pool) {
+      debug('pool(%d): already closed, executing close callback immediately', IDS.get(this))
+      return setImmediate(callback, null)
+    }
+
+    this._closeStack.push(callback)
+
+    if (this.pool.destroyed) return
+
+    this._connecting = this._connected = this._healthy = false
+
+    this.pool.destroy().then(() => {
+      debug('pool(%d): pool closed, removing pool reference and executing close callbacks', IDS.get(this))
+      this.pool = null
+      this._closeStack.forEach(cb => {
+        setImmediate(cb, null)
+      })
+    }).catch(err => {
+      this.pool = null
+      this._closeStack.forEach(cb => {
+        se...
+this._connecting
+debug('pool(%d): close called while connecting', IDS.get(this))
+setImmediate(callback, new ConnectionError('Cannot close a pool while it is connecting'))
+!this.pool
+debug('pool(%d): already closed, executing close callback immediately', IDS.get(this))

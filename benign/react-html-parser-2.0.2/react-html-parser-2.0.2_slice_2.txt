@@ -1,0 +1,18 @@
+var connect = require("react-redux").connect
+var updateSelectedExample = require("../actions").updateSelectedExample
+var Editor = require("../components/Editor")
+const mapStateToProps = state => {
+  return {
+    html: state.html,
+    examples: state.examples,
+    selectedExample: state.selectedExample,
+    view: state.view
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateHtml: html => dispatch(updateHtml(html)),
+    onUpdateExample: example => dispatch(updateSelectedExample(example)),
+    onSetView: view => dispatch(setView(view))
+  };
+}

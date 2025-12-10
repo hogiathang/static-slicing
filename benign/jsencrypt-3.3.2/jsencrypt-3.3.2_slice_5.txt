@@ -1,0 +1,16 @@
+Stream.prototype.parseStringBMP = function (start, end) {
+        var str = "";
+        var hi;
+        var lo;
+        for (var i = start; i < end;) {
+            hi = this.get(i++);
+            lo = this.get(i++);
+            str += String.fromCharCode((hi << 8) | lo);
+        }
+        return str;
+    }
+var str = ""
+var i = start
+hi = this.get(i++)
+lo = this.get(i++)
+str += String.fromCharCode((hi << 8) | lo)

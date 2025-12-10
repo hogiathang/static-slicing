@@ -1,0 +1,12 @@
+getAllAndOverride(metadataKeyOrDecorator, targets) {
+        for (const target of targets) {
+            const result = this.get(metadataKeyOrDecorator, target);
+            if (result !== undefined) {
+                return result;
+            }
+        }
+        return undefined;
+    }
+_iterator_0 = <operator>.iterator(targets)
+const result = this.get(metadataKeyOrDecorator, target)
+result !== undefined

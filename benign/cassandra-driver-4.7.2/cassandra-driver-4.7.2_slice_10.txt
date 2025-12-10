@@ -1,0 +1,52 @@
+Client.prototype._connect = async function () {
+  if (this.connected) {
+    return;
+  }
+
+  if (this.isShuttingDown) {
+    //it is being shutdown, don't allow further calls to connect()
+    throw new errors.NoHostAvailableError(null, 'Connecting after shutdown is not supported');
+  }
+
+  if (this.connecting) {
+    return promiseUtils.fromEvent(this, 'connected');
+  }
+
+  this.connecting = true;
+  this.log('info', util.format("Connecting to cluster using '%s' version %s", description, version));
+
+  try {
+    await cloud.init(this.options);
+    await this.controlConnection.init();
+    this.hosts = this.controlConnection.hosts;
+    await this.profileManager.init(this, this.hosts);
+
+    if (this.keyspace) {
+      await RequestHandler.setKeyspace(this);
+    }
+
+    clientOptions.setMetadataDependent(this);
+
+    await this._warmup();
+
+  } catch (err) {
+    // We should close the pools (if any) and reset the state to allow successive calls to connect()
+    await this.controlConnection.reset();...
+this.connected
+this.isShuttingDown
+throw new errors.NoHostAvailableError(null, 'Connecting after shutdown is not supported');
+this.connecting
+this.connecting = true
+this.log('info', util.format("Connecting to cluster using '%s' version %s", description, version))
+await cloud.init(this.options)
+(_tmp_15 = this.controlConnection).init
+this.hosts = this.controlConnection.hosts
+await this.profileManager.init(this, this.hosts)
+this.keyspace
+await RequestHandler.setKeyspace(this)
+clientOptions.setMetadataDependent(this)
+await this._warmup()
+(_tmp_17 = this.controlConnection).reset
+this.connected = false
+this.connecting = false
+this.emit('connected', err)

@@ -1,0 +1,56 @@
+_tmp_1811.value = decompile
+var header = message.header
+var compiledInstructions = message.compiledInstructions
+var recentBlockhash = message.recentBlockhash
+var numRequiredSignatures = header.numRequiredSignatures
+var numReadonlySignedAccounts = header.numReadonlySignedAccounts
+var numReadonlyUnsignedAccounts = header.numReadonlyUnsignedAccounts
+var numWritableSignedAccounts = numRequiredSignatures - numReadonlySignedAccounts
+assert$1(numWritableSignedAccounts > 0, 'Message header is invalid')
+var numWritableUnsignedAccounts = message.staticAccountKeys.length - numRequiredSignatures - numReadonlyUnsignedAccounts
+assert$1(numWritableUnsignedAccounts >= 0, 'Message header is invalid')
+var accountKeys = message.getAccountKeys(args)
+var payerKey = accountKeys.get(0)
+payerKey === undefined
+throw new Error('Failed to decompile message because no account keys were found');
+__ecma.Array.factory()
+var _iterator = _createForOfIteratorHelper(compiledInstructions)
+!(_step = _iterator.n()).done
+var compiledIx = _step.value
+__ecma.Array.factory()
+var _iterator2 = _createForOfIteratorHelper(compiledIx.accountKeyIndexes)
+!(_step2 = _iterator2.n()).done
+var keyIndex = _step2.value
+var pubkey = accountKeys.get(keyIndex)
+pubkey === undefined
+throw new Error("Failed to find key for account key index ".concat(keyIndex));
+var isSigner = keyIndex < numRequiredSignatures
+var isWritable = void 0
+isWritable = keyIndex < numWritableSignedAccounts
+keyIndex < accountKeys.staticAccountKeys.length
+isWritable = keyIndex - numRequiredSignatures < numWritableUnsignedAccounts
+isWritable = keyIndex - accountKeys.staticAccountKeys.length <
+                  // accountKeysFromLookups cannot be undefined because we already found a pubkey for this index above
+                  accountKeys.accountKeysFromLookups.writable.length
+accountKeys.accountKeysFromLookups.writable.length
+keys.push({
+                  pubkey: pubkey,
+                  isSigner: keyIndex < header.numRequiredSignatures,
+                  isWritable: isWritable
+                })
+_tmp_1815.pubkey = pubkey
+_tmp_1815.isSigner = keyIndex < header.numRequiredSignatures
+_tmp_1815.isWritable = isWritable
+_iterator2.e(err)
+_iterator2.f()
+var programId = accountKeys.get(compiledIx.programIdIndex)
+programId === undefined
+throw new Error("Failed to find program id for program id index ".concat(compiledIx.programIdIndex));
+instructions.push(new TransactionInstruction({
+              programId: programId,
+              data: toBuffer(compiledIx.data),
+              keys: keys
+            }))
+_tmp_1819.programId = programId
+_tmp_1819.data = toBuffer(compiledIx.data)
+_tmp_1819.keys = keys

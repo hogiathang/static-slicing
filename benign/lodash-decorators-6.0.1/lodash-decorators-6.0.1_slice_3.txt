@@ -1,0 +1,21 @@
+CompositeKeyWeakMap.prototype.set = function (keys, value) {
+        var map = this._weakMap;
+        for (var i = 0, len = keys.length - 1; i < len; i++) {
+            var key = keys[i];
+            var next = map.get(key);
+            if (!next) {
+                next = new Map();
+                map.set(key, next);
+            }
+            map = next;
+        }
+        map.set(keys[keys.length - 1], value);
+    }
+var map = this._weakMap
+var len = keys.length - 1
+var key = keys[i]
+var next = map.get(key)
+!next
+next = new Map()
+map.set(key, next)
+map = next

@@ -1,0 +1,48 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"MESSAGE_REACTION_ADD"
+const channel = this.client.getChannel(packet.d.channel_id)
+message = channel.messages.get(packet.d.message_id)
+channel.guild
+packet.d.member
+packet.d.member.id = packet.d.user_id
+member = channel.guild.members.update(packet.d.member, channel.guild)
+packet.d.emoji.id ? <operator>.formatString("", packet.d.emoji.name, ":", packet.d.emoji.id, "") : packet.d.emoji.name
+message.reactions[reaction]
+++message.reactions[reaction].count
+packet.d.user_id === this.client.user.id
+message.reactions[reaction].me = true
+message.reactions[reaction] = {
+                            count: 1,
+                            me: packet.d.user_id === this.client.user.id
+                        }
+_tmp_140.count = 1
+_tmp_140.me = packet.d.user_id === this.client.user.id
+message = {
+                        id: packet.d.message_id,
+                        channel: channel || {id: packet.d.channel_id}
+                    }
+_tmp_141.id = packet.d.message_id
+_tmp_141.channel = channel || {id: packet.d.channel_id}
+packet.d.guild_id
+message.guildID = packet.d.guild_id
+!message.channel.guild
+message.channel.guild = {id: packet.d.guild_id}
+this.emit("messageReactionAdd", message, packet.d.emoji, member || {id: packet.d.user_id})

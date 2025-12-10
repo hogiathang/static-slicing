@@ -1,0 +1,35 @@
+Kareem.prototype.merge = function(other, clone) {
+  clone = arguments.length === 1 ? true : clone;
+  const ret = clone ? this.clone() : this;
+
+  for (const key of other._pres.keys()) {
+    const sourcePres = ret._pres.get(key) || [];
+    const deduplicated = other._pres.get(key).
+      // Deduplicate based on `fn`
+      filter(p => sourcePres.map(_p => _p.fn).indexOf(p.fn) === -1);
+    const combined = sourcePres.concat(deduplicated);
+    combined.numAsync = sourcePres.numAsync || 0;
+    combined.numAsync += deduplicated.filter(p => p.isAsync).length;
+    ret._pres.set(key, combined);
+  }
+  for (const key of other._posts.keys()) {
+    const sourcePosts = ret._posts.get(key) || [];
+    const deduplicated = other._posts.get(key).
+      filter(p => sourcePosts.indexOf(p) === -1);
+    ret._posts.set(key, sourcePosts.concat(deduplicated));
+  }
+
+  return ret;
+}
+clone = arguments.length === 1 ? true : clone
+const ret = clone ? this.clone() : this
+_iterator_4 = <operator>.iterator(other._pres.keys())
+const sourcePres = ret._pres.get(key) || []
+const deduplicated = other._pres.get(key).
+      // Deduplicate based on `fn`
+      filter(p => sourcePres.map(_p => _p.fn).indexOf(p.fn) === -1)
+sourcePres.map(_p => _p.fn).indexOf(p.fn) === -1
+const combined = sourcePres.concat(deduplicated)
+combined.numAsync = sourcePres.numAsync || 0
+combined.numAsync += deduplicated.filter(p => p.isAsync).length
+ret._pres.set(key, combined)

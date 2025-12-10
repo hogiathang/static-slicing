@@ -1,0 +1,15 @@
+new Promise((resolve, reject) => {
+    req.onload = () => resolve(req);
+    req.onerror = err => reject(err);
+    req.open('GET', url, true);
+    for(const k in headers) {
+      req.setRequestHeader(k, headers[k]);
+    }
+    req.send();
+  })
+req.onload = () => resolve(req)
+req.onerror = err => reject(err)
+req.open('GET', url, true)
+_iterator_0 = <operator>.iterator(headers)
+req.setRequestHeader(k, headers[k])
+req.send()

@@ -1,0 +1,29 @@
+other.actions.forEach((action) => {
+            switch (action.kind) {
+                case 'c': {
+                    const { path, content } = action;
+                    if (this._willCreate(path) || this._willOverwrite(path) || this.exists(path)) {
+                        const existingContent = this.read(path);
+                        if (existingContent && content.equals(existingContent)) {
+                            // Identical outcome; no action required
+                            return;
+                        }
+                        if (!creationConflictAllowed) {
+                            throw new exception_1.MergeConflictException(path);
+                        }
+                        this._record.overwrite(path, content).subscribe();
+                    }
+                    else {
+                        this._record.create(path, content).subscribe();
+                    }
+                    return;
+                }
+                case 'o': {
+            ...
+action.kind
+"d"
+path = _tmp_45.path
+this._willDelete(path)
+!this.exists(path) && !deleteConflictAllowed
+throw new exception_1.MergeConflictException(path);
+(_tmp_47 = this._recordSync).delete

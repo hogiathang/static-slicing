@@ -1,0 +1,28 @@
+function hasPattern = function hasPattern(type: string, layers: PatternStyleLayers, options: PopulateParameters): boolean {
+    const patterns = options.patternDependencies;
+    let hasPattern = false;
+
+    for (const layer of layers) {
+        const patternProperty = layer.paint.get(`${type}-pattern`);
+        if (!patternProperty.isConstant()) {
+            hasPattern = true;
+        }
+
+        const constantPattern = patternProperty.constantOr(null);
+        if (constantPattern) {
+            hasPattern = true;
+            patterns[constantPattern] =  true;
+        }
+    }
+
+    return hasPattern;
+}
+const patterns = options.patternDependencies
+let hasPattern = false
+_iterator_0 = <operator>.iterator(layers)
+const patternProperty = layer.paint.get(`${type}-pattern`)
+!patternProperty.isConstant()
+hasPattern = true
+const constantPattern = patternProperty.constantOr(null)
+hasPattern = true
+patterns[constantPattern] =  true

@@ -1,0 +1,21 @@
+Trace.prototype._serializeTrace = function _serializeTrace() {
+  const attributes = {
+    agentAttributes: this.attributes.get(DESTINATIONS.TRANS_TRACE),
+    userAttributes: this.custom.get(DESTINATIONS.TRANS_TRACE),
+    intrinsics: this.intrinsics
+  }
+
+  return [
+    this.root.timer.start * FROM_MILLIS,
+    {}, // moved to agentAttributes
+    {
+      // hint to RPM for how to display this trace's segments
+      nr_flatten_leading: false
+    }, // moved to userAttributes
+    this.root.toJSON(),
+    attributes,
+    [] // FIXME: parameter groups
+  ]
+}
+_tmp_31.agentAttributes = this.attributes.get(DESTINATIONS.TRANS_TRACE)
+_tmp_31.userAttributes = this.custom.get(DESTINATIONS.TRANS_TRACE)

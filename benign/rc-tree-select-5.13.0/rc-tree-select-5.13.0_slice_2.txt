@@ -1,0 +1,97 @@
+var TreeSelect = /*#__PURE__*/React.forwardRef(function (props, ref) {
+  var id = props.id,
+    _props$prefixCls = props.prefixCls,
+    prefixCls = _props$prefixCls === void 0 ? 'rc-tree-select' : _props$prefixCls,
+    value = props.value,
+    defaultValue = props.defaultValue,
+    onChange = props.onChange,
+    onSelect = props.onSelect,
+    onDeselect = props.onDeselect,
+    searchValue = props.searchValue,
+    inputValue = props.inputValue,
+    onSearch = props.onSearch,
+    _props$autoClearSearc = props.autoClearSearchValue,
+    autoClearSearchValue = _props$autoClearSearc === void 0 ? true : _props$autoClearSearc,
+    filterTreeNode = props.filterTreeNode,
+    _props$treeNodeFilter = props.treeNodeFilterProp,
+    treeNodeFilterProp = _props$treeNodeFilter === void 0 ? 'value' : _props$treeNodeFilter,
+    showCheckedStrategy = props.showCheckedStrategy,
+    treeNodeLabelProp = props.treeNodeLabelProp,
+    multiple = props.multiple,
+    treeCheckable = props.treeCheckable,
+    treeCh...
+var id = props.id
+var _props$prefixCls = props.prefixCls
+var prefixCls = _props$prefixCls === void 0 ? 'rc-tree-select' : _props$prefixCls
+var value = props.value
+var defaultValue = props.defaultValue
+var onChange = props.onChange
+var onSelect = props.onSelect
+var onDeselect = props.onDeselect
+var searchValue = props.searchValue
+var inputValue = props.inputValue
+var onSearch = props.onSearch
+var _props$autoClearSearc = props.autoClearSearchValue
+var autoClearSearchValue = _props$autoClearSearc === void 0 ? true : _props$autoClearSearc
+var filterTreeNode = props.filterTreeNode
+var _props$treeNodeFilter = props.treeNodeFilterProp
+var treeNodeFilterProp = _props$treeNodeFilter === void 0 ? 'value' : _props$treeNodeFilter
+var showCheckedStrategy = props.showCheckedStrategy
+var treeNodeLabelProp = props.treeNodeLabelProp
+var multiple = props.multiple
+var treeCheckable = props.treeCheckable
+var treeCheckStrictly = props.treeCheckStrictly
+var labelInValue = props.labelInValue
+var fieldNames = props.fieldNames
+var treeDataSimpleMode = props.treeDataSimpleMode
+var treeData = props.treeData
+var children = props.children
+var loadData = props.loadData
+var treeLoadedKeys = props.treeLoadedKeys
+var onTreeLoad = props.onTreeLoad
+var treeDefaultExpandAll = props.treeDefaultExpandAll
+var treeExpandedKeys = props.treeExpandedKeys
+var treeDefaultExpandedKeys = props.treeDefaultExpandedKeys
+var onTreeExpand = props.onTreeExpand
+var treeExpandAction = props.treeExpandAction
+var virtual = props.virtual
+var _props$listHeight = props.listHeight
+var listHeight = _props$listHeight === void 0 ? 200 : _props$listHeight
+var _props$listItemHeight = props.listItemHeight
+var listItemHeight = _props$listItemHeight === void 0 ? 20 : _props$listItemHeight
+var onDropdownVisibleChange = props.onDropdownVisibleChange
+var _props$dropdownMatchS = props.dropdownMatchSelectWidth
+var dropdownMatchSelectWidth = _props$dropdownMatchS === void 0 ? true : _props$dropdownMatchS
+var treeLine = props.treeLine
+var treeIcon = props.treeIcon
+var showTreeIcon = props.showTreeIcon
+var switcherIcon = props.switcherIcon
+var treeMotion = props.treeMotion
+var restProps = (0, _objectWithoutProperties2.default)(props, _excluded)
+var mergedId = (0, _useId.default)(id)
+var treeConduction = treeCheckable && !treeCheckStrictly
+var mergedCheckable = treeCheckable || treeCheckStrictly
+var mergedLabelInValue = treeCheckStrictly || labelInValue
+var mergedMultiple = mergedCheckable || multiple
+var _useMergedState = (0, _useMergedState5.default)(defaultValue, {
+      value: value
+    })
+_tmp_7.value = value
+var _useMergedState2 = (0, _slicedToArray2.default)(_useMergedState, 2)
+var internalValue = _useMergedState2[0]
+var setInternalValue = _useMergedState2[1]
+var mergedShowCheckedStrategy = React.useMemo(function () {
+    if (!treeCheckable) {
+      return _strategyUtil.SHOW_ALL;
+    }
+    return showCheckedStrategy || _strategyUtil.SHOW_CHILD;
+  }, [showCheckedStrategy, treeCheckable])
+_tmp_8.push(showCheckedStrategy)
+process.env.NODE_ENV !== 'production'
+(0, _warningPropsUtil.default)(props)
+var mergedFieldNames = React.useMemo(function () {
+    return (0, _valueUtil.fillFieldNames)(fieldNames);
+  }, /* eslint-disable react-hooks/exhaustive-deps */
+  [JSON.stringify(fieldNames)]
+  /* eslint-enable react-hooks/exhaustive-deps */)
+_tmp_9.push(JSON.stringify(fieldNames))

@@ -1,0 +1,15 @@
+groupGenerationId = param1_2.groupGenerationId
+const request = require('./v2/request')
+const response = require('./v2/response')
+_tmp_5.request = request({
+        groupId,
+        groupGenerationId,
+        memberId,
+        retentionTime,
+        topics,
+      })
+_tmp_6.groupId = groupId
+_tmp_6.groupGenerationId = groupGenerationId
+_tmp_6.memberId = memberId
+_tmp_6.retentionTime = retentionTime
+_tmp_6.topics = topics

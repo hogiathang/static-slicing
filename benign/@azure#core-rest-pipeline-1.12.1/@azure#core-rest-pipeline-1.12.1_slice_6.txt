@@ -1,0 +1,3 @@
+_tmp_6.sendRequest = sendRequest
+request.formData
+const contentType = request.headers.get("Content-Type")

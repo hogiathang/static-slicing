@@ -1,0 +1,43 @@
+function contentFor = function contentFor(config, match, type, options) {
+  let content = [];
+
+  // This normalizes `rootURL` to the value which we use everywhere inside of Ember CLI.
+  // This makes sure that the user doesn't have to account for it in application code.
+  if ('rootURL' in config) {
+    config.rootURL = normalizeUrl(config.rootURL);
+  }
+
+  switch (type) {
+    case 'head':
+      if (options.storeConfigInMeta) {
+        content.push(
+          `<meta name="${config.modulePrefix}/config/environment" content="${encodeURIComponent(
+            JSON.stringify(config)
+          )}" />`
+        );
+      }
+
+      break;
+    case 'config-module':
+      if (options.storeConfigInMeta) {
+        content.push(`var prefix = '${config.modulePrefix}';`);
+        content.push(fs.readFileSync(path.join(__dirname, '../broccoli/app-config-from-meta.js')));
+      } else {
+        content.push(`
+          var exports = {
+            'default': ${JSON.stringify(config)}
+          };
+          Object.defineProper...
+__ecma.Array.factory()
+'rootURL' in config
+config.rootURL = normalizeUrl(config.rootURL)
+"head"
+options.storeConfigInMeta
+content.push(
+          `<meta name="${config.modulePrefix}/config/environment" content="${encodeURIComponent(
+            JSON.stringify(config)
+          )}" />`
+        )
+<operator>.formatString("<meta name="", config.modulePrefix, "/config/environment" content="", encodeURIComponent(
+            JSON.stringify(config)
+          ), "" />")

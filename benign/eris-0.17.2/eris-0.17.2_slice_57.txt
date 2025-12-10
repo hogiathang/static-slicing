@@ -1,0 +1,13 @@
+options = options === void 0 ? {} : options
+const guild = this.guilds.get(guildID)
+options.with_member = options.withMember
+this.requestHandler.request("GET", Endpoints.GUILD_SCHEDULED_EVENT_USERS(guildID, eventID), true, options).then((data) => data.map((eventUser) => {
+            if(eventUser.member) {
+                eventUser.member.id = eventUser.user.id;
+            }
+            return {
+                guildScheduledEventID: eventUser.guild_scheduled_event_id,
+                member: eventUser.member && guild ? guild.members.update(eventUser.member) : new Member(eventUser.member),
+                user: this.users.update(eventUser.user)
+            };
+        }))

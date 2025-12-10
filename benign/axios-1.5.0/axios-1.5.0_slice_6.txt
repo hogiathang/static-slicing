@@ -1,0 +1,141 @@
+wrapAsync(async function dispatchHttpRequest(resolve, reject, onDone) {
+    let {data, lookup, family} = config;
+    const {responseType, responseEncoding} = config;
+    const method = config.method.toUpperCase();
+    let isDone;
+    let rejected = false;
+    let req;
+
+    if (lookup && utils.isAsyncFn(lookup)) {
+      lookup = callbackify(lookup, (entry) => {
+        if(utils.isString(entry)) {
+          entry = [entry, entry.indexOf('.') < 0 ? 6 : 4]
+        } else if (!utils.isArray(entry)) {
+          throw new TypeError('lookup async function must return an array [ip: string, family: number]]')
+        }
+        return entry;
+      })
+    }
+
+    // temporary internal emitter until the AxiosRequest class will be implemented
+    const emitter = new EventEmitter();
+
+    const onFinished = () => {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(abort);
+      }
+
+      if (config.signal) {
+        config.signal.removeEventListener('abort', abort);
+      }
+
+    ...
+lookup = _tmp_12.lookup
+responseEncoding = _tmp_13.responseEncoding
+const method = config.method.toUpperCase()
+let rejected = false
+lookup && utils.isAsyncFn(lookup)
+lookup = callbackify(lookup, (entry) => {
+        if(utils.isString(entry)) {
+          entry = [entry, entry.indexOf('.') < 0 ? 6 : 4]
+        } else if (!utils.isArray(entry)) {
+          throw new TypeError('lookup async function must return an array [ip: string, family: number]]')
+        }
+        return entry;
+      })
+const emitter = new EventEmitter()
+const onFinished = () => {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(abort);
+      }
+
+      if (config.signal) {
+        config.signal.removeEventListener('abort', abort);
+      }
+
+      emitter.removeAllListeners();
+    }
+onDone((value, isRejected) => {
+      isDone = true;
+      if (isRejected) {
+        rejected = true;
+        onFinished();
+      }
+    })
+function abort = function abort(reason) {
+      emitter.emit('abort', !reason || reason.type ? new CanceledError(null, config, req) : reason);
+    }
+emitter.once('abort', reject)
+config.cancelToken || config.signal
+config.cancelToken && config.cancelToken.subscribe(abort)
+config.signal
+config.signal.aborted ? abort() : config.signal.addEventListener('abort', abort)
+const fullPath = buildFullPath(config.baseURL, config.url)
+const parsed = new URL(fullPath, 'http://localhost')
+const protocol = parsed.protocol || supportedProtocols[0]
+protocol === 'data:'
+supportedProtocols.indexOf(protocol) === -1
+const headers = AxiosHeaders.from(config.headers).normalize()
+headers.set('User-Agent', 'axios/' + VERSION, false)
+const onDownloadProgress = config.onDownloadProgress
+const onUploadProgress = config.onUploadProgress
+const maxRate = config.maxRate
+let maxUploadRate = undefined
+let maxDownloadRate = undefined
+utils.isSpecCompliantForm(data)
+const userBoundary = headers.getContentType(/boundary=([-_\w\d]{10,70})/i)
+data = formDataToStream(data, (formHeaders) => {
+        headers.set(formHeaders);
+      }, {
+        tag: `axios-${VERSION}-boundary`,
+        boundary: userBoundary && userBoundary[1] || undefined
+      })
+_tmp_31.tag = <operator>.formatString("axios-", VERSION, "-boundary")
+_tmp_31.boundary = userBoundary && userBoundary[1] || undefined
+utils.isFormData(data) && utils.isFunction(data.getHeaders)
+headers.set(data.getHeaders())
+!headers.hasContentLength()
+const knownLength = await util.promisify(data.getLength).call(data)
+Number.isFinite(knownLength) && knownLength >= 0 && headers.setContentLength(knownLength)
+utils.isBlob(data)
+data.size && headers.setContentType(data.type || 'application/octet-stream')
+headers.setContentLength(data.size || 0)
+data = stream.Readable.from(readBlob(data))
+data && !utils.isStream(data)
+Buffer.isBuffer(data)
+utils.isArrayBuffer(data)
+data = Buffer.from(new Uint8Array(data))
+utils.isString(data)
+data = Buffer.from(data, 'utf-8')
+headers.setContentLength(data.length, false)
+config.maxBodyLength > -1 && data.length > config.maxBodyLength
+const contentLength = utils.toFiniteNumber(headers.getContentLength())
+utils.isArray(maxRate)
+maxUploadRate = maxRate[0]
+maxDownloadRate = maxRate[1]
+maxUploadRate = maxDownloadRate = maxRate
+data && (onUploadProgress || maxUploadRate)
+!utils.isStream(data)
+data = stream.Readable.from(data, {objectMode: false})
+data = stream.pipeline([data, new AxiosTransformStream({
+        length: contentLength,
+        maxRate: utils.toFiniteNumber(maxUploadRate)
+      })], utils.noop)
+_tmp_41.length = contentLength
+_tmp_41.maxRate = utils.toFiniteNumber(maxUploadRate)
+utils.noop
+onUploadProgress && data.on('progress', progress => {
+        onUploadProgress(Object.assign(progress, {
+          upload: true
+        }));
+      })
+let auth = undefined
+config.auth
+const username = config.auth.username || ''
+const password = config.auth.password || ''
+auth = username + ':' + password
+!auth && parsed.username
+const urlUsername = parsed.username
+const urlPassword = parsed.password
+auth = urlUsername + ':' + urlPassword
+auth && headers.delete('authorization')

@@ -1,0 +1,19 @@
+HttpConnection.prototype.cancel = function() {
+    var xhr;
+    if (this._connId != null) {
+      this.xhr.abort();
+      xhr = new XMLHttpRequest;
+      xhr.open("POST", this._url + "close-connection?conn_id=" + this._connId, true);
+      xhr.responseType = "arraybuffer";
+      xhr.send();
+      this._url = null;
+      this._connId = null;
+      return HttpConnection.__super__.cancel.call(this);
+    }
+  }
+this._connId != null
+(_tmp_142 = this.xhr).abort
+xhr = new XMLHttpRequest
+xhr.open("POST", this._url + "close-connection?conn_id=" + this._connId, true)
+xhr.responseType = "arraybuffer"
+xhr.send()

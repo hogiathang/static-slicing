@@ -1,0 +1,11 @@
+remove(obj) {
+        const item = this.get(obj.id);
+        if(!item) {
+            return null;
+        }
+        this.delete(obj.id);
+        return item;
+    }
+const item = this.get(obj.id)
+!item
+this.delete(obj.id)

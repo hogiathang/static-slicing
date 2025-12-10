@@ -1,0 +1,201 @@
+module2.exports = function resolve(x, options2, callback) {
+      var cb = callback;
+      var opts = options2;
+      if (typeof options2 === "function") {
+        cb = opts;
+        opts = {};
+      }
+      if (typeof x !== "string") {
+        var err = new TypeError("Path must be a string.");
+        return process.nextTick(function() {
+          cb(err);
+        });
+      }
+      opts = normalizeOptions(x, opts);
+      var isFile = opts.isFile || defaultIsFile;
+      var isDirectory = opts.isDirectory || defaultIsDir;
+      var readFile2 = opts.readFile || fs6.readFile;
+      var realpath = opts.realpath || defaultRealpath;
+      var readPackage = opts.readPackage || defaultReadPackage;
+      if (opts.readFile && opts.readPackage) {
+        var conflictErr = new TypeError("`readFile` and `readPackage` are mutually exclusive.");
+        return process.nextTick(function() {
+          cb(conflictErr);
+        });
+      }
+      var packageIterator = opts.packageIterator;
+      var ex...
+var cb = callback
+var opts = options2
+typeof options2 === "function"
+cb = opts
+opts = {}
+typeof x !== "string"
+var err = new TypeError("Path must be a string.")
+process.nextTick(function() {
+          cb(err);
+        })
+function init2 = function init2(basedir2) {
+        if (/^(?:\.\.?(?:\/|$)|\/|([A-Za-z]:)?[/\\])/.test(x)) {
+          res = path7.resolve(basedir2, x);
+          if (x === "." || x === ".." || x.slice(-1) === "/")
+            res += "/";
+          if (/\/$/.test(x) && res === basedir2) {
+            loadAsDirectory(res, opts.package, onfile);
+          } else
+            loadAsFile(res, opts.package, onfile);
+        } else if (includeCoreModules && isCore(x)) {
+          return cb(null, x);
+        } else
+          loadNodeModules(x, basedir2, function(err2, n, pkg2) {
+            if (err2)
+              cb(err2);
+            else if (n) {
+              return maybeRealpath(realpath, n, opts, function(err3, realN) {
+                if (err3) {
+                  cb(err3);
+                } else {
+                  cb(null, realN, pkg2);
+                }
+              });
+            } else {
+              var moduleError = new Error("Cannot find module '" + x + "' from '" + parent + "'");
+        ...
+function onfile = function onfile(err2, m, pkg2) {
+        if (err2)
+          cb(err2);
+        else if (m)
+          cb(null, m, pkg2);
+        else
+          loadAsDirectory(res, function(err3, d, pkg3) {
+            if (err3)
+              cb(err3);
+            else if (d) {
+              maybeRealpath(realpath, d, opts, function(err4, realD) {
+                if (err4) {
+                  cb(err4);
+                } else {
+                  cb(null, realD, pkg3);
+                }
+              });
+            } else {
+              var moduleError = new Error("Cannot find module '" + x + "' from '" + parent + "'");
+              moduleError.code = "MODULE_NOT_FOUND";
+              cb(moduleError);
+            }
+          });
+      }
+function loadAsFile = function loadAsFile(x2, thePackage, callback2) {
+        var loadAsFilePackage = thePackage;
+        var cb2 = callback2;
+        if (typeof loadAsFilePackage === "function") {
+          cb2 = loadAsFilePackage;
+          loadAsFilePackage = void 0;
+        }
+        var exts = [""].concat(extensions);
+        load(exts, x2, loadAsFilePackage);
+        function load(exts2, x3, loadPackage) {
+          if (exts2.length === 0)
+            return cb2(null, void 0, loadPackage);
+          var file = x3 + exts2[0];
+          var pkg2 = loadPackage;
+          if (pkg2)
+            onpkg(null, pkg2);
+          else
+            loadpkg(path7.dirname(file), onpkg);
+          function onpkg(err2, pkg_, dir) {
+            pkg2 = pkg_;
+            if (err2)
+              return cb2(err2);
+            if (dir && pkg2 && opts.pathFilter) {
+              var rfile = path7.relative(dir, file);
+              var rel = rfile.slice(0, rfile.length - exts2[0].length);
+              var r = opts.pathFil...
+function loadpkg = function loadpkg(dir, cb2) {
+        if (dir === "" || dir === "/")
+          return cb2(null);
+        if (process.platform === "win32" && /^\w:[/\\]*$/.test(dir)) {
+          return cb2(null);
+        }
+        if (/[/\\]node_modules[/\\]*$/.test(dir))
+          return cb2(null);
+        maybeRealpath(realpath, dir, opts, function(unwrapErr, pkgdir) {
+          if (unwrapErr)
+            return loadpkg(path7.dirname(dir), cb2);
+          var pkgfile = path7.join(pkgdir, "package.json");
+          isFile(pkgfile, function(err2, ex) {
+            if (!ex)
+              return loadpkg(path7.dirname(dir), cb2);
+            readPackage(readFile2, pkgfile, function(err3, pkgParam) {
+              if (err3)
+                cb2(err3);
+              var pkg2 = pkgParam;
+              if (pkg2 && opts.packageFilter) {
+                pkg2 = opts.packageFilter(pkg2, pkgfile);
+              }
+              cb2(null, pkg2, dir);
+            });
+          });
+        });
+      }
+function loadAsDirectory = function loadAsDirectory(x2, loadAsDirectoryPackage, callback2) {
+        var cb2 = callback2;
+        var fpkg = loadAsDirectoryPackage;
+        if (typeof fpkg === "function") {
+          cb2 = fpkg;
+          fpkg = opts.package;
+        }
+        maybeRealpath(realpath, x2, opts, function(unwrapErr, pkgdir) {
+          if (unwrapErr)
+            return cb2(unwrapErr);
+          var pkgfile = path7.join(pkgdir, "package.json");
+          isFile(pkgfile, function(err2, ex) {
+            if (err2)
+              return cb2(err2);
+            if (!ex)
+              return loadAsFile(path7.join(x2, "index"), fpkg, cb2);
+            readPackage(readFile2, pkgfile, function(err3, pkgParam) {
+              if (err3)
+                return cb2(err3);
+              var pkg2 = pkgParam;
+              if (pkg2 && opts.packageFilter) {
+                pkg2 = opts.packageFilter(pkg2, pkgfile);
+              }
+              if (pkg2 && pkg2.main) {
+                if (typeof pkg2.main !== "stri...
+function processDirs = function processDirs(cb2, dirs) {
+        if (dirs.length === 0)
+          return cb2(null, void 0);
+        var dir = dirs[0];
+        isDirectory(path7.dirname(dir), isdir);
+        function isdir(err2, isdir2) {
+          if (err2)
+            return cb2(err2);
+          if (!isdir2)
+            return processDirs(cb2, dirs.slice(1));
+          loadAsFile(dir, opts.package, onfile2);
+        }
+        function onfile2(err2, m, pkg2) {
+          if (err2)
+            return cb2(err2);
+          if (m)
+            return cb2(null, m, pkg2);
+          loadAsDirectory(dir, opts.package, ondir);
+        }
+        function ondir(err2, n, pkg2) {
+          if (err2)
+            return cb2(err2);
+          if (n)
+            return cb2(null, n, pkg2);
+          processDirs(cb2, dirs.slice(1));
+        }
+      }
+function loadNodeModules = function loadNodeModules(x2, start, cb2) {
+        var thunk = function() {
+          return getPackageCandidates(x2, start, opts);
+        };
+        processDirs(
+          cb2,
+          packageIterator ? packageIterator(x2, start, thunk, opts) : thunk()
+        );
+      }

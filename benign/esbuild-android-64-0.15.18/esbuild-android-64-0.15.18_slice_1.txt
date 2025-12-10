@@ -1,0 +1,3 @@
+process.argv.length < 3
+console.error("usage: go_js_wasm_exec [wasm binary] [arguments]")
+process.exit(1)

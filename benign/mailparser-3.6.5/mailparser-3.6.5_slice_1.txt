@@ -1,0 +1,8 @@
+html = html.replace(/\bcid:([^'"\s]{1,256})/g, (match, cid) => {
+                    if (cids.has(cid) && cids.get(cid).url) {
+                        return cids.get(cid).url;
+                    }
+                    return match;
+                })
+cids.has(cid) && cids.get(cid).url
+cids.get(cid).url

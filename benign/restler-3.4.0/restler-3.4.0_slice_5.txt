@@ -1,0 +1,4 @@
+function get = function get(url, options) {
+ return request(url, shortcutOptions(options, 'GET'));
+}
+request(url, shortcutOptions(options, 'GET'))

@@ -1,0 +1,72 @@
+this.app = function () {
+			var vnodes = []
+			for (var index = ++count, last = index + 300; index < last; index++) {
+				vnodes.push(
+					m("div.booga",
+						{
+							class: get(classes, index),
+							"data-index": index,
+							title: index.toString(36)
+						},
+						m("input.dooga", {type: "checkbox", checked: index % 3 === 0}),
+						m("input", {value: "test " + Math.floor(index / 4), disabled: index % 10 ? null : true}),
+						m("div", {class: get(classes, index * 11)},
+							m("p", {style: get(styles, index)}, "p1"),
+							m("p", {style: get(styles, index + 1)}, "p2"),
+							m("p", {style: get(styles, index * 2)}, "p3"),
+							m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")
+						)
+					)
+				)
+			}
+			return vnodes
+		}
+__ecma.Array.factory()
+var last = index + 300
+vnodes.push(
+					m("div.booga",
+						{
+							class: get(classes, index),
+							"data-index": index,
+							title: index.toString(36)
+						},
+						m("input.dooga", {type: "checkbox", checked: index % 3 === 0}),
+						m("input", {value: "test " + Math.floor(index / 4), disabled: index % 10 ? null : true}),
+						m("div", {class: get(classes, index * 11)},
+							m("p", {style: get(styles, index)}, "p1"),
+							m("p", {style: get(styles, index + 1)}, "p2"),
+							m("p", {style: get(styles, index * 2)}, "p3"),
+							m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")
+						)
+					)
+				)
+m("div.booga",
+						{
+							class: get(classes, index),
+							"data-index": index,
+							title: index.toString(36)
+						},
+						m("input.dooga", {type: "checkbox", checked: index % 3 === 0}),
+						m("input", {value: "test " + Math.floor(index / 4), disabled: index % 10 ? null : true}),
+						m("div", {class: get(classes, index * 11)},
+							m("p", {style: get(styles, index)}, "p1"),
+							m("p", {style: get(styles, index + 1)}, "p2"),
+							m("p", {style: get(styles, index * 2)}, "p3"),
+							m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")
+						)
+					)
+_tmp_81.class = get(classes, index)
+_tmp_81.data-index = index
+_tmp_81.title = index.toString(36)
+m("input.dooga", {type: "checkbox", checked: index % 3 === 0})
+m("input", {value: "test " + Math.floor(index / 4), disabled: index % 10 ? null : true})
+m("div", {class: get(classes, index * 11)},
+							m("p", {style: get(styles, index)}, "p1"),
+							m("p", {style: get(styles, index + 1)}, "p2"),
+							m("p", {style: get(styles, index * 2)}, "p3"),
+							m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")
+						)
+m("p", {style: get(styles, index)}, "p1")
+m("p", {style: get(styles, index + 1)}, "p2")
+m("p", {style: get(styles, index * 2)}, "p3")
+m("p.zooga", {style: get(styles, index * 3 + 1), className: get(classes, index * 7)}, "p4")

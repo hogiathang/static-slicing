@@ -1,0 +1,29 @@
+transaction(() => {
+            // Convert to map so we can do quick key lookups
+            const replacementMap = convertToMap(values)
+            const orderedData = new Map()
+            // Used for optimization
+            let keysReportChangedCalled = false
+            // Delete keys that don't exist in replacement map
+            // if the key deletion is prevented by interceptor
+            // add entry at the beginning of the result map
+            for (const key of this.data_.keys()) {
+                // Concurrently iterating/deleting keys
+                // iterator should handle this correctly
+                if (!replacementMap.has(key)) {
+                    const deleted = this.delete(key)
+                    // Was the key removed?
+                    if (deleted) {
+                        // _keysAtom.reportChanged() was already called
+                        keysReportChangedCalled = true
+                    } else {
+                        // Delete prevented by ...
+const replacementMap = convertToMap(values)
+const orderedData = new Map()
+let keysReportChangedCalled = false
+_iterator_3 = <operator>.iterator(this.data_.keys())
+!replacementMap.has(key)
+const deleted = this.delete(key)
+keysReportChangedCalled = true
+const value = this.data_.get(key)
+orderedData.set(key, value)

@@ -1,0 +1,8 @@
+process.nextTick(() => {
+          debug('run(): imminent death');
+          this._state = ABORTED;
+          process.kill(process.pid, 'SIGINT');
+        })
+debug('run(): imminent death')
+this._state = ABORTED
+process.kill(process.pid, 'SIGINT')

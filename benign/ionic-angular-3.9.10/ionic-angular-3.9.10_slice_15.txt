@@ -1,0 +1,10 @@
+buildHammer(element) {
+        const mc = new window.Hammer(element);
+        for (let eventName in this.overrides) {
+            mc.get(eventName).set(this.overrides[eventName]);
+        }
+        return mc;
+    }
+const mc = new window.Hammer(element)
+_iterator_0 = <operator>.iterator(this.overrides)
+mc.get(eventName).set(this.overrides[eventName])

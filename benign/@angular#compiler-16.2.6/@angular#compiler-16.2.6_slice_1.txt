@@ -1,0 +1,8 @@
+_visit(ast, mode) {
+        const result = this._resultMap.get(ast);
+        if (result)
+            return result;
+        return (this._nodeMap.get(ast) || ast).visit(this, mode);
+    }
+const result = this._resultMap.get(ast)
+(this._nodeMap.get(ast) || ast).visit(this, mode)

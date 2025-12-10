@@ -1,0 +1,31 @@
+(result, node) => {
+      let { type, value } = node
+
+      if (testTrack(node) || type === 'space') return result
+
+      // area
+      if (type === 'string') {
+        result = verifyRowSize(result)
+        result.areas.push(value)
+      }
+
+      // values and function
+      if (type === 'word' || type === 'function') {
+        result[result.key].push(parser.stringify(node))
+      }
+
+      // divider(/)
+      if (type === 'div' && value === '/') {
+        result.key = 'columns'
+        result = verifyRowSize(result)
+      }
+
+      return result
+    }
+value = _tmp_31.value
+testTrack(node) || type === 'space'
+type === 'string'
+result = verifyRowSize(result)
+(_tmp_32 = result.areas).push
+type === 'word' || type === 'function'
+result[result.key].push(parser.stringify(node))

@@ -1,0 +1,41 @@
+function byteLength = function byteLength(type, value) {
+    var size = 0,
+        match;
+
+    switch (type) {
+    case 'int':
+        size = 4;
+        break;
+    case 'long':
+        size = 8;
+        break;
+    case 'buffer':
+        // buffer length + buffer content
+        size = 4;
+        if (Buffer.isBuffer(value)) {
+            size += value.length;
+        }
+        break;
+    case 'ustring':
+        // string buffer length + content
+        size = 4;
+        if (typeof value === 'string') {
+            size += Buffer.byteLength(value);
+        }
+        break;
+    case 'boolean':
+        size = 1;
+        break;
+    default:
+        if ((match = /^vector<([\w.]+)>$/.exec(type)) !== null) {
+            // vector size + vector content
+            size = 4;
+            if (Array.isArray(value)) {
+                value.forEach(function (item) {
+                    size += byteLength(match[1], item);
+                });
+            }
+        } else if ((match = /^data\.(\w+)$/.exec(type)) !== null)...
+var size = 0
+default:
+(match = /^vector<([\w.]+)>$/.exec(type)) !== null

@@ -1,0 +1,36 @@
+findMatches(symbolInstances: SymbolInstanceArray, newTileID: OverscaledTileID, zoomCrossTileIDs: Set<number>) {
+        const tolerance = this.tileID.canonical.z < newTileID.canonical.z ? 1 : Math.pow(2, this.tileID.canonical.z - newTileID.canonical.z);
+        const scale = roundingFactor / Math.pow(2, newTileID.canonical.z - this.tileID.canonical.z);
+        const tx = newTileID.canonical.x * EXTENT;
+        const ty = newTileID.canonical.y * EXTENT;
+
+        for (let i = 0; i < symbolInstances.length; i++) {
+            const symbolInstance = symbolInstances.get(i);
+            if (symbolInstance.crossTileID) {
+                // already has a match, skip
+                continue;
+            }
+            const {key, tileAnchorX, tileAnchorY} = symbolInstance;
+            const x = Math.floor((tx + tileAnchorX) * scale);
+            const y = Math.floor((ty + tileAnchorY) * scale);
+
+            // Return any symbol with the same keys whose coordinates are within 1
+            //...
+const tolerance = this.tileID.canonical.z < newTileID.canonical.z ? 1 : Math.pow(2, this.tileID.canonical.z - newTileID.canonical.z)
+const scale = roundingFactor / Math.pow(2, newTileID.canonical.z - this.tileID.canonical.z)
+const tx = newTileID.canonical.x * EXTENT
+const ty = newTileID.canonical.y * EXTENT
+i < symbolInstances.length
+const symbolInstance = symbolInstances.get(i)
+symbolInstance.crossTileID
+continue;
+tileAnchorX = _tmp_6.tileAnchorX
+const x = Math.floor((tx + tileAnchorX) * scale)
+const y = Math.floor((ty + tileAnchorY) * scale)
+const matchedIds = this.index.range(x - tolerance, y - tolerance, x + tolerance, y + tolerance)
+_iterator_0 = <operator>.iterator(matchedIds)
+const crossTileID = this.crossTileIDs[id]
+this.keys[id] === key && !zoomCrossTileIDs.has(crossTileID)
+zoomCrossTileIDs.add(crossTileID)
+symbolInstance.crossTileID = crossTileID
+break;

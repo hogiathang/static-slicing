@@ -1,0 +1,4 @@
+transactionalId = param1_0.transactionalId
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ transactionalId, producerId, producerEpoch, topics })

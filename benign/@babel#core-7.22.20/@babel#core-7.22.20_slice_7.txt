@@ -1,0 +1,55 @@
+addHelper(name) {
+    const declar = this.declarations[name];
+    if (declar) return cloneNode(declar);
+    const generator = this.get("helperGenerator");
+    if (generator) {
+      const res = generator(name);
+      if (res) return res;
+    }
+    helpers().ensure(name, File);
+    const uid = this.declarations[name] = this.scope.generateUidIdentifier(name);
+    const dependencies = {};
+    for (const dep of helpers().getDependencies(name)) {
+      dependencies[dep] = this.addHelper(dep);
+    }
+    const {
+      nodes,
+      globals
+    } = helpers().get(name, dep => dependencies[dep], uid, Object.keys(this.scope.getAllBindings()));
+    globals.forEach(name => {
+      if (this.path.scope.hasBinding(name, true)) {
+        this.path.scope.rename(name);
+      }
+    });
+    nodes.forEach(node => {
+      node._compact = true;
+    });
+    this.path.unshiftContainer("body", nodes);
+    this.path.get("body").forEach(path => {
+      if (nodes.indexOf(path.node) === -1) return;
+      if (path....
+const declar = this.declarations[name]
+const generator = this.get("helperGenerator")
+const res = generator(name)
+helpers().ensure(name, File)
+const uid = this.declarations[name] = this.scope.generateUidIdentifier(name)
+const dependencies = {}
+_iterator_0 = <operator>.iterator(helpers().getDependencies(name))
+dependencies[dep] = this.addHelper(dep)
+_tmp_32 = helpers().get(name, dep => dependencies[dep], uid, Object.keys(this.scope.getAllBindings()))
+nodes = _tmp_32.nodes
+globals = _tmp_32.globals
+helpers().get(name, dep => dependencies[dep], uid, Object.keys(this.scope.getAllBindings()))
+globals.forEach(name => {
+      if (this.path.scope.hasBinding(name, true)) {
+        this.path.scope.rename(name);
+      }
+    })
+nodes.forEach(node => {
+      node._compact = true;
+    })
+this.path.unshiftContainer("body", nodes)
+this.path.get("body").forEach(path => {
+      if (nodes.indexOf(path.node) === -1) return;
+      if (path.isVariableDeclaration()) this.scope.registerDeclaration(path);
+    })

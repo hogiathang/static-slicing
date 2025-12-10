@@ -1,0 +1,36 @@
+_setPaintOverrides() {
+        for (const overridable of properties.paint.overridableProperties) {
+            if (!SymbolStyleLayer.hasPaintOverride(this.layout, overridable)) {
+                continue;
+            }
+            const overriden = this.paint.get(overridable);
+            const override = new FormatSectionOverride(overriden);
+            const styleExpression = new StyleExpression(override, overriden.property.specification);
+            let expression = null;
+            if (overriden.value.kind === 'constant' || overriden.value.kind === 'source') {
+                // $FlowFixMe[method-unbinding]
+                expression = (new ZoomConstantExpression('source', styleExpression): SourceExpression);
+            } else {
+                // $FlowFixMe[method-unbinding]
+                expression = (new ZoomDependentExpression('composite',
+                                                          styleExpression,
+                                                         ...
+_iterator_1 = <operator>.iterator(properties.paint.overridableProperties)
+!SymbolStyleLayer.hasPaintOverride(this.layout, overridable)
+continue;
+const overriden = this.paint.get(overridable)
+const override = new FormatSectionOverride(overriden)
+const styleExpression = new StyleExpression(override, overriden.property.specification)
+let expression = null
+overriden.value.kind === 'constant' || overriden.value.kind === 'source'
+expression = (new ZoomConstantExpression('source', styleExpression): SourceExpression)
+expression = (new ZoomDependentExpression('composite',
+                                                          styleExpression,
+                                                          overriden.value.zoomStops,
+                                                          overriden.value._interpolationType): CompositeExpression)
+overriden.value.zoomStops
+overriden.value._interpolationType
+this.paint._values[overridable] = new PossiblyEvaluatedPropertyValue(overriden.property,
+                                                                                 expression,
+                                                                                 overriden.parameters)
+overriden.parameters

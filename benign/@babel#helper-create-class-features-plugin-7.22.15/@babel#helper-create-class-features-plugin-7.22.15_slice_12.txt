@@ -1,0 +1,38 @@
+function injectInitialization = function injectInitialization(path, constructor, nodes, renamer) {
+  if (!nodes.length) return;
+  const isDerived = !!path.node.superClass;
+  if (!constructor) {
+    const newConstructor = _core.types.classMethod("constructor", _core.types.identifier("constructor"), [], _core.types.blockStatement([]));
+    if (isDerived) {
+      newConstructor.params = [_core.types.restElement(_core.types.identifier("args"))];
+      newConstructor.body.body.push(_core.template.statement.ast`super(...args)`);
+    }
+    [constructor] = path.get("body").unshiftContainer("body", newConstructor);
+  }
+  if (renamer) {
+    renamer(referenceVisitor, {
+      scope: constructor.scope
+    });
+  }
+  if (isDerived) {
+    const bareSupers = [];
+    constructor.traverse(findBareSupers, bareSupers);
+    let isFirst = true;
+    for (const bareSuper of bareSupers) {
+      if (isFirst) {
+        bareSuper.insertAfter(nodes);
+        isFirst = false;
+      } else {
+        bareSuper.insertAfter(nodes.map(n => _core.typ...
+!nodes.length
+const isDerived = !!path.node.superClass
+!constructor
+const newConstructor = _core.types.classMethod("constructor", _core.types.identifier("constructor"), [], _core.types.blockStatement([]))
+newConstructor.params = [_core.types.restElement(_core.types.identifier("args"))]
+newConstructor.body.body.push(_core.template.statement.ast`super(...args)`)
+_tmp_17 = path.get("body").unshiftContainer("body", newConstructor)
+renamer(referenceVisitor, {
+      scope: constructor.scope
+    })
+_tmp_18.scope = constructor.scope
+constructor.get("body").unshiftContainer("body", nodes)

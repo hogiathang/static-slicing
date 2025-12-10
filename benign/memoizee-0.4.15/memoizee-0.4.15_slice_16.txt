@@ -1,0 +1,15 @@
+_tmp_1.deleteRef = d(function () {
+			var id = conf.get(arguments);
+			if (id === null) return null;
+			if (!cache[id]) return null;
+			if (!--cache[id]) {
+				conf.delete(id);
+				return true;
+			}
+			return false;
+		})
+var id = conf.get(arguments)
+id === null
+!cache[id]
+!--cache[id]
+conf.delete(id)

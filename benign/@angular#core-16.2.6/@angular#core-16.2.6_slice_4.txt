@@ -1,0 +1,31 @@
+ngZone.run(() => {
+            envInjector.resolveInjectorInitializers();
+            const exceptionHandler = envInjector.get(ErrorHandler, null);
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && !exceptionHandler) {
+                throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No `ErrorHandler` found in the Dependency Injection tree.');
+            }
+            let onErrorSubscription;
+            ngZone.runOutsideAngular(() => {
+                onErrorSubscription = ngZone.onError.subscribe({
+                    next: (error) => {
+                        exceptionHandler.handleError(error);
+                    }
+                });
+            });
+            // If the whole platform is destroyed, invoke the `destroy` method
+            // for all bootstrapped applications as well.
+            const destroyListener = () => envInjector.destroy();
+            const onPlatformDestroyListeners = platformInjector.get(PL...
+envInjector.resolveInjectorInitializers()
+const exceptionHandler = envInjector.get(ErrorHandler, null)
+(typeof ngDevMode === 'undefined' || ngDevMode) && !exceptionHandler
+throw new RuntimeError(402 /* RuntimeErrorCode.MISSING_REQUIRED_INJECTABLE_IN_BOOTSTRAP */, 'No `ErrorHandler` found in the Dependency Injection tree.');
+ngZone.runOutsideAngular(() => {
+                onErrorSubscription = ngZone.onError.subscribe({
+                    next: (error) => {
+                        exceptionHandler.handleError(error);
+                    }
+                });
+            })
+const destroyListener = () => envInjector.destroy()
+const onPlatformDestroyListeners = platformInjector.get(PLATFORM_DESTROY_LISTENERS)

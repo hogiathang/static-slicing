@@ -1,0 +1,40 @@
+var processEvent = function processEvent(type, args) {
+        var button = nativeButtons[0], selector = 'html', index = 0, point,
+            scroll = casper.page.scrollPosition;
+        if (!utils.isString(type) || supportedEvents.indexOf(type) === -1) {
+            throw new CasperError('Mouse.processEvent(): Unsupported mouse event type: ' + type);
+        }
+        if (emulatedEvents.indexOf(type) > -1) {
+            casper.log("Mouse.processEvent(): no native fallback for type " + type, "warning");
+        }
+        args = [].slice.call(args); // cast Arguments -> Array
+        if (args.length === 0) {
+            throw new CasperError('Mouse.processEvent(): Too few arguments');
+        }
+        if (isNaN(parseInt(args[0], 10)) && casper.exists(args[0])) {
+            selector = args[0];
+            index++;
+        }
+        if (args.length >= index + 2) {
+            point = getPointFromSelectorCoords(selector, args[index], args[index + 1]);
+        } else {
+            point =...
+var button = nativeButtons[0]
+var scroll = casper.page.scrollPosition
+!utils.isString(type) || supportedEvents.indexOf(type) === -1
+throw new CasperError('Mouse.processEvent(): Unsupported mouse event type: ' + type);
+emulatedEvents.indexOf(type) > -1
+casper.log("Mouse.processEvent(): no native fallback for type " + type, "warning")
+__ecma.Array.factory().slice
+args.length === 0
+throw new CasperError('Mouse.processEvent(): Too few arguments');
+isNaN(parseInt(args[0], 10)) && casper.exists(args[0])
+selector = args[0]
+index++
+args.length >= index + 2
+point = getPointFromSelectorCoords(selector, args[index], args[index + 1])
+point = computeCenter(selector)
+index = nativeButtons.indexOf(args[args.length - 1])
+index > -1
+button = nativeButtons[index]
+casper.emit('mouse.' + type.replace('mouse', ''), args)

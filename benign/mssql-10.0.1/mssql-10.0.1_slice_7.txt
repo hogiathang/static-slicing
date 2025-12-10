@@ -1,0 +1,56 @@
+req.once('done', () => {
+          if (hasReturned) {
+            return
+          }
+
+          hasReturned = true
+
+          if (!this._nested) {
+            if (row) {
+              if (isChunkedRecordset) {
+                const concatenatedChunks = chunksBuffer.join('')
+                if ((columns[0].name === JSON_COLUMN_ID) && (config.parseJSON === true)) {
+                  try {
+                    if (concatenatedChunks === '') {
+                      row = null
+                    } else {
+                      row = JSON.parse(concatenatedChunks)
+                    }
+                    if (!this.stream) { recordsets[recordsets.length - 1][0] = row }
+                  } catch (ex) {
+                    row = null
+                    const ex2 = new RequestError(`Failed to parse incoming JSON. ${ex.message}`, 'EJSON')
+
+                    if (this.stream) {
+                      this.emit('error', ex2)
+                    } else {
+                      console.error(ex2)
+...
+hasReturned = true
+!this._nested
+const concatenatedChunks = chunksBuffer.join('')
+(columns[0].name === JSON_COLUMN_ID) && (config.parseJSON === true)
+concatenatedChunks === ''
+row = null
+row = JSON.parse(concatenatedChunks)
+recordsets[recordsets.length - 1][0] = row
+row = null
+const ex2 = new RequestError(`Failed to parse incoming JSON. ${ex.message}`, 'EJSON')
+this.stream
+this.emit('error', ex2)
+console.error(ex2)
+row[columns[0].name] = concatenatedChunks
+chunksBuffer = null
+row && row.___return___ == null
+this.stream && !this.paused
+handleOutput && recordsets.length
+const last = recordsets.pop()[0]
+_iterator_6 = <operator>.iterator(this.parameters)
+!objectHasProperty(this.parameters, name)
+continue
+const param = this.parameters[name]
+param.io === 2
+output[param.name] = last[param.name]
+delete this._cancel
+this.parent.release(connection)
+debug('request(%d): completed', IDS.get(this))

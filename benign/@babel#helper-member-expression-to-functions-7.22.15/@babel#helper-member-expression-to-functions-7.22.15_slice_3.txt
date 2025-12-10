@@ -1,0 +1,69 @@
+_tmp_24.handle = handle
+_tmp_25 = member
+node = _tmp_25.node
+parent = _tmp_25.parent
+parentPath = _tmp_25.parentPath
+scope = _tmp_25.scope
+member.isOptionalMemberExpression()
+isInDetachedTree(member)
+const endPath = member.find(({
+        node,
+        parent
+      }) => {
+        if (isOptionalMemberExpression(parent)) {
+          return parent.optional || parent.object !== node;
+        }
+        if (isOptionalCallExpression(parent)) {
+          return node !== member.node && parent.optional || parent.callee !== node;
+        }
+        return true;
+      })
+(_tmp_26 = scope.path).isPattern
+const willEndPathCastToBoolean = willPathCastToBoolean(endPath)
+const rootParentPath = endPath.parentPath
+rootParentPath.isUpdateExpression({
+        argument: node
+      }) || rootParentPath.isAssignmentExpression({
+        left: node
+      })
+_tmp_27.argument = node
+rootParentPath.isAssignmentExpression({
+        left: node
+      })
+_tmp_28.left = node
+throw member.buildCodeFrameError(`can't handle assignment`);
+const isDeleteOperation = rootParentPath.isUnaryExpression({
+        operator: "delete"
+      })
+_tmp_29.operator = "delete"
+isDeleteOperation && endPath.isOptionalMemberExpression() && endPath.get("property").isPrivateName()
+throw member.buildCodeFrameError(`can't delete a private class element`);
+let startingOptional = member
+startingOptional.isOptionalMemberExpression()
+startingOptional.node.optional
+startingOptional = startingOptional.get("object")
+continue;
+startingOptional.isOptionalCallExpression()
+startingOptional.node.optional
+startingOptional = startingOptional.get("callee")
+continue;
+<operator>.formatString("Internal error: unexpected ", startingOptional.node.type, "")
+const startingNode = startingOptional.isOptionalMemberExpression() ? startingOptional.node.object : startingOptional.node.callee
+const baseNeedsMemoised = scope.maybeGenerateMemoised(startingNode)
+const baseRef = baseNeedsMemoised != null ? baseNeedsMemoised : startingNode
+const parentIsOptionalCall = parentPath.isOptionalCallExpression({
+        callee: node
+      })
+_tmp_32.callee = node
+const isOptionalCall = parent => parentIsOptionalCall
+const parentIsCall = parentPath.isCallExpression({
+        callee: node
+      })
+_tmp_33.callee = node
+startingOptional.replaceWith(toNonOptional(startingOptional, baseRef))
+isOptionalCall()
+this.delete && parentPath.isUnaryExpression({
+        operator: "delete"
+      })
+_tmp_34.operator = "delete"
+member.replaceWith(this.get(member))

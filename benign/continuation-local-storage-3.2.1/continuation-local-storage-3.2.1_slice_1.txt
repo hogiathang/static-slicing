@@ -1,0 +1,9 @@
+function destroy = function destroy(name) {
+  var namespace = get(name);
+
+  assert.ok(namespace,    "can't delete nonexistent namespace!");
+  assert.ok(namespace.id, "don't assign to process.namespaces directly!");
+
+  process.removeAsyncListener(namespace.id);
+  process.namespaces[name] = null;
+}

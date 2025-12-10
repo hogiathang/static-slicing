@@ -1,0 +1,46 @@
+SaveAsImage.prototype.onclick = function (ecModel, api) {
+    var model = this.model;
+    var title = model.get('name') || ecModel.get('title.0.text') || 'echarts';
+    var isSvg = api.getZr().painter.getType() === 'svg';
+    var type = isSvg ? 'svg' : model.get('type', true) || 'png';
+    var url = api.getConnectedDataURL({
+      type: type,
+      backgroundColor: model.get('backgroundColor', true) || ecModel.get('backgroundColor') || '#fff',
+      connectedBackgroundColor: model.get('connectedBackgroundColor'),
+      excludeComponents: model.get('excludeComponents'),
+      pixelRatio: model.get('pixelRatio')
+    });
+    var browser = env.browser; // Chrome, Firefox, New Edge
+
+    if (isFunction(MouseEvent) && (browser.newEdge || !browser.ie && !browser.edge)) {
+      var $a = document.createElement('a');
+      $a.download = title + '.' + type;
+      $a.target = '_blank';
+      $a.href = url;
+      var evt = new MouseEvent('click', {
+        // some micro front-end framework， windo...
+var model = this.model
+var title = model.get('name') || ecModel.get('title.0.text') || 'echarts'
+var isSvg = api.getZr().painter.getType() === 'svg'
+var type = isSvg ? 'svg' : model.get('type', true) || 'png'
+var url = api.getConnectedDataURL({
+      type: type,
+      backgroundColor: model.get('backgroundColor', true) || ecModel.get('backgroundColor') || '#fff',
+      connectedBackgroundColor: model.get('connectedBackgroundColor'),
+      excludeComponents: model.get('excludeComponents'),
+      pixelRatio: model.get('pixelRatio')
+    })
+_tmp_1.type = type
+_tmp_1.backgroundColor = model.get('backgroundColor', true) || ecModel.get('backgroundColor') || '#fff'
+_tmp_1.connectedBackgroundColor = model.get('connectedBackgroundColor')
+_tmp_1.excludeComponents = model.get('excludeComponents')
+_tmp_1.pixelRatio = model.get('pixelRatio')
+var browser = env.browser
+isFunction(MouseEvent) && (browser.newEdge || !browser.ie && !browser.edge)
+window.navigator.msSaveOrOpenBlob || isSvg
+var parts = url.split(',')
+var base64Encoded = parts[0].indexOf('base64') > -1
+var bstr = isSvg // should decode the svg data uri first
+          ? decodeURIComponent(parts[1]) : parts[1]
+decodeURIComponent(parts[1])
+base64Encoded && (bstr = window.atob(bstr))

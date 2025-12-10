@@ -1,0 +1,4 @@
+getObservablePropValue_(key: PropertyKey): any {
+        return this.values_.get(key)!.get()
+    }
+(_tmp_5 = this.values_.get(key)!).get

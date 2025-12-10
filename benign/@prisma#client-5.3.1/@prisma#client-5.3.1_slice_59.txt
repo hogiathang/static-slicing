@@ -1,0 +1,1 @@
+function Bd = function Bd(e){return Lk(e)?(jg(`Environment variables loaded from ${e}`),{dotenvResult:fd(Zg.default.config({path:e,debug:process.env.DOTENV_CONFIG_DEBUG?!0:void 0})),message:sn(`Environment variables loaded from ${Cn.default.relative(process.cwd(),e)}`),path:e}):(jg(`Environment variables not found at ${e}`),null)}

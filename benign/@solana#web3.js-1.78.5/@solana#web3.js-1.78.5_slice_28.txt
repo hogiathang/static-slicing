@@ -1,0 +1,21 @@
+_this2.socket.send(JSON.stringify(message), ws_opts, function (error) {
+  	          if (error) return reject(error);
+  	          _this2.queue[rpc_id] = {
+  	            promise: [resolve, reject]
+  	          };
+
+  	          if (timeout) {
+  	            _this2.queue[rpc_id].timeout = setTimeout(function () {
+  	              delete _this2.queue[rpc_id];
+  	              reject(new Error("reply timeout"));
+  	            }, timeout);
+  	          }
+  	        })
+_this2.queue[rpc_id] = {
+  	            promise: [resolve, reject]
+  	          }
+_tmp_2164.promise = [resolve, reject]
+_this2.queue[rpc_id].timeout = setTimeout(function () {
+  	              delete _this2.queue[rpc_id];
+  	              reject(new Error("reply timeout"));
+  	            }, timeout)

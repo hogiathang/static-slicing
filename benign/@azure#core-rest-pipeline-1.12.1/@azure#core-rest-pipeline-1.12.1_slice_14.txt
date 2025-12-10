@@ -1,0 +1,49 @@
+function setupAbortSignal = function setupAbortSignal(request) {
+    const abortController = new AbortController();
+    // Cleanup function
+    let abortControllerCleanup;
+    /**
+     * Attach an abort listener to the request
+     */
+    let abortListener;
+    if (request.abortSignal) {
+        if (request.abortSignal.aborted) {
+            throw new AbortError("The operation was aborted.");
+        }
+        abortListener = (event) => {
+            if (event.type === "abort") {
+                abortController.abort();
+            }
+        };
+        request.abortSignal.addEventListener("abort", abortListener);
+        abortControllerCleanup = () => {
+            var _a;
+            if (abortListener) {
+                (_a = request.abortSignal) === null || _a === void 0 ? void 0 : _a.removeEventListener("abort", abortListener);
+            }
+        };
+    }
+    // If a timeout was passed, call the abort signal once the time elapses
+    if (request.timeout > 0) {
+        setTimeout(() => {
+            abort...
+const abortController = new AbortController()
+request.abortSignal
+request.abortSignal.aborted
+throw new AbortError("The operation was aborted.");
+abortListener = (event) => {
+            if (event.type === "abort") {
+                abortController.abort();
+            }
+        }
+request.abortSignal.addEventListener("abort", abortListener)
+abortControllerCleanup = () => {
+            var _a;
+            if (abortListener) {
+                (_a = request.abortSignal) === null || _a === void 0 ? void 0 : _a.removeEventListener("abort", abortListener);
+            }
+        }
+request.timeout > 0
+setTimeout(() => {
+            abortController.abort();
+        }, request.timeout)

@@ -1,0 +1,53 @@
+InvertedIndex.prototype.get = function(query) {
+
+  // Early termination
+  if (!this.size)
+    return [];
+
+  // First we need to tokenize the query
+  var tokens = this.queryTokenizer(query);
+
+  if (!Array.isArray(tokens))
+    throw new Error('mnemonist/InvertedIndex.query: tokenizer function should return an array of tokens.');
+
+  if (!tokens.length)
+    return [];
+
+  var results = this.mapping.get(tokens[0]),
+      c,
+      i,
+      l;
+
+  if (typeof results === 'undefined' || results.length === 0)
+    return [];
+
+  if (tokens.length > 1) {
+    for (i = 1, l = tokens.length; i < l; i++) {
+      c = this.mapping.get(tokens[i]);
+
+      if (typeof c === 'undefined' || c.length === 0)
+        return [];
+
+      results = helpers.intersectionUniqueArrays(results, c);
+    }
+  }
+
+  var docs = new Array(results.length);
+
+  for (i = 0, l = docs.length; i < l; i++)
+    docs[i] = this.items[results[i]];
+
+  return docs;
+}
+!this.size
+var tokens = this.queryTokenizer(query)
+!Array.isArray(tokens)
+throw new Error('mnemonist/InvertedIndex.query: tokenizer function should return an array of tokens.');
+!tokens.length
+var results = this.mapping.get(tokens[0])
+typeof results === 'undefined' || results.length === 0
+tokens.length > 1
+l = tokens.length
+c = this.mapping.get(tokens[i])
+typeof c === 'undefined' || c.length === 0
+results = helpers.intersectionUniqueArrays(results, c)

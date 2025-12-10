@@ -1,0 +1,20 @@
+fs.readlink(dir, function (err, rfile) {
+                if (emitter._stopped) return;
+                emitter._pending --;
+                if (err) {
+                    if (!err.path) err.path = dir;
+                    emitter.emit('error', err);
+                    return check();
+                }
+                var file_ = path.resolve(dir, rfile);
+                emitter.emit('readlink', fdir, file_);
+                emitter._pending ++;
+                fs.lstat(file_, function (err, stat) {
+                    emitter._pending --;
+                    onstat(err, stat);
+                });
+            })
+emitter._stopped
+emitter._pending --
+var file_ = path.resolve(dir, rfile)
+emitter.emit('readlink', fdir, file_)

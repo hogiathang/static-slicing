@@ -1,0 +1,12 @@
+offAny(listener) {
+		assertListener(listener);
+
+		this.logIfDebugEnabled('unsubscribeAny', undefined, undefined);
+
+		emitMetaEvent(this, listenerRemoved, {listener});
+		anyMap.get(this).delete(listener);
+	}
+assertListener(listener)
+this.logIfDebugEnabled('unsubscribeAny', undefined, undefined)
+emitMetaEvent(this, listenerRemoved, {listener})
+(_tmp_56 = anyMap.get(this)).delete

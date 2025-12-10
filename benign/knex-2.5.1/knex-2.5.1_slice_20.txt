@@ -1,0 +1,117 @@
+const rechoir = require('rechoir')
+const merge = require('lodash/merge')
+const interpret = require('interpret')
+const resolveFrom = require('resolve-from')
+const path = require('path')
+const tildify = require('tildify')
+const commander = require('commander')
+const color = require('colorette')
+const argv = require('getopts')(process.argv.slice(2))
+const cliPkg = require('../package')
+_tmp_101 = require('./utils/cli-config-utils')
+parseConfigObj = _tmp_101.parseConfigObj
+mkConfigObj = _tmp_101.mkConfigObj
+resolveEnvironmentConfig = _tmp_101.resolveEnvironmentConfig
+exit = _tmp_101.exit
+success = _tmp_101.success
+checkLocalModule = _tmp_101.checkLocalModule
+checkConfigurationOptions = _tmp_101.checkConfigurationOptions
+getMigrationExtension = _tmp_101.getMigrationExtension
+getSeedExtension = _tmp_101.getSeedExtension
+getStubPath = _tmp_101.getStubPath
+findUpModulePath = _tmp_101.findUpModulePath
+findUpConfig = _tmp_101.findUpConfig
+require('./utils/cli-config-utils')
+_tmp_102 = require('../lib/migrations/util/fs')
+existsSync = _tmp_102.existsSync
+readFile = _tmp_102.readFile
+writeFile = _tmp_102.writeFile
+require('../lib/migrations/util/fs')
+_tmp_103 = require('./utils/migrationsLister')
+function openKnexfile = async function openKnexfile(configPath) {
+  const importFile = require('../lib/migrations/util/import-file'); // require me late!
+  let config = await importFile(configPath);
+  if (config && config.default) {
+    config = config.default;
+  }
+  if (typeof config === 'function') {
+    config = await config();
+  }
+  return config;
+}
+function initKnex = async function initKnex(env, opts, useDefaultClientIfNotSpecified) {
+  checkLocalModule(env);
+  if (process.cwd() !== env.cwd) {
+    process.chdir(env.cwd);
+    console.log(
+      'Working directory changed to',
+      color.magenta(tildify(env.cwd))
+    );
+  }
+
+  if (!useDefaultClientIfNotSpecified) {
+    checkConfigurationOptions(env, opts);
+  }
+
+  env.configuration = env.configPath
+    ? await openKnexfile(env.configPath)
+    : mkConfigObj(opts);
+
+  const resolvedConfig = resolveEnvironmentConfig(
+    opts,
+    env.configuration,
+    env.configPath
+  );
+
+  const optionsConfig = parseConfigObj(opts);
+  const config = merge(resolvedConfig, optionsConfig);
+
+  // Migrations directory gets defaulted if it is undefined.
+  if (!env.configPath && !config.migrations.directory) {
+    config.migrations.directory = null;
+  }
+
+  // Client gets defaulted if undefined and it's allowed
+  if (useDefaultClientIfNotSpecified && config.client === undefined) {
+    config.client = 'sqlite3';
+  }
+
+  con...
+function invoke = function invoke() {
+  const filetypes = ['js', 'mjs', 'coffee', 'ts', 'eg', 'ls'];
+
+  const cwd = argv.knexfile
+    ? path.dirname(path.resolve(argv.knexfile))
+    : process.cwd();
+
+  // TODO add knexpath here eventually
+  const modulePath =
+    resolveFrom.silent(cwd, 'knex') ||
+    findUpModulePath(cwd, 'knex') ||
+    process.env.KNEX_PATH;
+
+  const configPath =
+    argv.knexfile && existsSync(argv.knexfile)
+      ? path.resolve(argv.knexfile)
+      : findUpConfig(cwd, 'knexfile', filetypes);
+
+  if (configPath) {
+    const autoloads = rechoir.prepare(
+      interpret.jsVariants,
+      configPath,
+      cwd,
+      true
+    );
+    if (autoloads instanceof Error) {
+      // Only errors
+      autoloads.failures.forEach(function (failed) {
+        console.log(
+          color.red('Failed to load external module'),
+          color.magenta(failed.moduleName)
+        );
+      });
+    } else if (Array.isArray(autoloads)) {
+      const succeeded = autoloads[autoloads.length - 1];
+      cons...
+argv.cwd
+process.chdir(argv.cwd)

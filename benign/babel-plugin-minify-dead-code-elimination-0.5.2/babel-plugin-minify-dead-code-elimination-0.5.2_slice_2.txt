@@ -1,0 +1,203 @@
+_tmp_41.enter = enter
+path.isProgram()
+hasEval(path.scope)
+const scope = path.scope
+const canRemoveParams = path.isFunction() && path.node.kind !== "set"
+canRemoveParams ? path.get("params") : __ecma.Array.factory()
+let i = paramsList.length - 1
+const param = paramsList[i]
+param.isIdentifier()
+const binding = scope.bindings[param.node.name]
+!binding
+binding.referenced
+break;
+binding[markForRemoval] = true
+continue;
+param.isAssignmentPattern()
+const left = param.get("left")
+const right = param.get("right")
+left.isIdentifier() && right.isPure()
+const binding = scope.bindings[left.node.name]
+binding.referenced
+break;
+binding[markForRemoval] = true
+continue;
+break;
+_iterator_2 = <operator>.iterator(scope.bindings)
+const binding = scope.bindings[name]
+!binding.referenced && binding.kind !== "module"
+binding.kind === "param" && (this.keepFnArgs || !binding[markForRemoval])
+continue;
+(_tmp_42 = binding.path).isVariableDeclarator
+const declaration = binding.path.parentPath
+const maybeBlockParent = declaration.parentPath
+maybeBlockParent && maybeBlockParent.isForXStatement({
+                left: declaration.node
+              })
+_tmp_43.left = declaration.node
+continue;
+!scope.isPure(binding.path.node)
+continue;
+binding.path.isFunctionExpression() || binding.path.isClassExpression()
+continue;
+binding.path.isClassDeclaration() && binding.path === scope.path
+continue;
+__ecma.Array.factory()
+let bail = false
+binding.constantViolations.forEach(p => {
+              if (bail || p === binding.path) {
+                return;
+              }
+
+              if (!p.parentPath.isExpressionStatement()) {
+                bail = true;
+              }
+
+              if (p.isAssignmentExpression()) {
+                if (t.isArrayPattern(p.node.left) || t.isObjectPattern(p.node.left)) {
+                  bail = true;
+                } else if (p.get("right").isPure()) {
+                  mutations.push(() => removeOrVoid(p));
+                } else {
+                  mutations.push(() => p.replaceWith(p.get("right")));
+                }
+              }
+            })
+continue;
+(_tmp_50 = binding.path).isVariableDeclarator
+(_tmp_51 = binding.path.get("id")).isIdentifier
+continue;
+binding.path.node.init && !scope.isPure(binding.path.node.init) && binding.path.parentPath.node.declarations
+binding.path.parentPath.node.declarations.length !== 1
+continue;
+binding.path.parentPath.replaceWith(binding.path.node.init)
+updateReferences(binding.path, this)
+removeOrVoid(binding.path)
+updateReferences(binding.path, this)
+removeOrVoid(binding.path)
+mutations.forEach(f => f())
+scope.removeBinding(name)
+binding.constant
+binding.path.isFunctionDeclaration() || binding.path.isVariableDeclarator() && binding.path.get("init").isFunction()
+const fun = binding.path.isFunctionDeclaration() ? binding.path : binding.path.get("init")
+let allInside = true
+var _iterator3 = _createForOfIteratorHelper(binding.referencePaths)
+!(_step3 = _iterator3.n()).done
+const ref = _step3.value
+!ref.find(p => p.node === fun.node)
+allInside = false
+break;
+_iterator3.e(err)
+_iterator3.f()
+scope.removeBinding(name)
+updateReferences(binding.path, this)
+removeOrVoid(binding.path)
+continue;
+binding.references === 1 && binding.kind !== "param" && binding.kind !== "module" && binding.constant
+let replacement = binding.path.node
+let replacementPath = binding.path
+let isReferencedBefore = false
+const refPath = binding.referencePaths[0]
+t.isVariableDeclarator(replacement)
+const _prevSiblings = prevSiblings(replacementPath)
+forEachAncestor(refPath, ancestor => {
+                  if (_prevSiblings.indexOf(ancestor) > -1) {
+                    isReferencedBefore = true;
+                  }
+                })
+isReferencedBefore && refPath.scope !== binding.scope
+continue;
+replacement = isReferencedBefore ? t.unaryExpression("void", t.numericLiteral(0), true) : replacement.init
+(_tmp_60 = replacementPath.get("id")).isIdentifier
+continue;
+replacementPath = replacementPath.get("init")
+!replacement
+continue;
+!scope.isPure(replacement, true) && !isReferencedBefore
+continue;
+let bail = false
+replacementPath.isIdentifier()
+const binding = scope.getBinding(replacement.name)
+bail = !(binding && refPath.scope.getBinding(replacement.name) === binding && binding.constantViolations.length === 0)
+replacementPath.isThisExpression()
+bail = true
+replacementPath.traverse({
+                  Function(path) {
+                    path.skip();
+                  },
+
+                  ThisExpression(path) {
+                    bail = true;
+                    path.stop();
+                  },
+
+                  ReferencedIdentifier({
+                    node
+                  }) {
+                    const binding = scope.getBinding(node.name);
+
+                    if (binding && refPath.scope.getBinding(node.name) === binding) {
+                      bail = binding.constantViolations.length > 0;
+
+                      if (bail) {
+                        path.stop();
+                      }
+                    }
+                  }
+
+                })
+_tmp_62.Function = Function
+_tmp_62.ThisExpression = ThisExpression
+_tmp_62.ReferencedIdentifier = ReferencedIdentifier
+continue;
+let parent = binding.path.parent
+t.isVariableDeclaration(parent)
+parent = binding.path.parentPath.parent
+let mayLoop = false
+const sharesRoot = refPath.find(({
+                node
+              }) => {
+                if (!mayLoop) {
+                  mayLoop = t.isWhileStatement(node) || t.isFor(node) || t.isFunction(node);
+                }
+
+                return node === parent;
+              })
+const isObj = n => t.isFunction(n) || t.isObjectExpression(n) || t.isArrayExpression(n) || t.isRegExpLiteral(n)
+const isReplacementObj = isObj(replacement) || some(replacement, isObj)
+!sharesRoot || isReplacementObj && mayLoop
+continue;
+let inExpression = replacementPath.isBinaryExpression({
+                operator: "in"
+              })
+_tmp_64.operator = "in"
+!inExpression
+replacementPath.traverse({
+                  Function(path) {
+                    path.skip();
+                  },
+
+                  BinaryExpression(path) {
+                    if (path.node.operator === "in") {
+                      inExpression = true;
+                      path.stop();
+                    }
+                  }
+
+                })
+_tmp_65.Function = Function1
+_tmp_65.BinaryExpression = BinaryExpression
+continue;
+const replaced = replace(binding.referencePaths[0], {
+                binding,
+                scope,
+                replacement,
+                replacementPath
+              })
+_tmp_66.binding = binding
+_tmp_66.scope = scope
+_tmp_66.replacement = replacement
+_tmp_66.replacementPath = replacementPath
+scope.removeBinding(name)
+binding.path.node
+removeOrVoid(binding.path)

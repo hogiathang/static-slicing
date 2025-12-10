@@ -1,0 +1,13 @@
+function () {
+            if (process.env.NODE_ENV === 'production') {
+              console.log('✓');
+              console.log('Pruning dev dependencies for production build');
+              return exec('npm prune --production', opts);
+            } else {
+              console.log('Skipping npm prune');
+            }
+          }
+process.env.NODE_ENV === 'production'
+console.log('✓')
+console.log('Pruning dev dependencies for production build')
+exec('npm prune --production', opts)

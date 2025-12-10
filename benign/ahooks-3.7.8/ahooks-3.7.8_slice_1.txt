@@ -1,0 +1,6 @@
+useEffect(function () {
+    if (!manual && socketUrl) {
+      connect();
+    }
+  }, [socketUrl, manual])
+!manual && socketUrl

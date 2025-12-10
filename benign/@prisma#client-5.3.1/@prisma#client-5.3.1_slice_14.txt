@@ -1,0 +1,40 @@
+function coerce = function coerce(version, options2) {
+      if (version instanceof SemVer) {
+        return version;
+      }
+      if (typeof version === "number") {
+        version = String(version);
+      }
+      if (typeof version !== "string") {
+        return null;
+      }
+      options2 = options2 || {};
+      var match = null;
+      if (!options2.rtl) {
+        match = version.match(safeRe[t.COERCE]);
+      } else {
+        var next;
+        while ((next = safeRe[t.COERCERTL].exec(version)) && (!match || match.index + match[0].length !== version.length)) {
+          if (!match || next.index + next[0].length !== match.index + match[0].length) {
+            match = next;
+          }
+          safeRe[t.COERCERTL].lastIndex = next.index + next[1].length + next[2].length;
+        }
+        safeRe[t.COERCERTL].lastIndex = -1;
+      }
+      if (match === null) {
+        return null;
+      }
+      return parse(match[2] + "." + (match[3] || "0") + "." + (match[4] || "0"), options2);
+    }
+version instanceof SemVer
+typeof version === "number"
+version = String(version)
+typeof version !== "string"
+options2 = options2 || {}
+var match = null
+!options2.rtl
+(next = safeRe[t.COERCERTL].exec(version)) && (!match || match.index + match[0].length !== version.length)
+!match || next.index + next[0].length !== match.index + match[0].length
+match = next
+safeRe[t.COERCERTL].lastIndex = next.index + next[1].length + next[2].length

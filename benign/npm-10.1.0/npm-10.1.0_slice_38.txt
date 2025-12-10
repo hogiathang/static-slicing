@@ -1,0 +1,36 @@
+path = path === void 0 ? process.cwd() : path
+initerName = _tmp_8[0]
+let packageName = initerName
+/^@[^/]+$/.test(initerName)
+_tmp_10 = initerName.split('@')
+<operator>.formatString("@", scope, "/create")
+<operator>.formatString("", packageName, "@", version, "")
+const req = npa(initerName)
+req.type === 'git' && req.hosted
+project = _tmp_11.project
+packageName = initerName.replace(`${user}/${project}`, `${user}/create-${project}`)
+req.registry
+<operator>.formatString("", req.name.replace(/^(@[^/]+\/)?/, '$1create-'), "@", req.rawSpec, "")
+throw Object.assign(new Error(
+          'Unrecognized initializer: ' + initerName +
+          '\nFor more package binary executing power check out `npx`:' +
+          '\nhttps://docs.npmjs.com/cli/commands/npx'
+        ), { code: 'EUNSUPPORTED' })
+'Unrecognized initializer: ' + initerName +
+          '\nFor more package binary executing power check out `npx`:' +
+          '\nhttps://docs.npmjs.com/cli/commands/npx'
+"
+For more package binary executing power check out `npx`:"
+"
+https://docs.npmjs.com/cli/commands/npx"
+_tmp_14.code = "EUNSUPPORTED"
+const newArgs = [packageName, ...otherArgs]
+_tmp_16 = this.npm
+flatOptions = _tmp_16.flatOptions
+localBin = _tmp_16.localBin
+globalBin = _tmp_16.globalBin
+chalk = _tmp_16.chalk
+this.npm
+const output = this.npm.output.bind(this.npm)
+const runPath = path
+const scriptShell = this.npm.config.get('script-shell') || undefined

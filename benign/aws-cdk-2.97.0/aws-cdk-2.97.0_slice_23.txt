@@ -1,0 +1,48 @@
+async diff(options) {
+        const stacks = await this.selectStacksForDiff(options.stackNames, options.exclusively);
+        const strict = !!options.strict;
+        const contextLines = options.contextLines || 3;
+        const stream = options.stream || process.stderr;
+        const quiet = options.quiet || false;
+        let diffs = 0;
+        if (options.templatePath !== undefined) {
+            // Compare single stack against fixed template
+            if (stacks.stackCount !== 1) {
+                throw new Error('Can only select one stack when comparing to fixed template. Use --exclusively to avoid selecting multiple stacks.');
+            }
+            if (!await fs.pathExists(options.templatePath)) {
+                throw new Error(`There is no file at ${options.templatePath}`);
+            }
+            const template = (0, serialize_1.deserializeStructure)(await fs.readFile(options.templatePath, { encoding: 'UTF-8' }));
+            diffs = options.securityOnly
+           ...
+const stacks = await this.selectStacksForDiff(options.stackNames, options.exclusively)
+const strict = !!options.strict
+const contextLines = options.contextLines || 3
+const stream = options.stream || process.stderr
+const quiet = options.quiet || false
+let diffs = 0
+options.templatePath !== undefined
+stacks.stackCount !== 1
+throw new Error('Can only select one stack when comparing to fixed template. Use --exclusively to avoid selecting multiple stacks.');
+!await fs.pathExists(options.templatePath)
+<operator>.formatString("There is no file at ", options.templatePath, "")
+const template = (0, serialize_1.deserializeStructure)(await fs.readFile(options.templatePath, { encoding: 'UTF-8' }))
+diffs = options.securityOnly
+                ? (0, util_2.numberFromBool)((0, diff_1.printSecurityDiff)(template, stacks.firstStack, diff_1.RequireApproval.Broadening))
+                : (0, diff_1.printStackDiff)(template, stacks.firstStack, strict, contextLines, quiet, stream)
+(0, util_2.numberFromBool)((0, diff_1.printSecurityDiff)(template, stacks.firstStack, diff_1.RequireApproval.Broadening))
+(0, diff_1.printStackDiff)(template, stacks.firstStack, strict, contextLines, quiet, stream)
+_iterator_0 = <operator>.iterator(stacks.stackArtifacts)
+!quiet
+stream.write((0, util_1.format)('Stack %s\n', chalk.bold(stack.displayName)))
+const templateWithNames = await this.props.deployments.readCurrentTemplateWithNestedStacks(stack, options.compareAgainstProcessedTemplate)
+const currentTemplate = templateWithNames.deployedTemplate
+const nestedStackCount = templateWithNames.nestedStackCount
+const stackCount = options.securityOnly
+                    ? ((0, util_2.numberFromBool)((0, diff_1.printSecurityDiff)(currentTemplate, stack, diff_1.RequireApproval.Broadening)) > 0 ? 1 : 0)
+                    : ((0, diff_1.printStackDiff)(currentTemplate, stack, strict, contextLines, quiet, stream) > 0 ? 1 : 0)
+(0, util_2.numberFromBool)((0, diff_1.printSecurityDiff)(currentTemplate, stack, diff_1.RequireApproval.Broadening)) > 0 ? 1 : 0
+(0, diff_1.printStackDiff)(currentTemplate, stack, strict, contextLines, quiet, stream) > 0 ? 1 : 0
+diffs += stackCount + nestedStackCount
+stream.write((0, util_1.format)('\n✨  Number of stacks with differences: %s\n', diffs))

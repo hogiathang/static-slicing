@@ -1,0 +1,17 @@
+_tmp_25.UpdateExpression = UpdateExpression
+_tmp_36 = this
+scope = _tmp_36.scope
+seen = _tmp_36.seen
+imported = _tmp_36.imported
+exported = _tmp_36.exported
+requeueInParent = _tmp_36.requeueInParent
+buildImportReference = _tmp_36.buildImportReference
+seen.has(path.node)
+seen.add(path.node)
+const arg = path.get("argument")
+arg.isMemberExpression()
+const update = path.node
+arg.isIdentifier()
+const localName = arg.node.name
+scope.getBinding(localName) !== path.scope.getBinding(localName)
+const exportedNames = exported.get(localName)

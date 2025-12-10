@@ -1,0 +1,10 @@
+register(type, component) {
+        if (!this.components.has(type)) {
+            this.components.set(type, []);
+        }
+        const types = this.components.get(type);
+        types.push(component);
+    }
+(_tmp_142 = this.components).has
+(_tmp_143 = this.components).set
+const types = this.components.get(type)

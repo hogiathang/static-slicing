@@ -1,0 +1,16 @@
+this.external = (symbolName, moduleName) => {
+            if (!this._imports.has(moduleName)) {
+                this._imports.set(moduleName, new Map());
+            }
+            const symbolsPerModule = this._imports.get(moduleName);
+            if (!symbolsPerModule.has(symbolName)) {
+                symbolsPerModule.set(symbolName, `@@__SCHEMATIC_PLACEHOLDER_${uniqueIdCounter++}__@@`);
+            }
+            return symbolsPerModule.get(symbolName);
+        }
+!this._imports.has(moduleName)
+this._imports.set(moduleName, new Map())
+const symbolsPerModule = this._imports.get(moduleName)
+!symbolsPerModule.has(symbolName)
+symbolsPerModule.set(symbolName, `@@__SCHEMATIC_PLACEHOLDER_${uniqueIdCounter++}__@@`)
+symbolsPerModule.get(symbolName)

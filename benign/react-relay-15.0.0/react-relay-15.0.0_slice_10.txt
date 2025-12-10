@@ -1,0 +1,17 @@
+_proto.retry = function retry(cacheConfigOverride) {
+    !this._fetchOptions ? process.env.NODE_ENV !== "production" ? invariant(false, 'ReactRelayQueryFetcher: `retry` should be called after having called `fetch`') : invariant(false) : void 0;
+    return this.fetch({
+      environment: this._fetchOptions.environment,
+      operation: this._fetchOptions.operation,
+      onDataChange: null // If there are onDataChangeCallbacks they will be reused
+    }, cacheConfigOverride);
+  }
+!this._fetchOptions ? process.env.NODE_ENV !== "production" ? invariant(false, 'ReactRelayQueryFetcher: `retry` should be called after having called `fetch`') : invariant(false) : void 0
+this.fetch({
+      environment: this._fetchOptions.environment,
+      operation: this._fetchOptions.operation,
+      onDataChange: null // If there are onDataChangeCallbacks they will be reused
+    }, cacheConfigOverride)
+_tmp_24.environment = this._fetchOptions.environment
+_tmp_24.operation = this._fetchOptions.operation
+_tmp_24.onDataChange = null

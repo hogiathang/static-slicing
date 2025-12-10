@@ -1,0 +1,73 @@
+ProgressBar.prototype.render = function (tokens, force) {
+  force = force !== undefined ? force : false;
+  if (tokens) this.tokens = tokens;
+
+  if (!this.stream.isTTY) return;
+
+  var now = Date.now();
+  var delta = now - this.lastRender;
+  if (!force && (delta < this.renderThrottle)) {
+    return;
+  } else {
+    this.lastRender = now;
+  }
+
+  var ratio = this.curr / this.total;
+  ratio = Math.min(Math.max(ratio, 0), 1);
+
+  var percent = Math.floor(ratio * 100);
+  var incomplete, complete, completeLength;
+  var elapsed = new Date - this.start;
+  var eta = (percent == 100) ? 0 : elapsed * (this.total / this.curr - 1);
+  var rate = this.curr / (elapsed / 1000);
+
+  /* populate the bar template with percentages and timestamps */
+  var str = this.fmt
+    .replace(':current', this.curr)
+    .replace(':total', this.total)
+    .replace(':elapsed', isNaN(elapsed) ? '0.0' : (elapsed / 1000).toFixed(1))
+    .replace(':eta', (isNaN(eta) || !isFinite(eta)) ? '0.0' : (eta / 1000)
+      .toFixed(1))...
+force = force !== undefined ? force : false
+this.tokens = tokens
+!this.stream.isTTY
+var now = Date.now()
+var delta = now - this.lastRender
+!force && (delta < this.renderThrottle)
+this.lastRender = now
+var ratio = this.curr / this.total
+ratio = Math.min(Math.max(ratio, 0), 1)
+var percent = Math.floor(ratio * 100)
+var elapsed = new Date - this.start
+var eta = (percent == 100) ? 0 : elapsed * (this.total / this.curr - 1)
+var rate = this.curr / (elapsed / 1000)
+var str = this.fmt
+    .replace(':current', this.curr)
+    .replace(':total', this.total)
+    .replace(':elapsed', isNaN(elapsed) ? '0.0' : (elapsed / 1000).toFixed(1))
+    .replace(':eta', (isNaN(eta) || !isFinite(eta)) ? '0.0' : (eta / 1000)
+      .toFixed(1))
+    .replace(':percent', percent.toFixed(0) + '%')
+    .replace(':rate', Math.round(rate))
+this.curr
+this.total
+isNaN(elapsed) ? "0.0" : (elapsed / 1000).toFixed(1)
+isNaN(eta) || !isFinite(eta) ? "0.0" : (eta / 1000)
+      .toFixed(1)
+1
+percent.toFixed(0) + '%'
+Math.round(rate)
+var availableSpace = Math.max(0, this.stream.columns - str.replace(':bar', '').length)
+availableSpace && process.platform === 'win32'
+availableSpace = availableSpace - 1
+var width = Math.min(this.width, availableSpace)
+completeLength = Math.round(width * ratio)
+complete = Array(Math.max(0, completeLength + 1)).join(this.chars.complete)
+incomplete = Array(Math.max(0, width - completeLength + 1)).join(this.chars.incomplete)
+completeLength > 0
+complete = complete.slice(0, -1) + this.chars.head
+str = str.replace(':bar', complete + incomplete)
+_iterator_0 = <operator>.iterator(this.tokens)
+this.lastDraw !== str
+(_tmp_18 = this.stream).cursorTo
+(_tmp_19 = this.stream).write

@@ -1,0 +1,43 @@
+function getServerInstance = function getServerInstance (options, httpHandler) {
+  let server = null
+  // node@20 do not accepts options as boolean
+  // we need to provide proper https option
+  const httpsOptions = options.https === true ? {} : options.https
+  if (options.serverFactory) {
+    server = options.serverFactory(httpHandler, options)
+  } else if (options.http2) {
+    if (typeof httpsOptions === 'object') {
+      server = http2().createSecureServer(httpsOptions, httpHandler)
+    } else {
+      server = http2().createServer(httpHandler)
+    }
+    server.on('session', sessionTimeout(options.http2SessionTimeout))
+  } else {
+    // this is http1
+    if (httpsOptions) {
+      server = https.createServer(httpsOptions, httpHandler)
+    } else {
+      server = http.createServer(options.http, httpHandler)
+    }
+    server.keepAliveTimeout = options.keepAliveTimeout
+    server.requestTimeout = options.requestTimeout
+    // we treat zero as null
+    // and null is the default setting from nodejs
+    // so we do ...
+let server = null
+const httpsOptions = options.https === true ? {} : options.https
+options.serverFactory
+server = options.serverFactory(httpHandler, options)
+options.http2
+typeof httpsOptions === 'object'
+server = http2().createSecureServer(httpsOptions, httpHandler)
+server = http2().createServer(httpHandler)
+server.on('session', sessionTimeout(options.http2SessionTimeout))
+server = https.createServer(httpsOptions, httpHandler)
+server = http.createServer(options.http, httpHandler)
+server.keepAliveTimeout = options.keepAliveTimeout
+server.requestTimeout = options.requestTimeout
+options.maxRequestsPerSocket > 0
+server.maxRequestsPerSocket = options.maxRequestsPerSocket
+!options.serverFactory
+server.setTimeout(options.connectionTimeout)

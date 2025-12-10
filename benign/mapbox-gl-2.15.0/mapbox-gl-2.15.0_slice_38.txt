@@ -1,0 +1,61 @@
+populate(features: Array<IndexedFeature>, options: PopulateParameters, canonical: CanonicalTileID, tileTransform: TileTransform) {
+        this.hasPattern = hasPattern('fill', this.layers, options);
+        const fillSortKey = this.layers[0].layout.get('fill-sort-key');
+        const bucketFeatures = [];
+
+        for (const {feature, id, index, sourceLayerIndex} of features) {
+            const needGeometry = this.layers[0]._featureFilter.needGeometry;
+            const evaluationFeature = toEvaluationFeature(feature, needGeometry);
+
+            // $FlowFixMe[method-unbinding]
+            if (!this.layers[0]._featureFilter.filter(new EvaluationParameters(this.zoom), evaluationFeature, canonical)) continue;
+
+            const sortKey = fillSortKey ?
+                fillSortKey.evaluate(evaluationFeature, {}, canonical, options.availableImages) :
+                undefined;
+
+            const bucketFeature: BucketFeature = {
+                id,
+                properties: feature.prope...
+this.hasPattern = hasPattern('fill', this.layers, options)
+const fillSortKey = this.layers[0].layout.get('fill-sort-key')
+const bucketFeatures = []
+sourceLayerIndex = _result_0.value.sourceLayerIndex
+const needGeometry = this.layers[0]._featureFilter.needGeometry
+const evaluationFeature = toEvaluationFeature(feature, needGeometry)
+!this.layers[0]._featureFilter.filter(new EvaluationParameters(this.zoom), evaluationFeature, canonical)
+const sortKey = fillSortKey ?
+                fillSortKey.evaluate(evaluationFeature, {}, canonical, options.availableImages) :
+                undefined
+fillSortKey.evaluate(evaluationFeature, {}, canonical, options.availableImages)
+const bucketFeature: BucketFeature = {
+                id,
+                properties: feature.properties,
+                type: feature.type,
+                sourceLayerIndex,
+                index,
+                geometry: needGeometry ? evaluationFeature.geometry : loadGeometry(feature, canonical, tileTransform),
+                patterns: {},
+                sortKey
+            }
+_tmp_13.id = id
+_tmp_13.properties = feature.properties
+_tmp_13.type = feature.type
+_tmp_13.sourceLayerIndex = sourceLayerIndex
+_tmp_13.index = index
+_tmp_13.geometry = needGeometry ? evaluationFeature.geometry : loadGeometry(feature, canonical, tileTransform)
+_tmp_13.patterns = {}
+_tmp_13.sortKey = sortKey
+bucketFeatures.push(bucketFeature)
+bucketFeatures.sort((a, b) => {
+                // a.sortKey is always a number when in use
+                return ((a.sortKey: any): number) - ((b.sortKey: any): number);
+            })
+_iterator_1 = <operator>.iterator(bucketFeatures)
+sourceLayerIndex = _tmp_15.sourceLayerIndex
+this.hasPattern
+const patternFeature = addPatternDependencies('fill', this.layers, bucketFeature, this.zoom, options)
+this.patternFeatures.push(patternFeature)
+this.addFeature(bucketFeature, geometry, index, canonical, {}, options.availableImages)
+const feature = features[index].feature
+options.featureIndex.insert(feature, geometry, index, sourceLayerIndex, this.index)

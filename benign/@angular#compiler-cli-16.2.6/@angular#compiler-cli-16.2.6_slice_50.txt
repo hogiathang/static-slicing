@@ -1,0 +1,35 @@
+extendedTemplateCheck(sf, extendedTemplateChecker) {
+    if (this.compilationMode === CompilationMode.LOCAL) {
+      return [];
+    }
+    const classes = this.fileToClasses.get(sf);
+    if (classes === void 0) {
+      return [];
+    }
+    const diagnostics = [];
+    for (const clazz of classes) {
+      if (!isNamedClassDeclaration(clazz)) {
+        continue;
+      }
+      const record = this.classes.get(clazz);
+      for (const trait of record.traits) {
+        if (trait.handler.extendedTemplateCheck === void 0) {
+          continue;
+        }
+        diagnostics.push(...trait.handler.extendedTemplateCheck(clazz, extendedTemplateChecker));
+      }
+    }
+    return diagnostics;
+  }
+this.compilationMode === CompilationMode.LOCAL
+const classes = this.fileToClasses.get(sf)
+classes === void 0
+const diagnostics = []
+_iterator_85 = <operator>.iterator(classes)
+!isNamedClassDeclaration(clazz)
+continue;
+const record = this.classes.get(clazz)
+_iterator_86 = <operator>.iterator(record.traits)
+trait.handler.extendedTemplateCheck === void 0
+continue;
+diagnostics.push(...trait.handler.extendedTemplateCheck(clazz, extendedTemplateChecker))

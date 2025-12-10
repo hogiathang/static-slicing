@@ -1,0 +1,96 @@
+async updatePackagesAndMigrate(workflow, rootDependencies, options, packages) {
+        const { logger } = this.context;
+        const logVerbose = (message) => {
+            if (options.verbose) {
+                logger.info(message);
+            }
+        };
+        const requests = [];
+        // Validate packages actually are part of the workspace
+        for (const pkg of packages) {
+            const node = rootDependencies.get(pkg.name);
+            if (!node?.package) {
+                logger.error(`Package '${pkg.name}' is not a dependency.`);
+                return 1;
+            }
+            // If a specific version is requested and matches the installed version, skip.
+            if (pkg.type === 'version' && node.package.version === pkg.fetchSpec) {
+                logger.info(`Package '${pkg.name}' is already at '${pkg.fetchSpec}'.`);
+                continue;
+            }
+            requests.push({ identifier: pkg, node });
+        }
+        if (requests.length ===...
+logger = _tmp_86.logger
+const logVerbose = (message) => {
+            if (options.verbose) {
+                logger.info(message);
+            }
+        }
+__ecma.Array.factory()
+_iterator_4 = <operator>.iterator(packages)
+const node = rootDependencies.get(pkg.name)
+!node?.package
+pkg.type === 'version' && node.package.version === pkg.fetchSpec
+<operator>.formatString("Package '", pkg.name, "' is already at '", pkg.fetchSpec, "'.")
+continue;
+requests.push({ identifier: pkg, node })
+requests.length === 0
+logger.info('Fetching dependency metadata from registry...')
+const packagesToUpdate = []
+identifier: requestIdentifier = _result_5.value.identifier: requestIdentifier
+const packageName = requestIdentifier.name
+metadata = await (0, package_metadata_1.fetchPackageMetadata)(packageName, logger, {
+                    verbose: options.verbose,
+                })
+_tmp_88.verbose = options.verbose
+requestIdentifier.type === 'version' ||
+                requestIdentifier.type === 'range' ||
+                requestIdentifier.type === 'tag'
+requestIdentifier.type === 'range'
+requestIdentifier.type === 'tag'
+manifest = (0, npm_pick_manifest_1.default)(metadata, requestIdentifier.fetchSpec)
+(0, error_1.assertIsError)(e)
+e.code === 'ETARGET'
+requestIdentifier.type === 'tag' &&
+                            requestIdentifier.fetchSpec === 'next' &&
+                            !requestIdentifier.rawSpec
+requestIdentifier.fetchSpec === 'next'
+!requestIdentifier.rawSpec
+manifest = (0, npm_pick_manifest_1.default)(metadata, 'latest')
+(0, error_1.assertIsError)(e)
+e.code !== 'ETARGET' && e.code !== 'ENOVERSIONS'
+throw e;
+e.code !== 'ENOVERSIONS'
+throw e;
+!manifest
+manifest.version === node.package?.version
+<operator>.formatString("Package '", packageName, "' is already up to date.")
+continue;
+node.package && ANGULAR_PACKAGES_REGEXP.test(node.package.name)
+version = _tmp_89.version
+const toBeInstalledMajorVersion = +manifest.version.split('.')[0]
+const currentMajorVersion = +version.split('.')[0]
+toBeInstalledMajorVersion - currentMajorVersion > 1
+packagesToUpdate.push(requestIdentifier.toString())
+packagesToUpdate.length === 0
+_tmp_92 = await this.executeSchematic(workflow, UPDATE_SCHEMATIC_COLLECTION, 'update', {
+            verbose: options.verbose,
+            force: options.force,
+            next: options.next,
+            packageManager: this.context.packageManager.name,
+            packages: packagesToUpdate,
+        })
+_tmp_91.verbose = options.verbose
+_tmp_91.force = options.force
+_tmp_91.next = options.next
+_tmp_91.packageManager = this.context.packageManager.name
+_tmp_91.packages = packagesToUpdate
+await fs_1.promises.rm(path.join(this.context.root, 'node_modules'), {
+                    force: true,
+                    recursive: true,
+                    maxRetries: 3,
+                })
+_tmp_94.force = true
+_tmp_94.recursive = true
+_tmp_94.maxRetries = 3

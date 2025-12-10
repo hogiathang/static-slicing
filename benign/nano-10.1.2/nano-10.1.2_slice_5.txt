@@ -1,0 +1,145 @@
+function relax = function relax (opts, callback) {
+    if (typeof opts === 'function') {
+      callback = opts
+      opts = { path: '' }
+    }
+
+    if (typeof opts === 'string') {
+      opts = { path: opts }
+    }
+
+    if (!opts) {
+      opts = { path: '' }
+      callback = null
+    }
+
+    const qs = Object.assign({}, opts.qs)
+
+    const headers = {
+      'content-type': 'application/json',
+      accept: 'application/json',
+      'user-agent': `${pkg.name}/${pkg.version} (Node.js ${process.version})`,
+      'Accept-Encoding': 'deflate, gzip'
+    }
+
+    const req = Object.assign({
+      method: (opts.method || 'GET'),
+      headers,
+      uri: cfg.url
+    }, {
+      ...cfg.requestDefaults,
+      headers: Object.assign(headers, cfg.requestDefaults && cfg.requestDefaults.headers ? cfg.requestDefaults.headers : {})
+    })
+
+    // https://github.com/mikeal/request#requestjar
+    const isJar = opts.jar || cfg.jar || (cfg.requestDefaults && cfg.requestDefaults.jar)
+
+    if (opts.signal) {
+      req.signal ...
+typeof opts === 'function'
+callback = opts
+opts = { path: '' }
+typeof opts === 'string'
+opts = { path: opts }
+!opts
+opts = { path: '' }
+callback = null
+const qs = Object.assign({}, opts.qs)
+const headers = {
+      'content-type': 'application/json',
+      accept: 'application/json',
+      'user-agent': `${pkg.name}/${pkg.version} (Node.js ${process.version})`,
+      'Accept-Encoding': 'deflate, gzip'
+    }
+_tmp_20.content-type = "application/json"
+_tmp_20.accept = "application/json"
+_tmp_20.user-agent = <operator>.formatString("", pkg.name, "/", pkg.version, " (Node.js ", process.version, ")")
+_tmp_20.Accept-Encoding = "deflate, gzip"
+const req = Object.assign({
+      method: (opts.method || 'GET'),
+      headers,
+      uri: cfg.url
+    }, {
+      ...cfg.requestDefaults,
+      headers: Object.assign(headers, cfg.requestDefaults && cfg.requestDefaults.headers ? cfg.requestDefaults.headers : {})
+    })
+_tmp_21.method = opts.method || 'GET'
+_tmp_21.headers = headers
+_tmp_21.uri = cfg.url
+...cfg.requestDefaults
+_tmp_22.headers = Object.assign(headers, cfg.requestDefaults && cfg.requestDefaults.headers ? cfg.requestDefaults.headers : {})
+const isJar = opts.jar || cfg.jar || (cfg.requestDefaults && cfg.requestDefaults.jar)
+opts.signal
+req.signal = opts.signal
+req.withCredentials = true
+opts.db
+req.uri = urlResolveFix(req.uri, encodeURIComponent(opts.db))
+opts.multipart
+const mp = new MultiPartFactory(opts.multipart)
+opts.contentType = mp.header
+req.body = mp.data
+req.headers = Object.assign(req.headers, opts.headers, cfg.defaultHeaders)
+opts.path
+req.uri += '/' + opts.path
+opts.doc
+(_tmp_25 = /^_design|_local/).test
+req.uri += '/' + encodeURIComponent(opts.doc)
+req.uri += '/' + opts.doc
+opts.att
+req.uri += '/' + opts.att
+opts.encoding !== undefined
+req.encoding = opts.encoding
+delete req.headers['content-type']
+delete req.headers.accept
+opts.contentType
+req.headers['content-type'] = opts.contentType
+delete req.headers.accept
+opts.accept
+req.headers.accept = opts.accept
+cfg.cookie
+req.headers['X-CouchDB-WWW-Authenticate'] = 'Cookie'
+req.headers.cookie = cfg.cookie
+typeof opts.qs === 'object' && !isEmpty(opts.qs)
+['startkey', 'endkey', 'key', 'keys', 'start_key', 'end_key'].forEach(function (key) {
+        if (key in opts.qs) {
+          qs[key] = JSON.stringify(opts.qs[key])
+        }
+      })
+req.qs = qs
+const cookie = cfg.cookieJar.getCookieString(req.uri)
+req.headers.cookie = cookie
+opts.body
+Buffer.isBuffer(opts.body) || opts.dontStringify
+req.body = opts.body
+req.body = JSON.stringify(opts.body, function (key, value) {
+          // don't encode functions
+          if (typeof (value) === 'function') {
+            return value.toString()
+          } else {
+            return value
+          }
+        })
+opts.form
+req.headers['content-type'] =
+        'application/x-www-form-urlencoded; charset=utf-8'
+"application/x-www-form-urlencoded; charset=utf-8"
+req.body = querystring.stringify(opts.form).toString('utf8')
+req.qsStringifyOptions = { arrayFormat: 'repeat' }
+req.url = req.uri
+delete req.uri
+req.method = req.method.toLowerCase()
+req.params = req.qs
+delete req.qs
+req.paramsSerializer = {
+      serialize: (params) => querystring.stringify(params, { arrayFormat: 'brackets' })
+    }
+querystring.stringify(params, { arrayFormat: 'brackets' })
+req.data = req.body
+delete req.body
+req.maxRedirects = 0
+opts.stream
+req.responseType = 'stream'
+opts.dontParse
+req.responseType = 'arraybuffer'
+_tmp_34.method = req.method
+_tmp_34.headers = JSON.parse(JSON.stringify(req.headers))

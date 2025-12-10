@@ -1,0 +1,4 @@
+static getFontScale(): number {
+    return Dimensions.get('window').fontScale || PixelRatio.get();
+  }
+Dimensions.get('window').fontScale || PixelRatio.get()

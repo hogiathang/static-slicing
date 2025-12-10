@@ -1,0 +1,43 @@
+stats.forEach((stat, index) => {
+
+        const filePath = filePaths[index];
+        const pattern = normalizeToPosix(patterns[index]);
+
+        if (stat) {
+
+            // files are added directly to the list
+            if (stat.isFile()) {
+                results.push({
+                    filePath,
+                    ignored: configs.isFileIgnored(filePath)
+                });
+            }
+
+            // directories need extensions attached
+            if (stat.isDirectory()) {
+
+                // group everything in cwd together and split out others
+                if (isPathInside(filePath, cwd)) {
+                    ({ patterns: globbyPatterns, rawPatterns } = searches.get(cwd));
+                } else {
+                    if (!searches.has(filePath)) {
+                        searches.set(filePath, { patterns: [], rawPatterns: [] });
+                    }
+                    ({ patterns: globbyPatterns, rawPatterns } = searches.get(filePath));
+                }
+
+       ...
+const filePath = filePaths[index]
+const pattern = normalizeToPosix(patterns[index])
+stat.isFile()
+results.push({
+                    filePath,
+                    ignored: configs.isFileIgnored(filePath)
+                })
+_tmp_32.filePath = filePath
+_tmp_32.ignored = configs.isFileIgnored(filePath)
+stat.isDirectory()
+isPathInside(filePath, cwd)
+!searches.has(filePath)
+searches.set(filePath, { patterns: [], rawPatterns: [] })
+globbyPatterns = _tmp_35.patterns

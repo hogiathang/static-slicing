@@ -1,0 +1,4 @@
+get global () {
+    return this.config.get('global') || this.config.get('location') === 'global'
+  }
+this.config.get('global') || this.config.get('location') === 'global'

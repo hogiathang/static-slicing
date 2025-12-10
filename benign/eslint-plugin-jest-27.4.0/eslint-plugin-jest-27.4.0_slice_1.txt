@@ -1,0 +1,21 @@
+const resolveScope = (scope, identifier) => {
+  let currentScope = scope;
+  while (currentScope !== null) {
+    const ref = currentScope.set.get(identifier);
+    if (ref && ref.defs.length > 0) {
+      const def = ref.defs[ref.defs.length - 1];
+      const importDetails = describePossibleImportDef(def);
+      if ((importDetails === null || importDetails === void 0 ? void 0 : importDetails.local) === identifier) {
+        return importDetails;
+      }
+      return 'local';
+    }
+    currentScope = currentScope.upper;
+  }
+  return null;
+}
+let currentScope = scope
+currentScope !== null
+const ref = currentScope.set.get(identifier)
+ref && ref.defs.length > 0
+currentScope = currentScope.upper

@@ -1,0 +1,35 @@
+_fetchIcon(iconConfig) {
+        const { url: safeUrl, options } = iconConfig;
+        const withCredentials = options?.withCredentials ?? false;
+        if (!this._httpClient) {
+            throw getMatIconNoHttpProviderError();
+        }
+        // TODO: add an ngDevMode check
+        if (safeUrl == null) {
+            throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
+        }
+        const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
+        // TODO: add an ngDevMode check
+        if (!url) {
+            throw getMatIconFailedToSanitizeUrlError(safeUrl);
+        }
+        // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
+        // already a request in progress for that URL. It's necessary to call share() on the
+        // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
+        const inProgressFetch = this._inProgressUrlFetches.get(url);
+        if (inProgressFetch)...
+options = _tmp_42.options
+const withCredentials = options?.withCredentials ?? false
+!this._httpClient
+throw getMatIconNoHttpProviderError();
+safeUrl == null
+<operator>.formatString("Cannot fetch icon from URL "", safeUrl, "".")
+const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl)
+!url
+throw getMatIconFailedToSanitizeUrlError(safeUrl);
+const inProgressFetch = this._inProgressUrlFetches.get(url)
+const req = this._httpClient.get(url, { responseType: 'text', withCredentials }).pipe(map(svg => {
+            // Security: This SVG is fetched from a SafeResourceUrl, and is thus
+            // trusted HTML.
+            return trustedHTMLFromString(svg);
+        }), finalize(() => this._inProgressUrlFetches.delete(url)), share())

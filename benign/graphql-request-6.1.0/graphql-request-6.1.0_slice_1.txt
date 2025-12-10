@@ -1,0 +1,69 @@
+async <V extends Variables>(params: RequestVerbParams<V>) => {
+    const { url, query, variables, operationName, fetch, fetchOptions, middleware } = params
+
+    const headers = { ...params.headers }
+    let queryParams = ``
+    let body = undefined
+
+    if (method === `POST`) {
+      body = createRequestBody(query, variables, operationName, fetchOptions.jsonSerializer)
+      if (typeof body === `string`) {
+        // @ts-expect-error todo
+        headers[`Content-Type`] = `application/json`
+      }
+    } else {
+      // @ts-expect-error todo needs ADT for TS to understand the different states
+      queryParams = buildRequestConfig<V>({
+        query,
+        variables,
+        operationName,
+        jsonSerializer: fetchOptions.jsonSerializer ?? defaultJsonSerializer,
+      })
+    }
+
+    const init: RequestInit = {
+      method,
+      headers,
+      body,
+      ...fetchOptions,
+    }
+
+    let urlResolved = url
+    let initResolved = init
+    if (middleware) {
+      const result = aw...
+operationName = _tmp_11.operationName
+const headers = { ...params.headers }
+let queryParams = ``
+let body = undefined
+method === `POST`
+body = createRequestBody(query, variables, operationName, fetchOptions.jsonSerializer)
+typeof body === `string`
+headers[`Content-Type`] = `application/json`
+queryParams = buildRequestConfig<V>({
+        query,
+        variables,
+        operationName,
+        jsonSerializer: fetchOptions.jsonSerializer ?? defaultJsonSerializer,
+      })
+_tmp_13.query = query
+_tmp_13.variables = variables
+_tmp_13.operationName = operationName
+_tmp_13.jsonSerializer = fetchOptions.jsonSerializer ?? defaultJsonSerializer
+const init: RequestInit = {
+      method,
+      headers,
+      body,
+      ...fetchOptions,
+    }
+_tmp_14.method = method
+_tmp_14.headers = headers
+_tmp_14.body = body
+...fetchOptions
+let urlResolved = url
+let initResolved = init
+const result = await Promise.resolve(middleware({ ...init, url, operationName, variables }))
+urlNew = _tmp_16.url
+urlResolved = urlNew
+initResolved = initNew
+<operator>.formatString("", urlResolved, "?", queryParams, "")

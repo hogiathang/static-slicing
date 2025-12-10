@@ -1,0 +1,48 @@
+function before = function before() {
+  var data = {
+    // remember what had focus to restore after test
+    activeElement: document.activeElement,
+    // remember scroll positions to restore after test
+    windowScrollTop: window.scrollTop,
+    windowScrollLeft: window.scrollLeft,
+    bodyScrollTop: document.body.scrollTop,
+    bodyScrollLeft: document.body.scrollLeft
+  };
+
+  // wrap tests in an element hidden from screen readers to prevent them
+  // from announcing focus, which can be quite irritating to the user
+  var iframe = document.createElement('iframe');
+  iframe.setAttribute('style', 'position:absolute; position:fixed; top:0; left:-2px; width:1px; height:1px; overflow:hidden;');
+  iframe.setAttribute('aria-live', 'off');
+  iframe.setAttribute('aria-busy', 'true');
+  iframe.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(iframe);
+  var _window = iframe.contentWindow;
+  var _document = _window.document;
+  _document.open();
+  _document.close();
+  var wrapper = _document.creat...
+var data = {
+    // remember what had focus to restore after test
+    activeElement: document.activeElement,
+    // remember scroll positions to restore after test
+    windowScrollTop: window.scrollTop,
+    windowScrollLeft: window.scrollLeft,
+    bodyScrollTop: document.body.scrollTop,
+    bodyScrollLeft: document.body.scrollLeft
+  }
+_tmp_11.activeElement = document.activeElement
+_tmp_11.windowScrollTop = window.scrollTop
+_tmp_11.windowScrollLeft = window.scrollLeft
+_tmp_11.bodyScrollTop = document.body.scrollTop
+_tmp_11.bodyScrollLeft = document.body.scrollLeft
+var iframe = document.createElement('iframe')
+iframe.setAttribute('style', 'position:absolute; position:fixed; top:0; left:-2px; width:1px; height:1px; overflow:hidden;')
+iframe.setAttribute('aria-live', 'off')
+iframe.setAttribute('aria-busy', 'true')
+iframe.setAttribute('aria-hidden', 'true')
+(_tmp_12 = document.body).appendChild
+var _window = iframe.contentWindow
+var _document = _window.document
+_document.open()
+_document.close()

@@ -1,0 +1,4 @@
+aws4.sign = function(request, credentials) {
+  return new RequestSigner(request, credentials).sign()
+}
+(_tmp_54 = new RequestSigner(request, credentials)).sign

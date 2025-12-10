@@ -1,0 +1,61 @@
+async execWorkspaces (args) {
+    if (!args.length) {
+      args = ['.']
+    }
+
+    const pkg = args.shift()
+
+    const local = /^\.@/.test(pkg) || pkg === '.'
+    if (!local) {
+      log.warn('Ignoring workspaces for specified package(s)')
+      return this.exec([pkg, ...args])
+    }
+    let wholePackument = false
+    if (!args.length) {
+      wholePackument = true
+      args = [''] // getData relies on this
+    }
+    const results = {}
+    await this.setWorkspaces()
+    for (const name of this.workspaceNames) {
+      const wsPkg = `${name}${pkg.slice(1)}`
+      const [pckmnt, data] = await this.getData(wsPkg, args)
+
+      let reducedData = data.reduce(reducer, {})
+      if (wholePackument) {
+        // No attributes
+        reducedData = cleanBlanks(reducedData)
+        log.silly('view', reducedData)
+      }
+
+      if (!this.npm.config.get('json')) {
+        if (wholePackument) {
+          data.map((v) => this.prettyView(pckmnt, v[Object.keys(v)[0]]['']))
+        } else {
+        ...
+!args.length
+_tmp_32 = __ecma.Array.factory()
+const pkg = args.shift()
+const local = /^\.@/.test(pkg) || pkg === '.'
+!local
+let wholePackument = false
+!args.length
+wholePackument = true
+_tmp_35 = __ecma.Array.factory()
+const results = {}
+await this.setWorkspaces()
+_iterator_0 = <operator>.iterator(this.workspaceNames)
+<operator>.formatString("", name, "", pkg.slice(1), "")
+_tmp_37 = await this.getData(wsPkg, args)
+let reducedData = data.reduce(reducer, {})
+reducedData = cleanBlanks(reducedData)
+log.silly('view', reducedData)
+(_tmp_39 = this.npm.config).get
+data.map((v) => this.prettyView(pckmnt, v[Object.keys(v)[0]]['']))
+<operator>.formatString("", name, ":")
+const msg = await this.jsonData(reducedData, pckmnt._id)
+msg !== ''
+(_tmp_41 = this.npm).output
+const msg = await this.jsonData(reducedData, pckmnt._id)
+msg !== ''
+results[name] = JSON.parse(msg)

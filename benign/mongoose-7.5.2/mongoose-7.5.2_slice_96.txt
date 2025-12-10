@@ -1,0 +1,17 @@
+toObject(options) {
+    if (options && options.flattenMaps) {
+      const ret = {};
+      const keys = this.keys();
+      for (const key of keys) {
+        ret[key] = clone(this.get(key), options);
+      }
+      return ret;
+    }
+
+    return new Map(this);
+  }
+options && options.flattenMaps
+const ret = {}
+const keys = this.keys()
+_iterator_0 = <operator>.iterator(keys)
+ret[key] = clone(this.get(key), options)

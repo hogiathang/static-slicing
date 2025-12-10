@@ -1,0 +1,12 @@
+_tmp_4.error = error
+send({ ...(0, _error.default)({
+          url,
+          theme,
+          ...props
+        }),
+        title: "Error"
+      })
+_tmp_12.url = url
+_tmp_12.theme = theme
+...props
+_tmp_11.title = "Error"

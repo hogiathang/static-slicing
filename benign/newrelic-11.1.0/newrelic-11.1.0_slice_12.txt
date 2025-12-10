@@ -1,0 +1,43 @@
+_getAwsAgentAttributes(event, context) {
+    const attributes = {
+      'aws.lambda.arn': context.invokedFunctionArn,
+      'aws.requestId': context.awsRequestId
+    }
+
+    const eventSourceInfo = this._detectEventType(event)
+
+    if (eventSourceInfo) {
+      attributes[EVENT_SOURCE_TYPE_KEY] = eventSourceInfo.name
+
+      for (const key of Object.keys(eventSourceInfo.attributes)) {
+        const value = get(event, eventSourceInfo.attributes[key], null)
+
+        if (value === null) {
+          continue
+        }
+
+        attributes[key] = value
+      }
+    }
+
+    setEventSourceAttributes(event, attributes)
+
+    if (!coldStartRecorded) {
+      coldStartRecorded = attributes[COLD_START_KEY] = true
+    }
+
+    return attributes
+  }
+const attributes = {
+      'aws.lambda.arn': context.invokedFunctionArn,
+      'aws.requestId': context.awsRequestId
+    }
+_tmp_26.aws.lambda.arn = context.invokedFunctionArn
+_tmp_26.aws.requestId = context.awsRequestId
+const eventSourceInfo = this._detectEventType(event)
+attributes[EVENT_SOURCE_TYPE_KEY] = eventSourceInfo.name
+_iterator_1 = <operator>.iterator(Object.keys(eventSourceInfo.attributes))
+const value = get(event, eventSourceInfo.attributes[key], null)
+value === null
+continue
+attributes[key] = value

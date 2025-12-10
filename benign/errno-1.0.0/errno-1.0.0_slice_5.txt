@@ -1,0 +1,4 @@
+var errno = require('./')
+var arg   = process.argv[2]
+arg === undefined
+console.log(JSON.stringify(errno.code, null, 2))

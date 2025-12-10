@@ -1,0 +1,67 @@
+function request = function request(options, callback) {
+  // The entry-point to the API: prep the options object and pass the real work to run_xhr.
+  if(typeof callback !== 'function')
+    throw new Error('Bad callback given: ' + callback)
+
+  if(!options)
+    throw new Error('No options given')
+
+  var options_onResponse = options.onResponse; // Save this for later.
+
+  if(typeof options === 'string')
+    options = {'uri':options};
+  else
+    options = JSON.parse(JSON.stringify(options)); // Use a duplicate for mutating.
+
+  options.onResponse = options_onResponse // And put it back.
+
+  if (options.verbose) request.log = getLogger();
+
+  if(options.url) {
+    options.uri = options.url;
+    delete options.url;
+  }
+
+  if(!options.uri && options.uri !== "")
+    throw new Error("options.uri is a required argument");
+
+  if(typeof options.uri != "string")
+    throw new Error("options.uri must be a string");
+
+  var unsupported_options = ['proxy', '_redirectsFollowed', 'maxRedirects', 'followRedirect']
+  for (va...
+typeof callback !== 'function'
+throw new Error('Bad callback given: ' + callback)
+!options
+throw new Error('No options given')
+var options_onResponse = options.onResponse
+typeof options === 'string'
+options = {'uri':options}
+options = JSON.parse(JSON.stringify(options))
+options.onResponse = options_onResponse
+request.log = getLogger()
+options.url
+options.uri = options.url
+delete options.url
+!options.uri && options.uri !== ""
+throw new Error("options.uri is a required argument");
+typeof options.uri != "string"
+throw new Error("options.uri must be a string");
+var unsupported_options = ['proxy', '_redirectsFollowed', 'maxRedirects', 'followRedirect']
+i < unsupported_options.length
+options[unsupported_options[i]]
+throw new Error("options." + unsupported_options[i] + " is not supported")
+options.callback = callback
+options.method = options.method || 'GET'
+options.headers = options.headers || {}
+options.body    = options.body || null
+options.timeout = options.timeout || request.DEFAULT_TIMEOUT
+options.headers.host
+throw new Error("Options.headers.host is not supported");
+options.json
+options.headers.accept = options.headers.accept || 'application/json'
+options.method !== 'GET'
+options.headers['content-type'] = 'application/json'
+typeof options.json !== 'boolean'
+typeof options.body !== 'string'
+options.body = JSON.stringify(options.body)

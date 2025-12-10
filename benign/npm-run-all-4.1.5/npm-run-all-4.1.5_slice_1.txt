@@ -1,0 +1,23 @@
+function createPackageConfig = function createPackageConfig() {
+    const retv = {}
+    const packageName = process.env.npm_package_name
+    if (!packageName) {
+        return retv
+    }
+
+    for (const key of Object.keys(process.env)) {
+        const m = PACKAGE_CONFIG_PATTERN.exec(key)
+        if (m != null) {
+            overwriteConfig(retv, packageName, m[1], process.env[key])
+        }
+    }
+
+    return retv
+}
+const retv = {}
+const packageName = process.env.npm_package_name
+!packageName
+_iterator_0 = <operator>.iterator(Object.keys(process.env))
+const m = PACKAGE_CONFIG_PATTERN.exec(key)
+m != null
+overwriteConfig(retv, packageName, m[1], process.env[key])

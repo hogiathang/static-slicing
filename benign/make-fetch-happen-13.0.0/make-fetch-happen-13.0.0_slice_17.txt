@@ -1,0 +1,38 @@
+satisfies (request) {
+    const _req = requestObject(request)
+    if (this.request.headers.host !== _req.headers.host) {
+      return false
+    }
+
+    if (this.request.compress !== _req.compress) {
+      return false
+    }
+
+    const negotiatorA = new Negotiator(this.request)
+    const negotiatorB = new Negotiator(_req)
+
+    if (JSON.stringify(negotiatorA.mediaTypes()) !== JSON.stringify(negotiatorB.mediaTypes())) {
+      return false
+    }
+
+    if (JSON.stringify(negotiatorA.languages()) !== JSON.stringify(negotiatorB.languages())) {
+      return false
+    }
+
+    if (JSON.stringify(negotiatorA.encodings()) !== JSON.stringify(negotiatorB.encodings())) {
+      return false
+    }
+
+    if (this.options.integrity) {
+      return ssri.parse(this.options.integrity).match(this.entry.integrity)
+    }
+
+    return true
+  }
+const _req = requestObject(request)
+this.request.headers.host !== _req.headers.host
+this.request.compress !== _req.compress
+const negotiatorA = new Negotiator(this.request)
+const negotiatorB = new Negotiator(_req)
+JSON.stringify(negotiatorA.mediaTypes()) !== JSON.stringify(negotiatorB.mediaTypes())
+JSON.stringify(negotiatorA.languages()) !== JSON.stringify(negotiatorB.languages())

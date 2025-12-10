@@ -1,0 +1,47 @@
+function endUtimes = function endUtimes (self, want, current, path, cb) {
+  if (!fs.utimes || process.platform === 'win32') return cb()
+
+  var utimes = (want.follow || self.type !== 'SymbolicLink')
+    ? 'utimes' : 'lutimes'
+
+  if (utimes === 'lutimes' && !fs[utimes]) {
+    utimes = 'utimes'
+  }
+
+  if (!fs[utimes]) return cb()
+
+  var curA = current.atime
+  var curM = current.mtime
+  var meA = want.atime
+  var meM = want.mtime
+
+  if (meA === undefined) meA = curA
+  if (meM === undefined) meM = curM
+
+  if (!isDate(meA)) meA = new Date(meA)
+  if (!isDate(meM)) meA = new Date(meM)
+
+  if (meA.getTime() === curA.getTime() &&
+    meM.getTime() === curM.getTime()) return cb()
+
+  fs[utimes](path, meA, meM, cb)
+}
+!fs.utimes || process.platform === 'win32'
+var utimes = (want.follow || self.type !== 'SymbolicLink')
+    ? 'utimes' : 'lutimes'
+"utimes"
+utimes === 'lutimes' && !fs[utimes]
+utimes = 'utimes'
+!fs[utimes]
+var curA = current.atime
+var curM = current.mtime
+var meA = want.atime
+var meM = want.mtime
+meA === undefined
+meM === undefined
+meA = new Date(meA)
+meA = new Date(meM)
+meA.getTime() === curA.getTime() &&
+    meM.getTime() === curM.getTime()
+meM.getTime() === curM.getTime()
+fs[utimes](path, meA, meM, cb)

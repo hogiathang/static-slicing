@@ -1,0 +1,20 @@
+function updateRef = function updateRef(ref, hash, callback) {
+  if (!callback) return updateRef.bind(this, ref, hash);
+  var key = this.refPrefix + "/" + ref;
+  var trans = db.transaction(["refs"], "readwrite");
+  var store = trans.objectStore("refs");
+  var entry = { path: key, hash: hash };
+  var request = store.put(entry);
+  request.onsuccess = function() {
+    callback();
+  };
+  request.onerror = function(evt) {
+    callback(new Error(evt.value));
+  };
+}
+updateRef.bind(this, ref, hash)
+var key = this.refPrefix + "/" + ref
+var trans = db.transaction(["refs"], "readwrite")
+var store = trans.objectStore("refs")
+var entry = { path: key, hash: hash }
+var request = store.put(entry)

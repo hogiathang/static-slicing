@@ -1,0 +1,13 @@
+NobleBindings.prototype._sendCommand = function(ws, command) {
+  var clients = ws ? [ws] : this._wss.clients;
+
+  var message = JSON.stringify(command);
+
+  for (var i = 0; i < clients.length; i++) {
+    clients[i].send(message);
+  }
+}
+var clients = ws ? [ws] : this._wss.clients
+var message = JSON.stringify(command)
+i < clients.length
+(_tmp_14 = clients[i]).send

@@ -1,0 +1,16 @@
+Object.entries(section).forEach(([name, versionRange]) => {
+                            const target = keyMap.get(`${name}@npm:${versionRange}`) ||
+                                keyMap.get(`${name}@${versionRange}`);
+                            if (target) {
+                                const dep = {
+                                    source: node.name,
+                                    target: target.name,
+                                    type: project_graph_1.DependencyType.static,
+                                };
+                                (0, project_graph_builder_1.validateDependency)(dep, ctx);
+                                projectGraphDependencies.push(dep);
+                            }
+                        })
+const target = keyMap.get(`${name}@npm:${versionRange}`) ||
+                                keyMap.get(`${name}@${versionRange}`)
+<operator>.formatString("", name, "@", versionRange, "")

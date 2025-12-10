@@ -1,0 +1,7 @@
+removePendingTest(event) {
+		if (this.pendingTests.has(event.testFile)) {
+			this.pendingTests.get(event.testFile).delete(event.title);
+		}
+	}
+this.pendingTests.has(event.testFile)
+this.pendingTests.get(event.testFile).delete(event.title)

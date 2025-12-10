@@ -1,0 +1,5 @@
+function getNameFromCjsRequire = function getNameFromCjsRequire(init) {
+    if (get(init, 'callee.name') === 'require' && get(init, 'arguments.length') === 1 && init.arguments[0].type === 'Literal') {
+        return init.arguments[0].value
+    }
+}

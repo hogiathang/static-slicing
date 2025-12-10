@@ -1,0 +1,21 @@
+generateSpecific(fileName, generator, inputFile) {
+    let priorShimSf = null;
+    if (this.priorShims.has(fileName)) {
+      priorShimSf = this.priorShims.get(fileName);
+      this.priorShims.delete(fileName);
+    }
+    const shimSf = generator.generateShimForFile(inputFile, fileName, priorShimSf);
+    sfExtensionData(shimSf).fileShim = {
+      extension: generator.extensionPrefix,
+      generatedFrom: absoluteFromSourceFile(inputFile)
+    };
+    if (!generator.shouldEmit) {
+      this.ignoreForEmit.add(shimSf);
+    }
+    this.shims.set(fileName, shimSf);
+    return shimSf;
+  }
+let priorShimSf = null
+(_tmp_302 = this.priorShims).has
+priorShimSf = this.priorShims.get(fileName)
+(_tmp_304 = this.priorShims).delete

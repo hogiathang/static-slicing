@@ -1,0 +1,22 @@
+_tmp_3.runCommand = runCommand
+details.usage === 'help' && !this.config.help
+details.init = false
+details.usage === 'version' && !this.config.version
+details.init = false
+details.init
+const subCommand = Array.isArray(details.usage)
+      ? details.usage[0]
+      : details.usage
+details.usage[0]
+details.usage
+let full = this.binary + '-' + subCommand
+const args = process.argv.slice(2)
+let l = args.length
+args[i] === subCommand
+args.splice(i, 1)
+break
+process.platform === 'win32'
+this.child = spawn(full, args, {
+        stdio: 'inherit'
+      })
+_tmp_36.stdio = "inherit"

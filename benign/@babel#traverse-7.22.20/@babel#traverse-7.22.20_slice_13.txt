@@ -1,0 +1,9 @@
+_tmp_66.MetaProperty = MetaProperty
+newTargetPaths = param2_7.newTargetPaths
+!child.get("meta").isIdentifier({
+      name: "new"
+    })
+_tmp_77.name = "new"
+!child.get("property").isIdentifier({
+      name: "target"
+    })

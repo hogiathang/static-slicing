@@ -1,0 +1,55 @@
+function versionHandler = async function versionHandler(args) {
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true });
+    const nxJson = (0, nx_json_1.readNxJson)();
+    if (args.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    // Apply default configuration to any optional user configuration
+    const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release);
+    const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups);
+    if (releaseGroupsData.error) {
+        return await (0, create_release_groups_1.handleCreateReleaseGroupsError)(releaseGroupsData.error);
+    }
+    const tree = new tree_1.FsTree(devkit_exports_1.workspaceRoot, args.verbose);
+    let { releaseGroups } = releaseGroupsData;
+    /**
+     * User is filtering to a subset of projects. We need to make sure that what they have provided can be reconciled
+     * against their configuration in terms of release...
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true })
+const nxJson = (0, nx_json_1.readNxJson)()
+args.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release)
+const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups)
+releaseGroupsData.error
+const tree = new tree_1.FsTree(devkit_exports_1.workspaceRoot, args.verbose)
+releaseGroups = _tmp_2.releaseGroups
+args.projects.length
+args.groups.length
+releaseGroups = releaseGroups.filter((g) => args.groups?.includes(g.name))
+!releaseGroups.length
+devkit_exports_1.output.error({
+            title: `No projects could be matched for versioning, please report this case and include your nx.json config`,
+        })
+_tmp_15.title = "No projects could be matched for versioning, please report this case and include your nx.json config"
+process.exit(1)
+_iterator_3 = <operator>.iterator(releaseGroups)
+const releaseGroupName = releaseGroup.name
+const generatorData = resolveGeneratorData({
+            ...extractGeneratorCollectionAndName(`release-group "${releaseGroupName}"`, releaseGroup.version.generator),
+            configGeneratorOptions: releaseGroup.version.generatorOptions,
+        })
+...extractGeneratorCollectionAndName(`release-group "${releaseGroupName}"`, releaseGroup.version.generator)
+_tmp_16.configGeneratorOptions = releaseGroup.version.generatorOptions
+const semverSpecifier = await resolveSemverSpecifier(args.specifier, releaseGroupName === create_release_groups_1.CATCH_ALL_RELEASE_GROUP
+            ? `What kind of change is this for all packages?`
+            : `What kind of change is this for release group "${releaseGroupName}"?`, releaseGroupName === create_release_groups_1.CATCH_ALL_RELEASE_GROUP
+            ? `What is the exact version for all packages?`
+            : `What is the exact version for release group "${releaseGroupName}"?`)
+"What kind of change is this for all packages?"
+releaseGroupName === create_release_groups_1.CATCH_ALL_RELEASE_GROUP ? "What is the exact version for all packages?" : <operator>.formatString("What is the exact version for release group "", releaseGroupName, ""?")
+"What is the exact version for all packages?"
+<operator>.formatString("What is the exact version for release group "", releaseGroupName, ""?")
+await runVersionOnProjects(projectGraph, nxJson, args, tree, generatorData, releaseGroup.projects, semverSpecifier)
+printChanges(tree, !!args.dryRun)
+process.exit(0)

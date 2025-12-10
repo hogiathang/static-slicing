@@ -1,0 +1,75 @@
+function createNode = function createNode(packageName, version, key, nodes, keyMap, snapshot) {
+    const existingNode = nodes.get(packageName)?.get(version);
+    if (existingNode) {
+        keyMap.set(key, existingNode);
+        return;
+    }
+    const node = {
+        type: 'npm',
+        name: version ? `npm:${packageName}@${version}` : `npm:${packageName}`,
+        data: {
+            version,
+            packageName,
+            hash: snapshot.integrity ||
+                (0, file_hasher_1.hashArray)(snapshot.resolved
+                    ? [snapshot.resolved]
+                    : version
+                        ? [packageName, version]
+                        : [packageName]),
+        },
+    };
+    keyMap.set(key, node);
+    if (!nodes.has(packageName)) {
+        nodes.set(packageName, new Map([[version, node]]));
+    }
+    else {
+        nodes.get(packageName).set(version, node);
+    }
+}
+const existingNode = nodes.get(packageName)?.get(version)
+const node = {
+        type: 'npm',
+        name: version ? `npm:${packageName}@${version}` : `npm:${packageName}`,
+        data: {
+            version,
+            packageName,
+            hash: snapshot.integrity ||
+                (0, file_hasher_1.hashArray)(snapshot.resolved
+                    ? [snapshot.resolved]
+                    : version
+                        ? [packageName, version]
+                        : [packageName]),
+        },
+    }
+_tmp_8.type = "npm"
+_tmp_8.name = version ? <operator>.formatString("npm:", packageName, "@", version, "") : <operator>.formatString("npm:", packageName, "")
+_tmp_8.data = {
+            version,
+            packageName,
+            hash: snapshot.integrity ||
+                (0, file_hasher_1.hashArray)(snapshot.resolved
+                    ? [snapshot.resolved]
+                    : version
+                        ? [packageName, version]
+                        : [packageName]),
+        }
+_tmp_9.version = version
+_tmp_9.packageName = packageName
+_tmp_9.hash = snapshot.integrity ||
+                (0, file_hasher_1.hashArray)(snapshot.resolved
+                    ? [snapshot.resolved]
+                    : version
+                        ? [packageName, version]
+                        : [packageName])
+(0, file_hasher_1.hashArray)(snapshot.resolved
+                    ? [snapshot.resolved]
+                    : version
+                        ? [packageName, version]
+                        : [packageName])
+_tmp_10 = __ecma.Array.factory()
+version ? [packageName, version] : [packageName]
+_tmp_11 = __ecma.Array.factory()
+_tmp_12 = __ecma.Array.factory()
+keyMap.set(key, node)
+!nodes.has(packageName)
+nodes.get(packageName).set(version, node)

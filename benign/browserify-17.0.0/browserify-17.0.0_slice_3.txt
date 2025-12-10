@@ -1,0 +1,41 @@
+var fs = require('fs')
+var JSONStream = require('JSONStream')
+var through = require('through2')
+var mkdirp = require('mkdirp-classic')
+var path = require('path')
+var b = require('./args')(process.argv.slice(2))
+process.stdout.on('error', process.exit)
+(b.argv._[0] === 'help' && b.argv._[1]) === 'advanced'
+|| (b.argv.h || b.argv.help) === 'advanced'
+(b.argv.h || b.argv.help) === 'advanced'
+b.argv._[0] === 'help' || b.argv.h || b.argv.help
+|| (process.argv.length <= 2 && process.stdin.isTTY)
+process.argv.length <= 2 && process.stdin.isTTY
+b.argv.version
+b.on('error', errorExit)
+b.argv.pack
+b.argv.deps
+b.argv.list
+b.pipeline.get('deps').push(through.obj(
+        function (row, enc, next) {
+            console.log(row.file || row.id);
+            next()
+        }
+    ))
+function errorExit = function errorExit(err) {
+    if (tmpfile) fs.unlink(tmpfile, function (err) {
+      if (err) /* no-op, we're already exiting unhappily… */;
+    });
+    if (err.stack) {
+        console.error(err.stack);
+    }
+    else {
+        console.error(String(err));
+    }
+    process.exit(1);
+}
+function successExit = function successExit() {
+  if (tmpfile && outfile) fs.rename(tmpfile, outfile, function (err) {
+    if (err) errorExit(err);
+  });
+}

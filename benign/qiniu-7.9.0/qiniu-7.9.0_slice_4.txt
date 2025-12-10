@@ -1,0 +1,22 @@
+exports.deleteApp = function (appId, credentials, fn) {
+    var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId,
+        method: 'DELETE',
+        headers: headers
+    };
+    get(credentials, options, fn);
+}
+var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId,
+        method: 'DELETE',
+        headers: headers
+    }
+_tmp_5.host = host
+_tmp_5.port = 80
+_tmp_5.path = '/v3/apps/' + appId
+_tmp_5.method = "DELETE"
+_tmp_5.headers = headers

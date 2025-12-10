@@ -1,0 +1,55 @@
+load(settings, config.options, config, function (options) {
+    config.options = options;
+
+    if (options.watch.length === 0) {
+      // this is to catch when the watch is left blank
+      options.watch.push('*.*');
+    }
+
+    if (options['watch_interval']) { // jshint ignore:line
+      options.watchInterval = options['watch_interval']; // jshint ignore:line
+    }
+
+    config.watchInterval = options.watchInterval || null;
+    if (options.signal) {
+      config.signal = options.signal;
+    }
+
+    var cmd = command(config.options);
+    config.command = {
+      raw: cmd,
+      string: utils.stringify(cmd.executable, cmd.args),
+    };
+
+    // now run automatic checks on system adding to the config object
+    options.monitor = rulesToMonitor(options.watch, options.ignore, config);
+
+    var cwd = process.cwd();
+    debug('config: dirs', config.dirs);
+    if (config.dirs.length === 0) {
+      config.dirs.unshift(cwd);
+    }
+
+    bus.emit('config:update', config);
+    pinVersion().then(fun...
+config.options = options
+options.watch.length === 0
+(_tmp_4 = options.watch).push
+options["watch_interval"]
+options.watchInterval = options['watch_interval']
+config.watchInterval = options.watchInterval || null
+options.signal
+config.signal = options.signal
+var cmd = command(config.options)
+config.command = {
+      raw: cmd,
+      string: utils.stringify(cmd.executable, cmd.args),
+    }
+_tmp_5.raw = cmd
+_tmp_5.string = utils.stringify(cmd.executable, cmd.args)
+options.monitor = rulesToMonitor(options.watch, options.ignore, config)
+var cwd = process.cwd()
+debug('config: dirs', config.dirs)
+config.dirs.length === 0
+(_tmp_6 = config.dirs).unshift
+bus.emit('config:update', config)

@@ -1,0 +1,7 @@
+CookieStorage.prototype.getItem = function (key) {
+  var cookie = Cookie.get(key);
+
+  return cookie || Cookie.get(buildCompatCookieKey(key));
+}
+var cookie = Cookie.get(key)
+cookie || Cookie.get(buildCompatCookieKey(key))

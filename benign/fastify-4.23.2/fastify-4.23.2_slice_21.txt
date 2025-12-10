@@ -1,0 +1,27 @@
+function fourOhFourFallBack = function fourOhFourFallBack (req, res) {
+    // if this happen, we have a very bad bug
+    // we might want to do some hard debugging
+    // here, let's print out as much info as
+    // we can
+    const id = genReqId(req)
+    const fourOhFourContext = this[kFourOhFourLevelInstance][kFourOhFourContext]
+    const childLogger = createChildLogger(fourOhFourContext, logger, req, id)
+
+    childLogger.info({ req }, 'incoming request')
+
+    const request = new Request(id, null, req, null, childLogger, fourOhFourContext)
+    const reply = new Reply(res, request, childLogger)
+
+    request.log.warn('the default handler for 404 did not catch this, this is likely a fastify bug, please report it')
+    request.log.warn(router.prettyPrint())
+    reply.code(404).send(new FST_ERR_NOT_FOUND())
+  }
+const id = genReqId(req)
+const fourOhFourContext = this[kFourOhFourLevelInstance][kFourOhFourContext]
+const childLogger = createChildLogger(fourOhFourContext, logger, req, id)
+childLogger.info({ req }, 'incoming request')
+const request = new Request(id, null, req, null, childLogger, fourOhFourContext)
+const reply = new Reply(res, request, childLogger)
+request.log.warn('the default handler for 404 did not catch this, this is likely a fastify bug, please report it')
+request.log.warn(router.prettyPrint())
+reply.code(404).send(new FST_ERR_NOT_FOUND())

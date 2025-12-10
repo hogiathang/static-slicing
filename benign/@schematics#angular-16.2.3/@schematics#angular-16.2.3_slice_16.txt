@@ -1,0 +1,17 @@
+_tmp_15.push((0, workspace_1.updateWorkspace)((workspace) => {
+                var _a, _b;
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                const project = workspace.projects.get(options.project);
+                const buildTarget = project.targets.get('build');
+                const testTarget = project.targets.get('test');
+                if (!buildTarget) {
+                    throw new Error(`Build target is not defined for this project.`);
+                }
+                const workerConfigPath = (0, core_1.join)((0, core_1.normalize)(root), 'tsconfig.worker.json');
+                (_a = (buildTarget.options ?? (buildTarget.options = {}))).webWorkerTsConfig ?? (_a.webWorkerTsConfig = workerConfigPath);
+                if (testTarget) {
+                    (_b = (testTarget.options ?? (testTarget.options = {}))).webWorkerTsConfig ?? (_b.webWorkerTsConfig = workerConfigPath);
+                }
+            }))
+const project = workspace.projects.get(options.project)
+const buildTarget = project.targets.get('build')

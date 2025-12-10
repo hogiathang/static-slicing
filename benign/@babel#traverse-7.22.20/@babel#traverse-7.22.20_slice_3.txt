@@ -1,0 +1,56 @@
+function ensureBlock = function ensureBlock() {
+  const body = this.get("body");
+  const bodyNode = body.node;
+  if (Array.isArray(body)) {
+    throw new Error("Can't convert array path to a block statement");
+  }
+  if (!bodyNode) {
+    throw new Error("Can't convert node without a body");
+  }
+  if (body.isBlockStatement()) {
+    return bodyNode;
+  }
+  const statements = [];
+  let stringPath = "body";
+  let key;
+  let listKey;
+  if (body.isStatement()) {
+    listKey = "body";
+    key = 0;
+    statements.push(body.node);
+  } else {
+    stringPath += ".body.0";
+    if (this.isFunction()) {
+      key = "argument";
+      statements.push(returnStatement(body.node));
+    } else {
+      key = "expression";
+      statements.push(expressionStatement(body.node));
+    }
+  }
+  this.node.body = blockStatement(statements);
+  const parentPath = this.get(stringPath);
+  body.setup(parentPath, listKey ? parentPath.node[listKey] : parentPath.node, listKey, key);
+  return this.node;
+}
+const body = this.get("body")
+const bodyNode = body.node
+Array.isArray(body)
+throw new Error("Can't convert array path to a block statement");
+!bodyNode
+throw new Error("Can't convert node without a body");
+body.isBlockStatement()
+__ecma.Array.factory()
+let stringPath = "body"
+body.isStatement()
+listKey = "body"
+key = 0
+statements.push(body.node)
+stringPath += ".body.0"
+this.isFunction()
+key = "argument"
+statements.push(returnStatement(body.node))
+key = "expression"
+statements.push(expressionStatement(body.node))
+this.node.body = blockStatement(statements)
+const parentPath = this.get(stringPath)

@@ -1,0 +1,113 @@
+function () {
+            var moduleName, outOrigSourceMap,
+                bundlesConfig = {},
+                bundlesConfigOutFile = config.bundlesConfigOutFile;
+
+            if (modules) {
+                //Now move the build layers to their final position.
+                modules.forEach(function (module) {
+                    var entryConfig,
+                        finalPath = module._buildPath;
+
+                    if (finalPath !== 'FUNCTION') {
+                        if (file.exists(finalPath)) {
+                            file.deleteFile(finalPath);
+                        }
+                        file.renameFile(finalPath + '-temp', finalPath);
+
+                        //If bundles config should be written out, scan the
+                        //built file for module IDs. Favor doing this reparse
+                        //since tracking the IDs as the file is built has some
+                        //edge cases around files that had more than one ID in
+                 ...
+var bundlesConfig = {}
+var bundlesConfigOutFile = config.bundlesConfigOutFile
+modules.forEach(function (module) {
+                    var entryConfig,
+                        finalPath = module._buildPath;
+
+                    if (finalPath !== 'FUNCTION') {
+                        if (file.exists(finalPath)) {
+                            file.deleteFile(finalPath);
+                        }
+                        file.renameFile(finalPath + '-temp', finalPath);
+
+                        //If bundles config should be written out, scan the
+                        //built file for module IDs. Favor doing this reparse
+                        //since tracking the IDs as the file is built has some
+                        //edge cases around files that had more than one ID in
+                        //them already, and likely loader plugin-written contents.
+                        if (bundlesConfigOutFile) {
+                            entryConfig = bundlesConfig[module.name] = [];
+                            var bundleContents = file.readFile(finalPath);
+         ...
+var text = file.readFile(bundlesConfigOutFile)
+text = transform.modifyConfig(text, function (config) {
+                        if (!config.bundles) {
+                            config.bundles = {};
+                        }
+
+                        lang.eachProp(bundlesConfig, function (value, prop) {
+                            config.bundles[prop] = value;
+                        });
+
+                        return config;
+                    })
+file.saveUtf8File(bundlesConfigOutFile, text)
+config.removeCombined && !config.out && config.dir
+file.deleteEmptyDirs(config.dir)
+config.out && !config.cssIn
+!config.cssIn
+fileNames = file.getFilteredFileList(config.dir, /\.js$/, true)
+fileNames.forEach(function (fileName) {
+                    var cfg, override, moduleIndex;
+
+                    //Generate the module name from the config.dir root.
+                    moduleName = fileName.replace(config.dir, '');
+                    //Get rid of the extension
+                    moduleName = moduleName.substring(0, moduleName.length - 3);
+
+                    //If there is an override for a specific layer build module,
+                    //and this file is that module, mix in the override for use
+                    //by optimize.jsFile.
+                    moduleIndex = getOwn(config._buildPathToModuleIndex, fileName);
+                    //Normalize, since getOwn could have returned undefined
+                    moduleIndex = moduleIndex === 0 || moduleIndex > 0 ? moduleIndex : -1;
+
+                    //Try to avoid extra work if the other files do not need to
+                    //be read. Build layers should be processed at the very
+                    //le...
+context = require.s.contexts._
+_iterator_18 = <operator>.iterator(pluginCollector)
+hasProp(pluginCollector, moduleName)
+parentModuleMap = context.makeModuleMap(moduleName)
+resources = pluginCollector[moduleName]
+i < resources.length
+resource = resources[i]
+moduleMap = context.makeModuleMap(resource, parentModuleMap)
+falseProp(context.plugins, moduleMap.prefix)
+context.plugins[moduleMap.prefix] = true
+!file.exists(require.toUrl(moduleMap.prefix + '.js'))
+continue;
+context.require([moduleMap.prefix])
+moduleMap = context.makeModuleMap(resource, parentModuleMap)
+falseProp(pluginProcessed, moduleMap.id)
+plugin = getOwn(context.defined, moduleMap.prefix)
+plugin && plugin.writeFile
+plugin.writeFile(
+                                        moduleMap.prefix,
+                                        moduleMap.name,
+                                        require,
+                                        makeWriteFile(
+                                            config.namespace
+                                        ),
+                                        context.config
+                                    )
+moduleMap.prefix
+moduleMap.name
+makeWriteFile(
+                                            config.namespace
+                                        )
+config.namespace
+context.config
+pluginProcessed[moduleMap.id] = true

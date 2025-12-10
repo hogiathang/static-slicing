@@ -1,0 +1,13 @@
+function (fpath, kind, cb) {
+    fpath = path.resolve(fpath);
+    if (imports[fpath]) {
+      // Already imported, return nothing to avoid duplicating attributes.
+      process.nextTick(cb);
+      return;
+    }
+    imports[fpath] = true;
+    fs.readFile(fpath, {encoding: 'utf8'}, cb);
+  }
+fpath = path.resolve(fpath)
+imports[fpath]
+process.nextTick(cb)

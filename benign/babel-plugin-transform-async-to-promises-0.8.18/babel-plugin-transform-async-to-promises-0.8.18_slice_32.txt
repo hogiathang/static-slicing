@@ -1,0 +1,60 @@
+function extractForOwnBodyPath = function extractForOwnBodyPath(path) {
+        let left = path.get("left");
+        if (left.isVariableDeclaration()) {
+            left = left.get("declarations")[0].get("id");
+        }
+        const right = path.get("right");
+        if (left.isIdentifier() && right.isIdentifier()) {
+            const rightBinding = path.scope.getBinding(right.node.name);
+            if (rightBinding && rightBinding.constant) {
+                let body = path.get("body");
+                for (;;) {
+                    let statements;
+                    if (body.isBlockStatement()) {
+                        statements = body.get("body");
+                    }
+                    else if (body.isReturnStatement()) {
+                        const argument = body.get("argument");
+                        if (argument.isCallExpression() &&
+                            invokeTypeOfExpression(argument) &&
+                            argument.get("arguments").length === 1) {
+                            co...
+let left = path.get("left")
+left.isVariableDeclaration()
+left = left.get("declarations")[0].get("id")
+const right = path.get("right")
+left.isIdentifier() && right.isIdentifier()
+const rightBinding = path.scope.getBinding(right.node.name)
+rightBinding && rightBinding.constant
+let body = path.get("body")
+body.isBlockStatement()
+statements = body.get("body")
+body.isReturnStatement()
+const argument = body.get("argument")
+argument.isCallExpression() &&
+                            invokeTypeOfExpression(argument) &&
+                            argument.get("arguments").length === 1
+invokeTypeOfExpression(argument)
+argument.get("arguments").length === 1
+const firstArgument = argument.get("arguments")[0]
+firstArgument.isFunctionExpression()
+statements = firstArgument.get("body").get("body")
+break;
+break;
+break;
+statements.length !== 1
+body = statements[0]
+body.isIfStatement() && !body.node.alternate
+const test = body.get("test")
+test.isCallExpression() && test.node.arguments.length === 2
+const args = test.get("arguments")
+const firstArg = args[0]
+const secondArg = args[1]
+firstArg.isIdentifier() &&
+                            firstArg.node.name === right.node.name &&
+                            secondArg.isIdentifier() &&
+                            secondArg.node.name === left.node.name
+firstArg.node.name === right.node.name
+secondArg.isIdentifier()
+secondArg.node.name === left.node.name
+const callee = test.get("callee")

@@ -1,0 +1,68 @@
+function(node, nodes, i) {
+      if (!this.output) {
+        this.state.leadingGlobstar = true;
+      }
+
+      var prev = this.prev();
+      var before = this.prev(2);
+      var next = this.next();
+      var after = this.next(2);
+      var type = prev.type;
+      var val = node.val;
+
+      if (prev.type === 'slash' && next.type === 'slash') {
+        if (before.type === 'text') {
+          this.output += '?';
+
+          if (after.type !== 'text') {
+            this.output += '\\b';
+          }
+        }
+      }
+
+      var parsed = node.parsed;
+      if (parsed.charAt(0) === '!') {
+        parsed = parsed.slice(1);
+      }
+
+      var isInside = node.isInside.paren || node.isInside.brace;
+      if (parsed && type !== 'slash' && type !== 'bos' && !isInside) {
+        val = star();
+      } else {
+        val = this.options.dot !== true
+          ? '(?:(?!(?:[' + slash() + ']|^)\\.).)*?'
+          : '(?:(?!(?:[' + slash() + ']|^)(?:\\.{1,2})($|[' + slash() + ']))(?!\\.{2}).)*?';
+      }
+...
+!this.output
+this.state.leadingGlobstar = true
+var prev = this.prev()
+var before = this.prev(2)
+var next = this.next()
+var after = this.next(2)
+var type = prev.type
+var val = node.val
+prev.type === 'slash' && next.type === 'slash'
+before.type === 'text'
+this.output += '?'
+after.type !== 'text'
+this.output += '\\b'
+var parsed = node.parsed
+parsed.charAt(0) === '!'
+parsed = parsed.slice(1)
+var isInside = node.isInside.paren || node.isInside.brace
+parsed && type !== 'slash' && type !== 'bos' && !isInside
+val = star()
+val = this.options.dot !== true
+          ? '(?:(?!(?:[' + slash() + ']|^)\\.).)*?'
+          : '(?:(?!(?:[' + slash() + ']|^)(?:\\.{1,2})($|[' + slash() + ']))(?!\\.{2}).)*?'
+'(?:(?!(?:[' + slash() + ']|^)\\.).)*?'
+'(?:(?!(?:[' + slash() + ']|^)(?:\\.{1,2})($|[' + slash() + ']))(?!\\.{2}).)*?'
+(type === 'slash' || type === 'bos') && this.options.dot !== true
+val = '(?!\\.)' + val
+prev.type === 'slash' && next.type === 'slash' && before.type !== 'text'
+after.type === 'text' || after.type === 'star'
+node.addQmark = true
+this.options.capture
+val = '(' + val + ')'
+this.emit(val, node)

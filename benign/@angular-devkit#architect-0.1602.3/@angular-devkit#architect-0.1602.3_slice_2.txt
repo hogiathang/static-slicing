@@ -1,0 +1,24 @@
+_getInternalDescription(name) {
+        const maybeHandler = this._internalJobDescriptionMap.get(name);
+        if (maybeHandler !== undefined) {
+            return (0, rxjs_1.of)(maybeHandler);
+        }
+        const handler = this._jobRegistry.get(name);
+        return handler.pipe((0, rxjs_1.switchMap)((handler) => {
+            if (handler === null) {
+                return (0, rxjs_1.of)(null);
+            }
+            const description = {
+                // Make a copy of it to be sure it's proper JSON.
+                ...JSON.parse(JSON.stringify(handler.jobDescription)),
+                name: handler.jobDescription.name || name,
+                argument: handler.jobDescription.argument || true,
+                input: handler.jobDescription.input || true,
+                output: handler.jobDescription.output || true,
+                channels: handler.jobDescription.channels || {},
+            };
+            const handlerWithExtra = Object.assign(handler.bind(undefined), {
+...
+const maybeHandler = this._internalJobDescriptionMap.get(name)
+maybeHandler !== undefined
+const handler = this._jobRegistry.get(name)

@@ -1,0 +1,14 @@
+isEmotionCall = param1_0.isEmotionCall
+!path
+path = state.file.scope.path
+          .get('body')
+          .find(p => p.isImportDeclaration() && p.node.source.value === source)
+"body"
+p.isImportDeclaration() && p.node.source.value === source
+(_tmp_2 = /\/macro$/).test
+path
+          .get('source')
+          .replaceWith(
+            babel.types.stringLiteral(source.replace(/\/macro$/, ''))
+          )
+get

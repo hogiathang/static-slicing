@@ -1,0 +1,16 @@
+function applyEntityToContentBlock = function applyEntityToContentBlock(contentBlock, startArg, end, entityKey) {
+  var start = startArg;
+  var characterList = contentBlock.getCharacterList();
+
+  while (start < end) {
+    characterList = characterList.set(start, CharacterMetadata.applyEntity(characterList.get(start), entityKey));
+    start++;
+  }
+
+  return contentBlock.set('characterList', characterList);
+}
+var start = startArg
+var characterList = contentBlock.getCharacterList()
+start < end
+characterList = characterList.set(start, CharacterMetadata.applyEntity(characterList.get(start), entityKey))
+start++

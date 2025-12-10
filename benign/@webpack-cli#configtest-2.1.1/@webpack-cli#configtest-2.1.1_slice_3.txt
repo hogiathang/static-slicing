@@ -1,0 +1,7 @@
+__ecma.Array.factory()
+cli.webpack = await cli.loadWebpack()
+const config = await cli.loadConfig(configPath ? { config: [configPath] } : {})
+const configPaths = new Set()
+Array.isArray(config.options)
+config.path.get(config.options)
+const loadedConfigPaths = config.path.get(config.options)

@@ -1,0 +1,58 @@
+function commandLineArgs = function commandLineArgs (optionDefinitions, options) {
+  options = options || {}
+  if (options.stopAtFirstUnknown) options.partial = true
+  optionDefinitions = Definitions.from(optionDefinitions, options.caseInsensitive)
+
+  const parser = new ArgvParser(optionDefinitions, {
+    argv: options.argv,
+    stopAtFirstUnknown: options.stopAtFirstUnknown,
+    caseInsensitive: options.caseInsensitive
+  })
+
+  const OutputClass = optionDefinitions.isGrouped() ? OutputGrouped : Output
+  const output = new OutputClass(optionDefinitions)
+
+  /* Iterate the parser setting each known value to the output. Optionally, throw on unknowns. */
+  for (const argInfo of parser) {
+    const arg = argInfo.subArg || argInfo.arg
+    if (!options.partial) {
+      if (argInfo.event === 'unknown_value') {
+        const err = new Error(`Unknown value: ${arg}`)
+        err.name = 'UNKNOWN_VALUE'
+        err.value = arg
+        throw err
+      } else if (argInfo.event === 'unknown_option') {
+        const err = new ...
+options = options || {}
+options.stopAtFirstUnknown
+optionDefinitions = Definitions.from(optionDefinitions, options.caseInsensitive)
+const parser = new ArgvParser(optionDefinitions, {
+    argv: options.argv,
+    stopAtFirstUnknown: options.stopAtFirstUnknown,
+    caseInsensitive: options.caseInsensitive
+  })
+_tmp_2.argv = options.argv
+_tmp_2.stopAtFirstUnknown = options.stopAtFirstUnknown
+_tmp_2.caseInsensitive = options.caseInsensitive
+const OutputClass = optionDefinitions.isGrouped() ? OutputGrouped : Output
+const output = new OutputClass(optionDefinitions)
+_iterator_0 = <operator>.iterator(parser)
+const arg = argInfo.subArg || argInfo.arg
+!options.partial
+argInfo.event === 'unknown_value'
+<operator>.formatString("Unknown value: ", arg, "")
+err.name = 'UNKNOWN_VALUE'
+err.value = arg
+throw err
+argInfo.event === 'unknown_option'
+<operator>.formatString("Unknown option: ", arg, "")
+err.name = 'UNKNOWN_OPTION'
+err.optionName = arg
+throw err
+output.has(argInfo.name)
+option = output.get(argInfo.name)
+option = Option.create(argInfo.def)
+output.set(argInfo.name, option)
+argInfo.name === '_unknown'
+option.set(arg)
+option.set(argInfo.value)

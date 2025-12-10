@@ -1,0 +1,37 @@
+async run(options) {
+    let directoryName = options.directoryName ? options.directoryName : directoryForPackageName(options.projectName);
+
+    if (options.dryRun) {
+      if (fs.existsSync(directoryName) && fs.readdirSync(directoryName).length) {
+        throw this.warnDirectoryAlreadyExists(directoryName);
+      }
+
+      return;
+    }
+
+    try {
+      await fs.mkdir(directoryName);
+    } catch (err) {
+      if (err.code === 'EEXIST') {
+        // Allow using directory if it is empty.
+        if (fs.readdirSync(directoryName).length) {
+          throw this.warnDirectoryAlreadyExists(directoryName);
+        }
+      } else {
+        throw err;
+      }
+    }
+    let cwd = process.cwd();
+    process.chdir(directoryName);
+
+    return { initialDirectory: cwd, projectDirectory: directoryName };
+  }
+let directoryName = options.directoryName ? options.directoryName : directoryForPackageName(options.projectName)
+options.dryRun
+await fs.mkdir(directoryName)
+err.code === 'EEXIST'
+fs.readdirSync(directoryName).length
+throw this.warnDirectoryAlreadyExists(directoryName);
+throw err;
+let cwd = process.cwd()
+process.chdir(directoryName)

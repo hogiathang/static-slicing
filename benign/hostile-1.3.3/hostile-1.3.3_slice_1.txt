@@ -1,0 +1,38 @@
+exports.writeFile = function (lines, cb) {
+  lines = lines.map(function (line, lineNum) {
+    if (Array.isArray(line)) {
+      line = line[0] + ' ' + line[1]
+    }
+    return line + (lineNum === lines.length - 1 ? '' : EOL)
+  })
+
+  if (typeof cb !== 'function') {
+    var stat = fs.statSync(exports.HOSTS)
+    fs.writeFileSync(exports.HOSTS, lines.join(''), { mode: stat.mode })
+    return true
+  }
+
+  cb = once(cb)
+  fs.stat(exports.HOSTS, function (err, stat) {
+    if (err) {
+      return cb(err)
+    }
+    var s = fs.createWriteStream(exports.HOSTS, { mode: stat.mode })
+    s.on('close', cb)
+    s.on('error', cb)
+
+    lines.forEach(function (data) {
+      s.write(data)
+    })
+    s.end()
+  })
+}
+lines = lines.map(function (line, lineNum) {
+    if (Array.isArray(line)) {
+      line = line[0] + ' ' + line[1]
+    }
+    return line + (lineNum === lines.length - 1 ? '' : EOL)
+  })
+typeof cb !== 'function'
+var stat = fs.statSync(exports.HOSTS)
+fs.writeFileSync(exports.HOSTS, lines.join(''), { mode: stat.mode })

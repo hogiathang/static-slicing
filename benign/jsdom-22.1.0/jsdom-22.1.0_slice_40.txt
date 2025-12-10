@@ -1,0 +1,11 @@
+_actuallySend() {
+    for (const [data, length] of this._sendQueue.splice(0)) {
+      this._ws.send(data, { binary: typeof data !== "string" }, () => {
+        this.bufferedAmount -= length;
+      });
+    }
+  }
+_iterator_3 = <operator>.iterator(this._sendQueue.splice(0))
+this._ws.send(data, { binary: typeof data !== "string" }, () => {
+        this.bufferedAmount -= length;
+      })

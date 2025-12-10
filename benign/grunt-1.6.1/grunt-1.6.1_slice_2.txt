@@ -1,0 +1,15 @@
+file.readJSON = function(filepath, options) {
+  var src = file.read(filepath, options);
+  var result;
+  grunt.verbose.write('Parsing ' + filepath + '...');
+  try {
+    result = JSON.parse(src);
+    grunt.verbose.ok();
+    return result;
+  } catch (e) {
+    grunt.verbose.error();
+    throw grunt.util.error('Unable to parse "' + filepath + '" file (' + e.message + ').', e);
+  }
+}
+var src = file.read(filepath, options)
+grunt.verbose.write('Parsing ' + filepath + '...')

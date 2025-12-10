@@ -1,0 +1,17 @@
+_tmp_5.Program:exit = "Program:exit"
+const globalScope = sourceCode.getScope(node)
+_iterator_0 = <operator>.iterator(nonConstructorGlobalFunctionNames)
+const variable = globalScope.set.get(nonConstructorName)
+variable && variable.defs.length === 0
+variable.references.forEach(ref => {
+                            const idNode = ref.identifier;
+                            const parent = idNode.parent;
+
+                            if (parent && parent.type === "NewExpression" && parent.callee === idNode) {
+                                context.report({
+                                    node: idNode,
+                                    messageId: "noNewNonconstructor",
+                                    data: { name: nonConstructorName }
+                                });
+                            }
+                        })

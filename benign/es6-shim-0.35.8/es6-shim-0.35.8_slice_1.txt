@@ -1,0 +1,9 @@
+var mapUsesSameValueZero = (function () {
+        // Chrome 38-42, node 0.11/0.12, iojs 1/2 also have a bug when the Map has a size > 4
+        var m = new Map([[1, 0], [2, 0], [3, 0], [4, 0]]);
+        m.set(-0, m);
+        return m.get(0) === m && m.get(-0) === m && m.has(0) && m.has(-0);
+      }())
+var m = new Map([[1, 0], [2, 0], [3, 0], [4, 0]])
+m.set(-0, m)
+m.get(0) === m && m.get(-0) === m && m.has(0) && m.has(-0)

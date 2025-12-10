@@ -1,0 +1,48 @@
+function makeTempCredentials = async function makeTempCredentials(credentials: MongoCredentials): Promise<MongoCredentials> {
+  function makeMongoCredentialsFromAWSTemp(creds: AWSTempCredentials) {
+    if (!creds.AccessKeyId || !creds.SecretAccessKey || !creds.Token) {
+      throw new MongoMissingCredentialsError('Could not obtain temporary MONGODB-AWS credentials');
+    }
+
+    return new MongoCredentials({
+      username: creds.AccessKeyId,
+      password: creds.SecretAccessKey,
+      source: credentials.source,
+      mechanism: AuthMechanism.MONGODB_AWS,
+      mechanismProperties: {
+        AWS_SESSION_TOKEN: creds.Token
+      }
+    });
+  }
+
+  MongoDBAWS.credentialProvider ??= getAwsCredentialProvider();
+
+  // Check if the AWS credential provider from the SDK is present. If not,
+  // use the old method.
+  if ('kModuleError' in MongoDBAWS.credentialProvider) {
+    // If the environment variable AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+    // is set then drivers MUST assume that it was set by an AWS ECS agent
+    i...
+function makeMongoCredentialsFromAWSTemp = function makeMongoCredentialsFromAWSTemp(creds: AWSTempCredentials) {
+    if (!creds.AccessKeyId || !creds.SecretAccessKey || !creds.Token) {
+      throw new MongoMissingCredentialsError('Could not obtain temporary MONGODB-AWS credentials');
+    }
+
+    return new MongoCredentials({
+      username: creds.AccessKeyId,
+      password: creds.SecretAccessKey,
+      source: credentials.source,
+      mechanism: AuthMechanism.MONGODB_AWS,
+      mechanismProperties: {
+        AWS_SESSION_TOKEN: creds.Token
+      }
+    });
+  }
+MongoDBAWS.credentialProvider ??= getAwsCredentialProvider()
+'kModuleError' in MongoDBAWS.credentialProvider
+process.env.AWS_CONTAINER_CREDENTIALS_RELATIVE_URI
+const token = await request(`${AWS_EC2_URI}/latest/api/token`, {
+      method: 'PUT',
+      json: false,
+      headers: { 'X-aws-ec2-metadata-token-ttl-seconds': 30 }
+    })

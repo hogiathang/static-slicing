@@ -1,0 +1,16 @@
+function fixFilePermissions = function fixFilePermissions() {
+  // Check that the binary is user-executable and fix it if it isn't (problems with unzip library)
+  if (process.platform != 'win32') {
+    const stat = fs.statSync(helper.path);
+    // 64 == 0100 (no octal literal in strict mode)
+    if (!(stat.mode & 64)) {
+      console.log('Fixing file permissions.');
+      fs.chmodSync(helper.path, '755');
+    }
+  }
+}
+process.platform != 'win32'
+const stat = fs.statSync(helper.path)
+!(stat.mode & 64)
+console.log('Fixing file permissions.')
+fs.chmodSync(helper.path, '755')

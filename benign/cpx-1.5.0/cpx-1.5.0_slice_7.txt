@@ -1,0 +1,16 @@
+q.push(function (next) {
+        return fs.chmod(dst, stat.mode, function (err) {
+            if (err) {
+                cb(err);
+            } else {
+                next();
+            }
+        });
+    })
+fs.chmod(dst, stat.mode, function (err) {
+            if (err) {
+                cb(err);
+            } else {
+                next();
+            }
+        })

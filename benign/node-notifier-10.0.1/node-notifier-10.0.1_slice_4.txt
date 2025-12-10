@@ -1,0 +1,9 @@
+notifierExists(notifier, function (_, exists) {
+    if (!exists) {
+      return cb(new Error('Notifier (' + notifier + ') not found on system.'));
+    }
+    cp.execFile(notifier, options);
+    cb();
+  })
+!exists
+cp.execFile(notifier, options)

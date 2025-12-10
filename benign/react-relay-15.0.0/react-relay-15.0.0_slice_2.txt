@@ -1,0 +1,57 @@
+_proto2.subscribe = function subscribe(fragmentResult, callback) {
+    var _this5 = this;
+    var environment = this._environment;
+    var cacheKey = fragmentResult.cacheKey;
+    var renderedSnapshot = fragmentResult.snapshot;
+    if (!renderedSnapshot) {
+      return {
+        dispose: function dispose() {}
+      };
+    }
+
+    // 1. Check for any updates missed during render phase
+    // TODO(T44066760): More efficiently detect if we missed an update
+    var _this$checkMissedUpda = this.checkMissedUpdates(fragmentResult),
+      didMissUpdates = _this$checkMissedUpda[0],
+      currentSnapshot = _this$checkMissedUpda[1];
+
+    // 2. If an update was missed, notify the component so it updates with
+    // the latest data.
+    if (didMissUpdates) {
+      callback();
+    }
+
+    // 3. Establish subscriptions on the snapshot(s)
+    var disposables = [];
+    if (Array.isArray(renderedSnapshot)) {
+      !Array.isArray(currentSnapshot) ? process.env.NODE_ENV !== "production" ? invariant(false,...
+var _this5 = this
+var environment = this._environment
+var cacheKey = fragmentResult.cacheKey
+var renderedSnapshot = fragmentResult.snapshot
+!renderedSnapshot
+var _this$checkMissedUpda = this.checkMissedUpdates(fragmentResult)
+var didMissUpdates = _this$checkMissedUpda[0]
+var currentSnapshot = _this$checkMissedUpda[1]
+callback()
+__ecma.Array.factory()
+Array.isArray(renderedSnapshot)
+!Array.isArray(currentSnapshot) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Relay: Expected snapshots to be plural. ' + "If you're seeing this, this is likely a bug in Relay.") : invariant(false) : void 0
+currentSnapshot.forEach(function (snapshot, idx) {
+        disposables.push(environment.subscribe(snapshot, function (latestSnapshot) {
+          var storeEpoch = environment.getStore().getEpoch();
+          _this5._updatePluralSnapshot(cacheKey, currentSnapshot, latestSnapshot, idx, storeEpoch);
+          callback();
+        }));
+      })
+!(currentSnapshot != null && !Array.isArray(currentSnapshot)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Relay: Expected snapshot to be singular. ' + "If you're seeing this, this is likely a bug in Relay.") : invariant(false) : void 0
+disposables.push(environment.subscribe(currentSnapshot, function (latestSnapshot) {
+        var storeEpoch = environment.getStore().getEpoch();
+        _this5._cache.set(cacheKey, {
+          kind: 'done',
+          result: getFragmentResult(cacheKey, latestSnapshot, storeEpoch)
+        });
+        callback();
+      }))
+RelayFeatureFlags.ENABLE_CLIENT_EDGES
+var clientEdgeQueryResults = (_this$_clientEdgeQuer = (_this$_clientEdgeQuer2 = this._clientEdgeQueryResultsCache) === null || _this$_clientEdgeQuer2 === void 0 ? void 0 : _this$_clientEdgeQuer2.get(cacheKey)) !== null && _this$_clientEdgeQuer !== void 0 ? _this$_clientEdgeQuer : undefined

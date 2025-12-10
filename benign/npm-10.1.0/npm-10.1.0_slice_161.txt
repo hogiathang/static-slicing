@@ -1,0 +1,77 @@
+async jsonData (data, name) {
+    const versions = Object.keys(data)
+    let msg = ''
+    let msgJson = []
+    const includeVersions = versions.length > 1
+    let includeFields
+    const json = this.npm.config.get('json')
+
+    versions.forEach((v) => {
+      const fields = Object.keys(data[v])
+      includeFields = includeFields || (fields.length > 1)
+      if (json) {
+        msgJson.push({})
+      }
+      fields.forEach((f) => {
+        let d = cleanup(data[v][f])
+        if (fields.length === 1 && json) {
+          msgJson[msgJson.length - 1][f] = d
+        }
+
+        if (includeVersions || includeFields || typeof d !== 'string') {
+          if (json) {
+            msgJson[msgJson.length - 1][f] = d
+          } else {
+            d = inspect(d, {
+              showHidden: false,
+              depth: 5,
+              colors: this.npm.color,
+              maxArrayLength: null,
+            })
+          }
+        } else if (typeof d === 'string' && json) {
+          d = JSON.stringif...
+const versions = Object.keys(data)
+let msg = ''
+__ecma.Array.factory()
+const includeVersions = versions.length > 1
+const json = this.npm.config.get('json')
+versions.forEach((v) => {
+      const fields = Object.keys(data[v])
+      includeFields = includeFields || (fields.length > 1)
+      if (json) {
+        msgJson.push({})
+      }
+      fields.forEach((f) => {
+        let d = cleanup(data[v][f])
+        if (fields.length === 1 && json) {
+          msgJson[msgJson.length - 1][f] = d
+        }
+
+        if (includeVersions || includeFields || typeof d !== 'string') {
+          if (json) {
+            msgJson[msgJson.length - 1][f] = d
+          } else {
+            d = inspect(d, {
+              showHidden: false,
+              depth: 5,
+              colors: this.npm.color,
+              maxArrayLength: null,
+            })
+          }
+        } else if (typeof d === 'string' && json) {
+          d = JSON.stringify(d)
+        }
+
+        if (!json) {
+          if (f && includeFields) {
+            f += ' = '
+          }
+          msg += (includeVersions ? name + '@' + v + ' ' : '') +
+            (includeFields ? f : '') + d + '\n'
+      ...
+msgJson.length && Object.keys(msgJson[0]).length === 1
+const k = Object.keys(msgJson[0])[0]
+msgJson = msgJson.map(m => m[k])
+msgJson.length === 1
+msgJson.length > 1

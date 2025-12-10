@@ -1,0 +1,92 @@
+(_tmp_338 = through2.obj(function (data, _, next) {
+      if (limit && called >= limit) {
+        complete();
+        return next();
+      }
+      if (opts.cancelled || opts.done) {
+        return next();
+      }
+
+      var seq = parseSeq(data.key);
+      var doc = data.value;
+
+      if (seq === opts.since && !descending) {
+        // couchdb ignores `since` if descending=true
+        return next();
+      }
+
+      if (docIds && !docIds.has(doc._id)) {
+        return next();
+      }
+
+      var metadata;
+
+      function onGetMetadata(metadata) {
+        var winningRev$$1 = getWinningRev(metadata);
+
+        function onGetWinningDoc(winningDoc) {
+
+          var change = opts.processChange(winningDoc, metadata, opts);
+          change.seq = metadata.seq;
+
+          var filtered = filter(change);
+          if (typeof filtered === 'object') {
+            return opts.complete(filtered);
+          }
+
+          if (filtered) {
+            called++;
+
+            if (opts.attachments && opts.include_docs) ...).on
+limit && called >= limit
+opts.cancelled || opts.done
+var seq = parseSeq(data.key)
+var doc = data.value
+seq === opts.since && !descending
+docIds && !docIds.has(doc._id)
+function onGetMetadata = function onGetMetadata(metadata) {
+        var winningRev$$1 = getWinningRev(metadata);
+
+        function onGetWinningDoc(winningDoc) {
+
+          var change = opts.processChange(winningDoc, metadata, opts);
+          change.seq = metadata.seq;
+
+          var filtered = filter(change);
+          if (typeof filtered === 'object') {
+            return opts.complete(filtered);
+          }
+
+          if (filtered) {
+            called++;
+
+            if (opts.attachments && opts.include_docs) {
+              // fetch attachment immediately for the benefit
+              // of live listeners
+              fetchAttachments([change], stores, opts).then(function () {
+                opts.onChange(change);
+              });
+            } else {
+              opts.onChange(change);
+            }
+
+            if (opts.return_docs) {
+              results.push(change);
+            }
+          }
+          next();
+        }
+
+        if (metadata.seq !== seq) {
+          // some other seq is later
+...
+metadata = docIdsToMetadata.get(doc._id)
+stores.docStore.get(doc._id, function (err, metadata) {
+        /* istanbul ignore if */
+        if (opts.cancelled || opts.done || db.isClosed() ||
+          isLocalId(metadata.id)) {
+          return next();
+        }
+        docIdsToMetadata.set(doc._id, metadata);
+        onGetMetadata(metadata);
+      })

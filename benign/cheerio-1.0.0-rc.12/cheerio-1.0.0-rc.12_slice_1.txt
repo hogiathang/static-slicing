@@ -1,0 +1,7 @@
+function add = function add(other, context) {
+    var selection = this._make(other, context);
+    var contents = (0, domutils_1.uniqueSort)(__spreadArray(__spreadArray([], this.get(), true), selection.get(), true));
+    return this._make(contents);
+}
+var selection = this._make(other, context)
+var contents = (0, domutils_1.uniqueSort)(__spreadArray(__spreadArray([], this.get(), true), selection.get(), true))

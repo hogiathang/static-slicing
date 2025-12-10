@@ -1,0 +1,39 @@
+setItem(key, value) {
+    const oldValue = this._items.get(key) || null;
+
+    if (oldValue === value) {
+      return;
+    }
+
+    // Concatenate all keys and values to measure their length against the quota
+    let itemsTotalLength = key.length + value.length;
+    for (const [curKey, curValue] of this._items) {
+      // If the key already exists, skip it as it will be set to the new value instead
+      if (key !== curKey) {
+        itemsTotalLength += curKey.length + curValue.length;
+      }
+    }
+    if (itemsTotalLength > this._quota) {
+      throw DOMException.create(this._globalObject, [
+        `The ${this._quota}-code unit storage quota has been exceeded.`,
+        "QuotaExceededError"
+      ]);
+    }
+
+    setTimeout(this._dispatchStorageEvent.bind(this), 0, key, oldValue, value);
+
+    this._items.set(key, value);
+  }
+const oldValue = this._items.get(key) || null
+oldValue === value
+let itemsTotalLength = key.length + value.length
+_iterator_0 = <operator>.iterator(this._items)
+key !== curKey
+itemsTotalLength += curKey.length + curValue.length
+itemsTotalLength > this._quota
+throw DOMException.create(this._globalObject, [
+        `The ${this._quota}-code unit storage quota has been exceeded.`,
+        "QuotaExceededError"
+      ]);
+_tmp_10.push(<operator>.formatString("The ", this._quota, "-code unit storage quota has been exceeded."))
+_tmp_10.push("QuotaExceededError")

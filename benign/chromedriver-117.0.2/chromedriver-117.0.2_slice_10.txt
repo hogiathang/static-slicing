@@ -1,0 +1,28 @@
+exports.start = function (args, returnPromise) {
+  let command = exports.path;
+  if (!fs.existsSync(command)) {
+    console.log('Could not find chromedriver in default path: ', command);
+    console.log('Falling back to use global chromedriver bin');
+    command = process.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver';
+  }
+  const cp = require('child_process').spawn(command, args);
+  cp.stdout.pipe(process.stdout);
+  cp.stderr.pipe(process.stderr);
+  exports.defaultInstance = cp;
+  if (!returnPromise) {
+    return cp;
+  }
+  const port = getPortFromArgs(args);
+  const pollInterval = 100;
+  const timeout = 10000;
+  return tcpPortUsed.waitUntilUsed(port, pollInterval, timeout)
+    .then(function () {
+      return cp;
+    });
+}
+let command = exports.path
+!fs.existsSync(command)
+console.log('Could not find chromedriver in default path: ', command)
+console.log('Falling back to use global chromedriver bin')
+command = process.platform === 'win32' ? 'chromedriver.exe' : 'chromedriver'
+const cp = require('child_process').spawn(command, args)

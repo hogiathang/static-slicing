@@ -1,0 +1,12 @@
+mockResponse.sendStatus = function sendStatus(statusCode) {
+        var body = http.STATUS_CODES[statusCode] || String(statusCode);
+
+        mockResponse.statusCode = statusCode;
+        mockResponse.type('txt');
+
+        return mockResponse.send(body);
+    }
+var body = http.STATUS_CODES[statusCode] || String(statusCode)
+mockResponse.statusCode = statusCode
+mockResponse.type('txt')
+mockResponse.send(body)

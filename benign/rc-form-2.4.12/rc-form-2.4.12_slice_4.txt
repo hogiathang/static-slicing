@@ -1,0 +1,16 @@
+Object.keys(allRules).forEach(function (name) {
+            var fieldErrors = get(errorsGroup, name);
+            var nowField = _this7.fieldsStore.getField(name);
+            // avoid concurrency problems
+            if (!eq(nowField.value, allValues[name])) {
+              expired.push({
+                name: name
+              });
+            } else {
+              nowField.errors = fieldErrors && fieldErrors.errors;
+              nowField.value = allValues[name];
+              nowField.validating = false;
+              nowField.dirty = false;
+              nowAllFields[name] = nowField;
+            }
+          })

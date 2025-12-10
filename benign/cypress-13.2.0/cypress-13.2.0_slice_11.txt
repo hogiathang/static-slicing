@@ -1,0 +1,165 @@
+const start = async (options = {}) => {
+  debug('installing with options %j', options);
+  const envVarVersion = getEnvVarVersion();
+  if (envVarVersion === '0') {
+    debug('environment variable CYPRESS_INSTALL_BINARY = 0, skipping install');
+    logger.log(stripIndent`
+        ${chalk.yellow('Note:')} Skipping binary installation: Environment variable CYPRESS_INSTALL_BINARY = 0.`);
+    logger.log();
+    return;
+  }
+  _.defaults(options, {
+    force: false,
+    buildInfo
+  });
+  if (util.getEnv('CYPRESS_CACHE_FOLDER')) {
+    const envCache = util.getEnv('CYPRESS_CACHE_FOLDER');
+    logger.log(stripIndent`
+        ${chalk.yellow('Note:')} Overriding Cypress cache directory to: ${chalk.cyan(envCache)}
+
+              Previous installs of Cypress may not be found.
+      `);
+    logger.log();
+  }
+  const pkgVersion = util.pkgVersion();
+  const arch = await util.getRealArch();
+  const versionOverride = getVersionOverride({
+    arch,
+    envVarVersion,
+    buildInfo: options.buildInfo
+  });
+  co...
+debug('installing with options %j', options)
+const envVarVersion = getEnvVarVersion()
+envVarVersion === '0'
+_.defaults(options, {
+    force: false,
+    buildInfo
+  })
+_tmp_23.force = false
+_tmp_23.buildInfo = buildInfo
+util.getEnv('CYPRESS_CACHE_FOLDER')
+const envCache = util.getEnv('CYPRESS_CACHE_FOLDER')
+logger.log(stripIndent`
+        ${chalk.yellow('Note:')} Overriding Cypress cache directory to: ${chalk.cyan(envCache)}
+
+              Previous installs of Cypress may not be found.
+      `)
+_tmp_24.push("
+
+              Previous installs of Cypress may not be found.
+      ")
+logger.log()
+const pkgVersion = util.pkgVersion()
+const arch = await util.getRealArch()
+const versionOverride = getVersionOverride({
+    arch,
+    envVarVersion,
+    buildInfo: options.buildInfo
+  })
+_tmp_25.arch = arch
+_tmp_25.envVarVersion = envVarVersion
+_tmp_25.buildInfo = options.buildInfo
+const versionToInstall = versionOverride || pkgVersion
+debug('version in package.json is %s, version to install is %s', pkgVersion, versionToInstall)
+const installDir = state.getVersionDir(pkgVersion, options.buildInfo)
+const cacheDir = state.getCacheDir()
+const binaryDir = state.getBinaryDir(pkgVersion)
+!(await validateOS())
+await fs.ensureDirAsync(cacheDir).catch({
+    code: 'EACCES'
+  }, err => {
+    return throwFormErrorText(errors.invalidCacheDirectory)(stripIndent`
+    Failed to access ${chalk.cyan(cacheDir)}:
+
+    ${err.message}
+    `);
+  })
+_tmp_27.code = "EACCES"
+<lambda>12
+const binaryPkg = await state.getBinaryPkgAsync(binaryDir)
+const binaryVersion = await state.getBinaryPkgVersion(binaryPkg)
+const shouldInstall = () => {
+    if (!binaryVersion) {
+      debug('no binary installed under cli version');
+      return true;
+    }
+    logger.log();
+    logger.log(stripIndent`
+      Cypress ${chalk.green(binaryVersion)} is installed in ${chalk.cyan(installDir)}
+      `);
+    logger.log();
+    if (options.force) {
+      debug('performing force install over existing binary');
+      return true;
+    }
+    if (binaryVersion === versionToInstall || !util.isSemver(versionToInstall)) {
+      // our version matches, tell the user this is a noop
+      alreadyInstalledMsg();
+      return false;
+    }
+    return true;
+  }
+!shouldInstall()
+logger.log(chalk.yellow(stripIndent`
+        ${logSymbols.warning} Warning: Forcing a binary version different than the default.
+
+          The CLI expected to install version: ${chalk.green(pkgVersion)}
+
+          Instead we will install version: ${chalk.green(versionToInstall)}
+
+          These versions may not work properly together.
+      `))
+_tmp_30.push(" Warning: Forcing a binary version different than the default.
+
+          The CLI expected to install version: ")
+_tmp_30.push("
+
+          Instead we will install version: ")
+_tmp_30.push("
+
+          These versions may not work properly together.
+      ")
+logger.log()
+const getLocalFilePath = async () => {
+    // see if version supplied is a path to a binary
+    if (await fs.pathExistsAsync(versionToInstall)) {
+      return path.extname(versionToInstall) === '.zip' ? versionToInstall : false;
+    }
+    const possibleFile = util.formAbsolutePath(versionToInstall);
+    debug('checking local file', possibleFile, 'cwd', process.cwd());
+
+    // if this exists return the path to it
+    // else false
+    if ((await fs.pathExistsAsync(possibleFile)) && path.extname(possibleFile) === '.zip') {
+      return possibleFile;
+    }
+    return false;
+  }
+const pathToLocalFile = await getLocalFilePath()
+const absolutePath = path.resolve(versionToInstall)
+debug('found local file at', absolutePath)
+debug('skipping download')
+const rendererOptions = getRendererOptions()
+(_tmp_31 = new Listr([unzipTask({
+      progress: {
+        throttle: 100,
+        onProgress: null
+      },
+      zipFilePath: absolutePath,
+      installDir,
+      rendererOptions
+    })], {
+      rendererOptions
+    })).run
+_tmp_34.progress = {
+        throttle: 100,
+        onProgress: null
+      }
+_tmp_35.throttle = 100
+_tmp_35.onProgress = null
+_tmp_34.zipFilePath = absolutePath
+_tmp_34.installDir = installDir
+_tmp_34.rendererOptions = rendererOptions
+_tmp_36.rendererOptions = rendererOptions
+run

@@ -1,0 +1,7 @@
+_tmp_11.on = <lambda>2
+var _ = this._
+var T = parseTypenames(typename + "", _)
+var i = -1
+var n = T.length
+arguments.length < 2
+(t = (typename = T[i]).type) && (t = get(_[t], typename.name))

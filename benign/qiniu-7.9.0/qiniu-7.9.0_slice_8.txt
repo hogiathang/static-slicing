@@ -1,0 +1,67 @@
+function post = function post(credentials, options, data, fn) {
+    var dataString = JSON.stringify(data);
+
+    options.headers.Authorization = credentials.generateAccessToken(options, dataString);
+
+    var req = http.request(options, function (res) {
+        res.setEncoding('utf-8');
+
+        var responseString = '';
+
+        res.on('data', function (data) {
+            responseString += data;
+        });
+
+        res.on('end', function () {
+            var resultObject = JSON.parse(responseString);
+
+            if (res.statusCode != 200) {
+                var result = {
+                    code: res.statusCode,
+                    message: resultObject.error || res.statusMessage,
+                    reqId: res.headers['x-reqid']
+                };
+                fn(result, null);
+            } else {
+                fn(null, resultObject);
+            }
+        });
+    });
+    req.on('error', function (e) {
+        fn(e, null);
+    });
+
+    req.write(dataString);
+
+    req.end();
+}
+var dataString = JSON.stringify(data)
+options.headers.Authorization = credentials.generateAccessToken(options, dataString)
+var req = http.request(options, function (res) {
+        res.setEncoding('utf-8');
+
+        var responseString = '';
+
+        res.on('data', function (data) {
+            responseString += data;
+        });
+
+        res.on('end', function () {
+            var resultObject = JSON.parse(responseString);
+
+            if (res.statusCode != 200) {
+                var result = {
+                    code: res.statusCode,
+                    message: resultObject.error || res.statusMessage,
+                    reqId: res.headers['x-reqid']
+                };
+                fn(result, null);
+            } else {
+                fn(null, resultObject);
+            }
+        });
+    })
+req.on('error', function (e) {
+        fn(e, null);
+    })
+req.write(dataString)

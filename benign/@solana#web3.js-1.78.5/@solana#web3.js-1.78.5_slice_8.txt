@@ -1,0 +1,109 @@
+static decompile(
+    message: VersionedMessage,
+    args?: DecompileArgs,
+  ): TransactionMessage {
+    const {header, compiledInstructions, recentBlockhash} = message;
+
+    const {
+      numRequiredSignatures,
+      numReadonlySignedAccounts,
+      numReadonlyUnsignedAccounts,
+    } = header;
+
+    const numWritableSignedAccounts =
+      numRequiredSignatures - numReadonlySignedAccounts;
+    assert(numWritableSignedAccounts > 0, 'Message header is invalid');
+
+    const numWritableUnsignedAccounts =
+      message.staticAccountKeys.length -
+      numRequiredSignatures -
+      numReadonlyUnsignedAccounts;
+    assert(numWritableUnsignedAccounts >= 0, 'Message header is invalid');
+
+    const accountKeys = message.getAccountKeys(args);
+    const payerKey = accountKeys.get(0);
+    if (payerKey === undefined) {
+      throw new Error(
+        'Failed to decompile message because no account keys were found',
+      );
+    }
+
+    const instructions: TransactionInstruction[] = [];
+    for (cons...
+compiledInstructions = _tmp_0.compiledInstructions
+_tmp_1 = header
+numRequiredSignatures = _tmp_1.numRequiredSignatures
+numReadonlySignedAccounts = _tmp_1.numReadonlySignedAccounts
+numReadonlyUnsignedAccounts = _tmp_1.numReadonlyUnsignedAccounts
+const numWritableSignedAccounts =
+      numRequiredSignatures - numReadonlySignedAccounts
+numRequiredSignatures - numReadonlySignedAccounts
+assert(numWritableSignedAccounts > 0, 'Message header is invalid')
+const numWritableUnsignedAccounts =
+      message.staticAccountKeys.length -
+      numRequiredSignatures -
+      numReadonlyUnsignedAccounts
+message.staticAccountKeys.length -
+      numRequiredSignatures -
+      numReadonlyUnsignedAccounts
+assert(numWritableUnsignedAccounts >= 0, 'Message header is invalid')
+const accountKeys = message.getAccountKeys(args)
+const payerKey = accountKeys.get(0)
+payerKey === undefined
+throw new Error(
+        'Failed to decompile message because no account keys were found',
+      );
+"Failed to decompile message because no account keys were found"
+const instructions: TransactionInstruction[] = []
+_iterator_0 = <operator>.iterator(compiledInstructions)
+const keys: AccountMeta[] = []
+_iterator_1 = <operator>.iterator(compiledIx.accountKeyIndexes)
+const pubkey = accountKeys.get(keyIndex)
+pubkey === undefined
+throw new Error(
+            `Failed to find key for account key index ${keyIndex}`,
+          );
+<operator>.formatString("Failed to find key for account key index ", keyIndex, "")
+const isSigner = keyIndex < numRequiredSignatures
+isWritable = keyIndex < numWritableSignedAccounts
+keyIndex < accountKeys.staticAccountKeys.length
+isWritable =
+            keyIndex - numRequiredSignatures < numWritableUnsignedAccounts
+keyIndex - numRequiredSignatures < numWritableUnsignedAccounts
+isWritable =
+            keyIndex - accountKeys.staticAccountKeys.length <
+            // accountKeysFromLookups cannot be undefined because we already found a pubkey for this index above
+            accountKeys.accountKeysFromLookups!.writable.length
+keyIndex - accountKeys.staticAccountKeys.length <
+            // accountKeysFromLookups cannot be undefined because we already found a pubkey for this index above
+            accountKeys.accountKeysFromLookups!.writable.length
+accountKeys.accountKeysFromLookups!.writable.length
+keys.push({
+          pubkey,
+          isSigner: keyIndex < header.numRequiredSignatures,
+          isWritable,
+        })
+_tmp_4.pubkey = pubkey
+_tmp_4.isSigner = keyIndex < header.numRequiredSignatures
+_tmp_4.isWritable = isWritable
+const programId = accountKeys.get(compiledIx.programIdIndex)
+programId === undefined
+throw new Error(
+          `Failed to find program id for program id index ${compiledIx.programIdIndex}`,
+        );
+<operator>.formatString("Failed to find program id for program id index ", compiledIx.programIdIndex, "")
+instructions.push(
+        new TransactionInstruction({
+          programId,
+          data: toBuffer(compiledIx.data),
+          keys,
+        }),
+      )
+new TransactionInstruction({
+          programId,
+          data: toBuffer(compiledIx.data),
+          keys,
+        })
+_tmp_7.programId = programId
+_tmp_7.data = toBuffer(compiledIx.data)
+_tmp_7.keys = keys

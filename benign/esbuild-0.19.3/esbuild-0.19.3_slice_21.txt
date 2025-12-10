@@ -1,0 +1,16 @@
+function downloadDirectlyFromNPM = async function downloadDirectlyFromNPM(pkg, subpath, binPath) {
+  const url = `https://registry.npmjs.org/${pkg}/-/${pkg.replace("@esbuild/", "")}-${versionFromPackageJSON}.tgz`;
+  console.error(`[esbuild] Trying to download ${JSON.stringify(url)}`);
+  try {
+    fs2.writeFileSync(binPath, extractFileFromTarGzip(await fetch(url), subpath));
+    fs2.chmodSync(binPath, 493);
+  } catch (e) {
+    console.error(`[esbuild] Failed to download ${JSON.stringify(url)}: ${e && e.message || e}`);
+    throw e;
+  }
+}
+<operator>.formatString("https://registry.npmjs.org/", pkg, "/-/", pkg.replace("@esbuild/", ""), "-", versionFromPackageJSON, ".tgz")
+<operator>.formatString("[esbuild] Trying to download ", JSON.stringify(url), "")
+fs2.writeFileSync(binPath, extractFileFromTarGzip(await fetch(url), subpath))
+fs2.chmodSync(binPath, 493)
+<operator>.formatString("[esbuild] Failed to download ", JSON.stringify(url), ": ", e && e.message || e, "")

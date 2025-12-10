@@ -1,0 +1,103 @@
+function recursive = function recursive(currentElem, parentElem) {
+          currentElem._x = combineArrays(currentElem.getLengthList('x', currentElem.getVWidth()), (parentElem ? parentElem._x.slice(parentElem._pos.length) : []));
+          currentElem._y = combineArrays(currentElem.getLengthList('y', currentElem.getVHeight()), (parentElem ? parentElem._y.slice(parentElem._pos.length) : []));
+          currentElem._dx = combineArrays(currentElem.getLengthList('dx', currentElem.getVWidth()), (parentElem ? parentElem._dx.slice(parentElem._pos.length) : []));
+          currentElem._dy = combineArrays(currentElem.getLengthList('dy', currentElem.getVHeight()), (parentElem ? parentElem._dy.slice(parentElem._pos.length) : []));
+          currentElem._rot = combineArrays(currentElem.getNumberList('rotate'), (parentElem ? parentElem._rot.slice(parentElem._pos.length) : []));
+          currentElem._defRot = currentElem.chooseValue(currentElem._rot[currentElem._rot.length - 1], parentElem && parentElem._defR...
+currentElem._x = combineArrays(currentElem.getLengthList('x', currentElem.getVWidth()), (parentElem ? parentElem._x.slice(parentElem._pos.length) : []))
+currentElem._y = combineArrays(currentElem.getLengthList('y', currentElem.getVHeight()), (parentElem ? parentElem._y.slice(parentElem._pos.length) : []))
+currentElem._dx = combineArrays(currentElem.getLengthList('dx', currentElem.getVWidth()), (parentElem ? parentElem._dx.slice(parentElem._pos.length) : []))
+currentElem._dy = combineArrays(currentElem.getLengthList('dy', currentElem.getVHeight()), (parentElem ? parentElem._dy.slice(parentElem._pos.length) : []))
+currentElem._rot = combineArrays(currentElem.getNumberList('rotate'), (parentElem ? parentElem._rot.slice(parentElem._pos.length) : []))
+currentElem._defRot = currentElem.chooseValue(currentElem._rot[currentElem._rot.length - 1], parentElem && parentElem._defRot, 0)
+currentElem.name === 'textPath'
+let fontOptions = {fauxItalic: false, fauxBold: false}
+let fontNameorLink = fontCallback(currentElem.get('font-family'), currentElem.get('font-weight') === 'bold', currentElem.get('font-style') === 'italic', fontOptions)
+doc.font(fontNameorLink)
+warningCallback('SVGElemText: failed to open font "' + fontNameorLink + '" in PDFKit')
+__ecma.Array.factory()
+currentElem._index = 0
+currentElem._font = {font: doc._font, size: currentElem.get('font-size'), fauxItalic: fontOptions.fauxItalic, fauxBold: fontOptions.fauxBold}
+let textLength = currentElem.getLength('textLength', currentElem.getVWidth(), undefined)
+let spacingAndGlyphs = currentElem.attr('lengthAdjust') === 'spacingAndGlyphs'
+let wordSpacing = currentElem.get('word-spacing')
+let letterSpacing = currentElem.get('letter-spacing')
+let textAnchor = currentElem.get('text-anchor')
+let textDirection = currentElem.get('direction')
+let baseline = getBaseline(currentElem._font.font, currentElem._font.size, currentElem.get('alignment-baseline') || currentElem.get('dominant-baseline'), currentElem.get('baseline-shift'))
+currentElem.name === 'textPath'
+doAnchoring()
+currentX = currentY = 0
+let children = currentElem.getChildren()
+i < children.length
+let childElem = children[i]
+childElem.name
+"a"
+recursive(childElem, currentElem)
+break;
+"#cdata-section"
+let rawText = childElem.textContent
+childElem._font = currentElem._font
+__ecma.Array.factory()
+remainingText = remainingText.substring(rawText.length)
+currentElem.get('xml:space') === 'preserve'
+renderedText = renderedText.replace(/[\s]/g, ' ')
+renderedText = renderedText.replace(/[\s]+/g, ' ')
+renderedText = renderedText.replace(/^[\s]/, '')
+renderedText = renderedText.replace(/[\s]$/, '')
+processedText += rawText
+wordSpacing === 0
+_tmp_565 = __ecma.Array.factory()
+words = renderedText.split(/(\s)/)
+w < words.length
+let pos = getTextPos(currentElem._font.font, currentElem._font.size, words[w])
+j < pos.length
+let index = currentElem._index
+let xAttr = currentElem._x[index]
+let yAttr = currentElem._y[index]
+let dxAttr = currentElem._dx[index]
+let dyAttr = currentElem._dy[index]
+let rotAttr = currentElem._rot[index]
+let continuous = !(w === 0 && j === 0)
+xAttr !== undefined
+yAttr !== undefined
+dxAttr !== undefined
+dyAttr !== undefined
+rotAttr !== undefined || currentElem._defRot !== 0
+let position = {
+                      glyph: pos[j].glyph,
+                      rotate: (Math.PI / 180) * currentElem.chooseValue(rotAttr, currentElem._defRot),
+                      x: currentX + pos[j].xOffset,
+                      y: currentY + baseline + pos[j].yOffset,
+                      width: pos[j].width,
+                      ascent: getAscent(currentElem._font.font, currentElem._font.size),
+                      descent: getDescent(currentElem._font.font, currentElem._font.size),
+                      scale: 1,
+                      hidden: false,
+                      continuous: continuous
+                    }
+_tmp_566.glyph = pos[j].glyph
+_tmp_566.rotate = (Math.PI / 180) * currentElem.chooseValue(rotAttr, currentElem._defRot)
+_tmp_566.x = currentX + pos[j].xOffset
+_tmp_566.y = currentY + baseline + pos[j].yOffset
+_tmp_566.width = pos[j].width
+_tmp_566.ascent = getAscent(currentElem._font.font, currentElem._font.size)
+_tmp_566.descent = getDescent(currentElem._font.font, currentElem._font.size)
+_tmp_566.scale = 1
+_tmp_566.hidden = false
+_tmp_566.continuous = continuous
+currentChunk.push(position)
+(_tmp_567 = childElem._pos).push
+(_tmp_568 = currentElem._pos).push
+currentElem._index += pos[j].unicode.length
+currentChunk.length === 1
+currentAnchor = textAnchor
+currentDirection = textDirection
+currentX += pos[j].xAdvance + letterSpacing
+currentY += pos[j].yAdvance
+words[w] === ' '
+currentX += wordSpacing
+break;
+default:
+remainingText = remainingText.substring(childElem.textContent.length)

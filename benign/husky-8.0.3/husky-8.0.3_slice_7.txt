@@ -1,0 +1,11 @@
+function add = function add(file, cmd) {
+    if (fs.existsSync(file)) {
+        fs.appendFileSync(file, `${cmd}\n`);
+        l(`updated ${file}`);
+    }
+    else {
+        set(file, cmd);
+    }
+}
+fs.existsSync(file)
+<operator>.formatString("", cmd, "\n")

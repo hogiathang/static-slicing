@@ -1,0 +1,35 @@
+cp(imagePath, outputPath) {
+        try {
+            jsiiDeprecationWarnings.print("@aws-cdk/core.BundlingDockerImage#cp", "use DockerImage");
+        }
+        catch (error) {
+            if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                Error.captureStackTrace(error, this.cp);
+            }
+            throw error;
+        }
+        const { stdout } = dockerExec(['create', this.image], {}); // Empty options to avoid stdout redirect here
+        const match = stdout.toString().match(/([0-9a-f]{16,})/);
+        if (!match) {
+            throw new Error('Failed to extract container ID from Docker create output');
+        }
+        const containerId = match[1];
+        const containerPath = `${containerId}:${imagePath}`;
+        const destPath = outputPath ?? fs_1.FileSystem.mkdtemp('cdk-docker-cp-');
+        try {
+            dockerExec(['cp', containerPath, destPath]);
+            return destPath;
+        }
+        catch (err) {
+            ...
+jsiiDeprecationWarnings.print("@aws-cdk/core.BundlingDockerImage#cp", "use DockerImage")
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, this.cp)
+throw error;
+_tmp_27 = dockerExec(['create', this.image], {})
+const match = stdout.toString().match(/([0-9a-f]{16,})/)
+!match
+throw new Error('Failed to extract container ID from Docker create output');
+const containerId = match[1]
+<operator>.formatString("", containerId, ":", imagePath, "")
+const destPath = outputPath ?? fs_1.FileSystem.mkdtemp('cdk-docker-cp-')

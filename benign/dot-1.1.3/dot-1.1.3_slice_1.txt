@@ -1,0 +1,63 @@
+function getGoogleChart = function getGoogleChart(normalize) {
+    var chart_title = [
+      'Operations/second on ' + platform.name,
+      '(' + platform.version + ' / ' + platform.os + ')'
+    ];
+
+    var n = tests.length, markers = [], data = [];
+    var d, min = 0, max = -1e10;
+
+    // Gather test data
+
+    var markers = map(tests, function(test, i) {
+      if (test.count) {
+        var hz = test.getHz();
+        var v = hz != Infinity ? hz : 0;
+        data.push(v);
+        var label = test.name + '(' + humanize(hz)+ ')';
+        var marker = 't' + escape2(label) + ',000000,0,' + i + ',10';
+        max = Math.max(v, max);
+
+        return marker;
+      }
+    });
+
+    if (markers.length <= 0) return null;
+
+    // Build labels
+    var labels = [humanize(min), humanize(max)];
+
+    var w = 250, bw = 15;
+    var bs = 5;
+    var h = markers.length*(bw + bs) + 30 + chart_title.length*20;
+
+    var params = {
+      chtt: escape(chart_title.join('|')),
+      chts: '000000,10',
+      cht: 'bhg',                    ...
+var chart_title = [
+      'Operations/second on ' + platform.name,
+      '(' + platform.version + ' / ' + platform.os + ')'
+    ]
+_tmp_19.push('Operations/second on ' + platform.name)
+_tmp_19.push('(' + platform.version + ' / ' + platform.os + ')')
+__ecma.Array.factory()
+var max = -1e10
+var markers = map(tests, function(test, i) {
+      if (test.count) {
+        var hz = test.getHz();
+        var v = hz != Infinity ? hz : 0;
+        data.push(v);
+        var label = test.name + '(' + humanize(hz)+ ')';
+        var marker = 't' + escape2(label) + ',000000,0,' + i + ',10';
+        max = Math.max(v, max);
+
+        return marker;
+      }
+    })
+markers.length <= 0
+var labels = [humanize(min), humanize(max)]
+var w = 250
+var bs = 5
+var h = markers.length*(bw + bs) + 30 + chart_title.length*20
+_tmp_21.chtt = escape(chart_title.join('|'))

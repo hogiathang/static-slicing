@@ -1,0 +1,26 @@
+PathHoister.prototype._getAttachmentPath = function _getAttachmentPath() {
+    var scopes = this.scopes;
+
+    var scope = scopes.pop();
+
+    if (!scope) return;
+
+    if (scope.path.isFunction()) {
+      if (this.hasOwnParamBindings(scope)) {
+        if (this.scope === scope) return;
+
+        return scope.path.get("body").get("body")[0];
+      } else {
+        return this.getNextScopeAttachmentParent();
+      }
+    } else if (scope.path.isProgram()) {
+      return this.getNextScopeAttachmentParent();
+    }
+  }
+var scopes = this.scopes
+var scope = scopes.pop()
+!scope
+(_tmp_17 = scope.path).isFunction
+this.hasOwnParamBindings(scope)
+this.scope === scope
+(_tmp_18 = scope.path.get("body")).get

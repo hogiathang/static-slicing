@@ -1,0 +1,4 @@
+_tmp_0.1 = <lambda>1
+const request = require('./v1/request')
+const response = require('./v1/response')
+_tmp_2.request = request(groupIds)

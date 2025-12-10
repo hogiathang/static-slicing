@@ -1,0 +1,45 @@
+function readlineExt = function readlineExt(options) {
+  var res = {},
+    execOptions = {env: process.env, encoding: options.encoding},
+    hostArgs, extMessage;
+
+  if (!extHostPath) {
+    if (IS_WIN) {
+      if (process.env.PSModulePath) { // Windows PowerShell
+        extHostPath = 'powershell.exe';
+        extHostArgs = ['-ExecutionPolicy', 'Bypass',
+          '-File', __dirname + '\\read.ps1']; // eslint-disable-line no-path-concat
+      } else { // Windows Script Host
+        extHostPath = 'cscript.exe';
+        extHostArgs = ['//nologo', __dirname + '\\read.cs.js']; // eslint-disable-line no-path-concat
+      }
+    } else {
+      extHostPath = '/bin/sh';
+      extHostArgs = [__dirname + '/read.sh']; // eslint-disable-line no-path-concat
+    }
+  }
+  if (IS_WIN && !process.env.PSModulePath) { // Windows Script Host
+    // ScriptPW (Win XP and Server2003) needs TTY stream as STDIN.
+    // In this case, If STDIN isn't TTY, an error is thrown.
+    execOptions.stdio = [process.stdin];
+  }
+
+  if (childPro...
+var res = {}
+var execOptions = {env: process.env, encoding: options.encoding}
+!extHostPath
+process.env.PSModulePath
+extHostPath = 'powershell.exe'
+extHostArgs = ['-ExecutionPolicy', 'Bypass',
+          '-File', __dirname + '\\read.ps1']
+_tmp_19.push(__dirname + '\\read.ps1')
+extHostPath = 'cscript.exe'
+extHostArgs = ['//nologo', __dirname + '\\read.cs.js']
+extHostPath = '/bin/sh'
+extHostArgs = [__dirname + '/read.sh']
+IS_WIN && !process.env.PSModulePath
+execOptions.stdio = [process.stdin]
+childProc.execFileSync
+hostArgs = getHostArgs(options)
+_DBG_checkMethod('execFileSync', hostArgs)
+res.input = childProc.execFileSync(extHostPath, hostArgs, execOptions)

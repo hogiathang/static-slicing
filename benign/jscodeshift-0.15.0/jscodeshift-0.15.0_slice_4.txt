@@ -1,0 +1,14 @@
+this.forEach(function(path) {
+      const children = path.get('children');
+      const l = children.value.length;
+      for (let i = 0; i < l; i++) {
+        if (jsxChildElementType.check(children.value[i])) {
+          paths.push(children.get(i));
+        }
+      }
+    })
+const children = path.get('children')
+const l = children.value.length
+let i = 0
+jsxChildElementType.check(children.value[i])
+paths.push(children.get(i))

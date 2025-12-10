@@ -1,0 +1,57 @@
+function updateServers = function updateServers(topology: Topology, incomingServerDescription?: ServerDescription) {
+  // update the internal server's description
+  if (incomingServerDescription && topology.s.servers.has(incomingServerDescription.address)) {
+    const server = topology.s.servers.get(incomingServerDescription.address);
+    if (server) {
+      server.s.description = incomingServerDescription;
+      if (
+        incomingServerDescription.error instanceof MongoError &&
+        incomingServerDescription.error.hasErrorLabel(MongoErrorLabel.ResetPool)
+      ) {
+        const interruptInUseConnections = incomingServerDescription.error.hasErrorLabel(
+          MongoErrorLabel.InterruptInUseConnections
+        );
+
+        server.pool.clear({ interruptInUseConnections });
+      } else if (incomingServerDescription.error == null) {
+        const newTopologyType = topology.s.description.type;
+        const shouldMarkPoolReady =
+          incomingServerDescription.isDataBearing ||
+          (incomingServ...
+incomingServerDescription && topology.s.servers.has(incomingServerDescription.address)
+const server = topology.s.servers.get(incomingServerDescription.address)
+server.s.description = incomingServerDescription
+incomingServerDescription.error instanceof MongoError &&
+        incomingServerDescription.error.hasErrorLabel(MongoErrorLabel.ResetPool)
+incomingServerDescription.error.hasErrorLabel(MongoErrorLabel.ResetPool)
+const interruptInUseConnections = incomingServerDescription.error.hasErrorLabel(
+          MongoErrorLabel.InterruptInUseConnections
+        )
+MongoErrorLabel.InterruptInUseConnections
+_tmp_9.interruptInUseConnections = interruptInUseConnections
+incomingServerDescription.error == null
+const newTopologyType = topology.s.description.type
+const shouldMarkPoolReady =
+          incomingServerDescription.isDataBearing ||
+          (incomingServerDescription.type !== ServerType.Unknown &&
+            newTopologyType === TopologyType.Single)
+incomingServerDescription.isDataBearing ||
+          (incomingServerDescription.type !== ServerType.Unknown &&
+            newTopologyType === TopologyType.Single)
+incomingServerDescription.type !== ServerType.Unknown &&
+            newTopologyType === TopologyType.Single
+newTopologyType === TopologyType.Single
+(_tmp_10 = server.pool).ready
+_iterator_3 = <operator>.iterator(topology.description.servers.values())
+!topology.s.servers.has(serverDescription.address)
+const server = createAndConnectServer(topology, serverDescription)
+topology.s.servers.set(serverDescription.address, server)
+_iterator_4 = <operator>.iterator(topology.s.servers)
+const serverAddress = entry[0]
+topology.description.hasServer(serverAddress)
+continue;
+!topology.s.servers.has(serverAddress)
+continue;
+const server = topology.s.servers.get(serverAddress)
+topology.s.servers.delete(serverAddress)
+destroyServer(server, topology)

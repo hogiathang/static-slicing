@@ -1,0 +1,83 @@
+() => {
+    navigationInit()
+
+    function onHydrated() {
+      apiRunner(`onInitialClientRender`)
+
+      // Render query on demand overlay
+      if (
+        process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR &&
+        process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`
+      ) {
+        const indicatorMountElement = document.createElement(`div`)
+        indicatorMountElement.setAttribute(
+          `id`,
+          `query-on-demand-indicator-element`
+        )
+        document.body.append(indicatorMountElement)
+
+        renderer(<LoadingIndicatorEventHandler />, indicatorMountElement)
+      }
+    }
+
+    function App() {
+      const onClientEntryRanRef = React.useRef(false)
+
+      React.useEffect(() => {
+        if (!onClientEntryRanRef.current) {
+          onClientEntryRanRef.current = true
+
+          onHydrated()
+        }
+      }, [])
+
+      return <Root />
+    }
+
+    function runRender() {
+      if (dismissLoadingIndicator) {
+        dismissLoadingIndicator()
+    ...
+navigationInit()
+function onHydrated = function onHydrated() {
+      apiRunner(`onInitialClientRender`)
+
+      // Render query on demand overlay
+      if (
+        process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR &&
+        process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`
+      ) {
+        const indicatorMountElement = document.createElement(`div`)
+        indicatorMountElement.setAttribute(
+          `id`,
+          `query-on-demand-indicator-element`
+        )
+        document.body.append(indicatorMountElement)
+
+        renderer(<LoadingIndicatorEventHandler />, indicatorMountElement)
+      }
+    }
+function App = function App() {
+      const onClientEntryRanRef = React.useRef(false)
+
+      React.useEffect(() => {
+        if (!onClientEntryRanRef.current) {
+          onClientEntryRanRef.current = true
+
+          onHydrated()
+        }
+      }, [])
+
+      return <Root />
+    }
+function runRender = function runRender() {
+      if (dismissLoadingIndicator) {
+        dismissLoadingIndicator()
+      }
+
+      renderer(<App />, rootElement)
+    }
+const doc = document
+doc.readyState === `complete` ||
+      (doc.readyState !== `loading` && !doc.documentElement.doScroll)
+doc.readyState !== `loading` && !doc.documentElement.doScroll

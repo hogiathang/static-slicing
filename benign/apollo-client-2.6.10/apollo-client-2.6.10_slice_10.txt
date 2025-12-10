@@ -1,0 +1,3 @@
+_tmp_6.next = <lambda>7
+resolve(result)
+(_tmp_7 = _this.observers).delete

@@ -1,0 +1,39 @@
+exports.checkSync = function (path, opts) {
+  opts = opts || {}
+  debug('checkSync', path, opts)
+  if (opts.wait) {
+    throw new Error('opts.wait not supported sync for obvious reasons')
+  }
+
+  try {
+    var fd = fs.openSync(path, 'r')
+  } catch (er) {
+    if (er.code !== 'ENOENT') throw er
+    return false
+  }
+
+  if (!opts.stale) {
+    try { fs.closeSync(fd) } catch (er) {}
+    return true
+  }
+
+  // file exists.  however, might be stale
+  if (opts.stale) {
+    try {
+      var st = fs.fstatSync(fd)
+    } finally {
+      fs.closeSync(fd)
+    }
+    var age = Date.now() - st[exports.filetime].getTime()
+    return (age <= opts.stale)
+  }
+}
+opts = opts || {}
+debug('checkSync', path, opts)
+opts.wait
+throw new Error('opts.wait not supported sync for obvious reasons')
+var fd = fs.openSync(path, 'r')
+!opts.stale
+opts.stale
+var st = fs.fstatSync(fd)
+fs.closeSync(fd)

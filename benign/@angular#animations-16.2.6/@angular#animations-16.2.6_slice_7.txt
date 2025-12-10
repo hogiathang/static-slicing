@@ -1,0 +1,9 @@
+defaultToFallback = defaultToFallback === void 0 ? true : defaultToFallback
+const trigger = this._getTrigger(triggerName)
+const player = new TransitionAnimationPlayer(this.id, triggerName, element)
+let triggersWithStates = this._engine.statesByElement.get(element)
+!triggersWithStates
+addClass(element, NG_TRIGGER_CLASSNAME)
+addClass(element, NG_TRIGGER_CLASSNAME + '-' + triggerName)
+this._engine.statesByElement.set(element, triggersWithStates = new Map())
+let fromState = triggersWithStates.get(triggerName)

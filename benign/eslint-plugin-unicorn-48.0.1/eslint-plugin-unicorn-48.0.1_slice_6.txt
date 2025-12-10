@@ -1,0 +1,97 @@
+const checkVariable = variable => {
+		if (variable.defs.length === 0) {
+			return;
+		}
+
+		const [definition] = variable.defs;
+
+		if (isDefaultOrNamespaceImportName(definition.name)) {
+			if (!options.checkDefaultAndNamespaceImports) {
+				return;
+			}
+
+			if (
+				options.checkDefaultAndNamespaceImports === 'internal'
+				&& !isInternalImport(definition)
+			) {
+				return;
+			}
+		}
+
+		if (isShorthandImportLocal(definition.name)) {
+			if (!options.checkShorthandImports) {
+				return;
+			}
+
+			if (
+				options.checkShorthandImports === 'internal'
+				&& !isInternalImport(definition)
+			) {
+				return;
+			}
+		}
+
+		if (
+			!options.checkShorthandProperties
+			&& isShorthandPropertyValue(definition.name)
+		) {
+			return;
+		}
+
+		const variableReplacements = getNameReplacements(variable.name, options);
+
+		if (variableReplacements.total === 0) {
+			return;
+		}
+
+		const scopes = [
+			...variable.references.map(reference => reference.from),
+			variable.scope,
+		];
+		variableReplacements.samples = v...
+variable.defs.length === 0
+_tmp_46 = variable.defs
+isDefaultOrNamespaceImportName(definition.name)
+!options.checkDefaultAndNamespaceImports
+options.checkDefaultAndNamespaceImports === 'internal'
+				&& !isInternalImport(definition)
+!isInternalImport(definition)
+isShorthandImportLocal(definition.name)
+!options.checkShorthandImports
+options.checkShorthandImports === 'internal'
+				&& !isInternalImport(definition)
+!isInternalImport(definition)
+!options.checkShorthandProperties
+			&& isShorthandPropertyValue(definition.name)
+isShorthandPropertyValue(definition.name)
+const variableReplacements = getNameReplacements(variable.name, options)
+variableReplacements.total === 0
+const scopes = [
+			...variable.references.map(reference => reference.from),
+			variable.scope,
+		]
+_tmp_47.push(...variable.references.map(reference => reference.from))
+_tmp_47.push(variable.scope)
+variableReplacements.samples = variableReplacements.samples.map(
+			name => avoidCapture(name, scopes, isSafeName),
+		)
+avoidCapture(name, scopes, isSafeName)
+const problem = {
+			...getMessage(definition.name.name, variableReplacements, 'variable'),
+			node: definition.name,
+		}
+...getMessage(definition.name.name, variableReplacements, 'variable')
+_tmp_50.node = definition.name
+variableReplacements.total === 1
+			&& shouldFix(variable)
+			&& variableReplacements.samples[0]
+			&& !variable.references.some(reference => reference.vueUsedInTemplate)
+shouldFix(variable)
+variableReplacements.samples[0]
+!variable.references.some(reference => reference.vueUsedInTemplate)
+_tmp_52 = variableReplacements.samples
+_iterator_1 = <operator>.iterator(scopes)
+!scopeToNamesGeneratedByFixer.has(scope)
+scopeToNamesGeneratedByFixer.set(scope, new Set())
+const generatedNames = scopeToNamesGeneratedByFixer.get(scope)
+generatedNames.add(replacement)

@@ -1,0 +1,36 @@
+_loadPlugin(name, ctx) {
+        debug("Loading plugin %j from %s", name, ctx.filePath);
+
+        const { additionalPluginPool, resolver } = internalSlotsMap.get(this);
+        const request = naming.normalizePackageName(name, "eslint-plugin");
+        const id = naming.getShorthandName(request, "eslint-plugin");
+        const relativeTo = path.join(ctx.pluginBasePath, "__placeholder__.js");
+
+        if (name.match(/\s+/u)) {
+            const error = Object.assign(
+                new Error(`Whitespace found in plugin name '${name}'`),
+                {
+                    messageTemplate: "whitespace-found",
+                    messageData: { pluginName: request }
+                }
+            );
+
+            return new ConfigDependency({
+                error,
+                id,
+                importerName: ctx.name,
+                importerPath: ctx.filePath
+            });
+        }
+
+        // Check for additional pool.
+        const plugin =
+            additionalPluginPool...
+debug("Loading plugin %j from %s", name, ctx.filePath)
+additionalPluginPool = _tmp_72.additionalPluginPool
+const request = naming.normalizePackageName(name, "eslint-plugin")
+const id = naming.getShorthandName(request, "eslint-plugin")
+const relativeTo = path.join(ctx.pluginBasePath, "__placeholder__.js")
+name.match(/\s+/u)
+additionalPluginPool.get(request) ||
+            additionalPluginPool.get(id)

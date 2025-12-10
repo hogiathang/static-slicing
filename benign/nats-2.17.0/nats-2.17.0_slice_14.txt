@@ -1,0 +1,16 @@
+this.servers.forEach((s, index) => {
+            const u = s.listen;
+            if (s.gossiped && this.currentServer.listen !== u &&
+                discovered.get(u) === undefined) {
+                // server was removed
+                toDelete.push(index);
+            }
+            // remove this entry from reported
+            discovered.delete(u);
+        })
+const u = s.listen
+s.gossiped && this.currentServer.listen !== u &&
+                discovered.get(u) === undefined
+discovered.get(u) === undefined
+toDelete.push(index)
+discovered.delete(u)

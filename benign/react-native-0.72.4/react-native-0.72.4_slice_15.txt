@@ -1,0 +1,38 @@
+function createComponentProvider = function createComponentProvider(
+  fabricEnabled,
+  schemaPaths,
+  node,
+  iosOutputDir,
+) {
+  if (fabricEnabled) {
+    console.log('\n\n>>>>> Creating component provider');
+    // Save the list of spec paths to a temp file.
+    const schemaListTmpPath = `${os.tmpdir()}/rn-tmp-schema-list.json`;
+    const fd = fs.openSync(schemaListTmpPath, 'w');
+    fs.writeSync(fd, JSON.stringify(schemaPaths));
+    fs.closeSync(fd);
+    console.log(`Generated schema list: ${schemaListTmpPath}`);
+
+    const outputDir = path.join(
+      REACT_NATIVE_PACKAGE_ROOT_FOLDER,
+      'React',
+      'Fabric',
+    );
+
+    // Generate FabricComponentProvider.
+    // Only for iOS at this moment.
+    executeNodeScript(
+      node,
+      `${path.join(
+        REACT_NATIVE_PACKAGE_ROOT_FOLDER,
+        'scripts',
+        'generate-provider-cli.js',
+      )} --platform ios --schemaListPath "${schemaListTmpPath}" --outputDir ${outputDir}`,
+    );
+    console.log(`Generated provider in: ${outputDir}`);
+  }
+}
+console.log('\n\n>>>>> Creating component provider')
+<operator>.formatString("", os.tmpdir(), "/rn-tmp-schema-list.json")
+const fd = fs.openSync(schemaListTmpPath, 'w')
+fs.writeSync(fd, JSON.stringify(schemaPaths))

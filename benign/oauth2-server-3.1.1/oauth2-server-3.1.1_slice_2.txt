@@ -1,0 +1,11 @@
+AuthenticateHandler.prototype.getTokenFromRequestHeader = function(request) {
+  var token = request.get('Authorization');
+  var matches = token.match(/Bearer\s(\S+)/);
+
+  if (!matches) {
+    throw new InvalidRequestError('Invalid request: malformed authorization header');
+  }
+
+  return matches[1];
+}
+var token = request.get('Authorization')

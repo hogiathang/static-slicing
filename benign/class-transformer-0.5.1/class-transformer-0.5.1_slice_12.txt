@@ -1,0 +1,14 @@
+addTransformMetadata(metadata) {
+        if (!this._transformMetadatas.has(metadata.target)) {
+            this._transformMetadatas.set(metadata.target, new Map());
+        }
+        if (!this._transformMetadatas.get(metadata.target).has(metadata.propertyName)) {
+            this._transformMetadatas.get(metadata.target).set(metadata.propertyName, []);
+        }
+        this._transformMetadatas.get(metadata.target).get(metadata.propertyName).push(metadata);
+    }
+!this._transformMetadatas.has(metadata.target)
+this._transformMetadatas.set(metadata.target, new Map())
+!this._transformMetadatas.get(metadata.target).has(metadata.propertyName)
+this._transformMetadatas.get(metadata.target).set(metadata.propertyName, [])
+(_tmp_18 = this._transformMetadatas.get(metadata.target).get(metadata.propertyName)).push

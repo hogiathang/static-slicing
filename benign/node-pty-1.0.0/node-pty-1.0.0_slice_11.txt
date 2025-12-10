@@ -1,0 +1,73 @@
+function WindowsPtyAgent = function WindowsPtyAgent(file, args, env, cwd, cols, rows, debug, _useConpty, conptyInheritCursor) {
+        var _this = this;
+        if (conptyInheritCursor === void 0) { conptyInheritCursor = false; }
+        this._useConpty = _useConpty;
+        this._pid = 0;
+        this._innerPid = 0;
+        this._innerPidHandle = 0;
+        if (this._useConpty === undefined || this._useConpty === true) {
+            this._useConpty = this._getWindowsBuildNumber() >= 18309;
+        }
+        if (this._useConpty) {
+            if (!conptyNative) {
+                try {
+                    conptyNative = require('../build/Release/conpty.node');
+                }
+                catch (outerError) {
+                    try {
+                        conptyNative = require('../build/Debug/conpty.node');
+                    }
+                    catch (innerError) {
+                        console.error('innerError', innerError);
+                        // Re-throw the exception from the Release r...
+var _this = this
+conptyInheritCursor === void 0
+this._useConpty = _useConpty
+this._pid = 0
+this._innerPid = 0
+this._innerPidHandle = 0
+this._useConpty === undefined || this._useConpty === true
+this._useConpty = this._getWindowsBuildNumber() >= 18309
+this._useConpty
+!conptyNative
+conptyNative = require('../build/Release/conpty.node')
+conptyNative = require('../build/Debug/conpty.node')
+console.error('innerError', innerError)
+throw outerError;
+!winptyNative
+winptyNative = require('../build/Release/pty.node')
+winptyNative = require('../build/Debug/pty.node')
+console.error('innerError', innerError)
+throw outerError;
+this._ptyNative = this._useConpty ? conptyNative : winptyNative
+cwd = path.resolve(cwd)
+var commandLine = argsToCommandLine(file, args)
+this._useConpty
+term = this._ptyNative.startProcess(file, cols, rows, debug, this._generatePipeName(), conptyInheritCursor)
+term = this._ptyNative.startProcess(file, commandLine, env, cwd, cols, rows, debug)
+this._pid = term.pid
+this._innerPid = term.innerPid
+this._innerPidHandle = term.innerPidHandle
+this._fd = term.fd
+this._pty = term.pty
+this._outSocket = new net_1.Socket()
+(_tmp_6 = this._outSocket).setEncoding
+this._conoutSocketWorker = new windowsConoutConnection_1.ConoutConnection(term.conout)
+this._conoutSocketWorker.onReady(function () {
+            _this._conoutSocketWorker.connectSocket(_this._outSocket);
+        })
+this._outSocket.on('connect', function () {
+            _this._outSocket.emit('ready_datapipe');
+        })
+var inSocketFD = fs.openSync(term.conin, 'w')
+this._inSocket = new net_1.Socket({
+            fd: inSocketFD,
+            readable: false,
+            writable: true
+        })
+_tmp_13.fd = inSocketFD
+_tmp_13.readable = false
+_tmp_13.writable = true
+(_tmp_14 = this._inSocket).setEncoding
+this._useConpty
+var connect = this._ptyNative.connect(this._pty, commandLine, cwd, env, function (c) { return _this._$onProcessExit(c); })

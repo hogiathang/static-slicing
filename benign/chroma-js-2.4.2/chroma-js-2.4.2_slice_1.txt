@@ -1,0 +1,21 @@
+var distance = function(a, b, mode) {
+        if ( mode === void 0 ) mode='lab';
+
+        // Delta E (CIE 1976)
+        // see http://www.brucelindbloom.com/index.html?Equations.html
+        a = new Color$1(a);
+        b = new Color$1(b);
+        var l1 = a.get(mode);
+        var l2 = b.get(mode);
+        var sum_sq = 0;
+        for (var i in l1) {
+            var d = (l1[i] || 0) - (l2[i] || 0);
+            sum_sq += d*d;
+        }
+        return Math.sqrt(sum_sq);
+    }
+mode === void 0
+a = new Color$1(a)
+b = new Color$1(b)
+var l1 = a.get(mode)
+var l2 = b.get(mode)

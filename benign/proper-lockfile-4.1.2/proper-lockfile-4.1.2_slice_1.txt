@@ -1,0 +1,55 @@
+options.fs.stat(lock.lockfilePath, (err, stat) => {
+            const isOverThreshold = lock.lastUpdate + options.stale < Date.now();
+
+            // If it failed to update the lockfile, keep trying unless
+            // the lockfile was deleted or we are over the threshold
+            if (err) {
+                if (err.code === 'ENOENT' || isOverThreshold) {
+                    return setLockAsCompromised(file, lock, Object.assign(err, { code: 'ECOMPROMISED' }));
+                }
+
+                lock.updateDelay = 1000;
+
+                return updateLock(file, options);
+            }
+
+            const isMtimeOurs = lock.mtime.getTime() === stat.mtime.getTime();
+
+            if (!isMtimeOurs) {
+                return setLockAsCompromised(
+                    file,
+                    lock,
+                    Object.assign(
+                        new Error('Unable to update lock within the stale threshold'),
+                        { code: 'ECOMPROMISED' }
+                    ))...
+const isOverThreshold = lock.lastUpdate + options.stale < Date.now()
+const isMtimeOurs = lock.mtime.getTime() === stat.mtime.getTime()
+!isMtimeOurs
+const mtime = mtimePrecision.getMtime(lock.mtimePrecision)
+options.fs.utimes(lock.lockfilePath, mtime, mtime, (err) => {
+                const isOverThreshold = lock.lastUpdate + options.stale < Date.now();
+
+                // Ignore if the lock was released
+                if (lock.released) {
+                    return;
+                }
+
+                // If it failed to update the lockfile, keep trying unless
+                // the lockfile was deleted or we are over the threshold
+                if (err) {
+                    if (err.code === 'ENOENT' || isOverThreshold) {
+                        return setLockAsCompromised(file, lock, Object.assign(err, { code: 'ECOMPROMISED' }));
+                    }
+
+                    lock.updateDelay = 1000;
+
+                    return updateLock(file, options);
+                }
+
+                // All ok, keep updating..
+                lock.mtime = mtime;
+                lock.lastUpdate = Date.now();
+                lock.updateDelay = null;
+                updateLock(file, options);
+        ...

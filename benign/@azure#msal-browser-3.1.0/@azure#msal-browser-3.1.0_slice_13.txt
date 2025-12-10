@@ -1,0 +1,40 @@
+addQueueMeasurement(eventName, correlationId, queueTime, manuallyCompleted) {
+        if (!correlationId) {
+            this.logger.trace(`PerformanceClient.addQueueMeasurement: correlationId not provided for ${eventName}, cannot add queue measurement`);
+            return;
+        }
+        if (queueTime === 0) {
+            // Possible for there to be no queue time after calculation
+            this.logger.trace(`PerformanceClient.addQueueMeasurement: queue time provided for ${eventName} is ${queueTime}`);
+        }
+        else if (!queueTime) {
+            this.logger.trace(`PerformanceClient.addQueueMeasurement: no queue time provided for ${eventName}`);
+            return;
+        }
+        const queueMeasurement = {
+            eventName,
+            queueTime,
+            manuallyCompleted,
+        };
+        // Adds to existing correlation Id if present in queueMeasurements
+        const existingMeasurements = this.queueMeasurements.get(correlationId);
+        if (existingM...
+!correlationId
+queueTime === 0
+<operator>.formatString("PerformanceClient.addQueueMeasurement: queue time provided for ", eventName, " is ", queueTime, "")
+!queueTime
+const queueMeasurement = {
+            eventName,
+            queueTime,
+            manuallyCompleted,
+        }
+_tmp_915.eventName = eventName
+_tmp_915.queueTime = queueTime
+_tmp_915.manuallyCompleted = manuallyCompleted
+const existingMeasurements = this.queueMeasurements.get(correlationId)
+existingMeasurements.push(queueMeasurement)
+this.queueMeasurements.set(correlationId, existingMeasurements)
+<operator>.formatString("PerformanceClient.addQueueMeasurement: adding correlationId ", correlationId, " to queue measurements")
+const measurementArray = [queueMeasurement]
+this.queueMeasurements.set(correlationId, measurementArray)
+this.preQueueTimeByCorrelationId.delete(correlationId)

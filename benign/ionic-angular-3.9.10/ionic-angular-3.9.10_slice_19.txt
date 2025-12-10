@@ -1,0 +1,20 @@
+function Button = function Button(ionButton, config, elementRef, renderer) {
+            var _this = _super.call(this, config, elementRef, renderer) || this;
+            /** @hidden */
+            _this._role = 'button'; // bar-button
+            /** @hidden */
+            _this._style = 'default'; // outline/clear/solid
+            _this._mode = config.get('mode');
+            if (config.get('hoverCSS') === false) {
+                _this.setElementClass('disable-hover', true);
+            }
+            if (ionButton.trim().length > 0) {
+                _this.setRole(ionButton);
+            }
+            return _this;
+        }
+var _this = _super.call(this, config, elementRef, renderer) || this
+_this._role = 'button'
+_this._style = 'default'
+_this._mode = config.get('mode')
+config.get('hoverCSS') === false

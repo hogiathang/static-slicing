@@ -1,0 +1,69 @@
+async set (args) {
+    const conf = { ...this.npm.flatOptions }
+    const prop = (args[0] || '').toLowerCase().trim()
+
+    let value = args.length > 1 ? args.slice(1).join(' ') : null
+
+    const readPasswords = async () => {
+      const newpassword = await readUserInfo.password('New password: ')
+      const confirmedpassword = await readUserInfo.password('       Again:     ')
+
+      if (newpassword !== confirmedpassword) {
+        log.warn('profile', 'Passwords do not match, please try again.')
+        return readPasswords()
+      }
+
+      return newpassword
+    }
+
+    if (prop !== 'password' && value === null) {
+      throw new Error('npm profile set <prop> <value>')
+    }
+
+    if (prop === 'password' && value !== null) {
+      throw new Error(
+        'npm profile set password\n' +
+        'Do not include your current or new passwords on the command line.')
+    }
+
+    if (writableProfileKeys.indexOf(prop) === -1) {
+      throw new Error(`"${prop}" is not a property we can set. ` +...
+const conf = { ...this.npm.flatOptions }
+const prop = (args[0] || '').toLowerCase().trim()
+let value = args.length > 1 ? args.slice(1).join(' ') : null
+const readPasswords = async () => {
+      const newpassword = await readUserInfo.password('New password: ')
+      const confirmedpassword = await readUserInfo.password('       Again:     ')
+
+      if (newpassword !== confirmedpassword) {
+        log.warn('profile', 'Passwords do not match, please try again.')
+        return readPasswords()
+      }
+
+      return newpassword
+    }
+prop !== 'password' && value === null
+throw new Error('npm profile set <prop> <value>')
+prop === 'password' && value !== null
+throw new Error(
+        'npm profile set password\n' +
+        'Do not include your current or new passwords on the command line.')
+'npm profile set password\n' +
+        'Do not include your current or new passwords on the command line.'
+"Do not include your current or new passwords on the command line."
+writableProfileKeys.indexOf(prop) === -1
+throw new Error(`"${prop}" is not a property we can set. ` +
+        `Valid properties are: ` + writableProfileKeys.join(', '))
+writableProfileKeys.join(', ')
+prop === 'password'
+const current = await readUserInfo.password('Current password: ')
+const newpassword = await readPasswords()
+value = { old: current, new: newpassword }
+const user = await pulseTillDone.withPromise(npmProfile.get(conf))
+const newUser = {}
+_iterator_4 = <operator>.iterator(writableProfileKeys)
+newUser[key] = user[key]
+newUser[prop] = value
+const result = await otplease(this.npm, conf, c => npmProfile.set(newUser, c))
+(_tmp_35 = this.npm.config).get
+this.npm.output(JSON.stringify({ [prop]: result[prop] }, null, 2))

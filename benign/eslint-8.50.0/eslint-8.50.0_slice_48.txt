@@ -1,0 +1,4 @@
+_tmp_13.onCodePathSegmentLoop = onCodePathSegmentLoop
+const loop = loopsByTargetSegments.get(toSegment)
+node === loop || node.type === "ContinueStatement"
+loopsToReport.delete(loop)

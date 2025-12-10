@@ -1,0 +1,9 @@
+function <lambda>1 = function(value) {
+  var id = this._id;
+
+  return arguments.length
+      ? this.each(easeConstant(id, value))
+      : get(this.node(), id).ease;
+}
+var id = this._id
+arguments.length ? this.each(easeConstant(id, value)) : get(this.node(), id).ease

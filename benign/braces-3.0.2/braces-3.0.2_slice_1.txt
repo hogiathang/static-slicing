@@ -1,0 +1,201 @@
+const parse = (input, options = {}) => {
+  if (typeof input !== 'string') {
+    throw new TypeError('Expected a string');
+  }
+
+  let opts = options || {};
+  let max = typeof opts.maxLength === 'number' ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
+  if (input.length > max) {
+    throw new SyntaxError(`Input length (${input.length}), exceeds max characters (${max})`);
+  }
+
+  let ast = { type: 'root', input, nodes: [] };
+  let stack = [ast];
+  let block = ast;
+  let prev = ast;
+  let brackets = 0;
+  let length = input.length;
+  let index = 0;
+  let depth = 0;
+  let value;
+  let memo = {};
+
+  /**
+   * Helpers
+   */
+
+  const advance = () => input[index++];
+  const push = node => {
+    if (node.type === 'text' && prev.type === 'dot') {
+      prev.type = 'text';
+    }
+
+    if (prev && prev.type === 'text' && node.type === 'text') {
+      prev.value += node.value;
+      return;
+    }
+
+    block.nodes.push(node);
+    node.parent = block;
+    node.prev = prev;
+    prev = node;
+    return no...
+typeof input !== 'string'
+throw new TypeError('Expected a string');
+let opts = options || {}
+let max = typeof opts.maxLength === 'number' ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH
+input.length > max
+<operator>.formatString("Input length (", input.length, "), exceeds max characters (", max, ")")
+let ast = { type: 'root', input, nodes: [] }
+_tmp_6 = __ecma.Array.factory()
+let block = ast
+let prev = ast
+let brackets = 0
+let length = input.length
+let index = 0
+let depth = 0
+let memo = {}
+const advance = () => input[index++]
+const push = node => {
+    if (node.type === 'text' && prev.type === 'dot') {
+      prev.type = 'text';
+    }
+
+    if (prev && prev.type === 'text' && node.type === 'text') {
+      prev.value += node.value;
+      return;
+    }
+
+    block.nodes.push(node);
+    node.parent = block;
+    node.prev = prev;
+    prev = node;
+    return node;
+  }
+push({ type: 'bos' })
+index < length
+block = stack[stack.length - 1]
+value = advance()
+value === CHAR_ZERO_WIDTH_NOBREAK_SPACE || value === CHAR_NO_BREAK_SPACE
+continue;
+value === CHAR_BACKSLASH
+push({ type: 'text', value: (options.keepEscaping ? value : '') + advance() })
+continue;
+value === CHAR_RIGHT_SQUARE_BRACKET
+push({ type: 'text', value: '\\' + value })
+continue;
+value === CHAR_LEFT_SQUARE_BRACKET
+brackets++
+let closed = true
+index < length && (next = advance())
+value += next
+next === CHAR_LEFT_SQUARE_BRACKET
+brackets++
+continue;
+next === CHAR_BACKSLASH
+value += advance()
+continue;
+next === CHAR_RIGHT_SQUARE_BRACKET
+brackets--
+brackets === 0
+break;
+push({ type: 'text', value })
+continue;
+value === CHAR_LEFT_PARENTHESES
+block = push({ type: 'paren', nodes: [] })
+stack.push(block)
+push({ type: 'text', value })
+continue;
+value === CHAR_RIGHT_PARENTHESES
+block.type !== 'paren'
+push({ type: 'text', value })
+continue;
+block = stack.pop()
+push({ type: 'text', value })
+block = stack[stack.length - 1]
+continue;
+value === CHAR_DOUBLE_QUOTE || value === CHAR_SINGLE_QUOTE || value === CHAR_BACKTICK
+let open = value
+options.keepQuotes !== true
+value = ''
+index < length && (next = advance())
+next === CHAR_BACKSLASH
+value += next + advance()
+continue;
+next === open
+options.keepQuotes === true
+break;
+value += next
+push({ type: 'text', value })
+continue;
+value === CHAR_LEFT_CURLY_BRACE
+depth++
+let dollar = prev.value && prev.value.slice(-1) === '$' || block.dollar === true
+let brace = {
+        type: 'brace',
+        open: true,
+        close: false,
+        dollar,
+        depth,
+        commas: 0,
+        ranges: 0,
+        nodes: []
+      }
+_tmp_19.type = "brace"
+_tmp_19.open = true
+_tmp_19.close = false
+_tmp_19.dollar = dollar
+_tmp_19.depth = depth
+_tmp_19.commas = 0
+_tmp_19.ranges = 0
+_tmp_19.nodes = __ecma.Array.factory()
+block = push(brace)
+stack.push(block)
+push({ type: 'open', value })
+continue;
+value === CHAR_RIGHT_CURLY_BRACE
+block.type !== 'brace'
+push({ type: 'text', value })
+continue;
+let type = 'close'
+block = stack.pop()
+block.close = true
+push({ type, value })
+depth--
+block = stack[stack.length - 1]
+continue;
+value === CHAR_COMMA && depth > 0
+block.ranges > 0
+block.ranges = 0
+let open = block.nodes.shift()
+block.nodes = [open, { type: 'text', value: stringify(block) }]
+push({ type: 'comma', value })
+block.commas++
+continue;
+value === CHAR_DOT && depth > 0 && block.commas === 0
+let siblings = block.nodes
+depth === 0 || siblings.length === 0
+push({ type: 'text', value })
+continue;
+prev.type === 'dot'
+__ecma.Array.factory()
+prev.value += value
+prev.type = 'range'
+block.nodes.length !== 3 && block.nodes.length !== 5
+block.invalid = true
+block.ranges = 0
+prev.type = 'text'
+continue;
+block.ranges++
+__ecma.Array.factory()
+continue;
+prev.type === 'range'
+siblings.pop()
+let before = siblings[siblings.length - 1]
+before.value += prev.value + value
+prev = before
+block.ranges--
+continue;
+push({ type: 'dot', value })
+continue;
+push({ type: 'text', value })

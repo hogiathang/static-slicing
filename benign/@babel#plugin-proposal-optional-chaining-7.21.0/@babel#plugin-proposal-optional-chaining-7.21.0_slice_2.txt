@@ -1,0 +1,60 @@
+function transform = function transform(path, {
+  pureGetters,
+  noDocumentAll
+}) {
+  const {
+    scope
+  } = path;
+  const maybeWrapped = findOutermostTransparentParent(path);
+  const {
+    parentPath
+  } = maybeWrapped;
+  const willReplacementCastToBoolean = willPathCastToBoolean(maybeWrapped);
+  let isDeleteOperation = false;
+  const parentIsCall = parentPath.isCallExpression({
+    callee: maybeWrapped.node
+  }) && path.isOptionalMemberExpression();
+  const optionals = [];
+  let optionalPath = path;
+  if (scope.path.isPattern() && needsMemoize(optionalPath)) {
+    path.replaceWith(core.template.ast`(() => ${path.node})()`);
+    return;
+  }
+  while (optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()) {
+    const {
+      node
+    } = optionalPath;
+    if (node.optional) {
+      optionals.push(node);
+    }
+    if (optionalPath.isOptionalMemberExpression()) {
+      optionalPath.node.type = "MemberExpression";
+      optionalPath = helperSkipTransparentExpressionWrappers.s...
+pureGetters = param2_0.pureGetters
+noDocumentAll = param2_0.noDocumentAll
+_tmp_11 = path
+scope = _tmp_11.scope
+const maybeWrapped = findOutermostTransparentParent(path)
+_tmp_12 = maybeWrapped
+parentPath = _tmp_12.parentPath
+const willReplacementCastToBoolean = willPathCastToBoolean(maybeWrapped)
+let isDeleteOperation = false
+const parentIsCall = parentPath.isCallExpression({
+    callee: maybeWrapped.node
+  }) && path.isOptionalMemberExpression()
+_tmp_13.callee = maybeWrapped.node
+path.isOptionalMemberExpression()
+__ecma.Array.factory()
+let optionalPath = path
+scope.path.isPattern() && needsMemoize(optionalPath)
+optionalPath.isOptionalMemberExpression() || optionalPath.isOptionalCallExpression()
+_tmp_17 = optionalPath
+node = _tmp_17.node
+node.optional
+optionals.push(node)
+optionalPath.isOptionalMemberExpression()
+optionalPath.node.type = "MemberExpression"
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("object"))
+optionalPath.isOptionalCallExpression()
+optionalPath.node.type = "CallExpression"
+optionalPath = helperSkipTransparentExpressionWrappers.skipTransparentExprWrappers(optionalPath.get("callee"))

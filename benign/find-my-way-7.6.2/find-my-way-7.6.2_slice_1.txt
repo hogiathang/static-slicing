@@ -1,0 +1,18 @@
+_buildConstraintStore (store, constraint) {
+    for (let i = 0; i < this.handlers.length; i++) {
+      const handler = this.handlers[i]
+      const constraintValue = handler.constraints[constraint]
+      if (constraintValue !== undefined) {
+        let indexes = store.get(constraintValue) || 0
+        indexes |= 1 << i // set the i-th bit for the mask because this handler is constrained by this value https://stackoverflow.com/questions/1436438/how-do-you-set-clear-and-toggle-a-single-bit-in-javascrip
+        store.set(constraintValue, indexes)
+      }
+    }
+  }
+i < this.handlers.length
+const handler = this.handlers[i]
+const constraintValue = handler.constraints[constraint]
+constraintValue !== undefined
+let indexes = store.get(constraintValue) || 0
+indexes |= 1 << i
+store.set(constraintValue, indexes)

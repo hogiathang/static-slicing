@@ -1,0 +1,29 @@
+const moveSync = (from, to, options) => {
+  const opts = parseOptions(options);
+
+  if (exists.sync(to) !== false && opts.overwrite !== true) {
+    throw generateDestinationExistsError(to);
+  }
+
+  // We now have permission to overwrite, since either `opts.overwrite` is true
+  // or the destination does not exist (in which overwriting is irrelevant).
+
+  try {
+    // If destination is a file, `fs.renameSync` will overwrite it.
+    fs.renameSync(from, to);
+  } catch (err) {
+    if (err.code === "EISDIR" || err.code === "EPERM") {
+      // Looks like the destination path is a directory in the same device,
+      // so we can remove it and call `fs.renameSync` again.
+      remove.sync(to);
+      fs.renameSync(from, to);
+    } else if (err.code === "EXDEV") {
+      // The destination path is in another device.
+      copy.sync(from, to, { overwrite: true });
+      remove.sync(from);
+    } else if (err.code === "ENOENT") {
+      // This can be caused by either the source not existing or one or more...
+const opts = parseOptions(options)
+exists.sync(to) !== false && opts.overwrite !== true
+throw generateDestinationExistsError(to);
+fs.renameSync(from, to)

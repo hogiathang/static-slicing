@@ -1,0 +1,172 @@
+module.exports = Writer
+var fs = require('graceful-fs')
+var inherits = require('inherits')
+var rimraf = require('rimraf')
+var mkdir = require('mkdirp')
+var path = require('path')
+var umask = process.platform === 'win32' ? 0 : process.umask()
+function Writer = function Writer (props, current) {
+  var self = this
+
+  if (typeof props === 'string') {
+    props = { path: props }
+  }
+
+  // polymorphism.
+  // call fstream.Writer(dir) to get a DirWriter object, etc.
+  var type = getType(props)
+  var ClassType = Writer
+
+  switch (type) {
+    case 'Directory':
+      ClassType = DirWriter
+      break
+    case 'File':
+      ClassType = FileWriter
+      break
+    case 'Link':
+    case 'SymbolicLink':
+      ClassType = LinkWriter
+      break
+    case null:
+    default:
+      // Don't know yet what type to create, so we wrap in a proxy.
+      ClassType = ProxyWriter
+      break
+  }
+
+  if (!(self instanceof ClassType)) return new ClassType(props)
+
+  // now get down to business.
+
+  Abstract.call(self)
+
+  if (!props.path) self.error('Must provide a path', null, true)
+
+  // props is what we want to set.
+  // set some convenience properties as well.
+  self.type = props.type
+  self.props = props
+  self.depth = props.depth || 0
+  self.clobber = props.clobber ...
+function create = function create (self) {
+  // console.error("W create", self._path, Writer.dirmode)
+
+  // XXX Need to clobber non-dirs that are in the way,
+  // unless { clobber: false } in the props.
+  mkdir(path.dirname(self._path), Writer.dirmode, function (er, made) {
+    // console.error("W created", path.dirname(self._path), er)
+    if (er) return self.error(er)
+
+    // later on, we have to set the mode and owner for these
+    self._madeDir = made
+    return self._create()
+  })
+}
+function endChmod = function endChmod (self, want, current, path, cb) {
+  var wantMode = want.mode
+  var chmod = want.follow || self.type !== 'SymbolicLink'
+    ? 'chmod' : 'lchmod'
+
+  if (!fs[chmod]) return cb()
+  if (typeof wantMode !== 'number') return cb()
+
+  var curMode = current.mode & parseInt('0777', 8)
+  wantMode = wantMode & parseInt('0777', 8)
+  if (wantMode === curMode) return cb()
+
+  fs[chmod](path, wantMode, cb)
+}
+function endChown = function endChown (self, want, current, path, cb) {
+  // Don't even try it unless root.  Too easy to EPERM.
+  if (process.platform === 'win32') return cb()
+  if (!process.getuid || process.getuid() !== 0) return cb()
+  if (typeof want.uid !== 'number' &&
+    typeof want.gid !== 'number') return cb()
+
+  if (current.uid === want.uid &&
+    current.gid === want.gid) return cb()
+
+  var chown = (self.props.follow || self.type !== 'SymbolicLink')
+    ? 'chown' : 'lchown'
+  if (!fs[chown]) return cb()
+
+  if (typeof want.uid !== 'number') want.uid = current.uid
+  if (typeof want.gid !== 'number') want.gid = current.gid
+
+  fs[chown](path, want.uid, want.gid, cb)
+}
+function endUtimes = function endUtimes (self, want, current, path, cb) {
+  if (!fs.utimes || process.platform === 'win32') return cb()
+
+  var utimes = (want.follow || self.type !== 'SymbolicLink')
+    ? 'utimes' : 'lutimes'
+
+  if (utimes === 'lutimes' && !fs[utimes]) {
+    utimes = 'utimes'
+  }
+
+  if (!fs[utimes]) return cb()
+
+  var curA = current.atime
+  var curM = current.mtime
+  var meA = want.atime
+  var meM = want.mtime
+
+  if (meA === undefined) meA = curA
+  if (meM === undefined) meM = curM
+
+  if (!isDate(meA)) meA = new Date(meA)
+  if (!isDate(meM)) meA = new Date(meM)
+
+  if (meA.getTime() === curA.getTime() &&
+    meM.getTime() === curM.getTime()) return cb()
+
+  fs[utimes](path, meA, meM, cb)
+}
+function endMadeDir = function endMadeDir (self, p, cb) {
+  var made = self._madeDir
+  // everything *between* made and path.dirname(self._path)
+  // needs to be set up.  Note that this may just be one dir.
+  var d = path.dirname(p)
+
+  endMadeDir_(self, d, function (er) {
+    if (er) return cb(er)
+    if (d === made) {
+      return cb()
+    }
+    endMadeDir(self, d, cb)
+  })
+}
+function endMadeDir_ = function endMadeDir_ (self, p, cb) {
+  var dirProps = {}
+  Object.keys(self.props).forEach(function (k) {
+    dirProps[k] = self.props[k]
+
+    // only make non-readable dirs if explicitly requested.
+    if (k === 'mode' && self.type !== 'Directory') {
+      dirProps[k] = dirProps[k] | parseInt('0111', 8)
+    }
+  })
+
+  var todo = 3
+  var errState = null
+  fs.stat(p, function (er, current) {
+    if (er) return cb(errState = er)
+    endChmod(self, dirProps, current, p, next)
+    endChown(self, dirProps, current, p, next)
+    endUtimes(self, dirProps, current, p, next)
+  })
+
+  function next (er) {
+    if (errState) return
+    if (er) return cb(errState = er)
+    if (--todo === 0) return cb()
+  }
+}
+function objectToString = function objectToString (d) {
+  return Object.prototype.toString.call(d)
+}
+function isDate = function isDate (d) {
+  return typeof d === 'object' && objectToString(d) === '[object Date]'
+}

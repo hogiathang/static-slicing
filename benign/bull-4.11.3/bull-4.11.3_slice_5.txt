@@ -1,0 +1,81 @@
+Job.prototype.moveToFailed = async function(err, ignoreLock) {
+  err = err || { message: 'Unknown reason' };
+
+  this.failedReason = err.message;
+
+  await this.queue.isReady();
+
+  let command;
+  const multi = this.queue.client.multi();
+  this._saveAttempt(multi, err);
+
+  // Check if an automatic retry should be performed
+  let moveToFailed = false;
+  if (this.attemptsMade < this.opts.attempts && !this._discarded) {
+    // Check if backoff is needed
+    const delay = await backoffs.calculate(
+      this.opts.backoff,
+      this.attemptsMade,
+      this.queue.settings.backoffStrategies,
+      err,
+      _.get(this, 'opts.backoff.options', null)
+    );
+
+    if (delay === -1) {
+      // If delay is -1, we should no continue retrying
+      moveToFailed = true;
+    } else if (delay) {
+      // If so, move to delayed (need to unlock job in this case!)
+      const args = scripts.moveToDelayedArgs(
+        this.queue,
+        this.id,
+        Date.now() + delay,
+        ignoreLock
+      );
+  ...
+err = err || { message: 'Unknown reason' }
+this.failedReason = err.message
+(_tmp_27 = this.queue).isReady
+const multi = this.queue.client.multi()
+this._saveAttempt(multi, err)
+let moveToFailed = false
+this.attemptsMade < this.opts.attempts && !this._discarded
+const delay = await backoffs.calculate(
+      this.opts.backoff,
+      this.attemptsMade,
+      this.queue.settings.backoffStrategies,
+      err,
+      _.get(this, 'opts.backoff.options', null)
+    )
+this.opts.backoff
+this.attemptsMade
+this.queue.settings.backoffStrategies
+_.get(this, 'opts.backoff.options', null)
+delay === -1
+moveToFailed = true
+const args = scripts.moveToDelayedArgs(
+        this.queue,
+        this.id,
+        Date.now() + delay,
+        ignoreLock
+      )
+this.queue
+this.id
+Date.now() + delay
+multi.moveToDelayed(args)
+command = 'delayed'
+multi.retryJob(scripts.retryJobArgs(this, ignoreLock))
+command = 'retry'
+moveToFailed = true
+this.finishedOn = Date.now()
+const args = scripts.moveToFailedArgs(
+      this,
+      err.message,
+      this.opts.removeOnFail,
+      ignoreLock
+    )
+err.message
+this.opts.removeOnFail
+multi.moveToFinished(args)
+command = 'failed'
+const results = await multi.exec()

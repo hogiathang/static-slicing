@@ -1,0 +1,16 @@
+getInstanceByInquirerId(contextId, inquirerId) {
+        let collectionPerContext = this.transientMap.get(inquirerId);
+        if (!collectionPerContext) {
+            collectionPerContext = new WeakMap();
+            this.transientMap.set(inquirerId, collectionPerContext);
+        }
+        const instancePerContext = collectionPerContext.get(contextId);
+        return instancePerContext
+            ? instancePerContext
+            : this.cloneTransientInstance(contextId, inquirerId);
+    }
+let collectionPerContext = this.transientMap.get(inquirerId)
+!collectionPerContext
+collectionPerContext = new WeakMap()
+this.transientMap.set(inquirerId, collectionPerContext)
+const instancePerContext = collectionPerContext.get(contextId)

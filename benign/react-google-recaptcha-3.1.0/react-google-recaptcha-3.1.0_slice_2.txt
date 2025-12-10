@@ -1,0 +1,8 @@
+new Promise((resolve, reject) => {
+      this.executionResolve = resolve;
+      this.executionReject = reject;
+      this.execute();
+    })
+this.executionResolve = resolve
+this.executionReject = reject
+this.execute()

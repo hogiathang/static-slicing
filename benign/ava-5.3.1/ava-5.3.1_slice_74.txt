@@ -1,0 +1,15 @@
+const teardownFn = async () => {
+			if (done) {
+				return;
+			}
+
+			done = true;
+			if (activeTestWorkers.has(this.id)) {
+				activeTestWorkers.get(this.id).teardownFns.delete(teardownFn);
+			}
+
+			await fn();
+		}
+done = true
+activeTestWorkers.has(this.id)
+activeTestWorkers.get(this.id).teardownFns.delete(teardownFn)

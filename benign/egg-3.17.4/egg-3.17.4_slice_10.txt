@@ -1,0 +1,9 @@
+broadcast(action, data) {
+    debug('[%s] broadcast %s with %j', this.pid, action, data);
+    this.send(action, data, 'app');
+    this.send(action, data, 'agent');
+    return this;
+  }
+debug('[%s] broadcast %s with %j', this.pid, action, data)
+this.send(action, data, 'app')
+this.send(action, data, 'agent')

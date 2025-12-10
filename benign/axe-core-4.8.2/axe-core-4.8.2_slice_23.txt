@@ -1,0 +1,25 @@
+_tmp_3078.value = resolveCoord
+var coordType = type(ref)
+coordType === 'string'
+ref.includes('.')
+var _ref$split = ref.split('.')
+var _ref$split2 = _slicedToArray(_ref$split, 2)
+space = _ref$split2[0]
+coord = _ref$split2[1]
+space = void 0
+coord = ref
+Array.isArray(ref)
+var _ref43 = _slicedToArray(ref, 2)
+space = _ref43[0]
+coord = _ref43[1]
+space = ref.space
+coord = ref.coordId
+space = _ColorSpace.get(space)
+!space
+space = workingSpace
+!space
+throw new TypeError('Cannot resolve coordinate reference '.concat(ref, ': No color space specified and relative references are not allowed here'));
+coordType = type(coord)
+coordType === 'number' || coordType === 'string' && coord >= 0
+var meta = Object.entries(space.coords)[coord]
+space = _ColorSpace.get(space)

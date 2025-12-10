@@ -1,0 +1,12 @@
+async _registerToConnectionEvents() {
+    this.connection.on('nodeTopologyChange', this._nodeTopologyChangeHandler.bind(this));
+    this.connection.on('nodeStatusChange', this._nodeStatusChangeHandler.bind(this));
+    this.connection.on('nodeSchemaChange', this._nodeSchemaChangeHandler.bind(this));
+    const request = new requests.RegisterRequest(['TOPOLOGY_CHANGE', 'STATUS_CHANGE', 'SCHEMA_CHANGE']);
+    await this.connection.send(request, null);
+  }
+this.connection.on('nodeTopologyChange', this._nodeTopologyChangeHandler.bind(this))
+this.connection.on('nodeStatusChange', this._nodeStatusChangeHandler.bind(this))
+this.connection.on('nodeSchemaChange', this._nodeSchemaChangeHandler.bind(this))
+const request = new requests.RegisterRequest(['TOPOLOGY_CHANGE', 'STATUS_CHANGE', 'SCHEMA_CHANGE'])
+await this.connection.send(request, null)

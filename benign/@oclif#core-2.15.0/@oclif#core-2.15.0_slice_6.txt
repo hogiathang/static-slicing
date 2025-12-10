@@ -1,0 +1,28 @@
+loadTopics(plugin) {
+        const marker = performance_1.Performance.mark(`config.loadTopics#${plugin.name}`, { plugin: plugin.name });
+        for (const topic of (0, util_2.compact)(plugin.topics)) {
+            const existing = this._topics.get(topic.name);
+            if (existing) {
+                existing.description = topic.description || existing.description;
+                existing.hidden = existing.hidden || topic.hidden;
+            }
+            else {
+                this._topics.set(topic.name, topic);
+            }
+            const permutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(topic.name) : [topic.name];
+            for (const permutation of permutations) {
+                this.topicPermutations.add(permutation, topic.name);
+            }
+        }
+        // Add missing topics for displaying help when partial commands are entered.
+        for (const c of plugin.commands.filter(c => !c.hidden)) {
+            const parts = c.id.split('...
+const marker = performance_1.Performance.mark(`config.loadTopics#${plugin.name}`, { plugin: plugin.name })
+_iterator_12 = <operator>.iterator((0, util_2.compact)(plugin.topics))
+const existing = this._topics.get(topic.name)
+existing.description = topic.description || existing.description
+existing.hidden = existing.hidden || topic.hidden
+this._topics.set(topic.name, topic)
+const permutations = this.flexibleTaxonomy ? (0, util_2.getCommandIdPermutations)(topic.name) : [topic.name]
+_iterator_13 = <operator>.iterator(permutations)
+this.topicPermutations.add(permutation, topic.name)

@@ -1,0 +1,29 @@
+function formatter(locale: string | undefined, date: Date): string {
+    const localeWithDefault = locale || getUserLocale();
+
+    if (!formatterCache.has(localeWithDefault)) {
+      formatterCache.set(localeWithDefault, new Map());
+    }
+
+    const formatterCacheLocale = formatterCache.get(localeWithDefault);
+
+    if (!formatterCacheLocale.has(options)) {
+      formatterCacheLocale.set(
+        options,
+        new Intl.DateTimeFormat(localeWithDefault || undefined, options).format,
+      );
+    }
+
+    return formatterCacheLocale.get(options)(date);
+  }
+const localeWithDefault = locale || getUserLocale()
+!formatterCache.has(localeWithDefault)
+formatterCache.set(localeWithDefault, new Map())
+const formatterCacheLocale = formatterCache.get(localeWithDefault)
+!formatterCacheLocale.has(options)
+formatterCacheLocale.set(
+        options,
+        new Intl.DateTimeFormat(localeWithDefault || undefined, options).format,
+      )
+new Intl.DateTimeFormat(localeWithDefault || undefined, options).format
+formatterCacheLocale.get(options)(date)

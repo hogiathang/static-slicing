@@ -1,0 +1,16 @@
+new Promise((resolve, reject) => {
+    exec('git config --get remote.origin.url', { cwd }, (err, stdout) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(stdout.trim())
+      }
+    })
+  })
+exec('git config --get remote.origin.url', { cwd }, (err, stdout) => {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(stdout.trim())
+      }
+    })

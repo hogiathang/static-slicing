@@ -1,0 +1,33 @@
+Schema.prototype.pick = function(paths, options) {
+  const newSchema = new Schema({}, options || this.options);
+  if (!Array.isArray(paths)) {
+    throw new MongooseError('Schema#pick() only accepts an array argument, ' +
+      'got "' + typeof paths + '"');
+  }
+
+  for (const path of paths) {
+    if (this.nested[path]) {
+      newSchema.add({ [path]: get(this.tree, path) });
+    } else {
+      const schematype = this.path(path);
+      if (schematype == null) {
+        throw new MongooseError('Path `' + path + '` is not in the schema');
+      }
+      newSchema.add({ [path]: schematype });
+    }
+  }
+
+  return newSchema;
+}
+const newSchema = new Schema({}, options || this.options)
+!Array.isArray(paths)
+throw new MongooseError('Schema#pick() only accepts an array argument, ' +
+      'got "' + typeof paths + '"');
+typeof paths
+_iterator_13 = <operator>.iterator(paths)
+this.nested[path]
+newSchema.add({ [path]: get(this.tree, path) })
+const schematype = this.path(path)
+schematype == null
+throw new MongooseError('Path `' + path + '` is not in the schema');
+newSchema.add({ [path]: schematype })

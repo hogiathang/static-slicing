@@ -1,0 +1,87 @@
+function register = function register(name, url, callback) {
+    var config = this._config;
+    var requestUrl = config.registry.register + '/packages';
+    var remote = parseUrl(requestUrl);
+    var headers = {};
+
+    if (config.userAgent) {
+        headers['User-Agent'] = config.userAgent;
+    }
+
+    if (config.accessToken) {
+        requestUrl += '?access_token=' + config.accessToken;
+    }
+
+    request.post(
+        {
+            url: requestUrl,
+            headers: headers,
+            ca: config.ca.register,
+            strictSSL: config.strictSsl,
+            timeout: config.timeout,
+            json: true,
+            form: {
+                name: name,
+                url: url
+            }
+        },
+        function(err, response) {
+            // If there was an internal error (e.g. timeout)
+            if (err) {
+                return callback(
+                    createError(
+                        'Request to ' + requestUrl + ' failed: ' + err.message,
+                        err.code...
+var config = this._config
+var requestUrl = config.registry.register + '/packages'
+var remote = parseUrl(requestUrl)
+var headers = {}
+config.userAgent
+headers['User-Agent'] = config.userAgent
+config.accessToken
+requestUrl += '?access_token=' + config.accessToken
+request.post(
+        {
+            url: requestUrl,
+            headers: headers,
+            ca: config.ca.register,
+            strictSSL: config.strictSsl,
+            timeout: config.timeout,
+            json: true,
+            form: {
+                name: name,
+                url: url
+            }
+        },
+        function(err, response) {
+            // If there was an internal error (e.g. timeout)
+            if (err) {
+                return callback(
+                    createError(
+                        'Request to ' + requestUrl + ' failed: ' + err.message,
+                        err.code
+                    )
+                );
+            }
+
+            // Duplicate
+            if (response.statusCode === 403) {
+                return callback(createError('Duplicate package', 'EDUPLICATE'));
+            }
+
+            // Invalid format
+            if (response.statusCode === 400) {
+                return callback(
+                    createError('Invalid URL fo...
+_tmp_1.url = requestUrl
+_tmp_1.headers = headers
+_tmp_1.ca = config.ca.register
+_tmp_1.strictSSL = config.strictSsl
+_tmp_1.timeout = config.timeout
+_tmp_1.json = true
+_tmp_1.form = {
+                name: name,
+                url: url
+            }
+_tmp_2.name = name
+_tmp_2.url = url

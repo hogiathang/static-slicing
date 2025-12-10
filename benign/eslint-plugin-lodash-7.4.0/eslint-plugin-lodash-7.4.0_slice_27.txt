@@ -1,0 +1,2 @@
+_tmp_0.isEcmaFeatureOn = isEcmaFeatureOn
+_.get(context, ['ecmaFeatures', featureName]) || (_.get(context, ['parserOptions', 'ecmaVersion'], 0) > 5)

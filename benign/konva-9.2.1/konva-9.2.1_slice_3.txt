@@ -1,0 +1,16 @@
+function releaseCapture = function releaseCapture(pointerId, target) {
+      const shape = Captures.get(pointerId);
+      if (!shape)
+          return;
+      const stage = shape.getStage();
+      if (stage && stage.content) ;
+      Captures.delete(pointerId);
+      if (SUPPORT_POINTER_EVENTS) {
+          shape._fire('lostpointercapture', createEvent(new PointerEvent('lostpointercapture')));
+      }
+  }
+const shape = Captures.get(pointerId)
+!shape
+const stage = shape.getStage()
+stage && stage.content
+Captures.delete(pointerId)

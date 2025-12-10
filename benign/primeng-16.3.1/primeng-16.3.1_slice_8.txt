@@ -1,0 +1,4 @@
+const sub = dialogRef.onClose.subscribe(() => {
+            this.dialogComponentRefMap.get(dialogRef).instance.close();
+        })
+(_tmp_5 = this.dialogComponentRefMap.get(dialogRef).instance).close

@@ -1,0 +1,41 @@
+function initKnex = async function initKnex(env, opts, useDefaultClientIfNotSpecified) {
+  checkLocalModule(env);
+  if (process.cwd() !== env.cwd) {
+    process.chdir(env.cwd);
+    console.log(
+      'Working directory changed to',
+      color.magenta(tildify(env.cwd))
+    );
+  }
+
+  if (!useDefaultClientIfNotSpecified) {
+    checkConfigurationOptions(env, opts);
+  }
+
+  env.configuration = env.configPath
+    ? await openKnexfile(env.configPath)
+    : mkConfigObj(opts);
+
+  const resolvedConfig = resolveEnvironmentConfig(
+    opts,
+    env.configuration,
+    env.configPath
+  );
+
+  const optionsConfig = parseConfigObj(opts);
+  const config = merge(resolvedConfig, optionsConfig);
+
+  // Migrations directory gets defaulted if it is undefined.
+  if (!env.configPath && !config.migrations.directory) {
+    config.migrations.directory = null;
+  }
+
+  // Client gets defaulted if undefined and it's allowed
+  if (useDefaultClientIfNotSpecified && config.client === undefined) {
+    config.client = 'sqlite3';
+  }
+
+  con...
+checkLocalModule(env)
+process.cwd() !== env.cwd
+process.chdir(env.cwd)

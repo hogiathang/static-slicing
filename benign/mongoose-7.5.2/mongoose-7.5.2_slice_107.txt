@@ -1,0 +1,59 @@
+this.$__handleSave(options, (error, result) => {
+    if (error) {
+      const hooks = this.$__schema.s.hooks;
+      return hooks.execPost('save:error', this, [this], { error: error }, (error) => {
+        callback(error, this);
+      });
+    }
+    let numAffected = 0;
+    const writeConcern = options != null ?
+      options.writeConcern != null ?
+        options.writeConcern.w :
+        options.w :
+      0;
+    if (writeConcern !== 0) {
+      // Skip checking if write succeeded if writeConcern is set to
+      // unacknowledged writes, because otherwise `numAffected` will always be 0
+      if (result != null) {
+        if (Array.isArray(result)) {
+          numAffected = result.length;
+        } else if (result.matchedCount != null) {
+          numAffected = result.matchedCount;
+        } else {
+          numAffected = result;
+        }
+      }
+
+      const versionBump = this.$__.version;
+      // was this an update that required a version bump?
+      if (versionBump && !this.$__.ins...
+let numAffected = 0
+const writeConcern = options != null ?
+      options.writeConcern != null ?
+        options.writeConcern.w :
+        options.w :
+      0
+options.writeConcern != null ? options.writeConcern.w : options.w
+options.writeConcern.w
+options.w
+0
+writeConcern !== 0
+result != null
+Array.isArray(result)
+numAffected = result.length
+result.matchedCount != null
+numAffected = result.matchedCount
+numAffected = result
+const versionBump = this.$__.version
+versionBump && !this.$__.inserting
+const doIncrement = VERSION_INC === (VERSION_INC & this.$__.version)
+this.$__.version = undefined
+const key = this.$__schema.options.versionKey
+const version = this.$__getValue(key) || 0
+numAffected <= 0
+this.$__setValue(key, version + 1)
+result != null && numAffected <= 0
+this.$__.saving = undefined
+this.$__.savedState = {}
+this.$emit('save', this, numAffected)
+this.constructor.emit('save', this, numAffected)

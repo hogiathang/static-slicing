@@ -1,0 +1,9 @@
+_tmp_17.emit = emit
+const socket_ids = [...self.namespaces[name].clients.keys()]
+id = socket_ids[i]
+self.namespaces[name].clients.get(id).send(JSON.stringify({
+                        notification: event,
+                        params: params || []
+                    }))
+_tmp_27.notification = event
+_tmp_27.params = params || []

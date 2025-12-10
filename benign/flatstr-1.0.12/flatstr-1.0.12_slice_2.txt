@@ -1,0 +1,17 @@
+var nul = process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null'
+var bench = require('fastbench')
+var stream = require('fs').createWriteStream(nul)
+function makeStr = function makeStr (str, concats) {
+  var s = ''
+  while (concats--) {
+    s += str
+  }
+  return s
+}
+function makeExpoStr = function makeExpoStr (str, concats) {
+  var s = str
+  while (concats--) {
+    s += s
+  }
+  return s
+}

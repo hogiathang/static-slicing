@@ -1,0 +1,57 @@
+_flush() {
+        // If no new definitions were defined, don't attempt to flush. This could
+        // happen if a flush callback keeps the function it is given and calls it
+        // multiple times.
+        if (this._flushPending === false) {
+            return;
+        }
+        this._flushPending = false;
+        /**
+         * Unupgraded elements with definitions that were defined *before* the last
+         * flush, in document order.
+         */
+        const elementsWithStableDefinitions = [];
+        const unflushedLocalNames = this._unflushedLocalNames;
+        const elementsWithPendingDefinitions = new Map();
+        for (let i = 0; i < unflushedLocalNames.length; i++) {
+            elementsWithPendingDefinitions.set(unflushedLocalNames[i], []);
+        }
+        this._internals.patchAndUpgradeTree(document, {
+            upgrade: (element) => {
+                // Ignore the element if it has already upgraded or failed to upgrade.
+                if (element.__CE_state !=...
+this._flushPending === false
+this._flushPending = false
+const elementsWithStableDefinitions = []
+const unflushedLocalNames = this._unflushedLocalNames
+const elementsWithPendingDefinitions = new Map()
+i < unflushedLocalNames.length
+elementsWithPendingDefinitions.set(unflushedLocalNames[i], [])
+this._internals.patchAndUpgradeTree(document, {
+            upgrade: (element) => {
+                // Ignore the element if it has already upgraded or failed to upgrade.
+                if (element.__CE_state !== undefined) {
+                    return;
+                }
+                const localName = element.localName;
+                // If there is an applicable pending definition for the element, add the
+                // element to the list of elements to be upgraded with that definition.
+                const pendingElements = elementsWithPendingDefinitions.get(localName);
+                if (pendingElements) {
+                    pendingElements.push(element);
+                    // If there is *any other* applicable definition for the element, add
+                    // it to the list of elements with stable definitions that need to be
+                    // upgraded.
+                }
+                else if (this._localNameToDefinition.has(localName)) {
+               ...
+_tmp_21.upgrade = <lambda>3
+i < elementsWithStableDefinitions.length
+this._internals.upgradeReaction(elementsWithStableDefinitions[i])
+i < unflushedLocalNames.length
+const localName = unflushedLocalNames[i]
+const pendingUpgradableElements = elementsWithPendingDefinitions.get(localName)
+i < pendingUpgradableElements.length
+this._internals.upgradeReaction(pendingUpgradableElements[i])
+const deferred = this._whenDefinedDeferred.get(localName)
+deferred.resolve(undefined)

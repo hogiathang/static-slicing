@@ -1,0 +1,23 @@
+function emitTreeLayer = function emitTreeLayer(layer: ReadonlyRangeTree[], colMap: Map<number, number>): string {
+  const line: string[] = [];
+  let curIdx: number = 0;
+  for (const {start, end, count} of layer) {
+    const startIdx: number = colMap.get(start)!;
+    const endIdx: number = colMap.get(end)!;
+    if (startIdx > curIdx) {
+      line.push(" ".repeat(startIdx - curIdx));
+    }
+    line.push(emitRange(count, endIdx - startIdx));
+    curIdx = endIdx;
+  }
+  return line.join("");
+}
+const line: string[] = []
+let curIdx: number = 0
+_iterator_6 = <operator>.iterator(layer)
+const startIdx: number = colMap.get(start)!
+const endIdx: number = colMap.get(end)!
+startIdx > curIdx
+line.push(" ".repeat(startIdx - curIdx))
+line.push(emitRange(count, endIdx - startIdx))
+curIdx = endIdx

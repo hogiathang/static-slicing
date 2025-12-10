@@ -1,0 +1,43 @@
+NamedPropertiesTracker.prototype.untrack = function (name, value) {
+  if (name === undefined || name === null || name === "") {
+    return;
+  }
+
+  const valueSet = this.trackedValues.get(name);
+  if (!valueSet) {
+    // the value is not present
+    return;
+  }
+
+  if (!valueSet.delete(value)) {
+    // the value was not present
+    return;
+  }
+
+  if (valueSet.size === 0) {
+    this.trackedValues.delete(name);
+  }
+
+  if (valueSet.size > 0) {
+    // other values for this name are still present
+    return;
+  }
+
+  // at this point there are no more values, delete the property
+
+  const descriptor = Object.getOwnPropertyDescriptor(this.object, name);
+
+  if (!descriptor || !descriptor.get || descriptor.get[IS_NAMED_PROPERTY] !== true) {
+    // Not defined by NamedPropertyTracker
+    return;
+  }
+
+  // note: delete puts the object in dictionary mode.
+  // if this turns out to be a performance issue, maybe add:
+  // https://github.com/petkaantonov/bluebird/blob/3e36fc861ac5795193ba37935333eb6ef...
+name === undefined || name === null || name === ""
+const valueSet = this.trackedValues.get(name)
+!valueSet
+!valueSet.delete(value)
+valueSet.size === 0
+(_tmp_10 = this.trackedValues).delete

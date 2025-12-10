@@ -1,0 +1,21 @@
+filePath => {
+          if (filePath == null) {
+            return Promise.reject();
+          }
+          const pkg = JSON.parse(fs.readFileSync(filePath));
+          pkg['browserslist'] = defaultBrowsers;
+          fs.writeFileSync(filePath, JSON.stringify(pkg, null, 2) + os.EOL);
+
+          browserslist.clearCaches();
+          console.log();
+          console.log(
+            `${chalk.green('Set target browsers:')} ${chalk.cyan(
+              defaultBrowsers.join(', ')
+            )}`
+          );
+          console.log();
+        }
+filePath == null
+const pkg = JSON.parse(fs.readFileSync(filePath))
+pkg['browserslist'] = defaultBrowsers
+fs.writeFileSync(filePath, JSON.stringify(pkg, null, 2) + os.EOL)

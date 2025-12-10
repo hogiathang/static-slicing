@@ -1,0 +1,31 @@
+function deleteMetadata = function deleteMetadata(metadataKey, target, propertyKey) {
+            if (!IsObject(target))
+                throw new TypeError();
+            if (!IsUndefined(propertyKey))
+                propertyKey = ToPropertyKey(propertyKey);
+            var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false);
+            if (IsUndefined(metadataMap))
+                return false;
+            if (!metadataMap.delete(metadataKey))
+                return false;
+            if (metadataMap.size > 0)
+                return true;
+            var targetMetadata = Metadata.get(target);
+            targetMetadata.delete(propertyKey);
+            if (targetMetadata.size > 0)
+                return true;
+            Metadata.delete(target);
+            return true;
+        }
+!IsObject(target)
+throw new TypeError();
+!IsUndefined(propertyKey)
+propertyKey = ToPropertyKey(propertyKey)
+var metadataMap = GetOrCreateMetadataMap(target, propertyKey, /*Create*/ false)
+IsUndefined(metadataMap)
+!metadataMap.delete(metadataKey)
+metadataMap.size > 0
+var targetMetadata = Metadata.get(target)
+targetMetadata.delete(propertyKey)
+targetMetadata.size > 0
+Metadata.delete(target)

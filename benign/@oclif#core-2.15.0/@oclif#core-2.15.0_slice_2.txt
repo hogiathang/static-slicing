@@ -1,0 +1,16 @@
+let rows = this.data.map(d => {
+            const row = {};
+            for (const col of this.columns) {
+                let val = col.get(d);
+                if (typeof val !== 'string')
+                    val = (0, util_2.inspect)(val, { breakLength: Number.POSITIVE_INFINITY });
+                row[col.key] = val;
+            }
+            return row;
+        })
+const row = {}
+_iterator_0 = <operator>.iterator(this.columns)
+let val = col.get(d)
+typeof val !== 'string'
+val = (0, util_2.inspect)(val, { breakLength: Number.POSITIVE_INFINITY })
+row[col.key] = val

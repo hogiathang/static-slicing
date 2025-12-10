@@ -1,0 +1,56 @@
+function (blockMap, block, index) {
+    !Array.isArray(block.children) ? process.env.NODE_ENV !== "production" ? invariant(false, 'invalid RawDraftContentBlock can not be converted to ContentBlockNode') : invariant(false) : void 0; // ensure children have valid keys to enable sibling links
+
+    var children = block.children.map(addKeyIfMissing); // root level nodes
+
+    var contentBlockNode = new ContentBlockNode(_objectSpread({}, decodeBlockNodeConfig(block, entityMap), {
+      prevSibling: index === 0 ? null : blocks[index - 1].key,
+      nextSibling: index === blocks.length - 1 ? null : blocks[index + 1].key,
+      children: List(children.map(function (child) {
+        return child.key;
+      }))
+    })); // push root node to blockMap
+
+    blockMap = blockMap.set(contentBlockNode.getKey(), contentBlockNode); // this stack is used to ensure we visit all nodes respecting depth ordering
+
+    var stack = updateNodeStack([], children, contentBlockNode); // start computing children nod...
+!Array.isArray(block.children) ? process.env.NODE_ENV !== "production" ? invariant(false, 'invalid RawDraftContentBlock can not be converted to ContentBlockNode') : invariant(false) : void 0
+var children = block.children.map(addKeyIfMissing)
+var contentBlockNode = new ContentBlockNode(_objectSpread({}, decodeBlockNodeConfig(block, entityMap), {
+      prevSibling: index === 0 ? null : blocks[index - 1].key,
+      nextSibling: index === blocks.length - 1 ? null : blocks[index + 1].key,
+      children: List(children.map(function (child) {
+        return child.key;
+      }))
+    }))
+_tmp_15.prevSibling = index === 0 ? null : blocks[index - 1].key
+_tmp_15.nextSibling = index === blocks.length - 1 ? null : blocks[index + 1].key
+_tmp_15.children = List(children.map(function (child) {
+        return child.key;
+      }))
+blockMap = blockMap.set(contentBlockNode.getKey(), contentBlockNode)
+var stack = updateNodeStack([], children, contentBlockNode)
+stack.length > 0
+var node = stack.pop()
+var parentRef = node.parentRef
+var siblings = parentRef.getChildKeys()
+var _index = siblings.indexOf(node.key)
+var isValidBlock = Array.isArray(node.children)
+!isValidBlock
+var _children = node.children.map(addKeyIfMissing)
+var _contentBlockNode = new ContentBlockNode(_objectSpread({}, decodeBlockNodeConfig(node, entityMap), {
+        parent: parentRef.getKey(),
+        children: List(_children.map(function (child) {
+          return child.key;
+        })),
+        prevSibling: _index === 0 ? null : siblings.get(_index - 1),
+        nextSibling: _index === siblings.size - 1 ? null : siblings.get(_index + 1)
+      }))
+_tmp_19.parent = parentRef.getKey()
+_tmp_19.children = List(_children.map(function (child) {
+          return child.key;
+        }))
+_tmp_19.prevSibling = _index === 0 ? null : siblings.get(_index - 1)
+_tmp_19.nextSibling = _index === siblings.size - 1 ? null : siblings.get(_index + 1)
+blockMap = blockMap.set(_contentBlockNode.getKey(), _contentBlockNode)
+stack = updateNodeStack(stack, _children, _contentBlockNode)

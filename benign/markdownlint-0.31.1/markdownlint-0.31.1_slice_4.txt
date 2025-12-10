@@ -1,0 +1,161 @@
+function getReferenceLinkImageData = function getReferenceLinkImageData(params) {
+  const normalizeReference = (s) => s.toLowerCase().trim().replace(/\s+/g, " ");
+  const definitions = new Map();
+  const definitionLineIndices = [];
+  const duplicateDefinitions = [];
+  const references = new Map();
+  const shortcuts = new Map();
+  const filteredTokens =
+    micromark.filterByTypes(
+      params.parsers.micromark.tokens,
+      [
+        // definitionLineIndices
+        "definition", "gfmFootnoteDefinition",
+        // definitions and definitionLineIndices
+        "definitionLabelString", "gfmFootnoteDefinitionLabelString",
+        // references and shortcuts
+        "gfmFootnoteCall", "image", "link"
+      ]
+    );
+  for (const token of filteredTokens) {
+    let labelPrefix = "";
+    // eslint-disable-next-line default-case
+    switch (token.type) {
+      case "definition":
+      case "gfmFootnoteDefinition":
+        // definitionLineIndices
+        for (let i = token.startLine; i <= token.endLine; i++) {
+          defin...
+const normalizeReference = (s) => s.toLowerCase().trim().replace(/\s+/g, " ")
+const definitions = new Map()
+const definitionLineIndices = []
+const duplicateDefinitions = []
+const references = new Map()
+const shortcuts = new Map()
+const filteredTokens =
+    micromark.filterByTypes(
+      params.parsers.micromark.tokens,
+      [
+        // definitionLineIndices
+        "definition", "gfmFootnoteDefinition",
+        // definitions and definitionLineIndices
+        "definitionLabelString", "gfmFootnoteDefinitionLabelString",
+        // references and shortcuts
+        "gfmFootnoteCall", "image", "link"
+      ]
+    )
+micromark.filterByTypes(
+      params.parsers.micromark.tokens,
+      [
+        // definitionLineIndices
+        "definition", "gfmFootnoteDefinition",
+        // definitions and definitionLineIndices
+        "definitionLabelString", "gfmFootnoteDefinitionLabelString",
+        // references and shortcuts
+        "gfmFootnoteCall", "image", "link"
+      ]
+    )
+params.parsers.micromark.tokens
+_tmp_16 = __ecma.Array.factory()
+_tmp_16.push("gfmFootnoteDefinition")
+_tmp_16.push("gfmFootnoteDefinitionLabelString")
+_tmp_16.push("gfmFootnoteCall")
+_iterator_2 = <operator>.iterator(filteredTokens)
+let labelPrefix = ""
+token.type
+"definition"
+"gfmFootnoteDefinition"
+let i = token.startLine
+definitionLineIndices.push(i - 1)
+break;
+"gfmFootnoteDefinitionLabelString"
+labelPrefix = "^"
+"definitionLabelString"
+const reference = normalizeReference(`${labelPrefix}${token.text}`)
+definitions.has(reference)
+duplicateDefinitions.push([ reference, token.startLine - 1 ])
+definitions.set(reference, token.startLine - 1)
+break;
+"gfmFootnoteCall"
+"image"
+"link"
+let isShortcut = false
+let isFullOrCollapsed = false
+let labelText = null
+let referenceStringText = null
+const shortcutCandidate =
+            micromark.matchAndGetTokensByType(token.children, [ "label" ])
+micromark.matchAndGetTokensByType(token.children, [ "label" ])
+labelText =
+              micromark.getTokenTextByType(
+                shortcutCandidate[0].children, "labelText"
+              )
+micromark.getTokenTextByType(
+                shortcutCandidate[0].children, "labelText"
+              )
+shortcutCandidate[0].children
+isShortcut = (labelText !== null)
+const fullAndCollapsedCandidate =
+            micromark.matchAndGetTokensByType(
+              token.children, [ "label", "reference" ]
+            )
+micromark.matchAndGetTokensByType(
+              token.children, [ "label", "reference" ]
+            )
+_tmp_19 = __ecma.Array.factory()
+labelText =
+              micromark.getTokenTextByType(
+                fullAndCollapsedCandidate[0].children, "labelText"
+              )
+micromark.getTokenTextByType(
+                fullAndCollapsedCandidate[0].children, "labelText"
+              )
+fullAndCollapsedCandidate[0].children
+referenceStringText =
+              micromark.getTokenTextByType(
+                fullAndCollapsedCandidate[1].children, "referenceString"
+              )
+micromark.getTokenTextByType(
+                fullAndCollapsedCandidate[1].children, "referenceString"
+              )
+fullAndCollapsedCandidate[1].children
+isFullOrCollapsed = (labelText !== null)
+const footnote = micromark.matchAndGetTokensByType(
+            token.children,
+            [
+              "gfmFootnoteCallLabelMarker", "gfmFootnoteCallMarker",
+              "gfmFootnoteCallString", "gfmFootnoteCallLabelMarker"
+            ],
+            [ "gfmFootnoteCallMarker", "gfmFootnoteCallString" ]
+          )
+token.children
+_tmp_20 = __ecma.Array.factory()
+_tmp_20.push("gfmFootnoteCallLabelMarker")
+_tmp_20.push("gfmFootnoteCallLabelMarker")
+_tmp_21.push("gfmFootnoteCallMarker")
+const callMarkerText = footnote[0].text
+const callString = footnote[1].text
+<operator>.formatString("", callMarkerText, "", callString, "")
+isShortcut = true
+isShortcut || isFullOrCollapsed
+const referenceDatum = [
+              token.startLine - 1,
+              token.startColumn - 1,
+              token.text.length,
+              // @ts-ignore
+              labelText.length,
+              (referenceStringText || "").length
+            ]
+_tmp_22.push(token.startLine - 1)
+_tmp_22.push(token.startColumn - 1)
+_tmp_22.push(token.text.length)
+_tmp_22.push(labelText.length)
+_tmp_22.push(referenceStringText || "".length)
+const reference =
+              normalizeReference(referenceStringText || labelText)
+normalizeReference(referenceStringText || labelText)
+const dictionary = isShortcut ? shortcuts : references
+const referenceData = dictionary.get(reference) || []
+referenceData.push(referenceDatum)
+dictionary.set(reference, referenceData)
+break;

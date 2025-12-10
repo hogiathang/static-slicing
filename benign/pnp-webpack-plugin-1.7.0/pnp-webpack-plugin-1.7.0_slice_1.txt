@@ -1,0 +1,10 @@
+(request, resolveContext, callback) => {
+        // rethrow pnp errors if we have any for this request
+        return callback(
+          resolveContext.pnpErrors &&
+            resolveContext.pnpErrors.get(request.context.issuer)
+        );
+      }
+resolveContext.pnpErrors &&
+            resolveContext.pnpErrors.get(request.context.issuer)
+resolveContext.pnpErrors.get(request.context.issuer)

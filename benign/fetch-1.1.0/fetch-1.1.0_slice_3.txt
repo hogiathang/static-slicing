@@ -1,0 +1,63 @@
+FetchStream.prototype._runStream = function (url_data, url) {
+
+    var req = url_data.transport.request(url_data.urloptions, (function (res) {
+
+        // catch new cookies before potential redirect
+        if (Array.isArray(res.headers['set-cookie'])) {
+            for (var i = 0; i < res.headers['set-cookie'].length; i++) {
+                this.cookieJar.setCookie(res.headers['set-cookie'][i], url);
+            }
+        }
+
+        if ([301, 302, 303, 307, 308].indexOf(res.statusCode) >= 0) {
+            if (!this.options.disableRedirects && this.options.maxRedirects > this._redirect_count && res.headers.location) {
+                this._redirect_count++;
+                req.destroy();
+                this.runStream(urllib.resolve(url, res.headers.location));
+                return;
+            }
+        }
+
+        this.meta = {
+            status: res.statusCode,
+            responseHeaders: res.headers,
+            finalUrl: url,
+            redirectCount: this._redirect_count,
+...
+(_tmp_45 = function (res) {
+
+        // catch new cookies before potential redirect
+        if (Array.isArray(res.headers['set-cookie'])) {
+            for (var i = 0; i < res.headers['set-cookie'].length; i++) {
+                this.cookieJar.setCookie(res.headers['set-cookie'][i], url);
+            }
+        }
+
+        if ([301, 302, 303, 307, 308].indexOf(res.statusCode) >= 0) {
+            if (!this.options.disableRedirects && this.options.maxRedirects > this._redirect_count && res.headers.location) {
+                this._redirect_count++;
+                req.destroy();
+                this.runStream(urllib.resolve(url, res.headers.location));
+                return;
+            }
+        }
+
+        this.meta = {
+            status: res.statusCode,
+            responseHeaders: res.headers,
+            finalUrl: url,
+            redirectCount: this._redirect_count,
+            cookieJar: this.cookieJar
+        };
+
+        var curlen = 0,
+            maxlen,
+
+            receive = (function...).bind
+bind
+req.on('error', (function (e) {
+        this.emit('error', e);
+    }).bind(this))
+bind
+this.options.timeout
+req.setTimeout(this.options.timeout, req.abort.bind(req))

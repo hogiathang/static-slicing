@@ -1,0 +1,60 @@
+function copyFolderRecursiveSync = function copyFolderRecursiveSync(source, target) {
+  // Build target folder
+  const targetFolder = path.join(target, path.basename(source));
+
+  // Check if target folder needs to be created or integrated
+  if (!fs.existsSync(targetFolder)) {
+    fs.mkdirSync(targetFolder);
+  }
+
+  // Copy
+  if (fs.lstatSync(source).isDirectory()) {
+    const files = fs.readdirSync(source);
+
+    for (const file of files) {
+      // Build source name
+      const curSource = path.join(source, file);
+
+      // Call this function recursively as long as source is a directory
+      if (fs.lstatSync(curSource).isDirectory()) {
+        copyFolderRecursiveSync(curSource, targetFolder);
+      } else {
+        // Current source is a file, it must be available on the real filesystem
+        // instead of the virtual snapshot file system to load it by process.dlopen.
+        //
+        // Before we try to copy we do some checks.
+        // See https://github.com/vercel/pkg/issues/1589 for more details.
+
+        //...
+const targetFolder = path.join(target, path.basename(source))
+!fs.existsSync(targetFolder)
+fs.mkdirSync(targetFolder)
+(_tmp_7 = fs.lstatSync(source)).isDirectory
+const files = fs.readdirSync(source)
+_iterator_0 = <operator>.iterator(files)
+const curSource = path.join(source, file)
+(_tmp_8 = fs.lstatSync(curSource)).isDirectory
+copyFolderRecursiveSync(curSource, targetFolder)
+const curTarget = path.join(targetFolder, path.basename(curSource))
+fs.existsSync(curTarget)
+const curSourceContent = fs.readFileSync(curSource, {
+            encoding: 'binary',
+          })
+_tmp_9.encoding = "binary"
+const curTargetContent = fs.readFileSync(curTarget, {
+            encoding: 'binary',
+          })
+_tmp_10.encoding = "binary"
+const curSourceHash = createHash('sha256')
+            .update(curSourceContent)
+            .digest('hex')
+update
+"hex"
+const curTargetHash = createHash('sha256')
+            .update(curTargetContent)
+            .digest('hex')
+update
+"hex"
+curSourceHash === curTargetHash
+continue;
+fs.copyFileSync(curSource, curTarget)

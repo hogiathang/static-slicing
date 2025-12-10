@@ -1,0 +1,13 @@
+function updateTimes = function updateTimes(path, atime, mtime) {
+    if (exists(path)) {
+        const normalizedPath = (0, path_1.normalize)(path);
+        fs.utimesSync((0, path_1.normalize)(path), atime, mtime);
+        // update cache
+        if (readStatsCache.has(normalizedPath)) {
+            readStatsCache.delete(normalizedPath);
+        }
+    }
+}
+exists(path)
+const normalizedPath = (0, path_1.normalize)(path)
+fs.utimesSync((0, path_1.normalize)(path), atime, mtime)

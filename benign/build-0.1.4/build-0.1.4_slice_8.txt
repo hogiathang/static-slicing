@@ -1,0 +1,11 @@
+Array.from(options).each(function(file){
+            logger.info("Checking for file: " + file);
+            if (path.existsSync(file)) {
+                logger.info("Removing file: " + file);
+                fs.unlinkSync(file);
+            }
+        })
+logger.info("Checking for file: " + file)
+path.existsSync(file)
+logger.info("Removing file: " + file)
+fs.unlinkSync(file)

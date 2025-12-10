@@ -1,0 +1,11 @@
+function getTypeNameCached = function getTypeNameCached (name) {
+  let type = typeNameCache.get(name)
+  if (type) {
+    return type
+  }
+
+  type = createTypeStr(name)
+  typeNameCache.set(name, type)
+  return type
+}
+let type = typeNameCache.get(name)

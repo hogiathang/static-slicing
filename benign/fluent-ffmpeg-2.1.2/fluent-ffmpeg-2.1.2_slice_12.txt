@@ -1,0 +1,21 @@
+fs.exists(config.folder, function(exists) {
+          if (!exists) {
+            fs.mkdir(config.folder, function(err) {
+              if (err) {
+                next(err);
+              } else {
+                next(null, filenames);
+              }
+            });
+          } else {
+            next(null, filenames);
+          }
+        })
+!exists
+fs.mkdir(config.folder, function(err) {
+              if (err) {
+                next(err);
+              } else {
+                next(null, filenames);
+              }
+            })

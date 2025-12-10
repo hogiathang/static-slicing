@@ -1,0 +1,4 @@
+_tmp_0.2 = <lambda>2
+const request = require('./v2/request')
+const response = require('./v2/response')
+_tmp_3.logResponseError = logResponseError

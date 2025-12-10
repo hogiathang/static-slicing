@@ -1,0 +1,26 @@
+api._destroy = function (opts, callback) {
+    changesHandler.removeAllListeners(dbName);
+
+    //Close open request for "dbName" database to fix ie delay.
+    var openReq = openReqList.get(dbName);
+    if (openReq && openReq.result) {
+      openReq.result.close();
+      cachedDBs.delete(dbName);
+    }
+    var req = indexedDB.deleteDatabase(dbName);
+
+    req.onsuccess = function () {
+      //Remove open request from the list.
+      openReqList.delete(dbName);
+      if (hasLocalStorage() && (dbName in localStorage)) {
+        delete localStorage[dbName];
+      }
+      callback(null, { 'ok': true });
+    };
+
+    req.onerror = idbError(callback);
+  }
+changesHandler.removeAllListeners(dbName)
+var openReq = openReqList.get(dbName)
+openReq && openReq.result
+(_tmp_351 = openReq.result).close

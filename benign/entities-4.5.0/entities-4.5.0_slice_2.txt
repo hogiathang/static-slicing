@@ -1,0 +1,31 @@
+function encodeXML = function encodeXML(str) {
+    var ret = "";
+    var lastIdx = 0;
+    var match;
+    while ((match = exports.xmlReplacer.exec(str)) !== null) {
+        var i = match.index;
+        var char = str.charCodeAt(i);
+        var next = xmlCodeMap.get(char);
+        if (next !== undefined) {
+            ret += str.substring(lastIdx, i) + next;
+            lastIdx = i + 1;
+        }
+        else {
+            ret += "".concat(str.substring(lastIdx, i), "&#x").concat((0, exports.getCodePoint)(str, i).toString(16), ";");
+            // Increase by 1 if we have a surrogate pair
+            lastIdx = exports.xmlReplacer.lastIndex += Number((char & 0xfc00) === 0xd800);
+        }
+    }
+    return ret + str.substr(lastIdx);
+}
+var ret = ""
+var lastIdx = 0
+(match = exports.xmlReplacer.exec(str)) !== null
+var i = match.index
+var char = str.charCodeAt(i)
+var next = xmlCodeMap.get(char)
+next !== undefined
+ret += str.substring(lastIdx, i) + next
+lastIdx = i + 1
+ret += "".concat(str.substring(lastIdx, i), "&#x").concat((0, exports.getCodePoint)(str, i).toString(16), ";")
+lastIdx = exports.xmlReplacer.lastIndex += Number((char & 0xfc00) === 0xd800)

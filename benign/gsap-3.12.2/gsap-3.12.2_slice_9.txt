@@ -1,0 +1,53 @@
+this.disable = type => {
+			let dragging = self.isDragging,
+				i = triggers.length,
+				trigger;
+			while (--i > -1) {
+				_setStyle(triggers[i], "cursor", null);
+			}
+			if (type !== "soft") {
+				_setTouchActionForAllDescendants(triggers, null);
+				i = triggers.length;
+				while (--i > -1) {
+					trigger = triggers[i];
+					_setStyle(trigger, "touchCallout", null);
+					_removeListener(trigger, "mousedown", onPress);
+					_removeListener(trigger, "touchstart", onPress);
+					_removeListener(trigger, "click", onClick, true);
+					_removeListener(trigger, "contextmenu", onContextMenu);
+				}
+				_setSelectable(triggers, true);
+				if (touchEventTarget) {
+					_removeListener(touchEventTarget, "touchcancel", onRelease);
+					_removeListener(touchEventTarget, "touchend", onRelease);
+					_removeListener(touchEventTarget, "touchmove", onMove);
+				}
+				_removeListener(ownerDoc, "mouseup", onRelease);
+				_removeListener(ownerDoc, "mousemove", onMove);
+			}
+			_removeScrollListener(t...
+let dragging = self.isDragging
+let i = triggers.length
+--i > -1
+_setStyle(triggers[i], "cursor", null)
+type !== "soft"
+_setTouchActionForAllDescendants(triggers, null)
+i = triggers.length
+--i > -1
+trigger = triggers[i]
+_setStyle(trigger, "touchCallout", null)
+_removeListener(trigger, "mousedown", onPress)
+_removeListener(trigger, "touchstart", onPress)
+_removeListener(trigger, "click", onClick, true)
+_removeListener(trigger, "contextmenu", onContextMenu)
+_setSelectable(triggers, true)
+_removeListener(touchEventTarget, "touchcancel", onRelease)
+_removeListener(touchEventTarget, "touchend", onRelease)
+_removeListener(touchEventTarget, "touchmove", onMove)
+_removeListener(ownerDoc, "mouseup", onRelease)
+_removeListener(ownerDoc, "mousemove", onMove)
+_removeScrollListener(target, updateScroll)
+enabled = false
+InertiaPlugin && type !== "soft"
+InertiaPlugin.untrack(scrollProxy || target, (xyMode ? "x,y" : rotationMode ? "rotation" : "top,left"))
+self.tween && self.tween.kill()

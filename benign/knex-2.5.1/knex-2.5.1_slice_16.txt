@@ -1,0 +1,26 @@
+new Promise((resolver, rejecter) => {
+      const connection = this.driver.createConnection(this.connectionSettings);
+      connection.on('error', (err) => {
+        connection.__knex__disposed = err;
+      });
+      connection.connect((err) => {
+        if (err) {
+          // if connection is rejected, remove listener that was registered above...
+          connection.removeAllListeners();
+          return rejecter(err);
+        }
+        resolver(connection);
+      });
+    })
+const connection = this.driver.createConnection(this.connectionSettings)
+connection.on('error', (err) => {
+        connection.__knex__disposed = err;
+      })
+connection.connect((err) => {
+        if (err) {
+          // if connection is rejected, remove listener that was registered above...
+          connection.removeAllListeners();
+          return rejecter(err);
+        }
+        resolver(connection);
+      })

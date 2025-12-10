@@ -1,0 +1,19 @@
+var fs = require('fs')
+var path = require('path')
+var crypto = require('crypto')
+var homedir = require('os').homedir
+var buble = require('./')
+var original = require.extensions[ '.js' ]
+var nodeModulesPattern = path.sep === '/' ? /\/node_modules\// : /\\node_modules\\/
+var nodeVersion = /(?:0\.)?\d+/.exec(process.version)[0]
+function mkdirp = function mkdirp (dir) {
+	var parent = path.dirname(dir);
+	if (dir === parent) return;
+	mkdirp(parent);
+
+	try {
+		fs.mkdirSync(dir);
+	} catch (err) {
+		if (err.code !== 'EEXIST') throw err;
+	}
+}

@@ -1,0 +1,3 @@
+_tmp_11.handler = <lambda>1
+await (await Promise.resolve().then(() => require('./format'))).format('check', args)
+process.exit(0)

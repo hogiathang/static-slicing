@@ -1,0 +1,25 @@
+function updateComponentCache = function updateComponentCache(theme, component, direction, results) {
+    var themeCache = withStylesCache.get(theme);
+
+    if (!themeCache) {
+      themeCache = typeof WeakMap === 'undefined' ? new Map() : new WeakMap();
+      withStylesCache.set(theme, themeCache);
+    }
+
+    var componentCache = themeCache.get(component);
+
+    if (!componentCache) {
+      componentCache = {
+        ltr: {},
+        rtl: {}
+      };
+      themeCache.set(component, componentCache);
+    }
+
+    componentCache[direction] = results;
+  }
+var themeCache = withStylesCache.get(theme)
+!themeCache
+themeCache = typeof WeakMap === 'undefined' ? new Map() : new WeakMap()
+withStylesCache.set(theme, themeCache)
+var componentCache = themeCache.get(component)

@@ -1,0 +1,48 @@
+getValidPackageInfo (edge) {
+    const type = this.getEdgeType(edge)
+    // Skip potentially optional packages that are not on disk, as these could
+    // be omitted during install
+    if (edge.error === 'MISSING' && type !== 'dependencies') {
+      return
+    }
+
+    const spec = this.getEdgeSpec(edge)
+    // Skip invalid version requirements
+    if (!spec) {
+      return
+    }
+    const node = edge.to || edge
+    const { version } = node.package || {}
+
+    if (node.isWorkspace || // Skip local workspaces packages
+        !version || // Skip packages that don't have a installed version, e.g. optonal dependencies
+        !spec.registry) { // Skip if not from registry, e.g. git package
+      return
+    }
+
+    for (const omitType of this.npm.config.get('omit')) {
+      if (node[omitType]) {
+        return
+      }
+    }
+
+    return {
+      name: spec.name,
+      version,
+      type,
+      location: node.location,
+      registry: this.getSpecRegistry(spec),
+    }
+  }
+const type = this.getEdgeType(edge)
+edge.error === 'MISSING' && type !== 'dependencies'
+const spec = this.getEdgeSpec(edge)
+!spec
+const node = edge.to || edge
+_tmp_73 = node.package || {}
+node.isWorkspace || // Skip local workspaces packages
+        !version || // Skip packages that don't have a installed version, e.g. optonal dependencies
+        !spec.registry
+!version
+!spec.registry
+_iterator_2 = <operator>.iterator(this.npm.config.get('omit'))

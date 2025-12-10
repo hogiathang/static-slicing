@@ -1,0 +1,92 @@
+function (WrappedComponent) {
+      var Form = /*#__PURE__*/function (_React$Component) {
+        _inheritsLoose(Form, _React$Component);
+
+        function Form() {
+          var _this;
+
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+          _this.wrapped = React.createRef();
+          _this.destroyed = false;
+          _this.fieldCounts = {};
+          _this.fieldValidators = {};
+          _this.lastFieldValidatorKeys = [];
+          _this.fieldWarners = {};
+          _this.lastFieldWarnerKeys = [];
+          _this.innerOnSubmit = undefined;
+          _this.submitPromise = undefined;
+          _this.initializedOnLoad = false;
+
+          _this.initIfNeeded = function (nextProps) {
+            var enableReinitialize = _this.props.enableReinitialize;
+
+            if (nextProps) {
+   ...
+var Form = /*#__PURE__*/function (_React$Component) {
+        _inheritsLoose(Form, _React$Component);
+
+        function Form() {
+          var _this;
+
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          _this = _React$Component.call.apply(_React$Component, [this].concat(args)) || this;
+          _this.wrapped = React.createRef();
+          _this.destroyed = false;
+          _this.fieldCounts = {};
+          _this.fieldValidators = {};
+          _this.lastFieldValidatorKeys = [];
+          _this.fieldWarners = {};
+          _this.lastFieldWarnerKeys = [];
+          _this.innerOnSubmit = undefined;
+          _this.submitPromise = undefined;
+          _this.initializedOnLoad = false;
+
+          _this.initIfNeeded = function (nextProps) {
+            var enableReinitialize = _this.props.enableReinitialize;
+
+            if (nextProps) {
+              if ((enableReinitialize || !n...
+React.Component
+Form.displayName = "Form(" + getDisplayName(WrappedComponent) + ")"
+Form.WrappedComponent = WrappedComponent
+Form.propTypes = {
+        destroyOnUnmount: PropTypes.bool,
+        forceUnregisterOnUnmount: PropTypes.bool,
+        form: PropTypes.string.isRequired,
+        immutableProps: PropTypes.arrayOf(PropTypes.string),
+        initialValues: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+        getFormState: PropTypes.func,
+        onSubmitFail: PropTypes.func,
+        onSubmitSuccess: PropTypes.func,
+        propNamespace: PropTypes.string,
+        validate: PropTypes.func,
+        warn: PropTypes.func,
+        touchOnBlur: PropTypes.bool,
+        touchOnChange: PropTypes.bool,
+        triggerSubmit: PropTypes.bool,
+        persistentSubmitErrors: PropTypes.bool,
+        registeredFields: PropTypes.any
+      }
+_tmp_57.destroyOnUnmount = PropTypes.bool
+_tmp_57.forceUnregisterOnUnmount = PropTypes.bool
+_tmp_57.form = PropTypes.string.isRequired
+_tmp_57.immutableProps = PropTypes.arrayOf(PropTypes.string)
+_tmp_57.initialValues = PropTypes.oneOfType([PropTypes.array, PropTypes.object])
+_tmp_57.getFormState = PropTypes.func
+_tmp_57.onSubmitFail = PropTypes.func
+_tmp_57.onSubmitSuccess = PropTypes.func
+_tmp_57.propNamespace = PropTypes.string
+_tmp_57.validate = PropTypes.func
+_tmp_57.warn = PropTypes.func
+_tmp_57.touchOnBlur = PropTypes.bool
+_tmp_57.touchOnChange = PropTypes.bool
+_tmp_57.triggerSubmit = PropTypes.bool
+_tmp_57.persistentSubmitErrors = PropTypes.bool
+_tmp_57.registeredFields = PropTypes.any

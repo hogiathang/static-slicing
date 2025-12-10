@@ -1,0 +1,47 @@
+function _evaluate = function _evaluate(path, state) {
+  if (!state.confident) return;
+  if (path.isSequenceExpression()) {
+    const exprs = path.get("expressions");
+    return evaluateCached(exprs[exprs.length - 1], state);
+  }
+  if (path.isStringLiteral() || path.isNumericLiteral() || path.isBooleanLiteral()) {
+    return path.node.value;
+  }
+  if (path.isNullLiteral()) {
+    return null;
+  }
+  if (path.isTemplateLiteral()) {
+    return evaluateQuasis(path, path.node.quasis, state);
+  }
+  if (path.isTaggedTemplateExpression() && path.get("tag").isMemberExpression()) {
+    const object = path.get("tag.object");
+    const {
+      node: {
+        name
+      }
+    } = object;
+    const property = path.get("tag.property");
+    if (object.isIdentifier() && name === "String" && !path.scope.getBinding(name) && property.isIdentifier() && property.node.name === "raw") {
+      return evaluateQuasis(path, path.node.quasi.quasis, state, true);
+    }
+  }
+  if (path.isConditionalExpression()) {
+    const testResult...
+!state.confident
+path.isSequenceExpression()
+path.isStringLiteral() || path.isNumericLiteral() || path.isBooleanLiteral()
+path.isNullLiteral()
+path.isTemplateLiteral()
+path.isTaggedTemplateExpression() && path.get("tag").isMemberExpression()
+const object = path.get("tag.object")
+_tmp_4 = object
+_tmp_5.name = name
+const property = path.get("tag.property")
+object.isIdentifier() && name === "String" && !path.scope.getBinding(name) && property.isIdentifier() && property.node.name === "raw"
+path.isConditionalExpression()
+path.isExpressionWrapper()
+path.isMemberExpression() && !path.parentPath.isCallExpression({
+    callee: path.node
+  })
+_tmp_8.callee = path.node
+const property = path.get("property")

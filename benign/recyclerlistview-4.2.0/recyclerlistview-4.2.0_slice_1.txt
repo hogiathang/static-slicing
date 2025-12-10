@@ -1,0 +1,26 @@
+private _getContextFromContextProvider(props: RecyclerListViewProps): void {
+        if (props.contextProvider) {
+            const uniqueKey = props.contextProvider.getUniqueKey();
+            if (uniqueKey) {
+                const offset = props.contextProvider.get(uniqueKey + Constants.CONTEXT_PROVIDER_OFFSET_KEY_SUFFIX);
+                if (typeof offset === "number" && offset > 0) {
+                    this._initialOffset = offset;
+                    if (props.onRecreate) {
+                        props.onRecreate({ lastOffset: this._initialOffset });
+                    }
+                    props.contextProvider.remove(uniqueKey + Constants.CONTEXT_PROVIDER_OFFSET_KEY_SUFFIX);
+                }
+                if (props.forceNonDeterministicRendering) {
+                    const cachedLayouts = props.contextProvider.get(uniqueKey + Constants.CONTEXT_PROVIDER_LAYOUT_KEY_SUFFIX) as string;
+                    if (cachedLayouts && typeof cachedLayouts === "string") {
+          ...
+props.contextProvider
+const uniqueKey = props.contextProvider.getUniqueKey()
+const offset = props.contextProvider.get(uniqueKey + Constants.CONTEXT_PROVIDER_OFFSET_KEY_SUFFIX)
+typeof offset === "number" && offset > 0
+this._initialOffset = offset
+props.onRecreate
+props.onRecreate({ lastOffset: this._initialOffset })
+props.contextProvider.remove(uniqueKey + Constants.CONTEXT_PROVIDER_OFFSET_KEY_SUFFIX)
+props.forceNonDeterministicRendering
+const cachedLayouts = props.contextProvider.get(uniqueKey + Constants.CONTEXT_PROVIDER_LAYOUT_KEY_SUFFIX) as string

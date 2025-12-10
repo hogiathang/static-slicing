@@ -1,0 +1,16 @@
+_tmp_5.exit = exit
+!path.node[CONTAINS_SUPER]
+var objectRef = void 0
+var getObjectRef = function getObjectRef() {
+            return objectRef = objectRef || path.scope.generateUidIdentifier("obj");
+          }
+var propPaths = path.get("properties")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)
+_i >= _iterator.length
+_ref2 = _iterator[_i++]
+_i = _iterator.next()
+_i.done
+_ref2 = _i.value
+var propPath = _ref2
+propPath = propPath.get("value")
+Property(propPath, propPath.node, path.scope, getObjectRef, file)

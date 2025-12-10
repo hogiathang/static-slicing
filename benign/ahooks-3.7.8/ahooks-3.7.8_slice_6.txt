@@ -1,0 +1,24 @@
+var setCache = function setCache(key, cacheTime, cachedData) {
+  var currentCache = cache.get(key);
+  if (currentCache === null || currentCache === void 0 ? void 0 : currentCache.timer) {
+    clearTimeout(currentCache.timer);
+  }
+  var timer = undefined;
+  if (cacheTime > -1) {
+    // if cache out, clear it
+    timer = setTimeout(function () {
+      cache["delete"](key);
+    }, cacheTime);
+  }
+  cache.set(key, (0, _tslib.__assign)((0, _tslib.__assign)({}, cachedData), {
+    timer: timer
+  }));
+}
+var currentCache = cache.get(key)
+currentCache === null || currentCache === void 0 ? void 0 : currentCache.timer
+clearTimeout(currentCache.timer)
+var timer = undefined
+cacheTime > -1
+timer = setTimeout(function () {
+      cache["delete"](key);
+    }, cacheTime)

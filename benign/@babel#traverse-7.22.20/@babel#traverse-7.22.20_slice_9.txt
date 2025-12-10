@@ -1,0 +1,34 @@
+function standardizeSuperProperty = function standardizeSuperProperty(superProp) {
+  if (superProp.parentPath.isAssignmentExpression() && superProp.parentPath.node.operator !== "=") {
+    const assignmentPath = superProp.parentPath;
+    const op = assignmentPath.node.operator.slice(0, -1);
+    const value = assignmentPath.node.right;
+    const isLogicalAssignment = isLogicalOp(op);
+    if (superProp.node.computed) {
+      const tmp = superProp.scope.generateDeclaredUidIdentifier("tmp");
+      const object = superProp.node.object;
+      const property = superProp.node.property;
+      assignmentPath.get("left").replaceWith(memberExpression(object, assignmentExpression("=", tmp, property), true));
+      assignmentPath.get("right").replaceWith(rightExpression(isLogicalAssignment ? "=" : op, memberExpression(object, identifier(tmp.name), true), value));
+    } else {
+      const object = superProp.node.object;
+      const property = superProp.node.property;
+      assignmentPath.get("left").replaceWith(memberExpression(objec...
+superProp.parentPath.isAssignmentExpression() && superProp.parentPath.node.operator !== "="
+const assignmentPath = superProp.parentPath
+const op = assignmentPath.node.operator.slice(0, -1)
+const value = assignmentPath.node.right
+const isLogicalAssignment = isLogicalOp(op)
+superProp.node.computed
+const tmp = superProp.scope.generateDeclaredUidIdentifier("tmp")
+const object = superProp.node.object
+const property = superProp.node.property
+assignmentPath.get("left").replaceWith(memberExpression(object, assignmentExpression("=", tmp, property), true))
+assignmentPath.get("right").replaceWith(rightExpression(isLogicalAssignment ? "=" : op, memberExpression(object, identifier(tmp.name), true), value))
+function rightExpression = function rightExpression(op, left, right) {
+    if (op === "=") {
+      return assignmentExpression("=", left, right);
+    } else {
+      return binaryExpression(op, left, right);
+    }
+  }

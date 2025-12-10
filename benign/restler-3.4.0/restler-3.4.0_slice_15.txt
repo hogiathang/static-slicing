@@ -1,0 +1,4 @@
+function head = function head(url, options) {
+  return request(url, shortcutOptions(options, 'HEAD'));
+}
+request(url, shortcutOptions(options, 'HEAD'))

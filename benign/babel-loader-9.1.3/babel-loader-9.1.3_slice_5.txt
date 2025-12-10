@@ -1,0 +1,101 @@
+function loader = async function loader(source, inputSourceMap, overrides) {
+  const filename = this.resourcePath;
+  let loaderOptions = this.getOptions();
+  validateOptions(schema, loaderOptions, {
+    name: "Babel loader"
+  });
+  if (loaderOptions.customize != null) {
+    if (typeof loaderOptions.customize !== "string") {
+      throw new Error("Customized loaders must be implemented as standalone modules.");
+    }
+    if (!isAbsolute(loaderOptions.customize)) {
+      throw new Error("Customized loaders must be passed as absolute paths, since " + "babel-loader has no way to know what they would be relative to.");
+    }
+    if (overrides) {
+      throw new Error("babel-loader's 'customize' option is not available when already " + "using a customized babel-loader wrapper.");
+    }
+    let override = require(loaderOptions.customize);
+    if (override.__esModule) override = override.default;
+    if (typeof override !== "function") {
+      throw new Error("Custom overrides must be functions.");
+    }
+   ...
+const filename = this.resourcePath
+let loaderOptions = this.getOptions()
+validateOptions(schema, loaderOptions, {
+    name: "Babel loader"
+  })
+_tmp_1.name = "Babel loader"
+loaderOptions.customize != null
+typeof loaderOptions.customize !== "string"
+throw new Error("Customized loaders must be implemented as standalone modules.");
+!isAbsolute(loaderOptions.customize)
+throw new Error("Customized loaders must be passed as absolute paths, since " + "babel-loader has no way to know what they would be relative to.");
+throw new Error("babel-loader's 'customize' option is not available when already " + "using a customized babel-loader wrapper.");
+let override = require(loaderOptions.customize)
+override = override.default
+typeof override !== "function"
+throw new Error("Custom overrides must be functions.");
+overrides = override(babel)
+overrides && overrides.customOptions
+const result = await overrides.customOptions.call(this, loaderOptions, {
+      source,
+      map: inputSourceMap
+    })
+_tmp_7.source = source
+_tmp_7.map = inputSourceMap
+customOptions = result.custom
+loaderOptions = result.loader
+"forceEnv" in loaderOptions
+console.warn("The option `forceEnv` has been removed in favor of `envName` in Babel 7.")
+typeof loaderOptions.babelrc === "string"
+console.warn("The option `babelrc` should not be set to a string anymore in the babel-loader config. " + "Please update your configuration and set `babelrc` to true or false.\n" + "If you want to specify a specific babel config file to inherit config from " + "please use the `extends` option.\nFor more information about this options see " + "https://babeljs.io/docs/core-packages/#options")
+Object.prototype.hasOwnProperty.call(loaderOptions, "sourceMap") && !Object.prototype.hasOwnProperty.call(loaderOptions, "sourceMaps")
+loaderOptions = Object.assign({}, loaderOptions, {
+      sourceMaps: loaderOptions.sourceMap
+    })
+_tmp_11.sourceMaps = loaderOptions.sourceMap
+delete loaderOptions.sourceMap
+const programmaticOptions = Object.assign({}, loaderOptions, {
+    filename,
+    inputSourceMap: inputSourceMap || loaderOptions.inputSourceMap,
+    // Set the default sourcemap behavior based on Webpack's mapping flag,
+    // but allow users to override if they want.
+    sourceMaps: loaderOptions.sourceMaps === undefined ? this.sourceMap : loaderOptions.sourceMaps,
+    // Ensure that Webpack will get a full absolute path in the sourcemap
+    // so that it can properly map the module back to its internal cached
+    // modules.
+    sourceFileName: filename
+  })
+_tmp_13.filename = filename
+_tmp_13.inputSourceMap = inputSourceMap || loaderOptions.inputSourceMap
+_tmp_13.sourceMaps = loaderOptions.sourceMaps === undefined ? this.sourceMap : loaderOptions.sourceMaps
+_tmp_13.sourceFileName = filename
+delete programmaticOptions.customize
+delete programmaticOptions.cacheDirectory
+delete programmaticOptions.cacheIdentifier
+delete programmaticOptions.cacheCompression
+delete programmaticOptions.metadataSubscribers
+const config = await babel.loadPartialConfigAsync(injectCaller(programmaticOptions, this.target))
+let options = config.options
+overrides && overrides.config
+options = await overrides.config.call(this, config, {
+        source,
+        map: inputSourceMap,
+        customOptions
+      })
+_tmp_15.source = source
+_tmp_15.map = inputSourceMap
+_tmp_15.customOptions = customOptions
+options.sourceMaps === "inline"
+options.sourceMaps = true
+_tmp_16 = loaderOptions
+cacheDirectory = _tmp_16.cacheDirectory === void 0 ? null : _tmp_16.cacheDirectory
+cacheIdentifier = _tmp_16.cacheIdentifier === void 0 ? JSON.stringify({
+        options,
+        "@babel/core": transform.version,
+        "@babel/loader": version
+      }) : _tmp_16.cacheIdentifier
+_tmp_17.options = options
+_tmp_17.@babel/core = transform.version
+_tmp_17.@babel/loader = version

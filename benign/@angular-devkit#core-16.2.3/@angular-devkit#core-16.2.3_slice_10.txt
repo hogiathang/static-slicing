@@ -1,0 +1,17 @@
+maybeWatcher.forEach((watcher) => {
+                    const [options, subject] = watcher;
+                    if (!options.recursive) {
+                        return;
+                    }
+                    subject.next({ path, time, type });
+                    if (!options.persistent && type == 2 /* HostWatchEventType.Deleted */) {
+                        subject.complete();
+                        this._watchers.delete(currentPath);
+                    }
+                })
+options = _tmp_20[0]
+!options.recursive
+subject.next({ path, time, type })
+!options.persistent && type == 2
+subject.complete()
+this._watchers.delete(currentPath)

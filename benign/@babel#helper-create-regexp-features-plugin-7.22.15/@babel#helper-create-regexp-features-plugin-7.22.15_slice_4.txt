@@ -1,0 +1,7 @@
+_tmp_4.RegExpLiteral = RegExpLiteral
+_tmp_5 = path
+node = _tmp_5.node
+_tmp_6 = this
+file = _tmp_6.file
+const features = file.get(_features.featuresKey)
+const runtime = (_file$get2 = file.get(_features.runtimeKey)) != null ? _file$get2 : true

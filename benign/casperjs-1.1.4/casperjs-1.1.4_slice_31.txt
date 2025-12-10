@@ -1,0 +1,46 @@
+this.sendAJAX = function sendAJAX(url, method, data, async, settings) {
+            var xhr = new XMLHttpRequest(),
+                dataString = "",
+                dataList = [];
+            var CONTENT_TYPE_HEADER = "Content-Type";
+            method = method && method.toUpperCase() || "GET";
+            var contentTypeValue = settings && settings.contentType || "application/x-www-form-urlencoded";
+            xhr.open(method, url, !!async);
+            this.log("sendAJAX(): Using HTTP method: '" + method + "'", "debug");
+            if (settings && settings.overrideMimeType) {
+                xhr.overrideMimeType(settings.overrideMimeType);
+            }
+            if (settings && settings.headers) {
+               for (var header in settings.headers) {
+                   if (header === CONTENT_TYPE_HEADER) {
+                      // this way Content-Type is correctly overriden,
+                      // otherwise it is concatenated by xhr.setRequestHeader()
+                     ...
+var xhr = new XMLHttpRequest()
+var dataString = ""
+__ecma.Array.factory()
+var CONTENT_TYPE_HEADER = "Content-Type"
+method = method && method.toUpperCase() || "GET"
+var contentTypeValue = settings && settings.contentType || "application/x-www-form-urlencoded"
+xhr.open(method, url, !!async)
+this.log("sendAJAX(): Using HTTP method: '" + method + "'", "debug")
+settings && settings.overrideMimeType
+xhr.overrideMimeType(settings.overrideMimeType)
+settings && settings.headers
+_iterator_1 = <operator>.iterator(settings.headers)
+header === CONTENT_TYPE_HEADER
+contentTypeValue = settings.headers[header]
+xhr.setRequestHeader(header, settings.headers[header])
+method === "POST"
+typeof data === "object"
+_iterator_2 = <operator>.iterator(data)
+data.hasOwnProperty(k)
+dataList.push(form_urlencoded(k) + "=" +
+                             form_urlencoded(data[k].toString()))
+form_urlencoded(data[k].toString())
+dataString = dataList.join('&')
+this.log("sendAJAX(): Using request data: '" + dataString + "'", "debug")
+typeof data === "string"
+dataString = data
+xhr.setRequestHeader(CONTENT_TYPE_HEADER, contentTypeValue)
+xhr.send(method === "POST" ? dataString : null)

@@ -1,0 +1,16 @@
+module.exports = function() {
+  const pkg = findPackage(path.dirname(process.mainModule.filename))
+  const version = (pkg && pkg.version) || '-/-'
+
+  console.log(version)
+
+  if (this.config.exit && this.config.exit.version) {
+    // eslint-disable-next-line unicorn/no-process-exit
+    process.exit()
+  }
+}
+const pkg = findPackage(path.dirname(process.mainModule.filename))
+const version = (pkg && pkg.version) || '-/-'
+console.log(version)
+this.config.exit && this.config.exit.version
+process.exit()

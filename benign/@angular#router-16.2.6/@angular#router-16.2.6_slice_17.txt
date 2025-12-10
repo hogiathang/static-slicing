@@ -1,0 +1,22 @@
+loadChildren(parentInjector, route) {
+        if (this.childrenLoaders.get(route)) {
+            return this.childrenLoaders.get(route);
+        }
+        else if (route._loadedRoutes) {
+            return of({ routes: route._loadedRoutes, injector: route._loadedInjector });
+        }
+        if (this.onLoadStartListener) {
+            this.onLoadStartListener(route);
+        }
+        const moduleFactoryOrRoutes$ = loadChildren(route, this.compiler, parentInjector, this.onLoadEndListener);
+        const loadRunner = moduleFactoryOrRoutes$.pipe(finalize(() => {
+            this.childrenLoaders.delete(route);
+        }));
+        // Use custom ConnectableObservable as share in runners pipe increasing the bundle size too much
+        const loader = new ConnectableObservable(loadRunner, () => new Subject())
+            .pipe(refCount());
+        this.childrenLoaders.set(route, loader);
+        return loader;
+    }
+(_tmp_572 = this.childrenLoaders).get
+(_tmp_573 = this.childrenLoaders).get

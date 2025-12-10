@@ -1,0 +1,39 @@
+function MemberExpression = function MemberExpression(dereference) {
+            if (dereference.object.type !== 'Identifier') {return;}
+            if (!namespaces.has(dereference.object.name)) {return;}
+            if ((0, _declaredScope2['default'])(context, dereference.object.name) !== 'module') {return;}
+
+            if (dereference.parent.type === 'AssignmentExpression' && dereference.parent.left === dereference) {
+              context.report(
+              dereference.parent, 'Assignment to member of namespace \'' + String(
+              dereference.object.name) + '\'.');
+
+            }
+
+            // go deep
+            var namespace = namespaces.get(dereference.object.name);
+            var namepath = [dereference.object.name];
+            // while property is namespace and parent is member expression, keep validating
+            while (namespace instanceof _ExportMap2['default'] && dereference.type === 'MemberExpression') {
+              if (dereference.computed) {
+                if (!allowCompute...
+dereference.object.type !== 'Identifier'
+!namespaces.has(dereference.object.name)
+(0, _declaredScope2['default'])(context, dereference.object.name) !== 'module'
+dereference.parent.type === 'AssignmentExpression' && dereference.parent.left === dereference
+context.report(
+              dereference.parent, 'Assignment to member of namespace \'' + String(
+              dereference.object.name) + '\'.')
+'Assignment to member of namespace \'' + String(
+              dereference.object.name) + '\'.'
+dereference.object.name
+var namespace = namespaces.get(dereference.object.name)
+var namepath = [dereference.object.name]
+namespace instanceof _ExportMap2['default'] && dereference.type === 'MemberExpression'
+dereference.computed
+!namespace.has(dereference.property.name)
+var exported = namespace.get(dereference.property.name)
+exported == null
+namepath.push(dereference.property.name)
+namespace = exported.namespace
+dereference = dereference.parent

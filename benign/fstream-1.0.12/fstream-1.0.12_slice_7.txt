@@ -1,0 +1,51 @@
+function statCb = function statCb (er, props_) {
+    // console.error("Reader._stat, statCb", self._path, props_, props_.nlink)
+    if (er) return self.error(er)
+
+    Object.keys(props_).forEach(function (k) {
+      props[k] = props_[k]
+    })
+
+    // if it's not the expected size, then abort here.
+    if (undefined !== self.size && props.size !== self.size) {
+      return self.error('incorrect size')
+    }
+    self.size = props.size
+
+    var type = getType(props)
+    var handleHardlinks = props.hardlinks !== false
+
+    // special little thing for handling hardlinks.
+    if (handleHardlinks && type !== 'Directory' && props.nlink && props.nlink > 1) {
+      var k = props.dev + ':' + props.ino
+      // console.error("Reader has nlink", self._path, k)
+      if (hardLinks[k] === self._path || !hardLinks[k]) {
+        hardLinks[k] = self._path
+      } else {
+        // switch into hardlink mode.
+        type = self.type = self.props.type = 'Link'
+        self.Link = self.props.Link = true
+        self.lin...
+Object.keys(props_).forEach(function (k) {
+      props[k] = props_[k]
+    })
+undefined !== self.size && props.size !== self.size
+self.size = props.size
+var type = getType(props)
+var handleHardlinks = props.hardlinks !== false
+handleHardlinks && type !== 'Directory' && props.nlink && props.nlink > 1
+var k = props.dev + ':' + props.ino
+hardLinks[k] === self._path || !hardLinks[k]
+hardLinks[k] = self._path
+type = self.type = self.props.type = 'Link'
+self.Link = self.props.Link = true
+self.linkpath = self.props.linkpath = hardLinks[k]
+self._stat = self._read = LinkReader.prototype._read
+self.type && self.type !== type
+self.error('Unexpected type: ' + type)
+self.filter
+var who = self._proxy || self
+!self.filter.call(who, who, props)
+!self._disowned
+self.abort()
+self.emit('end')

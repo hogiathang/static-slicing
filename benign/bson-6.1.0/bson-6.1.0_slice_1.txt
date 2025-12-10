@@ -1,0 +1,5 @@
+var cp = require('child_process')
+var fs = require('fs')
+var nodeMajorVersion = +process.version.match(/^v(\d+)\.\d+/)[1]
+fs.existsSync('src') && nodeMajorVersion >= 10
+cp.spawnSync('npm', ['run', 'build'], { stdio: 'inherit', shell: true })

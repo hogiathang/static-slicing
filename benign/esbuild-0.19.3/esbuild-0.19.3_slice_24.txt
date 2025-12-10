@@ -1,0 +1,18 @@
+function maybeOptimizePackage = function maybeOptimizePackage(binPath) {
+  if (os2.platform() !== "win32" && !isYarn()) {
+    const tempPath = path2.join(__dirname, "bin-esbuild");
+    try {
+      fs2.linkSync(binPath, tempPath);
+      fs2.renameSync(tempPath, toPath);
+      isToPathJS = false;
+      fs2.unlinkSync(tempPath);
+    } catch {
+    }
+  }
+}
+os2.platform() !== "win32" && !isYarn()
+const tempPath = path2.join(__dirname, "bin-esbuild")
+fs2.linkSync(binPath, tempPath)
+fs2.renameSync(tempPath, toPath)
+isToPathJS = false
+fs2.unlinkSync(tempPath)

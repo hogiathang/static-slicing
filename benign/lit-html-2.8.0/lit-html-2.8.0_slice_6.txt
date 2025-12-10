@@ -1,0 +1,18 @@
+Promise.resolve(value).then(async (result) => {
+                // If we're disconnected, wait until we're (maybe) reconnected
+                // The while loop here handles the case that the connection state
+                // thrashes, causing the pauser to resume and then get re-paused
+                while (pauser.get()) {
+                    await pauser.get();
+                }
+                // If the callback gets here and there is no `this`, it means that the
+                // directive has been disconnected and garbage collected and we don't
+                // need to do anything else
+                const _this = weakThis.deref();
+                if (_this !== undefined) {
+                    const index = _this.__values.indexOf(value);
+                    // If state.values doesn't contain the value, we've re-rendered without
+                    // the value, so don't render it. Then, only render if the value is
+                    // higher-priority than what's alread...
+pauser.get()
+await pauser.get()

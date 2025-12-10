@@ -1,0 +1,6 @@
+_tmp_1.constructor = ProcessCredentials
+(_tmp_2 = AWS.Credentials).call
+options = options || {}
+this.filename = options.filename
+this.profile = options.profile || process.env.AWS_PROFILE || AWS.util.defaultProfile
+this.get(options.callback || AWS.util.fn.noop)

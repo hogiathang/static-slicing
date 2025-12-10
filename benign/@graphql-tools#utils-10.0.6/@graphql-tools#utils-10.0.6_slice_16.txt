@@ -1,0 +1,63 @@
+function resolveField = function resolveField({ type, field, models, firstCall, path, ancestors, ignore, depthLimit, circularReferenceDepth, schema, depth, argNames, selectedFields, rootTypeNames, }) {
+    const namedType = getNamedType(field.type);
+    let args = [];
+    let removeField = false;
+    if (field.args && field.args.length) {
+        args = field.args
+            .map(arg => {
+            const argumentName = getArgumentName(arg.name, path);
+            if (argNames && !argNames.includes(argumentName)) {
+                if (isNonNullType(arg.type)) {
+                    removeField = true;
+                }
+                return null;
+            }
+            if (!firstCall) {
+                addOperationVariable(resolveVariable(arg, argumentName));
+            }
+            return {
+                kind: Kind.ARGUMENT,
+                name: {
+                    kind: Kind.NAME,
+                    value: arg.name,
+                },
+                value: {
+                    kind: Kind.V...
+const namedType = getNamedType(field.type)
+__ecma.Array.factory()
+let removeField = false
+field.args && field.args.length
+args = field.args
+            .map(arg => {
+            const argumentName = getArgumentName(arg.name, path);
+            if (argNames && !argNames.includes(argumentName)) {
+                if (isNonNullType(arg.type)) {
+                    removeField = true;
+                }
+                return null;
+            }
+            if (!firstCall) {
+                addOperationVariable(resolveVariable(arg, argumentName));
+            }
+            return {
+                kind: Kind.ARGUMENT,
+                name: {
+                    kind: Kind.NAME,
+                    value: arg.name,
+                },
+                value: {
+                    kind: Kind.VARIABLE,
+                    name: {
+                        kind: Kind.NAME,
+                        value: getArgumentName(arg.name, path),
+                    },
+                },
+            };
+        })
+            .filter(Boolean)
+<lambda>10
+filter
+const fieldPath = [...path, field.name]
+const fieldPathStr = fieldPath.join('.')
+let fieldName = field.name
+fieldTypeMap.has(fieldPathStr) && fieldTypeMap.get(fieldPathStr) !== field.type.toString()

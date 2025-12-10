@@ -1,0 +1,6 @@
+_tmp_20.ExportDeclaration = ExportDeclaration
+const declaration = path.get('declaration')
+t.isDeclaration(declaration)
+path.isExportDefaultDeclaration()
+t.isExportNamedDeclaration(path)
+const specifiers = path.get('specifiers')

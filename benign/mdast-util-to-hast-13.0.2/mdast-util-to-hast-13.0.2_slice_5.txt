@@ -1,0 +1,42 @@
+function linkReference = function linkReference(state, node) {
+  const id = String(node.identifier).toUpperCase()
+  const def = state.definitionById.get(id)
+
+  if (!def) {
+    return revert(state, node)
+  }
+
+  /** @type {Properties} */
+  const properties = {href: normalizeUri(def.url || '')}
+
+  if (def.title !== null && def.title !== undefined) {
+    properties.title = def.title
+  }
+
+  /** @type {Element} */
+  const result = {
+    type: 'element',
+    tagName: 'a',
+    properties,
+    children: state.all(node)
+  }
+  state.patch(node, result)
+  return state.applyData(node, result)
+}
+const id = String(node.identifier).toUpperCase()
+const def = state.definitionById.get(id)
+!def
+const properties = {href: normalizeUri(def.url || '')}
+def.title !== null && def.title !== undefined
+properties.title = def.title
+const result = {
+    type: 'element',
+    tagName: 'a',
+    properties,
+    children: state.all(node)
+  }
+_tmp_3.type = "element"
+_tmp_3.tagName = "a"
+_tmp_3.properties = properties
+_tmp_3.children = state.all(node)
+state.patch(node, result)

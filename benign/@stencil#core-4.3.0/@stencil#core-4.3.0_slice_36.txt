@@ -1,0 +1,4 @@
+_tmp_1059.writeLogs = <lambda>699
+(_tmp_1061 = fs__default.default).accessSync
+r = !1
+r ? fs__default.default.appendFileSync(e, t) : fs__default.default.writeFileSync(e, t)

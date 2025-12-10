@@ -1,0 +1,11 @@
+readWord(firstCode) {
+    const word = this.readWord1(firstCode);
+    const type = keywords$1.get(word);
+    if (type !== undefined) {
+      this.finishToken(type, tokenLabelName(type));
+    } else {
+      this.finishToken(130, word);
+    }
+  }
+const word = this.readWord1(firstCode)
+const type = keywords$1.get(word)

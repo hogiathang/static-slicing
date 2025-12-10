@@ -1,0 +1,4 @@
+authBytes = param1_0.authBytes
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ authBytes })

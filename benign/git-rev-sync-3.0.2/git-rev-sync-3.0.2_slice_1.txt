@@ -1,0 +1,41 @@
+function long = function long(dir) {
+  var b = branch(dir);
+
+  if (/Detached: /.test(b)) {
+    return b.substr(10);
+  }
+
+  var gitDir = _getGitDirectory(dir);
+  var gitRootDir = gitDir.indexOf('.git/worktrees/') > 0 ?
+    gitDir.replace(/\.git\/worktrees\/.+$/, '.git') :
+    gitDir;
+  var refsFilePath = path.resolve(gitRootDir, 'refs', 'heads', b);
+  var ref;
+
+  if (fs.existsSync(refsFilePath)) {
+    ref = fs.readFileSync(refsFilePath, 'utf8');
+  } else {
+    // If there isn't an entry in /refs/heads for this branch, it may be that
+    // the ref is stored in the packfile (.git/packed-refs). Fall back to
+    // looking up the hash here.
+    var refToFind = ['refs', 'heads', b].join('/');
+    var packfileContents = fs.readFileSync(path.resolve(gitDir, 'packed-refs'), 'utf8');
+    var packfileRegex = new RegExp('(.*) ' + escapeStringRegexp(refToFind));
+    ref = packfileRegex.exec(packfileContents)[1];
+  }
+
+  return ref.trim();
+}
+var b = branch(dir)
+(_tmp_13 = /Detached: /).test
+var gitDir = _getGitDirectory(dir)
+var gitRootDir = gitDir.indexOf('.git/worktrees/') > 0 ?
+    gitDir.replace(/\.git\/worktrees\/.+$/, '.git') :
+    gitDir
+gitDir.replace(/\.git\/worktrees\/.+$/, '.git')
+var refsFilePath = path.resolve(gitRootDir, 'refs', 'heads', b)
+fs.existsSync(refsFilePath)
+var refToFind = ['refs', 'heads', b].join('/')
+var packfileContents = fs.readFileSync(path.resolve(gitDir, 'packed-refs'), 'utf8')
+var packfileRegex = new RegExp('(.*) ' + escapeStringRegexp(refToFind))
+ref = packfileRegex.exec(packfileContents)[1]

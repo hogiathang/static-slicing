@@ -1,0 +1,142 @@
+function EventSource = function EventSource (url, eventSourceInitDict) {
+  var readyState = EventSource.CONNECTING
+  var headers = eventSourceInitDict && eventSourceInitDict.headers
+  var hasNewOrigin = false
+  Object.defineProperty(this, 'readyState', {
+    get: function () {
+      return readyState
+    }
+  })
+
+  Object.defineProperty(this, 'url', {
+    get: function () {
+      return url
+    }
+  })
+
+  var self = this
+  self.reconnectInterval = 1000
+  self.connectionInProgress = false
+
+  function onConnectionClosed (message) {
+    if (readyState === EventSource.CLOSED) return
+    readyState = EventSource.CONNECTING
+    _emit('error', new Event('error', {message: message}))
+
+    // The url may have been changed by a temporary redirect. If that's the case,
+    // revert it now, and flag that we are no longer pointing to a new origin
+    if (reconnectUrl) {
+      url = reconnectUrl
+      reconnectUrl = null
+      hasNewOrigin = false
+    }
+    setTimeout(function () {
+      if (readyState !== EventSource.CO...
+var readyState = EventSource.CONNECTING
+var headers = eventSourceInitDict && eventSourceInitDict.headers
+var hasNewOrigin = false
+Object.defineProperty(this, 'readyState', {
+    get: function () {
+      return readyState
+    }
+  })
+_tmp_319.get = <lambda>152
+Object.defineProperty(this, 'url', {
+    get: function () {
+      return url
+    }
+  })
+_tmp_320.get = <lambda>153
+var self = this
+self.reconnectInterval = 1000
+self.connectionInProgress = false
+function onConnectionClosed = function onConnectionClosed (message) {
+    if (readyState === EventSource.CLOSED) return
+    readyState = EventSource.CONNECTING
+    _emit('error', new Event('error', {message: message}))
+
+    // The url may have been changed by a temporary redirect. If that's the case,
+    // revert it now, and flag that we are no longer pointing to a new origin
+    if (reconnectUrl) {
+      url = reconnectUrl
+      reconnectUrl = null
+      hasNewOrigin = false
+    }
+    setTimeout(function () {
+      if (readyState !== EventSource.CONNECTING || self.connectionInProgress) {
+        return
+      }
+      self.connectionInProgress = true
+      connect()
+    }, self.reconnectInterval)
+  }
+var lastEventId = ''
+headers && headers['Last-Event-ID']
+lastEventId = headers['Last-Event-ID']
+delete headers['Last-Event-ID']
+var discardTrailingNewline = false
+var data = ''
+var eventName = ''
+var reconnectUrl = null
+function connect = function connect () {
+    var options = parse(url)
+    var isSecure = options.protocol === 'https:'
+    options.headers = { 'Cache-Control': 'no-cache', 'Accept': 'text/event-stream' }
+    if (lastEventId) options.headers['Last-Event-ID'] = lastEventId
+    if (headers) {
+      var reqHeaders = hasNewOrigin ? removeUnsafeHeaders(headers) : headers
+      for (var i in reqHeaders) {
+        var header = reqHeaders[i]
+        if (header) {
+          options.headers[i] = header
+        }
+      }
+    }
+
+    // Legacy: this should be specified as `eventSourceInitDict.https.rejectUnauthorized`,
+    // but for now exists as a backwards-compatibility layer
+    options.rejectUnauthorized = !(eventSourceInitDict && !eventSourceInitDict.rejectUnauthorized)
+
+    if (eventSourceInitDict && eventSourceInitDict.createConnection !== undefined) {
+      options.createConnection = eventSourceInitDict.createConnection
+    }
+
+    // If specify http proxy, make the request to sent to the proxy server,
+    ...
+function _emit = function _emit () {
+    if (self.listeners(arguments[0]).length > 0) {
+      self.emit.apply(self, arguments)
+    }
+  }
+function parseEventStreamLine = function parseEventStreamLine (buf, pos, fieldLength, lineLength) {
+    if (lineLength === 0) {
+      if (data.length > 0) {
+        var type = eventName || 'message'
+        _emit(type, new MessageEvent(type, {
+          data: data.slice(0, -1), // remove trailing newline
+          lastEventId: lastEventId,
+          origin: new URL(url).origin
+        }))
+        data = ''
+      }
+      eventName = void 0
+    } else if (fieldLength > 0) {
+      var noValue = fieldLength < 0
+      var step = 0
+      var field = buf.slice(pos, pos + (noValue ? lineLength : fieldLength)).toString()
+
+      if (noValue) {
+        step = lineLength
+      } else if (buf[pos + fieldLength + 1] !== space) {
+        step = fieldLength + 1
+      } else {
+        step = fieldLength + 2
+      }
+      pos += step
+
+      var valueLength = lineLength - step
+      var value = buf.slice(pos, pos + valueLength).toString()
+
+      if (field === 'data') {
+        data += value + '\n'
+      } else if (field === 'event')...

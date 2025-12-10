@@ -1,0 +1,31 @@
+function addCoverage = function addCoverage(coverageMap, browser) {
+    const coverage = browserCoverage.get(browser);
+    browserCoverage.delete(browser);
+
+    if (!coverage) {
+      return;
+    }
+
+    Object.keys(coverage).forEach((filename) => {
+      const fileCoverage = coverage[filename];
+      if (fileCoverage.inputSourceMap && coverageConfig.fixWebpackSourcePaths) {
+        fileCoverage.inputSourceMap = util.fixWebpackSourcePaths(
+          fileCoverage.inputSourceMap,
+          config.webpack
+        );
+      }
+
+      if (
+        coverageConfig.skipFilesWithNoCoverage &&
+        Object.keys(fileCoverage.statementMap).length === 0 &&
+        Object.keys(fileCoverage.fnMap).length === 0 &&
+        Object.keys(fileCoverage.branchMap).length === 0
+      ) {
+        log.debug(`File [${filename}] ignored, nothing could be mapped`);
+      } else {
+        coverageMap.addFileCoverage(fileCoverage);
+      }
+    });
+  }
+const coverage = browserCoverage.get(browser)
+browserCoverage.delete(browser)

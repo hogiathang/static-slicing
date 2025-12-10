@@ -1,0 +1,42 @@
+function runExtensionCommand = async function runExtensionCommand(args, config) {
+  // TODO driver config file should be locked while any of these commands are
+  // running to prevent weird situations
+  let jsonResult = null;
+  const {extensionType: type} = config; // NOTE this is the same as `args.subcommand`
+  if (!isExtensionCommandArgs(args)) {
+    throw new TypeError(`Cannot call ${type} command without a subcommand like 'install'`);
+  }
+  let {json, suppressOutput} = args;
+  json = Boolean(json);
+  if (suppressOutput) {
+    json = true;
+  }
+  const CommandClass = /** @type {ExtCommand<Cmd>} */ (commandClasses[type]);
+  const cmd = new CommandClass({config, json});
+  try {
+    jsonResult = await cmd.execute(args);
+  } catch (err) {
+    // in the suppress output case, we are calling this function internally and should
+    // just throw instead of printing an error and ending the process
+    if (suppressOutput) {
+      throw err;
+    }
+    errAndQuit(json, err);
+  }
+
+  if (json && !suppressOutput) {
+    consol...
+let jsonResult = null
+type = _tmp_0.extensionType
+!isExtensionCommandArgs(args)
+<operator>.formatString("Cannot call ", type, " command without a subcommand like 'install'")
+suppressOutput = _tmp_2.suppressOutput
+json = Boolean(json)
+json = true
+const CommandClass = /** @type {ExtCommand<Cmd>} */ (commandClasses[type])
+const cmd = new CommandClass({config, json})
+jsonResult = await cmd.execute(args)
+throw err;
+errAndQuit(json, err)
+json && !suppressOutput
+console.log(JSON.stringify(jsonResult, null, JSON_SPACES))

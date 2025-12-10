@@ -1,0 +1,21 @@
+DefaultEncoding.prototype.charToGlyphIndex = function(c) {
+    const code = c.codePointAt(0);
+    const glyphs = this.font.glyphs;
+    if (glyphs) {
+        for (let i = 0; i < glyphs.length; i += 1) {
+            const glyph = glyphs.get(i);
+            for (let j = 0; j < glyph.unicodes.length; j += 1) {
+                if (glyph.unicodes[j] === code) {
+                    return i;
+                }
+            }
+        }
+    }
+    return null;
+}
+const code = c.codePointAt(0)
+const glyphs = this.font.glyphs
+i < glyphs.length
+const glyph = glyphs.get(i)
+j < glyph.unicodes.length
+glyph.unicodes[j] === code

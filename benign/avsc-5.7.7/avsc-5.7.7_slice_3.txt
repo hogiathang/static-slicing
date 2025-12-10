@@ -1,0 +1,65 @@
+StatelessClientChannel.prototype._send = function (id, reqBuf) {
+  var cb = this._registry.get(id);
+  var adapter = this._adapter;
+  var self = this;
+  process.nextTick(emit);
+  return true;
+
+  function emit(retry) {
+    if (self.destroyed) {
+      // The request's callback will already have been called.
+      return;
+    }
+
+    var hreq = self._createHandshakeRequest(adapter, !retry);
+
+    var writable = self._writableFactory.call(self, function (err, readable) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      readable.on('data', function (obj) {
+        debug('received response %s', obj.id);
+        // We don't check that the prefix matches since the ID likely hasn't
+        // been propagated to the response (see default stateless codec).
+        var buf = Buffer.concat(obj.payload);
+        try {
+          var parts = readHead(HANDSHAKE_RESPONSE_TYPE, buf);
+          var hres = parts.head;
+          if (hres.serverHash) {
+            adapter = self._getAdapter(hr...
+var cb = this._registry.get(id)
+var adapter = this._adapter
+var self = this
+process.nextTick(emit)
+function emit = function emit(retry) {
+    if (self.destroyed) {
+      // The request's callback will already have been called.
+      return;
+    }
+
+    var hreq = self._createHandshakeRequest(adapter, !retry);
+
+    var writable = self._writableFactory.call(self, function (err, readable) {
+      if (err) {
+        cb(err);
+        return;
+      }
+      readable.on('data', function (obj) {
+        debug('received response %s', obj.id);
+        // We don't check that the prefix matches since the ID likely hasn't
+        // been propagated to the response (see default stateless codec).
+        var buf = Buffer.concat(obj.payload);
+        try {
+          var parts = readHead(HANDSHAKE_RESPONSE_TYPE, buf);
+          var hres = parts.head;
+          if (hres.serverHash) {
+            adapter = self._getAdapter(hres);
+          }
+        } catch (cause) {
+          cb(cause);
+          return;
+        }
+        var match = hres.match;
+        debug('handshake match: %s', match);
+        self.emit('handsh...

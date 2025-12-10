@@ -1,0 +1,20 @@
+oldDefaultImports.forEach(function (value) {
+            if (!newDefaultImports.has(value)) {
+              var imports = oldImportPaths.get(value);
+              imports['delete'](IMPORT_DEFAULT_SPECIFIER);
+
+              var _exports4 = exportList.get(value);
+              if (typeof _exports4 !== 'undefined') {
+                var currentExport = _exports4.get(IMPORT_DEFAULT_SPECIFIER);
+                if (typeof currentExport !== 'undefined') {
+                  currentExport.whereUsed['delete'](file);
+                }
+              }
+            }
+          })
+!newDefaultImports.has(value)
+var imports = oldImportPaths.get(value)
+imports['delete'](IMPORT_DEFAULT_SPECIFIER)
+var _exports4 = exportList.get(value)
+typeof _exports4 !== 'undefined'
+var currentExport = _exports4.get(IMPORT_DEFAULT_SPECIFIER)

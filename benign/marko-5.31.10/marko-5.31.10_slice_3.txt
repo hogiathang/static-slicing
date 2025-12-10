@@ -1,0 +1,343 @@
+function morphChildren = function morphChildren(fromNode, toNode, parentComponent) {
+    var curFromNodeChild = firstChild(fromNode);
+    var curToNodeChild = toNode.___firstChild;
+
+    var curToNodeKey;
+    var curFromNodeKey;
+    var curToNodeType;
+
+    var fromNextSibling;
+    var toNextSibling;
+    var matchingFromEl;
+    var matchingFromComponent;
+    var curVFromNodeChild;
+    var fromComponent;
+
+    outer: while (curToNodeChild) {
+      toNextSibling = curToNodeChild.___nextSibling;
+      curToNodeType = curToNodeChild.___nodeType;
+      curToNodeKey = curToNodeChild.___key;
+
+      // Skip <!doctype>
+      if (curFromNodeChild && curFromNodeChild.nodeType === DOCTYPE_NODE) {
+        curFromNodeChild = nextSibling(curFromNodeChild);
+      }
+
+      var ownerComponent = curToNodeChild.___ownerComponent || parentComponent;
+      var referenceComponent;
+
+      if (curToNodeType === COMPONENT_NODE) {
+        var component = curToNodeChild.___component;
+        if (
+          (matchingFromComponent = existi...
+var curFromNodeChild = firstChild(fromNode)
+var curToNodeChild = toNode.___firstChild
+outer:
+toNextSibling = curToNodeChild.___nextSibling
+curToNodeType = curToNodeChild.___nodeType
+curToNodeKey = curToNodeChild.___key
+curFromNodeChild && curFromNodeChild.nodeType === DOCTYPE_NODE
+curFromNodeChild = nextSibling(curFromNodeChild)
+var ownerComponent = curToNodeChild.___ownerComponent || parentComponent
+curToNodeType === COMPONENT_NODE
+var component = curToNodeChild.___component
+(matchingFromComponent = existingComponentLookup[component.id]) ===
+          undefined
+isHydrate === true
+var rootNode = beginFragmentNode(curFromNodeChild, fromNode)
+component.___rootNode = rootNode
+componentByDOMNode.set(rootNode, component)
+ownerComponent && curToNodeKey
+curToNodeKey = normalizeComponentKey(
+                curToNodeKey,
+                parentComponent.id
+              )
+parentComponent.id
+addComponentRootToKeyedElements(
+                ownerComponent.___keyedElements,
+                curToNodeKey,
+                rootNode,
+                component.id
+              )
+ownerComponent.___keyedElements
+component.id
+keysByDOMNode.set(rootNode, curToNodeKey)
+morphComponent(component, curToNodeChild)
+curFromNodeChild = nextSibling(rootNode)
+insertVirtualComponentBefore(
+              curToNodeChild,
+              curFromNodeChild,
+              fromNode,
+              component,
+              curToNodeKey,
+              ownerComponent,
+              parentComponent
+            )
+matchingFromComponent.___rootNode !== curFromNodeChild
+curFromNodeChild &&
+              (fromComponent = componentByDOMNode.get(curFromNodeChild)) &&
+              globalComponentsContext.___renderedComponentsById[
+                fromComponent.id
+              ] === undefined
+fromComponent = componentByDOMNode.get(curFromNodeChild)
+globalComponentsContext.___renderedComponentsById[
+                fromComponent.id
+              ] === undefined
+fromComponent.id
+curFromNodeChild = nextSibling(fromComponent.___rootNode)
+destroyComponent(fromComponent)
+continue;
+insertBefore(
+              matchingFromComponent.___rootNode,
+              curFromNodeChild,
+              fromNode
+            )
+matchingFromComponent.___rootNode
+curFromNodeChild =
+              curFromNodeChild && nextSibling(curFromNodeChild)
+curFromNodeChild && nextSibling(curFromNodeChild)
+!curToNodeChild.___preserve
+morphComponent(component, curToNodeChild)
+curToNodeChild = toNextSibling
+continue;
+curVFromNodeChild = undefined
+curFromNodeKey = undefined
+var curToNodeKeyOriginal = curToNodeKey
+isAutoKey(curToNodeKey)
+ownerComponent !== parentComponent
+curToNodeKey += ":" + ownerComponent.id
+referenceComponent = parentComponent
+referenceComponent = ownerComponent
+curToNodeKey = (
+          keySequences[referenceComponent.id] ||
+          (keySequences[referenceComponent.id] = new KeySequence())
+        ).___nextKey(curToNodeKey)
+(_tmp_0 = keySequences[referenceComponent.id] ||
+          (keySequences[referenceComponent.id] = new KeySequence()))
+keySequences[referenceComponent.id] = new KeySequence()
+___nextKey
+curFromNodeKey = keysByDOMNode.get(curFromNodeChild)
+curVFromNodeChild = vElementByDOMNode.get(curFromNodeChild)
+fromNextSibling = nextSibling(curFromNodeChild)
+curFromNodeKey === curToNodeKey
+!curToNodeChild.___preserve
+compareNodeNames(curToNodeChild, curVFromNodeChild)
+morphEl(
+                curFromNodeChild,
+                curVFromNodeChild,
+                curToNodeChild,
+                parentComponent
+              )
+detachNode(curFromNodeChild, fromNode, ownerComponent)
+insertVirtualNodeBefore(
+                curToNodeChild,
+                curToNodeKey,
+                curFromNodeChild,
+                fromNode,
+                ownerComponent,
+                parentComponent
+              )
+matchingFromEl = referenceComponent.___keyedElements[curToNodeKey]
+matchingFromEl === undefined ||
+            matchingFromEl === curFromNodeChild
+matchingFromEl === curFromNodeChild
+isHydrate === true && curFromNodeChild
+curFromNodeChild.nodeType === ELEMENT_NODE &&
+                (curToNodeChild.___preserve ||
+                  caseInsensitiveCompare(
+                    curFromNodeChild.nodeName,
+                    curToNodeChild.___nodeName || ""
+                  ))
+curToNodeChild.___preserve ||
+                  caseInsensitiveCompare(
+                    curFromNodeChild.nodeName,
+                    curToNodeChild.___nodeName || ""
+                  )
+caseInsensitiveCompare(
+                    curFromNodeChild.nodeName,
+                    curToNodeChild.___nodeName || ""
+                  )
+curFromNodeChild.nodeName
+curToNodeChild.___nodeName || ""
+curVFromNodeChild = virtualizeElement(curFromNodeChild)
+curVFromNodeChild.___nodeName = curToNodeChild.___nodeName
+keysByDOMNode.set(curFromNodeChild, curToNodeKey)
+referenceComponent.___keyedElements[curToNodeKey] =
+                  curFromNodeChild
+curToNodeChild.___preserve
+vElementByDOMNode.set(curFromNodeChild, curVFromNodeChild)
+morphEl(
+                    curFromNodeChild,
+                    curVFromNodeChild,
+                    curToNodeChild,
+                    parentComponent
+                  )
+curToNodeChild = toNextSibling
+curFromNodeChild = fromNextSibling
+continue;
+curToNodeChild.___nodeType === FRAGMENT_NODE &&
+                curFromNodeChild.nodeType === COMMENT_NODE
+curFromNodeChild.nodeType === COMMENT_NODE
+var content = curFromNodeChild.nodeValue
+content == "F#" + curToNodeKeyOriginal
+var endNode = curFromNodeChild.nextSibling
+var depth = 0
+endNode.nodeType === COMMENT_NODE
+nodeValue = endNode.nodeValue
+nodeValue === "F/"
+depth === 0
+break;
+depth--
+nodeValue.indexOf("F#") === 0
+depth++
+endNode = endNode.nextSibling
+var fragment = createFragmentNode(
+                    curFromNodeChild,
+                    endNode.nextSibling,
+                    fromNode
+                  )
+endNode.nextSibling
+keysByDOMNode.set(fragment, curToNodeKey)
+vElementByDOMNode.set(fragment, curToNodeChild)
+referenceComponent.___keyedElements[curToNodeKey] = fragment
+removeChild(curFromNodeChild)
+removeChild(endNode)
+!curToNodeChild.___preserve
+morphChildren(fragment, curToNodeChild, parentComponent)
+curToNodeChild = toNextSibling
+curFromNodeChild = fragment.nextSibling
+continue;
+insertVirtualNodeBefore(
+              curToNodeChild,
+              curToNodeKey,
+              curFromNodeChild,
+              fromNode,
+              ownerComponent,
+              parentComponent
+            )
+fromNextSibling = curFromNodeChild
+detachedByDOMNode.get(matchingFromEl) !== undefined
+detachedByDOMNode.set(matchingFromEl, undefined)
+!curToNodeChild.___preserve
+curVFromNodeChild = vElementByDOMNode.get(matchingFromEl)
+compareNodeNames(curVFromNodeChild, curToNodeChild)
+fromNextSibling === matchingFromEl
+toNextSibling &&
+                    toNextSibling.___key === curFromNodeKey
+toNextSibling.___key === curFromNodeKey
+fromNextSibling = curFromNodeChild
+insertBefore(matchingFromEl, curFromNodeChild, fromNode)
+fromNextSibling = nextSibling(fromNextSibling)
+detachNode(curFromNodeChild, fromNode, ownerComponent)
+insertAfter(matchingFromEl, curFromNodeChild, fromNode)
+detachNode(curFromNodeChild, fromNode, ownerComponent)
+morphEl(
+                  matchingFromEl,
+                  curVFromNodeChild,
+                  curToNodeChild,
+                  parentComponent
+                )
+insertVirtualNodeBefore(
+                  curToNodeChild,
+                  curToNodeKey,
+                  curFromNodeChild,
+                  fromNode,
+                  ownerComponent,
+                  parentComponent
+                )
+detachNode(matchingFromEl, fromNode, ownerComponent)
+insertBefore(matchingFromEl, curFromNodeChild, fromNode)
+fromNextSibling = curFromNodeChild
+curToNodeChild = toNextSibling
+curFromNodeChild = fromNextSibling
+continue;
+fromNextSibling = nextSibling(curFromNodeChild)
+fromComponent = componentByDOMNode.get(curFromNodeChild)
+curFromNodeChild = fromNextSibling
+!globalComponentsContext.___renderedComponentsById[fromComponent.id]
+destroyComponent(fromComponent)
+continue;
+var curFromNodeType = curFromNodeChild.nodeType
+var isCompatible = undefined
+curFromNodeType === curToNodeType
+curFromNodeType === ELEMENT_NODE
+curVFromNodeChild = vElementByDOMNode.get(curFromNodeChild)
+curVFromNodeChild === undefined
+isHydrate === true
+curVFromNodeChild = virtualizeElement(curFromNodeChild)
+caseInsensitiveCompare(
+                    curVFromNodeChild.___nodeName,
+                    curToNodeChild.___nodeName
+                  )
+curVFromNodeChild.___nodeName
+curToNodeChild.___nodeName
+curVFromNodeChild.___nodeName = curToNodeChild.___nodeName
+curFromNodeChild = fromNextSibling
+continue;
+curFromNodeKey = curVFromNodeChild.___key
+isCompatible = false
+isCompatible =
+              isCompatible !== false &&
+              compareNodeNames(curVFromNodeChild, curToNodeChild) === true
+isCompatible !== false &&
+              compareNodeNames(curVFromNodeChild, curToNodeChild) === true
+compareNodeNames(curVFromNodeChild, curToNodeChild) === true
+isCompatible === true
+morphEl(
+                curFromNodeChild,
+                curVFromNodeChild,
+                curToNodeChild,
+                parentComponent
+              )
+curFromNodeType === TEXT_NODE ||
+            curFromNodeType === COMMENT_NODE
+curFromNodeType === COMMENT_NODE
+isCompatible = true
+isHydrate === true &&
+              toNextSibling &&
+              curFromNodeType === TEXT_NODE &&
+              toNextSibling.___nodeType === TEXT_NODE
+curFromNodeType === TEXT_NODE
+toNextSibling.___nodeType === TEXT_NODE
+fromNextSibling = curFromNodeChild.splitText(
+                curToNodeChild.___nodeValue.length
+              )
+curToNodeChild.___nodeValue.length
+curFromNodeChild.nodeValue !== curToNodeChild.___nodeValue
+curFromNodeChild.nodeValue = curToNodeChild.___nodeValue
+isCompatible === true
+curToNodeChild = toNextSibling
+curFromNodeChild = fromNextSibling
+continue outer;
+detachNode(curFromNodeChild, fromNode, ownerComponent)
+curFromNodeChild = fromNextSibling
+insertVirtualNodeBefore(
+        curToNodeChild,
+        curToNodeKey,
+        curFromNodeChild,
+        fromNode,
+        ownerComponent,
+        parentComponent
+      )
+curToNodeChild = toNextSibling
+curFromNodeChild = fromNextSibling
+fromNode.___finishFragment
+var fragmentBoundary =
+        fromNode.nodeType === FRAGMENT_NODE ? fromNode.endNode : null
+fromNode.nodeType === FRAGMENT_NODE ? fromNode.endNode : null
+curFromNodeChild && curFromNodeChild !== fragmentBoundary
+fromNextSibling = nextSibling(curFromNodeChild)
+fromComponent = componentByDOMNode.get(curFromNodeChild)
+curFromNodeChild = fromNextSibling
+!globalComponentsContext.___renderedComponentsById[fromComponent.id]
+destroyComponent(fromComponent)
+continue;
+curVFromNodeChild = vElementByDOMNode.get(curFromNodeChild)
+curFromNodeKey = keysByDOMNode.get(fromNode)
+!curFromNodeKey || isAutoKey(curFromNodeKey)
+referenceComponent = parentComponent
+referenceComponent =
+            curVFromNodeChild && curVFromNodeChild.___ownerComponent
+curVFromNodeChild && curVFromNodeChild.___ownerComponent
+detachNode(curFromNodeChild, fromNode, referenceComponent)
+curFromNodeChild = fromNextSibling

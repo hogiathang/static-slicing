@@ -1,0 +1,25 @@
+function abortStaleFetchLoads = function abortStaleFetchLoads(landedId: number): boolean {
+    let yeetedKeys = [];
+    for (let [key, id] of fetchReloadIds) {
+      if (id < landedId) {
+        let fetcher = state.fetchers.get(key);
+        invariant(fetcher, `Expected fetcher: ${key}`);
+        if (fetcher.state === "loading") {
+          abortFetcher(key);
+          fetchReloadIds.delete(key);
+          yeetedKeys.push(key);
+        }
+      }
+    }
+    markFetchersDone(yeetedKeys);
+    return yeetedKeys.length > 0;
+  }
+__ecma.Array.factory()
+_iterator_7 = <operator>.iterator(fetchReloadIds)
+id < landedId
+let fetcher = state.fetchers.get(key)
+<operator>.formatString("Expected fetcher: ", key, "")
+fetcher.state === "loading"
+abortFetcher(key)
+fetchReloadIds.delete(key)
+yeetedKeys.push(key)

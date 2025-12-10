@@ -1,0 +1,34 @@
+$q(function (resolve, reject) {
+                for (var x = 0; x >= 0; x++) {
+                    if ($injector.has('json' + (x + 1))) {
+                        var item = {};
+                        var setting = $injector.get('json' + (x + 1));
+                        var dbobj = breakdown_components(setting);
+                        if (setting[dbobj.db] === userDbPreference) { //userDbPreference is the name
+                            userPrefJsonFile = x + 1; //userPrefJsonFile is the index
+                            if (x === (numOfJsonDatabases - 1)) {
+                                resolve();
+                            }
+                        } else {
+                            item.filename = dbobj.db;
+                            item.json = x + 1;
+                            dbitems.push(item);
+                            if (x === (numOfJsonDatabases - 1)) {
+                                resolve();
+                            }
+                        }
+         ...
+var x = 0
+$injector.has('json' + (x + 1))
+var item = {}
+var setting = $injector.get('json' + (x + 1))
+var dbobj = breakdown_components(setting)
+setting[dbobj.db] === userDbPreference
+userPrefJsonFile = x + 1
+x === (numOfJsonDatabases - 1)
+resolve()
+item.filename = dbobj.db
+item.json = x + 1
+dbitems.push(item)
+x === (numOfJsonDatabases - 1)
+resolve()

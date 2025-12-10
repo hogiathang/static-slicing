@@ -1,0 +1,34 @@
+function shouldCompute = function shouldCompute(derivation: IDerivation): boolean {
+    switch (derivation.dependenciesState_) {
+        case IDerivationState_.UP_TO_DATE_:
+            return false
+        case IDerivationState_.NOT_TRACKING_:
+        case IDerivationState_.STALE_:
+            return true
+        case IDerivationState_.POSSIBLY_STALE_: {
+            // state propagation can occur outside of action/reactive context #2195
+            const prevAllowStateReads = allowStateReadsStart(true)
+            const prevUntracked = untrackedStart() // no need for those computeds to be reported, they will be picked up in trackDerivedFunction.
+            const obs = derivation.observing_,
+                l = obs.length
+            for (let i = 0; i < l; i++) {
+                const obj = obs[i]
+                if (isComputedValue(obj)) {
+                    if (globalState.disableErrorBoundaries) {
+                        obj.get()
+                    } else {
+                        try {
+              ...
+derivation.dependenciesState_
+IDerivationState_.POSSIBLY_STALE_
+const prevAllowStateReads = allowStateReadsStart(true)
+const prevUntracked = untrackedStart()
+const obs = derivation.observing_
+const l = obs.length
+let i = 0
+const obj = obs[i]
+isComputedValue(obj)
+globalState.disableErrorBoundaries
+obj.get()
+obj.get()
+(derivation.dependenciesState_ as any) === IDerivationState_.STALE_

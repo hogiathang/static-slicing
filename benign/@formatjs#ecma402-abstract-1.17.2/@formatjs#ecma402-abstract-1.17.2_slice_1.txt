@@ -1,0 +1,10 @@
+function setInternalSlot = function setInternalSlot(map, pl, field, value) {
+    if (!map.get(pl)) {
+        map.set(pl, Object.create(null));
+    }
+    var slots = map.get(pl);
+    slots[field] = value;
+}
+!map.get(pl)
+map.set(pl, Object.create(null))
+var slots = map.get(pl)

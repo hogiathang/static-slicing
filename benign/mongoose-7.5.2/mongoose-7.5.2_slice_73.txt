@@ -1,0 +1,46 @@
+Mongoose.prototype._model = function(name, schema, collection, options) {
+  const _mongoose = this instanceof Mongoose ? this : mongoose;
+
+  let model;
+  if (typeof name === 'function') {
+    model = name;
+    name = model.name;
+    if (!(model.prototype instanceof Model)) {
+      throw new _mongoose.Error('The provided class ' + name + ' must extend Model');
+    }
+  }
+
+  if (schema) {
+    if (_mongoose.get('cloneSchemas')) {
+      schema = schema.clone();
+    }
+    _mongoose._applyPlugins(schema);
+  }
+
+  // Apply relevant "global" options to the schema
+  if (schema == null || !('pluralization' in schema.options)) {
+    schema.options.pluralization = _mongoose.options.pluralization;
+  }
+
+  if (!collection) {
+    collection = schema.get('collection') ||
+      utils.toCollectionName(name, _mongoose.pluralize());
+  }
+
+  const connection = options.connection || _mongoose.connection;
+  model = _mongoose.Model.compile(model || name, schema, collection, connection, _mongoose);
+  // Errors ...
+const _mongoose = this instanceof Mongoose ? this : mongoose
+typeof name === 'function'
+model = name
+name = model.name
+!(model.prototype instanceof Model)
+throw new _mongoose.Error('The provided class ' + name + ' must extend Model');
+_mongoose.get('cloneSchemas')
+schema = schema.clone()
+_mongoose._applyPlugins(schema)
+schema == null || !('pluralization' in schema.options)
+schema.options.pluralization = _mongoose.options.pluralization
+!collection
+collection = schema.get('collection') ||
+      utils.toCollectionName(name, _mongoose.pluralize())

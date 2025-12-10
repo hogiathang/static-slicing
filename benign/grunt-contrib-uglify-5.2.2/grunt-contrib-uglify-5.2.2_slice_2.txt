@@ -1,0 +1,70 @@
+this.files.forEach(function (f) {
+      var availableFiles = getAvailableFiles(f.src);
+
+      if (availableFiles.length === 0) {
+        grunt.log.warn('Destination ' + chalk.cyan(f.dest) + ' not written because src files were empty.');
+        return;
+      }
+
+      // function to get the name of the sourceMapIn file
+      if (typeof options.sourceMapIn === 'function') {
+        if (availableFiles.length !== 1) {
+          grunt.fail.warn('Cannot generate `sourceMapIn` for multiple source files.');
+        }
+        mapInNameGenerator = options.sourceMapIn;
+      }
+
+      // dynamically create destination sourcemap name
+      if (mapNameGenerator) {
+        try {
+          options.generatedSourceMapName = mapNameGenerator(f.dest);
+        } catch (e) {
+          err = new Error('SourceMap failed.');
+          err.origError = e;
+          grunt.fail.warn(err);
+        }
+      // If no name is passed append .map to the filename
+      } else if (!options.sourceMapName) {
+        optio...
+var availableFiles = getAvailableFiles(f.src)
+availableFiles.length === 0
+typeof options.sourceMapIn === 'function'
+availableFiles.length !== 1
+grunt.fail.warn('Cannot generate `sourceMapIn` for multiple source files.')
+mapInNameGenerator = options.sourceMapIn
+options.generatedSourceMapName = mapNameGenerator(f.dest)
+err = new Error('SourceMap failed.')
+err.origError = e
+(_tmp_12 = grunt.fail).warn
+!options.sourceMapName
+options.generatedSourceMapName = f.dest + '.map'
+options.generatedSourceMapName = options.sourceMapName
+options.sourceMapIn = mapInNameGenerator(availableFiles[0])
+err = new Error('SourceMapInName failed.')
+err.origError = e
+(_tmp_14 = grunt.fail).warn
+options.sourceMap
+typeof options.sourceMap !== 'object'
+options.sourceMap = {}
+options.sourceMapIn
+options.sourceMap.content = grunt.file.read(options.sourceMapIn)
+options.sourceMap.filename = path.basename(f.dest)
+var destToSourceMapPath = relativePath(f.dest, options.generatedSourceMapName)
+var sourceMapBasename = path.basename(options.generatedSourceMapName)
+options.sourceMap.url = uriPath(path.join(destToSourceMapPath, sourceMapBasename))
+result = uglify.minify(availableFiles, f.dest, options)
+console.log(e)
+err = new Error('Uglification failed.')
+e.message
+err.message += '\n' + e.message + '. \n'
+e.line
+err.message += 'Line ' + e.line + ' in ' + availableFiles + '\n'
+err.origError = e
+grunt.log.warn('Uglifying source ' + chalk.cyan(availableFiles) + ' failed.')
+(_tmp_19 = grunt.fail).warn
+var output = result.min + footer
+var unCompiledJSString = availableFiles.map(function (file) {
+        return grunt.file.read(file);
+      }).join('')
+join
+grunt.file.write(f.dest, output)

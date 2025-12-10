@@ -1,0 +1,45 @@
+init() {
+      var _this = this;
+      let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      let callback = arguments.length > 1 ? arguments[1] : undefined;
+      if (typeof options === 'function') {
+        callback = options;
+        options = {};
+      }
+      if (!options.defaultNS && options.defaultNS !== false && options.ns) {
+        if (typeof options.ns === 'string') {
+          options.defaultNS = options.ns;
+        } else if (options.ns.indexOf('translation') < 0) {
+          options.defaultNS = options.ns[0];
+        }
+      }
+      const defOpts = get();
+      this.options = {
+        ...defOpts,
+        ...this.options,
+        ...transformOptions(options)
+      };
+      if (this.options.compatibilityAPI !== 'v1') {
+        this.options.interpolation = {
+          ...defOpts.interpolation,
+          ...this.options.interpolation
+        };
+      }
+      if (options.keySeparator !== undefined) {
+        this.options.userDefinedKeyS...
+var _this = this
+let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+let callback = arguments.length > 1 ? arguments[1] : undefined
+typeof options === 'function'
+callback = options
+options = {}
+!options.defaultNS && options.defaultNS !== false && options.ns
+typeof options.ns === 'string'
+options.defaultNS = options.ns
+options.ns.indexOf('translation') < 0
+options.defaultNS = options.ns[0]
+function createClassOnDemand = function createClassOnDemand(ClassOrObject) {
+        if (!ClassOrObject) return null;
+        if (typeof ClassOrObject === 'function') return new ClassOrObject();
+        return ClassOrObject;
+      }

@@ -1,0 +1,8 @@
+get(key: K): V | undefined {
+        if (this.has(key)) {
+            return this.dehanceValue_(this.data_.get(key)!.get())
+        }
+        return this.dehanceValue_(undefined)
+    }
+this.has(key)
+this.dehanceValue_(this.data_.get(key)!.get())

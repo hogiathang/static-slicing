@@ -1,0 +1,81 @@
+function connectSocket = function connectSocket (cb) {
+    const server = self.urls[self._nextServer]
+    self._nextServer = (self._nextServer + 1) % self.urls.length
+
+    cb = once(cb)
+
+    function onResult (err, res) {
+      if (err) {
+        if (self.connectTimer) {
+          clearTimeout(self.connectTimer)
+          self.connectTimer = null
+        }
+        self.emit('connectError', err)
+      }
+      cb(err, res)
+    }
+    function onConnect () {
+      if (self.connectTimer) {
+        clearTimeout(self.connectTimer)
+        self.connectTimer = null
+      }
+      socket.removeAllListeners('error')
+        .removeAllListeners('connect')
+        .removeAllListeners('secureConnect')
+
+      tracker.id = nextClientId() + '__' + tracker.id
+      self.log = self.log.child({ ldap_id: tracker.id }, true)
+
+      // Move on to client setup
+      setupClient(cb)
+    }
+
+    const port = (server && server.port) || self.socketPath
+    const host = server && server.hostname
+    if (server && server.secure) {
+      s...
+const server = self.urls[self._nextServer]
+self._nextServer = (self._nextServer + 1) % self.urls.length
+cb = once(cb)
+function onResult = function onResult (err, res) {
+      if (err) {
+        if (self.connectTimer) {
+          clearTimeout(self.connectTimer)
+          self.connectTimer = null
+        }
+        self.emit('connectError', err)
+      }
+      cb(err, res)
+    }
+function onConnect = function onConnect () {
+      if (self.connectTimer) {
+        clearTimeout(self.connectTimer)
+        self.connectTimer = null
+      }
+      socket.removeAllListeners('error')
+        .removeAllListeners('connect')
+        .removeAllListeners('secureConnect')
+
+      tracker.id = nextClientId() + '__' + tracker.id
+      self.log = self.log.child({ ldap_id: tracker.id }, true)
+
+      // Move on to client setup
+      setupClient(cb)
+    }
+const port = (server && server.port) || self.socketPath
+const host = server && server.hostname
+server && server.secure
+socket = tls.connect(port, host, self.tlsOptions)
+socket.once('secureConnect', onConnect)
+socket = net.connect(port, host)
+socket.once('connect', onConnect)
+socket.once('error', onResult)
+initSocket(server)
+self.connectTimeout
+self.connectTimer = setTimeout(function onConnectTimeout () {
+        if (!socket || !socket.readable || !socket.writeable) {
+          socket.destroy()
+          self._socket = null
+          onResult(new ConnectionError('connection timeout'))
+        }
+      }, self.connectTimeout)

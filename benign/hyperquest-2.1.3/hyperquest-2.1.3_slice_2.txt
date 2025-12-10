@@ -1,0 +1,68 @@
+Req.prototype._send = function () {
+    this._sent = true;
+    
+    var headers = this.headers || {};
+    var u = url.parse(this.uri);
+    var au = u.auth || this.auth;
+    if (au) {
+        headers.authorization = 'Basic ' + bufferFrom(au).toString('base64');
+    }
+    
+    var protocol = u.protocol || '';
+    var iface = protocol === 'https:' ? https : http;
+    var opts = {
+        scheme: protocol.replace(/:$/, ''),
+        method: this.method,
+        host: u.hostname,
+        port: Number(u.port) || (protocol === 'https:' ? 443 : 80),
+        path: u.path,
+        agent: this.options.agent || false,
+        headers: headers,
+        withCredentials: this.options.withCredentials,
+        localAddress: this.options.localAddress
+    };
+    if (protocol === 'https:') {
+        opts.pfx = this.options.pfx;
+        opts.key = this.options.key;
+        opts.cert = this.options.cert;
+        opts.ca = this.options.ca;
+        opts.ciphers = this.options.ciphers;
+        opts.rejectUna...
+this._sent = true
+var headers = this.headers || {}
+var u = url.parse(this.uri)
+var au = u.auth || this.auth
+headers.authorization = 'Basic ' + bufferFrom(au).toString('base64')
+var protocol = u.protocol || ''
+var iface = protocol === 'https:' ? https : http
+var opts = {
+        scheme: protocol.replace(/:$/, ''),
+        method: this.method,
+        host: u.hostname,
+        port: Number(u.port) || (protocol === 'https:' ? 443 : 80),
+        path: u.path,
+        agent: this.options.agent || false,
+        headers: headers,
+        withCredentials: this.options.withCredentials,
+        localAddress: this.options.localAddress
+    }
+_tmp_11.scheme = protocol.replace(/:$/, '')
+_tmp_11.method = this.method
+_tmp_11.host = u.hostname
+_tmp_11.port = Number(u.port) || (protocol === 'https:' ? 443 : 80)
+_tmp_11.path = u.path
+_tmp_11.agent = this.options.agent || false
+_tmp_11.headers = headers
+_tmp_11.withCredentials = this.options.withCredentials
+_tmp_11.localAddress = this.options.localAddress
+protocol === 'https:'
+opts.pfx = this.options.pfx
+opts.key = this.options.key
+opts.cert = this.options.cert
+opts.ca = this.options.ca
+opts.ciphers = this.options.ciphers
+opts.rejectUnauthorized = this.options.rejectUnauthorized
+opts.secureProtocol = this.options.secureProtocol
+var req = iface.request(opts)
+var timeout = this.options.timeout || 2147483647
+req.setTimeout(timeout)

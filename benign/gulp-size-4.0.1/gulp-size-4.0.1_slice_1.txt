@@ -1,0 +1,19 @@
+const finish = (error, sizes) => {
+			if (error) {
+				callback(new PluginError('gulp-size', error));
+				return;
+			}
+
+			for (const [key, size] of sizes) {
+				totalSize.set(key, size + (totalSize.get(key) || 0));
+			}
+
+			if (options.showFiles === true && hasSize(sizes)) {
+				log(chalk.blue(file.relative), sizes);
+			}
+
+			fileCount++;
+			callback(null, file);
+		}
+_iterator_0 = <operator>.iterator(sizes)
+totalSize.set(key, size + (totalSize.get(key) || 0))

@@ -1,0 +1,33 @@
+registerDeclarationOfModule(ngModule, decl, rawDeclarations) {
+    const declData = {
+      ngModule,
+      ref: decl,
+      rawDeclarations
+    };
+    if (this.duplicateDeclarations.has(decl.node)) {
+      this.duplicateDeclarations.get(decl.node).set(ngModule, declData);
+    } else if (this.declarationToModule.has(decl.node) && this.declarationToModule.get(decl.node).ngModule !== ngModule) {
+      const duplicateDeclMap = /* @__PURE__ */ new Map();
+      const firstDeclData = this.declarationToModule.get(decl.node);
+      this.modulesWithStructuralErrors.add(firstDeclData.ngModule);
+      this.modulesWithStructuralErrors.add(ngModule);
+      duplicateDeclMap.set(firstDeclData.ngModule, firstDeclData);
+      duplicateDeclMap.set(ngModule, declData);
+      this.duplicateDeclarations.set(decl.node, duplicateDeclMap);
+      this.declarationToModule.delete(decl.node);
+    } else {
+      this.declarationToModule.set(decl.node, declData);
+    }
+  }
+const declData = {
+      ngModule,
+      ref: decl,
+      rawDeclarations
+    }
+_tmp_606.ngModule = ngModule
+_tmp_606.ref = decl
+_tmp_606.rawDeclarations = rawDeclarations
+(_tmp_607 = this.duplicateDeclarations).has
+this.declarationToModule.has(decl.node) && this.declarationToModule.get(decl.node).ngModule !== ngModule
+const duplicateDeclMap = /* @__PURE__ */ new Map()
+const firstDeclData = this.declarationToModule.get(decl.node)

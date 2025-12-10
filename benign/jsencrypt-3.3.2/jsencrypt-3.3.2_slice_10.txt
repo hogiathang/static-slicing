@@ -1,0 +1,49 @@
+Stream.prototype.parseOID = function (start, end, maxLength) {
+        var s = "";
+        var n = new Int10();
+        var bits = 0;
+        for (var i = start; i < end; ++i) {
+            var v = this.get(i);
+            n.mulAdd(128, v & 0x7F);
+            bits += 7;
+            if (!(v & 0x80)) { // finished
+                if (s === "") {
+                    n = n.simplify();
+                    if (n instanceof Int10) {
+                        n.sub(80);
+                        s = "2." + n.toString();
+                    }
+                    else {
+                        var m = n < 80 ? n < 40 ? 0 : 1 : 2;
+                        s = m + "." + (n - m * 40);
+                    }
+                }
+                else {
+                    s += "." + n.toString();
+                }
+                if (s.length > maxLength) {
+                    return stringCut(s, maxLength);
+                }
+                n = new Int10();
+                bits = 0;
+            }
+        ...
+var s = ""
+var n = new Int10()
+var bits = 0
+var i = start
+var v = this.get(i)
+n.mulAdd(128, v & 0x7F)
+bits += 7
+!(v & 0x80)
+s === ""
+n = n.simplify()
+n instanceof Int10
+n.sub(80)
+s = "2." + n.toString()
+var m = n < 80 ? n < 40 ? 0 : 1 : 2
+s = m + "." + (n - m * 40)
+s += "." + n.toString()
+s.length > maxLength
+n = new Int10()
+bits = 0

@@ -1,0 +1,73 @@
+function makeIndentsMap = function makeIndentsMap(string, ignoreSingleSpaces) {
+	const indents = new Map();
+
+	// Remember the size of previous line's indentation
+	let previousSize = 0;
+	let previousIndentType;
+
+	// Indents key (ident type + size of the indents/unindents)
+	let key;
+
+	for (const line of string.split(/\n/g)) {
+		if (!line) {
+			// Ignore empty lines
+			continue;
+		}
+
+		let indent;
+		let indentType;
+		let use;
+		let weight;
+		let entry;
+		const matches = line.match(INDENT_REGEX);
+
+		if (matches === null) {
+			previousSize = 0;
+			previousIndentType = '';
+		} else {
+			indent = matches[0].length;
+			indentType = matches[1] ? INDENT_TYPE_SPACE : INDENT_TYPE_TAB;
+
+			// Ignore single space unless it's the only indent detected to prevent common false positives
+			if (ignoreSingleSpaces && indentType === INDENT_TYPE_SPACE && indent === 1) {
+				continue;
+			}
+
+			if (indentType !== previousIndentType) {
+				previousSize = 0;
+			}
+
+			previousIndentType = indentType;
+
+			use = 1;
+			weight = 0;
+
+			co...
+const indents = new Map()
+let previousSize = 0
+_iterator_0 = <operator>.iterator(string.split(/\n/g))
+!line
+continue;
+const matches = line.match(INDENT_REGEX)
+matches === null
+previousSize = 0
+previousIndentType = ''
+indent = matches[0].length
+indentType = matches[1] ? INDENT_TYPE_SPACE : INDENT_TYPE_TAB
+ignoreSingleSpaces && indentType === INDENT_TYPE_SPACE && indent === 1
+continue;
+indentType !== previousIndentType
+previousSize = 0
+previousIndentType = indentType
+use = 1
+weight = 0
+const indentDifference = indent - previousSize
+previousSize = indent
+indentDifference === 0
+use = 0
+weight = 1
+const absoluteIndentDifference = indentDifference > 0 ? indentDifference : -indentDifference
+key = encodeIndentsKey(indentType, absoluteIndentDifference)
+entry = indents.get(key)
+entry = entry === undefined ? [1, 0] : [entry[0] + use, entry[1] + weight]
+indents.set(key, entry)

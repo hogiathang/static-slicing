@@ -1,0 +1,28 @@
+function fillUnsubCommand = function fillUnsubCommand(command, count) {
+    let remainingReplies = remainingRepliesMap.has(command)
+        ? remainingRepliesMap.get(command)
+        : command.args.length;
+    if (remainingReplies === 0) {
+        if (Number(count) === 0) {
+            remainingRepliesMap.delete(command);
+            command.resolve(count);
+            return true;
+        }
+        return false;
+    }
+    remainingReplies -= 1;
+    if (remainingReplies <= 0) {
+        command.resolve(count);
+        return true;
+    }
+    remainingRepliesMap.set(command, remainingReplies);
+    return false;
+}
+let remainingReplies = remainingRepliesMap.has(command)
+        ? remainingRepliesMap.get(command)
+        : command.args.length
+remainingRepliesMap.get(command)
+command.args.length
+remainingReplies === 0
+Number(count) === 0
+remainingRepliesMap.delete(command)

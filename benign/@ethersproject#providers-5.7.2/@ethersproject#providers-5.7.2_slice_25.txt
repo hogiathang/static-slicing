@@ -1,0 +1,31 @@
+provider.request(request).then((response) => {
+            this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                response,
+                provider: this
+            });
+            return response;
+        }, (error) => {
+            this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                error,
+                provider: this
+            });
+            throw error;
+        })
+this.emit("debug", {
+                action: "response",
+                fetcher: "Eip1193Fetcher",
+                request,
+                response,
+                provider: this
+            })
+_tmp_9.action = "response"
+_tmp_9.fetcher = "Eip1193Fetcher"
+_tmp_9.request = request
+_tmp_9.response = response
+_tmp_9.provider = this

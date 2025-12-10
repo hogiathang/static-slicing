@@ -1,0 +1,45 @@
+inquirer.prompt(questions).then(function (answers) {
+        var packagesToUpdate = answers.packages;
+        var isYarn = currentState.get('installer') === 'yarn';
+        var saveExact = currentState.get('saveExact');
+
+        if (!packagesToUpdate || !packagesToUpdate.length) {
+            console.log('No packages selected for update.');
+            return false;
+        }
+
+        var saveDependencies = packagesToUpdate.filter(function (pkg) {
+            return !pkg.devDependency;
+        }).map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        });
+
+        var saveDevDependencies = packagesToUpdate.filter(function (pkg) {
+            return pkg.devDependency;
+        }).map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        });
+
+        var updatedPackages = packagesToUpdate.map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg...
+var packagesToUpdate = answers.packages
+var isYarn = currentState.get('installer') === 'yarn'
+var saveExact = currentState.get('saveExact')
+!packagesToUpdate || !packagesToUpdate.length
+var saveDependencies = packagesToUpdate.filter(function (pkg) {
+            return !pkg.devDependency;
+        }).map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        })
+<lambda>4
+var saveDevDependencies = packagesToUpdate.filter(function (pkg) {
+            return pkg.devDependency;
+        }).map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        })
+<lambda>6
+var updatedPackages = packagesToUpdate.map(function (pkg) {
+            return buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact);
+        }).join(', ')
+join
+!currentState.get('global')

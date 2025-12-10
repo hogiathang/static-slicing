@@ -1,0 +1,25 @@
+this._ws.on(WSWebSocketShardEvents.Closed, ({ code, shardId }) => {
+      const shard = this.shards.get(shardId);
+      shard.emit(WebSocketShardEvents.Close, { code, reason: reasonIsDeprecated, wasClean: true });
+      if (UNRESUMABLE_CLOSE_CODES.includes(code) && this.destroyed) {
+        shard.status = Status.Disconnected;
+        /**
+         * Emitted when a shard's WebSocket disconnects and will no longer reconnect.
+         * @event Client#shardDisconnect
+         * @param {CloseEvent} event The WebSocket close event
+         * @param {number} id The shard id that disconnected
+         */
+        this.client.emit(Events.ShardDisconnect, { code, reason: reasonIsDeprecated, wasClean: true }, shardId);
+        this.debug(GatewayCloseCodes[code], shardId);
+        return;
+      }
+
+      this.shards.get(shardId).status = Status.Connecting;
+      /**
+       * Emitted when a shard is attempting to reconnect or re-identify.
+       * @event Client#shardReconnecting
+       * @param {nu...
+const shard = this.shards.get(shardId)
+shard.emit(WebSocketShardEvents.Close, { code, reason: reasonIsDeprecated, wasClean: true })
+UNRESUMABLE_CLOSE_CODES.includes(code) && this.destroyed
+this.shards.get(shardId).status = Status.Connecting

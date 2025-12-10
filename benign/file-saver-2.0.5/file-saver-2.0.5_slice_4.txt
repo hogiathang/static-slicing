@@ -1,0 +1,12 @@
+function corsEnabled = function corsEnabled (url) {
+  var xhr = new XMLHttpRequest()
+  // use sync to avoid popup blocker
+  xhr.open('HEAD', url, false)
+  try {
+    xhr.send()
+  } catch (e) {}
+  return xhr.status >= 200 && xhr.status <= 299
+}
+var xhr = new XMLHttpRequest()
+xhr.open('HEAD', url, false)
+xhr.send()

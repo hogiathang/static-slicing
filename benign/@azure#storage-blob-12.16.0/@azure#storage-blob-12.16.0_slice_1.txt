@@ -1,0 +1,79 @@
+async parseBatchResponse() {
+        // When logic reach here, suppose batch request has already succeeded with 202, so we can further parse
+        // sub request's response.
+        if (this.batchResponse._response.status !== HTTPURLConnection.HTTP_ACCEPTED) {
+            throw new Error(`Invalid state: batch request failed with status: '${this.batchResponse._response.status}'.`);
+        }
+        const responseBodyAsText = await getBodyAsText(this.batchResponse);
+        const subResponses = responseBodyAsText
+            .split(this.batchResponseEnding)[0] // string after ending is useless
+            .split(this.perResponsePrefix)
+            .slice(1); // string before first response boundary is useless
+        const subResponseCount = subResponses.length;
+        // Defensive coding in case of potential error parsing.
+        // Note: subResponseCount == 1 is special case where sub request is invalid.
+        // We try to prevent such cases through early validation, e.g. val...
+this.batchResponse._response.status !== HTTPURLConnection.HTTP_ACCEPTED
+<operator>.formatString("Invalid state: batch request failed with status: '", this.batchResponse._response.status, "'.")
+const responseBodyAsText = await getBodyAsText(this.batchResponse)
+const subResponses = responseBodyAsText
+            .split(this.batchResponseEnding)[0] // string after ending is useless
+            .split(this.perResponsePrefix)
+            .slice(1)
+this.batchResponseEnding
+this.perResponsePrefix
+1
+const subResponseCount = subResponses.length
+subResponseCount !== this.subRequests.size && subResponseCount !== 1
+throw new Error("Invalid state: sub responses' count is not equal to sub requests' count.");
+const deserializedSubResponses = new Array(subResponseCount)
+let subResponsesSucceededCount = 0
+let subResponsesFailedCount = 0
+index < subResponseCount
+const subResponse = subResponses[index]
+const deserializedSubResponse = {}
+deserializedSubResponse.headers = new HttpHeaders()
+const responseLines = subResponse.split(`${HTTP_LINE_ENDING}`)
+let subRespHeaderStartFound = false
+let subRespHeaderEndFound = false
+let subRespFailed = false
+let contentId = NOT_FOUND
+_iterator_0 = <operator>.iterator(responseLines)
+!subRespHeaderStartFound
+responseLine.startsWith(HeaderConstants.CONTENT_ID)
+contentId = parseInt(responseLine.split(HTTP_HEADER_DELIMITER)[1])
+responseLine.startsWith(HTTP_VERSION_1_1)
+subRespHeaderStartFound = true
+const tokens = responseLine.split(SPACE_DELIMITER)
+deserializedSubResponse.status = parseInt(tokens[1])
+deserializedSubResponse.statusMessage = tokens.slice(2).join(SPACE_DELIMITER)
+continue;
+responseLine.trim() === ""
+!subRespHeaderEndFound
+subRespHeaderEndFound = true
+continue;
+!subRespHeaderEndFound
+responseLine.indexOf(HTTP_HEADER_DELIMITER) === -1
+<operator>.formatString("Invalid state: find non-empty line '", responseLine, "' without HTTP header delimiter '", HTTP_HEADER_DELIMITER, "'.")
+const tokens = responseLine.split(HTTP_HEADER_DELIMITER)
+deserializedSubResponse.headers.set(tokens[0], tokens[1])
+tokens[0] === HeaderConstants.X_MS_ERROR_CODE
+deserializedSubResponse.errorCode = tokens[1]
+subRespFailed = true
+!deserializedSubResponse.bodyAsText
+deserializedSubResponse.bodyAsText = ""
+deserializedSubResponse.bodyAsText += responseLine
+contentId !== NOT_FOUND &&
+                Number.isInteger(contentId) &&
+                contentId >= 0 &&
+                contentId < this.subRequests.size &&
+                deserializedSubResponses[contentId] === undefined
+Number.isInteger(contentId)
+contentId >= 0
+contentId < this.subRequests.size
+deserializedSubResponses[contentId] === undefined
+deserializedSubResponse._request = this.subRequests.get(contentId)
+deserializedSubResponses[contentId] = deserializedSubResponse
+<operator>.formatString("subResponses[", index, "] is dropped as the Content-ID is not found or invalid, Content-ID: ", contentId, "")
+subResponsesFailedCount++
+subResponsesSucceededCount++

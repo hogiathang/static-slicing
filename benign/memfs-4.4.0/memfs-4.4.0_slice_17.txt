@@ -1,0 +1,11 @@
+truncateBase(path, len) {
+        const fd = this.openSync(path, 'r+');
+        try {
+            this.ftruncateSync(fd, len);
+        }
+        finally {
+            this.closeSync(fd);
+        }
+    }
+const fd = this.openSync(path, 'r+')
+this.ftruncateSync(fd, len)

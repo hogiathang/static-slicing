@@ -1,0 +1,38 @@
+ParsedStatement.prototype.recordMetrics = function recordMetrics(segment, scope) {
+  const duration = segment.getDurationInMillis()
+  const exclusive = segment.getExclusiveDurationInMillis()
+  const transaction = segment.transaction
+  const type = transaction.isWeb() ? DB.WEB : DB.OTHER
+  const thisTypeSlash = this.type + '/'
+  const operation = DB.OPERATION + '/' + thisTypeSlash + this.operation
+
+  // Note, an operation metric should _always_ be created even if the action was
+  // a statement. This is part of the spec.
+
+  // Rollups
+  transaction.measure(operation, null, duration, exclusive)
+  transaction.measure(DB.PREFIX + type, null, duration, exclusive)
+  transaction.measure(DB.PREFIX + thisTypeSlash + type, null, duration, exclusive)
+  transaction.measure(DB.PREFIX + thisTypeSlash + ALL, null, duration, exclusive)
+  transaction.measure(DB.ALL, null, duration, exclusive)
+
+  // If we can parse the SQL statement, create a 'statement' metric, and use it
+  // as the scoped metric f...
+const duration = segment.getDurationInMillis()
+const exclusive = segment.getExclusiveDurationInMillis()
+const transaction = segment.transaction
+const type = transaction.isWeb() ? DB.WEB : DB.OTHER
+const thisTypeSlash = this.type + '/'
+const operation = DB.OPERATION + '/' + thisTypeSlash + this.operation
+transaction.measure(operation, null, duration, exclusive)
+transaction.measure(DB.PREFIX + type, null, duration, exclusive)
+transaction.measure(DB.PREFIX + thisTypeSlash + type, null, duration, exclusive)
+transaction.measure(DB.PREFIX + thisTypeSlash + ALL, null, duration, exclusive)
+transaction.measure(DB.ALL, null, duration, exclusive)
+this.collection
+collection = DB.STATEMENT + '/' + thisTypeSlash + this.collection + '/' + this.operation
+transaction.measure(collection, null, duration, exclusive)
+transaction.measure(collection, scope, duration, exclusive)
+transaction.measure(operation, scope, duration, exclusive)
+segment.name = collection || operation
+const attributes = segment.attributes.get(DESTINATIONS.TRANS_SEGMENT)

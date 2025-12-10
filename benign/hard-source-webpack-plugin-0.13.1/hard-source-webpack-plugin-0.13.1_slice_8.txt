@@ -1,0 +1,13 @@
+_obj = _obj === void 0 ? this.read() : _obj
+const obj = await _obj
+__ecma.Array.factory()
+_iterator_3 = <operator>.iterator(obj)
+ops.push({
+        key,
+        value: obj[key],
+      })
+_tmp_42.key = key
+_tmp_42.value = obj[key]
+const truePath = this.path
+this.path += '~'
+await this.write(ops)

@@ -1,0 +1,44 @@
+function createHermesPrebuiltArtifactsTarball = function createHermesPrebuiltArtifactsTarball(
+  hermesDir,
+  buildType,
+  tarballOutputDir,
+  excludeDebugSymbols,
+) {
+  validateHermesFrameworksExist(path.join(hermesDir, 'destroot'));
+
+  if (!fs.existsSync(tarballOutputDir)) {
+    fs.mkdirSync(tarballOutputDir, {recursive: true});
+  }
+
+  let tarballTempDir;
+  try {
+    tarballTempDir = fs.mkdtempSync(
+      path.join(os.tmpdir(), 'hermes-engine-destroot-'),
+    );
+
+    let args = ['-a'];
+    if (excludeDebugSymbols) {
+      args.push('--exclude=dSYMs/');
+      args.push('--exclude=*.dSYM/');
+    }
+    args.push('./destroot');
+    args.push(tarballTempDir);
+    delegateSync('rsync', args, {
+      cwd: hermesDir,
+    });
+    if (fs.existsSync(path.join(hermesDir, 'LICENSE'))) {
+      delegateSync('cp', ['LICENSE', tarballTempDir], {cwd: hermesDir});
+    }
+  } catch (error) {
+    throw new Error(`Failed to copy destroot to tempdir: ${error}`);
+  }
+
+  const tarballFilename = path.join(
+    tarballOutputDir,
+    getHermesPrebuiltArtif...
+validateHermesFrameworksExist(path.join(hermesDir, 'destroot'))
+!fs.existsSync(tarballOutputDir)
+fs.mkdirSync(tarballOutputDir, {recursive: true})
+tarballTempDir = fs.mkdtempSync(
+      path.join(os.tmpdir(), 'hermes-engine-destroot-'),
+    )

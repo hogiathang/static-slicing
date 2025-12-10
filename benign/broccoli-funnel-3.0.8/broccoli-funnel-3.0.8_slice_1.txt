@@ -1,0 +1,57 @@
+build() {
+    this._buildStart = new Date();
+    this.destPath = path.join(this.outputPath, this.destDir);
+
+    if (this.destPath[this.destPath.length - 1] === '/') {
+      this.destPath = this.destPath.slice(0, -1);
+    }
+
+    let inputPath = this.inputPaths[0];
+    if (this.srcDir) {
+      this.srcDir = ensureRelative(this.srcDir);
+      inputPath = path.join(inputPath, this.srcDir);
+    }
+
+    if (this._dynamicFilesFunc) {
+      this.lastFiles = this.files;
+      this.files = this._dynamicFilesFunc() || [];
+
+      // Blow away the include cache if the list of files is new
+      if (this.lastFiles !== undefined && !arrayEqual(this.lastFiles, this.files)) {
+        this._includeFileCache = Object.create(null);
+      }
+    }
+
+    let inputPathExists = this.input.at(0).fs.existsSync(this.srcDir || './');
+
+    let linkedRoots = false;
+    if (this.shouldLinkRoots()) {
+      linkedRoots = true;
+
+      /**
+       * We want to link the roots of these directories, but there are a few
+    ...
+this._buildStart = new Date()
+this.destPath = path.join(this.outputPath, this.destDir)
+this.destPath[this.destPath.length - 1] === '/'
+this.destPath = this.destPath.slice(0, -1)
+let inputPath = this.inputPaths[0]
+this.srcDir
+this.srcDir = ensureRelative(this.srcDir)
+inputPath = path.join(inputPath, this.srcDir)
+this._dynamicFilesFunc
+this.lastFiles = this.files
+this.files = this._dynamicFilesFunc() || []
+this.lastFiles !== undefined && !arrayEqual(this.lastFiles, this.files)
+this._includeFileCache = Object.create(null)
+let inputPathExists = this.input.at(0).fs.existsSync(this.srcDir || './')
+let linkedRoots = false
+this.shouldLinkRoots()
+linkedRoots = true
+let outputPathExists = this.output.existsSync('./')
+let isWin = process.platform === 'win32'
+outputPathExists = existsSync(this.outputPath)
+this._isRebuild = this._isRebuild && outputPathExists
+this._isRebuild
+!inputPathExists && this.allowEmpty
+this.output.rmdirSync('./', { recursive: true })

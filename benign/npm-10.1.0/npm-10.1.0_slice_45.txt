@@ -1,0 +1,73 @@
+async linkInstall (args) {
+    // load current packages from the global space,
+    // and then add symlinks installs locally
+    const globalTop = resolve(this.npm.globalDir, '..')
+    const Arborist = require('@npmcli/arborist')
+    const globalOpts = {
+      ...this.npm.flatOptions,
+      Arborist,
+      path: globalTop,
+      global: true,
+      prune: false,
+    }
+    const globalArb = new Arborist(globalOpts)
+
+    // get only current top-level packages from the global space
+    const globals = await globalArb.loadActual({
+      filter: (node, kid) =>
+        !node.isRoot || args.some(a => npa(a).name === kid),
+    })
+
+    // any extra arg that is missing from the current
+    // global space should be reified there first
+    const missing = this.missingArgsFromTree(globals, args)
+    if (missing.length) {
+      await globalArb.reify({
+        ...globalOpts,
+        add: missing,
+      })
+    }
+
+    // get a list of module names that should be linked in the local prefix
+    const...
+const globalTop = resolve(this.npm.globalDir, '..')
+const Arborist = require('@npmcli/arborist')
+const globalOpts = {
+      ...this.npm.flatOptions,
+      Arborist,
+      path: globalTop,
+      global: true,
+      prune: false,
+    }
+...this.npm.flatOptions
+_tmp_5.Arborist = Arborist
+_tmp_5.path = globalTop
+_tmp_5.global = true
+_tmp_5.prune = false
+const globalArb = new Arborist(globalOpts)
+const globals = await globalArb.loadActual({
+      filter: (node, kid) =>
+        !node.isRoot || args.some(a => npa(a).name === kid),
+    })
+_tmp_7.filter = <lambda>2
+const missing = this.missingArgsFromTree(globals, args)
+missing.length
+await globalArb.reify({
+        ...globalOpts,
+        add: missing,
+      })
+...globalOpts
+_tmp_8.add = missing
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(args)
+const arg = npa(a)
+arg.type === 'directory'
+_tmp_9 = await pkgJson.normalize(arg.fetchSpec)
+names.push(content.name)
+names.push(arg.name)
+this.npm.config.find('save') !== 'default' ||
+        this.npm.config.get('save-optional') ||
+        this.npm.config.get('save-peer') ||
+        this.npm.config.get('save-dev') ||
+        this.npm.config.get('save-prod')
+this.npm.config.get('save-optional')

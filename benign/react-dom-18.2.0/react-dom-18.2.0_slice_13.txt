@@ -1,0 +1,27 @@
+function validateClassInstance = function validateClassInstance(inst, methodName) {
+  if (!inst) {
+    // This is probably too relaxed but it's existing behavior.
+    return;
+  }
+
+  if (get(inst)) {
+    // This is a public instance indeed.
+    return;
+  }
+
+  var received;
+  var stringified = String(inst);
+
+  if (isArray(inst)) {
+    received = 'an array';
+  } else if (inst && inst.nodeType === ELEMENT_NODE && inst.tagName) {
+    received = 'a DOM node';
+  } else if (stringified === '[object Object]') {
+    received = 'object with keys {' + Object.keys(inst).join(', ') + '}';
+  } else {
+    received = stringified;
+  }
+
+  throw new Error(methodName + "(...): the first argument must be a React class instance. " + ("Instead received: " + received + "."));
+}
+!inst

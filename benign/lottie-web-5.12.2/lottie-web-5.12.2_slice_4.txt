@@ -1,0 +1,17 @@
+function buildVersion = async function buildVersion(version) {
+	try {
+		const code = await getCode(version.build)
+		const wrappedCode = await wrapScriptWithModule(code, version.build)
+		const processedCode = await version.process(wrappedCode)
+		const modularizedCode = await modularizeCode(processedCode, version.build)
+		const saved = await save(modularizedCode, version.fileName)
+		return saved
+	} catch (error) {
+		console.log(error);
+		return null;
+	}
+}
+const code = await getCode(version.build)
+const wrappedCode = await wrapScriptWithModule(code, version.build)
+const processedCode = await version.process(wrappedCode)
+const modularizedCode = await modularizeCode(processedCode, version.build)

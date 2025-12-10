@@ -1,0 +1,68 @@
+function startBrowserProcess = function startBrowserProcess(browser, url, args) {
+  // If we're on OS X, the user hasn't specifically
+  // requested a different browser, we can try opening
+  // Chrome with AppleScript. This lets us reuse an
+  // existing tab when possible instead of creating a new one.
+  const shouldTryOpenChromiumWithAppleScript =
+    process.platform === 'darwin' &&
+    (typeof browser !== 'string' || browser === OSX_CHROME);
+
+  if (shouldTryOpenChromiumWithAppleScript) {
+    // Will use the first open browser found from list
+    const supportedChromiumBrowsers = [
+      'Google Chrome Canary',
+      'Google Chrome',
+      'Microsoft Edge',
+      'Brave Browser',
+      'Vivaldi',
+      'Chromium',
+    ];
+
+    for (let chromiumBrowser of supportedChromiumBrowsers) {
+      try {
+        // Try our best to reuse existing tab
+        // on OSX Chromium-based browser with AppleScript
+        execSync('ps cax | grep "' + chromiumBrowser + '"');
+        execSync(
+          'osascript openChrome.apples...
+const shouldTryOpenChromiumWithAppleScript =
+    process.platform === 'darwin' &&
+    (typeof browser !== 'string' || browser === OSX_CHROME)
+process.platform === 'darwin' &&
+    (typeof browser !== 'string' || browser === OSX_CHROME)
+typeof browser !== 'string' || browser === OSX_CHROME
+const supportedChromiumBrowsers = [
+      'Google Chrome Canary',
+      'Google Chrome',
+      'Microsoft Edge',
+      'Brave Browser',
+      'Vivaldi',
+      'Chromium',
+    ]
+_tmp_6.push("Google Chrome Canary")
+_tmp_6.push("Google Chrome")
+_tmp_6.push("Microsoft Edge")
+_tmp_6.push("Brave Browser")
+_tmp_6.push("Vivaldi")
+_tmp_6.push("Chromium")
+_iterator_0 = <operator>.iterator(supportedChromiumBrowsers)
+execSync('ps cax | grep "' + chromiumBrowser + '"')
+execSync(
+          'osascript openChrome.applescript "' +
+            encodeURI(url) +
+            '" "' +
+            chromiumBrowser +
+            '"',
+          {
+            cwd: __dirname,
+            stdio: 'ignore',
+          }
+        )
+'osascript openChrome.applescript "' +
+            encodeURI(url) +
+            '" "' +
+            chromiumBrowser +
+            '"'
+encodeURI(url)
+_tmp_7.cwd = __dirname
+_tmp_7.stdio = "ignore"

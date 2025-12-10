@@ -1,0 +1,20 @@
+EventEmitter.prototype.filter = function filter() {
+    "use strict";
+    var type = arguments[0], res;
+    if (!this._filters) {
+        this._filters = {};
+    }
+    var _filter = this._filters[type];
+    if (typeof _filter === 'function') {
+        res = _filter.apply(this, Array.prototype.slice.call(arguments, 1));
+    }
+    this.emit(Array.prototype.slice.call(arguments, 0).concat([res]));
+    return res;
+}
+var type = arguments[0]
+!this._filters
+this._filters = {}
+var _filter = this._filters[type]
+typeof _filter === 'function'
+res = _filter.apply(this, Array.prototype.slice.call(arguments, 1))
+this.emit(Array.prototype.slice.call(arguments, 0).concat([res]))

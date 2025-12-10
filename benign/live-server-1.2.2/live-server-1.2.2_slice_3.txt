@@ -1,0 +1,56 @@
+LiveServer.start = function(options) {
+	options = options || {};
+	var host = options.host || '0.0.0.0';
+	var port = options.port !== undefined ? options.port : 8080; // 0 means random
+	var root = options.root || process.cwd();
+	var mount = options.mount || [];
+	var watchPaths = options.watch || [root];
+	LiveServer.logLevel = options.logLevel === undefined ? 2 : options.logLevel;
+	var openPath = (options.open === undefined || options.open === true) ?
+		"" : ((options.open === null || options.open === false) ? null : options.open);
+	if (options.noBrowser) openPath = null; // Backwards compatibility with 0.7.0
+	var file = options.file;
+	var staticServerHandler = staticServer(root);
+	var wait = options.wait === undefined ? 100 : options.wait;
+	var browser = options.browser || null;
+	var htpasswd = options.htpasswd || null;
+	var cors = options.cors || false;
+	var https = options.https || null;
+	var proxy = options.proxy || [];
+	var middleware = options.middleware || []...
+options = options || {}
+var host = options.host || '0.0.0.0'
+var port = options.port !== undefined ? options.port : 8080
+var root = options.root || process.cwd()
+var mount = options.mount || []
+var watchPaths = options.watch || [root]
+LiveServer.logLevel = options.logLevel === undefined ? 2 : options.logLevel
+var openPath = (options.open === undefined || options.open === true) ?
+		"" : ((options.open === null || options.open === false) ? null : options.open)
+options.open === null || options.open === false ? null : options.open
+options.noBrowser
+var file = options.file
+var staticServerHandler = staticServer(root)
+var wait = options.wait === undefined ? 100 : options.wait
+var browser = options.browser || null
+var htpasswd = options.htpasswd || null
+var cors = options.cors || false
+var https = options.https || null
+var proxy = options.proxy || []
+var middleware = options.middleware || []
+var noCssInject = options.noCssInject
+var httpsModule = options.httpsModule
+require.resolve(httpsModule)
+httpsModule = "https"
+function handleChange = function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css" && !noCssInject;
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}

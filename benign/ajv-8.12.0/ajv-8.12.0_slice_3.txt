@@ -1,0 +1,71 @@
+function compileSerializer = function compileSerializer(
+  this: Ajv,
+  sch: SchemaEnv,
+  definitions: SchemaObjectMap
+): SchemaEnv {
+  const _sch = getCompilingSchema.call(this, sch)
+  if (_sch) return _sch
+  const {es5, lines} = this.opts.code
+  const {ownProperties} = this.opts
+  const gen = new CodeGen(this.scope, {es5, lines, ownProperties})
+  const serializeName = gen.scopeName("serialize")
+  const cxt: SerializeCxt = {
+    self: this,
+    gen,
+    schema: sch.schema as SchemaObject,
+    schemaEnv: sch,
+    definitions,
+    data: N.data,
+  }
+
+  let sourceCode: string | undefined
+  try {
+    this._compilations.add(sch)
+    sch.serializeName = serializeName
+    gen.func(serializeName, N.data, false, () => {
+      gen.let(N.json, str``)
+      serializeCode(cxt)
+      gen.return(N.json)
+    })
+    gen.optimize(this.opts.code.optimize)
+    const serializeFuncCode = gen.toString()
+    sourceCode = `${gen.scopeRefs(N.scope)}return ${serializeFuncCode}`
+    const makeSerialize = new Function(`${N.scope}`, sourceC...
+const _sch = getCompilingSchema.call(this, sch)
+_tmp_58 = this.opts.code
+ownProperties = _tmp_59.ownProperties
+const gen = new CodeGen(this.scope, {es5, lines, ownProperties})
+const serializeName = gen.scopeName("serialize")
+const cxt: SerializeCxt = {
+    self: this,
+    gen,
+    schema: sch.schema as SchemaObject,
+    schemaEnv: sch,
+    definitions,
+    data: N.data,
+  }
+_tmp_62.self = this
+_tmp_62.gen = gen
+_tmp_62.schema = sch.schema as SchemaObject
+_tmp_62.schemaEnv = sch
+_tmp_62.definitions = definitions
+_tmp_62.data = N.data
+(_tmp_63 = this._compilations).add
+sch.serializeName = serializeName
+gen.func(serializeName, N.data, false, () => {
+      gen.let(N.json, str``)
+      serializeCode(cxt)
+      gen.return(N.json)
+    })
+gen.optimize(this.opts.code.optimize)
+const serializeFuncCode = gen.toString()
+<operator>.formatString("", gen.scopeRefs(N.scope), "return ", serializeFuncCode, "")
+const makeSerialize = new Function(`${N.scope}`, sourceCode)
+const serialize: (data: unknown) => string = makeSerialize(this.scope.get())
+this.scope.value(serializeName, {ref: serialize})
+sch.serialize = serialize
+this.logger.error("Error compiling serializer, function code:", sourceCode)
+delete sch.serialize
+delete sch.serializeName
+throw e
+(_tmp_70 = this._compilations).delete

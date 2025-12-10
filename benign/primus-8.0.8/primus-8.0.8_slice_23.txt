@@ -1,0 +1,36 @@
+_tmp_132.value = create
+var _this9 = this
+var opts = pick(this.opts, "agent", "pfx", "key", "passphrase", "cert", "ca", "ciphers", "rejectUnauthorized", "autoUnref")
+opts.xdomain = !!this.opts.xd
+var xhr = this.xhr = new XHR(opts)
+xhr.open(this.method, this.uri, true)
+this.opts.extraHeaders
+xhr.setDisableHeaderCheck && xhr.setDisableHeaderCheck(true)
+_iterator_4 = <operator>.iterator(this.opts.extraHeaders)
+(_tmp_134 = this.opts.extraHeaders).hasOwnProperty
+xhr.setRequestHeader(i, this.opts.extraHeaders[i])
+"POST" === this.method
+xhr.setRequestHeader("Content-type", "text/plain;charset=UTF-8")
+xhr.setRequestHeader("Accept", "*/*")
+(_a = this.opts.cookieJar) === null || _a === void 0 ? void 0 : _a.addCookies(xhr)
+"withCredentials" in xhr
+xhr.withCredentials = this.opts.withCredentials
+this.opts.requestTimeout
+xhr.timeout = this.opts.requestTimeout
+xhr.onreadystatechange = function () {
+            var _a;
+            if (xhr.readyState === 3) {
+              (_a = _this9.opts.cookieJar) === null || _a === void 0 ? void 0 : _a.parseCookies(xhr);
+            }
+            if (4 !== xhr.readyState) return;
+            if (200 === xhr.status || 1223 === xhr.status) {
+              _this9.onLoad();
+            } else {
+              // make sure the `error` event handler that's user-set
+              // does not throw in the same tick and gets caught here
+              _this9.setTimeoutFn(function () {
+                _this9.onError(typeof xhr.status === "number" ? xhr.status : 0);
+              }, 0);
+            }
+          }
+xhr.send(this.data)

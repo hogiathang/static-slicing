@@ -1,0 +1,12 @@
+_setTag(...tags) {
+        for (const tag of tags) {
+            if (tag.priority >= (this.priorities.get(tag.key) || 0)) {
+                this.tags.set(tag.key, tag);
+                this.priorities.set(tag.key, tag.priority);
+            }
+        }
+    }
+_iterator_8 = <operator>.iterator(tags)
+tag.priority >= (this.priorities.get(tag.key) || 0)
+this.tags.set(tag.key, tag)
+this.priorities.set(tag.key, tag.priority)

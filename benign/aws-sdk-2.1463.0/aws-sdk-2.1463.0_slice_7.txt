@@ -1,0 +1,7 @@
+util.property(obj, name, function() {
+      if (cachedValue === null) {
+        cachedValue = get();
+      }
+      return cachedValue;
+    }, enumerable)
+cachedValue === null

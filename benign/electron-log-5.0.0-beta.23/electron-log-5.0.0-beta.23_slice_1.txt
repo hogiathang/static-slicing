@@ -1,0 +1,11 @@
+requestOptions = param1_2.requestOptions
+const httpTransport = serverUrl.startsWith('https:') ? https : http
+const request = httpTransport.request(serverUrl, {
+        method: 'POST',
+        ...requestOptions,
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': body.length,
+          ...requestOptions.headers,
+        },
+      })

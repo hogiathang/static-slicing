@@ -1,0 +1,32 @@
+fs.stat(to, function(statError) {
+            var err;
+            if(!statError && options.overwrite !== true) {
+                /*istanbul ignore next*/
+                err = new Error('File '+to+' exists');
+                /*istanbul ignore next*/
+                err.code = 'EEXIST';
+                /*istanbul ignore next*/
+                err.errno = 47;
+                return callback(err);
+            }
+
+            var fromFile = fs.createReadStream(from),
+                toFile = fs.createWriteStream(to, {
+                    mode: options.stats[from].mode
+                }),
+                called = false,
+                cb = function(e) {
+                    /*istanbul ignore next - This catches a hard to trap race condition */
+                    if (!called) {
+                        callback(e);
+                        called = true;
+                    }
+                },
+                /*istanbul ignore next*/
+                onError = function (e) {
+              ...
+!statError && options.overwrite !== true
+var fromFile = fs.createReadStream(from)
+var toFile = fs.createWriteStream(to, {
+                    mode: options.stats[from].mode
+                })

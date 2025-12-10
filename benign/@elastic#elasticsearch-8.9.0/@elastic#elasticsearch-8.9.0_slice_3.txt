@@ -1,0 +1,25 @@
+function onFlushTimeout = async function onFlushTimeout() {
+                if (loadedOperations === 0)
+                    return;
+                const msearchBodyCopy = msearchBody.slice();
+                const callbacksCopy = callbacks.slice();
+                msearchBody.length = 0;
+                callbacks.length = 0;
+                loadedOperations = 0;
+                try {
+                    const send = await semaphore();
+                    send(msearchBodyCopy, callbacksCopy);
+                }
+                catch (err) {
+                    /* istanbul ignore next */
+                    // @ts-expect-error
+                    helper.stop(err);
+                }
+            }
+loadedOperations === 0
+const msearchBodyCopy = msearchBody.slice()
+const callbacksCopy = callbacks.slice()
+msearchBody.length = 0
+callbacks.length = 0
+loadedOperations = 0
+const send = await semaphore()

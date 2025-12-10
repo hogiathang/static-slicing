@@ -1,0 +1,40 @@
+Object.keys(node).forEach(function(name){
+    var el = node[name];
+
+    if (normalize) {
+      switch(name){
+      case('title'):
+        meta.title = _.get(el);
+        break;
+      case('description'):
+      case('subtitle'):
+        meta.description = _.get(el);
+        break;
+      case('pubdate'):
+      case('lastbuilddate'):
+      case('published'):
+      case('modified'):
+      case('updated'):
+      case('dc:date'):
+        var date = _.get(el) ? new Date(_.get(el)) : null;
+        if (!date) break;
+        if (meta.pubdate === null || name == 'pubdate' || name == 'published')
+          meta.pubdate = meta.pubDate = date;
+        if (meta.date === null || name == 'lastbuilddate' || name == 'modified' || name == 'updated')
+          meta.date = date;
+        break;
+      case('link'):
+      case('atom:link'):
+      case('atom10:link'):
+        if (Array.isArray(el)) {
+          el.forEach(function (link){
+            if (link['@']['href']) { // Atom
+              if (_.get(li...
+var el = node[name]
+"pubdate"
+"lastbuilddate"
+"published"
+"modified"
+"updated"
+"dc:date"
+var date = _.get(el) ? new Date(_.get(el)) : null

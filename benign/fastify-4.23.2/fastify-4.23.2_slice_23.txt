@@ -1,0 +1,33 @@
+function preHandlerCallback = function preHandlerCallback (err, request, reply) {
+  if (reply.sent) return
+
+  if (err != null) {
+    reply[kReplyIsError] = true
+    reply.send(err)
+    return
+  }
+
+  let result
+
+  try {
+    result = request[kRouteContext].handler(request, reply)
+  } catch (err) {
+    reply[kReplyIsError] = true
+    reply.send(err)
+    return
+  }
+
+  if (result !== undefined) {
+    if (result !== null && typeof result.then === 'function') {
+      wrapThenable(result, reply)
+    } else {
+      reply.send(result)
+    }
+  }
+}
+reply.sent
+err != null
+result = request[kRouteContext].handler(request, reply)
+result !== undefined
+result !== null && typeof result.then === 'function'
+reply.send(result)

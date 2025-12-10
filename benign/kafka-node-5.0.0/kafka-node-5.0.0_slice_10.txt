@@ -1,0 +1,36 @@
+function (error, startFetch) {
+      self.connecting = false;
+      self.rebalancing = false;
+      if (error) {
+        return self.recovery.tryToRecoverFrom(error, 'connect');
+      }
+
+      self.ready = true;
+      self.recovery.clearError();
+
+      logger.debug('generationId', self.generationId);
+
+      logger.debug('startFetch is', startFetch);
+      self._resetFetchState();
+      if (startFetch) {
+        self.clearPendingFetches();
+        self.fetch();
+      }
+      self.scheduleTopicPartitionCheck();
+      self.startHeartbeats();
+      self.emit('connect');
+      self.emit('rebalanced');
+    }
+self.connecting = false
+self.rebalancing = false
+self.ready = true
+(_tmp_62 = self.recovery).clearError
+logger.debug('generationId', self.generationId)
+logger.debug('startFetch is', startFetch)
+self._resetFetchState()
+self.clearPendingFetches()
+self.fetch()
+self.scheduleTopicPartitionCheck()
+self.startHeartbeats()
+self.emit('connect')
+self.emit('rebalanced')

@@ -1,0 +1,17 @@
+const checkAndMakeDir = (fileUploadOptions, filePath) => {
+  // Check upload options were set.
+  if (!fileUploadOptions) return false;
+  if (!fileUploadOptions.createParentPath) return false;
+  // Check whether folder for the file exists.
+  if (!filePath) return false;
+  const parentPath = path.dirname(filePath);
+  // Create folder if it doesn't exist.
+  if (!fs.existsSync(parentPath)) fs.mkdirSync(parentPath, { recursive: true });
+  // Checks folder again and return a results.
+  return fs.existsSync(parentPath);
+}
+!fileUploadOptions
+!fileUploadOptions.createParentPath
+!filePath
+const parentPath = path.dirname(filePath)
+fs.mkdirSync(parentPath, { recursive: true })

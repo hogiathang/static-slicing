@@ -1,0 +1,23 @@
+this.drawContent = function(isClip, isMask) {
+        this.transform();
+        let clipped = this.clip(),
+            masked = this.mask(),
+            group;
+        if ((this.get('opacity') < 1 || clipped || masked) && !isClip) {
+          group = docBeginGroup(getPageBBox());
+        }
+        this.drawChildren(isClip, isMask);
+        if (group) {
+          docEndGroup(group);
+          doc.fillOpacity(this.get('opacity'));
+          docInsertGroup(group);
+        }
+      }
+this.transform()
+let clipped = this.clip()
+let masked = this.mask()
+(this.get('opacity') < 1 || clipped || masked) && !isClip
+group = docBeginGroup(getPageBBox())
+this.drawChildren(isClip, isMask)
+docEndGroup(group)
+doc.fillOpacity(this.get('opacity'))

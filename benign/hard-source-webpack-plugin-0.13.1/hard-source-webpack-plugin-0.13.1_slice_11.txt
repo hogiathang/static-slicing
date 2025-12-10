@@ -1,0 +1,30 @@
+async _readFile(file) {
+    const fd = await open(file, 'r+');
+
+    let body = alloc(MAX_CHUNK_PLUS);
+
+    await readfd(fd, body, 0, 4, null);
+    const fullLength = body.readUInt32LE(0);
+    if (fullLength > body.length) {
+      drop(body);
+      body = alloc(nextPow2(fullLength));
+    }
+    await readfd(fd, body, 0, fullLength, null);
+
+    close(fd);
+
+    const tableLength = body.readUInt32LE(0);
+    const tableBody = body.utf8Slice(4, 4 + tableLength);
+    const table = parseJson(tableBody);
+    const content = body.slice(4 + tableLength);
+
+    return [table, content, body];
+  }
+const fd = await open(file, 'r+')
+let body = alloc(MAX_CHUNK_PLUS)
+await readfd(fd, body, 0, 4, null)
+const fullLength = body.readUInt32LE(0)
+fullLength > body.length
+drop(body)
+body = alloc(nextPow2(fullLength))
+await readfd(fd, body, 0, fullLength, null)

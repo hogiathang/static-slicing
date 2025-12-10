@@ -1,0 +1,13 @@
+MetadataStorage.prototype.getStrategy = function (target) {
+        var excludeMap = this._excludeMetadatas.get(target);
+        var exclude = excludeMap && excludeMap.get(undefined);
+        var exposeMap = this._exposeMetadatas.get(target);
+        var expose = exposeMap && exposeMap.get(undefined);
+        if ((exclude && expose) || (!exclude && !expose))
+            return 'none';
+        return exclude ? 'excludeAll' : 'exposeAll';
+    }
+var excludeMap = this._excludeMetadatas.get(target)
+var exclude = excludeMap && excludeMap.get(undefined)
+var exposeMap = this._exposeMetadatas.get(target)
+var expose = exposeMap && exposeMap.get(undefined)

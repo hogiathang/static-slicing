@@ -1,0 +1,24 @@
+var NullProtoObjectViaIFrame = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = documentCreateElement('iframe');
+  var JS = 'java' + SCRIPT + ':';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  html.appendChild(iframe);
+  // https://github.com/zloirock/core-js/issues/475
+  iframe.src = String(JS);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(scriptTag('document.F=Object'));
+  iframeDocument.close();
+  return iframeDocument.F;
+}
+var iframe = documentCreateElement('iframe')
+var JS = 'java' + SCRIPT + ':'
+iframe.style.display = 'none'
+html.appendChild(iframe)
+iframe.src = String(JS)
+iframeDocument = iframe.contentWindow.document
+iframeDocument.open()
+iframeDocument.write(scriptTag('document.F=Object'))
+iframeDocument.close()

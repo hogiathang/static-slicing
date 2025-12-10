@@ -1,0 +1,39 @@
+eachSeries(iterator, function (branch, next) {
+      get(branch, function assembler(err, line) {
+        if (err) {
+          return next(err);
+        }
+
+        function build(path, line) {
+          var obj = {};
+          if (path.length) {
+            obj[path[0]] = build(path.slice(1), line);
+            return obj;
+          }
+
+          return line;
+        }
+
+        function attach(obj, attr) {
+          var keys;
+          if (typeof attr !== 'object' || attr instanceof Array) {
+            return attr;
+          }
+
+          keys = Object.keys(attr);
+          if (keys.length) {
+            if (!obj[keys[0]]) {
+              obj[keys[0]] = {};
+            }
+            obj[keys[0]] = attach(obj[keys[0]], attr[keys[0]]);
+          }
+
+          return obj;
+        }
+
+        result = attach(result, build(branch.path, line));
+        next();
+      });
+    }, function (err) {
+      return err ? done(err) : done(null, result);
+    })

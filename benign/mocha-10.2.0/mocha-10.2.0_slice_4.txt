@@ -1,0 +1,41 @@
+Runner.prototype._addEventListener = function (target, eventName, listener) {
+  debug(
+    '_addEventListener(): adding for event %s; %d current listeners',
+    eventName,
+    target.listenerCount(eventName)
+  );
+  /* istanbul ignore next */
+  if (
+    this._eventListeners.has(target) &&
+    this._eventListeners.get(target).has(eventName) &&
+    this._eventListeners.get(target).get(eventName).has(listener)
+  ) {
+    debug(
+      'warning: tried to attach duplicate event listener for %s',
+      eventName
+    );
+    return;
+  }
+  target.on(eventName, listener);
+  const targetListeners = this._eventListeners.has(target)
+    ? this._eventListeners.get(target)
+    : new Map();
+  const targetEventListeners = targetListeners.has(eventName)
+    ? targetListeners.get(eventName)
+    : new Set();
+  targetEventListeners.add(listener);
+  targetListeners.set(eventName, targetEventListeners);
+  this._eventListeners.set(target, targetListeners);
+}
+debug(
+    '_addEventListener(): adding for event %s; %d current listeners',
+    eventName,
+    target.listenerCount(eventName)
+  )
+"_addEventListener(): adding for event %s; %d current listeners"
+target.listenerCount(eventName)
+this._eventListeners.has(target) &&
+    this._eventListeners.get(target).has(eventName) &&
+    this._eventListeners.get(target).get(eventName).has(listener)
+(_tmp_13 = this._eventListeners.get(target)).has
+(_tmp_15 = this._eventListeners.get(target).get(eventName)).has

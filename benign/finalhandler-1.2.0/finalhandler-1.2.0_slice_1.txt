@@ -1,0 +1,54 @@
+function (err) {
+    var headers
+    var msg
+    var status
+
+    // ignore 404 on in-flight response
+    if (!err && headersSent(res)) {
+      debug('cannot 404 after headers sent')
+      return
+    }
+
+    // unhandled error
+    if (err) {
+      // respect status code from error
+      status = getErrorStatusCode(err)
+
+      if (status === undefined) {
+        // fallback to status code on response
+        status = getResponseStatusCode(res)
+      } else {
+        // respect headers from error
+        headers = getErrorHeaders(err)
+      }
+
+      // get error message
+      msg = getErrorMessage(err, status, env)
+    } else {
+      // not found
+      status = 404
+      msg = 'Cannot ' + req.method + ' ' + encodeUrl(getResourceName(req))
+    }
+
+    debug('default %s', status)
+
+    // schedule onerror callback
+    if (err && onerror) {
+      defer(onerror, err, req, res)
+    }
+
+    // cannot actually respond
+    if (headersSent(res)) {
+      debug('cannot %d after headers sent', status)...
+!err && headersSent(res)
+status = getErrorStatusCode(err)
+status === undefined
+status = getResponseStatusCode(res)
+headers = getErrorHeaders(err)
+msg = getErrorMessage(err, status, env)
+status = 404
+msg = 'Cannot ' + req.method + ' ' + encodeUrl(getResourceName(req))
+debug('default %s', status)
+err && onerror
+defer(onerror, err, req, res)
+headersSent(res)

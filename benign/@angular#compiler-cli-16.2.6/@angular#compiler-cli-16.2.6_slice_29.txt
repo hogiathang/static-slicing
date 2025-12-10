@@ -1,0 +1,28 @@
+parseDecoratedFields(inputMembers, evaluator, (classPropertyName, options, decorator) => {
+    let bindingPropertyName;
+    let required = false;
+    let transform = null;
+    if (options === null) {
+      bindingPropertyName = classPropertyName;
+    } else if (typeof options === "string") {
+      bindingPropertyName = options;
+    } else if (options instanceof Map) {
+      const aliasInConfig = options.get("alias");
+      bindingPropertyName = typeof aliasInConfig === "string" ? aliasInConfig : classPropertyName;
+      required = options.get("required") === true;
+      if (options.has("transform")) {
+        const transformValue = options.get("transform");
+        if (!(transformValue instanceof DynamicValue) && !(transformValue instanceof Reference)) {
+          throw createValueHasWrongTypeError(decorator.node, transformValue, `Input transform must be a function`);
+        }
+        transform = parseInputTransformFunction(clazz, classPropertyName, transformValue, reflector, refEm...
+let required = false
+let transform = null
+options === null
+typeof options === "string"
+options instanceof Map
+const aliasInConfig = options.get("alias")
+bindingPropertyName = typeof aliasInConfig === "string" ? aliasInConfig : classPropertyName
+required = options.get("required") === true
+options.has("transform")
+const transformValue = options.get("transform")

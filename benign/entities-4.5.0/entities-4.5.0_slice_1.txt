@@ -1,0 +1,56 @@
+function encodeHTMLTrieRe = function encodeHTMLTrieRe(regExp, str) {
+    var ret = "";
+    var lastIdx = 0;
+    var match;
+    while ((match = regExp.exec(str)) !== null) {
+        var i = match.index;
+        ret += str.substring(lastIdx, i);
+        var char = str.charCodeAt(i);
+        var next = encode_html_js_1.default.get(char);
+        if (typeof next === "object") {
+            // We are in a branch. Try to match the next char.
+            if (i + 1 < str.length) {
+                var nextChar = str.charCodeAt(i + 1);
+                var value = typeof next.n === "number"
+                    ? next.n === nextChar
+                        ? next.o
+                        : undefined
+                    : next.n.get(nextChar);
+                if (value !== undefined) {
+                    ret += value;
+                    lastIdx = regExp.lastIndex += 1;
+                    continue;
+                }
+            }
+            next = next.v;
+        }
+        // We might have a tree node without a value; ...
+var ret = ""
+var lastIdx = 0
+(match = regExp.exec(str)) !== null
+var i = match.index
+ret += str.substring(lastIdx, i)
+var char = str.charCodeAt(i)
+var next = encode_html_js_1.default.get(char)
+typeof next === "object"
+i + 1 < str.length
+var nextChar = str.charCodeAt(i + 1)
+var value = typeof next.n === "number"
+                    ? next.n === nextChar
+                        ? next.o
+                        : undefined
+                    : next.n.get(nextChar)
+next.n === nextChar ? next.o : undefined
+next.o
+(_tmp_1 = next.n).get
+value !== undefined
+ret += value
+lastIdx = regExp.lastIndex += 1
+continue;
+next = next.v
+next !== undefined
+ret += next
+lastIdx = i + 1
+var cp = (0, escape_js_1.getCodePoint)(str, i)
+ret += "&#x".concat(cp.toString(16), ";")
+lastIdx = regExp.lastIndex += Number(cp !== char)

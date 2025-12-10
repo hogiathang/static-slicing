@@ -1,0 +1,12 @@
+function (result) {
+        if (len && len.match(/^\d+$/)) result.length = +len;
+
+        result.url = finalUrl;
+
+        resolve(result);
+        stream.request.abort();
+      }
+len && len.match(/^\d+$/)
+result.url = finalUrl
+resolve(result)
+(_tmp_11 = stream.request).abort

@@ -1,0 +1,23 @@
+options = options === void 0 ? {} : options
+let channels = this.guilds.get(this.channelGuildMap[channelID]).channels
+const channel = channels.get(channelID)
+!channel
+channel.position === position
+const min = Math.min(position, channel.position)
+const max = Math.max(position, channel.position)
+channels = channels.filter((chan) => {
+            return chan.type === channel.type
+                && min <= chan.position
+                && chan.position <= max
+                && chan.id !== channelID;
+        }).sort((a, b) => a.position - b.position)
+a.position - b.position
+position > channel.position
+channels.push(channel)
+channels.unshift(channel)
+this.requestHandler.request("PATCH", Endpoints.GUILD_CHANNELS(this.channelGuildMap[channelID]), true, channels.map((channel, index) => ({
+            id: channel.id,
+            position: index + min,
+            lock_permissions: options.lockPermissions,
+            parent_id: options.parentID
+        })))

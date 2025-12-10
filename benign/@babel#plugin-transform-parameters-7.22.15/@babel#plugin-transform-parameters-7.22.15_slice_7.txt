@@ -1,0 +1,39 @@
+function collectShadowedParamsNames = function collectShadowedParamsNames(param, functionScope, shadowedParams) {
+  for (const name of Object.keys(param.getBindingIdentifiers())) {
+    var _functionScope$bindin;
+    const constantViolations = (_functionScope$bindin = functionScope.bindings[name]) == null ? void 0 : _functionScope$bindin.constantViolations;
+    if (constantViolations) {
+      for (const redeclarator of constantViolations) {
+        const node = redeclarator.node;
+        switch (node.type) {
+          case "VariableDeclarator":
+            {
+              if (node.init === null) {
+                const declaration = redeclarator.parentPath;
+                if (!declaration.parentPath.isFor() || declaration.parentPath.get("body") === declaration) {
+                  redeclarator.remove();
+                  break;
+                }
+              }
+              shadowedParams.add(name);
+              break;
+            }
+          case "FunctionDeclaration":
+            shadowedParams.add(name);
+          ...
+_iterator_0 = <operator>.iterator(Object.keys(param.getBindingIdentifiers()))
+const constantViolations = (_functionScope$bindin = functionScope.bindings[name]) == null ? void 0 : _functionScope$bindin.constantViolations
+_iterator_1 = <operator>.iterator(constantViolations)
+const node = redeclarator.node
+node.type
+"VariableDeclarator"
+node.init === null
+const declaration = redeclarator.parentPath
+!declaration.parentPath.isFor() || declaration.parentPath.get("body") === declaration
+redeclarator.remove()
+break;
+shadowedParams.add(name)
+break;
+"FunctionDeclaration"
+shadowedParams.add(name)
+break;

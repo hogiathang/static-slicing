@@ -1,0 +1,17 @@
+MultiMap.prototype.delete = function(key) {
+  var container = this.items.get(key);
+
+  if (!container)
+    return false;
+
+  this.size -= (this.Container === Set ? container.size : container.length);
+  this.dimension--;
+  this.items.delete(key);
+
+  return true;
+}
+var container = this.items.get(key)
+!container
+this.size -= (this.Container === Set ? container.size : container.length)
+this.dimension--
+(_tmp_7 = this.items).delete

@@ -1,0 +1,30 @@
+function memoized(a1, a2, a3) {
+        let cache2 = memoize3Cache.get(a1);
+        if (!cache2) {
+            cache2 = new WeakMap();
+            memoize3Cache.set(a1, cache2);
+            const cache3 = new WeakMap();
+            cache2.set(a2, cache3);
+            const newValue = fn(a1, a2, a3);
+            cache3.set(a3, newValue);
+            return newValue;
+        }
+        let cache3 = cache2.get(a2);
+        if (!cache3) {
+            cache3 = new WeakMap();
+            cache2.set(a2, cache3);
+            const newValue = fn(a1, a2, a3);
+            cache3.set(a3, newValue);
+            return newValue;
+        }
+        const cachedValue = cache3.get(a3);
+        if (cachedValue === undefined) {
+            const newValue = fn(a1, a2, a3);
+            cache3.set(a3, newValue);
+            return newValue;
+        }
+        return cachedValue;
+    }
+let cache2 = memoize3Cache.get(a1)
+!cache2
+let cache3 = cache2.get(a2)

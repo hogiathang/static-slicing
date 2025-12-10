@@ -1,0 +1,40 @@
+parentPort.on('message', async message => {
+				if (message.type === 'register-test-worker') {
+					const {id, file, port} = message;
+					const instance = new TestWorker(id, file, port);
+
+					activeTestWorkers.set(id, {instance, teardownFns: new Set()});
+
+					produceTestWorker(instance);
+					port.on('message', message => emitMessage({testWorkerId: id, ...message}));
+				}
+
+				if (message.type === 'deregister-test-worker') {
+					const {id} = message;
+					const {teardownFns} = activeTestWorkers.get(id);
+					activeTestWorkers.delete(id);
+
+					// Run possibly asynchronous release functions serially, in reverse
+					// order. Any error will crash the worker.
+					for await (const fn of [...teardownFns].reverse()) {
+						await fn();
+					}
+
+					parentPort.postMessage({
+						type: 'deregistered-test-worker',
+						id,
+					});
+
+					emitMessage(message);
+				}
+			})
+message.type === 'register-test-worker'
+file = _tmp_18.file
+const instance = new TestWorker(id, file, port)
+activeTestWorkers.set(id, {instance, teardownFns: new Set()})
+produceTestWorker(instance)
+port.on('message', message => emitMessage({testWorkerId: id, ...message}))
+message.type === 'deregister-test-worker'
+_tmp_23 = message
+_tmp_24 = activeTestWorkers.get(id)
+activeTestWorkers.delete(id)

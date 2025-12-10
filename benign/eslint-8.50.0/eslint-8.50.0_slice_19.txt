@@ -1,0 +1,31 @@
+_verifyWithConfigArray(textOrSourceCode, configArray, options) {
+        debug("With ConfigArray: %s", options.filename);
+
+        // Store the config array in order to get plugin envs and rules later.
+        internalSlotsMap.get(this).lastConfigArray = configArray;
+
+        // Extract the final config for this file.
+        const config = configArray.extractConfig(options.filename);
+        const processor =
+            config.processor &&
+            configArray.pluginProcessors.get(config.processor);
+
+        // Verify.
+        if (processor) {
+            debug("Apply the processor: %o", config.processor);
+            const { preprocess, postprocess, supportsAutofix } = processor;
+            const disableFixes = options.disableFixes || !supportsAutofix;
+
+            return this._verifyWithProcessor(
+                textOrSourceCode,
+                config,
+                { ...options, disableFixes, postprocess, preprocess },
+                configArray
+            );
+        ...
+debug("With ConfigArray: %s", options.filename)
+internalSlotsMap.get(this).lastConfigArray = configArray
+const config = configArray.extractConfig(options.filename)
+config.processor &&
+            configArray.pluginProcessors.get(config.processor)
+configArray.pluginProcessors.get(config.processor)

@@ -1,0 +1,77 @@
+Uploader.prototype.post = function post(file) {
+        var _this3 = this;
+
+        var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+        var requestOptions = _extends({}, this.options, options);
+        var action = requestOptions.action,
+            name = requestOptions.name,
+            headers = requestOptions.headers,
+            timeout = requestOptions.timeout,
+            withCredentials = requestOptions.withCredentials,
+            _onProgress = requestOptions.onProgress,
+            _onSuccess = requestOptions.onSuccess,
+            _onError = requestOptions.onError,
+            method = requestOptions.method;
+
+
+        var data = requestOptions.data;
+        if (typeof data === 'function') {
+            data = data(file);
+        }
+
+        var uid = file.uid;
+
+
+        var request = typeof requestOptions.request === 'function' ? requestOptions.request : defaultRequest;
+        this.reqs[uid] = request({
+            action: action...
+var _this3 = this
+var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+var requestOptions = _extends({}, this.options, options)
+var action = requestOptions.action
+var name = requestOptions.name
+var headers = requestOptions.headers
+var timeout = requestOptions.timeout
+var withCredentials = requestOptions.withCredentials
+var _onProgress = requestOptions.onProgress
+var _onSuccess = requestOptions.onSuccess
+var _onError = requestOptions.onError
+var method = requestOptions.method
+var data = requestOptions.data
+typeof data === 'function'
+data = data(file)
+var uid = file.uid
+var request = typeof requestOptions.request === 'function' ? requestOptions.request : defaultRequest
+this.reqs[uid] = request({
+            action: action,
+            filename: name,
+            file: file,
+            data: data,
+            timeout: timeout,
+            headers: headers,
+            withCredentials: withCredentials,
+            method: method,
+            onProgress: function onProgress(e) {
+                _onProgress(e, file);
+            },
+            onSuccess: function onSuccess(ret) {
+                delete _this3.reqs[uid];
+                _onSuccess(ret, file);
+            },
+            onError: function onError(err, ret) {
+                delete _this3.reqs[uid];
+                _onError(err, ret, file);
+            }
+        })
+_tmp_15.action = action
+_tmp_15.filename = name
+_tmp_15.file = file
+_tmp_15.data = data
+_tmp_15.timeout = timeout
+_tmp_15.headers = headers
+_tmp_15.withCredentials = withCredentials
+_tmp_15.method = method
+_tmp_15.onProgress = onProgress
+_tmp_15.onSuccess = onSuccess
+_tmp_15.onError = onError

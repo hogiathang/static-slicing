@@ -1,0 +1,5 @@
+_tmp_33.runtime.clearTimeoutEvent = <lambda>18
+sp >>>= 0
+const id = this.mem.getInt32(sp + 8, true)
+clearTimeout(this._scheduledTimeouts.get(id))
+(_tmp_46 = this._scheduledTimeouts).delete

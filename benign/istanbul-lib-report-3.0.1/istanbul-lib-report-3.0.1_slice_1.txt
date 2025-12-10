@@ -1,0 +1,21 @@
+copyFile(source, dest, header) {
+        if (path.isAbsolute(dest)) {
+            throw new Error(`Cannot write to absolute path: ${dest}`);
+        }
+        dest = path.resolve(this.baseDir, dest);
+        mkdirp.sync(path.dirname(dest));
+        let contents;
+        if (header) {
+            contents = header + fs.readFileSync(source, 'utf8');
+        } else {
+            contents = fs.readFileSync(source);
+        }
+        fs.writeFileSync(dest, contents);
+    }
+path.isAbsolute(dest)
+<operator>.formatString("Cannot write to absolute path: ", dest, "")
+dest = path.resolve(this.baseDir, dest)
+mkdirp.sync(path.dirname(dest))
+contents = header + fs.readFileSync(source, 'utf8')
+contents = fs.readFileSync(source)
+fs.writeFileSync(dest, contents)

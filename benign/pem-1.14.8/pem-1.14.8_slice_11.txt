@@ -1,0 +1,32 @@
+openssl.spawnWrapper(params, files, function (err, code, stdout, stderr) {
+    // OPENSSL 3.x don't use stdout to print the error
+    debug('Vendor', openssl.get('Vendor'))
+    debug('VendorVersionMajor', openssl.get('VendorVersionMajor'))
+    debug('openssl.get(\'VendorVersionMajor\') >= 3', openssl.get('VendorVersionMajor') >= 3)
+
+    if (openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3) {
+      let openssl30Check = !!(stdout && stdout.trim().includes(": OK"));
+
+      if (err) {
+        debug('verifySigningChain error', {
+          err: err,
+          code: code,
+          stdout: stdout,
+          stdoutResult: openssl30Check,
+          stderr: stderr
+        })
+        return callback(err)
+      }
+
+      debug('verifySigningChain error - use stderr', {
+        err: err,
+        code: code,
+        stdout: stdout.trim(),
+        stdoutResult: openssl30Check,
+        stderr: stderr.trim()
+      })
+      return callback(null, openssl30Check)
+    }
+    /...
+debug('Vendor', openssl.get('Vendor'))
+debug('VendorVersionMajor', openssl.get('VendorVersionMajor'))

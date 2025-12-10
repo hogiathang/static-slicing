@@ -1,0 +1,20 @@
+_tmp_139.navigate = <lambda>159
+!History.started
+options = {trigger: !!options}
+fragment = this.getFragment(fragment || '')
+var rootPath = this.root
+!this._trailingSlash && (fragment === '' || fragment.charAt(0) === '?')
+rootPath = rootPath.slice(0, -1) || '/'
+var url = rootPath + fragment
+fragment = fragment.replace(pathStripper, '')
+var decodedFragment = this.decodeFragment(fragment)
+this.fragment === decodedFragment
+this.fragment = decodedFragment
+this._usePushState
+this._wantsHashChange
+this._updateHash(this.location, fragment, options.replace)
+this.iframe && fragment !== this.getHash(this.iframe.contentWindow)
+var iWindow = this.iframe.contentWindow
+!options.replace
+(_tmp_160 = iWindow.document).open
+(_tmp_161 = iWindow.document).close

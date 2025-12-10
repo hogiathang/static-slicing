@@ -1,0 +1,24 @@
+function VM = async function VM(){let e=process.env.JEST_WORKER_ID?Mu():void 0,A;try{A=await WebAssembly.compile(Buffer.from(zB(),"base64"))}catch{A=await WebAssembly.compile(Buffer.from(e||Mu(),"base64"))}return await WebAssembly.instantiate(A,{env:{wasm_on_url:(t,r,n)=>0,wasm_on_status:(t,r,n)=>{D.strictEqual(Ge.ptr,t);let i=r-It+dt.byteOffset;return Ge.onStatus(new va(dt.buffer,i,n))||0},wasm_on_message_begin:t=>(D.strictEqual(Ge.ptr,t),Ge.onMessageBegin()||0),wasm_on_header_field:(t,r,n)=>{D.strictEqual(Ge.ptr,t);let i=r-It+dt.byteOffset;return Ge.onHeaderField(new va(dt.buffer,i,n))||0},wasm_on_header_value:(t,r,n)=>{D.strictEqual(Ge.ptr,t);let i=r-It+dt.byteOffset;return Ge.onHeaderValue(new va(dt.buffer,i,n))||0},wasm_on_headers_complete:(t,r,n,i)=>(D.strictEqual(Ge.ptr,t),Ge.onHeadersComplete(r,!!n,!!i)||0),wasm_on_body:(t,r,n)=>{D.strictEqual(Ge.ptr,t);let i=r-It+dt.byteOffset;return Ge.onBody(new va(dt.buffer,i,n))||0},wasm_on_message_complete:t=>(D.strictEqual(Ge.ptr,t),Ge.onMessageCom...
+typeof i=="string" ? E+=`host: ${i}\r
+` : E+=e[rp]
+s ? E+=`connection: upgrade\r
+upgrade: ${s}\r
+` : e[or]&&!u[iA] ? E+=`connection: keep-alive\r
+` : E+=`connection: close\r
+`
+"\r
+"
+e[or]&&!u[iA] ? E+=`connection: keep-alive\r
+` : E+=`connection: close\r
+`
+E+=`connection: close\r
+`
+t ? v.isBuffer(t) ? D(l===t.byteLength,"buffer body must have content length"),u.cork(),u.write(`${E}content-length: ${l}\r
+\r
+`,"latin1"),u.write(t),u.uncork(),A.onBodySent(t),A.onRequestSent(),g||(u[iA]=!0) : v.isBlobLike(t) ? typeof t.stream=="function" ? ep({body:t.stream(),client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : _M({body:t,client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : v.isStream(t) ? WM({body:t,client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : v.isIterable(t) ? ep({body:t,client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : D(!1) : l===0?u.write(`${E}content-length: 0\r
+\r
+`,"latin1"):(D(l===null,"no body must not have content length"),u.write(`${E}\r
+`,"latin1")),A.onRequestSent()
+v.isBlobLike(t) ? typeof t.stream=="function" ? ep({body:t.stream(),client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : _M({body:t,client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : v.isStream(t) ? WM({body:t,client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : v.isIterable(t) ? ep({body:t,client:e,request:A,socket:u,contentLength:l,header:E,expectsPayload:g}) : D(!1)
+D(l===null,"no body must not have content length")
+function WM = function WM({body:e,client:A,request:t,socket:r,contentLength:n,header:i,expectsPayload:s}){D(n!==0||A[Fe]===0,"stream body cannot be pipelined");let o=!1,a=new qa({socket:r,request:t,contentLength:n,client:A,expectsPayload:s,header:i}),c=function(E){if(!o)try{!a.write(E)&&this.pause&&this.pause()}catch(h){v.destroy(this,h)}},g=function(){o||e.resume&&e.resume()},l=function(){u(new tp)},u=function(E){if(!o){if(o=!0,D(r.destroyed||r[Lt]&&A[Fe]<=1),r.off("drain",g).off("error",u),e.removeListener("data",c).removeListener("end",u).removeListener("error",u).removeListener("close",l),!E)try{a.end()}catch(h){E=h}a.destroy(E),E&&(E.code!=="UND_ERR_INFO"||E.message!=="reset")?v.destroy(e,E):v.destroy(e)}};e.on("data",c).on("end",u).on("error",u).on("close",l),e.resume&&e.resume(),r.on("drain",g).on("error",u)}

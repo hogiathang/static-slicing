@@ -1,0 +1,9 @@
+setTimeout(function () {
+      if (readyState !== EventSource.CONNECTING || self.connectionInProgress) {
+        return
+      }
+      self.connectionInProgress = true
+      connect()
+    }, self.reconnectInterval)
+readyState !== EventSource.CONNECTING || self.connectionInProgress
+self.connectionInProgress = true

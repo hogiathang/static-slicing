@@ -1,0 +1,77 @@
+function signIn = async function signIn<
+  P extends RedirectableProviderType | undefined = undefined
+>(
+  provider?: LiteralUnion<
+    P extends RedirectableProviderType
+      ? P | BuiltInProviderType
+      : BuiltInProviderType
+  >,
+  options?: SignInOptions,
+  authorizationParams?: SignInAuthorizationParams
+): Promise<
+  P extends RedirectableProviderType ? SignInResponse | undefined : undefined
+> {
+  const { callbackUrl = window.location.href, redirect = true } = options ?? {}
+
+  const baseUrl = apiBaseUrl(__NEXTAUTH)
+  const providers = await getProviders()
+
+  if (!providers) {
+    window.location.href = `${baseUrl}/error`
+    return
+  }
+
+  if (!provider || !(provider in providers)) {
+    window.location.href = `${baseUrl}/signin?${new URLSearchParams({
+      callbackUrl,
+    })}`
+    return
+  }
+
+  const isCredentials = providers[provider].type === "credentials"
+  const isEmail = providers[provider].type === "email"
+  const isSupportingReturn = isCredentials || isEmail
+
+  const signInUrl = `${b...
+callbackUrl = _tmp_13.callbackUrl === void 0 ? window.location.href : _tmp_13.callbackUrl
+const baseUrl = apiBaseUrl(__NEXTAUTH)
+const providers = await getProviders()
+!providers
+!provider || !(provider in providers)
+const isCredentials = providers[provider].type === "credentials"
+const isEmail = providers[provider].type === "email"
+const isSupportingReturn = isCredentials || isEmail
+<operator>.formatString("", baseUrl, "/", isCredentials ? "callback" : "signin", "/", provider, "")
+isCredentials ? "callback" : "signin"
+<operator>.formatString("", signInUrl, "?", new URLSearchParams(authorizationParams), "")
+const res = await fetch(_signInUrl, {
+    method: "post",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    // @ts-expect-error
+    body: new URLSearchParams({
+      ...options,
+      csrfToken: await getCsrfToken(),
+      callbackUrl,
+      json: true,
+    }),
+  })
+_tmp_17.method = "post"
+_tmp_17.headers = {
+      "Content-Type": "application/x-www-form-urlencoded",
+    }
+_tmp_18.Content-Type = "application/x-www-form-urlencoded"
+_tmp_17.body = new URLSearchParams({
+      ...options,
+      csrfToken: await getCsrfToken(),
+      callbackUrl,
+      json: true,
+    })
+...options
+_tmp_20.csrfToken = await getCsrfToken()
+_tmp_20.callbackUrl = callbackUrl
+_tmp_20.json = true
+const data = await res.json()
+redirect || !isSupportingReturn
+const error = new URL(data.url).searchParams.get("error")

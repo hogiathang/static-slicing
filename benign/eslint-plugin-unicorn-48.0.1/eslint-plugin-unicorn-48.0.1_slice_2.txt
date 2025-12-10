@@ -1,0 +1,52 @@
+problem.fix = function * (fixer) {
+				const testText = getText(node.test);
+				const consequentText = typeof result.consequent === 'string'
+					? result.consequent
+					: getText(result.consequent);
+				const alternateText = typeof result.alternate === 'string'
+					? result.alternate
+					: getText(result.alternate);
+
+				let {type, before, after} = result;
+
+				let generateNewVariables = false;
+				if (type === 'ThrowStatement') {
+					const scopes = getScopes(scope);
+					const errorName = avoidCapture('error', scopes, isSafeName);
+
+					for (const scope of scopes) {
+						if (!scopeToNamesGeneratedByFixer.has(scope)) {
+							scopeToNamesGeneratedByFixer.set(scope, new Set());
+						}
+
+						const generatedNames = scopeToNamesGeneratedByFixer.get(scope);
+						generatedNames.add(errorName);
+					}
+
+					const indentString = getIndentString(node, sourceCode);
+
+					after = after
+						.replace('{{INDENT_STRING}}', indentString)
+						.replace('{{ERROR_NAME}}', errorName);
+					...
+const testText = getText(node.test)
+const consequentText = typeof result.consequent === 'string'
+					? result.consequent
+					: getText(result.consequent)
+result.consequent
+getText(result.consequent)
+const alternateText = typeof result.alternate === 'string'
+					? result.alternate
+					: getText(result.alternate)
+result.alternate
+getText(result.alternate)
+before = _tmp_22.before
+let generateNewVariables = false
+type === 'ThrowStatement'
+const scopes = getScopes(scope)
+const errorName = avoidCapture('error', scopes, isSafeName)
+_iterator_0 = <operator>.iterator(scopes)
+!scopeToNamesGeneratedByFixer.has(scope)
+scopeToNamesGeneratedByFixer.set(scope, new Set())
+const generatedNames = scopeToNamesGeneratedByFixer.get(scope)
+generatedNames.add(errorName)

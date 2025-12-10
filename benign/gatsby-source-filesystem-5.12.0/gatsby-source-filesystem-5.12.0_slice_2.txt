@@ -1,0 +1,15 @@
+watcher.on(`ready`, () => {
+      fsMachine.send({
+        type: `CHOKIDAR_READY`,
+        resolve,
+        reject
+      });
+    })
+fsMachine.send({
+        type: `CHOKIDAR_READY`,
+        resolve,
+        reject
+      })
+_tmp_49.type = "CHOKIDAR_READY"
+_tmp_49.resolve = resolve
+_tmp_49.reject = reject

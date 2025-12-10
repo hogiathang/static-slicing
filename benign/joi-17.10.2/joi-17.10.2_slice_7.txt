@@ -1,0 +1,15 @@
+_record(schema, each) {
+
+        const log = this._sources.get(schema);
+        if (log) {
+            each(log);
+            return;
+        }
+
+        const sources = this._combos.get(schema);
+        for (const source of sources) {
+            this._record(source, each);
+        }
+    }
+const log = this._sources.get(schema)
+const sources = this._combos.get(schema)

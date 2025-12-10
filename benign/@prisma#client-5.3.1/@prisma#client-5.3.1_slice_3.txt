@@ -1,0 +1,59 @@
+function ReadStream = function ReadStream(path7, options2) {
+        if (!(this instanceof ReadStream))
+          return new ReadStream(path7, options2);
+        Stream.call(this);
+        var self = this;
+        this.path = path7;
+        this.fd = null;
+        this.readable = true;
+        this.paused = false;
+        this.flags = "r";
+        this.mode = 438;
+        this.bufferSize = 64 * 1024;
+        options2 = options2 || {};
+        var keys = Object.keys(options2);
+        for (var index = 0, length = keys.length; index < length; index++) {
+          var key = keys[index];
+          this[key] = options2[key];
+        }
+        if (this.encoding)
+          this.setEncoding(this.encoding);
+        if (this.start !== void 0) {
+          if ("number" !== typeof this.start) {
+            throw TypeError("start must be a Number");
+          }
+          if (this.end === void 0) {
+            this.end = Infinity;
+          } else if ("number" !== typeof this.end) {
+            throw TypeError("end mus...
+!(this instanceof ReadStream)
+Stream.call(this)
+var self = this
+this.path = path7
+this.fd = null
+this.readable = true
+this.paused = false
+this.flags = "r"
+this.mode = 438
+this.bufferSize = 64 * 1024
+options2 = options2 || {}
+var keys = Object.keys(options2)
+var length = keys.length
+var key = keys[index]
+this[key] = options2[key]
+this.encoding
+this.setEncoding(this.encoding)
+this.start !== void 0
+"number" !== typeof this.start
+throw TypeError("start must be a Number");
+this.end === void 0
+this.end = Infinity
+"number" !== typeof this.end
+throw TypeError("end must be a Number");
+this.start > this.end
+throw new Error("start must be <= end");
+this.pos = this.start
+this.fd !== null
+process.nextTick(function() {
+            self._read();
+          })

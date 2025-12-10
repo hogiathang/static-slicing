@@ -1,0 +1,30 @@
+function computeOperations = function computeOperations(oldBlockMap, newBlockMap, logger) {
+    const nameToOldBlocks = buildBlockFileMap(oldBlockMap.files);
+    const nameToNewBlocks = buildBlockFileMap(newBlockMap.files);
+    let lastOperation = null;
+    // for now only one file is supported in block map
+    const blockMapFile = newBlockMap.files[0];
+    const operations = [];
+    const name = blockMapFile.name;
+    const oldEntry = nameToOldBlocks.get(name);
+    if (oldEntry == null) {
+        // new file (unrealistic case for now, because in any case both blockmap contain the only file named as "file")
+        throw new Error(`no file ${name} in old blockmap`);
+    }
+    const newFile = nameToNewBlocks.get(name);
+    let changedBlockCount = 0;
+    const { checksumToOffset: checksumToOldOffset, checksumToOldSize } = buildChecksumMap(nameToOldBlocks.get(name), oldEntry.offset, logger);
+    let newOffset = blockMapFile.offset;
+    for (let i = 0; i < newFile.checksums.length; newOffset += newFile.sizes[i], i+...
+const nameToOldBlocks = buildBlockFileMap(oldBlockMap.files)
+const nameToNewBlocks = buildBlockFileMap(newBlockMap.files)
+let lastOperation = null
+const blockMapFile = newBlockMap.files[0]
+__ecma.Array.factory()
+const name = blockMapFile.name
+const oldEntry = nameToOldBlocks.get(name)
+oldEntry == null
+<operator>.formatString("no file ", name, " in old blockmap")
+const newFile = nameToNewBlocks.get(name)
+let changedBlockCount = 0
+_tmp_1 = buildChecksumMap(nameToOldBlocks.get(name), oldEntry.offset, logger)

@@ -1,0 +1,47 @@
+function normalize = function normalize(opts) {
+    var options = opts || defaults;
+    function get(key) {
+        return hasOwn.call(options, key) ? options[key] : defaults[key];
+    }
+    return {
+        tabWidth: +get("tabWidth"),
+        useTabs: !!get("useTabs"),
+        reuseWhitespace: !!get("reuseWhitespace"),
+        lineTerminator: get("lineTerminator"),
+        wrapColumn: Math.max(get("wrapColumn"), 0),
+        sourceFileName: get("sourceFileName"),
+        sourceMapName: get("sourceMapName"),
+        sourceRoot: get("sourceRoot"),
+        inputSourceMap: get("inputSourceMap"),
+        parser: get("esprima") || get("parser"),
+        range: get("range"),
+        tolerant: get("tolerant"),
+        quote: get("quote"),
+        trailingComma: get("trailingComma"),
+        arrayBracketSpacing: get("arrayBracketSpacing"),
+        objectCurlySpacing: get("objectCurlySpacing"),
+        arrowParensAlways: get("arrowParensAlways"),
+        flowObjectCommas: get("flowObjectCommas"),
+        tokens: ...
+var options = opts || defaults
+function get = function get(key) {
+        return hasOwn.call(options, key) ? options[key] : defaults[key];
+    }
+_tmp_0.tabWidth = +get("tabWidth")
+_tmp_0.useTabs = !!get("useTabs")
+_tmp_0.reuseWhitespace = !!get("reuseWhitespace")
+_tmp_0.lineTerminator = get("lineTerminator")
+_tmp_0.wrapColumn = Math.max(get("wrapColumn"), 0)
+_tmp_0.sourceFileName = get("sourceFileName")
+_tmp_0.sourceMapName = get("sourceMapName")
+_tmp_0.sourceRoot = get("sourceRoot")
+_tmp_0.inputSourceMap = get("inputSourceMap")
+_tmp_0.parser = get("esprima") || get("parser")
+_tmp_0.range = get("range")
+_tmp_0.tolerant = get("tolerant")
+_tmp_0.quote = get("quote")
+_tmp_0.trailingComma = get("trailingComma")
+_tmp_0.arrayBracketSpacing = get("arrayBracketSpacing")
+_tmp_0.objectCurlySpacing = get("objectCurlySpacing")
+_tmp_0.arrowParensAlways = get("arrowParensAlways")
+_tmp_0.flowObjectCommas = get("flowObjectCommas")

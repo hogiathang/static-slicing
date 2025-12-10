@@ -1,0 +1,13 @@
+function postprocess = function postprocess(messages, filename) {
+    const blocks = blocksCache.get(filename);
+
+    blocksCache.delete(filename);
+
+    return [].concat(...messages.map((group, i) => {
+        const adjust = adjustBlock(blocks[i]);
+
+        return group.map(adjust).filter(excludeUnsatisfiableRules);
+    }));
+}
+const blocks = blocksCache.get(filename)
+blocksCache.delete(filename)

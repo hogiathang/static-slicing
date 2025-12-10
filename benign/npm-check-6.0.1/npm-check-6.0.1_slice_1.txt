@@ -1,0 +1,40 @@
+function createPackageSummary = function createPackageSummary(moduleName, currentState) {
+    var cwdPackageJson = currentState.get('cwdPackageJson');
+
+    var modulePath = findModulePath(moduleName, currentState);
+    var packageIsInstalled = pathExists.sync(modulePath);
+    var modulePackageJson = readPackageJson(path.join(modulePath, 'package.json'));
+
+    // Ignore private packages
+    var isPrivate = Boolean(modulePackageJson.private);
+    if (isPrivate) {
+        return false;
+    }
+
+    // Ignore packages that are using github or file urls
+    var packageJsonVersion = cwdPackageJson.dependencies[moduleName] || cwdPackageJson.devDependencies[moduleName] || currentState.get('globalPackages')[moduleName];
+
+    if (packageJsonVersion && !semver.validRange(packageJsonVersion)) {
+        return false;
+    }
+
+    // Ignore specified '--ignore' package globs
+    var ignore = currentState.get('ignore');
+    if (ignore) {
+        var ignoreMatch = Array.isArray(ignore) ? ignore.some(function (ignoredModule) {
+       ...
+var cwdPackageJson = currentState.get('cwdPackageJson')
+var modulePath = findModulePath(moduleName, currentState)
+var packageIsInstalled = pathExists.sync(modulePath)
+var modulePackageJson = readPackageJson(path.join(modulePath, 'package.json'))
+var isPrivate = Boolean(modulePackageJson.private)
+var packageJsonVersion = cwdPackageJson.dependencies[moduleName] || cwdPackageJson.devDependencies[moduleName] || currentState.get('globalPackages')[moduleName]
+function foundIn = function foundIn(files) {
+        if (!files) {
+            return;
+        }
+
+        return 'Found in: ' + files.map(function (filepath) {
+            return filepath.replace(currentState.get('cwd'), '');
+        }).join(', ');
+    }

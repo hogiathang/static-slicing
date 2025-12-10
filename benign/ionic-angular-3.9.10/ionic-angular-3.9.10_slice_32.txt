@@ -1,0 +1,58 @@
+constructor(config, _plt, _dom, elementRef, renderer, _app, _keyboard, _zone, viewCtrl, navCtrl) {
+        super(config, elementRef, renderer, 'content');
+        this._plt = _plt;
+        this._dom = _dom;
+        this._app = _app;
+        this._keyboard = _keyboard;
+        this._zone = _zone;
+        /** @internal */
+        this._scrollPadding = 0;
+        /** @internal */
+        this._inputPolling = false;
+        /** @internal */
+        this._hasRefresher = false;
+        /** @internal */
+        this._imgs = [];
+        /** @internal */
+        this._scrollDownOnLoad = false;
+        /**
+         * @output {ScrollEvent} Emitted when the scrolling first starts.
+         */
+        this.ionScrollStart = new EventEmitterProxy();
+        /**
+         * @output {ScrollEvent} Emitted on every scroll event.
+         */
+        this.ionScroll = new EventEmitterProxy();
+        /**
+         * @output {ScrollEvent} Emitted when scrolling ends.
+         */
+        this.ionScrollEnd = ...
+super(config, elementRef, renderer, 'content')
+this._plt = _plt
+this._dom = _dom
+this._app = _app
+this._keyboard = _keyboard
+this._zone = _zone
+this._scrollPadding = 0
+this._inputPolling = false
+this._hasRefresher = false
+__ecma.Array.factory()
+this._scrollDownOnLoad = false
+this.ionScrollStart = new EventEmitterProxy()
+this.ionScroll = new EventEmitterProxy()
+this.ionScrollEnd = new EventEmitterProxy()
+const enableScrollListener = () => this._scroll.enableEvents()
+this.ionScroll.onSubscribe = enableScrollListener
+this.ionScrollStart.onSubscribe = enableScrollListener
+this.ionScrollEnd.onSubscribe = enableScrollListener
+this.statusbarPadding = config.getBoolean('statusbarPadding', false)
+this._imgReqBfr = config.getNumber('imgRequestBuffer', 1400)
+this._imgRndBfr = config.getNumber('imgRenderBuffer', 400)
+this._imgVelMax = config.getNumber('imgVelocityMax', 3)
+this._scroll = new ScrollView(_app, _plt, _dom)
+isTabs(navCtrl)
+this._tabs = navCtrl
+break;
+navCtrl = navCtrl.parent
+_dom.read(this._readDimensions.bind(this))
+_dom.write(this._writeDimensions.bind(this))

@@ -1,0 +1,10 @@
+parentId = parentId === void 0 ? null : parentId
+const spanContext = segment.getSpanContext()
+spanContext.hasError && !segment.transaction.hasIgnoredErrorStatusCode()
+const details = spanContext.errorDetails
+segment.addSpanAttribute('error.message', details.message)
+segment.addSpanAttribute('error.class', details.type)
+details.expected
+segment.addSpanAttribute('error.expected', details.expected)
+const agentAttributes = segment.attributes.get(DESTINATIONS.SPAN_EVENT)
+const customAttributes = spanContext.customAttributes.get(DESTINATIONS.SPAN_EVENT)

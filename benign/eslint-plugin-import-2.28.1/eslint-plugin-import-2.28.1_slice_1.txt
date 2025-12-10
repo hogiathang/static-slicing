@@ -1,0 +1,8 @@
+_tmp_53.value = function () {function get(name) {if (this.namespace.has(name)) {return this.namespace.get(name);}if (this.reexports.has(name)) {var reexports = this.reexports.get(name);var imported = reexports.getImport(); // if import is ignored, return explicit 'null'
+          if (imported == null) {return null;} // safeguard against cycles, only if name matches
+          if (imported.path === this.path && reexports.local === name) {return undefined;}return imported.get(reexports.local);} // default exports must be explicitly re-exported (#328)
+        if (name !== 'default') {var _iteratorNormalCompletion3 = true;var _didIteratorError3 = false;var _iteratorError3 = undefined;try {for (var _iterator3 = this.dependencies[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {var dep = _step3.value;var innerMap = dep(); // todo: report as unresolved?
+              if (!innerMap) {continue;} // safeguard against cycles
+    ...
+imported == null
+imported.path === this.path && reexports.local === name

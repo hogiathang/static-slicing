@@ -1,0 +1,51 @@
+RemoteMethod.prototype._request = function _request(options) {
+  const requestOptions = {
+    method: this._config.put_for_data_send ? 'PUT' : 'POST',
+    setHost: false, // See below
+    host: options.host, // Set explicitly in the headers
+    port: options.port,
+    path: options.path,
+    headers: this._headers(options),
+    agent: agents.keepAliveAgent(),
+    [symbols.offTheRecord]: true // don't let the http instrumentation record this request
+  }
+  let request
+
+  const isProxy = !!(this._config.proxy || this._config.proxy_port || this._config.proxy_host)
+
+  if (isProxy) {
+    // proxy
+    requestOptions.agent = agents.proxyAgent(this._config)
+    request = https.request(requestOptions)
+  } else {
+    if (this._config.certificates && this._config.certificates.length > 0) {
+      requestOptions.ca = this._config.certificates
+    }
+    request = https.request(requestOptions)
+  }
+
+  request.on('error', options.onError)
+  request.on('response', options.onResponse)
+
+  request.end(op...
+const requestOptions = {
+    method: this._config.put_for_data_send ? 'PUT' : 'POST',
+    setHost: false, // See below
+    host: options.host, // Set explicitly in the headers
+    port: options.port,
+    path: options.path,
+    headers: this._headers(options),
+    agent: agents.keepAliveAgent(),
+    [symbols.offTheRecord]: true // don't let the http instrumentation record this request
+  }
+_tmp_25.method = this._config.put_for_data_send ? "PUT" : "POST"
+_tmp_25.setHost = false
+_tmp_25.host = options.host
+_tmp_25.port = options.port
+_tmp_25.path = options.path
+_tmp_25.headers = this._headers(options)
+_tmp_25.agent = agents.keepAliveAgent()
+_tmp_25._computed_object_property_0 = true
+const isProxy = !!(this._config.proxy || this._config.proxy_port || this._config.proxy_host)
+requestOptions.agent = agents.proxyAgent(this._config)
+request = https.request(requestOptions)

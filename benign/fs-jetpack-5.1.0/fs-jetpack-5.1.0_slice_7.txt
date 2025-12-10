@@ -1,0 +1,40 @@
+new Promise((resolve, reject) => {
+    const runOpts = runOptions || {};
+
+    let flags = "wx";
+    if (runOpts.overwrite) {
+      flags = "w";
+    }
+
+    const readStream = fs.createReadStream(srcPath);
+    const writeStream = fs.createWriteStream(destPath, { mode, flags });
+
+    readStream.on("error", reject);
+
+    writeStream.on("error", (err) => {
+      // Force read stream to close, since write stream errored
+      // read stream serves us no purpose.
+      readStream.resume();
+
+      if (err.code === "ENOENT") {
+        // Some parent directory doesn't exits. Create it and retry.
+        dir
+          .createAsync(pathUtil.dirname(destPath))
+          .then(() => {
+            copyFileAsync(srcPath, destPath, mode, context).then(
+              resolve,
+              reject
+            );
+          })
+          .catch(reject);
+      } else if (err.code === "EEXIST") {
+        canOverwriteItAsync(context)
+          .then((canOverwite) => {
+            if (canOverwite) {
+        ...
+const runOpts = runOptions || {}
+let flags = "wx"
+runOpts.overwrite
+flags = "w"
+const readStream = fs.createReadStream(srcPath)
+const writeStream = fs.createWriteStream(destPath, { mode, flags })

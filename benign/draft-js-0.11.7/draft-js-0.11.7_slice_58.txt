@@ -1,0 +1,95 @@
+_proto._toBlockConfigs = function _toBlockConfigs(nodes, style) {
+    var blockConfigs = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var nodeName = node.nodeName.toLowerCase();
+
+      if (nodeName === 'body' || isListNode(nodeName)) {
+        // body, ol and ul are 'block' type nodes so create a block config
+        // with the text accumulated so far (if any)
+        this._trimCurrentText();
+
+        if (this.currentText !== '') {
+          blockConfigs.push(this._makeBlockConfig());
+        } // body, ol and ul nodes are ignored, but their children are inlined in
+        // the parent block config.
+
+
+        var wasCurrentDepth = this.currentDepth;
+        var wasWrapper = this.wrapper;
+
+        if (isListNode(nodeName)) {
+          this.wrapper = nodeName;
+
+          if (isListNode(wasWrapper)) {
+            this.currentDepth++;
+          }
+        }
+
+        blockConfigs.push.apply(blockConfigs, this._toBlockConfigs(Array.from(node.childNod...
+__ecma.Array.factory()
+i < nodes.length
+var node = nodes[i]
+var nodeName = node.nodeName.toLowerCase()
+nodeName === 'body' || isListNode(nodeName)
+this._trimCurrentText()
+this.currentText !== ''
+blockConfigs.push(this._makeBlockConfig())
+var wasCurrentDepth = this.currentDepth
+var wasWrapper = this.wrapper
+isListNode(nodeName)
+this.wrapper = nodeName
+isListNode(wasWrapper)
+this.currentDepth++
+blockConfigs.push.apply(blockConfigs, this._toBlockConfigs(Array.from(node.childNodes), style))
+this.currentDepth = wasCurrentDepth
+this.wrapper = wasWrapper
+continue;
+var blockType = this.blockTypeMap.get(nodeName)
+blockType !== undefined
+this._trimCurrentText()
+this.currentText !== ''
+blockConfigs.push(this._makeBlockConfig())
+var _wasCurrentDepth = this.currentDepth
+var _wasWrapper = this.wrapper
+this.wrapper = nodeName === 'pre' ? 'pre' : this.wrapper
+typeof blockType !== 'string'
+blockType = this.disambiguate(nodeName, this.wrapper) || blockType[0] || 'unstyled'
+!experimentalTreeDataSupport && isHTMLElement(node) && (blockType === 'unordered-list-item' || blockType === 'ordered-list-item')
+var htmlElement = node
+this.currentDepth = getListItemDepth(htmlElement, this.currentDepth)
+var key = generateRandomKey()
+var childConfigs = this._toBlockConfigs(Array.from(node.childNodes), style)
+this._trimCurrentText()
+blockConfigs.push(this._makeBlockConfig({
+          key: key,
+          childConfigs: childConfigs,
+          type: blockType
+        }))
+_tmp_35.key = key
+_tmp_35.childConfigs = childConfigs
+_tmp_35.type = blockType
+this.currentDepth = _wasCurrentDepth
+this.wrapper = _wasWrapper
+continue;
+nodeName === '#text'
+this._addTextNode(node, style)
+continue;
+nodeName === 'br'
+this._addBreakNode(node, style)
+continue;
+isValidImage(node)
+this._addImgNode(node, style)
+continue;
+isValidAnchor(node)
+this._addAnchorNode(node, blockConfigs, style)
+continue;
+var newStyle = style
+HTMLTagToRawInlineStyleMap.has(nodeName)
+newStyle = newStyle.add(HTMLTagToRawInlineStyleMap.get(nodeName))
+newStyle = styleFromNodeAttributes(node, newStyle)
+var inlineStyle = detectInlineStyle(node)
+inlineStyle != null
+newStyle = newStyle.add(inlineStyle)
+blockConfigs.push.apply(blockConfigs, this._toBlockConfigs(Array.from(node.childNodes), newStyle))

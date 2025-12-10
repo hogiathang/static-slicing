@@ -1,0 +1,2 @@
+_tmp_0.get = <lambda>4
+args = resolve(args)

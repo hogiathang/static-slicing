@@ -1,0 +1,11 @@
+function addToStackingContext = function addToStackingContext(contextMap, vNode, ancestorVNode) {
+      var _contextMap$get;
+      var ancestorContext = contextMap.get(ancestorVNode);
+      var context = (_contextMap$get = contextMap.get(vNode)) !== null && _contextMap$get !== void 0 ? _contextMap$get : createStackingContext2(vNode, ancestorContext);
+      if (ancestorContext && ancestorVNode !== vNode && !ancestorContext.descendants.includes(context)) {
+        ancestorContext.descendants.unshift(context);
+      }
+      return context;
+    }
+var ancestorContext = contextMap.get(ancestorVNode)
+var context = (_contextMap$get = contextMap.get(vNode)) !== null && _contextMap$get !== void 0 ? _contextMap$get : createStackingContext2(vNode, ancestorContext)

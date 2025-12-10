@@ -1,0 +1,16 @@
+async readFile(filename, options) {
+    options = options || {};
+    if (!(await exists(filename))) {
+      throw new Error(`File not found: ${filename}`);
+    }
+    const stream = fs.createReadStream(filename);
+    const worksheet = await this.read(stream, options);
+    stream.close();
+    return worksheet;
+  }
+options = options || {}
+!(await exists(filename))
+<operator>.formatString("File not found: ", filename, "")
+const stream = fs.createReadStream(filename)
+const worksheet = await this.read(stream, options)
+stream.close()

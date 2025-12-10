@@ -1,0 +1,50 @@
+function downloadBrowser = async function downloadBrowser() {
+    overrideProxy();
+    const configuration = (0, getConfiguration_js_1.getConfiguration)();
+    if (configuration.skipDownload) {
+        logPolitely('**INFO** Skipping browser download as instructed.');
+        return;
+    }
+    const downloadBaseUrl = configuration.downloadBaseUrl;
+    const platform = (0, browsers_1.detectBrowserPlatform)();
+    if (!platform) {
+        throw new Error('The current platform is not supported.');
+    }
+    const product = configuration.defaultProduct;
+    const browser = productToBrowser(product);
+    const unresolvedBuildId = configuration.browserRevision || revisions_js_1.PUPPETEER_REVISIONS[product] || 'latest';
+    const buildId = await (0, browsers_1.resolveBuildId)(browser, platform, unresolvedBuildId);
+    // TODO: deprecate downloadPath in favour of cacheDirectory.
+    const cacheDir = configuration.downloadPath ?? configuration.cacheDirectory;
+    try {
+        const result = await (0, browsers_1.instal...
+overrideProxy()
+const configuration = (0, getConfiguration_js_1.getConfiguration)()
+configuration.skipDownload
+const downloadBaseUrl = configuration.downloadBaseUrl
+const platform = (0, browsers_1.detectBrowserPlatform)()
+!platform
+throw new Error('The current platform is not supported.');
+const product = configuration.defaultProduct
+const browser = productToBrowser(product)
+const unresolvedBuildId = configuration.browserRevision || revisions_js_1.PUPPETEER_REVISIONS[product] || 'latest'
+const buildId = await (0, browsers_1.resolveBuildId)(browser, platform, unresolvedBuildId)
+const cacheDir = configuration.downloadPath ?? configuration.cacheDirectory
+const result = await (0, browsers_1.install)({
+            browser,
+            cacheDir,
+            platform,
+            buildId,
+            downloadProgressCallback: (0, browsers_1.makeProgressCallback)(browser, buildId),
+            baseUrl: downloadBaseUrl,
+        })
+_tmp_1.browser = browser
+_tmp_1.cacheDir = cacheDir
+_tmp_1.platform = platform
+_tmp_1.buildId = buildId
+_tmp_1.downloadProgressCallback = (0, browsers_1.makeProgressCallback)(browser, buildId)
+_tmp_1.baseUrl = downloadBaseUrl
+<operator>.formatString("", supportedProducts[product], " (", result.buildId, ") downloaded to ", result.path, "")
+<operator>.formatString("ERROR: Failed to set up ", supportedProducts[product], " r", buildId, "! Set "PUPPETEER_SKIP_DOWNLOAD" env variable to skip download.")
+console.error(error)
+process.exit(1)

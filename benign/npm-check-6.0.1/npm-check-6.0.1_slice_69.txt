@@ -1,0 +1,15 @@
+function set = function set(key, value) {
+        if (get('debug')) {
+            debug('set key', key, 'to value', value);
+        }
+
+        if (currentStateObject.hasOwnProperty(key)) {
+            currentStateObject[key] = value;
+        } else {
+            throw new Error(`unknown option "${key}" setting to "${JSON.stringify(value, false, 4)}".`);
+        }
+    }
+get('debug')
+debug('set key', key, 'to value', value)
+currentStateObject.hasOwnProperty(key)
+<operator>.formatString("unknown option "", key, "" setting to "", JSON.stringify(value, false, 4), "".")

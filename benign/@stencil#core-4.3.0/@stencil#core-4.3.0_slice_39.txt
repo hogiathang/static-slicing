@@ -1,0 +1,27 @@
+n.sync = function e(t, r, n) {
+   var a, l, c;
+   r && "object" == typeof r || (r = {
+    mode: r
+   }), a = r.mode, l = r.fs || s, void 0 === a && (a = o & ~process.umask()), n || (n = null), 
+   t = i.resolve(t);
+   try {
+    l.mkdirSync(t, a), n = n || t;
+   } catch (s) {
+    if ("ENOENT" === s.code) n = e(i.dirname(t), r, n), e(t, r, n); else {
+     try {
+      c = l.statSync(t);
+     } catch (e) {
+      throw s;
+     }
+     if (!c.isDirectory()) throw s;
+    }
+   }
+   return n;
+  }
+r && "object" == typeof r || (r = {
+    mode: r
+   })
+_tmp_592.mode = r
+void 0 === a && (a = o & ~process.umask())
+t = i.resolve(t)
+l.mkdirSync(t, a)

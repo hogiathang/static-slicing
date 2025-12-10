@@ -1,0 +1,21 @@
+this.notFoundPagePathsInCaches.forEach(notFoundPath => {
+          const previousPageDataEntry = this.pageDataDb.get(notFoundPath);
+          if (previousPageDataEntry) {
+            this.pageDataDb.set(notFoundPath, {
+              ...previousPageDataEntry,
+              payload: newPageData
+            });
+          }
+          const previousPageEntry = this.pageDb.get(notFoundPath);
+          if (previousPageEntry) {
+            this.pageDb.set(notFoundPath, mergePageEntry(previousPageEntry, newPageData));
+          }
+        })
+const previousPageDataEntry = this.pageDataDb.get(notFoundPath)
+this.pageDataDb.set(notFoundPath, {
+              ...previousPageDataEntry,
+              payload: newPageData
+            })
+...previousPageDataEntry
+_tmp_12.payload = newPageData
+const previousPageEntry = this.pageDb.get(notFoundPath)

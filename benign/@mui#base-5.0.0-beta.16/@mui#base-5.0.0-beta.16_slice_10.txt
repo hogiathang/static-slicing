@@ -1,0 +1,25 @@
+groupedOptions = filteredOptions.reduce(function (acc, option, index) {
+      var group = groupBy(option);
+      if (acc.length > 0 && acc[acc.length - 1].group === group) {
+        acc[acc.length - 1].options.push(option);
+      } else {
+        if (process.env.NODE_ENV !== 'production') {
+          if (indexBy.get(group) && !warn) {
+            console.warn("MUI: The options provided combined with the `groupBy` method of ".concat(componentName, " returns duplicated headers."), 'You can solve the issue by sorting the options with the output of `groupBy`.');
+            warn = true;
+          }
+          indexBy.set(group, true);
+        }
+        acc.push({
+          key: index,
+          index: index,
+          group: group,
+          options: [option]
+        });
+      }
+      return acc;
+    }, [])
+var group = groupBy(option)
+acc.length > 0 && acc[acc.length - 1].group === group
+process.env.NODE_ENV !== 'production'
+indexBy.get(group) && !warn

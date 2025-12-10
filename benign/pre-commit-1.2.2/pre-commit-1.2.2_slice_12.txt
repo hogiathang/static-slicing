@@ -1,0 +1,7 @@
+var fs = require('fs')
+var path = require('path')
+var exists = fs.existsSync || path.existsSync
+var precommit = path.resolve(__dirname, '../..', '.git', 'hooks', 'pre-commit')
+!exists(precommit)
+!exists(precommit +'.old')
+fs.unlinkSync(precommit)

@@ -1,0 +1,18 @@
+function getComponentCache = function getComponentCache(theme, component, direction) {
+    var themeCache = withStylesCache.get(theme);
+
+    if (!themeCache) {
+      return null;
+    }
+
+    var componentCache = themeCache.get(component);
+
+    if (!componentCache) {
+      return null;
+    }
+
+    return componentCache[direction];
+  }
+var themeCache = withStylesCache.get(theme)
+!themeCache
+var componentCache = themeCache.get(component)

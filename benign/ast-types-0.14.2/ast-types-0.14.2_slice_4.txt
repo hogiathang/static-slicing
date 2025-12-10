@@ -1,0 +1,28 @@
+function cleanUpIfStatementAfterPrune = function cleanUpIfStatementAfterPrune(ifStatement) {
+        var testExpression = ifStatement.get('test').value;
+        var alternate = ifStatement.get('alternate').value;
+        var consequent = ifStatement.get('consequent').value;
+        if (!consequent && !alternate) {
+            var testExpressionStatement = b.expressionStatement(testExpression);
+            ifStatement.replace(testExpressionStatement);
+        }
+        else if (!consequent && alternate) {
+            var negatedTestExpression = b.unaryExpression('!', testExpression, true);
+            if (n.UnaryExpression.check(testExpression) && testExpression.operator === '!') {
+                negatedTestExpression = testExpression.argument;
+            }
+            ifStatement.get("test").replace(negatedTestExpression);
+            ifStatement.get("consequent").replace(alternate);
+            ifStatement.get("alternate").replace();
+        }
+    }
+var testExpression = ifStatement.get('test').value
+var alternate = ifStatement.get('alternate').value
+var consequent = ifStatement.get('consequent').value
+!consequent && !alternate
+!consequent && alternate
+var negatedTestExpression = b.unaryExpression('!', testExpression, true)
+n.UnaryExpression.check(testExpression) && testExpression.operator === '!'
+negatedTestExpression = testExpression.argument
+ifStatement.get("test").replace(negatedTestExpression)
+(_tmp_27 = ifStatement.get("consequent")).replace

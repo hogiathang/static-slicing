@@ -1,0 +1,3 @@
+correlationId = param1_1.correlationId
+const socketRequest = this.inflight.get(correlationId)
+this.inflight.delete(correlationId)

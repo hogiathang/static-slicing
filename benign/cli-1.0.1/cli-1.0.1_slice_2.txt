@@ -1,0 +1,109 @@
+cli.getUsage = function (code) {
+    var short, desc, optional, line, seen_opts = [],
+        switch_pad = cli.option_width;
+
+    var trunc_desc = function (pref, desc, len) {
+        var pref_len = pref.length,
+            desc_len = cli.width - pref_len,
+            truncated = '';
+        if (desc.length <= desc_len) {
+            return desc;
+        }
+        var desc_words = (desc+'').split(' '), chars = 0, word;
+        while (desc_words.length) {
+            truncated += (word = desc_words.shift()) + ' ';
+            chars += word.length;
+            if (desc_words.length && chars + desc_words[0].length > desc_len) {
+                truncated += '\n' + pad(pref_len);
+                chars = 0;
+            }
+        }
+        return truncated;
+    };
+
+    usage = usage || cli.app + ' [OPTIONS]' + (command_list.length ? ' <command>' : '') + ' [ARGS]';
+    if (cli.no_color) {
+        console.error('Usage:\n  ' + usage);
+        console.error('Options: ');
+    } else {
+        c...
+__ecma.Array.factory()
+var switch_pad = cli.option_width
+var trunc_desc = function (pref, desc, len) {
+        var pref_len = pref.length,
+            desc_len = cli.width - pref_len,
+            truncated = '';
+        if (desc.length <= desc_len) {
+            return desc;
+        }
+        var desc_words = (desc+'').split(' '), chars = 0, word;
+        while (desc_words.length) {
+            truncated += (word = desc_words.shift()) + ' ';
+            chars += word.length;
+            if (desc_words.length && chars + desc_words[0].length > desc_len) {
+                truncated += '\n' + pad(pref_len);
+                chars = 0;
+            }
+        }
+        return truncated;
+    }
+usage = usage || cli.app + ' [OPTIONS]' + (command_list.length ? ' <command>' : '') + ' [ARGS]'
+cli.no_color
+console.error('Usage:\n  ' + usage)
+console.error('Options: ')
+console.error('\x1b[1mUsage\x1b[0m:\n  ' + usage)
+console.error('\n\x1b[1mOptions\x1b[0m: ')
+_iterator_3 = <operator>.iterator(opt_list)
+opt.length === 1
+long = opt_list[opt][0]
+short = opt
+long = opt
+short = opt_list[opt][0]
+(_tmp_25 = opt_list[opt][1]).trim
+type = opt_list[opt].length >= 3 ? opt_list[opt][2] : null
+optional = opt_list[opt].length === 4 ? opt_list[opt][3] : null
+short === long
+short.length === 1
+line = '  -' + short
+line = '      --' + long
+line = '  -' + short + ', --' + long
+line = '      --' + long
+line += ' '
+type instanceof Array
+desc += '. VALUE must be either [' + type.join('|') + ']'
+type = 'VALUE'
+type === true || type === 1
+type = long.toUpperCase()
+type = type.toUpperCase()
+type === 'FLOAT' || type === 'INT'
+type = 'NUMBER'
+line += optional ? '[' + type + ']' : type
+line = pad(line, switch_pad)
+line += trunc_desc(line, desc)
+line += optional ? ' (Default is ' + optional + ')' : ''
+console.error(line.replace('%s', '%\0s'))
+seen_opts.push(short)
+seen_opts.push(long)
+enable.timeout && seen_opts.indexOf('t') === -1 && seen_opts.indexOf('timeout') === -1
+console.error(pad('  -t, --timeout N', switch_pad) + 'Exit if the process takes longer than N seconds')
+enable.status
+seen_opts.indexOf('k') === -1 && seen_opts.indexOf('no-color') === -1
+console.error(pad('  -k, --no-color', switch_pad) + 'Omit color from output')
+seen_opts.indexOf('debug') === -1
+console.error(pad('      --debug', switch_pad) + 'Show debug information')
+enable.catchall && seen_opts.indexOf('c') === -1 && seen_opts.indexOf('catch') === -1
+console.error(pad('  -c, --catch', switch_pad) + 'Catch unanticipated errors')
+enable.version && seen_opts.indexOf('v') === -1 && seen_opts.indexOf('version') === -1
+console.error(pad('  -v, --version', switch_pad) + 'Display the current version')
+enable.help && seen_opts.indexOf('h') === -1 && seen_opts.indexOf('help') === -1
+console.error(pad('  -h, --help', switch_pad) + 'Display help and usage details')
+command_list.length
+console.error('\n\x1b[1mCommands\x1b[0m: ')
+!Array.isArray(commands)
+_iterator_4 = <operator>.iterator(commands)
+line = '  ' + pad(c, switch_pad - 2)
+line += trunc_desc(line, commands[c])
+console.error(line)
+command_list.sort()
+console.error('  ' + trunc_desc('  ', command_list.join(', ')))
+cli.exit(code)

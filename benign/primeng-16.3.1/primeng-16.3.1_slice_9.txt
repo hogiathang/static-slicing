@@ -1,0 +1,10 @@
+this.documentEscapeListener = this.renderer.listen(documentTarget, 'keydown', (event) => {
+            if (event.which == 27) {
+                if (parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container)) {
+                    this.close(event);
+                }
+            }
+        })
+event.which == 27
+parseInt(this.container.style.zIndex) === ZIndexUtils.get(this.container)
+this.close(event)

@@ -1,0 +1,43 @@
+function makeRequest = async function makeRequest(request) {
+    const { abortController, abortControllerCleanup } = setupAbortSignal(request);
+    try {
+        const headers = buildFetchHeaders(request.headers);
+        const { streaming, body: requestBody } = buildRequestBody(request);
+        const requestInit = {
+            body: requestBody,
+            method: request.method,
+            headers: headers,
+            signal: abortController.signal,
+            credentials: request.withCredentials ? "include" : "same-origin",
+            cache: "no-store",
+        };
+        // According to https://fetch.spec.whatwg.org/#fetch-method,
+        // init.duplex must be set when body is a ReadableStream object.
+        // currently "half" is the only valid value.
+        if (streaming) {
+            requestInit.duplex = "half";
+        }
+        /**
+         * Developers of the future:
+         * Do not set redirect: "manual" as part
+         * of request options.
+         * It will not work as you expe...
+abortControllerCleanup = _tmp_0.abortControllerCleanup
+const headers = buildFetchHeaders(request.headers)
+_tmp_1 = buildRequestBody(request)
+const requestInit = {
+            body: requestBody,
+            method: request.method,
+            headers: headers,
+            signal: abortController.signal,
+            credentials: request.withCredentials ? "include" : "same-origin",
+            cache: "no-store",
+        }
+_tmp_2.body = requestBody
+_tmp_2.method = request.method
+_tmp_2.headers = headers
+_tmp_2.signal = abortController.signal
+_tmp_2.credentials = request.withCredentials ? "include" : "same-origin"
+_tmp_2.cache = "no-store"
+requestInit.duplex = "half"
+const response = await fetch(request.url, requestInit)

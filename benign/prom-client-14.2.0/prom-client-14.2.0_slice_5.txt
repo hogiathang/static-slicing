@@ -1,0 +1,54 @@
+new Promise((resolve, reject) => {
+			let settled = false;
+			function done(err, result) {
+				if (settled) return;
+				settled = true;
+				if (err) reject(err);
+				else resolve(result);
+			}
+
+			const request = {
+				responses: [],
+				pending: 0,
+				done,
+				errorTimeout: setTimeout(() => {
+					const err = new Error('Operation timed out.');
+					request.done(err);
+				}, 5000),
+			};
+			requests.set(requestId, request);
+
+			const message = {
+				type: GET_METRICS_REQ,
+				requestId,
+			};
+
+			for (const id in cluster().workers) {
+				// If the worker exits abruptly, it may still be in the workers
+				// list but not able to communicate.
+				if (cluster().workers[id].isConnected()) {
+					cluster().workers[id].send(message);
+					request.pending++;
+				}
+			}
+
+			if (request.pending === 0) {
+				// No workers were up
+				clearTimeout(request.errorTimeout);
+				process.nextTick(() => done(null, ''));
+			}
+		})
+let settled = false
+function done = function done(err, result) {
+				if (settled) return;
+				settled = true;
+				if (err) reject(err);
+				else resolve(result);
+			}
+_tmp_13.responses = __ecma.Array.factory()
+_tmp_13.pending = 0
+_tmp_13.done = done
+_tmp_13.errorTimeout = setTimeout(() => {
+					const err = new Error('Operation timed out.');
+					request.done(err);
+				}, 5000)

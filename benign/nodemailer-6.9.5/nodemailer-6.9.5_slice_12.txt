@@ -1,0 +1,25 @@
+_onError(err, type, data, command) {
+        clearTimeout(this._connectionTimeout);
+        clearTimeout(this._greetingTimeout);
+
+        if (this._destroyed) {
+            // just ignore, already closed
+            // this might happen when a socket is canceled because of reached timeout
+            // but the socket timeout error itself receives only after
+            return;
+        }
+
+        err = this._formatError(err, type, data, command);
+
+        this.logger.error(data, err.message);
+
+        this.emit('error', err);
+        this.close();
+    }
+clearTimeout(this._connectionTimeout)
+clearTimeout(this._greetingTimeout)
+this._destroyed
+err = this._formatError(err, type, data, command)
+this.logger.error(data, err.message)
+this.emit('error', err)
+this.close()

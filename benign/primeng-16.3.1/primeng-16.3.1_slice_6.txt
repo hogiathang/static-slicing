@@ -1,0 +1,14 @@
+removeDialogComponentFromBody(dialogRef) {
+        if (!dialogRef || !this.dialogComponentRefMap.has(dialogRef)) {
+            return;
+        }
+        const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef);
+        this.appRef.detachView(dialogComponentRef.hostView);
+        dialogComponentRef.destroy();
+        this.dialogComponentRefMap.delete(dialogRef);
+    }
+!dialogRef || !this.dialogComponentRefMap.has(dialogRef)
+const dialogComponentRef = this.dialogComponentRefMap.get(dialogRef)
+this.appRef.detachView(dialogComponentRef.hostView)
+dialogComponentRef.destroy()
+(_tmp_201 = this.dialogComponentRefMap).delete

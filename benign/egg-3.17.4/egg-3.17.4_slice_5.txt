@@ -1,0 +1,27 @@
+dumpConfig() {
+    const rundir = this.config.rundir;
+    try {
+      /* istanbul ignore if */
+      if (!fs.existsSync(rundir)) fs.mkdirSync(rundir);
+
+      // get dumpped object
+      const { config, meta } = this.dumpConfigToObject();
+
+      // dump config
+      const dumpFile = path.join(rundir, `${this.type}_config.json`);
+      fs.writeFileSync(dumpFile, CircularJSON.stringify(config, null, 2));
+
+      // dump config meta
+      const dumpMetaFile = path.join(rundir, `${this.type}_config_meta.json`);
+      fs.writeFileSync(dumpMetaFile, CircularJSON.stringify(meta, null, 2));
+    } catch (err) {
+      this.coreLogger.warn(`dumpConfig error: ${err.message}`);
+    }
+  }
+const rundir = this.config.rundir
+!fs.existsSync(rundir)
+_tmp_28 = this.dumpConfigToObject()
+const dumpFile = path.join(rundir, `${this.type}_config.json`)
+fs.writeFileSync(dumpFile, CircularJSON.stringify(config, null, 2))
+const dumpMetaFile = path.join(rundir, `${this.type}_config_meta.json`)
+fs.writeFileSync(dumpMetaFile, CircularJSON.stringify(meta, null, 2))

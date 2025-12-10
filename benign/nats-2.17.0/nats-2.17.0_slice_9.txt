@@ -1,0 +1,30 @@
+__awaiter(this, void 0, void 0, function* () {
+            let firstErr;
+            try {
+                const n = yield this.put(k, data, { previousSeq: 0 });
+                return Promise.resolve(n);
+            }
+            catch (err) {
+                firstErr = err;
+                if (((_a = err === null || err === void 0 ? void 0 : err.api_error) === null || _a === void 0 ? void 0 : _a.err_code) !== 10071) {
+                    return Promise.reject(err);
+                }
+            }
+            let rev = 0;
+            try {
+                const e = yield this.get(k);
+                if ((e === null || e === void 0 ? void 0 : e.operation) === "DEL" || (e === null || e === void 0 ? void 0 : e.operation) === "PURGE") {
+                    rev = e !== null ? e.revision : 0;
+                    return this.update(k, data, rev);
+                }
+                else {
+                    return Promise.reject(firstErr);
+                }
+            }
+            catch ...
+const n = yield this.put(k, data, { previousSeq: 0 })
+Promise.resolve(n)
+firstErr = err
+((_a = err === null || err === void 0 ? void 0 : err.api_error) === null || _a === void 0 ? void 0 : _a.err_code) !== 10071
+let rev = 0
+const e = yield this.get(k)

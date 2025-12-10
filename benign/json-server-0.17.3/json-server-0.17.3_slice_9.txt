@@ -1,0 +1,34 @@
+new Promise((resolve, reject) => {
+    if (is.FILE(source)) {
+      if (!fs.existsSync(source)) {
+        console.log(chalk.yellow(`  Oops, ${source} doesn't seem to exist`));
+        console.log(chalk.yellow(`  Creating ${source} with some default data`));
+        console.log();
+        fs.writeFileSync(source, JSON.stringify(example, null, 2));
+      }
+
+      resolve(low(new FileAsync(source)));
+    } else if (is.URL(source)) {
+      // Normalize the source into a URL object.
+      const sourceUrl = new URL(source); // Pick the client based on the protocol scheme
+
+      const client = sourceUrl.protocol === 'https:' ? https : http;
+      client.get(sourceUrl, res => {
+        let dbData = '';
+        res.on('data', data => {
+          dbData += data;
+        });
+        res.on('end', () => {
+          resolve(low(new Memory()).setState(JSON.parse(dbData)));
+        });
+      }).on('error', error => {
+        return reject(error);
+      });
+    } else if (is.JS(source)) {
+      // ...
+is.FILE(source)
+!fs.existsSync(source)
+<operator>.formatString("  Oops, ", source, " doesn't seem to exist")
+<operator>.formatString("  Creating ", source, " with some default data")
+console.log()
+fs.writeFileSync(source, JSON.stringify(example, null, 2))

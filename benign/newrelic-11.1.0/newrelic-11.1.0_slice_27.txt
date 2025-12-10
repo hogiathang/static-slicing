@@ -1,0 +1,3 @@
+_tmp_1.promiseResolve = promiseResolveHandler
+const hookSegment = segmentMap.get(id)
+segmentMap.delete(id)

@@ -1,0 +1,8 @@
+_tmp_32.WhileStatement = WhileStatement
+const test = path.get("test")
+const result = evaluate(test, {
+        tdz: this.tdz
+      })
+_tmp_83.tdz = this.tdz
+result.confident && test.isPure() && !result.value
+path.replaceWithMultiple(extractVars(path.get("body")))

@@ -1,0 +1,46 @@
+_performRequest() {
+    const urlOptions = new URL(this.currentURL);
+    const scheme = urlOptions.protocol;
+
+    // browserify's (http|https).request() does not work correctly with the (url, options, callback) signature. Instead
+    // we need to have options for each of the URL components. Note that we can't use the spread operator because URL
+    // instances don't have own properties for the URL components.
+    const requestOptions = {
+      ...this._requestOptions,
+      agent: this.agents[scheme.substring(0, scheme.length - 1)],
+      protocol: urlOptions.protocol,
+      hostname: urlOptions.hostname,
+      port: urlOptions.port,
+      path: urlOptions.pathname + urlOptions.search
+    };
+
+    const { request } = scheme === "https:" ? https : http;
+    this._currentRequest = request(requestOptions, response => {
+      this._processResponse(response);
+    });
+
+    let cookies;
+    if (this._redirectCount === 0) {
+      this.originalCookieHeader = this.getHeader("Cookie");
+    }
+...
+const urlOptions = new URL(this.currentURL)
+const scheme = urlOptions.protocol
+const requestOptions = {
+      ...this._requestOptions,
+      agent: this.agents[scheme.substring(0, scheme.length - 1)],
+      protocol: urlOptions.protocol,
+      hostname: urlOptions.hostname,
+      port: urlOptions.port,
+      path: urlOptions.pathname + urlOptions.search
+    }
+...this._requestOptions
+_tmp_16.agent = this.agents[scheme.substring(0, scheme.length - 1)]
+_tmp_16.protocol = urlOptions.protocol
+_tmp_16.hostname = urlOptions.hostname
+_tmp_16.port = urlOptions.port
+_tmp_16.path = urlOptions.pathname + urlOptions.search
+_tmp_17 = scheme === "https:" ? https : http
+this._currentRequest = request(requestOptions, response => {
+      this._processResponse(response);
+    })

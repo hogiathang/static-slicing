@@ -1,0 +1,18 @@
+[...Plural, ...SelectOrdinal].forEach((referencePath) => {
+    if (referencePath.parentPath.type === 'JSXOpeningElement') {
+      pluralAsJSX(
+        referencePath.parentPath,
+        {
+          attributes: referencePath.parentPath.get('attributes'),
+          children: referencePath.parentPath.parentPath.get('children'),
+        },
+        babel,
+      );
+    } else {
+      // throw a helpful error message or something :)
+    }
+  })
+referencePath.parentPath.type === 'JSXOpeningElement'
+referencePath.parentPath
+_tmp_3.attributes = referencePath.parentPath.get('attributes')
+_tmp_3.children = referencePath.parentPath.parentPath.get('children')

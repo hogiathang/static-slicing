@@ -1,0 +1,25 @@
+this.getBoundingShape = function() {
+        let shape = new SvgShape(),
+            children = this.getChildren();
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].get('display') !== 'none') {
+            if (typeof children[i].getBoundingShape === 'function') {
+              let childShape = children[i].getBoundingShape().clone();
+              if (typeof children[i].getTransformation === 'function') {
+                childShape.transform(children[i].getTransformation());
+              }
+              shape.mergeShape(childShape);
+            }
+          }
+        }
+        return shape;
+      }
+let shape = new SvgShape()
+let children = this.getChildren()
+i < children.length
+children[i].get('display') !== 'none'
+typeof children[i].getBoundingShape === 'function'
+let childShape = children[i].getBoundingShape().clone()
+typeof children[i].getTransformation === 'function'
+childShape.transform(children[i].getTransformation())
+shape.mergeShape(childShape)

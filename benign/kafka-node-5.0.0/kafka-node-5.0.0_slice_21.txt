@@ -1,0 +1,7 @@
+_tmp_56.push(<lambda>83)
+const broker = this.brokerForLeader()
+const correlationId = this.nextId()
+const supportedCoders = getSupportedForRequestType(broker, 'metadata')
+const request = supportedCoders.encoder(this.clientId, correlationId, topics)
+this.queueCallback(broker.socket, correlationId, [supportedCoders.decoder, cb])
+broker.write(request)

@@ -1,0 +1,44 @@
+_rename(from, to) {
+        from = this._toAbsolute(from);
+        to = this._toAbsolute(to);
+        if (!this._cache.has(from)) {
+            throw new exception_1.FileDoesNotExistException(from);
+        }
+        else if (this._cache.has(to)) {
+            throw new exception_1.FileAlreadyExistException(to);
+        }
+        if (this._isDirectory(from)) {
+            for (const path of this._cache.keys()) {
+                if (path.startsWith(from + path_1.NormalizedSep)) {
+                    const content = this._cache.get(path);
+                    if (content) {
+                        // We don't need to clone or extract the content, since we're moving files.
+                        this._cache.set((0, path_1.join)(to, path_1.NormalizedSep, path.slice(from.length)), content);
+                    }
+                }
+            }
+        }
+        else {
+            const content = this._cache.get(from);
+            if (content) {
+                const fragments = (0, path_...
+from = this._toAbsolute(from)
+to = this._toAbsolute(to)
+(_tmp_37 = this._cache).has
+throw new exception_1.FileDoesNotExistException(from);
+(_tmp_39 = this._cache).has
+throw new exception_1.FileAlreadyExistException(to);
+this._isDirectory(from)
+const content = this._cache.get(from)
+const fragments = (0, path_1.split)(to)
+const newDirectories = []
+let curr = (0, path_1.normalize)('/')
+_iterator_3 = <operator>.iterator(fragments)
+curr = (0, path_1.join)(curr, fr)
+const maybeStats = this._cache.get(fr)
+maybeStats.isFile()
+throw new exception_1.PathIsFileException(curr);
+newDirectories.push(curr)
+_iterator_4 = <operator>.iterator(newDirectories)
+this._cache.set(newDirectory, this._newDirStats())
+(_tmp_48 = this._cache).delete

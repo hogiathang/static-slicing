@@ -1,0 +1,37 @@
+body => {
+      let parsed = body
+      try {
+        parsed = JSON.parse(body.toString('utf8'))
+      } catch {
+        // ignore errors
+      }
+      if (res.status === 401 && res.headers.get('www-authenticate')) {
+        const auth = res.headers.get('www-authenticate')
+          .split(/,\s*/)
+          .map(s => s.toLowerCase())
+        if (auth.indexOf('ipaddress') !== -1) {
+          throw new errors.HttpErrorAuthIPAddress(
+            method, res, parsed, opts.spec
+          )
+        } else if (auth.indexOf('otp') !== -1) {
+          throw new errors.HttpErrorAuthOTP(
+            method, res, parsed, opts.spec
+          )
+        } else {
+          throw new errors.HttpErrorAuthUnknown(
+            method, res, parsed, opts.spec
+          )
+        }
+      } else if (
+        res.status === 401 &&
+        body != null &&
+        /one-time pass/.test(body.toString('utf8'))
+      ) {
+        // Heuristic for malformed OTP responses that don't include the
+        // www-authen...
+let parsed = body
+parsed = JSON.parse(body.toString('utf8'))
+res.status === 401 && res.headers.get('www-authenticate')
+const auth = res.headers.get('www-authenticate')
+          .split(/,\s*/)
+          .map(s => s.toLowerCase())

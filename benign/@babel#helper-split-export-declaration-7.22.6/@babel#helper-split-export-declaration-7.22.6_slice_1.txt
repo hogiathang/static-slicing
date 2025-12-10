@@ -1,0 +1,25 @@
+function splitExportDeclaration = function splitExportDeclaration(exportDeclaration) {
+  if (!exportDeclaration.isExportDeclaration() || exportDeclaration.isExportAllDeclaration()) {
+    throw new Error("Only default and named export declarations can be split.");
+  }
+  if (exportDeclaration.isExportDefaultDeclaration()) {
+    const declaration = exportDeclaration.get("declaration");
+    const standaloneDeclaration = declaration.isFunctionDeclaration() || declaration.isClassDeclaration();
+    const exportExpr = declaration.isFunctionExpression() || declaration.isClassExpression();
+    const scope = declaration.isScope() ? declaration.scope.parent : declaration.scope;
+    let id = declaration.node.id;
+    let needBindingRegistration = false;
+    if (!id) {
+      needBindingRegistration = true;
+      id = scope.generateUidIdentifier("default");
+      if (standaloneDeclaration || exportExpr) {
+        declaration.node.id = cloneNode(id);
+      }
+    } else if (exportExpr && scope.hasBinding(id.name)) {
+      needBinding...
+!exportDeclaration.isExportDeclaration() || exportDeclaration.isExportAllDeclaration()
+throw new Error("Only default and named export declarations can be split.");
+exportDeclaration.isExportDefaultDeclaration()
+exportDeclaration.get("specifiers").length > 0
+throw new Error("It doesn't make sense to split exported specifiers.");
+const declaration = exportDeclaration.get("declaration")

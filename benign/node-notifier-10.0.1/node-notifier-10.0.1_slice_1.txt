@@ -1,0 +1,30 @@
+module.exports.command = function (notifier, options, cb) {
+  notifier = shellwords.escape(notifier);
+  if (process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1) {
+    console.info('node-notifier debug info (command):');
+    console.info('[notifier path]', notifier);
+    console.info('[notifier options]', options.join(' '));
+  }
+
+  return cp.exec(notifier + ' ' + options.join(' '), function (
+    error,
+    stdout,
+    stderr
+  ) {
+    if (error) return cb(error);
+    cb(stderr, stdout);
+  });
+}
+notifier = shellwords.escape(notifier)
+process.env.DEBUG && process.env.DEBUG.indexOf('notifier') !== -1
+console.info('node-notifier debug info (command):')
+console.info('[notifier path]', notifier)
+console.info('[notifier options]', options.join(' '))
+cp.exec(notifier + ' ' + options.join(' '), function (
+    error,
+    stdout,
+    stderr
+  ) {
+    if (error) return cb(error);
+    cb(stderr, stdout);
+  })

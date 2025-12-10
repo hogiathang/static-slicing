@@ -1,0 +1,36 @@
+function mergeProcessCovs = function mergeProcessCovs(processCovs: ReadonlyArray<ProcessCov>): ProcessCov {
+  if (processCovs.length === 0) {
+    return {result: []};
+  }
+
+  const urlToScripts: Map<string, ScriptCov[]> = new Map();
+  for (const processCov of processCovs) {
+    for (const scriptCov of processCov.result) {
+      let scriptCovs: ScriptCov[] | undefined = urlToScripts.get(scriptCov.url);
+      if (scriptCovs === undefined) {
+        scriptCovs = [];
+        urlToScripts.set(scriptCov.url, scriptCovs);
+      }
+      scriptCovs.push(scriptCov);
+    }
+  }
+
+  const result: ScriptCov[] = [];
+  for (const scripts of urlToScripts.values()) {
+    // assert: `scripts.length > 0`
+    result.push(mergeScriptCovs(scripts)!);
+  }
+  const merged: ProcessCov = {result};
+
+  normalizeProcessCov(merged);
+  return merged;
+}
+processCovs.length === 0
+const urlToScripts: Map<string, ScriptCov[]> = new Map()
+_iterator_4 = <operator>.iterator(processCovs)
+_iterator_5 = <operator>.iterator(processCov.result)
+let scriptCovs: ScriptCov[] | undefined = urlToScripts.get(scriptCov.url)
+scriptCovs === undefined
+__ecma.Array.factory()
+urlToScripts.set(scriptCov.url, scriptCovs)
+scriptCovs.push(scriptCov)

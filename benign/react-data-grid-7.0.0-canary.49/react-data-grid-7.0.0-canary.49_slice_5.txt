@@ -1,0 +1,62 @@
+_tmp_44 = react.useMemo(() => {
+    if (!enableVirtualization) {
+      return [0, columns.length - 1];
+    }
+
+    const viewportLeft = scrollLeft + totalFrozenColumnWidth;
+    const viewportRight = scrollLeft + viewportWidth;
+    const lastColIdx = columns.length - 1;
+    const firstUnfrozenColumnIdx = min(lastFrozenColumnIndex + 1, lastColIdx);
+
+    if (viewportLeft >= viewportRight) {
+      return [firstUnfrozenColumnIdx, firstUnfrozenColumnIdx];
+    }
+
+    let colVisibleStartIdx = firstUnfrozenColumnIdx;
+
+    while (colVisibleStartIdx < lastColIdx) {
+      const {
+        left,
+        width
+      } = columnMetrics.get(columns[colVisibleStartIdx]);
+
+      if (left + width > viewportLeft) {
+        break;
+      }
+
+      colVisibleStartIdx++;
+    }
+
+    let colVisibleEndIdx = colVisibleStartIdx;
+
+    while (colVisibleEndIdx < lastColIdx) {
+      const {
+        left,
+        width
+      } = columnMetrics.get(columns[colVisibleEndIdx]);
+
+      if (left + width >= viewportRight) {
+        brea...
+!enableVirtualization
+const viewportLeft = scrollLeft + totalFrozenColumnWidth
+const viewportRight = scrollLeft + viewportWidth
+const lastColIdx = columns.length - 1
+const firstUnfrozenColumnIdx = min(lastFrozenColumnIndex + 1, lastColIdx)
+viewportLeft >= viewportRight
+let colVisibleStartIdx = firstUnfrozenColumnIdx
+colVisibleStartIdx < lastColIdx
+_tmp_40 = columnMetrics.get(columns[colVisibleStartIdx])
+left = _tmp_40.left
+width = _tmp_40.width
+columnMetrics.get(columns[colVisibleStartIdx])
+left + width > viewportLeft
+break;
+colVisibleStartIdx++
+let colVisibleEndIdx = colVisibleStartIdx
+colVisibleEndIdx < lastColIdx
+_tmp_41 = columnMetrics.get(columns[colVisibleEndIdx])
+left = _tmp_41.left
+width = _tmp_41.width
+columnMetrics.get(columns[colVisibleEndIdx])
+left + width >= viewportRight
+colVisibleEndIdx++

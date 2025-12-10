@@ -1,0 +1,34 @@
+function endChown = function endChown (self, want, current, path, cb) {
+  // Don't even try it unless root.  Too easy to EPERM.
+  if (process.platform === 'win32') return cb()
+  if (!process.getuid || process.getuid() !== 0) return cb()
+  if (typeof want.uid !== 'number' &&
+    typeof want.gid !== 'number') return cb()
+
+  if (current.uid === want.uid &&
+    current.gid === want.gid) return cb()
+
+  var chown = (self.props.follow || self.type !== 'SymbolicLink')
+    ? 'chown' : 'lchown'
+  if (!fs[chown]) return cb()
+
+  if (typeof want.uid !== 'number') want.uid = current.uid
+  if (typeof want.gid !== 'number') want.gid = current.gid
+
+  fs[chown](path, want.uid, want.gid, cb)
+}
+process.platform === 'win32'
+!process.getuid || process.getuid() !== 0
+typeof want.uid !== 'number' &&
+    typeof want.gid !== 'number'
+typeof want.gid !== 'number'
+current.uid === want.uid &&
+    current.gid === want.gid
+current.gid === want.gid
+var chown = (self.props.follow || self.type !== 'SymbolicLink')
+    ? 'chown' : 'lchown'
+"chown"
+!fs[chown]
+typeof want.uid !== 'number'
+typeof want.gid !== 'number'
+fs[chown](path, want.uid, want.gid, cb)

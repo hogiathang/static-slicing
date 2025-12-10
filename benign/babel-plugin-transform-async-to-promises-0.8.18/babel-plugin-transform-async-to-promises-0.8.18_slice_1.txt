@@ -1,0 +1,42 @@
+function visit = function visit(path, result, state) {
+            if (referenceOriginalNodes) {
+                const originalNode = originalNodeMap.get(path.node);
+                if (originalNode) {
+                    traverse(wrapNodeInStatement(originalNode), visitor, path.scope, { match: result, state }, path);
+                    return false;
+                }
+            }
+            const doesMatch = matchingNodeTest(path);
+            if (doesMatch) {
+                result.any = true;
+                result.all = !(state.breakingLabels.length || state.unnamedBreak);
+            }
+            if (path.isBreakStatement()) {
+                const label = path.node.label;
+                if (!label) {
+                    state.unnamedBreak = true;
+                }
+                else if (state.breakingLabels.indexOf(label.name) === -1) {
+                    state.breakingLabels.push(label.name);
+                }
+            }
+            if (path.isLabeledStatement()) {
+                ...
+const originalNode = originalNodeMap.get(path.node)
+const doesMatch = matchingNodeTest(path)
+result.any = true
+result.all = !(state.breakingLabels.length || state.unnamedBreak)
+path.isBreakStatement()
+const label = path.node.label
+!label
+state.unnamedBreak = true
+state.breakingLabels.indexOf(label.name) === -1
+state.breakingLabels.push(label.name)
+path.isLabeledStatement()
+const index = state.breakingLabels.indexOf(path.node.label.name)
+index !== -1
+(_tmp_10 = state.breakingLabels).splice
+path.isLoop()
+state.unnamedBreak = false
+path.isConditional()
+const test = match(path.get("test"), state)

@@ -1,0 +1,114 @@
+FeedParser.prototype.handleMeta = function handleMeta (node, type, options) {
+  if (!type || !node) return {};
+
+  var meta = {}
+    , normalize = !options || (options && options.normalize)
+    ;
+
+  if (normalize) {
+    ['title','description','date', 'pubdate', 'pubDate','link', 'xmlurl', 'xmlUrl','author','language','favicon','copyright','generator'].forEach(function (property){
+      meta[property] = null;
+    });
+    meta.cloud = {};
+    meta.image = {};
+    meta.categories = [];
+  }
+
+  Object.keys(node).forEach(function(name){
+    var el = node[name];
+
+    if (normalize) {
+      switch(name){
+      case('title'):
+        meta.title = _.get(el);
+        break;
+      case('description'):
+      case('subtitle'):
+        meta.description = _.get(el);
+        break;
+      case('pubdate'):
+      case('lastbuilddate'):
+      case('published'):
+      case('modified'):
+      case('updated'):
+      case('dc:date'):
+        var date = _.get(el) ? new Date(_.get(el)) : null;
+        if (!dat...
+!type || !node
+var meta = {}
+var normalize = !options || (options && options.normalize)
+['title','description','date', 'pubdate', 'pubDate','link', 'xmlurl', 'xmlUrl','author','language','favicon','copyright','generator'].forEach(function (property){
+      meta[property] = null;
+    })
+meta.cloud = {}
+meta.image = {}
+__ecma.Array.factory()
+Object.keys(node).forEach(function(name){
+    var el = node[name];
+
+    if (normalize) {
+      switch(name){
+      case('title'):
+        meta.title = _.get(el);
+        break;
+      case('description'):
+      case('subtitle'):
+        meta.description = _.get(el);
+        break;
+      case('pubdate'):
+      case('lastbuilddate'):
+      case('published'):
+      case('modified'):
+      case('updated'):
+      case('dc:date'):
+        var date = _.get(el) ? new Date(_.get(el)) : null;
+        if (!date) break;
+        if (meta.pubdate === null || name == 'pubdate' || name == 'published')
+          meta.pubdate = meta.pubDate = date;
+        if (meta.date === null || name == 'lastbuilddate' || name == 'modified' || name == 'updated')
+          meta.date = date;
+        break;
+      case('link'):
+      case('atom:link'):
+      case('atom10:link'):
+        if (Array.isArray(el)) {
+          el.forEach(function (link){
+            if (link['@']['href']) { // Atom
+              if (_.get(li...
+!meta.description
+meta.description = _.get(node['itunes:summary'])
+meta.description = _.get(node['tagline'])
+!meta.author
+meta.author = _.get(node['itunes:author'])
+node['itunes:owner'] && node['itunes:owner']['itunes:name']
+meta.author = _.get(node['dc:creator'])
+meta.author = _.get(node['dc:publisher'])
+!meta.language
+meta.language = _.get(node['@'], 'xml:lang')
+meta.language = _.get(node['dc:language'])
+!meta.image.url
+meta.image.url = _.get(node['itunes:image']['@'], 'href')
+node["media:thumbnail"]
+Array.isArray(node['media:thumbnail'])
+node['media:thumbnail'] = node['media:thumbnail'][0]
+meta.image.url = _.get(node['media:thumbnail']['@'], 'url')
+!meta.copyright
+meta.copyright = _.get(node['media:copyright'])
+meta.copyright = _.get(node['dc:rights'])
+meta.copyright = _.get(node['creativecommons:license'])
+node["cc:license"]
+Array.isArray(node['cc:license']) && node['cc:license'][0]['@'] && node['cc:license'][0]['@']['rdf:resource']
+meta.copyright = _.get(node['cc:license'][0]['@'], 'rdf:resource')
+node['cc:license']['@'] && node['cc:license']['@']['rdf:resource']
+meta.copyright = _.get(node['cc:license']['@'], 'rdf:resource')
+!meta.generator
+node["admin:generatoragent"]
+Array.isArray(node['admin:generatoragent']) && node['admin:generatoragent'][0]['@'] && node['admin:generatoragent'][0]['@']['rdf:resource']
+meta.generator = _.get(node['admin:generatoragent'][0]['@'], 'rdf:resource')
+node['admin:generatoragent']['@'] && node['admin:generatoragent']['@']['rdf:resource']
+meta.generator = _.get(node['admin:generatoragent']['@'], 'rdf:resource')
+meta.categories.length
+meta.categories = _.uniq(meta.categories)
+!meta.link
+meta['atom:id'] && _.get(meta['atom:id']) && /^https?:/.test(_.get(meta['atom:id']))
+meta.link = _.get(meta['atom:id'])

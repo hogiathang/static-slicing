@@ -1,0 +1,21 @@
+Server.prototype._runUse = function _runUse(req, res, next) {
+    var self = this;
+
+    // Run "use"
+    req._currentHandler = 'use';
+    req._timeUseStart = process.hrtime();
+
+    self.useChain.run(req, res, function useChainDone(err) {
+        // Execution time of a handler with error can be significantly lower
+        req._timeUseEnd = process.hrtime();
+        self._afterUse(err, req, res, next);
+    });
+}
+var self = this
+req._currentHandler = 'use'
+req._timeUseStart = process.hrtime()
+self.useChain.run(req, res, function useChainDone(err) {
+        // Execution time of a handler with error can be significantly lower
+        req._timeUseEnd = process.hrtime();
+        self._afterUse(err, req, res, next);
+    })

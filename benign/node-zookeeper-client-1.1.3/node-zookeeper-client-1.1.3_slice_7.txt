@@ -1,0 +1,22 @@
+self.findNextServer(function (server) {
+        self.socket = net.connect(server);
+
+        self.connectTimeoutHandler = setTimeout(
+            self.onSocketConnectTimeout.bind(self),
+            self.connectTimeout
+        );
+
+        // Disable the Nagle algorithm.
+        self.socket.setNoDelay();
+
+        self.socket.on('connect', self.onSocketConnected.bind(self));
+        self.socket.on('data', self.onSocketData.bind(self));
+        self.socket.on('drain', self.onSocketDrain.bind(self));
+        self.socket.on('close', self.onSocketClosed.bind(self));
+        self.socket.on('error', self.onSocketError.bind(self));
+    })
+self.socket = net.connect(server)
+self.connectTimeoutHandler = setTimeout(
+            self.onSocketConnectTimeout.bind(self),
+            self.connectTimeout
+        )

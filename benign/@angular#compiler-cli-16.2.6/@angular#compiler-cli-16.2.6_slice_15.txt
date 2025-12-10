@@ -1,0 +1,50 @@
+renderFlattenedSourceMap() {
+    const sources = new IndexedMap();
+    const names = new IndexedSet();
+    const mappings = [];
+    const sourcePathDir = this.fs.dirname(this.sourcePath);
+    const relativeSourcePathCache = new Cache((input) => this.fs.relative(sourcePathDir, input));
+    for (const mapping of this.flattenedMappings) {
+      const sourceIndex = sources.set(relativeSourcePathCache.get(mapping.originalSource.sourcePath), mapping.originalSource.contents);
+      const mappingArray = [
+        mapping.generatedSegment.column,
+        sourceIndex,
+        mapping.originalSegment.line,
+        mapping.originalSegment.column
+      ];
+      if (mapping.name !== void 0) {
+        const nameIndex = names.add(mapping.name);
+        mappingArray.push(nameIndex);
+      }
+      const line = mapping.generatedSegment.line;
+      while (line >= mappings.length) {
+        mappings.push([]);
+      }
+      mappings[line].push(mappingArray);
+    }
+    const sourceMap = {
+      version: 3...
+const sources = new IndexedMap()
+const names = new IndexedSet()
+__ecma.Array.factory()
+const sourcePathDir = this.fs.dirname(this.sourcePath)
+const relativeSourcePathCache = new Cache((input) => this.fs.relative(sourcePathDir, input))
+_iterator_2 = <operator>.iterator(this.flattenedMappings)
+const sourceIndex = sources.set(relativeSourcePathCache.get(mapping.originalSource.sourcePath), mapping.originalSource.contents)
+const mappingArray = [
+        mapping.generatedSegment.column,
+        sourceIndex,
+        mapping.originalSegment.line,
+        mapping.originalSegment.column
+      ]
+_tmp_15.push(mapping.generatedSegment.column)
+_tmp_15.push(sourceIndex)
+_tmp_15.push(mapping.originalSegment.line)
+_tmp_15.push(mapping.originalSegment.column)
+mapping.name !== void 0
+const nameIndex = names.add(mapping.name)
+mappingArray.push(nameIndex)
+const line = mapping.generatedSegment.line
+line >= mappings.length
+__ecma.Array.factory()
+mappings[line].push(mappingArray)

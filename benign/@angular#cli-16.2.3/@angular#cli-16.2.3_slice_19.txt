@@ -1,0 +1,73 @@
+function promptAnalytics = async function promptAnalytics(context, global, force = false) {
+    const level = global ? 'global' : 'local';
+    const workspace = await (0, config_1.getWorkspace)(level);
+    if (!workspace) {
+        throw new Error(`Could not find a ${level} workspace. Are you in a project?`);
+    }
+    if (force || (0, tty_1.isTTY)()) {
+        const { prompt } = await Promise.resolve().then(() => __importStar(require('inquirer')));
+        const answers = await prompt([
+            {
+                type: 'confirm',
+                name: 'analytics',
+                message: core_1.tags.stripIndents `
+           Would you like to share pseudonymous usage data about this project with the Angular Team
+           at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more
+           details and how to change this setting, see https://angular.io/analytics.
+
+         `,
+                default: false,
+            },
+        ]);
+        await setAnalyticsConfig(global,...
+const level = global ? 'global' : 'local'
+const workspace = await (0, config_1.getWorkspace)(level)
+!workspace
+<operator>.formatString("Could not find a ", level, " workspace. Are you in a project?")
+force || (0, tty_1.isTTY)()
+_tmp_7 = await Promise.resolve().then(() => __importStar(require('inquirer')))
+const answers = await prompt([
+            {
+                type: 'confirm',
+                name: 'analytics',
+                message: core_1.tags.stripIndents `
+           Would you like to share pseudonymous usage data about this project with the Angular Team
+           at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more
+           details and how to change this setting, see https://angular.io/analytics.
+
+         `,
+                default: false,
+            },
+        ])
+_tmp_8.push({
+                type: 'confirm',
+                name: 'analytics',
+                message: core_1.tags.stripIndents `
+           Would you like to share pseudonymous usage data about this project with the Angular Team
+           at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more
+           details and how to change this setting, see https://angular.io/analytics.
+
+         `,
+                default: false,
+            })
+_tmp_9.type = "confirm"
+_tmp_9.name = "analytics"
+_tmp_9.message = core_1.tags.stripIndents `
+           Would you like to share pseudonymous usage data about this project with the Angular Team
+           at Google under Google's Privacy Policy at https://policies.google.com/privacy. For more
+           details and how to change this setting, see https://angular.io/analytics.
+
+         `
+_tmp_9.default = false
+await setAnalyticsConfig(global, answers.analytics)
+answers.analytics
+console.log('')
+console.log(core_1.tags.stripIndent `
+         Thank you for sharing pseudonymous usage data. Should you change your mind, the following
+         command will disable this feature entirely:
+
+             ${color_1.colors.yellow(`ng analytics disable${global ? ' --global' : ''}`)}
+       `)
+<operator>.formatString("ng analytics disable", global ? ' --global' : '', "")
+console.log('')
+process.stderr.write(await getAnalyticsInfoString(context))

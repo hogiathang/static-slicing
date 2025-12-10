@@ -1,0 +1,5 @@
+has(key) {
+    if (Array.isArray(key)) key = key.join('.');
+    return typeof get(this[this.prop], key) !== 'undefined';
+  }
+key = key.join('.')

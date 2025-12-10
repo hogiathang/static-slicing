@@ -1,0 +1,3 @@
+_tmp_1.init = initHook
+type !== 'PROMISE'
+const parentSegment = segmentMap.get(triggerId)

@@ -1,0 +1,41 @@
+function evalBinaryExpression = function evalBinaryExpression(path) {
+    const left = evaluate(path.get("left"));
+    if (left === undefined) {
+      return undefined;
+    }
+    const right = evaluate(path.get("right"));
+    if (right === undefined) {
+      return undefined;
+    }
+    switch (path.node.operator) {
+      case "|":
+        return left | right;
+      case "&":
+        return left & right;
+      case ">>":
+        return left >> right;
+      case ">>>":
+        return left >>> right;
+      case "<<":
+        return left << right;
+      case "^":
+        return left ^ right;
+      case "*":
+        return left * right;
+      case "/":
+        return left / right;
+      case "+":
+        return left + right;
+      case "-":
+        return left - right;
+      case "%":
+        return left % right;
+      case "**":
+        return Math.pow(left, right);
+      default:
+        return undefined;
+    }
+  }
+const left = evaluate(path.get("left"))
+left === undefined
+const right = evaluate(path.get("right"))

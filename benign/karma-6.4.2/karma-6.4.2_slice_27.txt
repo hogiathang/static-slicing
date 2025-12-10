@@ -1,0 +1,31 @@
+function createWebServer = function createWebServer (injector, config) {
+  const { mime = {} } = config
+  mimeType.define({ ...mime }, true)
+
+  const proxyMiddlewareInstance = injector.invoke(proxyMiddleware.create)
+
+  log.debug('Instantiating middleware')
+  const handler = connect()
+
+  if (config.beforeMiddleware) {
+    config.beforeMiddleware.forEach((middleware) => handler.use(injector.get('middleware:' + middleware)))
+  }
+
+  handler.use(injector.invoke(runnerMiddleware.create))
+  handler.use(injector.invoke(stopperMiddleware.create))
+  handler.use(injector.invoke(karmaMiddleware.create))
+  handler.use(injector.invoke(sourceFilesMiddleware.create))
+  // TODO(vojta): extract the proxy into a plugin
+  handler.use(proxyMiddlewareInstance)
+  // TODO: Deprecated. Remove in the next major
+  handler.use(injector.invoke(createCustomHandler))
+
+  if (config.middleware) {
+    config.middleware.forEach((middleware) => handler.use(injector.get('middleware:' + middleware)))
+  }
+
+  handler.use((request, response) => comm...
+mime = _tmp_3.mime === void 0 ? {} : _tmp_3.mime
+mimeType.define({ ...mime }, true)
+const proxyMiddlewareInstance = injector.invoke(proxyMiddleware.create)
+log.debug('Instantiating middleware')

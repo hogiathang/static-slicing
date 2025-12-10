@@ -1,0 +1,14 @@
+this.getFill = function(isClip, isMask) {
+        let opacity = this.get('opacity'),
+            fill = this.get('fill'),
+            fillOpacity = this.get('fill-opacity');
+        if (isClip) {return DefaultColors.white;}
+        if (fill !== 'none' && opacity && fillOpacity) {
+          if (fill instanceof SvgElemGradient || fill instanceof SvgElemPattern) {
+            return fill.getPaint(this.getBoundingBox(), fillOpacity * opacity, isClip, isMask);
+          }
+          return opacityToColor(fill, fillOpacity * opacity, isMask);
+        }
+      }
+let opacity = this.get('opacity')
+let fill = this.get('fill')

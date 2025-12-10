@@ -1,0 +1,20 @@
+"ENOTEMPTY" !== n.code && "EEXIST" !== n.code && "EPERM" !== n.code || function n(e, t) {
+     var r, n, i, s;
+     for (f(e), f(t), t.readdirSync(e).forEach((function(r) {
+      c(h.join(e, r), t);
+     })), r = E ? 100 : 1, n = 0; ;) {
+      i = !0;
+      try {
+       return s = t.rmdirSync(e, t), i = !1, s;
+      } finally {
+       if (++n < r && i) continue;
+      }
+     }
+    }(e, t)
+t.readdirSync(e).forEach((function(r) {
+      c(h.join(e, r), t);
+     }))
+r = E ? 100 : 1
+i = !0
+s = t.rmdirSync(e, t)
+++n < r && i

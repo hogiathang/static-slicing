@@ -1,0 +1,8 @@
+new Promise(function (resolve, reject) {
+      _this2.executionResolve = resolve;
+      _this2.executionReject = reject;
+      _this2.execute();
+    })
+_this2.executionResolve = resolve
+_this2.executionReject = reject
+_this2.execute()

@@ -1,0 +1,51 @@
+function readPkcs12 = function readPkcs12(bufferOrPath, options, callback) {
+  if (!callback && typeof options === 'function') {
+    callback = options
+    options = {}
+  }
+
+  options.p12Password = options.p12Password || ''
+
+  var tmpfiles = []
+  var delTempPWFiles = []
+  var args = ['pkcs12', '-in', bufferOrPath]
+
+  helper.createPasswordFile({cipher: '', password: options.p12Password, passType: 'in'}, args, delTempPWFiles)
+
+  if (Buffer.isBuffer(bufferOrPath)) {
+    tmpfiles = [bufferOrPath]
+    args[2] = '--TMPFILE--'
+  }
+
+  if (openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3) {
+    args.push('-legacy')
+    args.push('-traditional')
+  }
+
+  if (options.clientKeyPassword) {
+    helper.createPasswordFile({
+      cipher: '',
+      password: options.clientKeyPassword,
+      passType: 'out'
+    }, args, delTempPWFiles)
+  } else {
+    args.push('-nodes')
+  }
+
+  openssl.execBinary(args, tmpfiles, function (sslErr, stdout) {
+    function done(err) {
+      var keybundle = {}
+
+      ...
+!callback && typeof options === 'function'
+callback = options
+options = {}
+options.p12Password = options.p12Password || ''
+__ecma.Array.factory()
+var delTempPWFiles = []
+var args = ['pkcs12', '-in', bufferOrPath]
+helper.createPasswordFile({cipher: '', password: options.p12Password, passType: 'in'}, args, delTempPWFiles)
+Buffer.isBuffer(bufferOrPath)
+_tmp_71 = __ecma.Array.factory()
+args[2] = '--TMPFILE--'
+openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3

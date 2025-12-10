@@ -1,0 +1,22 @@
+Queue.prototype.isPaused = async function(isLocal) {
+  if (isLocal) {
+    return !!this.paused;
+  } else {
+    await this.isReady();
+    const multi = this.multi();
+
+    multi.exists(this.keys['meta-paused']);
+
+    // For forward compatibility with BullMQ.
+    multi.hexists(this.toKey('meta'), 'paused');
+
+    const [[, isPaused], [, isPausedNew]] = await multi.exec();
+
+    return !!(isPaused || isPausedNew);
+  }
+}
+await this.isReady()
+const multi = this.multi()
+multi.exists(this.keys['meta-paused'])
+multi.hexists(this.toKey('meta'), 'paused')
+_tmp_112 = __ecma.Array.factory()

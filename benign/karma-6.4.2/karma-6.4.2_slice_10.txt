@@ -1,0 +1,5 @@
+<operator>.formatString("Missing plugin "", pkgName, "". Installing...")
+const options = {
+    cwd: path.resolve(NODE_MODULES_DIR, '..')
+  }
+_tmp_0.cwd = path.resolve(NODE_MODULES_DIR, '..')

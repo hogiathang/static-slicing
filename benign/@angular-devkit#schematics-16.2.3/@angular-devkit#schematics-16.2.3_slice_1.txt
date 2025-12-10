@@ -1,0 +1,59 @@
+optimize() {
+        const toCreate = new Map();
+        const toRename = new Map();
+        const toOverwrite = new Map();
+        const toDelete = new Set();
+        for (const action of this._actions) {
+            switch (action.kind) {
+                case 'c':
+                    toCreate.set(action.path, action.content);
+                    break;
+                case 'o':
+                    if (toCreate.has(action.path)) {
+                        toCreate.set(action.path, action.content);
+                    }
+                    else {
+                        toOverwrite.set(action.path, action.content);
+                    }
+                    break;
+                case 'd':
+                    toDelete.add(action.path);
+                    break;
+                case 'r':
+                    const maybeCreate = toCreate.get(action.path);
+                    const maybeOverwrite = toOverwrite.get(action.path);
+                    if (maybeCreate) {
+                     ...
+const toCreate = new Map()
+const toRename = new Map()
+const toOverwrite = new Map()
+const toDelete = new Set()
+_iterator_0 = <operator>.iterator(this._actions)
+action.kind
+"c"
+toCreate.set(action.path, action.content)
+break;
+"o"
+toCreate.has(action.path)
+toCreate.set(action.path, action.content)
+toOverwrite.set(action.path, action.content)
+break;
+"d"
+toDelete.add(action.path)
+break;
+"r"
+const maybeCreate = toCreate.get(action.path)
+const maybeOverwrite = toOverwrite.get(action.path)
+toCreate.delete(action.path)
+toCreate.set(action.to, maybeCreate)
+toOverwrite.delete(action.path)
+toOverwrite.set(action.to, maybeOverwrite)
+let maybeRename = undefined
+_iterator_1 = <operator>.iterator(toRename.entries())
+to == action.path
+maybeRename = from
+break;
+toRename.set(maybeRename, action.to)
+!maybeCreate && !maybeOverwrite && !maybeRename
+toRename.set(action.path, action.to)
+break;

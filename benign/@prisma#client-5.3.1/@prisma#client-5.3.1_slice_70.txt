@@ -1,0 +1,34 @@
+function createSymlinkSync = function createSymlinkSync(srcpath, dstpath, type) {
+      let stats;
+      try {
+        stats = fs6.lstatSync(dstpath);
+      } catch {
+      }
+      if (stats && stats.isSymbolicLink()) {
+        const srcStat = fs6.statSync(srcpath);
+        const dstStat = fs6.statSync(dstpath);
+        if (areIdentical(srcStat, dstStat))
+          return;
+      }
+      const relative = symlinkPathsSync(srcpath, dstpath);
+      srcpath = relative.toDst;
+      type = symlinkTypeSync(relative.toCwd, type);
+      const dir = path7.dirname(dstpath);
+      const exists3 = fs6.existsSync(dir);
+      if (exists3)
+        return fs6.symlinkSync(srcpath, dstpath, type);
+      mkdirsSync(dir);
+      return fs6.symlinkSync(srcpath, dstpath, type);
+    }
+stats = fs6.lstatSync(dstpath)
+stats && stats.isSymbolicLink()
+const srcStat = fs6.statSync(srcpath)
+const dstStat = fs6.statSync(dstpath)
+areIdentical(srcStat, dstStat)
+const relative = symlinkPathsSync(srcpath, dstpath)
+srcpath = relative.toDst
+type = symlinkTypeSync(relative.toCwd, type)
+const dir = path7.dirname(dstpath)
+const exists3 = fs6.existsSync(dir)
+mkdirsSync(dir)
+fs6.symlinkSync(srcpath, dstpath, type)

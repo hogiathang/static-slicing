@@ -1,0 +1,45 @@
+Agent.prototype.harvestSync = function harvestSync() {
+  logger.trace('Peparing to harvest.')
+
+  if (!this.collector.isConnected()) {
+    throw new Error('Sync harvest not connected/enabled!')
+  }
+
+  // We have a connection, create a new harvest.
+  this.emit('harvestStarted')
+  logger.info('Harvest started.')
+
+  const collector = this.collector
+  const agent = this
+
+  // "Sends" data to the serverless collector collection
+  this.metrics.send()
+  this.errors.traceAggregator.send()
+  this.errors.eventAggregator.send()
+  this.traces.send()
+  this.queries.send()
+  this.spanEventAggregator.send()
+  this.transactionEventAggregator.send()
+  this.customEventAggregator.send()
+  this.logs.send()
+
+  // Write serverless output
+  collector.flushPayloadSync()
+
+  agent.emit('harvestFinished')
+  logger.info('Harvest finished.')
+}
+logger.trace('Peparing to harvest.')
+(_tmp_117 = this.collector).isConnected
+throw new Error('Sync harvest not connected/enabled!')
+this.emit('harvestStarted')
+logger.info('Harvest started.')
+const collector = this.collector
+const agent = this
+(_tmp_119 = this.metrics).send
+(_tmp_120 = this.errors.traceAggregator).send
+(_tmp_121 = this.errors.eventAggregator).send
+(_tmp_122 = this.traces).send
+(_tmp_123 = this.queries).send
+(_tmp_124 = this.spanEventAggregator).send
+(_tmp_125 = this.transactionEventAggregator).send

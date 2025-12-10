@@ -1,0 +1,26 @@
+function setUpLocationSync = function setUpLocationSync(ngUpgrade, urlType = 'path') {
+    if (!ngUpgrade.$injector) {
+        throw new Error(`
+        RouterUpgradeInitializer can be used only after UpgradeModule.bootstrap has been called.
+        Remove RouterUpgradeInitializer and call setUpLocationSync after UpgradeModule.bootstrap.
+      `);
+    }
+    const router = ngUpgrade.injector.get(Router);
+    const location = ngUpgrade.injector.get(Location);
+    ngUpgrade.$injector.get('$rootScope')
+        .$on('$locationChangeStart', (event, newUrl, oldUrl, newState, oldState) => {
+        // Navigations coming from Angular router have a navigationId state
+        // property. Don't trigger Angular router navigation again if it is
+        // caused by a URL change from the current Angular router
+        // navigation.
+        const currentNavigationId = router.getCurrentNavigation()?.id;
+        const newStateNavigationId = newState?.navigationId;
+        if (newStateNavigationId !== undefined &&
+            n...
+!ngUpgrade.$injector
+throw new Error(`
+        RouterUpgradeInitializer can be used only after UpgradeModule.bootstrap has been called.
+        Remove RouterUpgradeInitializer and call setUpLocationSync after UpgradeModule.bootstrap.
+      `);
+const router = ngUpgrade.injector.get(Router)
+const location = ngUpgrade.injector.get(Location)

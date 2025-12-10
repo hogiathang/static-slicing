@@ -1,0 +1,81 @@
+_tmp_1.betweennessCentrality = <lambda>0
+_tmp_2 = defaults(options)
+let weighted = weight != null
+let cy = this.cy()
+let V = this.nodes()
+let A = {}
+let _C = {}
+let max = 0
+let C = {
+      set: function( key, val ){
+        _C[ key ] = val;
+
+        if( val > max ){ max = val; }
+      },
+
+      get: function( key ){ return _C[ key ]; }
+    }
+_tmp_5.set = <lambda>1
+_tmp_5.get = <lambda>2
+i < V.length
+let v = V[ i ]
+let vid = v.id()
+A[ vid ] = v.outgoers().nodes()
+A[ vid ] = v.openNeighborhood().nodes()
+C.set( vid, 0 )
+s < V.length
+let sid = V[s].id()
+__ecma.Array.factory()
+let P = {}
+let g = {}
+let d = {}
+let Q = new Heap(function( a, b ){
+        return d[a] - d[b];
+      })
+i < V.length
+let vid = V[ i ].id()
+__ecma.Array.factory()
+g[ vid ] = 0
+d[ vid ] = Infinity
+g[ sid ] = 1
+d[ sid ] = 0
+Q.push( sid )
+!Q.empty()
+let v = Q.pop()
+S.push( v )
+j < A[v].length
+let w = A[v][j]
+let vEle = cy.getElementById( v )
+vEle.edgesTo( w ).length > 0
+edge = vEle.edgesTo( w )[0]
+edge = w.edgesTo( vEle )[0]
+let edgeWeight = weight( edge )
+w = w.id()
+d[w] > d[v] + edgeWeight
+d[w] = d[v] + edgeWeight
+(_tmp_14 = Q.nodes).indexOf
+Q.push( w )
+Q.updateItem( w )
+g[w] = 0
+__ecma.Array.factory()
+d[w] == d[v] + edgeWeight
+g[w] = g[w] + g[v]
+(_tmp_15 = P[w]).push
+j < A[v].length
+(_tmp_16 = A[v][j]).id
+d[w] == Infinity
+Q.push( w )
+d[w] = d[v] + 1
+d[w] == d[v] + 1
+g[w] = g[w] + g[v]
+(_tmp_17 = P[w]).push
+let e = {}
+i < V.length
+(_tmp_19 = V[ i ]).id
+S.length > 0
+let w = S.pop()
+j < P[w].length
+let v = P[w][j]
+e[v] = e[v] + (g[v] / g[w]) * (1 + e[w])
+(_tmp_20 = V[s]).id
+C.set( w, C.get( w ) + e[w] )

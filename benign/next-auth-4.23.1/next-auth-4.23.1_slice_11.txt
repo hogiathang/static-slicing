@@ -1,0 +1,60 @@
+function oAuthCallback = async function oAuthCallback(params: {
+  options: InternalOptions<"oauth">
+  query: RequestInternal["query"]
+  body: RequestInternal["body"]
+  method: Required<RequestInternal>["method"]
+  cookies: RequestInternal["cookies"]
+}) {
+  const { options, query, body, method, cookies } = params
+  const { logger, provider } = options
+
+  const errorMessage = body?.error ?? query?.error
+  if (errorMessage) {
+    const error = new Error(errorMessage)
+    logger.error("OAUTH_CALLBACK_HANDLER_ERROR", {
+      error,
+      error_description: query?.error_description,
+      providerId: provider.id,
+    })
+    logger.debug("OAUTH_CALLBACK_HANDLER_ERROR", { body })
+    throw error
+  }
+
+  if (provider.version?.startsWith("1.")) {
+    try {
+      const client = await oAuth1Client(options)
+      // Handle OAuth v1.x
+      const { oauth_token, oauth_verifier } = query ?? {}
+      const tokens = (await (client as any).getOAuthAccessToken(
+        oauth_token,
+        oAuth1TokenStore.get(oauth_token),
+   ...
+options = _tmp_6.options
+provider = _tmp_7.provider
+const errorMessage = body?.error ?? query?.error
+const error = new Error(errorMessage)
+logger.error("OAUTH_CALLBACK_HANDLER_ERROR", {
+      error,
+      error_description: query?.error_description,
+      providerId: provider.id,
+    })
+_tmp_9.error = error
+_tmp_9.error_description = query.error_description
+_tmp_9.providerId = provider.id
+logger.debug("OAUTH_CALLBACK_HANDLER_ERROR", { body })
+throw error
+provider.version?.startsWith("1.")
+const client = await oAuth1Client(options)
+oauth_verifier = _tmp_12.oauth_verifier
+const tokens = (await (client as any).getOAuthAccessToken(
+        oauth_token,
+        oAuth1TokenStore.get(oauth_token),
+        oauth_verifier
+      )) as TokenSet
+oAuth1TokenStore.get(oauth_token)
+let profile: Profile = await (client as any).get(
+        provider.profileUrl,
+        tokens.oauth_token,
+        tokens.oauth_token_secret
+      )
+provider.profileUrl

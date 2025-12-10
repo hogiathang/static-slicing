@@ -1,0 +1,15 @@
+function isStaticNativeMethodCall = function isStaticNativeMethodCall(node) {
+            const staticMethods = {
+                Object: ['assign', 'keys', 'values'],
+                Array: ['isArray']
+            }
+            const callerName = get(node, 'callee.object.name')
+            const methodName = getMethodName(node)
+            return (callerName in staticMethods) && includes(staticMethods[callerName], methodName) || isNonNullObjectCreate(callerName, methodName, node.arguments[0])
+        }
+const staticMethods = {
+                Object: ['assign', 'keys', 'values'],
+                Array: ['isArray']
+            }
+_tmp_10.Object = ['assign', 'keys', 'values']
+_tmp_12 = __ecma.Array.factory()

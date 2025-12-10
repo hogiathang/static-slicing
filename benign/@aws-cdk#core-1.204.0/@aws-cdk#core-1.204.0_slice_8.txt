@@ -1,0 +1,27 @@
+split(lookup) {
+        const ret = new string_fragments_1.TokenizedStringFragments();
+        let rest = 0;
+        this.re.lastIndex = 0; // Reset
+        let m = this.re.exec(this.str);
+        while (m) {
+            if (m.index > rest) {
+                ret.addLiteral(this.str.substring(rest, m.index));
+            }
+            ret.addToken(lookup(m[1] ?? m[2]));
+            rest = this.re.lastIndex;
+            m = this.re.exec(this.str);
+        }
+        if (rest < this.str.length) {
+            ret.addLiteral(this.str.substring(rest));
+        }
+        return ret;
+    }
+const ret = new string_fragments_1.TokenizedStringFragments()
+let rest = 0
+this.re.lastIndex = 0
+let m = this.re.exec(this.str)
+m.index > rest
+ret.addLiteral(this.str.substring(rest, m.index))
+ret.addToken(lookup(m[1] ?? m[2]))
+rest = this.re.lastIndex
+m = this.re.exec(this.str)

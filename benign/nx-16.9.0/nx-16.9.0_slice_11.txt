@@ -1,0 +1,1 @@
+process.exit(await (await Promise.resolve().then(() => require('./view-logs'))).viewLogs())

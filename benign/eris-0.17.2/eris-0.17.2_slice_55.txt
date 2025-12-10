@@ -1,0 +1,8 @@
+options = options === void 0 ? {} : options
+this.requestHandler.request("GET", Endpoints.THREADS_ARCHIVED(channelID, type), true, options).then((response) => {
+            return {
+                hasMore: response.has_more,
+                members: response.members.map((member) => new ThreadMember(member, this)),
+                threads: response.threads.map((thread) => Channel.from(thread, this))
+            };
+        })

@@ -1,0 +1,78 @@
+PropertyChanges.prototype.makePropertyObservable = function (key) {
+    // arrays are special.  we do not support direct setting of properties
+    // on an array.  instead, call .set(index, value).  this is observable.
+    // 'length' property is observable for all mutating methods because
+    // our overrides explicitly dispatch that change.
+
+
+    var overriddenPropertyDescriptors = ObjectsOverriddenPropertyDescriptors.get(this);
+    if (overriddenPropertyDescriptors && overriddenPropertyDescriptors.get(key) !== void 0) {
+        // if we have already recorded an overridden property descriptor,
+        // we have already installed the observer, so short-here
+        return;
+    }
+
+    // memoize overridden property descriptor table
+    if (!overriddenPropertyDescriptors) {
+        if (Array.isArray(this)) {
+            return;
+        }
+        if (!Object.isExtensible(this)) {
+            throw new Error("Can't make property " + JSON.stringify(key) + " observable on " + this + " b...
+var overriddenPropertyDescriptors = ObjectsOverriddenPropertyDescriptors.get(this)
+overriddenPropertyDescriptors && overriddenPropertyDescriptors.get(key) !== void 0
+!overriddenPropertyDescriptors
+Array.isArray(this)
+!Object.isExtensible(this)
+throw new Error("Can't make property " + JSON.stringify(key) + " observable on " + this + " because object is not extensible");
+overriddenPropertyDescriptors = new Map()
+ObjectsOverriddenPropertyDescriptors.set(this,overriddenPropertyDescriptors)
+var attached = this
+overriddenDescriptor = Object.getOwnPropertyDescriptor(attached, key)
+break;
+attached = Object.getPrototypeOf(attached)
+!overriddenDescriptor
+overriddenDescriptor = {
+            value: void 0,
+            enumerable: true,
+            writable: true,
+            configurable: true
+        }
+_tmp_17.value = void 0
+_tmp_17.enumerable = true
+_tmp_17.writable = true
+_tmp_17.configurable = true
+!overriddenDescriptor.configurable
+!overriddenDescriptor.writable && !overriddenDescriptor.set
+overriddenPropertyDescriptors.set(key,overriddenDescriptor)
+'value' in overriddenDescriptor
+propertyListener.get = overriddenDescriptor.get
+propertyListener.set = function dispatchingSetter() {
+                var formerValue = dispatchingSetter.overriddenGetter.call(this),
+                    descriptor,
+                    isActive,
+                    newValue;
+
+
+                    if(arguments.length === 1) {
+                        dispatchingSetter.overriddenSetter.call(this,arguments[0]);
+                    }
+                    else if(arguments.length === 2) {
+                        dispatchingSetter.overriddenSetter.call(this,arguments[0],arguments[1]);
+                    }
+                    else {
+                        dispatchingSetter.overriddenSetter.apply(this, arguments);
+                    }
+
+                if ((newValue = dispatchingSetter.overriddenGetter.call(this)) !== formerValue) {
+                    descriptor = dispatchingSetter.descriptor;
+                    if (!(isActive = descriptor.isActive)) {
+                        descriptor.isActive = true;
+                        try {
+   ...
+propertyListener.enumerable = overriddenDescriptor.enumerable
+propertyListener.configurable = true
+propertyListener.set.dispatchEach = dispatchEach
+propertyListener.set.overriddenSetter = overriddenDescriptor.set
+propertyListener.set.overriddenGetter = overriddenDescriptor.get
+propertyListener.set.descriptor = ObjectsPropertyChangeListeners.get(this)[key]

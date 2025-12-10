@@ -1,0 +1,8 @@
+const makeFetchHappen = (url, opts) => {
+  const options = configureOptions(opts)
+
+  const request = new Request(url, options)
+  return fetch(request, options)
+}
+const options = configureOptions(opts)
+const request = new Request(url, options)

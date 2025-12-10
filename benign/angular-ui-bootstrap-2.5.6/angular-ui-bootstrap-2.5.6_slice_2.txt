@@ -1,0 +1,21 @@
+function backdropIndex = function backdropIndex() {
+        var topBackdropIndex = -1;
+        var opened = openedWindows.keys();
+        for (var i = 0; i < opened.length; i++) {
+          if (openedWindows.get(opened[i]).value.backdrop) {
+            topBackdropIndex = i;
+          }
+        }
+
+        // If any backdrop exist, ensure that it's index is always
+        // right below the top modal
+        if (topBackdropIndex > -1 && topBackdropIndex < topModalIndex) {
+          topBackdropIndex = topModalIndex;
+        }
+        return topBackdropIndex;
+      }
+var topBackdropIndex = -1
+var opened = openedWindows.keys()
+i < opened.length
+openedWindows.get(opened[i]).value.backdrop
+topBackdropIndex = i

@@ -1,0 +1,11 @@
+_tmp_42.push(<lambda>63)
+<operator>.formatString("Sending SASL/", mechanism, " authentication request to ", broker.socket.addr, "")
+const auth = this.options.sasl
+const correlationId = this.nextId()
+const request = protocol.encodeSaslAuthenticateRequest(this.clientId, correlationId, apiVersion, auth)
+let decode = protocol.decodeSaslAuthenticateResponse
+apiVersion === 0
+decode = _.identity
+broker.socket.saslAuthCorrelationId = correlationId
+this.queueCallback(broker.socket, correlationId, [decode, callback])
+broker.write(request)

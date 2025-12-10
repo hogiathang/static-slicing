@@ -1,0 +1,25 @@
+function parseFromFilesSync = function parseFromFilesSync(filepath, files, options = {}) {
+    const [resolvedFilePath, processedOptions] = opts(filepath, options);
+    const configs = [];
+    for (const ecf of files) {
+        let cfg;
+        if (!options.cache || !(cfg = options.cache.get(ecf.name))) { // Single "="!
+            cfg = processFileContents(ecf.name, ecf.contents, processedOptions);
+        }
+        if (!cfg.notfound) {
+            configs.push(cfg);
+        }
+        if (cfg.root) {
+            break;
+        }
+    }
+    return combine(resolvedFilePath, configs, processedOptions);
+}
+_tmp_24 = opts(filepath, options)
+__ecma.Array.factory()
+_iterator_3 = <operator>.iterator(files)
+!options.cache || !(cfg = options.cache.get(ecf.name))
+cfg = processFileContents(ecf.name, ecf.contents, processedOptions)
+!cfg.notfound
+configs.push(cfg)
+cfg.root

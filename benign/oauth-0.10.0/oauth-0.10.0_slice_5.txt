@@ -1,0 +1,69 @@
+exports.OAuth2.prototype._executeRequest= function( http_library, options, post_body, callback ) {
+  // Some hosts *cough* google appear to close the connection early / send no content-length header
+  // allow this behaviour.
+  var allowEarlyClose= OAuthUtils.isAnEarlyCloseHost(options.host);
+  var callbackCalled= false;
+  function passBackControl( response, result ) {
+    if(!callbackCalled) {
+      callbackCalled=true;
+      if( !(response.statusCode >= 200 && response.statusCode <= 299) && (response.statusCode != 301) && (response.statusCode != 302) ) {
+        callback({ statusCode: response.statusCode, data: result });
+      } else {
+        callback(null, result, response);
+      }
+    }
+  }
+
+  var result= "";
+
+  //set the agent on the request options
+  if (this._agent) {
+    options.agent = this._agent;
+  }
+
+  var request = http_library.request(options);
+  request.on('response', function (response) {
+    response.on("data", function (chunk) {
+      result+= chunk
+    });
+    ...
+var allowEarlyClose= OAuthUtils.isAnEarlyCloseHost(options.host)
+var callbackCalled= false
+function passBackControl = function passBackControl( response, result ) {
+    if(!callbackCalled) {
+      callbackCalled=true;
+      if( !(response.statusCode >= 200 && response.statusCode <= 299) && (response.statusCode != 301) && (response.statusCode != 302) ) {
+        callback({ statusCode: response.statusCode, data: result });
+      } else {
+        callback(null, result, response);
+      }
+    }
+  }
+var result= ""
+this._agent
+options.agent = this._agent
+var request = http_library.request(options)
+request.on('response', function (response) {
+    response.on("data", function (chunk) {
+      result+= chunk
+    });
+    response.on("close", function (err) {
+      if( allowEarlyClose ) {
+        passBackControl( response, result );
+      }
+    });
+    response.addListener("end", function () {
+      passBackControl( response, result );
+    });
+  })
+request.on('error', function(e) {
+    // `www.googleapis.com` does `ECONNRESET` just after data is received in `passBackControl`
+    // this prevents the callback from being called twice, first in passBackControl and second time in here
+    // see also NodeJS Stream documentation: "The 'error' event may be emitted by a Readable implementation at any time"
+    if(!callbackCalled) {
+      callbackCalled= true;
+      callback(e);
+    }
+  })
+(options.method == 'POST' || options.method == 'PUT') && post_body
+request.write(post_body)

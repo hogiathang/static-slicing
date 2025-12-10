@@ -1,0 +1,133 @@
+orderPolicies() {
+        /**
+         * The goal of this method is to reliably order pipeline policies
+         * based on their declared requirements when they were added.
+         *
+         * Order is first determined by phase:
+         *
+         * 1. Serialize Phase
+         * 2. Policies not in a phase
+         * 3. Deserialize Phase
+         * 4. Retry Phase
+         * 5. Sign Phase
+         *
+         * Within each phase, policies are executed in the order
+         * they were added unless they were specified to execute
+         * before/after other policies or after a particular phase.
+         *
+         * To determine the final order, we will walk the policy list
+         * in phase order multiple times until all dependencies are
+         * satisfied.
+         *
+         * `afterPolicies` are the set of policies that must be
+         * executed before a given policy. This requirement is
+         * considered satisfied when each of the listed policies
+         * have been...
+__ecma.Array.factory()
+const policyMap = new Map()
+function createPhase = function createPhase(name) {
+            return {
+                name,
+                policies: new Set(),
+                hasRun: false,
+                hasAfterPolicies: false,
+            };
+        }
+const serializePhase = createPhase("Serialize")
+const noPhase = createPhase("None")
+const deserializePhase = createPhase("Deserialize")
+const retryPhase = createPhase("Retry")
+const signPhase = createPhase("Sign")
+const orderedPhases = [serializePhase, noPhase, deserializePhase, retryPhase, signPhase]
+function getPhase = function getPhase(phase) {
+            if (phase === "Retry") {
+                return retryPhase;
+            }
+            else if (phase === "Serialize") {
+                return serializePhase;
+            }
+            else if (phase === "Deserialize") {
+                return deserializePhase;
+            }
+            else if (phase === "Sign") {
+                return signPhase;
+            }
+            else {
+                return noPhase;
+            }
+        }
+_iterator_3 = <operator>.iterator(this._policies)
+const policy = descriptor.policy
+const options = descriptor.options
+const policyName = policy.name
+policyMap.has(policyName)
+throw new Error("Duplicate policy names not allowed in pipeline");
+const node = {
+                policy,
+                dependsOn: new Set(),
+                dependants: new Set(),
+            }
+_tmp_18.policy = policy
+_tmp_18.dependsOn = new Set()
+_tmp_18.dependants = new Set()
+options.afterPhase
+node.afterPhase = getPhase(options.afterPhase)
+node.afterPhase.hasAfterPolicies = true
+policyMap.set(policyName, node)
+const phase = getPhase(options.phase)
+(_tmp_21 = phase.policies).add
+_iterator_4 = <operator>.iterator(this._policies)
+options = _tmp_22.options
+const policyName = policy.name
+const node = policyMap.get(policyName)
+!node
+<operator>.formatString("Missing node for policy ", policyName, "")
+options.afterPolicies
+_iterator_5 = <operator>.iterator(options.afterPolicies)
+const afterNode = policyMap.get(afterPolicyName)
+(_tmp_24 = node.dependsOn).add
+(_tmp_25 = afterNode.dependants).add
+options.beforePolicies
+_iterator_6 = <operator>.iterator(options.beforePolicies)
+const beforeNode = policyMap.get(beforePolicyName)
+(_tmp_26 = beforeNode.dependsOn).add
+node.dependants.add(beforeNode)
+function walkPhase = function walkPhase(phase) {
+            phase.hasRun = true;
+            // Sets iterate in insertion order
+            for (const node of phase.policies) {
+                if (node.afterPhase && (!node.afterPhase.hasRun || node.afterPhase.policies.size)) {
+                    // If this node is waiting on a phase to complete,
+                    // we need to skip it for now.
+                    // Even if the phase is empty, we should wait for it
+                    // to be walked to avoid re-ordering policies.
+                    continue;
+                }
+                if (node.dependsOn.size === 0) {
+                    // If there's nothing else we're waiting for, we can
+                    // add this policy to the result list.
+                    result.push(node.policy);
+                    // Notify anything that depends on this policy that
+                    // the policy has been scheduled.
+                    for (const dependant of node.dependants) {
+             ...
+function walkPhases = function walkPhases() {
+            for (const phase of orderedPhases) {
+                walkPhase(phase);
+                // if the phase isn't complete
+                if (phase.policies.size > 0 && phase !== noPhase) {
+                    if (!noPhase.hasRun) {
+                        // Try running noPhase to see if that unblocks this phase next tick.
+                        // This can happen if a phase that happens before noPhase
+                        // is waiting on a noPhase policy to complete.
+                        walkPhase(noPhase);
+                    }
+                    // Don't proceed to the next phase until this phase finishes.
+                    return;
+                }
+                if (phase.hasAfterPolicies) {
+                    // Run any policies unblocked by this phase
+                    walkPhase(noPhase);
+                }
+            }
+        }

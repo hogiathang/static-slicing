@@ -1,0 +1,6 @@
+function call = function call(pass, name, args) {
+      const node = _core.types.callExpression(get(pass, `id/${name}`)(), args);
+      if (PURE_ANNOTATION != null ? PURE_ANNOTATION : get(pass, "defaultPure")) (0, _helperAnnotateAsPure.default)(node);
+      return node;
+    }
+const node = _core.types.callExpression(get(pass, `id/${name}`)(), args)

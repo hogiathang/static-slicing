@@ -1,0 +1,13 @@
+function getTemplateCompilerCacheKey = function getTemplateCompilerCacheKey(templateCompilerPath) {
+  let templateCompilerFullPath = require.resolve(templateCompilerPath);
+  let cacheData = TemplateCompilerCache.get(templateCompilerFullPath);
+
+  if (cacheData === undefined) {
+    getTemplateCompiler(templateCompilerFullPath);
+    cacheData = TemplateCompilerCache.get(templateCompilerFullPath);
+  }
+
+  return cacheData.templateCompilerCacheKey;
+}
+let templateCompilerFullPath = require.resolve(templateCompilerPath)
+let cacheData = TemplateCompilerCache.get(templateCompilerFullPath)

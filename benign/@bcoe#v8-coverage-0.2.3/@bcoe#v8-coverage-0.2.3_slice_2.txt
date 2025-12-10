@@ -1,0 +1,32 @@
+function parseTreeLayer = function parseTreeLayer(text: string, offsetMap: Map<number, number>): RangeCov[] {
+  const result: RangeCov[] = [];
+  const regex: RegExp = /\[(\d+)-*\)/gs;
+  while (true) {
+    const match: RegExpMatchArray | null = regex.exec(text);
+    if (match === null) {
+      break;
+    }
+    const startIdx: number = match.index!;
+    const endIdx: number = startIdx + match[0].length;
+    const count: number = parseInt(match[1], 10);
+    const startOffset: number | undefined = offsetMap.get(startIdx);
+    const endOffset: number | undefined = offsetMap.get(endIdx);
+    if (startOffset === undefined || endOffset === undefined) {
+      throw new Error(`Invalid offsets for: ${JSON.stringify(text)}`);
+    }
+    result.push({startOffset, endOffset, count});
+  }
+  return result;
+}
+const result: RangeCov[] = []
+const regex: RegExp = /\[(\d+)-*\)/gs
+const match: RegExpMatchArray | null = regex.exec(text)
+match === null
+const startIdx: number = match.index!
+const endIdx: number = startIdx + match[0].length
+const count: number = parseInt(match[1], 10)
+const startOffset: number | undefined = offsetMap.get(startIdx)
+const endOffset: number | undefined = offsetMap.get(endIdx)
+startOffset === undefined || endOffset === undefined
+<operator>.formatString("Invalid offsets for: ", JSON.stringify(text), "")
+result.push({startOffset, endOffset, count})

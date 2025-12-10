@@ -1,0 +1,3 @@
+_tmp_4.error = error
+...ErrorPage({ url, theme, ...props })
+_tmp_11.title = "Error"

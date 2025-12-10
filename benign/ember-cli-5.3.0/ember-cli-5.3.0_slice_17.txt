@@ -1,0 +1,63 @@
+async run(options) {
+    let cwd = process.cwd();
+    let name = options.rawName;
+    let blueprintOption = options.blueprint;
+    // If we're in a dry run, pretend we changed directories.
+    // Pretending we cd'd avoids prompts in the actual current directory.
+    let fakeCwd = path.join(cwd, name);
+    let target = options.dryRun ? fakeCwd : cwd;
+
+    let installOptions = {
+      target,
+      entity: { name },
+      ui: this.ui,
+      analytics: this.analytics,
+      project: this.project,
+      dryRun: options.dryRun,
+      targetFiles: options.targetFiles,
+      rawArgs: options.rawArgs,
+      ciProvider: options.ciProvider,
+    };
+
+    installOptions = merge(installOptions, options || {});
+
+    let blueprint = await this._resolveBlueprint(blueprintOption);
+    logger.info(`Installing blueprint into "${target}" ...`);
+    await blueprint.install(installOptions);
+
+    if (options.lintFix) {
+      try {
+        await lintFix.run(this.project);
+      } catch (error) {
+        log...
+let cwd = process.cwd()
+let name = options.rawName
+let blueprintOption = options.blueprint
+let fakeCwd = path.join(cwd, name)
+let target = options.dryRun ? fakeCwd : cwd
+let installOptions = {
+      target,
+      entity: { name },
+      ui: this.ui,
+      analytics: this.analytics,
+      project: this.project,
+      dryRun: options.dryRun,
+      targetFiles: options.targetFiles,
+      rawArgs: options.rawArgs,
+      ciProvider: options.ciProvider,
+    }
+_tmp_1.target = target
+_tmp_1.entity = { name }
+_tmp_1.ui = this.ui
+_tmp_1.analytics = this.analytics
+_tmp_1.project = this.project
+_tmp_1.dryRun = options.dryRun
+_tmp_1.targetFiles = options.targetFiles
+_tmp_1.rawArgs = options.rawArgs
+_tmp_1.ciProvider = options.ciProvider
+installOptions = merge(installOptions, options || {})
+let blueprint = await this._resolveBlueprint(blueprintOption)
+<operator>.formatString("Installing blueprint into "", target, "" ...")
+await blueprint.install(installOptions)
+options.lintFix
+await lintFix.run(this.project)

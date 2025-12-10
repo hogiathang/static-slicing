@@ -1,0 +1,14 @@
+static toServiceError(msg) {
+        var _a, _b;
+        const scode = ((_a = msg === null || msg === void 0 ? void 0 : msg.headers) === null || _a === void 0 ? void 0 : _a.get(exports.ServiceErrorCodeHeader)) || "";
+        if (scode !== "") {
+            const code = parseInt(scode) || 400;
+            const description = ((_b = msg === null || msg === void 0 ? void 0 : msg.headers) === null || _b === void 0 ? void 0 : _b.get(exports.ServiceErrorHeader)) || "";
+            return new ServiceError(code, description.length ? description : scode);
+        }
+        return null;
+    }
+const scode = ((_a = msg === null || msg === void 0 ? void 0 : msg.headers) === null || _a === void 0 ? void 0 : _a.get(exports.ServiceErrorCodeHeader)) || ""
+scode !== ""
+const code = parseInt(scode) || 400
+const description = ((_b = msg === null || msg === void 0 ? void 0 : msg.headers) === null || _b === void 0 ? void 0 : _b.get(exports.ServiceErrorHeader)) || ""

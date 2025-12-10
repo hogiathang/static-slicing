@@ -1,0 +1,87 @@
+Client.prototype.connect = function() {
+  var self = this;
+
+  function makeSock(sockname) {
+    // bunser will decode the watchman BSER protocol for us
+    self.bunser = new bser.BunserBuf();
+    // For each decoded line:
+    self.bunser.on('value', function(obj) {
+      // Figure out if this is a unliteral response or if it is the
+      // response portion of a request-response sequence.  At the time
+      // of writing, there are only two possible unilateral responses.
+      var unilateral = false;
+      for (var i = 0; i < unilateralTags.length; i++) {
+        var tag = unilateralTags[i];
+        if (tag in obj) {
+          unilateral = tag;
+        }
+      }
+
+      if (unilateral) {
+        self.emit(unilateral, obj);
+      } else if (self.currentCommand) {
+        var cmd = self.currentCommand;
+        self.currentCommand = null;
+        if ('error' in obj) {
+          var error = new Error(obj.error);
+          error.watchmanResponse = obj;
+          cmd.cb(error);
+        } e...
+var self = this
+function makeSock = function makeSock(sockname) {
+    // bunser will decode the watchman BSER protocol for us
+    self.bunser = new bser.BunserBuf();
+    // For each decoded line:
+    self.bunser.on('value', function(obj) {
+      // Figure out if this is a unliteral response or if it is the
+      // response portion of a request-response sequence.  At the time
+      // of writing, there are only two possible unilateral responses.
+      var unilateral = false;
+      for (var i = 0; i < unilateralTags.length; i++) {
+        var tag = unilateralTags[i];
+        if (tag in obj) {
+          unilateral = tag;
+        }
+      }
+
+      if (unilateral) {
+        self.emit(unilateral, obj);
+      } else if (self.currentCommand) {
+        var cmd = self.currentCommand;
+        self.currentCommand = null;
+        if ('error' in obj) {
+          var error = new Error(obj.error);
+          error.watchmanResponse = obj;
+          cmd.cb(error);
+        } else {
+          cmd.cb(null, obj);
+        }
+      }
+
+      //...
+process.env.WATCHMAN_SOCK
+var args = ['--no-pretty', 'get-sockname']
+var proc = null
+var spawnFailed = false
+function spawnError = function spawnError(error) {
+    if (spawnFailed) {
+      // For ENOENT, proc 'close' will also trigger with a negative code,
+      // let's suppress that second error.
+      return;
+    }
+    spawnFailed = true;
+    if (error.code === 'EACCES' || error.errno === 'EACCES') {
+      error.message = 'The Watchman CLI is installed but cannot ' +
+                      'be spawned because of a permission problem';
+    } else if (error.code === 'ENOENT' || error.errno === 'ENOENT') {
+      error.message = 'Watchman was not found in PATH.  See ' +
+          'https://facebook.github.io/watchman/docs/install.html ' +
+          'for installation instructions';
+    }
+    console.error('Watchman: ', error.message);
+    self.emit('error', error);
+  }
+proc = childProcess.spawn(this.watchmanBinaryPath, args, {
+      stdio: ['ignore', 'pipe', 'pipe'],
+      windowsHide: true
+    })

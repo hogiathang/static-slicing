@@ -1,0 +1,80 @@
+async requestObject(
+    requestObject = {},
+    {
+      sign: signingAlgorithm = this.request_object_signing_alg || 'none',
+      encrypt: {
+        alg: eKeyManagement = this.request_object_encryption_alg,
+        enc: eContentEncryption = this.request_object_encryption_enc || 'A128CBC-HS256',
+      } = {},
+    } = {},
+  ) {
+    if (!isPlainObject(requestObject)) {
+      throw new TypeError('requestObject must be a plain object');
+    }
+
+    let signed;
+    let key;
+    const unix = now();
+    const header = { alg: signingAlgorithm, typ: 'oauth-authz-req+jwt' };
+    const payload = JSON.stringify(
+      defaults({}, requestObject, {
+        iss: this.client_id,
+        aud: this.issuer.issuer,
+        client_id: this.client_id,
+        jti: random(),
+        iat: unix,
+        exp: unix + 300,
+        ...(this.fapi() ? { nbf: unix } : undefined),
+      }),
+    );
+    if (signingAlgorithm === 'none') {
+      signed = [base64url.encode(JSON.stringify(header)), base64url.encode(paylo...
+requestObject = requestObject === void 0 ? {} : requestObject
+_tmp_329 = param2_4 === void 0 ? {} : param2_4
+signingAlgorithm = _tmp_329.sign === void 0 ? this.request_object_signing_alg || 'none' : _tmp_329.sign
+{
+        alg: eKeyManagement = this.request_object_encryption_alg,
+        enc: eContentEncryption = this.request_object_encryption_enc || 'A128CBC-HS256',
+      } = {} = _tmp_329.encrypt === void 0 ? {} : _tmp_329.encrypt
+eKeyManagement = _tmp_332.alg === void 0 ? this.request_object_encryption_alg : _tmp_332.alg
+eContentEncryption = _tmp_332.enc === void 0 ? this.request_object_encryption_enc || 'A128CBC-HS256' : _tmp_332.enc
+!isPlainObject(requestObject)
+throw new TypeError('requestObject must be a plain object');
+const unix = now()
+const header = { alg: signingAlgorithm, typ: 'oauth-authz-req+jwt' }
+const payload = JSON.stringify(
+      defaults({}, requestObject, {
+        iss: this.client_id,
+        aud: this.issuer.issuer,
+        client_id: this.client_id,
+        jti: random(),
+        iat: unix,
+        exp: unix + 300,
+        ...(this.fapi() ? { nbf: unix } : undefined),
+      }),
+    )
+defaults({}, requestObject, {
+        iss: this.client_id,
+        aud: this.issuer.issuer,
+        client_id: this.client_id,
+        jti: random(),
+        iat: unix,
+        exp: unix + 300,
+        ...(this.fapi() ? { nbf: unix } : undefined),
+      })
+_tmp_336.iss = this.client_id
+_tmp_336.aud = this.issuer.issuer
+_tmp_336.client_id = this.client_id
+_tmp_336.jti = random()
+_tmp_336.iat = unix
+_tmp_336.exp = unix + 300
+...(this.fapi() ? { nbf: unix } : undefined)
+signingAlgorithm === 'none'
+const symmetric = signingAlgorithm.startsWith('HS')
+const keystore = await keystores.get(this)
+!keystore
+throw new TypeError(
+            `no keystore present for client, cannot sign using alg ${signingAlgorithm}`,
+          );
+<operator>.formatString("no keystore present for client, cannot sign using alg ", signingAlgorithm, "")
+key = keystore.get({ alg: signingAlgorithm, use: 'sig' })

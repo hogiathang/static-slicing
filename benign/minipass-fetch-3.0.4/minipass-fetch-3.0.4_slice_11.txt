@@ -1,0 +1,19 @@
+const abort = () => {
+      const error = new AbortError('The user aborted a request.')
+      reject(error)
+      if (Minipass.isStream(request.body) &&
+          typeof request.body.destroy === 'function') {
+        request.body.destroy(error)
+      }
+      if (response && response.body) {
+        response.body.emit('error', error)
+      }
+    }
+const error = new AbortError('The user aborted a request.')
+reject(error)
+Minipass.isStream(request.body) &&
+          typeof request.body.destroy === 'function'
+typeof request.body.destroy === 'function'
+(_tmp_23 = request.body).destroy
+response && response.body
+response.body.emit('error', error)

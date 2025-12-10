@@ -1,0 +1,19 @@
+const handleProcessExit = (fn, receiver, args) => {
+	const error = new Error('Unexpected process.exit()');
+	Error.captureStackTrace(error, handleProcessExit);
+	const {stack} = serializeError('', true, error);
+	channel.send({type: 'process-exit', stack});
+
+	// Make sure to extract the code only from `args` rather than e.g. `Array.prototype`.
+	// This level of paranoia is usually unwarranted, but we're dealing with test code
+	// that has already colored outside the lines.
+	const code = args.length > 0 ? args[0] : undefined;
+
+	// Force a synchronous exit as guaranteed by the real process.exit().
+	exit(code, true);
+}
+const error = new Error('Unexpected process.exit()')
+Error.captureStackTrace(error, handleProcessExit)
+_tmp_3 = serializeError('', true, error)
+channel.send({type: 'process-exit', stack})
+const code = args.length > 0 ? args[0] : undefined

@@ -1,0 +1,19 @@
+const resolver = (err, data) => {
+        this.readingCalls--;
+        if (this.waitingReads.length > 0) {
+          const next = this.waitingReads.shift();
+          this.read(next.lng, next.ns, next.fcName, next.tried, next.wait, next.callback);
+        }
+        if (err && data && tried < this.maxRetries) {
+          setTimeout(() => {
+            this.read.call(this, lng, ns, fcName, tried + 1, wait * 2, callback);
+          }, wait);
+          return;
+        }
+        callback(err, data);
+      }
+this.readingCalls--
+this.waitingReads.length > 0
+const next = this.waitingReads.shift()
+this.read(next.lng, next.ns, next.fcName, next.tried, next.wait, next.callback)
+err && data && tried < this.maxRetries

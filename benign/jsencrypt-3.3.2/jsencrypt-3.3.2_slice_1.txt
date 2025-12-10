@@ -1,0 +1,32 @@
+Stream.prototype.hexDump = function (start, end, raw) {
+        var s = "";
+        for (var i = start; i < end; ++i) {
+            s += this.hexByte(this.get(i));
+            if (raw !== true) {
+                switch (i & 0xF) {
+                    case 0x7:
+                        s += "  ";
+                        break;
+                    case 0xF:
+                        s += "\n";
+                        break;
+                    default:
+                        s += " ";
+                }
+            }
+        }
+        return s;
+    }
+var s = ""
+var i = start
+s += this.hexByte(this.get(i))
+raw !== true
+i & 0xF
+0x7
+s += "  "
+break;
+0xF
+s += "\n"
+break;
+default:
+s += " "

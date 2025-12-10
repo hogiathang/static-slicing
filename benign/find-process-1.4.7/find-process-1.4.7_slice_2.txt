@@ -1,0 +1,13 @@
+const ensureDir = (path) => new Promise((resolve, reject) => {
+  if (fs.existsSync(path)) {
+    resolve()
+  } else {
+    fs.mkdir(path, err => {
+      err ? reject(err) : resolve()
+    })
+  }
+})
+fs.existsSync(path)
+fs.mkdir(path, err => {
+      err ? reject(err) : resolve()
+    })

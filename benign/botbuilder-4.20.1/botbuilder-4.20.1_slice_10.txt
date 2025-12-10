@@ -1,0 +1,39 @@
+async processRequest(request: IReceiveRequest): Promise<StreamingResponse> {
+        const response = new StreamingResponse();
+
+        if (!request) {
+            response.statusCode = StatusCodes.BAD_REQUEST;
+            response.setBody('No request provided.');
+            return response;
+        }
+
+        if (!request.verb || !request.path) {
+            response.statusCode = StatusCodes.BAD_REQUEST;
+            response.setBody(`Request missing verb and/or path. Verb: ${request.verb}. Path: ${request.path}`);
+            return response;
+        }
+
+        if (request.verb.toLocaleUpperCase() !== POST && request.verb.toLocaleUpperCase() !== GET) {
+            response.statusCode = StatusCodes.METHOD_NOT_ALLOWED;
+            response.setBody(`Invalid verb received. Only GET and POST are accepted. Verb: ${request.verb}`);
+        }
+
+        if (request.path.toLocaleLowerCase() === VERSION_PATH) {
+            return await this.handleVersionRequest(request, response);
+        }
+
+...
+const response = new StreamingResponse()
+!request
+!request.verb || !request.path
+request.verb.toLocaleUpperCase() !== POST && request.verb.toLocaleUpperCase() !== GET
+response.statusCode = StatusCodes.METHOD_NOT_ALLOWED
+<operator>.formatString("Invalid verb received. Only GET and POST are accepted. Verb: ", request.verb, "")
+request.path.toLocaleLowerCase() === VERSION_PATH
+body = await this.readRequestBodyAsString(request)
+request.path.toLocaleLowerCase() !== MESSAGES_PATH
+(_tmp_132 = request.verb).toLocaleUpperCase
+const context = new TurnContext(this, body)
+await this.runMiddleware(context, this.logic)
+body.type === ActivityTypes.Invoke
+const invokeResponse: any = context.turnState.get(INVOKE_RESPONSE_KEY)

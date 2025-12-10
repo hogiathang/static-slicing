@@ -1,0 +1,38 @@
+function useReducer = function useReducer(reducer, initialArg, init) {
+    {
+      if (reducer !== basicStateReducer) {
+        currentHookNameInDev = 'useReducer';
+      }
+    }
+
+    currentlyRenderingComponent = resolveCurrentlyRenderingComponent();
+    workInProgressHook = createWorkInProgressHook();
+
+    if (isReRender) {
+      // This is a re-render. Apply the new render phase updates to the previous
+      // current hook.
+      var queue = workInProgressHook.queue;
+      var dispatch = queue.dispatch;
+
+      if (renderPhaseUpdates !== null) {
+        // Render phase updates are stored in a map of queue -> linked list
+        var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue);
+
+        if (firstRenderPhaseUpdate !== undefined) {
+          renderPhaseUpdates.delete(queue);
+          var newState = workInProgressHook.memoizedState;
+          var update = firstRenderPhaseUpdate;
+
+          do {
+            // Process this render phase update. We don't have to check the
+            // priority b...
+reducer !== basicStateReducer
+currentHookNameInDev = 'useReducer'
+currentlyRenderingComponent = resolveCurrentlyRenderingComponent()
+workInProgressHook = createWorkInProgressHook()
+var queue = workInProgressHook.queue
+var dispatch = queue.dispatch
+renderPhaseUpdates !== null
+var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue)
+firstRenderPhaseUpdate !== undefined
+renderPhaseUpdates.delete(queue)

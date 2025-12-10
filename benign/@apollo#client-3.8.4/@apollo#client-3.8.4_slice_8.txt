@@ -1,0 +1,19 @@
+RenderPromises.prototype.lookupQueryInfo = function (props) {
+        var queryInfoTrie = this.queryInfoTrie;
+        var query = props.query, variables = props.variables;
+        var varMap = queryInfoTrie.get(query) || new Map();
+        if (!queryInfoTrie.has(query))
+            queryInfoTrie.set(query, varMap);
+        var variablesString = JSON.stringify(variables);
+        var info = varMap.get(variablesString) || makeDefaultQueryInfo();
+        if (!varMap.has(variablesString))
+            varMap.set(variablesString, info);
+        return info;
+    }
+var queryInfoTrie = this.queryInfoTrie
+var variables = props.variables
+var varMap = queryInfoTrie.get(query) || new Map()
+!queryInfoTrie.has(query)
+queryInfoTrie.set(query, varMap)
+var variablesString = JSON.stringify(variables)
+var info = varMap.get(variablesString) || makeDefaultQueryInfo()

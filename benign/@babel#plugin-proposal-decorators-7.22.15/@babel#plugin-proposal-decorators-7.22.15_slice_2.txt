@@ -1,0 +1,216 @@
+function transformClass = function transformClass(path, state, constantSuper, version) {
+  const body = path.get("body.body");
+  const classDecorators = path.node.decorators;
+  let hasElementDecorators = false;
+  const generateClassPrivateUid = createLazyPrivateUidGeneratorForClass(path);
+  for (const element of body) {
+    if (!isClassDecoratableElementPath(element)) {
+      continue;
+    }
+    if (element.node.decorators && element.node.decorators.length > 0) {
+      hasElementDecorators = true;
+    } else if (element.node.type === "ClassAccessorProperty") {
+      const {
+        key,
+        value,
+        static: isStatic,
+        computed
+      } = element.node;
+      const newId = generateClassPrivateUid();
+      const valueNode = value ? _core.types.cloneNode(value) : undefined;
+      const newField = generateClassProperty(newId, valueNode, isStatic);
+      const [newPath] = element.replaceWith(newField);
+      addProxyAccessorsFor(path.node.id, newPath, key, newId, version, computed);
+    }
+  }
+  if ...
+const body = path.get("body.body")
+const classDecorators = path.node.decorators
+let hasElementDecorators = false
+const generateClassPrivateUid = createLazyPrivateUidGeneratorForClass(path)
+_iterator_1 = <operator>.iterator(body)
+!isClassDecoratableElementPath(element)
+continue;
+element.node.decorators && element.node.decorators.length > 0
+hasElementDecorators = true
+element.node.type === "ClassAccessorProperty"
+_tmp_124 = element.node
+key = _tmp_124.key
+value = _tmp_124.value
+isStatic = _tmp_124.static
+computed = _tmp_124.computed
+element.node
+const newId = generateClassPrivateUid()
+const valueNode = value ? _core.types.cloneNode(value) : undefined
+const newField = generateClassProperty(newId, valueNode, isStatic)
+_tmp_126 = element.replaceWith(newField)
+addProxyAccessorsFor(path.node.id, newPath, key, newId, version, computed)
+!classDecorators && !hasElementDecorators
+const elementDecoratorInfo = []
+let requiresProtoInit = false
+let requiresStaticInit = false
+const decoratedPrivateMethods = new Set()
+const assignments = []
+const scopeParent = path.scope.parent
+const memoiseExpression = (expression, hint) => {
+    const localEvaluatedId = scopeParent.generateDeclaredUidIdentifier(hint);
+    assignments.push(_core.types.assignmentExpression("=", localEvaluatedId, expression));
+    return _core.types.cloneNode(localEvaluatedId);
+  }
+const decoratorsThis = new Map()
+const maybeExtractDecorator = decorator => {
+    const {
+      expression
+    } = decorator;
+    if (version === "2023-05" && _core.types.isMemberExpression(expression)) {
+      let object;
+      if (_core.types.isSuper(expression.object) || _core.types.isThisExpression(expression.object)) {
+        object = memoiseExpression(_core.types.thisExpression(), "obj");
+      } else if (!scopeParent.isStatic(expression.object)) {
+        object = memoiseExpression(expression.object, "obj");
+        expression.object = object;
+      } else {
+        object = expression.object;
+      }
+      decoratorsThis.set(decorator, _core.types.cloneNode(object));
+    }
+    if (!scopeParent.isStatic(expression)) {
+      decorator.expression = memoiseExpression(expression, "dec");
+    }
+  }
+classInitLocal = scopeParent.generateDeclaredUidIdentifier("initClass")
+_tmp_137 = replaceClassWithVar(path)
+path = classPath
+classIdLocal = classId
+path.node.decorators = null
+_iterator_2 = <operator>.iterator(classDecorators)
+maybeExtractDecorator(classDecorator)
+!path.node.id
+path.node.id = path.scope.generateUidIdentifier("Class")
+classIdLocal = _core.types.cloneNode(path.node.id)
+let needsInstancePrivateBrandCheck = false
+_iterator_3 = <operator>.iterator(body)
+!isClassDecoratableElementPath(element)
+continue;
+_tmp_140 = element
+node = _tmp_140.node
+const decorators = element.get("decorators")
+const hasDecorators = Array.isArray(decorators) && decorators.length > 0
+_iterator_4 = <operator>.iterator(decorators)
+maybeExtractDecorator(decoratorPath.node)
+const isComputed = "computed" in element.node && element.node.computed === true
+!scopeParent.isStatic(node.key)
+node.key = memoiseExpression(node.key, "computedKey")
+const kind = getElementKind(element)
+_tmp_141 = node
+key = _tmp_141.key
+const isPrivate = key.type === "PrivateName"
+const isStatic = !!element.node.static
+let name = "computedKey"
+name = key.id.name
+!isComputed && key.type === "Identifier"
+name = key.name
+isPrivate && !isStatic
+needsInstancePrivateBrandCheck = true
+_core.types.isClassPrivateProperty(node) || !lastInstancePrivateName
+lastInstancePrivateName = key
+element.isClassMethod({
+        kind: "constructor"
+      })
+_tmp_143.kind = "constructor"
+constructorPath = element
+kind === ACCESSOR
+_tmp_144 = element.node
+value = _tmp_144.value
+element.node
+const params = [_core.types.thisExpression()]
+params.push(_core.types.cloneNode(value))
+const newId = generateClassPrivateUid()
+const newFieldInitId = element.scope.parent.generateDeclaredUidIdentifier(`init_${name}`)
+const newValue = _core.types.callExpression(_core.types.cloneNode(newFieldInitId), params)
+const newField = generateClassProperty(newId, newValue, isStatic)
+_tmp_151 = element.replaceWith(newField)
+privateMethods = extractProxyAccessorsFor(newId, version)
+const getId = newPath.scope.parent.generateDeclaredUidIdentifier(`get_${name}`)
+const setId = newPath.scope.parent.generateDeclaredUidIdentifier(`set_${name}`)
+addCallAccessorsFor(newPath, key, getId, setId)
+locals = [newFieldInitId, getId, setId]
+addProxyAccessorsFor(path.node.id, newPath, key, newId, version, isComputed)
+locals = newFieldInitId
+kind === FIELD
+const initId = element.scope.parent.generateDeclaredUidIdentifier(`init_${name}`)
+const valuePath = element.get("value")
+valuePath.replaceWith(_core.types.callExpression(_core.types.cloneNode(initId), [_core.types.thisExpression(), valuePath.node].filter(v => v)))
+locals = initId
+privateMethods = extractProxyAccessorsFor(key, version)
+locals = element.scope.parent.generateDeclaredUidIdentifier(`call_${name}`)
+const replaceSupers = new _helperReplaceSupers.default({
+            constantSuper,
+            methodPath: element,
+            objectRef: classIdLocal,
+            superRef: path.node.superClass,
+            file: state.file,
+            refToPreserve: classIdLocal
+          })
+_tmp_163.constantSuper = constantSuper
+_tmp_163.methodPath = element
+_tmp_163.objectRef = classIdLocal
+_tmp_163.superRef = path.node.superClass
+_tmp_163.file = state.file
+_tmp_163.refToPreserve = classIdLocal
+replaceSupers.replace()
+_tmp_164 = element.node
+params = _tmp_164.params
+body = _tmp_164.body
+isAsync = _tmp_164.async
+element.node
+privateMethods = [_core.types.functionExpression(undefined, params.filter(isNotTsParameter), body, isAsync)]
+kind === GETTER || kind === SETTER
+movePrivateAccessor(element, _core.types.cloneNode(key), _core.types.cloneNode(locals), isStatic)
+const node = element.node
+path.node.body.body.unshift(_core.types.classPrivateProperty(key, _core.types.cloneNode(locals), [], node.static))
+decoratedPrivateMethods.add(key.id.name)
+element.remove()
+nameExpr = _core.types.cloneNode(key)
+key.type === "PrivateName"
+nameExpr = _core.types.stringLiteral(key.id.name)
+key.type === "Identifier"
+nameExpr = _core.types.stringLiteral(key.name)
+nameExpr = _core.types.cloneNode(key)
+elementDecoratorInfo.push({
+          kind,
+          decorators: decorators.map(d => d.node.expression),
+          decoratorsThis: decorators.map(d => decoratorsThis.get(d.node)),
+          name: nameExpr,
+          isStatic,
+          privateMethods,
+          locals
+        })
+_tmp_176.kind = kind
+_tmp_176.decorators = decorators.map(d => d.node.expression)
+_tmp_176.decoratorsThis = decorators.map(d => decoratorsThis.get(d.node))
+_tmp_176.name = nameExpr
+_tmp_176.isStatic = isStatic
+_tmp_176.privateMethods = privateMethods
+_tmp_176.locals = locals
+kind !== FIELD
+requiresStaticInit = true
+requiresProtoInit = true
+element.node
+element.node.decorators = null
+!firstFieldPath && !isStatic && (kind === FIELD || kind === ACCESSOR)
+firstFieldPath = element
+const elementDecorations = generateDecorationExprs(elementDecoratorInfo, version)
+let classDecorationsFlag = 0
+let classDecorations = []
+_tmp_177 = generateDecorationList(classDecorators.map(el => el.expression), classDecorators.map(dec => decoratorsThis.get(dec)), version)
+hasThis = _tmp_177.hasThis
+decs = _tmp_177.decs
+generateDecorationList(classDecorators.map(el => el.expression), classDecorators.map(dec => decoratorsThis.get(dec)), version)
+classDecorationsFlag = hasThis ? 1 : 0
+classDecorations = decs
+const elementLocals = extractElementLocalAssignments(elementDecoratorInfo)
+protoInitLocal = scopeParent.generateDeclaredUidIdentifier("initProto")
+elementLocals.push(protoInitLocal)
+const protoInitCall = _core.types.callExpression(_core.types.cloneNode(protoInitLocal), [_core.types.thisExpression()])
+const value = firstFieldPath.get("value")

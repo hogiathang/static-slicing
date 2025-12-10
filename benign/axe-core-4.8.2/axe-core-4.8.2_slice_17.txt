@@ -1,0 +1,45 @@
+function cacheIdRefs = function cacheIdRefs(node, idRefs, refAttrs) {
+      if (node.hasAttribute) {
+        if (node.nodeName.toUpperCase() === 'LABEL' && node.hasAttribute('for')) {
+          var _id2 = node.getAttribute('for');
+          if (!idRefs.has(_id2)) {
+            idRefs.set(_id2, [ node ]);
+          } else {
+            idRefs.get(_id2).push(node);
+          }
+        }
+        for (var _i28 = 0; _i28 < refAttrs.length; ++_i28) {
+          var attr = refAttrs[_i28];
+          var attrValue = sanitize_default(node.getAttribute(attr) || '');
+          if (!attrValue) {
+            continue;
+          }
+          var _iterator14 = _createForOfIteratorHelper(token_list_default(attrValue)), _step14;
+          try {
+            for (_iterator14.s(); !(_step14 = _iterator14.n()).done; ) {
+              var token = _step14.value;
+              if (!idRefs.has(token)) {
+                idRefs.set(token, [ node ]);
+              } else {
+                idRefs.get(token).push(node);
+              }
+ ...
+node.hasAttribute
+node.nodeName.toUpperCase() === 'LABEL' && node.hasAttribute('for')
+var _id2 = node.getAttribute('for')
+!idRefs.has(_id2)
+_tmp_931 = __ecma.Array.factory()
+(_tmp_932 = idRefs.get(_id2)).push
+_i28 < refAttrs.length
+var attr = refAttrs[_i28]
+var attrValue = sanitize_default(node.getAttribute(attr) || '')
+!attrValue
+continue;
+var _iterator14 = _createForOfIteratorHelper(token_list_default(attrValue))
+!(_step14 = _iterator14.n()).done
+var token = _step14.value
+!idRefs.has(token)
+_tmp_933 = __ecma.Array.factory()
+(_tmp_934 = idRefs.get(token)).push
+_iterator14.e(err)
+_iterator14.f()

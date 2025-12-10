@@ -1,0 +1,38 @@
+function stringifyElement = function stringifyElement(el) {
+    let result = '';
+    if (getDOM().isElementNode(el)) {
+        const tagName = el.tagName.toLowerCase();
+        // Opening tag
+        result += `<${tagName}`;
+        // Attributes in an ordered way
+        const attributeMap = getAttributeMap(el);
+        const sortedKeys = Array.from(attributeMap.keys()).sort();
+        for (const key of sortedKeys) {
+            const lowerCaseKey = key.toLowerCase();
+            let attValue = attributeMap.get(key);
+            if (typeof attValue !== 'string') {
+                result += ` ${lowerCaseKey}`;
+            }
+            else {
+                // Browsers order style rules differently. Order them alphabetically for consistency.
+                if (lowerCaseKey === 'style') {
+                    attValue = attValue.split(/; ?/).filter(s => !!s).sort().map(s => `${s};`).join(' ');
+                }
+                result += ` ${lowerCaseKey}="${attValue}"`;
+            }
+        }
+        result +...
+let result = ''
+(_tmp_7 = getDOM()).isElementNode
+const tagName = el.tagName.toLowerCase()
+<operator>.formatString("<", tagName, "")
+const attributeMap = getAttributeMap(el)
+const sortedKeys = Array.from(attributeMap.keys()).sort()
+_iterator_0 = <operator>.iterator(sortedKeys)
+const lowerCaseKey = key.toLowerCase()
+let attValue = attributeMap.get(key)
+typeof attValue !== 'string'
+<operator>.formatString(" ", lowerCaseKey, "")
+lowerCaseKey === 'style'
+attValue = attValue.split(/; ?/).filter(s => !!s).sort().map(s => `${s};`).join(' ')
+<operator>.formatString(" ", lowerCaseKey, "="", attValue, """)

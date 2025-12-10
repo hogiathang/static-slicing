@@ -1,0 +1,20 @@
+router[method](expressPath, function (req, res, next) {
+              req.cacheKey = JSON.stringify({ method: req.method, url: req.url, query: req.query, body: req.body, headers: req.headers });
+              var cached = memCache.get(req.cacheKey);
+              if (cached) {
+                res.header(cached.headers);
+                res.send(cached.body);
+                return;
+              }
+              var origEnd = res.end.bind(res);
+              res.end = function (body, encoding) {
+                var toCache = { body: body, headers: res.header()._headers };
+                memCache.put(req.cacheKey, toCache, cacheTime);
+                return origEnd(body, encoding);
+              };
+              next();
+            })
+req.cacheKey = JSON.stringify({ method: req.method, url: req.url, query: req.query, body: req.body, headers: req.headers })
+var cached = memCache.get(req.cacheKey)
+res.header(cached.headers)
+res.send(cached.body)

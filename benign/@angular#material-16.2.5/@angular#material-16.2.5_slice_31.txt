@@ -1,0 +1,20 @@
+hasProperty(tagName, propName, schemaMetas) {
+    if (schemaMetas.some((schema) => schema.name === NO_ERRORS_SCHEMA.name)) {
+      return true;
+    }
+    if (tagName.indexOf("-") > -1) {
+      if (isNgContainer(tagName) || isNgContent(tagName)) {
+        return false;
+      }
+      if (schemaMetas.some((schema) => schema.name === CUSTOM_ELEMENTS_SCHEMA.name)) {
+        return true;
+      }
+    }
+    const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown");
+    return elementProperties.has(propName);
+  }
+schemaMetas.some((schema) => schema.name === NO_ERRORS_SCHEMA.name)
+tagName.indexOf("-") > -1
+isNgContainer(tagName) || isNgContent(tagName)
+schemaMetas.some((schema) => schema.name === CUSTOM_ELEMENTS_SCHEMA.name)
+const elementProperties = this._schema.get(tagName.toLowerCase()) || this._schema.get("unknown")

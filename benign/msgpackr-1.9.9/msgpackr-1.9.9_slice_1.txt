@@ -1,0 +1,31 @@
+const pack = (value) => {
+			if (position > safeEnd)
+				target = makeRoom(position)
+
+			var type = typeof value
+			var length
+			if (type === 'string') {
+				let strLength = value.length
+				if (bundledStrings && strLength >= 4 && strLength < 0x1000) {
+					if ((bundledStrings.size += strLength) > MAX_BUNDLE_SIZE) {
+						let extStart
+						let maxBytes = (bundledStrings[0] ? bundledStrings[0].length * 3 + bundledStrings[1].length : 0) + 10
+						if (position + maxBytes > safeEnd)
+							target = makeRoom(position + maxBytes)
+						let lastBundle
+						if (bundledStrings.position) { // here we use the 0x62 extension to write the last bundle and reserve space for the reference pointer to the next/current bundle
+							lastBundle = bundledStrings
+							target[position] = 0xc8 // ext 16
+							position += 3 // reserve for the writing bundle size
+							target[position++] = 0x62 // 'b'
+							extStart = position - start
+							position += 4 // reserve for writing bundle reference
+							wri...
+position > safeEnd
+target = makeRoom(position)
+var type = typeof value
+type === 'string'
+type === 'number'
+type === 'object' || type === 'function'
+!value
+let referee = referenceMap.get(value)

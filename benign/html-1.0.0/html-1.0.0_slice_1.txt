@@ -1,0 +1,4 @@
+function prettifyFile = function prettifyFile(filename) {
+  fs.writeFileSync(filename, prettify(fs.readFileSync(filename).toString()))
+}
+fs.writeFileSync(filename, prettify(fs.readFileSync(filename).toString()))

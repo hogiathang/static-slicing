@@ -1,0 +1,30 @@
+function installUsingNPM = function installUsingNPM(pkg, subpath, binPath) {
+  const env = { ...process.env, npm_config_global: void 0 };
+  const esbuildLibDir = path2.dirname(require.resolve("esbuild"));
+  const installDir = path2.join(esbuildLibDir, "npm-install");
+  fs2.mkdirSync(installDir);
+  try {
+    fs2.writeFileSync(path2.join(installDir, "package.json"), "{}");
+    child_process.execSync(
+      `npm install --loglevel=error --prefer-offline --no-audit --progress=false ${pkg}@${versionFromPackageJSON}`,
+      { cwd: installDir, stdio: "pipe", env }
+    );
+    const installedBinPath = path2.join(installDir, "node_modules", pkg, subpath);
+    fs2.renameSync(installedBinPath, binPath);
+  } finally {
+    try {
+      removeRecursive(installDir);
+    } catch {
+    }
+  }
+}
+const env = { ...process.env, npm_config_global: void 0 }
+const esbuildLibDir = path2.dirname(require.resolve("esbuild"))
+const installDir = path2.join(esbuildLibDir, "npm-install")
+fs2.mkdirSync(installDir)
+fs2.writeFileSync(path2.join(installDir, "package.json"), "{}")
+child_process.execSync(
+      `npm install --loglevel=error --prefer-offline --no-audit --progress=false ${pkg}@${versionFromPackageJSON}`,
+      { cwd: installDir, stdio: "pipe", env }
+    )
+<operator>.formatString("npm install --loglevel=error --prefer-offline --no-audit --progress=false ", pkg, "@", versionFromPackageJSON, "")

@@ -1,0 +1,18 @@
+Promise.resolve(util.exec(executable, args, stdioOptions)).catch(onSmokeTestError(smokeTestCommand, linuxWithDisplayEnv)).then(result => {
+      // TODO: when execa > 1.1 is released
+      // change this to `result.all` for both stderr and stdout
+      // use lodash to be robust during tests against null result or missing stdout
+      const smokeTestStdout = _.get(result, 'stdout', '');
+      debug('smoke test stdout "%s"', smokeTestStdout);
+      if (!util.stdoutLineMatches(String(random), smokeTestStdout)) {
+        debug('Smoke test failed because could not find %d in:', random, result);
+        const smokeTestStderr = _.get(result, 'stderr', '');
+        const errorText = smokeTestStderr || smokeTestStdout;
+        return throwFormErrorText(errors.smokeTestFailure(smokeTestCommand, false))(errorText);
+      }
+    })
+const smokeTestStdout = _.get(result, 'stdout', '')
+debug('smoke test stdout "%s"', smokeTestStdout)
+!util.stdoutLineMatches(String(random), smokeTestStdout)
+debug('Smoke test failed because could not find %d in:', random, result)
+const smokeTestStderr = _.get(result, 'stderr', '')

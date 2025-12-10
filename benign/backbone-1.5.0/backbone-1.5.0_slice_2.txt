@@ -1,0 +1,40 @@
+_tmp_63.set = <lambda>60
+models == null
+options = _.extend({}, setOptions, options)
+options.parse && !this._isModel(models)
+models = this.parse(models, options) || []
+var singular = !_.isArray(models)
+models = singular ? [models] : models.slice()
+var at = options.at
+at != null
+at > this.length
+at += this.length + 1
+__ecma.Array.factory()
+__ecma.Array.factory()
+__ecma.Array.factory()
+__ecma.Array.factory()
+var modelMap = {}
+var add = options.add
+var merge = options.merge
+var remove = options.remove
+var sort = false
+var sortable = this.comparator && at == null && options.sort !== false
+var sortAttr = _.isString(this.comparator) ? this.comparator : null
+i < models.length
+model = models[i]
+var existing = this.get(model)
+merge && model !== existing
+var attrs = this._isModel(model) ? model.attributes : model
+attrs = existing.parse(attrs, options)
+existing.set(attrs, options)
+toMerge.push(existing)
+sort = existing.hasChanged(sortAttr)
+!modelMap[existing.cid]
+modelMap[existing.cid] = true
+set.push(existing)
+models[i] = existing
+model = models[i] = this._prepareModel(model, options)
+toAdd.push(model)
+this._addReference(model, options)
+modelMap[model.cid] = true
+set.push(model)

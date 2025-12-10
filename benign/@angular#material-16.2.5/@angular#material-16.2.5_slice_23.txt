@@ -1,0 +1,46 @@
+function prepareEventListenerParameters = function prepareEventListenerParameters(eventAst, handlerName = null, scope = null) {
+  const { type, name, target, phase, handler } = eventAst;
+  if (target && !GLOBAL_TARGET_RESOLVERS.has(target)) {
+    throw new Error(`Unexpected global target '${target}' defined for '${name}' event.
+        Supported list of global targets: ${Array.from(GLOBAL_TARGET_RESOLVERS.keys())}.`);
+  }
+  const eventArgumentName = "$event";
+  const implicitReceiverAccesses = /* @__PURE__ */ new Set();
+  const implicitReceiverExpr = scope === null || scope.bindingLevel === 0 ? variable(CONTEXT_NAME) : scope.getOrCreateSharedContextVar(0);
+  const bindingStatements = convertActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS);
+  const statements = [];
+  const variableDeclarations = scope == null ? void 0 : scope.variableDeclarations();
+  const restoreViewStatement = scope == null ? void 0 : scope.restoreViewStatement();
+  if (v...
+handler = _tmp_699.handler
+target && !GLOBAL_TARGET_RESOLVERS.has(target)
+<operator>.formatString("Unexpected global target '", target, "' defined for '", name, "' event.
+        Supported list of global targets: ", Array.from(GLOBAL_TARGET_RESOLVERS.keys()), ".")
+Array.from(GLOBAL_TARGET_RESOLVERS.keys())
+const eventArgumentName = "$event"
+const implicitReceiverAccesses = /* @__PURE__ */ new Set()
+const implicitReceiverExpr = scope === null || scope.bindingLevel === 0 ? variable(CONTEXT_NAME) : scope.getOrCreateSharedContextVar(0)
+const bindingStatements = convertActionBinding(scope, implicitReceiverExpr, handler, "b", eventAst.handlerSpan, implicitReceiverAccesses, EVENT_BINDING_SCOPE_GLOBALS)
+__ecma.Array.factory()
+const variableDeclarations = scope == null ? void 0 : scope.variableDeclarations()
+const restoreViewStatement = scope == null ? void 0 : scope.restoreViewStatement()
+statements.push(...variableDeclarations)
+statements.push(...bindingStatements)
+statements.unshift(restoreViewStatement)
+const lastStatement = statements[statements.length - 1]
+lastStatement instanceof ReturnStatement
+statements[statements.length - 1] = new ReturnStatement(invokeInstruction(lastStatement.value.sourceSpan, Identifiers.resetView, [lastStatement.value]))
+statements.push(new ExpressionStatement(invokeInstruction(null, Identifiers.resetView, [])))
+const eventName = type === 1 ? prepareSyntheticListenerName(name, phase) : name
+const fnName = handlerName && sanitizeIdentifier(handlerName)
+__ecma.Array.factory()
+implicitReceiverAccesses.has(eventArgumentName)
+fnArgs.push(new FnParam(eventArgumentName, DYNAMIC_TYPE))
+const handlerFn = fn(fnArgs, statements, INFERRED_TYPE, null, fnName)
+const params = [literal(eventName), handlerFn]
+params.push(
+      literal(false),
+      importExpr(GLOBAL_TARGET_RESOLVERS.get(target))
+    )
+literal(false)
+importExpr(GLOBAL_TARGET_RESOLVERS.get(target))

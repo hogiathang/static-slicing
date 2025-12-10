@@ -1,0 +1,29 @@
+_dragChange() {
+        if (this.attrs.draggable) {
+            this._listenDrag();
+        }
+        else {
+            this._dragCleanup();
+            var stage = this.getStage();
+            if (!stage) {
+                return;
+            }
+            const dragElement = DragAndDrop_1.DD._dragElements.get(this._id);
+            const isDragging = dragElement && dragElement.dragStatus === 'dragging';
+            const isReady = dragElement && dragElement.dragStatus === 'ready';
+            if (isDragging) {
+                this.stopDrag();
+            }
+            else if (isReady) {
+                DragAndDrop_1.DD._dragElements.delete(this._id);
+            }
+        }
+    }
+this.attrs.draggable
+this._dragCleanup()
+var stage = this.getStage()
+!stage
+const dragElement = DragAndDrop_1.DD._dragElements.get(this._id)
+const isDragging = dragElement && dragElement.dragStatus === 'dragging'
+const isReady = dragElement && dragElement.dragStatus === 'ready'
+(_tmp_166 = DragAndDrop_1.DD._dragElements).delete

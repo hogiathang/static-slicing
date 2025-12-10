@@ -1,0 +1,67 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"CHANNEL_UPDATE"
+let channel = this.client.getChannel(packet.d.id)
+!channel
+channel instanceof GroupChannel
+oldChannel = {
+                        name: channel.name,
+                        ownerID: channel.ownerID,
+                        icon: channel.icon
+                    }
+_tmp_215.name = channel.name
+_tmp_215.ownerID = channel.ownerID
+_tmp_215.icon = channel.icon
+channel instanceof GuildChannel
+oldChannel = {
+                        bitrate: channel.bitrate,
+                        name: channel.name,
+                        nsfw: channel.nsfw,
+                        parentID: channel.parentID,
+                        permissionOverwrites: channel.permissionOverwrites,
+                        position: channel.position,
+                        rateLimitPerUser: channel.rateLimitPerUser,
+                        rtcRegion: channel.rtcRegion,
+                        topic: channel.topic,
+                        type: channel.type,
+                        userLimit: channel.userLimit,
+                        videoQualityMode: channel.videoQualityMode
+                    }
+_tmp_216.bitrate = channel.bitrate
+_tmp_216.name = channel.name
+_tmp_216.nsfw = channel.nsfw
+_tmp_216.parentID = channel.parentID
+_tmp_216.permissionOverwrites = channel.permissionOverwrites
+_tmp_216.position = channel.position
+_tmp_216.rateLimitPerUser = channel.rateLimitPerUser
+_tmp_216.rtcRegion = channel.rtcRegion
+_tmp_216.topic = channel.topic
+_tmp_216.type = channel.type
+_tmp_216.userLimit = channel.userLimit
+_tmp_216.videoQualityMode = channel.videoQualityMode
+<operator>.formatString("Unexpected CHANNEL_UPDATE for channel ", packet.d.id, " with type ", oldType, "")
+const oldType = channel.type
+oldType === packet.d.type
+<operator>.formatString("Channel ", packet.d.id, " changed from type ", oldType, " to ", packet.d.type, "")
+const newChannel = Channel.from(packet.d, this.client)
+packet.d.guild_id
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+<operator>.formatString("Received CHANNEL_UPDATE for channel in missing guild ", packet.d.guild_id, "")

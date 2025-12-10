@@ -1,0 +1,42 @@
+this.open = function(dropdownScope, element, appendTo) {
+    if (!openScope) {
+      $document.on('click', closeDropdown);
+    }
+
+    if (openScope && openScope !== dropdownScope) {
+      openScope.isOpen = false;
+    }
+
+    openScope = dropdownScope;
+
+    if (!appendTo) {
+      return;
+    }
+
+    var openedDropdowns = openedContainers.get(appendTo);
+    if (openedDropdowns) {
+      var openedScopes = openedDropdowns.map(function(dropdown) {
+        return dropdown.scope;
+      });
+      if (openedScopes.indexOf(dropdownScope) === -1) {
+        openedContainers.put(appendTo, {
+          scope: dropdownScope
+        });
+      }
+    } else {
+      openedContainers.put(appendTo, {
+        scope: dropdownScope
+      });
+    }
+  }
+!openScope
+$document.on('click', closeDropdown)
+openScope && openScope !== dropdownScope
+openScope.isOpen = false
+openScope = dropdownScope
+!appendTo
+var openedDropdowns = openedContainers.get(appendTo)
+openedContainers.put(appendTo, {
+        scope: dropdownScope
+      })
+_tmp_11.scope = dropdownScope

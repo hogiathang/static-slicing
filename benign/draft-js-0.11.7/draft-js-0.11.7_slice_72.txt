@@ -1,0 +1,37 @@
+blockMap.withMutations(function (blockMapState) {
+    var targetKey = targetBlock.getKey();
+    var headKey = fragmentHeadBlock.getKey();
+    var targetNextKey = targetBlock.getNextSiblingKey();
+    var targetParentKey = targetBlock.getParentKey();
+    var fragmentRootBlocks = getRootBlocks(fragmentHeadBlock, blockMap);
+    var lastRootFragmentBlockKey = fragmentRootBlocks[fragmentRootBlocks.length - 1];
+
+    if (blockMapState.get(headKey)) {
+      // update the fragment head when it is part of the blockMap otherwise
+      blockMapState.setIn([targetKey, 'nextSibling'], headKey);
+      blockMapState.setIn([headKey, 'prevSibling'], targetKey);
+    } else {
+      // update the target block that had the fragment head contents merged into it
+      blockMapState.setIn([targetKey, 'nextSibling'], fragmentHeadBlock.getNextSiblingKey());
+      blockMapState.setIn([fragmentHeadBlock.getNextSiblingKey(), 'prevSibling'], targetKey);
+    } // update the last root block fragment
+
+
+    blockMapSt...
+var targetKey = targetBlock.getKey()
+var headKey = fragmentHeadBlock.getKey()
+var targetNextKey = targetBlock.getNextSiblingKey()
+var targetParentKey = targetBlock.getParentKey()
+var fragmentRootBlocks = getRootBlocks(fragmentHeadBlock, blockMap)
+var lastRootFragmentBlockKey = fragmentRootBlocks[fragmentRootBlocks.length - 1]
+blockMapState.get(headKey)
+blockMapState.setIn([targetKey, 'nextSibling'], headKey)
+blockMapState.setIn([headKey, 'prevSibling'], targetKey)
+blockMapState.setIn([targetKey, 'nextSibling'], fragmentHeadBlock.getNextSiblingKey())
+blockMapState.setIn([fragmentHeadBlock.getNextSiblingKey(), 'prevSibling'], targetKey)
+blockMapState.setIn([lastRootFragmentBlockKey, 'nextSibling'], targetNextKey)
+blockMapState.setIn([targetNextKey, 'prevSibling'], lastRootFragmentBlockKey)
+fragmentRootBlocks.forEach(function (blockKey) {
+      return blockMapState.setIn([blockKey, 'parent'], targetParentKey);
+    })
+var targetParent = blockMap.get(targetParentKey)

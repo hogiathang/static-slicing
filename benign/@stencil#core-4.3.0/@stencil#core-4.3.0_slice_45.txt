@@ -1,0 +1,8 @@
+a.map((e => {
+      const o = e.$hostId$ + "." + e.$nodeId$, n = plt.$orgLocNodes$.get(o), s = e.$elm$;
+      n && supportsShadow && "" === n["s-en"] && n.parentNode.insertBefore(s, n.nextSibling), 
+      l || (s["s-hn"] = t, n && (s["s-ol"] = n, s["s-ol"]["s-nr"] = s)), plt.$orgLocNodes$.delete(o);
+     }))
+const o = e.$hostId$ + "." + e.$nodeId$
+n && supportsShadow && "" === n["s-en"] && n.parentNode.insertBefore(s, n.nextSibling)
+l || (s["s-hn"] = t, n && (s["s-ol"] = n, s["s-ol"]["s-nr"] = s))

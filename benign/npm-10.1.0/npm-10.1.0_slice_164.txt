@@ -1,0 +1,40 @@
+flushOutput (jsonError) {
+    if (!jsonError && !this.#outputBuffer.length) {
+      return
+    }
+
+    if (this.config.get('json')) {
+      const jsonOutput = this.#outputBuffer.reduce((acc, item) => {
+        if (typeof item === 'string') {
+          // try to parse it as json in case its a string
+          try {
+            item = JSON.parse(item)
+          } catch {
+            return acc
+          }
+        }
+        return { ...acc, ...item }
+      }, {})
+      this.output(JSON.stringify({ ...jsonOutput, ...jsonError }, null, 2))
+    } else {
+      for (const item of this.#outputBuffer) {
+        this.output(item)
+      }
+    }
+
+    this.#outputBuffer.length = 0
+  }
+!jsonError && !this.#outputBuffer.length
+(_tmp_81 = this.config).get
+const jsonOutput = this.#outputBuffer.reduce((acc, item) => {
+        if (typeof item === 'string') {
+          // try to parse it as json in case its a string
+          try {
+            item = JSON.parse(item)
+          } catch {
+            return acc
+          }
+        }
+        return { ...acc, ...item }
+      }, {})
+this.output(JSON.stringify({ ...jsonOutput, ...jsonError }, null, 2))

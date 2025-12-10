@@ -1,0 +1,30 @@
+public executeNext(type: SourceBufferName) {
+    const { buffers, queues } = this;
+    const sb = buffers[type];
+    const queue = queues[type];
+    if (queue.length) {
+      const operation: BufferOperation = queue[0];
+      try {
+        // Operations are expected to result in an 'updateend' event being fired. If not, the queue will lock. Operations
+        // which do not end with this event must call _onSBUpdateEnd manually
+        operation.execute();
+      } catch (e) {
+        logger.warn(
+          '[buffer-operation-queue]: Unhandled exception executing the current operation'
+        );
+        operation.onError(e);
+
+        // Only shift the current operation off, otherwise the updateend handler will do this for us
+        if (!sb?.updating) {
+          queue.shift();
+          this.executeNext(type);
+        }
+      }
+    }
+  }
+buffers = _tmp_3.buffers
+const sb = buffers[type]
+const queue = queues[type]
+queue.length
+const operation: BufferOperation = queue[0]
+operation.execute()

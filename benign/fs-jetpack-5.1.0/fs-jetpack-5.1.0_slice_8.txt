@@ -1,0 +1,9 @@
+const checkMode = () => {
+    const mode = modeUtil.normalizeFileMode(stat.mode);
+    if (criteria.mode !== undefined && criteria.mode !== mode) {
+      fs.chmodSync(path, criteria.mode);
+    }
+  }
+const mode = modeUtil.normalizeFileMode(stat.mode)
+criteria.mode !== undefined && criteria.mode !== mode
+fs.chmodSync(path, criteria.mode)

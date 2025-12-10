@@ -1,0 +1,27 @@
+interceptors = param1_0.interceptors
+this.req = req
+this.options = {
+      // We may be changing the options object and we don't want those changes
+      // affecting the user so we use a clone of the object.
+      ...options,
+      // We use lower-case header field names throughout Nock.
+      headers: common.headersFieldNamesToLowerCase(
+        options.headers || {},
+        false
+      ),
+    }
+...options
+_tmp_4.headers = common.headersFieldNamesToLowerCase(
+        options.headers || {},
+        false
+      )
+options.headers || {}
+this.interceptors = interceptors
+this.socket = new Socket(options)
+const timeout =
+      options.timeout ||
+      (options.agent && options.agent.options && options.agent.options.timeout)
+options.timeout ||
+      (options.agent && options.agent.options && options.agent.options.timeout)
+options.agent && options.agent.options && options.agent.options.timeout
+(_tmp_7 = this.socket).setTimeout

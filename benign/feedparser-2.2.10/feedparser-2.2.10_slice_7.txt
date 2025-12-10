@@ -1,0 +1,28 @@
+el.forEach(function (category){
+            var _categoryValue;
+            if ('category' == name && 'atom' == type) {
+              if (category['@'] && (_categoryValue = _.safeTrim(_.get(category['@'], 'term')))) {
+                meta.categories.push(_categoryValue);
+              }
+            }
+            else if ('category' == name && 'rss' == type){
+              if ((_categoryValue = _.safeTrim(_.get(category)))) {
+                meta.categories.push(_categoryValue);
+              }
+            }
+            else if ('dc:subject' == name && (_categoryValue = _.safeTrim(_.get(category)))) {
+              _categories = _categoryValue.split(' ').map(function (cat){ return cat.trim(); });
+              if (_categories.length) {
+                meta.categories = meta.categories.concat(_categories);
+              }
+            }
+            else if ('itunes:category' == name) {
+              if (category['@'] && _.safeTrim(_.get(category['@'], 'text'))) _category = _.safeTrim(_...
+'category' == name && 'atom' == type
+'category' == name && 'rss' == type
+'dc:subject' == name && (_categoryValue = _.safeTrim(_.get(category)))
+'itunes:category' == name
+category['@'] && _.safeTrim(_.get(category['@'], 'text'))
+category[name]
+Array.isArray(category[name])
+category[name]['@'] && (_categoryValue = _.safeTrim(_.get(category[name]['@'], 'text')))

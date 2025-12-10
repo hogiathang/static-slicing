@@ -1,0 +1,24 @@
+const copyFileSync = (srcPath, destPath, mode, context) => {
+  const data = fs.readFileSync(srcPath);
+  try {
+    fs.writeFileSync(destPath, data, { mode, flag: "wx" });
+  } catch (err) {
+    if (err.code === "ENOENT") {
+      write.sync(destPath, data, { mode });
+    } else if (err.code === "EEXIST") {
+      if (canOverwriteItSync(context)) {
+        fs.writeFileSync(destPath, data, { mode });
+      } else if (shouldThrowDestinationExistsError(context)) {
+        throw generateDestinationExistsError(context.destPath);
+      }
+    } else {
+      throw err;
+    }
+  }
+}
+const data = fs.readFileSync(srcPath)
+fs.writeFileSync(destPath, data, { mode, flag: "wx" })
+err.code === "ENOENT"
+err.code === "EEXIST"
+canOverwriteItSync(context)
+fs.writeFileSync(destPath, data, { mode })

@@ -1,0 +1,4 @@
+emit(type, value) {
+    this.inner.emit(type, value);
+  }
+this.inner.emit(type, value)

@@ -1,0 +1,62 @@
+function parseHAR = function parseHAR (har) {
+  const requestsPerOrigin = new Map()
+  try {
+    if (!har || typeof har !== 'object' || typeof har.log !== 'object' || !Array.isArray(har.log.entries) || !har.log.entries.length) {
+      throw new Error('no entries found')
+    }
+    let i = 0
+    for (const entry of har.log.entries) {
+      i++
+      if (!entry || typeof entry !== 'object' || !entry.request || typeof entry.request !== 'object') {
+        throw new Error(`invalid request in entry #${i}`)
+      }
+      const { request: { method, url, headers: headerArray, postData } } = entry
+      // turn headers array to headers object
+      const headers = {}
+      if (!Array.isArray(headerArray)) {
+        throw new Error(`invalid headers array in entry #${i}`)
+      }
+      let j = 0
+      for (const header of headerArray) {
+        j++
+        if (!header || typeof header !== 'object' || typeof header.name !== 'string' || typeof header.value !== 'string') {
+          throw new Error(`invalid name or va...
+const requestsPerOrigin = new Map()
+!har || typeof har !== 'object' || typeof har.log !== 'object' || !Array.isArray(har.log.entries) || !har.log.entries.length
+throw new Error('no entries found')
+let i = 0
+_iterator_0 = <operator>.iterator(har.log.entries)
+i++
+!entry || typeof entry !== 'object' || !entry.request || typeof entry.request !== 'object'
+<operator>.formatString("invalid request in entry #", i, "")
+_tmp_4.headers = headerArray
+const headers = {}
+!Array.isArray(headerArray)
+<operator>.formatString("invalid headers array in entry #", i, "")
+let j = 0
+_iterator_1 = <operator>.iterator(headerArray)
+j++
+!header || typeof header !== 'object' || typeof header.name !== 'string' || typeof header.value !== 'string'
+<operator>.formatString("invalid name or value in header #", j, " of entry #", i, "")
+value = _tmp_8.value
+headers[name] = value
+protocol = _tmp_9.protocol
+<operator>.formatString("", protocol, "//", host, "")
+let requests = requestsPerOrigin.get(origin)
+!requests
+__ecma.Array.factory()
+requestsPerOrigin.set(origin, requests)
+const request = {
+        origin,
+        method,
+        // only keep path & hash as our HttpClient will handle origin
+        path: `${path}${hash || ''}`,
+        headers
+      }
+_tmp_10.origin = origin
+_tmp_10.method = method
+_tmp_10.path = <operator>.formatString("", path, "", hash || '', "")
+_tmp_10.headers = headers
+typeof postData === 'object' && typeof postData.text === 'string'
+request.body = postData.text
+requests.push(request)

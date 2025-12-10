@@ -1,0 +1,25 @@
+encode(source, options) {
+        if(this.encoding || this.streams.length) {
+            this.emit("error", new Error("Already encoding"));
+            return false;
+        }
+
+        if(typeof source === "string") {
+            if(options.format === "dca" || options.format === "ogg" || options.format === "webm" || options.format === "pcm") {
+                if(source.startsWith("http://") || source.startsWith("https://")) {
+                    const passThrough = new PassThroughStream();
+                    if(source.startsWith("http://")) {
+                        HTTP.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e));
+                    } else {
+                        HTTPS.get(source, (res) => res.pipe(passThrough)).once("error", (e) => this.stop(e));
+                    }
+                    source = passThrough;
+                } else {
+                    try {
+                        FS.statSync(source);
+                    } catch(err) {
+    ...
+this.encoding || this.streams.length
+typeof source === "string"
+!(source instanceof Stream) || !source.pipe
+this.emit("error", new Error("Invalid source type"))

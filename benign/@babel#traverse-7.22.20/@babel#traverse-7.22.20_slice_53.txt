@@ -1,0 +1,26 @@
+_getAttachmentPath() {
+    const scopes = this.scopes;
+    const scope = scopes.pop();
+    if (!scope) return;
+    if (scope.path.isFunction()) {
+      if (this.hasOwnParamBindings(scope)) {
+        if (this.scope === scope) return;
+        const bodies = scope.path.get("body").get("body");
+        for (let i = 0; i < bodies.length; i++) {
+          if (bodies[i].node._blockHoist) continue;
+          return bodies[i];
+        }
+      } else {
+        return this.getNextScopeAttachmentParent();
+      }
+    } else if (scope.path.isProgram()) {
+      return this.getNextScopeAttachmentParent();
+    }
+  }
+const scopes = this.scopes
+const scope = scopes.pop()
+!scope
+(_tmp_15 = scope.path).isFunction
+this.hasOwnParamBindings(scope)
+this.scope === scope
+const bodies = scope.path.get("body").get("body")

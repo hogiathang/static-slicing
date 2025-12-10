@@ -1,0 +1,36 @@
+const readDeps = (test, excluded) => async () => {
+  const dirs = await fs.readdir('node_modules').catch(() => null)
+
+  if (!dirs) {
+    return
+  }
+
+  const deps = {}
+  for (const dir of dirs) {
+    if (dir.match(/^\./) || test !== isTestPkg(dir) || excluded[dir]) {
+      continue
+    }
+
+    const dp = path.join(dirname, 'node_modules', dir, 'package.json')
+    const p = await fs.readFile(dp, 'utf8').then((d) => JSON.parse(d)).catch(() => null)
+
+    if (!p || !p.version || p?._requiredBy?.some((r) => r === '#USER')) {
+      continue
+    }
+
+    deps[dir] = config.get('save-exact') ? p.version : config.get('save-prefix') + p.version
+  }
+
+  return deps
+}
+const dirs = await fs.readdir('node_modules').catch(() => null)
+!dirs
+const deps = {}
+_iterator_0 = <operator>.iterator(dirs)
+dir.match(/^\./) || test !== isTestPkg(dir) || excluded[dir]
+continue
+const dp = path.join(dirname, 'node_modules', dir, 'package.json')
+const p = await fs.readFile(dp, 'utf8').then((d) => JSON.parse(d)).catch(() => null)
+!p || !p.version || p?._requiredBy?.some((r) => r === '#USER')
+continue
+deps[dir] = config.get('save-exact') ? p.version : config.get('save-prefix') + p.version

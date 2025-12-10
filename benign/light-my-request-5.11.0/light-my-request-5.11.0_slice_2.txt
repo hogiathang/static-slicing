@@ -1,0 +1,7 @@
+new Promise((resolve) => {
+      const res = new Response(req, resolve)
+      res.write('foo')
+      res.end()
+    })
+const res = new Response(req, resolve)
+res.write('foo')

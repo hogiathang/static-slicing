@@ -1,0 +1,62 @@
+function resolvePackageTargetString = function resolvePackageTargetString(target, subpath, match, packageJsonUrl, base, pattern, internal, isPathMap, conditions) {
+  if (subpath !== "" && !pattern && target[target.length - 1] !== "/")
+    throw invalidPackageTarget(match, target, packageJsonUrl, internal, base);
+  if (!target.startsWith("./")) {
+    if (internal && !target.startsWith("../") && !target.startsWith("/")) {
+      let isURL = false;
+      try {
+        new import_node_url3.URL(target);
+        isURL = true;
+      } catch {
+      }
+      if (!isURL) {
+        const exportTarget = pattern ? RegExpPrototypeSymbolReplace.call(
+          patternRegEx,
+          target,
+          () => subpath
+        ) : target + subpath;
+        return packageResolve(exportTarget, packageJsonUrl, conditions);
+      }
+    }
+    throw invalidPackageTarget(match, target, packageJsonUrl, internal, base);
+  }
+  if (invalidSegmentRegEx.exec(target.slice(2)) !== null) {
+    if (deprecatedInvalidSegmentRegEx.exec(target.slice(2)) === nu...
+subpath !== "" && !pattern && target[target.length - 1] !== "/"
+throw invalidPackageTarget(match, target, packageJsonUrl, internal, base);
+!target.startsWith("./")
+internal && !target.startsWith("../") && !target.startsWith("/")
+let isURL = false
+new import_node_url3.URL(target)
+isURL = true
+!isURL
+throw invalidPackageTarget(match, target, packageJsonUrl, internal, base);
+invalidSegmentRegEx.exec(target.slice(2)) !== null
+deprecatedInvalidSegmentRegEx.exec(target.slice(2)) === null
+!isPathMap
+const request = pattern ? match.replace("*", () => subpath) : match + subpath
+const resolvedTarget = pattern ? RegExpPrototypeSymbolReplace.call(
+          patternRegEx,
+          target,
+          () => subpath
+        ) : target
+<lambda>2
+emitInvalidSegmentDeprecation(
+          resolvedTarget,
+          request,
+          match,
+          packageJsonUrl,
+          internal,
+          base,
+          true
+        )
+throw invalidPackageTarget(match, target, packageJsonUrl, internal, base);
+const resolved = new import_node_url3.URL(target, packageJsonUrl)
+const resolvedPath = resolved.pathname
+const packagePath = new import_node_url3.URL(".", packageJsonUrl).pathname
+!resolvedPath.startsWith(packagePath)
+throw invalidPackageTarget(match, target, packageJsonUrl, internal, base);
+subpath === ""
+invalidSegmentRegEx.exec(subpath) !== null
+const request = pattern ? match.replace("*", () => subpath) : match + subpath
+deprecatedInvalidSegmentRegEx.exec(subpath) === null

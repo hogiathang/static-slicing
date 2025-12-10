@@ -1,0 +1,67 @@
+socket.data = function(e) {
+    socket.sending = false;
+    var request = socket.options.request;
+    if(request.aborted) {
+      socket.close();
+    } else {
+      // receive all bytes available
+      var response = socket.options.response;
+      var bytes = socket.receive(e.bytesAvailable);
+      if(bytes !== null) {
+        // receive header and then body
+        socket.buffer.putBytes(bytes);
+        if(!response.headerReceived) {
+          response.readHeader(socket.buffer);
+          if(response.headerReceived) {
+            socket.options.headerReady({
+              request: socket.options.request,
+              response: response,
+              socket: socket
+            });
+          }
+        }
+        if(response.headerReceived && !response.bodyReceived) {
+          response.readBody(socket.buffer);
+        }
+        if(response.bodyReceived) {
+          socket.options.bodyReady({
+            request: socket.options.request,
+            response: response,
+            soc...
+socket.sending = false
+var request = socket.options.request
+request.aborted
+var response = socket.options.response
+var bytes = socket.receive(e.bytesAvailable)
+bytes !== null
+(_tmp_24 = socket.buffer).putBytes
+!response.headerReceived
+response.readHeader(socket.buffer)
+response.headerReceived
+socket.options.headerReady({
+              request: socket.options.request,
+              response: response,
+              socket: socket
+            })
+_tmp_26.request = socket.options.request
+_tmp_26.response = response
+_tmp_26.socket = socket
+response.headerReceived && !response.bodyReceived
+response.readBody(socket.buffer)
+response.bodyReceived
+socket.options.bodyReady({
+            request: socket.options.request,
+            response: response,
+            socket: socket
+          })
+_tmp_28.request = socket.options.request
+_tmp_28.response = response
+_tmp_28.socket = socket
+var value = response.getField('Connection') || ''
+value.indexOf('close') != -1 ||
+            (response.version === 'HTTP/1.0' &&
+            response.getField('Keep-Alive') === null)
+response.version === 'HTTP/1.0' &&
+            response.getField('Keep-Alive') === null
+response.getField('Keep-Alive') === null
+socket.close()

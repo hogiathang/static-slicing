@@ -1,0 +1,19 @@
+_checkHbOrderConsumer(msg) {
+        const rm = msg.headers.get(types_2.JsHeaders.ConsumerStalledHdr);
+        if (rm !== "") {
+            const nci = this.js.nc;
+            nci.publish(rm);
+        }
+        const lastDelivered = parseInt(msg.headers.get(types_2.JsHeaders.LastConsumerSeqHdr), 10);
+        const ordered = this.info.ordered_consumer_sequence;
+        this.info.flow_control.heartbeat_count++;
+        if (lastDelivered !== ordered.delivery_seq) {
+            this._resetOrderedConsumer(ordered.stream_seq + 1);
+        }
+        return false;
+    }
+const rm = msg.headers.get(types_2.JsHeaders.ConsumerStalledHdr)
+rm !== ""
+const nci = this.js.nc
+nci.publish(rm)
+const lastDelivered = parseInt(msg.headers.get(types_2.JsHeaders.LastConsumerSeqHdr), 10)

@@ -1,0 +1,75 @@
+send(method: string, params: Array<any>): Promise<any> {
+        const request = {
+            method: method,
+            params: params,
+            id: (this._nextId++),
+            jsonrpc: "2.0"
+        };
+
+        if (this._pendingBatch == null) {
+            this._pendingBatch = [ ];
+        }
+
+        const inflightRequest: any = { request, resolve: null, reject: null };
+
+        const promise = new Promise((resolve, reject) => {
+            inflightRequest.resolve = resolve;
+            inflightRequest.reject = reject;
+        });
+
+        this._pendingBatch.push(inflightRequest);
+
+        if (!this._pendingBatchAggregator) {
+            // Schedule batch for next event loop + short duration
+            this._pendingBatchAggregator = setTimeout(() => {
+
+                // Get teh current batch and clear it, so new requests
+                // go into the next batch
+                const batch = this._pendingBatch;
+                this._pendingBatch = null;
+                th...
+const request = {
+            method: method,
+            params: params,
+            id: (this._nextId++),
+            jsonrpc: "2.0"
+        }
+_tmp_0.method = method
+_tmp_0.params = params
+_tmp_0.id = this._nextId++
+_tmp_0.jsonrpc = "2.0"
+this._pendingBatch == null
+this._pendingBatch = [ ]
+const inflightRequest: any = { request, resolve: null, reject: null }
+const promise = new Promise((resolve, reject) => {
+            inflightRequest.resolve = resolve;
+            inflightRequest.reject = reject;
+        })
+this._pendingBatch.push(inflightRequest)
+!this._pendingBatchAggregator
+this._pendingBatchAggregator = setTimeout(() => {
+
+                // Get teh current batch and clear it, so new requests
+                // go into the next batch
+                const batch = this._pendingBatch;
+                this._pendingBatch = null;
+                this._pendingBatchAggregator = null;
+
+                // Get the request as an array of requests
+                const request = batch.map((inflight) => inflight.request);
+
+                this.emit("debug", {
+                    action: "requestBatch",
+                    request: deepCopy(request),
+                    provider: this
+                });
+
+                return fetchJson(this.connection, JSON.stringify(request)).then((result) => {
+                    this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: this
+                    });
+
+                    // For each result,...

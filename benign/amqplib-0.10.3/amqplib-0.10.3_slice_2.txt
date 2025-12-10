@@ -1,0 +1,15 @@
+function roundrobin = function roundrobin(streams) {
+    var s;
+    while (accepting && (s = streams.shift())) {
+      var chunk = s.read();
+      if (chunk !== null) {
+        accepting = out.write(chunk);
+        streams.push(s);
+      }
+    }
+  }
+accepting && (s = streams.shift())
+var chunk = s.read()
+chunk !== null
+accepting = out.write(chunk)
+streams.push(s)

@@ -1,0 +1,4 @@
+topicPartitions = param1_0.topicPartitions
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ topicPartitions, timeout, validateOnly })

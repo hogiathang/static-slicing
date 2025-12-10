@@ -1,0 +1,118 @@
+function aliasFields = function aliasFields(schema, paths) {
+  for (const path of Object.keys(paths)) {
+    let alias = null;
+    if (paths[path] != null) {
+      alias = paths[path];
+    } else {
+      const options = get(schema.paths[path], 'options');
+      if (options == null) {
+        continue;
+      }
+
+      alias = options.alias;
+    }
+
+    if (!alias) {
+      continue;
+    }
+
+    const prop = schema.paths[path].path;
+    if (Array.isArray(alias)) {
+      for (const a of alias) {
+        if (typeof a !== 'string') {
+          throw new Error('Invalid value for alias option on ' + prop + ', got ' + a);
+        }
+
+        schema.aliases[a] = prop;
+
+        schema.
+          virtual(a).
+          get((function(p) {
+            return function() {
+              if (typeof this.get === 'function') {
+                return this.get(p);
+              }
+              return this[p];
+            };
+          })(prop)).
+          set((function(p) {
+            return function(v) {
+              return this....
+_iterator_2 = <operator>.iterator(Object.keys(paths))
+let alias = null
+paths[path] != null
+alias = paths[path]
+const options = get(schema.paths[path], 'options')
+options == null
+continue;
+alias = options.alias
+!alias
+continue;
+const prop = schema.paths[path].path
+Array.isArray(alias)
+_iterator_3 = <operator>.iterator(alias)
+typeof a !== 'string'
+throw new Error('Invalid value for alias option on ' + prop + ', got ' + a);
+schema.aliases[a] = prop
+schema.
+          virtual(a).
+          get((function(p) {
+            return function() {
+              if (typeof this.get === 'function') {
+                return this.get(p);
+              }
+              return this[p];
+            };
+          })(prop)).
+          set((function(p) {
+            return function(v) {
+              return this.$set(p, v);
+            };
+          })(prop))
+virtual
+(function(p) {
+            return function() {
+              if (typeof this.get === 'function') {
+                return this.get(p);
+              }
+              return this[p];
+            };
+          })(prop)
+(function(p) {
+            return function(v) {
+              return this.$set(p, v);
+            };
+          })(prop)
+continue;
+typeof alias !== 'string'
+throw new Error('Invalid value for alias option on ' + prop + ', got ' + alias);
+schema.aliases[alias] = prop
+schema.
+      virtual(alias).
+      get((function(p) {
+        return function() {
+          if (typeof this.get === 'function') {
+            return this.get(p);
+          }
+          return this[p];
+        };
+      })(prop)).
+      set((function(p) {
+        return function(v) {
+          return this.$set(p, v);
+        };
+      })(prop))
+virtual
+(function(p) {
+        return function() {
+          if (typeof this.get === 'function') {
+            return this.get(p);
+          }
+          return this[p];
+        };
+      })(prop)
+(function(p) {
+        return function(v) {
+          return this.$set(p, v);
+        };
+      })(prop)

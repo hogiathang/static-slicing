@@ -1,0 +1,54 @@
+_add_container_actions(container) {
+        // collect groups by titles
+        let title_group_map = {}
+        for (let group of this._action_groups) {
+            if (group.title in title_group_map) {
+                let msg = 'cannot merge actions - two groups are named %r'
+                throw new TypeError(sub(msg, group.title))
+            }
+            title_group_map[group.title] = group
+        }
+
+        // map each action to its group
+        let group_map = new Map()
+        for (let group of container._action_groups) {
+
+            // if a group with the title exists, use that, otherwise
+            // create a new group matching the container's group
+            if (!(group.title in title_group_map)) {
+                title_group_map[group.title] = this.add_argument_group({
+                    title: group.title,
+                    description: group.description,
+                    conflict_handler: group.conflict_handler
+                })
+            }
+
+         ...
+let title_group_map = {}
+_iterator_28 = <operator>.iterator(this._action_groups)
+group.title in title_group_map
+let msg = 'cannot merge actions - two groups are named %r'
+throw new TypeError(sub(msg, group.title))
+title_group_map[group.title] = group
+let group_map = new Map()
+_iterator_29 = <operator>.iterator(container._action_groups)
+!(group.title in title_group_map)
+title_group_map[group.title] = this.add_argument_group({
+                    title: group.title,
+                    description: group.description,
+                    conflict_handler: group.conflict_handler
+                })
+_tmp_216.title = group.title
+_tmp_216.description = group.description
+_tmp_216.conflict_handler = group.conflict_handler
+_iterator_30 = <operator>.iterator(group._group_actions)
+group_map.set(action, title_group_map[group.title])
+_iterator_31 = <operator>.iterator(container._mutually_exclusive_groups)
+let mutex_group = this.add_mutually_exclusive_group({
+                required: group.required
+            })
+_tmp_217.required = group.required
+_iterator_32 = <operator>.iterator(group._group_actions)
+group_map.set(action, mutex_group)
+_iterator_33 = <operator>.iterator(container._actions)
+(_tmp_218 = group_map.get(action))._add_action

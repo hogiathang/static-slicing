@@ -1,0 +1,13 @@
+config(env) {
+    let _env = env === undefined ? process.env.EMBER_ENV : env;
+    let key = `${this.configPath()}|${_env}`;
+    let config = this.configCache.get(key);
+    if (config === undefined) {
+      config = this.configWithoutCache(_env);
+      this.configCache.set(key, config);
+    }
+    return cloneDeep(config);
+  }
+let _env = env === undefined ? process.env.EMBER_ENV : env
+<operator>.formatString("", this.configPath(), "|", _env, "")
+let config = this.configCache.get(key)

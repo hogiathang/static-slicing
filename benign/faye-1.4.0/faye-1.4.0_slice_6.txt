@@ -1,0 +1,17 @@
+_tmp_97.handleError = <lambda>109
+var envelope = this._envelopes[message.id]
+var request  = envelope && envelope.request
+var self     = this
+!request
+request.then(function(req) {
+      if (req && req.abort) req.abort();
+    })
+var scheduler = envelope.scheduler
+scheduler.fail()
+global.clearTimeout(envelope.timer)
+envelope.request = envelope.timer = null
+envelope.timer = global.setTimeout(function() {
+        envelope.timer = null;
+        self._sendEnvelope(envelope);
+      }, scheduler.getInterval() * 1000)
+scheduler.getInterval() * 1000

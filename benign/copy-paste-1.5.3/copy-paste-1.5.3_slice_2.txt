@@ -1,0 +1,34 @@
+exports.copy = function(text, callback) {
+	const opts = { env: Object.assign({}, process.env, config.copy.env) };
+	var child = spawn(config.copy.command, config.copy.args, opts);
+
+	var done = (callback
+		? function() { callback.apply(this, arguments); done = noop; }
+		: function(err) { if(err) { throw err; } done = noop; }
+	);
+
+	var err = [];
+
+	child.stdin.on("error", function (err) { done(err); });
+	child
+		.on("exit", function() { done(null, text); })
+		.on("error", function(err) { done(err); })
+		.stderr
+			.on("data", function(chunk) { err.push(chunk); })
+			.on("end", function() {
+				if(err.length === 0) { return; }
+				done(new Error(config.decode(err)));
+			})
+	;
+
+	if(!child.pid) { return text; }
+
+	if(text?.pipe) { text.pipe(child.stdin); }
+	else {
+		var output, type = Object.prototype.toString.call(text);
+
+		if(type === "[object String]") { output = text; }
+		else if(type === "[object Object]") { output = util.inspect(text, { depth: null }); }
+		else if(type === "[object Ar...
+const opts = { env: Object.assign({}, process.env, config.copy.env) }
+var child = spawn(config.copy.command, config.copy.args, opts)

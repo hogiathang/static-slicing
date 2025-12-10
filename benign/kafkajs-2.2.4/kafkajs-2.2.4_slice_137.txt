@@ -1,0 +1,78 @@
+async fetch({
+    replicaId,
+    isolationLevel,
+    maxWaitTime = 5000,
+    minBytes = 1,
+    maxBytes = 10485760,
+    topics,
+    rackId = '',
+  }) {
+    // TODO: validate topics not null/empty
+    const fetch = this.lookupRequest(apiKeys.Fetch, requests.Fetch)
+
+    // Shuffle topic-partitions to ensure fair response allocation across partitions (KIP-74)
+    const flattenedTopicPartitions = topics.reduce((topicPartitions, { topic, partitions }) => {
+      partitions.forEach(partition => {
+        topicPartitions.push({ topic, partition })
+      })
+      return topicPartitions
+    }, [])
+
+    const shuffledTopicPartitions = shuffle(flattenedTopicPartitions)
+
+    // Consecutive partitions for the same topic can be combined into a single `topic` entry
+    const consolidatedTopicPartitions = shuffledTopicPartitions.reduce(
+      (topicPartitions, { topic, partition }) => {
+        const last = topicPartitions[topicPartitions.length - 1]
+
+        if (last != null && last.topic === topi...
+replicaId = param1_2.replicaId
+isolationLevel = param1_2.isolationLevel
+maxWaitTime = param1_2.maxWaitTime
+minBytes = param1_2.minBytes
+maxBytes = param1_2.maxBytes
+topics = param1_2.topics
+rackId = param1_2.rackId
+const fetch = this.lookupRequest(apiKeys.Fetch, requests.Fetch)
+const flattenedTopicPartitions = topics.reduce((topicPartitions, { topic, partitions }) => {
+      partitions.forEach(partition => {
+        topicPartitions.push({ topic, partition })
+      })
+      return topicPartitions
+    }, [])
+__ecma.Array.factory()
+const shuffledTopicPartitions = shuffle(flattenedTopicPartitions)
+const consolidatedTopicPartitions = shuffledTopicPartitions.reduce(
+      (topicPartitions, { topic, partition }) => {
+        const last = topicPartitions[topicPartitions.length - 1]
+
+        if (last != null && last.topic === topic) {
+          topicPartitions[topicPartitions.length - 1].partitions.push(partition)
+        } else {
+          topicPartitions.push({ topic, partitions: [partition] })
+        }
+
+        return topicPartitions
+      },
+      []
+    )
+partition = param2_1.partition
+__ecma.Array.factory()
+await this[PRIVATE.SEND_REQUEST](
+      fetch({
+        replicaId,
+        isolationLevel,
+        maxWaitTime,
+        minBytes,
+        maxBytes,
+        topics: consolidatedTopicPartitions,
+        rackId,
+      })
+    )
+_tmp_35.replicaId = replicaId
+_tmp_35.isolationLevel = isolationLevel
+_tmp_35.maxWaitTime = maxWaitTime
+_tmp_35.minBytes = minBytes
+_tmp_35.maxBytes = maxBytes
+_tmp_35.topics = consolidatedTopicPartitions
+_tmp_35.rackId = rackId

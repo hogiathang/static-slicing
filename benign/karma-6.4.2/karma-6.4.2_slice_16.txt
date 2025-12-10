@@ -1,0 +1,90 @@
+async _start (config, launcher, preprocess, fileList, capturedBrowsers, executor, done) {
+    if (config.detached) {
+      this._detach(config, done)
+      return
+    }
+
+    this._fileList = fileList
+
+    await Promise.all(
+      config.frameworks.map((framework) => this._injector.get('framework:' + framework))
+    )
+
+    const webServer = this._injector.get('webServer')
+    const socketServer = this._injector.get('socketServer')
+
+    const singleRunDoneBrowsers = Object.create(null)
+    const singleRunBrowsers = new BrowserCollection(new EventEmitter())
+    let singleRunBrowserNotCaptured = false
+
+    webServer.on('error', (err) => {
+      this.log.error(`Webserver fail ${err}`)
+      this._close(1)
+    })
+
+    const afterPreprocess = () => {
+      if (config.autoWatch) {
+        const watcher = this.get('watcher')
+        this._injector.invoke(watcher)
+      }
+
+      webServer.listen(this._boundServer, () => {
+        this.log.info(`Karma v${constant.VERSION} server started at ${c...
+config.detached
+this._fileList = fileList
+await Promise.all(
+      config.frameworks.map((framework) => this._injector.get('framework:' + framework))
+    )
+config.frameworks.map((framework) => this._injector.get('framework:' + framework))
+const webServer = this._injector.get('webServer')
+const socketServer = this._injector.get('socketServer')
+const singleRunDoneBrowsers = Object.create(null)
+const singleRunBrowsers = new BrowserCollection(new EventEmitter())
+let singleRunBrowserNotCaptured = false
+webServer.on('error', (err) => {
+      this.log.error(`Webserver fail ${err}`)
+      this._close(1)
+    })
+const afterPreprocess = () => {
+      if (config.autoWatch) {
+        const watcher = this.get('watcher')
+        this._injector.invoke(watcher)
+      }
+
+      webServer.listen(this._boundServer, () => {
+        this.log.info(`Karma v${constant.VERSION} server started at ${config.protocol}//${config.hostname}:${config.port}${config.urlRoot}`)
+
+        this.emit('listening', config.port)
+        if (config.browsers && config.browsers.length) {
+          this._injector.invoke(launcher.launch, launcher).forEach((browserLauncher) => {
+            singleRunDoneBrowsers[browserLauncher.id] = false
+          })
+        }
+        if (this.loadErrors.length > 0) {
+          this.log.error(new Error(`Found ${this.loadErrors.length} load error${this.loadErrors.length === 1 ? '' : 's'}`))
+          this._close(1)
+        }
+      })
+    }
+fileList.refresh().then(afterPreprocess, (err) => {
+      this.log.error('Error during file loading or preprocessing\n' + err.stack || err)
+      afterPreprocess()
+    })
+this.on('browsers_change', () => socketServer.sockets.emit('info', capturedBrowsers.serialize()))
+this.on('browser_register', (browser) => {
+      launcher.markCaptured(browser.id)
+
+      if (launcher.areAllCaptured()) {
+        this.emit('browsers_ready')
+
+        if (config.autoWatch) {
+          executor.schedule()
+        }
+      }
+    })
+config.browserConsoleLogOptions && config.browserConsoleLogOptions.path
+const configLevel = config.browserConsoleLogOptions.level || 'debug'
+const configFormat = config.browserConsoleLogOptions.format || '%b %T: %m'
+const configPath = config.browserConsoleLogOptions.path
+const configPathDir = path.dirname(configPath)
+fs.mkdirSync(configPathDir, { recursive: true })

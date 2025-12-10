@@ -1,0 +1,27 @@
+function Navbar = function Navbar(_app, viewCtrl, navCtrl, config, elementRef, renderer) {
+            var _this = _super.call(this, config, elementRef, renderer) || this;
+            _this._app = _app;
+            _this.navCtrl = navCtrl;
+            /**
+             * @hidden
+             */
+            _this._hidden = false;
+            /**
+             * @hidden
+             */
+            _this._hideBb = false;
+            viewCtrl && viewCtrl._setNavbar(_this);
+            _this._bbIcon = config.get('backButtonIcon');
+            _this._sbPadding = config.getBoolean('statusbarPadding');
+            _this._backText = config.get('backButtonText', 'Back');
+            return _this;
+        }
+var _this = _super.call(this, config, elementRef, renderer) || this
+_this._app = _app
+_this.navCtrl = navCtrl
+_this._hidden = false
+_this._hideBb = false
+viewCtrl && viewCtrl._setNavbar(_this)
+_this._bbIcon = config.get('backButtonIcon')
+_this._sbPadding = config.getBoolean('statusbarPadding')
+_this._backText = config.get('backButtonText', 'Back')

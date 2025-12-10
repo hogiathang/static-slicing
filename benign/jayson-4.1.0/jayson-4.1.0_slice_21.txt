@@ -1,0 +1,31 @@
+Client.prototype._request = function(request, callback) {
+  const self = this;
+
+  // serializes the request as a JSON string so that we get a copy and can run the replacer as intended
+  utils.JSON.stringify(request, this.options, function(err, message) {
+    if(err) {
+      callback(err);
+      return;
+    }
+
+    self.server.call(message, function(error, success) {
+      const response = error || success;
+      callback(null, response);
+    });
+
+  });
+
+}
+const self = this
+utils.JSON.stringify(request, this.options, function(err, message) {
+    if(err) {
+      callback(err);
+      return;
+    }
+
+    self.server.call(message, function(error, success) {
+      const response = error || success;
+      callback(null, response);
+    });
+
+  })

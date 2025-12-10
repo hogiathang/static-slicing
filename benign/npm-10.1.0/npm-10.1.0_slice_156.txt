@@ -1,0 +1,47 @@
+async list (args, path) {
+    /* eslint-disable-next-line max-len */
+    const { content: { scripts, name, _id } } = await pkgJson.normalize(path || this.npm.localPrefix)
+    const pkgid = _id || name
+
+    if (!scripts) {
+      return []
+    }
+
+    const allScripts = Object.keys(scripts)
+    if (this.npm.silent) {
+      return allScripts
+    }
+
+    if (this.npm.config.get('json')) {
+      this.npm.output(JSON.stringify(scripts, null, 2))
+      return allScripts
+    }
+
+    if (this.npm.config.get('parseable')) {
+      for (const [script, cmd] of Object.entries(scripts)) {
+        this.npm.output(`${script}:${cmd}`)
+      }
+
+      return allScripts
+    }
+
+    const indent = '\n    '
+    const prefix = '  '
+    const cmds = []
+    const runScripts = []
+    for (const script of allScripts) {
+      const list = cmdList.includes(script) ? cmds : runScripts
+      list.push(script)
+    }
+    const colorize = this.npm.chalk
+
+    if (cmds.length) {
+      this.npm.output(
+        `${colorize.r...
+_tmp_29 = await pkgJson.normalize(path || this.npm.localPrefix)
+const pkgid = _id || name
+!scripts
+const allScripts = Object.keys(scripts)
+this.npm.silent
+(_tmp_31 = this.npm.config).get
+this.npm.output(JSON.stringify(scripts, null, 2))

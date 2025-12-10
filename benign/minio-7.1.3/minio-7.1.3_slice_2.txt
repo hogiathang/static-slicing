@@ -1,0 +1,11 @@
+async performRequest(): Promise<CredentialResponse> {
+    const { requestOptions, requestData } = this.getRequestConfig()
+
+    const res = await request(this.transport, requestOptions, requestData)
+
+    const body = await readAsString(res)
+
+    return parseXml(body)
+  }
+requestOptions = _tmp_10.requestOptions
+const res = await request(this.transport, requestOptions, requestData)

@@ -1,0 +1,10 @@
+function debug = function debug (title, content) {
+  if (process.env.CI === 'true') {
+    console.log(`::group::${title}`)
+    console.log(JSON.stringify(content, null, 3))
+    console.log('::endgroup::')
+  }
+}
+process.env.CI === 'true'
+<operator>.formatString("::group::", title, "")
+console.log(JSON.stringify(content, null, 3))

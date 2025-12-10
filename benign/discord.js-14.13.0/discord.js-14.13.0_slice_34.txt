@@ -1,0 +1,7 @@
+options = options === void 0 ? {} : options
+const id = this.resolveId(options) ?? this.resolveId(options.guild)
+!options.force
+const existing = this.cache.get(id)
+const data = await this.client.rest.get(Routes.guild(id), {
+        query: makeURLSearchParams({ with_counts: options.withCounts ?? true }),
+      })

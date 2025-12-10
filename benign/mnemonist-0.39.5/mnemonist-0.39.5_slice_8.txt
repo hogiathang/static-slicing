@@ -1,0 +1,19 @@
+function del = function del(key) {
+  if (this.items.has(key)) {
+    var currentValue = this.items.get(key);
+
+    this.items.delete(key);
+    this.inverse.items.delete(currentValue);
+
+    // Size
+    this.size = this.items.size;
+    this.inverse.size = this.inverse.items.size;
+
+    return true;
+  }
+
+  return false;
+}
+(_tmp_13 = this.items).has
+var currentValue = this.items.get(key)
+(_tmp_15 = this.items).delete

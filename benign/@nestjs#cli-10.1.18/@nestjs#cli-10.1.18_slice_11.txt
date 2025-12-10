@@ -1,0 +1,10 @@
+const initializeGitRepository = async (dir) => {
+    const runner = new git_runner_1.GitRunner();
+    await runner.run('init', true, (0, path_1.join)(process.cwd(), dir)).catch(() => {
+        console.error(chalk.red(ui_1.MESSAGES.GIT_INITIALIZATION_ERROR));
+    });
+}
+const runner = new git_runner_1.GitRunner()
+await runner.run('init', true, (0, path_1.join)(process.cwd(), dir)).catch(() => {
+        console.error(chalk.red(ui_1.MESSAGES.GIT_INITIALIZATION_ERROR));
+    })

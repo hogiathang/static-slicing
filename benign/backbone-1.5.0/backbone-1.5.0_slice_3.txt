@@ -1,0 +1,16 @@
+_tmp_63._removeModels = <lambda>87
+__ecma.Array.factory()
+i < models.length
+var model = this.get(models[i])
+!model
+var index = this.indexOf(model)
+(_tmp_91 = this.models).splice
+this.length--
+delete this._byId[model.cid]
+var id = this.modelId(model.attributes, model.idAttribute)
+delete this._byId[id]
+!options.silent
+options.index = index
+model.trigger('remove', model, this, options)
+removed.push(model)
+this._removeReference(model, options)

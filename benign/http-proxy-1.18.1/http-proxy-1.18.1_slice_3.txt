@@ -1,0 +1,59 @@
+function(req, res /*, [head], [opts] */) {
+      var passes = (type === 'ws') ? this.wsPasses : this.webPasses,
+          args = [].slice.call(arguments),
+          cntr = args.length - 1,
+          head, cbl;
+
+      /* optional args parse begin */
+      if(typeof args[cntr] === 'function') {
+        cbl = args[cntr];
+
+        cntr--;
+      }
+
+      var requestOptions = options;
+      if(
+        !(args[cntr] instanceof Buffer) &&
+        args[cntr] !== res
+      ) {
+        //Copy global options
+        requestOptions = extend({}, options);
+        //Overwrite with request options
+        extend(requestOptions, args[cntr]);
+
+        cntr--;
+      }
+
+      if(args[cntr] instanceof Buffer) {
+        head = args[cntr];
+      }
+
+      /* optional args parse end */
+
+      ['target', 'forward'].forEach(function(e) {
+        if (typeof requestOptions[e] === 'string')
+          requestOptions[e] = parse_url(requestOptions[e]);
+      });
+
+      if (!requestOptions.target && !requestOptions....
+var passes = (type === 'ws') ? this.wsPasses : this.webPasses
+var args = [].slice.call(arguments)
+var cntr = args.length - 1
+typeof args[cntr] === 'function'
+cbl = args[cntr]
+cntr--
+var requestOptions = options
+!(args[cntr] instanceof Buffer) &&
+        args[cntr] !== res
+args[cntr] !== res
+requestOptions = extend({}, options)
+extend(requestOptions, args[cntr])
+cntr--
+args[cntr] instanceof Buffer
+head = args[cntr]
+['target', 'forward'].forEach(function(e) {
+        if (typeof requestOptions[e] === 'string')
+          requestOptions[e] = parse_url(requestOptions[e]);
+      })
+!requestOptions.target && !requestOptions.forward
+this.emit('error', new Error('Must provide a proper URL as target'))

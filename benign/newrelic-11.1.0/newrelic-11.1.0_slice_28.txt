@@ -1,0 +1,56 @@
+addAttribute(
+    destinations,
+    key,
+    value,
+    truncateExempt = false,
+    priority = ATTRIBUTE_PRIORITY.HIGH
+  ) {
+    const existingAttribute = this.attributes.get(key)
+
+    let droppableAttributeKey = null
+    if (!existingAttribute && this.attributes.size === this.limit) {
+      droppableAttributeKey = this._getDroppableAttributeKey(priority)
+
+      if (!droppableAttributeKey) {
+        logger.debug(
+          `Maximum number of custom attributes have been added.
+          Dropping attribute ${key} with ${value} type.`
+        )
+
+        return
+      }
+    }
+
+    if (existingAttribute && priority < existingAttribute.priority) {
+      logger.debug("incoming priority for '%s' is lower than existing, not updating.", key)
+      logger.trace(
+        '%s attribute retained value: %s, ignored value: %s',
+        key,
+        existingAttribute.value,
+        value
+      )
+      return
+    }
+
+    if (!isValidType(value)) {
+      logger.debug(
+        'Not adding attribute %s wi...
+truncateExempt = truncateExempt === void 0 ? false : truncateExempt
+priority = priority === void 0 ? ATTRIBUTE_PRIORITY.HIGH : priority
+const existingAttribute = this.attributes.get(key)
+let droppableAttributeKey = null
+!existingAttribute && this.attributes.size === this.limit
+droppableAttributeKey = this._getDroppableAttributeKey(priority)
+!droppableAttributeKey
+existingAttribute && priority < existingAttribute.priority
+!isValidType(value)
+!this.isValidLength(key)
+const validDestinations = this.filter(destinations, key)
+!validDestinations
+logger.trace(
+        'dropping existing lower priority attribute %s ' + 'to add higher priority attribute %s',
+        droppableAttributeKey,
+        key
+      )
+'dropping existing lower priority attribute %s ' + 'to add higher priority attribute %s'
+this.attributes.delete(droppableAttributeKey)

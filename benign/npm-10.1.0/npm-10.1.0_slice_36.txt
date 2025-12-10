@@ -1,0 +1,68 @@
+async exec (args) {
+    const spec = args[0]
+
+    let fundingSourceNumber = this.npm.config.get('which')
+    if (fundingSourceNumber != null) {
+      fundingSourceNumber = parseInt(fundingSourceNumber, 10)
+      if (isNaN(fundingSourceNumber) || fundingSourceNumber < 1) {
+        throw errCode(
+          `${this.usageMessage({ which: 'fundingSourceNumber' })} must be given a positive integer`,
+          'EFUNDNUMBER'
+        )
+      }
+    }
+
+    if (this.npm.global) {
+      throw errCode(
+        `${this.usageMessage()} does not support global packages`,
+        'EFUNDGLOBAL'
+      )
+    }
+
+    const where = this.npm.prefix
+    const Arborist = require('@npmcli/arborist')
+    const arb = new Arborist({ ...this.npm.flatOptions, path: where })
+    const tree = await arb.loadActual()
+
+    if (spec) {
+      await this.openFundingUrl({
+        path: where,
+        tree,
+        spec,
+        fundingSourceNumber,
+      })
+      return
+    }
+
+    // TODO: add !workspacesEnabled option hand...
+const spec = args[0]
+let fundingSourceNumber = this.npm.config.get('which')
+fundingSourceNumber != null
+fundingSourceNumber = parseInt(fundingSourceNumber, 10)
+isNaN(fundingSourceNumber) || fundingSourceNumber < 1
+throw errCode(
+          `${this.usageMessage({ which: 'fundingSourceNumber' })} must be given a positive integer`,
+          'EFUNDNUMBER'
+        )
+<operator>.formatString("", this.usageMessage({ which: 'fundingSourceNumber' }), " must be given a positive integer")
+"EFUNDNUMBER"
+this.npm.global
+throw errCode(
+        `${this.usageMessage()} does not support global packages`,
+        'EFUNDGLOBAL'
+      )
+<operator>.formatString("", this.usageMessage(), " does not support global packages")
+"EFUNDGLOBAL"
+const where = this.npm.prefix
+const Arborist = require('@npmcli/arborist')
+const arb = new Arborist({ ...this.npm.flatOptions, path: where })
+const tree = await arb.loadActual()
+const fundingInfo = getFundingInfo(tree, {
+      ...this.flatOptions,
+      Arborist,
+      workspaces: this.workspaceNames,
+    })
+...this.flatOptions
+_tmp_10.Arborist = Arborist
+_tmp_10.workspaces = this.workspaceNames
+(_tmp_11 = this.npm.config).get

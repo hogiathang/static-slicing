@@ -1,0 +1,43 @@
+get cleanContent() {
+        let cleanContent = this.content && this.content.replace(/<a?(:\w+:)[0-9]+>/g, "$1") || "";
+
+        let authorName = this.author.username;
+        if(this.channel.guild) {
+            const member = this.channel.guild.members.get(this.author.id);
+            if(member && member.nick) {
+                authorName = member.nick;
+            }
+        }
+        cleanContent = cleanContent.replace(new RegExp(`<@!?${this.author.id}>`, "g"), "@\u200b" + authorName);
+
+        if(this.mentions) {
+            this.mentions.forEach((mention) => {
+                if(this.channel.guild) {
+                    const member = this.channel.guild.members.get(mention.id);
+                    if(member && member.nick) {
+                        cleanContent = cleanContent.replace(new RegExp(`<@!?${mention.id}>`, "g"), "@\u200b" + member.nick);
+                    }
+                }
+                cleanContent = cleanContent.replace(new RegExp(`<@!?${mention.id}>`, "g"), "...
+let cleanContent = this.content && this.content.replace(/<a?(:\w+:)[0-9]+>/g, "$1") || ""
+let authorName = this.author.username
+this.channel.guild
+const member = this.channel.guild.members.get(this.author.id)
+member && member.nick
+authorName = member.nick
+cleanContent = cleanContent.replace(new RegExp(`<@!?${this.author.id}>`, "g"), "@\u200b" + authorName)
+this.mentions
+this.mentions.forEach((mention) => {
+                if(this.channel.guild) {
+                    const member = this.channel.guild.members.get(mention.id);
+                    if(member && member.nick) {
+                        cleanContent = cleanContent.replace(new RegExp(`<@!?${mention.id}>`, "g"), "@\u200b" + member.nick);
+                    }
+                }
+                cleanContent = cleanContent.replace(new RegExp(`<@!?${mention.id}>`, "g"), "@\u200b" + mention.username);
+            })
+this.channel.guild && this.roleMentions
+_iterator_0 = <operator>.iterator(this.roleMentions)
+const role = this.channel.guild.roles.get(roleID)
+const roleName = role ? role.name : "deleted-role"
+cleanContent = cleanContent.replace(new RegExp(`<@&${roleID}>`, "g"), "@\u200b" + roleName)

@@ -1,0 +1,8 @@
+process.title = 'mime'
+let mime = require('.')
+let pkg = require('./package.json')
+let args = process.argv.splice(2)
+args.includes('--version') || args.includes('-v') || args.includes('--v')
+args.includes('--name') || args.includes('-n') || args.includes('--n')
+console.log(pkg.name)
+process.exit(0)

@@ -1,0 +1,23 @@
+function GetOrCreateMetadataMap = function GetOrCreateMetadataMap(O, P, Create) {
+            var targetMetadata = Metadata.get(O);
+            if (IsUndefined(targetMetadata)) {
+                if (!Create)
+                    return undefined;
+                targetMetadata = new _Map();
+                Metadata.set(O, targetMetadata);
+            }
+            var metadataMap = targetMetadata.get(P);
+            if (IsUndefined(metadataMap)) {
+                if (!Create)
+                    return undefined;
+                metadataMap = new _Map();
+                targetMetadata.set(P, metadataMap);
+            }
+            return metadataMap;
+        }
+var targetMetadata = Metadata.get(O)
+IsUndefined(targetMetadata)
+!Create
+targetMetadata = new _Map()
+Metadata.set(O, targetMetadata)
+var metadataMap = targetMetadata.get(P)

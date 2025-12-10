@@ -1,0 +1,23 @@
+destroy(resource) {
+    // check for an outstanding loan
+    const loan = this._resourceLoans.get(resource);
+
+    if (loan === undefined) {
+      return this._Promise.reject(
+        new Error("Resource not currently part of this pool")
+      );
+    }
+
+    this._resourceLoans.delete(resource);
+    loan.resolve();
+    const pooledResource = loan.pooledResource;
+
+    pooledResource.deallocate();
+    this._destroy(pooledResource);
+
+    this._dispense();
+    return this._Promise.resolve();
+  }
+const loan = this._resourceLoans.get(resource)
+loan === undefined
+(_tmp_65 = this._resourceLoans).delete

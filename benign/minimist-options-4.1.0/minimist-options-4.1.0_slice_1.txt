@@ -1,0 +1,57 @@
+Object.keys(options).forEach(key => {
+		let value = options[key];
+
+		if (key === 'arguments') {
+			key = '_';
+		}
+
+		// If short form is used
+		// convert it to long form
+		// e.g. { 'name': 'string' }
+		if (typeof value === 'string') {
+			value = {type: value};
+		}
+
+		if (isPlainObject(value)) {
+			const props = value;
+			const {type} = props;
+
+			if (type) {
+				if (!availableTypes.includes(type)) {
+					throw new TypeError(`Expected type of "${key}" to be one of ${prettyPrint(availableTypes)}, got ${prettyPrint(type)}`);
+				}
+
+				if (arrayTypes.includes(type)) {
+					const [elementType] = type.split('-');
+					push(result, 'array', {key, [elementType]: true});
+				} else {
+					push(result, type, key);
+				}
+			}
+
+			if ({}.hasOwnProperty.call(props, 'default')) {
+				const {default: defaultValue} = props;
+				const defaultType = resolveType(defaultValue);
+				const expectedType = normalizeExpectedType(type, defaultValue);
+
+				if (expectedType && expectedType !== defaultType) ...
+let value = options[key]
+key === 'arguments'
+key = '_'
+typeof value === 'string'
+value = {type: value}
+isPlainObject(value)
+const props = value
+type = _tmp_11.type
+!availableTypes.includes(type)
+<operator>.formatString("Expected type of "", key, "" to be one of ", prettyPrint(availableTypes), ", got ", prettyPrint(type), "")
+arrayTypes.includes(type)
+_tmp_13 = type.split('-')
+push(result, 'array', {key, [elementType]: true})
+push(result, type, key)
+{}.hasOwnProperty.call(props, 'default')
+defaultValue = _tmp_17.default
+const defaultType = resolveType(defaultValue)
+const expectedType = normalizeExpectedType(type, defaultValue)
+expectedType && expectedType !== defaultType
+<operator>.formatString("Expected "", key, "" default value to be of type "", expectedType, "", got ", prettyPrint(defaultType), "")

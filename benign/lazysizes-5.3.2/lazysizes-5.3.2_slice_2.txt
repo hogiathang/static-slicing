@@ -1,0 +1,33 @@
+function loadInclude = function loadInclude(detail, includeCallback){
+		var request = new XMLHttpRequest();
+
+		request.addEventListener('readystatechange', function () {
+			var DONE = this.DONE || 4;
+			if (this.readyState === DONE){
+
+				includeCallback(request);
+				request = null;
+			}
+		}, false);
+
+		request.open.apply(request, detail.openArgs);
+		request.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+		if(detail.xhrModifier){
+			detail.xhrModifier(request, detail.candidate);
+		}
+		request.send(detail.sendData);
+	}
+var request = new XMLHttpRequest()
+request.addEventListener('readystatechange', function () {
+			var DONE = this.DONE || 4;
+			if (this.readyState === DONE){
+
+				includeCallback(request);
+				request = null;
+			}
+		}, false)
+request.open.apply(request, detail.openArgs)
+request.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+detail.xhrModifier
+detail.xhrModifier(request, detail.candidate)
+request.send(detail.sendData)

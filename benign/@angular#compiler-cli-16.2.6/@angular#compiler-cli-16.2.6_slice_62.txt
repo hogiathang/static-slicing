@@ -1,0 +1,43 @@
+resolveTypeList(expr, resolvedList, className, arrayName, absoluteIndex) {
+    let hasModuleWithProviders = false;
+    const refList = [];
+    if (!Array.isArray(resolvedList)) {
+      throw createValueHasWrongTypeError(expr, resolvedList, `Expected array when reading the NgModule.${arrayName} of ${className}`);
+    }
+    for (let idx = 0; idx < resolvedList.length; idx++) {
+      let entry = resolvedList[idx];
+      if (entry instanceof SyntheticValue && isResolvedModuleWithProviders(entry)) {
+        entry = entry.value.ngModule;
+        hasModuleWithProviders = true;
+      } else if (entry instanceof Map && entry.has("ngModule")) {
+        entry = entry.get("ngModule");
+        hasModuleWithProviders = true;
+      }
+      if (Array.isArray(entry)) {
+        const recursiveResult = this.resolveTypeList(expr, entry, className, arrayName, absoluteIndex);
+        refList.push(...recursiveResult.references);
+        absoluteIndex += recursiveResult.references.length;
+        hasModule...
+let hasModuleWithProviders = false
+__ecma.Array.factory()
+!Array.isArray(resolvedList)
+throw createValueHasWrongTypeError(expr, resolvedList, `Expected array when reading the NgModule.${arrayName} of ${className}`);
+idx < resolvedList.length
+let entry = resolvedList[idx]
+entry instanceof SyntheticValue && isResolvedModuleWithProviders(entry)
+entry = entry.value.ngModule
+hasModuleWithProviders = true
+entry instanceof Map && entry.has("ngModule")
+entry = entry.get("ngModule")
+hasModuleWithProviders = true
+Array.isArray(entry)
+const recursiveResult = this.resolveTypeList(expr, entry, className, arrayName, absoluteIndex)
+refList.push(...recursiveResult.references)
+absoluteIndex += recursiveResult.references.length
+hasModuleWithProviders = hasModuleWithProviders || recursiveResult.hasModuleWithProviders
+entry instanceof Reference
+!this.isClassDeclarationReference(entry)
+throw createValueHasWrongTypeError(entry.node, entry, `Value at position ${absoluteIndex} in the NgModule.${arrayName} of ${className} is not a class`);
+refList.push(entry)
+absoluteIndex += 1
+throw createValueHasWrongTypeError(expr, entry, `Value at position ${absoluteIndex} in the NgModule.${arrayName} of ${className} is not a reference`);

@@ -1,0 +1,41 @@
+function loadImage = function loadImage(image, cb) {
+    if (typeof image === 'string') {
+        if (/^\#/.test(image)) {
+            // element css selector
+            return loadImage(document.querySelector(image), cb);
+        } else if (/(blob|data)\:/.test(image)) {
+            // data url
+            var im = new Image();
+            im.src = image;
+            im.onload = function (e) {
+                return loadImage(im, cb);
+            };
+            return;
+        } else {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', image, true);
+            xhr.responseType = "blob";
+            xhr.onload = function (e) {
+                return loadImage(xhr.response, cb);
+            };
+            xhr.onerror = function (e) {
+                if (/^https?:\/\//.test(image) && !/^https:\/\/crossorigin.me/.test(image)) {
+                    console.debug('Attempting to load image with CORS proxy');
+                    loadImage('https://crossorigin.me/' + image, cb);
+         ...
+typeof image === 'string'
+(_tmp_40 = /^\#/).test
+(_tmp_41 = /(blob|data)\:/).test
+var xhr = new XMLHttpRequest()
+xhr.open('GET', image, true)
+xhr.responseType = "blob"
+xhr.onload = function (e) {
+                return loadImage(xhr.response, cb);
+            }
+xhr.onerror = function (e) {
+                if (/^https?:\/\//.test(image) && !/^https:\/\/crossorigin.me/.test(image)) {
+                    console.debug('Attempting to load image with CORS proxy');
+                    loadImage('https://crossorigin.me/' + image, cb);
+                }
+            }
+xhr.send(null)

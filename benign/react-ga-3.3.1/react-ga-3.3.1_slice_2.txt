@@ -1,0 +1,82 @@
+function event = function event(
+  { category, action, label, value, nonInteraction, transport, ...args } = {},
+  trackerNames = undefined
+) {
+  if (typeof ga === 'function') {
+    // Simple Validation
+    if (!category || !action) {
+      warn('args.category AND args.action are required in event()');
+      return;
+    }
+
+    // Required Fields
+    const fieldObject = {
+      hitType: 'event',
+      eventCategory: _format(category),
+      eventAction: _format(action)
+    };
+
+    // Optional Fields
+    if (label) {
+      fieldObject.eventLabel = _format(label);
+    }
+
+    if (typeof value !== 'undefined') {
+      if (typeof value !== 'number') {
+        warn('Expected `args.value` arg to be a Number.');
+      } else {
+        fieldObject.eventValue = value;
+      }
+    }
+
+    if (typeof nonInteraction !== 'undefined') {
+      if (typeof nonInteraction !== 'boolean') {
+        warn('`args.nonInteraction` must be a boolean.');
+      } else {
+        fieldObject.nonInteraction = nonInteraction;
+      }
+...
+_tmp_8 = param1_1 === void 0 ? {} : param1_1
+trackerNames = trackerNames === void 0 ? undefined : trackerNames
+typeof ga === 'function'
+!category || !action
+const fieldObject = {
+      hitType: 'event',
+      eventCategory: _format(category),
+      eventAction: _format(action)
+    }
+_tmp_9.hitType = "event"
+_tmp_9.eventCategory = _format(category)
+_tmp_9.eventAction = _format(action)
+fieldObject.eventLabel = _format(label)
+typeof value !== 'undefined'
+typeof value !== 'number'
+warn('Expected `args.value` arg to be a Number.')
+fieldObject.eventValue = value
+typeof nonInteraction !== 'undefined'
+typeof nonInteraction !== 'boolean'
+warn('`args.nonInteraction` must be a boolean.')
+fieldObject.nonInteraction = nonInteraction
+typeof transport !== 'undefined'
+typeof transport !== 'string'
+warn('`args.transport` must be a string.')
+['beacon', 'xhr', 'image'].indexOf(transport) === -1
+warn(
+            '`args.transport` must be either one of these values: `beacon`, `xhr` or `image`'
+          )
+"`args.transport` must be either one of these values: `beacon`, `xhr` or `image`"
+fieldObject.transport = transport
+Object.keys(args)
+      .filter((key) => key.substr(0, 'dimension'.length) === 'dimension')
+      .forEach((key) => {
+        fieldObject[key] = args[key];
+      })
+key.substr(0, 'dimension'.length) === 'dimension'
+<lambda>4
+Object.keys(args)
+      .filter((key) => key.substr(0, 'metric'.length) === 'metric')
+      .forEach((key) => {
+        fieldObject[key] = args[key];
+      })
+key.substr(0, 'metric'.length) === 'metric'
+<lambda>6

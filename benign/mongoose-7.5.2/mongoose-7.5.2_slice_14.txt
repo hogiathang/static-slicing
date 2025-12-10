@@ -1,0 +1,61 @@
+Document.prototype.get = function(path, type, options) {
+  let adhoc;
+  if (options == null) {
+    options = {};
+  }
+  if (type) {
+    adhoc = this.$__schema.interpretAsType(path, type, this.$__schema.options);
+  }
+  const noDottedPath = options.noDottedPath;
+
+  // Fast path if we know we're just accessing top-level path on the document:
+  // just get the schema path, avoid `$__path()` because that does string manipulation
+  let schema = noDottedPath ? this.$__schema.paths[path] : this.$__path(path);
+  if (schema == null) {
+    schema = this.$__schema.virtualpath(path);
+
+    if (schema != null) {
+      return schema.applyGetters(void 0, this);
+    }
+  }
+
+  if (noDottedPath) {
+    let obj = this._doc[path];
+    if (adhoc) {
+      obj = adhoc.cast(obj);
+    }
+    if (schema != null && options.getters !== false) {
+      return schema.applyGetters(obj, this);
+    }
+    return obj;
+  }
+
+  if (schema != null && schema.instance === 'Mixed') {
+    const virtual = this.$__schema.virtualpath(...
+options == null
+options = {}
+adhoc = this.$__schema.interpretAsType(path, type, this.$__schema.options)
+const noDottedPath = options.noDottedPath
+let schema = noDottedPath ? this.$__schema.paths[path] : this.$__path(path)
+schema == null
+schema = this.$__schema.virtualpath(path)
+schema != null
+schema != null && schema.instance === 'Mixed'
+const virtual = this.$__schema.virtualpath(path)
+virtual != null
+schema = virtual
+const hasDot = path.indexOf('.') !== -1
+let obj = this._doc
+const pieces = hasDot ? path.split('.') : [path]
+typeof this.$__schema.aliases[pieces[0]] === 'string'
+pieces[0] = this.$__schema.aliases[pieces[0]]
+let l = pieces.length
+obj && obj._doc
+obj = obj._doc
+obj == null
+obj = void 0
+obj instanceof Map
+obj = obj.get(pieces[i], { getters: false })
+i === l - 1
+obj = utils.getValue(pieces[i], obj)
+obj = obj[pieces[i]]

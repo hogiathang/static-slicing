@@ -1,0 +1,25 @@
+groupedOptions = filteredOptions.reduce((acc, option, index) => {
+      const group = groupBy(option);
+      if (acc.length > 0 && acc[acc.length - 1].group === group) {
+        acc[acc.length - 1].options.push(option);
+      } else {
+        if (process.env.NODE_ENV !== 'production') {
+          if (indexBy.get(group) && !warn) {
+            console.warn(`MUI: The options provided combined with the \`groupBy\` method of ${componentName} returns duplicated headers.`, 'You can solve the issue by sorting the options with the output of `groupBy`.');
+            warn = true;
+          }
+          indexBy.set(group, true);
+        }
+        acc.push({
+          key: index,
+          index,
+          group,
+          options: [option]
+        });
+      }
+      return acc;
+    }, [])
+const group = groupBy(option)
+acc.length > 0 && acc[acc.length - 1].group === group
+process.env.NODE_ENV !== 'production'
+indexBy.get(group) && !warn

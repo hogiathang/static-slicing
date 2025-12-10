@@ -1,0 +1,48 @@
+CoffeeScript.load = function(url, callback, options = {}, hold = false) {
+    var xhr;
+    options.sourceFiles = [url];
+    xhr = window.ActiveXObject ? new window.ActiveXObject('Microsoft.XMLHTTP') : new window.XMLHttpRequest();
+    xhr.open('GET', url, true);
+    if ('overrideMimeType' in xhr) {
+      xhr.overrideMimeType('text/plain');
+    }
+    xhr.onreadystatechange = function() {
+      var param, ref;
+      if (xhr.readyState === 4) {
+        if ((ref = xhr.status) === 0 || ref === 200) {
+          param = [xhr.responseText, options];
+          if (!hold) {
+            CoffeeScript.run(...param);
+          }
+        } else {
+          throw new Error(`Could not load ${url}`);
+        }
+        if (callback) {
+          return callback(param);
+        }
+      }
+    };
+    return xhr.send(null);
+  }
+_tmp_6 = __ecma.Array.factory()
+xhr = window.ActiveXObject ? new window.ActiveXObject('Microsoft.XMLHTTP') : new window.XMLHttpRequest()
+xhr.open('GET', url, true)
+'overrideMimeType' in xhr
+xhr.overrideMimeType('text/plain')
+xhr.onreadystatechange = function() {
+      var param, ref;
+      if (xhr.readyState === 4) {
+        if ((ref = xhr.status) === 0 || ref === 200) {
+          param = [xhr.responseText, options];
+          if (!hold) {
+            CoffeeScript.run(...param);
+          }
+        } else {
+          throw new Error(`Could not load ${url}`);
+        }
+        if (callback) {
+          return callback(param);
+        }
+      }
+    }
+xhr.send(null)

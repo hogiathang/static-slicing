@@ -1,0 +1,14 @@
+mkdirpAsync(to, {fs: fs, mode: opts.mode}).then(function () {
+    var getuid = opts.getuid || process.getuid
+    if (getuid && opts.uid != null && getuid() === 0) {
+      return chown(to, opts.uid, opts.gid)
+    }
+  }).then(function () {
+    return readdir(from)
+  }).then(function (files) {
+    files.forEach(function (file) {
+      opts.queue.add(0, recurseWith, [path.join(from, file), path.join(to, file), opts])
+    })
+  })
+var getuid = opts.getuid || process.getuid
+getuid && opts.uid != null && getuid() === 0

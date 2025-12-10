@@ -1,0 +1,8 @@
+_tmp_0.cleanup = <lambda>3
+(_tmp_5 = this.stack).pop
+var type = temp.type
+var name = temp.name
+type === 'file' && is.file(name)
+fs.unlinkSync(name)
+type === 'dir' && is.directory(name)
+fs.rmdirSync(name)

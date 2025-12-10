@@ -1,0 +1,19 @@
+_tmp_64._ie_function = <lambda>78
+var tokenStream = this._tokenStream
+var functionText = null
+tokenStream.match([Tokens.IE_FUNCTION, Tokens.FUNCTION])
+functionText = tokenStream.token().value
+this._readWhitespace()
+functionText += tokenStream.token().value
+tokenStream.LA(0) === Tokens.COMMA
+functionText += tokenStream.token().value
+tokenStream.match(Tokens.IDENT)
+functionText += tokenStream.token().value
+tokenStream.match(Tokens.EQUALS)
+functionText += tokenStream.token().value
+lt = tokenStream.peek()
+lt !== Tokens.COMMA && lt !== Tokens.S && lt !== Tokens.RPAREN
+tokenStream.get()
+functionText += tokenStream.token().value
+lt = tokenStream.peek()
+tokenStream.match([Tokens.COMMA, Tokens.S])

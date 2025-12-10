@@ -1,0 +1,24 @@
+version => {
+        if (semver.lt(version, MINIMUM_REDIS_VERSION)) {
+          this.emit(
+            'error',
+            new Error(
+              'Redis version needs to be greater than ' +
+                MINIMUM_REDIS_VERSION +
+                '. Current: ' +
+                version
+            )
+          );
+        }
+      }
+semver.lt(version, MINIMUM_REDIS_VERSION)
+this.emit(
+            'error',
+            new Error(
+              'Redis version needs to be greater than ' +
+                MINIMUM_REDIS_VERSION +
+                '. Current: ' +
+                version
+            )
+          )
+"error"

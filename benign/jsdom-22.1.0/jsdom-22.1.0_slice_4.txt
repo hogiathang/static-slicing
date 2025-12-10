@@ -1,0 +1,27 @@
+const onLoadExternalScript = data => {
+      const { response } = request;
+      let contentType;
+
+      if (response && response.statusCode !== undefined && response.statusCode >= 400) {
+        throw new Error("Status code: " + response.statusCode);
+      }
+
+      if (response) {
+        contentType = MIMEType.parse(response.headers["content-type"]) || new MIMEType("text/plain");
+      }
+
+      const encoding = whatwgEncoding.getBOMEncoding(data) ||
+        (contentType && whatwgEncoding.labelToName(contentType.parameters.get("charset"))) ||
+        defaultEncoding;
+      const script = whatwgEncoding.decode(data, encoding);
+
+      this._innerEval(script, urlString);
+    }
+response = _tmp_9.response
+response && response.statusCode !== undefined && response.statusCode >= 400
+throw new Error("Status code: " + response.statusCode);
+contentType = MIMEType.parse(response.headers["content-type"]) || new MIMEType("text/plain")
+const encoding = whatwgEncoding.getBOMEncoding(data) ||
+        (contentType && whatwgEncoding.labelToName(contentType.parameters.get("charset"))) ||
+        defaultEncoding
+contentType && whatwgEncoding.labelToName(contentType.parameters.get("charset"))

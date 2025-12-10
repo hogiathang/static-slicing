@@ -1,0 +1,35 @@
+function parseUserAgent = function parseUserAgent(ua) {
+    var matchedRule = matchUserAgent(ua);
+    if (!matchedRule) {
+        return null;
+    }
+    var name = matchedRule[0], match = matchedRule[1];
+    if (name === 'searchbot') {
+        return new BotInfo();
+    }
+    // Do not use RegExp for split operation as some browser do not support it (See: http://blog.stevenlevithan.com/archives/cross-browser-split)
+    var versionParts = match[1] && match[1].split('.').join('_').split('_').slice(0, 3);
+    if (versionParts) {
+        if (versionParts.length < REQUIRED_VERSION_PARTS) {
+            versionParts = __spreadArray(__spreadArray([], versionParts, true), createVersionParts(REQUIRED_VERSION_PARTS - versionParts.length), true);
+        }
+    }
+    else {
+        versionParts = [];
+    }
+    var version = versionParts.join('.');
+    var os = detectOS(ua);
+    var searchBotMatch = SEARCHBOT_OS_REGEX.exec(ua);
+    if (searchBotMatch && searchBotMatch[1]) {
+        return new SearchBotDeviceInfo(name, vers...
+var matchedRule = matchUserAgent(ua)
+!matchedRule
+var match = matchedRule[1]
+name === 'searchbot'
+var versionParts = match[1] && match[1].split('.').join('_').split('_').slice(0, 3)
+versionParts.length < REQUIRED_VERSION_PARTS
+versionParts = __spreadArray(__spreadArray([], versionParts, true), createVersionParts(REQUIRED_VERSION_PARTS - versionParts.length), true)
+__ecma.Array.factory()
+var version = versionParts.join('.')
+var os = detectOS(ua)
+var searchBotMatch = SEARCHBOT_OS_REGEX.exec(ua)

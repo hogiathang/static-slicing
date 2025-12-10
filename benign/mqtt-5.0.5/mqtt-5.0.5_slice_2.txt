@@ -1,0 +1,86 @@
+const handleAck: PacketHandler = (client, packet) => {
+	/* eslint no-fallthrough: "off" */
+	const { messageId } = packet
+	const type = packet.cmd
+	let response = null
+	const cb = client.outgoing[messageId] ? client.outgoing[messageId].cb : null
+	let err
+
+	// Checking `!cb` happens to work, but it's not technically "correct".
+	//
+	// Why? client code assumes client "no callback" is the same as client "we're not
+	// waiting for responses" (puback, pubrec, pubcomp, suback, or unsuback).
+	//
+	// It would be better to check `if (!client.outgoing[messageId])` here, but
+	// there's no reason to change it and risk (another) regression.
+	//
+	// The only reason client code works is becaues code in MqttClient.publish,
+	// MqttClinet.subscribe, and MqttClient.unsubscribe ensures client we will
+	// have a callback even if the user doesn't pass one in.)
+	if (!cb) {
+		client.log('_handleAck :: Server sent an ack in error. Ignoring.')
+		// Server sent an ack in error, ignore it.
+		return
+	}
+
+	// Process
+...
+messageId = _tmp_1.messageId
+const type = packet.cmd
+let response = null
+const cb = client.outgoing[messageId] ? client.outgoing[messageId].cb : null
+!cb
+client.log('_handleAck :: packet type', type)
+"pubcomp"
+"puback"
+const pubackRC = packet.reasonCode
+pubackRC && pubackRC > 0 && pubackRC !== 16
+<operator>.formatString("Publish error: ", ReasonCodes[pubackRC], "")
+err.code = pubackRC
+client['_removeOutgoingAndStoreMessage'](messageId, () => {
+					cb(err, packet)
+				})
+client['_removeOutgoingAndStoreMessage'](messageId, cb)
+break
+"pubrec"
+response = {
+				cmd: 'pubrel',
+				qos: 2,
+				messageId,
+			}
+_tmp_3.cmd = "pubrel"
+_tmp_3.qos = 2
+_tmp_3.messageId = messageId
+const pubrecRC = packet.reasonCode
+pubrecRC && pubrecRC > 0 && pubrecRC !== 16
+<operator>.formatString("Publish error: ", ReasonCodes[pubrecRC], "")
+err.code = pubrecRC
+client['_removeOutgoingAndStoreMessage'](messageId, () => {
+					cb(err, packet)
+				})
+client['_sendPacket'](response)
+break
+"suback"
+delete client.outgoing[messageId]
+client.messageIdProvider.deallocate(messageId)
+const granted = packet.granted as number[]
+grantedI < granted.length
+(granted[grantedI] & 0x80) !== 0
+const topics = client.messageIdToTopic[messageId]
+topics.forEach((topic) => {
+							delete client['_resubscribeTopics'][topic]
+						})
+delete client.messageIdToTopic[messageId]
+client['_invokeStoreProcessingQueue']()
+cb(null, packet)
+break
+"unsuback"
+delete client.outgoing[messageId]
+client.messageIdProvider.deallocate(messageId)
+client['_invokeStoreProcessingQueue']()
+cb(null)
+break
+default:
+client.emit('error', new Error('unrecognized packet type'))
+client.disconnecting && Object.keys(client.outgoing).length === 0
+client.emit('outgoingEmpty')

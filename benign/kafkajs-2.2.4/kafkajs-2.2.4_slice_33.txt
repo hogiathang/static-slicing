@@ -1,0 +1,4 @@
+permissionType = param1_0.permissionType
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ resourceType, resourceName, principal, host, operation, permissionType })

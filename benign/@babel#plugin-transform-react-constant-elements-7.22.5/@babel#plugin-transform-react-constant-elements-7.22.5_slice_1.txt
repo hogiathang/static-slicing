@@ -1,0 +1,14 @@
+_tmp_25.JSXElement = JSXElement
+HOISTED.has(path.node)
+const name = path.node.openingElement.name
+let mutablePropsAllowed = false
+allowMutablePropsOnTags != null
+let lastSegment = name
+_core.types.isJSXMemberExpression(lastSegment)
+lastSegment = lastSegment.property
+const elementName = lastSegment.name
+mutablePropsAllowed = allowMutablePropsOnTags.includes(elementName)
+let current = path
+!jsxScope && current.parentPath.isJSX()
+current = current.parentPath
+jsxScope = HOISTED.get(current.node)

@@ -1,0 +1,101 @@
+exports.entryAsync = async function (value, schema, prefs) {
+
+    let settings = Common.defaults;
+    if (prefs) {
+        settings = Common.preferences(Common.defaults, prefs);
+    }
+
+    const result = internals.entry(value, schema, settings);
+    const mainstay = result.mainstay;
+    if (result.error) {
+        if (mainstay.debug) {
+            result.error.debug = mainstay.debug;
+        }
+
+        throw result.error;
+    }
+
+    if (mainstay.externals.length) {
+        let root = result.value;
+        const errors = [];
+        for (const external of mainstay.externals) {
+            const path = external.state.path;
+            const linked = external.schema.type === 'link' ? mainstay.links.get(external.schema) : null;
+            let node = root;
+            let key;
+            let parent;
+
+            const ancestors = path.length ? [root] : [];
+            const original = path.length ? Reach(value, path) : value;
+
+            if (path.length) {
+                key = path[p...
+let settings = Common.defaults
+settings = Common.preferences(Common.defaults, prefs)
+const result = internals.entry(value, schema, settings)
+const mainstay = result.mainstay
+result.error
+mainstay.debug
+result.error.debug = mainstay.debug
+throw result.error;
+mainstay.externals.length
+let root = result.value
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(mainstay.externals)
+const path = external.state.path
+const linked = external.schema.type === 'link' ? mainstay.links.get(external.schema) : null
+let node = root
+path.length ? [root] : __ecma.Array.factory()
+const original = path.length ? Reach(value, path) : value
+path.length
+key = path[path.length - 1]
+let current = root
+_iterator_1 = <operator>.iterator(path.slice(0, -1))
+current = current[segment]
+ancestors.unshift(current)
+parent = ancestors[0]
+node = parent[key]
+const createError = (code, local) => (linked || external.schema).$_createError(code, node, local, external.state, settings)
+const output = await external.method(node, {
+                    schema: external.schema,
+                    linked,
+                    state: external.state,
+                    prefs,
+                    original,
+                    error: createError,
+                    errorsArray: internals.errorsArray,
+                    warn: (code, local) => mainstay.warnings.push((linked || external.schema).$_createError(code, node, local, external.state, settings)),
+                    message: (messages, local) => (linked || external.schema).$_createError('external', node, local, external.state, settings, { messages })
+                })
+_tmp_5.schema = external.schema
+_tmp_5.linked = linked
+_tmp_5.state = external.state
+_tmp_5.prefs = prefs
+_tmp_5.original = original
+_tmp_5.error = createError
+_tmp_5.errorsArray = internals.errorsArray
+mainstay.warnings.push((linked || external.schema).$_createError(code, node, local, external.state, settings))
+(linked || external.schema).$_createError('external', node, local, external.state, settings, { messages })
+output === undefined ||
+                    output === node
+output === node
+continue;
+output instanceof Errors.Report
+mainstay.tracer.log(external.schema, external.state, 'rule', 'external', 'error')
+errors.push(output)
+settings.abortEarly
+continue;
+Array.isArray(output) &&
+                    output[Common.symbols.errors]
+output[Common.symbols.errors]
+mainstay.tracer.log(external.schema, external.state, 'rule', 'external', 'error')
+errors.push(...output)
+settings.abortEarly
+continue;
+mainstay.tracer.value(external.state, 'rule', node, output, 'external')
+parent[key] = output
+mainstay.tracer.value(external.state, 'rule', root, output, 'external')
+root = output
+settings.errors.label
+<operator>.formatString(" (", external.label, ")")
+throw err;

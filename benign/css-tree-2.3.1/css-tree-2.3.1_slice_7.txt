@@ -1,0 +1,60 @@
+function anyValue = function anyValue(token, getNextToken) {
+    if (!token) {
+        return 0;
+    }
+
+    let balanceCloseType = 0;
+    let balanceStash = [];
+    let length = 0;
+
+    // The <any-value> production matches any sequence of one or more tokens,
+    // so long as the sequence ...
+    scan:
+    do {
+        switch (token.type) {
+            // ... does not contain <bad-string-token>, <bad-url-token>,
+            case BadString:
+            case BadUrl:
+                break scan;
+
+            // ... unmatched <)-token>, <]-token>, or <}-token>,
+            case RightCurlyBracket:
+            case RightParenthesis:
+            case RightSquareBracket:
+                if (token.type !== balanceCloseType) {
+                    break scan;
+                }
+
+                balanceCloseType = balanceStash.pop();
+                break;
+
+            case FunctionToken:
+            case LeftParenthesis:
+            case LeftSquareBracket:
+            case LeftCurlyBracket:
+                balance...
+!token
+let balanceCloseType = 0
+__ecma.Array.factory()
+let length = 0
+scan:
+token.type
+case BadString:
+case BadUrl:
+break scan;
+case RightCurlyBracket:
+case RightParenthesis:
+case RightSquareBracket:
+token.type !== balanceCloseType
+break scan;
+balanceCloseType = balanceStash.pop()
+break;
+case FunctionToken:
+case LeftParenthesis:
+case LeftSquareBracket:
+case LeftCurlyBracket:
+balanceStash.push(balanceCloseType)
+balanceCloseType = balancePair.get(token.type)
+break;
+length++
+token = getNextToken(length)

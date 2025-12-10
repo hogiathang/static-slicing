@@ -1,0 +1,9 @@
+const getConfig = (key) => {
+  // dots take precedence over dashes
+  const def = config?.defaults?.[`init.${key}`]
+  const val = config.get(`init.${key}`)
+  return (val !== def && val) ? val : config.get(`init-${key.replace(/\./g, '-')}`)
+}
+config.defaults[<operator>.formatString("init.", key, "")]
+<operator>.formatString("init.", key, "")
+val !== def && val ? val : config.get(`init-${key.replace(/\./g, '-')}`)

@@ -1,0 +1,27 @@
+var result = (0, web_1.fetchJson)(this.connection, JSON.stringify(request), getResult).then(function (result) {
+            _this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: _this
+            });
+            return result;
+        }, function (error) {
+            _this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: _this
+            });
+            throw error;
+        })
+_this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: _this
+            })
+_tmp_152.action = "response"
+_tmp_152.request = request
+_tmp_152.response = result
+_tmp_152.provider = _this

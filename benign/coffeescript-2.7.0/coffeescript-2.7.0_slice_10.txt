@@ -1,0 +1,2 @@
+_tmp_26.action = <lambda>15
+<operator>.formatString("", repl.history.slice(0).reverse().join('\n'), "\n")

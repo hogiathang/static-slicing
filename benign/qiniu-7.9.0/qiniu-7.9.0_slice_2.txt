@@ -1,0 +1,14 @@
+function getWithToken = function getWithToken (requestUrl, token, callbackFunc) {
+    const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    };
+    if (token) {
+        headers.Authorization = token;
+    }
+    return get(requestUrl, headers, callbackFunc);
+}
+const headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+    }
+_tmp_4.Content-Type = "application/x-www-form-urlencoded"
+headers.Authorization = token

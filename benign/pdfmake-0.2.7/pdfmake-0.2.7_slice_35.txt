@@ -1,0 +1,30 @@
+this.drawTextInDocument = function(isClip, isMask) {
+        if (this.link && !isClip && !isMask) {this.addLink();}
+        if (this.get('text-decoration') === 'underline') {
+          this.decorate(0.05 * this._font.size, -0.075 * this._font.size, isClip, isMask);
+        }
+        if (this.get('text-decoration') === 'overline') {
+          this.decorate(0.05 * this._font.size, getAscent(this._font.font, this._font.size) + 0.075 * this._font.size, isClip, isMask);
+        }
+        let fill = this.getFill(isClip, isMask),
+            stroke = this.getStroke(isClip, isMask),
+            strokeWidth = this.get('stroke-width');
+        if (this._font.fauxBold) {
+          if (!stroke) {
+            stroke = fill;
+            strokeWidth = this._font.size * 0.03;
+          } else {
+            strokeWidth += this._font.size * 0.03;
+          }
+        }
+        let children = this.getChildren();
+        for (let i = 0; i < children.length; i++) {
+          let chil...
+this.link && !isClip && !isMask
+this.get('text-decoration') === 'underline'
+this.decorate(0.05 * this._font.size, -0.075 * this._font.size, isClip, isMask)
+this.get('text-decoration') === 'overline'
+this.decorate(0.05 * this._font.size, getAscent(this._font.font, this._font.size) + 0.075 * this._font.size, isClip, isMask)
+let fill = this.getFill(isClip, isMask)
+let stroke = this.getStroke(isClip, isMask)
+let strokeWidth = this.get('stroke-width')

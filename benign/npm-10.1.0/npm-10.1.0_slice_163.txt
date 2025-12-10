@@ -1,0 +1,11 @@
+async exec (args) {
+    const username = await getIdentity(this.npm, { ...this.npm.flatOptions })
+    this.npm.output(
+      this.npm.config.get('json') ? JSON.stringify(username) : username
+    )
+  }
+const username = await getIdentity(this.npm, { ...this.npm.flatOptions })
+this.npm.output(
+      this.npm.config.get('json') ? JSON.stringify(username) : username
+    )
+this.npm.config.get('json') ? JSON.stringify(username) : username

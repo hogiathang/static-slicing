@@ -1,0 +1,15 @@
+var system = require('system')
+var casper = require('casper').create()
+var format = require('utils').format
+var source = casper.cli.get('source') || 'auto'
+var target = casper.cli.get('target')
+var text   = casper.cli.get(0)
+!target
+(_tmp_4 = casper.warn('The --target option is mandatory.')).exit
+casper.start(format('http://translate.google.com/#%s/%s/%s', source, target, text), function() {
+    this.fill('form#gt-form', {text: text});
+}).waitForSelector('span.hps', function() {
+    this.echo(this.fetchText("#result_box"));
+})
+<lambda>1
+casper.run()

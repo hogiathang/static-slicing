@@ -1,0 +1,45 @@
+userSettings = userSettings === void 0 ? {} : userSettings
+typeof element === 'string'
+element = document.querySelector(element)
+!element || !element.nodeName
+throw new Error('no element is specified to initialize PerfectScrollbar');
+this.element = element
+(_tmp_5 = element.classList).add
+this.settings = defaultSettings()
+_iterator_0 = <operator>.iterator(userSettings)
+this.settings[key] = userSettings[key]
+this.containerWidth = null
+this.containerHeight = null
+this.contentWidth = null
+this.contentHeight = null
+const focus = () => element.classList.add(cls.state.focus)
+const blur = () => element.classList.remove(cls.state.focus)
+this.isRtl = CSS.get(element).direction === 'rtl'
+this.isRtl === true
+(_tmp_8 = element.classList).add
+this.isNegativeScroll = (() => {
+      const originalScrollLeft = element.scrollLeft;
+      let result = null;
+      element.scrollLeft = -1;
+      result = element.scrollLeft < 0;
+      element.scrollLeft = originalScrollLeft;
+      return result;
+    })()
+this.negativeScrollAdjustment = this.isNegativeScroll
+      ? element.scrollWidth - element.clientWidth
+      : 0
+element.scrollWidth - element.clientWidth
+0
+this.event = new EventManager()
+this.ownerDocument = element.ownerDocument || document
+this.scrollbarXRail = DOM.div(cls.element.rail('x'))
+element.appendChild(this.scrollbarXRail)
+this.scrollbarX = DOM.div(cls.element.thumb('x'))
+this.scrollbarXRail.appendChild(this.scrollbarX)
+this.scrollbarX.setAttribute('tabindex', 0)
+this.event.bind(this.scrollbarX, 'focus', focus)
+this.event.bind(this.scrollbarX, 'blur', blur)
+this.scrollbarXActive = null
+this.scrollbarXWidth = null
+this.scrollbarXLeft = null
+const railXStyle = CSS.get(this.scrollbarXRail)

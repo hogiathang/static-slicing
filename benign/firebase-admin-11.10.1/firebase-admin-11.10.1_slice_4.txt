@@ -1,0 +1,27 @@
+setCustomUserClaims(uid, customUserClaims) {
+        // Validate user UID.
+        if (!validator.isUid(uid)) {
+            return Promise.reject(new error_1.FirebaseAuthError(error_1.AuthClientErrorCode.INVALID_UID));
+        }
+        else if (!validator.isObject(customUserClaims)) {
+            return Promise.reject(new error_1.FirebaseAuthError(error_1.AuthClientErrorCode.INVALID_ARGUMENT, 'CustomUserClaims argument must be an object or null.'));
+        }
+        // Delete operation. Replace null with an empty object.
+        if (customUserClaims === null) {
+            customUserClaims = {};
+        }
+        // Construct custom user attribute editting request.
+        const request = {
+            localId: uid,
+            customAttributes: JSON.stringify(customUserClaims),
+        };
+        return this.invokeRequestHandler(this.getAuthUrlBuilder(), exports.FIREBASE_AUTH_SET_ACCOUNT_INFO, request)
+            .then((response) => {
+            return response.localId;
+       ...
+!validator.isUid(uid)
+!validator.isObject(customUserClaims)
+customUserClaims === null
+customUserClaims = {}
+_tmp_181.localId = uid
+_tmp_181.customAttributes = JSON.stringify(customUserClaims)

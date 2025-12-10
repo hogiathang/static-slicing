@@ -1,0 +1,37 @@
+Decompressor.prototype._processLiteral = function _processLiteral(inc, never) {
+  var index = this._decoder.decodeInt();
+
+  var name;
+  var nameSize;
+
+  // Literal header-name too
+  if (index === 0) {
+    name = this._decoder.decodeStr();
+    nameSize = name.length;
+    name = utils.stringify(name);
+  } else {
+    var lookup = this._table.lookup(index);
+    nameSize = lookup.nameSize;
+    name = lookup.name;
+  }
+
+  var value = this._decoder.decodeStr();
+  var valueSize = value.length;
+  value = utils.stringify(value);
+
+  if (inc)
+    this._table.add(name, value, nameSize, valueSize);
+
+  this.push({ name: name, value: value, neverIndex: never !== 0});
+}
+var index = this._decoder.decodeInt()
+index === 0
+(_tmp_13 = this._decoder).decodeStr
+nameSize = name.length
+name = utils.stringify(name)
+var lookup = this._table.lookup(index)
+nameSize = lookup.nameSize
+name = lookup.name
+var value = this._decoder.decodeStr()
+var valueSize = value.length
+value = utils.stringify(value)

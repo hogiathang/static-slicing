@@ -1,0 +1,14 @@
+this.getStroke = function(isClip, isMask) {
+        let opacity = this.get('opacity'),
+            stroke = this.get('stroke'),
+            strokeOpacity = this.get('stroke-opacity');
+        if (isClip || isEqual(this.get('stroke-width'), 0)) {return;}
+        if (stroke !== 'none' && opacity && strokeOpacity) {
+          if (stroke instanceof SvgElemGradient || stroke instanceof SvgElemPattern) {
+            return stroke.getPaint(this.getBoundingBox(), strokeOpacity * opacity, isClip, isMask);
+          }
+          return opacityToColor(stroke, strokeOpacity * opacity, isMask);
+        }
+      }
+let opacity = this.get('opacity')
+let stroke = this.get('stroke')

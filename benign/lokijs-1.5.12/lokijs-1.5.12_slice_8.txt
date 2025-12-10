@@ -1,0 +1,45 @@
+Collection.prototype.update = function (doc) {
+      var adaptiveBatchOverride, k, len;
+
+      if (Array.isArray(doc)) {
+        len = doc.length;
+
+        // if not cloning, disable adaptive binary indices for the duration of the batch update,
+        // followed by lazy rebuild and re-enabling adaptive indices after batch update.
+        adaptiveBatchOverride = !this.cloneObjects &&
+          this.adaptiveBinaryIndices && Object.keys(this.binaryIndices).length > 0;
+
+        if (adaptiveBatchOverride) {
+          this.adaptiveBinaryIndices = false;
+        }
+
+        try {
+          for (k = 0; k < len; k += 1) {
+            this.update(doc[k]);
+          }
+        }
+        finally {
+          if (adaptiveBatchOverride) {
+            this.ensureAllIndexes();
+            this.adaptiveBinaryIndices = true;
+          }
+        }
+
+        return;
+      }
+
+      // verify object is a properly formed document
+      if (!hasOwnProperty.call(doc, '$loki')) {
+        throw new Error('Tryin...
+Array.isArray(doc)
+!hasOwnProperty.call(doc, '$loki')
+throw new Error('Trying to update unsynced document. Please save the document first by using insert() or addMany()');
+this.startTransaction()
+var arr = this.get(doc.$loki, true)
+var self = this
+!arr
+throw new Error('Trying to update a document not in collection.');
+oldInternal = arr[0]
+position = arr[1]
+newInternal = this.cloneObjects || (!this.disableDeltaChangesApi && this.disableFreeze) ? clone(doc, this.cloneMethod) : doc
+this.emit('pre-update', doc)

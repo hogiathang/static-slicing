@@ -1,0 +1,12 @@
+function getRule = function getRule(ruleId, configArrays) {
+    for (const configArray of configArrays) {
+        const rule = configArray.pluginRules.get(ruleId);
+
+        if (rule) {
+            return rule;
+        }
+    }
+    return builtInRules.get(ruleId) || null;
+}
+_iterator_1 = <operator>.iterator(configArrays)
+const rule = configArray.pluginRules.get(ruleId)

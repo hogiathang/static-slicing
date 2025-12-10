@@ -1,0 +1,61 @@
+function process_layer = function process_layer(layer) {
+  var result = '';
+  if (isPlainObject(layer)) {
+    if (layer.resource_type === "fetch" || layer.url != null) {
+      result = `fetch:${base64EncodeURL(layer.url)}`;
+    } else {
+      var public_id = layer.public_id;
+      var format = layer.format;
+      var resource_type = layer.resource_type || "image";
+      var type = layer.type || "upload";
+      var text = layer.text;
+      var style = null;
+      var components = [];
+      var noPublicId = isEmpty(public_id);
+      if (!noPublicId) {
+        public_id = public_id.replace(new RegExp("/", 'g'), ":");
+        if (format != null) {
+          public_id = `${public_id}.${format}`;
+        }
+      }
+      if (isEmpty(text) && resource_type !== "text") {
+        if (noPublicId) {
+          throw "Must supply public_id for resource_type layer_parameter";
+        }
+        if (resource_type === "subtitles") {
+          style = textStyle(layer);
+        }
+      } else {
+        resource_type = "text";
+...
+var result = ''
+isPlainObject(layer)
+layer.resource_type === "fetch" || layer.url != null
+var public_id = layer.public_id
+var format = layer.format
+var resource_type = layer.resource_type || "image"
+var type = layer.type || "upload"
+var text = layer.text
+var style = null
+__ecma.Array.factory()
+var noPublicId = isEmpty(public_id)
+!noPublicId
+public_id = public_id.replace(new RegExp("/", 'g'), ":")
+format != null
+<operator>.formatString("", public_id, ".", format, "")
+isEmpty(text) && resource_type !== "text"
+resource_type = "text"
+type = null
+style = textStyle(layer)
+!isEmpty(text)
+var noStyle = isEmpty(style)
+!(noPublicId || noStyle) || noPublicId && noStyle
+throw "Must supply either style parameters or a public_id when providing text parameter in a text overlay/underlay";
+var re = /\$\([a-zA-Z]\w*\)/g
+var start = 0
+var textSource = smart_escape(decodeURIComponent(text), /[,\/]/g)
+text = ""
+var res = re.exec(textSource)
+text += smart_escape(textSource.slice(start, res.index))
+text += res[0]
+start = res.index + res[0].length

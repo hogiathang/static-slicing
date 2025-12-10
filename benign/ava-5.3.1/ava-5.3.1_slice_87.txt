@@ -1,0 +1,31 @@
+writeTestSummary(event) {
+		// Prefix icon indicates matched expectations vs. not.
+		// Prefix color indicates passed-as-expected vs. not (fail or unexpected pass).
+		// This yields four possibilities, which in the standard configuration render as:
+		// * normal test, pass:        <green>✔</green>
+		// * normal test, fail:          <red>✘ [fail]</red>
+		// * fail-expected test, fail:   <red>✔ [expected fail]</red>
+		// * fail-expected test, pass:   <red>✘ [unexpected pass]</red>
+		let prefix;
+		let suffix;
+		if (event.type === 'hook-failed' || event.type === 'test-failed') {
+			const type = event.knownFailing ? '[unexpected pass]' : '[fail]';
+			prefix = colors.error(`${figures.cross} ${type}:`);
+			suffix = chalk.italic(colors.error(event.err.message));
+		} else if (event.knownFailing) {
+			prefix = colors.error(figures.tick + ' [expected fail]');
+		} else {
+			prefix = colors.pass(figures.tick);
+			if (event.duration > this.durationThreshold) {
+				suffix = colors.duration(`(${pre...
+event.type === 'hook-failed' || event.type === 'test-failed'
+const type = event.knownFailing ? '[unexpected pass]' : '[fail]'
+<operator>.formatString("", figures.cross, " ", type, ":")
+suffix = chalk.italic(colors.error(event.err.message))
+event.knownFailing
+prefix = colors.error(figures.tick + ' [expected fail]')
+prefix = colors.pass(figures.tick)
+event.duration > this.durationThreshold
+<operator>.formatString("(", prettyMs(event.duration), ")")
+const label = this.prefixTitle(event.testFile, event.title)
+<operator>.formatString("", prefix, " ", label, "", suffix ? ' ' + suffix : '', "")

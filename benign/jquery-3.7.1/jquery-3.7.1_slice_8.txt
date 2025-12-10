@@ -1,0 +1,8 @@
+_tmp_5.handler = <lambda>3
+var saved = dataPriv.get( this, type )
+( event.isTrigger & 1 ) && this[ type ]
+!saved
+saved = slice.call( arguments )
+dataPriv.set( this, type, saved )
+this[ type ]()
+result = dataPriv.get( this, type )

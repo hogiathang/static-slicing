@@ -1,0 +1,63 @@
+function gatherDependenciesRecursively = function gatherDependenciesRecursively(currentScope) {
+        var _iterator = _createForOfIteratorHelper(currentScope.references),
+            _step;
+
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var reference = _step.value;
+
+            // If this reference is not resolved or it is not declared in a pure
+            // scope then we don't care about this reference.
+            if (!reference.resolved) {
+              continue;
+            }
+
+            if (!pureScopes.has(reference.resolved.scope)) {
+              continue;
+            } // Narrow the scope of a dependency if it is, say, a member expression.
+            // Then normalize the narrowed dependency.
+
+
+            var referenceNode = fastFindReferenceWithParent(node, reference.identifier);
+            var dependencyNode = getDependency(referenceNode);
+            var dependency = analyzePropertyChain(dependencyNode, optionalChains); // Accessing ref.current inside effect cl...
+var _iterator = _createForOfIteratorHelper(currentScope.references)
+!(_step = _iterator.n()).done
+var reference = _step.value
+!reference.resolved
+continue;
+!pureScopes.has(reference.resolved.scope)
+continue;
+var referenceNode = fastFindReferenceWithParent(node, reference.identifier)
+var dependencyNode = getDependency(referenceNode)
+var dependency = analyzePropertyChain(dependencyNode, optionalChains)
+isEffect && // ... and this look like accessing .current...
+            dependencyNode.type === 'Identifier' && (dependencyNode.parent.type === 'MemberExpression' || dependencyNode.parent.type === 'OptionalMemberExpression') && !dependencyNode.parent.computed && dependencyNode.parent.property.type === 'Identifier' && dependencyNode.parent.property.name === 'current' && // ...in a cleanup function or below...
+            isInsideEffectCleanup(reference)
+dependencyNode.parent.type === 'MemberExpression' || dependencyNode.parent.type === 'OptionalMemberExpression'
+isInsideEffectCleanup(reference)
+currentRefsInEffectCleanup.set(dependency, {
+                reference: reference,
+                dependencyNode: dependencyNode
+              })
+_tmp_62.reference = reference
+_tmp_62.dependencyNode = dependencyNode
+dependencyNode.parent.type === 'TSTypeQuery' || dependencyNode.parent.type === 'TSTypeReference'
+continue;
+var def = reference.resolved.defs[0]
+def == null
+continue;
+def.node != null && def.node.init === node.parent
+continue;
+def.type === 'TypeParameter'
+continue;
+!dependencies.has(dependency)
+var resolved = reference.resolved
+var isStable = memoizedIsStableKnownHookValue(resolved) || memoizedIsFunctionWithoutCapturedValues(resolved)
+dependencies.set(dependency, {
+                isStable: isStable,
+                references: [reference]
+              })
+_tmp_63.isStable = isStable
+_tmp_63.references = [reference]
+(_tmp_65 = dependencies.get(dependency).references).push

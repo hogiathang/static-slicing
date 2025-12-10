@@ -1,0 +1,153 @@
+init() {
+      var _this = this;
+      let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      let callback = arguments.length > 1 ? arguments[1] : undefined;
+      if (typeof options === 'function') {
+        callback = options;
+        options = {};
+      }
+      if (!options.defaultNS && options.defaultNS !== false && options.ns) {
+        if (typeof options.ns === 'string') {
+          options.defaultNS = options.ns;
+        } else if (options.ns.indexOf('translation') < 0) {
+          options.defaultNS = options.ns[0];
+        }
+      }
+      const defOpts = get();
+      this.options = {
+        ...defOpts,
+        ...this.options,
+        ...transformOptions(options)
+      };
+      if (this.options.compatibilityAPI !== 'v1') {
+        this.options.interpolation = {
+          ...defOpts.interpolation,
+          ...this.options.interpolation
+        };
+      }
+      if (options.keySeparator !== undefined) {
+        this.options.userDefinedKeyS...
+var _this = this
+let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+let callback = arguments.length > 1 ? arguments[1] : undefined
+typeof options === 'function'
+callback = options
+options = {}
+!options.defaultNS && options.defaultNS !== false && options.ns
+typeof options.ns === 'string'
+options.defaultNS = options.ns
+options.ns.indexOf('translation') < 0
+options.defaultNS = options.ns[0]
+const defOpts = get()
+this.options = {
+        ...defOpts,
+        ...this.options,
+        ...transformOptions(options)
+      }
+...defOpts
+...this.options
+...transformOptions(options)
+this.options.compatibilityAPI !== 'v1'
+this.options.interpolation = {
+          ...defOpts.interpolation,
+          ...this.options.interpolation
+        }
+...defOpts.interpolation
+...this.options.interpolation
+options.keySeparator !== undefined
+this.options.userDefinedKeySeparator = options.keySeparator
+options.nsSeparator !== undefined
+this.options.userDefinedNsSeparator = options.nsSeparator
+function createClassOnDemand = function createClassOnDemand(ClassOrObject) {
+        if (!ClassOrObject) return null;
+        if (typeof ClassOrObject === 'function') return new ClassOrObject();
+        return ClassOrObject;
+      }
+!this.options.isClone
+this.modules.logger
+baseLogger.init(createClassOnDemand(this.modules.logger), this.options)
+baseLogger.init(null, this.options)
+this.modules.formatter
+formatter = this.modules.formatter
+typeof Intl !== 'undefined'
+formatter = Formatter
+const lu = new LanguageUtil(this.options)
+this.store = new ResourceStore(this.options.resources, this.options)
+const s = this.services
+s.logger = baseLogger
+s.resourceStore = this.store
+s.languageUtils = lu
+s.pluralResolver = new PluralResolver(lu, {
+          prepend: this.options.pluralSeparator,
+          compatibilityJSON: this.options.compatibilityJSON,
+          simplifyPluralSuffix: this.options.simplifyPluralSuffix
+        })
+_tmp_379.prepend = this.options.pluralSeparator
+_tmp_379.compatibilityJSON = this.options.compatibilityJSON
+_tmp_379.simplifyPluralSuffix = this.options.simplifyPluralSuffix
+formatter && (!this.options.interpolation.format || this.options.interpolation.format === defOpts.interpolation.format)
+s.formatter = createClassOnDemand(formatter)
+s.formatter.init(s, this.options)
+this.options.interpolation.format = s.formatter.format.bind(s.formatter)
+s.interpolator = new Interpolator(this.options)
+s.utils = {
+          hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
+        }
+_tmp_383.hasLoadedNamespace = this.hasLoadedNamespace.bind(this)
+s.backendConnector = new Connector(createClassOnDemand(this.modules.backend), s.resourceStore, s, this.options)
+s.backendConnector.on('*', function (event) {
+          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+            args[_key - 1] = arguments[_key];
+          }
+          _this.emit(event, ...args);
+        })
+this.modules.languageDetector
+s.languageDetector = createClassOnDemand(this.modules.languageDetector)
+s.languageDetector.init(s, this.options.detection, this.options)
+this.modules.i18nFormat
+s.i18nFormat = createClassOnDemand(this.modules.i18nFormat)
+(_tmp_389 = s.i18nFormat).init
+this.translator = new Translator(this.services, this.options)
+this.translator.on('*', function (event) {
+          for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+            args[_key2 - 1] = arguments[_key2];
+          }
+          _this.emit(event, ...args);
+        })
+this.modules.external.forEach(m => {
+          if (m.init) m.init(this);
+        })
+this.format = this.options.interpolation.format
+callback = noop
+this.options.fallbackLng && !this.services.languageDetector && !this.options.lng
+const codes = this.services.languageUtils.getFallbackCodes(this.options.fallbackLng)
+codes.length > 0 && codes[0] !== 'dev'
+!this.services.languageDetector && !this.options.lng
+this.logger.warn('init: no languageDetector is used and no lng is defined')
+const storeApi = ['getResource', 'hasResourceBundle', 'getResourceBundle', 'getDataByLanguage']
+storeApi.forEach(fcName => {
+        this[fcName] = function () {
+          return _this.store[fcName](...arguments);
+        };
+      })
+const storeApiChained = ['addResource', 'addResources', 'addResourceBundle', 'removeResourceBundle']
+storeApiChained.forEach(fcName => {
+        this[fcName] = function () {
+          _this.store[fcName](...arguments);
+          return _this;
+        };
+      })
+const deferred = defer()
+const load = () => {
+        const finish = (err, t) => {
+          if (this.isInitialized && !this.initializedStoreOnce) this.logger.warn('init: i18next is already initialized. You should call init just once!');
+          this.isInitialized = true;
+          if (!this.options.isClone) this.logger.log('initialized', this.options);
+          this.emit('initialized', this.options);
+          deferred.resolve(t);
+          callback(err, t);
+        };
+        if (this.languages && this.options.compatibilityAPI !== 'v1' && !this.isInitialized) return finish(null, this.t.bind(this));
+        this.changeLanguage(this.options.lng, finish);
+      }
+this.options.resources || !this.options.initImmediate

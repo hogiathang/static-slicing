@@ -1,0 +1,61 @@
+resolve(node, analysis, symbol) {
+    if (this.semanticDepGraphUpdater !== null && analysis.baseClass instanceof Reference) {
+      symbol.baseClass = this.semanticDepGraphUpdater.getSymbol(analysis.baseClass.node);
+    }
+    if (analysis.isPoisoned && !this.usePoisonedData) {
+      return {};
+    }
+    const context = getSourceFile(node);
+    const metadata = analysis.meta;
+    const data = {
+      declarations: EMPTY_ARRAY2,
+      declarationListEmitMode: 0,
+      deferBlocks: /* @__PURE__ */ new Map(),
+      deferrableDeclToImportDecl: /* @__PURE__ */ new Map()
+    };
+    const diagnostics = [];
+    const scope = this.scopeReader.getScopeForComponent(node);
+    if (scope !== null) {
+      const matcher = new SelectorMatcher2();
+      const pipes = /* @__PURE__ */ new Map();
+      const dependencies = scope.kind === ComponentScopeKind.NgModule ? scope.compilation.dependencies : scope.dependencies;
+      for (const dep of dependencies) {
+        if (dep.kind === MetaKind.Directive ...
+this.semanticDepGraphUpdater !== null && analysis.baseClass instanceof Reference
+symbol.baseClass = this.semanticDepGraphUpdater.getSymbol(analysis.baseClass.node)
+analysis.isPoisoned && !this.usePoisonedData
+const context = getSourceFile(node)
+const metadata = analysis.meta
+const data = {
+      declarations: EMPTY_ARRAY2,
+      declarationListEmitMode: 0,
+      deferBlocks: /* @__PURE__ */ new Map(),
+      deferrableDeclToImportDecl: /* @__PURE__ */ new Map()
+    }
+_tmp_1050.declarations = EMPTY_ARRAY2
+_tmp_1050.declarationListEmitMode = 0
+_tmp_1050.deferBlocks = new Map()
+_tmp_1050.deferrableDeclToImportDecl = new Map()
+const diagnostics = []
+const scope = this.scopeReader.getScopeForComponent(node)
+scope !== null
+const matcher = new SelectorMatcher2()
+const pipes = /* @__PURE__ */ new Map()
+const dependencies = scope.kind === ComponentScopeKind.NgModule ? scope.compilation.dependencies : scope.dependencies
+_iterator_117 = <operator>.iterator(dependencies)
+dep.kind === MetaKind.Directive && dep.selector !== null
+matcher.addSelectables(CssSelector2.parse(dep.selector), [dep])
+dep.kind === MetaKind.Pipe
+pipes.set(dep.name, dep)
+const binder = new R3TargetBinder(matcher)
+const bound = binder.bind({ template: metadata.template.nodes })
+const deferBlocks = /* @__PURE__ */ new Map()
+_iterator_118 = <operator>.iterator(bound.getDeferBlocks())
+deferBlocks.set(deferBlock, binder.bind({ template: deferBlock.children }))
+const eagerlyUsed = /* @__PURE__ */ new Set()
+_iterator_119 = <operator>.iterator(bound.getEagerlyUsedDirectives())
+eagerlyUsed.add(dir.ref.node)
+_iterator_120 = <operator>.iterator(bound.getEagerlyUsedPipes())
+!pipes.has(name)
+continue;
+eagerlyUsed.add(pipes.get(name).ref.node)

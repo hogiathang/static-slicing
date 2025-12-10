@@ -1,0 +1,19 @@
+getSwcRcFileContentIfExists(swcrcFilePath) {
+        try {
+            return JSON.parse((0, fs_1.readFileSync)((0, path_1.join)(process.cwd(), swcrcFilePath ?? '.swcrc'), 'utf8'));
+        }
+        catch (err) {
+            if (swcrcFilePath !== undefined) {
+                console.error(ui_1.ERROR_PREFIX +
+                    ` Failed to load "${swcrcFilePath}". Please, check if the file exists and is valid JSON.`);
+                process.exit(1);
+            }
+            return {};
+        }
+    }
+JSON.parse((0, fs_1.readFileSync)((0, path_1.join)(process.cwd(), swcrcFilePath ?? '.swcrc'), 'utf8'))
+swcrcFilePath !== undefined
+console.error(ui_1.ERROR_PREFIX +
+                    ` Failed to load "${swcrcFilePath}". Please, check if the file exists and is valid JSON.`)
+<operator>.formatString(" Failed to load "", swcrcFilePath, "". Please, check if the file exists and is valid JSON.")
+process.exit(1)

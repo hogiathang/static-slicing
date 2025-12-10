@@ -1,0 +1,11 @@
+function pump = function pump() {
+    var chunk;
+    do {
+      chunk = client.read();
+      if (!chunk) return;
+    } while (socket.put(chunk));
+    socket.drain(pump);
+  }
+chunk = client.read()
+!chunk
+socket.put(chunk)

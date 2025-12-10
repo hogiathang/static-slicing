@@ -1,0 +1,57 @@
+files.forEach(file => {
+    let content = fs.readFileSync(file, 'utf8');
+
+    // Skip flagged files
+    if (content.match(/\/\/ @remove-file-on-eject/)) {
+      return;
+    }
+    content =
+      content
+        // Remove dead code from .js files on eject
+        .replace(
+          /\/\/ @remove-on-eject-begin([\s\S]*?)\/\/ @remove-on-eject-end/gm,
+          ''
+        )
+        // Remove dead code from .applescript files on eject
+        .replace(
+          /-- @remove-on-eject-begin([\s\S]*?)-- @remove-on-eject-end/gm,
+          ''
+        )
+        .trim() + '\n';
+    console.log(`  Adding ${cyan(file.replace(ownPath, ''))} to the project`);
+    fs.writeFileSync(file.replace(ownPath, appPath), content);
+  })
+let content = fs.readFileSync(file, 'utf8')
+content.match(/\/\/ @remove-file-on-eject/)
+content =
+      content
+        // Remove dead code from .js files on eject
+        .replace(
+          /\/\/ @remove-on-eject-begin([\s\S]*?)\/\/ @remove-on-eject-end/gm,
+          ''
+        )
+        // Remove dead code from .applescript files on eject
+        .replace(
+          /-- @remove-on-eject-begin([\s\S]*?)-- @remove-on-eject-end/gm,
+          ''
+        )
+        .trim() + '\n'
+content
+        // Remove dead code from .js files on eject
+        .replace(
+          /\/\/ @remove-on-eject-begin([\s\S]*?)\/\/ @remove-on-eject-end/gm,
+          ''
+        )
+        // Remove dead code from .applescript files on eject
+        .replace(
+          /-- @remove-on-eject-begin([\s\S]*?)-- @remove-on-eject-end/gm,
+          ''
+        )
+        .trim() + '\n'
+replace
+/\/\/ @remove-on-eject-begin([\s\S]*?)\/\/ @remove-on-eject-end/gm
+replace
+/-- @remove-on-eject-begin([\s\S]*?)-- @remove-on-eject-end/gm
+trim
+<operator>.formatString("  Adding ", cyan(file.replace(ownPath, '')), " to the project")
+fs.writeFileSync(file.replace(ownPath, appPath), content)

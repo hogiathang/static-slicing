@@ -1,0 +1,7 @@
+function ensureDir = function ensureDir(p) {
+    if (!fs.existsSync(p)) {
+        fs.mkdirSync(p, { recursive: true });
+    }
+}
+!fs.existsSync(p)
+fs.mkdirSync(p, { recursive: true })

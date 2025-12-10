@@ -1,0 +1,97 @@
+MixpanelLib.prototype._send_request = function(url, data, options, callback) {
+    var succeeded = true;
+
+    if (ENQUEUE_REQUESTS) {
+        this.__request_queue.push(arguments);
+        return succeeded;
+    }
+
+    var DEFAULT_OPTIONS = {
+        method: this.get_config('api_method'),
+        transport: this.get_config('api_transport'),
+        verbose: this.get_config('verbose')
+    };
+    var body_data = null;
+
+    if (!callback && (_.isFunction(options) || typeof options === 'string')) {
+        callback = options;
+        options = null;
+    }
+    options = _.extend(DEFAULT_OPTIONS, options || {});
+    if (!USE_XHR) {
+        options.method = 'GET';
+    }
+    var use_post = options.method === 'POST';
+    var use_sendBeacon = sendBeacon && use_post && options.transport.toLowerCase() === 'sendbeacon';
+
+    // needed to correctly format responses
+    var verbose_mode = options.verbose;
+    if (data['verbose']) { verbose_mode = true; }
+
+    if (this.get_config('test')) { data['tes...
+var succeeded = true
+var DEFAULT_OPTIONS = {
+        method: this.get_config('api_method'),
+        transport: this.get_config('api_transport'),
+        verbose: this.get_config('verbose')
+    }
+_tmp_38.method = this.get_config('api_method')
+_tmp_38.transport = this.get_config('api_transport')
+_tmp_38.verbose = this.get_config('verbose')
+var body_data = null
+!callback && (_.isFunction(options) || typeof options === 'string')
+callback = options
+options = null
+options = _.extend(DEFAULT_OPTIONS, options || {})
+!USE_XHR
+options.method = 'GET'
+var use_post = options.method === 'POST'
+var use_sendBeacon = sendBeacon && use_post && options.transport.toLowerCase() === 'sendbeacon'
+var verbose_mode = options.verbose
+verbose_mode = true
+this.get_config('test')
+data['verbose'] = 1
+this.get_config('img')
+!USE_XHR
+data['callback'] = callback
+verbose_mode || this.get_config('test')
+data['callback'] = '(function(){})'
+data['ip'] = this.get_config('ip')?1:0
+data['_'] = new Date().getTime().toString()
+body_data = 'data=' + encodeURIComponent(data['data'])
+delete data['data']
+url += '?' + _.HTTPBuildQuery(data)
+var lib = this
+'img' in data
+var req = new XMLHttpRequest()
+req.open(options.method, url, true)
+var headers = this.get_config('xhr_headers')
+headers['Content-Type'] = 'application/x-www-form-urlencoded'
+_.each(headers, function(headerValue, headerName) {
+                req.setRequestHeader(headerName, headerValue);
+            })
+options.timeout_ms && typeof req.timeout !== 'undefined'
+req.timeout = options.timeout_ms
+var start_time = new Date().getTime()
+req.withCredentials = true
+req.onreadystatechange = function () {
+                if (req.readyState === 4) { // XMLHttpRequest.DONE == 4, except in safari 4
+                    if (req.status === 200) {
+                        if (callback) {
+                            if (verbose_mode) {
+                                var response;
+                                try {
+                                    response = _.JSONDecode(req.responseText);
+                                } catch (e) {
+                                    lib.report_error(e);
+                                    if (options.ignore_json_errors) {
+                                        response = req.responseText;
+                                    } else {
+                                        return;
+                                    }
+                                }
+                                callback(response);
+                            } else {
+                                callback(Number(req.responseText));
+     ...
+req.send(body_data)

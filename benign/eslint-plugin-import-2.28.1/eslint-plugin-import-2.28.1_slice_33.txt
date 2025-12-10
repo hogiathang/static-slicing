@@ -1,0 +1,82 @@
+function updateImportUsage = function updateImportUsage(node) {
+          if (!unusedExports) {
+            return;
+          }
+
+          var oldImportPaths = importList.get(file);
+          if (typeof oldImportPaths === 'undefined') {
+            oldImportPaths = new Map();
+          }
+
+          var oldNamespaceImports = new Set();
+          var newNamespaceImports = new Set();
+
+          var oldExportAll = new Set();
+          var newExportAll = new Set();
+
+          var oldDefaultImports = new Set();
+          var newDefaultImports = new Set();
+
+          var oldImports = new Map();
+          var newImports = new Map();
+          oldImportPaths.forEach(function (value, key) {
+            if (value.has(EXPORT_ALL_DECLARATION)) {
+              oldExportAll.add(key);
+            }
+            if (value.has(IMPORT_NAMESPACE_SPECIFIER)) {
+              oldNamespaceImports.add(key);
+            }
+            if (value.has(IMPORT_DEFAULT_SPECIFIER)) {
+              oldDefaultImports.add(key);
+            }
+      ...
+!unusedExports
+var oldImportPaths = importList.get(file)
+typeof oldImportPaths === 'undefined'
+oldImportPaths = new Map()
+var oldNamespaceImports = new Set()
+var newNamespaceImports = new Set()
+var oldExportAll = new Set()
+var newExportAll = new Set()
+var oldDefaultImports = new Set()
+var newDefaultImports = new Set()
+var oldImports = new Map()
+var newImports = new Map()
+oldImportPaths.forEach(function (value, key) {
+            if (value.has(EXPORT_ALL_DECLARATION)) {
+              oldExportAll.add(key);
+            }
+            if (value.has(IMPORT_NAMESPACE_SPECIFIER)) {
+              oldNamespaceImports.add(key);
+            }
+            if (value.has(IMPORT_DEFAULT_SPECIFIER)) {
+              oldDefaultImports.add(key);
+            }
+            value.forEach(function (val) {
+              if (
+              val !== IMPORT_NAMESPACE_SPECIFIER &&
+              val !== IMPORT_DEFAULT_SPECIFIER)
+              {
+                oldImports.set(val, key);
+              }
+            });
+          })
+function processDynamicImport = function processDynamicImport(source) {
+            if (source.type !== 'Literal') {
+              return null;
+            }
+            var p = (0, _resolve2['default'])(source.value, context);
+            if (p == null) {
+              return null;
+            }
+            newNamespaceImports.add(p);
+          }
+(0, _visit2['default'])(node, visitorKeyMap.get(file), {
+            ImportExpression: function () {function ImportExpression(child) {
+                processDynamicImport(child.source);
+              }return ImportExpression;}(),
+            CallExpression: function () {function CallExpression(child) {
+                if (child.callee.type === 'Import') {
+                  processDynamicImport(child.arguments[0]);
+                }
+              }return CallExpression;}() })

@@ -1,0 +1,43 @@
+_tmp_20.Loop = Loop
+const isForStatement = path.isForStatement()
+const headPath = isForStatement ? path.get("init") : path.isForXStatement() ? path.get("left") : null
+let needsBodyWrap = false
+const markNeedsBodyWrap = () => {
+          if (throwIfClosureRequired) {
+            throw path.buildCodeFrameError("Compiling let/const in this block would add a closure " + "(throwIfClosureRequired).");
+          }
+          needsBodyWrap = true;
+        }
+const body = path.get("body")
+body.isBlockStatement()
+bodyScope = body.scope
+const bindings = (0, _loop.getLoopBodyBindings)(path)
+_iterator_4 = <operator>.iterator(bindings)
+_tmp_21 = (0, _loop.getUsageInBody)(binding, path)
+capturedInClosure = _tmp_21.capturedInClosure
+(0, _loop.getUsageInBody)(binding, path)
+markNeedsBodyWrap()
+__ecma.Array.factory()
+const updatedBindingsUsages = new Map()
+headPath && isBlockScoped(headPath.node)
+const names = Object.keys(headPath.getBindingIdentifiers())
+const headScope = headPath.scope
+_iterator_5 = <operator>.iterator(names)
+(_bodyScope = bodyScope) != null && _bodyScope.hasOwnBinding(name)
+let binding = headScope.getOwnBinding(name)
+!binding
+headScope.crawl()
+binding = headScope.getOwnBinding(name)
+_tmp_23 = (0, _loop.getUsageInBody)(binding, path)
+usages = _tmp_23.usages
+capturedInClosure = _tmp_23.capturedInClosure
+hasConstantViolations = _tmp_23.hasConstantViolations
+(0, _loop.getUsageInBody)(binding, path)
+headScope.parent.hasBinding(name) || headScope.parent.hasGlobal(name)
+const newName = headScope.generateUid(name)
+headScope.rename(name, newName)
+name = newName
+markNeedsBodyWrap()
+captured.push(name)
+isForStatement && hasConstantViolations
+updatedBindingsUsages.set(name, usages)

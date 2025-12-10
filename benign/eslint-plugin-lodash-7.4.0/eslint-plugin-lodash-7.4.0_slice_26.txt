@@ -1,0 +1,5 @@
+const expandAlias = (version, method) => {
+    const methodAliases = _.get(getMethodData(version), [method, 'aliases'], [])
+    return [method, ...methodAliases]
+}
+const methodAliases = _.get(getMethodData(version), [method, 'aliases'], [])

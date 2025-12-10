@@ -1,0 +1,4 @@
+transactionTimeout = param1_0.transactionTimeout
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({ transactionalId, transactionTimeout })

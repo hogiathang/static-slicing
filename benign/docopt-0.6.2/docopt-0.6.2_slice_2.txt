@@ -1,0 +1,70 @@
+docopt = function(doc, kwargs) {
+    var a, allowedargs, arg, argv, collected, doc_options, e, exit, help, i, j, left, len, matched, name, options, options_first, options_shortcut, output, pattern, pattern_options, pattern_options_strings, ref, ref1, usage_sections, version;
+    if (kwargs == null) {
+      kwargs = {};
+    }
+    allowedargs = ['argv', 'name', 'help', 'version', 'options_first', 'exit'];
+    for (arg in kwargs) {
+      if (indexOf.call(allowedargs, arg) < 0) {
+        throw new Error("unrecognized argument to docopt: ");
+      }
+    }
+    argv = kwargs.argv === void 0 ? process.argv.slice(2) : kwargs.argv;
+    name = kwargs.name === void 0 ? null : kwargs.name;
+    help = kwargs.help === void 0 ? true : kwargs.help;
+    version = kwargs.version === void 0 ? null : kwargs.version;
+    options_first = kwargs.options_first === void 0 ? false : kwargs.options_first;
+    exit = kwargs.exit === void 0 ? true : kwargs.exit;
+    try {
+      usage_sections = parse_section('us...
+kwargs == null
+kwargs = {}
+allowedargs = ['argv', 'name', 'help', 'version', 'options_first', 'exit']
+_iterator_1 = <operator>.iterator(kwargs)
+indexOf.call(allowedargs, arg) < 0
+throw new Error("unrecognized argument to docopt: ");
+argv = kwargs.argv === void 0 ? process.argv.slice(2) : kwargs.argv
+name = kwargs.name === void 0 ? null : kwargs.name
+help = kwargs.help === void 0 ? true : kwargs.help
+version = kwargs.version === void 0 ? null : kwargs.version
+options_first = kwargs.options_first === void 0 ? false : kwargs.options_first
+exit = kwargs.exit === void 0 ? true : kwargs.exit
+usage_sections = parse_section('usage:', doc)
+usage_sections.length === 0
+throw new DocoptLanguageError('"usage:" (case-insensitive) not found.');
+usage_sections.length > 1
+throw new DocoptLanguageError('More than one "usage:" (case-insensitive).');
+DocoptExit.usage = usage_sections[0]
+options = parse_defaults(doc)
+pattern = parse_pattern(formal_usage(DocoptExit.usage), options)
+argv = parse_argv(new Tokens(argv), options, options_first)
+pattern_options = pattern.flat(Option)
+ref = pattern.flat(OptionsShortcut)
+len = ref.length
+options_shortcut = ref[j]
+doc_options = parse_defaults(doc)
+pattern_options_strings = (function() {
+          var len1, q, results;
+          results = [];
+          for (q = 0, len1 = pattern_options.length; q < len1; q++) {
+            i = pattern_options[q];
+            results.push(i.toString());
+          }
+          return results;
+        })()
+options_shortcut.children = doc_options.filter(function(item) {
+          var ref1;
+          return ref1 = item.toString(), indexOf.call(pattern_options_strings, ref1) < 0;
+        })
+output = extras(help, version, argv, doc)
+print(output)
+process.exit()
+throw new Error(output);
+ref1 = pattern.fix().match(argv)
+matched && left.length === 0
+throw new DocoptExit(DocoptExit.usage);
+e = _error
+!exit
+e.message
+print(e.message)
+process.exit(1)

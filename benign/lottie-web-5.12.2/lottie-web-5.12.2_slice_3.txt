@@ -1,0 +1,13 @@
+function buildVersion = async function buildVersion(scripts, version) {
+	const code = await concatScripts(scripts, version.build)
+	const wrappedCode = await wrapScriptWithModule(code, version.build)
+	const processedCode = await version.process(wrappedCode)
+	const modularizedCode = await modularizeCode(processedCode, version.build)
+	const saved = await save(modularizedCode, version.fileName)
+	return saved
+}
+const code = await concatScripts(scripts, version.build)
+const wrappedCode = await wrapScriptWithModule(code, version.build)
+const processedCode = await version.process(wrappedCode)
+const modularizedCode = await modularizeCode(processedCode, version.build)
+const saved = await save(modularizedCode, version.fileName)

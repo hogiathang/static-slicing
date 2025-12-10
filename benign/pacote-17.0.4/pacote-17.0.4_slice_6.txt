@@ -1,0 +1,2 @@
+module.exports.tarball.stream = (spec, handler, opts) =>
+  get(spec, opts).tarballStream(handler)

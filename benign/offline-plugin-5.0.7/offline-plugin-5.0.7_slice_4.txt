@@ -1,0 +1,38 @@
+Promise.all(requests.map(function (request) {
+      if (bustValue) {
+        request = applyCacheBust(request, bustValue);
+      }
+
+      return fetch(request, requestInit).then(fixRedirectedResponse).then(function (response) {
+        if (!response.ok) {
+          return { error: true };
+        }
+
+        return { response: response };
+      }, function () {
+        return { error: true };
+      });
+    })).then(function (responses) {
+      if (failAll && responses.some(function (data) {
+        return data.error;
+      })) {
+        return Promise.reject(new Error('Wrong response status'));
+      }
+
+      if (!failAll) {
+        responses = responses.filter(function (data, i) {
+          if (!data.error) {
+            return true;
+          }
+
+          requests.splice(i, 1);
+          return false;
+        });
+      }
+
+      return deleting.then(function () {
+        var addAll = responses.map(function (_ref, i) {
+          var response = _ref.response;
+
+          return cache.p...
+request = applyCacheBust(request, bustValue)

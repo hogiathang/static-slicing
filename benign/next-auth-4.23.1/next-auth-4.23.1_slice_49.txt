@@ -1,0 +1,74 @@
+function NextAuthApiHandler = async function NextAuthApiHandler(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  options: AuthOptions
+) {
+  const { nextauth, ...query } = req.query
+
+  options.secret ??= options.jwt?.secret ?? process.env.NEXTAUTH_SECRET
+
+  const handler = await AuthHandler({
+    req: {
+      body: req.body,
+      query,
+      cookies: req.cookies,
+      headers: req.headers,
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: (req.query.error as string | undefined) ?? nextauth?.[1],
+    },
+    options,
+  })
+
+  res.status(handler.status ?? 200)
+
+  handler.cookies?.forEach((cookie) => setCookie(res, cookie))
+
+  handler.headers?.forEach((h) => res.setHeader(h.key, h.value))
+
+  if (handler.redirect) {
+    // If the request expects a return URL, send it as JSON
+    // instead of doing an actual redirect.
+    if (req.body?.json !== "true") {
+      // Could chain. .end() when lowest target is Node 14
+      // https://github.com/nodejs/node...
+nextauth = _tmp_0.nextauth
+options.secret ??= options.jwt?.secret ?? process.env.NEXTAUTH_SECRET
+const handler = await AuthHandler({
+    req: {
+      body: req.body,
+      query,
+      cookies: req.cookies,
+      headers: req.headers,
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: (req.query.error as string | undefined) ?? nextauth?.[1],
+    },
+    options,
+  })
+_tmp_1.req = {
+      body: req.body,
+      query,
+      cookies: req.cookies,
+      headers: req.headers,
+      method: req.method,
+      action: nextauth?.[0] as AuthAction,
+      providerId: nextauth?.[1],
+      error: (req.query.error as string | undefined) ?? nextauth?.[1],
+    }
+_tmp_2.body = req.body
+_tmp_2.query = query
+_tmp_2.cookies = req.cookies
+_tmp_2.headers = req.headers
+_tmp_2.method = req.method
+_tmp_2.action = nextauth?.[0] as AuthAction
+_tmp_2.providerId = nextauth[1]
+_tmp_2.error = (req.query.error as string | undefined) ?? nextauth?.[1]
+_tmp_1.options = options
+res.status(handler.status ?? 200)
+handler.cookies?.forEach((cookie) => setCookie(res, cookie))
+handler.headers?.forEach((h) => res.setHeader(h.key, h.value))
+handler.redirect
+res.send(handler.body)

@@ -1,0 +1,9 @@
+nowAndTimers.setImmediate(() => {
+			for (const rejection of currentlyUnhandled()) {
+				channel.send({type: 'unhandled-rejection', err: serializeError('Unhandled rejection', true, rejection.reason, runner.file)});
+			}
+
+			exit(0);
+		})
+_iterator_0 = <operator>.iterator(currentlyUnhandled())
+channel.send({type: 'unhandled-rejection', err: serializeError('Unhandled rejection', true, rejection.reason, runner.file)})

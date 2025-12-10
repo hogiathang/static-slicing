@@ -1,0 +1,66 @@
+deprecatedSettingTypes.forEach((type) => {
+    const policyName = `${type === 'level' ? 'playlist' : type}LoadPolicy`;
+    const policyNotSet = userConfig[policyName] === undefined;
+    const report: string[] = [];
+    deprecatedSettings.forEach((setting) => {
+      const deprecatedSetting = `${type}Loading${setting}`;
+      const value = userConfig[deprecatedSetting];
+      if (value !== undefined && policyNotSet) {
+        report.push(deprecatedSetting);
+        const settings: LoaderConfig = defaultsCopy[policyName].default;
+        userConfig[policyName] = { default: settings };
+        switch (setting) {
+          case 'TimeOut':
+            settings.maxLoadTimeMs = value;
+            settings.maxTimeToFirstByteMs = value;
+            break;
+          case 'MaxRetry':
+            settings.errorRetry!.maxNumRetry = value;
+            settings.timeoutRetry!.maxNumRetry = value;
+            break;
+          case 'RetryDelay':
+            settings.errorRetry!.retryDelayMs = value;
+...
+<operator>.formatString("", type === 'level' ? 'playlist' : type, "LoadPolicy")
+const policyNotSet = userConfig[policyName] === undefined
+const report: string[] = []
+deprecatedSettings.forEach((setting) => {
+      const deprecatedSetting = `${type}Loading${setting}`;
+      const value = userConfig[deprecatedSetting];
+      if (value !== undefined && policyNotSet) {
+        report.push(deprecatedSetting);
+        const settings: LoaderConfig = defaultsCopy[policyName].default;
+        userConfig[policyName] = { default: settings };
+        switch (setting) {
+          case 'TimeOut':
+            settings.maxLoadTimeMs = value;
+            settings.maxTimeToFirstByteMs = value;
+            break;
+          case 'MaxRetry':
+            settings.errorRetry!.maxNumRetry = value;
+            settings.timeoutRetry!.maxNumRetry = value;
+            break;
+          case 'RetryDelay':
+            settings.errorRetry!.retryDelayMs = value;
+            settings.timeoutRetry!.retryDelayMs = value;
+            break;
+          case 'MaxRetryTimeout':
+            settings.errorRetry!.maxRetryDelayMs = value;
+            settings.timeoutRetry!.maxRetryDelayMs ...
+report.length
+logger.warn(
+        `hls.js config: "${report.join(
+          '", "'
+        )}" setting(s) are deprecated, use "${policyName}": ${JSON.stringify(
+          userConfig[policyName]
+        )}`
+      )
+<operator>.formatString("hls.js config: "", report.join(
+          '", "'
+        ), "" setting(s) are deprecated, use "", policyName, "": ", JSON.stringify(
+          userConfig[policyName]
+        ), "")
+JSON.stringify(
+          userConfig[policyName]
+        )
+userConfig[policyName]

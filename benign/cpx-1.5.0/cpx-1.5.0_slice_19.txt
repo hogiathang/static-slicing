@@ -1,0 +1,56 @@
+function copyBody = function copyBody(src, dst, transformFactories, cb) {
+    var reader = fs.createReadStream(src);
+    var writer = fs.createWriteStream(dst);
+    var streams = [reader];
+
+    /**
+     * Clean up.
+     * @param {Error|undefined} err - An error or undefined.
+     * @returns {void}
+     */
+    function next(err) {
+        try {
+            streams.forEach(function (s) {
+                s.removeListener("error", next);
+                if (typeof s.destroy === "function") {
+                    s.destroy();
+                }
+            });
+            writer.removeListener("error", next);
+            writer.removeListener("finish", next);
+        } catch (cleanupErr) {
+            cb(err || cleanupErr);
+            return;
+        }
+
+        cb(err);
+    }
+
+    reader.on("error", next);
+    writer.on("error", next);
+    writer.on("finish", next);
+
+    try {
+        transformFactories.reduce(function (input, factory) {
+            var t = factory(src);
+            t.on("error", next);
+    ...
+var reader = fs.createReadStream(src)
+var writer = fs.createWriteStream(dst)
+function next = function next(err) {
+        try {
+            streams.forEach(function (s) {
+                s.removeListener("error", next);
+                if (typeof s.destroy === "function") {
+                    s.destroy();
+                }
+            });
+            writer.removeListener("error", next);
+            writer.removeListener("finish", next);
+        } catch (cleanupErr) {
+            cb(err || cleanupErr);
+            return;
+        }
+
+        cb(err);
+    }

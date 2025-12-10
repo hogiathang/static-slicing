@@ -1,0 +1,60 @@
+__awaiter(this, void 0, void 0, function* () {
+            const pong = this.prepare();
+            let timer;
+            try {
+                timer = (0, util_1.timeout)(this.options.timeout || 20000);
+                const cp = this.transport.connect(srv, this.options);
+                yield Promise.race([cp, timer]);
+                (() => __awaiter(this, void 0, void 0, function* () {
+                    var _a, e_1, _b, _c;
+                    try {
+                        try {
+                            for (var _d = true, _e = __asyncValues(this.transport), _f; _f = yield _e.next(), _a = _f.done, !_a; _d = true) {
+                                _c = _f.value;
+                                _d = false;
+                                const b = _c;
+                                this.parser.parse(b);
+                            }
+                        }
+                        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                        finally {
+                 ...
+const pong = this.prepare()
+timer = (0, util_1.timeout)(this.options.timeout || 20000)
+const cp = this.transport.connect(srv, this.options)
+_tmp_73 = __ecma.Array.factory()
+(_tmp_74 = (() => __awaiter(this, void 0, void 0, function* () {
+                    var _a, e_1, _b, _c;
+                    try {
+                        try {
+                            for (var _d = true, _e = __asyncValues(this.transport), _f; _f = yield _e.next(), _a = _f.done, !_a; _d = true) {
+                                _c = _f.value;
+                                _d = false;
+                                const b = _c;
+                                this.parser.parse(b);
+                            }
+                        }
+                        catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                        finally {
+                            try {
+                                if (!_d && !_a && (_b = _e.return)) yield _b.call(_e);
+                            }
+                            finally { if (e_1) throw e_1.error; }
+                        }
+                    }
+                    catch (err) {
+                        console.log("reader closed", err);...).then
+then
+pong.reject(err)
+_tmp_77 = __ecma.Array.factory()
+timer.cancel()
+this.connected = true
+this.connectError = undefined
+this.sendSubscriptions()
+this.connectedOnce = true
+this.server.didConnect = true
+this.server.reconnects = 0
+this.flushPending()
+(_tmp_78 = this.heartbeats).start
+timer.cancel()
+(_tmp_79 = this.transport).close

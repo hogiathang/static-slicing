@@ -1,0 +1,49 @@
+update() {
+    if (!this.isAlive) {
+      return;
+    }
+
+    // Recalcuate negative scrollLeft adjustment
+    this.negativeScrollAdjustment = this.isNegativeScroll
+      ? this.element.scrollWidth - this.element.clientWidth
+      : 0;
+
+    // Recalculate rail margins
+    CSS.set(this.scrollbarXRail, { display: 'block' });
+    CSS.set(this.scrollbarYRail, { display: 'block' });
+    this.railXMarginWidth =
+      toInt(CSS.get(this.scrollbarXRail).marginLeft) +
+      toInt(CSS.get(this.scrollbarXRail).marginRight);
+    this.railYMarginHeight =
+      toInt(CSS.get(this.scrollbarYRail).marginTop) +
+      toInt(CSS.get(this.scrollbarYRail).marginBottom);
+
+    // Hide scrollbars not to affect scrollWidth and scrollHeight
+    CSS.set(this.scrollbarXRail, { display: 'none' });
+    CSS.set(this.scrollbarYRail, { display: 'none' });
+
+    updateGeometry(this);
+
+    processScrollDiff(this, 'top', 0, false, true);
+    processScrollDiff(this, 'left', 0, false, true);
+
+    CSS.set(this.scrollbarXRa...
+!this.isAlive
+this.negativeScrollAdjustment = this.isNegativeScroll
+      ? this.element.scrollWidth - this.element.clientWidth
+      : 0
+this.element.scrollWidth - this.element.clientWidth
+0
+CSS.set(this.scrollbarXRail, { display: 'block' })
+CSS.set(this.scrollbarYRail, { display: 'block' })
+this.railXMarginWidth =
+      toInt(CSS.get(this.scrollbarXRail).marginLeft) +
+      toInt(CSS.get(this.scrollbarXRail).marginRight)
+toInt(CSS.get(this.scrollbarXRail).marginLeft) +
+      toInt(CSS.get(this.scrollbarXRail).marginRight)
+toInt(CSS.get(this.scrollbarXRail).marginRight)
+this.railYMarginHeight =
+      toInt(CSS.get(this.scrollbarYRail).marginTop) +
+      toInt(CSS.get(this.scrollbarYRail).marginBottom)
+toInt(CSS.get(this.scrollbarYRail).marginTop) +
+      toInt(CSS.get(this.scrollbarYRail).marginBottom)

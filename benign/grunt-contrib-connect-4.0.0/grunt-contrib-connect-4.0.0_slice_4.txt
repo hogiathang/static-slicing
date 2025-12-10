@@ -1,0 +1,64 @@
+_tmp_8.push(<lambda>5)
+var app = connect()
+var server = null
+var httpsOptions = {
+          key: options.key || grunt.file.read(path.join(__dirname, 'certs', 'server.key')).toString(),
+          cert: options.cert || grunt.file.read(path.join(__dirname, 'certs', 'server.crt')).toString(),
+          ca: options.ca || grunt.file.read(path.join(__dirname, 'certs', 'ca.crt')).toString(),
+          passphrase: options.passphrase || 'grunt',
+          secureProtocol: options.secureProtocol || '',
+        }
+_tmp_11.key = options.key || grunt.file.read(path.join(__dirname, 'certs', 'server.key')).toString()
+_tmp_11.cert = options.cert || grunt.file.read(path.join(__dirname, 'certs', 'server.crt')).toString()
+_tmp_11.ca = options.ca || grunt.file.read(path.join(__dirname, 'certs', 'ca.crt')).toString()
+_tmp_11.passphrase = options.passphrase || 'grunt'
+_tmp_11.secureProtocol = options.secureProtocol || ''
+middleware.forEach(function (m) {
+          if (!util.isArray(m)) {
+            m = [m];
+          }
+          app.use.apply(app, m);
+        })
+options.protocol === 'https'
+server = https.createServer(httpsOptions, app)
+options.protocol === 'http2'
+server = http2.createServer(httpsOptions, app)
+server = http.createServer(app)
+options.onCreateServer
+options.onCreateServer.forEach(function(func) {
+            func.call(null, server, connect, options);
+          })
+function findUnusedPort = function findUnusedPort(port, maxPort, hostname, callback) {
+          if (hostname === '::') {
+            hostname = '127.0.0.1';
+          }
+
+          if (port === 0) {
+            async.nextTick(function() {
+              callback(null, 0);
+            });
+          } else {
+            portscanner.findAPortNotInUse(port, maxPort, hostname, callback);
+          }
+        }
+findUnusedPort(options.port, options.port + MAX_PORTS, options.hostname, function(error, foundPort) {
+          if (error) {
+            grunt.log.writeln('Failed to find unused port: ' + error);
+          }
+
+          // if the found port doesn't match the option port, and we are forced to use the option port
+          if (options.port !== foundPort && options.useAvailablePort === false) {
+            grunt.fatal('Port ' + options.port + ' is already in use by another process.');
+          }
+
+          server
+            .listen(foundPort, options.hostname)
+            .on('listening', function() {
+              var port = foundPort;
+              var scheme = options.protocol === 'http2' ? 'https' : options.protocol;
+              var hostname = options.hostname;
+              var targetHostname = hostname === '::' ? 'localhost' : hostname;
+              var target = scheme + '://' + targetHostname + ':' + port;
+
+              grunt.log.writeln('Started connect web server on ' + t...
+grunt.log.write('Waiting forever...\n')

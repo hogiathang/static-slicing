@@ -1,0 +1,69 @@
+ASN1.decode = function (str) {
+        var stream;
+        if (!(str instanceof Stream)) {
+            stream = new Stream(str, 0);
+        }
+        else {
+            stream = str;
+        }
+        var streamStart = new Stream(stream);
+        var tag = new ASN1Tag(stream);
+        var len = ASN1.decodeLength(stream);
+        var start = stream.pos;
+        var header = start - streamStart.pos;
+        var sub = null;
+        var getSub = function () {
+            var ret = [];
+            if (len !== null) {
+                // definite length
+                var end = start + len;
+                while (stream.pos < end) {
+                    ret[ret.length] = ASN1.decode(stream);
+                }
+                if (stream.pos != end) {
+                    throw new Error("Content size is not correct for container starting at offset " + start);
+                }
+            }
+            else {
+                // undefined length
+                try {
+                    for (...
+!(str instanceof Stream)
+stream = new Stream(str, 0)
+stream = str
+var streamStart = new Stream(stream)
+var tag = new ASN1Tag(stream)
+var len = ASN1.decodeLength(stream)
+var start = stream.pos
+var header = start - streamStart.pos
+var sub = null
+var getSub = function () {
+            var ret = [];
+            if (len !== null) {
+                // definite length
+                var end = start + len;
+                while (stream.pos < end) {
+                    ret[ret.length] = ASN1.decode(stream);
+                }
+                if (stream.pos != end) {
+                    throw new Error("Content size is not correct for container starting at offset " + start);
+                }
+            }
+            else {
+                // undefined length
+                try {
+                    for (;;) {
+                        var s = ASN1.decode(stream);
+                        if (s.tag.isEOC()) {
+                            break;
+                        }
+                        ret[ret.length] = s;
+                    }
+                    len = start - stream.pos; // undefined lengths are represented as negative values
+                }
+                catch (e) {
+                    throw new Error("Exception while deco...
+tag.tagConstructed
+tag.isUniversal() && ((tag.tagNumber == 0x03) || (tag.tagNumber == 0x04))
+tag.tagNumber == 0x03
+stream.get() != 0

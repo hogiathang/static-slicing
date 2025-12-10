@@ -1,0 +1,6 @@
+extraArgs = extraArgs === void 0 ? __ecma.Array.factory() : extraArgs
+const packageManagerArgs = this.getArguments()
+const installArgs = [packageManagerArgs.install, packageName]
+save === 'devDependencies'
+installArgs.push(packageManagerArgs.saveDev)
+this.run([...installArgs, ...extraArgs], { cwd, silent: true })

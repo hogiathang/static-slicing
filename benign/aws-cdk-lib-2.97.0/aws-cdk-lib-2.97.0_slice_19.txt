@@ -1,0 +1,1 @@
+function sanitizeArtifactName = function sanitizeArtifactName(x){let sani=x.replace(/[^A-Za-z0-9_]/g,"_");const maxLength=100;if(sani.length>maxLength){const fingerprint=crypto.createHash("sha256").update(sani).digest("hex").slice(0,8);sani=sani.slice(0,maxLength-fingerprint.length)+fingerprint}return sani}

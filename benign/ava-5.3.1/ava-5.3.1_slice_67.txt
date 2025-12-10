@@ -1,0 +1,47 @@
+const createWorker = (options, execArgv) => {
+	let worker;
+	let postMessage;
+	let close;
+	if (options.workerThreads) {
+		worker = new Worker(workerPath, {
+			argv: options.workerArgv,
+			env: {NODE_ENV: 'test', ...process.env, ...options.environmentVariables},
+			execArgv: [...execArgv, ...additionalExecArgv],
+			workerData: {
+				options,
+			},
+			trackUnmanagedFds: true,
+			stdin: true,
+			stdout: true,
+			stderr: true,
+		});
+		postMessage = worker.postMessage.bind(worker);
+
+		// Ensure we've seen this event before we terminate the worker thread, as a
+		// workaround for https://github.com/nodejs/node/issues/38418.
+		const starting = pEvent(worker, 'message', ({ava}) => ava && ava.type === 'starting');
+
+		close = async () => {
+			try {
+				await starting;
+				await worker.terminate();
+			} finally {
+				// No-op
+			}
+		};
+	} else {
+		worker = childProcess.fork(fileURLToPath(workerPath), options.workerArgv, {
+			cwd: options.projectDir,
+			silent: true,
+			env: {NODE_ENV: 'test', ...proc...
+options.workerThreads
+worker = childProcess.fork(fileURLToPath(workerPath), options.workerArgv, {
+			cwd: options.projectDir,
+			silent: true,
+			env: {NODE_ENV: 'test', ...process.env, ...options.environmentVariables},
+			execArgv: [...execArgv, ...additionalExecArgv],
+		})
+_tmp_8.cwd = options.projectDir
+_tmp_8.silent = true
+_tmp_8.env = {NODE_ENV: 'test', ...process.env, ...options.environmentVariables}
+_tmp_8.execArgv = [...execArgv, ...additionalExecArgv]

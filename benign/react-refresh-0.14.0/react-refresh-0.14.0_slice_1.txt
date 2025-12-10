@@ -1,0 +1,46 @@
+function findInnerComponents = function findInnerComponents(inferredName, path, callback) {
+    var node = path.node;
+
+    switch (node.type) {
+      case 'Identifier':
+        {
+          if (!isComponentishName(node.name)) {
+            return false;
+          } // export default hoc(Foo)
+          // const X = hoc(Foo)
+
+
+          callback(inferredName, node, null);
+          return true;
+        }
+
+      case 'FunctionDeclaration':
+        {
+          // function Foo() {}
+          // export function Foo() {}
+          // export default function Foo() {}
+          callback(inferredName, node.id, null);
+          return true;
+        }
+
+      case 'ArrowFunctionExpression':
+        {
+          if (node.body.type === 'ArrowFunctionExpression') {
+            return false;
+          } // let Foo = () => {}
+          // export default hoc1(hoc2(() => {}))
+
+
+          callback(inferredName, node, path);
+          return true;
+        }
+
+      case 'FunctionExpression':
+        {
+          // let Foo = function() {}...
+var node = path.node
+node.type
+"CallExpression"
+var argsPath = path.get('arguments')
+argsPath === undefined || argsPath.length === 0
+var calleePath = path.get('callee')

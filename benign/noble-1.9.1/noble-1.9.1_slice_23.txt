@@ -1,0 +1,37 @@
+Hci.prototype.processLeConnComplete = function(status, data) {
+  var handle = data.readUInt16LE(0);
+  var role = data.readUInt8(2);
+  var addressType = data.readUInt8(3) === 0x01 ? 'random': 'public';
+  var address = data.slice(4, 10).toString('hex').match(/.{1,2}/g).reverse().join(':');
+  var interval = data.readUInt16LE(10) * 1.25;
+  var latency = data.readUInt16LE(12); // TODO: multiplier?
+  var supervisionTimeout = data.readUInt16LE(14) * 10;
+  var masterClockAccuracy = data.readUInt8(16); // TODO: multiplier?
+
+  debug('\t\t\thandle = ' + handle);
+  debug('\t\t\trole = ' + role);
+  debug('\t\t\taddress type = ' + addressType);
+  debug('\t\t\taddress = ' + address);
+  debug('\t\t\tinterval = ' + interval);
+  debug('\t\t\tlatency = ' + latency);
+  debug('\t\t\tsupervision timeout = ' + supervisionTimeout);
+  debug('\t\t\tmaster clock accuracy = ' + masterClockAccuracy);
+
+  this.emit('leConnComplete', status, handle, role, addressType, address, interval, latency, supervisionTimeout...
+var handle = data.readUInt16LE(0)
+var role = data.readUInt8(2)
+var addressType = data.readUInt8(3) === 0x01 ? 'random': 'public'
+var address = data.slice(4, 10).toString('hex').match(/.{1,2}/g).reverse().join(':')
+var interval = data.readUInt16LE(10) * 1.25
+var latency = data.readUInt16LE(12)
+var supervisionTimeout = data.readUInt16LE(14) * 10
+var masterClockAccuracy = data.readUInt8(16)
+debug('\t\t\thandle = ' + handle)
+debug('\t\t\trole = ' + role)
+debug('\t\t\taddress type = ' + addressType)
+debug('\t\t\taddress = ' + address)
+debug('\t\t\tinterval = ' + interval)
+debug('\t\t\tlatency = ' + latency)
+debug('\t\t\tsupervision timeout = ' + supervisionTimeout)
+debug('\t\t\tmaster clock accuracy = ' + masterClockAccuracy)
+this.emit('leConnComplete', status, handle, role, addressType, address, interval, latency, supervisionTimeout, masterClockAccuracy)

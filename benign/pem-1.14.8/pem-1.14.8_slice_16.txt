@@ -1,0 +1,52 @@
+function done = function done(err) {
+      var keybundle = {}
+
+      if (err && err.message.indexOf('No such file or directory') !== -1) {
+        err.code = 'ENOENT'
+      }
+
+      if (!err) {
+        var certs = readFromString(stdout, CERT_START, CERT_END)
+        keybundle.cert = certs.shift()
+        keybundle.ca = certs
+        keybundle.key = readFromString(stdout, KEY_START, KEY_END).pop()
+
+        debug("readPkcs12.execBinary - PRIVATE KEY - ?: ", keybundle.key)
+        if (keybundle.key) {
+          var args = ['rsa'];
+          if (openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3) {
+            args.push('-traditional')
+          }
+          args.push('-in');
+          args.push('--TMPFILE--');
+
+          // convert to RSA key
+          return openssl.exec(args, '(RSA |)PRIVATE KEY', [keybundle.key], function (err, key) {
+            if (err) {
+              debug("readPkcs12.execBinary - PRIVATE KEY convert - error: ", err)
+            }
+            //debug("...
+var keybundle = {}
+err && err.message.indexOf('No such file or directory') !== -1
+err.code = 'ENOENT'
+!err
+var certs = readFromString(stdout, CERT_START, CERT_END)
+keybundle.cert = certs.shift()
+keybundle.ca = certs
+keybundle.key = readFromString(stdout, KEY_START, KEY_END).pop()
+debug("readPkcs12.execBinary - PRIVATE KEY - ?: ", keybundle.key)
+keybundle.key
+_tmp_76 = __ecma.Array.factory()
+openssl.get('Vendor') === "OPENSSL" && openssl.get('VendorVersionMajor') >= 3
+args.push('-traditional')
+args.push('-in')
+args.push('--TMPFILE--')
+openssl.exec(args, '(RSA |)PRIVATE KEY', [keybundle.key], function (err, key) {
+            if (err) {
+              debug("readPkcs12.execBinary - PRIVATE KEY convert - error: ", err)
+            }
+            //debug("readPkcs12.execBinary - PRIVATE KEY", key)
+            keybundle.key = key
+
+            return callback(err, keybundle)
+          })

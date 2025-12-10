@@ -1,0 +1,30 @@
+get(name) {
+    let current = this;
+    while (current) {
+      let value = current.map.get(name);
+      if (value != null) {
+        if (current !== this) {
+          value = {
+            retrievalLevel: value.retrievalLevel,
+            lhs: value.lhs,
+            declareLocalCallback: value.declareLocalCallback,
+            declare: false,
+            priority: value.priority
+          };
+          this.map.set(name, value);
+          this.maybeGenerateSharedContextVar(value);
+          this.maybeRestoreView();
+        }
+        if (value.declareLocalCallback && !value.declare) {
+          value.declare = true;
+        }
+        return value.lhs;
+      }
+      current = current.parent;
+    }
+    return this.bindingLevel === 0 ? null : this.getComponentProperty(name);
+  }
+let current = this
+let value = current.map.get(name)
+value != null
+current = current.parent

@@ -1,0 +1,50 @@
+function addNamesToView = function addNamesToView(view, baseName, state) {
+  if (view.fnName === null) {
+    view.fnName = `${baseName}_Template`;
+  }
+  const varNames = /* @__PURE__ */ new Map();
+  for (const op of view.ops()) {
+    switch (op.kind) {
+      case OpKind.Listener:
+        if (op.handlerFnName === null) {
+          if (op.slot === null) {
+            throw new Error(`Expected a slot to be assigned`);
+          }
+          op.handlerFnName = `${view.fnName}_${op.tag}_${op.name}_${op.slot}_listener`;
+        }
+        break;
+      case OpKind.Variable:
+        varNames.set(op.xref, getVariableName(op.variable, state));
+        break;
+      case OpKind.Template:
+        const childView = view.tpl.views.get(op.xref);
+        if (op.slot === null) {
+          throw new Error(`Expected slot to be assigned`);
+        }
+        const safeTagName = op.tag.replace("-", "_");
+        addNamesToView(childView, `${baseName}_${safeTagName}_${op.slot}`, state);
+        break;
+    }
+  }
+  for (const op of vie...
+view.fnName === null
+<operator>.formatString("", baseName, "_Template")
+const varNames = /* @__PURE__ */ new Map()
+_iterator_26 = <operator>.iterator(view.ops())
+op.kind
+OpKind.Listener
+op.handlerFnName === null
+op.slot === null
+throw new Error(`Expected a slot to be assigned`);
+<operator>.formatString("", view.fnName, "_", op.tag, "_", op.name, "_", op.slot, "_listener")
+break;
+OpKind.Variable
+varNames.set(op.xref, getVariableName(op.variable, state))
+break;
+OpKind.Template
+const childView = view.tpl.views.get(op.xref)
+op.slot === null
+throw new Error(`Expected slot to be assigned`);
+const safeTagName = op.tag.replace("-", "_")
+addNamesToView(childView, `${baseName}_${safeTagName}_${op.slot}`, state)
+break;

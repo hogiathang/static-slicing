@@ -1,0 +1,115 @@
+getOptions(options, function (err, options) {
+        if (err) {
+            return callback(err);
+        }
+
+        // ensure that the collection option is present before starting a run
+        if (!_.isObject(options.collection)) {
+            return callback(new Error('expecting a collection to run'));
+        }
+
+        // use client certificate list to allow different ssl certificates for
+        // different URLs
+        var sslClientCertList = options.sslClientCertList || [],
+            // allow providing custom cookieJar
+            cookieJar = options.cookieJar || request.jar();
+
+        // if sslClientCert option is set, put it at the end of the list to
+        // match all URLs that didn't match in the list
+        if (options.sslClientCert) {
+            sslClientCertList.push({
+                name: 'client-cert',
+                matches: [sdk.UrlMatchPattern.MATCH_ALL_URLS],
+                key: { src: options.sslClientKey },
+                cert: { src: options.sslC...
+!_.isObject(options.collection)
+var sslClientCertList = options.sslClientCertList || []
+var cookieJar = options.cookieJar || request.jar()
+options.sslClientCert
+sslClientCertList.push({
+                name: 'client-cert',
+                matches: [sdk.UrlMatchPattern.MATCH_ALL_URLS],
+                key: { src: options.sslClientKey },
+                cert: { src: options.sslClientCert },
+                passphrase: options.sslClientPassphrase
+            })
+_tmp_17.name = "client-cert"
+_tmp_17.matches = [sdk.UrlMatchPattern.MATCH_ALL_URLS]
+_tmp_17.key = { src: options.sslClientKey }
+_tmp_17.cert = { src: options.sslClientCert }
+_tmp_17.passphrase = options.sslClientPassphrase
+_.isArray(options.bail)
+options.bail = _.transform(options.bail, function (result, value) {
+                result[value] = true;
+            }, {})
+options.folder
+entrypoint = { execute: options.folder }
+_.isArray(entrypoint.execute) && (entrypoint.lookupStrategy = MULTIENTRY_LOOKUP_STRATEGY)
+typeof options.bail !== 'undefined' &&
+            (options.bail === true || (_.isObject(options.bail) && options.bail.failure)) ? stopOnFailure = true : stopOnFailure = false
+options.bail === true || (_.isObject(options.bail) && options.bail.failure)
+stopOnFailure = false
+emitter.summary = new RunSummary(emitter, options)
+__ecma.Array.factory()
+emitter.runner = runner
+runner.run(options.collection, {
+            stopOnFailure: stopOnFailure, // LOL, you just got trolled ¯\_(ツ)_/¯
+            abortOnFailure: options.abortOnFailure, // used in integration tests, to be considered for a future release
+            abortOnError: _.get(options, 'bail.folder'),
+            iterationCount: options.iterationCount,
+            environment: options.environment,
+            globals: options.globals,
+            entrypoint: entrypoint,
+            data: options.iterationData,
+            delay: {
+                item: options.delayRequest
+            },
+            timeout: {
+                global: options.timeout || 0,
+                request: options.timeoutRequest || 0,
+                script: options.timeoutScript || 0
+            },
+            fileResolver: new SecureFS(options.workingDir, options.insecureFileRead),
+            requester: {
+                useWhatWGUrlParser: true,
+                cookieJar: cookieJar,
+                followRedirects: _...
+_tmp_24.stopOnFailure = stopOnFailure
+_tmp_24.abortOnFailure = options.abortOnFailure
+_tmp_24.abortOnError = _.get(options, 'bail.folder')
+_tmp_24.iterationCount = options.iterationCount
+_tmp_24.environment = options.environment
+_tmp_24.globals = options.globals
+_tmp_24.entrypoint = entrypoint
+_tmp_24.data = options.iterationData
+_tmp_24.delay = {
+                item: options.delayRequest
+            }
+_tmp_25.item = options.delayRequest
+_tmp_24.timeout = {
+                global: options.timeout || 0,
+                request: options.timeoutRequest || 0,
+                script: options.timeoutScript || 0
+            }
+_tmp_26.global = options.timeout || 0
+_tmp_26.request = options.timeoutRequest || 0
+_tmp_26.script = options.timeoutScript || 0
+_tmp_24.fileResolver = new SecureFS(options.workingDir, options.insecureFileRead)
+_tmp_24.requester = {
+                useWhatWGUrlParser: true,
+                cookieJar: cookieJar,
+                followRedirects: _.has(options, 'ignoreRedirects') ? !options.ignoreRedirects : undefined,
+                strictSSL: _.has(options, 'insecure') ? !options.insecure : undefined,
+                timings: Boolean(options.verbose),
+                extendedRootCA: options.sslExtraCaCerts,
+                agents: _.isObject(options.requestAgents) ? options.requestAgents : undefined
+            }
+_tmp_28.useWhatWGUrlParser = true
+_tmp_28.cookieJar = cookieJar
+_tmp_28.followRedirects = _.has(options, 'ignoreRedirects') ? !options.ignoreRedirects : undefined
+_tmp_28.strictSSL = _.has(options, 'insecure') ? !options.insecure : undefined
+_tmp_28.timings = Boolean(options.verbose)
+_tmp_28.extendedRootCA = options.sslExtraCaCerts
+_tmp_28.agents = _.isObject(options.requestAgents) ? options.requestAgents : undefined
+_tmp_24.certificates = sslClientCertList.length && new sdk.CertificateList({}, sslClientCertList)
+<lambda>3

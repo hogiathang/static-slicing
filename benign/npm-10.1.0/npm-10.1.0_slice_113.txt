@@ -1,0 +1,31 @@
+module.exports = (npm) => {
+  const browser = npm.config.get('viewer') === 'browser' ? ' (in a browser)' : ''
+  const allCommands = npm.config.get('long') ? cmdUsages(npm.constructor) : cmdNames()
+
+  return `npm <command>
+
+Usage:
+
+npm install        install all the dependencies in your project
+npm install <foo>  add the <foo> dependency to your project
+npm test           run this project's tests
+npm run <foo>      run the script named <foo>
+npm <command> -h   quick help on <command>
+npm -l             display usage info for all commands
+npm help <term>    search for help on <term>${browser}
+npm help npm       more involved overview${browser}
+
+All commands:
+${allCommands}
+
+Specify configs in the ini-formatted file:
+${indent() + npm.config.get('userconfig')}
+or on the command line via: npm <command> --key=value
+
+More configuration info: npm help config
+Configuration fields: npm help 7 config
+
+npm@${npm.version} ${npm.npmRoot}`
+}
+const browser = npm.config.get('viewer') === 'browser' ? ' (in a browser)' : ''
+const allCommands = npm.config.get('long') ? cmdUsages(npm.constructor) : cmdNames()

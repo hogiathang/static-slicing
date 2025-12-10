@@ -1,0 +1,24 @@
+function addPackageToPackageJson = function addPackageToPackageJson(host, pkg, version) {
+    if (host.exists('package.json')) {
+        const sourceText = host.read('package.json').toString('utf-8');
+        const json = JSON.parse(sourceText);
+        if (!json.dependencies) {
+            json.dependencies = {};
+        }
+        if (!json.dependencies[pkg]) {
+            json.dependencies[pkg] = version;
+            json.dependencies = sortObjectByKeys(json.dependencies);
+        }
+        host.overwrite('package.json', JSON.stringify(json, null, 2));
+    }
+    return host;
+}
+host.exists('package.json')
+const sourceText = host.read('package.json').toString('utf-8')
+const json = JSON.parse(sourceText)
+!json.dependencies
+json.dependencies = {}
+!json.dependencies[pkg]
+json.dependencies[pkg] = version
+json.dependencies = sortObjectByKeys(json.dependencies)
+host.overwrite('package.json', JSON.stringify(json, null, 2))

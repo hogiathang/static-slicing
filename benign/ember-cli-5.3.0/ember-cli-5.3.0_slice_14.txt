@@ -1,0 +1,44 @@
+_tmp_0.run = run
+let projectName = rawArgs[0]
+commandOptions.name = rawArgs.shift()
+!projectName || commandOptions.interactive
+let answers = await this.runTask('InteractiveNew', commandOptions)
+commandOptions.blueprint = answers.blueprint
+answers.name
+projectName = answers.name
+commandOptions.name = answers.name
+answers.lang
+commandOptions.lang = answers.lang
+answers.packageManager
+commandOptions.yarn = answers.packageManager === 'yarn'
+commandOptions.pnpm = answers.packageManager === 'pnpm'
+answers.ciProvider
+commandOptions.ciProvider = answers.ciProvider
+!commandOptions.ciProvider
+commandOptions.ciProvider = 'github'
+commandOptions.dryRun
+commandOptions.skipGit = true
+projectName === '.'
+!isValidProjectName(projectName)
+commandOptions.blueprint = normalizeBlueprint(commandOptions.blueprint)
+let InitCommand = this.commands.Init
+let initCommand = new InitCommand({
+      ui: this.ui,
+      analytics: this.analytics,
+      tasks: this.tasks,
+      project: Project.nullProject(this.ui, this.cli),
+    })
+_tmp_28.ui = this.ui
+_tmp_28.analytics = this.analytics
+_tmp_28.tasks = this.tasks
+_tmp_28.project = Project.nullProject(this.ui, this.cli)
+await this.runTask('CreateAndStepIntoDirectory', {
+      projectName,
+      directoryName: commandOptions.directory,
+      dryRun: commandOptions.dryRun,
+    })
+_tmp_29.projectName = projectName
+_tmp_29.directoryName = commandOptions.directory
+_tmp_29.dryRun = commandOptions.dryRun
+initCommand.project.root = process.cwd()
+await initCommand.run(commandOptions, rawArgs)

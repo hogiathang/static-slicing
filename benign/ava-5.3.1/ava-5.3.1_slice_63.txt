@@ -1,0 +1,17 @@
+handle.channel.on('message', message => {
+			if (!message.ava) {
+				return;
+			}
+
+			const {channelId, type, ...payload} = message.ava;
+			if (type === 'shared-worker-error') {
+				const emitter = channelEmitters.get(channelId);
+				if (emitter !== undefined) {
+					emitter.emit(type, payload);
+				}
+			}
+		})
+!message.ava
+channelId = _tmp_2.channelId
+type === 'shared-worker-error'
+const emitter = channelEmitters.get(channelId)

@@ -1,0 +1,50 @@
+voiceServerUpdate(data) {
+        if(this.pendingGuilds[data.guild_id] && this.pendingGuilds[data.guild_id].timeout) {
+            clearTimeout(this.pendingGuilds[data.guild_id].timeout);
+            this.pendingGuilds[data.guild_id].timeout = null;
+        }
+        let connection = this.get(data.guild_id);
+        if(!connection) {
+            if(!this.pendingGuilds[data.guild_id]) {
+                return;
+            }
+            connection = this.add(new this.baseObject(data.guild_id, {
+                shard: data.shard,
+                opusOnly: this.pendingGuilds[data.guild_id].options.opusOnly,
+                shared: this.pendingGuilds[data.guild_id].options.shared
+            }));
+        }
+        connection.connect({
+            channel_id: (this.pendingGuilds[data.guild_id] || connection).channelID,
+            endpoint: data.endpoint,
+            token: data.token,
+            session_id: data.session_id,
+            user_id: data.user_id
+        });
+        if(!this....
+this.pendingGuilds[data.guild_id] && this.pendingGuilds[data.guild_id].timeout
+clearTimeout(this.pendingGuilds[data.guild_id].timeout)
+this.pendingGuilds[data.guild_id].timeout = null
+let connection = this.get(data.guild_id)
+!connection
+!this.pendingGuilds[data.guild_id]
+connection = this.add(new this.baseObject(data.guild_id, {
+                shard: data.shard,
+                opusOnly: this.pendingGuilds[data.guild_id].options.opusOnly,
+                shared: this.pendingGuilds[data.guild_id].options.shared
+            }))
+_tmp_10.shard = data.shard
+_tmp_10.opusOnly = this.pendingGuilds[data.guild_id].options.opusOnly
+_tmp_10.shared = this.pendingGuilds[data.guild_id].options.shared
+connection.connect({
+            channel_id: (this.pendingGuilds[data.guild_id] || connection).channelID,
+            endpoint: data.endpoint,
+            token: data.token,
+            session_id: data.session_id,
+            user_id: data.user_id
+        })
+_tmp_11.channel_id = this.pendingGuilds[data.guild_id] || connection.channelID
+_tmp_11.endpoint = data.endpoint
+_tmp_11.token = data.token
+_tmp_11.session_id = data.session_id
+_tmp_11.user_id = data.user_id

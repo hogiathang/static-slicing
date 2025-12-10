@@ -1,0 +1,44 @@
+async exec () {
+    // if has a npm-shrinkwrap.json, nothing to do
+    // if has a package-lock.json, rename to npm-shrinkwrap.json
+    // if has neither, load the actual tree and save that as npm-shrinkwrap.json
+    //
+    // loadVirtual, fall back to loadActual
+    // rename shrinkwrap file type, and tree.meta.save()
+    if (this.npm.global) {
+      const er = new Error('`npm shrinkwrap` does not work for global packages')
+      er.code = 'ESHRINKWRAPGLOBAL'
+      throw er
+    }
+
+    const Arborist = require('@npmcli/arborist')
+    const path = this.npm.prefix
+    const sw = resolve(path, 'npm-shrinkwrap.json')
+    const arb = new Arborist({ ...this.npm.flatOptions, path })
+    const tree = await arb.loadVirtual().catch(() => arb.loadActual())
+    const { meta } = tree
+    const newFile = meta.hiddenLockfile || !meta.loadedFromDisk
+    const oldFilename = meta.filename
+    const notSW = !newFile && basename(oldFilename) !== 'npm-shrinkwrap.json'
+
+    // The computed lockfile versi...
+this.npm.global
+const er = new Error('`npm shrinkwrap` does not work for global packages')
+er.code = 'ESHRINKWRAPGLOBAL'
+throw er
+const Arborist = require('@npmcli/arborist')
+const path = this.npm.prefix
+const sw = resolve(path, 'npm-shrinkwrap.json')
+const arb = new Arborist({ ...this.npm.flatOptions, path })
+const tree = await arb.loadVirtual().catch(() => arb.loadActual())
+meta = _tmp_6.meta
+const newFile = meta.hiddenLockfile || !meta.loadedFromDisk
+const oldFilename = meta.filename
+const notSW = !newFile && basename(oldFilename) !== 'npm-shrinkwrap.json'
+meta.hiddenLockfile
+meta.lockfileVersion = arb.options.lockfileVersion ||
+        meta.originalLockfileVersion
+meta.originalLockfileVersion
+meta.hiddenLockfile = false
+meta.filename = sw
+await meta.save()

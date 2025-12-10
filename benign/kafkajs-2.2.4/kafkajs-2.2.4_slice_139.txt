@@ -1,0 +1,6 @@
+const connect = async () => {
+    await cluster.connect()
+    instrumentationEmitter.emit(CONNECT)
+  }
+await cluster.connect()
+instrumentationEmitter.emit(CONNECT)

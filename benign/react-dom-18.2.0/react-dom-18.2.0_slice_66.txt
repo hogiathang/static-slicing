@@ -1,0 +1,49 @@
+function flushCompletedQueues = function flushCompletedQueues(request, destination) {
+
+    try {
+      // The structure of this is to go through each queue one by one and write
+      // until the sink tells us to stop. When we should stop, we still finish writing
+      // that item fully and then yield. At that point we remove the already completed
+      // items up until the point we completed them.
+      // TODO: Emit preloading.
+      // TODO: It's kind of unfortunate to keep checking this array after we've already
+      // emitted the root.
+      var completedRootSegment = request.completedRootSegment;
+
+      if (completedRootSegment !== null && request.pendingRootTasks === 0) {
+        flushSegment(request, destination, completedRootSegment);
+        request.completedRootSegment = null;
+        writeCompletedRoot(destination, request.responseState);
+      } // We emit client rendering instructions for already emitted boundaries first.
+      // This is so that we can signal to the client to start client render...
+var completedRootSegment = request.completedRootSegment
+completedRootSegment !== null && request.pendingRootTasks === 0
+flushSegment(request, destination, completedRootSegment)
+request.completedRootSegment = null
+writeCompletedRoot(destination, request.responseState)
+var clientRenderedBoundaries = request.clientRenderedBoundaries
+i < clientRenderedBoundaries.length
+var boundary = clientRenderedBoundaries[i]
+!flushClientRenderedBoundary(request, destination, boundary)
+clientRenderedBoundaries.splice(0, i)
+var completedBoundaries = request.completedBoundaries
+i < completedBoundaries.length
+var _boundary = completedBoundaries[i]
+!flushCompletedBoundary(request, destination, _boundary)
+completedBoundaries.splice(0, i)
+completeWriting(destination)
+beginWriting(destination)
+var partialBoundaries = request.partialBoundaries
+i < partialBoundaries.length
+var _boundary2 = partialBoundaries[i]
+!flushPartialBoundary(request, destination, _boundary2)
+partialBoundaries.splice(0, i)
+var largeBoundaries = request.completedBoundaries
+i < largeBoundaries.length
+var _boundary3 = largeBoundaries[i]
+!flushCompletedBoundary(request, destination, _boundary3)
+largeBoundaries.splice(0, i)
+request.allPendingTasks === 0 && request.pingedTasks.length === 0 && request.clientRenderedBoundaries.length === 0 && request.completedBoundaries.length === 0
+request.abortableTasks.size !== 0
+error('There was still abortable task at the root when we closed. This is a bug in React.')
+close(destination)

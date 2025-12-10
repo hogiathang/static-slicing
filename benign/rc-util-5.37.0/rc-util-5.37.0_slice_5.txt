@@ -1,0 +1,44 @@
+(0, _defineProperty2.default)(this, "unLock", function () {
+    var _this$options5;
+    var findLock = locks.find(function (_ref5) {
+      var target = _ref5.target;
+      return target === _this.lockTarget;
+    });
+    locks = locks.filter(function (_ref6) {
+      var target = _ref6.target;
+      return target !== _this.lockTarget;
+    });
+    if (!findLock || locks.some(function (_ref7) {
+      var _findLock$options;
+      var options = _ref7.options;
+      return (options === null || options === void 0 ? void 0 : options.container) === ((_findLock$options = findLock.options) === null || _findLock$options === void 0 ? void 0 : _findLock$options.container);
+    })) {
+      return;
+    }
+
+    // Remove Effect
+    var container = ((_this$options5 = _this.options) === null || _this$options5 === void 0 ? void 0 : _this$options5.container) || document.body;
+    var containerClassName = container.className;
+    if (!scrollingEffectClassNameReg.test(containerClassName)) return;
+    (0, _s...
+var findLock = locks.find(function (_ref5) {
+      var target = _ref5.target;
+      return target === _this.lockTarget;
+    })
+locks = locks.filter(function (_ref6) {
+      var target = _ref6.target;
+      return target !== _this.lockTarget;
+    })
+!findLock || locks.some(function (_ref7) {
+      var _findLock$options;
+      var options = _ref7.options;
+      return (options === null || options === void 0 ? void 0 : options.container) === ((_findLock$options = findLock.options) === null || _findLock$options === void 0 ? void 0 : _findLock$options.container);
+    })
+var container = ((_this$options5 = _this.options) === null || _this$options5 === void 0 ? void 0 : _this$options5.container) || document.body
+var containerClassName = container.className
+!scrollingEffectClassNameReg.test(containerClassName)
+(0, _setStyle.default)(cacheStyle.get(container), {
+      element: container
+    })
+_tmp_15.element = container
+cacheStyle.delete(container)

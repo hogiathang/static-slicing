@@ -1,0 +1,44 @@
+function timing = function timing(
+  { category, variable, value, label } = {},
+  trackerNames = undefined
+) {
+  if (typeof ga === 'function') {
+    if (!category || !variable || typeof value !== 'number') {
+      warn(
+        'args.category, args.variable ' +
+          'AND args.value are required in timing() ' +
+          'AND args.value has to be a number'
+      );
+      return;
+    }
+
+    // Required Fields
+    const fieldObject = {
+      hitType: 'timing',
+      timingCategory: _format(category),
+      timingVar: _format(variable),
+      timingValue: value
+    };
+
+    if (label) {
+      fieldObject.timingLabel = _format(label);
+    }
+
+    send(fieldObject, trackerNames);
+  }
+}
+_tmp_5 = param1_0 === void 0 ? {} : param1_0
+trackerNames = trackerNames === void 0 ? undefined : trackerNames
+typeof ga === 'function'
+!category || !variable || typeof value !== 'number'
+const fieldObject = {
+      hitType: 'timing',
+      timingCategory: _format(category),
+      timingVar: _format(variable),
+      timingValue: value
+    }
+_tmp_6.hitType = "timing"
+_tmp_6.timingCategory = _format(category)
+_tmp_6.timingVar = _format(variable)
+_tmp_6.timingValue = value
+fieldObject.timingLabel = _format(label)

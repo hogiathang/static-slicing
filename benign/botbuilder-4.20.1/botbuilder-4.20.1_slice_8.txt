@@ -1,0 +1,29 @@
+static checkForOAuthCards(adapter, context, activity, log) {
+        if (!activity || !activity.attachments) {
+            return;
+        }
+        for (const attachment of activity.attachments) {
+            if (attachment.contentType == botbuilder_core_1.CardFactory.contentTypes.oauthCard) {
+                const oauthCard = attachment.content;
+                if (!oauthCard.connectionName) {
+                    throw new Error("The OAuthPrompt's ConnectionName property is missing a value.");
+                }
+                let pollingTimeoutMs = context.turnState.get(botbuilder_core_1.TokenPollingSettingsKey);
+                if (!pollingTimeoutMs) {
+                    pollingTimeoutMs = botbuilder_core_1.OAuthLoginTimeoutMsValue;
+                }
+                const pollingTimeout = new Date();
+                pollingTimeout.setMilliseconds(pollingTimeout.getMilliseconds() + pollingTimeoutMs);
+                setTimeout(() => this.pollForToken(adapter, context, activity, ...
+!activity || !activity.attachments
+_iterator_0 = <operator>.iterator(activity.attachments)
+attachment.contentType == botbuilder_core_1.CardFactory.contentTypes.oauthCard
+const oauthCard = attachment.content
+!oauthCard.connectionName
+throw new Error("The OAuthPrompt's ConnectionName property is missing a value.");
+let pollingTimeoutMs = context.turnState.get(botbuilder_core_1.TokenPollingSettingsKey)
+!pollingTimeoutMs
+pollingTimeoutMs = botbuilder_core_1.OAuthLoginTimeoutMsValue
+const pollingTimeout = new Date()
+pollingTimeout.setMilliseconds(pollingTimeout.getMilliseconds() + pollingTimeoutMs)
+setTimeout(() => this.pollForToken(adapter, context, activity, oauthCard.connectionName, pollingTimeout, log), TokenResolver.PollingIntervalMs)

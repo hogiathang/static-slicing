@@ -1,0 +1,4 @@
+_tmp_2.pre = pre
+(0, _features.enableFeature)(file, feature, loose)
+typeof file.get(versionKey) === "number"
+!file.get(versionKey) || _semver.lt(file.get(versionKey), "7.22.15")

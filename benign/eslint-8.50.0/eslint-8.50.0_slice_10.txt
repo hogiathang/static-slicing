@@ -1,0 +1,47 @@
+function getOrFindUsedDeprecatedRules = function getOrFindUsedDeprecatedRules(cliEngine, maybeFilePath) {
+    const {
+        configArrayFactory,
+        options: { cwd }
+    } = getCLIEngineInternalSlots(cliEngine);
+    const filePath = path.isAbsolute(maybeFilePath)
+        ? maybeFilePath
+        : path.join(cwd, "__placeholder__.js");
+    const configArray = configArrayFactory.getConfigArrayForFile(filePath);
+    const config = configArray.extractConfig(filePath);
+
+    // Most files use the same config, so cache it.
+    if (!usedDeprecatedRulesCache.has(config)) {
+        const pluginRules = configArray.pluginRules;
+        const retv = [];
+
+        for (const [ruleId, ruleConf] of Object.entries(config.rules)) {
+            if (getRuleSeverity(ruleConf) === 0) {
+                continue;
+            }
+            const rule = pluginRules.get(ruleId) || BuiltinRules.get(ruleId);
+            const meta = rule && rule.meta;
+
+            if (meta && meta.deprecated) {
+                retv.push({ ruleId, replacedBy: meta....
+_tmp_5 = getCLIEngineInternalSlots(cliEngine)
+configArrayFactory = _tmp_5.configArrayFactory
+_tmp_6.cwd = cwd
+getCLIEngineInternalSlots(cliEngine)
+const filePath = path.isAbsolute(maybeFilePath)
+        ? maybeFilePath
+        : path.join(cwd, "__placeholder__.js")
+path.join(cwd, "__placeholder__.js")
+const configArray = configArrayFactory.getConfigArrayForFile(filePath)
+const config = configArray.extractConfig(filePath)
+!usedDeprecatedRulesCache.has(config)
+const pluginRules = configArray.pluginRules
+__ecma.Array.factory()
+_iterator_1 = <operator>.iterator(Object.entries(config.rules))
+getRuleSeverity(ruleConf) === 0
+continue;
+const rule = pluginRules.get(ruleId) || BuiltinRules.get(ruleId)
+const meta = rule && rule.meta
+meta && meta.deprecated
+retv.push({ ruleId, replacedBy: meta.replacedBy || [] })
+usedDeprecatedRulesCache.set(config, Object.freeze(retv))
+usedDeprecatedRulesCache.get(config)

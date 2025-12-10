@@ -1,0 +1,28 @@
+function computeReleaseNotes = function computeReleaseNotes(currentVersion, isFullChangelog, feed, latestRelease) {
+    if (!isFullChangelog) {
+        return getNoteValue(latestRelease);
+    }
+    const releaseNotes = [];
+    for (const release of feed.getElements("entry")) {
+        // noinspection TypeScriptValidateJSTypes
+        const versionRelease = /\/tag\/v?([^/]+)$/.exec(release.element("link").attribute("href"))[1];
+        if (semver.lt(currentVersion, versionRelease)) {
+            releaseNotes.push({
+                version: versionRelease,
+                note: getNoteValue(release),
+            });
+        }
+    }
+    return releaseNotes.sort((a, b) => semver.rcompare(a.version, b.version));
+}
+!isFullChangelog
+const releaseNotes = []
+_iterator_0 = <operator>.iterator(feed.getElements("entry"))
+const versionRelease = /\/tag\/v?([^/]+)$/.exec(release.element("link").attribute("href"))[1]
+semver.lt(currentVersion, versionRelease)
+releaseNotes.push({
+                version: versionRelease,
+                note: getNoteValue(release),
+            })
+_tmp_2.version = versionRelease
+_tmp_2.note = getNoteValue(release)

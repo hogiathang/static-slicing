@@ -1,0 +1,16 @@
+function onUse = async function onUse(name) {
+  if (await isRegistryNotFound(name)) {
+    return;
+  }
+
+  const registries = await getRegistries();
+  const registry = registries[name];
+  const npmrc = await readFile(NPMRC);
+  await writeFile(NPMRC, Object.assign(npmrc, registry));
+
+  printSuccess(`The registry has been changed to '${name}'.`);
+}
+await isRegistryNotFound(name)
+const registries = await getRegistries()
+const registry = registries[name]
+const npmrc = await readFile(NPMRC)

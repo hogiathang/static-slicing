@@ -1,0 +1,54 @@
+onServer(server) {
+    // expose app.server
+    this.server = server;
+    // set ignore code
+    const serverGracefulIgnoreCode = this.config.serverGracefulIgnoreCode || [];
+
+    /* istanbul ignore next */
+    graceful({
+      server: [ server ],
+      error: (err, throwErrorCount) => {
+        const originMessage = err.message;
+        if (originMessage) {
+          // shouldjs will override error property but only getter
+          // https://github.com/shouldjs/should.js/blob/889e22ebf19a06bc2747d24cf34b25cc00b37464/lib/assertion-error.js#L26
+          Object.defineProperty(err, 'message', {
+            get() {
+              return originMessage + ' (uncaughtException throw ' + throwErrorCount + ' times on pid:' + process.pid + ')';
+            },
+            configurable: true,
+            enumerable: false,
+          });
+        }
+        this.coreLogger.error(err);
+      },
+      ignoreCode: serverGracefulIgnoreCode,
+    });
+
+    server.on('clientError', (err, socket) => this.o...
+this.server = server
+const serverGracefulIgnoreCode = this.config.serverGracefulIgnoreCode || []
+graceful({
+      server: [ server ],
+      error: (err, throwErrorCount) => {
+        const originMessage = err.message;
+        if (originMessage) {
+          // shouldjs will override error property but only getter
+          // https://github.com/shouldjs/should.js/blob/889e22ebf19a06bc2747d24cf34b25cc00b37464/lib/assertion-error.js#L26
+          Object.defineProperty(err, 'message', {
+            get() {
+              return originMessage + ' (uncaughtException throw ' + throwErrorCount + ' times on pid:' + process.pid + ')';
+            },
+            configurable: true,
+            enumerable: false,
+          });
+        }
+        this.coreLogger.error(err);
+      },
+      ignoreCode: serverGracefulIgnoreCode,
+    })
+_tmp_13 = __ecma.Array.factory()
+_tmp_12.error = <lambda>2
+_tmp_12.ignoreCode = serverGracefulIgnoreCode
+server.on('clientError', (err, socket) => this.onClientError(err, socket))
+server.setTimeout(this.config.serverTimeout)

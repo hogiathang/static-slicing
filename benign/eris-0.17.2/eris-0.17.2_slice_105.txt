@@ -1,0 +1,47 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"GUILD_ROLE_UPDATE"
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+const role = guild.roles.add(packet.d.role, guild)
+!role
+const oldRole = {
+                    color: role.color,
+                    hoist: role.hoist,
+                    icon: role.icon,
+                    managed: role.managed,
+                    mentionable: role.mentionable,
+                    name: role.name,
+                    permissions: role.permissions,
+                    position: role.position,
+                    tags: role.tags,
+                    unicodeEmoji: role.unicodeEmoji
+                }
+_tmp_197.color = role.color
+_tmp_197.hoist = role.hoist
+_tmp_197.icon = role.icon
+_tmp_197.managed = role.managed
+_tmp_197.mentionable = role.mentionable
+_tmp_197.name = role.name
+_tmp_197.permissions = role.permissions
+_tmp_197.position = role.position
+_tmp_197.tags = role.tags
+_tmp_197.unicodeEmoji = role.unicodeEmoji
+this.emit("guildRoleUpdate", guild, guild.roles.update(packet.d.role, guild), oldRole)

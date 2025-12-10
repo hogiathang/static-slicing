@@ -1,0 +1,7 @@
+function updateTimes = function updateTimes(path, atime, mtime) {
+    if (exists(path)) {
+        memfs_1.fs.utimesSync(real_file_system_1.realFileSystem.normalizePath(path), atime, mtime);
+    }
+}
+exists(path)
+memfs_1.fs.utimesSync(real_file_system_1.realFileSystem.normalizePath(path), atime, mtime)

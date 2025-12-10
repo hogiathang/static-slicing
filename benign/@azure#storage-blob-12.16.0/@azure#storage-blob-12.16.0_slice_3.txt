@@ -1,0 +1,14 @@
+async sendRequest(request) {
+        if (isNode) {
+            if (!request.headers) {
+                request.headers = new HttpHeaders();
+            }
+            if (!request.headers.get(HeaderConstants.USER_AGENT)) {
+                request.headers.set(HeaderConstants.USER_AGENT, this.telemetry);
+            }
+        }
+        return this._nextPolicy.sendRequest(request);
+    }
+!request.headers
+request.headers = new HttpHeaders()
+!request.headers.get(HeaderConstants.USER_AGENT)

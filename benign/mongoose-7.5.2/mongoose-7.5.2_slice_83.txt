@@ -1,0 +1,60 @@
+Model.validate = async function validate(obj, pathsOrOptions, context) {
+  if ((arguments.length < 3) || (arguments.length === 3 && typeof arguments[2] === 'function')) {
+    // For convenience, if we're validating a document or an object, make `context` default to
+    // the model so users don't have to always pass `context`, re: gh-10132, gh-10346
+    context = obj;
+  }
+  if (typeof context === 'function' || typeof arguments[3] === 'function') {
+    throw new MongooseError('Model.validate() no longer accepts a callback');
+  }
+
+  let schema = this.schema;
+  const discriminatorKey = schema.options.discriminatorKey;
+  if (schema.discriminators != null && obj != null && obj[discriminatorKey] != null) {
+    schema = getSchemaDiscriminatorByValue(schema, obj[discriminatorKey]) || schema;
+  }
+  let paths = Object.keys(schema.paths);
+
+  if (pathsOrOptions != null) {
+    const _pathsToValidate = typeof pathsOrOptions === 'string' ? new Set(pathsOrOptions.split(' ')) : Array.isArray(pathsOr...
+(arguments.length < 3) || (arguments.length === 3 && typeof arguments[2] === 'function')
+context = obj
+typeof context === 'function' || typeof arguments[3] === 'function'
+throw new MongooseError('Model.validate() no longer accepts a callback');
+let schema = this.schema
+const discriminatorKey = schema.options.discriminatorKey
+schema.discriminators != null && obj != null && obj[discriminatorKey] != null
+schema = getSchemaDiscriminatorByValue(schema, obj[discriminatorKey]) || schema
+let paths = Object.keys(schema.paths)
+pathsOrOptions != null
+const _pathsToValidate = typeof pathsOrOptions === 'string' ? new Set(pathsOrOptions.split(' ')) : Array.isArray(pathsOrOptions) ? new Set(pathsOrOptions) : new Set(paths)
+paths = paths.filter(p => {
+      if (pathsOrOptions.pathsToSkip) {
+        if (Array.isArray(pathsOrOptions.pathsToSkip)) {
+          if (pathsOrOptions.pathsToSkip.find(x => x == p)) {
+            return false;
+          }
+        } else if (typeof pathsOrOptions.pathsToSkip == 'string') {
+          if (pathsOrOptions.pathsToSkip.includes(p)) {
+            return false;
+          }
+        }
+      }
+      const pieces = p.split('.');
+      let cur = pieces[0];
+
+      for (const piece of pieces) {
+        if (_pathsToValidate.has(cur)) {
+          return true;
+        }
+        cur += '.' + piece;
+      }
+
+      return _pathsToValidate.has(p);
+    })
+_iterator_34 = <operator>.iterator(paths)
+const schemaType = schema.path(path)
+!schemaType || !schemaType.$isMongooseArray || schemaType.$isMongooseDocumentArray
+continue;
+const val = get(obj, path)
+pushNestedArrayPaths(paths, val, path)

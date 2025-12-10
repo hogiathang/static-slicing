@@ -1,0 +1,12 @@
+CompletionRecord.prototype['!'] = function assert() {
+	var type = SLOT.get(this, '[[Type]]');
+
+	if (type !== 'normal') {
+		throw new $SyntaxError('Assertion failed: Completion Record is not of type "normal"');
+	}
+	return SLOT.get(this, '[[Value]]');
+}
+var type = SLOT.get(this, '[[Type]]')
+type !== 'normal'
+throw new $SyntaxError('Assertion failed: Completion Record is not of type "normal"');
+SLOT.get(this, '[[Value]]')

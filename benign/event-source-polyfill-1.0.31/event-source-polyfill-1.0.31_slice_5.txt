@@ -1,0 +1,58 @@
+XHRTransport.prototype.open = function (xhr, onStartCallback, onProgressCallback, onFinishCallback, url, withCredentials, headers) {
+    xhr.open("GET", url);
+    var offset = 0;
+    xhr.onprogress = function () {
+      var responseText = xhr.responseText;
+      var chunk = responseText.slice(offset);
+      offset += chunk.length;
+      onProgressCallback(chunk);
+    };
+    xhr.onerror = function (event) {
+      event.preventDefault();
+      onFinishCallback(new Error("NetworkError"));
+    };
+    xhr.onload = function () {
+      onFinishCallback(null);
+    };
+    xhr.onabort = function () {
+      onFinishCallback(null);
+    };
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
+        var status = xhr.status;
+        var statusText = xhr.statusText;
+        var contentType = xhr.getResponseHeader("Content-Type");
+        var headers = xhr.getAllResponseHeaders();
+        onStartCallback(status, statusTe...
+xhr.open("GET", url)
+var offset = 0
+xhr.onprogress = function () {
+      var responseText = xhr.responseText;
+      var chunk = responseText.slice(offset);
+      offset += chunk.length;
+      onProgressCallback(chunk);
+    }
+xhr.onerror = function (event) {
+      event.preventDefault();
+      onFinishCallback(new Error("NetworkError"));
+    }
+xhr.onload = function () {
+      onFinishCallback(null);
+    }
+xhr.onabort = function () {
+      onFinishCallback(null);
+    }
+xhr.onreadystatechange = function () {
+      if (xhr.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
+        var status = xhr.status;
+        var statusText = xhr.statusText;
+        var contentType = xhr.getResponseHeader("Content-Type");
+        var headers = xhr.getAllResponseHeaders();
+        onStartCallback(status, statusText, contentType, new HeadersPolyfill(headers));
+      }
+    }
+xhr.withCredentials = withCredentials
+_iterator_1 = <operator>.iterator(headers)
+Object.prototype.hasOwnProperty.call(headers, name)
+xhr.setRequestHeader(name, headers[name])
+xhr.send()

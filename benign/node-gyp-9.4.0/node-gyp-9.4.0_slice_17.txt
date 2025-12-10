@@ -1,0 +1,27 @@
+function getBaseConfigGypi = async function getBaseConfigGypi ({ gyp, nodeDir }) {
+  // try reading $nodeDir/include/node/config.gypi first when:
+  // 1. --dist-url or --nodedir is specified
+  // 2. and --force-process-config is not specified
+  const useCustomHeaders = gyp.opts.nodedir || gyp.opts.disturl || gyp.opts['dist-url']
+  const shouldReadConfigGypi = useCustomHeaders && !gyp.opts['force-process-config']
+  if (shouldReadConfigGypi && nodeDir) {
+    try {
+      const baseConfigGypiPath = path.resolve(nodeDir, 'include/node/config.gypi')
+      const baseConfigGypi = await fs.promises.readFile(baseConfigGypiPath)
+      return parseConfigGypi(baseConfigGypi.toString())
+    } catch (err) {
+      log.warn('read config.gypi', err.message)
+    }
+  }
+
+  // fallback to process.config if it is invalid
+  return JSON.parse(JSON.stringify(process.config))
+}
+const useCustomHeaders = gyp.opts.nodedir || gyp.opts.disturl || gyp.opts['dist-url']
+const shouldReadConfigGypi = useCustomHeaders && !gyp.opts['force-process-config']
+shouldReadConfigGypi && nodeDir
+const baseConfigGypiPath = path.resolve(nodeDir, 'include/node/config.gypi')
+const baseConfigGypi = await fs.promises.readFile(baseConfigGypiPath)
+parseConfigGypi(baseConfigGypi.toString())
+log.warn('read config.gypi', err.message)
+JSON.parse(JSON.stringify(process.config))

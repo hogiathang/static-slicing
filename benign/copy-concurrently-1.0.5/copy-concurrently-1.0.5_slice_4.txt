@@ -1,0 +1,10 @@
+function () {
+        if (errored) return
+        if (opts.mode != null) {
+          resolve(chmod(to, opts.mode))
+        } else {
+          resolve()
+        }
+      }
+opts.mode != null
+resolve(chmod(to, opts.mode))

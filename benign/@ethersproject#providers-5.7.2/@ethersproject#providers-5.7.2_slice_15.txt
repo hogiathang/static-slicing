@@ -1,0 +1,21 @@
+(error) => {
+                    this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: request,
+                        provider: this
+                    });
+                    batch.forEach((inflightRequest) => {
+                        inflightRequest.reject(error);
+                    });
+                }
+this.emit("debug", {
+                        action: "response",
+                        error: error,
+                        request: request,
+                        provider: this
+                    })
+_tmp_8.action = "response"
+_tmp_8.error = error
+_tmp_8.request = request
+_tmp_8.provider = this

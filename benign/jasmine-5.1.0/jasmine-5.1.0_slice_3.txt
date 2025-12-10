@@ -1,0 +1,7 @@
+srcDirFiles.forEach(function(file) {
+    if (file.search(pattern) !== -1) {
+      fs.writeFileSync(path.join(destDir, file), fs.readFileSync(path.join(srcDir, file)));
+    }
+  })
+file.search(pattern) !== -1
+fs.writeFileSync(path.join(destDir, file), fs.readFileSync(path.join(srcDir, file)))

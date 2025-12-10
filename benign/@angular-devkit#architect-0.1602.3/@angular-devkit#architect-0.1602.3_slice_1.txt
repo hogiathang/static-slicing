@@ -1,0 +1,15 @@
+function findProjectTarget = function findProjectTarget(workspace, project, target) {
+    const projectDefinition = workspace.projects.get(project);
+    if (!projectDefinition) {
+        throw new Error(`Project "${project}" does not exist.`);
+    }
+    const targetDefinition = projectDefinition.targets.get(target);
+    if (!targetDefinition) {
+        throw new Error('Project target does not exist.');
+    }
+    return targetDefinition;
+}
+const projectDefinition = workspace.projects.get(project)
+!projectDefinition
+<operator>.formatString("Project "", project, "" does not exist.")
+const targetDefinition = projectDefinition.targets.get(target)

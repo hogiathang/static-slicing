@@ -1,0 +1,44 @@
+function fetchJSON = async function fetchJSON(url, options) {
+
+    let result = {};
+
+    options = options || {};
+    options.headers = options.headers || new Headers();
+
+    if (!options.headers.get('Content-Type')) {
+      options.headers.set('Content-Type', 'application/json');
+    }
+    if (!options.headers.get('Accept')) {
+      options.headers.set('Accept', 'application/json');
+    }
+
+    const response = await ourFetch(url, options);
+    result.ok = response.ok;
+    result.status = response.status;
+    const json = await response.json();
+
+    result.data = json;
+    if (!result.ok) {
+      result.data.status = result.status;
+      let err = generateErrorFromResponse(result.data);
+      throw err;
+    }
+
+    if (Array.isArray(result.data)) {
+      result.data = result.data.map(function (v) {
+        if (v.error || v.missing) {
+          return generateErrorFromResponse(v);
+        } else {
+          return v;
+        }
+      });
+    }
+
+    return result;
+  }
+let result = {}
+options = options || {}
+options.headers = options.headers || new Headers()
+!options.headers.get('Content-Type')
+options.headers.set('Content-Type', 'application/json')
+(_tmp_401 = options.headers).get

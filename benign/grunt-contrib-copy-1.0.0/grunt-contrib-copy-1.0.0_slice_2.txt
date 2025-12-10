@@ -1,0 +1,20 @@
+var syncTimestamp = function (src, dest) {
+      var stat = fs.lstatSync(src);
+      if (path.basename(src) !== path.basename(dest)) {
+        return;
+      }
+
+      if (stat.isFile() && !fileSyncCmp.equalFiles(src, dest)) {
+        return;
+      }
+
+      var fd = fs.openSync(dest, isWindows ? 'r+' : 'r');
+      fs.futimesSync(fd, stat.atime, stat.mtime);
+      fs.closeSync(fd);
+    }
+var stat = fs.lstatSync(src)
+path.basename(src) !== path.basename(dest)
+stat.isFile() && !fileSyncCmp.equalFiles(src, dest)
+var fd = fs.openSync(dest, isWindows ? 'r+' : 'r')
+fs.futimesSync(fd, stat.atime, stat.mtime)
+fs.closeSync(fd)

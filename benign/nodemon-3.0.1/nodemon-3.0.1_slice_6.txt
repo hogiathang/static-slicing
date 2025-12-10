@@ -1,0 +1,157 @@
+function run = function run(options) {
+  var cmd = config.command.raw;
+  // moved up
+  // we need restart function below in the global scope for run.kill
+  /*jshint validthis:true*/
+  restart = run.bind(this, options);
+  run.restart = restart;
+
+  // binding options with instance of run
+  // so that we can use it in run.kill
+  run.options = options;
+
+  var runCmd = !options.runOnChangeOnly || config.lastStarted !== 0;
+  if (runCmd) {
+    utils.log.status('starting `' + config.command.string + '`');
+  } else {
+    // should just watch file if command is not to be run
+    // had another alternate approach
+    // to stop process being forked/spawned in the below code
+    // but this approach does early exit and makes code cleaner
+    debug('start watch on: %s', config.options.watch);
+    if (config.options.watch !== false) {
+      watch();
+      return;
+    }
+  }
+
+  config.lastStarted = Date.now();
+
+  var stdio = ['pipe', 'pipe', 'pipe'];
+
+  if (config.options.stdout) {
+    stdio = ['pipe', process.st...
+var cmd = config.command.raw
+restart = run.bind(this, options)
+run.restart = restart
+run.options = options
+var runCmd = !options.runOnChangeOnly || config.lastStarted !== 0
+utils.log.status('starting `' + config.command.string + '`')
+debug('start watch on: %s', config.options.watch)
+config.options.watch !== false
+config.lastStarted = Date.now()
+var stdio = ['pipe', 'pipe', 'pipe']
+config.options.stdout
+stdio = ['pipe', process.stdout, process.stderr]
+config.options.stdin === false
+stdio = [process.stdin, process.stdout, process.stderr]
+var sh = 'sh'
+var shFlag = '-c'
+const binPath = process.cwd() + '/node_modules/.bin'
+const spawnOptions = {
+    env: Object.assign({}, process.env, options.execOptions.env, {
+      PATH:
+        binPath +
+        path.delimiter +
+        (undefsafe(options, '.execOptions.env.PATH') || process.env.PATH),
+    }),
+    stdio: stdio,
+  }
+_tmp_4.env = Object.assign({}, process.env, options.execOptions.env, {
+      PATH:
+        binPath +
+        path.delimiter +
+        (undefsafe(options, '.execOptions.env.PATH') || process.env.PATH),
+    })
+_tmp_6.PATH = binPath +
+        path.delimiter +
+        (undefsafe(options, '.execOptions.env.PATH') || process.env.PATH)
+binPath +
+        path.delimiter +
+        (undefsafe(options, '.execOptions.env.PATH') || process.env.PATH)
+path.delimiter
+undefsafe(options, '.execOptions.env.PATH') || process.env.PATH
+_tmp_4.stdio = stdio
+var executable = cmd.executable
+utils.isWindows
+executable.indexOf('/') !== -1
+executable = executable
+        .split(' ')
+        .map((e, i) => {
+          if (i === 0) {
+            return path.normalize(e);
+          }
+          return e;
+        })
+        .join(' ')
+split
+<lambda>0
+join
+sh = process.env.comspec || 'cmd'
+shFlag = '/d /s /c'
+spawnOptions.windowsVerbatimArguments = true
+spawnOptions.windowsHide = true
+var args = runCmd ? utils.stringify(executable, cmd.args) : ':'
+var spawnArgs = [sh, [shFlag, args], spawnOptions]
+const firstArg = cmd.args[0] || ''
+var inBinPath = false
+inBinPath = statSync(`${binPath}/${executable}`).isFile()
+const hasStdio = utils.satisfies('>= 6.4.0 || < 5')
+const shouldFork =
+    !config.options.spawn &&
+    !inBinPath &&
+    !(firstArg.indexOf('-') === 0) && // don't fork if there's a node exec arg
+    firstArg !== 'inspect' && // don't fork it's `inspect` debugger
+    executable === 'node' && // only fork if node
+    utils.version.major > 4
+!config.options.spawn &&
+    !inBinPath &&
+    !(firstArg.indexOf('-') === 0) && // don't fork if there's a node exec arg
+    firstArg !== 'inspect' && // don't fork it's `inspect` debugger
+    executable === 'node' && // only fork if node
+    utils.version.major > 4
+!inBinPath
+!(firstArg.indexOf('-') === 0)
+firstArg !== 'inspect'
+executable === 'node'
+utils.version.major > 4
+var forkArgs = cmd.args.slice(1)
+var env = utils.merge(options.execOptions.env, process.env)
+stdio.push('ipc')
+const forkOptions = {
+      env: env,
+      stdio: stdio,
+      silent: !hasStdio,
+    }
+_tmp_13.env = env
+_tmp_13.stdio = stdio
+_tmp_13.silent = !hasStdio
+utils.isWindows
+forkOptions.windowsHide = true
+child = fork(options.execOptions.script, forkArgs, forkOptions)
+(_tmp_14 = utils.log).detail
+debug('fork', sh, shFlag, args)
+utils.log.detail('spawning')
+child = spawn.apply(null, spawnArgs)
+debug('spawn', sh, shFlag, args)
+config.required
+var emit = {
+      stdout: function (data) {
+        bus.emit('stdout', data);
+      },
+      stderr: function (data) {
+        bus.emit('stderr', data);
+      },
+    }
+_tmp_16.stdout = <lambda>1
+_tmp_16.stderr = <lambda>2
+config.options.stdout
+child.on('stdout', emit.stdout).on('stderr', emit.stderr)
+child.stdout.on('data', emit.stdout)
+child.stderr.on('data', emit.stderr)
+bus.stdout = child.stdout
+bus.stderr = child.stderr
+child.on('message', function (message, sendHandle) {
+        bus.emit('message', message, sendHandle);
+      })
+bus.emit('start')

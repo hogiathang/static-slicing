@@ -1,0 +1,23 @@
+function checkQuorum = function checkQuorum(quorum, results) {
+    const tally = new Map();
+    for (const { value, tag, weight } of results) {
+        const t = tally.get(tag) || { value, weight: 0 };
+        t.weight += weight;
+        tally.set(tag, t);
+    }
+    let best = null;
+    for (const r of tally.values()) {
+        if (r.weight >= quorum && (!best || r.weight > best.weight)) {
+            best = r;
+        }
+    }
+    if (best) {
+        return best.value;
+    }
+    return undefined;
+}
+const tally = new Map()
+_iterator_0 = <operator>.iterator(results)
+const t = tally.get(tag) || { value, weight: 0 }
+t.weight += weight
+tally.set(tag, t)

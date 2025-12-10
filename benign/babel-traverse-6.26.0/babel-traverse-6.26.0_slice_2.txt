@@ -1,0 +1,52 @@
+function _evaluate = function _evaluate(path) {
+    if (!confident) return;
+
+    var node = path.node;
+
+
+    if (path.isSequenceExpression()) {
+      var exprs = path.get("expressions");
+      return evaluate(exprs[exprs.length - 1]);
+    }
+
+    if (path.isStringLiteral() || path.isNumericLiteral() || path.isBooleanLiteral()) {
+      return node.value;
+    }
+
+    if (path.isNullLiteral()) {
+      return null;
+    }
+
+    if (path.isTemplateLiteral()) {
+      var str = "";
+
+      var i = 0;
+      var _exprs = path.get("expressions");
+
+      for (var _iterator = node.quasis, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
+        var _ref;
+
+        if (_isArray) {
+          if (_i >= _iterator.length) break;
+          _ref = _iterator[_i++];
+        } else {
+          _i = _iterator.next();
+          if (_i.done) break;
+          _ref = _i.value;
+        }
+
+        var elem = _ref;
+
+        if (!confident) break;
+
+        str += ele...
+!confident
+var node = path.node
+path.isSequenceExpression()
+path.isStringLiteral() || path.isNumericLiteral() || path.isBooleanLiteral()
+path.isNullLiteral()
+path.isTemplateLiteral()
+path.isConditionalExpression()
+var testResult = evaluate(path.get("test"))
+!confident
+evaluate(path.get("alternate"))

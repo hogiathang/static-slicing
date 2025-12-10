@@ -1,0 +1,20 @@
+lifeCycle.startTasks = (tasks) => {
+        for (const task of tasks) {
+            tasksToProcessStartTimes[task.id] = process.hrtime();
+        }
+        for (const taskRow of taskRows) {
+            if (tasks.indexOf(taskRow.task) > -1) {
+                taskRow.status = 'running';
+            }
+        }
+        if (!renderIntervalId) {
+            renderIntervalId = setInterval(renderRows, 100);
+        }
+    }
+_iterator_3 = <operator>.iterator(tasks)
+tasksToProcessStartTimes[task.id] = process.hrtime()
+_iterator_4 = <operator>.iterator(taskRows)
+tasks.indexOf(taskRow.task) > -1
+taskRow.status = 'running'
+!renderIntervalId
+renderIntervalId = setInterval(renderRows, 100)

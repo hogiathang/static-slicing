@@ -1,0 +1,22 @@
+function cachedStringify = function cachedStringify(parsedType, options) {
+    const cache = getParsedTypeCache(options);
+    let stringified;
+
+    if (canReturnOriginalExpression(parsedType, options)) {
+        return parsedType.typeExpression;
+    } else if (cache) {
+        stringified = cache.get(parsedType);
+        if (!stringified) {
+            stringified = stringify(parsedType, options);
+            cache.set(parsedType, stringified);
+        }
+
+        return stringified;
+    } else {
+        return stringify(parsedType, options);
+    }
+}
+const cache = getParsedTypeCache(options)
+canReturnOriginalExpression(parsedType, options)
+stringified = cache.get(parsedType)
+!stringified

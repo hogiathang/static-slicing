@@ -1,0 +1,9 @@
+_tmp_11.next = <lambda>8
+resolve(result)
+(_tmp_12 = _this.observers).delete
+!_this.observers.size
+_this.queryManager.removeQuery(_this.queryId)
+setTimeout(function () {
+                        subscription.unsubscribe();
+                    }, 0)
+0

@@ -1,0 +1,25 @@
+(_tmp_13 = function() {
+                return Q.nfcall(tmp.dir, {
+                    template: path.join(
+                        this._config.tmp,
+                        md5(this._name) + '-' + process.pid + '-XXXXXX'
+                    ),
+                    mode: 0777 & ~process.umask(),
+                    unsafeCleanup: true
+                });
+            }).bind
+Q.nfcall(tmp.dir, {
+                    template: path.join(
+                        this._config.tmp,
+                        md5(this._name) + '-' + process.pid + '-XXXXXX'
+                    ),
+                    mode: 0777 & ~process.umask(),
+                    unsafeCleanup: true
+                })
+_tmp_14.template = path.join(
+                        this._config.tmp,
+                        md5(this._name) + '-' + process.pid + '-XXXXXX'
+                    )
+this._config.tmp
+md5(this._name) + '-' + process.pid + '-XXXXXX'
+_tmp_14.mode = 0777 & ~process.umask()

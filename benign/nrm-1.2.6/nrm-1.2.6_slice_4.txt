@@ -1,0 +1,10 @@
+new Promise(resolve => {
+    try {
+      fs.writeFileSync(path, ini.stringify(content));
+      resolve();
+    } catch (error) {
+      exit(error);
+    }
+  })
+fs.writeFileSync(path, ini.stringify(content))
+resolve()

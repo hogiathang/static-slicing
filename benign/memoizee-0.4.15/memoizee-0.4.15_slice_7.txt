@@ -1,0 +1,16 @@
+function (obj) {
+					var result, args = arguments;
+					if (resolve) args = resolve(args);
+					obj = args[0];
+					if (map.has(obj)) return map.get(obj);
+					result = fn.apply(this, args);
+					if (map.has(obj)) {
+						throw customError("Circular invocation", "CIRCULAR_INVOCATION");
+					}
+					map.set(obj, result);
+					return result;
+				}
+var args = arguments
+args = resolve(args)
+obj = args[0]
+map.has(obj)

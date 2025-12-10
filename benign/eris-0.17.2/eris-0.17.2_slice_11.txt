@@ -1,0 +1,33 @@
+options = options === void 0 ? {} : options
+!options || typeof options !== "object"
+options = {
+                limit: options
+            }
+_tmp_432.limit = options
+options.limit === undefined
+options.limit = 50
+after !== undefined
+options.after = after
+around !== undefined
+options.around = around
+before !== undefined
+options.before = before
+let limit = options.limit
+limit && limit > 100
+__ecma.Array.factory()
+const get = async (_before, _after) => {
+                const messages = await this.requestHandler.request("GET", Endpoints.CHANNEL_MESSAGES(channelID), true, {
+                    limit: 100,
+                    before: _before || undefined,
+                    after: _after || undefined
+                });
+                if(limit <= messages.length) {
+                    return (_after ? messages.slice(messages.length - limit, messages.length).map((message) => new Message(message, this)).concat(logs) : logs.concat(messages.slice(0, limit).map((message) => new Message(message, this))));
+                }
+                limit -= messages.length;
+                logs = (_after ? messages.map((message) => new Message(message, this)).concat(logs) : logs.concat(messages.map((message) => new Message(message, this))));
+                if(messages.length < 100) {
+                    return logs;
+                }
+                this.emit("debug", `Getting ${limit} more messages during getMes...
+get(options.before, options.after)

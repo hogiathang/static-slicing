@@ -1,0 +1,30 @@
+fs.stat(fullPath, (err, curStat) => {
+      if (err || !this._pendingWrites.has(path)) {
+        if (err && err.code !== 'ENOENT') awfEmit(err);
+        return;
+      }
+
+      const now = Number(new Date());
+
+      if (prevStat && curStat.size !== prevStat.size) {
+        this._pendingWrites.get(path).lastChange = now;
+      }
+      const pw = this._pendingWrites.get(path);
+      const df = now - pw.lastChange;
+
+      if (df >= threshold) {
+        this._pendingWrites.delete(path);
+        awfEmit(undefined, curStat);
+      } else {
+        timeoutHandler = setTimeout(
+          awaitWriteFinish,
+          this.options.awaitWriteFinish.pollInterval,
+          curStat
+        );
+      }
+    })
+err || !this._pendingWrites.has(path)
+const now = Number(new Date())
+prevStat && curStat.size !== prevStat.size
+this._pendingWrites.get(path).lastChange = now
+const pw = this._pendingWrites.get(path)

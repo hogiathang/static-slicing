@@ -1,0 +1,33 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"CHANNEL_DELETE"
+packet.d.type === ChannelTypes.DM || packet.d.type === undefined
+packet.d.guild_id
+delete this.client.channelGuildMap[packet.d.id]
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+const channel = guild.channels.remove(packet.d)
+!channel
+channel.type === ChannelTypes.GUILD_VOICE || channel.type === ChannelTypes.GUILD_STAGE_VOICE
+channel.voiceMembers.forEach((member) => {
+                            channel.voiceMembers.remove(member);
+                            this.emit("voiceChannelLeave", member, channel);
+                        })
+this.emit("channelDelete", channel)

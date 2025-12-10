@@ -1,0 +1,33 @@
+function fileExists = async function fileExists(href, options = {}) {
+  if (isVinyl(href)) {
+    return !href.isNull();
+  }
+
+  if (Buffer.isBuffer(href)) {
+    return true;
+  }
+
+  if (isRemote(href)) {
+    const {request = {}} = options;
+    const method = request.method || 'head';
+    try {
+      const response = await fetch(href, {...options, request: {...request, method}});
+      const {statusCode} = response;
+
+      if (method === 'head') {
+        return Number.parseInt(statusCode, 10) < 400;
+      }
+
+      return Boolean(response);
+    } catch {
+      return false;
+    }
+  }
+
+  return fs.existsSync(href) || fs.existsSync(href.replace(/\?.*$/, ''));
+}
+isVinyl(href)
+Buffer.isBuffer(href)
+isRemote(href)
+request = _tmp_83.request === void 0 ? {} : _tmp_83.request
+const method = request.method || 'head'

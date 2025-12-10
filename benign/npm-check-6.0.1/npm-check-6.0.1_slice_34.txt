@@ -1,0 +1,5 @@
+function inspectIfDebugMode = function inspectIfDebugMode() {
+        if (get('debug')) {
+            inspect();
+        }
+    }

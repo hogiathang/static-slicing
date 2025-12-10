@@ -1,0 +1,20 @@
+this.scheduled = setImmediate(() => {
+      this.scheduled = null;
+      if (!this.eod && !this.paused) {
+        const data = this.readable.read(this.bufSize);
+        if (data && data.length) {
+          this.writable.write(data);
+
+          if (!this.paused && !this.autoPause) {
+            this._schedule();
+          }
+        } else if (!this.paused) {
+          this._schedule();
+        }
+      }
+    })
+this.scheduled = null
+!this.eod && !this.paused
+const data = this.readable.read(this.bufSize)
+data && data.length
+(_tmp_2 = this.writable).write

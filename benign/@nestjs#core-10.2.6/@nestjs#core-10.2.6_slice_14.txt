@@ -1,0 +1,60 @@
+async registerRouteMiddleware(middlewareContainer, routeInfo, config, moduleKey, applicationRef) {
+        const middlewareCollection = [].concat(config.middleware);
+        const moduleRef = this.container.getModuleByKey(moduleKey);
+        for (const metatype of middlewareCollection) {
+            const collection = middlewareContainer.getMiddlewareCollection(moduleKey);
+            const instanceWrapper = collection.get(metatype);
+            if ((0, shared_utils_1.isUndefined)(instanceWrapper)) {
+                throw new runtime_exception_1.RuntimeException();
+            }
+            if (instanceWrapper.isTransient) {
+                return;
+            }
+            this.graphInspector.insertClassNode(moduleRef, instanceWrapper, 'middleware');
+            const middlewareDefinition = {
+                type: 'middleware',
+                methodName: 'use',
+                className: instanceWrapper.name,
+                classNodeId: instanceWrapper.id,
+                metadat...
+const middlewareCollection = [].concat(config.middleware)
+const moduleRef = this.container.getModuleByKey(moduleKey)
+_iterator_3 = <operator>.iterator(middlewareCollection)
+const collection = middlewareContainer.getMiddlewareCollection(moduleKey)
+const instanceWrapper = collection.get(metatype)
+(0, shared_utils_1.isUndefined)(instanceWrapper)
+throw new runtime_exception_1.RuntimeException();
+instanceWrapper.isTransient
+this.graphInspector.insertClassNode(moduleRef, instanceWrapper, 'middleware')
+const middlewareDefinition = {
+                type: 'middleware',
+                methodName: 'use',
+                className: instanceWrapper.name,
+                classNodeId: instanceWrapper.id,
+                metadata: {
+                    key: routeInfo.path,
+                    path: routeInfo.path,
+                    requestMethod: request_method_enum_1.RequestMethod[routeInfo.method] ??
+                        'ALL',
+                    version: routeInfo.version,
+                },
+            }
+_tmp_23.type = "middleware"
+_tmp_23.methodName = "use"
+_tmp_23.className = instanceWrapper.name
+_tmp_23.classNodeId = instanceWrapper.id
+_tmp_23.metadata = {
+                    key: routeInfo.path,
+                    path: routeInfo.path,
+                    requestMethod: request_method_enum_1.RequestMethod[routeInfo.method] ??
+                        'ALL',
+                    version: routeInfo.version,
+                }
+_tmp_24.key = routeInfo.path
+_tmp_24.path = routeInfo.path
+_tmp_24.requestMethod = request_method_enum_1.RequestMethod[routeInfo.method] ??
+                        'ALL'
+"ALL"
+_tmp_24.version = routeInfo.version
+this.graphInspector.insertEntrypointDefinition(middlewareDefinition, instanceWrapper.id)
+await this.bindHandler(instanceWrapper, applicationRef, routeInfo, moduleRef, collection)

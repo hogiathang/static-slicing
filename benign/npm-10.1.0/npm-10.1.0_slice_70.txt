@@ -1,0 +1,45 @@
+list.forEach(dep => {
+      const {
+        name,
+        current,
+        wanted,
+        latest,
+        path,
+        type,
+        dependent,
+        homepage,
+      } = dep
+      out[name] = {
+        current,
+        wanted,
+        latest,
+        dependent,
+        location: path,
+      }
+      if (this.npm.config.get('long')) {
+        out[name].type = type
+        out[name].homepage = homepage
+      }
+    })
+_tmp_50 = dep
+name = _tmp_50.name
+current = _tmp_50.current
+wanted = _tmp_50.wanted
+latest = _tmp_50.latest
+path = _tmp_50.path
+type = _tmp_50.type
+dependent = _tmp_50.dependent
+homepage = _tmp_50.homepage
+out[name] = {
+        current,
+        wanted,
+        latest,
+        dependent,
+        location: path,
+      }
+_tmp_51.current = current
+_tmp_51.wanted = wanted
+_tmp_51.latest = latest
+_tmp_51.dependent = dependent
+_tmp_51.location = path
+(_tmp_52 = this.npm.config).get

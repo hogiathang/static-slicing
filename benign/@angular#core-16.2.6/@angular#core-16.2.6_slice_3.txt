@@ -1,0 +1,12 @@
+initStatus.donePromise.then(() => {
+                    const localeId = envInjector.get(LOCALE_ID, DEFAULT_LOCALE_ID);
+                    setLocaleId(localeId || DEFAULT_LOCALE_ID);
+                    const appRef = envInjector.get(ApplicationRef);
+                    if (rootComponent !== undefined) {
+                        appRef.bootstrap(rootComponent);
+                    }
+                    return appRef;
+                })
+const localeId = envInjector.get(LOCALE_ID, DEFAULT_LOCALE_ID)
+setLocaleId(localeId || DEFAULT_LOCALE_ID)
+const appRef = envInjector.get(ApplicationRef)

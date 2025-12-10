@@ -1,0 +1,26 @@
+constructor(_app, viewCtrl, navCtrl, config, elementRef, renderer) {
+        super(config, elementRef, renderer);
+        this._app = _app;
+        this.navCtrl = navCtrl;
+        /**
+         * @hidden
+         */
+        this._hidden = false;
+        /**
+         * @hidden
+         */
+        this._hideBb = false;
+        viewCtrl && viewCtrl._setNavbar(this);
+        this._bbIcon = config.get('backButtonIcon');
+        this._sbPadding = config.getBoolean('statusbarPadding');
+        this._backText = config.get('backButtonText', 'Back');
+    }
+super(config, elementRef, renderer)
+this._app = _app
+this.navCtrl = navCtrl
+this._hidden = false
+this._hideBb = false
+viewCtrl && viewCtrl._setNavbar(this)
+this._bbIcon = config.get('backButtonIcon')
+this._sbPadding = config.getBoolean('statusbarPadding')
+this._backText = config.get('backButtonText', 'Back')

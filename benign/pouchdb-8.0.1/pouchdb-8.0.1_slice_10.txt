@@ -1,0 +1,55 @@
+function fetchExistingDocs = function fetchExistingDocs() {
+
+    if (!docInfos.length) {
+      return;
+    }
+
+    var numFetched = 0;
+
+    function checkDone() {
+      if (++numFetched === docInfos.length) {
+        idbProcessDocs();
+      }
+    }
+
+    function readMetadata(event) {
+      var metadata = decodeMetadata(event.target.result);
+
+      if (metadata) {
+        fetchedDocs.set(metadata.id, metadata);
+      }
+      checkDone();
+    }
+
+    for (var i = 0, len = docInfos.length; i < len; i++) {
+      var docInfo = docInfos[i];
+      if (docInfo._id && isLocalId(docInfo._id)) {
+        checkDone(); // skip local docs
+        continue;
+      }
+      var req = docStore.get(docInfo.metadata.id);
+      req.onsuccess = readMetadata;
+    }
+  }
+!docInfos.length
+var numFetched = 0
+function checkDone = function checkDone() {
+      if (++numFetched === docInfos.length) {
+        idbProcessDocs();
+      }
+    }
+function readMetadata = function readMetadata(event) {
+      var metadata = decodeMetadata(event.target.result);
+
+      if (metadata) {
+        fetchedDocs.set(metadata.id, metadata);
+      }
+      checkDone();
+    }
+var len = docInfos.length
+var docInfo = docInfos[i]
+docInfo._id && isLocalId(docInfo._id)
+checkDone()
+continue;
+var req = docStore.get(docInfo.metadata.id)
+req.onsuccess = readMetadata

@@ -1,0 +1,15 @@
+getLocalization(digit) {
+        const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse();
+        const index = new Map(numerals.map((d, i) => [i, d]));
+        if (digit > 9) {
+            const numbers = String(digit).split('');
+            return numbers.map((number) => index.get(Number(number))).join('');
+        }
+        else {
+            return index.get(digit);
+        }
+    }
+const numerals = [...new Intl.NumberFormat(this.locale, { useGrouping: false }).format(9876543210)].reverse()
+const index = new Map(numerals.map((d, i) => [i, d]))
+digit > 9
+index.get(digit)

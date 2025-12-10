@@ -1,0 +1,11 @@
+args.forEach(function(file) {
+      if(fs.existsSync(file)) {
+        addFile(file);
+      } else {
+        console.error('Error: file %s not found.', file);
+        process.exit(2);
+      }
+    })
+fs.existsSync(file)
+console.error('Error: file %s not found.', file)
+process.exit(2)

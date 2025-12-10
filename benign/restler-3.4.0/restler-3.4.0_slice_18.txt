@@ -1,0 +1,2 @@
+_tmp_52.request = <lambda>35
+request(this._url(path), this._withDefaults(options))

@@ -1,0 +1,39 @@
+(url) => {
+            const request = {
+                method: 'PUT',
+                url: `${url}/${path}`,
+                headers: { ...FIREBASE_REMOTE_CONFIG_HEADERS, 'If-Match': etag },
+                data: {
+                    conditions: template.conditions,
+                    parameters: template.parameters,
+                    parameterGroups: template.parameterGroups,
+                    version: template.version,
+                }
+            };
+            return this.httpClient.send(request);
+        }
+const request = {
+                method: 'PUT',
+                url: `${url}/${path}`,
+                headers: { ...FIREBASE_REMOTE_CONFIG_HEADERS, 'If-Match': etag },
+                data: {
+                    conditions: template.conditions,
+                    parameters: template.parameters,
+                    parameterGroups: template.parameterGroups,
+                    version: template.version,
+                }
+            }
+_tmp_31.method = "PUT"
+_tmp_31.url = <operator>.formatString("", url, "/", path, "")
+_tmp_31.headers = { ...FIREBASE_REMOTE_CONFIG_HEADERS, 'If-Match': etag }
+_tmp_31.data = {
+                    conditions: template.conditions,
+                    parameters: template.parameters,
+                    parameterGroups: template.parameterGroups,
+                    version: template.version,
+                }
+_tmp_33.conditions = template.conditions
+_tmp_33.parameters = template.parameters
+_tmp_33.parameterGroups = template.parameterGroups
+_tmp_33.version = template.version
+(_tmp_34 = this.httpClient).send

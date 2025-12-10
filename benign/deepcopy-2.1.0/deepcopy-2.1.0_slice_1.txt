@@ -1,0 +1,23 @@
+function get = function get(collection, key, type = null) {
+  const valueType = type || (0, _detector.detectType)(collection);
+
+  switch (valueType) {
+    case 'Arguments':
+    case 'Array':
+    case 'Object':
+      return collection[key];
+
+    case 'Map':
+      return collection.get(key);
+
+    case 'Set':
+      // NOTE: Set.prototype.keys is alias of Set.prototype.values
+      // it means key is equals value
+      return key;
+
+    default:
+  }
+}
+const valueType = type || (0, _detector.detectType)(collection)
+"Map"
+collection.get(key)

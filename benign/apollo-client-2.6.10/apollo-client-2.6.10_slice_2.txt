@@ -1,0 +1,24 @@
+QueryManager.prototype.startPollingQuery = function (options, queryId, listener) {
+        var _this = this;
+        var pollInterval = options.pollInterval;
+        process.env.NODE_ENV === "production" ? invariant(pollInterval, 18) : invariant(pollInterval, 'Attempted to start a polling query without a polling interval.');
+        if (!this.ssrMode) {
+            var info = this.pollingInfoByQueryId.get(queryId);
+            if (!info) {
+                this.pollingInfoByQueryId.set(queryId, (info = {}));
+            }
+            info.interval = pollInterval;
+            info.options = __assign(__assign({}, options), { fetchPolicy: 'network-only' });
+            var maybeFetch_1 = function () {
+                var info = _this.pollingInfoByQueryId.get(queryId);
+                if (info) {
+                    if (_this.checkInFlight(queryId)) {
+                        poll_1();
+                    }
+                    else {
+                        _this.fetchQuery(queryId, info....
+var _this = this
+var pollInterval = options.pollInterval
+process.env.NODE_ENV === "production" ? invariant(pollInterval, 18) : invariant(pollInterval, 'Attempted to start a polling query without a polling interval.')
+!this.ssrMode
+var info = this.pollingInfoByQueryId.get(queryId)

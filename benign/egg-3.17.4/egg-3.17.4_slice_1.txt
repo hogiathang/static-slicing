@@ -1,0 +1,13 @@
+function getFromHeaders = function getFromHeaders(ctx, names) {
+  if (!names) return '';
+  names = names.split(/\s*,\s*/);
+  for (const name of names) {
+    const value = ctx.get(name);
+    if (value) return value;
+  }
+  return '';
+}
+!names
+names = names.split(/\s*,\s*/)
+_iterator_0 = <operator>.iterator(names)
+const value = ctx.get(name)

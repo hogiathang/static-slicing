@@ -1,0 +1,34 @@
+function dereference$Ref = function dereference$Ref(
+  $ref: any,
+  path: any,
+  pathFromRoot: any,
+  parents: any,
+  processedObjects: any,
+  dereferencedCache: any,
+  $refs: any,
+  options: any,
+) {
+  // console.log('Dereferencing $ref pointer "%s" at %s', $ref.$ref, path);
+
+  const isExternalRef = $Ref.isExternal$Ref($ref);
+  const shouldResolveOnCwd = isExternalRef && options?.dereference.externalReferenceResolution === "root";
+  const $refPath = url.resolve(shouldResolveOnCwd ? url.cwd() : path, $ref.$ref);
+
+  const cache = dereferencedCache.get($refPath);
+  if (cache) {
+    const refKeys = Object.keys($ref);
+    if (refKeys.length > 1) {
+      const extraKeys = {};
+      for (const key of refKeys) {
+        if (key !== "$ref" && !(key in cache.value)) {
+          // @ts-expect-error TS(7053): Element implicitly has an 'any' type because expre... Remove this comment to see the full error message
+          extraKeys[key] = $ref[key];
+        }
+      }
+      return {
+        circular: cache.circular,
+     ...
+const isExternalRef = $Ref.isExternal$Ref($ref)
+const shouldResolveOnCwd = isExternalRef && options?.dereference.externalReferenceResolution === "root"
+const $refPath = url.resolve(shouldResolveOnCwd ? url.cwd() : path, $ref.$ref)
+const cache = dereferencedCache.get($refPath)

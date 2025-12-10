@@ -1,0 +1,31 @@
+Object.defineProperty(exports, "__esModule", { value: true })
+const ui_1 = require("../../ui")
+const base_compiler_1 = require("../base-compiler")
+const plugin_metadata_generator_1 = require("../plugins/plugin-metadata-generator")
+const plugins_loader_1 = require("../plugins/plugins-loader")
+const constants_1 = require("./constants")
+const type_checker_host_1 = require("./type-checker-host")
+_tmp_2 = process.argv.slice(2)
+ForkedTypeChecker = package\lib\compiler\swc\forked-type-checker.js::program:ForkedTypeChecker:<init>
+const pluginsLoader = new plugins_loader_1.PluginsLoader()
+const forkedTypeChecker = new ForkedTypeChecker(pluginsLoader)
+const applicationName = appName === 'undefined' ? '' : appName
+const options = {
+    sourceRoot,
+}
+_tmp_12.sourceRoot = sourceRoot
+options.projects = {}
+options.projects[applicationName] = {
+        compilerOptions: {
+            plugins: JSON.parse(plugins),
+        },
+    }
+_tmp_14.compilerOptions = {
+            plugins: JSON.parse(plugins),
+        }
+_tmp_15.plugins = JSON.parse(plugins)
+options.compilerOptions = {
+        plugins: JSON.parse(plugins),
+    }
+_tmp_16.plugins = JSON.parse(plugins)
+forkedTypeChecker.run(options, tsConfigPath, applicationName, { watch: true, typeCheck: true })

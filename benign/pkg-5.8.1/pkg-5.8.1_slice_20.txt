@@ -1,0 +1,46 @@
+fs.copyFile = function copyFile(src, dest, flags, callback) {
+    if (!insideSnapshot(path.resolve(src))) {
+      ancestor.copyFile(src, dest, flags, callback);
+      return;
+    }
+    if (typeof flags === 'function') {
+      callback = flags;
+      flags = 0;
+    } else if (typeof callback !== 'function') {
+      throw new TypeError('Callback must be a function');
+    }
+
+    function _streamCopy() {
+      fs.createReadStream(src)
+        .on('error', callback)
+        .pipe(fs.createWriteStream(dest))
+        .on('error', callback)
+        .on('finish', callback);
+    }
+
+    if (flags & fs.constants.COPYFILE_EXCL) {
+      fs.stat(dest, (statError) => {
+        if (!statError) {
+          callback(
+            Object.assign(new Error('File already exists'), {
+              code: 'EEXIST',
+            })
+          );
+          return;
+        }
+        if (statError.code !== 'ENOENT') {
+          callback(statError);
+          return;
+        }
+        _streamCopy();
+      });
+    } ...
+!insideSnapshot(path.resolve(src))
+ancestor.copyFile(src, dest, flags, callback)
+function _streamCopy = function _streamCopy() {
+      fs.createReadStream(src)
+        .on('error', callback)
+        .pipe(fs.createWriteStream(dest))
+        .on('error', callback)
+        .on('finish', callback);
+    }

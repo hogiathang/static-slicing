@@ -1,0 +1,4 @@
+_tmp_1.BinaryExpression = BinaryExpression
+path.node.operator !== "in"
+const source = (0, _utils.resolveSource)(path.get("right"))
+const key = (0, _utils.resolveKey)(path.get("left"), true)

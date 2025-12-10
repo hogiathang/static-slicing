@@ -1,0 +1,10 @@
+removeItem(key) {
+    if (this._items.has(key)) {
+      setTimeout(this._dispatchStorageEvent.bind(this), 0, key, this._items.get(key), null);
+
+      this._items.delete(key);
+    }
+  }
+(_tmp_13 = this._items).has
+setTimeout(this._dispatchStorageEvent.bind(this), 0, key, this._items.get(key), null)
+(_tmp_16 = this._items).delete

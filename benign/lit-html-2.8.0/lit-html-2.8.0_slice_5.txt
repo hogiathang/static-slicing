@@ -1,0 +1,52 @@
+keyFnOrTemplate = param2_0.keyFnOrTemplate
+const oldParts = getCommittedValue(containerPart)
+_tmp_3 = this._getValuesAndKeys(items, keyFnOrTemplate, template)
+!Array.isArray(oldParts)
+const oldKeys = ((_a = this._itemKeys) !== null && _a !== void 0 ? _a : (this._itemKeys = []))
+__ecma.Array.factory()
+let oldHead = 0
+let oldTail = oldParts.length - 1
+let newHead = 0
+let newTail = newValues.length - 1
+oldHead <= oldTail && newHead <= newTail
+oldParts[oldHead] === null
+oldHead++
+oldParts[oldTail] === null
+oldTail--
+oldKeys[oldHead] === newKeys[newHead]
+newParts[newHead] = setChildPartValue(oldParts[oldHead], newValues[newHead])
+oldHead++
+newHead++
+oldKeys[oldTail] === newKeys[newTail]
+newParts[newTail] = setChildPartValue(oldParts[oldTail], newValues[newTail])
+oldTail--
+newTail--
+oldKeys[oldHead] === newKeys[newTail]
+newParts[newTail] = setChildPartValue(oldParts[oldHead], newValues[newTail])
+insertPart(containerPart, newParts[newTail + 1], oldParts[oldHead])
+oldHead++
+newTail--
+oldKeys[oldTail] === newKeys[newHead]
+newParts[newHead] = setChildPartValue(oldParts[oldTail], newValues[newHead])
+insertPart(containerPart, oldParts[oldHead], oldParts[oldTail])
+oldTail--
+newHead++
+newKeyToIndexMap === undefined
+newKeyToIndexMap = generateMap(newKeys, newHead, newTail)
+oldKeyToIndexMap = generateMap(oldKeys, oldHead, oldTail)
+!newKeyToIndexMap.has(oldKeys[oldHead])
+removePart(oldParts[oldHead])
+oldHead++
+!newKeyToIndexMap.has(oldKeys[oldTail])
+removePart(oldParts[oldTail])
+oldTail--
+const oldIndex = oldKeyToIndexMap.get(newKeys[newHead])
+const oldPart = oldIndex !== undefined ? oldParts[oldIndex] : null
+oldPart === null
+const newPart = insertPart(containerPart, oldParts[oldHead])
+setChildPartValue(newPart, newValues[newHead])
+newParts[newHead] = newPart
+newParts[newHead] = setChildPartValue(oldPart, newValues[newHead])
+insertPart(containerPart, oldParts[oldHead], oldPart)
+oldParts[oldIndex] = null
+newHead++

@@ -1,0 +1,7 @@
+function writeToVersionJSON = function writeToVersionJSON(version, json) {
+	var content = JSON.stringify(json, null, 4);
+	fs.writeFileSync(changesDir + version + '.json', content);
+	console.log('Successfully added ' + version + '.json to ' + changesDir);
+}
+var content = JSON.stringify(json, null, 4)
+fs.writeFileSync(changesDir + version + '.json', content)

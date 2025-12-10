@@ -1,0 +1,41 @@
+function rebuildBucket = async function rebuildBucket (cache, bucket, stats, opts) {
+  await truncate(bucket._path)
+  // This needs to be serialized because cacache explicitly
+  // lets very racy bucket conflicts clobber each other.
+  for (const entry of bucket) {
+    const content = contentPath(cache, entry.integrity)
+    try {
+      await stat(content)
+      await index.insert(cache, entry.key, entry.integrity, {
+        metadata: entry.metadata,
+        size: entry.size,
+        time: entry.time,
+      })
+      stats.totalEntries++
+    } catch (err) {
+      if (err.code === 'ENOENT') {
+        stats.rejectedEntries++
+        stats.missingContent++
+      } else {
+        throw err
+      }
+    }
+  }
+}
+await truncate(bucket._path)
+_iterator_3 = <operator>.iterator(bucket)
+const content = contentPath(cache, entry.integrity)
+await stat(content)
+await index.insert(cache, entry.key, entry.integrity, {
+        metadata: entry.metadata,
+        size: entry.size,
+        time: entry.time,
+      })
+_tmp_35.metadata = entry.metadata
+_tmp_35.size = entry.size
+_tmp_35.time = entry.time
+stats.totalEntries++
+err.code === 'ENOENT'
+stats.rejectedEntries++
+stats.missingContent++
+throw err

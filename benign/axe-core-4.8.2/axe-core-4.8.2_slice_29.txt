@@ -1,0 +1,35 @@
+new Promise(function(resolve, reject) {
+        var request = new window.XMLHttpRequest();
+        request.open('GET', url);
+        request.timeout = constants_default.preload.timeout;
+        request.addEventListener('error', reject);
+        request.addEventListener('timeout', reject);
+        request.addEventListener('loadend', function(event) {
+          if (event.loaded && request.responseText) {
+            return resolve(request.responseText);
+          }
+          reject(request.responseText);
+        });
+        request.send();
+      }).then(function(data) {
+        var result = options.convertDataToStylesheet({
+          data: data,
+          isCrossOrigin: isCrossOrigin,
+          priority: priority,
+          root: options.rootNode,
+          shadowId: options.shadowId
+        });
+        return parse_stylesheet_default(result.sheet, options, priority, importedUrls, result.isCrossOrigin);
+      })
+var request = new window.XMLHttpRequest()
+request.open('GET', url)
+request.timeout = constants_default.preload.timeout
+request.addEventListener('error', reject)
+request.addEventListener('timeout', reject)
+request.addEventListener('loadend', function(event) {
+          if (event.loaded && request.responseText) {
+            return resolve(request.responseText);
+          }
+          reject(request.responseText);
+        })
+request.send()

@@ -1,0 +1,7 @@
+function deleteFile = function deleteFile(path) {
+    if (exists(path)) {
+        memfs_1.fs.unlinkSync(real_file_system_1.realFileSystem.normalizePath(path));
+    }
+}
+exists(path)
+memfs_1.fs.unlinkSync(real_file_system_1.realFileSystem.normalizePath(path))

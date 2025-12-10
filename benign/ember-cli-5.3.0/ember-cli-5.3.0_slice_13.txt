@@ -1,0 +1,119 @@
+module.exports = async function (options) {
+  // `process` should be captured before we require any libraries which
+  // may use `process.exit` work arounds for async cleanup.
+  willInterruptProcess.capture(options.process || process);
+
+  try {
+    let UI = options.UI || require('console-ui');
+    const CLI = require('./cli');
+    let Leek = options.Leek || require('leek');
+    const Project = require('../models/project');
+    let config = getConfig(options.Yam);
+
+    configureLogger(process.env);
+
+    // TODO: one UI (lib/models/project.js also has one for now...)
+    let ui = new UI({
+      inputStream: options.inputStream,
+      outputStream: options.outputStream,
+      errorStream: options.errorStream || process.stderr,
+      errorLog: options.errorLog || [],
+      ci: ciInfo.isCI || /^(dumb|emacs)$/.test(process.env.TERM),
+      writeLevel: process.argv.indexOf('--silent') !== -1 ? 'ERROR' : undefined,
+    });
+
+    let leekOptions;
+
+    let disableAnalytics =
+      (options.cli...
+willInterruptProcess.capture(options.process || process)
+let UI = options.UI || require('console-ui')
+const CLI = require('./cli')
+let Leek = options.Leek || require('leek')
+const Project = require('../models/project')
+let config = getConfig(options.Yam)
+configureLogger(process.env)
+let ui = new UI({
+      inputStream: options.inputStream,
+      outputStream: options.outputStream,
+      errorStream: options.errorStream || process.stderr,
+      errorLog: options.errorLog || [],
+      ci: ciInfo.isCI || /^(dumb|emacs)$/.test(process.env.TERM),
+      writeLevel: process.argv.indexOf('--silent') !== -1 ? 'ERROR' : undefined,
+    })
+_tmp_7.inputStream = options.inputStream
+_tmp_7.outputStream = options.outputStream
+_tmp_7.errorStream = options.errorStream || process.stderr
+_tmp_7.errorLog = options.errorLog || []
+_tmp_7.ci = ciInfo.isCI || /^(dumb|emacs)$/.test(process.env.TERM)
+_tmp_7.writeLevel = process.argv.indexOf('--silent') !== -1 ? "ERROR" : undefined
+let disableAnalytics =
+      (options.cliArgs &&
+        (options.cliArgs.indexOf('--disable-analytics') > -1 ||
+          options.cliArgs.indexOf('-v') > -1 ||
+          options.cliArgs.indexOf('--version') > -1)) ||
+      config.get('disableAnalytics')
+(options.cliArgs &&
+        (options.cliArgs.indexOf('--disable-analytics') > -1 ||
+          options.cliArgs.indexOf('-v') > -1 ||
+          options.cliArgs.indexOf('--version') > -1)) ||
+      config.get('disableAnalytics')
+options.cliArgs.indexOf('--disable-analytics') > -1 ||
+          options.cliArgs.indexOf('-v') > -1 ||
+          options.cliArgs.indexOf('--version') > -1
+(_tmp_11 = options.cliArgs).indexOf
+options.cliArgs.indexOf('--version') > -1
+config.get('disableAnalytics')
+let defaultLeekOptions = {
+      trackingCode,
+      globalName: name,
+      name: clientId(),
+      version,
+      silent: disableAnalytics,
+    }
+_tmp_13.trackingCode = trackingCode
+_tmp_13.globalName = name
+_tmp_13.name = clientId()
+_tmp_13.version = version
+_tmp_13.silent = disableAnalytics
+let defaultUpdateCheckerOptions = {
+      checkForUpdates: false,
+    }
+_tmp_14.checkForUpdates = false
+config.get('leekOptions')
+leekOptions = merge(defaultLeekOptions, config.get('leekOptions'))
+leekOptions = defaultLeekOptions
+logger.info('leek: %o', leekOptions)
+let leek = new Leek(leekOptions)
+let cli = new CLI({
+      ui,
+      analytics: leek,
+      testing: options.testing,
+      name: options.cli ? options.cli.name : 'ember',
+      disableDependencyChecker: options.disableDependencyChecker,
+      root: options.cli ? options.cli.root : path.resolve(__dirname, '..', '..'),
+      npmPackage: options.cli ? options.cli.npmPackage : 'ember-cli',
+      initInstrumentation,
+    })
+_tmp_17.ui = ui
+_tmp_17.analytics = leek
+_tmp_17.testing = options.testing
+_tmp_17.name = options.cli ? options.cli.name : "ember"
+_tmp_17.disableDependencyChecker = options.disableDependencyChecker
+_tmp_17.root = options.cli ? options.cli.root : path.resolve(__dirname, '..', '..')
+_tmp_17.npmPackage = options.cli ? options.cli.npmPackage : "ember-cli"
+_tmp_17.initInstrumentation = initInstrumentation
+let project = Project.projectOrnullProject(ui, cli)
+let environment = {
+      tasks: loadTasks(),
+      cliArgs: options.cliArgs,
+      commands: loadCommands(),
+      project,
+      settings: merge(defaultUpdateCheckerOptions, config.getAll()),
+    }
+_tmp_18.tasks = loadTasks()
+_tmp_18.cliArgs = options.cliArgs
+_tmp_18.commands = loadCommands()
+_tmp_18.project = project
+_tmp_18.settings = merge(defaultUpdateCheckerOptions, config.getAll())
+await cli.run(environment)

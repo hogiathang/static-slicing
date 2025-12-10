@@ -1,0 +1,15 @@
+async generateCnf(request) {
+        this.performanceClient?.addQueueMeasurement(PerformanceEvents.PopTokenGenerateCnf, request.correlationId);
+        this.performanceClient?.setPreQueueTime(PerformanceEvents.PopTokenGenerateKid, request.correlationId);
+        const reqCnf = await this.generateKid(request);
+        const reqCnfString = this.cryptoUtils.base64Encode(JSON.stringify(reqCnf));
+        return {
+            kid: reqCnf.kid,
+            reqCnfString,
+            reqCnfHash: await this.cryptoUtils.hashString(reqCnfString),
+        };
+    }
+this.performanceClient?.addQueueMeasurement(PerformanceEvents.PopTokenGenerateCnf, request.correlationId)
+this.performanceClient?.setPreQueueTime(PerformanceEvents.PopTokenGenerateKid, request.correlationId)
+const reqCnf = await this.generateKid(request)
+const reqCnfString = this.cryptoUtils.base64Encode(JSON.stringify(reqCnf))

@@ -1,0 +1,94 @@
+const work = async () => {
+      do {
+        if (!self.paused) {
+          self.abortController = new AbortController()
+          // formulate changes feed longpoll HTTP request
+          const req = {
+            method: 'post',
+            db: self.db,
+            path: '_changes',
+            signal: self.abortController.signal,
+            qs: {
+              feed: 'longpoll',
+              timeout: self.timeout,
+              since: self.since,
+              limit: self.batchSize,
+              include_docs: self.includeDocs
+            },
+            body: {}
+          }
+          if (self.fastChanges) {
+            req.qs.seq_interval = self.batchSize
+          }
+          if (self.selector) {
+            req.qs.filter = '_selector'
+            req.body.selector = self.selector
+          }
+          Object.assign(req.qs, opts.qs)
+
+          // make HTTP request to get up to batchSize changes from the feed
+          try {
+            const data = await self.request(req)
+           ...
+!self.paused
+self.abortController = new AbortController()
+const req = {
+            method: 'post',
+            db: self.db,
+            path: '_changes',
+            signal: self.abortController.signal,
+            qs: {
+              feed: 'longpoll',
+              timeout: self.timeout,
+              since: self.since,
+              limit: self.batchSize,
+              include_docs: self.includeDocs
+            },
+            body: {}
+          }
+_tmp_11.method = "post"
+_tmp_11.db = self.db
+_tmp_11.path = "_changes"
+_tmp_11.signal = self.abortController.signal
+_tmp_11.qs = {
+              feed: 'longpoll',
+              timeout: self.timeout,
+              since: self.since,
+              limit: self.batchSize,
+              include_docs: self.includeDocs
+            }
+_tmp_12.feed = "longpoll"
+_tmp_12.timeout = self.timeout
+_tmp_12.since = self.since
+_tmp_12.limit = self.batchSize
+_tmp_12.include_docs = self.includeDocs
+_tmp_11.body = {}
+self.fastChanges
+req.qs.seq_interval = self.batchSize
+self.selector
+req.qs.filter = '_selector'
+req.body.selector = self.selector
+Object.assign(req.qs, opts.qs)
+const data = await self.request(req)
+self.abortController = null
+delay = 0
+data && data.last_seq && data.last_seq !== self.since
+self.since = data.last_seq
+self.ee.emit(EVENT_SEQ, self.since)
+self.stopOnEmptyChanges && data && typeof data.results !== 'undefined' && data.results.length === 0
+self.continue = false
+data && data.results && data.results.length > 0
+_iterator_0 = <operator>.iterator(data.results)
+self.ee.emit(EVENT_CHANGE, data.results[i])
+self.wait
+self.pause()
+self.ee.emit(EVENT_BATCH, data.results)
+err && err.statusCode && err.statusCode >= 400 && err.statusCode !== 429 && err.statusCode < 500
+self.continue = false
+delay = delay ? Math.min(60000, delay * 2) : 5000
+self.ee.emit(EVENT_ERROR, err)
+self.paused && delay === 0
+delay = 100
+self.continue && delay > 0
+await self.sleep(delay)
+self.continue

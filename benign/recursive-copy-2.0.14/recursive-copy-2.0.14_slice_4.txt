@@ -1,0 +1,16 @@
+function handleCopyFailed = function handleCopyFailed(error) {
+			if (hasFinished) { return; }
+			hasFinished = true;
+			if (typeof read.close === 'function') {
+				read.close();
+			}
+			if (typeof write.close === 'function') {
+				write.close();
+			}
+			return reject(error);
+		}
+hasFinished = true
+typeof read.close === 'function'
+read.close()
+typeof write.close === 'function'
+write.close()

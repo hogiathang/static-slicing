@@ -1,0 +1,76 @@
+new Promise((resolve, reject) => {
+    const proxy = getProxyForUrlWithNpmConfig(url);
+    debug('Downloading package', {
+      url,
+      proxy,
+      downloadDestination
+    });
+    if (ca) {
+      debug('using custom CA details from npm config');
+    }
+    const reqOptions = {
+      uri: url,
+      ...(proxy ? {
+        proxy
+      } : {}),
+      ...(ca ? {
+        agentOptions: {
+          ca
+        }
+      } : {}),
+      method: 'GET',
+      followRedirect: false
+    };
+    const req = request(reqOptions);
+
+    // closure
+    let started = null;
+    let expectedSize;
+    let expectedChecksum;
+    requestProgress(req, {
+      throttle: progress.throttle
+    }).on('response', response => {
+      // we have computed checksum and filesize during test runner binary build
+      // and have set it on the S3 object as user meta data, available via
+      // these custom headers "x-amz-meta-..."
+      // see https://github.com/cypress-io/cypress/pull/4092
+      expectedSize = response.h...
+const proxy = getProxyForUrlWithNpmConfig(url)
+debug('Downloading package', {
+      url,
+      proxy,
+      downloadDestination
+    })
+_tmp_22.url = url
+_tmp_22.proxy = proxy
+_tmp_22.downloadDestination = downloadDestination
+debug('using custom CA details from npm config')
+const reqOptions = {
+      uri: url,
+      ...(proxy ? {
+        proxy
+      } : {}),
+      ...(ca ? {
+        agentOptions: {
+          ca
+        }
+      } : {}),
+      method: 'GET',
+      followRedirect: false
+    }
+_tmp_23.uri = url
+...(proxy ? {
+        proxy
+      } : {})
+_tmp_24.proxy = proxy
+...(ca ? {
+        agentOptions: {
+          ca
+        }
+      } : {})
+_tmp_26.agentOptions = {
+          ca
+        }
+_tmp_27.ca = ca
+_tmp_23.method = "GET"
+_tmp_23.followRedirect = false

@@ -1,0 +1,3 @@
+extraProviders = extraProviders === void 0 ? __ecma.Array.factory() : extraProviders
+let platform = getPlatform()
+!platform || platform.injector.get(ALLOW_MULTIPLE_PLATFORMS, false)

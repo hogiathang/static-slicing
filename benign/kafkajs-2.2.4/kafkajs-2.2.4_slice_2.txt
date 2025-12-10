@@ -1,0 +1,29 @@
+checkForStaleAssignment() {
+    if (!this.partitionsPerSubscribedTopic) {
+      return
+    }
+
+    const newPartitionsPerSubscribedTopic = this.generatePartitionsPerSubscribedTopic()
+
+    for (const [topic, partitions] of newPartitionsPerSubscribedTopic) {
+      const diff = arrayDiff(partitions, this.partitionsPerSubscribedTopic.get(topic))
+
+      if (diff.length > 0) {
+        throw new KafkaJSStaleTopicMetadataAssignment('Topic has been updated', {
+          topic,
+          unknownPartitions: diff,
+        })
+      }
+    }
+  }
+!this.partitionsPerSubscribedTopic
+const newPartitionsPerSubscribedTopic = this.generatePartitionsPerSubscribedTopic()
+_iterator_2 = <operator>.iterator(newPartitionsPerSubscribedTopic)
+const diff = arrayDiff(partitions, this.partitionsPerSubscribedTopic.get(topic))
+diff.length > 0
+throw new KafkaJSStaleTopicMetadataAssignment('Topic has been updated', {
+          topic,
+          unknownPartitions: diff,
+        })
+_tmp_132.topic = topic
+_tmp_132.unknownPartitions = diff

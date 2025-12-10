@@ -1,0 +1,26 @@
+request.on('end', () => {
+			request.body = Buffer.concat(bodyBuffers).toString();
+			this.partialRequests += 1
+			this.totalRequests += 1
+			const elapsedMs = Date.now() - this.debuggedTime
+			if (elapsedMs > LOG_HEADERS_INTERVAL_MS) {
+				this.debug(request, elapsedMs);
+			}
+			if (!this.options.delay) {
+				return this.end(request, response, id);
+			}
+			setTimeout(() => {
+				this.end(request, response, id);
+			}, this.options.delay).unref();
+		})
+request.body = Buffer.concat(bodyBuffers).toString()
+this.partialRequests += 1
+this.totalRequests += 1
+const elapsedMs = Date.now() - this.debuggedTime
+elapsedMs > LOG_HEADERS_INTERVAL_MS
+this.debug(request, elapsedMs)
+!this.options.delay
+(_tmp_12 = setTimeout(() => {
+				this.end(request, response, id);
+			}, this.options.delay)).unref
+this.options.delay

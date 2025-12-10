@@ -1,0 +1,138 @@
+async [PRIVATE.SYNC]() {
+    let assignment = []
+    const {
+      groupId,
+      generationId,
+      memberId,
+      members,
+      groupProtocol,
+      topics,
+      topicsSubscribed,
+      coordinator,
+    } = this
+
+    if (this.isLeader()) {
+      this.logger.debug('Chosen as group leader', { groupId, generationId, memberId, topics })
+      const assigner = this.assigners.find(({ name }) => name === groupProtocol)
+
+      if (!assigner) {
+        throw new KafkaJSNonRetriableError(
+          `Unsupported partition assigner "${groupProtocol}", the assigner wasn't found in the assigners list`
+        )
+      }
+
+      await this.cluster.refreshMetadata()
+      assignment = await assigner.assign({ members, topics: topicsSubscribed })
+
+      this.logger.debug('Group assignment', {
+        groupId,
+        generationId,
+        groupProtocol,
+        assignment,
+        topics: topicsSubscribed,
+      })
+    }
+
+    // Keep track of the partitions for the subscribed topics
+    this.part...
+__ecma.Array.factory()
+_tmp_29 = this
+groupId = _tmp_29.groupId
+generationId = _tmp_29.generationId
+memberId = _tmp_29.memberId
+members = _tmp_29.members
+groupProtocol = _tmp_29.groupProtocol
+topics = _tmp_29.topics
+topicsSubscribed = _tmp_29.topicsSubscribed
+coordinator = _tmp_29.coordinator
+this.isLeader()
+this.logger.debug('Chosen as group leader', { groupId, generationId, memberId, topics })
+const assigner = this.assigners.find(({ name }) => name === groupProtocol)
+!assigner
+throw new KafkaJSNonRetriableError(
+          `Unsupported partition assigner "${groupProtocol}", the assigner wasn't found in the assigners list`
+        )
+<operator>.formatString("Unsupported partition assigner "", groupProtocol, "", the assigner wasn't found in the assigners list")
+(_tmp_34 = this.cluster).refreshMetadata
+assignment = await assigner.assign({ members, topics: topicsSubscribed })
+this.logger.debug('Group assignment', {
+        groupId,
+        generationId,
+        groupProtocol,
+        assignment,
+        topics: topicsSubscribed,
+      })
+_tmp_37.groupId = groupId
+_tmp_37.generationId = generationId
+_tmp_37.groupProtocol = groupProtocol
+_tmp_37.assignment = assignment
+_tmp_37.topics = topicsSubscribed
+this.partitionsPerSubscribedTopic = this.generatePartitionsPerSubscribedTopic()
+_tmp_40 = await this.coordinator.syncGroup({
+      groupId,
+      generationId,
+      memberId,
+      groupAssignment: assignment,
+    })
+_tmp_39.groupId = groupId
+_tmp_39.generationId = generationId
+_tmp_39.memberId = memberId
+_tmp_39.groupAssignment = assignment
+const decodedMemberAssignment = MemberAssignment.decode(memberAssignment)
+const decodedAssignment =
+      decodedMemberAssignment != null ? decodedMemberAssignment.assignment : {}
+decodedMemberAssignment != null ? decodedMemberAssignment.assignment : {}
+this.logger.debug('Received assignment', {
+      groupId,
+      generationId,
+      memberId,
+      memberAssignment: decodedAssignment,
+    })
+_tmp_43.groupId = groupId
+_tmp_43.generationId = generationId
+_tmp_43.memberId = memberId
+_tmp_43.memberAssignment = decodedAssignment
+const assignedTopics = keys(decodedAssignment)
+const topicsNotSubscribed = arrayDiff(assignedTopics, topicsSubscribed)
+topicsNotSubscribed.length > 0
+const payload = {
+        groupId,
+        generationId,
+        memberId,
+        assignedTopics,
+        topicsSubscribed,
+        topicsNotSubscribed,
+      }
+_tmp_44.groupId = groupId
+_tmp_44.generationId = generationId
+_tmp_44.memberId = memberId
+_tmp_44.assignedTopics = assignedTopics
+_tmp_44.topicsSubscribed = topicsSubscribed
+_tmp_44.topicsNotSubscribed = topicsNotSubscribed
+this.instrumentationEmitter.emit(RECEIVED_UNSUBSCRIBED_TOPICS, payload)
+this.logger.warn('Consumer group received unsubscribed topics', {
+        ...payload,
+        helpUrl: websiteUrl(
+          'docs/faq',
+          'why-am-i-receiving-messages-for-topics-i-m-not-subscribed-to'
+        ),
+      })
+...payload
+_tmp_47.helpUrl = websiteUrl(
+          'docs/faq',
+          'why-am-i-receiving-messages-for-topics-i-m-not-subscribed-to'
+        )
+"docs/faq"
+"why-am-i-receiving-messages-for-topics-i-m-not-subscribed-to"
+const safeAssignment = arrayDiff(assignedTopics, topicsNotSubscribed)
+const currentMemberAssignment = safeAssignment.map(topic => ({
+      topic,
+      partitions: decodedAssignment[topic],
+    }))
+_iterator_0 = <operator>.iterator(currentMemberAssignment)
+assignedPartitions = _tmp_49.partitions
+const knownPartitions = this.partitionsPerSubscribedTopic.get(topic)
+const isAwareOfAllAssignedPartitions = assignedPartitions.every(partition =>
+        knownPartitions.includes(partition)
+      )
+!isAwareOfAllAssignedPartitions

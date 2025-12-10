@@ -1,0 +1,48 @@
+_this.transport.createBidirectionalStream().then(function (stream) {
+            var reader = stream.readable.getReader();
+            _this.writer = stream.writable.getWriter();
+            var binaryFlag;
+            var read = function read() {
+              reader.read().then(function (_ref) {
+                var done = _ref.done,
+                  value = _ref.value;
+                if (done) {
+                  return;
+                }
+                if (!binaryFlag && value.byteLength === 1 && value[0] === 54) {
+                  binaryFlag = true;
+                } else {
+                  // TODO expose binarytype
+                  _this.onPacket(decodePacketFromBinary(value, binaryFlag, "arraybuffer"));
+                  binaryFlag = false;
+                }
+                read();
+              })["catch"](function (err) {});
+            };
+            read();
+            var handshake = _this.query.sid ? "0{\"sid\":\"".concat(_this.query.sid, "\"}") : "0";
+            ...
+var reader = stream.readable.getReader()
+_this.writer = stream.writable.getWriter()
+var read = function read() {
+              reader.read().then(function (_ref) {
+                var done = _ref.done,
+                  value = _ref.value;
+                if (done) {
+                  return;
+                }
+                if (!binaryFlag && value.byteLength === 1 && value[0] === 54) {
+                  binaryFlag = true;
+                } else {
+                  // TODO expose binarytype
+                  _this.onPacket(decodePacketFromBinary(value, binaryFlag, "arraybuffer"));
+                  binaryFlag = false;
+                }
+                read();
+              })["catch"](function (err) {});
+            }
+read()
+var handshake = _this.query.sid ? "0{\"sid\":\"".concat(_this.query.sid, "\"}") : "0"
+_this.writer.write(new TextEncoder().encode(handshake)).then(function () {
+              return _this.onOpen();
+            })

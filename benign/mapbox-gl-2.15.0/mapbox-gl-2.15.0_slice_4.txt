@@ -1,0 +1,20 @@
+var rw = require("rw")
+var minimist = require("minimist")
+var validateMapboxApiSupported = require("@mapbox/mapbox-gl-style-spec").validateMapboxApiSupported
+const argv = minimist(process.argv.slice(2), {
+    boolean: ['json', 'mapbox-api-supported'],
+})
+_tmp_1.boolean = ['json', 'mapbox-api-supported']
+let status = 0
+argv.help || argv.h || (!argv._.length && process.stdin.isTTY)
+help()
+process.exit(status)
+function help = function help() {
+    console.log('usage:');
+    console.log('  gl-style-validate file.json');
+    console.log('  gl-style-validate < file.json');
+    console.log('');
+    console.log('options:');
+    console.log('--json  output errors as json');
+    console.log('--mapbox-api-supported  validate compatibility with Mapbox Styles API');
+}

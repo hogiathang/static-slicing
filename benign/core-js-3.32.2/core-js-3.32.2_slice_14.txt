@@ -1,0 +1,2 @@
+_tmp_6.getUint32 = getUint32
+unpackInt32(get(this, 4, byteOffset, arguments.length > 1 ? arguments[1] : false)) >>> 0

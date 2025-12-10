@@ -1,0 +1,1 @@
+(_tmp_2 = get(spec, opts)).resolve

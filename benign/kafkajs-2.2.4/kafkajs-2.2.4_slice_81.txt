@@ -1,0 +1,26 @@
+_tmp_0.5 = <lambda>7
+groupId = param1_6.groupId
+sessionTimeout = param1_6.sessionTimeout
+rebalanceTimeout = param1_6.rebalanceTimeout
+memberId = param1_6.memberId
+groupInstanceId = param1_6.groupInstanceId
+protocolType = param1_6.protocolType
+groupProtocols = param1_6.groupProtocols
+const request = require('./v5/request')
+const response = require('./v5/response')
+_tmp_16.request = request({
+        groupId,
+        sessionTimeout,
+        rebalanceTimeout,
+        memberId,
+        groupInstanceId,
+        protocolType,
+        groupProtocols,
+      })
+_tmp_17.groupId = groupId
+_tmp_17.sessionTimeout = sessionTimeout
+_tmp_17.rebalanceTimeout = rebalanceTimeout
+_tmp_17.memberId = memberId
+_tmp_17.groupInstanceId = groupInstanceId
+_tmp_17.protocolType = protocolType
+_tmp_17.groupProtocols = groupProtocols

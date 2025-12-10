@@ -1,0 +1,59 @@
+FormData.prototype.submit = function(params, cb) {
+  var request
+    , options
+    , defaults = {method: 'post'}
+    ;
+
+  // parse provided url if it's string
+  // or treat it as options object
+  if (typeof params == 'string') {
+
+    params = parseUrl(params);
+    options = populate({
+      port: params.port,
+      path: params.pathname,
+      host: params.hostname,
+      protocol: params.protocol
+    }, defaults);
+
+  // use custom params
+  } else {
+
+    options = populate(params, defaults);
+    // if no port provided use default one
+    if (!options.port) {
+      options.port = options.protocol == 'https:' ? 443 : 80;
+    }
+  }
+
+  // put that good code in getHeaders to some use
+  options.headers = this.getHeaders(params.headers);
+
+  // https if specified, fallback to http in any other case
+  if (options.protocol == 'https:') {
+    request = https.request(options);
+  } else {
+    request = http.request(options);
+  }
+
+  // get content length and fire away
+  this.getLength(function(er...
+var defaults = {method: 'post'}
+typeof params == 'string'
+params = parseUrl(params)
+options = populate({
+      port: params.port,
+      path: params.pathname,
+      host: params.hostname,
+      protocol: params.protocol
+    }, defaults)
+_tmp_24.port = params.port
+_tmp_24.path = params.pathname
+_tmp_24.host = params.hostname
+_tmp_24.protocol = params.protocol
+options = populate(params, defaults)
+!options.port
+options.port = options.protocol == 'https:' ? 443 : 80
+options.headers = this.getHeaders(params.headers)
+options.protocol == 'https:'
+request = https.request(options)

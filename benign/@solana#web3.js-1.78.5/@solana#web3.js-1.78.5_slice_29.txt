@@ -1,0 +1,3 @@
+await new Promise(resolve =>
+          setTimeout(resolve, Math.round(MS_PER_SLOT / 2)),
+        )

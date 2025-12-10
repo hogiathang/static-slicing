@@ -1,0 +1,3 @@
+filename = param1_14.filename
+const handle = await this.fs.promises.open(filename, 'a')
+_tmp_47 = await handle.write(data, 0, data.length, position || undefined)

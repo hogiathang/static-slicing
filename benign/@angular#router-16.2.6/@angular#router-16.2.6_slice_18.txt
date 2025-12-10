@@ -1,0 +1,6 @@
+unsubscribeFromRouteData(outlet) {
+        this.outletDataSubscriptions.get(outlet)?.unsubscribe();
+        this.outletDataSubscriptions.delete(outlet);
+    }
+this.outletDataSubscriptions.get(outlet)?.unsubscribe()
+(_tmp_52 = this.outletDataSubscriptions).delete

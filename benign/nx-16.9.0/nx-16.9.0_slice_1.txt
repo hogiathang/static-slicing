@@ -1,0 +1,39 @@
+function initLocal = function initLocal(workspace) {
+    process.env.NX_CLI_SET = 'true';
+    try {
+        perf_hooks_1.performance.mark('init-local');
+        monkeyPatchRequire();
+        if (workspace.type !== 'nx' && shouldDelegateToAngularCLI()) {
+            console.warn((0, strip_indents_1.stripIndents) `Using Nx to run Angular CLI commands is deprecated and will be removed in a future version.
+        To run Angular CLI commands, use \`ng\`.`);
+            handleAngularCLIFallbacks(workspace);
+            return;
+        }
+        const command = process.argv[2];
+        if (command === 'run' || command === 'g' || command === 'generate') {
+            nx_commands_1.commandsObject.parse(process.argv.slice(2));
+        }
+        else if (isKnownCommand(command)) {
+            const newArgs = rewriteTargetsAndProjects(process.argv);
+            const help = newArgs.indexOf('--help');
+            const split = newArgs.indexOf('--');
+            if (help > -1 && (split === -1 || split > help)) {
+   ...
+process.env.NX_CLI_SET = 'true'
+perf_hooks_1.performance.mark('init-local')
+monkeyPatchRequire()
+workspace.type !== 'nx' && shouldDelegateToAngularCLI()
+const command = process.argv[2]
+command === 'run' || command === 'g' || command === 'generate'
+nx_commands_1.commandsObject.parse(process.argv.slice(2))
+isKnownCommand(command)
+const newArgs = rewriteTargetsAndProjects(process.argv)
+const help = newArgs.indexOf('--help')
+const split = newArgs.indexOf('--')
+help > -1 && (split === -1 || split > help)
+(_tmp_4 = nx_commands_1.commandsObject).showHelp
+(_tmp_5 = nx_commands_1.commandsObject).parse
+const newArgs = rewritePositionalArguments(process.argv)
+(_tmp_6 = nx_commands_1.commandsObject).parse
+console.error(e.message)
+process.exit(1)

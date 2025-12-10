@@ -1,0 +1,44 @@
+getLatestComponentState(component) {
+    this.ensureShimForComponent(component);
+    const sf = component.getSourceFile();
+    const sfPath = absoluteFromSourceFile(sf);
+    const shimPath = TypeCheckShimGenerator.shimFor(sfPath);
+    const fileRecord = this.getFileData(sfPath);
+    if (!fileRecord.shimData.has(shimPath)) {
+      return { data: null, tcb: null, tcbPath: shimPath, tcbIsShim: true };
+    }
+    const templateId = fileRecord.sourceManager.getTemplateId(component);
+    const shimRecord = fileRecord.shimData.get(shimPath);
+    const id = fileRecord.sourceManager.getTemplateId(component);
+    const program = this.programDriver.getProgram();
+    const shimSf = getSourceFileOrNull(program, shimPath);
+    if (shimSf === null || !fileRecord.shimData.has(shimPath)) {
+      throw new Error(`Error: no shim file in program: ${shimPath}`);
+    }
+    let tcb = findTypeCheckBlock(shimSf, id, false);
+    let tcbPath = shimPath;
+    if (tcb === null) {
+      const inlineSf = getSourceF...
+this.ensureShimForComponent(component)
+const sf = component.getSourceFile()
+const sfPath = absoluteFromSourceFile(sf)
+const shimPath = TypeCheckShimGenerator.shimFor(sfPath)
+const fileRecord = this.getFileData(sfPath)
+(_tmp_1164 = fileRecord.shimData).has
+const templateId = fileRecord.sourceManager.getTemplateId(component)
+const shimRecord = fileRecord.shimData.get(shimPath)
+const id = fileRecord.sourceManager.getTemplateId(component)
+const program = this.programDriver.getProgram()
+const shimSf = getSourceFileOrNull(program, shimPath)
+shimSf === null || !fileRecord.shimData.has(shimPath)
+<operator>.formatString("Error: no shim file in program: ", shimPath, "")
+let tcb = findTypeCheckBlock(shimSf, id, false)
+let tcbPath = shimPath
+tcb === null
+const inlineSf = getSourceFileOrError(program, sfPath)
+tcb = findTypeCheckBlock(inlineSf, id, false)
+tcb !== null
+tcbPath = sfPath
+let data = null
+(_tmp_1172 = shimRecord.templates).has
+data = shimRecord.templates.get(templateId)

@@ -1,0 +1,2 @@
+_tmp_52.get = <lambda>36
+get(this._url(path), this._withDefaults(options))

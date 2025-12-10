@@ -1,0 +1,36 @@
+function getErrorMsg = function getErrorMsg(message, messageArgs) {
+    if (messageArgs === void 0) { messageArgs = []; }
+    if (!message)
+        return;
+    var args = messageArgs.map(function (arg) {
+        return typeof arg == "string" ? arg : stringifyForDisplay(arg, 2).slice(0, 1000);
+    });
+    return ((global[ApolloErrorMessageHandler] &&
+        global[ApolloErrorMessageHandler](message, args)) ||
+        "An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({
+            version: version,
+            message: message,
+            args: args,
+        }))));
+}
+messageArgs === void 0
+!message
+var args = messageArgs.map(function (arg) {
+        return typeof arg == "string" ? arg : stringifyForDisplay(arg, 2).slice(0, 1000);
+    })
+(global[ApolloErrorMessageHandler] &&
+        global[ApolloErrorMessageHandler](message, args)) ||
+        "An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({
+            version: version,
+            message: message,
+            args: args,
+        })))
+global[ApolloErrorMessageHandler](message, args)
+"An error occurred! For more details, see the full error text at https://go.apollo.dev/c/err#".concat(encodeURIComponent(JSON.stringify({
+            version: version,
+            message: message,
+            args: args,
+        })))
+_tmp_4.version = version
+_tmp_4.message = message
+_tmp_4.args = args

@@ -1,0 +1,42 @@
+Chance.prototype.file = function(options) {
+
+        var fileOptions = options || {};
+        var poolCollectionKey = "fileExtension";
+        var typeRange   = Object.keys(this.get("fileExtension"));//['raster', 'vector', '3d', 'document'];
+        var fileName;
+        var fileExtension;
+
+        // Generate random file name
+        fileName = this.word({length : fileOptions.length});
+
+        // Generate file by specific extension provided by the user
+        if(fileOptions.extension) {
+
+            fileExtension = fileOptions.extension;
+            return (fileName + '.' + fileExtension);
+        }
+
+        // Generate file by specific extension collection
+        if(fileOptions.extensions) {
+
+            if(Array.isArray(fileOptions.extensions)) {
+
+                fileExtension = this.pickone(fileOptions.extensions);
+                return (fileName + '.' + fileExtension);
+            }
+            else if(fileOptions.extensions.constructor === Object) {
+
+                var ex...
+var fileOptions = options || {}
+var poolCollectionKey = "fileExtension"
+var typeRange   = Object.keys(this.get("fileExtension"))
+fileName = this.word({length : fileOptions.length})
+fileOptions.extension
+fileOptions.extensions
+Array.isArray(fileOptions.extensions)
+fileOptions.extensions.constructor === Object
+throw new Error("Chance: Extensions must be an Array or Object");
+fileOptions.fileType
+var fileType = fileOptions.fileType
+typeRange.indexOf(fileType) !== -1
+fileExtension = this.pickone(this.get(poolCollectionKey)[fileType])

@@ -1,0 +1,12 @@
+function tryCreateDir = function tryCreateDir(dir) {
+  try {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, '0755');
+    }
+  }
+  catch (error) {
+    throw new Error('Failed to create directory '+dir+":" +error.message);
+  }
+}
+!fs.existsSync(dir)
+fs.mkdirSync(dir, '0755')

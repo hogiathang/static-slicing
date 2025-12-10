@@ -1,0 +1,9 @@
+module.exports = function printVersion(output) {
+    const version = require("../../package.json").version
+
+    output.write(`v${version}\n`)
+
+    return Promise.resolve(null)
+}
+const version = require("../../package.json").version
+<operator>.formatString("v", version, "\n")

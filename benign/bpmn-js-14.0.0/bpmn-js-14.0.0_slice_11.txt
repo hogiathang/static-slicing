@@ -1,0 +1,27 @@
+BpmnEditorActions.prototype._registerDefaultActions = function(injector) {
+
+  // (0) invoke super method
+
+  EditorActions.prototype._registerDefaultActions.call(this, injector);
+
+  // (1) retrieve optional components to integrate with
+
+  var canvas = injector.get('canvas', false);
+  var elementRegistry = injector.get('elementRegistry', false);
+  var selection = injector.get('selection', false);
+  var spaceTool = injector.get('spaceTool', false);
+  var lassoTool = injector.get('lassoTool', false);
+  var handTool = injector.get('handTool', false);
+  var globalConnect = injector.get('globalConnect', false);
+  var distributeElements = injector.get('distributeElements', false);
+  var alignElements = injector.get('alignElements', false);
+  var directEditing = injector.get('directEditing', false);
+  var searchPad = injector.get('searchPad', false);
+  var modeling = injector.get('modeling', false);
+  var contextPad = injector.get('contextPad', false);
+
+  // (2) check components and register...
+EditorActions.prototype._registerDefaultActions.call(this, injector)
+var canvas = injector.get('canvas', false)
+var elementRegistry = injector.get('elementRegistry', false)
+var selection = injector.get('selection', false)

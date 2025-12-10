@@ -1,0 +1,24 @@
+(0, utility_1.updateWorkspace)((workspace) => {
+        const project = workspace.projects.get(options.project);
+        if (!project) {
+            throw new schematics_1.SchematicsException(`Project name "${options.project}" doesn't not exist.`);
+        }
+        const type = project.extensions['projectType'];
+        if (type !== 'application') {
+            return log('error', 'Only application project types are support by this schematic.' + type
+                ? ` Project "${options.project}" has a "projectType" of "${type}".`
+                : ` Project "${options.project}" has no "projectType" defined.`);
+        }
+        const buildTarget = project.targets.get('build');
+        if (!buildTarget) {
+            return log('error', `No "build" target found for project "${options.project}".` +
+                ' A "build" target is required to generate environment files.');
+        }
+        const serverTarget = project.targets.get('server');
+        const sourceRoot = project...
+const project = workspace.projects.get(options.project)
+!project
+throw new schematics_1.SchematicsException(`Project name "${options.project}" doesn't not exist.`);
+const type = project.extensions['projectType']
+type !== 'application'
+const buildTarget = project.targets.get('build')

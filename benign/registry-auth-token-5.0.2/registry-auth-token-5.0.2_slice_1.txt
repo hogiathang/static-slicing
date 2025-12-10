@@ -1,0 +1,11 @@
+function getLegacyAuthInfo = function getLegacyAuthInfo (npmrc) {
+  if (!npmrc.get('_auth')) {
+    return undefined
+  }
+
+  const token = replaceEnvironmentVariable(npmrc.get('_auth'))
+
+  return { token: token, type: 'Basic' }
+}
+!npmrc.get('_auth')
+const token = replaceEnvironmentVariable(npmrc.get('_auth'))

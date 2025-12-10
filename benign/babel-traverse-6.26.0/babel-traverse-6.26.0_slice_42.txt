@@ -1,0 +1,59 @@
+Scope.prototype.push = function push(opts) {
+    var path = this.path;
+
+    if (!path.isBlockStatement() && !path.isProgram()) {
+      path = this.getBlockParent().path;
+    }
+
+    if (path.isSwitchStatement()) {
+      path = this.getFunctionParent().path;
+    }
+
+    if (path.isLoop() || path.isCatchClause() || path.isFunction()) {
+      t.ensureBlock(path.node);
+      path = path.get("body");
+    }
+
+    var unique = opts.unique;
+    var kind = opts.kind || "var";
+    var blockHoist = opts._blockHoist == null ? 2 : opts._blockHoist;
+
+    var dataKey = "declaration:" + kind + ":" + blockHoist;
+    var declarPath = !unique && path.getData(dataKey);
+
+    if (!declarPath) {
+      var declar = t.variableDeclaration(kind, []);
+      declar._generated = true;
+      declar._blockHoist = blockHoist;
+
+      var _path$unshiftContaine = path.unshiftContainer("body", [declar]);
+
+      declarPath = _path$unshiftContaine[0];
+
+      if (!unique) path.setData(dataKey, declarPath);
+    }
+
+    var dec...
+var path = this.path
+!path.isBlockStatement() && !path.isProgram()
+path = this.getBlockParent().path
+path.isSwitchStatement()
+path = this.getFunctionParent().path
+path.isLoop() || path.isCatchClause() || path.isFunction()
+t.ensureBlock(path.node)
+path = path.get("body")
+var unique = opts.unique
+var kind = opts.kind || "var"
+var blockHoist = opts._blockHoist == null ? 2 : opts._blockHoist
+var dataKey = "declaration:" + kind + ":" + blockHoist
+var declarPath = !unique && path.getData(dataKey)
+!declarPath
+var declar = t.variableDeclaration(kind, [])
+declar._generated = true
+declar._blockHoist = blockHoist
+var _path$unshiftContaine = path.unshiftContainer("body", [declar])
+declarPath = _path$unshiftContaine[0]
+path.setData(dataKey, declarPath)
+var declarator = t.variableDeclarator(opts.id, opts.init)
+declarPath.node.declarations.push(declarator)
+this.registerBinding(kind, declarPath.get("declarations").pop())

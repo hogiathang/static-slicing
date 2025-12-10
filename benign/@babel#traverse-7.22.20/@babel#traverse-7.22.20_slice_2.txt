@@ -1,0 +1,15 @@
+function getOrCreateCachedPaths = function getOrCreateCachedPaths(hub, parent) {
+  var _hub2, _hub3;
+  {
+    hub = null;
+  }
+  let parents = pathsCache.get((_hub2 = hub) != null ? _hub2 : nullHub);
+  if (!parents) pathsCache.set((_hub3 = hub) != null ? _hub3 : nullHub, parents = new WeakMap());
+  let paths = parents.get(parent);
+  if (!paths) parents.set(parent, paths = new Map());
+  return paths;
+}
+hub = null
+let parents = pathsCache.get((_hub2 = hub) != null ? _hub2 : nullHub)
+pathsCache.set((_hub3 = hub) != null ? _hub3 : nullHub, parents = new WeakMap())
+let paths = parents.get(parent)

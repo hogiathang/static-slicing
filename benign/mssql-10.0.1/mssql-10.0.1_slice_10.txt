@@ -1,0 +1,37 @@
+this.parent.acquire(this, (err, connection, config) => {
+        if (err) return callback(err)
+
+        debug('connection(%d): borrowed to request #%d', IDS.get(connection), IDS.get(this))
+
+        if (this.canceled) {
+          debug('request(%d): canceled', IDS.get(this))
+          this.parent.release(connection)
+          return callback(new RequestError('Canceled.', 'ECANCEL'))
+        }
+
+        const params = []
+        for (const name in this.parameters) {
+          if (!objectHasProperty(this.parameters, name)) {
+            continue
+          }
+          const param = this.parameters[name]
+          if (param.io === 1 || (param.io === 2 && param.value)) {
+            params.push(castParameter(param.value, param.type))
+          }
+        }
+
+        debug('request(%d): query', IDS.get(this), command)
+
+        const req = connection.queryRaw({
+          query_str: command,
+          query_timeout: config.requestTimeout / 1000 // msnodesqlv8 timeouts are in seconds (<1 second ...
+debug('connection(%d): borrowed to request #%d', IDS.get(connection), IDS.get(this))
+this.canceled
+__ecma.Array.factory()
+_iterator_5 = <operator>.iterator(this.parameters)
+!objectHasProperty(this.parameters, name)
+continue
+const param = this.parameters[name]
+param.io === 1 || (param.io === 2 && param.value)
+params.push(castParameter(param.value, param.type))
+debug('request(%d): query', IDS.get(this), command)

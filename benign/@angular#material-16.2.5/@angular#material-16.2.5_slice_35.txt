@@ -1,0 +1,17 @@
+const walk = (node) => {
+      if (ts.isImportDeclaration(node)) {
+        return;
+      }
+      if (ts.isIdentifier(node)) {
+        const specifier = identifiersToImportSpecifiers.get(node.text);
+        if (specifier && this._isReferenceToImport(node, specifier)) {
+          replacements.push([node, importSpecifiersToNewNames.get(specifier)]);
+        }
+      }
+      node.forEachChild(walk);
+    }
+ts.isImportDeclaration(node)
+ts.isIdentifier(node)
+const specifier = identifiersToImportSpecifiers.get(node.text)
+specifier && this._isReferenceToImport(node, specifier)
+replacements.push([node, importSpecifiersToNewNames.get(specifier)])

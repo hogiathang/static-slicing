@@ -1,0 +1,12 @@
+fs.lstat(src, function(err, stat) {
+      if (err) return cb(err);
+
+      fs.utimes(dest, stat.atime, stat.mtime, function(err) {
+        if (err) return cb(err);
+        cb();
+      });
+    })
+fs.utimes(dest, stat.atime, stat.mtime, function(err) {
+        if (err) return cb(err);
+        cb();
+      })

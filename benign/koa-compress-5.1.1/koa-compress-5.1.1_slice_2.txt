@@ -1,0 +1,8 @@
+acceptedEncodings.forEach((encoding) => {
+      const weight = encodingWeights.get(encoding)
+      if (!weightClasses.has(weight)) weightClasses.set(weight, new Set())
+      weightClasses.get(weight).add(encoding)
+    })
+const weight = encodingWeights.get(encoding)
+weightClasses.set(weight, new Set())
+(_tmp_10 = weightClasses.get(weight)).add

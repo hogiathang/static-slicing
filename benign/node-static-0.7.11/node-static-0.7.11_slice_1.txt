@@ -1,0 +1,42 @@
+Server.prototype.respondNoGzip = function (pathname, status, contentType, _headers, files, stat, req, res, finish) {
+    var mtime           = Date.parse(stat.mtime),
+        key             = pathname || files[0],
+        headers         = {},
+        clientETag      = req.headers['if-none-match'],
+        clientMTime     = Date.parse(req.headers['if-modified-since']),
+        startByte       = 0,
+        length          = stat.size,
+        byteRange       = this.parseByteRange(req, stat);
+
+    /* Handle byte ranges */
+    if (files.length == 1 && byteRange.valid) {
+        if (byteRange.to < length) {
+
+            // Note: HTTP Range param is inclusive
+            startByte = byteRange.from;
+            length = byteRange.to - byteRange.from + 1;
+            status = 206;
+
+            // Set Content-Range response header (we advertise initial resource size on server here (stat.size))
+            headers['Content-Range'] = 'bytes ' + byteRange.from + '-' + byteRange.to + '/' + sta...
+var mtime           = Date.parse(stat.mtime)
+var key             = pathname || files[0]
+var headers         = {}
+var clientETag      = req.headers['if-none-match']
+var clientMTime     = Date.parse(req.headers['if-modified-since'])
+var startByte       = 0
+var length          = stat.size
+var byteRange       = this.parseByteRange(req, stat)
+files.length == 1 && byteRange.valid
+byteRange.to < length
+startByte = byteRange.from
+length = byteRange.to - byteRange.from + 1
+status = 206
+headers['Content-Range'] = 'bytes ' + byteRange.from + '-' + byteRange.to + '/' + stat.size
+byteRange.valid = false
+console.warn("Range request exceeds file boundaries, goes until byte no", byteRange.to, "against file size of", length, "bytes")
+!byteRange.valid && req.headers['range']
+console.error(new Error("Range request present but invalid, might serve whole file instead"))
+_iterator_1 = <operator>.iterator(this.options.headers)
+_iterator_2 = <operator>.iterator(_headers)
+headers['Etag']          = JSON.stringify([stat.ino, stat.size, mtime].join('-'))

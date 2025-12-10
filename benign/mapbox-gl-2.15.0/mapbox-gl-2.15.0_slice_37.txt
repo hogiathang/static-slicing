@@ -1,0 +1,50 @@
+addBucket(tileID: OverscaledTileID, bucket: SymbolBucket, crossTileIDs: CrossTileIDs): boolean {
+        if (this.indexes[tileID.overscaledZ] &&
+            this.indexes[tileID.overscaledZ][tileID.key]) {
+            if (this.indexes[tileID.overscaledZ][tileID.key].bucketInstanceId ===
+                bucket.bucketInstanceId) {
+                return false;
+            } else {
+                // We're replacing this bucket with an updated version
+                // Remove the old bucket's "used crossTileIDs" now so that
+                // the new bucket can claim them.
+                // The old index entries themselves stick around until
+                // 'removeStaleBuckets' is called.
+                this.removeBucketCrossTileIDs(tileID.overscaledZ,
+                    this.indexes[tileID.overscaledZ][tileID.key]);
+            }
+        }
+
+        for (let i = 0; i < bucket.symbolInstances.length; i++) {
+            const symbolInstance = bucket.symbolInstances.get(i);
+        ...
+this.indexes[tileID.overscaledZ] &&
+            this.indexes[tileID.overscaledZ][tileID.key]
+this.indexes[tileID.overscaledZ][tileID.key]
+this.indexes[tileID.overscaledZ][tileID.key].bucketInstanceId ===
+                bucket.bucketInstanceId
+bucket.bucketInstanceId
+this.removeBucketCrossTileIDs(tileID.overscaledZ,
+                    this.indexes[tileID.overscaledZ][tileID.key])
+this.indexes[tileID.overscaledZ][tileID.key]
+i < bucket.symbolInstances.length
+const symbolInstance = bucket.symbolInstances.get(i)
+symbolInstance.crossTileID = 0
+!this.usedCrossTileIDs[tileID.overscaledZ]
+this.usedCrossTileIDs[tileID.overscaledZ] = new Set()
+const zoomCrossTileIDs = this.usedCrossTileIDs[tileID.overscaledZ]
+_iterator_3 = <operator>.iterator(this.indexes)
+const zoomIndexes = this.indexes[zoom]
+Number(zoom) > tileID.overscaledZ
+_iterator_4 = <operator>.iterator(zoomIndexes)
+const childIndex = zoomIndexes[id]
+(_tmp_14 = childIndex.tileID).isChildOf
+childIndex.findMatches(bucket.symbolInstances, tileID, zoomCrossTileIDs)
+const parentCoord = tileID.scaledTo(Number(zoom))
+const parentIndex = zoomIndexes[parentCoord.key]
+parentIndex.findMatches(bucket.symbolInstances, tileID, zoomCrossTileIDs)
+i < bucket.symbolInstances.length
+const symbolInstance = bucket.symbolInstances.get(i)
+!symbolInstance.crossTileID
+symbolInstance.crossTileID = crossTileIDs.generate()
+zoomCrossTileIDs.add(symbolInstance.crossTileID)

@@ -1,0 +1,7 @@
+_tmp_5.CallExpression = CallExpression
+!path.get('callee').matchesPattern('Object.defineProperty')
+var _path$get = path.get('arguments')
+var _path$get2 = _slicedToArray(_path$get, 2)
+var identifier = _path$get2[0]
+var prop = _path$get2[1]
+var objectName = identifier.get('name').node

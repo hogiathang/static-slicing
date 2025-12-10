@@ -1,0 +1,6 @@
+server.on('listening', () => {
+        resolve();
+        this.emit('listening');
+      })
+resolve()
+this.emit('listening')

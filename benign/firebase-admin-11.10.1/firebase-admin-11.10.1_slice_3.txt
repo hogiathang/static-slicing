@@ -1,0 +1,36 @@
+function validateAuthFactorInfo = function validateAuthFactorInfo(request) {
+    const validKeys = {
+        mfaEnrollmentId: true,
+        displayName: true,
+        phoneInfo: true,
+        enrolledAt: true,
+    };
+    // Remove unsupported keys from the original request.
+    for (const key in request) {
+        if (!(key in validKeys)) {
+            delete request[key];
+        }
+    }
+    // No enrollment ID is available for signupNewUser. Use another identifier.
+    const authFactorInfoIdentifier = request.mfaEnrollmentId || request.phoneInfo || JSON.stringify(request);
+    // Enrollment uid may or may not be specified for update operations.
+    if (typeof request.mfaEnrollmentId !== 'undefined' &&
+        !validator.isNonEmptyString(request.mfaEnrollmentId)) {
+        throw new error_1.FirebaseAuthError(error_1.AuthClientErrorCode.INVALID_UID, 'The second factor "uid" must be a valid non-empty string.');
+    }
+    if (typeof request.displayName !== 'undefined' &&
+        !validator.isString(request.displayName...
+const validKeys = {
+        mfaEnrollmentId: true,
+        displayName: true,
+        phoneInfo: true,
+        enrolledAt: true,
+    }
+_tmp_0.mfaEnrollmentId = true
+_tmp_0.displayName = true
+_tmp_0.phoneInfo = true
+_tmp_0.enrolledAt = true
+_iterator_0 = <operator>.iterator(request)
+!(key in validKeys)
+delete request[key]
+const authFactorInfoIdentifier = request.mfaEnrollmentId || request.phoneInfo || JSON.stringify(request)

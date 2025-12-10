@@ -1,0 +1,37 @@
+module.exports = async npm => {
+  if (
+    // opted out
+    !npm.config.get('update-notifier')
+    // global npm update
+    || (npm.flatOptions.global &&
+      ['install', 'update'].includes(npm.command) &&
+      npm.argv.some(arg => /^npm(@|$)/.test(arg)))
+    // CI
+    || ciInfo.isCI
+  ) {
+    return null
+  }
+
+  const notification = await updateNotifier(npm)
+
+  // intentional.  do not await this.  it's a best-effort update.  if this
+  // fails, it's ok.  might be using /dev/null as the cache or something weird
+  // like that.
+  writeFile(lastCheckedFile(npm), '').catch(() => {})
+  return notification
+}
+!npm.config.get('update-notifier')
+    // global npm update
+    || (npm.flatOptions.global &&
+      ['install', 'update'].includes(npm.command) &&
+      npm.argv.some(arg => /^npm(@|$)/.test(arg)))
+    // CI
+    || ciInfo.isCI
+npm.flatOptions.global &&
+      ['install', 'update'].includes(npm.command) &&
+      npm.argv.some(arg => /^npm(@|$)/.test(arg))
+['install', 'update'].includes(npm.command)
+npm.argv.some(arg => /^npm(@|$)/.test(arg))
+ciInfo.isCI
+const notification = await updateNotifier(npm)
+(_tmp_13 = writeFile(lastCheckedFile(npm), '')).catch

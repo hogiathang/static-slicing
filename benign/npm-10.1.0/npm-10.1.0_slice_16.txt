@@ -1,0 +1,26 @@
+async setWorkspaces () {
+    const includeWorkspaceRoot = this.isArboristCmd
+      ? false
+      : this.npm.config.get('include-workspace-root')
+
+    const prefixInsideCwd = relative(this.npm.localPrefix, process.cwd()).startsWith('..')
+    const relativeFrom = prefixInsideCwd ? this.npm.localPrefix : process.cwd()
+
+    const filters = this.npm.config.get('workspace')
+    const ws = await getWorkspaces(filters, {
+      path: this.npm.localPrefix,
+      includeWorkspaceRoot,
+      relativeFrom,
+    })
+
+    this.workspaces = ws
+    this.workspaceNames = [...ws.keys()]
+    this.workspacePaths = [...ws.values()]
+  }
+const includeWorkspaceRoot = this.isArboristCmd
+      ? false
+      : this.npm.config.get('include-workspace-root')
+this.npm.config.get('include-workspace-root')
+const prefixInsideCwd = relative(this.npm.localPrefix, process.cwd()).startsWith('..')
+const relativeFrom = prefixInsideCwd ? this.npm.localPrefix : process.cwd()
+const filters = this.npm.config.get('workspace')

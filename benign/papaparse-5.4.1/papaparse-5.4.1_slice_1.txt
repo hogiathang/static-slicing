@@ -1,0 +1,57 @@
+this._readChunk = function()
+		{
+			if (this._finished)
+			{
+				this._chunkLoaded();
+				return;
+			}
+
+			xhr = new XMLHttpRequest();
+
+			if (this._config.withCredentials)
+			{
+				xhr.withCredentials = this._config.withCredentials;
+			}
+
+			if (!IS_WORKER)
+			{
+				xhr.onload = bindFunction(this._chunkLoaded, this);
+				xhr.onerror = bindFunction(this._chunkError, this);
+			}
+
+			xhr.open(this._config.downloadRequestBody ? 'POST' : 'GET', this._input, !IS_WORKER);
+			// Headers can only be set when once the request state is OPENED
+			if (this._config.downloadRequestHeaders)
+			{
+				var headers = this._config.downloadRequestHeaders;
+
+				for (var headerName in headers)
+				{
+					xhr.setRequestHeader(headerName, headers[headerName]);
+				}
+			}
+
+			if (this._config.chunkSize)
+			{
+				var end = this._start + this._config.chunkSize - 1;	// minus one because byte range is inclusive
+				xhr.setRequestHeader('Range', 'bytes=' + this._start + '-' + end);
+			}
+
+			try {
+				xhr.send(thi...
+this._finished
+xhr = new XMLHttpRequest()
+this._config.withCredentials
+xhr.withCredentials = this._config.withCredentials
+!IS_WORKER
+xhr.onload = bindFunction(this._chunkLoaded, this)
+xhr.onerror = bindFunction(this._chunkError, this)
+xhr.open(this._config.downloadRequestBody ? 'POST' : 'GET', this._input, !IS_WORKER)
+this._config.downloadRequestHeaders
+var headers = this._config.downloadRequestHeaders
+_iterator_0 = <operator>.iterator(headers)
+xhr.setRequestHeader(headerName, headers[headerName])
+this._config.chunkSize
+var end = this._start + this._config.chunkSize - 1
+xhr.setRequestHeader('Range', 'bytes=' + this._start + '-' + end)
+xhr.send(this._config.downloadRequestBody)

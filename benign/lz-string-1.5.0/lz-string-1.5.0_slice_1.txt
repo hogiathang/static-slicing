@@ -1,0 +1,5 @@
+var lzString = require('../libs/lz-string.js')
+var fs = require('fs')
+process.argv.length < 3
+console.error('Usage: lz-string <input_file>')
+process.exit(1)

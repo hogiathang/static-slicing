@@ -1,0 +1,13 @@
+function isIncludedConsole = function isIncludedConsole(memberExpr, excludeArray) {
+    const object = memberExpr.get("object");
+    const property = memberExpr.get("property");
+    if (isExcluded(property, excludeArray)) return false;
+    if (isGlobalConsoleId(object)) return true;
+    return isGlobalConsoleId(object.get("object")) && (property.isIdentifier({
+      name: "call"
+    }) || property.isIdentifier({
+      name: "apply"
+    }));
+  }
+const object = memberExpr.get("object")
+const property = memberExpr.get("property")

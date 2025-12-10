@@ -1,0 +1,74 @@
+async exec (args) {
+    const global = resolve(this.npm.globalDir, '..')
+    const where = this.npm.global
+      ? global
+      : this.npm.prefix
+
+    const Arborist = require('@npmcli/arborist')
+    const arb = new Arborist({
+      ...this.npm.flatOptions,
+      path: where,
+    })
+
+    this.edges = new Set()
+    this.list = []
+    this.tree = await arb.loadActual()
+
+    if (this.workspaceNames && this.workspaceNames.length) {
+      this.filterSet =
+        arb.workspaceDependencySet(
+          this.tree,
+          this.workspaceNames,
+          this.npm.flatOptions.includeWorkspaceRoot
+        )
+    } else if (!this.npm.flatOptions.workspacesEnabled) {
+      this.filterSet =
+        arb.excludeWorkspacesDependencySet(this.tree)
+    }
+
+    if (args.length !== 0) {
+      // specific deps
+      for (let i = 0; i < args.length; i++) {
+        const nodes = this.tree.inventory.query('name', args[i])
+        this.getEdges(nodes, 'edgesIn')
+      }
+    } else {
+      if (this.npm.config....
+const global = resolve(this.npm.globalDir, '..')
+const where = this.npm.global
+      ? global
+      : this.npm.prefix
+this.npm.prefix
+const Arborist = require('@npmcli/arborist')
+const arb = new Arborist({
+      ...this.npm.flatOptions,
+      path: where,
+    })
+...this.npm.flatOptions
+_tmp_2.path = where
+this.edges = new Set()
+__ecma.Array.factory()
+this.tree = await arb.loadActual()
+this.workspaceNames && this.workspaceNames.length
+this.filterSet =
+        arb.workspaceDependencySet(
+          this.tree,
+          this.workspaceNames,
+          this.npm.flatOptions.includeWorkspaceRoot
+        )
+arb.workspaceDependencySet(
+          this.tree,
+          this.workspaceNames,
+          this.npm.flatOptions.includeWorkspaceRoot
+        )
+this.tree
+this.workspaceNames
+this.npm.flatOptions.includeWorkspaceRoot
+!this.npm.flatOptions.workspacesEnabled
+this.filterSet =
+        arb.excludeWorkspacesDependencySet(this.tree)
+arb.excludeWorkspacesDependencySet(this.tree)
+args.length !== 0
+i < args.length
+const nodes = this.tree.inventory.query('name', args[i])
+this.getEdges(nodes, 'edgesIn')

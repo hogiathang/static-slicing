@@ -1,0 +1,76 @@
+function start = function start (argv) {
+  if (!argv) {
+    // we are printing the help
+    return
+  }
+
+  if (argv.onPort) {
+    if (!hasAsyncHooks()) {
+      console.error('The --on-port flag requires the async_hooks builtin module, but it is not available. Please upgrade to Node 8.1+.')
+      process.exit(1)
+    }
+
+    const { socketPath, server } = createChannel((port) => {
+      const url = new URL(argv.url, `http://localhost:${port}`).href
+      const opts = Object.assign({}, argv, {
+        onPort: false,
+        url
+      })
+      const tracker = initJob(opts, () => {
+        proc.kill('SIGINT')
+        server.close()
+      })
+
+      process.once('SIGINT', () => {
+        tracker.stop()
+      })
+    })
+
+    // manage-path always uses the $PATH variable, but we can pretend
+    // that it is equal to $NODE_PATH
+    const alterPath = managePath({ PATH: process.env.NODE_PATH })
+    alterPath.unshift(path.join(__dirname, 'lib/preload'))
+
+    const proc = spawn(argv.spawn[0], argv.spawn.slice(1), {...
+!argv
+argv.onPort
+!hasAsyncHooks()
+console.error('The --on-port flag requires the async_hooks builtin module, but it is not available. Please upgrade to Node 8.1+.')
+process.exit(1)
+_tmp_24 = createChannel((port) => {
+      const url = new URL(argv.url, `http://localhost:${port}`).href
+      const opts = Object.assign({}, argv, {
+        onPort: false,
+        url
+      })
+      const tracker = initJob(opts, () => {
+        proc.kill('SIGINT')
+        server.close()
+      })
+
+      process.once('SIGINT', () => {
+        tracker.stop()
+      })
+    })
+const alterPath = managePath({ PATH: process.env.NODE_PATH })
+alterPath.unshift(path.join(__dirname, 'lib/preload'))
+const proc = spawn(argv.spawn[0], argv.spawn.slice(1), {
+      stdio: ['ignore', 'inherit', 'inherit'],
+      env: Object.assign({}, process.env, {
+        NODE_OPTIONS: ['-r', 'autocannonDetectPort'].join(' ') +
+          (process.env.NODE_OPTIONS ? ` ${process.env.NODE_OPTIONS}` : ''),
+        NODE_PATH: alterPath.get(),
+        AUTOCANNON_SOCKET: socketPath
+      })
+    })
+_tmp_27.stdio = ['ignore', 'inherit', 'inherit']
+_tmp_27.env = Object.assign({}, process.env, {
+        NODE_OPTIONS: ['-r', 'autocannonDetectPort'].join(' ') +
+          (process.env.NODE_OPTIONS ? ` ${process.env.NODE_OPTIONS}` : ''),
+        NODE_PATH: alterPath.get(),
+        AUTOCANNON_SOCKET: socketPath
+      })
+_tmp_30.NODE_OPTIONS = ['-r', 'autocannonDetectPort'].join(' ') +
+          (process.env.NODE_OPTIONS ? ` ${process.env.NODE_OPTIONS}` : '')
+process.env.NODE_OPTIONS ? <operator>.formatString(" ", process.env.NODE_OPTIONS, "") : ""
+_tmp_30.NODE_PATH = alterPath.get()

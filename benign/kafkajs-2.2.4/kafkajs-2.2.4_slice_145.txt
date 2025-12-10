@@ -1,0 +1,15 @@
+pop(topic, partition) {
+    if (this.size === 0 || !this.has(topic, partition)) {
+      return
+    }
+
+    const key = this.getKey(topic, partition)
+    const offset = this.get(key)
+
+    this.delete(key)
+    return { topic, partition, offset }
+  }
+this.size === 0 || !this.has(topic, partition)
+const key = this.getKey(topic, partition)
+const offset = this.get(key)
+this.delete(key)

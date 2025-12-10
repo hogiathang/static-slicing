@@ -1,0 +1,11 @@
+getStrategy(target) {
+        const excludeMap = this._excludeMetadatas.get(target);
+        const exclude = excludeMap && excludeMap.get(undefined);
+        const exposeMap = this._exposeMetadatas.get(target);
+        const expose = exposeMap && exposeMap.get(undefined);
+        if ((exclude && expose) || (!exclude && !expose))
+            return 'none';
+        return exclude ? 'excludeAll' : 'exposeAll';
+    }
+const excludeMap = this._excludeMetadatas.get(target)
+const exclude = excludeMap && excludeMap.get(undefined)

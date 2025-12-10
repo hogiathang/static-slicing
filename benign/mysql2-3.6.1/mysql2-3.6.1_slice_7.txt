@@ -1,0 +1,11 @@
+new this.Promise((resolve, reject) => {
+      const done = makeDoneCb(resolve, reject, localErr);
+      if (params !== undefined) {
+        c.query(query, params, done);
+      } else {
+        c.query(query, done);
+      }
+    })
+const done = makeDoneCb(resolve, reject, localErr)
+params !== undefined
+c.query(query, done)

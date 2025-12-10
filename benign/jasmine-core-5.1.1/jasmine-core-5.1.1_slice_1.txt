@@ -1,0 +1,103 @@
+MatchersUtil.prototype.eq_ = function(a, b, aStack, bStack, diffBuilder) {
+    let result = true;
+
+    const asymmetricResult = this.asymmetricMatch_(
+      a,
+      b,
+      aStack,
+      bStack,
+      diffBuilder
+    );
+    if (!j$.util.isUndefined(asymmetricResult)) {
+      return asymmetricResult;
+    }
+
+    for (const tester of this.customTesters_) {
+      const customTesterResult = tester(a, b);
+      if (!j$.util.isUndefined(customTesterResult)) {
+        if (!customTesterResult) {
+          diffBuilder.recordMismatch();
+        }
+        return customTesterResult;
+      }
+    }
+
+    if (a instanceof Error && b instanceof Error) {
+      result = a.message == b.message;
+      if (!result) {
+        diffBuilder.recordMismatch();
+      }
+      return result;
+    }
+
+    // Identical objects are equal. `0 === -0`, but they aren't identical.
+    // See the [Harmony `egal` proposal](http://wiki.ecmascript.org/doku.php?id=harmony:egal).
+    if (a === b) {
+      result = a !== 0 || 1 ...
+let result = true
+const asymmetricResult = this.asymmetricMatch_(
+      a,
+      b,
+      aStack,
+      bStack,
+      diffBuilder
+    )
+!j$.util.isUndefined(asymmetricResult)
+_iterator_22 = <operator>.iterator(this.customTesters_)
+const customTesterResult = tester(a, b)
+!j$.util.isUndefined(customTesterResult)
+a instanceof Error && b instanceof Error
+a === b
+a === null || b === null
+const className = Object.prototype.toString.call(a)
+className != Object.prototype.toString.call(b)
+typeof a != 'object' || typeof b != 'object'
+const aIsDomNode = j$.isDomNode(a)
+const bIsDomNode = j$.isDomNode(b)
+aIsDomNode && bIsDomNode
+aIsDomNode || bIsDomNode
+const aIsPromise = j$.isPromise(a)
+const bIsPromise = j$.isPromise(b)
+aIsPromise && bIsPromise
+let length = aStack.length
+length--
+aStack[length] == a
+aStack.push(a)
+bStack.push(b)
+let size = 0
+className == '[object Array]'
+j$.isMap(a) && j$.isMap(b)
+a.size != b.size
+__ecma.Array.factory()
+__ecma.Array.factory()
+a.forEach(function(valueA, keyA) {
+        keysA.push(keyA);
+      })
+b.forEach(function(valueB, keyB) {
+        keysB.push(keyB);
+      })
+_tmp_337 = __ecma.Array.factory()
+_tmp_338 = __ecma.Array.factory()
+result && i < mapKeys.length
+const mapIter = mapKeys[i]
+const cmpIter = cmpKeys[i]
+result && j < mapIter.length
+const mapKey = mapIter[j]
+const cmpKey = cmpIter[j]
+const mapValueA = a.get(mapKey)
+j$.isAsymmetricEqualityTester_(mapKey) ||
+            (j$.isAsymmetricEqualityTester_(cmpKey) &&
+              this.eq_(mapKey, cmpKey, aStack, bStack, j$.NullDiffBuilder()))
+j$.isAsymmetricEqualityTester_(cmpKey) &&
+              this.eq_(mapKey, cmpKey, aStack, bStack, j$.NullDiffBuilder())
+this.eq_(mapKey, cmpKey, aStack, bStack, j$.NullDiffBuilder())
+mapValueB = b.get(cmpKey)
+mapValueB = b.get(mapKey)
+result = this.eq_(
+            mapValueA,
+            mapValueB,
+            aStack,
+            bStack,
+            j$.NullDiffBuilder()
+          )
+j$.NullDiffBuilder()

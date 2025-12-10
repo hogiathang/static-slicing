@@ -1,0 +1,15 @@
+sessionTimeout = param1_1.sessionTimeout
+const request = require('./v0/request')
+const response = require('./v0/response')
+_tmp_1.request = request({
+        groupId,
+        sessionTimeout,
+        memberId,
+        protocolType,
+        groupProtocols,
+      })
+_tmp_2.groupId = groupId
+_tmp_2.sessionTimeout = sessionTimeout
+_tmp_2.memberId = memberId
+_tmp_2.protocolType = protocolType
+_tmp_2.groupProtocols = groupProtocols

@@ -1,0 +1,61 @@
+exports.getPenaltyN1 = function getPenaltyN1 (data) {
+  const size = data.size
+  let points = 0
+  let sameCountCol = 0
+  let sameCountRow = 0
+  let lastCol = null
+  let lastRow = null
+
+  for (let row = 0; row < size; row++) {
+    sameCountCol = sameCountRow = 0
+    lastCol = lastRow = null
+
+    for (let col = 0; col < size; col++) {
+      let module = data.get(row, col)
+      if (module === lastCol) {
+        sameCountCol++
+      } else {
+        if (sameCountCol >= 5) points += PenaltyScores.N1 + (sameCountCol - 5)
+        lastCol = module
+        sameCountCol = 1
+      }
+
+      module = data.get(col, row)
+      if (module === lastRow) {
+        sameCountRow++
+      } else {
+        if (sameCountRow >= 5) points += PenaltyScores.N1 + (sameCountRow - 5)
+        lastRow = module
+        sameCountRow = 1
+      }
+    }
+
+    if (sameCountCol >= 5) points += PenaltyScores.N1 + (sameCountCol - 5)
+    if (sameCountRow >= 5) points += PenaltyScores.N1 + (sameCountRow - 5)
+  }
+
+  return poin...
+const size = data.size
+let points = 0
+let sameCountCol = 0
+let sameCountRow = 0
+let lastCol = null
+let lastRow = null
+let row = 0
+sameCountCol = sameCountRow = 0
+lastCol = lastRow = null
+let col = 0
+let module = data.get(row, col)
+module === lastCol
+sameCountCol++
+points += PenaltyScores.N1 + (sameCountCol - 5)
+lastCol = module
+sameCountCol = 1
+module = data.get(col, row)
+module === lastRow
+sameCountRow++
+points += PenaltyScores.N1 + (sameCountRow - 5)
+lastRow = module
+sameCountRow = 1
+points += PenaltyScores.N1 + (sameCountCol - 5)
+points += PenaltyScores.N1 + (sameCountRow - 5)

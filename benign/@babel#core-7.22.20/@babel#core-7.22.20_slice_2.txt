@@ -1,0 +1,34 @@
+function loadCachedDescriptor = function loadCachedDescriptor(cache, desc) {
+  const {
+    value,
+    options = DEFAULT_OPTIONS
+  } = desc;
+  if (options === false) return desc;
+  let cacheByOptions = cache.get(value);
+  if (!cacheByOptions) {
+    cacheByOptions = new WeakMap();
+    cache.set(value, cacheByOptions);
+  }
+  let possibilities = cacheByOptions.get(options);
+  if (!possibilities) {
+    possibilities = [];
+    cacheByOptions.set(options, possibilities);
+  }
+  if (possibilities.indexOf(desc) === -1) {
+    const matches = possibilities.filter(possibility => isEqualDescriptor(possibility, desc));
+    if (matches.length > 0) {
+      return matches[0];
+    }
+    possibilities.push(desc);
+  }
+  return desc;
+}
+_tmp_3 = desc
+value = _tmp_3.value
+options = _tmp_3.options === void 0 ? DEFAULT_OPTIONS : _tmp_3.options
+options === false
+let cacheByOptions = cache.get(value)
+!cacheByOptions
+cacheByOptions = new WeakMap()
+cache.set(value, cacheByOptions)
+let possibilities = cacheByOptions.get(options)

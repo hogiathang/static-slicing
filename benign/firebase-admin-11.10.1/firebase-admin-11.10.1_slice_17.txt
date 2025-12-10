@@ -1,0 +1,14 @@
+sendRequest(request) {
+        request.headers = FIREBASE_VERSION_HEADER;
+        return this.httpClient.send(request)
+            .then(() => undefined)
+            .catch((err) => {
+            throw this.toFirebaseError(err);
+        });
+    }
+request.headers = FIREBASE_VERSION_HEADER
+this.httpClient.send(request)
+            .then(() => undefined)
+            .catch((err) => {
+            throw this.toFirebaseError(err);
+        })

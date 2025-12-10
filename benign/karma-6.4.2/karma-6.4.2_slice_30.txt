@@ -1,0 +1,61 @@
+(name) => {
+      let browser
+      const locals = {
+        id: ['value', Launcher.generateId()],
+        name: ['value', name],
+        processKillTimeout: ['value', processKillTimeout],
+        baseLauncherDecorator: ['factory', baseDecorator],
+        captureTimeoutLauncherDecorator: ['factory', captureTimeoutDecorator],
+        retryLauncherDecorator: ['factory', retryDecorator],
+        processLauncherDecorator: ['factory', processDecorator],
+        baseBrowserDecorator: ['factory', baseBrowserDecoratorFactory]
+      }
+
+      // TODO(vojta): determine script from name
+      if (name.includes('/')) {
+        name = 'Script'
+      }
+
+      try {
+        browser = this._injector.createChild([locals], ['launcher:' + name]).get('launcher:' + name)
+      } catch (e) {
+        if (e.message.includes(`No provider for "launcher:${name}"`)) {
+          log.error(`Cannot load browser "${name}": it is not registered! Perhaps you are missing some plugin?`)
+        } else {
+          log.e...
+const locals = {
+        id: ['value', Launcher.generateId()],
+        name: ['value', name],
+        processKillTimeout: ['value', processKillTimeout],
+        baseLauncherDecorator: ['factory', baseDecorator],
+        captureTimeoutLauncherDecorator: ['factory', captureTimeoutDecorator],
+        retryLauncherDecorator: ['factory', retryDecorator],
+        processLauncherDecorator: ['factory', processDecorator],
+        baseBrowserDecorator: ['factory', baseBrowserDecoratorFactory]
+      }
+_tmp_5.id = ['value', Launcher.generateId()]
+_tmp_7 = __ecma.Array.factory()
+_tmp_5.processKillTimeout = ['value', processKillTimeout]
+_tmp_5.baseLauncherDecorator = ['factory', baseDecorator]
+_tmp_5.captureTimeoutLauncherDecorator = ['factory', captureTimeoutDecorator]
+_tmp_5.retryLauncherDecorator = ['factory', retryDecorator]
+_tmp_5.processLauncherDecorator = ['factory', processDecorator]
+_tmp_5.baseBrowserDecorator = ['factory', baseBrowserDecoratorFactory]
+name.includes('/')
+name = 'Script'
+browser = this._injector.createChild([locals], ['launcher:' + name]).get('launcher:' + name)
+this.jobs.add((args, done) => {
+        log.info(`Starting browser ${browser.displayName || browser.name}`)
+
+        browser.on('browser_process_failure', () => done(browser.error))
+
+        browser.on('done', () => {
+          if (!browser.error && browser.state !== browser.STATE_RESTARTING) {
+            done(null, browser)
+          }
+        })
+
+        browser.start(`${protocol}//${hostname}:${port}${urlRoot}`)
+      }, [])
+__ecma.Array.factory()
+(_tmp_21 = this.jobs).run

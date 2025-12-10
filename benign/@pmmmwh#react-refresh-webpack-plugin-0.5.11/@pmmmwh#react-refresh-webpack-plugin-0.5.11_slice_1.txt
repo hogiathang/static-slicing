@@ -1,0 +1,115 @@
+apply(compiler) {
+    // Skip processing in non-development mode, but allow manual force-enabling
+    if (
+      // Webpack do not set process.env.NODE_ENV, so we need to check for mode.
+      // Ref: https://github.com/webpack/webpack/issues/7074
+      (compiler.options.mode !== 'development' ||
+        // We also check for production process.env.NODE_ENV,
+        // in case it was set and mode is non-development (e.g. 'none')
+        (process.env.NODE_ENV && process.env.NODE_ENV === 'production')) &&
+      !this.options.forceEnable
+    ) {
+      return;
+    }
+
+    const webpackVersion = getWebpackVersion(compiler);
+    const logger = compiler.getInfrastructureLogger(this.constructor.name);
+
+    // Get Webpack imports from compiler instance (if available) -
+    // this allow mono-repos to use different versions of Webpack without conflicts.
+    const webpack = compiler.webpack || require('webpack');
+    const {
+      DefinePlugin,
+      EntryDependency,
+      EntryPlugin,
+      Mod...
+(compiler.options.mode !== 'development' ||
+        // We also check for production process.env.NODE_ENV,
+        // in case it was set and mode is non-development (e.g. 'none')
+        (process.env.NODE_ENV && process.env.NODE_ENV === 'production')) &&
+      !this.options.forceEnable
+process.env.NODE_ENV && process.env.NODE_ENV === 'production'
+!this.options.forceEnable
+const webpackVersion = getWebpackVersion(compiler)
+const logger = compiler.getInfrastructureLogger(this.constructor.name)
+const webpack = compiler.webpack || require('webpack')
+_tmp_5 = webpack
+DefinePlugin = _tmp_5.DefinePlugin
+EntryDependency = _tmp_5.EntryDependency
+EntryPlugin = _tmp_5.EntryPlugin
+ModuleFilenameHelpers = _tmp_5.ModuleFilenameHelpers
+NormalModule = _tmp_5.NormalModule
+ProvidePlugin = _tmp_5.ProvidePlugin
+RuntimeGlobals = _tmp_5.RuntimeGlobals
+Template = _tmp_5.Template
+const addEntries = getAdditionalEntries({
+      devServer: compiler.options.devServer,
+      options: this.options,
+    })
+_tmp_6.devServer = compiler.options.devServer
+_tmp_6.options = this.options
+addEntries.prependEntries.forEach((entry) => {
+        new EntryPlugin(compiler.context, entry, { name: undefined }).apply(compiler);
+      })
+const integrationEntry = getIntegrationEntry(this.options.overlay.sockIntegration)
+const socketEntryData = []
+compiler.hooks.make.tap(
+        { name: this.constructor.name, stage: Number.POSITIVE_INFINITY },
+        (compilation) => {
+          // Exhaustively search all entries for `integrationEntry`.
+          // If found, mark those entries and the index of `integrationEntry`.
+          for (const [name, entryData] of compilation.entries.entries()) {
+            const index = entryData.dependencies.findIndex(
+              (dep) => dep.request && dep.request.includes(integrationEntry)
+            );
+            if (index !== -1) {
+              socketEntryData.push({ name, index });
+            }
+          }
+        }
+      )
+_tmp_12.stage = Number.POSITIVE_INFINITY
+<lambda>1
+addEntries.overlayEntries.forEach((entry, idx, arr) => {
+        compiler.hooks.finishMake.tapPromise(
+          { name: this.constructor.name, stage: Number.MIN_SAFE_INTEGER + (arr.length - idx - 1) },
+          (compilation) => {
+            // Only hook into the current compiler
+            if (compilation.compiler !== compiler) {
+              return Promise.resolve();
+            }
+
+            const injectData = socketEntryData.length ? socketEntryData : [{ name: undefined }];
+            return Promise.all(
+              injectData.map(({ name, index }) => {
+                return new Promise((resolve, reject) => {
+                  const options = { name };
+                  const dep = EntryPlugin.createDependency(entry, options);
+                  compilation.addEntry(compiler.context, dep, options, (err) => {
+                    if (err) return reject(err);
+
+                    // If the entry is not a global one,
+                    // and we have registered the index fo...
+compiler.options.entry = injectRefreshEntry(compiler.options.entry, addEntries)
+const refreshGlobal = getRefreshGlobalScope(RuntimeGlobals || {})
+_tmp_29.$RefreshReg$ = <operator>.formatString("", refreshGlobal, ".register")
+_tmp_29.$RefreshSig$ = <operator>.formatString("", refreshGlobal, ".signature")
+_tmp_29.typeof $RefreshReg$ = "function"
+_tmp_29.typeof $RefreshSig$ = "function"
+_tmp_29.__react_refresh_library__ = JSON.stringify(
+        Template.toIdentifier(
+          this.options.library ||
+            compiler.options.output.uniqueName ||
+            compiler.options.output.library
+        )
+      )
+Template.toIdentifier(
+          this.options.library ||
+            compiler.options.output.uniqueName ||
+            compiler.options.output.library
+        )
+this.options.library ||
+            compiler.options.output.uniqueName ||
+            compiler.options.output.library
+compiler.options.output.uniqueName
+compiler.options.output.library

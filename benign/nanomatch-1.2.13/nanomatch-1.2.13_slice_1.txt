@@ -1,0 +1,19 @@
+function memoize = function memoize(type, pattern, options, fn) {
+  var key = utils.createKey(type + '=' + pattern, options);
+
+  if (options && options.cache === false) {
+    return fn(pattern, options);
+  }
+
+  if (cache.has(type, key)) {
+    return cache.get(type, key);
+  }
+
+  var val = fn(pattern, options);
+  cache.set(type, key, val);
+  return val;
+}
+var key = utils.createKey(type + '=' + pattern, options)
+options && options.cache === false
+cache.has(type, key)
+cache.get(type, key)

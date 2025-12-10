@@ -1,0 +1,65 @@
+function readConfigFile = async function readConfigFile(filepath, opts = {}) {
+  const lc = lilconfig('appium', {
+    loaders: {
+      '.yaml': yamlLoader,
+      '.yml': yamlLoader,
+      '.json': jsonLoader,
+      noExt: jsonLoader,
+    },
+    packageProp: 'appiumConfig',
+  });
+
+  const result = filepath ? await loadConfigFile(lc, filepath) : await searchConfigFile(lc);
+
+  if (result?.filepath && !result?.isEmpty) {
+    const {pretty = true} = opts;
+    try {
+      let configResult;
+      const errors = validate(result.config);
+      if (_.isEmpty(errors)) {
+        configResult = {...result, errors};
+      } else {
+        const reason = formatErrors(errors, result.config, {
+          json: rawConfig.get(result.filepath),
+          pretty,
+        });
+        configResult = reason ? {...result, errors, reason} : {...result, errors};
+      }
+
+      // normalize (to camel case) all top-level property names of the config file
+      configResult.config = normalizeConfig(/** @type {AppiumConfig} */ (configResul...
+const lc = lilconfig('appium', {
+    loaders: {
+      '.yaml': yamlLoader,
+      '.yml': yamlLoader,
+      '.json': jsonLoader,
+      noExt: jsonLoader,
+    },
+    packageProp: 'appiumConfig',
+  })
+_tmp_8.loaders = {
+      '.yaml': yamlLoader,
+      '.yml': yamlLoader,
+      '.json': jsonLoader,
+      noExt: jsonLoader,
+    }
+_tmp_9..yaml = yamlLoader
+_tmp_9..yml = yamlLoader
+_tmp_9..json = jsonLoader
+_tmp_9.noExt = jsonLoader
+_tmp_8.packageProp = "appiumConfig"
+const result = filepath ? await loadConfigFile(lc, filepath) : await searchConfigFile(lc)
+result?.filepath && !result?.isEmpty
+pretty = _tmp_10.pretty === void 0 ? true : _tmp_10.pretty
+const errors = validate(result.config)
+_.isEmpty(errors)
+configResult = {...result, errors}
+const reason = formatErrors(errors, result.config, {
+          json: rawConfig.get(result.filepath),
+          pretty,
+        })
+_tmp_12.json = rawConfig.get(result.filepath)
+_tmp_12.pretty = pretty
+configResult = reason ? {...result, errors, reason} : {...result, errors}
+configResult.config = normalizeConfig(/** @type {AppiumConfig} */ (configResult.config))
+rawConfig.delete(result.filepath)

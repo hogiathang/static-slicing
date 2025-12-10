@@ -1,0 +1,70 @@
+cli.loadConfig = () => {
+        const _ = require('underscore');
+        const args = require('jsdoc/opts/args');
+        const Config = require('jsdoc/config');
+        let config;
+        const fs = require('jsdoc/fs');
+        const path = require('jsdoc/path');
+
+        let confPath;
+        let isFile;
+
+        const defaultOpts = {
+            destination: './out/',
+            encoding: 'utf8'
+        };
+
+        try {
+            env.opts = args.parse(env.args);
+        }
+        catch (e) {
+            console.error(`${e.message}\n`);
+            cli.printHelp().then(() => {
+                cli.exit(1);
+            });
+        }
+
+        confPath = env.opts.configure || path.join(env.dirname, 'conf.json');
+        try {
+            isFile = fs.statSync(confPath).isFile();
+        }
+        catch (e) {
+            isFile = false;
+        }
+
+        if ( !isFile && !env.opts.configure ) {
+            confPath = path.join(env.dirname, 'conf.json.EXAMPLE');
+        }
+
+        ...
+const _ = require('underscore')
+const args = require('jsdoc/opts/args')
+const Config = require('jsdoc/config')
+const fs = require('jsdoc/fs')
+const path = require('jsdoc/path')
+const defaultOpts = {
+            destination: './out/',
+            encoding: 'utf8'
+        }
+_tmp_10.destination = "./out/"
+_tmp_10.encoding = "utf8"
+env.opts = args.parse(env.args)
+<operator>.formatString("", e.message, "\n")
+cli.printHelp().then(() => {
+                cli.exit(1);
+            })
+confPath = env.opts.configure || path.join(env.dirname, 'conf.json')
+(_tmp_12 = fs.statSync(confPath)).isFile
+isFile = false
+!isFile && !env.opts.configure
+confPath = path.join(env.dirname, 'conf.json.EXAMPLE')
+path.extname(confPath)
+".js"
+config = require( path.resolve(confPath) ) || {}
+break;
+".json"
+".EXAMPLE"
+default:
+config = fs.readFileSync(confPath, 'utf8')
+break;
+env.conf = new Config(config).get()

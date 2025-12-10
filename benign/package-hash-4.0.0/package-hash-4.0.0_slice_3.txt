@@ -1,0 +1,28 @@
+_tmp_22.tryGetDiff = tryGetDiff
+zalgo.run(tryExecFile,
+      'git',
+      // Attempt to get consistent output no matter the platform. Diff both
+      // staged and unstaged changes.
+      ['--no-pager', 'diff', 'HEAD', '--no-color', '--no-ext-diff'],
+      {
+        cwd: dir,
+        maxBuffer: TEN_MEBIBYTE,
+        env: Object.assign({}, process.env, {
+          // Force the GIT_DIR to prevent git from diffing a parent repository
+          // in case the directory isn't actually a repository.
+          GIT_DIR: path.join(dir, '.git')
+        }),
+        // Ignore stderr.
+        stdio: ['ignore', 'pipe', 'ignore']
+      })
+"git"
+_tmp_25 = __ecma.Array.factory()
+_tmp_26.cwd = dir
+_tmp_26.maxBuffer = TEN_MEBIBYTE
+_tmp_26.env = Object.assign({}, process.env, {
+          // Force the GIT_DIR to prevent git from diffing a parent repository
+          // in case the directory isn't actually a repository.
+          GIT_DIR: path.join(dir, '.git')
+        })
+_tmp_28.GIT_DIR = path.join(dir, '.git')
+_tmp_26.stdio = ['ignore', 'pipe', 'ignore']

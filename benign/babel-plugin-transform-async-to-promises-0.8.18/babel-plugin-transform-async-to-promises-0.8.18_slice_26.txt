@@ -1,0 +1,24 @@
+function extractForOwnBodyPath = function extractForOwnBodyPath(path) {
+        let left = path.get("left");
+        if (left.isVariableDeclaration()) {
+            left = left.get("declarations")[0].get("id");
+        }
+        const right = path.get("right");
+        if (left.isIdentifier() && right.isIdentifier()) {
+            const rightBinding = path.scope.getBinding(right.node.name);
+            if (rightBinding && rightBinding.constant) {
+                let body = path.get("body");
+                for (;;) {
+                    let statements;
+                    if (body.isBlockStatement()) {
+                        statements = body.get("body");
+                    }
+                    else if (body.isReturnStatement()) {
+                        const argument = body.get("argument");
+                        if (argument.isCallExpression() &&
+                            invokeTypeOfExpression(argument) &&
+                            argument.get("arguments").length === 1) {
+                            co...
+let left = path.get("left")
+left.isVariableDeclaration()
+left = left.get("declarations")[0].get("id")

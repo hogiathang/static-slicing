@@ -1,0 +1,23 @@
+function runAnimationFrameCallbacks = function runAnimationFrameCallbacks(now) {
+      // Converting to an array is important to get a sync snapshot and thus match spec semantics.
+      const callbackHandles = [...mapOfAnimationFrameCallbacks.keys()];
+      for (const handle of callbackHandles) {
+        // This has() can be false if a callback calls cancelAnimationFrame().
+        if (mapOfAnimationFrameCallbacks.has(handle)) {
+          const callback = mapOfAnimationFrameCallbacks.get(handle);
+          removeAnimationFrameCallback(handle);
+          try {
+            callback(now);
+          } catch (e) {
+            reportException(window, e, window.location.href);
+          }
+        }
+      }
+    }
+const callbackHandles = [...mapOfAnimationFrameCallbacks.keys()]
+_iterator_4 = <operator>.iterator(callbackHandles)
+mapOfAnimationFrameCallbacks.has(handle)
+const callback = mapOfAnimationFrameCallbacks.get(handle)
+removeAnimationFrameCallback(handle)
+callback(now)
+reportException(window, e, window.location.href)

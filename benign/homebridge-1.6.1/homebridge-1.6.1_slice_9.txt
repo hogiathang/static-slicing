@@ -1,0 +1,4 @@
+copyItem(srcItemName, destItemName) {
+        return fs.copyFile(path.resolve(this.baseDirectory, srcItemName), path.resolve(this.baseDirectory, destItemName));
+    }
+fs.copyFile(path.resolve(this.baseDirectory, srcItemName), path.resolve(this.baseDirectory, destItemName))

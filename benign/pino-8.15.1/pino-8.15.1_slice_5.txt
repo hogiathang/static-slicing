@@ -1,0 +1,56 @@
+function runBenchmark = function runBenchmark (name, done) {
+  const benchmarkResults = {}
+  benchmarkResults[name] = {}
+
+  const processor = through(function (line, enc, cb) {
+    const [label, time] = ('' + line).split(': ')
+    const [target, iterations] = label.split('*')
+    const logger = target.replace('bench', '')
+
+    if (!benchmarkResults[name][logger]) benchmarkResults[name][logger] = []
+
+    benchmarkResults[name][logger].push({
+      time: time.replace('ms', ''),
+      iterations: iterations.replace(':', '')
+    })
+
+    cb()
+  })
+
+  if (quiet === false) console.log(`Running ${name.toUpperCase()} benchmark\n`)
+
+  const benchmark = spawn(
+    process.argv[0],
+    [join(benchmarkDir, benchmarks[name])]
+  )
+
+  if (quiet === false) {
+    benchmark.stdout.pipe(process.stdout)
+  }
+
+  pump(benchmark.stdout, split(), processor)
+
+  benchmark.on('exit', () => {
+    console.log()
+    if (done && typeof done === 'function') done(null, benchmarkResults)
+  })
+}
+const benchmarkResults = {}
+benchmarkResults[name] = {}
+const processor = through(function (line, enc, cb) {
+    const [label, time] = ('' + line).split(': ')
+    const [target, iterations] = label.split('*')
+    const logger = target.replace('bench', '')
+
+    if (!benchmarkResults[name][logger]) benchmarkResults[name][logger] = []
+
+    benchmarkResults[name][logger].push({
+      time: time.replace('ms', ''),
+      iterations: iterations.replace(':', '')
+    })
+
+    cb()
+  })
+<operator>.formatString("Running ", name.toUpperCase(), " benchmark\n")
+process.argv[0]
+_tmp_7.push(join(benchmarkDir, benchmarks[name]))

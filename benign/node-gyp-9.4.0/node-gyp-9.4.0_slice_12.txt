@@ -1,0 +1,41 @@
+function download = async function download (gyp, url) {
+  log.http('GET', url)
+
+  const requestOpts = {
+    headers: {
+      'User-Agent': `node-gyp v${gyp.version} (node ${process.version})`,
+      Connection: 'keep-alive'
+    },
+    proxy: gyp.opts.proxy,
+    noProxy: gyp.opts.noproxy
+  }
+
+  const cafile = gyp.opts.cafile
+  if (cafile) {
+    requestOpts.ca = await readCAFile(cafile)
+  }
+
+  const res = await fetch(url, requestOpts)
+  log.http(res.status, res.url)
+
+  return res
+}
+log.http('GET', url)
+const requestOpts = {
+    headers: {
+      'User-Agent': `node-gyp v${gyp.version} (node ${process.version})`,
+      Connection: 'keep-alive'
+    },
+    proxy: gyp.opts.proxy,
+    noProxy: gyp.opts.noproxy
+  }
+_tmp_47.headers = {
+      'User-Agent': `node-gyp v${gyp.version} (node ${process.version})`,
+      Connection: 'keep-alive'
+    }
+_tmp_48.User-Agent = <operator>.formatString("node-gyp v", gyp.version, " (node ", process.version, ")")
+_tmp_48.Connection = "keep-alive"
+_tmp_47.proxy = gyp.opts.proxy
+_tmp_47.noProxy = gyp.opts.noproxy
+const cafile = gyp.opts.cafile
+requestOpts.ca = await readCAFile(cafile)

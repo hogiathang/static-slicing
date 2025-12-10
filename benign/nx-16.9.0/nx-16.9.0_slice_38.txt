@@ -1,0 +1,41 @@
+function watch = async function watch(args) {
+    const projectReplacementRegex = new RegExp(args.projectNameEnvName ?? DEFAULT_PROJECT_NAME_ENV, 'g');
+    if (args.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    if (args.includeGlobalWorkspaceFiles &&
+        args.command.match(projectReplacementRegex)) {
+        output_1.output.error({
+            title: 'Invalid command',
+            bodyLines: [
+                'The command you provided has a replacement for projects ($NX_PROJECT_NAME), but you are also including global workspace files.',
+                'You cannot use a replacement for projects when including global workspace files because there will be scenarios where there are file changes not associated with a project.',
+            ],
+        });
+        process.exit(1);
+    }
+    args.verbose &&
+        output_1.output.logSingleLine('running with args: ' + JSON.stringify(args));
+    args.verbose && output_1.output.logSingleLine('starting watch process');
+    const wh...
+const projectReplacementRegex = new RegExp(args.projectNameEnvName ?? DEFAULT_PROJECT_NAME_ENV, 'g')
+args.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+args.includeGlobalWorkspaceFiles &&
+        args.command.match(projectReplacementRegex)
+args.command.match(projectReplacementRegex)
+output_1.output.error({
+            title: 'Invalid command',
+            bodyLines: [
+                'The command you provided has a replacement for projects ($NX_PROJECT_NAME), but you are also including global workspace files.',
+                'You cannot use a replacement for projects when including global workspace files because there will be scenarios where there are file changes not associated with a project.',
+            ],
+        })
+_tmp_3.title = "Invalid command"
+_tmp_3.bodyLines = [
+                'The command you provided has a replacement for projects ($NX_PROJECT_NAME), but you are also including global workspace files.',
+                'You cannot use a replacement for projects when including global workspace files because there will be scenarios where there are file changes not associated with a project.',
+            ]
+_tmp_4.push("The command you provided has a replacement for projects ($NX_PROJECT_NAME), but you are also including global workspace files.")
+_tmp_4.push("You cannot use a replacement for projects when including global workspace files because there will be scenarios where there are file changes not associated with a project.")
+process.exit(1)

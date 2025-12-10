@@ -1,0 +1,60 @@
+async makeRequestStreamAsync(
+    options: RequestOption,
+    body: stream.Readable | Binary,
+    sha256sum: string,
+    statusCodes: number[],
+    region: string,
+  ): Promise<http.IncomingMessage> {
+    if (!isObject(options)) {
+      throw new TypeError('options should be of type "object"')
+    }
+    if (!(Buffer.isBuffer(body) || typeof body === 'string' || isReadableStream(body))) {
+      throw new errors.InvalidArgumentError(
+        `stream should be a Buffer, string or readable Stream, got ${typeof body} instead`,
+      )
+    }
+    if (!isString(sha256sum)) {
+      throw new TypeError('sha256sum should be of type "string"')
+    }
+    statusCodes.forEach((statusCode) => {
+      if (!isNumber(statusCode)) {
+        throw new TypeError('statusCode should be of type "number"')
+      }
+    })
+    if (!isString(region)) {
+      throw new TypeError('region should be of type "string"')
+    }
+    // sha256sum will be empty for anonymous or https requests
+    if (!this.enableSHA256 &&...
+!isObject(options)
+throw new TypeError('options should be of type "object"')
+!(Buffer.isBuffer(body) || typeof body === 'string' || isReadableStream(body))
+throw new errors.InvalidArgumentError(
+        `stream should be a Buffer, string or readable Stream, got ${typeof body} instead`,
+      )
+<operator>.formatString("stream should be a Buffer, string or readable Stream, got ", typeof body, " instead")
+!isString(sha256sum)
+throw new TypeError('sha256sum should be of type "string"')
+statusCodes.forEach((statusCode) => {
+      if (!isNumber(statusCode)) {
+        throw new TypeError('statusCode should be of type "number"')
+      }
+    })
+!isString(region)
+throw new TypeError('region should be of type "string"')
+!this.enableSHA256 && sha256sum.length !== 0
+throw new errors.InvalidArgumentError(`sha256sum expected to be empty for anonymous or https requests`)
+this.enableSHA256 && sha256sum.length !== 64
+throw new errors.InvalidArgumentError(`Invalid sha256sum : ${sha256sum}`)
+await this.checkAndRefreshCreds()
+region = region || (await this.getBucketRegionAsync(options.bucketName!))
+const reqOptions = this.getRequestOptions({ ...options, region })
+!this.anonymous
+!this.enableSHA256
+sha256sum = 'UNSIGNED-PAYLOAD'
+const date = new Date()
+reqOptions.headers['x-amz-date'] = makeDateLong(date)
+reqOptions.headers['x-amz-content-sha256'] = sha256sum
+this.sessionToken
+reqOptions.headers['x-amz-security-token'] = this.sessionToken
+reqOptions.headers.authorization = signV4(reqOptions, this.accessKey, this.secretKey, region, date, sha256sum)

@@ -1,0 +1,47 @@
+_unprepare (callback) {
+    debug('ps(%d): unprepare', IDS.get(this))
+
+    if (!this.prepared) {
+      return setImmediate(callback, new PreparedStatementError('Statement is not prepared. Call prepare() first.', 'ENOTPREPARED'))
+    }
+
+    if (this._activeRequest) {
+      return setImmediate(callback, new TransactionError("Can't unprepare the statement. There is a request in progress.", 'EREQINPROG'))
+    }
+
+    const req = new shared.driver.Request(this)
+    req.stream = false
+    req.input('handle', TYPES.Int, this._handle)
+    req.execute('sp_unprepare', err => {
+      if (err) return callback(err)
+
+      this.parent.release(this._acquiredConnection)
+      this._acquiredConnection = null
+      this._acquiredConfig = null
+      this._handle = 0
+      this.prepared = false
+
+      debug('ps(%d): unprepared', IDS.get(this))
+
+      return callback(null)
+    })
+  }
+debug('ps(%d): unprepare', IDS.get(this))
+!this.prepared
+this._activeRequest
+const req = new shared.driver.Request(this)
+req.stream = false
+req.input('handle', TYPES.Int, this._handle)
+req.execute('sp_unprepare', err => {
+      if (err) return callback(err)
+
+      this.parent.release(this._acquiredConnection)
+      this._acquiredConnection = null
+      this._acquiredConfig = null
+      this._handle = 0
+      this.prepared = false
+
+      debug('ps(%d): unprepared', IDS.get(this))
+
+      return callback(null)
+    })

@@ -1,0 +1,89 @@
+function executeOperationAsync = async function executeOperationAsync<
+  T extends AbstractOperation<TResult>,
+  TResult = ResultTypeFromOperation<T>
+>(client: MongoClient, operation: T): Promise<TResult> {
+  if (!(operation instanceof AbstractOperation)) {
+    // TODO(NODE-3483): Extend MongoRuntimeError
+    throw new MongoRuntimeError('This method requires a valid operation instance');
+  }
+
+  if (client.topology == null) {
+    // Auto connect on operation
+    if (client.s.hasBeenClosed) {
+      throw new MongoNotConnectedError('Client must be connected before running operations');
+    }
+    client.s.options[Symbol.for('@@mdb.skipPingOnConnect')] = true;
+    try {
+      await client.connect();
+    } finally {
+      delete client.s.options[Symbol.for('@@mdb.skipPingOnConnect')];
+    }
+  }
+
+  const { topology } = client;
+  if (topology == null) {
+    throw new MongoRuntimeError('client.connect did not create a topology but also did not throw');
+  }
+
+  // The driver sessions spec mandates that we implicitly create se...
+!(operation instanceof AbstractOperation)
+throw new MongoRuntimeError('This method requires a valid operation instance');
+client.topology == null
+client.s.hasBeenClosed
+throw new MongoNotConnectedError('Client must be connected before running operations');
+client.s.options[Symbol.for('@@mdb.skipPingOnConnect')] = true
+await client.connect()
+delete client.s.options[Symbol.for('@@mdb.skipPingOnConnect')]
+topology = _tmp_2.topology
+topology == null
+throw new MongoRuntimeError('client.connect did not create a topology but also did not throw');
+let session = operation.session
+session == null
+owner = Symbol()
+session = client.startSession({ owner, explicit: false })
+session.hasEnded
+throw new MongoExpiredSessionError('Use of expired sessions is not permitted');
+session.snapshotEnabled && !topology.capabilities.supportsSnapshotReads
+throw new MongoCompatibilityError('Snapshot reads require MongoDB 5.0 or later');
+session.client !== client
+throw new MongoInvalidArgumentError('ClientSession must be from the same MongoClient');
+const readPreference = operation.readPreference ?? ReadPreference.primary
+const inTransaction = !!session?.inTransaction()
+inTransaction && !readPreference.equals(ReadPreference.primary)
+throw new MongoTransactionError(
+      `Read preference in a transaction must be primary, not: ${readPreference.mode}`
+    );
+<operator>.formatString("Read preference in a transaction must be primary, not: ", readPreference.mode, "")
+session?.isPinned && session.transaction.isCommitted && !operation.bypassPinningCheck
+session.unpin()
+operation.hasAspect(Aspect.MUST_SELECT_SAME_SERVER)
+selector = sameServerSelector(operation.server?.description)
+operation.trySecondaryWrite
+selector = secondaryWritableServerSelector(topology.commonWireVersion, readPreference)
+selector = readPreference
+const server = await topology.selectServerAsync(selector, { session })
+session == null
+!operation.hasAspect(Aspect.RETRYABLE)
+await operation.execute(server, session)
+session?.owner != null && session.owner === owner
+await session.endSession().catch(() => null)
+const willRetryRead = topology.s.options.retryReads && !inTransaction && operation.canRetryRead
+const willRetryWrite =
+    topology.s.options.retryWrites &&
+    !inTransaction &&
+    supportsRetryableWrites(server) &&
+    operation.canRetryWrite
+topology.s.options.retryWrites &&
+    !inTransaction &&
+    supportsRetryableWrites(server) &&
+    operation.canRetryWrite
+!inTransaction
+supportsRetryableWrites(server)
+operation.canRetryWrite
+const hasReadAspect = operation.hasAspect(Aspect.READ_OPERATION)
+const hasWriteAspect = operation.hasAspect(Aspect.WRITE_OPERATION)
+const willRetry = (hasReadAspect && willRetryRead) || (hasWriteAspect && willRetryWrite)
+hasWriteAspect && willRetryWrite
+operation.options.willRetryWrite = true
+session.incrementTransactionNumber()
+await operation.execute(server, session)

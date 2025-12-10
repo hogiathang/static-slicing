@@ -1,0 +1,94 @@
+function addChannel = async function addChannel(pluginConfig, context, { Octokit }) {
+  const {
+    options: { repositoryUrl },
+    branch,
+    nextRelease: { name, gitTag, notes },
+    logger,
+  } = context;
+  const { githubToken, githubUrl, githubApiPathPrefix, proxy } = resolveConfig(
+    pluginConfig,
+    context,
+  );
+  const { owner, repo } = parseGithubUrl(repositoryUrl);
+  const octokit = new Octokit(
+    toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    }),
+  );
+  let releaseId;
+
+  const release = {
+    owner,
+    repo,
+    name,
+    prerelease: isPrerelease(branch),
+    tag_name: gitTag,
+  };
+
+  debug("release object: %O", release);
+
+  try {
+    ({
+      data: { id: releaseId },
+    } = await octokit.request("GET /repos/{owner}/{repo}/releases/tags/{tag}", {
+      owner,
+      repo,
+      tag: gitTag,
+    }));
+  } catch (error) {
+    if (error.status === 404) {
+      logger.log("There is no release for tag %s, creating a new one", gitTag);
+
+     ...
+_tmp_0 = context
+_tmp_1.repositoryUrl = repositoryUrl
+branch = _tmp_0.branch
+_tmp_2.gitTag = gitTag
+logger = _tmp_0.logger
+_tmp_3 = resolveConfig(
+    pluginConfig,
+    context,
+  )
+_tmp_4 = parseGithubUrl(repositoryUrl)
+const octokit = new Octokit(
+    toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    }),
+  )
+toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    })
+_tmp_6.githubToken = githubToken
+_tmp_6.githubUrl = githubUrl
+_tmp_6.githubApiPathPrefix = githubApiPathPrefix
+_tmp_6.proxy = proxy
+const release = {
+    owner,
+    repo,
+    name,
+    prerelease: isPrerelease(branch),
+    tag_name: gitTag,
+  }
+_tmp_7.owner = owner
+_tmp_7.repo = repo
+_tmp_7.name = name
+_tmp_7.prerelease = isPrerelease(branch)
+_tmp_7.tag_name = gitTag
+debug("release object: %O", release)
+await octokit.request("GET /repos/{owner}/{repo}/releases/tags/{tag}", {
+      owner,
+      repo,
+      tag: gitTag,
+    })
+_tmp_8.owner = owner
+_tmp_8.repo = repo
+_tmp_8.tag = gitTag

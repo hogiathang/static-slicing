@@ -1,0 +1,9 @@
+update(k, data, version) {
+        if (version <= 0) {
+            throw new Error("version must be greater than 0");
+        }
+        return this.put(k, data, { previousSeq: version });
+    }
+version <= 0
+throw new Error("version must be greater than 0");
+this.put(k, data, { previousSeq: version })

@@ -1,0 +1,25 @@
+findPackageNames(key, snapshot, data).forEach((packageName) => {
+            const rawVersion = findVersion(key, packageName);
+            const version = parseBaseVersion(rawVersion, isV6);
+            // we don't need to keep duplicates, we can just track the keys
+            const existingNode = nodes.get(packageName)?.get(version);
+            if (existingNode) {
+                keyMap.set(key, existingNode);
+                return;
+            }
+            const node = {
+                type: 'npm',
+                name: version ? `npm:${packageName}@${version}` : `npm:${packageName}`,
+                data: {
+                    version,
+                    packageName,
+                    hash: snapshot.resolution?.['integrity'] ||
+                        (0, file_hasher_1.hashArray)(snapshot.resolution?.['tarball']
+                            ? [snapshot.resolution['tarball']]
+                            : [packageName, version]),
+                },
+            };
+          ...
+const rawVersion = findVersion(key, packageName)
+const version = parseBaseVersion(rawVersion, isV6)
+const existingNode = nodes.get(packageName)?.get(version)

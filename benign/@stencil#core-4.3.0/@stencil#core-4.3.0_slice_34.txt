@@ -1,0 +1,37 @@
+t.realpathSync = function e(t, r) {
+   function l() {
+    var e = i.exec(t);
+    h = e[0].length, p = e[0], d = e[0], m = "", o && !f[d] && (a.lstatSync(d), f[d] = !0);
+   }
+   var c, u, f, h, p, d, m, g, y, E, v, b;
+   if (t = s.resolve(t), r && Object.prototype.hasOwnProperty.call(r, t)) return r[t];
+   for (c = t, u = {}, f = {}, l(); h < t.length; ) if (n.lastIndex = h, g = n.exec(t), 
+   m = p, p += g[0], d = m + g[1], h = n.lastIndex, !(f[d] || r && r[d] === d)) {
+    if (r && Object.prototype.hasOwnProperty.call(r, d)) y = r[d]; else {
+     if (!(E = a.lstatSync(d)).isSymbolicLink()) {
+      f[d] = !0, r && (r[d] = d);
+      continue;
+     }
+     v = null, o || (b = E.dev.toString(32) + ":" + E.ino.toString(32), u.hasOwnProperty(b) && (v = u[b])), 
+     null === v && (a.statSync(d), v = a.readlinkSync(d)), y = s.resolve(m, v), r && (r[d] = y), 
+     o || (u[b] = v);
+    }
+    t = s.resolve(y, t.slice(h)), l();
+   }
+   return r && (r[c] = t), t;
+  }
+function l = function l() {
+    var e = i.exec(t);
+    h = e[0].length, p = e[0], d = e[0], m = "", o && !f[d] && (a.lstatSync(d), f[d] = !0);
+   }
+(_tmp_760 = Object.prototype.hasOwnProperty).call
+n.lastIndex = h
+!(f[d] || r && r[d] === d)
+(_tmp_763 = Object.prototype.hasOwnProperty).call
+(_tmp_764 = E = a.lstatSync(d)).isSymbolicLink
+r && (r[d] = d)
+continue;
+o || (b = E.dev.toString(32) + ":" + E.ino.toString(32), u.hasOwnProperty(b) && (v = u[b]))
+null === v && (a.statSync(d), v = a.readlinkSync(d))
+o || (u[b] = v)
+t = s.resolve(y, t.slice(h))

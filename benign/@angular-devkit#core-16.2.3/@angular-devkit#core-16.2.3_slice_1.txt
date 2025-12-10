@@ -1,0 +1,23 @@
+async _applySmartDefaults(data, smartDefaults) {
+        for (const [pointer, schema] of smartDefaults.entries()) {
+            const fragments = JSON.parse(pointer);
+            const source = this._sourceMap.get(schema.$source);
+            if (!source) {
+                continue;
+            }
+            let value = source(schema);
+            if ((0, rxjs_1.isObservable)(value)) {
+                value = (await (0, rxjs_1.lastValueFrom)(value));
+            }
+            CoreSchemaRegistry._set(data, fragments, value);
+        }
+    }
+_iterator_7 = <operator>.iterator(smartDefaults.entries())
+const fragments = JSON.parse(pointer)
+const source = this._sourceMap.get(schema.$source)
+!source
+continue;
+let value = source(schema)
+(0, rxjs_1.isObservable)(value)
+value = (await (0, rxjs_1.lastValueFrom)(value))
+CoreSchemaRegistry._set(data, fragments, value)

@@ -1,0 +1,20 @@
+plus(duration) {
+    if (!this.isValid) return this;
+
+    const dur = Duration.fromDurationLike(duration),
+      result = {};
+
+    for (const k of orderedUnits) {
+      if (hasOwnProperty(dur.values, k) || hasOwnProperty(this.values, k)) {
+        result[k] = dur.get(k) + this.get(k);
+      }
+    }
+
+    return clone(this, { values: result }, true);
+  }
+!this.isValid
+const dur = Duration.fromDurationLike(duration)
+const result = {}
+_iterator_2 = <operator>.iterator(orderedUnits)
+hasOwnProperty(dur.values, k) || hasOwnProperty(this.values, k)
+result[k] = dur.get(k) + this.get(k)

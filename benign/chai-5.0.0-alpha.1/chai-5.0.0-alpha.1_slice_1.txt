@@ -1,0 +1,16 @@
+function memoizeCompare = function memoizeCompare(leftHandOperand, rightHandOperand, memoizeMap) {
+      if (!memoizeMap || isPrimitive(leftHandOperand) || isPrimitive(rightHandOperand)) {
+        return null;
+      }
+      var leftHandMap = memoizeMap.get(leftHandOperand);
+      if (leftHandMap) {
+        var result = leftHandMap.get(rightHandOperand);
+        if (typeof result === "boolean") {
+          return result;
+        }
+      }
+      return null;
+    }
+!memoizeMap || isPrimitive(leftHandOperand) || isPrimitive(rightHandOperand)
+var leftHandMap = memoizeMap.get(leftHandOperand)
+var result = leftHandMap.get(rightHandOperand)

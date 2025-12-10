@@ -1,0 +1,21 @@
+function set = function set(color, prop, value) {
+      color = getColor(color);
+      if (arguments.length === 2 && type(arguments[1]) === 'object') {
+        var object = arguments[1];
+        for (var p2 in object) {
+          set(color, p2, object[p2]);
+        }
+      } else {
+        if (typeof value === 'function') {
+          value = value(get(color, prop));
+        }
+        var _ColorSpace$resolveCo2 = ColorSpace.resolveCoord(prop, color.space), space = _ColorSpace$resolveCo2.space, index = _ColorSpace$resolveCo2.index;
+        var coords = getAll(color, space);
+        coords[index] = value;
+        setAll(color, space, coords);
+      }
+      return color;
+    }
+color = getColor(color)
+arguments.length === 2 && type(arguments[1]) === 'object'
+typeof value === 'function'

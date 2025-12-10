@@ -1,0 +1,54 @@
+ranges.forEach((range) => {
+    if (range.start === null) {
+      return;
+    }
+
+    const nodes = parsed.nodes.slice(range.start, range.end + 1);
+
+    if (nodes.length > 3) {
+      return;
+    }
+
+    const firstNode = nodes[0].value.toLowerCase();
+    const secondNode =
+      nodes[2] && nodes[2].value ? nodes[2].value.toLowerCase() : null;
+
+    if (nodes.length === 1 || secondNode === 'center') {
+      if (secondNode) {
+        nodes[2].value = nodes[1].value = '';
+      }
+
+      const map = new Map([...horizontal, ['center', center]]);
+
+      if (map.has(firstNode)) {
+        nodes[0].value = /** @type {string}*/ (map.get(firstNode));
+      }
+
+      return;
+    }
+
+    if (secondNode !== null) {
+      if (firstNode === 'center' && directionKeywords.has(secondNode)) {
+        nodes[0].value = nodes[1].value = '';
+
+        if (horizontal.has(secondNode)) {
+          nodes[2].value = /** @type {string} */ (horizontal.get(secondNode));
+        }
+        return;
+      }
+
+      if (hori...
+range.start === null
+const nodes = parsed.nodes.slice(range.start, range.end + 1)
+nodes.length > 3
+const firstNode = nodes[0].value.toLowerCase()
+const secondNode =
+      nodes[2] && nodes[2].value ? nodes[2].value.toLowerCase() : null
+nodes[2] && nodes[2].value ? nodes[2].value.toLowerCase() : null
+nodes.length === 1 || secondNode === 'center'
+secondNode !== null
+firstNode === 'center' && directionKeywords.has(secondNode)
+horizontal.has(firstNode) && verticalValue.has(secondNode)
+verticalValue.has(firstNode) && horizontal.has(secondNode)
+nodes[0].value = /** @type {string} */ (horizontal.get(secondNode))
+nodes[2].value = /** @type {string} */ (verticalValue.get(firstNode))

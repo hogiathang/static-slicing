@@ -1,0 +1,6 @@
+resize() {
+        this._dom.read(this._readDimensions.bind(this));
+        this._dom.write(this._writeDimensions.bind(this));
+    }
+this._dom.read(this._readDimensions.bind(this))
+this._dom.write(this._writeDimensions.bind(this))

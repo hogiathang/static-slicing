@@ -1,0 +1,35 @@
+connect(monitor.connectOptions, (err, conn) => {
+    if (err) {
+      monitor[kConnection] = undefined;
+
+      failureHandler(err);
+      return;
+    }
+
+    if (conn) {
+      // Tell the connection that we are using the streaming protocol so that the
+      // connection's message stream will only read the last hello on the buffer.
+      conn.isMonitoringConnection = true;
+
+      if (isInCloseState(monitor)) {
+        conn.destroy({ force: true });
+        return;
+      }
+
+      monitor[kConnection] = conn;
+      monitor.emit(
+        Server.SERVER_HEARTBEAT_SUCCEEDED,
+        new ServerHeartbeatSucceededEvent(monitor.address, calculateDurationInMs(start), conn.hello)
+      );
+
+      callback(undefined, conn.hello);
+    }
+  })
+conn.isMonitoringConnection = true
+isInCloseState(monitor)
+monitor[kConnection] = conn
+monitor.emit(
+        Server.SERVER_HEARTBEAT_SUCCEEDED,
+        new ServerHeartbeatSucceededEvent(monitor.address, calculateDurationInMs(start), conn.hello)
+      )
+Server.SERVER_HEARTBEAT_SUCCEEDED

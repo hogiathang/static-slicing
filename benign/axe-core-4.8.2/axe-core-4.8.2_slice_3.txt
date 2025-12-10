@@ -1,0 +1,34 @@
+function isModalOpen = function isModalOpen(options) {
+      options = options || {};
+      var modalPercent = options.modalPercent || .75;
+      if (cache_default.get('isModalOpen')) {
+        return cache_default.get('isModalOpen');
+      }
+      var definiteModals = query_selector_all_filter_default(axe._tree[0], 'dialog, [role=dialog], [aria-modal=true]', _isVisibleOnScreen);
+      if (definiteModals.length) {
+        cache_default.set('isModalOpen', true);
+        return true;
+      }
+      var viewport = get_viewport_size_default(window);
+      var percentWidth = viewport.width * modalPercent;
+      var percentHeight = viewport.height * modalPercent;
+      var x = (viewport.width - percentWidth) / 2;
+      var y = (viewport.height - percentHeight) / 2;
+      var points = [ {
+        x: x,
+        y: y
+      }, {
+        x: viewport.width - x,
+        y: y
+      }, {
+        x: viewport.width / 2,
+        y: viewport.height / 2
+      }, {
+        x: x,
+        y: viewport.height - y
+      }, {
+      ...
+options = options || {}
+var modalPercent = options.modalPercent || .75
+cache_default.get('isModalOpen')
+cache_default.get('isModalOpen')

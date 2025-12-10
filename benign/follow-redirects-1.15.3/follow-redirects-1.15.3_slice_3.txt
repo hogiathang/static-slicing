@@ -1,0 +1,68 @@
+RedirectableRequest.prototype._processResponse = function (response) {
+  // Store the redirected response
+  var statusCode = response.statusCode;
+  if (this._options.trackRedirects) {
+    this._redirects.push({
+      url: this._currentUrl,
+      headers: response.headers,
+      statusCode: statusCode,
+    });
+  }
+
+  // RFC7231§6.4: The 3xx (Redirection) class of status code indicates
+  // that further action needs to be taken by the user agent in order to
+  // fulfill the request. If a Location header field is provided,
+  // the user agent MAY automatically redirect its request to the URI
+  // referenced by the Location field value,
+  // even if the specific status code is not understood.
+
+  // If the response is not a redirect; return it as-is
+  var location = response.headers.location;
+  if (!location || this._options.followRedirects === false ||
+      statusCode < 300 || statusCode >= 400) {
+    response.responseUrl = this._currentUrl;
+    response.redirects = this._redirects;
+  ...
+var statusCode = response.statusCode
+this._options.trackRedirects
+this._redirects.push({
+      url: this._currentUrl,
+      headers: response.headers,
+      statusCode: statusCode,
+    })
+_tmp_45.url = this._currentUrl
+_tmp_45.headers = response.headers
+_tmp_45.statusCode = statusCode
+var location = response.headers.location
+!location || this._options.followRedirects === false ||
+      statusCode < 300 || statusCode >= 400
+statusCode >= 400
+destroyRequest(this._currentRequest)
+response.destroy()
+++this._redirectCount > this._options.maxRedirects
+var beforeRedirect = this._options.beforeRedirect
+requestHeaders = Object.assign({
+      // The Host header was set by nativeProtocol.request
+      Host: response.req.getHeader("host"),
+    }, this._options.headers)
+_tmp_47.Host = response.req.getHeader("host")
+this._options.headers
+var method = this._options.method
+(statusCode === 301 || statusCode === 302) && this._options.method === "POST" ||
+      // RFC7231§6.4.4: The 303 (See Other) status code indicates that
+      // the server is redirecting the user agent to a different resource […]
+      // A user agent can perform a retrieval request targeting that URI
+      // (a GET or HEAD request if using HTTP) […]
+      (statusCode === 303) && !/^(?:GET|HEAD)$/.test(this._options.method)
+(statusCode === 303) && !/^(?:GET|HEAD)$/.test(this._options.method)
+this._options.method = "GET"
+this._requestBodyBuffers = []
+removeMatchingHeaders(/^content-/i, this._options.headers)
+var currentHostHeader = removeMatchingHeaders(/^host$/i, this._options.headers)
+var currentUrlParts = url.parse(this._currentUrl)
+var currentHost = currentHostHeader || currentUrlParts.host
+var currentUrl = /^\w+:/.test(location) ? this._currentUrl :
+    url.format(Object.assign(currentUrlParts, { host: currentHost }))
+url.format(Object.assign(currentUrlParts, { host: currentHost }))
+redirectUrl = url.resolve(currentUrl, location)
+this.emit("error", new RedirectionError({ cause: cause }))

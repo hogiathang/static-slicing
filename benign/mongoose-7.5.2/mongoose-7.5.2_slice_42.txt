@@ -1,0 +1,65 @@
+function _getModelNames = function _getModelNames(doc, schema, modelNameFromQuery, model) {
+    let modelNames;
+    let isRefPath = false;
+    let justOne = null;
+
+    const originalSchema = schema;
+    if (schema && schema.instance === 'Array') {
+      schema = schema.caster;
+    }
+    if (schema && schema.$isSchemaMap) {
+      schema = schema.$__schemaType;
+    }
+
+    const ref = schema && schema.options && schema.options.ref;
+    refPath = schema && schema.options && schema.options.refPath;
+    if (schema != null &&
+        schema[schemaMixedSymbol] &&
+        !ref &&
+        !refPath &&
+        !modelNameFromQuery) {
+      return { modelNames: null };
+    }
+
+    if (modelNameFromQuery) {
+      modelNames = [modelNameFromQuery]; // query options
+    } else if (refPath != null) {
+      if (typeof refPath === 'function') {
+        const subdocPath = options.path.slice(0, options.path.length - schema.path.length - 1);
+        const vals = mpath.get(subdocPath, doc, lookupLocalFields);
+        const subdocsBe...
+let isRefPath = false
+let justOne = null
+const originalSchema = schema
+schema && schema.instance === 'Array'
+schema = schema.caster
+schema && schema.$isSchemaMap
+schema = schema.$__schemaType
+const ref = schema && schema.options && schema.options.ref
+refPath = schema && schema.options && schema.options.refPath
+schema != null &&
+        schema[schemaMixedSymbol] &&
+        !ref &&
+        !refPath &&
+        !modelNameFromQuery
+schema[schemaMixedSymbol]
+!ref
+!refPath
+!modelNameFromQuery
+refPath != null
+let modelForCurrentDoc = model
+const discriminatorKey = model.schema.options.discriminatorKey
+!schema && discriminatorKey && (discriminatorValue = utils.getValue(discriminatorKey, doc))
+const discriminatorModel = getDiscriminatorByValue(model.discriminators, discriminatorValue) || model
+discriminatorModel != null
+modelForCurrentDoc = discriminatorModel
+modelForCurrentDoc = _getModelFromConn(model.db, discriminatorValue)
+schemaForCurrentDoc = modelForCurrentDoc.schema._getSchema(options.path)
+schemaForCurrentDoc && schemaForCurrentDoc.caster
+schemaForCurrentDoc = schemaForCurrentDoc.caster
+schemaForCurrentDoc = schema
+originalSchema && originalSchema.path.endsWith('.$*')
+justOne = !originalSchema.$isMongooseArray && !originalSchema._arrayPath
+schemaForCurrentDoc != null
+justOne = !schemaForCurrentDoc.$isMongooseArray && !schemaForCurrentDoc._arrayPath
+(ref = get(schemaForCurrentDoc, 'options.ref')) != null

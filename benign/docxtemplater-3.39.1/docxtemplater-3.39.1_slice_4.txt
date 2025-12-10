@@ -1,0 +1,157 @@
+_tmp_2 = process.env
+BROWSER = _tmp_2.BROWSER === void 0 ? "CHROME" : _tmp_2.BROWSER
+browserName = _tmp_2.browserName
+version = _tmp_2.version
+platform = _tmp_2.platform
+TRAVIS_JOB_NUMBER = _tmp_2.TRAVIS_JOB_NUMBER
+TRAVIS_BUILD_NUMBER = _tmp_2.TRAVIS_BUILD_NUMBER
+SAUCE_USERNAME = _tmp_2.SAUCE_USERNAME
+SAUCE_ACCESS_KEY = _tmp_2.SAUCE_ACCESS_KEY
+process.env
+function exit = function exit(message) {
+	console.log(message);
+	/* eslint-disable-next-line no-process-exit */
+	process.exit(1);
+}
+let fullBrowserName = null
+var chalk = require("chalk")
+var url = require("url")
+var finalhandler = require("finalhandler")
+var remote = require("webdriverio").remote
+var expect = require("chai").expect
+var serveStatic = require("serve-static")
+const port = 9000
+var http = require("http")
+var dirname = require("path").dirname
+var fileURLToPath = require("url").fileURLToPath
+const __dirname = dirname(fileURLToPath(import.meta.url))
+function sleep = async function sleep(ms) {
+	return new Promise(function (resolve) {
+		setTimeout(() => resolve(), ms);
+	});
+}
+const sauceLabsW3COptions = {
+	browserName,
+	browserVersion: version,
+	platformName: platform,
+	"sauce:options": {
+		name: "docxtemplater mocha",
+		build: TRAVIS_BUILD_NUMBER,
+		tags: ["docxtemplater"],
+		tunnelIdentifier: TRAVIS_JOB_NUMBER,
+		public: true,
+	},
+}
+_tmp_3.browserName = browserName
+_tmp_3.browserVersion = version
+_tmp_3.platformName = platform
+_tmp_3.sauce:options = {
+		name: "docxtemplater mocha",
+		build: TRAVIS_BUILD_NUMBER,
+		tags: ["docxtemplater"],
+		tunnelIdentifier: TRAVIS_JOB_NUMBER,
+		public: true,
+	}
+_tmp_4.name = "docxtemplater mocha"
+_tmp_4.build = TRAVIS_BUILD_NUMBER
+_tmp_4.tags = ["docxtemplater"]
+_tmp_4.tunnelIdentifier = TRAVIS_JOB_NUMBER
+_tmp_4.public = true
+const saucelabsJWPOptions = {
+	browserName,
+	version,
+	platform,
+	tags: ["docxtemplater"],
+	name: "docxtemplater mocha",
+	"tunnel-identifier": TRAVIS_JOB_NUMBER,
+	tunnelIdentifier: TRAVIS_JOB_NUMBER,
+	build: TRAVIS_BUILD_NUMBER,
+	captureHtml: true,
+	public: true,
+}
+_tmp_6.browserName = browserName
+_tmp_6.version = version
+_tmp_6.platform = platform
+_tmp_6.tags = ["docxtemplater"]
+_tmp_6.name = "docxtemplater mocha"
+_tmp_6.tunnel-identifier = TRAVIS_JOB_NUMBER
+_tmp_6.tunnelIdentifier = TRAVIS_JOB_NUMBER
+_tmp_6.build = TRAVIS_BUILD_NUMBER
+_tmp_6.captureHtml = true
+_tmp_6.public = true
+const useJWP = browserName === "chrome" && +version < 75
+const browserCapability = {
+	CHROME: {
+		browserName: "chrome",
+		"goog:chromeOptions": {
+			args: [
+				"--headless",
+				// Use --disable-gpu to avoid an error from a missing Mesa
+				// library, as per
+				// https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+				"--disable-gpu",
+			],
+		},
+	},
+	FIREFOX: {
+		browserName: "firefox",
+		"moz:firefoxOptions": {
+			args: ["-headless"],
+		},
+	},
+	SAUCELABS: useJWP ? saucelabsJWPOptions : sauceLabsW3COptions,
+}
+_tmp_8.CHROME = {
+		browserName: "chrome",
+		"goog:chromeOptions": {
+			args: [
+				"--headless",
+				// Use --disable-gpu to avoid an error from a missing Mesa
+				// library, as per
+				// https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+				"--disable-gpu",
+			],
+		},
+	}
+_tmp_9.browserName = "chrome"
+_tmp_9.goog:chromeOptions = {
+			args: [
+				"--headless",
+				// Use --disable-gpu to avoid an error from a missing Mesa
+				// library, as per
+				// https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+				"--disable-gpu",
+			],
+		}
+_tmp_10.args = [
+				"--headless",
+				// Use --disable-gpu to avoid an error from a missing Mesa
+				// library, as per
+				// https://chromium.googlesource.com/chromium/src/+/lkgr/headless/README.md
+				"--disable-gpu",
+			]
+_tmp_11.push("--headless")
+_tmp_11.push("--disable-gpu")
+_tmp_8.FIREFOX = {
+		browserName: "firefox",
+		"moz:firefoxOptions": {
+			args: ["-headless"],
+		},
+	}
+_tmp_12.browserName = "firefox"
+_tmp_12.moz:firefoxOptions = {
+			args: ["-headless"],
+		}
+_tmp_14 = __ecma.Array.factory()
+_tmp_8.SAUCELABS = useJWP ? saucelabsJWPOptions : sauceLabsW3COptions
+const desiredCapabilities = browserCapability[BROWSER]
+fullBrowserName = BROWSER + " (local)"
+!desiredCapabilities
+exit("Unknown browser :" + BROWSER)
+function logE = function logE(arg) {
+	if (logPostRequest) {
+		console.log(arg);
+		console.log("Stacktrace is : ");
+		console.log(new Error());
+	}
+}

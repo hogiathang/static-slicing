@@ -1,0 +1,64 @@
+disconnect(error, reconnecting) {
+        this.connecting = false;
+        this.reconnecting = reconnecting;
+        this.ready = false;
+        this.speaking = false;
+        this.timestamp = 0;
+        this.sequence = 0;
+
+        if(this.connectionTimeout) {
+            clearTimeout(this.connectionTimeout);
+            this.connectionTimeout = null;
+        }
+
+        try {
+            if(reconnecting) {
+                this.pause();
+            } else {
+                this.stopPlaying();
+            }
+        } catch(err) {
+            this.emit("error", err);
+        }
+        if(this.heartbeatInterval) {
+            clearInterval(this.heartbeatInterval);
+            this.heartbeatInterval = null;
+        }
+        if(this.udpSocket) {
+            try {
+                this.udpSocket.close();
+            } catch(err) {
+                if(err.message !== "Not running") {
+                    this.emit("error", err);
+                }
+            }
+            this.udpSocket = nul...
+this.connecting = false
+this.reconnecting = reconnecting
+this.ready = false
+this.speaking = false
+this.timestamp = 0
+this.sequence = 0
+this.connectionTimeout
+clearTimeout(this.connectionTimeout)
+this.connectionTimeout = null
+this.pause()
+this.stopPlaying()
+this.emit("error", err)
+this.heartbeatInterval
+clearInterval(this.heartbeatInterval)
+this.heartbeatInterval = null
+this.udpSocket
+(_tmp_40 = this.udpSocket).close
+err.message !== "Not running"
+this.emit("error", err)
+this.udpSocket = null
+this.ws
+this.ws.readyState === WebSocket.OPEN
+this.ws.close(4901, "Eris: reconnect")
+<operator>.formatString("Terminating websocket (state: ", this.ws.readyState, ")")
+(_tmp_42 = this.ws).terminate
+this.ws.close(1000, "Eris: normal")
+this.emit("error", err)
+this.ws = null
+this.emit("error", error)

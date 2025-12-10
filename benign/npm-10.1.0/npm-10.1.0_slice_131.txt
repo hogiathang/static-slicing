@@ -1,0 +1,24 @@
+function showFields = function showFields (data, version, fields) {
+  const o = {}
+  ;[data, version].forEach((s) => {
+    Object.keys(s).forEach((k) => {
+      o[k] = s[k]
+    })
+  })
+
+  const queryable = new Queryable(o)
+  const s = queryable.query(fields)
+  const res = { [version.version]: s }
+
+  if (s) {
+    return res
+  }
+}
+const o = {}
+[data, version].forEach((s) => {
+    Object.keys(s).forEach((k) => {
+      o[k] = s[k]
+    })
+  })
+const queryable = new Queryable(o)
+const s = queryable.query(fields)

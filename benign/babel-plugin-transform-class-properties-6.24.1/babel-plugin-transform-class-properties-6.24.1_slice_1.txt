@@ -1,0 +1,7 @@
+_tmp_8.Class = Class
+var buildClassProperty = state.opts.spec ? buildClassPropertySpec : buildClassPropertyNonSpec
+var isDerived = !!path.node.superClass
+var constructor = void 0
+__ecma.Array.factory()
+var body = path.get("body")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)

@@ -1,0 +1,12 @@
+async sendClientFirstMessage() {
+    const clientFirstMessage = `${GS2_HEADER}${this.firstMessageBare()}`
+    const request = scram.firstMessage.request({ clientFirstMessage })
+    const response = scram.firstMessage.response
+
+    return this.saslAuthenticate({
+      request,
+      response,
+    })
+  }
+<operator>.formatString("", GS2_HEADER, "", this.firstMessageBare(), "")
+const request = scram.firstMessage.request({ clientFirstMessage })

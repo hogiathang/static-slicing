@@ -1,0 +1,47 @@
+const moveFile = async (source, destination, options = {}, root = true, symlinks = []) => {
+  if (!source || !destination) {
+    throw new TypeError('`source` and `destination` file required')
+  }
+
+  options = {
+    overwrite: true,
+    ...options,
+  }
+
+  if (!options.overwrite && await pathExists(destination)) {
+    throw new Error(`The destination file exists: ${destination}`)
+  }
+
+  await fs.mkdir(dirname(destination), { recursive: true })
+
+  try {
+    await fs.rename(source, destination)
+  } catch (error) {
+    if (error.code === 'EXDEV' || error.code === 'EPERM') {
+      const sourceStat = await fs.lstat(source)
+      if (sourceStat.isDirectory()) {
+        const files = await fs.readdir(source)
+        await Promise.all(files.map((file) =>
+          moveFile(join(source, file), join(destination, file), options, false, symlinks)
+        ))
+      } else if (sourceStat.isSymbolicLink()) {
+        symlinks.push({ source, destination })
+      } else {
+        await fs.copyFile(source, de...
+!source || !destination
+throw new TypeError('`source` and `destination` file required')
+options = {
+    overwrite: true,
+    ...options,
+  }
+_tmp_3.overwrite = true
+...options
+!options.overwrite && await pathExists(destination)
+<operator>.formatString("The destination file exists: ", destination, "")
+await fs.mkdir(dirname(destination), { recursive: true })
+await fs.rename(source, destination)
+error.code === 'EXDEV' || error.code === 'EPERM'
+const sourceStat = await fs.lstat(source)
+sourceStat.isDirectory()
+sourceStat.isSymbolicLink()
+await fs.copyFile(source, destination)

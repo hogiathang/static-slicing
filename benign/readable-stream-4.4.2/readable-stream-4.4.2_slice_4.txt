@@ -1,0 +1,55 @@
+function _write = function _write(stream, chunk, encoding, cb) {
+  const state = stream._writableState
+  if (typeof encoding === 'function') {
+    cb = encoding
+    encoding = state.defaultEncoding
+  } else {
+    if (!encoding) encoding = state.defaultEncoding
+    else if (encoding !== 'buffer' && !Buffer.isEncoding(encoding)) throw new ERR_UNKNOWN_ENCODING(encoding)
+    if (typeof cb !== 'function') cb = nop
+  }
+  if (chunk === null) {
+    throw new ERR_STREAM_NULL_VALUES()
+  } else if (!state.objectMode) {
+    if (typeof chunk === 'string') {
+      if (state.decodeStrings !== false) {
+        chunk = Buffer.from(chunk, encoding)
+        encoding = 'buffer'
+      }
+    } else if (chunk instanceof Buffer) {
+      encoding = 'buffer'
+    } else if (Stream._isUint8Array(chunk)) {
+      chunk = Stream._uint8ArrayToBuffer(chunk)
+      encoding = 'buffer'
+    } else {
+      throw new ERR_INVALID_ARG_TYPE('chunk', ['string', 'Buffer', 'Uint8Array'], chunk)
+    }
+  }
+  let err
+  if (state.ending) {
+    err ...
+const state = stream._writableState
+typeof encoding === 'function'
+cb = encoding
+encoding = state.defaultEncoding
+encoding = state.defaultEncoding
+encoding !== 'buffer' && !Buffer.isEncoding(encoding)
+typeof cb !== 'function'
+chunk === null
+throw new ERR_STREAM_NULL_VALUES()
+!state.objectMode
+typeof chunk === 'string'
+state.decodeStrings !== false
+chunk = Buffer.from(chunk, encoding)
+encoding = 'buffer'
+chunk instanceof Buffer
+encoding = 'buffer'
+Stream._isUint8Array(chunk)
+chunk = Stream._uint8ArrayToBuffer(chunk)
+encoding = 'buffer'
+throw new ERR_INVALID_ARG_TYPE('chunk', ['string', 'Buffer', 'Uint8Array'], chunk)
+state.ending
+err = new ERR_STREAM_WRITE_AFTER_END()
+state.destroyed
+err = new ERR_STREAM_DESTROYED('write')
+process.nextTick(cb, err)

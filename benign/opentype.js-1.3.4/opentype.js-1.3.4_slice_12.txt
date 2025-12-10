@@ -1,0 +1,86 @@
+function makeCmapTable = function makeCmapTable(glyphs) {
+    // Plan 0 is the base Unicode Plan but emojis, for example are on another plan, and needs cmap 12 format (with 32bit)
+    let isPlan0Only = true;
+    let i;
+
+    // Check if we need to add cmap format 12 or if format 4 only is fine
+    for (i = glyphs.length - 1; i > 0; i -= 1) {
+        const g = glyphs.get(i);
+        if (g.unicode > 65535) {
+            console.log('Adding CMAP format 12 (needed!)');
+            isPlan0Only = false;
+            break;
+        }
+    }
+
+    let cmapTable = [
+        {name: 'version', type: 'USHORT', value: 0},
+        {name: 'numTables', type: 'USHORT', value: isPlan0Only ? 1 : 2},
+
+        // CMAP 4 header
+        {name: 'platformID', type: 'USHORT', value: 3},
+        {name: 'encodingID', type: 'USHORT', value: 1},
+        {name: 'offset', type: 'ULONG', value: isPlan0Only ? 12 : (12 + 8)}
+    ];
+
+    if (!isPlan0Only)
+        cmapTable = cmapTable.concat([
+            // CMAP 12 header
+            {name: 'cma...
+let isPlan0Only = true
+i = glyphs.length - 1
+const g = glyphs.get(i)
+g.unicode > 65535
+console.log('Adding CMAP format 12 (needed!)')
+isPlan0Only = false
+break;
+let cmapTable = [
+        {name: 'version', type: 'USHORT', value: 0},
+        {name: 'numTables', type: 'USHORT', value: isPlan0Only ? 1 : 2},
+
+        // CMAP 4 header
+        {name: 'platformID', type: 'USHORT', value: 3},
+        {name: 'encodingID', type: 'USHORT', value: 1},
+        {name: 'offset', type: 'ULONG', value: isPlan0Only ? 12 : (12 + 8)}
+    ]
+_tmp_14.push({name: 'version', type: 'USHORT', value: 0})
+_tmp_14.push({name: 'numTables', type: 'USHORT', value: isPlan0Only ? 1 : 2})
+_tmp_14.push({name: 'platformID', type: 'USHORT', value: 3})
+_tmp_14.push({name: 'encodingID', type: 'USHORT', value: 1})
+_tmp_14.push({name: 'offset', type: 'ULONG', value: isPlan0Only ? 12 : (12 + 8)})
+!isPlan0Only
+cmapTable = cmapTable.concat([
+            // CMAP 12 header
+            {name: 'cmap12PlatformID', type: 'USHORT', value: 3}, // We encode only for PlatformID = 3 (Windows) because it is supported everywhere
+            {name: 'cmap12EncodingID', type: 'USHORT', value: 10},
+            {name: 'cmap12Offset', type: 'ULONG', value: 0}
+        ])
+_tmp_20.push({name: 'cmap12PlatformID', type: 'USHORT', value: 3})
+_tmp_20.push({name: 'cmap12EncodingID', type: 'USHORT', value: 10})
+_tmp_20.push({name: 'cmap12Offset', type: 'ULONG', value: 0})
+cmapTable = cmapTable.concat([
+        // CMAP 4 Subtable
+        {name: 'format', type: 'USHORT', value: 4},
+        {name: 'cmap4Length', type: 'USHORT', value: 0},
+        {name: 'language', type: 'USHORT', value: 0},
+        {name: 'segCountX2', type: 'USHORT', value: 0},
+        {name: 'searchRange', type: 'USHORT', value: 0},
+        {name: 'entrySelector', type: 'USHORT', value: 0},
+        {name: 'rangeShift', type: 'USHORT', value: 0}
+    ])
+_tmp_24.push({name: 'format', type: 'USHORT', value: 4})
+_tmp_24.push({name: 'cmap4Length', type: 'USHORT', value: 0})
+_tmp_24.push({name: 'language', type: 'USHORT', value: 0})
+_tmp_24.push({name: 'segCountX2', type: 'USHORT', value: 0})
+_tmp_24.push({name: 'searchRange', type: 'USHORT', value: 0})
+_tmp_24.push({name: 'entrySelector', type: 'USHORT', value: 0})
+_tmp_24.push({name: 'rangeShift', type: 'USHORT', value: 0})
+const t = new table.Table('cmap', cmapTable)
+__ecma.Array.factory()
+i < glyphs.length
+const glyph = glyphs.get(i)
+j < glyph.unicodes.length
+addSegment(t, glyph.unicodes[j], i)
+t.segments = t.segments.sort(function (a, b) {
+            return a.start - b.start;
+        })

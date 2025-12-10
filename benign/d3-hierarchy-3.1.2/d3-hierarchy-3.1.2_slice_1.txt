@@ -1,0 +1,71 @@
+function stratify = function stratify(data) {
+    var nodes = Array.from(data),
+        currentId = id,
+        currentParentId = parentId,
+        n,
+        d,
+        i,
+        root,
+        parent,
+        node,
+        nodeId,
+        nodeKey,
+        nodeByKey = new Map;
+
+    if (path != null) {
+      const I = nodes.map((d, i) => normalize(path(d, i, data)));
+      const P = I.map(parentof);
+      const S = new Set(I).add("");
+      for (const i of P) {
+        if (!S.has(i)) {
+          S.add(i);
+          I.push(i);
+          P.push(parentof(i));
+          nodes.push(imputed);
+        }
+      }
+      currentId = (_, i) => I[i];
+      currentParentId = (_, i) => P[i];
+    }
+
+    for (i = 0, n = nodes.length; i < n; ++i) {
+      d = nodes[i], node = nodes[i] = new Node(d);
+      if ((nodeId = currentId(d, i, data)) != null && (nodeId += "")) {
+        nodeKey = node.id = nodeId;
+        nodeByKey.set(nodeKey, nodeByKey.has(nodeKey) ? ambiguous : node);
+      }
+      if ((nodeId = currentParentI...
+var nodes = Array.from(data)
+var currentId = id
+var currentParentId = parentId
+var nodeByKey = new Map
+path != null
+const I = nodes.map((d, i) => normalize(path(d, i, data)))
+const P = I.map(parentof)
+const S = new Set(I).add("")
+!(_result_0 = _iterator_0.next()).done
+!S.has(i)
+S.add(i)
+I.push(i)
+P.push(parentof(i))
+nodes.push(imputed)
+currentId = (_, i) => I[i]
+currentParentId = (_, i) => P[i]
+n = nodes.length
+node = nodes[i] = new Node(d)
+(nodeId = currentId(d, i, data)) != null && (nodeId += "")
+nodeKey = node.id = nodeId
+nodeByKey.set(nodeKey, nodeByKey.has(nodeKey) ? ambiguous : node)
+(nodeId = currentParentId(d, i, data)) != null && (nodeId += "")
+node.parent = nodeId
+i = 0
+node = nodes[i]
+nodeId = node.parent
+parent = nodeByKey.get(nodeId)
+throw new Error("missing: " + nodeId);
+throw new Error("ambiguous: " + nodeId);
+(_tmp_9 = parent.children).push
+_tmp_10 = __ecma.Array.factory()
+node.parent = parent
+throw new Error("multiple roots");
+root = node

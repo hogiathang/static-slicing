@@ -1,0 +1,54 @@
+function run = async function run() {
+  await mongoose.connect(config.uri, { dbName: 'mongoose', serverSelectionTimeoutMS: 5000 });
+
+  // wait for the index to be created
+  await Content.init();
+
+  await Content.deleteMany({ version });
+  for (const content of contents) {
+    if (version === '7.x') {
+      let url = content.url.startsWith('/') ? content.url : `/${content.url}`;
+      if (!url.startsWith('/docs')) {
+        url = '/docs' + url;
+      }
+      content.url = url;
+    } else {
+      const url = content.url.startsWith('/') ? content.url : `/${content.url}`;
+      content.url = `/docs/${version}/docs${url}`;
+    }
+    await content.save();
+  }
+
+  const results = await Content.
+    find({ $text: { $search: 'validate' }, version }, { score: { $meta: 'textScore' } }).
+    sort({ score: { $meta: 'textScore' } }).
+    limit(10);
+
+  console.log(results.map(res => res.url));
+
+  console.log(`Added ${contents.length} Content`);
+
+  process.exit(0);
+}
+await mongoose.connect(config.uri, { dbName: 'mongoose', serverSelectionTimeoutMS: 5000 })
+await Content.init()
+await Content.deleteMany({ version })
+_iterator_0 = <operator>.iterator(contents)
+version === '7.x'
+content.url.startsWith('/') ? content.url : <operator>.formatString("/", content.url, "")
+!url.startsWith('/docs')
+url = '/docs' + url
+content.url = url
+content.url.startsWith('/') ? content.url : <operator>.formatString("/", content.url, "")
+<operator>.formatString("/docs/", version, "/docs", url, "")
+await content.save()
+const results = await Content.
+    find({ $text: { $search: 'validate' }, version }, { score: { $meta: 'textScore' } }).
+    sort({ score: { $meta: 'textScore' } }).
+    limit(10)
+_tmp_6.$text = { $search: 'validate' }
+_tmp_10.score = { $meta: 'textScore' }
+10
+console.log(results.map(res => res.url))
+<operator>.formatString("Added ", contents.length, " Content")
+process.exit(0)

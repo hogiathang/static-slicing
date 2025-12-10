@@ -1,0 +1,33 @@
+function serveFile = async function serveFile(devServerConfig, serverCtx, req, res) {
+    try {
+        if (isSimpleText(req.filePath)) {
+            // easy text file, use the internal cache
+            let content = await serverCtx.sys.readFile(req.filePath, 'utf8');
+            if (devServerConfig.websocket && isHtmlFile(req.filePath) && !isDevServerClient(req.pathname)) {
+                // auto inject our dev server script
+                content = appendDevServerClientScript(devServerConfig, req, content);
+            }
+            else if (isCssFile(req.filePath)) {
+                content = updateStyleUrls(req.url, content);
+            }
+            if (shouldCompress(devServerConfig, req)) {
+                // let's gzip this well known web dev text file
+                res.writeHead(200, responseHeaders({
+                    'content-type': getContentType(req.filePath) + '; charset=utf-8',
+                    'content-encoding': 'gzip',
+                    vary: 'Accept-Encoding',
+           ...
+isSimpleText(req.filePath)
+let content = await serverCtx.sys.readFile(req.filePath, 'utf8')
+devServerConfig.websocket && isHtmlFile(req.filePath) && !isDevServerClient(req.pathname)
+content = appendDevServerClientScript(devServerConfig, req, content)
+isCssFile(req.filePath)
+content = updateStyleUrls(req.url, content)
+shouldCompress(devServerConfig, req)
+res.writeHead(200, responseHeaders({
+                    'content-type': getContentType(req.filePath) + '; charset=utf-8',
+                    'content-length': require$$0$2.Buffer.byteLength(content, 'utf8'),
+                }))
+_tmp_161.content-type = getContentType(req.filePath) + '; charset=utf-8'
+_tmp_161.content-length = require$$0$2.Buffer.byteLength(content, 'utf8')
+res.write(content)

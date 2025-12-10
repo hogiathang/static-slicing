@@ -1,0 +1,22 @@
+memoized = function (arg) {
+			var result, args = arguments, id;
+			if (resolve) args = resolve(arguments);
+			id = String(args[0]);
+			if (hasOwnProperty.call(cache, id)) {
+				if (getListeners) conf.emit("get", id, args, this);
+				return cache[id];
+			}
+			if (args.length === 1) result = call.call(original, this, args[0]);
+			else result = apply.call(original, this, args);
+			if (hasOwnProperty.call(cache, id)) {
+				throw customError("Circular invocation", "CIRCULAR_INVOCATION");
+			}
+			cache[id] = result;
+			if (setListeners) conf.emit("set", id, null, result);
+			return result;
+		}
+var args = arguments
+args = resolve(arguments)
+id = String(args[0])
+hasOwnProperty.call(cache, id)
+conf.emit("get", id, args, this)

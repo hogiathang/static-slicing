@@ -1,0 +1,96 @@
+function createConnectedField = function createConnectedField(structure) {
+  var deepEqual = structure.deepEqual,
+      getIn = structure.getIn;
+
+  var getSyncError = function getSyncError(syncErrors, name) {
+    var error = plain.getIn(syncErrors, name); // Because the error for this field might not be at a level in the error structure where
+    // it can be set directly, it might need to be unwrapped from the _error property
+
+    return error && error._error ? error._error : error;
+  };
+
+  var getSyncWarning = function getSyncWarning(syncWarnings, name) {
+    var warning = getIn(syncWarnings, name); // Because the warning for this field might not be at a level in the warning structure where
+    // it can be set directly, it might need to be unwrapped from the _warning property
+
+    return warning && warning._warning ? warning._warning : warning;
+  };
+
+  var ConnectedField = /*#__PURE__*/function (_Component) {
+    _inheritsLoose(ConnectedField, _Component);
+
+    function ConnectedField() {
+      var _this;
+
+    ...
+var deepEqual = structure.deepEqual
+var getIn = structure.getIn
+var getSyncError = function getSyncError(syncErrors, name) {
+    var error = plain.getIn(syncErrors, name); // Because the error for this field might not be at a level in the error structure where
+    // it can be set directly, it might need to be unwrapped from the _error property
+
+    return error && error._error ? error._error : error;
+  }
+var getSyncWarning = function getSyncWarning(syncWarnings, name) {
+    var warning = getIn(syncWarnings, name); // Because the warning for this field might not be at a level in the warning structure where
+    // it can be set directly, it might need to be unwrapped from the _warning property
+
+    return warning && warning._warning ? warning._warning : warning;
+  }
+var ConnectedField = /*#__PURE__*/function (_Component) {
+    _inheritsLoose(ConnectedField, _Component);
+
+    function ConnectedField() {
+      var _this;
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      _this = _Component.call.apply(_Component, [this].concat(args)) || this;
+      _this.ref = React.createRef();
+
+      _this.isPristine = function () {
+        return _this.props.pristine;
+      };
+
+      _this.getValue = function () {
+        return _this.props.value;
+      };
+
+      _this.handleChange = function (event) {
+        var _this$props = _this.props,
+            name = _this$props.name,
+            dispatch = _this$props.dispatch,
+            parse = _this$props.parse,
+            normalize = _this$props.normalize,
+            onChange = _this$props.onChange,
+            _reduxForm = _this$props._reduxForm,
+            previousValue = _this$props.value;
+        var newValue = ...
+ConnectedField.propTypes = {
+    component: validateComponentProp,
+    props: PropTypes.object
+  }
+_tmp_23.component = validateComponentProp
+_tmp_23.props = PropTypes.object
+var connector = connect(function (state, ownProps) {
+    var name = ownProps.name,
+        _ownProps$_reduxForm = ownProps._reduxForm,
+        initialValues = _ownProps$_reduxForm.initialValues,
+        getFormState = _ownProps$_reduxForm.getFormState;
+    var formState = getFormState(state);
+    var initialState = getIn(formState, "initial." + name);
+    var initial = initialState !== undefined ? initialState : initialValues && getIn(initialValues, name);
+    var value = getIn(formState, "values." + name);
+    var submitting = getIn(formState, 'submitting');
+    var syncError = getSyncError(getIn(formState, 'syncErrors'), name);
+    var syncWarning = getSyncWarning(getIn(formState, 'syncWarnings'), name);
+    var pristine = deepEqual(value, initial);
+    return {
+      asyncError: getIn(formState, "asyncErrors." + name),
+      asyncValidating: getIn(formState, 'asyncValidating') === name,
+      dirty: !pristine,
+      pristine: pristine,
+      state: getIn(formState, "fields." + name),...
+_tmp_25.forwardRef = true

@@ -1,0 +1,22 @@
+exports.kickUser = function (appId, roomName, userId, credentials, fn) {
+    var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId + '/rooms/' + roomName + '/users/' + userId,
+        method: 'DELETE',
+        headers: headers
+    };
+    get(credentials, options, fn);
+}
+var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId + '/rooms/' + roomName + '/users/' + userId,
+        method: 'DELETE',
+        headers: headers
+    }
+_tmp_3.host = host
+_tmp_3.port = 80
+_tmp_3.path = '/v3/apps/' + appId + '/rooms/' + roomName + '/users/' + userId
+_tmp_3.method = "DELETE"
+_tmp_3.headers = headers

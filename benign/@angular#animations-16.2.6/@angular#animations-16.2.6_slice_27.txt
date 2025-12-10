@@ -1,0 +1,196 @@
+_flushAnimations(cleanupFns, microtaskId) {
+        const subTimelines = new ElementInstructionMap();
+        const skippedPlayers = [];
+        const skippedPlayersMap = new Map();
+        const queuedInstructions = [];
+        const queriedElements = new Map();
+        const allPreStyleElements = new Map();
+        const allPostStyleElements = new Map();
+        const disabledElementsSet = new Set();
+        this.disabledNodes.forEach(node => {
+            disabledElementsSet.add(node);
+            const nodesThatAreDisabled = this.driver.query(node, QUEUED_SELECTOR, true);
+            for (let i = 0; i < nodesThatAreDisabled.length; i++) {
+                disabledElementsSet.add(nodesThatAreDisabled[i]);
+            }
+        });
+        const bodyNode = this.bodyNode;
+        const allTriggerElements = Array.from(this.statesByElement.keys());
+        const enterNodeMap = buildRootMap(allTriggerElements, this.collectedEnterElements);
+        // this must occur before the instruct...
+const subTimelines = new ElementInstructionMap()
+const skippedPlayers = []
+const skippedPlayersMap = new Map()
+const queuedInstructions = []
+const queriedElements = new Map()
+const allPreStyleElements = new Map()
+const allPostStyleElements = new Map()
+const disabledElementsSet = new Set()
+this.disabledNodes.forEach(node => {
+            disabledElementsSet.add(node);
+            const nodesThatAreDisabled = this.driver.query(node, QUEUED_SELECTOR, true);
+            for (let i = 0; i < nodesThatAreDisabled.length; i++) {
+                disabledElementsSet.add(nodesThatAreDisabled[i]);
+            }
+        })
+const bodyNode = this.bodyNode
+const allTriggerElements = Array.from(this.statesByElement.keys())
+const enterNodeMap = buildRootMap(allTriggerElements, this.collectedEnterElements)
+const enterNodeMapIds = new Map()
+let i = 0
+enterNodeMap.forEach((nodes, root) => {
+            const className = ENTER_CLASSNAME + i++;
+            enterNodeMapIds.set(root, className);
+            nodes.forEach(node => addClass(node, className));
+        })
+const allLeaveNodes = []
+const mergedLeaveNodes = new Set()
+const leaveNodesWithoutAnimations = new Set()
+i < this.collectedLeaveElements.length
+const element = this.collectedLeaveElements[i]
+const details = element[REMOVAL_FLAG]
+details && details.setForRemoval
+allLeaveNodes.push(element)
+mergedLeaveNodes.add(element)
+details.hasAnimation
+this.driver.query(element, STAR_SELECTOR, true).forEach(elm => mergedLeaveNodes.add(elm))
+leaveNodesWithoutAnimations.add(element)
+const leaveNodeMapIds = new Map()
+const leaveNodeMap = buildRootMap(allTriggerElements, Array.from(mergedLeaveNodes))
+leaveNodeMap.forEach((nodes, root) => {
+            const className = LEAVE_CLASSNAME + i++;
+            leaveNodeMapIds.set(root, className);
+            nodes.forEach(node => addClass(node, className));
+        })
+cleanupFns.push(() => {
+            enterNodeMap.forEach((nodes, root) => {
+                const className = enterNodeMapIds.get(root);
+                nodes.forEach(node => removeClass(node, className));
+            });
+            leaveNodeMap.forEach((nodes, root) => {
+                const className = leaveNodeMapIds.get(root);
+                nodes.forEach(node => removeClass(node, className));
+            });
+            allLeaveNodes.forEach(element => {
+                this.processLeaveNode(element);
+            });
+        })
+__ecma.Array.factory()
+const erroneousTransitions = []
+let i = this._namespaceList.length - 1
+const ns = this._namespaceList[i]
+ns.drainQueuedTransitions(microtaskId).forEach(entry => {
+                const player = entry.player;
+                const element = entry.element;
+                allPlayers.push(player);
+                if (this.collectedEnterElements.length) {
+                    const details = element[REMOVAL_FLAG];
+                    // animations for move operations (elements being removed and reinserted,
+                    // e.g. when the order of an *ngFor list changes) are currently not supported
+                    if (details && details.setForMove) {
+                        if (details.previousTriggersValues &&
+                            details.previousTriggersValues.has(entry.triggerName)) {
+                            const previousValue = details.previousTriggersValues.get(entry.triggerName);
+                            // we need to restore the previous trigger value since the element has
+                            // only been moved and hasn't actually left the DOM
+         ...
+erroneousTransitions.length
+__ecma.Array.factory()
+erroneousTransitions.forEach(instruction => {
+                errors.push(transitionFailed(instruction.triggerName, instruction.errors));
+            })
+allPlayers.forEach(player => player.destroy())
+this.reportError(errors)
+const allPreviousPlayersMap = new Map()
+const animationElementMap = new Map()
+queuedInstructions.forEach(entry => {
+            const element = entry.element;
+            if (subTimelines.has(element)) {
+                animationElementMap.set(element, element);
+                this._beforeAnimationBuild(entry.player.namespaceId, entry.instruction, allPreviousPlayersMap);
+            }
+        })
+skippedPlayers.forEach(player => {
+            const element = player.element;
+            const previousPlayers = this._getPreviousPlayers(element, false, player.namespaceId, player.triggerName, null);
+            previousPlayers.forEach(prevPlayer => {
+                getOrSetDefaultValue(allPreviousPlayersMap, element, []).push(prevPlayer);
+                prevPlayer.destroy();
+            });
+        })
+const replaceNodes = allLeaveNodes.filter(node => {
+            return replacePostStylesAsPre(node, allPreStyleElements, allPostStyleElements);
+        })
+const postStylesMap = new Map()
+const allLeaveQueriedNodes = cloakAndComputeStyles(postStylesMap, this.driver, leaveNodesWithoutAnimations, allPostStyleElements, AUTO_STYLE)
+allLeaveQueriedNodes.forEach(node => {
+            if (replacePostStylesAsPre(node, allPreStyleElements, allPostStyleElements)) {
+                replaceNodes.push(node);
+            }
+        })
+const preStylesMap = new Map()
+enterNodeMap.forEach((nodes, root) => {
+            cloakAndComputeStyles(preStylesMap, this.driver, new Set(nodes), allPreStyleElements, ɵPRE_STYLE);
+        })
+replaceNodes.forEach(node => {
+            const post = postStylesMap.get(node);
+            const pre = preStylesMap.get(node);
+            postStylesMap.set(node, new Map([...(post?.entries() ?? []), ...(pre?.entries() ?? [])]));
+        })
+const rootPlayers = []
+__ecma.Array.factory()
+const NO_PARENT_ANIMATION_ELEMENT_DETECTED = {}
+queuedInstructions.forEach(entry => {
+            const { element, player, instruction } = entry;
+            // this means that it was never consumed by a parent animation which
+            // means that it is independent and therefore should be set for animation
+            if (subTimelines.has(element)) {
+                if (disabledElementsSet.has(element)) {
+                    player.onDestroy(() => setStyles(element, instruction.toStyles));
+                    player.disabled = true;
+                    player.overrideTotalTime(instruction.totalTime);
+                    skippedPlayers.push(player);
+                    return;
+                }
+                // this will flow up the DOM and query the map to figure out
+                // if a parent animation has priority over it. In the situation
+                // that a parent is detected then it will cancel the loop. If
+                // nothing is detected, or it takes a few hops to find a parent,
+                // th...
+subPlayers.forEach(player => {
+            // even if no players are found for a sub animation it
+            // will still complete itself after the next tick since it's Noop
+            const playersForElement = skippedPlayersMap.get(player.element);
+            if (playersForElement && playersForElement.length) {
+                const innerPlayer = optimizeGroupPlayer(playersForElement);
+                player.setRealPlayer(innerPlayer);
+            }
+        })
+skippedPlayers.forEach(player => {
+            if (player.parentPlayer) {
+                player.syncPlayerEvents(player.parentPlayer);
+            }
+            else {
+                player.destroy();
+            }
+        })
+i < allLeaveNodes.length
+const element = allLeaveNodes[i]
+const details = element[REMOVAL_FLAG]
+removeClass(element, LEAVE_CLASSNAME)
+details && details.hasAnimation
+continue;
+__ecma.Array.factory()
+queriedElements.size
+let queriedPlayerResults = queriedElements.get(element)
+queriedPlayerResults && queriedPlayerResults.length
+players.push(...queriedPlayerResults)
+let queriedInnerElements = this.driver.query(element, NG_ANIMATING_SELECTOR, true)
+j < queriedInnerElements.length
+let queriedPlayers = queriedElements.get(queriedInnerElements[j])
+queriedPlayers && queriedPlayers.length
+players.push(...queriedPlayers)
+const activePlayers = players.filter(p => !p.destroyed)
+activePlayers.length
+removeNodesAfterAnimationDone(this, element, activePlayers)
+this.processLeaveNode(element)

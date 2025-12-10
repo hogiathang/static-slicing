@@ -1,0 +1,20 @@
+nativeFetch(options.url, requestOptions).then(response => {
+        pendingBodySize -= requestSize;
+        pendingCount--;
+        return {
+          statusCode: response.status,
+          headers: {
+            'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
+            'retry-after': response.headers.get('Retry-After'),
+          },
+        };
+      })
+pendingBodySize -= requestSize
+pendingCount--
+_tmp_2.statusCode = response.status
+_tmp_2.headers = {
+            'x-sentry-rate-limits': response.headers.get('X-Sentry-Rate-Limits'),
+            'retry-after': response.headers.get('Retry-After'),
+          }
+_tmp_3.x-sentry-rate-limits = response.headers.get('X-Sentry-Rate-Limits')
+_tmp_3.retry-after = response.headers.get('Retry-After')

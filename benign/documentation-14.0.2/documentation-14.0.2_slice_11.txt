@@ -1,0 +1,42 @@
+function inferMembership(comment) {
+    // Lends tags are go-betweens that let people reassign membership
+    // in bulk: they themselves don't get an inference step
+    if (comment.lends) {
+      return comment;
+    }
+
+    if (comment.kind === 'module') {
+      currentModule = comment;
+    }
+
+    // If someone explicitly specifies the parent of this chunk, don't
+    // try to infer it, just return what they specified.
+    if (comment.memberof) {
+      return normalizeMemberof(comment);
+    }
+
+    let path = comment.context.ast;
+    // If this chunk doesn't have code attached, like if it was the result
+    // of a polyglot parse, don't try to infer anything.
+    if (!path) {
+      return comment;
+    }
+
+    // INFERENCE ===============================================================
+    // Deal with an oddity of espree: the jsdoc comment is attached to a different
+    // node in the two expressions `a.b = c` vs `a.b = function () {}`.
+    if (
+      path.isExpressionStatement() &&
+ ...
+comment.lends
+comment.kind === 'module'
+currentModule = comment
+comment.memberof
+let path = comment.context.ast
+!path
+path.isExpressionStatement() &&
+      path.get('expression').isAssignmentExpression() &&
+      path.get('expression').get('left').isMemberExpression()
+(_tmp_11 = path.get('expression')).isAssignmentExpression
+(_tmp_12 = path.get('expression').get('left')).isMemberExpression
+path = path.get('expression').get('left')

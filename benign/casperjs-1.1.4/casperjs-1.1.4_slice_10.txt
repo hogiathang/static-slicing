@@ -1,0 +1,37 @@
+function initCasperCli = function initCasperCli(casperArgs) {
+        /*eslint complexity:0*/
+        var baseTestsPath = fs.pathJoin(phantom.casperPath, 'tests');
+
+        function setScriptBaseDir(scriptName) {
+            var dir = fs.dirname(scriptName);
+            if (dir === scriptName) {
+                dir = '.';
+            }
+            phantom.casperScriptBaseDir = dir;
+        }
+
+        if (!!casperArgs.options.version) {
+            return __terminate(phantom.casperVersion.toString());
+        } else if (casperArgs.get(0) === "test") {
+            phantom.casperScript = fs.absolute(fs.pathJoin(baseTestsPath, 'run.js'));
+            phantom.casperTest = true;
+            casperArgs.drop("test");
+            setScriptBaseDir(casperArgs.get(0));
+        } else if (casperArgs.get(0) === "selftest") {
+            phantom.casperScript = fs.absolute(fs.pathJoin(baseTestsPath, 'run.js'));
+            phantom.casperSelfTest = phantom.casperTest = true;
+            casperArgs.options.includes = fs.path...
+var baseTestsPath = fs.pathJoin(phantom.casperPath, 'tests')
+function setScriptBaseDir = function setScriptBaseDir(scriptName) {
+            var dir = fs.dirname(scriptName);
+            if (dir === scriptName) {
+                dir = '.';
+            }
+            phantom.casperScriptBaseDir = dir;
+        }
+!!casperArgs.options.version
+casperArgs.get(0) === "test"
+phantom.casperScript = fs.absolute(fs.pathJoin(baseTestsPath, 'run.js'))
+phantom.casperTest = true
+casperArgs.drop("test")
+setScriptBaseDir(casperArgs.get(0))

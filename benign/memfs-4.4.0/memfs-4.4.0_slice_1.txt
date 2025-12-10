@@ -1,0 +1,8 @@
+recursive = _tmp_21.recursive === void 0 ? false : _tmp_21.recursive
+(0, util_1.assertCanWrite)(this.ctx.mode)
+(0, util_1.assertName)(name, 'removeEntry', 'FileSystemDirectoryHandle')
+const filename = this.__path + name
+const promises = this.fs.promises
+const stats = await promises.stat(filename)
+stats.isFile()
+await promises.unlink(filename)

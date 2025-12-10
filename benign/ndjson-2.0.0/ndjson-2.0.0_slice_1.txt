@@ -1,0 +1,9 @@
+const fs = require('fs')
+_tmp_0 = require('readable-stream')
+const minimist = require('minimist')
+const ndjson = require('./index.js')
+const args = minimist(process.argv.slice(2))
+const first = args._[0]
+!first
+console.error('Usage: ndjson [input] <options>')
+process.exit(1)

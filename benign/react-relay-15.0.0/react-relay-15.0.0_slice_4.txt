@@ -1,0 +1,89 @@
+function loadQuery = function loadQuery(environment, preloadableRequest, variables, options, environmentProviderOptions) {
+  var _React$__SECRET_INTER3, _React$__SECRET_INTER4, _options$__nameForWar, _options$fetchPolicy;
+  // This code ensures that we don't call loadQuery during render.
+  var CurrentDispatcher = // $FlowFixMe[prop-missing]
+  (_React$__SECRET_INTER3 = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) === null || _React$__SECRET_INTER3 === void 0 ? void 0 : (_React$__SECRET_INTER4 = _React$__SECRET_INTER3.ReactCurrentDispatcher) === null || _React$__SECRET_INTER4 === void 0 ? void 0 : _React$__SECRET_INTER4.current;
+  process.env.NODE_ENV !== "production" ? warning(RenderDispatcher == null || CurrentDispatcher !== RenderDispatcher, 'Relay: `%s` should not be called inside a React render function.', (_options$__nameForWar = options === null || options === void 0 ? void 0 : options.__nameForWarning) !== null && _options$__nameForWar !== void 0 ? _options$__nameForWar : 'loadQuery')...
+var CurrentDispatcher = // $FlowFixMe[prop-missing]
+  (_React$__SECRET_INTER3 = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) === null || _React$__SECRET_INTER3 === void 0 ? void 0 : (_React$__SECRET_INTER4 = _React$__SECRET_INTER3.ReactCurrentDispatcher) === null || _React$__SECRET_INTER4 === void 0 ? void 0 : _React$__SECRET_INTER4.current
+(_React$__SECRET_INTER3 = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED) === null || _React$__SECRET_INTER3 === void 0 ? void 0 : (_React$__SECRET_INTER4 = _React$__SECRET_INTER3.ReactCurrentDispatcher) === null || _React$__SECRET_INTER4 === void 0 ? void 0 : _React$__SECRET_INTER4.current
+process.env.NODE_ENV !== "production" ? warning(RenderDispatcher == null || CurrentDispatcher !== RenderDispatcher, 'Relay: `%s` should not be called inside a React render function.', (_options$__nameForWar = options === null || options === void 0 ? void 0 : options.__nameForWarning) !== null && _options$__nameForWar !== void 0 ? _options$__nameForWar : 'loadQuery') : void 0
+fetchKey++
+var fetchPolicy = (_options$fetchPolicy = options === null || options === void 0 ? void 0 : options.fetchPolicy) !== null && _options$fetchPolicy !== void 0 ? _options$fetchPolicy : 'store-or-network'
+var networkCacheConfig = (0, _objectSpread2["default"])((0, _objectSpread2["default"])({}, options === null || options === void 0 ? void 0 : options.networkCacheConfig), {}, {
+    force: true
+  })
+_tmp_2.force = true
+var didExecuteNetworkSource = false
+var executeWithNetworkSource = function executeWithNetworkSource(operation, networkObservable) {
+    didExecuteNetworkSource = true;
+    return environment.executeWithSource({
+      operation: operation,
+      source: networkObservable
+    });
+  }
+var executionSubject = new ReplaySubject()
+var returnedObservable = Observable.create(function (sink) {
+    return executionSubject.subscribe(sink);
+  })
+var networkError = null
+var didMakeNetworkRequest = false
+var makeNetworkRequest = function makeNetworkRequest(params) {
+    // N.B. this function is called synchronously or not at all
+    // didMakeNetworkRequest is safe to rely on in the returned value
+    // Even if the request gets deduped below, we still wan't to return an
+    // observable that provides the replayed network events for the query,
+    // so we set this to true before deduping, to guarantee that the
+    // `source` observable is returned.
+    didMakeNetworkRequest = true;
+    var observable;
+    var subject = new ReplaySubject();
+    if (RelayFeatureFlags.ENABLE_LOAD_QUERY_REQUEST_DEDUPING === true) {
+      // Here, we are calling fetchQueryDeduped at the network layer level,
+      // which ensures that only a single network request is active for a given
+      // (environment, identifier) pair.
+      // Since network requests can be started /before/ we have the query ast
+      // necessary to process the results, we need to dedupe the raw requests
+      // separately from d...
+var executeDeduped = function executeDeduped(operation, fetchFn) {
+    if (RelayFeatureFlags.ENABLE_LOAD_QUERY_REQUEST_DEDUPING === true) {
+      // N.B. at this point, if we're calling execute with a query ast (OperationDescriptor),
+      // we are guaranteed to have started a network request. We set this to
+      // true here as well since `makeNetworkRequest` might get skipped in the case
+      // where the query ast is already available and the query executions get deduped.
+      // Even if the execution gets deduped below, we still wan't to return
+      // an observable that provides the replayed network events for the query,
+      // so we set this to true before deduping, to guarantee that the `source`
+      // observable is returned.
+      didMakeNetworkRequest = true;
+    }
+
+    // Here, we are calling fetchQueryDeduped, which ensures that only
+    // a single operation is active for a given (environment, identifier) pair,
+    // and also tracks the active state of the operatio...
+var checkAvailabilityAndExecute = function checkAvailabilityAndExecute(concreteRequest) {
+    var operation = createOperationDescriptor(concreteRequest, variables, networkCacheConfig);
+    retainReference = environment.retain(operation);
+    if (fetchPolicy === 'store-only') {
+      return;
+    }
+
+    // N.B. If the fetch policy allows fulfillment from the store but the
+    // environment already has the data for that operation cached in the store,
+    // then we do nothing.
+    var shouldFetch = fetchPolicy !== 'store-or-network' || environment.check(operation).status !== 'available';
+    if (shouldFetch) {
+      executeDeduped(operation, function () {
+        // N.B. Since we have the operation synchronously available here,
+        // we can immediately fetch and execute the operation.
+        var networkObservable = makeNetworkRequest(concreteRequest.params);
+        var executeObservable = executeWithNetworkSource(operation, networkObservable);
+        return executeObservable;
+    ...
+preloadableRequest.kind === 'PreloadableConcreteRequest'
+var preloadableConcreteRequest = preloadableRequest
+params = preloadableConcreteRequest.params
+var _params = params
+queryId = _params.id
+!(queryId !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Relay: `loadQuery` requires that preloadable query `%s` has a persisted query id', params.name) : invariant(false) : void 0
+var _module = PreloadableQueryRegistry.get(queryId)

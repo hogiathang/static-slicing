@@ -1,0 +1,42 @@
+Font.prototype.stringToGlyphs = function(s, options) {
+
+    const bidi = new Bidi();
+
+    // Create and register 'glyphIndex' state modifier
+    const charToGlyphIndexMod = token => this.charToGlyphIndex(token.char);
+    bidi.registerModifier('glyphIndex', null, charToGlyphIndexMod);
+
+    // roll-back to default features
+    let features = options ?
+    this.updateFeatures(options.features) :
+    this.defaultRenderOptions.features;
+
+    bidi.applyFeatures(this, features);
+
+    const indexes = bidi.getTextGlyphs(s);
+
+    let length = indexes.length;
+
+    // convert glyph indexes to glyph objects
+    const glyphs = new Array(length);
+    const notdef = this.glyphs.get(0);
+    for (let i = 0; i < length; i += 1) {
+        glyphs[i] = this.glyphs.get(indexes[i]) || notdef;
+    }
+    return glyphs;
+}
+const bidi = new Bidi()
+const charToGlyphIndexMod = token => this.charToGlyphIndex(token.char)
+bidi.registerModifier('glyphIndex', null, charToGlyphIndexMod)
+let features = options ?
+    this.updateFeatures(options.features) :
+    this.defaultRenderOptions.features
+this.updateFeatures(options.features)
+this.defaultRenderOptions.features
+bidi.applyFeatures(this, features)
+const indexes = bidi.getTextGlyphs(s)
+let length = indexes.length
+const glyphs = new Array(length)
+const notdef = this.glyphs.get(0)
+i < length
+glyphs[i] = this.glyphs.get(indexes[i]) || notdef

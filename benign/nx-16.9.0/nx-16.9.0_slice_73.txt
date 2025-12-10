@@ -1,0 +1,32 @@
+(pattern, items) => {
+        if (!minimatchCache.has(pattern)) {
+            minimatchCache.set(pattern, new Map());
+        }
+        const patternCache = minimatchCache.get(pattern);
+        if (!regexCache.has(pattern)) {
+            const regex = minimatch.makeRe(pattern, { dot: true });
+            if (regex) {
+                regexCache.set(pattern, regex);
+            }
+            else {
+                throw new Error('Invalid glob pattern ' + pattern);
+            }
+        }
+        const matcher = regexCache.get(pattern);
+        return items.filter((item) => {
+            let entry = patternCache.get(item);
+            if (entry === undefined || entry === null) {
+                entry = item === pattern ? true : matcher.test(item);
+                patternCache.set(item, entry);
+            }
+            return entry;
+        });
+    }
+!minimatchCache.has(pattern)
+minimatchCache.set(pattern, new Map())
+const patternCache = minimatchCache.get(pattern)
+!regexCache.has(pattern)
+const regex = minimatch.makeRe(pattern, { dot: true })
+regexCache.set(pattern, regex)
+throw new Error('Invalid glob pattern ' + pattern);
+const matcher = regexCache.get(pattern)

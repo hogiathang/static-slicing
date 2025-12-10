@@ -1,0 +1,36 @@
+markAsStale = dirtyQueryId => {
+    if (dirtyQueryId === `/dev-404-page/` || dirtyQueryId === `/404.html`) {
+      // those pages are not on demand so skipping
+      return;
+    }
+    const normalizedId = (0, _normalizePagePath.default)(dirtyQueryId);
+
+    // We can't just delete items in caches, because then
+    // using history.back() would show dev-404 page
+    // due to our special handling of it in root.js (loader.isPageNotFound check)
+    // so instead we mark it as stale and instruct loader's async methods
+    // to refetch resources if they are marked as stale
+
+    const cachedPageData = this.pageDataDb.get(normalizedId);
+    if (cachedPageData) {
+      // if we have page data in cache, mark it as stale
+      this.pageDataDb.set(normalizedId, {
+        ...cachedPageData,
+        stale: true
+      });
+    }
+    const cachedPage = this.pageDb.get(normalizedId);
+    if (cachedPage) {
+      // if we have page data in cache, mark it as stale
+      this.pageDb.set(normalizedId, {
+...
+dirtyQueryId === `/dev-404-page/` || dirtyQueryId === `/404.html`
+const normalizedId = (0, _normalizePagePath.default)(dirtyQueryId)
+const cachedPageData = this.pageDataDb.get(normalizedId)
+this.pageDataDb.set(normalizedId, {
+        ...cachedPageData,
+        stale: true
+      })
+...cachedPageData
+_tmp_17.stale = true
+const cachedPage = this.pageDb.get(normalizedId)

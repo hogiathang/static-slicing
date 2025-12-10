@@ -1,0 +1,30 @@
+(err, type, message) => {
+    if (stateValidator && !stateValidator(err, type, message)) {
+      return;
+    }
+    if (err) {
+      if (err.message === 'OffsetOutOfRange') {
+        return consumer.emit('offsetOutOfRange', err);
+      } else if (err.message === 'NotLeaderForPartition' || err.message === 'UnknownTopicOrPartition') {
+        return this.emit('brokersChanged');
+      }
+
+      return consumer.emit('error', err);
+    }
+
+    var encoding = consumer.options.encoding;
+    const keyEncoding = consumer.options.keyEncoding;
+
+    if (type === 'message') {
+      message.value = decodeValue(encoding, message.value);
+      message.key = decodeValue(keyEncoding || encoding, message.key);
+
+      consumer.emit('message', message);
+    } else {
+      consumer.emit(type, message);
+    }
+  }
+stateValidator && !stateValidator(err, type, message)
+err.message === 'OffsetOutOfRange'
+err.message === 'NotLeaderForPartition' || err.message === 'UnknownTopicOrPartition'
+consumer.emit('error', err)

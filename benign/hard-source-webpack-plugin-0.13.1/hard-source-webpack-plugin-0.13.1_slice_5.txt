@@ -1,0 +1,19 @@
+request = param1_0.request
+compilation.cache &&
+              compilation.cache[`m${request}`] &&
+              compilation.cache[`m${request}`].cacheItem &&
+              !compilation.cache[`m${request}`].cacheItem.invalid
+compilation.cache[<operator>.formatString("m", request, "")]
+compilation.cache[<operator>.formatString("m", request, "")].cacheItem
+compilation.cache[<operator>.formatString("m", request, "")].cacheItem.invalid
+const identifierPrefix = cachePrefix(compilation)
+identifierPrefix === null
+const identifier = identifierPrefix + request
+const module = fetch('Module', identifier, {
+              compilation,
+              normalModuleFactory: normalModuleFactory,
+              contextModuleFactory: contextModuleFactory,
+            })
+_tmp_18.compilation = compilation
+_tmp_18.normalModuleFactory = normalModuleFactory
+_tmp_18.contextModuleFactory = contextModuleFactory

@@ -1,0 +1,61 @@
+function watch = function watch(fpath, options, fn) {
+  var watcher = new Watcher();
+
+  if (is.buffer(fpath)) {
+    fpath = fpath.toString();
+  }
+
+  if (!is.array(fpath) && !is.exists(fpath)) {
+    process.nextTick(function() {
+      watcher.emit('error',
+        new Error(fpath + ' does not exist.')
+      );
+    });
+  }
+
+  if (is.string(options)) {
+    options = {
+      encoding: options
+    }
+  }
+
+  if (is.func(options)) {
+    fn = options;
+    options = {};
+  }
+
+  if (arguments.length < 2) {
+    options = {};
+  }
+
+  if (options.encoding) {
+    assertEncoding(options.encoding);
+  } else {
+    options.encoding = 'utf8';
+  }
+
+  if (is.array(fpath)) {
+    if (fpath.length === 1) {
+      return watch(fpath[0], options, fn);
+    }
+    var filterDups = createDupsFilter();
+    return composeWatcher(unique(fpath).map(function(f) {
+      var w = watch(f, options);
+      if (is.func(fn)) {
+        w.on('change', filterDups(fn));
+      }
+      return w;
+    }));
+  }
+
+  if (is.file(fpath)) {
+    watcher.watch...
+var watcher = new Watcher()
+is.buffer(fpath)
+fpath = fpath.toString()
+!is.array(fpath) && !is.exists(fpath)
+process.nextTick(function() {
+      watcher.emit('error',
+        new Error(fpath + ' does not exist.')
+      );
+    })

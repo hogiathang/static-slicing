@@ -1,0 +1,67 @@
+function resolve = function resolve(obj, options) {
+    const prefix = options.prefix || [];
+    const pathName = '/' + prefix.join('/');
+    /**
+     * Make a new resolution context
+     */
+    function makeContext(appendPath) {
+        const newPrefix = appendPath !== undefined ? prefix.concat([appendPath]) : options.prefix;
+        let postProcessor;
+        const context = {
+            preparing: options.preparing,
+            scope: options.scope,
+            documentPath: newPrefix ?? [],
+            registerPostProcessor(pp) { postProcessor = pp; },
+            resolve(x, changeOptions) { return resolve(x, { ...options, ...changeOptions, prefix: newPrefix }); },
+        };
+        return [context, { postProcess(x) { return postProcessor ? postProcessor.postProcess(x, context) : x; } }];
+    }
+    // protect against cyclic references by limiting depth.
+    if (prefix.length > 200) {
+        throw new Error('Unable to resolve object tree with circular reference. Path: ' + pathName);
+    }
+    //...
+const prefix = options.prefix || []
+const pathName = '/' + prefix.join('/')
+function makeContext = function makeContext(appendPath) {
+        const newPrefix = appendPath !== undefined ? prefix.concat([appendPath]) : options.prefix;
+        let postProcessor;
+        const context = {
+            preparing: options.preparing,
+            scope: options.scope,
+            documentPath: newPrefix ?? [],
+            registerPostProcessor(pp) { postProcessor = pp; },
+            resolve(x, changeOptions) { return resolve(x, { ...options, ...changeOptions, prefix: newPrefix }); },
+        };
+        return [context, { postProcess(x) { return postProcessor ? postProcessor.postProcess(x, context) : x; } }];
+    }
+prefix.length > 200
+throw new Error('Unable to resolve object tree with circular reference. Path: ' + pathName);
+const leaveEmpty = options.removeEmpty === false
+typeof (obj) === 'undefined'
+obj === null
+typeof (obj) === 'function'
+<operator>.formatString("Trying to resolve a non-data object. Only token are supported for lazy evaluation. Path: ", pathName, ". Object: ", obj, "")
+typeof (obj) === 'string'
+typeof (obj) === 'number'
+typeof (obj) !== 'object' || obj instanceof Date
+Array.isArray(obj)
+encoding_1.unresolved(obj)
+isConstruct(obj)
+throw new Error('Trying to resolve() a Construct at ' + pathName);
+const result = {}
+let intrinsicKeyCtr = 0
+_iterator_0 = <operator>.iterator(Object.keys(obj))
+const value = makeContext(String(key))[0].resolve(obj[key])
+typeof (value) === 'undefined'
+result[key] = undefined
+continue;
+!encoding_1.unresolved(key)
+result[key] = value
+continue;
+const resolvedKey = makeContext()[0].resolve(key)
+typeof (resolvedKey) === 'string'
+result[resolvedKey] = value
+!options.allowIntrinsicKeys
+<operator>.formatString(""", String(key), "" is used as the key in a map so must resolve to a string, but it resolves to: ", JSON.stringify(resolvedKey), ". Consider using "CfnJson" to delay resolution to deployment-time")
+result[<operator>.formatString("", exports.INTRINSIC_KEY_PREFIX, "", intrinsicKeyCtr++, "")]

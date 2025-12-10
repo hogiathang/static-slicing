@@ -1,0 +1,19 @@
+getOrCreateRenderer(element, type) {
+        const rendererByCompId = this.rendererByCompId;
+        let renderer = rendererByCompId.get(type.id);
+        if (!renderer) {
+            const doc = this.doc;
+            const ngZone = this.ngZone;
+            const eventManager = this.eventManager;
+            const sharedStylesHost = this.sharedStylesHost;
+            const removeStylesOnCompDestroy = this.removeStylesOnCompDestroy;
+            const platformIsServer = this.platformIsServer;
+            switch (type.encapsulation) {
+                case ViewEncapsulation.Emulated:
+                    renderer = new EmulatedEncapsulationDomRenderer2(eventManager, sharedStylesHost, type, this.appId, removeStylesOnCompDestroy, doc, ngZone, platformIsServer);
+                    break;
+                case ViewEncapsulation.ShadowDom:
+                    return new ShadowDomRenderer(eventManager, sharedStylesHost, element, type, doc, ngZone, this.nonce, platformIsServer);
+               ...
+const rendererByCompId = this.rendererByCompId
+let renderer = rendererByCompId.get(type.id)

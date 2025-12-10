@@ -1,0 +1,21 @@
+function getFromContainer = function getFromContainer(someClass) {
+    if (userContainer) {
+        try {
+            var instance = userContainer.get(someClass);
+            if (instance)
+                return instance;
+            if (!userContainerOptions || !userContainerOptions.fallback)
+                return instance;
+        }
+        catch (error) {
+            if (!userContainerOptions || !userContainerOptions.fallbackOnErrors)
+                throw error;
+        }
+    }
+    return defaultContainer.get(someClass);
+}
+var instance = userContainer.get(someClass)
+!userContainerOptions || !userContainerOptions.fallback
+!userContainerOptions || !userContainerOptions.fallbackOnErrors
+throw error;
+defaultContainer.get(someClass)

@@ -1,0 +1,40 @@
+call(string) {
+        // the special argument "-" means sys.std{in,out}
+        if (string === '-') {
+            if (this._flags.includes('r')) {
+                return process.stdin
+            } else if (this._flags.includes('w')) {
+                return process.stdout
+            } else {
+                let msg = sub('argument "-" with mode %r', this._flags)
+                throw new TypeError(msg)
+            }
+        }
+
+        // all other arguments are used as file names
+        let fd
+        try {
+            fd = fs.openSync(string, this._flags, this._options.mode)
+        } catch (e) {
+            let args = { filename: string, error: e.message }
+            let message = "can't open '%(filename)s': %(error)s"
+            throw new ArgumentTypeError(sub(message, args))
+        }
+
+        let options = Object.assign({ fd, flags: this._flags }, this._options)
+        if (this._flags.includes('r')) {
+            return fs.createReadStream(undefined, options)
+        } e...
+string === '-'
+(_tmp_169 = this._flags).includes
+(_tmp_170 = this._flags).includes
+let msg = sub('argument "-" with mode %r', this._flags)
+throw new TypeError(msg)
+fd = fs.openSync(string, this._flags, this._options.mode)
+let args = { filename: string, error: e.message }
+let message = "can't open '%(filename)s': %(error)s"
+throw new ArgumentTypeError(sub(message, args))
+let options = Object.assign({ fd, flags: this._flags }, this._options)
+(_tmp_175 = this._flags).includes
+(_tmp_176 = this._flags).includes
+fs.createWriteStream(undefined, options)

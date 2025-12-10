@@ -1,0 +1,9 @@
+this.mask = function() {
+        if (this.get('mask') !== 'none') {
+          let mask = new SvgElemMask(this.get('mask'), null);
+          mask.useMask(this.getBoundingBox());
+          return true;
+        }
+      }
+this.get('mask') !== 'none'
+let mask = new SvgElemMask(this.get('mask'), null)

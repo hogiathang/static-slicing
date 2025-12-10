@@ -1,0 +1,11 @@
+_unobserveElement(element) {
+        if (this._observedElements.has(element)) {
+            this._observedElements.get(element).count--;
+            if (!this._observedElements.get(element).count) {
+                this._cleanupObserver(element);
+            }
+        }
+    }
+(_tmp_18 = this._observedElements).has
+this._observedElements.get(element).count--
+!this._observedElements.get(element).count

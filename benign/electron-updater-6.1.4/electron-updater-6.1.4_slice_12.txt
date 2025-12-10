@@ -1,0 +1,12 @@
+request.on("redirect", (statusCode, method, redirectUrl) => {
+            // no way to modify request options, abort old and make a new one
+            // https://github.com/electron/electron/issues/11505
+            request.abort();
+            if (redirectCount > this.maxRedirects) {
+                reject(this.createMaxRedirectError());
+            }
+            else {
+                handler(builder_util_runtime_1.HttpExecutor.prepareRedirectUrlOptions(redirectUrl, options));
+            }
+        })
+request.abort()

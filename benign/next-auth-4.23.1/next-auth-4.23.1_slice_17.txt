@@ -1,0 +1,4 @@
+tokens = param1_0.tokens
+const url = new URL("https://api.foursquare.com/v2/users/self")
+url.searchParams.append("v", apiVersion)
+url.searchParams.append("oauth_token", tokens.access_token)

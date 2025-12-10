@@ -1,0 +1,6 @@
+_tmp_42.push(<lambda>62)
+<operator>.formatString("Sending SASL/", mechanism, " handshake request to ", broker, "")
+const correlationId = this.nextId()
+const request = protocol.encodeSaslHandshakeRequest(this.clientId, correlationId, apiVersion, mechanism)
+this.queueCallback(broker.socket, correlationId, [protocol.decodeSaslHandshakeResponse, callback])
+broker.write(request)

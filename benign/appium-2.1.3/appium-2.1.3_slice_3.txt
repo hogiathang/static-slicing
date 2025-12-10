@@ -1,0 +1,10 @@
+_tmp_5.json = <lambda>3
+let json = jsonOrPath
+let loadedFromFile = false
+existsSync(jsonOrPath)
+json = readFileSync(jsonOrPath, 'utf8')
+<operator>.formatString("Could not read file '", jsonOrPath, "': ", err.message, "")
+loadedFromFile = true
+const result = JSON.parse(json)
+!_.isPlainObject(result)
+<operator>.formatString("'", _.truncate(result, {length: 100}), "' is not an object")

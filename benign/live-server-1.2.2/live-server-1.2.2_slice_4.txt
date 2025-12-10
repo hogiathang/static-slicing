@@ -1,0 +1,86 @@
+LiveServer.start = function(options) {
+	options = options || {};
+	var host = options.host || '0.0.0.0';
+	var port = options.port !== undefined ? options.port : 8080; // 0 means random
+	var root = options.root || process.cwd();
+	var mount = options.mount || [];
+	var watchPaths = options.watch || [root];
+	LiveServer.logLevel = options.logLevel === undefined ? 2 : options.logLevel;
+	var openPath = (options.open === undefined || options.open === true) ?
+		"" : ((options.open === null || options.open === false) ? null : options.open);
+	if (options.noBrowser) openPath = null; // Backwards compatibility with 0.7.0
+	var file = options.file;
+	var staticServerHandler = staticServer(root);
+	var wait = options.wait === undefined ? 100 : options.wait;
+	var browser = options.browser || null;
+	var htpasswd = options.htpasswd || null;
+	var cors = options.cors || false;
+	var https = options.https || null;
+	var proxy = options.proxy || [];
+	var middleware = options.middleware || []...
+options = options || {}
+var host = options.host || '0.0.0.0'
+var port = options.port !== undefined ? options.port : 8080
+var root = options.root || process.cwd()
+var mount = options.mount || []
+var watchPaths = options.watch || [root]
+LiveServer.logLevel = options.logLevel === undefined ? 2 : options.logLevel
+var openPath = (options.open === undefined || options.open === true) ?
+		"" : ((options.open === null || options.open === false) ? null : options.open)
+options.open === null || options.open === false ? null : options.open
+options.noBrowser
+var file = options.file
+var staticServerHandler = staticServer(root)
+var wait = options.wait === undefined ? 100 : options.wait
+var browser = options.browser || null
+var htpasswd = options.htpasswd || null
+var cors = options.cors || false
+var https = options.https || null
+var proxy = options.proxy || []
+var middleware = options.middleware || []
+var noCssInject = options.noCssInject
+var httpsModule = options.httpsModule
+require.resolve(httpsModule)
+httpsModule = "https"
+var app = connect()
+LiveServer.logLevel === 2
+app.use(logger('dev', {
+			skip: function (req, res) { return res.statusCode < 400; }
+		}))
+_tmp_23.skip = <lambda>6
+LiveServer.logLevel > 2
+app.use(logger('dev'))
+options.spa
+middleware.push("spa")
+middleware.map(function(mw) {
+		if (typeof mw === "string") {
+			var ext = path.extname(mw).toLocaleLowerCase();
+			if (ext !== ".js") {
+				mw = require(path.join(__dirname, "middleware", mw + ".js"));
+			} else {
+				mw = require(mw);
+			}
+		}
+		app.use(mw);
+	})
+htpasswd !== null
+var auth = require('http-auth')
+var basic = auth.basic({
+			realm: "Please authorize",
+			file: htpasswd
+		})
+_tmp_25.realm = "Please authorize"
+_tmp_25.file = htpasswd
+app.use(auth.connect(basic))
+function handleChange = function handleChange(changePath) {
+		var cssChange = path.extname(changePath) === ".css" && !noCssInject;
+		if (LiveServer.logLevel >= 1) {
+			if (cssChange)
+				console.log("CSS change detected".magenta, changePath);
+			else console.log("Change detected".cyan, changePath);
+		}
+		clients.forEach(function(ws) {
+			if (ws)
+				ws.send(cssChange ? 'refreshcss' : 'reload');
+		});
+	}

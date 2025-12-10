@@ -1,0 +1,9 @@
+node.decoder.on('readable', () => {
+                        let chunk;
+
+                        while ((chunk = node.decoder.read()) !== null) {
+                            hasher.write(chunk);
+                        }
+                    })
+(chunk = node.decoder.read()) !== null
+hasher.write(chunk)

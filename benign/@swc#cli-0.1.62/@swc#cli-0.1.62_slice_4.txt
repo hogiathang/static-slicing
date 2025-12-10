@@ -1,0 +1,30 @@
+await Object.keys(output).map(async (name)=>{
+                let fullPath = '';
+                if (isUserDefinedEntry(name)) {
+                    fullPath = (0, _path.join)(spackOptions.output.path, spackOptions.output.name.replace('[name]', name));
+                } else {
+                    const ext = (0, _path.extname)(name);
+                    const base = (0, _path.basename)(name, ext);
+                    const filename = (0, _path.relative)(process.cwd(), name);
+                    fullPath = (0, _path.join)(spackOptions.output.path, (0, _path.dirname)(filename), `${base}.js`);
+                }
+                await makeDir((0, _path.dirname)(fullPath), {
+                    recursive: true
+                });
+                await write(fullPath, output[name].code, 'utf-8');
+                if (output[name].map) {
+                    await write(`${fullPath}.map`, output[name].map, 'utf-8');
+                }
+            })
+let fullPath = ''
+isUserDefinedEntry(name)
+fullPath = (0, _path.join)(spackOptions.output.path, spackOptions.output.name.replace('[name]', name))
+const ext = (0, _path.extname)(name)
+const base = (0, _path.basename)(name, ext)
+const filename = (0, _path.relative)(process.cwd(), name)
+fullPath = (0, _path.join)(spackOptions.output.path, (0, _path.dirname)(filename), `${base}.js`)
+await makeDir((0, _path.dirname)(fullPath), {
+                    recursive: true
+                })
+_tmp_4.recursive = true
+await write(fullPath, output[name].code, 'utf-8')

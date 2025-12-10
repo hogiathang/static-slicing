@@ -1,0 +1,20 @@
+_clearCache(attr) {
+          // if we want to clear transform cache
+          // we don't really need to remove it from the cache
+          // but instead mark as "dirty"
+          // so we don't need to create a new instance next time
+          if ((attr === TRANSFORM || attr === ABSOLUTE_TRANSFORM) &&
+              this._cache.get(attr)) {
+              this._cache.get(attr).dirty = true;
+          }
+          else if (attr) {
+              this._cache.delete(attr);
+          }
+          else {
+              this._cache.clear();
+          }
+      }
+(attr === TRANSFORM || attr === ABSOLUTE_TRANSFORM) &&
+              this._cache.get(attr)
+(_tmp_313 = this._cache).get
+this._cache.get(attr).dirty = true

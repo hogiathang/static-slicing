@@ -1,0 +1,118 @@
+var process = require("node:process")
+var os = require("node:os")
+var meow = require("meow")
+var cpy = require("cpy")
+const cli = meow(`
+	Usage
+	  $ cpy <source …> <destination>
+
+	Options
+	  --no-overwrite       Don't overwrite the destination
+	  --cwd=<dir>          Working directory for files
+	  --rename=<filename>  Rename all <source> filenames to <filename>. Supports string templates.
+	  --dot                Allow patterns to match entries that begin with a period (.)
+	  --flat               Flatten directory structure. All copied files will be put in the same directory.
+	  --concurrency        Number of files being copied concurrently
+
+	<source> can contain globs if quoted
+
+	Examples
+	  Copy all .png files in src folder into dist except src/goat.png
+	  $ cpy 'src/*.png' '!src/goat.png' dist
+
+	  Copy all files inside src folder into dist and preserve path structure
+	  $ cpy . '../dist/' --cwd=src
+
+	  Copy all .png files in the src folder to dist and prefix the image filenames
+	  $ cpy 'src/*.png' dist --cwd=src --rename=hi-{{basename}}
+`, {
+	importMeta: import.meta,
+	flags: {
+		overwrite: {
+			type: ...
+_tmp_0.importMeta = import.meta
+_tmp_0.flags = {
+		overwrite: {
+			type: 'boolean',
+			default: true,
+		},
+		cwd: {
+			type: 'string',
+			default: process.cwd(),
+		},
+		rename: {
+			type: 'string',
+		},
+		dot: {
+			type: 'boolean',
+			default: false,
+		},
+		flat: {
+			type: 'boolean',
+			default: false,
+		},
+		concurrency: {
+			type: 'number',
+			default: (os.cpus().length > 0 ? os.cpus().length : 1) * 2,
+		},
+	}
+_tmp_1.overwrite = {
+			type: 'boolean',
+			default: true,
+		}
+_tmp_2.type = "boolean"
+_tmp_2.default = true
+_tmp_1.cwd = {
+			type: 'string',
+			default: process.cwd(),
+		}
+_tmp_3.type = "string"
+_tmp_3.default = process.cwd()
+_tmp_1.rename = {
+			type: 'string',
+		}
+_tmp_4.type = "string"
+_tmp_1.dot = {
+			type: 'boolean',
+			default: false,
+		}
+_tmp_5.type = "boolean"
+_tmp_5.default = false
+_tmp_1.flat = {
+			type: 'boolean',
+			default: false,
+		}
+_tmp_6.type = "boolean"
+_tmp_6.default = false
+_tmp_1.concurrency = {
+			type: 'number',
+			default: (os.cpus().length > 0 ? os.cpus().length : 1) * 2,
+		}
+_tmp_7.type = "number"
+_tmp_7.default = (os.cpus().length > 0 ? os.cpus().length : 1) * 2
+rename = _tmp_8.rename
+const stringTemplate = '{{basename}}'
+rename?.includes(stringTemplate)
+cli.flags.rename = basename => {
+			const parts = basename.split('.');
+			const fileExtension = parts.length > 1 ? `.${parts.pop()}` : '';
+			const nameWithoutExtension = parts.join('.');
+			return rename.replace(stringTemplate, nameWithoutExtension) + fileExtension;
+		}
+await cpy(cli.input, cli.input.pop(), {
+		cwd: cli.flags.cwd,
+		rename: cli.flags.rename,
+		overwrite: cli.flags.overwrite,
+		dot: cli.flags.dot,
+		flat: cli.flags.flat,
+		concurrency: cli.flags.concurrency,
+	})
+_tmp_10.cwd = cli.flags.cwd
+_tmp_10.rename = cli.flags.rename
+_tmp_10.overwrite = cli.flags.overwrite
+_tmp_10.dot = cli.flags.dot
+_tmp_10.flat = cli.flags.flat
+_tmp_10.concurrency = cli.flags.concurrency
+error.name === 'CpyError'
+console.error(error.message)
+process.exit(1)

@@ -1,0 +1,35 @@
+var getRootBlocks = function getRootBlocks(block, blockMap) {
+  var headKey = block.getKey();
+  var rootBlock = block;
+  var rootBlocks = []; // sometimes the fragment head block will not be part of the blockMap itself this can happen when
+  // the fragment head is used to update the target block, however when this does not happen we need
+  // to make sure that we include it on the rootBlocks since the first block of a fragment is always a
+  // fragment root block
+
+  if (blockMap.get(headKey)) {
+    rootBlocks.push(headKey);
+  }
+
+  while (rootBlock && rootBlock.getNextSiblingKey()) {
+    var lastSiblingKey = rootBlock.getNextSiblingKey();
+
+    if (!lastSiblingKey) {
+      break;
+    }
+
+    rootBlocks.push(lastSiblingKey);
+    rootBlock = blockMap.get(lastSiblingKey);
+  }
+
+  return rootBlocks;
+}
+var headKey = block.getKey()
+var rootBlock = block
+__ecma.Array.factory()
+blockMap.get(headKey)
+rootBlocks.push(headKey)
+rootBlock && rootBlock.getNextSiblingKey()
+var lastSiblingKey = rootBlock.getNextSiblingKey()
+!lastSiblingKey
+rootBlocks.push(lastSiblingKey)
+rootBlock = blockMap.get(lastSiblingKey)

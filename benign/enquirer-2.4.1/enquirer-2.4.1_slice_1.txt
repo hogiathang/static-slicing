@@ -1,0 +1,50 @@
+async ask(question) {
+    if (typeof question === 'function') {
+      question = await question.call(this);
+    }
+
+    let opts = utils.merge({}, this.options, question);
+    let { type, name } = question;
+    let { set, get } = utils;
+
+    if (typeof type === 'function') {
+      type = await type.call(this, question, this.answers);
+    }
+
+    if (!type) return this.answers[name];
+    if (type === 'number') type = 'numeral';
+
+    assert(this.prompts[type], `Prompt "${type}" is not registered`);
+
+    let prompt = new this.prompts[type](opts);
+    let value = get(this.answers, name);
+
+    prompt.state.answers = this.answers;
+    prompt.enquirer = this;
+
+    if (name) {
+      prompt.on('submit', value => {
+        this.emit('answer', name, value, prompt);
+        set(this.answers, name, value);
+      });
+    }
+
+    // bubble events
+    let emit = prompt.emit.bind(prompt);
+    prompt.emit = (...args) => {
+      this.emit.call(this, ...args);
+      return emit(...args);
+    };
+
+    this....
+typeof question === 'function'
+question = await question.call(this)
+let opts = utils.merge({}, this.options, question)
+type = _tmp_5.type
+set = _tmp_6.set
+typeof type === 'function'
+type = await type.call(this, question, this.answers)
+this.answers[name]
+type === 'number'
+assert(this.prompts[type], `Prompt "${type}" is not registered`)
+let prompt = new this.prompts[type](opts)

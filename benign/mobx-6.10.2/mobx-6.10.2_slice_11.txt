@@ -1,0 +1,24 @@
+proxyTrap = proxyTrap === void 0 ? false : proxyTrap
+checkIfStateModificationsAreAllowed(this.keysAtom_)
+!hasProp(this.target_, key)
+hasInterceptors(this)
+const change = interceptChange<IObjectWillChange>(this, {
+                object: this.proxy_ || this.target_,
+                name: key,
+                type: REMOVE
+            })
+_tmp_29.object = this.proxy_ || this.target_
+_tmp_29.name = key
+_tmp_29.type = REMOVE
+!change
+startBatch()
+const notify = hasListeners(this)
+const notifySpy = __DEV__ && isSpyEnabled()
+const observable = this.values_.get(key)
+let value = undefined
+!observable && (notify || notifySpy)
+value = getDescriptor(this.target_, key)?.value
+!Reflect.deleteProperty(this.target_, key)
+delete this.target_[key]
+delete this.appliedAnnotations_![key]
+(_tmp_31 = this.values_).delete

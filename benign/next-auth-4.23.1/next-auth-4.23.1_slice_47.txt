@@ -1,0 +1,3 @@
+_tmp_4.verifyRequest = verifyRequest
+_tmp_9.html = VerifyRequestPage({ url, theme, ...props })
+_tmp_9.title = "Verify Request"

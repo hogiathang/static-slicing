@@ -1,0 +1,20 @@
+_tmp_10._computed_object_property_0 = <lambda>6
+!visited.has(type.name) && !isSpecifiedScalarType(type)
+isUnionType(type) ||
+                        isInputObjectType(type) ||
+                        isInterfaceType(type) ||
+                        isObjectType(type) ||
+                        isScalarType(type)
+isInputObjectType(type)
+isInterfaceType(type)
+isObjectType(type)
+isScalarType(type)
+isUnionType(type) &&
+                            skipEmptyUnionPruning &&
+                            !Object.keys(type.getTypes()).length
+!Object.keys(type.getTypes()).length
+isInputObjectType(type) || isInterfaceType(type) || isObjectType(type)
+skipEmptyCompositeTypePruning && !Object.keys(type.getFields()).length
+isInterfaceType(type) && skipUnimplementedInterfacesPruning
+prunedTypes.push(type.name)
+visited.delete(type.name)

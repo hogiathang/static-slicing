@@ -1,0 +1,4 @@
+coordinatorType = param1_2.coordinatorType
+const request = require('./v2/request')
+const response = require('./v2/response')
+_tmp_5.request = request({ coordinatorKey: groupId, coordinatorType })

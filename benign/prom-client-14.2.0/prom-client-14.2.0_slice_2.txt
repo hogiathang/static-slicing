@@ -1,0 +1,25 @@
+cluster().on('message', (worker, message) => {
+			if (message.type === GET_METRICS_RES) {
+				const request = requests.get(message.requestId);
+
+				if (message.error) {
+					request.done(new Error(message.error));
+					return;
+				}
+
+				message.metrics.forEach(registry => request.responses.push(registry));
+				request.pending--;
+
+				if (request.pending === 0) {
+					// finalize
+					requests.delete(message.requestId);
+					clearTimeout(request.errorTimeout);
+
+					const registry = AggregatorRegistry.aggregate(request.responses);
+					const promString = registry.metrics();
+					request.done(null, promString);
+				}
+			}
+		})
+message.type === GET_METRICS_RES
+const request = requests.get(message.requestId)

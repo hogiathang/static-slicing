@@ -1,0 +1,9 @@
+function print = function print (npm, title, url) {
+  const json = npm.config.get('json')
+
+  const message = json ? JSON.stringify({ title, url }) : `${title}:\n${url}`
+
+  npm.output(message)
+}
+const json = npm.config.get('json')
+json ? JSON.stringify({ title, url }) : <operator>.formatString("", title, ":\n", url, "")

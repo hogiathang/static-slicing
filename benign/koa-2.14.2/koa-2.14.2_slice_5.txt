@@ -1,0 +1,5 @@
+_tmp_0.redirect = redirect
+url = this.ctx.get('Referrer') || alt || '/'
+this.set('Location', encodeUrl(url))
+!statuses.redirect[this.status]
+(_tmp_7 = this.ctx).accepts

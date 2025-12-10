@@ -1,0 +1,29 @@
+(0, web_1.fetchJson)(_this.connection, JSON.stringify(request)).then(function (result) {
+                    _this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: _this
+                    });
+                    // For each result, feed it to the correct Promise, depending
+                    // on whether it was a success or error
+                    batch.forEach(function (inflightRequest, index) {
+                        var payload = result[index];
+                        if (payload.error) {
+                            var error = new Error(payload.error.message);
+                            error.code = payload.error.code;
+                            error.data = payload.error.data;
+                            inflightRequest.reject(error);
+                        }
+                        else {
+                            inflightRequest.resolve(...
+_this.emit("debug", {
+                        action: "response",
+                        request: request,
+                        response: result,
+                        provider: _this
+                    })
+_tmp_11.action = "response"
+_tmp_11.request = request
+_tmp_11.response = result
+_tmp_11.provider = _this

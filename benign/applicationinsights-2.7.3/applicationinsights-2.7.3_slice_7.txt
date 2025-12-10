@@ -1,0 +1,26 @@
+new Promise(function (resolve, reject) {
+            if (FileAccessControl.ACL_IDENTITY) {
+                resolve(FileAccessControl.ACL_IDENTITY);
+            }
+            var psProc = child_process.spawn(FileAccessControl.POWERSHELL_PATH, ["-Command", "[System.Security.Principal.WindowsIdentity]::GetCurrent().Name"], {
+                windowsHide: true,
+                stdio: ["ignore", "pipe", "pipe"] // Needed to prevent hanging on Win 7
+            });
+            var data = "";
+            psProc.stdout.on("data", function (d) { return data += d; });
+            psProc.on("error", function (e) { return reject(e); });
+            psProc.on("close", function (code, signal) {
+                FileAccessControl.ACL_IDENTITY = data && data.trim();
+                if (code === 0) {
+                    resolve(FileAccessControl.ACL_IDENTITY);
+                }
+                else {
+                    reject(new Error("Getting ACL identity did not succeed (PS return...
+FileAccessControl.ACL_IDENTITY
+resolve(FileAccessControl.ACL_IDENTITY)
+var psProc = child_process.spawn(FileAccessControl.POWERSHELL_PATH, ["-Command", "[System.Security.Principal.WindowsIdentity]::GetCurrent().Name"], {
+                windowsHide: true,
+                stdio: ["ignore", "pipe", "pipe"] // Needed to prevent hanging on Win 7
+            })
+_tmp_38.windowsHide = true
+_tmp_38.stdio = ["ignore", "pipe", "pipe"]

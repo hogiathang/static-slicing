@@ -1,0 +1,41 @@
+async packument () {
+    // note this might be either an in-flight promise for a request,
+    // or the actual packument, but we never want to make more than
+    // one request at a time for the same thing regardless.
+    if (this.packumentCache && this.packumentCache.has(this.packumentUrl)) {
+      return this.packumentCache.get(this.packumentUrl)
+    }
+
+    // npm-registry-fetch the packument
+    // set the appropriate header for corgis if fullMetadata isn't set
+    // return the res.json() promise
+    try {
+      const res = await fetch(this.packumentUrl, {
+        ...this.opts,
+        headers: this[_headers](),
+        spec: this.spec,
+        // never check integrity for packuments themselves
+        integrity: null,
+      })
+      const packument = await res.json()
+      packument._contentLength = +res.headers.get('content-length')
+      if (this.packumentCache) {
+        this.packumentCache.set(this.packumentUrl, packument)
+      }
+      return packument
+    } catch (err) {
+...
+this.packumentCache && this.packumentCache.has(this.packumentUrl)
+const res = await fetch(this.packumentUrl, {
+        ...this.opts,
+        headers: this[_headers](),
+        spec: this.spec,
+        // never check integrity for packuments themselves
+        integrity: null,
+      })
+...this.opts
+_tmp_8.headers = this[_headers]()
+_tmp_8.spec = this.spec
+_tmp_8.integrity = null
+const packument = await res.json()
+packument._contentLength = +res.headers.get('content-length')

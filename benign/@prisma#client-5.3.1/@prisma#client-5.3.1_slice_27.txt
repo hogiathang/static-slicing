@@ -1,0 +1,41 @@
+module2.exports.sync = (input, options2) => {
+      checkPath(input);
+      options2 = processOptions(options2);
+      if (useNativeRecursiveOption && options2.fs.mkdirSync === fs6.mkdirSync) {
+        const pth = path7.resolve(input);
+        fs6.mkdirSync(pth, {
+          mode: options2.mode,
+          recursive: true
+        });
+        return pth;
+      }
+      const make = (pth) => {
+        try {
+          options2.fs.mkdirSync(pth, options2.mode);
+        } catch (error) {
+          if (error.code === "EPERM") {
+            throw error;
+          }
+          if (error.code === "ENOENT") {
+            if (path7.dirname(pth) === pth) {
+              throw permissionError(pth);
+            }
+            if (error.message.includes("null bytes")) {
+              throw error;
+            }
+            make(path7.dirname(pth));
+            return make(pth);
+          }
+          try {
+            if (!options2.fs.statSync(pth).isDirectory()) {
+              throw new Error("The path...
+checkPath(input)
+options2 = processOptions(options2)
+useNativeRecursiveOption && options2.fs.mkdirSync === fs6.mkdirSync
+const pth = path7.resolve(input)
+fs6.mkdirSync(pth, {
+          mode: options2.mode,
+          recursive: true
+        })
+_tmp_2168.mode = options2.mode
+_tmp_2168.recursive = true

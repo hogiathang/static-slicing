@@ -1,0 +1,21 @@
+forAwaitOf(value, async (v) => {
+            // The while loop here handles the case that the connection state
+            // thrashes, causing the pauser to resume and then get re-paused
+            while (pauser.get()) {
+                await pauser.get();
+            }
+            // If the callback gets here and there is no `this`, it means that the
+            // directive has been disconnected and garbage collected and we don't
+            // need to do anything else
+            const _this = weakThis.deref();
+            if (_this !== undefined) {
+                // Check to make sure that value is the still the current value of
+                // the part, and if not bail because a new value owns this part
+                if (_this.__value !== value) {
+                    return false;
+                }
+                // As a convenience, because functional-programming-style
+                // transforms of iterables and async iterables requires a library,
+                /...
+pauser.get()
+await pauser.get()

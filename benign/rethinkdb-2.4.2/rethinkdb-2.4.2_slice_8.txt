@@ -1,0 +1,62 @@
+HttpConnection.prototype.write = function(chunk, token) {
+    var i, view, xhr;
+    xhr = new XMLHttpRequest;
+    xhr.open("POST", this._url + "?conn_id=" + this._connId, true);
+    xhr.responseType = "arraybuffer";
+    xhr.onreadystatechange = (function(_this) {
+      return function(e) {
+        var b, buf;
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          buf = new Buffer((function() {
+            var k, len1, ref, results;
+            ref = new Uint8Array(xhr.response);
+            results = [];
+            for (k = 0, len1 = ref.length; k < len1; k++) {
+              b = ref[k];
+              results.push(b);
+            }
+            return results;
+          })());
+          return _this._data(buf);
+        }
+      };
+    })(this);
+    xhr.onerror = (function(_this) {
+      return function(e) {
+        return _this.outstandingCallbacks[token].cb(new Error("This HTTP connection is not open"));
+      };
+    })(this);
+    view = new Uint8Array(chunk.length);
+  ...
+xhr = new XMLHttpRequest
+xhr.open("POST", this._url + "?conn_id=" + this._connId, true)
+xhr.responseType = "arraybuffer"
+xhr.onreadystatechange = (function(_this) {
+      return function(e) {
+        var b, buf;
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          buf = new Buffer((function() {
+            var k, len1, ref, results;
+            ref = new Uint8Array(xhr.response);
+            results = [];
+            for (k = 0, len1 = ref.length; k < len1; k++) {
+              b = ref[k];
+              results.push(b);
+            }
+            return results;
+          })());
+          return _this._data(buf);
+        }
+      };
+    })(this)
+xhr.onerror = (function(_this) {
+      return function(e) {
+        return _this.outstandingCallbacks[token].cb(new Error("This HTTP connection is not open"));
+      };
+    })(this)
+view = new Uint8Array(chunk.length)
+i = 0
+i < chunk.length
+view[i] = chunk[i]
+i++
+xhr.send(view)

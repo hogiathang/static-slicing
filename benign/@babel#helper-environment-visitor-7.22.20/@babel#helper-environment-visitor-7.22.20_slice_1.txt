@@ -1,0 +1,21 @@
+function requeueComputedKeyAndDecorators = function requeueComputedKeyAndDecorators(path) {
+  const {
+    context,
+    node
+  } = path;
+  if (node.computed) {
+    context.maybeQueue(path.get("key"));
+  }
+  if (node.decorators) {
+    for (const decorator of path.get("decorators")) {
+      context.maybeQueue(decorator);
+    }
+  }
+}
+_tmp_0 = path
+context = _tmp_0.context
+node = _tmp_0.node
+node.computed
+context.maybeQueue(path.get("key"))
+node.decorators
+_iterator_0 = <operator>.iterator(path.get("decorators"))

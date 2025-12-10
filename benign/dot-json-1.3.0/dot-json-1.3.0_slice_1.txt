@@ -1,0 +1,57 @@
+var DotJson = require('../')
+var fs = require('fs')
+var path = require('path')
+var docopt = require('docopt').docopt
+var package_ = require('../package.json')
+var parseValue = require('../lib/parse-value')
+var usage = [
+	'<file> <key-path>',
+	'<file> <key-path> <value> [--indent=<n|auto>] [--json-value]',
+	'<file> <key-path> --delete',
+]
+_tmp_0.push("<file> <key-path>")
+_tmp_0.push("<file> <key-path> <value> [--indent=<n|auto>] [--json-value]")
+_tmp_0.push("<file> <key-path> --delete")
+var options = [
+	'--indent=<n|auto>    Indent with <n> of white space characters [default: auto]',
+	'-d --delete          Delete the key-path',
+	'-j --json-value      Parse the input value as a JSON string (to set whole objects or arrays)',
+	'-h --help            Show this message with options',
+	'-v --version         Print the version number',
+]
+_tmp_1.push("--indent=<n|auto>    Indent with <n> of white space characters [default: auto]")
+_tmp_1.push("-d --delete          Delete the key-path")
+_tmp_1.push("-j --json-value      Parse the input value as a JSON string (to set whole objects or arrays)")
+_tmp_1.push("-h --help            Show this message with options")
+_tmp_1.push("-v --version         Print the version number")
+var name = path.basename(__filename, '.js')
+var args = docopt('Usage:\n  '+name+' '+usage.join('\n  '+name+' ')+'\n\nOptions:\n  '+options.join('\n  '), {
+	version: package_.version
+})
+_tmp_2.version = package_.version
+var dot_json = new DotJson(args['<file>'])
+args["<value>"]
+var value = parseValue(args['<value>'], args['--json-value'])
+var indent = args['--indent']
+dot_json.set(args['<key-path>'], value)
+console.error(e.message)
+dot_json.save(indent)
+args["--delete"]
+dot_json.delete(args['<key-path>'])
+dot_json.save()
+dot_json.get(args['<key-path>'], function(object){
+			if (object === undefined) {
+				return;
+			}
+			if (typeof object === 'object') {
+				console.log(JSON.stringify(object, null, '  '));
+				return;
+			}
+			console.log(object);
+		})
+e.name === 'SyntaxError'
+console.error("There is a syntax error in "+args['<file>']+": "+e.message)
+e.code === 'ENOENT' && e.path
+console.error("File not found: "+e.path)
+console.error(e)
+process.exit(1)

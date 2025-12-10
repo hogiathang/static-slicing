@@ -1,0 +1,9 @@
+var casper = require("casper").create()
+var url = casper.cli.get(0)
+__ecma.Array.factory()
+!url
+casper
+        .echo("Usage: $ casperjs metaextract.js <url>")
+        .exit(1)
+"Usage: $ casperjs metaextract.js <url>"
+1

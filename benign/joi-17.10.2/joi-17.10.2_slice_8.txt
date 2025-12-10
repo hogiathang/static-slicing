@@ -1,0 +1,32 @@
+concat(source) {
+
+        const result = this.slice();
+
+        const keys = new Map();
+        for (let i = 0; i < result.length; ++i) {
+            keys.set(result[i].key, i);
+        }
+
+        for (const item of source) {
+            const key = item.key;
+            const pos = keys.get(key);
+            if (pos !== undefined) {
+                result[pos] = { key, schema: result[pos].schema.concat(item.schema) };
+            }
+            else {
+                result.push(item);
+            }
+        }
+
+        return result;
+    }
+const result = this.slice()
+const keys = new Map()
+i < result.length
+keys.set(result[i].key, i)
+_iterator_22 = <operator>.iterator(source)
+const key = item.key
+const pos = keys.get(key)
+pos !== undefined
+result[pos] = { key, schema: result[pos].schema.concat(item.schema) }
+result.push(item)

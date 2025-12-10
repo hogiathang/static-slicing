@@ -1,0 +1,23 @@
+_tmp_98.limit = <lambda>41
+value = replaceHomePath(value, true)
+error = ''
+function mkdirParents = function mkdirParents(dirPath) {
+          dirPath.split(/\/|\\/).reduce(function(parents, dir) {
+            var path = pathUtil.resolve((parents += dir + pathUtil.sep));
+            if (!fs.existsSync(path)) {
+              fs.mkdirSync(path);
+            } else if (!fs.statSync(path).isDirectory()) {
+              throw new Error('Non directory already exists: ' + path);
+            }
+            return parents;
+          }, '');
+        }
+exists = fs.existsSync(value)
+validPath = exists ? fs.realpathSync(value) : pathUtil.resolve(value)
+!options.hasOwnProperty('exists') && !exists ||
+              typeof options.exists === 'boolean' && options.exists !== exists
+typeof options.exists === 'boolean' && options.exists !== exists
+!exists && options.create
+options.isDirectory
+mkdirParents(pathUtil.dirname(validPath))
+fs.closeSync(fs.openSync(validPath, 'w'))

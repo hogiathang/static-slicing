@@ -1,0 +1,68 @@
+var updateDb = require('update-browserslist-db')
+var fs = require('fs')
+var browserslist = require('./')
+var pkg = require('./package.json')
+var args = process.argv.slice(2)
+var USAGE =
+  'Usage:\n' +
+  '  npx browserslist\n' +
+  '  npx browserslist "QUERIES"\n' +
+  '  npx browserslist --json "QUERIES"\n' +
+  '  npx browserslist --config="path/to/browserlist/file"\n' +
+  '  npx browserslist --coverage "QUERIES"\n' +
+  '  npx browserslist --coverage=US "QUERIES"\n' +
+  '  npx browserslist --coverage=US,RU,global "QUERIES"\n' +
+  '  npx browserslist --env="environment name defined in config"\n' +
+  '  npx browserslist --stats="path/to/browserlist/stats/file"\n' +
+  '  npx browserslist --mobile-to-desktop\n' +
+  '  npx browserslist --ignore-unknown-versions\n'
+'Usage:\n' +
+  '  npx browserslist\n' +
+  '  npx browserslist "QUERIES"\n' +
+  '  npx browserslist --json "QUERIES"\n' +
+  '  npx browserslist --config="path/to/browserlist/file"\n' +
+  '  npx browserslist --coverage "QUERIES"\n' +
+  '  npx browserslist --coverage=US "QUERIES"\n' +
+  '  npx browserslist --coverage=US,RU,global "QUERIES"\n' +
+  '  npx browserslist --env="environment name defined in config"\n' +
+  '  npx browserslist --stats="path/to/browserlist/stats/file"\n' +
+  '  npx browserslist --mobile-to-desktop\n' +
+  '  npx browserslist --ignore-unknown-versions\n'
+"  npx browserslist
+"
+"  npx browserslist "QUERIES"
+"
+"  npx browserslist --json "QUERIES"
+"
+"  npx browserslist --config="path/to/browserlist/file"
+"
+"  npx browserslist --coverage "QUERIES"
+"
+"  npx browserslist --coverage=US "QUERIES"
+"
+"  npx browserslist --coverage=US,RU,global "QUERIES"
+"
+"  npx browserslist --env="environment name defined in config"
+"
+"  npx browserslist --stats="path/to/browserlist/stats/file"
+"
+"  npx browserslist --mobile-to-desktop
+"
+"  npx browserslist --ignore-unknown-versions
+"
+function isArg = function isArg(arg) {
+  return args.some(function (str) {
+    return str === arg || str.indexOf(arg + '=') === 0
+  })
+}
+function error = function error(msg) {
+  process.stderr.write('browserslist: ' + msg + '\n')
+  process.exit(1)
+}
+isArg('--help') || isArg('-h')
+isArg('--version') || isArg('-v')
+isArg('--update-db')
+process.stdout.write(
+    'The --update-db command is deprecated.\n' +
+      'Please use npx update-browserslist-db@latest instead.\n'
+  )

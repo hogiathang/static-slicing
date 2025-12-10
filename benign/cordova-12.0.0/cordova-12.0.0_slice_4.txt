@@ -1,0 +1,45 @@
+module.exports = function (inputArgs) {
+    // If no inputArgs given, use process.argv.
+    inputArgs = inputArgs || process.argv;
+    let cmd = inputArgs[2]; // e.g: inputArgs= 'node cordova run ios'
+    const subcommand = getSubCommand(inputArgs, cmd);
+    const isTelemetryCmd = (cmd === 'telemetry');
+    const isConfigCmd = (cmd === 'config');
+
+    // ToDO: Move nopt-based parsing of args up here
+    if (cmd === '--version' || cmd === '-v') {
+        cmd = 'version';
+    } else if (!cmd || cmd === '--help' || cmd === 'h') {
+        cmd = 'help';
+    }
+
+    // If "get" is called
+    if (isConfigCmd && inputArgs[3] === 'get') {
+        if (inputArgs[4]) {
+            logger.subscribe(events);
+            conf.get(inputArgs[4]);
+            if (conf.get(inputArgs[4]) !== undefined) {
+                events.emit('log', conf.get(inputArgs[4]).toString());
+            } else {
+                events.emit('log', 'undefined');
+            }
+        }
+    }
+
+    // If "set" is called
+    ...
+inputArgs = inputArgs || process.argv
+let cmd = inputArgs[2]
+const subcommand = getSubCommand(inputArgs, cmd)
+const isTelemetryCmd = (cmd === 'telemetry')
+const isConfigCmd = (cmd === 'config')
+cmd === '--version' || cmd === '-v'
+cmd = 'version'
+!cmd || cmd === '--help' || cmd === 'h'
+cmd = 'help'
+isConfigCmd && inputArgs[3] === 'get'
+inputArgs[4]
+logger.subscribe(events)
+conf.get(inputArgs[4])
+conf.get(inputArgs[4]) !== undefined
+events.emit('log', conf.get(inputArgs[4]).toString())

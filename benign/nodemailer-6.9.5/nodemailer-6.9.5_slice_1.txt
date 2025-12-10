@@ -1,0 +1,21 @@
+let connect = ipaddress => {
+                        let proxyV2 = !!this.meta.get('proxy_socks_module').SocksClient;
+                        let socksClient = proxyV2 ? this.meta.get('proxy_socks_module').SocksClient : this.meta.get('proxy_socks_module');
+                        let proxyType = Number(proxy.protocol.replace(/\D/g, '')) || 5;
+                        let connectionOpts = {
+                            proxy: {
+                                ipaddress,
+                                port: Number(proxy.port),
+                                type: proxyType
+                            },
+                            [proxyV2 ? 'destination' : 'target']: {
+                                host: options.host,
+                                port: options.port
+                            },
+                            command: 'connect'
+                        };
+
+                        if (proxy.auth) {
+                            let username = decodeURIComponent(proxy.auth....
+let proxyV2 = !!this.meta.get('proxy_socks_module').SocksClient
+let socksClient = proxyV2 ? this.meta.get('proxy_socks_module').SocksClient : this.meta.get('proxy_socks_module')

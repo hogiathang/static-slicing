@@ -1,0 +1,38 @@
+function parseOptions = function parseOptions(options, defaultVersion) {
+    let version = null
+    let range = null
+    let ignores = []
+
+    if (typeof options === "number") {
+        version = VERSION_MAP.get(options)
+    } else if (typeof options === "string") {
+        version = options
+    } else if (typeof options === "object") {
+        version =
+            typeof options.version === "number"
+                ? VERSION_MAP.get(options.version)
+                : options.version
+
+        ignores = options.ignores || []
+    }
+
+    range = semver.validRange(version ? `>=${version}` : defaultVersion)
+    if (!version) {
+        version = defaultVersion
+    }
+
+    return Object.freeze({
+        version,
+        features: Object.freeze(
+            OPTIONS.reduce((retv, key) => {
+                const feature = FEATURES[key]
+
+                if (isIgnored(key, ignores)) {
+                    retv[key] = Object.freeze({
+                        name: feature.name,
+                        singular: Boolean(f...
+let version = null
+let range = null
+__ecma.Array.factory()
+typeof options === "number"
+version = VERSION_MAP.get(options)

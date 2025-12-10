@@ -1,0 +1,57 @@
+function extractDirectiveMetadata = function extractDirectiveMetadata(clazz, decorator, reflector, evaluator, refEmitter, referencesRegistry, isCore, annotateForClosureCompiler, defaultSelector = null) {
+  let directive;
+  if (decorator === null || decorator.args === null || decorator.args.length === 0) {
+    directive = /* @__PURE__ */ new Map();
+  } else if (decorator.args.length !== 1) {
+    throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARITY_WRONG, decorator.node, `Incorrect number of arguments to @${decorator.name} decorator`);
+  } else {
+    const meta = unwrapExpression(decorator.args[0]);
+    if (!ts20.isObjectLiteralExpression(meta)) {
+      throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, meta, `@${decorator.name} argument must be an object literal`);
+    }
+    directive = reflectObjectLiteral(meta);
+  }
+  if (directive.has("jit")) {
+    return void 0;
+  }
+  const members = reflector.getMembersOfClass(clazz);
+  const decoratedElements = members.filter((member) => !member.isStatic && m...
+decorator === null || decorator.args === null || decorator.args.length === 0
+directive = /* @__PURE__ */ new Map()
+decorator.args.length !== 1
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARITY_WRONG, decorator.node, `Incorrect number of arguments to @${decorator.name} decorator`);
+const meta = unwrapExpression(decorator.args[0])
+!ts20.isObjectLiteralExpression(meta)
+throw new FatalDiagnosticError(ErrorCode.DECORATOR_ARG_NOT_LITERAL, meta, `@${decorator.name} argument must be an object literal`);
+directive = reflectObjectLiteral(meta)
+directive.has("jit")
+const members = reflector.getMembersOfClass(clazz)
+const decoratedElements = members.filter((member) => !member.isStatic && member.decorators !== null)
+const coreModule = isCore ? void 0 : "@angular/core"
+const inputsFromMeta = parseInputsArray(clazz, directive, evaluator, reflector, refEmitter)
+const inputsFromFields = parseInputFields(clazz, filterToMembersWithDecorator(decoratedElements, "Input", coreModule), evaluator, reflector, refEmitter)
+const inputs = ClassPropertyMapping.fromMappedObject({ ...inputsFromMeta, ...inputsFromFields })
+const outputsFromMeta = parseOutputsArray(directive, evaluator)
+const outputsFromFields = parseOutputFields(filterToMembersWithDecorator(decoratedElements, "Output", coreModule), evaluator)
+const outputs = ClassPropertyMapping.fromMappedObject({ ...outputsFromMeta, ...outputsFromFields })
+const contentChildFromFields = queriesFromFields(filterToMembersWithDecorator(decoratedElements, "ContentChild", coreModule), reflector, evaluator)
+const contentChildrenFromFields = queriesFromFields(filterToMembersWithDecorator(decoratedElements, "ContentChildren", coreModule), reflector, evaluator)
+const queries = [...contentChildFromFields, ...contentChildrenFromFields]
+const viewChildFromFields = queriesFromFields(filterToMembersWithDecorator(decoratedElements, "ViewChild", coreModule), reflector, evaluator)
+const viewChildrenFromFields = queriesFromFields(filterToMembersWithDecorator(decoratedElements, "ViewChildren", coreModule), reflector, evaluator)
+const viewQueries = [...viewChildFromFields, ...viewChildrenFromFields]
+directive.has("queries")
+const queriesFromDecorator = extractQueriesFromDecorator(directive.get("queries"), reflector, evaluator, isCore)
+queries.push(...queriesFromDecorator.content)
+viewQueries.push(...queriesFromDecorator.view)
+let selector = defaultSelector
+directive.has("selector")
+const expr = directive.get("selector")
+const resolved = evaluator.evaluate(expr)
+typeof resolved !== "string"
+throw createValueHasWrongTypeError(expr, resolved, `selector must be a string`);
+selector = resolved === "" ? defaultSelector : resolved
+!selector
+throw new FatalDiagnosticError(ErrorCode.DIRECTIVE_MISSING_SELECTOR, expr, `Directive ${clazz.name.text} has no selector, please add it!`);
+const host = extractHostBindings(decoratedElements, evaluator, coreModule, directive)
+const providers = directive.has("providers") ? new WrappedNodeExpr4(annotateForClosureCompiler ? wrapFunctionExpressionsInParens(directive.get("providers")) : directive.get("providers")) : null

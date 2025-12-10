@@ -1,0 +1,16 @@
+markAsRead(segments, variable) {
+        for (const segment of segments) {
+            const info = this.info.get(segment);
+
+            if (info) {
+                info.freshReadVariables.add(variable);
+
+                // If a variable is freshly read again, then it's no more out-dated.
+                info.outdatedReadVariables.delete(variable);
+            }
+        }
+    }
+_iterator_3 = <operator>.iterator(segments)
+const info = this.info.get(segment)
+(_tmp_12 = info.freshReadVariables).add
+(_tmp_13 = info.outdatedReadVariables).delete

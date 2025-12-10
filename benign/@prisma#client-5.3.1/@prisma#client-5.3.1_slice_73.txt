@@ -1,0 +1,40 @@
+function resolveCommandAttempt = function resolveCommandAttempt(parsed, withoutPathExt) {
+      const env = parsed.options.env || process.env;
+      const cwd = process.cwd();
+      const hasCustomCwd = parsed.options.cwd != null;
+      const shouldSwitchCwd = hasCustomCwd && process.chdir !== void 0 && !process.chdir.disabled;
+      if (shouldSwitchCwd) {
+        try {
+          process.chdir(parsed.options.cwd);
+        } catch (err) {
+        }
+      }
+      let resolved;
+      try {
+        resolved = which.sync(parsed.command, {
+          path: env[getPathKey({ env })],
+          pathExt: withoutPathExt ? path7.delimiter : void 0
+        });
+      } catch (e) {
+      } finally {
+        if (shouldSwitchCwd) {
+          process.chdir(cwd);
+        }
+      }
+      if (resolved) {
+        resolved = path7.resolve(hasCustomCwd ? parsed.options.cwd : "", resolved);
+      }
+      return resolved;
+    }
+const env = parsed.options.env || process.env
+const cwd = process.cwd()
+const hasCustomCwd = parsed.options.cwd != null
+const shouldSwitchCwd = hasCustomCwd && process.chdir !== void 0 && !process.chdir.disabled
+process.chdir(parsed.options.cwd)
+resolved = which.sync(parsed.command, {
+          path: env[getPathKey({ env })],
+          pathExt: withoutPathExt ? path7.delimiter : void 0
+        })
+_tmp_425.path = env[getPathKey({ env })]
+_tmp_425.pathExt = withoutPathExt ? path7.delimiter : void 0
+process.chdir(cwd)

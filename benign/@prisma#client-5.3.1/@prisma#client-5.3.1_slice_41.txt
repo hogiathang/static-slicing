@@ -1,0 +1,6 @@
+var qa=class{constructor({socket:A,request:t,contentLength:r,client:n,expectsPayload:i,header:s}){this.socket=A,this.request=t,this.contentLength=r,this.client=n,this.bytesWritten=0,this.expectsPayload=i,this.header=s,A[Lt]=!0}write(A){let{socket:t,request:r,contentLength:n,client:i,bytesWritten:s,expectsPayload:o,header:a}=this;if(t[bA])throw t[bA];if(t.destroyed)return!1;let c=Buffer.byteLength(A);if(!c)return!0;if(n!==null&&s+c>n){if(i[Va])throw new Fr;process.emitWarning(new Fr)}t.cork(),s===0&&(o||(t[iA]=!0),n===null?t.write(`${a}transfer-encoding: chunked\r
+`,"latin1"):t.write(`${a}content-length: ${n}\r
+\r
+`,"latin1")),n===null&&t.write(`\r
+${c.toString(16)}\r
+`,"latin1"),this.bytesWritten+=c;let g=t.write(A);return t.uncork(),r.onBodySent(A),g||t[Be].timeout&&t[Be].timeoutType===Wn&&t[Be].timeout.refresh&&t[Be].timeout.refresh(),g}end(){let{socket:A,contentLength:t,client:r,bytesWritten:n,expectsPayload:i,header:s,request:o}=this;if(o.onRequestSent(),A[Lt]=!1,A[bA])throw A[bA];i...

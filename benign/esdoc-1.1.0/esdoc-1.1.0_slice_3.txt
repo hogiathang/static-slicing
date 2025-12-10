@@ -1,0 +1,85 @@
+static generate(config) {
+    (0, _assert2.default)(config.source);
+    (0, _assert2.default)(config.destination);
+
+    this._checkOldConfig(config);
+
+    _Plugin2.default.init(config.plugins);
+    _Plugin2.default.onStart();
+    config = _Plugin2.default.onHandleConfig(config);
+
+    this._setDefaultConfig(config);
+
+    _colorLogger2.default.debug = !!config.debug;
+    const includes = config.includes.map(v => new RegExp(v));
+    const excludes = config.excludes.map(v => new RegExp(v));
+
+    let packageName = null;
+    let mainFilePath = null;
+    if (config.package) {
+      try {
+        const packageJSON = _fsExtra2.default.readFileSync(config.package, { encode: 'utf8' });
+        const packageConfig = JSON.parse(packageJSON);
+        packageName = packageConfig.name;
+        mainFilePath = packageConfig.main;
+      } catch (e) {
+        // ignore
+      }
+    }
+
+    let results = [];
+    const asts = [];
+    const sourceDirPath = _path2.default.resolve(config.source);
+
+    this._w...
+(0, _assert2.default)(config.source)
+(0, _assert2.default)(config.destination)
+this._checkOldConfig(config)
+_Plugin2.default.init(config.plugins)
+(_tmp_3 = _Plugin2.default).onStart
+config = _Plugin2.default.onHandleConfig(config)
+this._setDefaultConfig(config)
+_colorLogger2.default.debug = !!config.debug
+const includes = config.includes.map(v => new RegExp(v))
+const excludes = config.excludes.map(v => new RegExp(v))
+let packageName = null
+let mainFilePath = null
+config.package
+const packageJSON = _fsExtra2.default.readFileSync(config.package, { encode: 'utf8' })
+const packageConfig = JSON.parse(packageJSON)
+packageName = packageConfig.name
+mainFilePath = packageConfig.main
+__ecma.Array.factory()
+__ecma.Array.factory()
+const sourceDirPath = _path2.default.resolve(config.source)
+this._walk(config.source, filePath => {
+      const relativeFilePath = _path2.default.relative(sourceDirPath, filePath);
+      let match = false;
+      for (const reg of includes) {
+        if (relativeFilePath.match(reg)) {
+          match = true;
+          break;
+        }
+      }
+      if (!match) return;
+
+      for (const reg of excludes) {
+        if (relativeFilePath.match(reg)) return;
+      }
+
+      console.log(`parse: ${filePath}`);
+      const temp = this._traverse(config.source, filePath, packageName, mainFilePath);
+      if (!temp) return;
+      results.push(...temp.results);
+      if (config.outputAST) {
+        asts.push({ filePath: `source${_path2.default.sep}${relativeFilePath}`, ast: temp.ast });
+      }
+    })
+config.index
+results.push(this._generateForIndex(config))
+config.package
+results.push(this._generateForPackageJSON(config))
+results = this._resolveDuplication(results)
+results = _Plugin2.default.onHandleDocs(results)
+const dumpPath = _path2.default.resolve(config.destination, 'index.json')
+_fsExtra2.default.outputFileSync(dumpPath, JSON.stringify(results, null, 2))

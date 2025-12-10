@@ -1,0 +1,26 @@
+rename(from, to) {
+        this.assertUnlocked();
+        from = this.normalize(from);
+        to = this.normalize(to);
+        if (from === to) {
+            return;
+        }
+        if (this.isFile(from)) {
+            const content = this.read(this.rp(from));
+            this.write(this.rp(to), content);
+            this.delete(this.rp(from));
+        }
+        else {
+            for (const child of this.children(from)) {
+                this.rename((0, path_1.join)(from, child), (0, path_1.join)(to, child));
+            }
+        }
+    }
+this.assertUnlocked()
+from = this.normalize(from)
+to = this.normalize(to)
+from === to
+this.isFile(from)
+const content = this.read(this.rp(from))
+this.write(this.rp(to), content)
+this.delete(this.rp(from))

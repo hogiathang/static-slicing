@@ -1,0 +1,163 @@
+module.exports = function getModelsMapForPopulate(model, docs, options) {
+  let doc;
+  const len = docs.length;
+  const map = [];
+  const modelNameFromQuery = options.model && options.model.modelName || options.model;
+  let schema;
+  let refPath;
+  let modelNames;
+  const available = {};
+
+  const modelSchema = model.schema;
+
+  // Populating a nested path should always be a no-op re: #9073.
+  // People shouldn't do this, but apparently they do.
+  if (options._localModel != null && options._localModel.schema.nested[options.path]) {
+    return [];
+  }
+
+  const _virtualRes = getVirtual(model.schema, options.path);
+  const virtual = _virtualRes == null ? null : _virtualRes.virtual;
+  if (virtual != null) {
+    return _virtualPopulate(model, docs, options, _virtualRes);
+  }
+
+  let allSchemaTypes = getSchemaTypes(model, modelSchema, null, options.path);
+  allSchemaTypes = Array.isArray(allSchemaTypes) ? allSchemaTypes : [allSchemaTypes].filter(v => v != null);
+
+  if (allSchemaTypes.length ...
+const len = docs.length
+__ecma.Array.factory()
+const modelNameFromQuery = options.model && options.model.modelName || options.model
+const available = {}
+const modelSchema = model.schema
+options._localModel != null && options._localModel.schema.nested[options.path]
+const _virtualRes = getVirtual(model.schema, options.path)
+const virtual = _virtualRes == null ? null : _virtualRes.virtual
+virtual != null
+let allSchemaTypes = getSchemaTypes(model, modelSchema, null, options.path)
+allSchemaTypes = Array.isArray(allSchemaTypes) ? allSchemaTypes : [allSchemaTypes].filter(v => v != null)
+allSchemaTypes.length === 0 && options.strictPopulate !== false && options._localModel != null
+let i = 0
+doc = docs[i]
+let justOne = null
+const docSchema = doc != null && doc.$__ != null ? doc.$__schema : modelSchema
+schema = getSchemaTypes(model, docSchema, doc, options.path)
+schema != null &&
+        schema.$isMongooseDocumentArray &&
+        schema.options.ref == null &&
+        schema.options.refPath == null
+schema.$isMongooseDocumentArray
+schema.options.ref == null
+schema.options.refPath == null
+continue;
+const isUnderneathDocArray = schema && schema.$parentSchemaDocArray
+isUnderneathDocArray && get(options, 'options.sort') != null
+modelNames = null
+let isRefPath = false
+let normalizedRefPath = null
+let schemaOptions = null
+let modelNamesInOrder = null
+schema != null && schema.instance === 'Embedded'
+schema.options.ref
+const data = {
+          localField: options.path + '._id',
+          foreignField: '_id',
+          justOne: true
+        }
+_tmp_67.localField = options.path + '._id'
+_tmp_67.foreignField = "_id"
+_tmp_67.justOne = true
+const res = _getModelNames(doc, schema, modelNameFromQuery, model)
+const unpopulatedValue = mpath.get(options.path, doc)
+const id = mpath.get('_id', unpopulatedValue)
+addModelNamesToMap(model, map, available, res.modelNames, options, data, id, doc, schemaOptions, unpopulatedValue)
+continue;
+Array.isArray(schema)
+const schemasArray = schema
+_iterator_6 = <operator>.iterator(schemasArray)
+res = _getModelNames(doc, _schema, modelNameFromQuery, model)
+_modelNames = res.modelNames
+isRefPath = isRefPath || res.isRefPath
+normalizedRefPath = normalizedRefPath || res.refPath
+justOne = res.justOne
+isRefPath && !res.isRefPath
+continue;
+!_modelNames
+continue;
+modelNames = modelNames || []
+_iterator_7 = <operator>.iterator(_modelNames)
+modelNames.indexOf(modelName) === -1
+modelNames.push(modelName)
+const res = _getModelNames(doc, schema, modelNameFromQuery, model)
+modelNames = res.modelNames
+isRefPath = res.isRefPath
+normalizedRefPath = normalizedRefPath || res.refPath
+justOne = res.justOne
+schemaOptions = get(schema, 'options.populate', null)
+modelNamesInOrder = modelNames
+modelNames = Array.from(new Set(modelNames))
+!modelNames
+continue;
+const data = {}
+const localField = options.path
+const foreignField = '_id'
+'justOne' in options && options.justOne !== void 0
+justOne = options.justOne
+schema && !schema[schemaMixedSymbol]
+options.path.endsWith('.' + schema.path) || options.path === schema.path
+justOne = Array.isArray(schema) ?
+          schema.every(schema => !schema.$isMongooseArray) :
+          !schema.$isMongooseArray
+schema.every(schema => !schema.$isMongooseArray)
+!schema.$isMongooseArray
+!modelNames
+continue;
+data.isVirtual = false
+data.justOne = justOne
+data.localField = localField
+data.foreignField = foreignField
+const ret = _getLocalFieldValues(doc, localField, model, options, null, schema)
+const id = String(utils.getValue(foreignField, doc))
+options._docs[id] = Array.isArray(ret) ? ret.slice() : ret
+let match = get(options, 'match', null)
+const hasMatchFunction = typeof match === 'function'
+match = match.call(doc, doc)
+data.match = match
+data.hasMatchFunction = hasMatchFunction
+data.isRefPath = isRefPath
+data.modelNamesInOrder = modelNamesInOrder
+const embeddedDiscriminatorModelNames = _findRefPathForDiscriminators(doc,
+        modelSchema, data, options, normalizedRefPath, ret)
+modelNames = embeddedDiscriminatorModelNames || modelNames
+addModelNamesToMap(model, map, available, modelNames, options, data, ret, doc, schemaOptions)
+function _getModelNames = function _getModelNames(doc, schema, modelNameFromQuery, model) {
+    let modelNames;
+    let isRefPath = false;
+    let justOne = null;
+
+    const originalSchema = schema;
+    if (schema && schema.instance === 'Array') {
+      schema = schema.caster;
+    }
+    if (schema && schema.$isSchemaMap) {
+      schema = schema.$__schemaType;
+    }
+
+    const ref = schema && schema.options && schema.options.ref;
+    refPath = schema && schema.options && schema.options.refPath;
+    if (schema != null &&
+        schema[schemaMixedSymbol] &&
+        !ref &&
+        !refPath &&
+        !modelNameFromQuery) {
+      return { modelNames: null };
+    }
+
+    if (modelNameFromQuery) {
+      modelNames = [modelNameFromQuery]; // query options
+    } else if (refPath != null) {
+      if (typeof refPath === 'function') {
+        const subdocPath = options.path.slice(0, options.path.length - schema.path.length - 1);
+        const vals = mpath.get(subdocPath, doc, lookupLocalFields);
+        const subdocsBe...

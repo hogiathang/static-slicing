@@ -1,0 +1,5 @@
+_tmp_47.value = createStyle
+var thisStyle = new Style(this, opts)
+var lookupKey = JSON.stringify(thisStyle.toObject())
+(_tmp_49 = this.stylesLookup).get
+(_tmp_50 = this.stylesLookup).get

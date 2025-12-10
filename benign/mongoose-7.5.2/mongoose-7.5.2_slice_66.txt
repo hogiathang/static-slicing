@@ -1,0 +1,11 @@
+schema.pre('save', function timestampsPreSave(next) {
+    const timestampOption = get(this, '$__.saveOptions.timestamps');
+    if (timestampOption === false) {
+      return next();
+    }
+
+    setDocumentTimestamps(this, timestampOption, currentTime, createdAt, updatedAt);
+
+    next();
+  })
+const timestampOption = get(this, '$__.saveOptions.timestamps')

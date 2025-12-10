@@ -1,0 +1,16 @@
+this.socket.send(JSON.stringify(message), ws_opts, (error) => {
+                if (error)
+                    return reject(error);
+                this.queue[rpc_id] = { promise: [resolve, reject] };
+                if (timeout) {
+                    this.queue[rpc_id].timeout = setTimeout(() => {
+                        delete this.queue[rpc_id];
+                        reject(new Error("reply timeout"));
+                    }, timeout);
+                }
+            })
+this.queue[rpc_id] = { promise: [resolve, reject] }
+this.queue[rpc_id].timeout = setTimeout(() => {
+                        delete this.queue[rpc_id];
+                        reject(new Error("reply timeout"));
+                    }, timeout)

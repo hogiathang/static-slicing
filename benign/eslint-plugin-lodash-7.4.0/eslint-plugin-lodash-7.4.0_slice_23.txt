@@ -1,0 +1,4 @@
+function isWrapperMethod = function isWrapperMethod(version, method) {
+    return _.get(getMethodData(version), [method, 'wrapper'], false)
+}
+_.get(getMethodData(version), [method, 'wrapper'], false)

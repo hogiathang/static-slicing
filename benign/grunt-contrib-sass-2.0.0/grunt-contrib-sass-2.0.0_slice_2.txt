@@ -1,0 +1,53 @@
+async.eachLimit(this.files, concurrencyCount, function (file, next) {
+      var src = file.src[0];
+
+      if (path.basename(src)[0] === '_') {
+        return next();
+      }
+
+      var args = [
+        src,
+        file.dest
+      ].concat(passedArgs);
+
+      if (options.update) {
+        // When the source file hasn't yet been compiled SASS will write an empty file.
+        // If this is the first time the file has been written we treat it as if `update` was not passed
+        if (!grunt.file.exists(file.dest)) {
+          // Find where the --update flag is and remove it
+          args.splice(args.indexOf('--update'), 1);
+        } else {
+          // The first two elements in args are the source and destination files,
+          // which are used to build a path that SASS recognizes, i.e. "source:destination"
+          args.push(args.shift() + ':' + args.shift());
+        }
+      }
+
+      var bin = 'sass';
+
+      if (options.bundleExec) {
+        bin = 'bundle';
+        args.unshif...
+var src = file.src[0]
+path.basename(src)[0] === '_'
+var args = [
+        src,
+        file.dest
+      ].concat(passedArgs)
+_tmp_3.push(src)
+_tmp_3.push(file.dest)
+concat
+options.update
+!grunt.file.exists(file.dest)
+args.splice(args.indexOf('--update'), 1)
+args.push(args.shift() + ':' + args.shift())
+var bin = 'sass'
+options.bundleExec
+bin = 'bundle'
+args.unshift('exec', 'sass')
+path.extname(src) === '.css'
+args.push('--scss')
+!grunt.file.exists(file.dest)
+grunt.file.write(file.dest, '')
+grunt.verbose.writeln('Command: ' + bin + ' ' + args.join(' '))
+var cp = spawn(bin, args, {stdio: 'inherit'})

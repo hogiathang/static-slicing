@@ -1,0 +1,37 @@
+function initServerProcessWorkerProxy = function initServerProcessWorkerProxy(sendToMain) {
+    const workerPath = require.resolve(path__default['default'].join(__dirname, 'server-worker-thread.js'));
+    const filteredExecArgs = process.execArgv.filter((v) => !/^--(debug|inspect)/.test(v));
+    const forkOpts = {
+        execArgv: filteredExecArgs,
+        env: process.env,
+        cwd: process.cwd(),
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
+    };
+    // start a new child process of the CLI process
+    // for the http and web socket server
+    let serverProcess = child_process.fork(workerPath, [], forkOpts);
+    const receiveFromMain = (msg) => {
+        // get a message from main to send to the worker
+        if (serverProcess) {
+            serverProcess.send(msg);
+        }
+        else if (msg.closeServer) {
+            sendToMain({ serverClosed: true });
+        }
+    };
+    // get a message from the worker and send it to main
+    serverProcess.on('message', (msg) => {
+        if (msg.serverClosed && serverP...
+const workerPath = require.resolve(path__default['default'].join(__dirname, 'server-worker-thread.js'))
+const filteredExecArgs = process.execArgv.filter((v) => !/^--(debug|inspect)/.test(v))
+const forkOpts = {
+        execArgv: filteredExecArgs,
+        env: process.env,
+        cwd: process.cwd(),
+        stdio: ['pipe', 'pipe', 'pipe', 'ipc'],
+    }
+_tmp_6.execArgv = filteredExecArgs
+_tmp_6.env = process.env
+_tmp_6.cwd = process.cwd()
+_tmp_6.stdio = ['pipe', 'pipe', 'pipe', 'ipc']
+let serverProcess = child_process.fork(workerPath, [], forkOpts)

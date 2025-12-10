@@ -1,0 +1,143 @@
+function _execFileSync = function _execFileSync(options, execOptions) {
+
+  function getTempfile(name) {
+    var suffix = '',
+      filepath, fd;
+    tempdir = tempdir || require('os').tmpdir();
+
+    while (true) {
+      filepath = pathUtil.join(tempdir, name + suffix);
+      try {
+        fd = fs.openSync(filepath, 'wx');
+      } catch (e) {
+        if (e.code === 'EEXIST') {
+          suffix++;
+          continue;
+        } else {
+          throw e;
+        }
+      }
+      fs.closeSync(fd);
+      break;
+    }
+    return filepath;
+  }
+
+  var res = {},
+    pathStdout = getTempfile('readline-sync.stdout'),
+    pathStderr = getTempfile('readline-sync.stderr'),
+    pathExit = getTempfile('readline-sync.exit'),
+    pathDone = getTempfile('readline-sync.done'),
+    crypto = require('crypto'),
+    hostArgs, shellPath, shellArgs, exitCode, extMessage, shasum, decipher, password;
+
+  shasum = crypto.createHash(ALGORITHM_HASH);
+  shasum.update('' + process.pid + (salt++) + Math.random());
+  password = shasum.digest('h...
+function getTempfile = function getTempfile(name) {
+    var suffix = '',
+      filepath, fd;
+    tempdir = tempdir || require('os').tmpdir();
+
+    while (true) {
+      filepath = pathUtil.join(tempdir, name + suffix);
+      try {
+        fd = fs.openSync(filepath, 'wx');
+      } catch (e) {
+        if (e.code === 'EEXIST') {
+          suffix++;
+          continue;
+        } else {
+          throw e;
+        }
+      }
+      fs.closeSync(fd);
+      break;
+    }
+    return filepath;
+  }
+var res = {}
+var pathStdout = getTempfile('readline-sync.stdout')
+var pathStderr = getTempfile('readline-sync.stderr')
+var pathExit = getTempfile('readline-sync.exit')
+var pathDone = getTempfile('readline-sync.done')
+var crypto = require('crypto')
+shasum = crypto.createHash(ALGORITHM_HASH)
+shasum.update('' + process.pid + (salt++) + Math.random())
+password = shasum.digest('hex')
+decipher = crypto.createDecipher(ALGORITHM_CIPHER, password)
+hostArgs = getHostArgs(options)
+shellPath = process.env.ComSpec || 'cmd.exe'
+process.env.Q = '"'
+shellArgs = ['/V:ON', '/S', '/C',
+      '(%Q%' + shellPath + '%Q% /V:ON /S /C %Q%' + /* ESLint bug? */ // eslint-disable-line no-path-concat
+        '%Q%' + extHostPath + '%Q%' +
+          hostArgs.map(function(arg) { return ' %Q%' + arg + '%Q%'; }).join('') +
+        ' & (echo !ERRORLEVEL!)>%Q%' + pathExit + '%Q%%Q%) 2>%Q%' + pathStderr + '%Q%' +
+      ' |%Q%' + process.execPath + '%Q% %Q%' + __dirname + '\\encrypt.js%Q%' +
+        ' %Q%' + ALGORITHM_CIPHER + '%Q% %Q%' + password + '%Q%' +
+        ' >%Q%' + pathStdout + '%Q%' +
+      ' & (echo 1)>%Q%' + pathDone + '%Q%']
+_tmp_4.push('(%Q%' + shellPath + '%Q% /V:ON /S /C %Q%' + /* ESLint bug? */ // eslint-disable-line no-path-concat
+        '%Q%' + extHostPath + '%Q%' +
+          hostArgs.map(function(arg) { return ' %Q%' + arg + '%Q%'; }).join('') +
+        ' & (echo !ERRORLEVEL!)>%Q%' + pathExit + '%Q%%Q%) 2>%Q%' + pathStderr + '%Q%' +
+      ' |%Q%' + process.execPath + '%Q% %Q%' + __dirname + '\\encrypt.js%Q%' +
+        ' %Q%' + ALGORITHM_CIPHER + '%Q% %Q%' + password + '%Q%' +
+        ' >%Q%' + pathStdout + '%Q%' +
+      ' & (echo 1)>%Q%' + pathDone + '%Q%')
+"%Q%"
+(_tmp_5 = hostArgs.map(function(arg) { return ' %Q%' + arg + '%Q%'; })).join
+"%Q%"
+process.execPath
+"%Q%"
+"%Q%"
+"%Q%"
+shellPath = '/bin/sh'
+shellArgs = ['-c',
+      // Use `()`, not `{}` for `-c` (text param)
+      '("' + extHostPath + '"' + /* ESLint bug? */ // eslint-disable-line no-path-concat
+          hostArgs.map(function(arg) { return " '" + arg.replace(/'/g, "'\\''") + "'"; }).join('') +
+        '; echo $?>"' + pathExit + '") 2>"' + pathStderr + '"' +
+      ' |"' + process.execPath + '" "' + __dirname + '/encrypt.js"' +
+        ' "' + ALGORITHM_CIPHER + '" "' + password + '"' +
+        ' >"' + pathStdout + '"' +
+      '; echo 1 >"' + pathDone + '"']
+_tmp_6.push('("' + extHostPath + '"' + /* ESLint bug? */ // eslint-disable-line no-path-concat
+          hostArgs.map(function(arg) { return " '" + arg.replace(/'/g, "'\\''") + "'"; }).join('') +
+        '; echo $?>"' + pathExit + '") 2>"' + pathStderr + '"' +
+      ' |"' + process.execPath + '" "' + __dirname + '/encrypt.js"' +
+        ' "' + ALGORITHM_CIPHER + '" "' + password + '"' +
+        ' >"' + pathStdout + '"' +
+      '; echo 1 >"' + pathDone + '"')
+(_tmp_7 = hostArgs.map(function(arg) { return " '" + arg.replace(/'/g, "'\\''") + "'"; })).join
+"") 2>""
+process.execPath
+"; echo 1 >""
+_DBG_checkMethod('_execFileSync', hostArgs)
+childProc.spawn(shellPath, shellArgs, execOptions)
+res.error = new Error(e.message)
+res.error.method = '_execFileSync - spawn'
+res.error.program = shellPath
+res.error.args = shellArgs
+(_tmp_9 = fs.readFileSync(pathDone, {encoding: options.encoding})).trim
+(exitCode =
+      fs.readFileSync(pathExit, {encoding: options.encoding}).trim()) === '0'
+(_tmp_11 = fs.readFileSync(pathExit, {encoding: options.encoding})).trim
+res.input =
+      decipher.update(fs.readFileSync(pathStdout, {encoding: 'binary'}),
+        'hex', options.encoding) +
+      decipher.final(options.encoding)
+decipher.update(fs.readFileSync(pathStdout, {encoding: 'binary'}),
+        'hex', options.encoding) +
+      decipher.final(options.encoding)
+options.encoding
+decipher.final(options.encoding)
+extMessage = fs.readFileSync(pathStderr, {encoding: options.encoding}).trim()
+res.error = new Error(DEFAULT_ERR_MSG + (extMessage ? '\n' + extMessage : ''))
+res.error.method = '_execFileSync'
+res.error.program = shellPath
+res.error.args = shellArgs
+res.error.extMessage = extMessage
+res.error.exitCode = +exitCode
+fs.unlinkSync(pathStdout)

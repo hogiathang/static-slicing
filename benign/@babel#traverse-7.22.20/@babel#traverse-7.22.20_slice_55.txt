@@ -1,0 +1,37 @@
+function replaceExpressionWithStatements = function replaceExpressionWithStatements(nodes) {
+  this.resync();
+  const nodesAsSequenceExpression = toSequenceExpression(nodes, this.scope);
+  if (nodesAsSequenceExpression) {
+    return this.replaceWith(nodesAsSequenceExpression)[0].get("expressions");
+  }
+  const functionParent = this.getFunctionParent();
+  const isParentAsync = functionParent == null ? void 0 : functionParent.is("async");
+  const isParentGenerator = functionParent == null ? void 0 : functionParent.is("generator");
+  const container = arrowFunctionExpression([], blockStatement(nodes));
+  this.replaceWith(callExpression(container, []));
+  const callee = this.get("callee");
+  (0, _helperHoistVariables.default)(callee.get("body"), id => {
+    this.scope.push({
+      id
+    });
+  }, "var");
+  const completionRecords = this.get("callee").getCompletionRecords();
+  for (const path of completionRecords) {
+    if (!path.isExpressionStatement()) continue;
+    const loop = path.findParent(path => path.isLoop());
+    if (l...
+this.resync()
+const nodesAsSequenceExpression = toSequenceExpression(nodes, this.scope)
+const functionParent = this.getFunctionParent()
+const isParentAsync = functionParent == null ? void 0 : functionParent.is("async")
+const isParentGenerator = functionParent == null ? void 0 : functionParent.is("generator")
+const container = arrowFunctionExpression([], blockStatement(nodes))
+this.replaceWith(callExpression(container, []))
+const callee = this.get("callee")
+(0, _helperHoistVariables.default)(callee.get("body"), id => {
+    this.scope.push({
+      id
+    });
+  }, "var")
+"var"
+const completionRecords = this.get("callee").getCompletionRecords()

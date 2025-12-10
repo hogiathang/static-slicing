@@ -1,0 +1,5 @@
+_tmp_43.deleteFile = <lambda>98
+file.exists(fileName)
+stat = fs.lstatSync(fileName)
+stat.isDirectory()
+fs.unlinkSync(fileName)

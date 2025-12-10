@@ -1,0 +1,44 @@
+_proto.fetch = function fetch(url, cb) {
+    // Only in the browser please
+    if (typeof window === 'undefined') {
+      throw new Error('WebLoader can only by used in a browser');
+    }
+    var ajax = new XMLHttpRequest();
+    var loading = true;
+    ajax.onreadystatechange = function () {
+      if (ajax.readyState === 4 && loading) {
+        loading = false;
+        if (ajax.status === 0 || ajax.status === 200) {
+          cb(null, ajax.responseText);
+        } else {
+          cb({
+            status: ajax.status,
+            content: ajax.responseText
+          });
+        }
+      }
+    };
+    url += (url.indexOf('?') === -1 ? '?' : '&') + 's=' + new Date().getTime();
+    ajax.open('GET', url, this.async);
+    ajax.send();
+  }
+typeof window === 'undefined'
+throw new Error('WebLoader can only by used in a browser');
+var ajax = new XMLHttpRequest()
+var loading = true
+ajax.onreadystatechange = function () {
+      if (ajax.readyState === 4 && loading) {
+        loading = false;
+        if (ajax.status === 0 || ajax.status === 200) {
+          cb(null, ajax.responseText);
+        } else {
+          cb({
+            status: ajax.status,
+            content: ajax.responseText
+          });
+        }
+      }
+    }
+url += (url.indexOf('?') === -1 ? '?' : '&') + 's=' + new Date().getTime()
+ajax.open('GET', url, this.async)
+ajax.send()

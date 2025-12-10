@@ -1,0 +1,127 @@
+exports.minify = function(files, dest, options) {
+    options = options || {};
+
+    grunt.verbose.write('Minifying with UglifyJS...');
+
+    var totalCode = '';
+    var minifyOptions = {
+      compress: options.compress,
+      ie8: options.ie8,
+      keep_fnames: options.keep_fnames,
+      mangle: options.mangle,
+      output: options.output || {},
+      parse: options.parse || {},
+      sourceMap: options.sourceMap,
+      toplevel: options.toplevel,
+      wrap: options.wrap
+    };
+
+    if (options.banner) {
+      minifyOptions.output.preamble = normalizeLf(options.banner);
+    }
+
+    if (options.beautify) {
+      minifyOptions.output.beautify = true;
+      for (var key in options.beautify) {
+        minifyOptions.output[key] = options.beautify[key];
+      }
+    }
+
+    var cache;
+    if (options.nameCache) {
+      try {
+        cache = JSON.parse(grunt.file.read(options.nameCache));
+      } catch (ex) {
+        cache = {};
+      }
+    }
+
+    if (minifyOptions.mangle) {
+      if (type...
+options = options || {}
+grunt.verbose.write('Minifying with UglifyJS...')
+var totalCode = ''
+var minifyOptions = {
+      compress: options.compress,
+      ie8: options.ie8,
+      keep_fnames: options.keep_fnames,
+      mangle: options.mangle,
+      output: options.output || {},
+      parse: options.parse || {},
+      sourceMap: options.sourceMap,
+      toplevel: options.toplevel,
+      wrap: options.wrap
+    }
+_tmp_6.compress = options.compress
+_tmp_6.ie8 = options.ie8
+_tmp_6.keep_fnames = options.keep_fnames
+_tmp_6.mangle = options.mangle
+_tmp_6.output = options.output || {}
+_tmp_6.parse = options.parse || {}
+_tmp_6.sourceMap = options.sourceMap
+_tmp_6.toplevel = options.toplevel
+_tmp_6.wrap = options.wrap
+options.banner
+minifyOptions.output.preamble = normalizeLf(options.banner)
+options.beautify
+minifyOptions.output.beautify = true
+_iterator_0 = <operator>.iterator(options.beautify)
+minifyOptions.output[key] = options.beautify[key]
+options.nameCache
+cache = JSON.parse(grunt.file.read(options.nameCache))
+cache = {}
+minifyOptions.mangle
+typeof minifyOptions.mangle !== 'object'
+minifyOptions.mangle = {}
+minifyOptions.mangle.cache = toCache(cache, 'vars')
+!Array.isArray(minifyOptions.mangle.reserved)
+minifyOptions.mangle.reserved = []
+minifyOptions.mangle.properties
+typeof minifyOptions.mangle.properties !== 'object'
+minifyOptions.mangle.properties = {}
+minifyOptions.mangle.properties.cache = toCache(cache, 'props')
+!Array.isArray(minifyOptions.mangle.properties.reserved)
+minifyOptions.mangle.properties.reserved = []
+options.reserveDOMProperties
+domprops.forEach(function(name) {
+            UglifyJS.push_uniq(minifyOptions.mangle.properties.reserved, name);
+          })
+options.exceptionsFiles
+options.exceptionsFiles.forEach(function(file) {
+          try {
+            var obj = JSON.parse(grunt.file.read(file));
+            if (minifyOptions.mangle && obj.vars) {
+              obj.vars.forEach(function(name) {
+                UglifyJS.push_uniq(minifyOptions.mangle.reserved, name);
+              });
+            }
+            if (minifyOptions.mangle.properties && obj.props) {
+              obj.props.forEach(function(name) {
+                UglifyJS.push_uniq(minifyOptions.mangle.properties.reserved, name);
+              });
+            }
+          } catch (ex) {
+            grunt.warn(ex);
+          }
+        })
+var result = UglifyJS.minify(files.reduce(function(o, file) {
+      var code = grunt.file.read(file);
+      totalCode += code;
+
+      // The src file name must be relative to the source map for things to work
+      var basename = path.basename(file);
+      var fileDir = path.dirname(file);
+      var sourceMapDir = path.dirname(options.generatedSourceMapName);
+      var relativePath = path.relative(sourceMapDir, fileDir);
+      var pathPrefix = relativePath ? relativePath + path.sep : '';
+
+      // Convert paths to use forward slashes for sourcemap use in the browser
+      o[uriPath(pathPrefix + basename)] = code;
+      return o;
+    }, {}), minifyOptions)
+result.error
+throw result.error;
+options.nameCache
+grunt.file.write(options.nameCache, JSON.stringify(cache, function(key, value) {
+        return value instanceof UglifyJS.Dictionary ? value.toObject() : value;
+      }))

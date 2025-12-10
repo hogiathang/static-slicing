@@ -1,0 +1,16 @@
+_tmp_32.ForInStatement = ForInStatement
+const left = path.get("left")
+!left.isIdentifier()
+const binding = path.scope.getBinding(left.node.name)
+!binding
+binding.scope.getFunctionParent() !== path.scope.getFunctionParent()
+(_tmp_92 = binding.path).isVariableDeclarator
+binding.path.parentPath.parentPath.isForInStatement({
+        left: binding.path.parent
+      })
+_tmp_94.left = binding.path.parent
+binding.path.parent.declarations.length > 1
+binding.path.node.init
+removeOrVoid(binding.path)
+path.node.left = t.variableDeclaration("var", [t.variableDeclarator(left.node)])
+binding.path = path.get("left").get("declarations")[0]

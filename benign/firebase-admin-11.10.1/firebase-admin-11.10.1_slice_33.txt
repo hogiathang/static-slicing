@@ -1,0 +1,57 @@
+getAccountId() {
+        if (validator.isNonEmptyString(this.serviceAccountId)) {
+            return Promise.resolve(this.serviceAccountId);
+        }
+        const request = {
+            method: 'GET',
+            url: 'http://metadata/computeMetadata/v1/instance/service-accounts/default/email',
+            headers: {
+                'Metadata-Flavor': 'Google',
+            },
+        };
+        const client = new api_request_1.HttpClient();
+        return client.send(request).then((response) => {
+            if (!response.text) {
+                throw new CryptoSignerError({
+                    code: CryptoSignerErrorCode.INTERNAL_ERROR,
+                    message: 'HTTP Response missing payload',
+                });
+            }
+            this.serviceAccountId = response.text;
+            return response.text;
+        }).catch((err) => {
+            throw new CryptoSignerError({
+                code: CryptoSignerErrorCode.INVALID_CREDENTIAL,
+                message: 'Failed ...
+validator.isNonEmptyString(this.serviceAccountId)
+const request = {
+            method: 'GET',
+            url: 'http://metadata/computeMetadata/v1/instance/service-accounts/default/email',
+            headers: {
+                'Metadata-Flavor': 'Google',
+            },
+        }
+_tmp_18.method = "GET"
+_tmp_18.url = "http://metadata/computeMetadata/v1/instance/service-accounts/default/email"
+_tmp_18.headers = {
+                'Metadata-Flavor': 'Google',
+            }
+_tmp_19.Metadata-Flavor = "Google"
+const client = new api_request_1.HttpClient()
+client.send(request).then((response) => {
+            if (!response.text) {
+                throw new CryptoSignerError({
+                    code: CryptoSignerErrorCode.INTERNAL_ERROR,
+                    message: 'HTTP Response missing payload',
+                });
+            }
+            this.serviceAccountId = response.text;
+            return response.text;
+        }).catch((err) => {
+            throw new CryptoSignerError({
+                code: CryptoSignerErrorCode.INVALID_CREDENTIAL,
+                message: 'Failed to determine service account. Make sure to initialize ' +
+                    'the SDK with a service account credential. Alternatively specify a service ' +
+                    `account with iam.serviceAccounts.signBlob permission. Original error: ${err}`,
+            });
+        })

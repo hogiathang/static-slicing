@@ -1,0 +1,38 @@
+const start = async () => {
+    if (isRunning) return
+    isRunning = true
+
+    while (isRunning) {
+      try {
+        const batches = await fetch(nodeId)
+        if (isRunning) {
+          const availableBatches = filterUnassignedBatches(batches)
+
+          if (availableBatches.length > 0) {
+            availableBatches.forEach(assignTopicPartition)
+            try {
+              await workerQueue.push(...availableBatches)
+            } finally {
+              availableBatches.forEach(unassignTopicPartition)
+            }
+          }
+        }
+      } catch (error) {
+        isRunning = false
+        emitter.emit('end')
+        throw error
+      }
+    }
+    emitter.emit('end')
+  }
+isRunning = true
+const batches = await fetch(nodeId)
+const availableBatches = filterUnassignedBatches(batches)
+availableBatches.length > 0
+availableBatches.forEach(assignTopicPartition)
+await workerQueue.push(...availableBatches)
+availableBatches.forEach(unassignTopicPartition)
+isRunning = false
+emitter.emit('end')
+throw error
+emitter.emit('end')

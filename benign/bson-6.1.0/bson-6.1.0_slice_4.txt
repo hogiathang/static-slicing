@@ -1,0 +1,300 @@
+function serializeInto = function serializeInto(
+  buffer: Uint8Array,
+  object: Document,
+  checkKeys: boolean,
+  startingIndex: number,
+  depth: number,
+  serializeFunctions: boolean,
+  ignoreUndefined: boolean,
+  path: Set<Document> | null
+): number {
+  if (path == null) {
+    // We are at the root input
+    if (object == null) {
+      // ONLY the root should turn into an empty document
+      // BSON Empty document has a size of 5 (LE)
+      buffer[0] = 0x05;
+      buffer[1] = 0x00;
+      buffer[2] = 0x00;
+      buffer[3] = 0x00;
+      // All documents end with null terminator
+      buffer[4] = 0x00;
+      return 5;
+    }
+
+    if (Array.isArray(object)) {
+      throw new BSONError('serialize does not support an array as the root input');
+    }
+    if (typeof object !== 'object') {
+      throw new BSONError('serialize does not support non-object as the root input');
+    } else if ('_bsontype' in object && typeof object._bsontype === 'string') {
+      throw new BSONError(`BSON types cannot be serialized as...
+path == null
+object == null
+Array.isArray(object)
+throw new BSONError('serialize does not support an array as the root input');
+typeof object !== 'object'
+throw new BSONError('serialize does not support non-object as the root input');
+'_bsontype' in object && typeof object._bsontype === 'string'
+throw new BSONError(`BSON types cannot be serialized as a document`);
+isDate(object) ||
+      isRegExp(object) ||
+      isUint8Array(object) ||
+      isAnyArrayBuffer(object)
+isRegExp(object)
+isUint8Array(object)
+isAnyArrayBuffer(object)
+throw new BSONError(`date, regexp, typedarray, and arraybuffer cannot be BSON documents`);
+path = new Set()
+path.add(object)
+let index = startingIndex + 4
+Array.isArray(object)
+i < object.length
+<operator>.formatString("", i, "")
+let value = object[i]
+typeof value?.toBSON === 'function'
+value = value.toBSON()
+typeof value === 'string'
+index = serializeString(buffer, key, value, index)
+typeof value === 'number'
+index = serializeNumber(buffer, key, value, index)
+typeof value === 'bigint'
+index = serializeBigInt(buffer, key, value, index)
+typeof value === 'boolean'
+index = serializeBoolean(buffer, key, value, index)
+value instanceof Date || isDate(value)
+index = serializeDate(buffer, key, value, index)
+value === undefined
+index = serializeNull(buffer, key, value, index)
+value === null
+index = serializeNull(buffer, key, value, index)
+isUint8Array(value)
+index = serializeBuffer(buffer, key, value, index)
+value instanceof RegExp || isRegExp(value)
+index = serializeRegExp(buffer, key, value, index)
+typeof value === 'object' && value._bsontype == null
+index = serializeObject(
+          buffer,
+          key,
+          value,
+          index,
+          checkKeys,
+          depth,
+          serializeFunctions,
+          ignoreUndefined,
+          path
+        )
+typeof value === 'object' &&
+        value[Symbol.for('@@mdb.bson.version')] !== constants.BSON_MAJOR_VERSION
+value[Symbol.for('@@mdb.bson.version')] !== constants.BSON_MAJOR_VERSION
+throw new BSONVersionError();
+value._bsontype === 'ObjectId'
+index = serializeObjectId(buffer, key, value, index)
+value._bsontype === 'Decimal128'
+index = serializeDecimal128(buffer, key, value, index)
+value._bsontype === 'Long' || value._bsontype === 'Timestamp'
+index = serializeLong(buffer, key, value, index)
+value._bsontype === 'Double'
+index = serializeDouble(buffer, key, value, index)
+typeof value === 'function' && serializeFunctions
+index = serializeFunction(buffer, key, value, index)
+value._bsontype === 'Code'
+index = serializeCode(
+          buffer,
+          key,
+          value,
+          index,
+          checkKeys,
+          depth,
+          serializeFunctions,
+          ignoreUndefined,
+          path
+        )
+value._bsontype === 'Binary'
+index = serializeBinary(buffer, key, value, index)
+value._bsontype === 'BSONSymbol'
+index = serializeSymbol(buffer, key, value, index)
+value._bsontype === 'DBRef'
+index = serializeDBRef(buffer, key, value, index, depth, serializeFunctions, path)
+value._bsontype === 'BSONRegExp'
+index = serializeBSONRegExp(buffer, key, value, index)
+value._bsontype === 'Int32'
+index = serializeInt32(buffer, key, value, index)
+value._bsontype === 'MinKey' || value._bsontype === 'MaxKey'
+index = serializeMinMax(buffer, key, value, index)
+typeof value._bsontype !== 'undefined'
+<operator>.formatString("Unrecognized or invalid _bsontype: ", String(value._bsontype), "")
+object instanceof Map || isMap(object)
+const iterator = object.entries()
+let done = false
+!done
+const entry = iterator.next()
+done = !!entry.done
+continue;
+const key = entry.value[0]
+let value = entry.value[1]
+typeof value?.toBSON === 'function'
+value = value.toBSON()
+const type = typeof value
+typeof key === 'string' && !ignoreKeys.has(key)
+key.match(regexp) != null
+throw new BSONError('key ' + key + ' must not contain null bytes');
+'$' === key[0]
+throw new BSONError('key ' + key + " must not start with '$'");
+~key.indexOf('.')
+throw new BSONError('key ' + key + " must not contain '.'");
+type === 'string'
+index = serializeString(buffer, key, value, index)
+type === 'number'
+index = serializeNumber(buffer, key, value, index)
+type === 'bigint'
+index = serializeBigInt(buffer, key, value, index)
+type === 'boolean'
+index = serializeBoolean(buffer, key, value, index)
+value instanceof Date || isDate(value)
+index = serializeDate(buffer, key, value, index)
+value === null || (value === undefined && ignoreUndefined === false)
+index = serializeNull(buffer, key, value, index)
+isUint8Array(value)
+index = serializeBuffer(buffer, key, value, index)
+value instanceof RegExp || isRegExp(value)
+index = serializeRegExp(buffer, key, value, index)
+type === 'object' && value._bsontype == null
+index = serializeObject(
+          buffer,
+          key,
+          value,
+          index,
+          checkKeys,
+          depth,
+          serializeFunctions,
+          ignoreUndefined,
+          path
+        )
+typeof value === 'object' &&
+        value[Symbol.for('@@mdb.bson.version')] !== constants.BSON_MAJOR_VERSION
+value[Symbol.for('@@mdb.bson.version')] !== constants.BSON_MAJOR_VERSION
+throw new BSONVersionError();
+value._bsontype === 'ObjectId'
+index = serializeObjectId(buffer, key, value, index)
+type === 'object' && value._bsontype === 'Decimal128'
+index = serializeDecimal128(buffer, key, value, index)
+value._bsontype === 'Long' || value._bsontype === 'Timestamp'
+index = serializeLong(buffer, key, value, index)
+value._bsontype === 'Double'
+index = serializeDouble(buffer, key, value, index)
+value._bsontype === 'Code'
+index = serializeCode(
+          buffer,
+          key,
+          value,
+          index,
+          checkKeys,
+          depth,
+          serializeFunctions,
+          ignoreUndefined,
+          path
+        )
+typeof value === 'function' && serializeFunctions
+index = serializeFunction(buffer, key, value, index)
+value._bsontype === 'Binary'
+index = serializeBinary(buffer, key, value, index)
+value._bsontype === 'BSONSymbol'
+index = serializeSymbol(buffer, key, value, index)
+value._bsontype === 'DBRef'
+index = serializeDBRef(buffer, key, value, index, depth, serializeFunctions, path)
+value._bsontype === 'BSONRegExp'
+index = serializeBSONRegExp(buffer, key, value, index)
+value._bsontype === 'Int32'
+index = serializeInt32(buffer, key, value, index)
+value._bsontype === 'MinKey' || value._bsontype === 'MaxKey'
+index = serializeMinMax(buffer, key, value, index)
+typeof value._bsontype !== 'undefined'
+<operator>.formatString("Unrecognized or invalid _bsontype: ", String(value._bsontype), "")
+typeof object?.toBSON === 'function'
+object = object.toBSON()
+object != null && typeof object !== 'object'
+throw new BSONError('toBSON function did not return an object');
+_iterator_0 = <operator>.iterator(Object.keys(object))
+let value = object[key]
+typeof value?.toBSON === 'function'
+value = value.toBSON()
+const type = typeof value
+typeof key === 'string' && !ignoreKeys.has(key)
+key.match(regexp) != null
+throw new BSONError('key ' + key + ' must not contain null bytes');
+'$' === key[0]
+throw new BSONError('key ' + key + " must not start with '$'");
+~key.indexOf('.')
+throw new BSONError('key ' + key + " must not contain '.'");
+type === 'string'
+index = serializeString(buffer, key, value, index)
+type === 'number'
+index = serializeNumber(buffer, key, value, index)
+type === 'bigint'
+index = serializeBigInt(buffer, key, value, index)
+type === 'boolean'
+index = serializeBoolean(buffer, key, value, index)
+value instanceof Date || isDate(value)
+index = serializeDate(buffer, key, value, index)
+value === undefined
+index = serializeNull(buffer, key, value, index)
+value === null
+index = serializeNull(buffer, key, value, index)
+isUint8Array(value)
+index = serializeBuffer(buffer, key, value, index)
+value instanceof RegExp || isRegExp(value)
+index = serializeRegExp(buffer, key, value, index)
+type === 'object' && value._bsontype == null
+index = serializeObject(
+          buffer,
+          key,
+          value,
+          index,
+          checkKeys,
+          depth,
+          serializeFunctions,
+          ignoreUndefined,
+          path
+        )
+typeof value === 'object' &&
+        value[Symbol.for('@@mdb.bson.version')] !== constants.BSON_MAJOR_VERSION
+value[Symbol.for('@@mdb.bson.version')] !== constants.BSON_MAJOR_VERSION
+throw new BSONVersionError();
+value._bsontype === 'ObjectId'
+index = serializeObjectId(buffer, key, value, index)
+type === 'object' && value._bsontype === 'Decimal128'
+index = serializeDecimal128(buffer, key, value, index)
+value._bsontype === 'Long' || value._bsontype === 'Timestamp'
+index = serializeLong(buffer, key, value, index)
+value._bsontype === 'Double'
+index = serializeDouble(buffer, key, value, index)
+value._bsontype === 'Code'
+index = serializeCode(
+          buffer,
+          key,
+          value,
+          index,
+          checkKeys,
+          depth,
+          serializeFunctions,
+          ignoreUndefined,
+          path
+        )
+typeof value === 'function' && serializeFunctions
+index = serializeFunction(buffer, key, value, index)
+value._bsontype === 'Binary'
+index = serializeBinary(buffer, key, value, index)
+value._bsontype === 'BSONSymbol'
+index = serializeSymbol(buffer, key, value, index)
+value._bsontype === 'DBRef'
+index = serializeDBRef(buffer, key, value, index, depth, serializeFunctions, path)
+value._bsontype === 'BSONRegExp'
+index = serializeBSONRegExp(buffer, key, value, index)
+value._bsontype === 'Int32'
+index = serializeInt32(buffer, key, value, index)
+value._bsontype === 'MinKey' || value._bsontype === 'MaxKey'
+index = serializeMinMax(buffer, key, value, index)
+typeof value._bsontype !== 'undefined'
+<operator>.formatString("Unrecognized or invalid _bsontype: ", String(value._bsontype), "")
+path.delete(object)

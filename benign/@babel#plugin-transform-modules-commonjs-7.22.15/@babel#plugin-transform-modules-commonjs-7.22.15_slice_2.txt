@@ -1,0 +1,11 @@
+_tmp_7.AssignmentExpression = AssignmentExpression
+const left = path.get("left")
+left.isIdentifier()
+left.isPattern()
+const ids = left.getOuterBindingIdentifiers()
+const localName = Object.keys(ids).filter(localName => {
+          if (localName !== "module" && localName !== "exports") return false;
+          return this.scope.getBinding(localName) === path.scope.getBinding(localName);
+        })[0]
+0
+const right = path.get("right")

@@ -1,0 +1,44 @@
+_resolve(target, state, options) {
+
+        let resolved;
+
+        if (this.type === 'value' &&
+            state.mainstay.shadow &&
+            options.shadow !== false) {
+
+            resolved = state.mainstay.shadow.get(this.absolute(state));
+        }
+
+        if (resolved === undefined) {
+            resolved = Reach(target, this.path, { iterables: this.iterables, functions: true });
+        }
+
+        if (this.adjust) {
+            resolved = this.adjust(resolved);
+        }
+
+        if (this.map) {
+            const mapped = this.map.get(resolved);
+            if (mapped !== undefined) {
+                resolved = mapped;
+            }
+        }
+
+        if (state.mainstay) {
+            state.mainstay.tracer.resolve(state, this, resolved);
+        }
+
+        return resolved;
+    }
+this.type === 'value' &&
+            state.mainstay.shadow &&
+            options.shadow !== false
+state.mainstay.shadow
+options.shadow !== false
+resolved = state.mainstay.shadow.get(this.absolute(state))
+resolved === undefined
+resolved = Reach(target, this.path, { iterables: this.iterables, functions: true })
+this.adjust
+resolved = this.adjust(resolved)
+this.map
+const mapped = this.map.get(resolved)

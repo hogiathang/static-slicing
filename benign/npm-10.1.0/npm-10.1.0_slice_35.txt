@@ -1,0 +1,36 @@
+getNodes (tree, arg) {
+    // if it's just a name, return packages by that name
+    const { validForOldPackages: valid } = validName(arg)
+    if (valid) {
+      return tree.inventory.query('packageName', arg)
+    }
+
+    // if it's a location, get that node
+    const maybeLoc = arg.replace(/\\/g, '/').replace(/\/+$/, '')
+    const nodeByLoc = tree.inventory.get(maybeLoc)
+    if (nodeByLoc) {
+      return [nodeByLoc]
+    }
+
+    // maybe a path to a node_modules folder
+    const maybePath = relative(this.npm.prefix, resolve(maybeLoc))
+      .replace(/\\/g, '/').replace(/\/+$/, '')
+    const nodeByPath = tree.inventory.get(maybePath)
+    if (nodeByPath) {
+      return [nodeByPath]
+    }
+
+    // otherwise, try to select all matching nodes
+    try {
+      return this.getNodesByVersion(tree, arg)
+    } catch (er) {
+      return []
+    }
+  }
+valid = _tmp_11.validForOldPackages
+const maybeLoc = arg.replace(/\\/g, '/').replace(/\/+$/, '')
+const nodeByLoc = tree.inventory.get(maybeLoc)
+const maybePath = relative(this.npm.prefix, resolve(maybeLoc))
+      .replace(/\\/g, '/').replace(/\/+$/, '')
+replace
+const nodeByPath = tree.inventory.get(maybePath)

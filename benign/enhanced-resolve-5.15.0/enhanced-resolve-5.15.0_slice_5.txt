@@ -1,0 +1,69 @@
+(request, resolveContext, callback) => {
+				// When there is no description file, abort
+				if (!request.descriptionFilePath) return callback();
+				if (
+					// When the description file is inherited from parent, abort
+					// (There is no description file inside of this package)
+					request.relativePath !== "." ||
+					request.request === undefined
+				)
+					return callback();
+
+				const remainingRequest =
+					request.query || request.fragment
+						? (request.request === "." ? "./" : request.request) +
+						  request.query +
+						  request.fragment
+						: request.request;
+				const exportsField =
+					/** @type {ExportsField|null|undefined} */
+					(
+						DescriptionFileUtils.getField(
+							/** @type {JsonObject} */ (request.descriptionFileData),
+							this.fieldName
+						)
+					);
+				if (!exportsField) return callback();
+
+				if (request.directory) {
+					return callback(
+						new Error(
+							`Resolving to directories is not possible with the exports field (reque...
+!request.descriptionFilePath
+request.relativePath !== "." ||
+					request.request === undefined
+request.request === undefined
+const remainingRequest =
+					request.query || request.fragment
+						? (request.request === "." ? "./" : request.request) +
+						  request.query +
+						  request.fragment
+						: request.request
+request.query || request.fragment ? (request.request === "." ? "./" : request.request) +
+						  request.query +
+						  request.fragment : request.request
+(request.request === "." ? "./" : request.request) +
+						  request.query +
+						  request.fragment
+request.query
+request.fragment
+request.request
+const exportsField =
+					/** @type {ExportsField|null|undefined} */
+					(
+						DescriptionFileUtils.getField(
+							/** @type {JsonObject} */ (request.descriptionFileData),
+							this.fieldName
+						)
+					)
+DescriptionFileUtils.getField(
+							/** @type {JsonObject} */ (request.descriptionFileData),
+							this.fieldName
+						)
+request.descriptionFileData
+this.fieldName
+!exportsField
+request.directory
+let fieldProcessor = this.fieldProcessorCache.get(
+						/** @type {JsonObject} */ (request.descriptionFileData)
+					)

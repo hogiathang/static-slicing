@@ -1,0 +1,20 @@
+styles.forEach(styleData => {
+            if (styleData instanceof Map) {
+                if (styleData.has('easing')) {
+                    collectedEasing = styleData.get('easing');
+                    styleData.delete('easing');
+                }
+                if (!containsDynamicStyles) {
+                    for (let value of styleData.values()) {
+                        if (value.toString().indexOf(SUBSTITUTION_EXPR_START) >= 0) {
+                            containsDynamicStyles = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        })
+styleData instanceof Map
+styleData.has('easing')
+collectedEasing = styleData.get('easing')
+styleData.delete('easing')

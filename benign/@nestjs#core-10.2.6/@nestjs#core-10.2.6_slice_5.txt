@@ -1,0 +1,18 @@
+getInstanceByMetatype(metatype) {
+        if (!this.moduleContext) {
+            return;
+        }
+        const collection = this.container.getModules();
+        const moduleRef = collection.get(this.moduleContext);
+        if (!moduleRef) {
+            return;
+        }
+        const injectables = moduleRef.injectables;
+        return injectables.get(metatype);
+    }
+!this.moduleContext
+const collection = this.container.getModules()
+const moduleRef = collection.get(this.moduleContext)
+!moduleRef
+const injectables = moduleRef.injectables
+injectables.get(metatype)

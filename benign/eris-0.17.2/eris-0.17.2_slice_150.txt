@@ -1,0 +1,49 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"GUILD_SCHEDULED_EVENT_UPDATE"
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+const event = guild.events.get(packet.d.id)
+let oldEvent = null
+oldEvent = {
+                        channel: event.channel,
+                        description: event.description,
+                        entityID: event.entityID,
+                        enitityMetadata: event.entityMetadata,
+                        entityType: event.entityType,
+                        image: event.image,
+                        name: event.name,
+                        privacyLevel: event.privacyLevel,
+                        scheduledEndTime: event.scheduledEndTime,
+                        scheduledStartTime: event.scheduledStartTime,
+                        status: event.status
+                    }
+_tmp_365.channel = event.channel
+_tmp_365.description = event.description
+_tmp_365.entityID = event.entityID
+_tmp_365.enitityMetadata = event.entityMetadata
+_tmp_365.entityType = event.entityType
+_tmp_365.image = event.image
+_tmp_365.name = event.name
+_tmp_365.privacyLevel = event.privacyLevel
+_tmp_365.scheduledEndTime = event.scheduledEndTime
+_tmp_365.scheduledStartTime = event.scheduledStartTime
+_tmp_365.status = event.status
+this.emit("guildScheduledEventUpdate", guild.events.update(packet.d, this.client), oldEvent)

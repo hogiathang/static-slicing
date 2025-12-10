@@ -1,0 +1,63 @@
+function* cors(next) {
+    
+    /**
+     * Access Control Allow Origin
+     */
+    var origin;
+
+    if (typeof options.origin === 'string') {
+      origin = options.origin;
+    } else if (options.origin === true) {
+      origin = this.get('origin') || '*';
+    } else if (options.origin === false) {
+      origin = options.origin;
+    } else if (typeof options.origin === 'function') {
+      origin = options.origin(this.request);
+    }
+
+    if (origin === false) return;
+
+    this.set('Access-Control-Allow-Origin', origin);
+
+    /**
+     * Access Control Expose Headers
+     */
+    if (options.expose) {
+      this.set('Access-Control-Expose-Headers', options.expose);
+    }
+
+    /**
+     * Access Control Max Age
+     */
+    if (options.maxAge) {
+      this.set('Access-Control-Max-Age', options.maxAge);
+    }
+
+    /**
+     * Access Control Allow Credentials
+     */
+    if (options.credentials === true) {
+      this.set('Access-Control-Allow-Credentials', 'true');
+    }
+
+    /**
+     * Acce...
+typeof options.origin === 'string'
+origin = options.origin
+options.origin === true
+origin = this.get('origin') || '*'
+options.origin === false
+origin = options.origin
+typeof options.origin === 'function'
+origin = options.origin(this.request)
+origin === false
+this.set('Access-Control-Allow-Origin', origin)
+options.expose
+this.set('Access-Control-Expose-Headers', options.expose)
+options.maxAge
+this.set('Access-Control-Max-Age', options.maxAge)
+options.credentials === true
+this.set('Access-Control-Allow-Credentials', 'true')
+this.set('Access-Control-Allow-Methods', options.methods)
+options.headers
+headers = this.get('access-control-request-headers')

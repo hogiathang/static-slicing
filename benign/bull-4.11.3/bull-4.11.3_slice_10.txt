@@ -1,0 +1,4 @@
+await new Promise(resolve =>
+    child.send({ cmd: 'init', value: processFile }, resolve)
+  )
+child.send({ cmd: 'init', value: processFile }, resolve)

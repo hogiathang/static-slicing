@@ -1,0 +1,3 @@
+_tmp_150.validate = validate
+!process.env.BABEL_TYPES_8_BREAKING
+const match = /\.(\w+)$/.exec(key)

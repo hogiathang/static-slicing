@@ -1,0 +1,167 @@
+new Promise(function dispatchXhrRequest(resolve, reject) {
+    let requestData = config.data;
+    const requestHeaders = AxiosHeaders.from(config.headers).normalize();
+    const responseType = config.responseType;
+    let onCanceled;
+    function done() {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(onCanceled);
+      }
+
+      if (config.signal) {
+        config.signal.removeEventListener('abort', onCanceled);
+      }
+    }
+
+    if (utils.isFormData(requestData)) {
+      if (platform.isStandardBrowserEnv || platform.isStandardBrowserWebWorkerEnv) {
+        requestHeaders.setContentType(false); // Let the browser set it
+      } else {
+        requestHeaders.setContentType('multipart/form-data;', false); // mobile/desktop app frameworks
+      }
+    }
+
+    let request = new XMLHttpRequest();
+
+    // HTTP basic authentication
+    if (config.auth) {
+      const username = config.auth.username || '';
+      const password = config.auth.password ? unescape(encodeUR...
+let requestData = config.data
+const requestHeaders = AxiosHeaders.from(config.headers).normalize()
+const responseType = config.responseType
+function done = function done() {
+      if (config.cancelToken) {
+        config.cancelToken.unsubscribe(onCanceled);
+      }
+
+      if (config.signal) {
+        config.signal.removeEventListener('abort', onCanceled);
+      }
+    }
+utils.isFormData(requestData)
+platform.isStandardBrowserEnv || platform.isStandardBrowserWebWorkerEnv
+requestHeaders.setContentType(false)
+requestHeaders.setContentType('multipart/form-data;', false)
+let request = new XMLHttpRequest()
+config.auth
+const username = config.auth.username || ''
+const password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : ''
+requestHeaders.set('Authorization', 'Basic ' + btoa(username + ':' + password))
+const fullPath = buildFullPath(config.baseURL, config.url)
+request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true)
+request.timeout = config.timeout
+function onloadend = function onloadend() {
+      if (!request) {
+        return;
+      }
+      // Prepare the response
+      const responseHeaders = AxiosHeaders.from(
+        'getAllResponseHeaders' in request && request.getAllResponseHeaders()
+      );
+      const responseData = !responseType || responseType === 'text' || responseType === 'json' ?
+        request.responseText : request.response;
+      const response = {
+        data: responseData,
+        status: request.status,
+        statusText: request.statusText,
+        headers: responseHeaders,
+        config,
+        request
+      };
+
+      settle(function _resolve(value) {
+        resolve(value);
+        done();
+      }, function _reject(err) {
+        reject(err);
+        done();
+      }, response);
+
+      // Clean up request
+      request = null;
+    }
+'onloadend' in request
+request.onloadend = onloadend
+request.onreadystatechange = function handleLoad() {
+        if (!request || request.readyState !== 4) {
+          return;
+        }
+
+        // The request errored out and we didn't get a response, this will be
+        // handled by onerror instead
+        // With one exception: request that using file: protocol, most browsers
+        // will return status as 0 even though it's a successful request
+        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
+          return;
+        }
+        // readystate handler is calling before onerror or ontimeout handlers,
+        // so we should call onloadend on the next 'tick'
+        setTimeout(onloadend);
+      }
+request.onabort = function handleAbort() {
+      if (!request) {
+        return;
+      }
+
+      reject(new AxiosError('Request aborted', AxiosError.ECONNABORTED, config, request));
+
+      // Clean up request
+      request = null;
+    }
+request.onerror = function handleError() {
+      // Real errors are hidden from us by the browser
+      // onerror should only fire if it's a network error
+      reject(new AxiosError('Network Error', AxiosError.ERR_NETWORK, config, request));
+
+      // Clean up request
+      request = null;
+    }
+request.ontimeout = function handleTimeout() {
+      let timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
+      const transitional = config.transitional || transitionalDefaults;
+      if (config.timeoutErrorMessage) {
+        timeoutErrorMessage = config.timeoutErrorMessage;
+      }
+      reject(new AxiosError(
+        timeoutErrorMessage,
+        transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
+        config,
+        request));
+
+      // Clean up request
+      request = null;
+    }
+platform.isStandardBrowserEnv
+const xsrfValue = (config.withCredentials || isURLSameOrigin(fullPath))
+        && config.xsrfCookieName && cookies.read(config.xsrfCookieName)
+cookies.read(config.xsrfCookieName)
+requestHeaders.set(config.xsrfHeaderName, xsrfValue)
+requestData === undefined && requestHeaders.setContentType(null)
+'setRequestHeader' in request
+utils.forEach(requestHeaders.toJSON(), function setRequestHeader(val, key) {
+        request.setRequestHeader(key, val);
+      })
+!utils.isUndefined(config.withCredentials)
+request.withCredentials = !!config.withCredentials
+responseType && responseType !== 'json'
+request.responseType = config.responseType
+typeof config.onDownloadProgress === 'function'
+request.addEventListener('progress', progressEventReducer(config.onDownloadProgress, true))
+typeof config.onUploadProgress === 'function' && request.upload
+request.upload.addEventListener('progress', progressEventReducer(config.onUploadProgress))
+config.cancelToken || config.signal
+onCanceled = cancel => {
+        if (!request) {
+          return;
+        }
+        reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel);
+        request.abort();
+        request = null;
+      }
+config.cancelToken && config.cancelToken.subscribe(onCanceled)
+config.signal
+config.signal.aborted ? onCanceled() : config.signal.addEventListener('abort', onCanceled)
+const protocol = parseProtocol(fullPath)
+protocol && platform.protocols.indexOf(protocol) === -1
+request.send(requestData || null)

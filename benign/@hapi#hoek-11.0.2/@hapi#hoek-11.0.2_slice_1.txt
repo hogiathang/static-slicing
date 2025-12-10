@@ -1,0 +1,53 @@
+module.exports = internals.clone = function (obj, options = {}, _seen = null) {
+
+    if (typeof obj !== 'object' ||
+        obj === null) {
+
+        return obj;
+    }
+
+    let clone = internals.clone;
+    let seen = _seen;
+
+    if (options.shallow) {
+        if (options.shallow !== true) {
+            return internals.cloneWithShallow(obj, options);
+        }
+
+        clone = (value) => value;
+    }
+    else if (seen) {
+        const lookup = seen.get(obj);
+        if (lookup) {
+            return lookup;
+        }
+    }
+    else {
+        seen = new Map();
+    }
+
+    // Built-in object types
+
+    const baseProto = Types.getInternalProto(obj);
+    if (baseProto === Types.buffer) {
+        return Buffer && Buffer.from(obj);              // $lab:coverage:ignore$
+    }
+
+    if (baseProto === Types.date) {
+        return new Date(obj.getTime());
+    }
+
+    if (baseProto === Types.regex) {
+        return new RegExp(obj);
+    }
+
+    // Generic objects
+
+    const newObj = internals.base(ob...
+typeof obj !== 'object' ||
+        obj === null
+obj === null
+let clone = internals.clone
+let seen = _seen
+options.shallow
+const lookup = seen.get(obj)

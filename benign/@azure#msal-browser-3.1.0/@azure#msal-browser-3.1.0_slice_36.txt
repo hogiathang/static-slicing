@@ -1,0 +1,34 @@
+new Promise((resolve, reject) => {
+            this.handshakeResolvers.set(req.responseId, { resolve, reject });
+            this.timeoutId = window.setTimeout(() => {
+                /*
+                 * Throw an error if neither HandshakeResponse nor original Handshake request are received in a reasonable timeframe.
+                 * This typically suggests an event handler stopped propagation of the Handshake request but did not respond to it on the MessageChannel port
+                 */
+                window.removeEventListener("message", this.windowListener, false);
+                this.messageChannel.port1.close();
+                this.messageChannel.port2.close();
+                this.handshakeEvent.end({
+                    extensionHandshakeTimedOut: true,
+                    success: false,
+                });
+                reject(createBrowserAuthError(nativeHandshakeTimeout));
+                this.handshakeResolvers.delete(req.responseId);
+            }, this.hands...
+this.handshakeResolvers.set(req.responseId, { resolve, reject })
+this.timeoutId = window.setTimeout(() => {
+                /*
+                 * Throw an error if neither HandshakeResponse nor original Handshake request are received in a reasonable timeframe.
+                 * This typically suggests an event handler stopped propagation of the Handshake request but did not respond to it on the MessageChannel port
+                 */
+                window.removeEventListener("message", this.windowListener, false);
+                this.messageChannel.port1.close();
+                this.messageChannel.port2.close();
+                this.handshakeEvent.end({
+                    extensionHandshakeTimedOut: true,
+                    success: false,
+                });
+                reject(createBrowserAuthError(nativeHandshakeTimeout));
+                this.handshakeResolvers.delete(req.responseId);
+            }, this.handshakeTimeoutMs)
+this.handshakeTimeoutMs

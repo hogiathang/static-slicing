@@ -1,0 +1,10 @@
+options = options === void 0 ? {} : options
+jsiiDeprecationWarnings._aws_cdk_core_DockerBuildOptions(options)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, this.fromBuild)
+throw error;
+const buildArgs = options.buildArgs || {}
+options.file && path_1.isAbsolute(options.file)
+<operator>.formatString(""file" must be relative to the docker build directory. Got ", options.file, "")
+const input = JSON.stringify({ path, ...options })
+const tagHash = crypto.createHash('sha256').update(input).digest('hex')

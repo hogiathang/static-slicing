@@ -1,0 +1,22 @@
+exports.listUser = function (appId, roomName, credentials, fn) {
+    var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId + '/rooms/' + roomName + '/users',
+        method: 'GET',
+        headers: headers
+    };
+    get(credentials, options, fn);
+}
+var options = {
+        host: host,
+        port: 80,
+        path: '/v3/apps/' + appId + '/rooms/' + roomName + '/users',
+        method: 'GET',
+        headers: headers
+    }
+_tmp_2.host = host
+_tmp_2.port = 80
+_tmp_2.path = '/v3/apps/' + appId + '/rooms/' + roomName + '/users'
+_tmp_2.method = "GET"
+_tmp_2.headers = headers

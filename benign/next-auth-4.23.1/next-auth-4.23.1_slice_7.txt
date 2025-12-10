@@ -1,0 +1,47 @@
+_regenerator.default.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _ref5 = options !== null && options !== void 0 ? options : {}, _ref5$callbackUrl = _ref5.callbackUrl, callbackUrl = _ref5$callbackUrl === void 0 ? window.location.href : _ref5$callbackUrl, _ref5$redirect = _ref5.redirect, redirect = _ref5$redirect === void 0 ? true : _ref5$redirect;
+            baseUrl = (0, _utils.apiBaseUrl)(__NEXTAUTH);
+            _context6.next = 4;
+            return getProviders();
+
+          case 4:
+            providers = _context6.sent;
+
+            if (providers) {
+              _context6.next = 8;
+              break;
+            }
+
+            window.location.href = "".concat(baseUrl, "/error");
+            return _context6.abrupt("return");
+
+          case 8:
+            if (!(!provider || !(provider in providers))) {
+              _context6.next = 11;
+              break;
+            }
+
+          ...
+1
+_context6.prev = _context6.next
+4
+providers = _context6.sent
+_context6.next = 8
+break;
+8
+!(!provider || !(provider in providers))
+_context6.next = 11
+break;
+36
+data = _context6.sent
+!(redirect || !isSupportingReturn)
+_context6.next = 42
+break;
+42
+error = new URL(data.url).searchParams.get("error")
+!res.ok
+_context6.next = 46
+break;

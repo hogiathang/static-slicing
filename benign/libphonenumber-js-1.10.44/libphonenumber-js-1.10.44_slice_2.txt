@@ -1,0 +1,12 @@
+getPatternForRegExp(pattern) {
+		let regExp = this.cache.get(pattern)
+		if (!regExp) {
+			regExp = new RegExp('^' + pattern)
+			this.cache.put(pattern, regExp)
+		}
+		return regExp
+	}
+let regExp = this.cache.get(pattern)
+!regExp
+regExp = new RegExp('^' + pattern)
+this.cache.put(pattern, regExp)

@@ -1,0 +1,8 @@
+_tmp_6.return = return
+queue = undefined
+_iterator_3 = <operator>.iterator(eventNames)
+const set = getEventProducers(instance, eventName)
+set.delete(producer)
+set.size === 0
+const producers = producersMap.get(instance)
+producers.delete(eventName)

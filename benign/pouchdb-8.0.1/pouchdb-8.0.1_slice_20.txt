@@ -1,0 +1,31 @@
+api._destroy = function (opts, callback) {
+    var dbStore;
+    var leveldownName = functionName(leveldown);
+    /* istanbul ignore else */
+    if (dbStores.has(leveldownName)) {
+      dbStore = dbStores.get(leveldownName);
+    } else {
+      return callDestroy(name, callback);
+    }
+
+    /* istanbul ignore else */
+    if (dbStore.has(name)) {
+      levelChanges.removeAllListeners(name);
+
+      dbStore.get(name).close(function () {
+        dbStore.delete(name);
+        callDestroy(name, callback);
+      });
+    } else {
+      callDestroy(name, callback);
+    }
+  }
+var leveldownName = functionName(leveldown)
+dbStores.has(leveldownName)
+dbStore = dbStores.get(leveldownName)
+dbStore.has(name)
+levelChanges.removeAllListeners(name)
+dbStore.get(name).close(function () {
+        dbStore.delete(name);
+        callDestroy(name, callback);
+      })

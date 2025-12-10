@@ -1,0 +1,62 @@
+toJSON(_, inputs) {
+        let fixed = {};
+        let emitInputs = inputs == null;
+        inputs = inputs || /* @__PURE__ */ new Map();
+        let inputsNextIndex = 0;
+        for (let name in this) {
+          if (!Object.prototype.hasOwnProperty.call(this, name)) {
+            continue;
+          }
+          if (name === "parent" || name === "proxyCache")
+            continue;
+          let value = this[name];
+          if (Array.isArray(value)) {
+            fixed[name] = value.map((i) => {
+              if (typeof i === "object" && i.toJSON) {
+                return i.toJSON(null, inputs);
+              } else {
+                return i;
+              }
+            });
+          } else if (typeof value === "object" && value.toJSON) {
+            fixed[name] = value.toJSON(null, inputs);
+          } else if (name === "source") {
+            let inputId = inputs.get(value.input);
+            if (inputId == null) {
+              inputId = inputsNextIndex;
+              inputs.s...
+let fixed = {}
+let emitInputs = inputs == null
+inputs = inputs || /* @__PURE__ */ new Map()
+let inputsNextIndex = 0
+!(_result_119 = _iterator_119.next()).done
+(_tmp_1096 = Object.prototype.hasOwnProperty).call
+continue;
+name === "parent" || name === "proxyCache"
+continue;
+let value = this[name]
+Array.isArray(value)
+fixed[name] = value.map((i) => {
+              if (typeof i === "object" && i.toJSON) {
+                return i.toJSON(null, inputs);
+              } else {
+                return i;
+              }
+            })
+typeof value === "object" && value.toJSON
+fixed[name] = value.toJSON(null, inputs)
+name === "source"
+let inputId = inputs.get(value.input)
+inputId == null
+inputId = inputsNextIndex
+inputs.set(value.input, inputsNextIndex)
+inputsNextIndex++
+fixed[name] = {
+              inputId,
+              start: value.start,
+              end: value.end
+            }
+_tmp_1097.inputId = inputId
+_tmp_1097.start = value.start
+_tmp_1097.end = value.end
+fixed[name] = value

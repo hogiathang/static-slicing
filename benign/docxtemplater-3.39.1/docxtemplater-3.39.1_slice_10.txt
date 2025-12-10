@@ -1,0 +1,176 @@
+server.listen(port, async function () {
+	let client;
+	try {
+		client = await remote(options);
+	} catch (e) {
+		exit(e);
+	}
+	async function mockConsole() {
+		await client.execute(() => {
+			if (window.myLogs) {
+				return;
+			}
+			window.myLogs = [];
+			console.log = function () {
+				const myLog = [];
+				for (let i = 0, len = arguments.length; i < len; i++) {
+					myLog.push(arguments[i]);
+				}
+				window.myLogs.push(myLog);
+			};
+			console.error = function () {
+				const myLog = [];
+				for (let i = 0, len = arguments.length; i < len; i++) {
+					myLog.push(arguments[i]);
+				}
+				window.myLogs.push(myLog);
+			};
+			console.warn = function () {
+				const myLog = [];
+				for (let i = 0, len = arguments.length; i < len; i++) {
+					myLog.push(arguments[i]);
+				}
+				window.myLogs.push(myLog);
+			};
+		});
+	}
+	async function getConsole() {
+		return await client.execute(() => {
+			if (!window.myLogs) {
+				return "[]";
+			}
+			return JSON.stringify(window.myLogs);
+		});
+	}
+	await m...
+client = await remote(options)
+exit(e)
+function mockConsole = async function mockConsole() {
+		await client.execute(() => {
+			if (window.myLogs) {
+				return;
+			}
+			window.myLogs = [];
+			console.log = function () {
+				const myLog = [];
+				for (let i = 0, len = arguments.length; i < len; i++) {
+					myLog.push(arguments[i]);
+				}
+				window.myLogs.push(myLog);
+			};
+			console.error = function () {
+				const myLog = [];
+				for (let i = 0, len = arguments.length; i < len; i++) {
+					myLog.push(arguments[i]);
+				}
+				window.myLogs.push(myLog);
+			};
+			console.warn = function () {
+				const myLog = [];
+				for (let i = 0, len = arguments.length; i < len; i++) {
+					myLog.push(arguments[i]);
+				}
+				window.myLogs.push(myLog);
+			};
+		});
+	}
+function getConsole = async function getConsole() {
+		return await client.execute(() => {
+			if (!window.myLogs) {
+				return "[]";
+			}
+			return JSON.stringify(window.myLogs);
+		});
+	}
+await mockConsole()
+let logIndex = 0
+const int2 = setInterval(async function () {
+		if (logPostRequest) {
+			clearInterval(int2);
+			return;
+		}
+		await mockConsole();
+		const logOutput = await getConsole();
+		const logs = JSON.parse(logOutput);
+		logs.slice(logIndex).forEach(function (log) {
+			console.log("BROWSERLOG:", log.join(" , "));
+		});
+		logIndex = logs.length;
+	}, 100)
+100
+function waitForText = async function waitForText(selector, timeout) {
+		return await client.waitUntil(
+			async function getText() {
+				logE("client.selector" + selector);
+				const el = await client.$(selector);
+				logE("el.isExisting" + selector);
+				if (!(await el.isExisting())) {
+					return false;
+				}
+				logE("el.getText" + selector);
+				const text = await el.getText();
+				if (text.length > 0) {
+					return true;
+				}
+			},
+			{
+				timeout,
+				timeoutMsg: `Expected to find text in ${selector} but did not find it`,
+			}
+		);
+	}
+function waitForExist = async function waitForExist(selector, timeout) {
+		return await client.waitUntil(
+			async function exists() {
+				logE("waitForExist.selector" + selector);
+				const el = await client.$(selector);
+				logE("waitForExist.selector" + selector);
+				if (await el.isExisting()) {
+					return true;
+				}
+			},
+			{
+				timeout,
+				timeoutMsg: `Expected to find ${selector} but did not find it`,
+			}
+		);
+	}
+function test = async function test() {
+		let interval;
+		try {
+			if (+new Date() - startTime > timeoutConnection * second) {
+				exit(
+					`Aborting connection to webdriver after ${timeoutConnection} seconds`
+				);
+			}
+
+			const mochaUrl = url.parse(
+				`http://localhost:${port}/test/mocha.html`,
+				true
+			);
+			delete mochaUrl.search;
+			if (process.env.filter) {
+				mochaUrl.query.grep = process.env.filter;
+				mochaUrl.query.invert = "true";
+			}
+			mochaUrl.query.browser = fullBrowserName;
+			await client.url(url.format(mochaUrl));
+
+			await waitForExist("li.test", 120000);
+			let index = 0;
+			let running = false;
+			interval = setInterval(async function () {
+				if (interval === null || running) {
+					return;
+				}
+				running = true;
+				logE("get h1,h2");
+				const texts = await client.$$("li h1, li h2");
+				if (index === texts.length) {
+					return;
+				}
+				for (let i = index, len = texts.length; i < len; i++) {
+					if (interval === null) {
+						return;
+					}
+					logE("get ...

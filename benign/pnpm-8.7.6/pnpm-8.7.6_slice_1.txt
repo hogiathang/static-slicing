@@ -1,0 +1,8 @@
+_tmp_2 = process.version.slice(1).split('.')
+const COMPATIBILITY_PAGE = `Visit https://r.pnpm.io/comp to see the list of past pnpm versions with respective Node.js version support.`
+major < 16 || major == 16 && minor < 14
+<operator>.formatString("ERROR: This version of pnpm requires at least Node.js v16.14
+The current version of Node.js is ", process.version, "
+", COMPATIBILITY_PAGE, "")
+process.version
+process.exit(1)

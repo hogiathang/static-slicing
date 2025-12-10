@@ -1,0 +1,4 @@
+this.pluralResolver.getSuffixes(language, options).forEach(suffix => {
+                  send([language], key + suffix, options[`defaultValue${suffix}`] || defaultValue);
+                })
+send([language], key + suffix, options[`defaultValue${suffix}`] || defaultValue)

@@ -1,0 +1,156 @@
+function handleFetcherAction = async function handleFetcherAction(
+    key: string,
+    routeId: string,
+    path: string,
+    match: AgnosticDataRouteMatch,
+    requestMatches: AgnosticDataRouteMatch[],
+    submission: Submission
+  ) {
+    interruptActiveLoads();
+    fetchLoadMatches.delete(key);
+
+    if (!match.route.action && !match.route.lazy) {
+      let error = getInternalRouterError(405, {
+        method: submission.formMethod,
+        pathname: path,
+        routeId: routeId,
+      });
+      setFetcherError(key, routeId, error);
+      return;
+    }
+
+    // Put this fetcher into it's submitting state
+    let existingFetcher = state.fetchers.get(key);
+    let fetcher = getSubmittingFetcher(submission, existingFetcher);
+    state.fetchers.set(key, fetcher);
+    updateState({ fetchers: new Map(state.fetchers) });
+
+    // Call the action for the fetcher
+    let abortController = new AbortController();
+    let fetchRequest = createClientSideRequest(
+      init.history,
+      path,
+      abortController.signal,
+...
+interruptActiveLoads()
+fetchLoadMatches.delete(key)
+!match.route.action && !match.route.lazy
+let existingFetcher = state.fetchers.get(key)
+let fetcher = getSubmittingFetcher(submission, existingFetcher)
+state.fetchers.set(key, fetcher)
+updateState({ fetchers: new Map(state.fetchers) })
+let abortController = new AbortController()
+let fetchRequest = createClientSideRequest(
+      init.history,
+      path,
+      abortController.signal,
+      submission
+    )
+init.history
+abortController.signal
+fetchControllers.set(key, abortController)
+let originatingLoadId = incrementingLoadId
+let actionResult = await callLoaderOrAction(
+      "action",
+      fetchRequest,
+      match,
+      requestMatches,
+      manifest,
+      mapRouteProperties,
+      basename
+    )
+"action"
+fetchRequest.signal.aborted
+isRedirectResult(actionResult)
+isErrorResult(actionResult)
+isDeferredResult(actionResult)
+throw getInternalRouterError(400, { type: "defer-action" });
+let nextLocation = state.navigation.location || state.location
+let revalidationRequest = createClientSideRequest(
+      init.history,
+      nextLocation,
+      abortController.signal
+    )
+init.history
+abortController.signal
+let routesToUse = inFlightDataRoutes || dataRoutes
+let matches =
+      state.navigation.state !== "idle"
+        ? matchRoutes(routesToUse, state.navigation.location, basename)
+        : state.matches
+state.navigation.state !== "idle" ? matchRoutes(routesToUse, state.navigation.location, basename) : state.matches
+matchRoutes(routesToUse, state.navigation.location, basename)
+state.matches
+invariant(matches, "Didn't find any matches after fetcher action")
+let loadId = ++incrementingLoadId
+fetchReloadIds.set(key, loadId)
+let loadFetcher = getLoadingFetcher(submission, actionResult.data)
+state.fetchers.set(key, loadFetcher)
+_tmp_232 = getMatchesToLoad(
+      init.history,
+      state,
+      matches,
+      submission,
+      nextLocation,
+      isRevalidationRequired,
+      cancelledDeferredRoutes,
+      cancelledFetcherLoads,
+      fetchLoadMatches,
+      fetchRedirectIds,
+      routesToUse,
+      basename,
+      { [match.route.id]: actionResult.data },
+      undefined // No need to send through errors since we short circuit above
+    )
+init.history
+_tmp_231._computed_object_property_5 = actionResult.data
+revalidatingFetchers
+      .filter((rf) => rf.key !== key)
+      .forEach((rf) => {
+        let staleKey = rf.key;
+        let existingFetcher = state.fetchers.get(staleKey);
+        let revalidatingFetcher = getLoadingFetcher(
+          undefined,
+          existingFetcher ? existingFetcher.data : undefined
+        );
+        state.fetchers.set(staleKey, revalidatingFetcher);
+        if (fetchControllers.has(staleKey)) {
+          abortFetcher(staleKey);
+        }
+        if (rf.controller) {
+          fetchControllers.set(staleKey, rf.controller);
+        }
+      })
+rf.key !== key
+<lambda>40
+updateState({ fetchers: new Map(state.fetchers) })
+let abortPendingFetchRevalidations = () =>
+      revalidatingFetchers.forEach((rf) => abortFetcher(rf.key))
+abortController.signal.addEventListener(
+      "abort",
+      abortPendingFetchRevalidations
+    )
+"abort"
+_tmp_239 = await callLoadersAndMaybeResolveData(
+        state.matches,
+        matches,
+        matchesToLoad,
+        revalidatingFetchers,
+        revalidationRequest
+      )
+await callLoadersAndMaybeResolveData(
+        state.matches,
+        matches,
+        matchesToLoad,
+        revalidatingFetchers,
+        revalidationRequest
+      )
+state.matches
+abortController.signal.aborted
+abortController.signal.removeEventListener(
+      "abort",
+      abortPendingFetchRevalidations
+    )
+"abort"
+fetchReloadIds.delete(key)
+fetchControllers.delete(key)

@@ -1,0 +1,34 @@
+sigListeners[sig] = function listener () {
+      /* istanbul ignore if */
+      if (!processOk(commonjsGlobal.process)) {
+        return
+      }
+      // If there are no other listeners, an exit is coming!
+      // Simplest way: remove us and then re-send the signal.
+      // We know that this will kill the process, so we can
+      // safely emit now.
+      var listeners = process.listeners(sig);
+      if (listeners.length === emitter.count) {
+        unload();
+        emit('exit', null, sig);
+        /* istanbul ignore next */
+        emit('afterexit', null, sig);
+        /* istanbul ignore next */
+        if (isWin && sig === 'SIGHUP') {
+          // "SIGHUP" throws an `ENOSYS` error on Windows,
+          // so use a supported signal instead
+          sig = 'SIGINT';
+        }
+        /* istanbul ignore next */
+        process.kill(process.pid, sig);
+      }
+    }
+!processOk(commonjsGlobal.process)
+var listeners = process.listeners(sig)
+listeners.length === emitter.count
+unload()
+emit('exit', null, sig)
+emit('afterexit', null, sig)
+isWin && sig === 'SIGHUP'
+sig = 'SIGINT'
+process.kill(process.pid, sig)

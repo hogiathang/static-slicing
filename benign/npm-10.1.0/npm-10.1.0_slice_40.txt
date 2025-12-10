@@ -1,0 +1,4 @@
+path = path === void 0 ? process.cwd() : path
+log.pause()
+log.disableProgress()
+const initFile = this.npm.config.get('init-module')

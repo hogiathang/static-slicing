@@ -1,0 +1,10 @@
+this.traverse(function (serviceIdentifier, value) {
+                var lookupActivations = lookup.hasKey(serviceIdentifier) ? lookup.get(serviceIdentifier) : undefined;
+                if (lookupActivations !== undefined) {
+                    var filteredValues = value.filter(function (lookupValue) {
+                        return !lookupActivations.some(function (moduleActivation) { return lookupValue === moduleActivation; });
+                    });
+                    _this._setValue(serviceIdentifier, filteredValues);
+                }
+            })
+var lookupActivations = lookup.hasKey(serviceIdentifier) ? lookup.get(serviceIdentifier) : undefined

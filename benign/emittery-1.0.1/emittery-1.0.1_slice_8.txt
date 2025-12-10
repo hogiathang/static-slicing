@@ -1,0 +1,34 @@
+off(eventNames, listener) {
+		assertListener(listener);
+
+		eventNames = Array.isArray(eventNames) ? eventNames : [eventNames];
+		for (const eventName of eventNames) {
+			assertEventName(eventName);
+			const set = getListeners(this, eventName);
+			if (set) {
+				set.delete(listener);
+				if (set.size === 0) {
+					const events = eventsMap.get(this);
+					events.delete(eventName);
+				}
+			}
+
+			this.logIfDebugEnabled('unsubscribe', eventName, undefined);
+
+			if (!isMetaEvent(eventName)) {
+				emitMetaEvent(this, listenerRemoved, {eventName, listener});
+			}
+		}
+	}
+assertListener(listener)
+eventNames = Array.isArray(eventNames) ? eventNames : [eventNames]
+_iterator_8 = <operator>.iterator(eventNames)
+assertEventName(eventName)
+const set = getListeners(this, eventName)
+set.delete(listener)
+set.size === 0
+const events = eventsMap.get(this)
+events.delete(eventName)
+this.logIfDebugEnabled('unsubscribe', eventName, undefined)
+!isMetaEvent(eventName)
+emitMetaEvent(this, listenerRemoved, {eventName, listener})

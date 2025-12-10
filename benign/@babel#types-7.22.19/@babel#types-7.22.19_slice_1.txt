@@ -1,0 +1,64 @@
+function removeTypeDuplicates = function removeTypeDuplicates(nodesIn) {
+  const nodes = Array.from(nodesIn);
+  const generics = new Map();
+  const bases = new Map();
+  const typeGroups = new Set();
+  const types = [];
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (!node) continue;
+    if (types.indexOf(node) >= 0) {
+      continue;
+    }
+    if ((0, _index.isAnyTypeAnnotation)(node)) {
+      return [node];
+    }
+    if ((0, _index.isFlowBaseAnnotation)(node)) {
+      bases.set(node.type, node);
+      continue;
+    }
+    if ((0, _index.isUnionTypeAnnotation)(node)) {
+      if (!typeGroups.has(node.types)) {
+        nodes.push(...node.types);
+        typeGroups.add(node.types);
+      }
+      continue;
+    }
+    if ((0, _index.isGenericTypeAnnotation)(node)) {
+      const name = getQualifiedName(node.id);
+      if (generics.has(name)) {
+        let existing = generics.get(name);
+        if (existing.typeParameters) {
+          if (node.typeParameters) {
+            existing.typeParamet...
+const nodes = Array.from(nodesIn)
+const generics = new Map()
+const bases = new Map()
+const typeGroups = new Set()
+__ecma.Array.factory()
+i < nodes.length
+const node = nodes[i]
+!node
+types.indexOf(node) >= 0
+continue;
+(0, _index.isAnyTypeAnnotation)(node)
+(0, _index.isFlowBaseAnnotation)(node)
+bases.set(node.type, node)
+continue;
+(0, _index.isUnionTypeAnnotation)(node)
+!typeGroups.has(node.types)
+nodes.push(...node.types)
+typeGroups.add(node.types)
+continue;
+(0, _index.isGenericTypeAnnotation)(node)
+const name = getQualifiedName(node.id)
+generics.has(name)
+let existing = generics.get(name)
+existing.typeParameters
+node.typeParameters
+existing.typeParameters.params.push(...node.typeParameters.params)
+existing.typeParameters.params = removeTypeDuplicates(existing.typeParameters.params)
+existing = node.typeParameters
+generics.set(name, node)
+continue;
+types.push(node)

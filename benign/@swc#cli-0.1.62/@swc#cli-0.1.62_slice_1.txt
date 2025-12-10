@@ -1,0 +1,11 @@
+function beforeStartCompilation = async function beforeStartCompilation(cliOptions) {
+    const { outDir , deleteDirOnStart  } = cliOptions;
+    if (deleteDirOnStart) {
+        const exists = await (0, _fs.existsSync)(outDir);
+        if (exists) {
+            rm ? await rm(outDir, recursive) : await rmdir(outDir, recursive);
+        }
+    }
+}
+deleteDirOnStart = _tmp_3.deleteDirOnStart
+const exists = await (0, _fs.existsSync)(outDir)

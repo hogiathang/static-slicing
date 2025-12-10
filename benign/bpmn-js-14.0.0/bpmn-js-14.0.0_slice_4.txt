@@ -1,0 +1,11 @@
+function getLabelColor = function getLabelColor(element, defaultColor, defaultStrokeColor) {
+  var di = getDi(element),
+      label = di.get('label');
+
+  return label && label.get('color:color') || defaultColor ||
+    getStrokeColor(element, defaultStrokeColor);
+}
+var di = getDi(element)
+var label = di.get('label')
+label && label.get('color:color') || defaultColor ||
+    getStrokeColor(element, defaultStrokeColor)

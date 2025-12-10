@@ -1,0 +1,69 @@
+function processWaitQueue = function processWaitQueue(topology) {
+    if (topology.s.state === common_1.STATE_CLOSED) {
+        drainWaitQueue(topology[kWaitQueue], new error_1.MongoTopologyClosedError());
+        return;
+    }
+    const isSharded = topology.description.type === common_1.TopologyType.Sharded;
+    const serverDescriptions = Array.from(topology.description.servers.values());
+    const membersToProcess = topology[kWaitQueue].length;
+    for (let i = 0; i < membersToProcess; ++i) {
+        const waitQueueMember = topology[kWaitQueue].shift();
+        if (!waitQueueMember) {
+            continue;
+        }
+        if (waitQueueMember[kCancelled]) {
+            continue;
+        }
+        let selectedDescriptions;
+        try {
+            const serverSelector = waitQueueMember.serverSelector;
+            selectedDescriptions = serverSelector
+                ? serverSelector(topology.description, serverDescriptions)
+                : serverDescriptions;
+        }
+        catch (e) {
+            if (...
+topology.s.state === common_1.STATE_CLOSED
+const isSharded = topology.description.type === common_1.TopologyType.Sharded
+const serverDescriptions = Array.from(topology.description.servers.values())
+const membersToProcess = topology[kWaitQueue].length
+i < membersToProcess
+const waitQueueMember = topology[kWaitQueue].shift()
+!waitQueueMember
+continue;
+waitQueueMember[kCancelled]
+continue;
+const serverSelector = waitQueueMember.serverSelector
+selectedDescriptions = serverSelector
+                ? serverSelector(topology.description, serverDescriptions)
+                : serverDescriptions
+serverSelector(topology.description, serverDescriptions)
+waitQueueMember.timer
+(0, timers_1.clearTimeout)(waitQueueMember.timer)
+waitQueueMember.callback(e)
+continue;
+selectedDescriptions.length === 0
+topology[kWaitQueue].push(waitQueueMember)
+continue;
+selectedDescriptions.length === 1
+selectedServer = topology.s.servers.get(selectedDescriptions[0].address)
+const descriptions = (0, utils_1.shuffle)(selectedDescriptions, 2)
+const server1 = topology.s.servers.get(descriptions[0].address)
+const server2 = topology.s.servers.get(descriptions[1].address)
+selectedServer =
+                server1 && server2 && server1.s.operationCount < server2.s.operationCount
+                    ? server1
+                    : server2
+server1 && server2 && server1.s.operationCount < server2.s.operationCount ? server1 : server2
+!selectedServer
+const transaction = waitQueueMember.transaction
+isSharded && transaction && transaction.isActive && selectedServer
+transaction.pinServer(selectedServer)
+waitQueueMember.timer
+(0, timers_1.clearTimeout)(waitQueueMember.timer)
+waitQueueMember.callback(undefined, selectedServer)
+topology[kWaitQueue].length > 0
+_iterator_5 = <operator>.iterator(topology.s.servers)
+process.nextTick(function scheduleServerCheck() {
+                return server.requestCheck();
+            })

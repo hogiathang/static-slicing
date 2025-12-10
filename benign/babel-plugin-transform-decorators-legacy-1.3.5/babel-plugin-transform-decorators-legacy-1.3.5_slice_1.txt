@@ -1,0 +1,4 @@
+_tmp_44.AssignmentExpression = AssignmentExpression
+!state.initializerWarningHelper
+(_tmp_50 = path.get('left')).isMemberExpression
+(_tmp_51 = path.get('left.property')).isIdentifier

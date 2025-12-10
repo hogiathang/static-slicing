@@ -1,0 +1,30 @@
+_proto2.readWithIdentifier = function readWithIdentifier(fragmentNode, fragmentRef, fragmentIdentifier, componentDisplayName, fragmentKey) {
+    var _this3 = this;
+    var _fragmentNode$metadat, _fragmentNode$metadat2, _missingLiveResolverF2, _missingLiveResolverF3;
+    var environment = this._environment;
+
+    // If fragmentRef is null or undefined, pass it directly through.
+    // This is a convenience when consuming fragments via a HOC API, when the
+    // prop corresponding to the fragment ref might be passed as null.
+    if (fragmentRef == null) {
+      return {
+        cacheKey: fragmentIdentifier,
+        data: null,
+        isMissingData: false,
+        snapshot: null,
+        storeEpoch: 0
+      };
+    }
+    var storeEpoch = environment.getStore().getEpoch();
+
+    // If fragmentRef is plural, ensure that it is an array.
+    // If it's empty, return the empty array directly before doing any more work.
+    if ((fragmentNode === null || fragmentNode === void 0 ? void 0 : (_fra...
+var _this3 = this
+var environment = this._environment
+fragmentRef == null
+var storeEpoch = environment.getStore().getEpoch()
+(fragmentNode === null || fragmentNode === void 0 ? void 0 : (_fragmentNode$metadat = fragmentNode.metadata) === null || _fragmentNode$metadat === void 0 ? void 0 : _fragmentNode$metadat.plural) === true
+!Array.isArray(fragmentRef) ? process.env.NODE_ENV !== "production" ? invariant(false, 'Relay: Expected fragment pointer%s for fragment `%s` to be ' + 'an array, instead got `%s`. Remove `@relay(plural: true)` ' + 'from fragment `%s` to allow the prop to be an object.', fragmentKey != null ? " for key `".concat(fragmentKey, "`") : '', fragmentNode.name, typeof fragmentRef, fragmentNode.name) : invariant(false) : void 0
+fragmentRef.length === 0
+var cachedValue = this._cache.get(fragmentIdentifier)

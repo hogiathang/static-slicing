@@ -1,0 +1,1 @@
+_tmp_16.push(new Promise(function (resolve) { return setTimeout(resolve, ms); }))

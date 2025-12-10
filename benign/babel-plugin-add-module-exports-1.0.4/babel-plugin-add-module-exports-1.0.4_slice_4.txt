@@ -1,0 +1,2 @@
+_tmp_5.AssignmentExpression = AssignmentExpression
+path.get('left').matchesPattern('exports.default') || path.get('left').matchesPattern('_exports.default')

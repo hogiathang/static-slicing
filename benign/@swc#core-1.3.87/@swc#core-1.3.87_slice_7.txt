@@ -1,0 +1,24 @@
+function removeRecursive = function removeRecursive(dir) {
+    for (const entry of fs.readdirSync(dir)) {
+        const entryPath = path.join(dir, entry);
+        let stats;
+        try {
+            stats = fs.lstatSync(entryPath);
+        }
+        catch (_a) {
+            continue; // Guard against https://github.com/nodejs/node/issues/4760
+        }
+        if (stats.isDirectory())
+            removeRecursive(entryPath);
+        else
+            fs.unlinkSync(entryPath);
+    }
+    fs.rmdirSync(dir);
+}
+_iterator_0 = <operator>.iterator(fs.readdirSync(dir))
+const entryPath = path.join(dir, entry)
+stats = fs.lstatSync(entryPath)
+continue;
+stats.isDirectory()
+removeRecursive(entryPath)
+fs.unlinkSync(entryPath)

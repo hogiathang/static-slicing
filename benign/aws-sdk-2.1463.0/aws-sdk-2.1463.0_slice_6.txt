@@ -1,0 +1,6 @@
+_tmp_7.constructor = SSOTokenProvider
+(_tmp_8 = AWS.Token).call
+options = options || {}
+this.expired = true
+this.profile = options.profile || process.env.AWS_PROFILE || AWS.util.defaultProfile
+this.get(options.callback || AWS.util.fn.noop)

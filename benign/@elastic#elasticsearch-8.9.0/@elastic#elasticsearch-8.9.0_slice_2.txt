@@ -1,0 +1,24 @@
+function onFlushTimeout = async function onFlushTimeout() {
+                if (chunkBytes === 0)
+                    return;
+                stats.bytes += chunkBytes;
+                const bulkBodyCopy = bulkBody.slice();
+                bulkBody.length = 0;
+                chunkBytes = 0;
+                try {
+                    const send = await semaphore();
+                    send(bulkBodyCopy);
+                }
+                catch (err) {
+                    /* istanbul ignore next */
+                    helper.abort(); // eslint-disable-line
+                }
+            }
+chunkBytes === 0
+stats.bytes += chunkBytes
+const bulkBodyCopy = bulkBody.slice()
+bulkBody.length = 0
+chunkBytes = 0
+const send = await semaphore()
+send(bulkBodyCopy)
+helper.abort()

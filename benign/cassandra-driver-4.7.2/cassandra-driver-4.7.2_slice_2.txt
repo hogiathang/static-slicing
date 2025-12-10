@@ -1,0 +1,34 @@
+function parseZipFile = async function parseZipFile(cloudOptions) {
+  if (cloudOptions.serviceUrl) {
+    // Service url already was provided
+    return;
+  }
+
+  if (!cloudOptions.secureConnectBundle) {
+    throw new TypeError('secureConnectBundle must be provided');
+  }
+
+  const data = await readFile(cloudOptions.secureConnectBundle);
+  const zip = new AdmZip(data);
+  const zipEntries = new Map(zip.getEntries().map(e => [e.entryName, e.getData()]));
+
+  if (!zipEntries.get('config.json')) {
+    throw new TypeError('Config file must be contained in secure bundle');
+  }
+
+  const config = JSON.parse(zipEntries.get('config.json').toString('utf8'));
+  if (!config['host'] || !config['port']) {
+    throw new TypeError('Config file must include host and port information');
+  }
+
+  cloudOptions.serviceUrl = `${config['host']}:${config['port']}/metadata`;
+  cloudOptions.setSslOptions(zipEntries);
+  cloudOptions.setAuthProvider(config.username, config.password);
+}
+cloudOptions.serviceUrl
+!cloudOptions.secureConnectBundle
+throw new TypeError('secureConnectBundle must be provided');
+const data = await readFile(cloudOptions.secureConnectBundle)
+const zip = new AdmZip(data)
+const zipEntries = new Map(zip.getEntries().map(e => [e.entryName, e.getData()]))
+!zipEntries.get('config.json')

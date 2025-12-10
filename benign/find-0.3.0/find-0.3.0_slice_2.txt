@@ -1,0 +1,7 @@
+var handleDir = function(skip) {
+            if (type == 'dir') action(dir);
+            if (skip) chain.next();
+            else process.nextTick(function() { traverseAsync(dir, type, action, callback, chain)});
+          }
+type == 'dir'
+process.nextTick(function() { traverseAsync(dir, type, action, callback, chain)})

@@ -1,0 +1,17 @@
+this.drawInDocument = function(isClip, isMask) {
+        doc.save();
+        if (this.get('overflow') === 'hidden') {
+          new SvgShape().M(x, y).L(x + width, y).L(x + width, y + height).L(x, y + height).Z()
+                        .transform(this.get('transform'))
+                        .insertInDocument();
+          doc.clip();
+        }
+        this.drawContent(isClip, isMask);
+        doc.restore();
+      }
+doc.save()
+this.get('overflow') === 'hidden'
+new SvgShape().M(x, y).L(x + width, y).L(x + width, y + height).L(x, y + height).Z()
+                        .transform(this.get('transform'))
+                        .insertInDocument()
+this.get('transform')

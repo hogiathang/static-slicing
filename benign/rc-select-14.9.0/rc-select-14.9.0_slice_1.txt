@@ -1,0 +1,6 @@
+patchedValues.forEach(function (item) {
+      valueCache.set(item.value, item);
+      optionCache.set(item.value, valueOptions.get(item.value) || prevOptionCache.get(item.value));
+    })
+valueCache.set(item.value, item)
+optionCache.set(item.value, valueOptions.get(item.value) || prevOptionCache.get(item.value))

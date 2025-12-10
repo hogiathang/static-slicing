@@ -1,0 +1,76 @@
+const exitHandler = err => {
+  exitHandlerCalled = true
+
+  log.disableProgress()
+
+  const hasLoadedNpm = npm?.config.loaded
+
+  if (!npm) {
+    err = err || new Error('Exit prior to setting npm in exit handler')
+    // eslint-disable-next-line no-console
+    console.error(err.stack || err.message)
+    return process.exit(1)
+  }
+
+  if (!hasLoadedNpm) {
+    err = err || new Error('Exit prior to config file resolving.')
+    // eslint-disable-next-line no-console
+    console.error(err.stack || err.message)
+  }
+
+  // only show the notification if it finished.
+  if (typeof npm.updateNotification === 'string') {
+    const { level } = log
+    log.level = 'notice'
+    log.notice('', npm.updateNotification)
+    log.level = level
+  }
+
+  let exitCode = process.exitCode || 0
+  let noLogMessage = exitCode !== 0
+  let jsonError
+
+  if (err) {
+    exitCode = 1
+    // if we got a command that just shells out to something else, then it
+    // will presumably print its own errors and exit with a proper status...
+exitHandlerCalled = true
+log.disableProgress()
+const hasLoadedNpm = npm?.config.loaded
+!npm
+!hasLoadedNpm
+err = err || new Error('Exit prior to config file resolving.')
+console.error(err.stack || err.message)
+typeof npm.updateNotification === 'string'
+level = _tmp_4.level
+log.level = 'notice'
+log.notice('', npm.updateNotification)
+log.level = level
+let exitCode = process.exitCode || 0
+let noLogMessage = exitCode !== 0
+exitCode = 1
+const isShellout = npm.isShellout
+const quietShellout = isShellout && typeof err.code === 'number' && err.code
+typeof err === 'string'
+!(err instanceof Error)
+!err.code
+const matchErrorCode = err.message.match(/^(?:Error: )?(E[A-Z]+)/)
+err.code = matchErrorCode && matchErrorCode[1]
+_iterator_1 = <operator>.iterator(['type', 'stack', 'statusCode', 'pkgid'])
+const v = err[k]
+log.verbose(k, replaceInfo(v))
+log.verbose('cwd', process.cwd())
+log.verbose('', os.type() + ' ' + os.release())
+log.verbose('node', process.version)
+log.verbose('npm ', 'v' + npm.version)
+_iterator_2 = <operator>.iterator(['code', 'syscall', 'file', 'path', 'dest', 'errno'])
+const v = err[k]
+log.error(k, v)
+files = _tmp_8.files === void 0 ? __ecma.Array.factory() : _tmp_8.files
+jsonError = json
+_iterator_3 = <operator>.iterator(files)
+<operator>.formatString("", npm.logPath, "", file, "")
+<operator>.formatString("'Log files:\n", npm.logFiles.join('\n'), "\n\n", content.trim(), "\n")
+fs.writeFileSync(file, content)
+_tmp_10.push(<operator>.formatString("\n\nFor a full report see:\n", file, ""))
+<operator>.formatString("Could not write error message to ", file, " due to ", logFileErr, "")

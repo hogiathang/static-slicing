@@ -1,0 +1,39 @@
+function parseData = async function parseData(editors, sys, req, data) {
+    const qs = req.searchParams;
+    if (!qs.has('file')) {
+        data.error = `missing file`;
+        return;
+    }
+    data.file = qs.get('file');
+    if (qs.has('line') && !isNaN(qs.get('line'))) {
+        data.line = parseInt(qs.get('line'), 10);
+    }
+    if (typeof data.line !== 'number' || data.line < 1) {
+        data.line = 1;
+    }
+    if (qs.has('column') && !isNaN(qs.get('column'))) {
+        data.column = parseInt(qs.get('column'), 10);
+    }
+    if (typeof data.column !== 'number' || data.column < 1) {
+        data.column = 1;
+    }
+    let editor = qs.get('editor');
+    if (typeof editor === 'string') {
+        editor = editor.trim().toLowerCase();
+        if (editors.some((e) => e.id === editor)) {
+            data.editor = editor;
+        }
+        else {
+            data.error = `invalid editor: ${editor}`;
+            return;
+        }
+    }
+    else {
+        data.editor = editors[0].id;
+    }
+    const stat =...
+const qs = req.searchParams
+!qs.has('file')
+data.file = qs.get('file')
+qs.has('line') && !isNaN(qs.get('line'))
+data.line = parseInt(qs.get('line'), 10)

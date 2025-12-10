@@ -1,0 +1,321 @@
+var os = require("node:os")
+var process = require("node:process")
+var stdin = require("get-stdin")
+var groupArgs = require("group-args")
+var indentString = require("indent-string")
+var escapeRegExp = require("lodash-es").escapeRegExp
+var meow = require("meow")
+var pico = require("picocolors")
+var validate = require("./src/config.js").validate
+var generate = require("./index.js").generate
+const help = `
+Usage: critical <input> [<option>]
+
+Options:
+  -b, --base              Your base directory
+  -c, --css               Your CSS Files (optional)
+  -w, --width             Viewport width
+  -h, --height            Viewport height
+  -i, --inline            Generate the HTML with inlined critical-path CSS
+  -e, --extract           Extract inlined styles from referenced stylesheets
+
+  --inlineImages          Inline images
+  --dimensions            Pass dimensions e.g. 1300x900
+  --ignore                RegExp, @type or selector to ignore
+  --ignore-[OPTION]       Pass options to postcss-discard. See https://goo.gl/HGo5YV
+  --ignoreInlinedStyles   Ignore inlined stylesheets
+  --include               RegExp, @type or selector to include
+  --include-[OPTION]      Pass options to inline-critical. See https://goo.gl/w6SHJM
+  --assetPaths            Directories/Urls where the inliner should start looking for assets
+  --user                  RFC2617 basic authorization user
+  --pass     ...
+const meowOpts = {
+  importMeta: import.meta,
+  flags: {
+    base: {
+      type: 'string',
+      shortFlag: 'b',
+    },
+    css: {
+      type: 'string',
+      shortFlag: 'c',
+      isMultiple: true,
+    },
+    width: {
+      shortFlag: 'w',
+    },
+    height: {
+      shortFlag: 'h',
+    },
+    inline: {
+      type: 'boolean',
+      shortFlag: 'i',
+    },
+    extract: {
+      type: 'boolean',
+      shortFlag: 'e',
+      default: false,
+    },
+    inlineImages: {
+      type: 'boolean',
+    },
+    ignoreInlinedStyles: {
+      type: 'boolean',
+      default: false,
+    },
+    ignore: {
+      type: 'string',
+    },
+    user: {
+      type: 'string',
+    },
+    strict: {
+      type: 'boolean',
+      default: false,
+    },
+    pass: {
+      type: 'string',
+    },
+    userAgent: {
+      type: 'string',
+      shortFlag: 'ua',
+    },
+    dimensions: {
+      type: 'string',
+      isMultiple: true,
+    },
+  },
+}
+_tmp_23.importMeta = import.meta
+_tmp_23.flags = {
+    base: {
+      type: 'string',
+      shortFlag: 'b',
+    },
+    css: {
+      type: 'string',
+      shortFlag: 'c',
+      isMultiple: true,
+    },
+    width: {
+      shortFlag: 'w',
+    },
+    height: {
+      shortFlag: 'h',
+    },
+    inline: {
+      type: 'boolean',
+      shortFlag: 'i',
+    },
+    extract: {
+      type: 'boolean',
+      shortFlag: 'e',
+      default: false,
+    },
+    inlineImages: {
+      type: 'boolean',
+    },
+    ignoreInlinedStyles: {
+      type: 'boolean',
+      default: false,
+    },
+    ignore: {
+      type: 'string',
+    },
+    user: {
+      type: 'string',
+    },
+    strict: {
+      type: 'boolean',
+      default: false,
+    },
+    pass: {
+      type: 'string',
+    },
+    userAgent: {
+      type: 'string',
+      shortFlag: 'ua',
+    },
+    dimensions: {
+      type: 'string',
+      isMultiple: true,
+    },
+  }
+_tmp_24.base = {
+      type: 'string',
+      shortFlag: 'b',
+    }
+_tmp_25.type = "string"
+_tmp_25.shortFlag = "b"
+_tmp_24.css = {
+      type: 'string',
+      shortFlag: 'c',
+      isMultiple: true,
+    }
+_tmp_26.type = "string"
+_tmp_26.shortFlag = "c"
+_tmp_26.isMultiple = true
+_tmp_24.width = {
+      shortFlag: 'w',
+    }
+_tmp_27.shortFlag = "w"
+_tmp_24.height = {
+      shortFlag: 'h',
+    }
+_tmp_28.shortFlag = "h"
+_tmp_24.inline = {
+      type: 'boolean',
+      shortFlag: 'i',
+    }
+_tmp_29.type = "boolean"
+_tmp_29.shortFlag = "i"
+_tmp_24.extract = {
+      type: 'boolean',
+      shortFlag: 'e',
+      default: false,
+    }
+_tmp_30.type = "boolean"
+_tmp_30.shortFlag = "e"
+_tmp_30.default = false
+_tmp_24.inlineImages = {
+      type: 'boolean',
+    }
+_tmp_31.type = "boolean"
+_tmp_24.ignoreInlinedStyles = {
+      type: 'boolean',
+      default: false,
+    }
+_tmp_32.type = "boolean"
+_tmp_32.default = false
+_tmp_24.ignore = {
+      type: 'string',
+    }
+_tmp_33.type = "string"
+_tmp_24.user = {
+      type: 'string',
+    }
+_tmp_34.type = "string"
+_tmp_24.strict = {
+      type: 'boolean',
+      default: false,
+    }
+_tmp_35.type = "boolean"
+_tmp_35.default = false
+_tmp_24.pass = {
+      type: 'string',
+    }
+_tmp_36.type = "string"
+_tmp_24.userAgent = {
+      type: 'string',
+      shortFlag: 'ua',
+    }
+_tmp_37.type = "string"
+_tmp_37.shortFlag = "ua"
+_tmp_24.dimensions = {
+      type: 'string',
+      isMultiple: true,
+    }
+_tmp_38.type = "string"
+_tmp_38.isMultiple = true
+const cli = meow(help, meowOpts)
+const groupKeys = ['ignore', 'inline', 'penthouse', 'target', 'request']
+const grouped = {
+  ...cli.flags,
+  ...groupArgs(
+    groupKeys,
+    {
+      delimiter: '-',
+    },
+    meowOpts
+  ),
+}
+...cli.flags
+...groupArgs(
+    groupKeys,
+    {
+      delimiter: '-',
+    },
+    meowOpts
+  )
+_tmp_41.delimiter = "-"
+const isAlias = (key) => {
+  if (isString(key) && key.length > 1) {
+    return false;
+  }
+
+  const aliases = Object.keys(meowOpts.flags)
+    .filter((k) => meowOpts.flags[k].shortFlag)
+    .map((k) => meowOpts.flags[k].shortFlag);
+
+  return aliases.includes(key);
+}
+const isEmptyObj = (val) => isObject(val) && Object.keys(val).length === 0
+const isGroupArgsDefault = (val) => isObject(val) && Object.keys(val).length === 1 && val.default
+const mapRegExpStr = (val) => {
+  if (isString(val)) {
+    const {groups} = val.match(/^\/(?<regex>[^/]+)(?:\/?(?<flags>[igmy]+))?\/$/) || {};
+    const {regex, flags} = groups || {};
+
+    return (groups && new RegExp(escapeRegExp(regex), flags)) || val;
+  }
+
+  if (Array.isArray(val)) {
+    return val.map((v) => mapRegExpStr(v));
+  }
+
+  return val;
+}
+const normalizedFlags = reduce(
+  grouped,
+  (res, val, key) => {
+    // Cleanup groupArgs mess ;)
+    if (groupKeys.includes(key)) {
+      // An empty object means param without value, just true
+      if (isEmptyObj(val)) {
+        val = true;
+      } else if (isGroupArgsDefault(val)) {
+        val = val.default;
+      }
+    }
+
+    // Cleanup camelized group keys
+    if (groupKeys.some((k) => key.includes(k)) && !validate(key, val)) {
+      return res;
+    }
+
+    if (!isAlias(key)) {
+      res[key] = mapRegExpStr(val);
+    }
+
+    return res;
+  },
+  {}
+)
+<lambda>14
+function showError = function showError(err) {
+  process.stderr.write(indentString(pico.red('Error: ') + err.message || err, 3));
+  process.stderr.write(os.EOL);
+  process.stderr.write(indentString(help, 3));
+  process.exit(1);
+}
+function run = function run(data) {
+  const {_: inputs = [], css, ...opts} = {...normalizedFlags};
+
+  // Detect css globbing
+  const cssBegin = process.argv.findIndex((el) => ['--css', '-c'].includes(el));
+  const cssEnd = process.argv.findIndex((el, index) => index > cssBegin && el.startsWith('-'));
+  const cssCheck = cssBegin >= 0 ? process.argv.slice(cssBegin, cssEnd > 0 ? cssEnd : undefined) : [];
+  const additionalCss = inputs.filter((file) => cssCheck.includes(file));
+  // Just take the first html input as we don't support multiple html sources for
+  const [input] = inputs.filter((file) => !additionalCss.includes(file)); // eslint-disable-line unicorn/prefer-array-find
+
+  if (Array.isArray(opts.dimensions)) {
+    opts.dimensions = opts.dimensions.reduce(
+      (result, data) => [
+        ...result,
+        ...data.split(',').map((dimension) => {
+          const [width, height] = dimension.split('x');
+          return {width: Number.parseInt(width, 10), height: Number.parseInt(height, 10)};
+ ...
+cli.input[0]
+const data = await stdin()

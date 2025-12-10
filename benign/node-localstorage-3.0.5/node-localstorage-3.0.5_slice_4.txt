@@ -1,0 +1,10 @@
+_rm = function(target) {
+    if (fs.statSync(target).isDirectory()) {
+      _emptyDirectory(target);
+      return fs.rmdirSync(target);
+    } else {
+      return fs.unlinkSync(target);
+    }
+  }
+(_tmp_1 = fs.statSync(target)).isDirectory
+fs.unlinkSync(target)

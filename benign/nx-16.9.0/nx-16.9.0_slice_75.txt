@@ -1,0 +1,47 @@
+function recordStat = async function recordStat(opts) {
+    try {
+        const major = Number(opts.nxVersion.split('.')[0]);
+        if (process.env.NX_VERBOSE_LOGGING === 'true') {
+            console.log(`Record stat. Major: ${major}`);
+        }
+        if (major < 10 || major > 16)
+            return; // test version, skip it
+        const axios = require('axios');
+        await (axios['default'] ?? axios)
+            .create({
+            baseURL: 'https://cloud.nx.app',
+            timeout: 400,
+        })
+            .post('/nx-cloud/stats', {
+            command: opts.command,
+            isCI: (0, is_ci_1.isCI)(),
+            useCloud: opts.useCloud,
+            meta: opts.meta,
+        });
+    }
+    catch (e) {
+        if (process.env.NX_VERBOSE_LOGGING === 'true') {
+            console.error(e);
+        }
+    }
+}
+const major = Number(opts.nxVersion.split('.')[0])
+process.env.NX_VERBOSE_LOGGING === 'true'
+<operator>.formatString("Record stat. Major: ", major, "")
+major < 10 || major > 16
+const axios = require('axios')
+await (axios['default'] ?? axios)
+            .create({
+            baseURL: 'https://cloud.nx.app',
+            timeout: 400,
+        })
+            .post('/nx-cloud/stats', {
+            command: opts.command,
+            isCI: (0, is_ci_1.isCI)(),
+            useCloud: opts.useCloud,
+            meta: opts.meta,
+        })
+create
+_tmp_3.baseURL = "https://cloud.nx.app"
+_tmp_3.timeout = 400
+"/nx-cloud/stats"

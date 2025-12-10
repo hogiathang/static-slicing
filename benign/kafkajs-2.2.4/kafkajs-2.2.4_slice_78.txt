@@ -1,0 +1,11 @@
+rebalanceTimeout = param1_5.rebalanceTimeout
+const request = require('./v4/request')
+const response = require('./v4/response')
+_tmp_13.request = request({
+        groupId,
+        sessionTimeout,
+        rebalanceTimeout,
+        memberId,
+        protocolType,
+        groupProtocols,
+      })

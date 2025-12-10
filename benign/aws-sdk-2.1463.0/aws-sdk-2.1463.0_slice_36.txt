@@ -1,0 +1,7 @@
+_tmp_1.makeServiceRequest = <lambda>0
+var self = this
+var request = self.service[operation](params)
+self.setupRequest(request)
+self.setupResponse(request)
+typeof callback === 'function'
+request.send(callback)

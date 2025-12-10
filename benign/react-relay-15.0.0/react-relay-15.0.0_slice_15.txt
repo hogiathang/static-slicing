@@ -1,0 +1,65 @@
+_proto.fetch = function fetch(fetchOptions, cacheConfigOverride) {
+    var _this2 = this;
+    var environment = fetchOptions.environment,
+      operation = fetchOptions.operation,
+      onDataChange = fetchOptions.onDataChange;
+    var fetchHasReturned = false;
+    var _error;
+    this.disposeRequest();
+    var oldOnDataChangeCallbacks = this._fetchOptions && this._fetchOptions.onDataChangeCallbacks;
+    this._fetchOptions = {
+      environment: environment,
+      onDataChangeCallbacks: oldOnDataChangeCallbacks || [],
+      operation: operation
+    };
+    if (onDataChange && this._fetchOptions.onDataChangeCallbacks.indexOf(onDataChange) === -1) {
+      // $FlowFixMe[incompatible-use]
+      this._fetchOptions.onDataChangeCallbacks.push(onDataChange);
+    }
+    var operationOverride = cacheConfigOverride ? createOperationDescriptor(operation.request.node, operation.request.variables, cacheConfigOverride) : operation;
+    var request = this.execute({
+      environment: environment,
+   ...
+var _this2 = this
+var environment = fetchOptions.environment
+var operation = fetchOptions.operation
+var onDataChange = fetchOptions.onDataChange
+var fetchHasReturned = false
+this.disposeRequest()
+var oldOnDataChangeCallbacks = this._fetchOptions && this._fetchOptions.onDataChangeCallbacks
+this._fetchOptions = {
+      environment: environment,
+      onDataChangeCallbacks: oldOnDataChangeCallbacks || [],
+      operation: operation
+    }
+_tmp_14.environment = environment
+_tmp_14.onDataChangeCallbacks = oldOnDataChangeCallbacks || []
+_tmp_14.operation = operation
+onDataChange && this._fetchOptions.onDataChangeCallbacks.indexOf(onDataChange) === -1
+this._fetchOptions.onDataChangeCallbacks.push(onDataChange)
+var operationOverride = cacheConfigOverride ? createOperationDescriptor(operation.request.node, operation.request.variables, cacheConfigOverride) : operation
+var request = this.execute({
+      environment: environment,
+      operation: operationOverride
+    })["finally"](function () {
+      _this2._pendingRequest = null;
+    }).subscribe({
+      next: function next() {
+        // If we received a response,
+        // Make a note that to notify the callback when it's later added.
+        _this2._didFetchFinish = true;
+        _this2._error = null;
+
+        // Only notify of the first result if `next` is being called **asynchronously**
+        // (i.e. after `fetch` has returned).
+        _this2._onQueryDataAvailable({
+          notifyFirstResult: fetchHasReturned
+        });
+      },
+      error: function error(err) {
+        // If we received a response when we didn't have a change callback,
+        // Make a note that to notify the callback when it's later added.
+        _this2._didFetchFinish = true;
+        _this2._error = err;
+        _this2._snapshot = null;
+        var onDataChangeCallbacks = _this2._fetchOptions && _this2._fetchOption...

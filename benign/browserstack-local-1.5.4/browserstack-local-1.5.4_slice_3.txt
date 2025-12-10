@@ -1,0 +1,39 @@
+local.start(options, function() {
+    console.log('Is Running ' + local.isRunning());
+    console.log('Started');
+
+    capabilities['browserstack.user'] = process.env.BROWSERSTACK_USERNAME;
+    capabilities['browserstack.key'] = process.env.BROWSERSTACK_ACCESS_KEY;
+    capabilities['browserstack.local'] = true;
+    //capabilities['browserstack.localIdentifier'] = identifier;
+
+    driver = new webdriver.Builder().usingServer('http://hub.browserstack.com/wd/hub').withCapabilities(capabilities).build();
+    console.log('Is Running ' + local.isRunning());
+    driver.get("http://www.google.com").then(function() {
+      console.log('Is Running ' + local.isRunning());
+      driver.quit().then(function() {
+        console.log('Is Running ' + local.isRunning());
+        local.stop(function() {
+          console.log('Is Running ' + local.isRunning());
+          console.log('Stopped');
+        });
+      });
+    });
+  })
+console.log('Is Running ' + local.isRunning())
+console.log('Started')
+capabilities['browserstack.user'] = process.env.BROWSERSTACK_USERNAME
+capabilities['browserstack.key'] = process.env.BROWSERSTACK_ACCESS_KEY
+capabilities['browserstack.local'] = true
+driver = new webdriver.Builder().usingServer('http://hub.browserstack.com/wd/hub').withCapabilities(capabilities).build()
+console.log('Is Running ' + local.isRunning())
+driver.get("http://www.google.com").then(function() {
+      console.log('Is Running ' + local.isRunning());
+      driver.quit().then(function() {
+        console.log('Is Running ' + local.isRunning());
+        local.stop(function() {
+          console.log('Is Running ' + local.isRunning());
+          console.log('Stopped');
+        });
+      });
+    })

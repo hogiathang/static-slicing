@@ -1,0 +1,36 @@
+async getVerifiedInfo (edge) {
+    const info = this.getValidPackageInfo(edge)
+    if (!info) {
+      return
+    }
+    const { name, version, location, registry, type } = info
+    if (this.checkedPackages.has(location)) {
+      // we already did or are doing this one
+      return
+    }
+    this.checkedPackages.add(location)
+
+    // We only "audit" or verify the signature, or the presence of it, on
+    // packages whose registry returns signing keys
+    const keys = this.keys.get(registry) || []
+    if (keys.length) {
+      this.auditedWithKeysCount += 1
+    }
+
+    try {
+      const { integrity, signatures, attestations, resolved } = await this.verifySignatures(
+        name, version, registry
+      )
+
+      // Currently we only care about missing signatures on registries that provide a public key
+      // We could make this configurable in the future with a strict/paranoid mode
+      if (signatures.length) {
+        this.verifiedSignatureCount += 1
+      } else if (keys.length) {
+  ...
+const info = this.getValidPackageInfo(edge)
+!info
+location = _tmp_79.location
+(_tmp_80 = this.checkedPackages).has
+(_tmp_81 = this.checkedPackages).add
+const keys = this.keys.get(registry) || []

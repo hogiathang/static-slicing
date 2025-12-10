@@ -1,0 +1,340 @@
+function () { 'use strict';
+
+	var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
+
+	function createCommonjsModule(fn, module) {
+		return module = { exports: {} }, fn(module, module.exports), module.exports;
+	}
+
+	var typeDetect = createCommonjsModule(function (module, exports) {
+	(function (global, factory) {
+		 module.exports = factory() ;
+	}(commonjsGlobal, (function () {
+	/* !
+	 * type-detect
+	 * Copyright(c) 2013 jake luer <jake@alogicalparadox.com>
+	 * MIT Licensed
+	 */
+	var promiseExists = typeof Promise === 'function';
+
+	/* eslint-disable no-undef */
+	var globalObject = typeof self === 'object' ? self : commonjsGlobal; // eslint-disable-line id-blacklist
+
+	var symbolExists = typeof Symbol !== 'undefined';
+	var mapExists = typeof Map !== 'undefined';
+	var setExists = typeof Set !== 'undefined';
+	var weakMapExists = typeof WeakMap !== 'unde...
+var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {}
+function createCommonjsModule = function createCommonjsModule(fn, module) {
+		return module = { exports: {} }, fn(module, module.exports), module.exports;
+	}
+var typeDetect = createCommonjsModule(function (module, exports) {
+	(function (global, factory) {
+		 module.exports = factory() ;
+	}(commonjsGlobal, (function () {
+	/* !
+	 * type-detect
+	 * Copyright(c) 2013 jake luer <jake@alogicalparadox.com>
+	 * MIT Licensed
+	 */
+	var promiseExists = typeof Promise === 'function';
+
+	/* eslint-disable no-undef */
+	var globalObject = typeof self === 'object' ? self : commonjsGlobal; // eslint-disable-line id-blacklist
+
+	var symbolExists = typeof Symbol !== 'undefined';
+	var mapExists = typeof Map !== 'undefined';
+	var setExists = typeof Set !== 'undefined';
+	var weakMapExists = typeof WeakMap !== 'undefined';
+	var weakSetExists = typeof WeakSet !== 'undefined';
+	var dataViewExists = typeof DataView !== 'undefined';
+	var symbolIteratorExists = symbolExists && typeof Symbol.iterator !== 'undefined';
+	var symbolToStringTagExists = symbolExists && typeof Symbol.toStringTag !== 'undefined';
+	var setEntriesExists = setExists && typeof Set.prototype.entries =...
+const isBufferExists = typeof Buffer !== 'undefined'
+const isBufferFromExists = isBufferExists && typeof Buffer.from !== 'undefined'
+const isBuffer = isBufferExists
+	  ? /**
+	     * is value is Buffer?
+	     *
+	     * @param {*} value
+	     * @return {boolean}
+	     */
+	    function isBuffer(value) {
+	      return Buffer.isBuffer(value);
+	    }
+	  : /**
+	     * return false
+	     *
+	     * NOTE: for Buffer unsupported
+	     *
+	     * @return {boolean}
+	     */
+	    function isBuffer() {
+	      return false;
+	    }
+isBuffer
+isBuffer1
+const copy = isBufferFromExists
+	  ? /**
+	     * copy Buffer
+	     *
+	     * @param {Buffer} value
+	     * @return {Buffer}
+	     */
+	    function copy(value) {
+	      return Buffer.from(value);
+	    }
+	  : isBufferExists
+	  ? /**
+	     * copy Buffer
+	     *
+	     * NOTE: for old node.js
+	     *
+	     * @param {Buffer} value
+	     * @return {Buffer}
+	     */
+	    function copy(value) {
+	      return new Buffer(value);
+	    }
+	  : /**
+	     * shallow copy
+	     *
+	     * NOTE: for Buffer unsupported
+	     *
+	     * @param {*}
+	     * @return {*}
+	     */
+	    function copy(value) {
+	      return value;
+	    }
+copy
+isBufferExists ? copy1 : copy2
+copy1
+copy2
+function detectType = function detectType(value) {
+	  // NOTE: isBuffer must execute before type-detect,
+	  // because type-detect returns 'Uint8Array'.
+	  if (isBuffer(value)) {
+	    return 'Buffer';
+	  }
+
+	  return typeDetect(value);
+	}
+const collectionTypeSet = new Set([
+	  'Arguments',
+	  'Array',
+	  'Map',
+	  'Object',
+	  'Set'
+	])
+_tmp_32.push("Arguments")
+_tmp_32.push("Array")
+_tmp_32.push("Map")
+_tmp_32.push("Object")
+_tmp_32.push("Set")
+function get = function get(collection, key, type = null) {
+	  const valueType = type || detectType(collection);
+
+	  switch (valueType) {
+	    case 'Arguments':
+	    case 'Array':
+	    case 'Object':
+	      return collection[key];
+	    case 'Map':
+	      return collection.get(key);
+	    case 'Set':
+	      // NOTE: Set.prototype.keys is alias of Set.prototype.values
+	      // it means key is equals value
+	      return key;
+	  }
+	}
+function isCollection = function isCollection(type) {
+	  return collectionTypeSet.has(type);
+	}
+function set = function set(collection, key, value, type = null) {
+	  const valueType = type || detectType(collection);
+
+	  switch (valueType) {
+	    case 'Arguments':
+	    case 'Array':
+	    case 'Object':
+	      collection[key] = value;
+	      break;
+	    case 'Map':
+	      collection.set(key, value);
+	      break;
+	    case 'Set':
+	      collection.add(value);
+	      break;
+	  }
+
+	  return collection;
+	}
+const freeGlobalThis =
+	  typeof globalThis !== 'undefined' &&
+	  globalThis !== null &&
+	  globalThis.Object === Object &&
+	  globalThis
+typeof globalThis !== 'undefined' &&
+	  globalThis !== null &&
+	  globalThis.Object === Object &&
+	  globalThis
+globalThis !== null
+globalThis.Object === Object
+const freeGlobal =
+	  typeof global !== 'undefined' &&
+	  global !== null &&
+	  global.Object === Object &&
+	  global
+typeof global !== 'undefined' &&
+	  global !== null &&
+	  global.Object === Object &&
+	  global
+global !== null
+global.Object === Object
+const freeSelf =
+	  typeof self !== 'undefined' &&
+	  self !== null &&
+	  self.Object === Object &&
+	  self
+typeof self !== 'undefined' &&
+	  self !== null &&
+	  self.Object === Object &&
+	  self
+self !== null
+self.Object === Object
+freeGlobalThis || freeGlobal || freeSelf || Function('return this')()
+function copyArrayBuffer = function copyArrayBuffer(value) {
+	  return value.slice(0);
+	}
+function copyBoolean = function copyBoolean(value) {
+	  return new Boolean(value.valueOf());
+	}
+function copyDataView = function copyDataView(value) {
+	  // TODO: copy ArrayBuffer?
+	  return new DataView(value.buffer);
+	}
+function copyBuffer = function copyBuffer(value) {
+	  return copy(value);
+	}
+function copyDate = function copyDate(value) {
+	  return new Date(value.getTime());
+	}
+function copyNumber = function copyNumber(value) {
+	  return new Number(value);
+	}
+function copyRegExp = function copyRegExp(value) {
+	  return new RegExp(value.source, value.flags);
+	}
+function copyString = function copyString(value) {
+	  return new String(value);
+	}
+function copyTypedArray = function copyTypedArray(value, type) {
+	  const typedArray = globalObject[type];
+
+	  if (typedArray.from) {
+	    return globalObject[type].from(value);
+	  }
+
+	  return new globalObject[type](value);
+	}
+function shallowCopy = function shallowCopy(value) {
+	  return value;
+	}
+function getEmptyArray = function getEmptyArray() {
+	  return [];
+	}
+function getEmptyMap = function getEmptyMap() {
+	  return new Map();
+	}
+function getEmptyObject = function getEmptyObject() {
+	  return {};
+	}
+function getEmptySet = function getEmptySet() {
+	  return new Set();
+	}
+function noop = function noop() {}
+function copy$1 = function copy$1(value, type = null, customizer = noop) {
+	  if (arguments.length === 2 && typeof type === 'function') {
+	    customizer = type;
+	    type = null;
+	  }
+
+	  const valueType = type || detectType(value);
+	  const copyFunction = copyMap.get(valueType);
+
+	  if (valueType === 'Object') {
+	    const result = customizer(value, valueType);
+
+	    if (result !== undefined) {
+	      return result;
+	    }
+	  }
+
+	  // NOTE: TypedArray needs pass type to argument
+	  return copyFunction ? copyFunction(value, valueType) : value;
+	}
+function deepcopy = function deepcopy(value, options = {}) {
+	  if (typeof options === 'function') {
+	    options = {
+	      customizer: options
+	    };
+	  }
+
+	  const {
+	    // TODO: before/after customizer
+	    customizer
+	    // TODO: max depth
+	    // depth = Infinity,
+	  } = options;
+
+	  const valueType = detectType(value);
+
+	  if (!isCollection(valueType)) {
+	    return recursiveCopy(value, null, null, null);
+	  }
+
+	  const copiedValue = copy$1(value, valueType, customizer);
+
+	  const references = new WeakMap([[value, copiedValue]]);
+	  const visited = new WeakSet([value]);
+
+	  return recursiveCopy(value, copiedValue, references, visited);
+	}
+function recursiveCopy = function recursiveCopy(value, clone, references, visited, customizer) {
+	  const type = detectType(value);
+	  const copiedValue = copy$1(value, type);
+
+	  // return if not a collection value
+	  if (!isCollection(type)) {
+	    return copiedValue;
+	  }
+
+	  let keys;
+
+	  switch (type) {
+	    case 'Arguments':
+	    case 'Array':
+	      keys = Object.keys(value);
+	      break;
+	    case 'Object':
+	      keys = Object.keys(value);
+	      keys.push(...Object.getOwnPropertySymbols(value));
+	      break;
+	    case 'Map':
+	    case 'Set':
+	      keys = value.keys();
+	      break;
+	  }
+
+	  // walk within collection with iterator
+	  for (let collectionKey of keys) {
+	    const collectionValue = get(value, collectionKey, type);
+
+	    if (visited.has(collectionValue)) {
+	      // for [Circular]
+	      set(clone, collectionKey, references.get(collectionValue), type);
+	    } else {
+	      const collectionValueType = detectType(collectionValue);
+	      const copiedCollectionValue = copy$1(collection...

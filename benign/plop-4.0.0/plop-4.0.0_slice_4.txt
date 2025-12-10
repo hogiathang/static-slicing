@@ -1,0 +1,9 @@
+var fs = require("fs")
+var path = require("path")
+var url = require("url")
+const __dirname = path.dirname(url.fileURLToPath(import.meta.url))
+const exists = fs.existsSync("./README.md")
+fs.copyFileSync(
+    path.join(__dirname, "./README.md"),
+    path.join(__dirname, "../README.md"),
+  )

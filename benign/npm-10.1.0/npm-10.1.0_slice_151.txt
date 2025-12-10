@@ -1,0 +1,47 @@
+async get (args) {
+    const tfa = 'two-factor auth'
+    const info = await pulseTillDone.withPromise(
+      npmProfile.get({ ...this.npm.flatOptions })
+    )
+
+    if (!info.cidr_whitelist) {
+      delete info.cidr_whitelist
+    }
+
+    if (this.npm.config.get('json')) {
+      this.npm.output(JSON.stringify(info, null, 2))
+      return
+    }
+
+    // clean up and format key/values for output
+    const cleaned = {}
+    for (const key of knownProfileKeys) {
+      cleaned[key] = info[key] || ''
+    }
+
+    const unknownProfileKeys = Object.keys(info).filter((k) => !(k in cleaned))
+    for (const key of unknownProfileKeys) {
+      cleaned[key] = info[key] || ''
+    }
+
+    delete cleaned.tfa
+    delete cleaned.email_verified
+    cleaned.email += info.email_verified ? ' (verified)' : '(unverified)'
+
+    if (info.tfa && !info.tfa.pending) {
+      cleaned[tfa] = info.tfa.mode
+    } else {
+      cleaned[tfa] = 'disabled'
+    }
+
+    if (args.length) {
+      const values = args // comma or space ...
+const tfa = 'two-factor auth'
+const info = await pulseTillDone.withPromise(
+      npmProfile.get({ ...this.npm.flatOptions })
+    )
+npmProfile.get({ ...this.npm.flatOptions })
+!info.cidr_whitelist
+delete info.cidr_whitelist
+(_tmp_11 = this.npm.config).get
+this.npm.output(JSON.stringify(info, null, 2))

@@ -1,0 +1,129 @@
+util.loadFileConfigs = function(configDir, options) {
+
+  // Initialize
+  var t = this,
+      config = {};
+
+  // Specify variables that can be used to define the environment
+  var node_env_var_names = ['NODE_CONFIG_ENV', 'NODE_ENV'];
+
+  // Loop through the variables to try and set environment
+  for (const node_env_var_name of node_env_var_names) {
+    NODE_ENV = util.initParam(node_env_var_name);
+    if (!!NODE_ENV) {
+      NODE_ENV_VAR_NAME = node_env_var_name;
+      break;
+    }
+  }
+
+  // If we haven't successfully set the environment using the variables, we'll default it
+  if (!NODE_ENV) {
+    NODE_ENV = 'development';
+  }
+
+  node_env_var_names.forEach(node_env_var_name => {
+    env[node_env_var_name] = NODE_ENV;
+  });
+
+  // Split files name, for loading multiple files.
+  NODE_ENV = NODE_ENV.split(',');
+
+  var dir = configDir || util.initParam('NODE_CONFIG_DIR', Path.join( process.cwd(), 'config') );
+  dir = _toAbsolutePath(dir);
+
+  APP_INSTANCE = util.initParam('NODE_APP_INSTANCE...
+var t = this
+var config = {}
+var node_env_var_names = ['NODE_CONFIG_ENV', 'NODE_ENV']
+_iterator_1 = <operator>.iterator(node_env_var_names)
+NODE_ENV = util.initParam(node_env_var_name)
+!!NODE_ENV
+NODE_ENV_VAR_NAME = node_env_var_name
+break;
+!NODE_ENV
+NODE_ENV = 'development'
+node_env_var_names.forEach(node_env_var_name => {
+    env[node_env_var_name] = NODE_ENV;
+  })
+NODE_ENV = NODE_ENV.split(',')
+var dir = configDir || util.initParam('NODE_CONFIG_DIR', Path.join( process.cwd(), 'config') )
+dir = _toAbsolutePath(dir)
+APP_INSTANCE = util.initParam('NODE_APP_INSTANCE')
+CONFIG_SKIP_GITCRYPT = util.initParam('CONFIG_SKIP_GITCRYPT')
+var runtimeFilename = util.initParam('NODE_CONFIG_RUNTIME_JSON', Path.join(dir , 'runtime.json') )
+NODE_CONFIG_PARSER = util.initParam('NODE_CONFIG_PARSER')
+var parserModule = Path.isAbsolute(NODE_CONFIG_PARSER)
+        ? NODE_CONFIG_PARSER
+        : Path.join(dir, NODE_CONFIG_PARSER)
+Path.join(dir, NODE_CONFIG_PARSER)
+Parser = require(parserModule)
+console.warn('Failed to load config parser from ' + NODE_CONFIG_PARSER)
+console.log(e)
+var HOST = util.initParam('HOST')
+var HOSTNAME = util.initParam('HOSTNAME')
+var hostName = HOST || HOSTNAME
+!hostName
+var OS = require('os')
+hostName = OS.hostname()
+hostName = ''
+env.HOSTNAME = hostName
+var baseNames = ['default'].concat(NODE_ENV)
+var firstDomain = hostName.split('.')[0]
+NODE_ENV.forEach(function(env) {
+      // Backward compatibility
+      baseNames.push(firstDomain, firstDomain + '-' + env);
+
+      // Add full hostname when it is not the same
+      if (hostName !== firstDomain) {
+        baseNames.push(hostName, hostName + '-' + env);
+      }
+    })
+NODE_ENV.forEach(function(env) {
+    baseNames.push('local', 'local-' + env);
+  })
+var allowedFiles = {}
+var resolutionIndex = 1
+var extNames = Parser.getFilesOrder()
+baseNames.forEach(function(baseName) {
+    extNames.forEach(function(extName) {
+      allowedFiles[baseName + '.' + extName] = resolutionIndex++;
+      if (APP_INSTANCE) {
+        allowedFiles[baseName + '-' + APP_INSTANCE + '.' + extName] = resolutionIndex++;
+      }
+    });
+  })
+var locatedFiles = util.locateMatchingFiles(dir, allowedFiles)
+locatedFiles.forEach(function(fullFilename) {
+    var configObj = util.parseFile(fullFilename, options);
+    if (configObj) {
+      util.extendDeep(config, configObj);
+    }
+  })
+!configDir
+var envConfig = {}
+CONFIG_DIR = dir
+process.env.NODE_CONFIG
+envConfig = JSON.parse(process.env.NODE_CONFIG)
+console.error('The $NODE_CONFIG environment variable is malformed JSON')
+util.extendDeep(config, envConfig)
+var skipConfigSources = util.getOption(options,'skipConfigSources', false)
+!skipConfigSources
+configSources.push({
+          name: "$NODE_CONFIG",
+          parsed: envConfig,
+        })
+_tmp_23.name = "$NODE_CONFIG"
+_tmp_23.parsed = envConfig
+var cmdLineConfig = util.getCmdLineArg('NODE_CONFIG')
+cmdLineConfig = JSON.parse(cmdLineConfig)
+console.error('The --NODE_CONFIG={json} command line argument is malformed JSON')
+util.extendDeep(config, cmdLineConfig)
+var skipConfigSources = util.getOption(options,'skipConfigSources', false)
+!skipConfigSources
+configSources.push({
+          name: "--NODE_CONFIG argument",
+          parsed: cmdLineConfig,
+        })
+_tmp_24.name = "--NODE_CONFIG argument"
+_tmp_24.parsed = cmdLineConfig
+env['NODE_CONFIG'] = JSON.stringify(util.extendDeep(envConfig, cmdLineConfig, {}))

@@ -1,0 +1,38 @@
+this._start = function (url) {
+    const self = this
+    const command = args.command || this._getCommand()
+    const profilePath = args.profile || self._tempDir
+    const flags = args.flags || []
+    let extensionsDir
+
+    if (Array.isArray(args.extensions)) {
+      extensionsDir = path.resolve(profilePath, 'extensions')
+      fs.mkdirSync(extensionsDir)
+      args.extensions.forEach(function (ext) {
+        const extBuffer = fs.readFileSync(ext)
+        const copyDestination = path.resolve(extensionsDir, path.basename(ext))
+        fs.writeFileSync(copyDestination, extBuffer)
+      })
+    }
+
+    fs.writeFileSync(path.join(profilePath, 'prefs.js'), this._getPrefs(args.prefs))
+    const translatedProfilePath =
+      isWsl ? execSync('wslpath -w ' + profilePath).toString().trim() : profilePath
+
+    if (isWsl) {
+      log.warn('WSL environment detected: Please do not open Firefox while running tests as it will be killed after the test!')
+      log.warn('WSL environment detected: See h...
+const self = this
+const command = args.command || this._getCommand()
+const profilePath = args.profile || self._tempDir
+const flags = args.flags || []
+Array.isArray(args.extensions)
+extensionsDir = path.resolve(profilePath, 'extensions')
+fs.mkdirSync(extensionsDir)
+args.extensions.forEach(function (ext) {
+        const extBuffer = fs.readFileSync(ext)
+        const copyDestination = path.resolve(extensionsDir, path.basename(ext))
+        fs.writeFileSync(copyDestination, extBuffer)
+      })
+fs.writeFileSync(path.join(profilePath, 'prefs.js'), this._getPrefs(args.prefs))
+isWsl ? execSync('wslpath -w ' + profilePath).toString().trim() : profilePath

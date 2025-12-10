@@ -1,0 +1,44 @@
+Monitor.prototype.trySpawn = function() {
+  const run = this.parser(this.command, this.args.slice());
+  let stats;
+
+  if (/[^\w]node$/.test(this.command) && this.checkFile && !this.childExists) {
+    try {
+      stats = fs.statSync(this.args[0]);
+      this.childExists = true;
+    } catch (ex) {
+      return false;
+    }
+  }
+
+  this.spawnWith.cwd = this.spawnWith.cwd || this.cwd;
+  this.spawnWith.env = this._getEnv();
+
+  if (process.platform === 'win32') {
+    this.spawnWith.detached = true;
+  }
+
+  if (this.stdio) {
+    this.spawnWith.stdio = this.stdio;
+  }
+
+  if (this.fork) {
+    if (!this.stdio) {
+      this.spawnWith.stdio = ['pipe', 'pipe', 'pipe', 'ipc'];
+    }
+    return spawn(run.command, run.args, this.spawnWith);
+  }
+
+  return spawn(run.command, run.args, this.spawnWith);
+}
+const run = this.parser(this.command, this.args.slice())
+/[^\w]node$/.test(this.command) && this.checkFile && !this.childExists
+stats = fs.statSync(this.args[0])
+this.childExists = true
+this.spawnWith.cwd = this.spawnWith.cwd || this.cwd
+this.spawnWith.env = this._getEnv()
+process.platform === 'win32'
+this.spawnWith.detached = true
+this.stdio
+this.spawnWith.stdio = this.stdio
+this.fork

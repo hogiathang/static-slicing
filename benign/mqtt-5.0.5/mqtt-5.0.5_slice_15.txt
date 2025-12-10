@@ -1,0 +1,42 @@
+new Promise((resolve, reject) => {
+		const client = connect(brokerUrl as string, opts)
+
+		const promiseResolutionListeners: Partial<MqttClientEventCallbacks> = {
+			connect: (connack) => {
+				removePromiseResolutionListeners()
+				resolve(client) // Resolve on connect
+			},
+			end: () => {
+				removePromiseResolutionListeners()
+				resolve(client) // Resolve on end
+			},
+			error: (err) => {
+				removePromiseResolutionListeners()
+				client.end()
+				reject(err) // Reject on error
+			},
+		}
+
+		// If retries are not allowed, reject on close
+		if (allowRetries === false) {
+			promiseResolutionListeners.close = () => {
+				promiseResolutionListeners.error(
+					new Error("Couldn't connect to server"),
+				)
+			}
+		}
+
+		// Remove listeners added to client by this promise
+		function removePromiseResolutionListeners() {
+			Object.keys(promiseResolutionListeners).forEach((eventName) => {
+				client.off(
+					eventName as keyof MqttClientEventCallbacks,
+					promiseResolutionListeners[even...
+function removePromiseResolutionListeners = function removePromiseResolutionListeners() {
+			Object.keys(promiseResolutionListeners).forEach((eventName) => {
+				client.off(
+					eventName as keyof MqttClientEventCallbacks,
+					promiseResolutionListeners[eventName],
+				)
+			})
+		}

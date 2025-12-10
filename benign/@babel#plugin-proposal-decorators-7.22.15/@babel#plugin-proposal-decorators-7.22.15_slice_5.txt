@@ -1,0 +1,5 @@
+_tmp_82.CallExpression = CallExpression
+path.node.arguments.length !== 3
+!WARNING_CALLS.has(path.node.arguments[2])
+path.node.callee.name !== state.addHelper("defineProperty").name
+path.replaceWith(_core.types.callExpression(state.addHelper("initializerDefineProperty"), [_core.types.cloneNode(path.get("arguments")[0].node), _core.types.cloneNode(path.get("arguments")[1].node), _core.types.cloneNode(path.get("arguments.2.arguments")[0].node), _core.types.cloneNode(path.get("arguments.2.arguments")[1].node)]))

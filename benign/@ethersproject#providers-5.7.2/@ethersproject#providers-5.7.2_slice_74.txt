@@ -1,0 +1,18 @@
+__awaiter(this, void 0, void 0, function* () {
+            // Wait until we have connected before trying to disconnect
+            if (this.websocket.readyState === WebSocket.CONNECTING) {
+                yield (new Promise((resolve) => {
+                    this.websocket.onopen = function () {
+                        resolve(true);
+                    };
+                    this.websocket.onerror = function () {
+                        resolve(false);
+                    };
+                }));
+            }
+            // Hangup
+            // See: https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent#Status_codes
+            this.websocket.close(1000);
+        })
+this.websocket.readyState === WebSocket.CONNECTING
+(_tmp_39 = this.websocket).close

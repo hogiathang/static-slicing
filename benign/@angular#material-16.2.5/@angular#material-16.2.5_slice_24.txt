@@ -1,0 +1,34 @@
+const workspace = yield (0, import_schematics4.getWorkspaceConfigGracefully)(tree)
+workspace === null
+const projectNames = workspace.projects.keys()
+const fileSystem = new import_schematics4.DevkitFileSystem(tree)
+const analyzedFiles = /* @__PURE__ */ new Set()
+const componentsToMigrate = getComponentsToMigrate(options.components)
+const migrators = [
+      ...MIGRATORS.filter((m) => componentsToMigrate.has(m.component)),
+      ...PERMANENT_MIGRATORS
+    ]
+_tmp_987.push(...MIGRATORS.filter((m) => componentsToMigrate.has(m.component)))
+_tmp_987.push(...PERMANENT_MIGRATORS)
+let success = true
+options.directory
+<operator>.formatString("Limiting migration to: ", options.directory, "")
+<operator>.formatString("Migrating components:
+", [...componentsToMigrate].join("\n"), "")
+(_tmp_988 = [...componentsToMigrate]).join
+_iterator_104 = <operator>.iterator(projectNames)
+const project = workspace.projects.get(projectName)
+const tsconfigPaths = [
+        (0, import_schematics4.getTargetTsconfigPath)(project, "build"),
+        (0, import_schematics4.getTargetTsconfigPath)(project, "test")
+      ].filter((p) => !!p)
+_tmp_992.push((0, import_schematics4.getTargetTsconfigPath)(project, "build"))
+_tmp_992.push((0, import_schematics4.getTargetTsconfigPath)(project, "test"))
+!!p
+!tsconfigPaths.length
+<operator>.formatString("Skipping migration for project ", projectName, ". Unable to determine 'tsconfig.json' file in workspace config.")
+continue;
+const additionalStylesheetPaths = (0, import_schematics4.findStylesheetFiles)(tree, project.root)
+<operator>.formatString("Migrating project: ", projectName, "")
+_iterator_105 = <operator>.iterator(tsconfigPaths)
+success && (success = runMigrations(context, fileSystem, tsconfigPath, migrators, analyzedFiles, additionalStylesheetPaths, options.directory || void 0))

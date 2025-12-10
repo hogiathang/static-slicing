@@ -1,0 +1,33 @@
+function extractStyleResources = function extractStyleResources(resourceLoader, component, containingFile) {
+  const styles = /* @__PURE__ */ new Set();
+  function stringLiteralElements(array) {
+    return array.elements.filter((e) => ts23.isStringLiteralLike(e));
+  }
+  const styleUrlsExpr = component.get("styleUrls");
+  if (styleUrlsExpr !== void 0 && ts23.isArrayLiteralExpression(styleUrlsExpr)) {
+    for (const expression of stringLiteralElements(styleUrlsExpr)) {
+      try {
+        const resourceUrl = resourceLoader.resolve(expression.text, containingFile);
+        styles.add({ path: absoluteFrom(resourceUrl), expression });
+      } catch {
+      }
+    }
+  }
+  const stylesExpr = component.get("styles");
+  if (stylesExpr !== void 0 && ts23.isArrayLiteralExpression(stylesExpr)) {
+    for (const expression of stringLiteralElements(stylesExpr)) {
+      styles.add({ path: null, expression });
+    }
+  }
+  return styles;
+}
+const styles = /* @__PURE__ */ new Set()
+function stringLiteralElements = function stringLiteralElements(array) {
+    return array.elements.filter((e) => ts23.isStringLiteralLike(e));
+  }
+const styleUrlsExpr = component.get("styleUrls")
+styleUrlsExpr !== void 0 && ts23.isArrayLiteralExpression(styleUrlsExpr)
+_iterator_30 = <operator>.iterator(stringLiteralElements(styleUrlsExpr))
+const resourceUrl = resourceLoader.resolve(expression.text, containingFile)
+styles.add({ path: absoluteFrom(resourceUrl), expression })
+const stylesExpr = component.get("styles")

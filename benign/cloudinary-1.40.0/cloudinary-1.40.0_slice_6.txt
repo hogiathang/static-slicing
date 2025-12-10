@@ -1,0 +1,19 @@
+init(baseFolder) {
+    if (baseFolder) {
+      try {
+        fs.accessSync(baseFolder);
+        this.baseFolder = baseFolder;
+      } catch (err) {
+        throw err;
+      }
+    } else {
+      if (!fs.existsSync('test_cache')) {
+        fs.mkdirSync('test_cache');
+      }
+      this.baseFolder = fs.mkdtempSync('test_cache/cloudinary_cache_');
+      console.info("Created temporary cache folder at " + this.baseFolder);
+    }
+  }
+!fs.existsSync('test_cache')
+fs.mkdirSync('test_cache')
+this.baseFolder = fs.mkdtempSync('test_cache/cloudinary_cache_')

@@ -1,0 +1,9 @@
+_tmp_29.CallExpression = CallExpression
+!scopeStack
+const setupScope = setupScopes.get(scopeStack.scopeNode)
+!setupScope ||
+            !setupScope.afterAwait ||
+            !utils.inRange(setupScope.range, node)
+!setupScope.afterAwait
+!utils.inRange(setupScope.range, node)
+const message = restrictedCallNodes.get(node)

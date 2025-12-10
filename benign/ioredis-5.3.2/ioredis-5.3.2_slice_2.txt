@@ -1,0 +1,82 @@
+sendCommand(command, stream) {
+        var _a, _b;
+        if (this.status === "wait") {
+            this.connect().catch(lodash_1.noop);
+        }
+        if (this.status === "end") {
+            command.reject(new Error(utils_1.CONNECTION_CLOSED_ERROR_MSG));
+            return command.promise;
+        }
+        if (((_a = this.condition) === null || _a === void 0 ? void 0 : _a.subscriber) &&
+            !Command_1.default.checkFlag("VALID_IN_SUBSCRIBER_MODE", command.name)) {
+            command.reject(new Error("Connection in subscriber mode, only subscriber commands may be used"));
+            return command.promise;
+        }
+        if (typeof this.options.commandTimeout === "number") {
+            command.setTimeout(this.options.commandTimeout);
+        }
+        let writable = this.status === "ready" ||
+            (!stream &&
+                this.status === "connect" &&
+                (0, commands_1.exists)(command.name) &&
+                (0, commands_1.hasFlag)(command.n...
+this.status === "wait"
+this.connect().catch(lodash_1.noop)
+this.status === "end"
+((_a = this.condition) === null || _a === void 0 ? void 0 : _a.subscriber) &&
+            !Command_1.default.checkFlag("VALID_IN_SUBSCRIBER_MODE", command.name)
+!Command_1.default.checkFlag("VALID_IN_SUBSCRIBER_MODE", command.name)
+typeof this.options.commandTimeout === "number"
+command.setTimeout(this.options.commandTimeout)
+let writable = this.status === "ready" ||
+            (!stream &&
+                this.status === "connect" &&
+                (0, commands_1.exists)(command.name) &&
+                (0, commands_1.hasFlag)(command.name, "loading"))
+!stream &&
+                this.status === "connect" &&
+                (0, commands_1.exists)(command.name) &&
+                (0, commands_1.hasFlag)(command.name, "loading")
+this.status === "connect"
+(0, commands_1.exists)(command.name)
+(0, commands_1.hasFlag)(command.name, "loading")
+!this.stream
+writable = false
+!this.stream.writable
+writable = false
+this.stream._writableState && this.stream._writableState.ended
+writable = false
+!writable
+!this.options.enableOfflineQueue
+command.name === "quit" && this.offlineQueue.length === 0
+debug.enabled
+debug("queue command[%s]: %d -> %s(%o)", this._getDescription(), this.condition.select, command.name, command.args)
+this.offlineQueue.push({
+                command: command,
+                stream: stream,
+                select: this.condition.select,
+            })
+_tmp_30.command = command
+_tmp_30.stream = stream
+_tmp_30.select = this.condition.select
+debug.enabled
+debug("write command[%s]: %d -> %s(%o)", this._getDescription(), (_b = this.condition) === null || _b === void 0 ? void 0 : _b.select, command.name, command.args)
+"isPipeline" in stream && stream.isPipeline
+stream.write(command.toWritable(stream.destination.redis.stream))
+stream.write(command.toWritable(stream))
+this.stream.write(command.toWritable(this.stream))
+this.commandQueue.push({
+                command: command,
+                stream: stream,
+                select: this.condition.select,
+            })
+_tmp_33.command = command
+_tmp_33.stream = stream
+_tmp_33.select = this.condition.select
+Command_1.default.checkFlag("WILL_DISCONNECT", command.name)
+this.manuallyClosing = true
+command.name === "select" && (0, utils_1.isInt)(command.args[0])
+const db = parseInt(command.args[0], 10)
+this.condition.select !== db
+this.condition.select = db
+this.emit("select", db)

@@ -1,0 +1,22 @@
+new Promise(resolve => {
+    try {
+      const result = response.readRoot()
+      resolve(result)
+    } catch (err) {
+      if (
+        Object.hasOwnProperty.call(err, `_response`) &&
+        Object.hasOwnProperty.call(err, `_status`)
+      ) {
+        setTimeout(() => {
+          waitForResponse(response).then(resolve)
+        }, 200)
+      } else {
+        throw err
+      }
+    }
+  })
+const result = response.readRoot()
+resolve(result)
+Object.hasOwnProperty.call(err, `_response`) &&
+        Object.hasOwnProperty.call(err, `_status`)
+Object.hasOwnProperty.call(err, `_status`)

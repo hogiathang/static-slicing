@@ -1,0 +1,20 @@
+ClientRequest.prototype._connect = function () {
+	var self = this
+
+	if (self._destroyed)
+		return
+
+	self._response = new IncomingMessage(self._xhr, self._fetchResponse, self._mode, self._fetchTimer)
+	self._response.on('error', function(err) {
+		self.emit('error', err)
+	})
+
+	self.emit('response', self._response)
+}
+var self = this
+self._destroyed
+self._response = new IncomingMessage(self._xhr, self._fetchResponse, self._mode, self._fetchTimer)
+self._response.on('error', function(err) {
+		self.emit('error', err)
+	})
+self.emit('response', self._response)

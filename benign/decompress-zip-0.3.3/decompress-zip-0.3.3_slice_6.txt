@@ -1,0 +1,16 @@
+function (stats) {
+                if (stats.isFile()) {
+                    type = 'File';
+                    var input = new stream.Readable();
+                    input.wrap(fs.createReadStream(path.resolve(parent, linkTo)));
+                    return pipePromise(input, destination);
+                } else if (stats.isDirectory()) {
+                    type = 'Directory';
+                    return mkdir(destination, zip.dirCache);
+                } else {
+                    throw new Error('Could not follow symlink to unknown file type');
+                }
+            }
+stats.isFile()
+stats.isDirectory()
+type = 'Directory'

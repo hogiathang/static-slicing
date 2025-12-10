@@ -1,0 +1,85 @@
+function checkLiteralValueNode = function checkLiteralValueNode(context, attributeName, node, parentNode, parentNodeName) {
+  if (typeof node.value !== 'string') {
+    report(context, messages.onlyStrings, 'onlyStrings', {
+      node,
+      data: { attributeName },
+      suggest: [
+        Object.assign(
+          getMessageData('suggestRemoveNonString', messages.suggestRemoveNonString),
+          { fix(fixer) { return fixer.remove(parentNode); } }
+        ),
+      ],
+    });
+    return;
+  }
+
+  if (!node.value.trim()) {
+    report(context, messages.noEmpty, 'noEmpty', {
+      node,
+      data: { attributeName },
+      suggest: [
+        Object.assign(
+          getMessageData('suggestRemoveEmpty', messages.suggestRemoveEmpty),
+          { fix(fixer) { return fixer.remove(node.parent); } }
+        ),
+      ],
+    });
+    return;
+  }
+
+  const singleAttributeParts = splitIntoRangedParts(node, /(\S+)/g);
+  for (const singlePart of singleAttributeParts) {
+    const allowedTags = VALID_VALUES.get(attributeName).get(singl...
+typeof node.value !== 'string'
+(_tmp_6 = node.value).trim
+const singleAttributeParts = splitIntoRangedParts(node, /(\S+)/g)
+_iterator_0 = <operator>.iterator(singleAttributeParts)
+const allowedTags = VALID_VALUES.get(attributeName).get(singlePart.value)
+const reportingValue = singlePart.reportingValue
+const suggest = [
+      Object.assign(
+        getMessageData('suggestRemoveInvalid', messages.suggestRemoveInvalid),
+        { fix(fixer) { return fixer.removeRange(singlePart.range); } }
+      ),
+    ]
+_tmp_12.push(Object.assign(
+        getMessageData('suggestRemoveInvalid', messages.suggestRemoveInvalid),
+        { fix(fixer) { return fixer.removeRange(singlePart.range); } }
+      ))
+getMessageData('suggestRemoveInvalid', messages.suggestRemoveInvalid)
+fixer.removeRange(singlePart.range)
+!allowedTags
+const data = {
+        attributeName,
+        reportingValue,
+      }
+_tmp_14.attributeName = attributeName
+_tmp_14.reportingValue = reportingValue
+report(context, messages.neverValid, 'neverValid', {
+        node,
+        data,
+        suggest,
+      })
+_tmp_15.node = node
+_tmp_15.data = data
+_tmp_15.suggest = suggest
+!allowedTags.has(parentNodeName)
+report(context, messages.notValidFor, 'notValidFor', {
+        node,
+        data: {
+          attributeName,
+          reportingValue,
+          elementName: parentNodeName,
+        },
+        suggest,
+      })
+_tmp_16.node = node
+_tmp_16.data = {
+          attributeName,
+          reportingValue,
+          elementName: parentNodeName,
+        }
+_tmp_17.attributeName = attributeName
+_tmp_17.reportingValue = reportingValue
+_tmp_17.elementName = parentNodeName
+_tmp_16.suggest = suggest

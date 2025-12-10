@@ -1,0 +1,18 @@
+mappings2 += segments.map((segment) => {
+        let segAsStr = toBase64VLQ(segment.col0 - lastCol0);
+        lastCol0 = segment.col0;
+        if (segment.sourceUrl != null) {
+          segAsStr += toBase64VLQ(sourcesIndex.get(segment.sourceUrl) - lastSourceIndex);
+          lastSourceIndex = sourcesIndex.get(segment.sourceUrl);
+          segAsStr += toBase64VLQ(segment.sourceLine0 - lastSourceLine0);
+          lastSourceLine0 = segment.sourceLine0;
+          segAsStr += toBase64VLQ(segment.sourceCol0 - lastSourceCol0);
+          lastSourceCol0 = segment.sourceCol0;
+        }
+        return segAsStr;
+      }).join(",")
+let segAsStr = toBase64VLQ(segment.col0 - lastCol0)
+lastCol0 = segment.col0
+segment.sourceUrl != null
+segAsStr += toBase64VLQ(sourcesIndex.get(segment.sourceUrl) - lastSourceIndex)
+lastSourceIndex = sourcesIndex.get(segment.sourceUrl)

@@ -1,0 +1,48 @@
+function verifyUndefProperties = function verifyUndefProperties(defineProperties, references, pathName) {
+          if (!references) {
+            return
+          }
+          for (const [refName, { nodes }] of references.allProperties()) {
+            const referencePathName = pathName
+              ? `${pathName}.${refName}`
+              : refName
+
+            const prop = defineProperties.get && defineProperties.get(refName)
+            if (prop) {
+              if (options && options.props && !prop.isProps) {
+                report(nodes[0], referencePathName, 'undefProps')
+                continue
+              }
+            } else {
+              report(nodes[0], referencePathName, 'undef')
+              continue
+            }
+
+            if (prop.hasNestProperty) {
+              verifyUndefProperties(
+                prop,
+                references.getNest(refName),
+                referencePathName
+              )
+            }
+          }
+        }
+!references
+_iterator_1 = <operator>.iterator(references.allProperties())
+const referencePathName = pathName
+              ? `${pathName}.${refName}`
+              : refName
+<operator>.formatString("", pathName, ".", refName, "")
+const prop = defineProperties.get && defineProperties.get(refName)
+options && options.props && !prop.isProps
+report(nodes[0], referencePathName, 'undefProps')
+continue
+report(nodes[0], referencePathName, 'undef')
+continue
+prop.hasNestProperty
+verifyUndefProperties(
+                prop,
+                references.getNest(refName),
+                referencePathName
+              )
+references.getNest(refName)

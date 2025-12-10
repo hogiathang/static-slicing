@@ -1,0 +1,38 @@
+function serialize = function serialize(type, value, buffer, offset) {
+    var bytesWritten = 0,
+        length = 0,
+        match;
+
+    switch (type) {
+    case 'int':
+        buffer.writeInt32BE(value, offset);
+        bytesWritten = 4;
+        break;
+    case 'long':
+        // Long is represented by a buffer of 8 bytes in big endian since
+        // Javascript does not support native 64 integer.
+        value.copy(buffer, offset);
+        bytesWritten = 8;
+        break;
+    case 'buffer':
+        if (Buffer.isBuffer(value)) {
+            buffer.writeInt32BE(value.length, offset);
+            bytesWritten = 4;
+
+            value.copy(buffer, offset + bytesWritten);
+            bytesWritten += value.length;
+        } else {
+            buffer.writeInt32BE(-1, offset);
+            bytesWritten = 4;
+        }
+        break;
+    case 'ustring':
+        if (typeof value === 'string') {
+            length = Buffer.byteLength(value);
+            buffer.writeInt32BE(length, offset);
+            bytesWritten...
+var bytesWritten = 0
+var length = 0
+default:
+(match = /^vector<([\w.]+)>$/.exec(type)) !== null
+(match = /^data\.(\w+)$/.exec(type)) !== null

@@ -1,0 +1,20 @@
+module.exports = files => {
+  const path = require('path');
+  const jsonFiles = [];
+  for (let i = 0; i < files.length; i++) {
+    jsonFiles.push(
+        json_file(files[i].contents.toString(), files[i].relative || path.relative(process.cwd(), files[i].path),
+            files[i].sourceMap ? JSON.stringify(files[i].sourceMap) : undefined));
+  }
+
+  return jsonFiles;
+}
+const path = require('path')
+__ecma.Array.factory()
+i < files.length
+jsonFiles.push(
+        json_file(files[i].contents.toString(), files[i].relative || path.relative(process.cwd(), files[i].path),
+            files[i].sourceMap ? JSON.stringify(files[i].sourceMap) : undefined))
+json_file(files[i].contents.toString(), files[i].relative || path.relative(process.cwd(), files[i].path),
+            files[i].sourceMap ? JSON.stringify(files[i].sourceMap) : undefined)
+files[i].sourceMap ? JSON.stringify(files[i].sourceMap) : undefined

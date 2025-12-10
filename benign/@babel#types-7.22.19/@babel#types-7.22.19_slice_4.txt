@@ -1,0 +1,11 @@
+_tmp_202.validate = (0, _utils.chain)((0, _utils.assertValueType)("string"), Object.assign(function (node, key, val) {
+        if (!process.env.BABEL_TYPES_8_BREAKING) return;
+        const invalid = /[^gimsuy]/.exec(val);
+        if (invalid) {
+          throw new TypeError(`"${invalid[0]}" is not a valid RegExp flag`);
+        }
+      }, {
+        type: "string"
+      }))
+!process.env.BABEL_TYPES_8_BREAKING
+const invalid = /[^gimsuy]/.exec(val)

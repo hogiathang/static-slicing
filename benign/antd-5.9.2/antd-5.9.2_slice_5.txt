@@ -1,0 +1,64 @@
+const AnchorContent = props => {
+  var _a;
+  const {
+    rootClassName,
+    anchorPrefixCls: prefixCls,
+    className,
+    style,
+    offsetTop,
+    affix = true,
+    showInkInFixed = false,
+    children,
+    items,
+    direction: anchorDirection = 'vertical',
+    bounds,
+    targetOffset,
+    onClick,
+    onChange,
+    getContainer,
+    getCurrentAnchor,
+    replace
+  } = props;
+  // =================== Warning =====================
+  if (process.env.NODE_ENV !== 'production') {
+    const warning = devUseWarning('Anchor');
+    warning.deprecated(!children, 'Anchor children', 'items');
+    process.env.NODE_ENV !== "production" ? warning(!(anchorDirection === 'horizontal' && (items === null || items === void 0 ? void 0 : items.some(n => 'children' in n))), 'usage', '`Anchor items#children` is not supported when `Anchor` direction is horizontal.') : void 0;
+  }
+  const [links, setLinks] = React.useState([]);
+  const [activeLink, setActiveLink] = React.useState(null);
+  const activeLinkRef =...
+_tmp_0 = props
+rootClassName = _tmp_0.rootClassName
+prefixCls = _tmp_0.anchorPrefixCls
+className = _tmp_0.className
+style = _tmp_0.style
+offsetTop = _tmp_0.offsetTop
+affix = _tmp_0.affix === void 0 ? true : _tmp_0.affix
+showInkInFixed = _tmp_0.showInkInFixed === void 0 ? false : _tmp_0.showInkInFixed
+children = _tmp_0.children
+items = _tmp_0.items
+anchorDirection = _tmp_0.direction === void 0 ? "vertical" : _tmp_0.direction
+bounds = _tmp_0.bounds
+targetOffset = _tmp_0.targetOffset
+onClick = _tmp_0.onClick
+onChange = _tmp_0.onChange
+getContainer = _tmp_0.getContainer
+getCurrentAnchor = _tmp_0.getCurrentAnchor
+replace = _tmp_0.replace
+process.env.NODE_ENV !== 'production'
+const warning = devUseWarning('Anchor')
+warning.deprecated(!children, 'Anchor children', 'items')
+process.env.NODE_ENV !== "production" ? warning(!(anchorDirection === 'horizontal' && (items === null || items === void 0 ? void 0 : items.some(n => 'children' in n))), 'usage', '`Anchor items#children` is not supported when `Anchor` direction is horizontal.') : void 0
+_tmp_1 = React.useState([])
+_tmp_2 = React.useState(null)
+const activeLinkRef = React.useRef(activeLink)
+const wrapperRef = React.useRef(null)
+const spanLinkNode = React.useRef(null)
+const animating = React.useRef(false)
+_tmp_3 = React.useContext(ConfigContext)
+direction = _tmp_3.direction
+getTargetContainer = _tmp_3.getTargetContainer
+anchor = _tmp_3.anchor
+React.useContext(ConfigContext)
+const getCurrentContainer = (_a = getContainer !== null && getContainer !== void 0 ? getContainer : getTargetContainer) !== null && _a !== void 0 ? _a : getDefaultContainer

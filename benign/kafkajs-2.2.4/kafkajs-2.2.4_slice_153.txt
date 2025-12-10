@@ -1,0 +1,28 @@
+const saslAuthenticate = async ({ request, response }) => {
+      if (this.protocolAuthentication) {
+        const requestAuthBytes = await request.encode()
+        const authResponse = await this.connection.send(
+          this.protocolAuthentication({ authBytes: requestAuthBytes })
+        )
+
+        // `0` is a string because `sessionLifetimeMs` is an int64 encoded as string.
+        // This is not present in SaslAuthenticateV0, so we default to `"0"`
+        this.sessionLifetime = authResponse.sessionLifetimeMs || UNLIMITED_SESSION_LIFETIME
+
+        if (!response) {
+          return
+        }
+
+        const { authBytes: responseAuthBytes } = authResponse
+        const payloadDecoded = await response.decode(responseAuthBytes)
+        return response.parse(payloadDecoded)
+      }
+
+      return this.connection.sendAuthRequest({ request, response })
+    }
+this.protocolAuthentication
+const requestAuthBytes = await request.encode()
+const authResponse = await this.connection.send(
+          this.protocolAuthentication({ authBytes: requestAuthBytes })
+        )
+this.protocolAuthentication({ authBytes: requestAuthBytes })

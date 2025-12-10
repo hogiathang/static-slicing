@@ -1,0 +1,24 @@
+_tmp_28.value = cleanSync
+var dest = this.src2dst(this.source)
+dest === this.source
+var _iteratorNormalCompletion = true
+var _didIteratorError = false
+var _iteratorError = undefined
+var _iterator = (0, _getIterator3.default)(searchSync(dest, {
+                    nodir: !this.includeEmptyDirs,
+                    silent: true
+                }))
+_tmp_29.nodir = !this.includeEmptyDirs
+_tmp_29.silent = true
+!(_iteratorNormalCompletion = (_step = _iterator.next()).done)
+var path = _step.value
+var stat = fs.statSync(path)
+stat.isDirectory()
+fs.rmdirSync(path)
+fs.unlinkSync(path)
+err.code !== "ENOENT"
+throw err;
+fs.rmdirSync(dirname(path))
+err.code !== "ENOTEMPTY"
+throw err;
+this.emit("remove", { path: path })

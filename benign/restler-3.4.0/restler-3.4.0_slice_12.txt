@@ -1,0 +1,3 @@
+function del = function del(url, options) {
+  return request(url, shortcutOptions(options, 'DELETE'));
+}

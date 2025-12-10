@@ -1,0 +1,85 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"GUILD_UPDATE"
+const guild = this.client.guilds.get(packet.d.id)
+!guild
+const oldGuild = {
+                    afkChannelID: guild.afkChannelID,
+                    afkTimeout: guild.afkTimeout,
+                    autoRemoved: guild.autoRemoved,
+                    banner: guild.banner,
+                    defaultNotifications: guild.defaultNotifications,
+                    description: guild.description,
+                    discoverySplash: guild.discoverySplash,
+                    emojiCount: guild.emojiCount,
+                    emojis: guild.emojis,
+                    explicitContentFilter: guild.explicitContentFilter,
+                    features: guild.features,
+                    icon: guild.icon,
+                    keywords: guild.keywords,
+                    large: guild.large,
+                    maxMembers: guild.maxMembers,
+                    maxVideoChannelUsers: guild.maxVideoChannelUsers,
+                    mfaLevel: guild.mfaLevel,
+                    name: guild.name,
+                    nsfw: guild.nsfw,
+                    nsfwLeve...
+_tmp_179.afkChannelID = guild.afkChannelID
+_tmp_179.afkTimeout = guild.afkTimeout
+_tmp_179.autoRemoved = guild.autoRemoved
+_tmp_179.banner = guild.banner
+_tmp_179.defaultNotifications = guild.defaultNotifications
+_tmp_179.description = guild.description
+_tmp_179.discoverySplash = guild.discoverySplash
+_tmp_179.emojiCount = guild.emojiCount
+_tmp_179.emojis = guild.emojis
+_tmp_179.explicitContentFilter = guild.explicitContentFilter
+_tmp_179.features = guild.features
+_tmp_179.icon = guild.icon
+_tmp_179.keywords = guild.keywords
+_tmp_179.large = guild.large
+_tmp_179.maxMembers = guild.maxMembers
+_tmp_179.maxVideoChannelUsers = guild.maxVideoChannelUsers
+_tmp_179.mfaLevel = guild.mfaLevel
+_tmp_179.name = guild.name
+_tmp_179.nsfw = guild.nsfw
+_tmp_179.nsfwLevel = guild.nsfwLevel
+_tmp_179.ownerID = guild.ownerID
+_tmp_179.preferredLocale = guild.preferredLocale
+_tmp_179.premiumProgressBarEnabled = guild.premiumProgressBarEnabled
+_tmp_179.premiumSubscriptionCount = guild.premiumSubscriptionCount
+_tmp_179.premiumTier = guild.premiumTier
+_tmp_179.primaryCategory = guild.primaryCategory
+_tmp_179.primaryCategoryID = guild.primaryCategoryID
+_tmp_179.publicUpdatesChannelID = guild.publicUpdatesChannelID
+_tmp_179.rulesChannelID = guild.rulesChannelID
+_tmp_179.splash = guild.splash
+_tmp_179.stickers = guild.stickers
+_tmp_179.systemChannelFlags = guild.systemChannelFlags
+_tmp_179.systemChannelID = guild.systemChannelID
+_tmp_179.vanityURL = guild.vanityURL
+_tmp_179.verificationLevel = guild.verificationLevel
+_tmp_179.welcomeScreen = guild.welcomeScreen && {
+                        description: guild.welcomeScreen.description,
+                        welcomeChannels: guild.welcomeScreen.welcomeChannels
+                    }
+_tmp_180.description = guild.welcomeScreen.description
+_tmp_180.welcomeChannels = guild.welcomeScreen.welcomeChannels
+this.emit("guildUpdate", this.client.guilds.update(packet.d, this.client), oldGuild)

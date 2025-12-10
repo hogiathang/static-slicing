@@ -1,0 +1,76 @@
+module.exports = function getEmbeddedDiscriminatorPath(schema, update, filter, path, options) {
+  const parts = path.split('.');
+  let schematype = null;
+  let type = 'adhocOrUndefined';
+
+  filter = filter || {};
+  update = update || {};
+  const arrayFilters = options != null && Array.isArray(options.arrayFilters) ?
+    options.arrayFilters : [];
+  const updatedPathsByFilter = updatedPathsByArrayFilter(update);
+
+  for (let i = 0; i < parts.length; ++i) {
+    const subpath = cleanPositionalOperators(parts.slice(0, i + 1).join('.'));
+    schematype = schema.path(subpath);
+    if (schematype == null) {
+      continue;
+    }
+
+    type = schema.pathType(subpath);
+    if ((schematype.$isSingleNested || schematype.$isMongooseDocumentArrayElement) &&
+        schematype.schema.discriminators != null) {
+      const key = get(schematype, 'schema.options.discriminatorKey');
+      const discriminatorValuePath = subpath + '.' + key;
+      const discriminatorFilterPath =
+        discriminatorValue...
+const parts = path.split('.')
+let schematype = null
+let type = 'adhocOrUndefined'
+filter = filter || {}
+update = update || {}
+const arrayFilters = options != null && Array.isArray(options.arrayFilters) ?
+    options.arrayFilters : []
+__ecma.Array.factory()
+const updatedPathsByFilter = updatedPathsByArrayFilter(update)
+i < parts.length
+const subpath = cleanPositionalOperators(parts.slice(0, i + 1).join('.'))
+schematype = schema.path(subpath)
+schematype == null
+continue;
+type = schema.pathType(subpath)
+(schematype.$isSingleNested || schematype.$isMongooseDocumentArrayElement) &&
+        schematype.schema.discriminators != null
+schematype.schema.discriminators != null
+const key = get(schematype, 'schema.options.discriminatorKey')
+const discriminatorValuePath = subpath + '.' + key
+const discriminatorFilterPath =
+        discriminatorValuePath.replace(/\.\d+\./, '.')
+discriminatorValuePath.replace(/\.\d+\./, '.')
+let discriminatorKey = null
+discriminatorValuePath in filter
+discriminatorKey = filter[discriminatorValuePath]
+discriminatorFilterPath in filter
+discriminatorKey = filter[discriminatorFilterPath]
+const wrapperPath = subpath.replace(/\.\d+$/, '')
+schematype.$isMongooseDocumentArrayElement &&
+          get(filter[wrapperPath], '$elemMatch.' + key) != null
+get(filter[wrapperPath], '$elemMatch.' + key) != null
+discriminatorKey = filter[wrapperPath].$elemMatch[key]
+discriminatorValuePath in update
+discriminatorKey = update[discriminatorValuePath]
+_iterator_0 = <operator>.iterator(Object.keys(updatedPathsByFilter))
+const schemaKey = updatedPathsByFilter[filterKey] + '.' + key
+const arrayFilterKey = filterKey + '.' + key
+schemaKey === discriminatorFilterPath
+const filter = arrayFilters.find(filter => filter.hasOwnProperty(arrayFilterKey))
+filter != null
+discriminatorKey = filter[arrayFilterKey]
+discriminatorKey == null
+continue;
+const discriminator = getDiscriminatorByValue(schematype.caster.discriminators, discriminatorKey)
+const discriminatorSchema = discriminator && discriminator.schema
+discriminatorSchema == null
+continue;
+const rest = parts.slice(i + 1).join('.')
+schematype = discriminatorSchema.path(rest)
+schematype != null

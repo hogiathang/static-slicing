@@ -1,0 +1,31 @@
+__awaiter(this, void 0, void 0, function* () {
+            const response = new botframework_streaming_1.StreamingResponse();
+            if (!request) {
+                response.statusCode = botbuilder_core_1.StatusCodes.BAD_REQUEST;
+                response.setBody('No request provided.');
+                return response;
+            }
+            if (!request.verb || !request.path) {
+                response.statusCode = botbuilder_core_1.StatusCodes.BAD_REQUEST;
+                response.setBody(`Request missing verb and/or path. Verb: ${request.verb}. Path: ${request.path}`);
+                return response;
+            }
+            if (request.verb.toLocaleUpperCase() !== streaming_1.POST && request.verb.toLocaleUpperCase() !== streaming_1.GET) {
+                response.statusCode = botbuilder_core_1.StatusCodes.METHOD_NOT_ALLOWED;
+                response.setBody(`Invalid verb received. Only GET and POST are accepted. Verb: ${request.verb}`);
+            }
+            if (re...
+const response = new botframework_streaming_1.StreamingResponse()
+!request
+!request.verb || !request.path
+request.verb.toLocaleUpperCase() !== streaming_1.POST && request.verb.toLocaleUpperCase() !== streaming_1.GET
+response.statusCode = botbuilder_core_1.StatusCodes.METHOD_NOT_ALLOWED
+<operator>.formatString("Invalid verb received. Only GET and POST are accepted. Verb: ", request.verb, "")
+request.path.toLocaleLowerCase() === streaming_1.VERSION_PATH
+body = yield this.readRequestBodyAsString(request)
+request.path.toLocaleLowerCase() !== streaming_1.MESSAGES_PATH
+request.verb.toLocaleUpperCase() !== streaming_1.POST
+const context = new botbuilder_core_1.TurnContext(this, body)
+this.runMiddleware(context, this.logic)
+body.type === botbuilder_core_1.ActivityTypes.Invoke
+const invokeResponse = context.turnState.get(botbuilder_core_1.INVOKE_RESPONSE_KEY)

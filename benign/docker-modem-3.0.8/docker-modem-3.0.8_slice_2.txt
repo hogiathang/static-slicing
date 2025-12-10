@@ -1,0 +1,127 @@
+Modem.prototype.buildRequest = function (options, context, data, callback) {
+  var self = this;
+  var connectionTimeoutTimer;
+  var finished = false;
+
+  var opts = self.protocol === 'ssh' ? Object.assign(options, {
+    agent: ssh(Object.assign({}, self.sshOptions, {
+      'host': self.host,
+      'port': self.port,
+      'username': self.username,
+      'password': self.password,
+    })),
+    protocol: 'http:',
+  }) : options;
+
+  var req = http[self.protocol === 'ssh' ? 'http' : self.protocol].request(opts, function () { });
+
+  debug('Sending: %s', util.inspect(options, {
+    showHidden: true,
+    depth: null
+  }));
+
+  if (self.connectionTimeout) {
+    connectionTimeoutTimer = setTimeout(function () {
+      debug('Connection Timeout of %s ms exceeded', self.connectionTimeout);
+      req.abort();
+    }, self.connectionTimeout);
+  }
+
+  if (self.timeout) {
+    req.on('socket', function (socket) {
+      socket.setTimeout(self.timeout);
+      socket.on('timeout', function () {
+        de...
+var self = this
+var finished = false
+var opts = self.protocol === 'ssh' ? Object.assign(options, {
+    agent: ssh(Object.assign({}, self.sshOptions, {
+      'host': self.host,
+      'port': self.port,
+      'username': self.username,
+      'password': self.password,
+    })),
+    protocol: 'http:',
+  }) : options
+_tmp_21.agent = ssh(Object.assign({}, self.sshOptions, {
+      'host': self.host,
+      'port': self.port,
+      'username': self.username,
+      'password': self.password,
+    }))
+_tmp_23.host = self.host
+_tmp_23.port = self.port
+_tmp_23.username = self.username
+_tmp_23.password = self.password
+_tmp_21.protocol = "http:"
+var req = http[self.protocol === 'ssh' ? 'http' : self.protocol].request(opts, function () { })
+debug('Sending: %s', util.inspect(options, {
+    showHidden: true,
+    depth: null
+  }))
+_tmp_25.showHidden = true
+_tmp_25.depth = null
+self.connectionTimeout
+connectionTimeoutTimer = setTimeout(function () {
+      debug('Connection Timeout of %s ms exceeded', self.connectionTimeout);
+      req.abort();
+    }, self.connectionTimeout)
+self.connectionTimeout
+self.timeout
+req.on('socket', function (socket) {
+      socket.setTimeout(self.timeout);
+      socket.on('timeout', function () {
+        debug('Timeout of %s ms exceeded', self.timeout);
+        req.abort();
+      });
+    })
+context.hijack === true
+clearTimeout(connectionTimeoutTimer)
+req.on('upgrade', function (res, sock, head) {
+      if (finished === false) {
+        finished = true;
+        return callback(null, sock);
+      }
+    })
+req.on('connect', function () {
+    clearTimeout(connectionTimeoutTimer);
+  })
+req.on('disconnect', function () {
+    clearTimeout(connectionTimeoutTimer);
+  })
+req.on('response', function (res) {
+    clearTimeout(connectionTimeoutTimer);
+    if (context.isStream === true) {
+      if (finished === false) {
+        finished = true;
+        self.buildPayload(null, context.isStream, context.statusCodes, context.openStdin, req, res, null, callback);
+      }
+    } else {
+      // The native 'request' method only handles aborting during the request lifecycle not the response lifecycle.
+      // We need to make the response stream abortable so that it's destroyed with an error on abort and then
+      // it triggers the request 'error' event
+      if (options.signal != null) {
+        stream.addAbortSignal(options.signal, res)
+      }
+      var chunks = [];
+      res.on('data', function (chunk) {
+        chunks.push(chunk);
+      });
+
+      res.on('end', function () {
+        var buffer = Buffer.concat(chunks);
+        var result = buffer.toString();
+
+        debug('Received: %s', result);
+
+        var json = utils.parseJSON(result) || buffer;
+    ...
+req.on('error', function (error) {
+    clearTimeout(connectionTimeoutTimer);
+    if (finished === false) {
+      finished = true;
+      self.buildPayload(error, context.isStream, context.statusCodes, false, {}, {}, null, callback);
+    }
+  })
+typeof data === 'string' || Buffer.isBuffer(data)
+req.write(data)

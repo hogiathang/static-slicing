@@ -1,0 +1,8 @@
+var saveAccounts = function saveAccounts(project) {
+  var file = path.join(project.directory, 'DataFire-accounts.yml');
+  logger.log('Saving credentials to ' + file.replace(process.cwd(), '.'));
+  fs.writeFileSync(file, YAML.stringify({ accounts: project.accounts }, 10));
+}
+var file = path.join(project.directory, 'DataFire-accounts.yml')
+logger.log('Saving credentials to ' + file.replace(process.cwd(), '.'))
+fs.writeFileSync(file, YAML.stringify({ accounts: project.accounts }, 10))

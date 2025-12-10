@@ -1,0 +1,6 @@
+function buildCreateElementCall = function buildCreateElementCall(path, file) {
+      const openingPath = path.get("openingElement");
+      return call(file, "createElement", [getTag(openingPath), buildCreateElementOpeningElementAttributes(file, path, openingPath.get("attributes")), ..._core.types.react.buildChildren(path.node)]);
+    }
+const openingPath = path.get("openingElement")
+call(file, "createElement", [getTag(openingPath), buildCreateElementOpeningElementAttributes(file, path, openingPath.get("attributes")), ..._core.types.react.buildChildren(path.node)])

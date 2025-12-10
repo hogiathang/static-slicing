@@ -1,0 +1,31 @@
+async set (args) {
+    const setError = () =>
+      this.usageError('npm pkg set expects a key=value pair of args.')
+
+    if (!args.length) {
+      throw setError()
+    }
+
+    const force = this.npm.config.get('force')
+    const json = this.npm.config.get('json')
+    const pkgJson = await PackageJson.load(this.prefix)
+    const q = new Queryable(pkgJson.content)
+    for (const arg of args) {
+      const [key, ...rest] = arg.split('=')
+      const value = rest.join('=')
+      if (!key || !value) {
+        throw setError()
+      }
+
+      q.set(key, json ? JSON.parse(value) : value, { force })
+    }
+
+    pkgJson.update(q.toJSON())
+    await pkgJson.save()
+  }
+const setError = () =>
+      this.usageError('npm pkg set expects a key=value pair of args.')
+!args.length
+throw setError()
+const force = this.npm.config.get('force')
+const json = this.npm.config.get('json')

@@ -1,0 +1,43 @@
+consumeParameters() {
+        const parameters = [];
+        if (!this.token().isCharacter(chars.$LPAREN)) {
+            this.unexpectedToken(this.token());
+            return parameters;
+        }
+        this.advance();
+        const commaDelimStack = [];
+        let current = '';
+        while (this.index < this.tokens.length) {
+            const token = this.token();
+            // Stop parsing if we've hit the end character and we're outside of a comma-delimited syntax.
+            // Note that we don't need to account for strings here since the lexer already parsed them
+            // into string tokens.
+            if (token.isCharacter(chars.$RPAREN) && commaDelimStack.length === 0) {
+                if (current.length) {
+                    parameters.push(current);
+                }
+                break;
+            }
+            // In the `on` microsyntax "top-level" commas (e.g. ones outside of an parameters) separate
+            // the different triggers (e.g. `on idle...
+__ecma.Array.factory()
+!this.token().isCharacter(chars.$LPAREN)
+this.advance()
+const commaDelimStack = []
+let current = ''
+this.index < this.tokens.length
+const token = this.token()
+token.isCharacter(chars.$RPAREN) && commaDelimStack.length === 0
+token.type === TokenType.Character && COMMA_DELIMITED_SYNTAX.has(token.numValue)
+commaDelimStack.push(COMMA_DELIMITED_SYNTAX.get(token.numValue))
+commaDelimStack.length > 0 &&
+                token.isCharacter(commaDelimStack[commaDelimStack.length - 1])
+token.isCharacter(commaDelimStack[commaDelimStack.length - 1])
+commaDelimStack.pop()
+commaDelimStack.length === 0 && token.isCharacter(chars.$COMMA) && current.length > 0
+parameters.push(current)
+current = ''
+this.advance()
+continue;
+current += this.tokenText()
+this.advance()

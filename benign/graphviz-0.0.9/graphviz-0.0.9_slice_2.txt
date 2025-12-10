@@ -1,0 +1,85 @@
+Graph.prototype.render = function(type_or_options, name_or_callback, errback) {
+	var parameters = [];
+	
+	// Get output type
+	var type = type_or_options;
+	if( typeof(type_or_options) == 'object' ) {
+		type = type_or_options.type;
+
+		// Get use
+		if( type_or_options.use != undefined ) { this.use = type_or_options.use; }
+		
+		// Get path
+		if( type_or_options.path != undefined ) { this.gvPath = type_or_options.path; }
+		
+		// Get extra Graph Options
+		if( type_or_options.G != undefined ) {
+			for( attr in type_or_options.G ) {
+				if( gvattrs.isValid( attr, "G" ) == false ) {
+					util.debug( "Warning : Invalid attribut `"+attr+"' for a graph" );
+				}
+	      parameters.push( "-G"+attr+"="+type_or_options.G[attr] )
+	    }
+		}
+		// Get extra Node Options
+		if( type_or_options.N != undefined ) {
+			for( attr in type_or_options.N ) {
+				if( gvattrs.isValid( attr, "N" ) == false ) {
+					util.debug( "Warning : Invalid attribut `"+attr+"' for a node" );
+				}
+	      parameters.push( "-N"+a...
+__ecma.Array.factory()
+var type = type_or_options
+typeof(type_or_options) == 'object'
+type = type_or_options.type
+type_or_options.use != undefined
+this.gvPath = type_or_options.path
+type_or_options.G != undefined
+_iterator_5 = <operator>.iterator(type_or_options.G)
+gvattrs.isValid( attr, "G" ) == false
+util.debug( "Warning : Invalid attribut `"+attr+"' for a graph" )
+parameters.push( "-G"+attr+"="+type_or_options.G[attr] )
+type_or_options.N != undefined
+_iterator_6 = <operator>.iterator(type_or_options.N)
+gvattrs.isValid( attr, "N" ) == false
+util.debug( "Warning : Invalid attribut `"+attr+"' for a node" )
+parameters.push( "-N"+attr+"="+type_or_options.N[attr] )
+type_or_options.E != undefined
+_iterator_7 = <operator>.iterator(type_or_options.E)
+gvattrs.isValid( attr, "E" ) == false
+util.debug( "Warning : Invalid attribut `"+attr+"' for an edge" )
+parameters.push( "-E"+attr+"="+type_or_options.E[attr] )
+parameters.push( '-T' + type )
+var dotScript = this.to_dot()
+var cmd = this.use
+this.gvPath != ''
+cmd = path.join( this.gvPath, this.use )
+var rendered = null
+var out = ''
+var err = ''
+var outcallback = function(data) { 
+    if( rendered == null ) {
+      rendered = data; 
+    } else {
+      __b = new Buffer( rendered.length + data.length )
+      rendered.copy(__b, 0, 0)
+      data.copy(__b, rendered.length, 0)
+      rendered = __b
+    }
+  }
+typeof(name_or_callback) == 'string'
+parameters.push( '-o' + name_or_callback )
+outcallback = function(data) { out += data; }
+graphviz = spawn(cmd, parameters)
+graphviz.stdout.on('data', outcallback)
+graphviz.stderr.on('data', function(data) {
+    err += data;
+  })
+graphviz.on('exit', function(code) {
+    if(code !== 0) {
+      if(errback) { errback(code, out, err) }
+    } else {
+      if( typeof(name_or_callback) == 'function' ) name_or_callback(rendered);
+    }
+  })
+graphviz.stdin.write(this.to_dot())

@@ -1,0 +1,6 @@
+var system = require('system')
+var casper = require('casper').create()
+var format = require('utils').format
+var source = casper.cli.get('source') || 'auto'
+var target = casper.cli.get('target')
+var text   = casper.cli.get(0)

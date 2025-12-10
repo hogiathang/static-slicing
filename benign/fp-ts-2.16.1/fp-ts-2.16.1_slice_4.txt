@@ -1,0 +1,16 @@
+function (m) {
+        var out = b;
+        var ks = keysO(m);
+        var len = ks.length;
+        for (var i = len - 1; i >= 0; i--) {
+            var k = ks[i];
+            out = f(k, m.get(k), out);
+        }
+        return out;
+    }
+var out = b
+var ks = keysO(m)
+var len = ks.length
+var i = len - 1
+var k = ks[i]
+out = f(k, m.get(k), out)

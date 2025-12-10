@@ -1,0 +1,80 @@
+function generateMarkdown = async function generateMarkdown(commits, releaseVersion, githubRequestConfig) {
+    const typeGroups = groupBy(commits, 'type');
+    const markdown = [];
+    const breakingChanges = [];
+    const commitTypes = {
+        feat: { title: '🚀 Features' },
+        perf: { title: '🔥 Performance' },
+        fix: { title: '🩹 Fixes' },
+        refactor: { title: '💅 Refactors' },
+        docs: { title: '📖 Documentation' },
+        build: { title: '📦 Build' },
+        types: { title: '🌊 Types' },
+        chore: { title: '🏡 Chore' },
+        examples: { title: '🏀 Examples' },
+        test: { title: '✅ Tests' },
+        style: { title: '🎨 Styles' },
+        ci: { title: '🤖 CI' },
+    };
+    // Version Title
+    markdown.push('', `## ${releaseVersion}`, '');
+    for (const type of Object.keys(commitTypes)) {
+        const group = typeGroups[type];
+        if (!group || group.length === 0) {
+            continue;
+        }
+        markdown.push('', '### ' + commitTypes[type].title, '');
+...
+const typeGroups = groupBy(commits, 'type')
+__ecma.Array.factory()
+const breakingChanges = []
+const commitTypes = {
+        feat: { title: '🚀 Features' },
+        perf: { title: '🔥 Performance' },
+        fix: { title: '🩹 Fixes' },
+        refactor: { title: '💅 Refactors' },
+        docs: { title: '📖 Documentation' },
+        build: { title: '📦 Build' },
+        types: { title: '🌊 Types' },
+        chore: { title: '🏡 Chore' },
+        examples: { title: '🏀 Examples' },
+        test: { title: '✅ Tests' },
+        style: { title: '🎨 Styles' },
+        ci: { title: '🤖 CI' },
+    }
+_tmp_8.feat = { title: '🚀 Features' }
+_tmp_8.perf = { title: '🔥 Performance' }
+_tmp_8.fix = { title: '🩹 Fixes' }
+_tmp_8.refactor = { title: '💅 Refactors' }
+_tmp_8.docs = { title: '📖 Documentation' }
+_tmp_8.build = { title: '📦 Build' }
+_tmp_8.types = { title: '🌊 Types' }
+_tmp_8.chore = { title: '🏡 Chore' }
+_tmp_8.examples = { title: '🏀 Examples' }
+_tmp_8.test = { title: '✅ Tests' }
+_tmp_8.style = { title: '🎨 Styles' }
+_tmp_8.ci = { title: '🤖 CI' }
+<operator>.formatString("## ", releaseVersion, "")
+_iterator_0 = <operator>.iterator(Object.keys(commitTypes))
+const group = typeGroups[type]
+!group || group.length === 0
+continue;
+markdown.push('', '### ' + commitTypes[type].title, '')
+_iterator_1 = <operator>.iterator(group.reverse())
+const line = formatCommit(commit, githubRequestConfig)
+markdown.push(line)
+commit.isBreaking
+breakingChanges.push(line)
+breakingChanges.length > 0
+markdown.push('', '#### ⚠️  Breaking Changes', '', ...breakingChanges)
+const _authors = new Map()
+_iterator_2 = <operator>.iterator(commits)
+!commit.author
+continue;
+const name = formatName(commit.author.name)
+!name || name.includes('[bot]')
+continue;
+_authors.has(name)
+const entry = _authors.get(name)
+entry.email.add(commit.author.email)
+_authors.set(name, { email: new Set([commit.author.email]) })

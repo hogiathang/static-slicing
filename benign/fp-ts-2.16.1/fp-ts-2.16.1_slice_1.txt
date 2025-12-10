@@ -1,0 +1,14 @@
+function (m) {
+            var out = [];
+            var ks = keysO(m);
+            for (var _i = 0, ks_1 = ks; _i < ks_1.length; _i++) {
+                var key = ks_1[_i];
+                out.push(f(key, m.get(key)));
+            }
+            return out;
+        }
+__ecma.Array.factory()
+var ks = keysO(m)
+_i < ks_1.length
+var key = ks_1[_i]
+out.push(f(key, m.get(key)))

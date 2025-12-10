@@ -1,0 +1,27 @@
+listeners.forEach(listener => {
+                const triggerName = listener.name;
+                if (visitedTriggers.has(triggerName))
+                    return;
+                visitedTriggers.add(triggerName);
+                const trigger = this._triggers.get(triggerName);
+                const transition = trigger.fallbackTransition;
+                const fromState = elementStates.get(triggerName) || DEFAULT_STATE_VALUE;
+                const toState = new StateValue(VOID_VALUE);
+                const player = new TransitionAnimationPlayer(this.id, triggerName, element);
+                this._engine.totalQueuedPlayers++;
+                this._queue.push({
+                    element,
+                    triggerName,
+                    transition,
+                    fromState,
+                    toState,
+                    player,
+                    isFallbackTransition: true
+                });
+            })
+const triggerName = listener.name
+visitedTriggers.has(triggerName)
+visitedTriggers.add(triggerName)
+const trigger = this._triggers.get(triggerName)
+const transition = trigger.fallbackTransition
+const fromState = elementStates.get(triggerName) || DEFAULT_STATE_VALUE

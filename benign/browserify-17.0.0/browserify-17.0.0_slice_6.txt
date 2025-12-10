@@ -1,0 +1,26 @@
+b.transform(function (file) {
+                var env = Object.keys(process.env).reduce(function (acc, key) {
+                    acc[key] = process.env[key];
+                    return acc;
+                }, {});
+                env.FILENAME = file;
+                var ps = spawn(cmd[0], cmd.slice(1), { env: env });
+                var error = '';
+                ps.stderr.on('data', function (buf) { error += buf });
+                
+                ps.on('exit', function (code) {
+                    if (code === 0) return;
+                    console.error([
+                        'error running source transform command: ' + c,
+                        error.split('\n').join('\n  '),
+                        ''
+                    ].join('\n'));
+                    process.exit(1);
+                });
+                return duplexer(ps.stdin, ps.stdout);
+            })
+var env = Object.keys(process.env).reduce(function (acc, key) {
+                    acc[key] = process.env[key];
+                    return acc;
+                }, {})
+env.FILENAME = file

@@ -1,0 +1,24 @@
+keyframes.forEach(keyframe => {
+            const entriesToCheck = Array.from(keyframe.entries()).filter(([prop]) => !allowedNonAnimatableProps.has(prop));
+            for (const [prop, value] of entriesToCheck) {
+                if (!driver.validateAnimatableStyleProperty(prop)) {
+                    if (nonAnimatablePropsInitialValues.has(prop) && !invalidNonAnimatableProps.has(prop)) {
+                        const propInitialValue = nonAnimatablePropsInitialValues.get(prop);
+                        if (propInitialValue !== value) {
+                            invalidNonAnimatableProps.add(prop);
+                        }
+                    }
+                    else {
+                        nonAnimatablePropsInitialValues.set(prop, value);
+                    }
+                }
+            }
+        })
+const entriesToCheck = Array.from(keyframe.entries()).filter(([prop]) => !allowedNonAnimatableProps.has(prop))
+_iterator_3 = <operator>.iterator(entriesToCheck)
+!driver.validateAnimatableStyleProperty(prop)
+nonAnimatablePropsInitialValues.has(prop) && !invalidNonAnimatableProps.has(prop)
+const propInitialValue = nonAnimatablePropsInitialValues.get(prop)
+propInitialValue !== value
+invalidNonAnimatableProps.add(prop)
+nonAnimatablePropsInitialValues.set(prop, value)

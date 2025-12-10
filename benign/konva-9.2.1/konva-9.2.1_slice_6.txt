@@ -1,0 +1,35 @@
+_dragChange() {
+          if (this.attrs.draggable) {
+              this._listenDrag();
+          }
+          else {
+              // remove event listeners
+              this._dragCleanup();
+              /*
+               * force drag and drop to end
+               * if this node is currently in
+               * drag and drop mode
+               */
+              var stage = this.getStage();
+              if (!stage) {
+                  return;
+              }
+              const dragElement = DD._dragElements.get(this._id);
+              const isDragging = dragElement && dragElement.dragStatus === 'dragging';
+              const isReady = dragElement && dragElement.dragStatus === 'ready';
+              if (isDragging) {
+                  this.stopDrag();
+              }
+              else if (isReady) {
+                  DD._dragElements.delete(this._id);
+              }
+          }
+      }
+this.attrs.draggable
+this._dragCleanup()
+var stage = this.getStage()
+!stage
+const dragElement = DD._dragElements.get(this._id)
+const isDragging = dragElement && dragElement.dragStatus === 'dragging'
+const isReady = dragElement && dragElement.dragStatus === 'ready'
+(_tmp_440 = DD._dragElements).delete

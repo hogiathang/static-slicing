@@ -1,0 +1,28 @@
+get(name) {
+        let current = this;
+        while (current) {
+            let value = current.map.get(name);
+            if (value != null) {
+                if (current !== this) {
+                    // make a local copy and reset the `declare` state
+                    value = {
+                        retrievalLevel: value.retrievalLevel,
+                        lhs: value.lhs,
+                        declareLocalCallback: value.declareLocalCallback,
+                        declare: false,
+                        priority: value.priority
+                    };
+                    // Cache the value locally.
+                    this.map.set(name, value);
+                    // Possibly generate a shared context var
+                    this.maybeGenerateSharedContextVar(value);
+                    this.maybeRestoreView();
+                }
+                if (value.declareLocalCallback && !value.declare) {
+                    value.declare = true;
+                }
+           ...
+let current = this
+let value = current.map.get(name)
+value != null
+current = current.parent

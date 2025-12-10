@@ -1,0 +1,16 @@
+path.get("properties").every((property) => {
+                if (property.isObjectProperty()) {
+                    if (!property.node.computed ||
+                        isExpressionOfLiterals(property.get("key"), literalNames)) {
+                        return isExpressionOfLiterals(property.get("value"), literalNames);
+                    }
+                }
+                else {
+                    return true;
+                }
+            })
+property.isObjectProperty()
+!property.node.computed ||
+                        isExpressionOfLiterals(property.get("key"), literalNames)
+isExpressionOfLiterals(property.get("key"), literalNames)
+isExpressionOfLiterals(property.get("value"), literalNames)

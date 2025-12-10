@@ -1,0 +1,37 @@
+function defaultErrorHandler = function defaultErrorHandler (error, request, reply) {
+  setErrorHeaders(error, reply)
+  if (!reply[kReplyHasStatusCode] || reply.statusCode === 200) {
+    const statusCode = error.statusCode || error.status
+    reply.code(statusCode >= 400 ? statusCode : 500)
+  }
+  if (reply.statusCode < 500) {
+    reply.log.info(
+      { res: reply, err: error },
+      error && error.message
+    )
+  } else {
+    reply.log.error(
+      { req: request, res: reply, err: error },
+      error && error.message
+    )
+  }
+  reply.send(error)
+}
+setErrorHeaders(error, reply)
+!reply[kReplyHasStatusCode] || reply.statusCode === 200
+const statusCode = error.statusCode || error.status
+reply.code(statusCode >= 400 ? statusCode : 500)
+reply.statusCode < 500
+reply.log.info(
+      { res: reply, err: error },
+      error && error.message
+    )
+_tmp_6.res = reply
+error && error.message
+reply.log.error(
+      { req: request, res: reply, err: error },
+      error && error.message
+    )
+_tmp_8.req = request
+error && error.message
+reply.send(error)

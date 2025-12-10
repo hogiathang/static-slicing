@@ -1,0 +1,12 @@
+function insertFqnInTrie = function insertFqnInTrie(fqn, trie) {
+    for (const fqnPart of fqn.replace(/[^a-z0-9]/gi, '$& ').split(' ')) {
+        const nextLevelTreeRef = trie.get(fqnPart) ?? new Trie();
+        trie.set(fqnPart, nextLevelTreeRef);
+        trie = nextLevelTreeRef;
+    }
+    return trie;
+}
+_iterator_0 = <operator>.iterator(fqn.replace(/[^a-z0-9]/gi, '$& ').split(' '))
+const nextLevelTreeRef = trie.get(fqnPart) ?? new Trie()
+trie.set(fqnPart, nextLevelTreeRef)
+trie = nextLevelTreeRef

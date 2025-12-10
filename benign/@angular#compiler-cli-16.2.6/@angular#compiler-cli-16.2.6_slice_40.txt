@@ -1,0 +1,21 @@
+registerStyle(styleResource, component) {
+    const { path } = styleResource;
+    if (!this.componentToStylesMap.has(component)) {
+      this.componentToStylesMap.set(component, /* @__PURE__ */ new Set());
+    }
+    if (path !== null) {
+      if (!this.externalStyleToComponentsMap.has(path)) {
+        this.externalStyleToComponentsMap.set(path, /* @__PURE__ */ new Set());
+      }
+      this.externalStyleToComponentsMap.get(path).add(component);
+    }
+    this.componentToStylesMap.get(component).add(styleResource);
+  }
+_tmp_502 = styleResource
+(_tmp_503 = this.componentToStylesMap).has
+this.componentToStylesMap.set(component, /* @__PURE__ */ new Set())
+path !== null
+(_tmp_506 = this.externalStyleToComponentsMap).has
+this.externalStyleToComponentsMap.set(path, /* @__PURE__ */ new Set())
+(_tmp_509 = this.externalStyleToComponentsMap.get(path)).add
+this.componentToStylesMap.get(component).add(styleResource)

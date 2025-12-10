@@ -1,0 +1,15 @@
+this.onInterval = () => {
+            try {
+                const stats = this.vol.statSync(this.filename);
+                if (this.hasChanged(stats)) {
+                    this.emit('change', stats, this.prev);
+                    this.prev = stats;
+                }
+            }
+            finally {
+                this.loop();
+            }
+        }
+const stats = this.vol.statSync(this.filename)
+this.hasChanged(stats)
+this.emit('change', stats, this.prev)

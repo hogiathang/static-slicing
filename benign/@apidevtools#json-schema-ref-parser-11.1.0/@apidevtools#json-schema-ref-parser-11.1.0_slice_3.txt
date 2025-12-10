@@ -1,0 +1,37 @@
+function get = async function get(u: RequestInfo | URL, httpOptions: HTTPResolverOptions) {
+  let controller: any;
+  let timeoutId: any;
+  if (httpOptions.timeout) {
+    controller = new AbortController();
+    timeoutId = setTimeout(() => controller.abort(), httpOptions.timeout);
+  }
+
+  if (!global.fetch) {
+    const { default: fetch, Request, Headers } = await import("node-fetch");
+    // @ts-ignore
+    global.fetch = fetch;
+    // @ts-ignore
+    global.Request = Request;
+    // @ts-ignore
+    global.Headers = Headers;
+  }
+  const response = await fetch(u, {
+    method: "GET",
+    headers: httpOptions.headers || {},
+    credentials: httpOptions.withCredentials ? "include" : "same-origin",
+    signal: controller ? controller.signal : null,
+  });
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+  }
+
+  return response;
+}
+httpOptions.timeout
+controller = new AbortController()
+timeoutId = setTimeout(() => controller.abort(), httpOptions.timeout)
+!global.fetch
+_tmp_6 = await import("node-fetch")
+global.fetch = fetch
+global.Request = Request
+global.Headers = Headers

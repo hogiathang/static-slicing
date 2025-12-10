@@ -1,0 +1,25 @@
+function done() {
+    //
+    // We always emit 2 arguments for the data event, the first argument is the
+    // parsed data and the second argument is the raw string that we received.
+    // This allows you, for example, to do some validation on the parsed data
+    // and then save the raw string in your database without the stringify
+    // overhead.
+    //
+    if ('incoming' === type) {
+      //
+      // This is pretty bad edge case, it's possible that the async version of
+      // the `connection` event listener takes so long that we cannot assign
+      // `data` handlers and we are already receiving data as the connection is
+      // already established. In this edge case we need to queue the data and
+      // pass it to the data event once we're listening.
+      //
+      if (connection.queue) return connection.queue.push(packet);
+      return connection.emit('data', packet.data, packet.raw);
+    }
+
+    connection._write(packet.data);
+  }
+'incoming' === type
+(_tmp_20 = connection.queue).push
+connection.emit('data', packet.data, packet.raw)

@@ -1,0 +1,12 @@
+utimesBase(filename, atime, mtime) {
+        const fd = this.openSync(filename, 'r');
+        try {
+            this.futimesBase(fd, atime, mtime);
+        }
+        finally {
+            this.closeSync(fd);
+        }
+    }
+const fd = this.openSync(filename, 'r')
+this.futimesBase(fd, atime, mtime)
+this.closeSync(fd)

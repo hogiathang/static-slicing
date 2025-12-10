@@ -1,0 +1,20 @@
+new Promise((resolve, reject) => {
+    const child = cp.spawn(exe, args, {cwd: cwd || process.cwd()});
+    const buffer = [];
+    child.stderr.on('data', (chunk) => {
+      buffer.push(chunk.toString());
+    });
+    child.stdout.on('data', (chunk) => {
+      buffer.push(chunk.toString());
+    });
+    child.on('close', (code) => {
+      const output = buffer.join('');
+      if (code) {
+        const msg = output || 'Process failed: ' + code;
+        reject(new ProcessError(code, msg));
+      } else {
+        resolve(output);
+      }
+    });
+  })
+const child = cp.spawn(exe, args, {cwd: cwd || process.cwd()})

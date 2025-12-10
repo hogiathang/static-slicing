@@ -1,0 +1,8 @@
+_tmp_0.requestGenerator = <lambda>0
+const message = '{"hi": "ho"}'
+options.headers["Content-Length"] = message.length
+options.headers["Content-Type"] = "application/json"
+options.body = "YourPostData"
+options.path = "YourURLPath"
+const request = client(options, callback)
+request.write(message)

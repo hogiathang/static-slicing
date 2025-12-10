@@ -1,0 +1,115 @@
+const chalk = require('chalk')
+const mri = require('mri')
+const prettyQuick = require('..').default
+const args = mri(process.argv.slice(2), {
+  alias: {
+    'resolve-config': 'resolveConfig',
+    'ignore-path': 'ignorePath',
+  },
+})
+_tmp_1.alias = {
+    'resolve-config': 'resolveConfig',
+    'ignore-path': 'ignorePath',
+  }
+_tmp_2.resolve-config = "resolveConfig"
+_tmp_2.ignore-path = "ignorePath"
+const prettyQuickResult = prettyQuick(
+  process.cwd(),
+  Object.assign({}, args, {
+    onFoundSinceRevision: (scm, revision) => {
+      console.log(
+        `🔍  Finding changed files since ${chalk.bold(
+          scm,
+        )} revision ${chalk.bold(revision)}.`,
+      );
+    },
+
+    onFoundChangedFiles: (changedFiles) => {
+      console.log(
+        `🎯  Found ${chalk.bold(changedFiles.length)} changed ${
+          changedFiles.length === 1 ? 'file' : 'files'
+        }.`,
+      );
+    },
+
+    onPartiallyStagedFile: (file) => {
+      console.log(`✗ Found ${chalk.bold('partially')} staged file ${file}.`);
+    },
+
+    onWriteFile: (file) => {
+      console.log(`✍️  Fixing up ${chalk.bold(file)}.`);
+    },
+
+    onCheckFile: (file, isFormatted) => {
+      if (!isFormatted) {
+        console.log(`⛔️  Check failed: ${chalk.bold(file)}`);
+      }
+    },
+
+    onExamineFile: (file) => {
+      console.log(`🔍  Examining ${chalk.bold(file)}.`);
+    },
+  }),
+)
+process.cwd()
+Object.assign({}, args, {
+    onFoundSinceRevision: (scm, revision) => {
+      console.log(
+        `🔍  Finding changed files since ${chalk.bold(
+          scm,
+        )} revision ${chalk.bold(revision)}.`,
+      );
+    },
+
+    onFoundChangedFiles: (changedFiles) => {
+      console.log(
+        `🎯  Found ${chalk.bold(changedFiles.length)} changed ${
+          changedFiles.length === 1 ? 'file' : 'files'
+        }.`,
+      );
+    },
+
+    onPartiallyStagedFile: (file) => {
+      console.log(`✗ Found ${chalk.bold('partially')} staged file ${file}.`);
+    },
+
+    onWriteFile: (file) => {
+      console.log(`✍️  Fixing up ${chalk.bold(file)}.`);
+    },
+
+    onCheckFile: (file, isFormatted) => {
+      if (!isFormatted) {
+        console.log(`⛔️  Check failed: ${chalk.bold(file)}`);
+      }
+    },
+
+    onExamineFile: (file) => {
+      console.log(`🔍  Examining ${chalk.bold(file)}.`);
+    },
+  })
+_tmp_4.onFoundSinceRevision = <lambda>0
+_tmp_4.onFoundChangedFiles = <lambda>1
+_tmp_4.onPartiallyStagedFile = <lambda>2
+_tmp_4.onWriteFile = <lambda>3
+_tmp_4.onCheckFile = <lambda>4
+_tmp_4.onExamineFile = <lambda>5
+prettyQuickResult.success
+prettyQuickResult.errors.indexOf('PARTIALLY_STAGED_FILE') !== -1
+console.log(
+      '✗ Partially staged files were fixed up.' +
+        ` ${chalk.bold('Please update stage before committing')}.`,
+    )
+'✗ Partially staged files were fixed up.' +
+        ` ${chalk.bold('Please update stage before committing')}.`
+<operator>.formatString(" ", chalk.bold('Please update stage before committing'), ".")
+prettyQuickResult.errors.indexOf('BAIL_ON_WRITE') !== -1
+console.log(
+      '✗ File had to be prettified and prettyQuick was set to bail mode.',
+    )
+"✗ File had to be prettified and prettyQuick was set to bail mode."
+prettyQuickResult.errors.indexOf('CHECK_FAILED') !== -1
+console.log(
+      '✗ Code style issues found in the above file(s). Forgot to run Prettier?',
+    )
+"✗ Code style issues found in the above file(s). Forgot to run Prettier?"
+process.exit(1)

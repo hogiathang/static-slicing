@@ -1,0 +1,65 @@
+$_addRule(options) {
+
+        // Normalize rule
+
+        if (typeof options === 'string') {
+            options = { name: options };
+        }
+
+        Assert(options && typeof options === 'object', 'Invalid options');
+        Assert(options.name && typeof options.name === 'string', 'Invalid rule name');
+
+        for (const key in options) {
+            Assert(key[0] !== '_', 'Cannot set private rule properties');
+        }
+
+        const rule = Object.assign({}, options);        // Shallow cloned
+        rule._resolve = [];
+        rule.method = rule.method || rule.name;
+
+        const definition = this._definition.rules[rule.method];
+        const args = rule.args;
+
+        Assert(definition, 'Unknown rule', rule.method);
+
+        // Args
+
+        const obj = this.clone();
+
+        if (args) {
+            Assert(Object.keys(args).length === 1 || Object.keys(args).length === this._definition.rules[rule.name].args.length, 'Invalid rule definition for', this.type, rule.name);
+
+      ...
+typeof options === 'string'
+options = { name: options }
+Assert(options && typeof options === 'object', 'Invalid options')
+Assert(options.name && typeof options.name === 'string', 'Invalid rule name')
+_iterator_11 = <operator>.iterator(options)
+Assert(key[0] !== '_', 'Cannot set private rule properties')
+const rule = Object.assign({}, options)
+__ecma.Array.factory()
+rule.method = rule.method || rule.name
+const definition = this._definition.rules[rule.method]
+const args = rule.args
+Assert(definition, 'Unknown rule', rule.method)
+const obj = this.clone()
+Assert(Object.keys(args).length === 1 || Object.keys(args).length === this._definition.rules[rule.name].args.length, 'Invalid rule definition for', this.type, rule.name)
+_iterator_12 = <operator>.iterator(args)
+let arg = args[key]
+definition.argsByName
+const resolver = definition.argsByName.get(key)
+resolver.ref &&
+                        Common.isResolvable(arg)
+Common.isResolvable(arg)
+(_tmp_56 = rule._resolve).push
+obj.$_mutateRegister(arg)
+resolver.normalize
+arg = resolver.normalize(arg)
+args[key] = arg
+resolver.assert
+const error = Common.validateArg(arg, key, resolver)
+Assert(!error, error, 'or reference')
+arg === undefined
+delete args[key]
+continue;
+args[key] = arg

@@ -1,0 +1,11 @@
+req.cancelQuery(err => {
+            if (err) debug('request(%d): failed to cancel', IDS.get(this), err)
+            // this fixes an issue where paused connections don't emit a done event
+            try {
+              if (req.isPaused()) req.emit('done')
+            } catch (err) {
+              // do nothing
+            }
+          })
+debug('request(%d): failed to cancel', IDS.get(this), err)
+req.emit('done')

@@ -1,0 +1,49 @@
+function receiveMessages = async function * receiveMessages(fromTestWorker, replyTo) {
+	for await (const [message] of on(events, 'message')) {
+		if (fromTestWorker !== undefined) {
+			if (message.type === 'deregister-test-worker' && message.id === fromTestWorker.id) {
+				return;
+			}
+
+			if (message.type === 'message' && message.testWorkerId !== fromTestWorker.id) {
+				continue;
+			}
+		}
+
+		if (message.type !== 'message') {
+			continue;
+		}
+
+		if (replyTo === undefined && message.replyTo !== undefined) {
+			continue;
+		}
+
+		if (replyTo !== undefined && message.replyTo !== replyTo) {
+			continue;
+		}
+
+		const active = activeTestWorkers.get(message.testWorkerId);
+		// It is possible for a message to have been buffering for so long — perhaps
+		// due to the caller waiting before iterating to the next message — that the
+		// test worker has been deregistered. Ignore such messages.
+		//
+		// (This is really hard to write a test for, however!)
+		if (active === undefined) {
+			continue;
+		}
+
+		let received = messa...
+_iterator_0 = <operator>.iterator(on(events, 'message'))
+fromTestWorker !== undefined
+message.type === 'deregister-test-worker' && message.id === fromTestWorker.id
+message.type === 'message' && message.testWorkerId !== fromTestWorker.id
+continue;
+message.type !== 'message'
+continue;
+replyTo === undefined && message.replyTo !== undefined
+continue;
+replyTo !== undefined && message.replyTo !== replyTo
+continue;
+const active = activeTestWorkers.get(message.testWorkerId)
+active === undefined
+continue;

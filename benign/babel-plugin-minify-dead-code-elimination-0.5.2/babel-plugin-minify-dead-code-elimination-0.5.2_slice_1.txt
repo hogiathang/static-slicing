@@ -1,0 +1,22 @@
+_tmp_41.enter = enter
+path.isProgram()
+hasEval(path.scope)
+const scope = path.scope
+const canRemoveParams = path.isFunction() && path.node.kind !== "set"
+canRemoveParams ? path.get("params") : __ecma.Array.factory()
+let i = paramsList.length - 1
+const param = paramsList[i]
+param.isIdentifier()
+const binding = scope.bindings[param.node.name]
+!binding
+binding.referenced
+binding[markForRemoval] = true
+continue;
+param.isAssignmentPattern()
+const left = param.get("left")
+const right = param.get("right")
+left.isIdentifier() && right.isPure()
+const binding = scope.bindings[left.node.name]
+binding.referenced
+binding[markForRemoval] = true
+continue;

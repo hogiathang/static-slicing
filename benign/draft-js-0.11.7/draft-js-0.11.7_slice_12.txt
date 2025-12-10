@@ -1,0 +1,48 @@
+_proto.render = function render() {
+    var _this$props = this.props,
+        block = _this$props.block,
+        children = _this$props.children,
+        contentState = _this$props.contentState,
+        decorator = _this$props.decorator,
+        decoratorKey = _this$props.decoratorKey,
+        direction = _this$props.direction,
+        leafSet = _this$props.leafSet,
+        text = _this$props.text;
+    var blockKey = block.getKey();
+    var leavesForLeafSet = leafSet.get('leaves');
+    var DecoratorComponent = decorator.getComponentForKey(decoratorKey);
+    var decoratorProps = decorator.getPropsForKey(decoratorKey);
+    var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, parseInt(decoratorKey, 10), 0);
+    var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end')); // Resetting dir to the same value on a child node makes Chrome/Firefox
+    // confused on cursor movement. See http://jsfiddle.net/d157kLck/3/
+
+    var dir = UnicodeBi...
+var _this$props = this.props
+var block = _this$props.block
+var children = _this$props.children
+var contentState = _this$props.contentState
+var decorator = _this$props.decorator
+var decoratorKey = _this$props.decoratorKey
+var direction = _this$props.direction
+var leafSet = _this$props.leafSet
+var text = _this$props.text
+var blockKey = block.getKey()
+var leavesForLeafSet = leafSet.get('leaves')
+var DecoratorComponent = decorator.getComponentForKey(decoratorKey)
+var decoratorProps = decorator.getPropsForKey(decoratorKey)
+var decoratorOffsetKey = DraftOffsetKey.encode(blockKey, parseInt(decoratorKey, 10), 0)
+var decoratedText = text.slice(leavesForLeafSet.first().get('start'), leavesForLeafSet.last().get('end'))
+var dir = UnicodeBidiDirection.getHTMLDirIfDifferent(UnicodeBidi.getDirection(decoratedText), direction)
+React.createElement(DecoratorComponent, _extends({}, decoratorProps, {
+      contentState: contentState,
+      decoratedText: decoratedText,
+      dir: dir,
+      key: decoratorOffsetKey,
+      entityKey: block.getEntityAt(leafSet.get('start')),
+      offsetKey: decoratorOffsetKey
+    }), children)
+_tmp_4.contentState = contentState
+_tmp_4.decoratedText = decoratedText
+_tmp_4.dir = dir
+_tmp_4.key = decoratorOffsetKey
+_tmp_4.entityKey = block.getEntityAt(leafSet.get('start'))

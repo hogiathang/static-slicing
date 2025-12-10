@@ -1,0 +1,38 @@
+_tmp_157.request = <lambda>145
+var xhrClass = global.XDomainRequest ? XDomainRequest : XMLHttpRequest
+var xhr      = new xhrClass()
+var id       = ++CORS._id
+var headers  = this._dispatcher.headers
+var self     = this
+xhr.open('POST', this.endpoint.href, true)
+xhr.withCredentials = true
+xhr.setRequestHeader
+xhr.setRequestHeader('Pragma', 'no-cache')
+_iterator_6 = <operator>.iterator(headers)
+!headers.hasOwnProperty(key)
+xhr.setRequestHeader(key, headers[key])
+var cleanUp = function() {
+      if (!xhr) return false;
+      CORS._pending.remove(id);
+      xhr.onload = xhr.onerror = xhr.ontimeout = xhr.onprogress = null;
+      xhr = null;
+    }
+xhr.onload = function() {
+      var replies;
+      try { replies = JSON.parse(xhr.responseText) } catch (error) {}
+
+      cleanUp();
+
+      if (replies)
+        self._receive(replies);
+      else
+        self._handleError(messages);
+    }
+xhr.onerror = xhr.ontimeout = function() {
+      cleanUp();
+      self._handleError(messages);
+    }
+xhr.onprogress = function() {}
+xhrClass === global.XDomainRequest
+CORS._pending.add({ id: id, xhr: xhr })
+xhr.send(this.encode(messages))

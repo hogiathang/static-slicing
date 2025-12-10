@@ -1,0 +1,69 @@
+constructor(option, req, logger) {
+    _classPrivateMethodInitSpec(this, _clean);
+
+    _classPrivateMethodInitSpec(this, _chunk);
+
+    _classPrivateFieldInitSpec(this, _chunks, {
+      writable: true,
+      value: {}
+    });
+
+    _classPrivateFieldInitSpec(this, _option, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _logger, {
+      writable: true,
+      value: void 0
+    });
+
+    (0, _classPrivateFieldSet2.default)(this, _logger, logger);
+    (0, _classPrivateFieldSet2.default)(this, _option, option);
+    const {
+      cookies: _cookies
+    } = req;
+    const {
+      name: cookieName
+    } = option;
+
+    if (typeof (_cookies === null || _cookies === void 0 ? void 0 : _cookies.getAll) === "function") {
+      for (const {
+        name,
+        value
+      } of _cookies.getAll()) {
+        if (name.startsWith(cookieName)) {
+          (0, _classPrivateFieldGet3.default)(this, _chunks)[name] = value;
+        }
+      }
+    } else if (_cookies i...
+_classPrivateMethodInitSpec(this, _clean)
+_classPrivateMethodInitSpec(this, _chunk)
+_classPrivateFieldInitSpec(this, _chunks, {
+      writable: true,
+      value: {}
+    })
+_tmp_29.writable = true
+_tmp_29.value = {}
+_classPrivateFieldInitSpec(this, _option, {
+      writable: true,
+      value: void 0
+    })
+_tmp_31.writable = true
+_tmp_31.value = void 0
+_classPrivateFieldInitSpec(this, _logger, {
+      writable: true,
+      value: void 0
+    })
+_tmp_32.writable = true
+_tmp_32.value = void 0
+(0, _classPrivateFieldSet2.default)(this, _logger, logger)
+(0, _classPrivateFieldSet2.default)(this, _option, option)
+_tmp_33 = req
+_cookies = _tmp_33.cookies
+_tmp_34 = option
+cookieName = _tmp_34.name
+typeof (_cookies === null || _cookies === void 0 ? void 0 : _cookies.getAll) === "function"
+_cookies instanceof Map
+_iterator_2 = <operator>.iterator(_cookies.keys())
+(0, _classPrivateFieldGet3.default)(this, _chunks)[name] = _cookies.get(name)

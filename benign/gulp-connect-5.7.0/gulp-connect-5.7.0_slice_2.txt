@@ -1,0 +1,11 @@
+function(req, res) {
+          var fallbackPath;
+          fallbackPath = _this.fallback;
+          if (typeof _this.fallback === "function") {
+            fallbackPath = _this.fallback(req, res);
+          }
+          return send(req, fallbackPath).pipe(res);
+        }
+fallbackPath = _this.fallback
+typeof _this.fallback === "function"
+fallbackPath = _this.fallback(req, res)

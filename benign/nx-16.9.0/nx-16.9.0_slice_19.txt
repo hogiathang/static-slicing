@@ -1,0 +1,3 @@
+_tmp_18.handler = <lambda>5
+await (await Promise.resolve().then(() => require('./generate'))).workspaceGenerators(args)
+process.exit(0)

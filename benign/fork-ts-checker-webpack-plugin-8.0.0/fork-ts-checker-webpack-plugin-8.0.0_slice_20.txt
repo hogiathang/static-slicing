@@ -1,0 +1,26 @@
+function createRpcWorker = function createRpcWorker(modulePath, data, memoryLimit) {
+    const options = {
+        env: Object.assign(Object.assign({}, process.env), { [WORKER_DATA_ENV_KEY]: JSON.stringify(data || {}) }),
+        stdio: ['inherit', 'inherit', 'inherit', 'ipc'],
+        serialization: 'advanced',
+    };
+    if (memoryLimit) {
+        options.execArgv = [`--max-old-space-size=${memoryLimit}`];
+    }
+    let childProcess;
+    let remoteMethod;
+    const worker = {
+        connect() {
+            if (childProcess && !childProcess.connected) {
+                childProcess.kill('SIGTERM');
+                childProcess = undefined;
+                remoteMethod = undefined;
+            }
+            if (!(childProcess === null || childProcess === void 0 ? void 0 : childProcess.connected)) {
+                childProcess = child_process.fork(modulePath, options);
+                remoteMethod = (0, wrap_rpc_1.wrapRpc)(childProcess);
+            }
+        },
+        terminate() {
+            if (childPro...
+_tmp_0.env = Object.assign(Object.assign({}, process.env), { [WORKER_DATA_ENV_KEY]: JSON.stringify(data || {}) })

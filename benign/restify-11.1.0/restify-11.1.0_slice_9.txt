@@ -1,0 +1,25 @@
+Server.prototype._runPre = function _runPre(req, res) {
+    var self = this;
+
+    // emit 'pre' event before we run the pre handlers
+    self.emit('pre', req, res);
+
+    // Run "pre"
+    req._currentHandler = 'pre';
+    req._timePreStart = process.hrtime();
+
+    self.preChain.run(req, res, function preChainDone(err) {
+        // Execution time of a handler with error can be significantly lower
+        req._timePreEnd = process.hrtime();
+        self._afterPre(err, req, res);
+    });
+}
+var self = this
+self.emit('pre', req, res)
+req._currentHandler = 'pre'
+req._timePreStart = process.hrtime()
+self.preChain.run(req, res, function preChainDone(err) {
+        // Execution time of a handler with error can be significantly lower
+        req._timePreEnd = process.hrtime();
+        self._afterPre(err, req, res);
+    })

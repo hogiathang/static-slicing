@@ -1,0 +1,12 @@
+basePath = basePath === void 0 ? "" : basePath
+server.post(basePath + routeConstants_1.RouteConstants.Activities, this.processSendToConversation.bind(this))
+server.post(basePath + routeConstants_1.RouteConstants.Activity, this.processReplyToActivity.bind(this))
+server.put(basePath + routeConstants_1.RouteConstants.Activity, this.processUpdateActivity.bind(this))
+server.get(basePath + routeConstants_1.RouteConstants.ActivityMembers, this.processGetActivityMembers.bind(this))
+server.post(basePath + routeConstants_1.RouteConstants.Conversations, this.processCreateConversation.bind(this))
+server.get(basePath + routeConstants_1.RouteConstants.Conversations, this.processGetConversations.bind(this))
+server.get(basePath + routeConstants_1.RouteConstants.ConversationMembers, this.processGetConversationMembers.bind(this))
+server.get(basePath + routeConstants_1.RouteConstants.ConversationMember, this.processGetConversationMember.bind(this))
+server.get(basePath + routeConstants_1.RouteConstants.ConversationPagedMembers, this.processGetConversationPagedMembers.bind(this))
+server.post(basePath + routeConstants_1.RouteConstants.ConversationHistory, this.processSendConversationHistory.bind(this))
+server.post(basePath + routeConstants_1.RouteConstants.Attachments, this.processUploadAttachment.bind(this))

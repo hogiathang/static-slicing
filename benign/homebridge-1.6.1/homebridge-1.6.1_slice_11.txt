@@ -1,0 +1,15 @@
+sendMessage(type, data) {
+        if (this.child && this.child.connected) {
+            this.child.send({
+                id: type,
+                data,
+            });
+        }
+    }
+this.child && this.child.connected
+this.child.send({
+                id: type,
+                data,
+            })
+_tmp_29.id = type
+_tmp_29.data = data

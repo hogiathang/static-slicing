@@ -1,0 +1,48 @@
+function VirtualNode = function VirtualNode(node, parent, shadowId) {
+        var _this4;
+        _classCallCheck(this, VirtualNode);
+        _this4 = _super2.call(this);
+        _this4.shadowId = shadowId;
+        _this4.children = [];
+        _this4.actualNode = node;
+        _this4.parent = parent;
+        if (!parent) {
+          nodeIndex2 = 0;
+        }
+        _this4.nodeIndex = nodeIndex2++;
+        _this4._isHidden = null;
+        _this4._cache = {};
+        _this4._isXHTML = is_xhtml_default(node.ownerDocument);
+        if (node.nodeName.toLowerCase() === 'input') {
+          var type2 = node.getAttribute('type');
+          type2 = _this4._isXHTML ? type2 : (type2 || '').toLowerCase();
+          if (!valid_input_type_default().includes(type2)) {
+            type2 = 'text';
+          }
+          _this4._type = type2;
+        }
+        if (cache_default.get('nodeMap')) {
+          cache_default.get('nodeMap').set(node, _assertThisInitialized(_this4));
+        }
+        return _this4;
+      }
+_classCallCheck(this, VirtualNode)
+_this4 = _super2.call(this)
+_this4.shadowId = shadowId
+__ecma.Array.factory()
+_this4.actualNode = node
+_this4.parent = parent
+!parent
+nodeIndex2 = 0
+_this4.nodeIndex = nodeIndex2++
+_this4._isHidden = null
+_this4._cache = {}
+_this4._isXHTML = is_xhtml_default(node.ownerDocument)
+node.nodeName.toLowerCase() === 'input'
+var type2 = node.getAttribute('type')
+type2 = _this4._isXHTML ? type2 : (type2 || '').toLowerCase()
+(_tmp_3710 = valid_input_type_default()).includes
+type2 = 'text'
+_this4._type = type2
+cache_default.get('nodeMap')
+cache_default.get('nodeMap').set(node, _assertThisInitialized(_this4))

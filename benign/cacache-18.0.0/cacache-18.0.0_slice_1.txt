@@ -1,0 +1,31 @@
+async (f) => {
+      const split = f.split(/[/\\]/)
+      const digest = split.slice(split.length - 3).join('')
+      const algo = split[split.length - 4]
+      const integrity = ssri.fromHex(digest, algo)
+      if (liveContent.has(integrity.toString())) {
+        const info = await verifyContent(f, integrity)
+        if (!info.valid) {
+          stats.reclaimedCount++
+          stats.badContentCount++
+          stats.reclaimedSize += info.size
+        } else {
+          stats.verifiedContent++
+          stats.keptSize += info.size
+        }
+      } else {
+        // No entries refer to this content. We can delete.
+        stats.reclaimedCount++
+        const s = await stat(f)
+        await rm(f, { recursive: true, force: true })
+        stats.reclaimedSize += s.size
+      }
+      return stats
+    }
+const split = f.split(/[/\\]/)
+const digest = split.slice(split.length - 3).join('')
+const algo = split[split.length - 4]
+const integrity = ssri.fromHex(digest, algo)
+liveContent.has(integrity.toString())
+stats.reclaimedCount++
+const s = await stat(f)

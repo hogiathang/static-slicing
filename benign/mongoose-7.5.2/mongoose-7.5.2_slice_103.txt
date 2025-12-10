@@ -1,0 +1,2 @@
+_tmp_0 = require('child_process')
+_tmp_1 = require('../package.json')

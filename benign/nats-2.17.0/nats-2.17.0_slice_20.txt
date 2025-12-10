@@ -1,0 +1,42 @@
+processInfo(m) {
+        const info = JSON.parse((0, encoders_1.decode)(m));
+        this.info = info;
+        const updates = this.options && this.options.ignoreClusterUpdates
+            ? undefined
+            : this.servers.update(info);
+        if (!this.infoReceived) {
+            this.features.update((0, semver_1.parseSemVer)(info.version));
+            this.infoReceived = true;
+            if (this.transport.isEncrypted()) {
+                this.servers.updateTLSName();
+            }
+            // send connect
+            const { version, lang } = this.transport;
+            try {
+                const c = new Connect({ version, lang }, this.options, info.nonce);
+                if (info.headers) {
+                    c.headers = true;
+                    c.no_responders = true;
+                }
+                const cs = JSON.stringify(c);
+                this.transport.send((0, encoders_1.encode)(`CONNECT ${cs}${transport_1.CR_LF}`));
+                this.transport.send(...
+const info = JSON.parse((0, encoders_1.decode)(m))
+this.info = info
+const updates = this.options && this.options.ignoreClusterUpdates
+            ? undefined
+            : this.servers.update(info)
+(_tmp_107 = this.servers).update
+!this.infoReceived
+this.features.update((0, semver_1.parseSemVer)(info.version))
+this.infoReceived = true
+(_tmp_109 = this.transport).isEncrypted
+(_tmp_110 = this.servers).updateTLSName
+version = _tmp_111.version
+const c = new Connect({ version, lang }, this.options, info.nonce)
+info.headers
+c.headers = true
+c.no_responders = true
+const cs = JSON.stringify(c)
+this.transport.send((0, encoders_1.encode)(`CONNECT ${cs}${transport_1.CR_LF}`))
+(_tmp_115 = this.transport).send

@@ -1,0 +1,34 @@
+function onlstat = function onlstat (err, stat) {
+        if (emitter._stopped) return;
+        
+        if (err) {
+            if (!err.path) err.path = dir;
+            emitter.emit('error', err);
+            return check();
+        }
+        emitter._seen[stat.ino || dir] = true;
+        
+        if (stat.isSymbolicLink() && opts.followSymlinks) {
+            emitter.emit('link', fdir, stat);
+            emitter._pending ++;
+            fs.readlink(dir, function (err, rfile) {
+                if (emitter._stopped) return;
+                emitter._pending --;
+                if (err) {
+                    if (!err.path) err.path = dir;
+                    emitter.emit('error', err);
+                    return check();
+                }
+                var file_ = path.resolve(dir, rfile);
+                emitter.emit('readlink', fdir, file_);
+                emitter._pending ++;
+                fs.lstat(file_, function (err, stat) {
+                    emitter._pending --;
+                    onstat...
+emitter._stopped
+emitter._seen[stat.ino || dir] = true
+stat.isSymbolicLink() && opts.followSymlinks
+stat.isSymbolicLink()
+stat.isDirectory()
+emitter.emit('file', fdir, stat)
+emitter.emit('path', fdir, stat)

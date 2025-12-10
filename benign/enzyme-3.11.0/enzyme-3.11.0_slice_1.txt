@@ -1,0 +1,44 @@
+function updatePrimaryRootContext = function updatePrimaryRootContext(wrappingComponent) {
+  const adapter = getAdapter(wrappingComponent[OPTIONS]);
+  const primaryWrapper = wrappingComponent[PRIMARY_WRAPPER];
+  const primaryRenderer = primaryWrapper[RENDERER];
+  const primaryNode = primaryRenderer.getNode();
+  const {
+    legacyContext,
+    providerValues,
+  } = getContextFromWrappingComponent(wrappingComponent, adapter);
+  const prevProviderValues = primaryWrapper[PROVIDER_VALUES];
+
+  primaryWrapper.setContext({
+    ...wrappingComponent[PRIMARY_WRAPPER][OPTIONS].context,
+    ...legacyContext,
+  });
+  primaryWrapper[PROVIDER_VALUES] = new Map([...prevProviderValues, ...providerValues]);
+
+  if (typeof adapter.isContextConsumer === 'function' && adapter.isContextConsumer(primaryNode.type)) {
+    const Consumer = primaryNode.type;
+    // Adapters with an `isContextConsumer` method will definitely have a `getProviderFromConsumer`
+    // method.
+    const Provider = adapter.getProviderFromConsumer(Consumer);
+    const new...
+const adapter = getAdapter(wrappingComponent[OPTIONS])
+const primaryWrapper = wrappingComponent[PRIMARY_WRAPPER]
+const primaryRenderer = primaryWrapper[RENDERER]
+const primaryNode = primaryRenderer.getNode()
+_tmp_42 = getContextFromWrappingComponent(wrappingComponent, adapter)
+legacyContext = _tmp_42.legacyContext
+providerValues = _tmp_42.providerValues
+getContextFromWrappingComponent(wrappingComponent, adapter)
+const prevProviderValues = primaryWrapper[PROVIDER_VALUES]
+primaryWrapper.setContext({
+    ...wrappingComponent[PRIMARY_WRAPPER][OPTIONS].context,
+    ...legacyContext,
+  })
+...wrappingComponent[PRIMARY_WRAPPER][OPTIONS].context
+...legacyContext
+primaryWrapper[PROVIDER_VALUES] = new Map([...prevProviderValues, ...providerValues])
+typeof adapter.isContextConsumer === 'function' && adapter.isContextConsumer(primaryNode.type)
+const Consumer = primaryNode.type
+const Provider = adapter.getProviderFromConsumer(Consumer)
+const newValue = providerValues.get(Provider)
+const oldValue = prevProviderValues.get(Provider)

@@ -1,0 +1,12 @@
+function (m) {
+        var out = M.empty;
+        for (var _i = 0, _a = keysO(m); _i < _a.length; _i++) {
+            var k = _a[_i];
+            out = M.concat(out, f(k, m.get(k)));
+        }
+        return out;
+    }
+var out = M.empty
+var _a = keysO(m)
+var k = _a[_i]
+out = M.concat(out, f(k, m.get(k)))

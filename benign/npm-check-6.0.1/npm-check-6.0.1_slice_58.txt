@@ -1,0 +1,37 @@
+function outputConsole = function outputConsole(currentState) {
+    const packages = currentState.get('packages');
+
+    const rows = packages.reduce((acc, pkg) => {
+        return acc.concat(render(pkg, currentState));
+    }, [])
+    .filter(Boolean);
+
+    if (rows.length) {
+        const renderedTable = table(rows, {
+            stringLength: s => stripAnsi(s).length
+        });
+
+        console.log('');
+        console.log(renderedTable);
+        console.log(`Use ${chalk.green(`npm-check -${currentState.get('global') ? 'g' : ''}u`)} for interactive update.`);
+        process.exitCode = 1;
+    } else {
+        console.log(`${emoji(':heart:  ')}Your modules look ${chalk.bold('amazing')}. Keep up the great work.${emoji(' :heart:')}`);
+        process.exitCode = 0;
+    }
+}
+const packages = currentState.get('packages')
+const rows = packages.reduce((acc, pkg) => {
+        return acc.concat(render(pkg, currentState));
+    }, [])
+    .filter(Boolean)
+__ecma.Array.factory()
+filter
+rows.length
+const renderedTable = table(rows, {
+            stringLength: s => stripAnsi(s).length
+        })
+_tmp_25.stringLength = <lambda>1
+console.log('')
+console.log(renderedTable)
+<operator>.formatString("Use ", chalk.green(`npm-check -${currentState.get('global') ? 'g' : ''}u`), " for interactive update.")

@@ -1,0 +1,19 @@
+_tmp_0.pre = pre
+_tmp_1 = this
+file = _tmp_1.file
+const features = (_file$get = file.get(_features.featuresKey)) != null ? _file$get : 0
+let newFeatures = (0, _features.enableFeature)(features, _features.FEATURES[feature])
+_tmp_2 = options
+useUnicodeFlag = _tmp_2.useUnicodeFlag
+runtime = _tmp_2.runtime
+useUnicodeFlag === false
+newFeatures = (0, _features.enableFeature)(newFeatures, _features.FEATURES.unicodeFlag)
+newFeatures !== features
+file.set(_features.featuresKey, newFeatures)
+runtime !== undefined
+file.has(_features.runtimeKey) && file.get(_features.runtimeKey) !== runtime && (0, _features.hasFeature)(newFeatures, _features.FEATURES.duplicateNamedCaptureGroups)
+throw new Error(`The 'runtime' option must be the same for ` + `'@babel/plugin-transform-named-capturing-groups-regex' and ` + `'@babel/plugin-proposal-duplicate-named-capturing-groups-regex'.`);
+feature === "namedCaptureGroups"
+!runtime || !file.has(_features.runtimeKey)
+file.set(_features.runtimeKey, runtime)
+typeof file.get(versionKey) === "number"

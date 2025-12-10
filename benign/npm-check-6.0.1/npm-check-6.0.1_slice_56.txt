@@ -1,0 +1,34 @@
+function interactive = function interactive(currentState) {
+    const packages = currentState.get('packages');
+
+    if (currentState.get('debug')) {
+        console.log('packages', packages);
+    }
+
+    const choicesGrouped = UI_GROUPS.map(group => createChoices(packages, group))
+        .filter(Boolean);
+
+    const choices = _.flatten(choicesGrouped);
+
+    if (!choices.length) {
+        console.log(`${emoji(':heart:  ')}Your modules look ${chalk.bold('amazing')}. Keep up the great work.${emoji(' :heart:')}`);
+        return;
+    }
+
+    choices.push(unselectable());
+    choices.push(unselectable({title: 'Space to select. Enter to start upgrading. Control-C to cancel.'}));
+
+    const questions = [
+        {
+            name: 'packages',
+            message: 'Choose which packages to update.',
+            type: 'checkbox',
+            choices: choices.concat(unselectable()),
+            pageSize: process.stdout.rows - 2
+        }
+    ];
+
+    return inquirer.prompt(questions).then(answers => {
+        const ...
+const packages = currentState.get('packages')
+currentState.get('debug')

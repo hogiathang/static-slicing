@@ -1,0 +1,7 @@
+_tmp_0.length = length1
+this.has('Content-Length')
+body = _tmp_5.body
+!body || body instanceof Stream
+'string' === typeof body
+Buffer.isBuffer(body)
+Buffer.byteLength(JSON.stringify(body))

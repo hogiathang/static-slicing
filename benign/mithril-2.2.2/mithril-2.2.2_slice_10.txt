@@ -1,0 +1,40 @@
+function combine = function combine(fn, streams) {
+	var ready = streams.every(function(s) {
+		if (s.constructor !== Stream)
+			throw new Error("Ensure that each item passed to stream.combine/stream.merge/lift is a stream.")
+		return s._state === "active"
+	})
+	var stream = ready
+		? Stream(fn.apply(null, streams.concat([streams])))
+		: Stream()
+
+	var changed = []
+
+	var mappers = streams.map(function(s) {
+		return s._map(function(value) {
+			changed.push(s)
+			if (ready || streams.every(function(s) { return s._state !== "pending" })) {
+				ready = true
+				stream(fn.apply(null, streams.concat([changed])))
+				changed = []
+			}
+			return value
+		}, true)
+	})
+
+	var endStream = stream.end.map(function(value) {
+		if (value === true) {
+			mappers.forEach(function(mapper) { mapper.end(true) })
+			endStream.end(true)
+		}
+		return undefined
+	})
+
+	return stream
+}
+var ready = streams.every(function(s) {
+		if (s.constructor !== Stream)
+			throw new Error("Ensure that each item passed to stream.combine/stream.merge/lift is a stream.")
+		return s._state === "active"
+	})
+Stream(fn.apply(null, streams.concat([streams])))

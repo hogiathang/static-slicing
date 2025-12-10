@@ -1,0 +1,14 @@
+defineLength(function (obj) {
+					var memoizer, args = arguments;
+					if (resolve) {
+						args = resolve(args);
+						obj = args[0];
+					}
+					memoizer = map.get(obj);
+					if (!memoizer) return null;
+					return memoizer.deleteRef.apply(this, slice.call(args, 1));
+				}, length)
+var args = arguments
+args = resolve(args)
+obj = args[0]
+memoizer = map.get(obj)

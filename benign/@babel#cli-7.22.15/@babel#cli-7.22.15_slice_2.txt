@@ -1,0 +1,6 @@
+const written = yield write(src, base)
+cliOptions.copyFiles && written === FILE_TYPE.NON_COMPILABLE || cliOptions.copyIgnored && written === FILE_TYPE.IGNORED
+const filename = _path().relative(base, src)
+const dest = getDest(filename, base)
+outputFileSync(dest, _fs().readFileSync(src))
+util.chmod(src, dest)

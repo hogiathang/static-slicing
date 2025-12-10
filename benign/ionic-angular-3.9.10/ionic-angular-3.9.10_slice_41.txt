@@ -1,0 +1,6 @@
+close() {
+        const menu = this._menu.get(this.menuClose);
+        menu && menu.close();
+    }
+const menu = this._menu.get(this.menuClose)
+menu && menu.close()

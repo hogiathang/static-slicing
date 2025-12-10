@@ -1,0 +1,23 @@
+set(e, t, r) {
+  if ((r = r || this[MAX_AGE]) && "number" != typeof r) throw new TypeError("maxAge must be a number");
+  const n = r ? Date.now() : 0, i = this[LENGTH_CALCULATOR](t, e);
+  if (this[CACHE].has(e)) {
+   if (i > this[MAX]) return del(this, this[CACHE].get(e)), !1;
+   const s = this[CACHE].get(e).value;
+   return this[DISPOSE] && (this[NO_DISPOSE_ON_SET] || this[DISPOSE](e, s.value)), 
+   s.now = n, s.maxAge = r, s.value = t, this[LENGTH] += i - s.length, s.length = i, 
+   this.get(e), trim(this), !0;
+  }
+  const s = new Entry(e, t, i, n, r);
+  return s.length > this[MAX] ? (this[DISPOSE] && this[DISPOSE](e, t), !1) : (this[LENGTH] += s.length, 
+  this[LRU_LIST].unshift(s), this[CACHE].set(e, this[LRU_LIST].head), trim(this), 
+  !0);
+ }
+(r = r || this[MAX_AGE]) && "number" != typeof r
+const i = this[LENGTH_CALCULATOR](t, e)
+(_tmp_903 = this[CACHE]).has
+del(this, this[CACHE].get(e))
+const s = this[CACHE].get(e).value
+this[DISPOSE] && (this[NO_DISPOSE_ON_SET] || this[DISPOSE](e, s.value))
+this[LENGTH] += i - s.length
+this.get(e)

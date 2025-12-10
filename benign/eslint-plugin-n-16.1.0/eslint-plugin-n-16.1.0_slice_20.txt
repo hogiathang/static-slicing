@@ -1,0 +1,31 @@
+function getMessage = function getMessage(key, args, self) {
+  const message = messages.get(key);
+  (0, import_node_assert.default)(typeof message !== "undefined", "expected `message` to be found");
+  if (typeof message === "function") {
+    (0, import_node_assert.default)(
+      message.length <= args.length,
+      // Default options do not count.
+      `Code: ${key}; The provided arguments length (${args.length}) does not match the required ones (${message.length}).`
+    );
+    return Reflect.apply(message, self, args);
+  }
+  const regex = /%[dfijoOs]/g;
+  let expectedLength = 0;
+  while (regex.exec(message) !== null)
+    expectedLength++;
+  (0, import_node_assert.default)(
+    expectedLength === args.length,
+    `Code: ${key}; The provided arguments length (${args.length}) does not match the required ones (${expectedLength}).`
+  );
+  if (args.length === 0)
+    return message;
+  args.unshift(message);
+  return Reflect.apply(import_node_util.format, null, args);
+}
+const message = messages.get(key)
+(0, import_node_assert.default)(typeof message !== "undefined", "expected `message` to be found")
+typeof message === "function"
+const regex = /%[dfijoOs]/g
+let expectedLength = 0
+regex.exec(message) !== null
+expectedLength++

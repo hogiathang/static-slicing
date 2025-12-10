@@ -1,0 +1,37 @@
+this._engine.clientExists(clientId, function(exists) {
+      if (!exists)         response.error = Error.clientUnknown(clientId);
+      if (!clientId)       response.error = Error.parameterMissing('clientId');
+
+      if (array.indexOf(constants.CONNECTION_TYPES, connectionType) < 0)
+        response.error = Error.conntypeMismatch(connectionType);
+
+      if (!connectionType) response.error = Error.parameterMissing('connectionType');
+
+      response.successful = !response.error;
+
+      if (!response.successful) {
+        delete response.clientId;
+        return callback.call(context, response);
+      }
+
+      if (message.connectionType === 'eventsource') {
+        message.advice = message.advice || {};
+        message.advice.timeout = 0;
+      }
+      this._engine.connect(response.clientId, message.advice, function(events) {
+        callback.call(context, [response].concat(events));
+      });
+    }, this)
+response.error = Error.clientUnknown(clientId)
+response.error = Error.parameterMissing('clientId')
+array.indexOf(constants.CONNECTION_TYPES, connectionType) < 0
+response.error = Error.conntypeMismatch(connectionType)
+response.error = Error.parameterMissing('connectionType')
+response.successful = !response.error
+!response.successful
+message.connectionType === 'eventsource'
+message.advice = message.advice || {}
+message.advice.timeout = 0
+this._engine.connect(response.clientId, message.advice, function(events) {
+        callback.call(context, [response].concat(events));
+      })

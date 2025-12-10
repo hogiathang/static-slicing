@@ -1,0 +1,60 @@
+internals.rules = function (value, errors, helpers) {
+
+    const { schema, state, prefs } = helpers;
+
+    for (const rule of schema._rules) {
+        const definition = schema._definition.rules[rule.method];
+
+        // Skip rules that are also applied in coerce step
+
+        if (definition.convert &&
+            prefs.convert) {
+
+            state.mainstay.tracer.log(schema, state, 'rule', rule.name, 'full');
+            continue;
+        }
+
+        // Resolve references
+
+        let ret;
+        let args = rule.args;
+        if (rule._resolve.length) {
+            args = Object.assign({}, args);                                     // Shallow copy
+            for (const key of rule._resolve) {
+                const resolver = definition.argsByName.get(key);
+
+                const resolved = args[key].resolve(value, state, prefs);
+                const normalized = resolver.normalize ? resolver.normalize(resolved) : resolved;
+
+                const invalid = Common.validateArg(norma...
+schema = _tmp_69.schema
+_iterator_2 = <operator>.iterator(schema._rules)
+const definition = schema._definition.rules[rule.method]
+definition.convert &&
+            prefs.convert
+prefs.convert
+state.mainstay.tracer.log(schema, state, 'rule', rule.name, 'full')
+continue;
+let args = rule.args
+rule._resolve.length
+args = Object.assign({}, args)
+_iterator_3 = <operator>.iterator(rule._resolve)
+const resolver = definition.argsByName.get(key)
+const resolved = args[key].resolve(value, state, prefs)
+const normalized = resolver.normalize ? resolver.normalize(resolved) : resolved
+const invalid = Common.validateArg(normalized, null, resolver)
+ret = schema.$_createError('any.ref', resolved, { arg: key, ref: args[key], reason: invalid }, state, prefs)
+break;
+args[key] = normalized
+ret = ret || definition.validate(value, helpers, args, rule)
+const result = internals.rule(ret, rule)
+result.errors
+state.mainstay.tracer.log(schema, state, 'rule', rule.name, 'error')
+rule.warn
+state.mainstay.warnings.push(...result.errors)
+continue;
+prefs.abortEarly
+errors.push(...result.errors)
+state.mainstay.tracer.log(schema, state, 'rule', rule.name, 'pass')
+state.mainstay.tracer.value(state, 'rule', value, result.value, rule.name)
+value = result.value

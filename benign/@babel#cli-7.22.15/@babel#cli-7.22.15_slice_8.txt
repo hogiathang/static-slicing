@@ -1,0 +1,35 @@
+function output = function output(fileResults) {
+      const result = buildResult(fileResults);
+      if (cliOptions.outFile) {
+        (((v, w) => (v = v.split("."), w = w.split("."), +v[0] > +w[0] || v[0] == w[0] && +v[1] >= +w[1]))(process.versions.node, "10.12") ? _fs().mkdirSync : require("make-dir").sync)(_path().dirname(cliOptions.outFile), {
+          recursive: true
+        });
+        let outputMap = false;
+        if (babelOptions.sourceMaps && babelOptions.sourceMaps !== "inline") {
+          outputMap = "external";
+        } else if (babelOptions.sourceMaps == undefined && result.hasRawMap) {
+          outputMap = util.hasDataSourcemap(result.code) ? "external" : "both";
+        }
+        if (outputMap) {
+          const mapLoc = cliOptions.outFile + ".map";
+          if (outputMap === "external") {
+            result.code = util.addSourceMappingUrl(result.code, mapLoc);
+          }
+          _fs().writeFileSync(mapLoc, JSON.stringify((0, _traceMapping().encodedMap)(result.map)));
+      ...
+const result = buildResult(fileResults)
+cliOptions.outFile
+(((v, w) => (v = v.split("."), w = w.split("."), +v[0] > +w[0] || v[0] == w[0] && +v[1] >= +w[1]))(process.versions.node, "10.12") ? _fs().mkdirSync : require("make-dir").sync)(_path().dirname(cliOptions.outFile), {
+          recursive: true
+        })
+_tmp_12.recursive = true
+let outputMap = false
+babelOptions.sourceMaps && babelOptions.sourceMaps !== "inline"
+outputMap = "external"
+babelOptions.sourceMaps == undefined && result.hasRawMap
+outputMap = util.hasDataSourcemap(result.code) ? "external" : "both"
+const mapLoc = cliOptions.outFile + ".map"
+outputMap === "external"
+result.code = util.addSourceMappingUrl(result.code, mapLoc)
+_fs().writeFileSync(mapLoc, JSON.stringify((0, _traceMapping().encodedMap)(result.map)))
+_fs().writeFileSync(cliOptions.outFile, result.code)

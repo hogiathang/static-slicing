@@ -1,0 +1,4 @@
+function patch = function patch(url, options) {
+  return request(url, shortcutOptions(options, 'PATCH'));
+}
+request(url, shortcutOptions(options, 'PATCH'))

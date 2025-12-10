@@ -1,0 +1,72 @@
+Browserify.prototype.transform = function (tr, opts) {
+    var self = this;
+    if (typeof opts === 'function' || typeof opts === 'string') {
+        tr = [ opts, tr ];
+    }
+    if (isArray(tr)) {
+        opts = tr[1];
+        tr = tr[0];
+    }
+    
+    //if the bundler is ignoring this transform
+    if (typeof tr === 'string' && !self._filterTransform(tr)) {
+        return this;
+    }
+
+    function resolved () {
+      self._transforms[order] = rec;
+      -- self._pending;
+      if (-- self._transformPending === 0) {
+          self._transforms.forEach(function (transform) {
+            self.pipeline.write(transform);
+          });
+
+          if (self._pending === 0) {
+            self.emit('_ready');
+          }
+      }
+    }
+    
+    if (!opts) opts = {};
+    opts._flags = '_flags' in opts ? opts._flags : self._options;
+    
+    var basedir = defined(opts.basedir, this._options.basedir, process.cwd());
+    var order = self._transformOrder ++;
+    self._pending ++;
+    self._transf...
+var self = this
+typeof opts === 'function' || typeof opts === 'string'
+_tmp_59 = __ecma.Array.factory()
+isArray(tr)
+opts = tr[1]
+tr = tr[0]
+typeof tr === 'string' && !self._filterTransform(tr)
+function resolved = function resolved () {
+      self._transforms[order] = rec;
+      -- self._pending;
+      if (-- self._transformPending === 0) {
+          self._transforms.forEach(function (transform) {
+            self.pipeline.write(transform);
+          });
+
+          if (self._pending === 0) {
+            self.emit('_ready');
+          }
+      }
+    }
+opts = {}
+opts._flags = '_flags' in opts ? opts._flags : self._options
+var basedir = defined(opts.basedir, this._options.basedir, process.cwd())
+var order = self._transformOrder ++
+self._pending ++
+self._transformPending ++
+var rec = {
+        transform: tr,
+        options: opts,
+        global: opts.global
+    }
+_tmp_61.transform = tr
+_tmp_61.options = opts
+_tmp_61.global = opts.global
+typeof tr === 'string'
+process.nextTick(resolved)

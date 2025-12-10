@@ -1,0 +1,161 @@
+function visit = function visit(root, visitor, visitorKeys = _ast.QueryDocumentKeys) {
+  const enterLeaveMap = new Map();
+
+  for (const kind of Object.values(_kinds.Kind)) {
+    enterLeaveMap.set(kind, getEnterLeaveForKind(visitor, kind));
+  }
+  /* eslint-disable no-undef-init */
+
+  let stack = undefined;
+  let inArray = Array.isArray(root);
+  let keys = [root];
+  let index = -1;
+  let edits = [];
+  let node = root;
+  let key = undefined;
+  let parent = undefined;
+  const path = [];
+  const ancestors = [];
+  /* eslint-enable no-undef-init */
+
+  do {
+    index++;
+    const isLeaving = index === keys.length;
+    const isEdited = isLeaving && edits.length !== 0;
+
+    if (isLeaving) {
+      key = ancestors.length === 0 ? undefined : path[path.length - 1];
+      node = parent;
+      parent = ancestors.pop();
+
+      if (isEdited) {
+        if (inArray) {
+          node = node.slice();
+          let editOffset = 0;
+
+          for (const [editKey, editValue] of edits) {
+            const arrayKey = editKey ...
+const enterLeaveMap = new Map()
+_iterator_0 = <operator>.iterator(Object.values(_kinds.Kind))
+enterLeaveMap.set(kind, getEnterLeaveForKind(visitor, kind))
+let stack = undefined
+let inArray = Array.isArray(root)
+_tmp_1 = __ecma.Array.factory()
+let index = -1
+__ecma.Array.factory()
+let node = root
+let key = undefined
+let parent = undefined
+__ecma.Array.factory()
+__ecma.Array.factory()
+index++
+const isLeaving = index === keys.length
+const isEdited = isLeaving && edits.length !== 0
+key = ancestors.length === 0 ? undefined : path[path.length - 1]
+node = parent
+parent = ancestors.pop()
+node = node.slice()
+let editOffset = 0
+_iterator_1 = <operator>.iterator(edits)
+const arrayKey = editKey - editOffset
+editValue === null
+node.splice(arrayKey, 1)
+editOffset++
+node[arrayKey] = editValue
+node = Object.defineProperties(
+            {},
+            Object.getOwnPropertyDescriptors(node),
+          )
+Object.getOwnPropertyDescriptors(node)
+_iterator_2 = <operator>.iterator(edits)
+node[editKey] = editValue
+index = stack.index
+keys = stack.keys
+edits = stack.edits
+inArray = stack.inArray
+stack = stack.prev
+key = inArray ? index : keys[index]
+node = parent[key]
+node === null || node === undefined
+continue;
+path.push(key)
+!Array.isArray(node)
+(0, _ast.isNode)(node) ||
+        (0, _devAssert.devAssert)(
+          false,
+          `Invalid AST Node: ${(0, _inspect.inspect)(node)}.`,
+        )
+(0, _devAssert.devAssert)(
+          false,
+          `Invalid AST Node: ${(0, _inspect.inspect)(node)}.`,
+        )
+<operator>.formatString("Invalid AST Node: ", (0, _inspect.inspect)(node), ".")
+const visitFn = isLeaving
+        ? (_enterLeaveMap$get = enterLeaveMap.get(node.kind)) === null ||
+          _enterLeaveMap$get === void 0
+          ? void 0
+          : _enterLeaveMap$get.leave
+        : (_enterLeaveMap$get2 = enterLeaveMap.get(node.kind)) === null ||
+          _enterLeaveMap$get2 === void 0
+        ? void 0
+        : _enterLeaveMap$get2.enter
+(_enterLeaveMap$get = enterLeaveMap.get(node.kind)) === null ||
+          _enterLeaveMap$get === void 0 ? void 0 : _enterLeaveMap$get.leave
+_enterLeaveMap$get === void 0
+void 0
+_enterLeaveMap$get.leave
+(_enterLeaveMap$get2 = enterLeaveMap.get(node.kind)) === null ||
+          _enterLeaveMap$get2 === void 0 ? void 0 : _enterLeaveMap$get2.enter
+_enterLeaveMap$get2 === void 0
+void 0
+_enterLeaveMap$get2.enter
+result =
+        visitFn === null || visitFn === void 0
+          ? void 0
+          : visitFn.call(visitor, node, key, parent, path, ancestors)
+visitFn === null || visitFn === void 0 ? void 0 : visitFn.call(visitor, node, key, parent, path, ancestors)
+void 0
+visitFn.call(visitor, node, key, parent, path, ancestors)
+result === BREAK
+result === false
+!isLeaving
+path.pop()
+continue;
+result !== undefined
+_tmp_3 = __ecma.Array.factory()
+!isLeaving
+(0, _ast.isNode)(result)
+node = result
+path.pop()
+continue;
+result === undefined && isEdited
+_tmp_4 = __ecma.Array.factory()
+path.pop()
+stack = {
+        inArray,
+        index,
+        keys,
+        edits,
+        prev: stack,
+      }
+_tmp_5.inArray = inArray
+_tmp_5.index = index
+_tmp_5.keys = keys
+_tmp_5.edits = edits
+_tmp_5.prev = stack
+inArray = Array.isArray(node)
+keys = inArray
+        ? node
+        : (_node$kind = visitorKeys[node.kind]) !== null &&
+          _node$kind !== void 0
+        ? _node$kind
+        : []
+(_node$kind = visitorKeys[node.kind]) !== null &&
+          _node$kind !== void 0 ? _node$kind : __ecma.Array.factory()
+_node$kind !== void 0
+__ecma.Array.factory()
+index = -1
+__ecma.Array.factory()
+ancestors.push(parent)
+parent = node
+stack !== undefined

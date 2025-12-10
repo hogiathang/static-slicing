@@ -1,0 +1,83 @@
+react.useMemo(() => {
+    const columnMetrics = new Map();
+    let left = 0;
+    let totalColumnWidth = 0;
+    let totalFrozenColumnWidth = 0;
+    let templateColumns = '';
+    let allocatedWidth = 0;
+    let unassignedColumnsCount = 0;
+
+    for (const column of columns) {
+      let width = getSpecifiedWidth(column, columnWidths, viewportWidth);
+
+      if (width === undefined) {
+        unassignedColumnsCount++;
+      } else {
+        width = clampColumnWidth(width, column, minColumnWidth);
+        allocatedWidth += width;
+        columnMetrics.set(column, {
+          width,
+          left: 0
+        });
+      }
+    }
+
+    const unallocatedWidth = viewportWidth - allocatedWidth;
+    const unallocatedColumnWidth = unallocatedWidth / unassignedColumnsCount;
+
+    for (const column of columns) {
+      let width;
+
+      if (columnMetrics.has(column)) {
+        const columnMetric = columnMetrics.get(column);
+        columnMetric.left = left;
+        ({
+          width
+        } = columnMe...
+const columnMetrics = new Map()
+let left = 0
+let totalColumnWidth = 0
+let totalFrozenColumnWidth = 0
+let templateColumns = ''
+let allocatedWidth = 0
+let unassignedColumnsCount = 0
+_iterator_1 = <operator>.iterator(columns)
+let width = getSpecifiedWidth(column, columnWidths, viewportWidth)
+width === undefined
+unassignedColumnsCount++
+width = clampColumnWidth(width, column, minColumnWidth)
+allocatedWidth += width
+columnMetrics.set(column, {
+          width,
+          left: 0
+        })
+_tmp_31.width = width
+_tmp_31.left = 0
+const unallocatedWidth = viewportWidth - allocatedWidth
+const unallocatedColumnWidth = unallocatedWidth / unassignedColumnsCount
+_iterator_2 = <operator>.iterator(columns)
+columnMetrics.has(column)
+const columnMetric = columnMetrics.get(column)
+columnMetric.left = left
+_tmp_32 = columnMetric
+width = _tmp_32.width
+width = clampColumnWidth(unallocatedColumnWidth, column, minColumnWidth)
+columnMetrics.set(column, {
+          width,
+          left
+        })
+_tmp_33.width = width
+_tmp_33.left = left
+totalColumnWidth += width
+left += width
+<operator>.formatString("", width, "px ")
+lastFrozenColumnIndex !== -1
+const columnMetric = columnMetrics.get(columns[lastFrozenColumnIndex])
+totalFrozenColumnWidth = columnMetric.left + columnMetric.width
+const layoutCssVars = {
+      '--template-columns': templateColumns
+    }
+_tmp_34.--template-columns = templateColumns
+i <= lastFrozenColumnIndex
+const column = columns[i]
+layoutCssVars[`--frozen-left-${column.key}`] = `${columnMetrics.get(column).left}px`

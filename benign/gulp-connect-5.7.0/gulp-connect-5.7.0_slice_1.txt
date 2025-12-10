@@ -1,0 +1,31 @@
+ConnectApp.prototype.run = function() {
+    var http2;
+    if (this.state === "stopped") {
+      return;
+    }
+    this.state = "starting";
+    this.log("Starting server...");
+    this.app = connect();
+    this.handlers().forEach((function(_this) {
+      return function(middleware) {
+        if (typeof middleware === "object") {
+          return _this.app.use(middleware[0], middleware[1]);
+        } else {
+          return _this.app.use(middleware);
+        }
+      };
+    })(this));
+    this.app.use(serveIndex(typeof this.root === "object" ? this.root[0] : this.root));
+    if (this.https) {
+      if (typeof this.https === 'boolean' || (!this.https.key && !this.https.pfx)) {
+        if (!(typeof this.https === "object")) {
+          this.https = {};
+        }
+        this.https.key = fs.readFileSync(__dirname + '/certs/server.key');
+        this.https.cert = fs.readFileSync(__dirname + '/certs/server.crt');
+        this.https.ca = fs.readFileSync(__dirname + '/certs/server.crt');
+   ...
+this.state === "stopped"
+this.state = "starting"
+this.log("Starting server...")
+this.app = connect()

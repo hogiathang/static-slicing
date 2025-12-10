@@ -1,0 +1,41 @@
+function cleanConductCheck = function cleanConductCheck(keys, halfKeys, levelEntities, maxLevel, syntheticGetCheckDisabled) {
+  var checkedKeys = new Set(keys);
+  var halfCheckedKeys = new Set(halfKeys);
+  // Remove checked keys from top to bottom
+  for (var level = 0; level <= maxLevel; level += 1) {
+    var entities = levelEntities.get(level) || new Set();
+    entities.forEach(function (entity) {
+      var key = entity.key,
+        node = entity.node,
+        _entity$children2 = entity.children,
+        children = _entity$children2 === void 0 ? [] : _entity$children2;
+      if (!checkedKeys.has(key) && !halfCheckedKeys.has(key) && !syntheticGetCheckDisabled(node)) {
+        children.filter(function (childEntity) {
+          return !syntheticGetCheckDisabled(childEntity.node);
+        }).forEach(function (childEntity) {
+          checkedKeys.delete(childEntity.key);
+        });
+      }
+    });
+  }
+  // Remove checked keys form bottom to top
+  halfCheckedKeys = new Set();
+  var visitedKeys = new Set();
+  for (v...
+var checkedKeys = new Set(keys)
+var halfCheckedKeys = new Set(halfKeys)
+level <= maxLevel
+var entities = levelEntities.get(level) || new Set()
+entities.forEach(function (entity) {
+      var key = entity.key,
+        node = entity.node,
+        _entity$children2 = entity.children,
+        children = _entity$children2 === void 0 ? [] : _entity$children2;
+      if (!checkedKeys.has(key) && !halfCheckedKeys.has(key) && !syntheticGetCheckDisabled(node)) {
+        children.filter(function (childEntity) {
+          return !syntheticGetCheckDisabled(childEntity.node);
+        }).forEach(function (childEntity) {
+          checkedKeys.delete(childEntity.key);
+        });
+      }
+    })

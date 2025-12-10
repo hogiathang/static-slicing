@@ -1,0 +1,13 @@
+_tmp_41.FunctionExpression, ArrowFunctionExpression = <lambda>6
+!isPromiseConstructorWithInlineExecutor(node.parent)
+const resolverReferences = new Set()
+const resolvers = node.params.filter(
+          /** @returns {node is Identifier} */
+          (node) => node && node.type === 'Identifier'
+        )
+node && node.type === 'Identifier'
+_iterator_12 = <operator>.iterator(resolvers)
+const variable = context.getScope().set.get(resolver.name)
+!variable
+_iterator_13 = <operator>.iterator(variable.references)
+resolverReferences.add(reference.identifier)

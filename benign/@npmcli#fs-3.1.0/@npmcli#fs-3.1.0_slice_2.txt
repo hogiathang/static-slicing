@@ -1,0 +1,33 @@
+function onLink = async function onLink (destStat, src, dest) {
+  let resolvedSrc = await readlink(src)
+  if (!isAbsolute(resolvedSrc)) {
+    resolvedSrc = resolve(dirname(src), resolvedSrc)
+  }
+  if (!destStat) {
+    return symlink(resolvedSrc, dest)
+  }
+  let resolvedDest
+  try {
+    resolvedDest = await readlink(dest)
+  } catch (err) {
+    // Dest exists and is a regular file or directory,
+    // Windows may throw UNKNOWN error. If dest already exists,
+    // fs throws error anyway, so no need to guard against it here.
+    // istanbul ignore next: can only test on windows
+    if (err.code === 'EINVAL' || err.code === 'UNKNOWN') {
+      return symlink(resolvedSrc, dest)
+    }
+    // istanbul ignore next: should not be possible
+    throw err
+  }
+  if (!isAbsolute(resolvedDest)) {
+    resolvedDest = resolve(dirname(dest), resolvedDest)
+  }
+  if (isSrcSubdir(resolvedSrc, resolvedDest)) {
+    throw new ERR_FS_CP_EINVAL({
+      message: `cannot copy ${resolvedSrc} to a subdirectory of self ` +
+         ...
+let resolvedSrc = await readlink(src)
+!isAbsolute(resolvedSrc)
+resolvedSrc = resolve(dirname(src), resolvedSrc)
+!destStat

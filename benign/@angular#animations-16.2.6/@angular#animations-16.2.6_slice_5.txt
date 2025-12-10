@@ -1,0 +1,10 @@
+buildStyles(stateName, params, errors) {
+        let styler = this._stateStyles.get('*');
+        if (stateName !== undefined) {
+            styler = this._stateStyles.get(stateName?.toString()) || styler;
+        }
+        return styler ? styler.buildStyles(params, errors) : new Map();
+    }
+let styler = this._stateStyles.get('*')
+stateName !== undefined
+styler = this._stateStyles.get(stateName?.toString()) || styler

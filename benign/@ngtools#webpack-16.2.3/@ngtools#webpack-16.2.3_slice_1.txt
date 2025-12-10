@@ -1,0 +1,22 @@
+host.resolveModuleNames = function (moduleNames, containingFile, ...parameters) {
+            const results = baseResolveModuleNames.call(host, moduleNames, containingFile, ...parameters);
+            const containingFilePath = (0, paths_1.normalizePath)(containingFile);
+            for (const result of results) {
+                if (result) {
+                    const containingFileDependencies = dependencies.get(containingFilePath);
+                    if (containingFileDependencies) {
+                        containingFileDependencies.add(result.resolvedFileName);
+                    }
+                    else {
+                        dependencies.set(containingFilePath, new Set([result.resolvedFileName]));
+                    }
+                }
+            }
+            return results;
+        }
+const results = baseResolveModuleNames.call(host, moduleNames, containingFile, ...parameters)
+const containingFilePath = (0, paths_1.normalizePath)(containingFile)
+_iterator_0 = <operator>.iterator(results)
+const containingFileDependencies = dependencies.get(containingFilePath)
+containingFileDependencies.add(result.resolvedFileName)
+dependencies.set(containingFilePath, new Set([result.resolvedFileName]))

@@ -1,0 +1,14 @@
+Font.prototype.charToGlyph = function(c) {
+    const glyphIndex = this.charToGlyphIndex(c);
+    let glyph = this.glyphs.get(glyphIndex);
+    if (!glyph) {
+        // .notdef
+        glyph = this.glyphs.get(0);
+    }
+
+    return glyph;
+}
+const glyphIndex = this.charToGlyphIndex(c)
+let glyph = this.glyphs.get(glyphIndex)
+!glyph
+(_tmp_31 = this.glyphs).get

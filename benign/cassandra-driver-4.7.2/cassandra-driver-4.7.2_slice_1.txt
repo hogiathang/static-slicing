@@ -1,0 +1,64 @@
+async setPeersInfo(initializing, result) {
+    if (!result || !result.rows) {
+      return;
+    }
+
+    // A map of peers, could useful for in case there are discrepancies
+    const peers = {};
+    const port = this.options.protocolOptions.port;
+    const foundDataCenters = new Set();
+
+    if (this.host && this.host.datacenter) {
+      foundDataCenters.add(this.host.datacenter);
+    }
+
+    for (const row of result.rows) {
+      const endpoint = await this.getAddressForPeerHost(row, port);
+
+      if (!endpoint) {
+        continue;
+      }
+
+      peers[endpoint] = true;
+      let host = this.hosts.get(endpoint);
+      let isNewHost = !host;
+
+      if (isNewHost) {
+        host = new Host(endpoint, this.protocolVersion, this.options, this.metadata);
+        this.log('info', `Adding host ${endpoint}`);
+        isNewHost = true;
+      }
+
+      host.datacenter = row['data_center'];
+      host.rack = row['rack'];
+      host.tokens = row['tokens'];
+      host.hostId = row['host_id'];
+      h...
+!result || !result.rows
+const peers = {}
+const port = this.options.protocolOptions.port
+const foundDataCenters = new Set()
+this.host && this.host.datacenter
+foundDataCenters.add(this.host.datacenter)
+_iterator_0 = <operator>.iterator(result.rows)
+const endpoint = await this.getAddressForPeerHost(row, port)
+!endpoint
+continue;
+peers[endpoint] = true
+let host = this.hosts.get(endpoint)
+let isNewHost = !host
+host = new Host(endpoint, this.protocolVersion, this.options, this.metadata)
+<operator>.formatString("Adding host ", endpoint, "")
+isNewHost = true
+host.datacenter = row['data_center']
+host.rack = row['rack']
+host.tokens = row['tokens']
+host.hostId = row['host_id']
+host.cassandraVersion = row['release_version']
+setDseParameters(host, row)
+host.datacenter
+foundDataCenters.add(host.datacenter)
+this.hosts.set(endpoint, host)
+!initializing
+(_tmp_84 = this._profileManager).getDistance
+host.setDown()

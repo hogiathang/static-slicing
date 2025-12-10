@@ -1,0 +1,33 @@
+exports.init = function (done) {
+  var app = this,
+      options;
+
+  //
+  // Attempt to merge defaults passed to `app.use(flatiron.plugins.resourceful)`
+  // with any additional configuration that may have been loaded.
+  //
+  options = common.mixin(
+    {},
+    app.options['resourceful'],
+    app.config.get('resourceful') || app.config.get('database') || {}
+  );
+
+  app.config.set('resourceful', options);
+
+  //
+  // Remark: Should we accept the autoMigrate option?
+  //
+  if (options.engine) {
+    resourceful.use(options.engine, options);
+  }
+
+  done();
+}
+var app = this
+options = common.mixin(
+    {},
+    app.options['resourceful'],
+    app.config.get('resourceful') || app.config.get('database') || {}
+  )
+app.options["resourceful"]
+app.config.get('resourceful') || app.config.get('database') || {}

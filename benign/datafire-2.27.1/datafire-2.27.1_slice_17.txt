@@ -1,0 +1,51 @@
+var refreshOAuthToken = function refreshOAuthToken(callback) {
+        var form = {
+          client_id: account.client_id,
+          client_secret: account.client_secret,
+          refresh_token: account.refresh_token,
+          grant_type: 'refresh_token'
+        };
+        request.post({
+          url: account.refresh_url || oauthDef.refreshUrl || oauthDef.tokenUrl,
+          headers: account.refresh_headers || {},
+          json: true,
+          form: form
+        }, function (err, resp, body) {
+          if (err) return callback(err);
+          if (resp.statusCode >= 300) return callback(new Error(resp.statusCode));
+          account.access_token = body.access_token;
+          account.refresh_token = body.refresh_token || account.refresh_token;
+          Action.callOAuthRefreshCallbacks(account);
+          addParam('header', 'Authorization', "Bearer " + body.access_token);
+          callback();
+        });
+      }
+var form = {
+          client_id: account.client_id,
+          client_secret: account.client_secret,
+          refresh_token: account.refresh_token,
+          grant_type: 'refresh_token'
+        }
+_tmp_28.client_id = account.client_id
+_tmp_28.client_secret = account.client_secret
+_tmp_28.refresh_token = account.refresh_token
+_tmp_28.grant_type = "refresh_token"
+request.post({
+          url: account.refresh_url || oauthDef.refreshUrl || oauthDef.tokenUrl,
+          headers: account.refresh_headers || {},
+          json: true,
+          form: form
+        }, function (err, resp, body) {
+          if (err) return callback(err);
+          if (resp.statusCode >= 300) return callback(new Error(resp.statusCode));
+          account.access_token = body.access_token;
+          account.refresh_token = body.refresh_token || account.refresh_token;
+          Action.callOAuthRefreshCallbacks(account);
+          addParam('header', 'Authorization', "Bearer " + body.access_token);
+          callback();
+        })
+_tmp_29.url = account.refresh_url || oauthDef.refreshUrl || oauthDef.tokenUrl
+_tmp_29.headers = account.refresh_headers || {}
+_tmp_29.json = true
+_tmp_29.form = form
+<lambda>6

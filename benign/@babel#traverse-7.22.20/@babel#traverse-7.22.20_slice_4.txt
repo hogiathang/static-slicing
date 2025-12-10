@@ -1,0 +1,45 @@
+function arrowFunctionToExpression = function arrowFunctionToExpression({
+  allowInsertArrow = true,
+  allowInsertArrowWithRest = allowInsertArrow,
+  noNewArrows = !(_arguments$ => (_arguments$ = arguments[0]) == null ? void 0 : _arguments$.specCompliant)()
+} = {}) {
+  if (!this.isArrowFunctionExpression()) {
+    throw this.buildCodeFrameError("Cannot convert non-arrow function to a function expression.");
+  }
+  const {
+    thisBinding,
+    fnPath: fn
+  } = hoistFunctionEnvironment(this, noNewArrows, allowInsertArrow, allowInsertArrowWithRest);
+  fn.ensureBlock();
+  setType(fn, "FunctionExpression");
+  if (!noNewArrows) {
+    const checkBinding = thisBinding ? null : fn.scope.generateUidIdentifier("arrowCheckId");
+    if (checkBinding) {
+      fn.parentPath.scope.push({
+        id: checkBinding,
+        init: objectExpression([])
+      });
+    }
+    fn.get("body").unshiftContainer("body", expressionStatement(callExpression(this.hub.addHelper("newArrowCheck"), [thisExpression(), checkBinding ? identifier(checkBinding.na...
+allowInsertArrow = _tmp_4.allowInsertArrow === void 0 ? true : _tmp_4.allowInsertArrow
+allowInsertArrowWithRest = _tmp_4.allowInsertArrowWithRest === void 0 ? allowInsertArrow : _tmp_4.allowInsertArrowWithRest
+noNewArrows = _tmp_4.noNewArrows === void 0 ? !(_arguments$ => (_arguments$ = arguments[0]) == null ? void 0 : _arguments$.specCompliant)() : _tmp_4.noNewArrows
+!this.isArrowFunctionExpression()
+throw this.buildCodeFrameError("Cannot convert non-arrow function to a function expression.");
+_tmp_5 = hoistFunctionEnvironment(this, noNewArrows, allowInsertArrow, allowInsertArrowWithRest)
+thisBinding = _tmp_5.thisBinding
+fn = _tmp_5.fnPath
+hoistFunctionEnvironment(this, noNewArrows, allowInsertArrow, allowInsertArrowWithRest)
+fn.ensureBlock()
+setType(fn, "FunctionExpression")
+!noNewArrows
+const checkBinding = thisBinding ? null : fn.scope.generateUidIdentifier("arrowCheckId")
+fn.parentPath.scope.push({
+        id: checkBinding,
+        init: objectExpression([])
+      })
+_tmp_8.id = checkBinding
+_tmp_8.init = objectExpression([])
+fn.get("body").unshiftContainer("body", expressionStatement(callExpression(this.hub.addHelper("newArrowCheck"), [thisExpression(), checkBinding ? identifier(checkBinding.name) : identifier(thisBinding)])))
+fn.replaceWith(callExpression(memberExpression((0, _helperFunctionName.default)(this, true) || fn.node, identifier("bind")), [checkBinding ? identifier(checkBinding.name) : thisExpression()]))
+fn.get("callee.object")

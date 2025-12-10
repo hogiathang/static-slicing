@@ -1,0 +1,127 @@
+const path = require('path')
+const process = require('process')
+const program = require('commander')
+const rc = require('rc')('madge')
+const version = require('../package.json').version
+const ora = require('ora')
+const chalk = require('chalk')
+const startTime = Date.now()
+program.storeOptionsAsProperties()
+(_tmp_10 = program
+	.version(version)
+	.usage('[options] <src...>')
+	.option('-b, --basedir <path>', 'base directory for resolving paths')
+	.option('-s, --summary', 'show dependency count summary')
+	.option('-c, --circular', 'show circular dependencies')
+	.option('-d, --depends <name>', 'show module dependents')
+	.option('-x, --exclude <regexp>', 'exclude modules using RegExp')
+	.option('-j, --json', 'output as JSON')
+	.option('-i, --image <file>', 'write graph to file as an image')
+	.option('-l, --layout <name>', 'layout engine to use for graph (dot/neato/fdp/sfdp/twopi/circo)')
+	.option('--orphans', 'show modules that no one is depending on')
+	.option('--leaves', 'show modules that have no dependencies')
+	.option('--dot', 'show graph using the DOT language')
+	.option('--rankdir <direction>', 'set the direction of the graph layout')
+	.option('--extensions <list>', 'comma separated string of valid file extensions')
+	.option('--require-config <file>', 'path to RequireJS config')
+	.option('--web...).option
+version
+"[options] <src...>"
+"base directory for resolving paths"
+"show dependency count summary"
+"show circular dependencies"
+"show module dependents"
+"exclude modules using RegExp"
+"output as JSON"
+"write graph to file as an image"
+"layout engine to use for graph (dot/neato/fdp/sfdp/twopi/circo)"
+"show modules that no one is depending on"
+"show modules that have no dependencies"
+"show graph using the DOT language"
+"set the direction of the graph layout"
+"comma separated string of valid file extensions"
+"path to RequireJS config"
+"path to webpack config"
+"path to typescript config"
+"include shallow NPM modules"
+"disable color in output and image"
+"disable progress spinner"
+"read predefined tree from STDIN"
+"show warnings about skipped files"
+"turn on debug output"
+process.argv
+!program.args.length && !program.stdin
+console.log(program.helpInformation())
+process.exit(1)
+function dependencyFilter = function dependencyFilter() {
+	let prevFile;
+
+	return (dependencyFilePath, traversedFilePath, baseDir) => {
+		if (prevFile !== traversedFilePath) {
+			const relPath = path.relative(baseDir, traversedFilePath);
+			const dir = path.dirname(relPath) + '/';
+			const file = path.basename(relPath);
+
+			spinner.text = chalk.grey(dir) + chalk.cyan(file);
+
+			prevFile = traversedFilePath;
+		}
+	};
+}
+function createOutputFromOptions = function createOutputFromOptions(program, res) {
+	if (program.summary) {
+		output.summary(res.obj(), {
+			json: program.json
+		});
+
+		return res;
+	}
+
+	if (program.depends) {
+		output.modules(res.depends(program.depends), {
+			json: program.json
+		});
+
+		return res;
+	}
+
+	if (program.orphans) {
+		output.modules(res.orphans(), {
+			json: program.json
+		});
+
+		return res;
+	}
+
+	if (program.leaves) {
+		output.modules(res.leaves(), {
+			json: program.json
+		});
+
+		return res;
+	}
+
+	if (program.image) {
+		return res.image(program.image, program.circular).then((imagePath) => {
+			spinner.succeed(`${chalk.bold('Image created at')} ${chalk.cyan.bold(imagePath)}`);
+			return res;
+		});
+	}
+
+	if (program.dot) {
+		return res.dot(program.circular).then((output) => {
+			process.stdout.write(output);
+			return res;
+		});
+	}
+
+	if (program.circular) {
+		const circular = res.circular();
+
+		output.circular(spinner, res, circular, {
+			json: program.json
+		});
+
+		if (circular.length) {
+			exitCode = 1;
+		}...

@@ -1,0 +1,30 @@
+el.forEach(function (link){
+            if (link['@']['href']) { // Atom
+              if (_.get(link['@'], 'rel')) {
+                if (link['@']['rel'] == 'canonical') item.origlink = link['@']['href'];
+                if (link['@']['rel'] == 'alternate') item.link = link['@']['href'];
+                if (link['@']['rel'] == 'self' && !item.link) item.link = link['@']['href'];
+                if (link['@']['rel'] == 'replies') item.comments = link['@']['href'];
+                if (link['@']['rel'] == 'enclosure') {
+                  enclosure = {};
+                  enclosure.url = link['@']['href'];
+                  enclosure.type = _.get(link['@'], 'type');
+                  enclosure.length = _.get(link['@'], 'length');
+                  if (indexOfObject(item.enclosures, enclosure, ['url', 'type']) === -1) {
+                    item.enclosures.push(enclosure);
+                  }
+                }
+              } else {
+                item.link = link['@']['href'];
+        ...
+link["@"]["href"]
+_.get(link['@'], 'rel')
+item.origlink = link['@']['href']
+link['@']['rel'] == 'alternate'
+link['@']['rel'] == 'self' && !item.link
+item.comments = link['@']['href']
+link['@']['rel'] == 'enclosure'
+enclosure = {}
+enclosure.url = link['@']['href']
+enclosure.type = _.get(link['@'], 'type')
+enclosure.length = _.get(link['@'], 'length')

@@ -1,0 +1,66 @@
+(_tmp_13 = function(err, body) {
+        if(err) {
+            return callback(err);
+        }
+
+        //Build request options, allowing some to be overridden
+        var request_options = _.defaultsDeep({
+            method: 'POST',
+            headers: {
+                'Authorization': 'key=' + this.key
+            }
+        }, this.options, {
+            timeout: Constants.SOCKET_TIMEOUT
+        });
+
+        // overloading the post function to make testing it easier
+        request.post(request_options.uri || Constants.GCM_SEND_URI, body, request_options, callback)
+            .then((res) => {
+                const { data: resBodyJSON, status } = res;
+
+                if (status !== 200) {
+                    debug('Invalid request (' + status + '): ' + resBodyJSON);
+                    return callback(status);
+                }
+
+                if (_.isEmpty(resBodyJSON)) {
+                    debug('Empty response received (' + status + ' ' + res.statusText + ')');
+                    /...).bind
+var request_options = _.defaultsDeep({
+            method: 'POST',
+            headers: {
+                'Authorization': 'key=' + this.key
+            }
+        }, this.options, {
+            timeout: Constants.SOCKET_TIMEOUT
+        })
+_tmp_14.method = "POST"
+_tmp_14.headers = {
+                'Authorization': 'key=' + this.key
+            }
+_tmp_15.Authorization = 'key=' + this.key
+this.options
+_tmp_16.timeout = Constants.SOCKET_TIMEOUT
+request.post(request_options.uri || Constants.GCM_SEND_URI, body, request_options, callback)
+            .then((res) => {
+                const { data: resBodyJSON, status } = res;
+
+                if (status !== 200) {
+                    debug('Invalid request (' + status + '): ' + resBodyJSON);
+                    return callback(status);
+                }
+
+                if (_.isEmpty(resBodyJSON)) {
+                    debug('Empty response received (' + status + ' ' + res.statusText + ')');
+                    // Spoof error code 400 to avoid retrying the request
+                    return callback({error: res.statusText, code: 400});
+                }
+
+                callback(null, resBodyJSON, body.registration_ids || [ body.to ]);
+            },
+            (err) => {
+                const { response: res } = err;
+
+                if (res.status === 401) {
+                    debug('Unauthorized (401). Check that your API token is correct.');
+                    return ca...

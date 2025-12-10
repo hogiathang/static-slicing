@@ -1,0 +1,93 @@
+new Promise(async (resolve, reject) => {
+      const buffer = new BufferPool();
+
+      // eslint-disable-next-line prefer-const
+      let socket: net.Socket;
+      let rawSocket: net.Socket;
+
+      function destroySockets() {
+        for (const sock of [socket, rawSocket]) {
+          if (sock) {
+            sock.removeAllListeners();
+            sock.destroy();
+          }
+        }
+      }
+
+      function ontimeout() {
+        destroySockets();
+        reject(new MongoCryptError('KMS request timed out'));
+      }
+
+      function onerror(err: Error) {
+        destroySockets();
+        const mcError = new MongoCryptError('KMS request failed', { cause: err });
+        reject(mcError);
+      }
+
+      if (this.options.proxyOptions && this.options.proxyOptions.proxyHost) {
+        rawSocket = net.connect({
+          host: this.options.proxyOptions.proxyHost,
+          port: this.options.proxyOptions.proxyPort || 1080
+        });
+
+        rawSocket.on('timeout', ontimeout);
+        rawSo...
+const buffer = new BufferPool()
+function destroySockets = function destroySockets() {
+        for (const sock of [socket, rawSocket]) {
+          if (sock) {
+            sock.removeAllListeners();
+            sock.destroy();
+          }
+        }
+      }
+function ontimeout = function ontimeout() {
+        destroySockets();
+        reject(new MongoCryptError('KMS request timed out'));
+      }
+function onerror = function onerror(err: Error) {
+        destroySockets();
+        const mcError = new MongoCryptError('KMS request failed', { cause: err });
+        reject(mcError);
+      }
+this.options.proxyOptions && this.options.proxyOptions.proxyHost
+rawSocket = net.connect({
+          host: this.options.proxyOptions.proxyHost,
+          port: this.options.proxyOptions.proxyPort || 1080
+        })
+_tmp_26.host = this.options.proxyOptions.proxyHost
+_tmp_26.port = this.options.proxyOptions.proxyPort || 1080
+rawSocket.on('timeout', ontimeout)
+rawSocket.on('error', onerror)
+const events = require('events') as typeof import('events')
+await events.once(rawSocket, 'connect')
+socks ??= loadSocks()
+options.socket = (
+            await socks.SocksClient.createConnection({
+              existing_socket: rawSocket,
+              command: 'connect',
+              destination: { host: options.host, port: options.port },
+              proxy: {
+                // host and port are ignored because we pass existing_socket
+                host: 'iLoveJavaScript',
+                port: 0,
+                type: 5,
+                userId: this.options.proxyOptions.proxyUsername,
+                password: this.options.proxyOptions.proxyPassword
+              }
+            })
+          ).socket
+await socks.SocksClient.createConnection({
+              existing_socket: rawSocket,
+              command: 'connect',
+              destination: { host: options.host, port: options.port },
+              proxy: {
+                // host and port are ignored because we pass existing_socket
+                host: 'iLoveJavaScript',
+                port: 0,
+                type: 5,
+                userId: this.options.proxyOptions.proxyUsername,
+                password: this.options.proxyOptions.proxyPassword
+              }
+            })

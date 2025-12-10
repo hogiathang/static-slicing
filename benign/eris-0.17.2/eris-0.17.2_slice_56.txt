@@ -1,0 +1,6 @@
+getGuildIntegrations(guildID) {
+        const guild = this.guilds.get(guildID);
+        return this.requestHandler.request("GET", Endpoints.GUILD_INTEGRATIONS(guildID), true).then((integrations) => integrations.map((integration) => new GuildIntegration(integration, guild)));
+    }
+const guild = this.guilds.get(guildID)
+this.requestHandler.request("GET", Endpoints.GUILD_INTEGRATIONS(guildID), true).then((integrations) => integrations.map((integration) => new GuildIntegration(integration, guild)))

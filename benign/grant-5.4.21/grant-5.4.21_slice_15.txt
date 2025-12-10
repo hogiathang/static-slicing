@@ -1,0 +1,6 @@
+params.override !== 'callback' ? connect({request})({provider, input}) : compose(
+          callback({request})({provider, input}),
+          data,
+          extend ? compose(...extend.map((fn) => fn({request, state}))) : (args) => ({...args})
+        )({provider, input})
+connect({request})({provider, input})

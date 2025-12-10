@@ -1,0 +1,26 @@
+function compile = function compile (name, output, fix) {
+  console.log(name, '→', output)
+  mkdirp.sync(path.dirname(path.join(__dirname, output)))
+  var source = fs.readFileSync(require.resolve(name), 'utf8')
+  if (fix) source = fix(source)
+  var result = buble.transform(source, {
+    transforms: {
+      dangerousForOf: true
+    }
+  })
+  fs.writeFileSync(path.join(__dirname, output), HEADER + result.code, 'utf8')
+}
+console.log(name, '→', output)
+mkdirp.sync(path.dirname(path.join(__dirname, output)))
+var source = fs.readFileSync(require.resolve(name), 'utf8')
+source = fix(source)
+var result = buble.transform(source, {
+    transforms: {
+      dangerousForOf: true
+    }
+  })
+_tmp_0.transforms = {
+      dangerousForOf: true
+    }
+_tmp_1.dangerousForOf = true
+fs.writeFileSync(path.join(__dirname, output), HEADER + result.code, 'utf8')

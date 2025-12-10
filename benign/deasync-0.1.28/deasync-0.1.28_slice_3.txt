@@ -1,0 +1,41 @@
+function afterBuild = function afterBuild() {
+  var targetPath = path.join(
+    __dirname,
+    'build',
+    debug ? 'Debug' : 'Release',
+    'deasync.node'
+  );
+  var installPath = path.join(__dirname, 'bin', modPath, 'deasync.node');
+
+  try {
+    fs.mkdirSync(path.join(__dirname, 'bin'));
+  } catch (ex) {}
+  try {
+    fs.mkdirSync(path.join(__dirname, 'bin', modPath));
+  } catch (ex) {}
+
+  try {
+    fs.statSync(targetPath);
+  } catch (ex) {
+    console.error('Build succeeded but target not found');
+    process.exit(1);
+  }
+  fs.renameSync(targetPath, installPath);
+  console.log('Installed in `' + installPath + '`');
+}
+var targetPath = path.join(
+    __dirname,
+    'build',
+    debug ? 'Debug' : 'Release',
+    'deasync.node'
+  )
+"build"
+debug ? "Debug" : "Release"
+"deasync.node"
+var installPath = path.join(__dirname, 'bin', modPath, 'deasync.node')
+fs.mkdirSync(path.join(__dirname, 'bin'))
+fs.mkdirSync(path.join(__dirname, 'bin', modPath))
+fs.statSync(targetPath)
+console.error('Build succeeded but target not found')
+process.exit(1)
+fs.renameSync(targetPath, installPath)

@@ -1,0 +1,64 @@
+var nul = process.platform === 'win32' ? '\\\\.\\NUL' : '/dev/null'
+var bench = require('fastbench')
+var stream = require('fs').createWriteStream(nul)
+var flatstr = require('./')
+var largeStr = JSON.stringify(require('./package.json'))
+largeStr += largeStr
+largeStr += largeStr
+var run = bench([
+  function unflattenedManySmallConcats (cb) {
+    stream.write(makeStr('a', 200))
+    setImmediate(cb)
+  },
+  function flattenedManySmallConcats (cb) {
+    stream.write(flatstr(makeStr('a', 200)))
+    setImmediate(cb)
+  },
+  function unflattenedSeveralLargeConcats (cb) {
+    stream.write(makeStr(largeStr, 10))
+    setImmediate(cb)
+  },
+  function flattenedSeveralLargeConcats (cb) {
+    stream.write(flatstr(makeStr(largeStr, 10)))
+    setImmediate(cb)
+  },
+  function unflattenedExponentialSmallConcats (cb) {
+    stream.write(makeExpoStr('a', 12))
+    setImmediate(cb)
+  },
+  function flattenedExponentialSmallConcats (cb) {
+    stream.write(flatstr(makeExpoStr('a', 12)))
+    setImmediate(cb)
+  },
+  function unflattenedExponentialLargeConcats (cb) {
+    stream.write(makeExpoStr(largeStr, 7))
+    setImmediate(cb)
+  },
+  function flattenedExponentialLargeConcats (cb) {
+    stream.write(flatstr(makeExpoStr(largeStr, 7)))
+    setImmediate(cb)
+  }
+], 10000)
+_tmp_1.push(unflattenedManySmallConcats)
+_tmp_1.push(flattenedManySmallConcats)
+_tmp_1.push(unflattenedSeveralLargeConcats)
+_tmp_1.push(flattenedSeveralLargeConcats)
+_tmp_1.push(unflattenedExponentialSmallConcats)
+_tmp_1.push(flattenedExponentialSmallConcats)
+_tmp_1.push(unflattenedExponentialLargeConcats)
+_tmp_1.push(flattenedExponentialLargeConcats)
+10000
+function makeStr = function makeStr (str, concats) {
+  var s = ''
+  while (concats--) {
+    s += str
+  }
+  return s
+}
+function makeExpoStr = function makeExpoStr (str, concats) {
+  var s = str
+  while (concats--) {
+    s += s
+  }
+  return s
+}

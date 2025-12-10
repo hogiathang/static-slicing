@@ -1,0 +1,16 @@
+makeRequest() {
+		if (!this.running) {
+			return
+		}
+		this.connect()
+		this.parser = new Parser(this.params.method)
+		const id = this.latency.begin();
+		this.currentId = id
+		this.connection.write(this.params.request)
+	}
+!this.running
+this.connect()
+this.parser = new Parser(this.params.method)
+const id = this.latency.begin()
+this.currentId = id
+this.connection.write(this.params.request)

@@ -1,0 +1,16 @@
+_tmp_39.exit = exit
+_tmp_40 = this
+scope = _tmp_40.scope
+seen = _tmp_40.seen
+imported = _tmp_40.imported
+exported = _tmp_40.exported
+requeueInParent = _tmp_40.requeueInParent
+buildImportReference = _tmp_40.buildImportReference
+seen.has(path.node)
+seen.add(path.node)
+const left = path.get("left")
+left.isMemberExpression()
+left.isIdentifier()
+const localName = left.node.name
+scope.getBinding(localName) !== path.scope.getBinding(localName)
+const exportedNames = exported.get(localName)

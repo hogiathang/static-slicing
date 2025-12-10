@@ -1,0 +1,72 @@
+async execute(executor, context) {
+        const keyVaultNamespace = executor._keyVaultNamespace;
+        const keyVaultClient = executor._keyVaultClient;
+        const metaDataClient = executor._metaDataClient;
+        const mongocryptdClient = executor._mongocryptdClient;
+        const mongocryptdManager = executor._mongocryptdManager;
+        let result = null;
+        while (context.state !== MONGOCRYPT_CTX_DONE && context.state !== MONGOCRYPT_CTX_ERROR) {
+            debug(`[context#${context.id}] ${stateToString.get(context.state) || context.state}`);
+            switch (context.state) {
+                case MONGOCRYPT_CTX_NEED_MONGO_COLLINFO: {
+                    const filter = (0, bson_1.deserialize)(context.nextMongoOperation());
+                    if (!metaDataClient) {
+                        throw new errors_1.MongoCryptError('unreachable state machine state: entered MONGOCRYPT_CTX_NEED_MONGO_COLLINFO but metadata client is undefined');
+                    }
+          ...
+const keyVaultNamespace = executor._keyVaultNamespace
+const keyVaultClient = executor._keyVaultClient
+const metaDataClient = executor._metaDataClient
+const mongocryptdClient = executor._mongocryptdClient
+const mongocryptdManager = executor._mongocryptdManager
+let result = null
+context.state !== MONGOCRYPT_CTX_DONE && context.state !== MONGOCRYPT_CTX_ERROR
+<operator>.formatString("[context#", context.id, "] ", stateToString.get(context.state) || context.state, "")
+context.state
+case MONGOCRYPT_CTX_NEED_MONGO_COLLINFO:
+const filter = (0, bson_1.deserialize)(context.nextMongoOperation())
+!metaDataClient
+throw new errors_1.MongoCryptError('unreachable state machine state: entered MONGOCRYPT_CTX_NEED_MONGO_COLLINFO but metadata client is undefined');
+const collInfo = await this.fetchCollectionInfo(metaDataClient, context.ns, filter)
+context.addMongoOperationResponse(collInfo)
+context.finishMongoOperation()
+break;
+case MONGOCRYPT_CTX_NEED_MONGO_MARKINGS:
+const command = context.nextMongoOperation()
+!mongocryptdClient
+throw new errors_1.MongoCryptError('unreachable state machine state: entered MONGOCRYPT_CTX_NEED_MONGO_MARKINGS but mongocryptdClient is undefined');
+const markedCommand = mongocryptdManager
+                        ? await mongocryptdManager.withRespawn(this.markCommand.bind(this, mongocryptdClient, context.ns, command))
+                        : await this.markCommand(mongocryptdClient, context.ns, command)
+await mongocryptdManager.withRespawn(this.markCommand.bind(this, mongocryptdClient, context.ns, command))
+await this.markCommand(mongocryptdClient, context.ns, command)
+context.addMongoOperationResponse(markedCommand)
+context.finishMongoOperation()
+break;
+case MONGOCRYPT_CTX_NEED_MONGO_KEYS:
+const filter = context.nextMongoOperation()
+const keys = await this.fetchKeys(keyVaultClient, keyVaultNamespace, filter)
+keys.length === 0
+_tmp_15.v = __ecma.Array.factory()
+_iterator_0 = <operator>.iterator(keys)
+context.addMongoOperationResponse((0, bson_1.serialize)(key))
+context.finishMongoOperation()
+break;
+case MONGOCRYPT_CTX_NEED_KMS_CREDENTIALS:
+const kmsProviders = await executor.askForKMSCredentials()
+context.provideKMSProviders((0, bson_1.serialize)(kmsProviders))
+break;
+case MONGOCRYPT_CTX_NEED_KMS:
+const requests = Array.from(this.requests(context))
+await Promise.all(requests)
+context.finishKMSRequests()
+break;
+case MONGOCRYPT_CTX_READY:
+const finalizedContext = context.finalize()
+context.state === MONGOCRYPT_CTX_ERROR
+const message = context.status.message || 'Finalization error'
+throw new errors_1.MongoCryptError(message);
+result = (0, bson_1.deserialize)(finalizedContext, this.options)
+break;
+default:
+throw new errors_1.MongoCryptError(`Unknown state: ${context.state}`);

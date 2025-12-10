@@ -1,0 +1,59 @@
+function optimiseIndexGetter = function optimiseIndexGetter(path, argsId, offset) {
+  const offsetLiteral = _core.types.numericLiteral(offset);
+  let index;
+  const parent = path.parent;
+  if (_core.types.isNumericLiteral(parent.property)) {
+    index = _core.types.numericLiteral(parent.property.value + offset);
+  } else if (offset === 0) {
+    index = parent.property;
+  } else {
+    index = _core.types.binaryExpression("+", parent.property, _core.types.cloneNode(offsetLiteral));
+  }
+  const {
+    scope,
+    parentPath
+  } = path;
+  if (!scope.isPure(index)) {
+    const temp = scope.generateUidIdentifierBasedOnNode(index);
+    scope.push({
+      id: temp,
+      kind: "var"
+    });
+    parentPath.replaceWith(restIndexImpure({
+      ARGUMENTS: argsId,
+      OFFSET: offsetLiteral,
+      INDEX: index,
+      REF: _core.types.cloneNode(temp)
+    }));
+  } else {
+    parentPath.replaceWith(restIndex({
+      ARGUMENTS: argsId,
+      OFFSET: offsetLiteral,
+      INDEX: index
+    }));
+    const replacedParentPath = parentPa...
+const offsetLiteral = _core.types.numericLiteral(offset)
+const parent = path.parent
+_core.types.isNumericLiteral(parent.property)
+index = _core.types.numericLiteral(parent.property.value + offset)
+offset === 0
+index = parent.property
+index = _core.types.binaryExpression("+", parent.property, _core.types.cloneNode(offsetLiteral))
+_tmp_9 = path
+scope = _tmp_9.scope
+parentPath = _tmp_9.parentPath
+!scope.isPure(index)
+parentPath.replaceWith(restIndex({
+      ARGUMENTS: argsId,
+      OFFSET: offsetLiteral,
+      INDEX: index
+    }))
+_tmp_13.ARGUMENTS = argsId
+_tmp_13.OFFSET = offsetLiteral
+_tmp_13.INDEX = index
+const replacedParentPath = parentPath
+const offsetTestPath = replacedParentPath.get("test")
+const valRes = offsetTestPath.get("left").evaluate()
+valRes.confident
+valRes.value === true
+offsetTestPath.replaceWith(offsetTestPath.get("right"))

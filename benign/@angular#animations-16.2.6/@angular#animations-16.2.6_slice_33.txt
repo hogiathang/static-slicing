@@ -1,0 +1,19 @@
+function deleteOrUnsetInMap = function deleteOrUnsetInMap(map, key, value) {
+    let currentValues = map.get(key);
+    if (currentValues) {
+        if (currentValues.length) {
+            const index = currentValues.indexOf(value);
+            currentValues.splice(index, 1);
+        }
+        if (currentValues.length == 0) {
+            map.delete(key);
+        }
+    }
+    return currentValues;
+}
+let currentValues = map.get(key)
+currentValues.length
+const index = currentValues.indexOf(value)
+currentValues.splice(index, 1)
+currentValues.length == 0
+map.delete(key)

@@ -1,0 +1,16 @@
+function sendEvent = function sendEvent(event) {
+  var message = JSON.stringify(event);
+
+  console.log('ws -> send: ' + message);
+
+  var clients = serverMode ? wss.clients : [ws];
+
+  for (var i = 0; i < clients.length; i++) {
+    clients[i].send(message);
+  }
+}
+var message = JSON.stringify(event)
+console.log('ws -> send: ' + message)
+var clients = serverMode ? wss.clients : [ws]
+i < clients.length
+(_tmp_1 = clients[i]).send

@@ -1,0 +1,6 @@
+function isExplicitIdentityFunction = function isExplicitIdentityFunction(iteratee) {
+            const firstParamName = getFirstParamName(iteratee)
+            return firstParamName && get(getValueReturnedInFirstStatement(iteratee), 'name') === firstParamName
+        }
+const firstParamName = getFirstParamName(iteratee)
+firstParamName && get(getValueReturnedInFirstStatement(iteratee), 'name') === firstParamName

@@ -1,0 +1,3 @@
+get(e) {
+  return get(this, e, !0);
+ }

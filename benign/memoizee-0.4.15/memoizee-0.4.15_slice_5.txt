@@ -1,0 +1,11 @@
+extGet = defineLength(function () {
+		var id, args = arguments;
+		if (length === 0) return cache.data;
+		if (resolve) args = resolve(args);
+		if (get) id = get(args);
+		else id = String(args[0]);
+		return cache[id];
+	})
+var args = arguments
+length === 0
+args = resolve(args)

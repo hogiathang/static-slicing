@@ -1,0 +1,60 @@
+function editOnBeforeInput = function editOnBeforeInput(editor, e) {
+  if (editor._pendingStateFromBeforeInput !== undefined) {
+    editor.update(editor._pendingStateFromBeforeInput);
+    editor._pendingStateFromBeforeInput = undefined;
+  }
+
+  var editorState = editor._latestEditorState;
+  var chars = e.data; // In some cases (ex: IE ideographic space insertion) no character data
+  // is provided. There's nothing to do when this happens.
+
+  if (!chars) {
+    return;
+  } // Allow the top-level component to handle the insertion manually. This is
+  // useful when triggering interesting behaviors for a character insertion,
+  // Simple examples: replacing a raw text ':)' with a smile emoji or image
+  // decorator, or setting a block to be a list item after typing '- ' at the
+  // start of the block.
+
+
+  if (editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))) {
+    e.preventDefault();
+    return;
+  } // If selection is collapsed, conditionally allow nativ...
+editor._pendingStateFromBeforeInput !== undefined
+editor.update(editor._pendingStateFromBeforeInput)
+editor._pendingStateFromBeforeInput = undefined
+var editorState = editor._latestEditorState
+var chars = e.data
+!chars
+editor.props.handleBeforeInput && isEventHandled(editor.props.handleBeforeInput(chars, editorState, e.timeStamp))
+var selection = editorState.getSelection()
+var selectionStart = selection.getStartOffset()
+var anchorKey = selection.getAnchorKey()
+!selection.isCollapsed()
+var newEditorState = replaceText(editorState, chars, editorState.getCurrentInlineStyle(), getEntityKeyForSelection(editorState.getCurrentContent(), editorState.getSelection()), false)
+var mustPreventNative = false
+!mustPreventNative
+mustPreventNative = isSelectionAtLeafStart(editor._latestCommittedEditorState)
+!mustPreventNative
+var oldBlockTree = editorState.getBlockTree(anchorKey)
+var newBlockTree = newEditorState.getBlockTree(anchorKey)
+mustPreventNative = oldBlockTree.size !== newBlockTree.size || oldBlockTree.zip(newBlockTree).some(function (_ref) {
+      var oldLeafSet = _ref[0],
+          newLeafSet = _ref[1];
+      // selectionStart is guaranteed to be selectionEnd here
+      var oldStart = oldLeafSet.get('start');
+      var adjustedStart = oldStart + (oldStart >= selectionStart ? chars.length : 0);
+      var oldEnd = oldLeafSet.get('end');
+      var adjustedEnd = oldEnd + (oldEnd >= selectionStart ? chars.length : 0);
+      var newStart = newLeafSet.get('start');
+      var newEnd = newLeafSet.get('end');
+      var newDecoratorKey = newLeafSet.get('decoratorKey');
+      return (// Different decorators
+        oldLeafSet.get('decoratorKey') !== newDecoratorKey || // Different number of inline styles
+        oldLeafSet.get('leaves').size !== newLeafSet.get('leaves').size || // Different effective decorator position
+        adjustedStart !== newStart || adjustedEnd !== newEnd || // Decorator already existed and i...
+!mustPreventNative
+mustPreventNative = mustPreventDefaultForCharacter(chars)
+!mustPreventNative
+mustPreventNative = nullthrows(newEditorState.getDirectionMap()).get(anchorKey) !== nullthrows(editorState.getDirectionMap()).get(anchorKey)

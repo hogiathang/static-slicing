@@ -1,0 +1,29 @@
+function copyInChunks = function copyInChunks(
+  source,
+  target,
+  chunkSize = DEFAULT_COPY_CHUNK_SIZE,
+  fs_ = fs
+) {
+  const sourceFile = fs_.openSync(source, 'r');
+  const targetFile = fs_.openSync(target, 'w');
+
+  let bytesRead = 1;
+  while (bytesRead > 0) {
+    const buffer = Buffer.alloc(chunkSize);
+    bytesRead = fs_.readSync(sourceFile, buffer, 0, chunkSize);
+    fs_.writeSync(targetFile, buffer, 0, bytesRead);
+  }
+
+  fs_.closeSync(sourceFile);
+  fs_.closeSync(targetFile);
+}
+chunkSize = chunkSize === void 0 ? DEFAULT_COPY_CHUNK_SIZE : chunkSize
+fs_ = fs_ === void 0 ? fs : fs_
+const sourceFile = fs_.openSync(source, 'r')
+const targetFile = fs_.openSync(target, 'w')
+let bytesRead = 1
+bytesRead > 0
+const buffer = Buffer.alloc(chunkSize)
+bytesRead = fs_.readSync(sourceFile, buffer, 0, chunkSize)
+fs_.writeSync(targetFile, buffer, 0, bytesRead)
+fs_.closeSync(sourceFile)

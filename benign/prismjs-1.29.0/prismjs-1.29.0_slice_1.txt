@@ -1,0 +1,17 @@
+function languageCallback = function languageCallback(lang, type) {
+		if (lang_data[lang]) {
+			var callbacks = lang_data[lang].callbacks;
+			for (var i = 0, l = callbacks.length; i < l; i++) {
+				var callback = callbacks[i][type];
+				if (callback) {
+					setTimeout(callback, 0);
+				}
+			}
+			callbacks.length = 0;
+		}
+	}
+lang_data[lang]
+var callbacks = lang_data[lang].callbacks
+var l = callbacks.length
+var callback = callbacks[i][type]
+setTimeout(callback, 0)

@@ -1,0 +1,3 @@
+const pathMatch = (obj, path) => {
+      return get(obj, path, null) !== null
+    }

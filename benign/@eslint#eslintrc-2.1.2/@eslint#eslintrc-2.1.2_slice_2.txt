@@ -1,0 +1,36 @@
+_finalizeConfigArray(configArray, directoryPath, ignoreNotFoundError) {
+        const {
+            cliConfigArray,
+            configArrayFactory,
+            finalizeCache,
+            useEslintrc,
+            builtInRules
+        } = internalSlotsMap.get(this);
+
+        let finalConfigArray = finalizeCache.get(configArray);
+
+        if (!finalConfigArray) {
+            finalConfigArray = configArray;
+
+            // Load the personal config if there are no regular config files.
+            if (
+                useEslintrc &&
+                configArray.every(c => !c.filePath) &&
+                cliConfigArray.every(c => !c.filePath) // `--config` option can be a file.
+            ) {
+                const homePath = os.homedir();
+
+                debug("Loading the config file of the home directory:", homePath);
+
+                const personalConfigArray = configArrayFactory.loadInDirectory(
+                    homePath,
+                    { name: "PersonalConfig" }
+            ...
+_tmp_32 = internalSlotsMap.get(this)
+cliConfigArray = _tmp_32.cliConfigArray
+configArrayFactory = _tmp_32.configArrayFactory
+finalizeCache = _tmp_32.finalizeCache
+useEslintrc = _tmp_32.useEslintrc
+builtInRules = _tmp_32.builtInRules
+internalSlotsMap.get(this)
+let finalConfigArray = finalizeCache.get(configArray)

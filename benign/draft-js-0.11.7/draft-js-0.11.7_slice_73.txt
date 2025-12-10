@@ -1,0 +1,19 @@
+var insertFragmentIntoContentState = function insertFragmentIntoContentState(contentState, selectionState, fragmentBlockMap) {
+  var mergeBlockData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'REPLACE_WITH_NEW_DATA';
+  !selectionState.isCollapsed() ? process.env.NODE_ENV !== "production" ? invariant(false, '`insertFragment` should only be called with a collapsed selection state.') : invariant(false) : void 0;
+  var blockMap = contentState.getBlockMap();
+  var fragment = randomizeBlockMapKeys(fragmentBlockMap);
+  var targetKey = selectionState.getStartKey();
+  var targetOffset = selectionState.getStartOffset();
+  var targetBlock = blockMap.get(targetKey);
+
+  if (targetBlock instanceof ContentBlockNode) {
+    !targetBlock.getChildKeys().isEmpty() ? process.env.NODE_ENV !== "production" ? invariant(false, '`insertFragment` should not be called when a container node is selected.') : invariant(false) : void 0;
+  } // When we insert a fragment with a single block we ...
+var mergeBlockData = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'REPLACE_WITH_NEW_DATA'
+!selectionState.isCollapsed() ? process.env.NODE_ENV !== "production" ? invariant(false, '`insertFragment` should only be called with a collapsed selection state.') : invariant(false) : void 0
+var blockMap = contentState.getBlockMap()
+var fragment = randomizeBlockMapKeys(fragmentBlockMap)
+var targetKey = selectionState.getStartKey()
+var targetOffset = selectionState.getStartOffset()
+var targetBlock = blockMap.get(targetKey)

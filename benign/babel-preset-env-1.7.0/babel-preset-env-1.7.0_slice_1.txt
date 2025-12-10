@@ -1,0 +1,23 @@
+var prettifyVersion = exports.prettifyVersion = function prettifyVersion(version) {
+  if (typeof version !== "string") {
+    return version;
+  }
+
+  var parts = [_semver2.default.major(version)];
+  var minor = _semver2.default.minor(version);
+  var patch = _semver2.default.patch(version);
+
+  if (minor || patch) {
+    parts.push(minor);
+  }
+
+  if (patch) {
+    parts.push(patch);
+  }
+
+  return parts.join(".");
+}
+typeof version !== "string"
+var parts = [_semver2.default.major(version)]
+var minor = _semver2.default.minor(version)
+var patch = _semver2.default.patch(version)

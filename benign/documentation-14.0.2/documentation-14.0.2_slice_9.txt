@@ -1,0 +1,19 @@
+function inferClassMembership = function inferClassMembership(path) {
+  if (path.get('leadingComments')) {
+    const leadingComments = path.get('leadingComments');
+
+    for (let i = leadingComments.length - 1; i >= 0; i--) {
+      const comment = leadingComments[i];
+      if (isJSDocComment(comment.node)) {
+        const memberof = parse(comment.node.value).memberof;
+        if (memberof) {
+          return [...memberof.split('.'), path.node.id.name];
+        }
+      }
+    }
+  }
+
+  return [path.node.id.name];
+}
+path.get('leadingComments')
+const leadingComments = path.get('leadingComments')

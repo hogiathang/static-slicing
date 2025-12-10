@@ -1,0 +1,13 @@
+function onDeleteScope = async function onDeleteScope(scopeName) {
+  const scopeRegistryKey = `${scopeName}:${REGISTRY}`;
+  const npmrc = await readFile(NPMRC);
+  if (npmrc[scopeRegistryKey]) {
+    delete npmrc[scopeRegistryKey];
+    await writeFile(NPMRC, npmrc);
+    printSuccess(`Delete scope '${scopeRegistryKey}' success.`);
+  }
+}
+<operator>.formatString("", scopeName, ":", REGISTRY, "")
+const npmrc = await readFile(NPMRC)
+npmrc[scopeRegistryKey]
+delete npmrc[scopeRegistryKey]

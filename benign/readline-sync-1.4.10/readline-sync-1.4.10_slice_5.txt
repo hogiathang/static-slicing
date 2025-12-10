@@ -1,0 +1,12 @@
+dirPath.split(/\/|\\/).reduce(function(parents, dir) {
+            var path = pathUtil.resolve((parents += dir + pathUtil.sep));
+            if (!fs.existsSync(path)) {
+              fs.mkdirSync(path);
+            } else if (!fs.statSync(path).isDirectory()) {
+              throw new Error('Non directory already exists: ' + path);
+            }
+            return parents;
+          }, '')
+var path = pathUtil.resolve((parents += dir + pathUtil.sep))
+!fs.existsSync(path)
+fs.mkdirSync(path)

@@ -1,0 +1,21 @@
+function readShebang = function readShebang(command) {
+    // Read the first 150 bytes from the file
+    const size = 150;
+    const buffer = Buffer.alloc(size);
+
+    let fd;
+
+    try {
+        fd = fs__default['default'].openSync(command, 'r');
+        fs__default['default'].readSync(fd, buffer, 0, size, 0);
+        fs__default['default'].closeSync(fd);
+    } catch (e) { /* Empty */ }
+
+    // Attempt to extract shebang (null is returned if not a shebang)
+    return shebangCommand(buffer.toString());
+}
+const size = 150
+const buffer = Buffer.alloc(size)
+fd = fs__default['default'].openSync(command, 'r')
+fs__default['default'].readSync(fd, buffer, 0, size, 0)
+(_tmp_44 = fs__default['default']).closeSync

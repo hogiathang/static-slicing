@@ -1,0 +1,26 @@
+this._outputs.reduce(function(args, output) {
+          var sizeFilters = utils.makeFilterStrings(output.sizeFilters.get());
+          var audioFilters = output.audioFilters.get();
+          var videoFilters = output.videoFilters.get().concat(sizeFilters);
+          var outputArg;
+
+          if (!output.target) {
+            outputArg = [];
+          } else if (typeof output.target === 'string') {
+            outputArg = [output.target];
+          } else {
+            outputArg = ['pipe:1'];
+          }
+
+          return args.concat(
+            output.audio.get(),
+            audioFilters.length ? ['-filter:a', audioFilters.join(',')] : [],
+            output.video.get(),
+            videoFilters.length ? ['-filter:v', videoFilters.join(',')] : [],
+            output.options.get(),
+            outputArg
+          );
+        }, [])
+var sizeFilters = utils.makeFilterStrings(output.sizeFilters.get())
+var audioFilters = output.audioFilters.get()
+var videoFilters = output.videoFilters.get().concat(sizeFilters)

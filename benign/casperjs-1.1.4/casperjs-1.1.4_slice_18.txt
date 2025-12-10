@@ -1,0 +1,12 @@
+page.onResourceRequested = function onResourceRequested(requestData, request) {
+            casper.emit('resource.requested', requestData, request);
+            var checkUrl = ((phantom.casperEngine === 'phantomjs' && utils.ltVersion(phantom.version, '2.1.0')) ||
+                       (phantom.casperEngine === 'slimerjs' && utils.ltVersion(slimer.version, '0.10.0'))) ? utils.decodeUrl(requestData.url) : requestData.url;
+            if (checkUrl === casper.requestUrl) {
+                casper.emit('page.resource.requested', requestData, request);
+            }
+            if (utils.isFunction(casper.options.onResourceRequested)) {
+                casper.options.onResourceRequested.call(casper, casper, requestData, request);
+            }
+        }
+casper.emit('resource.requested', requestData, request)

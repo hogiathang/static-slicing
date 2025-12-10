@@ -1,0 +1,38 @@
+define(tagName, cstr, options) {
+    if (tagName.toLowerCase() !== tagName) {
+      throw new Error(`Failed to execute 'define' on 'CustomElementRegistry': "${tagName}" is not a valid custom element name`);
+    }
+    if (this.__registry == null) {
+      this.__registry = new Map();
+    }
+    this.__registry.set(tagName, { cstr, options });
+    if (this.__whenDefined != null) {
+      const whenDefinedResolveFns = this.__whenDefined.get(tagName);
+      if (whenDefinedResolveFns != null) {
+        whenDefinedResolveFns.forEach((whenDefinedResolveFn) => {
+          whenDefinedResolveFn();
+        });
+        whenDefinedResolveFns.length = 0;
+        this.__whenDefined.delete(tagName);
+      }
+    }
+    const doc = this.win.document;
+    if (doc != null) {
+      const hosts = doc.querySelectorAll(tagName);
+      hosts.forEach((host) => {
+        if (upgradedElements.has(host) === false) {
+          tempDisableCallbacks.add(doc);
+          const upgradedCmp = createCustomElement(this, doc...
+tagName.toLowerCase() !== tagName
+<operator>.formatString("Failed to execute 'define' on 'CustomElementRegistry': "", tagName, "" is not a valid custom element name")
+this.__registry == null
+this.__registry = new Map()
+this.__registry.set(tagName, { cstr, options })
+this.__whenDefined != null
+const whenDefinedResolveFns = this.__whenDefined.get(tagName)
+whenDefinedResolveFns != null
+whenDefinedResolveFns.forEach((whenDefinedResolveFn) => {
+          whenDefinedResolveFn();
+        })
+whenDefinedResolveFns.length = 0
+(_tmp_205 = this.__whenDefined).delete

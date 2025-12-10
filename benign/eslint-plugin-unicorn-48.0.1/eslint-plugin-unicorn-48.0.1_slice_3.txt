@@ -1,0 +1,24 @@
+const getWordReplacements = (word, {replacements, allowList}) => {
+	// Skip constants and allowList
+	if (isUpperCase(word) || allowList.get(word)) {
+		return [];
+	}
+
+	const replacement = replacements.get(lowerFirst(word))
+		|| replacements.get(word)
+		|| replacements.get(upperFirst(word));
+
+	let wordReplacement = [];
+	if (replacement) {
+		const transform = isUpperFirst(word) ? upperFirst : lowerFirst;
+		wordReplacement = [...replacement.keys()]
+			.filter(name => replacement.get(name))
+			.map(name => transform(name));
+	}
+
+	return wordReplacement.length > 0 ? wordReplacement.sort() : [];
+}
+isUpperCase(word) || allowList.get(word)
+const replacement = replacements.get(lowerFirst(word))
+		|| replacements.get(word)
+		|| replacements.get(upperFirst(word))

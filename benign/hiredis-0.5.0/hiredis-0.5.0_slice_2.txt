@@ -1,0 +1,10 @@
+client.on("reply", function() {
+        if (issued_requests < num_requests) {
+            request();
+        } else {
+            client.end();
+            if (--active_clients == 0)
+                done(test);
+        }
+    })
+issued_requests < num_requests

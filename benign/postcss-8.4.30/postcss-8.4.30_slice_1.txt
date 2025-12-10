@@ -1,0 +1,67 @@
+toJSON(_, inputs) {
+    let fixed = {}
+    let emitInputs = inputs == null
+    inputs = inputs || new Map()
+    let inputsNextIndex = 0
+
+    for (let name in this) {
+      if (!Object.prototype.hasOwnProperty.call(this, name)) {
+        /* c8 ignore next 2 */
+        continue
+      }
+      if (name === 'parent' || name === 'proxyCache') continue
+      let value = this[name]
+
+      if (Array.isArray(value)) {
+        fixed[name] = value.map(i => {
+          if (typeof i === 'object' && i.toJSON) {
+            return i.toJSON(null, inputs)
+          } else {
+            return i
+          }
+        })
+      } else if (typeof value === 'object' && value.toJSON) {
+        fixed[name] = value.toJSON(null, inputs)
+      } else if (name === 'source') {
+        let inputId = inputs.get(value.input)
+        if (inputId == null) {
+          inputId = inputsNextIndex
+          inputs.set(value.input, inputsNextIndex)
+          inputsNextIndex++
+        }
+        fixed[name] = {
+          end: ...
+let fixed = {}
+let emitInputs = inputs == null
+inputs = inputs || new Map()
+let inputsNextIndex = 0
+_iterator_6 = <operator>.iterator(this)
+!Object.prototype.hasOwnProperty.call(this, name)
+continue
+name === 'parent' || name === 'proxyCache'
+let value = this[name]
+Array.isArray(value)
+fixed[name] = value.map(i => {
+          if (typeof i === 'object' && i.toJSON) {
+            return i.toJSON(null, inputs)
+          } else {
+            return i
+          }
+        })
+typeof value === 'object' && value.toJSON
+fixed[name] = value.toJSON(null, inputs)
+name === 'source'
+let inputId = inputs.get(value.input)
+inputId == null
+inputId = inputsNextIndex
+inputs.set(value.input, inputsNextIndex)
+inputsNextIndex++
+fixed[name] = {
+          end: value.end,
+          inputId,
+          start: value.start
+        }
+_tmp_40.end = value.end
+_tmp_40.inputId = inputId
+_tmp_40.start = value.start
+fixed[name] = value

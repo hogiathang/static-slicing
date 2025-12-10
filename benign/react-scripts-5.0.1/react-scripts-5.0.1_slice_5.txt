@@ -1,0 +1,26 @@
+function verifyAbsent = function verifyAbsent(file) {
+    if (fs.existsSync(path.join(appPath, file))) {
+      console.error(
+        `\`${file}\` already exists in your app folder. We cannot ` +
+          'continue as you would lose all the changes in that file or directory. ' +
+          'Please move or delete it (maybe make a copy for backup) and run this ' +
+          'command again.'
+      );
+      process.exit(1);
+    }
+  }
+fs.existsSync(path.join(appPath, file))
+console.error(
+        `\`${file}\` already exists in your app folder. We cannot ` +
+          'continue as you would lose all the changes in that file or directory. ' +
+          'Please move or delete it (maybe make a copy for backup) and run this ' +
+          'command again.'
+      )
+`\`${file}\` already exists in your app folder. We cannot ` +
+          'continue as you would lose all the changes in that file or directory. ' +
+          'Please move or delete it (maybe make a copy for backup) and run this ' +
+          'command again.'
+"continue as you would lose all the changes in that file or directory. "
+"Please move or delete it (maybe make a copy for backup) and run this "
+"command again."
+process.exit(1)

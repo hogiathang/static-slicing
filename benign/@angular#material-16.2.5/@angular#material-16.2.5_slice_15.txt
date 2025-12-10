@@ -1,0 +1,70 @@
+function reifyCreateOperations = function reifyCreateOperations(view, ops) {
+  for (const op of ops) {
+    transformExpressionsInOp(op, reifyIrExpression, VisitorContextFlag.None);
+    switch (op.kind) {
+      case OpKind.Text:
+        OpList.replace(op, text(op.slot, op.initialValue));
+        break;
+      case OpKind.ElementStart:
+        OpList.replace(op, elementStart(op.slot, op.tag, op.attributes, op.localRefs));
+        break;
+      case OpKind.Element:
+        OpList.replace(op, element(op.slot, op.tag, op.attributes, op.localRefs));
+        break;
+      case OpKind.ElementEnd:
+        OpList.replace(op, elementEnd());
+        break;
+      case OpKind.ContainerStart:
+        OpList.replace(op, elementContainerStart(op.slot, op.attributes, op.localRefs));
+        break;
+      case OpKind.Container:
+        OpList.replace(op, elementContainer(op.slot, op.attributes, op.localRefs));
+        break;
+      case OpKind.ContainerEnd:
+        OpList.replace(op, elementContainerEnd());
+        break;
+      case OpKin...
+!(_result_15 = _iterator_15.next()).done
+transformExpressionsInOp(op, reifyIrExpression, VisitorContextFlag.None)
+op.kind
+OpKind.Text
+OpList.replace(op, text(op.slot, op.initialValue))
+break;
+OpKind.ElementStart
+OpList.replace(op, elementStart(op.slot, op.tag, op.attributes, op.localRefs))
+break;
+OpKind.Element
+OpList.replace(op, element(op.slot, op.tag, op.attributes, op.localRefs))
+break;
+OpKind.ElementEnd
+OpList.replace(op, elementEnd())
+break;
+OpKind.ContainerStart
+OpList.replace(op, elementContainerStart(op.slot, op.attributes, op.localRefs))
+break;
+OpKind.Container
+OpList.replace(op, elementContainer(op.slot, op.attributes, op.localRefs))
+break;
+OpKind.ContainerEnd
+OpList.replace(op, elementContainerEnd())
+break;
+OpKind.Template
+const childView = view.tpl.views.get(op.xref)
+OpList.replace(op, template(op.slot, variable(childView.fnName), childView.decls, childView.vars, op.tag, op.attributes))
+break;
+OpKind.Pipe
+OpList.replace(op, pipe(op.slot, op.name))
+break;
+OpKind.Listener
+const listenerFn = reifyListenerHandler(view, op.handlerFnName, op.handlerOps)
+OpList.replace(op, listener(op.name, listenerFn))
+break;
+OpKind.Variable
+op.variable.name === null
+<operator>.formatString("AssertionError: unnamed variable ", op.xref, "")
+OpList.replace(op, createStatementOp(new DeclareVarStmt(op.variable.name, op.initializer, void 0, StmtModifier.Final)))
+break;
+OpKind.Statement
+break;
+default:
+<operator>.formatString("AssertionError: Unsupported reification of create op ", OpKind[op.kind], "")

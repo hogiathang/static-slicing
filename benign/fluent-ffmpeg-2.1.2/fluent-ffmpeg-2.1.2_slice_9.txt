@@ -1,0 +1,8 @@
+function(err) {
+                    if (err) {
+                      emitEnd(err);
+                    } else {
+                      emitEnd(null, stdoutRing.get(), stderrRing.get());
+                    }
+                  }
+emitEnd(null, stdoutRing.get(), stderrRing.get())

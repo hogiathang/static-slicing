@@ -1,0 +1,20 @@
+function createPlatform = function createPlatform(injector) {
+    if (_platformInjector && !_platformInjector.get(ALLOW_MULTIPLE_PLATFORMS, false)) {
+        throw new RuntimeError(400 /* RuntimeErrorCode.MULTIPLE_PLATFORMS */, ngDevMode &&
+            'There can be only one platform. Destroy the previous one to create a new one.');
+    }
+    publishDefaultGlobalUtils();
+    publishSignalConfiguration();
+    _platformInjector = injector;
+    const platform = injector.get(PlatformRef);
+    runPlatformInitializers(injector);
+    return platform;
+}
+_platformInjector && !_platformInjector.get(ALLOW_MULTIPLE_PLATFORMS, false)
+throw new RuntimeError(400 /* RuntimeErrorCode.MULTIPLE_PLATFORMS */, ngDevMode &&
+            'There can be only one platform. Destroy the previous one to create a new one.');
+"There can be only one platform. Destroy the previous one to create a new one."
+publishDefaultGlobalUtils()
+publishSignalConfiguration()
+_platformInjector = injector
+const platform = injector.get(PlatformRef)

@@ -1,0 +1,10 @@
+function delKey = function delKey(_table, key) {
+  // if (_table.map[key]) {
+  //   delete _table.map[key];
+  if (_table.map.get(key)) {
+    _table.map.delete(key);
+  }
+  return _table;
+}
+(_tmp_1 = _table.map).get
+(_tmp_2 = _table.map).delete

@@ -1,0 +1,13 @@
+function getEventProducers = function getEventProducers(instance, eventName) {
+	const key = typeof eventName === 'string' || typeof eventName === 'symbol' || typeof eventName === 'number' ? eventName : anyProducer;
+	const producers = producersMap.get(instance);
+	if (!producers.has(key)) {
+		return;
+	}
+
+	return producers.get(key);
+}
+const key = typeof eventName === 'string' || typeof eventName === 'symbol' || typeof eventName === 'number' ? eventName : anyProducer
+const producers = producersMap.get(instance)
+!producers.has(key)
+producers.get(key)

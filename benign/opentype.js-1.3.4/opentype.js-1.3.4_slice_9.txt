@@ -1,0 +1,21 @@
+function makeCharStringsIndex = function makeCharStringsIndex(glyphs) {
+    const t = new table.Record('CharStrings INDEX', [
+        {name: 'charStrings', type: 'INDEX', value: []}
+    ]);
+
+    for (let i = 0; i < glyphs.length; i += 1) {
+        const glyph = glyphs.get(i);
+        const ops = glyphToOps(glyph);
+        t.charStrings.push({name: glyph.name, type: 'CHARSTRING', value: ops});
+    }
+
+    return t;
+}
+const t = new table.Record('CharStrings INDEX', [
+        {name: 'charStrings', type: 'INDEX', value: []}
+    ])
+_tmp_87.push({name: 'charStrings', type: 'INDEX', value: []})
+i < glyphs.length
+const glyph = glyphs.get(i)
+const ops = glyphToOps(glyph)
+t.charStrings.push({name: glyph.name, type: 'CHARSTRING', value: ops})

@@ -1,0 +1,4 @@
+function() {
+		return get(this[sourceSymbol]);
+	}
+get(this[sourceSymbol])

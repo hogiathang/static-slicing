@@ -1,0 +1,23 @@
+__ecma.Array.factory()
+cli.webpack = await cli.loadWebpack()
+const config = await cli.loadConfig(configPath ? { config: [configPath] } : {})
+const configPaths = new Set()
+Array.isArray(config.options)
+config.options.forEach((options) => {
+                    const loadedConfigPaths = config.path.get(options);
+                    if (loadedConfigPaths) {
+                        loadedConfigPaths.forEach((path) => configPaths.add(path));
+                    }
+                })
+config.path.get(config.options)
+const loadedConfigPaths = config.path.get(config.options)
+loadedConfigPaths.forEach((path) => configPaths.add(path))
+configPaths.size === 0
+cli.logger.error("No configuration found.")
+process.exit(2)
+<operator>.formatString("Validate '", Array.from(configPaths).join(" ,"), "'.")
+cli.webpack.validate(config.options)
+cli.isValidationError(error)
+cli.logger.error(error.message)
+(_tmp_16 = cli.logger).error
+process.exit(2)

@@ -1,0 +1,8 @@
+sendToReduxDevtools(send) {
+        try {
+            send();
+        }
+        catch (err) {
+            console.warn('@ngrx/store-devtools: something went wrong inside the redux devtools', err);
+        }
+    }

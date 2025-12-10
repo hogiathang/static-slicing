@@ -1,0 +1,79 @@
+fs = require('fs')
+CSON = require('./')
+opts = {}
+outputHelp = function() {
+  return process.stdout.write(`CSON CLI
+
+Usage:
+
+	# Convert a JSON file into a CSON file
+	json2cson in.json > out.cson
+
+	# Same thing via piping
+	cat in.json | json2cson > out.cson
+
+	# Convert a CSON file into a JSON file
+	cson2json in.cson > out.json
+
+	# Same thing via piping
+	cat in.cson | cson2json > out.json
+
+Options
+
+	# Display this help
+	--help
+
+	# Indentation for CSON output
+	--tabs
+	--2spaces
+	--4spaces
+`);
+}
+process.argv.indexOf('--help') !== -1
+outputHelp()
+process.exit(0)
+process.argv.toString().indexOf('cson2json') !== -1
+conversion = 'cson2json'
+process.argv.toString().indexOf('json2cson') !== -1
+conversion = 'json2cson'
+opts.indent = (i = process.argv.indexOf('--tabs')) !== -1 ? '\t' : (i = process.argv.indexOf('--2spaces')) !== -1 ? '  ' : (i = process.argv.indexOf('--4spaces')) !== -1 ? '    ' : void 0
+i !== -1
+process.argv = process.argv.slice(0, i).concat(process.argv.slice(i + 1))
+process.stderr.write('Unknown conversion')
+process.exit(1)
+process.argv.length === 3
+process.argv.length === 2
+data = ''
+hasData = function() {
+    return data.replace(/\s+/, '').length !== 0;
+  }
+processData = function() {
+    if (conversion === 'cson2json') {
+      parse = CSON.parseCSONString.bind(CSON);
+      create = CSON.createJSONString.bind(CSON);
+    } else {
+      parse = CSON.parseJSONString.bind(CSON);
+      create = CSON.createCSONString.bind(CSON);
+    }
+    result = parse(data);
+    if (result instanceof Error) {
+      throw result;
+    }
+    result = create(result, opts);
+    if (result instanceof Error) {
+      throw result;
+    }
+    return process.stdout.write(result);
+  }
+timeoutFunction = function() {
+    var timeout;
+    // Clear timeout
+    timeout = null;
+    // Skip if we are using stdin
+    if (hasData() === false) {
+      stdin.pause();
+      process.stderr.write('No STDIN data received...');
+      return process.exit(1);
+    }
+  }
+timeout = setTimeout(timeoutFunction, 1000)

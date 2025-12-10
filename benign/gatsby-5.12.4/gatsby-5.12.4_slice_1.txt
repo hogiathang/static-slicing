@@ -1,0 +1,35 @@
+var React = require("react")
+var fs = require("fs-extra")
+var renderToPipeableStream = require("react-dom/server").renderToPipeableStream
+var isObject = require("lodash").isObject
+var nodePath = require("path")
+var apiRunnerAsync = require("./api-runner-ssr").apiRunnerAsync
+var grabMatchParams = require("./find-path").grabMatchParams
+var syncRequires = require("$virtual/ssr-sync-requires")
+var RouteAnnouncerProps = require("./route-announcer-props").RouteAnnouncerProps
+var ServerLocation = require("@gatsbyjs/reach-router").ServerLocation
+var headHandlerForSSR = require("./head/head-export-handler-for-ssr").headHandlerForSSR
+var getStaticQueryResults = require("./loader").getStaticQueryResults
+var WritableAsPromise = require("./server-utils/writable-as-promise").WritableAsPromise
+var SlicesResultsContext = require("./slice/context").SlicesResultsContext
+const preferDefault = m => (m && m.default) || m
+const testRequireError = (moduleName, err) => {
+  const regex = new RegExp(`Error: Cannot find module\\s.${moduleName}`)
+  const firstLine = err.toString().split(`\n`)[0]
+  return regex.test(firstLine)
+}
+const getStats = publicDir => {
+  if (cachedStats) {
+    return cachedStats
+  } else {
+    cachedStats = JSON.parse(
+      fs.readFileSync(nodePath.join(publicDir, `webpack.stats.json`), `utf-8`)
+    )
+
+    return cachedStats
+  }
+}
+Html = require(`../src/html`)
+testRequireError(`../src/html`, err)
+console.log(`There was an error requiring "src/html.js"\n\n`, err, `\n\n`)
+process.exit()

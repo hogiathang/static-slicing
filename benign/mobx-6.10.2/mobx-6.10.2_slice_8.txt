@@ -1,0 +1,32 @@
+has_(key: PropertyKey): boolean {
+        if (!globalState.trackingDerivation) {
+            // Skip key subscription outside derivation
+            return key in this.target_
+        }
+        this.pendingKeys_ ||= new Map()
+        let entry = this.pendingKeys_.get(key)
+        if (!entry) {
+            entry = new ObservableValue(
+                key in this.target_,
+                referenceEnhancer,
+                __DEV__ ? `${this.name_}.${stringifyKey(key)}?` : "ObservableObject.key?",
+                false
+            )
+            this.pendingKeys_.set(key, entry)
+        }
+        return entry.get()
+    }
+!globalState.trackingDerivation
+this.pendingKeys_ ||= new Map()
+let entry = this.pendingKeys_.get(key)
+!entry
+entry = new ObservableValue(
+                key in this.target_,
+                referenceEnhancer,
+                __DEV__ ? `${this.name_}.${stringifyKey(key)}?` : "ObservableObject.key?",
+                false
+            )
+key in this.target_
+__DEV__ ? <operator>.formatString("", this.name_, ".", stringifyKey(key), "?") : "ObservableObject.key?"
+this.pendingKeys_.set(key, entry)
+entry.get()

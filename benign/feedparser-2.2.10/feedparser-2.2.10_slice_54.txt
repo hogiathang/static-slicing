@@ -1,0 +1,4 @@
+category[name].forEach(function (subcategory){
+                    if (subcategory['@'] && _.get(subcategory['@'], 'text')) item.categories.push(_category + '/' + _.get(subcategory['@'], 'text'));
+                  })
+item.categories.push(_category + '/' + _.get(subcategory['@'], 'text'))

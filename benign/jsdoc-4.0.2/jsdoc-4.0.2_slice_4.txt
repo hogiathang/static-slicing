@@ -1,0 +1,61 @@
+parse(sourceFiles, encoding) {
+        encoding = encoding || jsdoc.env.conf.encoding || 'utf8';
+
+        let filename = '';
+        let sourceCode = '';
+        let sourceFile;
+        const parsedFiles = [];
+        const e = {};
+
+        if (typeof sourceFiles === 'string') {
+            sourceFiles = [sourceFiles];
+        }
+
+        e.sourcefiles = sourceFiles;
+        logger.debug('Parsing source files: %j', sourceFiles);
+
+        this.emit('parseBegin', e);
+
+        for (let i = 0, l = sourceFiles.length; i < l; i++) {
+            sourceCode = '';
+            sourceFile = sourceFiles[i];
+
+            if (sourceFile.indexOf(SCHEMA) === 0) {
+                sourceCode = sourceFile.substr(SCHEMA.length);
+                filename = `[[string${i}]]`;
+            }
+            else {
+                filename = sourceFile;
+                try {
+                    sourceCode = fs.readFileSync(filename, encoding);
+                }
+                catch (err) {
+                    lo...
+encoding = encoding || jsdoc.env.conf.encoding || 'utf8'
+let filename = ''
+let sourceCode = ''
+const parsedFiles = []
+const e = {}
+typeof sourceFiles === 'string'
+_tmp_27 = __ecma.Array.factory()
+e.sourcefiles = sourceFiles
+logger.debug('Parsing source files: %j', sourceFiles)
+this.emit('parseBegin', e)
+let l = sourceFiles.length
+sourceCode = ''
+sourceFile = sourceFiles[i]
+sourceFile.indexOf(SCHEMA) === 0
+sourceCode = sourceFile.substr(SCHEMA.length)
+<operator>.formatString("[[string", i, "]]")
+filename = sourceFile
+sourceCode = fs.readFileSync(filename, encoding)
+logger.error('Unable to read and parse the source file %s: %s', filename, err)
+sourceCode.length
+this._parseSourceCode(sourceCode, filename)
+parsedFiles.push(filename)
+this.emit('parseComplete', {
+            sourcefiles: parsedFiles,
+            doclets: this._resultBuffer
+        })
+_tmp_28.sourcefiles = parsedFiles
+_tmp_28.doclets = this._resultBuffer

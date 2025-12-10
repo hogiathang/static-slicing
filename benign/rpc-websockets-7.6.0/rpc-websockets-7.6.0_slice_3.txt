@@ -1,0 +1,25 @@
+ns = ns === void 0 ? "/" : ns
+typeof message !== "object" || message === null
+message.jsonrpc !== "2.0"
+!message.method
+typeof message.method !== "string"
+message.params && typeof message.params === "string"
+message.method === "rpc.on"
+!message.params
+const results = {}
+const event_names = Object.keys(this.namespaces[ns].events)
+_iterator_4 = <operator>.iterator(message.params)
+const index = event_names.indexOf(name)
+const namespace = this.namespaces[ns]
+index === -1
+results[name] = "provided event invalid"
+continue;
+namespace.events[event_names[index]].protected === true &&
+                    namespace.clients.get(socket_id)["_authenticated"] === false
+namespace.clients.get(socket_id)["_authenticated"] === false
+const socket_index = namespace.events[event_names[index]].sockets.indexOf(socket_id)
+socket_index >= 0
+results[name] = "socket has already been subscribed to event"
+continue;
+(_tmp_51 = namespace.events[event_names[index]].sockets).push
+results[name] = "ok"

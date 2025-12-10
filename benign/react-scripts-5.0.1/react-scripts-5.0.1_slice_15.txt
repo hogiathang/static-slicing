@@ -1,0 +1,242 @@
+answer => {
+  if (!answer.shouldEject) {
+    console.log(cyan('Close one! Eject aborted.'));
+    return;
+  }
+
+  const gitStatus = getGitStatus();
+  if (gitStatus) {
+    console.error(
+      chalk.red(
+        'This git repository has untracked files or uncommitted changes:'
+      ) +
+        '\n\n' +
+        gitStatus
+          .split('\n')
+          .map(line => line.match(/ .*/g)[0].trim())
+          .join('\n') +
+        '\n\n' +
+        chalk.red(
+          'Remove untracked files, stash or commit any changes, and try again.'
+        )
+    );
+    process.exit(1);
+  }
+
+  console.log('Ejecting...');
+
+  const ownPath = paths.ownPath;
+  const appPath = paths.appPath;
+
+  function verifyAbsent(file) {
+    if (fs.existsSync(path.join(appPath, file))) {
+      console.error(
+        `\`${file}\` already exists in your app folder. We cannot ` +
+          'continue as you would lose all the changes in that file or directory. ' +
+          'Please move or delete it (maybe make a copy for ba...
+!answer.shouldEject
+const gitStatus = getGitStatus()
+console.error(
+      chalk.red(
+        'This git repository has untracked files or uncommitted changes:'
+      ) +
+        '\n\n' +
+        gitStatus
+          .split('\n')
+          .map(line => line.match(/ .*/g)[0].trim())
+          .join('\n') +
+        '\n\n' +
+        chalk.red(
+          'Remove untracked files, stash or commit any changes, and try again.'
+        )
+    )
+chalk.red(
+        'This git repository has untracked files or uncommitted changes:'
+      ) +
+        '\n\n' +
+        gitStatus
+          .split('\n')
+          .map(line => line.match(/ .*/g)[0].trim())
+          .join('\n') +
+        '\n\n' +
+        chalk.red(
+          'Remove untracked files, stash or commit any changes, and try again.'
+        )
+"This git repository has untracked files or uncommitted changes:"
+gitStatus
+          .split('\n')
+          .map(line => line.match(/ .*/g)[0].trim())
+          .join('\n')
+split
+(_tmp_10 = line.match(/ .*/g)[0]).trim
+join
+chalk.red(
+          'Remove untracked files, stash or commit any changes, and try again.'
+        )
+"Remove untracked files, stash or commit any changes, and try again."
+process.exit(1)
+console.log('Ejecting...')
+const ownPath = paths.ownPath
+const appPath = paths.appPath
+function verifyAbsent = function verifyAbsent(file) {
+    if (fs.existsSync(path.join(appPath, file))) {
+      console.error(
+        `\`${file}\` already exists in your app folder. We cannot ` +
+          'continue as you would lose all the changes in that file or directory. ' +
+          'Please move or delete it (maybe make a copy for backup) and run this ' +
+          'command again.'
+      );
+      process.exit(1);
+    }
+  }
+const folders = ['config', 'config/jest', 'scripts', 'config/webpack/persistentCache']
+const files = folders.reduce((files, folder) => {
+    return files.concat(
+      fs
+        .readdirSync(path.join(ownPath, folder))
+        // set full path
+        .map(file => path.join(ownPath, folder, file))
+        // omit dirs from file list
+        .filter(file => fs.lstatSync(file).isFile())
+    );
+  }, [])
+__ecma.Array.factory()
+folders.forEach(verifyAbsent)
+files.forEach(verifyAbsent)
+const jestConfig = createJestConfig(
+    filePath => path.posix.join('<rootDir>', filePath),
+    null,
+    true
+  )
+path.posix.join('<rootDir>', filePath)
+console.log()
+<operator>.formatString("Copying files into ", appPath, "")
+folders.forEach(folder => {
+    fs.mkdirSync(path.join(appPath, folder), {recursive: true});
+  })
+files.forEach(file => {
+    let content = fs.readFileSync(file, 'utf8');
+
+    // Skip flagged files
+    if (content.match(/\/\/ @remove-file-on-eject/)) {
+      return;
+    }
+    content =
+      content
+        // Remove dead code from .js files on eject
+        .replace(
+          /\/\/ @remove-on-eject-begin([\s\S]*?)\/\/ @remove-on-eject-end/gm,
+          ''
+        )
+        // Remove dead code from .applescript files on eject
+        .replace(
+          /-- @remove-on-eject-begin([\s\S]*?)-- @remove-on-eject-end/gm,
+          ''
+        )
+        .trim() + '\n';
+    console.log(`  Adding ${cyan(file.replace(ownPath, ''))} to the project`);
+    fs.writeFileSync(file.replace(ownPath, appPath), content);
+  })
+console.log()
+const ownPackage = require(path.join(ownPath, 'package.json'))
+const appPackage = require(path.join(appPath, 'package.json'))
+console.log(cyan('Updating the dependencies'))
+const ownPackageName = ownPackage.name
+appPackage.devDependencies
+appPackage.devDependencies[ownPackageName]
+<operator>.formatString("  Removing ", cyan(ownPackageName), " from devDependencies")
+delete appPackage.devDependencies[ownPackageName]
+appPackage.dependencies = appPackage.dependencies || {}
+appPackage.dependencies[ownPackageName]
+<operator>.formatString("  Removing ", cyan(ownPackageName), " from dependencies")
+delete appPackage.dependencies[ownPackageName]
+Object.keys(ownPackage.dependencies).forEach(key => {
+    // For some reason optionalDependencies end up in dependencies after install
+    if (
+      ownPackage.optionalDependencies &&
+      ownPackage.optionalDependencies[key]
+    ) {
+      return;
+    }
+    console.log(`  Adding ${cyan(key)} to dependencies`);
+    appPackage.dependencies[key] = ownPackage.dependencies[key];
+  })
+const unsortedDependencies = appPackage.dependencies
+appPackage.dependencies = {}
+Object.keys(unsortedDependencies)
+    .sort()
+    .forEach(key => {
+      appPackage.dependencies[key] = unsortedDependencies[key];
+    })
+sort
+<lambda>10
+console.log()
+console.log(cyan('Updating the scripts'))
+delete appPackage.scripts['eject']
+Object.keys(appPackage.scripts).forEach(key => {
+    Object.keys(ownPackage.bin).forEach(binKey => {
+      const regex = new RegExp(binKey + ' (\\w+)', 'g');
+      if (!regex.test(appPackage.scripts[key])) {
+        return;
+      }
+      appPackage.scripts[key] = appPackage.scripts[key].replace(
+        regex,
+        'node scripts/$1.js'
+      );
+      console.log(
+        `  Replacing ${cyan(`"${binKey} ${key}"`)} with ${cyan(
+          `"node scripts/${key}.js"`
+        )}`
+      );
+    });
+  })
+console.log()
+console.log(cyan('Configuring package.json'))
+<operator>.formatString("  Adding ", cyan('Jest'), " configuration")
+appPackage.jest = jestConfig
+<operator>.formatString("  Adding ", cyan('Babel'), " preset")
+appPackage.babel = {
+    presets: ['react-app'],
+  }
+_tmp_29 = __ecma.Array.factory()
+!appPackage.eslintConfig
+<operator>.formatString("  Adding ", cyan('ESLint'), " configuration")
+appPackage.eslintConfig = {
+      extends: 'react-app',
+    }
+_tmp_30.extends = "react-app"
+fs.writeFileSync(
+    path.join(appPath, 'package.json'),
+    JSON.stringify(appPackage, null, 2) + os.EOL
+  )
+path.join(appPath, 'package.json')
+JSON.stringify(appPackage, null, 2) + os.EOL
+console.log()
+fs.existsSync(paths.appTypeDeclarations)
+let content = fs.readFileSync(paths.appTypeDeclarations, 'utf8')
+const ownContent =
+        fs.readFileSync(paths.ownTypeDeclarations, 'utf8').trim() + os.EOL
+(_tmp_31 = fs.readFileSync(paths.ownTypeDeclarations, 'utf8')).trim
+content =
+        content
+          // Remove react-scripts types
+          .replace(
+            /^\s*\/\/\/\s*<reference\s+types.+?"react-scripts".*\/>.*(?:\n|$)/gm,
+            ''
+          )
+          .trim() + os.EOL
+content
+          // Remove react-scripts types
+          .replace(
+            /^\s*\/\/\/\s*<reference\s+types.+?"react-scripts".*\/>.*(?:\n|$)/gm,
+            ''
+          )
+          .trim() + os.EOL
+replace
+/^\s*\/\/\/\s*<reference\s+types.+?"react-scripts".*\/>.*(?:\n|$)/gm
+os.EOL
+fs.writeFileSync(
+        paths.appTypeDeclarations,
+        (ownContent + os.EOL + content).trim() + os.EOL
+      )
+paths.appTypeDeclarations

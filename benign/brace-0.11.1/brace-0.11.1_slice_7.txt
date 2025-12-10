@@ -1,0 +1,40 @@
+var WorkerClient = function(topLevelNamespaces, mod, classname, workerUrl, importScripts) {
+    this.$sendDeltaQueue = this.$sendDeltaQueue.bind(this);
+    this.changeListener = this.changeListener.bind(this);
+    this.onMessage = this.onMessage.bind(this);
+    if (acequire.nameToUrl && !acequire.toUrl)
+        acequire.toUrl = acequire.nameToUrl;
+    
+    if (config.get("packaged") || !acequire.toUrl) {
+        workerUrl = workerUrl || config.moduleUrl(mod.id, "worker");
+    } else {
+        var normalizePath = this.$normalizePath;
+        workerUrl = workerUrl || normalizePath(acequire.toUrl("ace/worker/worker.js", null, "_"));
+
+        var tlns = {};
+        topLevelNamespaces.forEach(function(ns) {
+            tlns[ns] = normalizePath(acequire.toUrl(ns, null, "_").replace(/(\.js)?(\?.*)?$/, ""));
+        });
+    }
+
+    this.$worker = createWorker(workerUrl, mod);
+    if (importScripts) {
+        this.send("importScripts", importScripts);
+    }
+    this.$worker.postMessage({
+        ...
+this.$sendDeltaQueue = this.$sendDeltaQueue.bind(this)
+this.changeListener = this.changeListener.bind(this)
+this.onMessage = this.onMessage.bind(this)
+acequire.nameToUrl && !acequire.toUrl
+acequire.toUrl = acequire.nameToUrl
+config.get("packaged") || !acequire.toUrl
+workerUrl = workerUrl || config.moduleUrl(mod.id, "worker")
+var normalizePath = this.$normalizePath
+workerUrl = workerUrl || normalizePath(acequire.toUrl("ace/worker/worker.js", null, "_"))
+var tlns = {}
+topLevelNamespaces.forEach(function(ns) {
+            tlns[ns] = normalizePath(acequire.toUrl(ns, null, "_").replace(/(\.js)?(\?.*)?$/, ""));
+        })
+this.$worker = createWorker(workerUrl, mod)
+this.send("importScripts", importScripts)

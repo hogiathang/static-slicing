@@ -1,0 +1,53 @@
+const linkEvent = event => {
+      const stack = [{parent: event, prop: 'data'}];
+      while (stack.length) {
+        const {parent, prop} = stack.pop();
+        const obj = parent[prop];
+        let newObj;
+        if (obj && typeof obj === 'object') {
+          if (obj[MOCHA_ID_PROP_NAME]) {
+            const id = obj[MOCHA_ID_PROP_NAME];
+            newObj = this._linkedObjectMap.has(id)
+              ? Object.assign(this._linkedObjectMap.get(id), obj)
+              : obj;
+            this._linkedObjectMap.set(id, newObj);
+            parent[prop] = newObj;
+          } else {
+            throw createFatalError(
+              'Object missing ID received in event data',
+              obj
+            );
+          }
+        }
+        Object.keys(newObj).forEach(key => {
+          const value = obj[key];
+          if (value && typeof value === 'object' && value[MOCHA_ID_PROP_NAME]) {
+            stack.push({obj: value, parent: newObj, prop: key});
+          }
+        });
+      }
+    }
+const stack = [{parent: event, prop: 'data'}]
+stack.length
+parent = _tmp_27.parent
+const obj = parent[prop]
+obj && typeof obj === 'object'
+obj[MOCHA_ID_PROP_NAME]
+const id = obj[MOCHA_ID_PROP_NAME]
+newObj = this._linkedObjectMap.has(id)
+              ? Object.assign(this._linkedObjectMap.get(id), obj)
+              : obj
+Object.assign(this._linkedObjectMap.get(id), obj)
+this._linkedObjectMap.set(id, newObj)
+parent[prop] = newObj
+throw createFatalError(
+              'Object missing ID received in event data',
+              obj
+            );
+"Object missing ID received in event data"
+Object.keys(newObj).forEach(key => {
+          const value = obj[key];
+          if (value && typeof value === 'object' && value[MOCHA_ID_PROP_NAME]) {
+            stack.push({obj: value, parent: newObj, prop: key});
+          }
+        })

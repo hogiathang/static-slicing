@@ -1,0 +1,35 @@
+function getAtom = function getAtom(thing: any, property?: PropertyKey): IDepTreeNode {
+    if (typeof thing === "object" && thing !== null) {
+        if (isObservableArray(thing)) {
+            if (property !== undefined) {
+                die(23)
+            }
+            return (thing as any)[$mobx].atom_
+        }
+        if (isObservableSet(thing)) {
+            return thing.atom_
+        }
+        if (isObservableMap(thing)) {
+            if (property === undefined) {
+                return thing.keysAtom_
+            }
+            const observable = thing.data_.get(property) || thing.hasMap_.get(property)
+            if (!observable) {
+                die(25, property, getDebugName(thing))
+            }
+            return observable
+        }
+        if (property && !thing[$mobx]) {
+            thing[property]
+        } // See #1072
+        if (isObservableObject(thing)) {
+            if (!property) {
+                return die(26)
+            }
+            const observable = (thing as any)[$mo...
+typeof thing === "object" && thing !== null
+isObservableArray(thing)
+isObservableSet(thing)
+isObservableMap(thing)
+property === undefined
+const observable = thing.data_.get(property) || thing.hasMap_.get(property)

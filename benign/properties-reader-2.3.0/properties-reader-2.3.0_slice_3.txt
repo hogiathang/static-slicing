@@ -1,0 +1,36 @@
+this.each(function (key, value) {
+      if (value && /\.(path|dir)$/.test(key)) {
+         value = Path.resolve(basePath, value);
+         this.set(key, value);
+
+         try {
+            var directoryPath = /dir$/.test(key) ? value : Path.dirname(value);
+            if (makePaths) {
+               require('mkdirp').sync(directoryPath);
+            }
+            else if (!statSync(directoryPath).isDirectory()) {
+               throw new Error("Path is not a directory that already exists");
+            }
+         }
+         catch (e) {
+            throw new Error("Unable to create directory " + value);
+         }
+      }
+
+      app.set(key, this.get(key));
+
+      if (/^browser\./.test(key)) {
+         app.locals[key.substr(8)] = this.get(key);
+      }
+   }, this)
+value && /\.(path|dir)$/.test(key)
+value = Path.resolve(basePath, value)
+this.set(key, value)
+var directoryPath = /dir$/.test(key) ? value : Path.dirname(value)
+require('mkdirp').sync(directoryPath)
+(_tmp_27 = statSync(directoryPath)).isDirectory
+throw new Error("Path is not a directory that already exists");
+throw new Error("Unable to create directory " + value);
+app.set(key, this.get(key))
+(_tmp_30 = /^browser\./).test
+app.locals[key.substr(8)] = this.get(key)

@@ -1,0 +1,35 @@
+download(sass.getBinaryUrl(), binaryPath, function(err) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    console.log('Binary saved to', binaryPath);
+
+    cachedBinary = path.join(cachePath, sass.getBinaryName());
+
+    if (cachePath) {
+      console.log('Caching binary to', cachedBinary);
+
+      try {
+        fs.mkdirSync(path.dirname(cachedBinary), {recursive: true});
+        fs.createReadStream(binaryPath)
+          .pipe(fs.createWriteStream(cachedBinary))
+          .on('error', function (err) {
+            console.log('Failed to cache binary:', err);
+          });
+      } catch (err) {
+        console.log('Failed to cache binary:', err);
+      }
+    }
+  })
+console.log('Binary saved to', binaryPath)
+cachedBinary = path.join(cachePath, sass.getBinaryName())
+console.log('Caching binary to', cachedBinary)
+fs.mkdirSync(path.dirname(cachedBinary), {recursive: true})
+fs.createReadStream(binaryPath)
+          .pipe(fs.createWriteStream(cachedBinary))
+          .on('error', function (err) {
+            console.log('Failed to cache binary:', err);
+          })
+fs.createWriteStream(cachedBinary)

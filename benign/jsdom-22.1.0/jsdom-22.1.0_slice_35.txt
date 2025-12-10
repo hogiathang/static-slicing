@@ -1,0 +1,4 @@
+const promise = new Promise(resolve => {
+      timeoutId = setTimeout(resolve, 0, Buffer.from(dataURL.body));
+    })
+timeoutId = setTimeout(resolve, 0, Buffer.from(dataURL.body))

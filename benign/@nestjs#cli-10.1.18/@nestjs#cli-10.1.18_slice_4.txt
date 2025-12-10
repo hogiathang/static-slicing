@@ -1,0 +1,12 @@
+const createGitIgnoreFile = (dir, content) => {
+    const fileContent = content || defaults_1.defaultGitIgnore;
+    const filePath = (0, path_1.join)(process.cwd(), dir, '.gitignore');
+    if (fileExists(filePath)) {
+        return;
+    }
+    return fs.promises.writeFile(filePath, fileContent);
+}
+const fileContent = content || defaults_1.defaultGitIgnore
+const filePath = (0, path_1.join)(process.cwd(), dir, '.gitignore')
+fileExists(filePath)
+fs.promises.writeFile(filePath, fileContent)

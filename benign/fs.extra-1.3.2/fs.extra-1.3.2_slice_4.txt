@@ -1,0 +1,37 @@
+function runCli = function runCli() {
+    var srcPath = process.argv[2]
+      , dstPath = process.argv[3]
+      , emitter
+      ;
+
+    function showHelp() {
+      console.log('usage: rsync src-path dst-path');
+    }
+
+    if (!srcPath || !dstPath) {
+      showHelp();
+      return;
+    }
+
+    emitter = run(srcPath, dstPath, function (err) {
+      if (err) {
+        console.error(err);
+      }
+      console.log('All Done');
+    });
+
+    // TODO
+    //emitter.on('fileCopied');
+  }
+var srcPath = process.argv[2]
+var dstPath = process.argv[3]
+function showHelp = function showHelp() {
+      console.log('usage: rsync src-path dst-path');
+    }
+!srcPath || !dstPath
+emitter = run(srcPath, dstPath, function (err) {
+      if (err) {
+        console.error(err);
+      }
+      console.log('All Done');
+    })

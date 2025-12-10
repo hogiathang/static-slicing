@@ -1,0 +1,35 @@
+async listWorkspaces (args, filters) {
+    await this.setWorkspaces()
+
+    if (this.npm.silent) {
+      return
+    }
+
+    if (this.npm.config.get('json')) {
+      const res = {}
+      for (const workspacePath of this.workspacePaths) {
+        const { content: { scripts, name } } = await pkgJson.normalize(workspacePath)
+        res[name] = { ...scripts }
+      }
+      this.npm.output(JSON.stringify(res, null, 2))
+      return
+    }
+
+    if (this.npm.config.get('parseable')) {
+      for (const workspacePath of this.workspacePaths) {
+        const { content: { scripts, name } } = await pkgJson.normalize(workspacePath)
+        for (const [script, cmd] of Object.entries(scripts || {})) {
+          this.npm.output(`${name}:${script}:${cmd}`)
+        }
+      }
+      return
+    }
+
+    for (const workspacePath of this.workspacePaths) {
+      await this.list(args, workspacePath)
+    }
+  }
+await this.setWorkspaces()
+this.npm.silent
+(_tmp_44 = this.npm.config).get
+this.npm.config.get('parseable')

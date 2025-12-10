@@ -1,0 +1,66 @@
+function oAuthCallback = async function oAuthCallback(params) {
+  var _body$error, _provider$version;
+
+  const {
+    options,
+    query,
+    body,
+    method,
+    cookies
+  } = params;
+  const {
+    logger,
+    provider
+  } = options;
+  const errorMessage = (_body$error = body === null || body === void 0 ? void 0 : body.error) !== null && _body$error !== void 0 ? _body$error : query === null || query === void 0 ? void 0 : query.error;
+
+  if (errorMessage) {
+    const error = new Error(errorMessage);
+    logger.error("OAUTH_CALLBACK_HANDLER_ERROR", {
+      error,
+      error_description: query === null || query === void 0 ? void 0 : query.error_description,
+      providerId: provider.id
+    });
+    logger.debug("OAUTH_CALLBACK_HANDLER_ERROR", {
+      body
+    });
+    throw error;
+  }
+
+  if ((_provider$version = provider.version) !== null && _provider$version !== void 0 && _provider$version.startsWith("1.")) {
+    try {
+      const client = await (0, _clientLegacy.oAuth1Client)(options);
+      const {
+       ...
+_tmp_5 = params
+options = _tmp_5.options
+query = _tmp_5.query
+body = _tmp_5.body
+method = _tmp_5.method
+cookies = _tmp_5.cookies
+_tmp_6 = options
+logger = _tmp_6.logger
+provider = _tmp_6.provider
+const errorMessage = (_body$error = body === null || body === void 0 ? void 0 : body.error) !== null && _body$error !== void 0 ? _body$error : query === null || query === void 0 ? void 0 : query.error
+const error = new Error(errorMessage)
+logger.error("OAUTH_CALLBACK_HANDLER_ERROR", {
+      error,
+      error_description: query === null || query === void 0 ? void 0 : query.error_description,
+      providerId: provider.id
+    })
+_tmp_8.error = error
+_tmp_8.error_description = query === null || query === void 0 ? void 0 : query.error_description
+_tmp_8.providerId = provider.id
+logger.debug("OAUTH_CALLBACK_HANDLER_ERROR", {
+      body
+    })
+_tmp_9.body = body
+throw error;
+(_provider$version = provider.version) !== null && _provider$version !== void 0 && _provider$version.startsWith("1.")
+const client = await (0, _clientLegacy.oAuth1Client)(options)
+_tmp_11 = query !== null && query !== void 0 ? query : {}
+oauth_token = _tmp_11.oauth_token
+oauth_verifier = _tmp_11.oauth_verifier
+query !== null && query !== void 0 ? query : {}
+const tokens = await client.getOAuthAccessToken(oauth_token, _clientLegacy.oAuth1TokenStore.get(oauth_token), oauth_verifier)
+let profile = await client.get(provider.profileUrl, tokens.oauth_token, tokens.oauth_token_secret)

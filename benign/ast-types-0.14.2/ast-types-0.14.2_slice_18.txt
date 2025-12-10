@@ -1,0 +1,35 @@
+var addParam = function (built, param, arg, isArgAvailable) {
+                if (hasOwn.call(built, param))
+                    return;
+                var all = _this.allFields;
+                if (!hasOwn.call(all, param)) {
+                    throw new Error("" + param);
+                }
+                var field = all[param];
+                var type = field.type;
+                var value;
+                if (isArgAvailable) {
+                    value = arg;
+                }
+                else if (field.defaultFn) {
+                    // Expose the partially-built object to the default
+                    // function as its `this` object.
+                    value = field.defaultFn.call(built);
+                }
+                else {
+                    var message = "no value or default function given for field " +
+                        JSON.stringify(param) + " of " + _this.typeName + "(" +
+                        _this.buildParams.map(function (name) {
+               ...
+hasOwn.call(built, param)
+var all = _this.allFields
+!hasOwn.call(all, param)
+throw new Error("" + param);
+var field = all[param]
+var type = field.type
+field.defaultFn
+var message = "no value or default function given for field " +
+                        JSON.stringify(param) + " of " + _this.typeName + "(" +
+                        _this.buildParams.map(function (name) {
+                            return all[name];
+                        }).join(", ") + ")"

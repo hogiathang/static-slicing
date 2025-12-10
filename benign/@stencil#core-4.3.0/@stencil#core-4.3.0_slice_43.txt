@@ -1,0 +1,148 @@
+const baseOpen = async options => {
+	options = {
+		wait: false,
+		background: false,
+		newInstance: false,
+		allowNonzeroExitCode: false,
+		...options,
+	};
+
+	if (Array.isArray(options.app)) {
+		return pTryEach(options.app, singleApp => baseOpen({
+			...options,
+			app: singleApp,
+		}));
+	}
+
+	let {name: app, arguments: appArguments = []} = options.app ?? {};
+	appArguments = [...appArguments];
+
+	if (Array.isArray(app)) {
+		return pTryEach(app, appName => baseOpen({
+			...options,
+			app: {
+				name: appName,
+				arguments: appArguments,
+			},
+		}));
+	}
+
+	if (app === 'browser' || app === 'browserPrivate') {
+		// IDs from default-browser for macOS and windows are the same
+		const ids = {
+			'com.google.chrome': 'chrome',
+			'google-chrome.desktop': 'chrome',
+			'org.mozilla.firefox': 'firefox',
+			'firefox.desktop': 'firefox',
+			'com.microsoft.msedge': 'edge',
+			'com.microsoft.edge': 'edge',
+			'microsoft-edge.desktop': 'edge',
+		};
+
+		// Incognito flags for each browser in `apps`.
+		const ...
+options = {
+		wait: false,
+		background: false,
+		newInstance: false,
+		allowNonzeroExitCode: false,
+		...options,
+	}
+_tmp_810.wait = false
+_tmp_810.background = false
+_tmp_810.newInstance = false
+_tmp_810.allowNonzeroExitCode = false
+...options
+Array.isArray(options.app)
+appArguments = _tmp_813.arguments === void 0 ? __ecma.Array.factory() : _tmp_813.arguments
+_tmp_814 = __ecma.Array.factory()
+Array.isArray(app)
+app === 'browser' || app === 'browserPrivate'
+const ids = {
+			'com.google.chrome': 'chrome',
+			'google-chrome.desktop': 'chrome',
+			'org.mozilla.firefox': 'firefox',
+			'firefox.desktop': 'firefox',
+			'com.microsoft.msedge': 'edge',
+			'com.microsoft.edge': 'edge',
+			'microsoft-edge.desktop': 'edge',
+		}
+_tmp_817.com.google.chrome = "chrome"
+_tmp_817.google-chrome.desktop = "chrome"
+_tmp_817.org.mozilla.firefox = "firefox"
+_tmp_817.firefox.desktop = "firefox"
+_tmp_817.com.microsoft.msedge = "edge"
+_tmp_817.com.microsoft.edge = "edge"
+_tmp_817.microsoft-edge.desktop = "edge"
+const flags = {
+			chrome: '--incognito',
+			firefox: '--private-window',
+			edge: '--inPrivate',
+		}
+_tmp_818.chrome = "--incognito"
+_tmp_818.firefox = "--private-window"
+_tmp_818.edge = "--inPrivate"
+const browser = await defaultBrowser()
+browser.id in ids
+<operator>.formatString("", browser.name, " is not supported as a default browser")
+const cliArguments = []
+const childProcessOptions = {}
+platform === 'darwin'
+command = 'open'
+options.wait
+cliArguments.push('--wait-apps')
+options.background
+cliArguments.push('--background')
+options.newInstance
+cliArguments.push('--new')
+cliArguments.push('-a', app)
+platform === 'win32' || (isWsl_1 && !isInsideContainer() && !app)
+const mountPoint = await getWslDrivesMountPoint()
+isWsl_1 ? <operator>.formatString("", mountPoint, "c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe") : <operator>.formatString("", process__default['default'].env.SYSTEMROOT, "\\System32\\WindowsPowerShell\\v1.0\\powershell")
+<operator>.formatString("", mountPoint, "c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe")
+<operator>.formatString("", process__default['default'].env.SYSTEMROOT, "\\System32\\WindowsPowerShell\\v1.0\\powershell")
+cliArguments.push(
+			'-NoProfile',
+			'-NonInteractive',
+			'-ExecutionPolicy',
+			'Bypass',
+			'-EncodedCommand',
+		)
+"-NoProfile"
+"-NonInteractive"
+"-ExecutionPolicy"
+"Bypass"
+"-EncodedCommand"
+!isWsl_1
+childProcessOptions.windowsVerbatimArguments = true
+const encodedArguments = ['Start']
+options.wait
+encodedArguments.push('-Wait')
+<operator>.formatString(""\`"", app, "\`""")
+options.target
+appArguments.push(options.target)
+options.target
+<operator>.formatString(""", options.target, """)
+appArguments.length > 0
+appArguments = appArguments.map(arg => `"\`"${arg}\`""`)
+encodedArguments.push('-ArgumentList', appArguments.join(','))
+options.target = node_buffer.Buffer.from(encodedArguments.join(' '), 'utf16le').toString('base64')
+command = app
+const isBundled = !__dirname$1 || __dirname$1 === '/'
+let exeLocalXdgOpen = false
+await fs__default$2['default'].access(localXdgOpenPath, fs$1.constants.X_OK)
+exeLocalXdgOpen = true
+const useSystemXdgOpen = process__default['default'].versions.electron
+				?? (platform === 'android' || isBundled || !exeLocalXdgOpen)
+platform === 'android' || isBundled || !exeLocalXdgOpen
+command = useSystemXdgOpen ? 'xdg-open' : localXdgOpenPath
+appArguments.length > 0
+cliArguments.push(...appArguments)
+!options.wait
+childProcessOptions.stdio = 'ignore'
+childProcessOptions.detached = true
+options.target
+cliArguments.push(options.target)
+platform === 'darwin' && appArguments.length > 0
+cliArguments.push('--args', ...appArguments)
+const subprocess = childProcess__default$1['default'].spawn(command, cliArguments, childProcessOptions)

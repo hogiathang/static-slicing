@@ -1,0 +1,9 @@
+RequestBuilder.prototype.post = function(url, options) {
+  return new RequestObj(
+    this.setCommonConfiguration(request.post(url), options)
+  );
+}
+new RequestObj(
+    this.setCommonConfiguration(request.post(url), options)
+  )
+this.setCommonConfiguration(request.post(url), options)

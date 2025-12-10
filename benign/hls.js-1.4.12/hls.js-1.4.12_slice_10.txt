@@ -1,0 +1,114 @@
+static parseMasterPlaylistMedia(
+    string: string,
+    baseurl: string,
+    parsed: ParsedMultivariantPlaylist
+  ): ParsedMultivariantMediaOptions {
+    let result: RegExpExecArray | null;
+    const results: ParsedMultivariantMediaOptions = {};
+    const levels = parsed.levels;
+    const groupsByType = {
+      AUDIO: levels.map((level: LevelParsed) => ({
+        id: level.attrs.AUDIO,
+        audioCodec: level.audioCodec,
+      })),
+      SUBTITLES: levels.map((level: LevelParsed) => ({
+        id: level.attrs.SUBTITLES,
+        textCodec: level.textCodec,
+      })),
+      'CLOSED-CAPTIONS': [],
+    };
+    let id = 0;
+    MASTER_PLAYLIST_MEDIA_REGEX.lastIndex = 0;
+    while ((result = MASTER_PLAYLIST_MEDIA_REGEX.exec(string)) !== null) {
+      const attrs = new AttrList(result[1]) as MediaAttributes;
+      const type: MediaPlaylistType | undefined = attrs.TYPE as
+        | MediaPlaylistType
+        | undefined;
+      if (type) {
+        const groups = groupsByType[type];
+        c...
+const results: ParsedMultivariantMediaOptions = {}
+const levels = parsed.levels
+const groupsByType = {
+      AUDIO: levels.map((level: LevelParsed) => ({
+        id: level.attrs.AUDIO,
+        audioCodec: level.audioCodec,
+      })),
+      SUBTITLES: levels.map((level: LevelParsed) => ({
+        id: level.attrs.SUBTITLES,
+        textCodec: level.textCodec,
+      })),
+      'CLOSED-CAPTIONS': [],
+    }
+_tmp_40.AUDIO = levels.map((level: LevelParsed) => ({
+        id: level.attrs.AUDIO,
+        audioCodec: level.audioCodec,
+      }))
+_tmp_40.SUBTITLES = levels.map((level: LevelParsed) => ({
+        id: level.attrs.SUBTITLES,
+        textCodec: level.textCodec,
+      }))
+_tmp_40.CLOSED-CAPTIONS = __ecma.Array.factory()
+let id = 0
+MASTER_PLAYLIST_MEDIA_REGEX.lastIndex = 0
+(result = MASTER_PLAYLIST_MEDIA_REGEX.exec(string)) !== null
+const attrs = new AttrList(result[1]) as MediaAttributes
+const type: MediaPlaylistType | undefined = attrs.TYPE as
+        | MediaPlaylistType
+        | undefined
+const groups = groupsByType[type]
+const medias: MediaPlaylist[] = results[type] || []
+results[type] = medias
+substituteVariablesInAttributes(parsed, attrs, [
+            'URI',
+            'GROUP-ID',
+            'LANGUAGE',
+            'ASSOC-LANGUAGE',
+            'STABLE-RENDITION-ID',
+            'NAME',
+            'INSTREAM-ID',
+            'CHARACTERISTICS',
+            'CHANNELS',
+          ])
+_tmp_44.push("URI")
+_tmp_44.push("GROUP-ID")
+_tmp_44.push("LANGUAGE")
+_tmp_44.push("ASSOC-LANGUAGE")
+_tmp_44.push("STABLE-RENDITION-ID")
+_tmp_44.push("NAME")
+_tmp_44.push("INSTREAM-ID")
+_tmp_44.push("CHARACTERISTICS")
+_tmp_44.push("CHANNELS")
+const media: MediaPlaylist = {
+          attrs,
+          bitrate: 0,
+          id: id++,
+          groupId: attrs['GROUP-ID'] || '',
+          instreamId: attrs['INSTREAM-ID'],
+          name: attrs.NAME || attrs.LANGUAGE || '',
+          type,
+          default: attrs.bool('DEFAULT'),
+          autoselect: attrs.bool('AUTOSELECT'),
+          forced: attrs.bool('FORCED'),
+          lang: attrs.LANGUAGE,
+          url: attrs.URI ? M3U8Parser.resolve(attrs.URI, baseurl) : '',
+        }
+_tmp_45.attrs = attrs
+_tmp_45.bitrate = 0
+_tmp_45.id = id++
+_tmp_45.groupId = attrs['GROUP-ID'] || ''
+_tmp_45.instreamId = attrs["INSTREAM-ID"]
+_tmp_45.name = attrs.NAME || attrs.LANGUAGE || ''
+_tmp_45.type = type
+_tmp_45.default = attrs.bool('DEFAULT')
+_tmp_45.autoselect = attrs.bool('AUTOSELECT')
+_tmp_45.forced = attrs.bool('FORCED')
+_tmp_45.lang = attrs.LANGUAGE
+_tmp_45.url = attrs.URI ? M3U8Parser.resolve(attrs.URI, baseurl) : ""
+groups.length
+const groupCodec =
+            M3U8Parser.findGroup(groups, media.groupId as string) || groups[0]
+M3U8Parser.findGroup(groups, media.groupId as string) || groups[0]
+assignCodec(media, groupCodec, 'audioCodec')
+assignCodec(media, groupCodec, 'textCodec')
+medias.push(media)

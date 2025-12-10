@@ -1,0 +1,33 @@
+constructor(tileID: OverscaledTileID, symbolInstances: SymbolInstanceArray, bucketInstanceId: number) {
+        this.tileID = tileID;
+        this.bucketInstanceId = bucketInstanceId;
+
+        // create a spatial index for deduplicating symbol instances;
+        // use a low nodeSize because we're optimizing for search performance, not indexing
+        this.index = new KDBush(symbolInstances.length, 16, Int32Array);
+        this.keys = [];
+        this.crossTileIDs = [];
+        const tx = tileID.canonical.x * EXTENT;
+        const ty = tileID.canonical.y * EXTENT;
+
+        for (let i = 0; i < symbolInstances.length; i++) {
+            const {key, crossTileID, tileAnchorX, tileAnchorY} = symbolInstances.get(i);
+
+            // Converts the coordinates of the input symbol instance into coordinates that be can compared
+            // against other symbols in this index. Coordinates are:
+            // (1) world-based (so after conversion the source tile is irrelevant)
+            // (...
+this.tileID = tileID
+this.bucketInstanceId = bucketInstanceId
+this.index = new KDBush(symbolInstances.length, 16, Int32Array)
+__ecma.Array.factory()
+this.crossTileIDs = []
+const tx = tileID.canonical.x * EXTENT
+const ty = tileID.canonical.y * EXTENT
+i < symbolInstances.length
+crossTileID = _tmp_1.crossTileID
+const x = Math.floor((tx + tileAnchorX) * roundingFactor)
+const y = Math.floor((ty + tileAnchorY) * roundingFactor)
+(_tmp_2 = this.index).add
+(_tmp_3 = this.keys).push
+this.crossTileIDs.push(crossTileID)

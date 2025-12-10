@@ -1,0 +1,15 @@
+config.out = function (content) {
+                var e = env.get();
+                if (e === 'rhino') {
+                    var out = new java.io.PrintStream(java.lang.System.out, true, 'UTF-8');
+                    out.println(content);
+                } else if (e === 'node') {
+                    process.stdout.write(content, 'utf8');
+                } else {
+                    console.log(content);
+                }
+            }
+var e = env.get()
+e === 'rhino'
+e === 'node'
+process.stdout.write(content, 'utf8')

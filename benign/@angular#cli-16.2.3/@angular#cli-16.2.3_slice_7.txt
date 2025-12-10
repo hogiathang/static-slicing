@@ -1,0 +1,24 @@
+const customRequire = function (id) {
+        if (legacyModules[id]) {
+            // Provide compatibility modules for older versions of @angular/cdk
+            return legacyModules[id];
+        }
+        else if (id.startsWith('schematics:')) {
+            // Schematics built-in modules use the `schematics` scheme (similar to the Node.js `node` scheme)
+            const builtinId = id.slice(11);
+            const builtinModule = loadBuiltinModule(builtinId);
+            if (!builtinModule) {
+                throw new Error(`Unknown schematics built-in module '${id}' requested from schematic '${schematicFile}'`);
+            }
+            return builtinModule;
+        }
+        else if (id.startsWith('@angular-devkit/') || id.startsWith('@schematics/')) {
+            // Files should not redirect `@angular/core` and instead use the direct
+            // dependency if available. This allows old major version migrations to continue to function
+            // even though the latest major ve...
+legacyModules[id]
+id.startsWith('schematics:')
+id.startsWith('@angular-devkit/') || id.startsWith('@schematics/')
+id.startsWith('.') || id.startsWith('@angular/cdk')
+const modulePath = schematicRequire.resolve(id)
+const cachedModule = moduleCache.get(modulePath)

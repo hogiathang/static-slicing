@@ -1,0 +1,41 @@
+LRUMapWithDelete.prototype.remove = function(key, missing = undefined) {
+
+  var pointer = this.items.get(key);
+
+  if (typeof pointer === 'undefined') {
+    return missing;
+  }
+
+  var dead = this.V[pointer];
+  this.items.delete(key);
+
+  if (this.size === 1) {
+    this.size = 0;
+    this.head = 0;
+    this.tail = 0;
+    this.deletedSize = 0;
+    return dead;
+  }
+
+  var previous = this.backward[pointer],
+      next = this.forward[pointer];
+
+  if (this.head === pointer) {
+    this.head = next;
+  }
+  if (this.tail === pointer) {
+    this.tail = previous;
+  }
+
+  this.forward[previous] = next;
+  this.backward[next] = previous;
+
+  this.size--;
+  this.deleted[this.deletedSize++] = pointer;
+
+  return dead;
+}
+var pointer = this.items.get(key)
+typeof pointer === 'undefined'
+var dead = this.V[pointer]
+(_tmp_13 = this.items).delete

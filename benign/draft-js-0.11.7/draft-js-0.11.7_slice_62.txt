@@ -1,0 +1,23 @@
+mustPreventNative = oldBlockTree.size !== newBlockTree.size || oldBlockTree.zip(newBlockTree).some(function (_ref) {
+      var oldLeafSet = _ref[0],
+          newLeafSet = _ref[1];
+      // selectionStart is guaranteed to be selectionEnd here
+      var oldStart = oldLeafSet.get('start');
+      var adjustedStart = oldStart + (oldStart >= selectionStart ? chars.length : 0);
+      var oldEnd = oldLeafSet.get('end');
+      var adjustedEnd = oldEnd + (oldEnd >= selectionStart ? chars.length : 0);
+      var newStart = newLeafSet.get('start');
+      var newEnd = newLeafSet.get('end');
+      var newDecoratorKey = newLeafSet.get('decoratorKey');
+      return (// Different decorators
+        oldLeafSet.get('decoratorKey') !== newDecoratorKey || // Different number of inline styles
+        oldLeafSet.get('leaves').size !== newLeafSet.get('leaves').size || // Different effective decorator position
+        adjustedStart !== newStart || adjustedEnd !== newEnd || // Decorator already existed and i...
+var oldLeafSet = _ref[0]
+var newLeafSet = _ref[1]
+var oldStart = oldLeafSet.get('start')
+var adjustedStart = oldStart + (oldStart >= selectionStart ? chars.length : 0)
+var oldEnd = oldLeafSet.get('end')
+var adjustedEnd = oldEnd + (oldEnd >= selectionStart ? chars.length : 0)
+var newStart = newLeafSet.get('start')
+var newEnd = newLeafSet.get('end')

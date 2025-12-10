@@ -1,0 +1,23 @@
+function groupBy = function groupBy(list, keyFn) {
+  const result = new Map();
+
+  for (const item of list) {
+    const key = keyFn(item);
+    const group = result.get(key);
+
+    if (group === undefined) {
+      result.set(key, [item]);
+    } else {
+      group.push(item);
+    }
+  }
+
+  return result;
+}
+const result = new Map()
+_iterator_0 = <operator>.iterator(list)
+const key = keyFn(item)
+const group = result.get(key)
+group === undefined
+_tmp_1 = __ecma.Array.factory()
+group.push(item)

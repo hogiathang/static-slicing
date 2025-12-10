@@ -1,0 +1,25 @@
+fnames.forEach(function (fname) {
+    var content = '';
+    try {
+        if (fname && (fname !== '-' || forceFile)) {
+            content = fs.readFileSync(fname, 'utf-8');
+        } else {
+            fname = '';
+            process.stdin.resume();
+            process.stdin.on('data', function(chunk) {
+                content += chunk;
+            });
+            process.stdin.on('end', function() {
+                run(fname, content);
+            });
+            return;
+        }
+    } catch (e) {
+        content = e;
+    }
+    run(fname, content);
+})
+var content = ''
+fname && (fname !== '-' || forceFile)
+content = fs.readFileSync(fname, 'utf-8')
+content = e

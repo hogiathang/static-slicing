@@ -1,0 +1,40 @@
+File.prototype.addHelper = function addHelper(name) {
+    var declar = this.declarations[name];
+    if (declar) return declar;
+
+    if (!this.usedHelpers[name]) {
+      this.metadata.usedHelpers.push(name);
+      this.usedHelpers[name] = true;
+    }
+
+    var generator = this.get("helperGenerator");
+    var runtime = this.get("helpersNamespace");
+    if (generator) {
+      var res = generator(name);
+      if (res) return res;
+    } else if (runtime) {
+      return t.memberExpression(runtime, t.identifier(name));
+    }
+
+    var ref = (0, _babelHelpers2.default)(name);
+    var uid = this.declarations[name] = this.scope.generateUidIdentifier(name);
+
+    if (t.isFunctionExpression(ref) && !ref.id) {
+      ref.body._compact = true;
+      ref._generated = true;
+      ref.id = uid;
+      ref.type = "FunctionDeclaration";
+      this.path.unshiftContainer("body", ref);
+    } else {
+      ref._compact = true;
+      this.scope.push({
+        id: uid,
+        init: ref,
+        unique: true
+    ...
+var declar = this.declarations[name]
+!this.usedHelpers[name]
+(_tmp_39 = this.metadata.usedHelpers).push
+this.usedHelpers[name] = true
+var generator = this.get("helperGenerator")
+var runtime = this.get("helpersNamespace")

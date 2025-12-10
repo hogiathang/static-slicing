@@ -1,0 +1,25 @@
+ApolloClient.prototype.query = function (options) {
+        if (this.defaultOptions.query) {
+            options = __assign(__assign({}, this.defaultOptions.query), options);
+        }
+        process.env.NODE_ENV === "production" ? invariant(options.fetchPolicy !== 'cache-and-network', 5) : invariant(options.fetchPolicy !== 'cache-and-network', 'The cache-and-network fetchPolicy does not work with client.query, because ' +
+            'client.query can only return a single result. Please use client.watchQuery ' +
+            'to receive multiple results from the cache and the network, or consider ' +
+            'using a different fetchPolicy, such as cache-first or network-only.');
+        if (this.disableNetworkFetches && options.fetchPolicy === 'network-only') {
+            options = __assign(__assign({}, options), { fetchPolicy: 'cache-first' });
+        }
+        return this.queryManager.query(options);
+    }
+this.defaultOptions.query
+options = __assign(__assign({}, this.defaultOptions.query), options)
+process.env.NODE_ENV === "production" ? invariant(options.fetchPolicy !== 'cache-and-network', 5) : invariant(options.fetchPolicy !== 'cache-and-network', 'The cache-and-network fetchPolicy does not work with client.query, because ' +
+            'client.query can only return a single result. Please use client.watchQuery ' +
+            'to receive multiple results from the cache and the network, or consider ' +
+            'using a different fetchPolicy, such as cache-first or network-only.')
+"client.query can only return a single result. Please use client.watchQuery "
+"to receive multiple results from the cache and the network, or consider "
+"using a different fetchPolicy, such as cache-first or network-only."
+this.disableNetworkFetches && options.fetchPolicy === 'network-only'
+options = __assign(__assign({}, options), { fetchPolicy: 'cache-first' })
+(_tmp_368 = this.queryManager).query

@@ -1,0 +1,3304 @@
+var VERSION = "11.0.3"
+var freeGlobal = typeof global == "object" && global && global.Object === Object && global
+var freeGlobal_default = freeGlobal
+var freeSelf = typeof self == "object" && self && self.Object === Object && self
+var root = freeGlobal_default || freeSelf || Function("return this")()
+function getRawTag = function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag), tag = value[symToStringTag];
+  try {
+    value[symToStringTag] = void 0;
+    var unmasked = true;
+  } catch (e) {
+  }
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+function objectToString = function objectToString(value) {
+  return nativeObjectToString2.call(value);
+}
+function baseGetTag = function baseGetTag(value) {
+  if (value == null) {
+    return value === void 0 ? undefinedTag : nullTag;
+  }
+  return symToStringTag2 && symToStringTag2 in Object(value) ? getRawTag_default(value) : objectToString_default(value);
+}
+function isObjectLike = function isObjectLike(value) {
+  return value != null && typeof value == "object";
+}
+function isSymbol = function isSymbol(value) {
+  return typeof value == "symbol" || isObjectLike_default(value) && baseGetTag_default(value) == symbolTag;
+}
+function arrayMap = function arrayMap(array, iteratee) {
+  var index = -1, length = array == null ? 0 : array.length, result = Array(length);
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+function baseToString = function baseToString(value) {
+  if (typeof value == "string") {
+    return value;
+  }
+  if (isArray_default(value)) {
+    return arrayMap_default(value, baseToString) + "";
+  }
+  if (isSymbol_default(value)) {
+    return symbolToString ? symbolToString.call(value) : "";
+  }
+  var result = value + "";
+  return result == "0" && 1 / value == -INFINITY ? "-0" : result;
+}
+function trimmedEndIndex = function trimmedEndIndex(string) {
+  var index = string.length;
+  while (index-- && reWhitespace.test(string.charAt(index))) {
+  }
+  return index;
+}
+function baseTrim = function baseTrim(string) {
+  return string ? string.slice(0, trimmedEndIndex_default(string) + 1).replace(reTrimStart, "") : string;
+}
+function isObject = function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == "object" || type == "function");
+}
+function toNumber = function toNumber(value) {
+  if (typeof value == "number") {
+    return value;
+  }
+  if (isSymbol_default(value)) {
+    return NAN;
+  }
+  if (isObject_default(value)) {
+    var other = typeof value.valueOf == "function" ? value.valueOf() : value;
+    value = isObject_default(other) ? other + "" : other;
+  }
+  if (typeof value != "string") {
+    return value === 0 ? value : +value;
+  }
+  value = baseTrim_default(value);
+  var isBinary = reIsBinary.test(value);
+  return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NAN : +value;
+}
+function toFinite = function toFinite(value) {
+  if (!value) {
+    return value === 0 ? value : 0;
+  }
+  value = toNumber_default(value);
+  if (value === INFINITY2 || value === -INFINITY2) {
+    var sign = value < 0 ? -1 : 1;
+    return sign * MAX_INTEGER;
+  }
+  return value === value ? value : 0;
+}
+function toInteger = function toInteger(value) {
+  var result = toFinite_default(value), remainder = result % 1;
+  return result === result ? remainder ? result - remainder : result : 0;
+}
+function identity = function identity(value) {
+  return value;
+}
+function isFunction = function isFunction(value) {
+  if (!isObject_default(value)) {
+    return false;
+  }
+  var tag = baseGetTag_default(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+function isMasked = function isMasked(func) {
+  return !!maskSrcKey && maskSrcKey in func;
+}
+function toSource = function toSource(func) {
+  if (func != null) {
+    try {
+      return funcToString.call(func);
+    } catch (e) {
+    }
+    try {
+      return func + "";
+    } catch (e) {
+    }
+  }
+  return "";
+}
+function baseIsNative = function baseIsNative(value) {
+  if (!isObject_default(value) || isMasked_default(value)) {
+    return false;
+  }
+  var pattern = isFunction_default(value) ? reIsNative : reIsHostCtor;
+  return pattern.test(toSource_default(value));
+}
+function getValue = function getValue(object, key) {
+  return object == null ? void 0 : object[key];
+}
+function getNative = function getNative(object, key) {
+  var value = getValue_default(object, key);
+  return baseIsNative_default(value) ? value : void 0;
+}
+function apply = function apply(func, thisArg, args) {
+  switch (args.length) {
+    case 0:
+      return func.call(thisArg);
+    case 1:
+      return func.call(thisArg, args[0]);
+    case 2:
+      return func.call(thisArg, args[0], args[1]);
+    case 3:
+      return func.call(thisArg, args[0], args[1], args[2]);
+  }
+  return func.apply(thisArg, args);
+}
+function noop = function noop() {
+}
+function copyArray = function copyArray(source, array) {
+  var index = -1, length = source.length;
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+function shortOut = function shortOut(func) {
+  var count = 0, lastCalled = 0;
+  return function() {
+    var stamp = nativeNow(), remaining = HOT_SPAN - (stamp - lastCalled);
+    lastCalled = stamp;
+    if (remaining > 0) {
+      if (++count >= HOT_COUNT) {
+        return arguments[0];
+      }
+    } else {
+      count = 0;
+    }
+    return func.apply(void 0, arguments);
+  };
+}
+function constant = function constant(value) {
+  return function() {
+    return value;
+  };
+}
+function arrayEach = function arrayEach(array, iteratee) {
+  var index = -1, length = array == null ? 0 : array.length;
+  while (++index < length) {
+    if (iteratee(array[index], index, array) === false) {
+      break;
+    }
+  }
+  return array;
+}
+function baseFindIndex = function baseFindIndex(array, predicate, fromIndex, fromRight) {
+  var length = array.length, index = fromIndex + (fromRight ? 1 : -1);
+  while (fromRight ? index-- : ++index < length) {
+    if (predicate(array[index], index, array)) {
+      return index;
+    }
+  }
+  return -1;
+}
+function baseIsNaN = function baseIsNaN(value) {
+  return value !== value;
+}
+function strictIndexOf = function strictIndexOf(array, value, fromIndex) {
+  var index = fromIndex - 1, length = array.length;
+  while (++index < length) {
+    if (array[index] === value) {
+      return index;
+    }
+  }
+  return -1;
+}
+function baseIndexOf = function baseIndexOf(array, value, fromIndex) {
+  return value === value ? strictIndexOf_default(array, value, fromIndex) : baseFindIndex_default(array, baseIsNaN_default, fromIndex);
+}
+function arrayIncludes = function arrayIncludes(array, value) {
+  var length = array == null ? 0 : array.length;
+  return !!length && baseIndexOf_default(array, value, 0) > -1;
+}
+function isIndex = function isIndex(value, length) {
+  var type = typeof value;
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length && (type == "number" || type != "symbol" && reIsUint.test(value)) && (value > -1 && value % 1 == 0 && value < length);
+}
+function baseAssignValue = function baseAssignValue(object, key, value) {
+  if (key == "__proto__" && defineProperty_default) {
+    defineProperty_default(object, key, {
+      "configurable": true,
+      "enumerable": true,
+      "value": value,
+      "writable": true
+    });
+  } else {
+    object[key] = value;
+  }
+}
+function eq = function eq(value, other) {
+  return value === other || value !== value && other !== other;
+}
+function assignValue = function assignValue(object, key, value) {
+  var objValue = object[key];
+  if (!(hasOwnProperty3.call(object, key) && eq_default(objValue, value)) || value === void 0 && !(key in object)) {
+    baseAssignValue_default(object, key, value);
+  }
+}
+function copyObject = function copyObject(source, props, object, customizer) {
+  var isNew = !object;
+  object || (object = {});
+  var index = -1, length = props.length;
+  while (++index < length) {
+    var key = props[index];
+    var newValue = customizer ? customizer(object[key], source[key], key, object, source) : void 0;
+    if (newValue === void 0) {
+      newValue = source[key];
+    }
+    if (isNew) {
+      baseAssignValue_default(object, key, newValue);
+    } else {
+      assignValue_default(object, key, newValue);
+    }
+  }
+  return object;
+}
+function overRest = function overRest(func, start, transform) {
+  start = nativeMax(start === void 0 ? func.length - 1 : start, 0);
+  return function() {
+    var args = arguments, index = -1, length = nativeMax(args.length - start, 0), array = Array(length);
+    while (++index < length) {
+      array[index] = args[start + index];
+    }
+    index = -1;
+    var otherArgs = Array(start + 1);
+    while (++index < start) {
+      otherArgs[index] = args[index];
+    }
+    otherArgs[start] = transform(array);
+    return apply_default(func, this, otherArgs);
+  };
+}
+function baseRest = function baseRest(func, start) {
+  return setToString_default(overRest_default(func, start, identity_default), func + "");
+}
+function isLength = function isLength(value) {
+  return typeof value == "number" && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER2;
+}
+function isArrayLike = function isArrayLike(value) {
+  return value != null && isLength_default(value.length) && !isFunction_default(value);
+}
+function isIterateeCall = function isIterateeCall(value, index, object) {
+  if (!isObject_default(object)) {
+    return false;
+  }
+  var type = typeof index;
+  if (type == "number" ? isArrayLike_default(object) && isIndex_default(index, object.length) : type == "string" && index in object) {
+    return eq_default(object[index], value);
+  }
+  return false;
+}
+function createAssigner = function createAssigner(assigner) {
+  return baseRest_default(function(object, sources) {
+    var index = -1, length = sources.length, customizer = length > 1 ? sources[length - 1] : void 0, guard = length > 2 ? sources[2] : void 0;
+    customizer = assigner.length > 3 && typeof customizer == "function" ? (length--, customizer) : void 0;
+    if (guard && isIterateeCall_default(sources[0], sources[1], guard)) {
+      customizer = length < 3 ? void 0 : customizer;
+      length = 1;
+    }
+    object = Object(object);
+    while (++index < length) {
+      var source = sources[index];
+      if (source) {
+        assigner(object, source, index, customizer);
+      }
+    }
+    return object;
+  });
+}
+function isPrototype = function isPrototype(value) {
+  var Ctor = value && value.constructor, proto = typeof Ctor == "function" && Ctor.prototype || objectProto5;
+  return value === proto;
+}
+function baseTimes = function baseTimes(n, iteratee) {
+  var index = -1, result = Array(n);
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+function baseIsArguments = function baseIsArguments(value) {
+  return isObjectLike_default(value) && baseGetTag_default(value) == argsTag;
+}
+function stubFalse = function stubFalse() {
+  return false;
+}
+function baseIsTypedArray = function baseIsTypedArray(value) {
+  return isObjectLike_default(value) && isLength_default(value.length) && !!typedArrayTags[baseGetTag_default(value)];
+}
+function baseUnary = function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+function arrayLikeKeys = function arrayLikeKeys(value, inherited) {
+  var isArr = isArray_default(value), isArg = !isArr && isArguments_default(value), isBuff = !isArr && !isArg && isBuffer_default(value), isType = !isArr && !isArg && !isBuff && isTypedArray_default(value), skipIndexes = isArr || isArg || isBuff || isType, result = skipIndexes ? baseTimes_default(value.length, String) : [], length = result.length;
+  for (var key in value) {
+    if ((inherited || hasOwnProperty5.call(value, key)) && !(skipIndexes && // Safari 9 has enumerable `arguments.length` in strict mode.
+    (key == "length" || // Node.js 0.10 has enumerable non-index properties on buffers.
+    isBuff && (key == "offset" || key == "parent") || // PhantomJS 2 has enumerable non-index properties on typed arrays.
+    isType && (key == "buffer" || key == "byteLength" || key == "byteOffset") || // Skip index properties.
+    isIndex_default(key, length)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+function overArg = function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+function baseKeys = function baseKeys(object) {
+  if (!isPrototype_default(object)) {
+    return nativeKeys_default(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty6.call(object, key) && key != "constructor") {
+      result.push(key);
+    }
+  }
+  return result;
+}
+function keys = function keys(object) {
+  return isArrayLike_default(object) ? arrayLikeKeys_default(object) : baseKeys_default(object);
+}
+function nativeKeysIn = function nativeKeysIn(object) {
+  var result = [];
+  if (object != null) {
+    for (var key in Object(object)) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+function baseKeysIn = function baseKeysIn(object) {
+  if (!isObject_default(object)) {
+    return nativeKeysIn_default(object);
+  }
+  var isProto = isPrototype_default(object), result = [];
+  for (var key in object) {
+    if (!(key == "constructor" && (isProto || !hasOwnProperty8.call(object, key)))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+function keysIn = function keysIn(object) {
+  return isArrayLike_default(object) ? arrayLikeKeys_default(object, true) : baseKeysIn_default(object);
+}
+function isKey = function isKey(value, object) {
+  if (isArray_default(value)) {
+    return false;
+  }
+  var type = typeof value;
+  if (type == "number" || type == "symbol" || type == "boolean" || value == null || isSymbol_default(value)) {
+    return true;
+  }
+  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) || object != null && value in Object(object);
+}
+function hashClear = function hashClear() {
+  this.__data__ = nativeCreate_default ? nativeCreate_default(null) : {};
+  this.size = 0;
+}
+function hashDelete = function hashDelete(key) {
+  var result = this.has(key) && delete this.__data__[key];
+  this.size -= result ? 1 : 0;
+  return result;
+}
+function hashGet = function hashGet(key) {
+  var data = this.__data__;
+  if (nativeCreate_default) {
+    var result = data[key];
+    return result === HASH_UNDEFINED ? void 0 : result;
+  }
+  return hasOwnProperty9.call(data, key) ? data[key] : void 0;
+}
+function hashHas = function hashHas(key) {
+  var data = this.__data__;
+  return nativeCreate_default ? data[key] !== void 0 : hasOwnProperty10.call(data, key);
+}
+function hashSet = function hashSet(key, value) {
+  var data = this.__data__;
+  this.size += this.has(key) ? 0 : 1;
+  data[key] = nativeCreate_default && value === void 0 ? HASH_UNDEFINED2 : value;
+  return this;
+}
+function Hash = function Hash(entries) {
+  var index = -1, length = entries == null ? 0 : entries.length;
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+function listCacheClear = function listCacheClear() {
+  this.__data__ = [];
+  this.size = 0;
+}
+function assocIndexOf = function assocIndexOf(array, key) {
+  var length = array.length;
+  while (length--) {
+    if (eq_default(array[length][0], key)) {
+      return length;
+    }
+  }
+  return -1;
+}
+function listCacheDelete = function listCacheDelete(key) {
+  var data = this.__data__, index = assocIndexOf_default(data, key);
+  if (index < 0) {
+    return false;
+  }
+  var lastIndex = data.length - 1;
+  if (index == lastIndex) {
+    data.pop();
+  } else {
+    splice.call(data, index, 1);
+  }
+  --this.size;
+  return true;
+}
+function listCacheGet = function listCacheGet(key) {
+  var data = this.__data__, index = assocIndexOf_default(data, key);
+  return index < 0 ? void 0 : data[index][1];
+}
+function listCacheHas = function listCacheHas(key) {
+  return assocIndexOf_default(this.__data__, key) > -1;
+}
+function listCacheSet = function listCacheSet(key, value) {
+  var data = this.__data__, index = assocIndexOf_default(data, key);
+  if (index < 0) {
+    ++this.size;
+    data.push([key, value]);
+  } else {
+    data[index][1] = value;
+  }
+  return this;
+}
+function ListCache = function ListCache(entries) {
+  var index = -1, length = entries == null ? 0 : entries.length;
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+function mapCacheClear = function mapCacheClear() {
+  this.size = 0;
+  this.__data__ = {
+    "hash": new Hash_default(),
+    "map": new (Map_default || ListCache_default)(),
+    "string": new Hash_default()
+  };
+}
+function isKeyable = function isKeyable(value) {
+  var type = typeof value;
+  return type == "string" || type == "number" || type == "symbol" || type == "boolean" ? value !== "__proto__" : value === null;
+}
+function getMapData = function getMapData(map2, key) {
+  var data = map2.__data__;
+  return isKeyable_default(key) ? data[typeof key == "string" ? "string" : "hash"] : data.map;
+}
+function mapCacheDelete = function mapCacheDelete(key) {
+  var result = getMapData_default(this, key)["delete"](key);
+  this.size -= result ? 1 : 0;
+  return result;
+}
+function mapCacheGet = function mapCacheGet(key) {
+  return getMapData_default(this, key).get(key);
+}
+function mapCacheHas = function mapCacheHas(key) {
+  return getMapData_default(this, key).has(key);
+}
+function mapCacheSet = function mapCacheSet(key, value) {
+  var data = getMapData_default(this, key), size = data.size;
+  data.set(key, value);
+  this.size += data.size == size ? 0 : 1;
+  return this;
+}
+function MapCache = function MapCache(entries) {
+  var index = -1, length = entries == null ? 0 : entries.length;
+  this.clear();
+  while (++index < length) {
+    var entry = entries[index];
+    this.set(entry[0], entry[1]);
+  }
+}
+function memoize = function memoize(func, resolver) {
+  if (typeof func != "function" || resolver != null && typeof resolver != "function") {
+    throw new TypeError(FUNC_ERROR_TEXT);
+  }
+  var memoized = function() {
+    var args = arguments, key = resolver ? resolver.apply(this, args) : args[0], cache = memoized.cache;
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    var result = func.apply(this, args);
+    memoized.cache = cache.set(key, result) || cache;
+    return result;
+  };
+  memoized.cache = new (memoize.Cache || MapCache_default)();
+  return memoized;
+}
+function memoizeCapped = function memoizeCapped(func) {
+  var result = memoize_default(func, function(key) {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
+      cache.clear();
+    }
+    return key;
+  });
+  var cache = result.cache;
+  return result;
+}
+function toString = function toString(value) {
+  return value == null ? "" : baseToString_default(value);
+}
+function castPath = function castPath(value, object) {
+  if (isArray_default(value)) {
+    return value;
+  }
+  return isKey_default(value, object) ? [value] : stringToPath_default(toString_default(value));
+}
+function toKey = function toKey(value) {
+  if (typeof value == "string" || isSymbol_default(value)) {
+    return value;
+  }
+  var result = value + "";
+  return result == "0" && 1 / value == -INFINITY3 ? "-0" : result;
+}
+function baseGet = function baseGet(object, path) {
+  path = castPath_default(path, object);
+  var index = 0, length = path.length;
+  while (object != null && index < length) {
+    object = object[toKey_default(path[index++])];
+  }
+  return index && index == length ? object : void 0;
+}
+function get = function get(object, path, defaultValue) {
+  var result = object == null ? void 0 : baseGet_default(object, path);
+  return result === void 0 ? defaultValue : result;
+}
+function arrayPush = function arrayPush(array, values2) {
+  var index = -1, length = values2.length, offset = array.length;
+  while (++index < length) {
+    array[offset + index] = values2[index];
+  }
+  return array;
+}
+function isFlattenable = function isFlattenable(value) {
+  return isArray_default(value) || isArguments_default(value) || !!(spreadableSymbol && value && value[spreadableSymbol]);
+}
+function baseFlatten = function baseFlatten(array, depth, predicate, isStrict, result) {
+  var index = -1, length = array.length;
+  predicate || (predicate = isFlattenable_default);
+  result || (result = []);
+  while (++index < length) {
+    var value = array[index];
+    if (depth > 0 && predicate(value)) {
+      if (depth > 1) {
+        baseFlatten(value, depth - 1, predicate, isStrict, result);
+      } else {
+        arrayPush_default(result, value);
+      }
+    } else if (!isStrict) {
+      result[result.length] = value;
+    }
+  }
+  return result;
+}
+function flatten = function flatten(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? baseFlatten_default(array, 1) : [];
+}
+function baseSlice = function baseSlice(array, start, end) {
+  var index = -1, length = array.length;
+  if (start < 0) {
+    start = -start > length ? 0 : length + start;
+  }
+  end = end > length ? length : end;
+  if (end < 0) {
+    end += length;
+  }
+  length = start > end ? 0 : end - start >>> 0;
+  start >>>= 0;
+  var result = Array(length);
+  while (++index < length) {
+    result[index] = array[index + start];
+  }
+  return result;
+}
+function castSlice = function castSlice(array, start, end) {
+  var length = array.length;
+  end = end === void 0 ? length : end;
+  return !start && end >= length ? array : baseSlice_default(array, start, end);
+}
+function hasUnicode = function hasUnicode(string) {
+  return reHasUnicode.test(string);
+}
+function asciiToArray = function asciiToArray(string) {
+  return string.split("");
+}
+function unicodeToArray = function unicodeToArray(string) {
+  return string.match(reUnicode) || [];
+}
+function stringToArray = function stringToArray(string) {
+  return hasUnicode_default(string) ? unicodeToArray_default(string) : asciiToArray_default(string);
+}
+function createCaseFirst = function createCaseFirst(methodName) {
+  return function(string) {
+    string = toString_default(string);
+    var strSymbols = hasUnicode_default(string) ? stringToArray_default(string) : void 0;
+    var chr = strSymbols ? strSymbols[0] : string.charAt(0);
+    var trailing = strSymbols ? castSlice_default(strSymbols, 1).join("") : string.slice(1);
+    return chr[methodName]() + trailing;
+  };
+}
+function arrayReduce = function arrayReduce(array, iteratee, accumulator, initAccum) {
+  var index = -1, length = array == null ? 0 : array.length;
+  if (initAccum && length) {
+    accumulator = array[++index];
+  }
+  while (++index < length) {
+    accumulator = iteratee(accumulator, array[index], index, array);
+  }
+  return accumulator;
+}
+function stackClear = function stackClear() {
+  this.__data__ = new ListCache_default();
+  this.size = 0;
+}
+function stackDelete = function stackDelete(key) {
+  var data = this.__data__, result = data["delete"](key);
+  this.size = data.size;
+  return result;
+}
+function stackGet = function stackGet(key) {
+  return this.__data__.get(key);
+}
+function stackHas = function stackHas(key) {
+  return this.__data__.has(key);
+}
+function stackSet = function stackSet(key, value) {
+  var data = this.__data__;
+  if (data instanceof ListCache_default) {
+    var pairs = data.__data__;
+    if (!Map_default || pairs.length < LARGE_ARRAY_SIZE - 1) {
+      pairs.push([key, value]);
+      this.size = ++data.size;
+      return this;
+    }
+    data = this.__data__ = new MapCache_default(pairs);
+  }
+  data.set(key, value);
+  this.size = data.size;
+  return this;
+}
+function Stack = function Stack(entries) {
+  var data = this.__data__ = new ListCache_default(entries);
+  this.size = data.size;
+}
+function baseAssign = function baseAssign(object, source) {
+  return object && copyObject_default(source, keys_default(source), object);
+}
+function baseAssignIn = function baseAssignIn(object, source) {
+  return object && copyObject_default(source, keysIn_default(source), object);
+}
+function cloneBuffer = function cloneBuffer(buffer, isDeep) {
+  if (isDeep) {
+    return buffer.slice();
+  }
+  var length = buffer.length, result = allocUnsafe ? allocUnsafe(length) : new buffer.constructor(length);
+  buffer.copy(result);
+  return result;
+}
+function arrayFilter = function arrayFilter(array, predicate) {
+  var index = -1, length = array == null ? 0 : array.length, resIndex = 0, result = [];
+  while (++index < length) {
+    var value = array[index];
+    if (predicate(value, index, array)) {
+      result[resIndex++] = value;
+    }
+  }
+  return result;
+}
+function stubArray = function stubArray() {
+  return [];
+}
+function copySymbols = function copySymbols(source, object) {
+  return copyObject_default(source, getSymbols_default(source), object);
+}
+function copySymbolsIn = function copySymbolsIn(source, object) {
+  return copyObject_default(source, getSymbolsIn_default(source), object);
+}
+function baseGetAllKeys = function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+  var result = keysFunc(object);
+  return isArray_default(object) ? result : arrayPush_default(result, symbolsFunc(object));
+}
+function getAllKeys = function getAllKeys(object) {
+  return baseGetAllKeys_default(object, keys_default, getSymbols_default);
+}
+function getAllKeysIn = function getAllKeysIn(object) {
+  return baseGetAllKeys_default(object, keysIn_default, getSymbolsIn_default);
+}
+function initCloneArray = function initCloneArray(array) {
+  var length = array.length, result = new array.constructor(length);
+  if (length && typeof array[0] == "string" && hasOwnProperty11.call(array, "index")) {
+    result.index = array.index;
+    result.input = array.input;
+  }
+  return result;
+}
+function cloneArrayBuffer = function cloneArrayBuffer(arrayBuffer) {
+  var result = new arrayBuffer.constructor(arrayBuffer.byteLength);
+  new Uint8Array_default(result).set(new Uint8Array_default(arrayBuffer));
+  return result;
+}
+function cloneDataView = function cloneDataView(dataView, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer_default(dataView.buffer) : dataView.buffer;
+  return new dataView.constructor(buffer, dataView.byteOffset, dataView.byteLength);
+}
+function cloneRegExp = function cloneRegExp(regexp) {
+  var result = new regexp.constructor(regexp.source, reFlags.exec(regexp));
+  result.lastIndex = regexp.lastIndex;
+  return result;
+}
+function cloneSymbol = function cloneSymbol(symbol) {
+  return symbolValueOf ? Object(symbolValueOf.call(symbol)) : {};
+}
+function cloneTypedArray = function cloneTypedArray(typedArray, isDeep) {
+  var buffer = isDeep ? cloneArrayBuffer_default(typedArray.buffer) : typedArray.buffer;
+  return new typedArray.constructor(buffer, typedArray.byteOffset, typedArray.length);
+}
+function initCloneByTag = function initCloneByTag(object, tag, isDeep) {
+  var Ctor = object.constructor;
+  switch (tag) {
+    case arrayBufferTag2:
+      return cloneArrayBuffer_default(object);
+    case boolTag2:
+    case dateTag2:
+      return new Ctor(+object);
+    case dataViewTag3:
+      return cloneDataView_default(object, isDeep);
+    case float32Tag2:
+    case float64Tag2:
+    case int8Tag2:
+    case int16Tag2:
+    case int32Tag2:
+    case uint8Tag2:
+    case uint8ClampedTag2:
+    case uint16Tag2:
+    case uint32Tag2:
+      return cloneTypedArray_default(object, isDeep);
+    case mapTag3:
+      return new Ctor();
+    case numberTag2:
+    case stringTag2:
+      return new Ctor(object);
+    case regexpTag2:
+      return cloneRegExp_default(object);
+    case setTag3:
+      return new Ctor();
+    case symbolTag2:
+      return cloneSymbol_default(object);
+  }
+}
+function initCloneObject = function initCloneObject(object) {
+  return typeof object.constructor == "function" && !isPrototype_default(object) ? baseCreate_default(getPrototype_default(object)) : {};
+}
+function baseIsMap = function baseIsMap(value) {
+  return isObjectLike_default(value) && getTag_default(value) == mapTag4;
+}
+function baseIsSet = function baseIsSet(value) {
+  return isObjectLike_default(value) && getTag_default(value) == setTag4;
+}
+function baseClone = function baseClone(value, bitmask, customizer, key, object, stack) {
+  var result, isDeep = bitmask & CLONE_DEEP_FLAG, isFlat = bitmask & CLONE_FLAT_FLAG, isFull = bitmask & CLONE_SYMBOLS_FLAG;
+  if (customizer) {
+    result = object ? customizer(value, key, object, stack) : customizer(value);
+  }
+  if (result !== void 0) {
+    return result;
+  }
+  if (!isObject_default(value)) {
+    return value;
+  }
+  var isArr = isArray_default(value);
+  if (isArr) {
+    result = initCloneArray_default(value);
+    if (!isDeep) {
+      return copyArray_default(value, result);
+    }
+  } else {
+    var tag = getTag_default(value), isFunc = tag == funcTag3 || tag == genTag2;
+    if (isBuffer_default(value)) {
+      return cloneBuffer_default(value, isDeep);
+    }
+    if (tag == objectTag3 || tag == argsTag3 || isFunc && !object) {
+      result = isFlat || isFunc ? {} : initCloneObject_default(value);
+      if (!isDeep) {
+        return isFlat ? copySymbolsIn_default(value, baseAssignIn_default(result...
+function clone = function clone(value) {
+  return baseClone_default(value, CLONE_SYMBOLS_FLAG2);
+}
+function compact = function compact(array) {
+  var index = -1, length = array == null ? 0 : array.length, resIndex = 0, result = [];
+  while (++index < length) {
+    var value = array[index];
+    if (value) {
+      result[resIndex++] = value;
+    }
+  }
+  return result;
+}
+function setCacheAdd = function setCacheAdd(value) {
+  this.__data__.set(value, HASH_UNDEFINED3);
+  return this;
+}
+function setCacheHas = function setCacheHas(value) {
+  return this.__data__.has(value);
+}
+function SetCache = function SetCache(values2) {
+  var index = -1, length = values2 == null ? 0 : values2.length;
+  this.__data__ = new MapCache_default();
+  while (++index < length) {
+    this.add(values2[index]);
+  }
+}
+function arraySome = function arraySome(array, predicate) {
+  var index = -1, length = array == null ? 0 : array.length;
+  while (++index < length) {
+    if (predicate(array[index], index, array)) {
+      return true;
+    }
+  }
+  return false;
+}
+function cacheHas = function cacheHas(cache, key) {
+  return cache.has(key);
+}
+function equalArrays = function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG, arrLength = array.length, othLength = other.length;
+  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+    return false;
+  }
+  var arrStacked = stack.get(array);
+  var othStacked = stack.get(other);
+  if (arrStacked && othStacked) {
+    return arrStacked == other && othStacked == array;
+  }
+  var index = -1, result = true, seen = bitmask & COMPARE_UNORDERED_FLAG ? new SetCache_default() : void 0;
+  stack.set(array, other);
+  stack.set(other, array);
+  while (++index < arrLength) {
+    var arrValue = array[index], othValue = other[index];
+    if (customizer) {
+      var compared = isPartial ? customizer(othValue, arrValue, index, other, array, stack) : customizer(arrValue, othValue, index, array, other, stack);
+    }
+    if (compared !== void 0) {
+      if (compared) {
+        continue;
+      }
+      result = false;
+      break;
+    }
+   ...
+function mapToArray = function mapToArray(map2) {
+  var index = -1, result = Array(map2.size);
+  map2.forEach(function(value, key) {
+    result[++index] = [key, value];
+  });
+  return result;
+}
+function setToArray = function setToArray(set) {
+  var index = -1, result = Array(set.size);
+  set.forEach(function(value) {
+    result[++index] = value;
+  });
+  return result;
+}
+function equalByTag = function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
+  switch (tag) {
+    case dataViewTag5:
+      if (object.byteLength != other.byteLength || object.byteOffset != other.byteOffset) {
+        return false;
+      }
+      object = object.buffer;
+      other = other.buffer;
+    case arrayBufferTag4:
+      if (object.byteLength != other.byteLength || !equalFunc(new Uint8Array_default(object), new Uint8Array_default(other))) {
+        return false;
+      }
+      return true;
+    case boolTag4:
+    case dateTag4:
+    case numberTag4:
+      return eq_default(+object, +other);
+    case errorTag3:
+      return object.name == other.name && object.message == other.message;
+    case regexpTag4:
+    case stringTag4:
+      return object == other + "";
+    case mapTag6:
+      var convert = mapToArray_default;
+    case setTag6:
+      var isPartial = bitmask & COMPARE_PARTIAL_FLAG2;
+      convert || (convert = setToArray_default);
+      if (object.size != other.size && !...
+function equalObjects = function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+  var isPartial = bitmask & COMPARE_PARTIAL_FLAG3, objProps = getAllKeys_default(object), objLength = objProps.length, othProps = getAllKeys_default(other), othLength = othProps.length;
+  if (objLength != othLength && !isPartial) {
+    return false;
+  }
+  var index = objLength;
+  while (index--) {
+    var key = objProps[index];
+    if (!(isPartial ? key in other : hasOwnProperty12.call(other, key))) {
+      return false;
+    }
+  }
+  var objStacked = stack.get(object);
+  var othStacked = stack.get(other);
+  if (objStacked && othStacked) {
+    return objStacked == other && othStacked == object;
+  }
+  var result = true;
+  stack.set(object, other);
+  stack.set(other, object);
+  var skipCtor = isPartial;
+  while (++index < objLength) {
+    key = objProps[index];
+    var objValue = object[key], othValue = other[key];
+    if (customizer) {
+      var compared = isPartial ? customizer(othValue, objValue, key, other...
+function baseIsEqualDeep = function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+  var objIsArr = isArray_default(object), othIsArr = isArray_default(other), objTag = objIsArr ? arrayTag3 : getTag_default(object), othTag = othIsArr ? arrayTag3 : getTag_default(other);
+  objTag = objTag == argsTag4 ? objectTag4 : objTag;
+  othTag = othTag == argsTag4 ? objectTag4 : othTag;
+  var objIsObj = objTag == objectTag4, othIsObj = othTag == objectTag4, isSameTag = objTag == othTag;
+  if (isSameTag && isBuffer_default(object)) {
+    if (!isBuffer_default(other)) {
+      return false;
+    }
+    objIsArr = true;
+    objIsObj = false;
+  }
+  if (isSameTag && !objIsObj) {
+    stack || (stack = new Stack_default());
+    return objIsArr || isTypedArray_default(object) ? equalArrays_default(object, other, bitmask, customizer, equalFunc, stack) : equalByTag_default(object, other, objTag, bitmask, customizer, equalFunc, stack);
+  }
+  if (!(bitmask & COMPARE_PARTIAL_FLAG4)) {
+    var objIsWrapped = objIs...
+function baseIsEqual = function baseIsEqual(value, other, bitmask, customizer, stack) {
+  if (value === other) {
+    return true;
+  }
+  if (value == null || other == null || !isObjectLike_default(value) && !isObjectLike_default(other)) {
+    return value !== value && other !== other;
+  }
+  return baseIsEqualDeep_default(value, other, bitmask, customizer, baseIsEqual, stack);
+}
+function baseIsMatch = function baseIsMatch(object, source, matchData, customizer) {
+  var index = matchData.length, length = index, noCustomizer = !customizer;
+  if (object == null) {
+    return !length;
+  }
+  object = Object(object);
+  while (index--) {
+    var data = matchData[index];
+    if (noCustomizer && data[2] ? data[1] !== object[data[0]] : !(data[0] in object)) {
+      return false;
+    }
+  }
+  while (++index < length) {
+    data = matchData[index];
+    var key = data[0], objValue = object[key], srcValue = data[1];
+    if (noCustomizer && data[2]) {
+      if (objValue === void 0 && !(key in object)) {
+        return false;
+      }
+    } else {
+      var stack = new Stack_default();
+      if (customizer) {
+        var result = customizer(objValue, srcValue, key, object, source, stack);
+      }
+      if (!(result === void 0 ? baseIsEqual_default(srcValue, objValue, COMPARE_PARTIAL_FLAG5 | COMPARE_UNORDERED_FLAG3, customizer, stack) : result)) {
+        return false;
+      }
+    }
+  }
+  return tru...
+function isStrictComparable = function isStrictComparable(value) {
+  return value === value && !isObject_default(value);
+}
+function getMatchData = function getMatchData(object) {
+  var result = keys_default(object), length = result.length;
+  while (length--) {
+    var key = result[length], value = object[key];
+    result[length] = [key, value, isStrictComparable_default(value)];
+  }
+  return result;
+}
+function matchesStrictComparable = function matchesStrictComparable(key, srcValue) {
+  return function(object) {
+    if (object == null) {
+      return false;
+    }
+    return object[key] === srcValue && (srcValue !== void 0 || key in Object(object));
+  };
+}
+function baseMatches = function baseMatches(source) {
+  var matchData = getMatchData_default(source);
+  if (matchData.length == 1 && matchData[0][2]) {
+    return matchesStrictComparable_default(matchData[0][0], matchData[0][1]);
+  }
+  return function(object) {
+    return object === source || baseIsMatch_default(object, source, matchData);
+  };
+}
+function baseHasIn = function baseHasIn(object, key) {
+  return object != null && key in Object(object);
+}
+function hasPath = function hasPath(object, path, hasFunc) {
+  path = castPath_default(path, object);
+  var index = -1, length = path.length, result = false;
+  while (++index < length) {
+    var key = toKey_default(path[index]);
+    if (!(result = object != null && hasFunc(object, key))) {
+      break;
+    }
+    object = object[key];
+  }
+  if (result || ++index != length) {
+    return result;
+  }
+  length = object == null ? 0 : object.length;
+  return !!length && isLength_default(length) && isIndex_default(key, length) && (isArray_default(object) || isArguments_default(object));
+}
+function hasIn = function hasIn(object, path) {
+  return object != null && hasPath_default(object, path, baseHasIn_default);
+}
+function baseMatchesProperty = function baseMatchesProperty(path, srcValue) {
+  if (isKey_default(path) && isStrictComparable_default(srcValue)) {
+    return matchesStrictComparable_default(toKey_default(path), srcValue);
+  }
+  return function(object) {
+    var objValue = get_default(object, path);
+    return objValue === void 0 && objValue === srcValue ? hasIn_default(object, path) : baseIsEqual_default(srcValue, objValue, COMPARE_PARTIAL_FLAG6 | COMPARE_UNORDERED_FLAG4);
+  };
+}
+function baseProperty = function baseProperty(key) {
+  return function(object) {
+    return object == null ? void 0 : object[key];
+  };
+}
+function basePropertyDeep = function basePropertyDeep(path) {
+  return function(object) {
+    return baseGet_default(object, path);
+  };
+}
+function property = function property(path) {
+  return isKey_default(path) ? baseProperty_default(toKey_default(path)) : basePropertyDeep_default(path);
+}
+function baseIteratee = function baseIteratee(value) {
+  if (typeof value == "function") {
+    return value;
+  }
+  if (value == null) {
+    return identity_default;
+  }
+  if (typeof value == "object") {
+    return isArray_default(value) ? baseMatchesProperty_default(value[0], value[1]) : baseMatches_default(value);
+  }
+  return property_default(value);
+}
+function arrayAggregator = function arrayAggregator(array, setter, iteratee, accumulator) {
+  var index = -1, length = array == null ? 0 : array.length;
+  while (++index < length) {
+    var value = array[index];
+    setter(accumulator, value, iteratee(value), array);
+  }
+  return accumulator;
+}
+function createBaseFor = function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1, iterable = Object(object), props = keysFunc(object), length = props.length;
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+function baseForOwn = function baseForOwn(object, iteratee) {
+  return object && baseFor_default(object, iteratee, keys_default);
+}
+function createBaseEach = function createBaseEach(eachFunc, fromRight) {
+  return function(collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+    if (!isArrayLike_default(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+    var length = collection.length, index = fromRight ? length : -1, iterable = Object(collection);
+    while (fromRight ? index-- : ++index < length) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+    return collection;
+  };
+}
+function baseAggregator = function baseAggregator(collection, setter, iteratee, accumulator) {
+  baseEach_default(collection, function(value, key, collection2) {
+    setter(accumulator, value, iteratee(value), collection2);
+  });
+  return accumulator;
+}
+function createAggregator = function createAggregator(setter, initializer) {
+  return function(collection, iteratee) {
+    var func = isArray_default(collection) ? arrayAggregator_default : baseAggregator_default, accumulator = initializer ? initializer() : {};
+    return func(collection, setter, baseIteratee_default(iteratee, 2), accumulator);
+  };
+}
+function isArrayLikeObject = function isArrayLikeObject(value) {
+  return isObjectLike_default(value) && isArrayLike_default(value);
+}
+function arrayIncludesWith = function arrayIncludesWith(array, value, comparator) {
+  var index = -1, length = array == null ? 0 : array.length;
+  while (++index < length) {
+    if (comparator(value, array[index])) {
+      return true;
+    }
+  }
+  return false;
+}
+function baseDifference = function baseDifference(array, values2, iteratee, comparator) {
+  var index = -1, includes2 = arrayIncludes_default, isCommon = true, length = array.length, result = [], valuesLength = values2.length;
+  if (!length) {
+    return result;
+  }
+  if (iteratee) {
+    values2 = arrayMap_default(values2, baseUnary_default(iteratee));
+  }
+  if (comparator) {
+    includes2 = arrayIncludesWith_default;
+    isCommon = false;
+  } else if (values2.length >= LARGE_ARRAY_SIZE2) {
+    includes2 = cacheHas_default;
+    isCommon = false;
+    values2 = new SetCache_default(values2);
+  }
+  outer:
+    while (++index < length) {
+      var value = array[index], computed = iteratee == null ? value : iteratee(value);
+      value = comparator || value !== 0 ? value : 0;
+      if (isCommon && computed === computed) {
+        var valuesIndex = valuesLength;
+        while (valuesIndex--) {
+          if (values2[valuesIndex] === computed) {
+            continue outer;
+          }
+        }
+        result.push(va...
+function last = function last(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? array[length - 1] : void 0;
+}
+function drop = function drop(array, n, guard) {
+  var length = array == null ? 0 : array.length;
+  if (!length) {
+    return [];
+  }
+  n = guard || n === void 0 ? 1 : toInteger_default(n);
+  return baseSlice_default(array, n < 0 ? 0 : n, length);
+}
+function dropRight = function dropRight(array, n, guard) {
+  var length = array == null ? 0 : array.length;
+  if (!length) {
+    return [];
+  }
+  n = guard || n === void 0 ? 1 : toInteger_default(n);
+  n = length - n;
+  return baseSlice_default(array, 0, n < 0 ? 0 : n);
+}
+function castFunction = function castFunction(value) {
+  return typeof value == "function" ? value : identity_default;
+}
+function forEach = function forEach(collection, iteratee) {
+  var func = isArray_default(collection) ? arrayEach_default : baseEach_default;
+  return func(collection, castFunction_default(iteratee));
+}
+function arrayEvery = function arrayEvery(array, predicate) {
+  var index = -1, length = array == null ? 0 : array.length;
+  while (++index < length) {
+    if (!predicate(array[index], index, array)) {
+      return false;
+    }
+  }
+  return true;
+}
+function baseEvery = function baseEvery(collection, predicate) {
+  var result = true;
+  baseEach_default(collection, function(value, index, collection2) {
+    result = !!predicate(value, index, collection2);
+    return result;
+  });
+  return result;
+}
+function every = function every(collection, predicate, guard) {
+  var func = isArray_default(collection) ? arrayEvery_default : baseEvery_default;
+  if (guard && isIterateeCall_default(collection, predicate, guard)) {
+    predicate = void 0;
+  }
+  return func(collection, baseIteratee_default(predicate, 3));
+}
+function baseFilter = function baseFilter(collection, predicate) {
+  var result = [];
+  baseEach_default(collection, function(value, index, collection2) {
+    if (predicate(value, index, collection2)) {
+      result.push(value);
+    }
+  });
+  return result;
+}
+function filter = function filter(collection, predicate) {
+  var func = isArray_default(collection) ? arrayFilter_default : baseFilter_default;
+  return func(collection, baseIteratee_default(predicate, 3));
+}
+function createFind = function createFind(findIndexFunc) {
+  return function(collection, predicate, fromIndex) {
+    var iterable = Object(collection);
+    if (!isArrayLike_default(collection)) {
+      var iteratee = baseIteratee_default(predicate, 3);
+      collection = keys_default(collection);
+      predicate = function(key) {
+        return iteratee(iterable[key], key, iterable);
+      };
+    }
+    var index = findIndexFunc(collection, predicate, fromIndex);
+    return index > -1 ? iterable[iteratee ? collection[index] : index] : void 0;
+  };
+}
+function findIndex = function findIndex(array, predicate, fromIndex) {
+  var length = array == null ? 0 : array.length;
+  if (!length) {
+    return -1;
+  }
+  var index = fromIndex == null ? 0 : toInteger_default(fromIndex);
+  if (index < 0) {
+    index = nativeMax2(length + index, 0);
+  }
+  return baseFindIndex_default(array, baseIteratee_default(predicate, 3), index);
+}
+function head = function head(array) {
+  return array && array.length ? array[0] : void 0;
+}
+function baseMap = function baseMap(collection, iteratee) {
+  var index = -1, result = isArrayLike_default(collection) ? Array(collection.length) : [];
+  baseEach_default(collection, function(value, key, collection2) {
+    result[++index] = iteratee(value, key, collection2);
+  });
+  return result;
+}
+function map = function map(collection, iteratee) {
+  var func = isArray_default(collection) ? arrayMap_default : baseMap_default;
+  return func(collection, baseIteratee_default(iteratee, 3));
+}
+function flatMap = function flatMap(collection, iteratee) {
+  return baseFlatten_default(map_default(collection, iteratee), 1);
+}
+function baseHas = function baseHas(object, key) {
+  return object != null && hasOwnProperty16.call(object, key);
+}
+function has = function has(object, path) {
+  return object != null && hasPath_default(object, path, baseHas_default);
+}
+function isString = function isString(value) {
+  return typeof value == "string" || !isArray_default(value) && isObjectLike_default(value) && baseGetTag_default(value) == stringTag5;
+}
+function baseValues = function baseValues(object, props) {
+  return arrayMap_default(props, function(key) {
+    return object[key];
+  });
+}
+function values = function values(object) {
+  return object == null ? [] : baseValues_default(object, keys_default(object));
+}
+function includes = function includes(collection, value, fromIndex, guard) {
+  collection = isArrayLike_default(collection) ? collection : values_default(collection);
+  fromIndex = fromIndex && !guard ? toInteger_default(fromIndex) : 0;
+  var length = collection.length;
+  if (fromIndex < 0) {
+    fromIndex = nativeMax3(length + fromIndex, 0);
+  }
+  return isString_default(collection) ? fromIndex <= length && collection.indexOf(value, fromIndex) > -1 : !!length && baseIndexOf_default(collection, value, fromIndex) > -1;
+}
+function indexOf = function indexOf(array, value, fromIndex) {
+  var length = array == null ? 0 : array.length;
+  if (!length) {
+    return -1;
+  }
+  var index = fromIndex == null ? 0 : toInteger_default(fromIndex);
+  if (index < 0) {
+    index = nativeMax4(length + index, 0);
+  }
+  return baseIndexOf_default(array, value, index);
+}
+function isEmpty = function isEmpty(value) {
+  if (value == null) {
+    return true;
+  }
+  if (isArrayLike_default(value) && (isArray_default(value) || typeof value == "string" || typeof value.splice == "function" || isBuffer_default(value) || isTypedArray_default(value) || isArguments_default(value))) {
+    return !value.length;
+  }
+  var tag = getTag_default(value);
+  if (tag == mapTag7 || tag == setTag7) {
+    return !value.size;
+  }
+  if (isPrototype_default(value)) {
+    return !baseKeys_default(value).length;
+  }
+  for (var key in value) {
+    if (hasOwnProperty17.call(value, key)) {
+      return false;
+    }
+  }
+  return true;
+}
+function baseIsRegExp = function baseIsRegExp(value) {
+  return isObjectLike_default(value) && baseGetTag_default(value) == regexpTag5;
+}
+function isUndefined = function isUndefined(value) {
+  return value === void 0;
+}
+function negate = function negate(predicate) {
+  if (typeof predicate != "function") {
+    throw new TypeError(FUNC_ERROR_TEXT2);
+  }
+  return function() {
+    var args = arguments;
+    switch (args.length) {
+      case 0:
+        return !predicate.call(this);
+      case 1:
+        return !predicate.call(this, args[0]);
+      case 2:
+        return !predicate.call(this, args[0], args[1]);
+      case 3:
+        return !predicate.call(this, args[0], args[1], args[2]);
+    }
+    return !predicate.apply(this, args);
+  };
+}
+function baseSet = function baseSet(object, path, value, customizer) {
+  if (!isObject_default(object)) {
+    return object;
+  }
+  path = castPath_default(path, object);
+  var index = -1, length = path.length, lastIndex = length - 1, nested = object;
+  while (nested != null && ++index < length) {
+    var key = toKey_default(path[index]), newValue = value;
+    if (key === "__proto__" || key === "constructor" || key === "prototype") {
+      return object;
+    }
+    if (index != lastIndex) {
+      var objValue = nested[key];
+      newValue = customizer ? customizer(objValue, key, nested) : void 0;
+      if (newValue === void 0) {
+        newValue = isObject_default(objValue) ? objValue : isIndex_default(path[index + 1]) ? [] : {};
+      }
+    }
+    assignValue_default(nested, key, newValue);
+    nested = nested[key];
+  }
+  return object;
+}
+function basePickBy = function basePickBy(object, paths, predicate) {
+  var index = -1, length = paths.length, result = {};
+  while (++index < length) {
+    var path = paths[index], value = baseGet_default(object, path);
+    if (predicate(value, path)) {
+      baseSet_default(result, castPath_default(path, object), value);
+    }
+  }
+  return result;
+}
+function pickBy = function pickBy(object, predicate) {
+  if (object == null) {
+    return {};
+  }
+  var props = arrayMap_default(getAllKeysIn_default(object), function(prop) {
+    return [prop];
+  });
+  predicate = baseIteratee_default(predicate);
+  return basePickBy_default(object, props, function(value, path) {
+    return predicate(value, path[0]);
+  });
+}
+function baseReduce = function baseReduce(collection, iteratee, accumulator, initAccum, eachFunc) {
+  eachFunc(collection, function(value, index, collection2) {
+    accumulator = initAccum ? (initAccum = false, value) : iteratee(accumulator, value, index, collection2);
+  });
+  return accumulator;
+}
+function reduce = function reduce(collection, iteratee, accumulator) {
+  var func = isArray_default(collection) ? arrayReduce_default : baseReduce_default, initAccum = arguments.length < 3;
+  return func(collection, baseIteratee_default(iteratee, 4), accumulator, initAccum, baseEach_default);
+}
+function reject = function reject(collection, predicate) {
+  var func = isArray_default(collection) ? arrayFilter_default : baseFilter_default;
+  return func(collection, negate_default(baseIteratee_default(predicate, 3)));
+}
+function baseSome = function baseSome(collection, predicate) {
+  var result;
+  baseEach_default(collection, function(value, index, collection2) {
+    result = predicate(value, index, collection2);
+    return !result;
+  });
+  return !!result;
+}
+function some = function some(collection, predicate, guard) {
+  var func = isArray_default(collection) ? arraySome_default : baseSome_default;
+  if (guard && isIterateeCall_default(collection, predicate, guard)) {
+    predicate = void 0;
+  }
+  return func(collection, baseIteratee_default(predicate, 3));
+}
+function baseUniq = function baseUniq(array, iteratee, comparator) {
+  var index = -1, includes2 = arrayIncludes_default, length = array.length, isCommon = true, result = [], seen = result;
+  if (comparator) {
+    isCommon = false;
+    includes2 = arrayIncludesWith_default;
+  } else if (length >= LARGE_ARRAY_SIZE3) {
+    var set = iteratee ? null : createSet_default(array);
+    if (set) {
+      return setToArray_default(set);
+    }
+    isCommon = false;
+    includes2 = cacheHas_default;
+    seen = new SetCache_default();
+  } else {
+    seen = iteratee ? [] : result;
+  }
+  outer:
+    while (++index < length) {
+      var value = array[index], computed = iteratee ? iteratee(value) : value;
+      value = comparator || value !== 0 ? value : 0;
+      if (isCommon && computed === computed) {
+        var seenIndex = seen.length;
+        while (seenIndex--) {
+          if (seen[seenIndex] === computed) {
+            continue outer;
+          }
+        }
+        if (iteratee) {
+          seen.push(computed);
+   ...
+function uniq = function uniq(array) {
+  return array && array.length ? baseUniq_default(array) : [];
+}
+function PRINT_ERROR = function PRINT_ERROR(msg) {
+  if (console && console.error) {
+    console.error(`Error: ${msg}`);
+  }
+}
+function PRINT_WARNING = function PRINT_WARNING(msg) {
+  if (console && console.warn) {
+    console.warn(`Warning: ${msg}`);
+  }
+}
+function timer = function timer(func) {
+  const start = (/* @__PURE__ */ new Date()).getTime();
+  const val = func();
+  const end = (/* @__PURE__ */ new Date()).getTime();
+  const total = end - start;
+  return { time: total, value: val };
+}
+function toFastProperties = function toFastProperties(toBecomeFast) {
+  function FakeConstructor() {
+  }
+  FakeConstructor.prototype = toBecomeFast;
+  const fakeInstance = new FakeConstructor();
+  function fakeAccess() {
+    return typeof fakeInstance.bar;
+  }
+  fakeAccess();
+  fakeAccess();
+  if (1)
+    return toBecomeFast;
+  (0, eval)(toBecomeFast);
+}
+function tokenLabel = function tokenLabel(tokType) {
+  if (hasTokenLabel(tokType)) {
+    return tokType.LABEL;
+  } else {
+    return tokType.name;
+  }
+}
+function hasTokenLabel = function hasTokenLabel(obj) {
+  return isString_default(obj.LABEL) && obj.LABEL !== "";
+}
+function serializeGrammar = function serializeGrammar(topRules) {
+  return map_default(topRules, serializeProduction);
+}
+function serializeProduction = function serializeProduction(node) {
+  function convertDefinition(definition) {
+    return map_default(definition, serializeProduction);
+  }
+  if (node instanceof NonTerminal) {
+    const serializedNonTerminal = {
+      type: "NonTerminal",
+      name: node.nonTerminalName,
+      idx: node.idx
+    };
+    if (isString_default(node.label)) {
+      serializedNonTerminal.label = node.label;
+    }
+    return serializedNonTerminal;
+  } else if (node instanceof Alternative) {
+    return {
+      type: "Alternative",
+      definition: convertDefinition(node.definition)
+    };
+  } else if (node instanceof Option) {
+    return {
+      type: "Option",
+      idx: node.idx,
+      definition: convertDefinition(node.definition)
+    };
+  } else if (node instanceof RepetitionMandatory) {
+    return {
+      type: "RepetitionMandatory",
+      idx: node.idx,
+      definition: convertDefinition(node.definition)
+    };
+  } else if (node instanceof RepetitionMandatoryWithSeparator) {
+    return {
+      typ...
+function isSequenceProd = function isSequenceProd(prod) {
+  return prod instanceof Alternative || prod instanceof Option || prod instanceof Repetition || prod instanceof RepetitionMandatory || prod instanceof RepetitionMandatoryWithSeparator || prod instanceof RepetitionWithSeparator || prod instanceof Terminal || prod instanceof Rule;
+}
+function isOptionalProd = function isOptionalProd(prod, alreadyVisited = []) {
+  const isDirectlyOptional = prod instanceof Option || prod instanceof Repetition || prod instanceof RepetitionWithSeparator;
+  if (isDirectlyOptional) {
+    return true;
+  }
+  if (prod instanceof Alternation) {
+    return some_default(prod.definition, (subProd) => {
+      return isOptionalProd(subProd, alreadyVisited);
+    });
+  } else if (prod instanceof NonTerminal && includes_default(alreadyVisited, prod)) {
+    return false;
+  } else if (prod instanceof AbstractProduction) {
+    if (prod instanceof NonTerminal) {
+      alreadyVisited.push(prod);
+    }
+    return every_default(prod.definition, (subProd) => {
+      return isOptionalProd(subProd, alreadyVisited);
+    });
+  } else {
+    return false;
+  }
+}
+function isBranchingProd = function isBranchingProd(prod) {
+  return prod instanceof Alternation;
+}
+function getProductionDslName = function getProductionDslName(prod) {
+  if (prod instanceof NonTerminal) {
+    return "SUBRULE";
+  } else if (prod instanceof Option) {
+    return "OPTION";
+  } else if (prod instanceof Alternation) {
+    return "OR";
+  } else if (prod instanceof RepetitionMandatory) {
+    return "AT_LEAST_ONE";
+  } else if (prod instanceof RepetitionMandatoryWithSeparator) {
+    return "AT_LEAST_ONE_SEP";
+  } else if (prod instanceof RepetitionWithSeparator) {
+    return "MANY_SEP";
+  } else if (prod instanceof Repetition) {
+    return "MANY";
+  } else if (prod instanceof Terminal) {
+    return "CONSUME";
+  } else {
+    throw Error("non exhaustive match");
+  }
+}
+function restForRepetitionWithSeparator = function restForRepetitionWithSeparator(repSepProd, currRest, prevRest) {
+  const repSepRest = [
+    new Option({
+      definition: [
+        new Terminal({ terminalType: repSepProd.separator })
+      ].concat(repSepProd.definition)
+    })
+  ];
+  const fullRepSepRest = repSepRest.concat(currRest, prevRest);
+  return fullRepSepRest;
+}
+function first = function first(prod) {
+  if (prod instanceof NonTerminal) {
+    return first(prod.referencedRule);
+  } else if (prod instanceof Terminal) {
+    return firstForTerminal(prod);
+  } else if (isSequenceProd(prod)) {
+    return firstForSequence(prod);
+  } else if (isBranchingProd(prod)) {
+    return firstForBranching(prod);
+  } else {
+    throw Error("non exhaustive match");
+  }
+}
+function firstForSequence = function firstForSequence(prod) {
+  let firstSet = [];
+  const seq = prod.definition;
+  let nextSubProdIdx = 0;
+  let hasInnerProdsRemaining = seq.length > nextSubProdIdx;
+  let currSubProd;
+  let isLastInnerProdOptional = true;
+  while (hasInnerProdsRemaining && isLastInnerProdOptional) {
+    currSubProd = seq[nextSubProdIdx];
+    isLastInnerProdOptional = isOptionalProd(currSubProd);
+    firstSet = firstSet.concat(first(currSubProd));
+    nextSubProdIdx = nextSubProdIdx + 1;
+    hasInnerProdsRemaining = seq.length > nextSubProdIdx;
+  }
+  return uniq_default(firstSet);
+}
+function firstForBranching = function firstForBranching(prod) {
+  const allAlternativesFirsts = map_default(prod.definition, (innerProd) => {
+    return first(innerProd);
+  });
+  return uniq_default(flatten_default(allAlternativesFirsts));
+}
+function firstForTerminal = function firstForTerminal(terminal) {
+  return [terminal.terminalType];
+}
+function computeAllProdsFollows = function computeAllProdsFollows(topProductions) {
+  const reSyncFollows = {};
+  forEach_default(topProductions, (topProd) => {
+    const currRefsFollow = new ResyncFollowsWalker(topProd).startWalking();
+    assign_default(reSyncFollows, currRefsFollow);
+  });
+  return reSyncFollows;
+}
+function buildBetweenProdsFollowPrefix = function buildBetweenProdsFollowPrefix(inner, occurenceInParent) {
+  return inner.name + occurenceInParent + IN;
+}
+function cc = function cc(char) {
+  return char.charCodeAt(0);
+}
+function insertToSet = function insertToSet(item, set) {
+  if (Array.isArray(item)) {
+    item.forEach(function(subItem) {
+      set.push(subItem);
+    });
+  } else {
+    set.push(item);
+  }
+}
+function addFlag = function addFlag(flagObj, flagKey) {
+  if (flagObj[flagKey] === true) {
+    throw "duplicate flag " + flagKey;
+  }
+  const x = flagObj[flagKey];
+  flagObj[flagKey] = true;
+}
+function ASSERT_EXISTS = function ASSERT_EXISTS(obj) {
+  if (obj === void 0) {
+    throw Error("Internal Error - Should never get here!");
+  }
+  return true;
+}
+function ASSERT_NEVER_REACH_HERE = function ASSERT_NEVER_REACH_HERE() {
+  throw Error("Internal Error - Should never get here!");
+}
+function isCharacter = function isCharacter(obj) {
+  return obj["type"] === "Character";
+}
+function getRegExpAst = function getRegExpAst(regExp) {
+  const regExpStr = regExp.toString();
+  if (regExpAstCache.hasOwnProperty(regExpStr)) {
+    return regExpAstCache[regExpStr];
+  } else {
+    const regExpAst = regExpParser.pattern(regExpStr);
+    regExpAstCache[regExpStr] = regExpAst;
+    return regExpAst;
+  }
+}
+function clearRegExpParserCache = function clearRegExpParserCache() {
+  regExpAstCache = {};
+}
+function getOptimizedStartCodesIndices = function getOptimizedStartCodesIndices(regExp, ensureOptimizations = false) {
+  try {
+    const ast = getRegExpAst(regExp);
+    const firstChars = firstCharOptimizedIndices(ast.value, {}, ast.flags.ignoreCase);
+    return firstChars;
+  } catch (e) {
+    if (e.message === complementErrorMessage) {
+      if (ensureOptimizations) {
+        PRINT_WARNING(`${failedOptimizationPrefixMsg}	Unable to optimize: < ${regExp.toString()} >
+	Complement Sets cannot be automatically optimized.
+	This will disable the lexer's first char optimizations.
+	See: https://chevrotain.io/docs/guide/resolving_lexer_errors.html#COMPLEMENT for details.`);
+      }
+    } else {
+      let msgSuffix = "";
+      if (ensureOptimizations) {
+        msgSuffix = "\n	This will disable the lexer's first char optimizations.\n	See: https://chevrotain.io/docs/guide/resolving_lexer_errors.html#REGEXP_PARSING for details.";
+      }
+      PRINT_ERROR(`${failedOptimizationPrefixMsg}
+	Failed parsing: < ${regExp.toString()} >
+	Using...
+function firstCharOptimizedIndices = function firstCharOptimizedIndices(ast, result, ignoreCase) {
+  switch (ast.type) {
+    case "Disjunction":
+      for (let i = 0; i < ast.value.length; i++) {
+        firstCharOptimizedIndices(ast.value[i], result, ignoreCase);
+      }
+      break;
+    case "Alternative":
+      const terms = ast.value;
+      for (let i = 0; i < terms.length; i++) {
+        const term = terms[i];
+        switch (term.type) {
+          case "EndAnchor":
+          case "GroupBackReference":
+          case "Lookahead":
+          case "NegativeLookahead":
+          case "StartAnchor":
+          case "WordBoundary":
+          case "NonWordBoundary":
+            continue;
+        }
+        const atom = term;
+        switch (atom.type) {
+          case "Character":
+            addOptimizedIdxToResult(atom.value, result, ignoreCase);
+            break;
+          case "Set":
+            if (atom.complement === true) {
+              throw Error(complementErrorMessage);
+            }
+            forEach_default...
+function addOptimizedIdxToResult = function addOptimizedIdxToResult(code, result, ignoreCase) {
+  const optimizedCharIdx = charCodeToOptimizedIndex(code);
+  result[optimizedCharIdx] = optimizedCharIdx;
+  if (ignoreCase === true) {
+    handleIgnoreCase(code, result);
+  }
+}
+function handleIgnoreCase = function handleIgnoreCase(code, result) {
+  const char = String.fromCharCode(code);
+  const upperChar = char.toUpperCase();
+  if (upperChar !== char) {
+    const optimizedCharIdx = charCodeToOptimizedIndex(upperChar.charCodeAt(0));
+    result[optimizedCharIdx] = optimizedCharIdx;
+  } else {
+    const lowerChar = char.toLowerCase();
+    if (lowerChar !== char) {
+      const optimizedCharIdx = charCodeToOptimizedIndex(lowerChar.charCodeAt(0));
+      result[optimizedCharIdx] = optimizedCharIdx;
+    }
+  }
+}
+function findCode = function findCode(setNode, targetCharCodes) {
+  return find_default(setNode.value, (codeOrRange) => {
+    if (typeof codeOrRange === "number") {
+      return includes_default(targetCharCodes, codeOrRange);
+    } else {
+      const range = codeOrRange;
+      return find_default(targetCharCodes, (targetCode) => range.from <= targetCode && targetCode <= range.to) !== void 0;
+    }
+  });
+}
+function isWholeOptional = function isWholeOptional(ast) {
+  const quantifier = ast.quantifier;
+  if (quantifier && quantifier.atLeast === 0) {
+    return true;
+  }
+  if (!ast.value) {
+    return false;
+  }
+  return isArray_default(ast.value) ? every_default(ast.value, isWholeOptional) : isWholeOptional(ast.value);
+}
+function canMatchCharCode = function canMatchCharCode(charCodes, pattern) {
+  if (pattern instanceof RegExp) {
+    const ast = getRegExpAst(pattern);
+    const charCodeFinder = new CharCodeFinder(charCodes);
+    charCodeFinder.visit(ast);
+    return charCodeFinder.found;
+  } else {
+    return find_default(pattern, (char) => {
+      return includes_default(charCodes, char.charCodeAt(0));
+    }) !== void 0;
+  }
+}
+function analyzeTokenTypes = function analyzeTokenTypes(tokenTypes, options) {
+  options = defaults_default(options, {
+    useSticky: SUPPORT_STICKY,
+    debug: false,
+    safeMode: false,
+    positionTracking: "full",
+    lineTerminatorCharacters: ["\r", "\n"],
+    tracer: (msg, action) => action()
+  });
+  const tracer = options.tracer;
+  tracer("initCharCodeToOptimizedIndexMap", () => {
+    initCharCodeToOptimizedIndexMap();
+  });
+  let onlyRelevantTypes;
+  tracer("Reject Lexer.NA", () => {
+    onlyRelevantTypes = reject_default(tokenTypes, (currType) => {
+      return currType[PATTERN] === Lexer.NA;
+    });
+  });
+  let hasCustom = false;
+  let allTransformedPatterns;
+  tracer("Transform Patterns", () => {
+    hasCustom = false;
+    allTransformedPatterns = map_default(onlyRelevantTypes, (currType) => {
+      const currPattern = currType[PATTERN];
+      if (isRegExp_default(currPattern)) {
+        const regExpSource = currPattern.source;
+        if (regExpSource.length === 1 && // only these regExp meta chara...
+function validatePatterns = function validatePatterns(tokenTypes, validModesNames) {
+  let errors = [];
+  const missingResult = findMissingPatterns(tokenTypes);
+  errors = errors.concat(missingResult.errors);
+  const invalidResult = findInvalidPatterns(missingResult.valid);
+  const validTokenTypes = invalidResult.valid;
+  errors = errors.concat(invalidResult.errors);
+  errors = errors.concat(validateRegExpPattern(validTokenTypes));
+  errors = errors.concat(findInvalidGroupType(validTokenTypes));
+  errors = errors.concat(findModesThatDoNotExist(validTokenTypes, validModesNames));
+  errors = errors.concat(findUnreachablePatterns(validTokenTypes));
+  return errors;
+}
+function validateRegExpPattern = function validateRegExpPattern(tokenTypes) {
+  let errors = [];
+  const withRegExpPatterns = filter_default(tokenTypes, (currTokType) => isRegExp_default(currTokType[PATTERN]));
+  errors = errors.concat(findEndOfInputAnchor(withRegExpPatterns));
+  errors = errors.concat(findStartOfInputAnchor(withRegExpPatterns));
+  errors = errors.concat(findUnsupportedFlags(withRegExpPatterns));
+  errors = errors.concat(findDuplicatePatterns(withRegExpPatterns));
+  errors = errors.concat(findEmptyMatchRegExps(withRegExpPatterns));
+  return errors;
+}
+function findMissingPatterns = function findMissingPatterns(tokenTypes) {
+  const tokenTypesWithMissingPattern = filter_default(tokenTypes, (currType) => {
+    return !has_default(currType, PATTERN);
+  });
+  const errors = map_default(tokenTypesWithMissingPattern, (currType) => {
+    return {
+      message: "Token Type: ->" + currType.name + "<- missing static 'PATTERN' property",
+      type: LexerDefinitionErrorType.MISSING_PATTERN,
+      tokenTypes: [currType]
+    };
+  });
+  const valid = difference_default(tokenTypes, tokenTypesWithMissingPattern);
+  return { errors, valid };
+}
+function findInvalidPatterns = function findInvalidPatterns(tokenTypes) {
+  const tokenTypesWithInvalidPattern = filter_default(tokenTypes, (currType) => {
+    const pattern = currType[PATTERN];
+    return !isRegExp_default(pattern) && !isFunction_default(pattern) && !has_default(pattern, "exec") && !isString_default(pattern);
+  });
+  const errors = map_default(tokenTypesWithInvalidPattern, (currType) => {
+    return {
+      message: "Token Type: ->" + currType.name + "<- static 'PATTERN' can only be a RegExp, a Function matching the {CustomPatternMatcherFunc} type or an Object matching the {ICustomPattern} interface.",
+      type: LexerDefinitionErrorType.INVALID_PATTERN,
+      tokenTypes: [currType]
+    };
+  });
+  const valid = difference_default(tokenTypes, tokenTypesWithInvalidPattern);
+  return { errors, valid };
+}
+function findEndOfInputAnchor = function findEndOfInputAnchor(tokenTypes) {
+  class EndAnchorFinder extends BaseRegExpVisitor {
+    constructor() {
+      super(...arguments);
+      this.found = false;
+    }
+    visitEndAnchor(node) {
+      this.found = true;
+    }
+  }
+  const invalidRegex = filter_default(tokenTypes, (currType) => {
+    const pattern = currType.PATTERN;
+    try {
+      const regexpAst = getRegExpAst(pattern);
+      const endAnchorVisitor = new EndAnchorFinder();
+      endAnchorVisitor.visit(regexpAst);
+      return endAnchorVisitor.found;
+    } catch (e) {
+      return end_of_input.test(pattern.source);
+    }
+  });
+  const errors = map_default(invalidRegex, (currType) => {
+    return {
+      message: "Unexpected RegExp Anchor Error:\n	Token Type: ->" + currType.name + "<- static 'PATTERN' cannot contain end of input anchor '$'\n	See chevrotain.io/docs/guide/resolving_lexer_errors.html#ANCHORS	for details.",
+      type: LexerDefinitionErrorType.EOI_ANCHOR_FOUND,
+      tokenTypes: [currType]
+    };
+...
+function findEmptyMatchRegExps = function findEmptyMatchRegExps(tokenTypes) {
+  const matchesEmptyString = filter_default(tokenTypes, (currType) => {
+    const pattern = currType.PATTERN;
+    return pattern.test("");
+  });
+  const errors = map_default(matchesEmptyString, (currType) => {
+    return {
+      message: "Token Type: ->" + currType.name + "<- static 'PATTERN' must not match an empty string",
+      type: LexerDefinitionErrorType.EMPTY_MATCH_PATTERN,
+      tokenTypes: [currType]
+    };
+  });
+  return errors;
+}
+function findStartOfInputAnchor = function findStartOfInputAnchor(tokenTypes) {
+  class StartAnchorFinder extends BaseRegExpVisitor {
+    constructor() {
+      super(...arguments);
+      this.found = false;
+    }
+    visitStartAnchor(node) {
+      this.found = true;
+    }
+  }
+  const invalidRegex = filter_default(tokenTypes, (currType) => {
+    const pattern = currType.PATTERN;
+    try {
+      const regexpAst = getRegExpAst(pattern);
+      const startAnchorVisitor = new StartAnchorFinder();
+      startAnchorVisitor.visit(regexpAst);
+      return startAnchorVisitor.found;
+    } catch (e) {
+      return start_of_input.test(pattern.source);
+    }
+  });
+  const errors = map_default(invalidRegex, (currType) => {
+    return {
+      message: "Unexpected RegExp Anchor Error:\n	Token Type: ->" + currType.name + "<- static 'PATTERN' cannot contain start of input anchor '^'\n	See https://chevrotain.io/docs/guide/resolving_lexer_errors.html#ANCHORS	for details.",
+      type: LexerDefinitionErrorType.SOI_ANCHOR_FOUND,
+      toke...
+function findUnsupportedFlags = function findUnsupportedFlags(tokenTypes) {
+  const invalidFlags = filter_default(tokenTypes, (currType) => {
+    const pattern = currType[PATTERN];
+    return pattern instanceof RegExp && (pattern.multiline || pattern.global);
+  });
+  const errors = map_default(invalidFlags, (currType) => {
+    return {
+      message: "Token Type: ->" + currType.name + "<- static 'PATTERN' may NOT contain global('g') or multiline('m')",
+      type: LexerDefinitionErrorType.UNSUPPORTED_FLAGS_FOUND,
+      tokenTypes: [currType]
+    };
+  });
+  return errors;
+}
+function findDuplicatePatterns = function findDuplicatePatterns(tokenTypes) {
+  const found = [];
+  let identicalPatterns = map_default(tokenTypes, (outerType) => {
+    return reduce_default(tokenTypes, (result, innerType) => {
+      if (outerType.PATTERN.source === innerType.PATTERN.source && !includes_default(found, innerType) && innerType.PATTERN !== Lexer.NA) {
+        found.push(innerType);
+        result.push(innerType);
+        return result;
+      }
+      return result;
+    }, []);
+  });
+  identicalPatterns = compact_default(identicalPatterns);
+  const duplicatePatterns = filter_default(identicalPatterns, (currIdenticalSet) => {
+    return currIdenticalSet.length > 1;
+  });
+  const errors = map_default(duplicatePatterns, (setOfIdentical) => {
+    const tokenTypeNames = map_default(setOfIdentical, (currType) => {
+      return currType.name;
+    });
+    const dupPatternSrc = head_default(setOfIdentical).PATTERN;
+    return {
+      message: `The same RegExp pattern ->${dupPatternSrc}<-has been used in all of t...
+function findInvalidGroupType = function findInvalidGroupType(tokenTypes) {
+  const invalidTypes = filter_default(tokenTypes, (clazz) => {
+    if (!has_default(clazz, "GROUP")) {
+      return false;
+    }
+    const group = clazz.GROUP;
+    return group !== Lexer.SKIPPED && group !== Lexer.NA && !isString_default(group);
+  });
+  const errors = map_default(invalidTypes, (currType) => {
+    return {
+      message: "Token Type: ->" + currType.name + "<- static 'GROUP' can only be Lexer.SKIPPED/Lexer.NA/A String",
+      type: LexerDefinitionErrorType.INVALID_GROUP_TYPE_FOUND,
+      tokenTypes: [currType]
+    };
+  });
+  return errors;
+}
+function findModesThatDoNotExist = function findModesThatDoNotExist(tokenTypes, validModes) {
+  const invalidModes = filter_default(tokenTypes, (clazz) => {
+    return clazz.PUSH_MODE !== void 0 && !includes_default(validModes, clazz.PUSH_MODE);
+  });
+  const errors = map_default(invalidModes, (tokType) => {
+    const msg = `Token Type: ->${tokType.name}<- static 'PUSH_MODE' value cannot refer to a Lexer Mode ->${tokType.PUSH_MODE}<-which does not exist`;
+    return {
+      message: msg,
+      type: LexerDefinitionErrorType.PUSH_MODE_DOES_NOT_EXIST,
+      tokenTypes: [tokType]
+    };
+  });
+  return errors;
+}
+function findUnreachablePatterns = function findUnreachablePatterns(tokenTypes) {
+  const errors = [];
+  const canBeTested = reduce_default(tokenTypes, (result, tokType, idx) => {
+    const pattern = tokType.PATTERN;
+    if (pattern === Lexer.NA) {
+      return result;
+    }
+    if (isString_default(pattern)) {
+      result.push({ str: pattern, idx, tokenType: tokType });
+    } else if (isRegExp_default(pattern) && noMetaChar(pattern)) {
+      result.push({ str: pattern.source, idx, tokenType: tokType });
+    }
+    return result;
+  }, []);
+  forEach_default(tokenTypes, (tokType, testIdx) => {
+    forEach_default(canBeTested, ({ str, idx, tokenType }) => {
+      if (testIdx < idx && testTokenType(str, tokType.PATTERN)) {
+        const msg = `Token: ->${tokenType.name}<- can never be matched.
+Because it appears AFTER the Token Type ->${tokType.name}<-in the lexer's definition.
+See https://chevrotain.io/docs/guide/resolving_lexer_errors.html#UNREACHABLE`;
+        errors.push({
+          message: msg,
+          type: Lex...
+function testTokenType = function testTokenType(str, pattern) {
+  if (isRegExp_default(pattern)) {
+    const regExpArray = pattern.exec(str);
+    return regExpArray !== null && regExpArray.index === 0;
+  } else if (isFunction_default(pattern)) {
+    return pattern(str, 0, [], {});
+  } else if (has_default(pattern, "exec")) {
+    return pattern.exec(str, 0, [], {});
+  } else if (typeof pattern === "string") {
+    return pattern === str;
+  } else {
+    throw Error("non exhaustive match");
+  }
+}
+function noMetaChar = function noMetaChar(regExp) {
+  const metaChars = [
+    ".",
+    "\\",
+    "[",
+    "]",
+    "|",
+    "^",
+    "$",
+    "(",
+    ")",
+    "?",
+    "*",
+    "+",
+    "{"
+  ];
+  return find_default(metaChars, (char) => regExp.source.indexOf(char) !== -1) === void 0;
+}
+function addStartOfInput = function addStartOfInput(pattern) {
+  const flags = pattern.ignoreCase ? "i" : "";
+  return new RegExp(`^(?:${pattern.source})`, flags);
+}
+function addStickyFlag = function addStickyFlag(pattern) {
+  const flags = pattern.ignoreCase ? "iy" : "y";
+  return new RegExp(`${pattern.source}`, flags);
+}
+function performRuntimeChecks = function performRuntimeChecks(lexerDefinition, trackLines, lineTerminatorCharacters) {
+  const errors = [];
+  if (!has_default(lexerDefinition, DEFAULT_MODE)) {
+    errors.push({
+      message: "A MultiMode Lexer cannot be initialized without a <" + DEFAULT_MODE + "> property in its definition\n",
+      type: LexerDefinitionErrorType.MULTI_MODE_LEXER_WITHOUT_DEFAULT_MODE
+    });
+  }
+  if (!has_default(lexerDefinition, MODES)) {
+    errors.push({
+      message: "A MultiMode Lexer cannot be initialized without a <" + MODES + "> property in its definition\n",
+      type: LexerDefinitionErrorType.MULTI_MODE_LEXER_WITHOUT_MODES_PROPERTY
+    });
+  }
+  if (has_default(lexerDefinition, MODES) && has_default(lexerDefinition, DEFAULT_MODE) && !has_default(lexerDefinition.modes, lexerDefinition.defaultMode)) {
+    errors.push({
+      message: `A MultiMode Lexer cannot be initialized with a ${DEFAULT_MODE}: <${lexerDefinition.defaultMode}>which does not exist
+`,
+      type: LexerDefinitionError...
+function performWarningRuntimeChecks = function performWarningRuntimeChecks(lexerDefinition, trackLines, lineTerminatorCharacters) {
+  const warnings = [];
+  let hasAnyLineBreak = false;
+  const allTokenTypes = compact_default(flatten_default(values_default(lexerDefinition.modes)));
+  const concreteTokenTypes = reject_default(allTokenTypes, (currType) => currType[PATTERN] === Lexer.NA);
+  const terminatorCharCodes = getCharCodes(lineTerminatorCharacters);
+  if (trackLines) {
+    forEach_default(concreteTokenTypes, (tokType) => {
+      const currIssue = checkLineBreaksIssues(tokType, terminatorCharCodes);
+      if (currIssue !== false) {
+        const message = buildLineBreakIssueMessage(tokType, currIssue);
+        const warningDescriptor = {
+          message,
+          type: currIssue.issue,
+          tokenType: tokType
+        };
+        warnings.push(warningDescriptor);
+      } else {
+        if (has_default(tokType, "LINE_BREAKS")) {
+          if (tokType.LINE_BREAKS === true) {
+            hasAnyLineBreak = true;
+ ...
+function cloneEmptyGroups = function cloneEmptyGroups(emptyGroups) {
+  const clonedResult = {};
+  const groupKeys = keys_default(emptyGroups);
+  forEach_default(groupKeys, (currKey) => {
+    const currGroupValue = emptyGroups[currKey];
+    if (isArray_default(currGroupValue)) {
+      clonedResult[currKey] = [];
+    } else {
+      throw Error("non exhaustive match");
+    }
+  });
+  return clonedResult;
+}
+function isCustomPattern = function isCustomPattern(tokenType) {
+  const pattern = tokenType.PATTERN;
+  if (isRegExp_default(pattern)) {
+    return false;
+  } else if (isFunction_default(pattern)) {
+    return true;
+  } else if (has_default(pattern, "exec")) {
+    return true;
+  } else if (isString_default(pattern)) {
+    return false;
+  } else {
+    throw Error("non exhaustive match");
+  }
+}
+function isShortPattern = function isShortPattern(pattern) {
+  if (isString_default(pattern) && pattern.length === 1) {
+    return pattern.charCodeAt(0);
+  } else {
+    return false;
+  }
+}
+function checkLineBreaksIssues = function checkLineBreaksIssues(tokType, lineTerminatorCharCodes) {
+  if (has_default(tokType, "LINE_BREAKS")) {
+    return false;
+  } else {
+    if (isRegExp_default(tokType.PATTERN)) {
+      try {
+        canMatchCharCode(lineTerminatorCharCodes, tokType.PATTERN);
+      } catch (e) {
+        return {
+          issue: LexerDefinitionErrorType.IDENTIFY_TERMINATOR,
+          errMsg: e.message
+        };
+      }
+      return false;
+    } else if (isString_default(tokType.PATTERN)) {
+      return false;
+    } else if (isCustomPattern(tokType)) {
+      return { issue: LexerDefinitionErrorType.CUSTOM_LINE_BREAK };
+    } else {
+      throw Error("non exhaustive match");
+    }
+  }
+}
+function buildLineBreakIssueMessage = function buildLineBreakIssueMessage(tokType, details) {
+  if (details.issue === LexerDefinitionErrorType.IDENTIFY_TERMINATOR) {
+    return `Warning: unable to identify line terminator usage in pattern.
+	The problem is in the <${tokType.name}> Token Type
+	 Root cause: ${details.errMsg}.
+	For details See: https://chevrotain.io/docs/guide/resolving_lexer_errors.html#IDENTIFY_TERMINATOR`;
+  } else if (details.issue === LexerDefinitionErrorType.CUSTOM_LINE_BREAK) {
+    return `Warning: A Custom Token Pattern should specify the <line_breaks> option.
+	The problem is in the <${tokType.name}> Token Type
+	For details See: https://chevrotain.io/docs/guide/resolving_lexer_errors.html#CUSTOM_LINE_BREAK`;
+  } else {
+    throw Error("non exhaustive match");
+  }
+}
+function getCharCodes = function getCharCodes(charsOrCodes) {
+  const charCodes = map_default(charsOrCodes, (numOrString) => {
+    if (isString_default(numOrString)) {
+      return numOrString.charCodeAt(0);
+    } else {
+      return numOrString;
+    }
+  });
+  return charCodes;
+}
+function addToMapOfArrays = function addToMapOfArrays(map2, key, value) {
+  if (map2[key] === void 0) {
+    map2[key] = [value];
+  } else {
+    map2[key].push(value);
+  }
+}
+function charCodeToOptimizedIndex = function charCodeToOptimizedIndex(charCode) {
+  return charCode < minOptimizationVal ? charCode : charCodeToOptimizedIdxMap[charCode];
+}
+function initCharCodeToOptimizedIndexMap = function initCharCodeToOptimizedIndexMap() {
+  if (isEmpty_default(charCodeToOptimizedIdxMap)) {
+    charCodeToOptimizedIdxMap = new Array(65536);
+    for (let i = 0; i < 65536; i++) {
+      charCodeToOptimizedIdxMap[i] = i > 255 ? 255 + ~~(i / 255) : i;
+    }
+  }
+}
+function tokenStructuredMatcher = function tokenStructuredMatcher(tokInstance, tokConstructor) {
+  const instanceType = tokInstance.tokenTypeIdx;
+  if (instanceType === tokConstructor.tokenTypeIdx) {
+    return true;
+  } else {
+    return tokConstructor.isParent === true && tokConstructor.categoryMatchesMap[instanceType] === true;
+  }
+}
+function tokenStructuredMatcherNoCategories = function tokenStructuredMatcherNoCategories(token, tokType) {
+  return token.tokenTypeIdx === tokType.tokenTypeIdx;
+}
+function augmentTokenTypes = function augmentTokenTypes(tokenTypes) {
+  const tokenTypesAndParents = expandCategories(tokenTypes);
+  assignTokenDefaultProps(tokenTypesAndParents);
+  assignCategoriesMapProp(tokenTypesAndParents);
+  assignCategoriesTokensProp(tokenTypesAndParents);
+  forEach_default(tokenTypesAndParents, (tokType) => {
+    tokType.isParent = tokType.categoryMatches.length > 0;
+  });
+}
+function expandCategories = function expandCategories(tokenTypes) {
+  let result = clone_default(tokenTypes);
+  let categories = tokenTypes;
+  let searching = true;
+  while (searching) {
+    categories = compact_default(flatten_default(map_default(categories, (currTokType) => currTokType.CATEGORIES)));
+    const newCategories = difference_default(categories, result);
+    result = result.concat(newCategories);
+    if (isEmpty_default(newCategories)) {
+      searching = false;
+    } else {
+      categories = newCategories;
+    }
+  }
+  return result;
+}
+function assignTokenDefaultProps = function assignTokenDefaultProps(tokenTypes) {
+  forEach_default(tokenTypes, (currTokType) => {
+    if (!hasShortKeyProperty(currTokType)) {
+      tokenIdxToClass[tokenShortNameIdx] = currTokType;
+      currTokType.tokenTypeIdx = tokenShortNameIdx++;
+    }
+    if (hasCategoriesProperty(currTokType) && !isArray_default(currTokType.CATEGORIES)) {
+      currTokType.CATEGORIES = [currTokType.CATEGORIES];
+    }
+    if (!hasCategoriesProperty(currTokType)) {
+      currTokType.CATEGORIES = [];
+    }
+    if (!hasExtendingTokensTypesProperty(currTokType)) {
+      currTokType.categoryMatches = [];
+    }
+    if (!hasExtendingTokensTypesMapProperty(currTokType)) {
+      currTokType.categoryMatchesMap = {};
+    }
+  });
+}
+function assignCategoriesTokensProp = function assignCategoriesTokensProp(tokenTypes) {
+  forEach_default(tokenTypes, (currTokType) => {
+    currTokType.categoryMatches = [];
+    forEach_default(currTokType.categoryMatchesMap, (val, key) => {
+      currTokType.categoryMatches.push(tokenIdxToClass[key].tokenTypeIdx);
+    });
+  });
+}
+function assignCategoriesMapProp = function assignCategoriesMapProp(tokenTypes) {
+  forEach_default(tokenTypes, (currTokType) => {
+    singleAssignCategoriesToksMap([], currTokType);
+  });
+}
+function singleAssignCategoriesToksMap = function singleAssignCategoriesToksMap(path, nextNode) {
+  forEach_default(path, (pathNode) => {
+    nextNode.categoryMatchesMap[pathNode.tokenTypeIdx] = true;
+  });
+  forEach_default(nextNode.CATEGORIES, (nextCategory) => {
+    const newPath = path.concat(nextNode);
+    if (!includes_default(newPath, nextCategory)) {
+      singleAssignCategoriesToksMap(newPath, nextCategory);
+    }
+  });
+}
+function hasShortKeyProperty = function hasShortKeyProperty(tokType) {
+  return has_default(tokType, "tokenTypeIdx");
+}
+function hasCategoriesProperty = function hasCategoriesProperty(tokType) {
+  return has_default(tokType, "CATEGORIES");
+}
+function hasExtendingTokensTypesProperty = function hasExtendingTokensTypesProperty(tokType) {
+  return has_default(tokType, "categoryMatches");
+}
+function hasExtendingTokensTypesMapProperty = function hasExtendingTokensTypesMapProperty(tokType) {
+  return has_default(tokType, "categoryMatchesMap");
+}
+function isTokenType = function isTokenType(tokType) {
+  return has_default(tokType, "tokenTypeIdx");
+}
+function tokenLabel2 = function tokenLabel2(tokType) {
+  if (hasTokenLabel2(tokType)) {
+    return tokType.LABEL;
+  } else {
+    return tokType.name;
+  }
+}
+function tokenName = function tokenName(tokType) {
+  return tokType.name;
+}
+function hasTokenLabel2 = function hasTokenLabel2(obj) {
+  return isString_default(obj.LABEL) && obj.LABEL !== "";
+}
+function createToken = function createToken(config) {
+  return createTokenInternal(config);
+}
+function createTokenInternal = function createTokenInternal(config) {
+  const pattern = config.pattern;
+  const tokenType = {};
+  tokenType.name = config.name;
+  if (!isUndefined_default(pattern)) {
+    tokenType.PATTERN = pattern;
+  }
+  if (has_default(config, PARENT)) {
+    throw "The parent property is no longer supported.\nSee: https://github.com/chevrotain/chevrotain/issues/564#issuecomment-349062346 for details.";
+  }
+  if (has_default(config, CATEGORIES)) {
+    tokenType.CATEGORIES = config[CATEGORIES];
+  }
+  augmentTokenTypes([tokenType]);
+  if (has_default(config, LABEL)) {
+    tokenType.LABEL = config[LABEL];
+  }
+  if (has_default(config, GROUP)) {
+    tokenType.GROUP = config[GROUP];
+  }
+  if (has_default(config, POP_MODE)) {
+    tokenType.POP_MODE = config[POP_MODE];
+  }
+  if (has_default(config, PUSH_MODE)) {
+    tokenType.PUSH_MODE = config[PUSH_MODE];
+  }
+  if (has_default(config, LONGER_ALT)) {
+    tokenType.LONGER_ALT = config[LONGER_ALT];
+  }
+  if (has_default(config, LINE_BREAKS)) {
+    tokenTy...
+function createTokenInstance = function createTokenInstance(tokType, image, startOffset, endOffset, startLine, endLine, startColumn, endColumn) {
+  return {
+    image,
+    startOffset,
+    endOffset,
+    startLine,
+    endLine,
+    startColumn,
+    endColumn,
+    tokenTypeIdx: tokType.tokenTypeIdx,
+    tokenType: tokType
+  };
+}
+function tokenMatcher = function tokenMatcher(token, tokType) {
+  return tokenStructuredMatcher(token, tokType);
+}
+function resolveGrammar = function resolveGrammar(topLevels, errMsgProvider) {
+  const refResolver = new GastRefResolverVisitor(topLevels, errMsgProvider);
+  refResolver.resolveRefs();
+  return refResolver.errors;
+}
+function possiblePathsFrom = function possiblePathsFrom(targetDef, maxLength, currPath = []) {
+  currPath = clone_default(currPath);
+  let result = [];
+  let i = 0;
+  function remainingPathWith(nextDef) {
+    return nextDef.concat(drop_default(targetDef, i + 1));
+  }
+  function getAlternativesForProd(definition) {
+    const alternatives = possiblePathsFrom(remainingPathWith(definition), maxLength, currPath);
+    return result.concat(alternatives);
+  }
+  while (currPath.length < maxLength && i < targetDef.length) {
+    const prod = targetDef[i];
+    if (prod instanceof Alternative) {
+      return getAlternativesForProd(prod.definition);
+    } else if (prod instanceof NonTerminal) {
+      return getAlternativesForProd(prod.definition);
+    } else if (prod instanceof Option) {
+      result = getAlternativesForProd(prod.definition);
+    } else if (prod instanceof RepetitionMandatory) {
+      const newDef = prod.definition.concat([
+        new Repetition({
+          definition: prod.definition
+        })
+      ]);
+ ...
+function nextPossibleTokensAfter = function nextPossibleTokensAfter(initialDef, tokenVector, tokMatcher, maxLookAhead) {
+  const EXIT_NON_TERMINAL = "EXIT_NONE_TERMINAL";
+  const EXIT_NON_TERMINAL_ARR = [EXIT_NON_TERMINAL];
+  const EXIT_ALTERNATIVE = "EXIT_ALTERNATIVE";
+  let foundCompletePath = false;
+  const tokenVectorLength = tokenVector.length;
+  const minimalAlternativesIndex = tokenVectorLength - maxLookAhead - 1;
+  const result = [];
+  const possiblePaths = [];
+  possiblePaths.push({
+    idx: -1,
+    def: initialDef,
+    ruleStack: [],
+    occurrenceStack: []
+  });
+  while (!isEmpty_default(possiblePaths)) {
+    const currPath = possiblePaths.pop();
+    if (currPath === EXIT_ALTERNATIVE) {
+      if (foundCompletePath && last_default(possiblePaths).idx <= minimalAlternativesIndex) {
+        possiblePaths.pop();
+      }
+      continue;
+    }
+    const currDef = currPath.def;
+    const currIdx = currPath.idx;
+    const currRuleStack = currPath.ruleStack;
+    const currOccurrenceStack = currPath.occurrenceStack;
+...
+function expandTopLevelRule = function expandTopLevelRule(topRule, currIdx, currRuleStack, currOccurrenceStack) {
+  const newRuleStack = clone_default(currRuleStack);
+  newRuleStack.push(topRule.name);
+  const newCurrOccurrenceStack = clone_default(currOccurrenceStack);
+  newCurrOccurrenceStack.push(1);
+  return {
+    idx: currIdx,
+    def: topRule.definition,
+    ruleStack: newRuleStack,
+    occurrenceStack: newCurrOccurrenceStack
+  };
+}
+function getProdType = function getProdType(prod) {
+  if (prod instanceof Option || prod === "Option") {
+    return PROD_TYPE.OPTION;
+  } else if (prod instanceof Repetition || prod === "Repetition") {
+    return PROD_TYPE.REPETITION;
+  } else if (prod instanceof RepetitionMandatory || prod === "RepetitionMandatory") {
+    return PROD_TYPE.REPETITION_MANDATORY;
+  } else if (prod instanceof RepetitionMandatoryWithSeparator || prod === "RepetitionMandatoryWithSeparator") {
+    return PROD_TYPE.REPETITION_MANDATORY_WITH_SEPARATOR;
+  } else if (prod instanceof RepetitionWithSeparator || prod === "RepetitionWithSeparator") {
+    return PROD_TYPE.REPETITION_WITH_SEPARATOR;
+  } else if (prod instanceof Alternation || prod === "Alternation") {
+    return PROD_TYPE.ALTERNATION;
+  } else {
+    throw Error("non exhaustive match");
+  }
+}
+function getLookaheadPaths = function getLookaheadPaths(options) {
+  const { occurrence, rule, prodType, maxLookahead } = options;
+  const type = getProdType(prodType);
+  if (type === PROD_TYPE.ALTERNATION) {
+    return getLookaheadPathsForOr(occurrence, rule, maxLookahead);
+  } else {
+    return getLookaheadPathsForOptionalProd(occurrence, rule, type, maxLookahead);
+  }
+}
+function buildLookaheadFuncForOr = function buildLookaheadFuncForOr(occurrence, ruleGrammar, maxLookahead, hasPredicates, dynamicTokensEnabled, laFuncBuilder) {
+  const lookAheadPaths = getLookaheadPathsForOr(occurrence, ruleGrammar, maxLookahead);
+  const tokenMatcher2 = areTokenCategoriesNotUsed(lookAheadPaths) ? tokenStructuredMatcherNoCategories : tokenStructuredMatcher;
+  return laFuncBuilder(lookAheadPaths, hasPredicates, tokenMatcher2, dynamicTokensEnabled);
+}
+function buildLookaheadFuncForOptionalProd = function buildLookaheadFuncForOptionalProd(occurrence, ruleGrammar, k, dynamicTokensEnabled, prodType, lookaheadBuilder) {
+  const lookAheadPaths = getLookaheadPathsForOptionalProd(occurrence, ruleGrammar, prodType, k);
+  const tokenMatcher2 = areTokenCategoriesNotUsed(lookAheadPaths) ? tokenStructuredMatcherNoCategories : tokenStructuredMatcher;
+  return lookaheadBuilder(lookAheadPaths[0], tokenMatcher2, dynamicTokensEnabled);
+}
+function buildAlternativesLookAheadFunc = function buildAlternativesLookAheadFunc(alts, hasPredicates, tokenMatcher2, dynamicTokensEnabled) {
+  const numOfAlts = alts.length;
+  const areAllOneTokenLookahead = every_default(alts, (currAlt) => {
+    return every_default(currAlt, (currPath) => {
+      return currPath.length === 1;
+    });
+  });
+  if (hasPredicates) {
+    return function(orAlts) {
+      const predicates = map_default(orAlts, (currAlt) => currAlt.GATE);
+      for (let t = 0; t < numOfAlts; t++) {
+        const currAlt = alts[t];
+        const currNumOfPaths = currAlt.length;
+        const currPredicate = predicates[t];
+        if (currPredicate !== void 0 && currPredicate.call(this) === false) {
+          continue;
+        }
+        nextPath:
+          for (let j = 0; j < currNumOfPaths; j++) {
+            const currPath = currAlt[j];
+            const currPathLength = currPath.length;
+            for (let i = 0; i < currPathLength; i++) {
+              const nextToken = this.LA(i + 1);
+              if (tokenMa...
+function buildSingleAlternativeLookaheadFunction = function buildSingleAlternativeLookaheadFunction(alt, tokenMatcher2, dynamicTokensEnabled) {
+  const areAllOneTokenLookahead = every_default(alt, (currPath) => {
+    return currPath.length === 1;
+  });
+  const numOfPaths = alt.length;
+  if (areAllOneTokenLookahead && !dynamicTokensEnabled) {
+    const singleTokensTypes = flatten_default(alt);
+    if (singleTokensTypes.length === 1 && isEmpty_default(singleTokensTypes[0].categoryMatches)) {
+      const expectedTokenType = singleTokensTypes[0];
+      const expectedTokenUniqueKey = expectedTokenType.tokenTypeIdx;
+      return function() {
+        return this.LA(1).tokenTypeIdx === expectedTokenUniqueKey;
+      };
+    } else {
+      const choiceToAlt = reduce_default(singleTokensTypes, (result, currTokType, idx) => {
+        result[currTokType.tokenTypeIdx] = true;
+        forEach_default(currTokType.categoryMatches, (currExtendingType) => {
+          result[currExtendingType] = true;
+        });
+        return result;
+      }, []);
+   ...
+function initializeArrayOfArrays = function initializeArrayOfArrays(size) {
+  const result = new Array(size);
+  for (let i = 0; i < size; i++) {
+    result[i] = [];
+  }
+  return result;
+}
+function pathToHashKeys = function pathToHashKeys(path) {
+  let keys2 = [""];
+  for (let i = 0; i < path.length; i++) {
+    const tokType = path[i];
+    const longerKeys = [];
+    for (let j = 0; j < keys2.length; j++) {
+      const currShorterKey = keys2[j];
+      longerKeys.push(currShorterKey + "_" + tokType.tokenTypeIdx);
+      for (let t = 0; t < tokType.categoryMatches.length; t++) {
+        const categoriesKeySuffix = "_" + tokType.categoryMatches[t];
+        longerKeys.push(currShorterKey + categoriesKeySuffix);
+      }
+    }
+    keys2 = longerKeys;
+  }
+  return keys2;
+}
+function isUniquePrefixHash = function isUniquePrefixHash(altKnownPathsKeys, searchPathKeys, idx) {
+  for (let currAltIdx = 0; currAltIdx < altKnownPathsKeys.length; currAltIdx++) {
+    if (currAltIdx === idx) {
+      continue;
+    }
+    const otherAltKnownPathsKeys = altKnownPathsKeys[currAltIdx];
+    for (let searchIdx = 0; searchIdx < searchPathKeys.length; searchIdx++) {
+      const searchKey = searchPathKeys[searchIdx];
+      if (otherAltKnownPathsKeys[searchKey] === true) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+function lookAheadSequenceFromAlternatives = function lookAheadSequenceFromAlternatives(altsDefs, k) {
+  const partialAlts = map_default(altsDefs, (currAlt) => possiblePathsFrom([currAlt], 1));
+  const finalResult = initializeArrayOfArrays(partialAlts.length);
+  const altsHashes = map_default(partialAlts, (currAltPaths) => {
+    const dict = {};
+    forEach_default(currAltPaths, (item) => {
+      const keys2 = pathToHashKeys(item.partialPath);
+      forEach_default(keys2, (currKey) => {
+        dict[currKey] = true;
+      });
+    });
+    return dict;
+  });
+  let newData = partialAlts;
+  for (let pathLength = 1; pathLength <= k; pathLength++) {
+    const currDataset = newData;
+    newData = initializeArrayOfArrays(currDataset.length);
+    for (let altIdx = 0; altIdx < currDataset.length; altIdx++) {
+      const currAltPathsAndSuffixes = currDataset[altIdx];
+      for (let currPathIdx = 0; currPathIdx < currAltPathsAndSuffixes.length; currPathIdx++) {
+        const currPathPrefix = currAltPathsAndSuffixes[currPathIdx].partialPat...
+function getLookaheadPathsForOr = function getLookaheadPathsForOr(occurrence, ruleGrammar, k, orProd) {
+  const visitor = new InsideDefinitionFinderVisitor(occurrence, PROD_TYPE.ALTERNATION, orProd);
+  ruleGrammar.accept(visitor);
+  return lookAheadSequenceFromAlternatives(visitor.result, k);
+}
+function getLookaheadPathsForOptionalProd = function getLookaheadPathsForOptionalProd(occurrence, ruleGrammar, prodType, k) {
+  const insideDefVisitor = new InsideDefinitionFinderVisitor(occurrence, prodType);
+  ruleGrammar.accept(insideDefVisitor);
+  const insideDef = insideDefVisitor.result;
+  const afterDefWalker = new RestDefinitionFinderWalker(ruleGrammar, occurrence, prodType);
+  const afterDef = afterDefWalker.startWalking();
+  const insideFlat = new Alternative({ definition: insideDef });
+  const afterFlat = new Alternative({ definition: afterDef });
+  return lookAheadSequenceFromAlternatives([insideFlat, afterFlat], k);
+}
+function containsPath = function containsPath(alternative, searchPath) {
+  compareOtherPath:
+    for (let i = 0; i < alternative.length; i++) {
+      const otherPath = alternative[i];
+      if (otherPath.length !== searchPath.length) {
+        continue;
+      }
+      for (let j = 0; j < otherPath.length; j++) {
+        const searchTok = searchPath[j];
+        const otherTok = otherPath[j];
+        const matchingTokens = searchTok === otherTok || otherTok.categoryMatchesMap[searchTok.tokenTypeIdx] !== void 0;
+        if (matchingTokens === false) {
+          continue compareOtherPath;
+        }
+      }
+      return true;
+    }
+  return false;
+}
+function isStrictPrefixOfPath = function isStrictPrefixOfPath(prefix, other) {
+  return prefix.length < other.length && every_default(prefix, (tokType, idx) => {
+    const otherTokType = other[idx];
+    return tokType === otherTokType || otherTokType.categoryMatchesMap[tokType.tokenTypeIdx];
+  });
+}
+function areTokenCategoriesNotUsed = function areTokenCategoriesNotUsed(lookAheadPaths) {
+  return every_default(lookAheadPaths, (singleAltPaths) => every_default(singleAltPaths, (singlePath) => every_default(singlePath, (token) => isEmpty_default(token.categoryMatches))));
+}
+function validateLookahead = function validateLookahead(options) {
+  const lookaheadValidationErrorMessages = options.lookaheadStrategy.validate({
+    rules: options.rules,
+    tokenTypes: options.tokenTypes,
+    grammarName: options.grammarName
+  });
+  return map_default(lookaheadValidationErrorMessages, (errorMessage) => Object.assign({ type: ParserDefinitionErrorType.CUSTOM_LOOKAHEAD_VALIDATION }, errorMessage));
+}
+function validateGrammar = function validateGrammar(topLevels, tokenTypes, errMsgProvider, grammarName) {
+  const duplicateErrors = flatMap_default(topLevels, (currTopLevel) => validateDuplicateProductions(currTopLevel, errMsgProvider));
+  const termsNamespaceConflictErrors = checkTerminalAndNoneTerminalsNameSpace(topLevels, tokenTypes, errMsgProvider);
+  const tooManyAltsErrors = flatMap_default(topLevels, (curRule) => validateTooManyAlts(curRule, errMsgProvider));
+  const duplicateRulesError = flatMap_default(topLevels, (curRule) => validateRuleDoesNotAlreadyExist(curRule, topLevels, grammarName, errMsgProvider));
+  return duplicateErrors.concat(termsNamespaceConflictErrors, tooManyAltsErrors, duplicateRulesError);
+}
+function validateDuplicateProductions = function validateDuplicateProductions(topLevelRule, errMsgProvider) {
+  const collectorVisitor2 = new OccurrenceValidationCollector();
+  topLevelRule.accept(collectorVisitor2);
+  const allRuleProductions = collectorVisitor2.allProductions;
+  const productionGroups = groupBy_default(allRuleProductions, identifyProductionForDuplicates);
+  const duplicates = pickBy_default(productionGroups, (currGroup) => {
+    return currGroup.length > 1;
+  });
+  const errors = map_default(values_default(duplicates), (currDuplicates) => {
+    const firstProd = head_default(currDuplicates);
+    const msg = errMsgProvider.buildDuplicateFoundError(topLevelRule, currDuplicates);
+    const dslName = getProductionDslName(firstProd);
+    const defError = {
+      message: msg,
+      type: ParserDefinitionErrorType.DUPLICATE_PRODUCTIONS,
+      ruleName: topLevelRule.name,
+      dslName,
+      occurrence: firstProd.idx
+    };
+    const param = getExtraProductionArgument(firstProd);
+    if (param) {
+      defErr...
+function identifyProductionForDuplicates = function identifyProductionForDuplicates(prod) {
+  return `${getProductionDslName(prod)}_#_${prod.idx}_#_${getExtraProductionArgument(prod)}`;
+}
+function getExtraProductionArgument = function getExtraProductionArgument(prod) {
+  if (prod instanceof Terminal) {
+    return prod.terminalType.name;
+  } else if (prod instanceof NonTerminal) {
+    return prod.nonTerminalName;
+  } else {
+    return "";
+  }
+}
+function validateRuleDoesNotAlreadyExist = function validateRuleDoesNotAlreadyExist(rule, allRules, className, errMsgProvider) {
+  const errors = [];
+  const occurrences = reduce_default(allRules, (result, curRule) => {
+    if (curRule.name === rule.name) {
+      return result + 1;
+    }
+    return result;
+  }, 0);
+  if (occurrences > 1) {
+    const errMsg = errMsgProvider.buildDuplicateRuleNameError({
+      topLevelRule: rule,
+      grammarName: className
+    });
+    errors.push({
+      message: errMsg,
+      type: ParserDefinitionErrorType.DUPLICATE_RULE_NAME,
+      ruleName: rule.name
+    });
+  }
+  return errors;
+}
+function validateRuleIsOverridden = function validateRuleIsOverridden(ruleName, definedRulesNames, className) {
+  const errors = [];
+  let errMsg;
+  if (!includes_default(definedRulesNames, ruleName)) {
+    errMsg = `Invalid rule override, rule: ->${ruleName}<- cannot be overridden in the grammar: ->${className}<-as it is not defined in any of the super grammars `;
+    errors.push({
+      message: errMsg,
+      type: ParserDefinitionErrorType.INVALID_RULE_OVERRIDE,
+      ruleName
+    });
+  }
+  return errors;
+}
+function validateNoLeftRecursion = function validateNoLeftRecursion(topRule, currRule, errMsgProvider, path = []) {
+  const errors = [];
+  const nextNonTerminals = getFirstNoneTerminal(currRule.definition);
+  if (isEmpty_default(nextNonTerminals)) {
+    return [];
+  } else {
+    const ruleName = topRule.name;
+    const foundLeftRecursion = includes_default(nextNonTerminals, topRule);
+    if (foundLeftRecursion) {
+      errors.push({
+        message: errMsgProvider.buildLeftRecursionError({
+          topLevelRule: topRule,
+          leftRecursionPath: path
+        }),
+        type: ParserDefinitionErrorType.LEFT_RECURSION,
+        ruleName
+      });
+    }
+    const validNextSteps = difference_default(nextNonTerminals, path.concat([topRule]));
+    const errorsFromNextSteps = flatMap_default(validNextSteps, (currRefRule) => {
+      const newPath = clone_default(path);
+      newPath.push(currRefRule);
+      return validateNoLeftRecursion(topRule, currRefRule, errMsgProvider, newPath);
+    });
+    return errors.concat(err...
+function getFirstNoneTerminal = function getFirstNoneTerminal(definition) {
+  let result = [];
+  if (isEmpty_default(definition)) {
+    return result;
+  }
+  const firstProd = head_default(definition);
+  if (firstProd instanceof NonTerminal) {
+    result.push(firstProd.referencedRule);
+  } else if (firstProd instanceof Alternative || firstProd instanceof Option || firstProd instanceof RepetitionMandatory || firstProd instanceof RepetitionMandatoryWithSeparator || firstProd instanceof RepetitionWithSeparator || firstProd instanceof Repetition) {
+    result = result.concat(getFirstNoneTerminal(firstProd.definition));
+  } else if (firstProd instanceof Alternation) {
+    result = flatten_default(map_default(firstProd.definition, (currSubDef) => getFirstNoneTerminal(currSubDef.definition)));
+  } else if (firstProd instanceof Terminal) {
+  } else {
+    throw Error("non exhaustive match");
+  }
+  const isFirstOptional = isOptionalProd(firstProd);
+  const hasMore = definition.length > 1;
+  if (isFirstOptional && hasMore) {
+...
+function validateEmptyOrAlternative = function validateEmptyOrAlternative(topLevelRule, errMsgProvider) {
+  const orCollector = new OrCollector();
+  topLevelRule.accept(orCollector);
+  const ors = orCollector.alternations;
+  const errors = flatMap_default(ors, (currOr) => {
+    const exceptLast = dropRight_default(currOr.definition);
+    return flatMap_default(exceptLast, (currAlternative, currAltIdx) => {
+      const possibleFirstInAlt = nextPossibleTokensAfter([currAlternative], [], tokenStructuredMatcher, 1);
+      if (isEmpty_default(possibleFirstInAlt)) {
+        return [
+          {
+            message: errMsgProvider.buildEmptyAlternationError({
+              topLevelRule,
+              alternation: currOr,
+              emptyChoiceIdx: currAltIdx
+            }),
+            type: ParserDefinitionErrorType.NONE_LAST_EMPTY_ALT,
+            ruleName: topLevelRule.name,
+            occurrence: currOr.idx,
+            alternative: currAltIdx + 1
+          }
+        ];
+      } else {
+        return [];
+      }
+    });...
+function validateAmbiguousAlternationAlternatives = function validateAmbiguousAlternationAlternatives(topLevelRule, globalMaxLookahead, errMsgProvider) {
+  const orCollector = new OrCollector();
+  topLevelRule.accept(orCollector);
+  let ors = orCollector.alternations;
+  ors = reject_default(ors, (currOr) => currOr.ignoreAmbiguities === true);
+  const errors = flatMap_default(ors, (currOr) => {
+    const currOccurrence = currOr.idx;
+    const actualMaxLookahead = currOr.maxLookahead || globalMaxLookahead;
+    const alternatives = getLookaheadPathsForOr(currOccurrence, topLevelRule, actualMaxLookahead, currOr);
+    const altsAmbiguityErrors = checkAlternativesAmbiguities(alternatives, currOr, topLevelRule, errMsgProvider);
+    const altsPrefixAmbiguityErrors = checkPrefixAlternativesAmbiguities(alternatives, currOr, topLevelRule, errMsgProvider);
+    return altsAmbiguityErrors.concat(altsPrefixAmbiguityErrors);
+  });
+  return errors;
+}
+function validateTooManyAlts = function validateTooManyAlts(topLevelRule, errMsgProvider) {
+  const orCollector = new OrCollector();
+  topLevelRule.accept(orCollector);
+  const ors = orCollector.alternations;
+  const errors = flatMap_default(ors, (currOr) => {
+    if (currOr.definition.length > 255) {
+      return [
+        {
+          message: errMsgProvider.buildTooManyAlternativesError({
+            topLevelRule,
+            alternation: currOr
+          }),
+          type: ParserDefinitionErrorType.TOO_MANY_ALTS,
+          ruleName: topLevelRule.name,
+          occurrence: currOr.idx
+        }
+      ];
+    } else {
+      return [];
+    }
+  });
+  return errors;
+}
+function validateSomeNonEmptyLookaheadPath = function validateSomeNonEmptyLookaheadPath(topLevelRules, maxLookahead, errMsgProvider) {
+  const errors = [];
+  forEach_default(topLevelRules, (currTopRule) => {
+    const collectorVisitor2 = new RepetitionCollector();
+    currTopRule.accept(collectorVisitor2);
+    const allRuleProductions = collectorVisitor2.allProductions;
+    forEach_default(allRuleProductions, (currProd) => {
+      const prodType = getProdType(currProd);
+      const actualMaxLookahead = currProd.maxLookahead || maxLookahead;
+      const currOccurrence = currProd.idx;
+      const paths = getLookaheadPathsForOptionalProd(currOccurrence, currTopRule, prodType, actualMaxLookahead);
+      const pathsInsideProduction = paths[0];
+      if (isEmpty_default(flatten_default(pathsInsideProduction))) {
+        const errMsg = errMsgProvider.buildEmptyRepetitionError({
+          topLevelRule: currTopRule,
+          repetition: currProd
+        });
+        errors.push({
+          message: errMsg,
+          type: ParserDefinit...
+function checkAlternativesAmbiguities = function checkAlternativesAmbiguities(alternatives, alternation, rule, errMsgProvider) {
+  const foundAmbiguousPaths = [];
+  const identicalAmbiguities = reduce_default(alternatives, (result, currAlt, currAltIdx) => {
+    if (alternation.definition[currAltIdx].ignoreAmbiguities === true) {
+      return result;
+    }
+    forEach_default(currAlt, (currPath) => {
+      const altsCurrPathAppearsIn = [currAltIdx];
+      forEach_default(alternatives, (currOtherAlt, currOtherAltIdx) => {
+        if (currAltIdx !== currOtherAltIdx && containsPath(currOtherAlt, currPath) && // ignore (skip) ambiguities with this "other" alternative
+        alternation.definition[currOtherAltIdx].ignoreAmbiguities !== true) {
+          altsCurrPathAppearsIn.push(currOtherAltIdx);
+        }
+      });
+      if (altsCurrPathAppearsIn.length > 1 && !containsPath(foundAmbiguousPaths, currPath)) {
+        foundAmbiguousPaths.push(currPath);
+        result.push({
+          alts: altsCurrPathAppearsIn,
+          path...
+function checkPrefixAlternativesAmbiguities = function checkPrefixAlternativesAmbiguities(alternatives, alternation, rule, errMsgProvider) {
+  const pathsAndIndices = reduce_default(alternatives, (result, currAlt, idx) => {
+    const currPathsAndIdx = map_default(currAlt, (currPath) => {
+      return { idx, path: currPath };
+    });
+    return result.concat(currPathsAndIdx);
+  }, []);
+  const errors = compact_default(flatMap_default(pathsAndIndices, (currPathAndIdx) => {
+    const alternativeGast = alternation.definition[currPathAndIdx.idx];
+    if (alternativeGast.ignoreAmbiguities === true) {
+      return [];
+    }
+    const targetIdx = currPathAndIdx.idx;
+    const targetPath = currPathAndIdx.path;
+    const prefixAmbiguitiesPathsAndIndices = filter_default(pathsAndIndices, (searchPathAndIdx) => {
+      return (
+        // ignore (skip) ambiguities with this "other" alternative
+        alternation.definition[searchPathAndIdx.idx].ignoreAmbiguities !== true && searchPathAndIdx.idx < targetIdx && // checking for strict prefix ...
+function checkTerminalAndNoneTerminalsNameSpace = function checkTerminalAndNoneTerminalsNameSpace(topLevels, tokenTypes, errMsgProvider) {
+  const errors = [];
+  const tokenNames = map_default(tokenTypes, (currToken) => currToken.name);
+  forEach_default(topLevels, (currRule) => {
+    const currRuleName = currRule.name;
+    if (includes_default(tokenNames, currRuleName)) {
+      const errMsg = errMsgProvider.buildNamespaceConflictError(currRule);
+      errors.push({
+        message: errMsg,
+        type: ParserDefinitionErrorType.CONFLICT_TOKENS_RULES_NAMESPACE,
+        ruleName: currRuleName
+      });
+    }
+  });
+  return errors;
+}
+function resolveGrammar2 = function resolveGrammar2(options) {
+  const actualOptions = defaults_default(options, {
+    errMsgProvider: defaultGrammarResolverErrorProvider
+  });
+  const topRulesTable = {};
+  forEach_default(options.rules, (rule) => {
+    topRulesTable[rule.name] = rule;
+  });
+  return resolveGrammar(topRulesTable, actualOptions.errMsgProvider);
+}
+function validateGrammar2 = function validateGrammar2(options) {
+  options = defaults_default(options, {
+    errMsgProvider: defaultGrammarValidatorErrorProvider
+  });
+  return validateGrammar(options.rules, options.tokenTypes, options.errMsgProvider, options.grammarName);
+}
+function isRecognitionException = function isRecognitionException(error) {
+  return includes_default(RECOGNITION_EXCEPTION_NAMES, error.name);
+}
+function attemptInRepetitionRecovery = function attemptInRepetitionRecovery(prodFunc, args, lookaheadFunc, dslMethodIdx, prodOccurrence, nextToksWalker, notStuck) {
+  const key = this.getKeyForAutomaticLookahead(dslMethodIdx, prodOccurrence);
+  let firstAfterRepInfo = this.firstAfterRepMap[key];
+  if (firstAfterRepInfo === void 0) {
+    const currRuleName = this.getCurrRuleFullName();
+    const ruleGrammar = this.getGAstProductions()[currRuleName];
+    const walker = new nextToksWalker(ruleGrammar, prodOccurrence);
+    firstAfterRepInfo = walker.startWalking();
+    this.firstAfterRepMap[key] = firstAfterRepInfo;
+  }
+  let expectTokAfterLastMatch = firstAfterRepInfo.token;
+  let nextTokIdx = firstAfterRepInfo.occurrence;
+  const isEndOfRule = firstAfterRepInfo.isEndOfRule;
+  if (this.RULE_STACK.length === 1 && isEndOfRule && expectTokAfterLastMatch === void 0) {
+    expectTokAfterLastMatch = EOF;
+    nextTokIdx = 1;
+  }
+  if (expectTokAfterLastMatch === void 0 || nextTokIdx === void 0) {
+    return;
+  }
+  if (this.shouldI...
+function getKeyForAutomaticLookahead = function getKeyForAutomaticLookahead(ruleIdx, dslMethodIdx, occurrence) {
+  return occurrence | dslMethodIdx | ruleIdx;
+}
+function collectMethods = function collectMethods(rule) {
+  collectorVisitor.reset();
+  rule.accept(collectorVisitor);
+  const dslMethods = collectorVisitor.dslMethods;
+  collectorVisitor.reset();
+  return dslMethods;
+}
+function setNodeLocationOnlyOffset = function setNodeLocationOnlyOffset(currNodeLocation, newLocationInfo) {
+  if (isNaN(currNodeLocation.startOffset) === true) {
+    currNodeLocation.startOffset = newLocationInfo.startOffset;
+    currNodeLocation.endOffset = newLocationInfo.endOffset;
+  } else if (currNodeLocation.endOffset < newLocationInfo.endOffset === true) {
+    currNodeLocation.endOffset = newLocationInfo.endOffset;
+  }
+}
+function setNodeLocationFull = function setNodeLocationFull(currNodeLocation, newLocationInfo) {
+  if (isNaN(currNodeLocation.startOffset) === true) {
+    currNodeLocation.startOffset = newLocationInfo.startOffset;
+    currNodeLocation.startColumn = newLocationInfo.startColumn;
+    currNodeLocation.startLine = newLocationInfo.startLine;
+    currNodeLocation.endOffset = newLocationInfo.endOffset;
+    currNodeLocation.endColumn = newLocationInfo.endColumn;
+    currNodeLocation.endLine = newLocationInfo.endLine;
+  } else if (currNodeLocation.endOffset < newLocationInfo.endOffset === true) {
+    currNodeLocation.endOffset = newLocationInfo.endOffset;
+    currNodeLocation.endColumn = newLocationInfo.endColumn;
+    currNodeLocation.endLine = newLocationInfo.endLine;
+  }
+}
+function addTerminalToCst = function addTerminalToCst(node, token, tokenTypeName) {
+  if (node.children[tokenTypeName] === void 0) {
+    node.children[tokenTypeName] = [token];
+  } else {
+    node.children[tokenTypeName].push(token);
+  }
+}
+function addNoneTerminalToCst = function addNoneTerminalToCst(node, ruleName, ruleResult) {
+  if (node.children[ruleName] === void 0) {
+    node.children[ruleName] = [ruleResult];
+  } else {
+    node.children[ruleName].push(ruleResult);
+  }
+}
+function defineNameProp = function defineNameProp(obj, nameValue) {
+  Object.defineProperty(obj, NAME, {
+    enumerable: false,
+    configurable: true,
+    writable: false,
+    value: nameValue
+  });
+}
+function defaultVisit = function defaultVisit(ctx, param) {
+  const childrenNames = keys_default(ctx);
+  const childrenNamesLength = childrenNames.length;
+  for (let i = 0; i < childrenNamesLength; i++) {
+    const currChildName = childrenNames[i];
+    const currChildArray = ctx[currChildName];
+    const currChildArrayLength = currChildArray.length;
+    for (let j = 0; j < currChildArrayLength; j++) {
+      const currChild = currChildArray[j];
+      if (currChild.tokenTypeIdx === void 0) {
+        this[currChild.name](currChild.children, param);
+      }
+    }
+  }
+}
+function createBaseSemanticVisitorConstructor = function createBaseSemanticVisitorConstructor(grammarName, ruleNames) {
+  const derivedConstructor = function() {
+  };
+  defineNameProp(derivedConstructor, grammarName + "BaseSemantics");
+  const semanticProto = {
+    visit: function(cstNode, param) {
+      if (isArray_default(cstNode)) {
+        cstNode = cstNode[0];
+      }
+      if (isUndefined_default(cstNode)) {
+        return void 0;
+      }
+      return this[cstNode.name](cstNode.children, param);
+    },
+    validateVisitor: function() {
+      const semanticDefinitionErrors = validateVisitor(this, ruleNames);
+      if (!isEmpty_default(semanticDefinitionErrors)) {
+        const errorMessages = map_default(semanticDefinitionErrors, (currDefError) => currDefError.msg);
+        throw Error(`Errors Detected in CST Visitor <${this.constructor.name}>:
+	${errorMessages.join("\n\n").replace(/\n/g, "\n	")}`);
+      }
+    }
+  };
+  derivedConstructor.prototype = semanticProto;
+  derivedConstructor.prototype.constructor = derivedConstruc...
+function createBaseVisitorConstructorWithDefaults = function createBaseVisitorConstructorWithDefaults(grammarName, ruleNames, baseConstructor) {
+  const derivedConstructor = function() {
+  };
+  defineNameProp(derivedConstructor, grammarName + "BaseSemanticsWithDefaults");
+  const withDefaultsProto = Object.create(baseConstructor.prototype);
+  forEach_default(ruleNames, (ruleName) => {
+    withDefaultsProto[ruleName] = defaultVisit;
+  });
+  derivedConstructor.prototype = withDefaultsProto;
+  derivedConstructor.prototype.constructor = derivedConstructor;
+  return derivedConstructor;
+}
+function validateVisitor = function validateVisitor(visitorInstance, ruleNames) {
+  const missingErrors = validateMissingCstMethods(visitorInstance, ruleNames);
+  return missingErrors;
+}
+function validateMissingCstMethods = function validateMissingCstMethods(visitorInstance, ruleNames) {
+  const missingRuleNames = filter_default(ruleNames, (currRuleName) => {
+    return isFunction_default(visitorInstance[currRuleName]) === false;
+  });
+  const errors = map_default(missingRuleNames, (currRuleName) => {
+    return {
+      msg: `Missing visitor method: <${currRuleName}> on ${visitorInstance.constructor.name} CST Visitor.`,
+      type: CstVisitorDefinitionError.MISSING_METHOD,
+      methodName: currRuleName
+    };
+  });
+  return compact_default(errors);
+}
+function recordProd = function recordProd(prodConstructor, mainProdArg, occurrence, handleSep = false) {
+  assertMethodIdxIsValid(occurrence);
+  const prevProd = last_default(this.recordingProdStack);
+  const grammarAction = isFunction_default(mainProdArg) ? mainProdArg : mainProdArg.DEF;
+  const newProd = new prodConstructor({ definition: [], idx: occurrence });
+  if (handleSep) {
+    newProd.separator = mainProdArg.SEP;
+  }
+  if (has_default(mainProdArg, "MAX_LOOKAHEAD")) {
+    newProd.maxLookahead = mainProdArg.MAX_LOOKAHEAD;
+  }
+  this.recordingProdStack.push(newProd);
+  grammarAction.call(this);
+  prevProd.definition.push(newProd);
+  this.recordingProdStack.pop();
+  return RECORDING_NULL_OBJECT;
+}
+function recordOrProd = function recordOrProd(mainProdArg, occurrence) {
+  assertMethodIdxIsValid(occurrence);
+  const prevProd = last_default(this.recordingProdStack);
+  const hasOptions = isArray_default(mainProdArg) === false;
+  const alts = hasOptions === false ? mainProdArg : mainProdArg.DEF;
+  const newOrProd = new Alternation({
+    definition: [],
+    idx: occurrence,
+    ignoreAmbiguities: hasOptions && mainProdArg.IGNORE_AMBIGUITIES === true
+  });
+  if (has_default(mainProdArg, "MAX_LOOKAHEAD")) {
+    newOrProd.maxLookahead = mainProdArg.MAX_LOOKAHEAD;
+  }
+  const hasPredicates = some_default(alts, (currAlt) => isFunction_default(currAlt.GATE));
+  newOrProd.hasPredicates = hasPredicates;
+  prevProd.definition.push(newOrProd);
+  forEach_default(alts, (currAlt) => {
+    const currAltFlat = new Alternative({ definition: [] });
+    newOrProd.definition.push(currAltFlat);
+    if (has_default(currAlt, "IGNORE_AMBIGUITIES")) {
+      currAltFlat.ignoreAmbiguities = currAlt.IGNORE_AMBIGUITIES;
+    } else i...
+function getIdxSuffix = function getIdxSuffix(idx) {
+  return idx === 0 ? "" : `${idx}`;
+}
+function assertMethodIdxIsValid = function assertMethodIdxIsValid(idx) {
+  if (idx < 0 || idx > MAX_METHOD_IDX) {
+    const error = new Error(
+      // The stack trace will contain all the needed details
+      `Invalid DSL Method idx value: <${idx}>
+	Idx value must be a none negative value smaller than ${MAX_METHOD_IDX + 1}`
+    );
+    error.KNOWN_RECORDER_ERROR = true;
+    throw error;
+  }
+}
+function applyMixins = function applyMixins(derivedCtor, baseCtors) {
+  baseCtors.forEach((baseCtor) => {
+    const baseProto = baseCtor.prototype;
+    Object.getOwnPropertyNames(baseProto).forEach((propName) => {
+      if (propName === "constructor") {
+        return;
+      }
+      const basePropDescriptor = Object.getOwnPropertyDescriptor(baseProto, propName);
+      if (basePropDescriptor && (basePropDescriptor.get || basePropDescriptor.set)) {
+        Object.defineProperty(derivedCtor.prototype, propName, basePropDescriptor);
+      } else {
+        derivedCtor.prototype[propName] = baseCtor.prototype[propName];
+      }
+    });
+  });
+}
+function EMPTY_ALT = function EMPTY_ALT(value = void 0) {
+  return function() {
+    return value;
+  };
+}
+function buildModel = function buildModel(productions) {
+  const generator = new CstNodeDefinitionGenerator();
+  const allRules = values_default(productions);
+  return map_default(allRules, (rule) => generator.visitRule(rule));
+}
+function getType = function getType(production) {
+  if (production instanceof NonTerminal) {
+    return {
+      kind: "rule",
+      name: production.referencedRule.name
+    };
+  }
+  return { kind: "token" };
+}
+function genDts = function genDts(model, options) {
+  let contentParts = [];
+  contentParts = contentParts.concat(`import type { CstNode, ICstVisitor, IToken } from "chevrotain";`);
+  contentParts = contentParts.concat(flatten_default(map_default(model, (node) => genCstNodeTypes(node))));
+  if (options.includeVisitorInterface) {
+    contentParts = contentParts.concat(genVisitor(options.visitorInterfaceName, model));
+  }
+  return contentParts.join("\n\n") + "\n";
+}
+function genCstNodeTypes = function genCstNodeTypes(node) {
+  const nodeCstInterface = genNodeInterface(node);
+  const nodeChildrenInterface = genNodeChildrenType(node);
+  return [nodeCstInterface, nodeChildrenInterface];
+}
+function genNodeInterface = function genNodeInterface(node) {
+  const nodeInterfaceName = getNodeInterfaceName(node.name);
+  const childrenTypeName = getNodeChildrenTypeName(node.name);
+  return `export interface ${nodeInterfaceName} extends CstNode {
+  name: "${node.name}";
+  children: ${childrenTypeName};
+}`;
+}
+function genNodeChildrenType = function genNodeChildrenType(node) {
+  const typeName = getNodeChildrenTypeName(node.name);
+  return `export type ${typeName} = {
+  ${map_default(node.properties, (property2) => genChildProperty(property2)).join("\n  ")}
+};`;
+}
+function genChildProperty = function genChildProperty(prop) {
+  const typeName = buildTypeString(prop.type);
+  return `${prop.name}${prop.optional ? "?" : ""}: ${typeName}[];`;
+}
+function genVisitor = function genVisitor(name, nodes) {
+  return `export interface ${name}<IN, OUT> extends ICstVisitor<IN, OUT> {
+  ${map_default(nodes, (node) => genVisitorFunction(node)).join("\n  ")}
+}`;
+}
+function genVisitorFunction = function genVisitorFunction(node) {
+  const childrenTypeName = getNodeChildrenTypeName(node.name);
+  return `${node.name}(children: ${childrenTypeName}, param?: IN): OUT;`;
+}
+function buildTypeString = function buildTypeString(type) {
+  if (isArray_default(type)) {
+    const typeNames = uniq_default(map_default(type, (t) => getTypeString(t)));
+    const typeString = reduce_default(typeNames, (sum, t) => sum + " | " + t);
+    return "(" + typeString + ")";
+  } else {
+    return getTypeString(type);
+  }
+}
+function getTypeString = function getTypeString(type) {
+  if (type.kind === "token") {
+    return "IToken";
+  }
+  return getNodeInterfaceName(type.name);
+}
+function getNodeInterfaceName = function getNodeInterfaceName(ruleName) {
+  return upperFirst_default(ruleName) + "CstNode";
+}
+function getNodeChildrenTypeName = function getNodeChildrenTypeName(ruleName) {
+  return upperFirst_default(ruleName) + "CstChildren";
+}
+function generateCstDts = function generateCstDts(productions, options) {
+  const effectiveOptions = Object.assign(Object.assign({}, defaultOptions), options);
+  const model = buildModel(productions);
+  return genDts(model, effectiveOptions);
+}
+function createSyntaxDiagramsCode = function createSyntaxDiagramsCode(grammar, { resourceBase = `https://unpkg.com/chevrotain@${VERSION}/diagrams/`, css = `https://unpkg.com/chevrotain@${VERSION}/diagrams/diagrams.css` } = {}) {
+  const header = `
+<!-- This is a generated file -->
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  body {
+    background-color: hsl(30, 20%, 95%)
+  }
+</style>
+
+`;
+  const cssHtml = `
+<link rel='stylesheet' href='${css}'>
+`;
+  const scripts = `
+<script src='${resourceBase}vendor/railroad-diagrams.js'><\/script>
+<script src='${resourceBase}src/diagrams_builder.js'><\/script>
+<script src='${resourceBase}src/diagrams_behavior.js'><\/script>
+<script src='${resourceBase}src/main.js'><\/script>
+`;
+  const diagramsDiv = `
+<div id="diagrams" align="center"></div>    
+`;
+  const serializedGrammar = `
+<script>
+    window.serializedGrammar = ${JSON.stringify(grammar, null, "  ")};
+<\/script>
+`;
+  const initLogic = `
+<script>
+    var diagramsDiv = document.getElementById("diagrams");
+    main.drawDiagra...
+function clearCache = function clearCache() {
+  console.warn("The clearCache function was 'soft' removed from the Chevrotain API.\n	 It performs no action other than printing this message.\n	 Please avoid using it as it will be completely removed in the future");
+}

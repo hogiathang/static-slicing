@@ -1,0 +1,26 @@
+const onRouteUpdate = (location, prevLocation) => {
+  if (!maybeRedirect(location.pathname)) {
+    (0, _apiRunnerBrowser.apiRunner)(`onRouteUpdate`, {
+      location,
+      prevLocation
+    });
+    if (process.env.GATSBY_QUERY_ON_DEMAND && process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`) {
+      _emitter.default.emit(`onRouteUpdate`, {
+        location,
+        prevLocation
+      });
+    }
+  }
+}
+!maybeRedirect(location.pathname)
+(0, _apiRunnerBrowser.apiRunner)(`onRouteUpdate`, {
+      location,
+      prevLocation
+    })
+_tmp_19.location = location
+_tmp_19.prevLocation = prevLocation
+process.env.GATSBY_QUERY_ON_DEMAND && process.env.GATSBY_QUERY_ON_DEMAND_LOADING_INDICATOR === `true`
+_emitter.default.emit(`onRouteUpdate`, {
+        location,
+        prevLocation
+      })

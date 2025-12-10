@@ -1,0 +1,35 @@
+function old_applyMemberDecs = function old_applyMemberDecs(e, t, a, r, o) {
+  for (var i, n, l = new Map(), s = new Map(), c = 0; c < o.length; c++) {
+    var d = o[c];
+    if (Array.isArray(d)) {
+      var u,
+        f,
+        p,
+        v = d[1],
+        h = d[2],
+        y = d.length > 3,
+        b = v >= 5;
+      if (b ? (u = t, f = r, 0 !== (v -= 5) && (p = n = n || [])) : (u = t.prototype, f = a, 0 !== v && (p = i = i || [])), 0 !== v && !y) {
+        var g = b ? s : l,
+          m = g.get(h) || 0;
+        if (!0 === m || 3 === m && 4 !== v || 4 === m && 3 !== v) throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + h);
+        !m && v > 2 ? g.set(h, v) : g.set(h, !0);
+      }
+      old_applyMemberDec(e, u, d, h, v, b, y, f, p);
+    }
+  }
+  old_pushInitializers(e, i), old_pushInitializers(e, n);
+}
+var l = new Map()
+var d = o[c]
+Array.isArray(d)
+var v = d[1]
+var h = d[2]
+var y = d.length > 3
+var b = v >= 5
+b ? u = t, f = r, 0 !== (v -= 5) && (p = n = n || []) : u = t.prototype, f = a, 0 !== v && (p = i = i || [])
+var g = b ? s : l
+var m = g.get(h) || 0
+throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + h);
+!m && v > 2 ? g.set(h, v) : g.set(h, !0)
+old_applyMemberDec(e, u, d, h, v, b, y, f, p)

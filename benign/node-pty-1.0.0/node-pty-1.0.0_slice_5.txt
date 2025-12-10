@@ -1,0 +1,82 @@
+private _boundClose: boolean = false;
+private _emittedClose: boolean = false;
+constructor(file?: string, args?: ArgvOrCommandLine, opt?: IPtyForkOptions) {
+    super(opt);
+
+    if (typeof args === 'string') {
+      throw new Error('args as a string is not supported on unix.');
+    }
+
+    // Initialize arguments
+    args = args || [];
+    file = file || DEFAULT_FILE;
+    opt = opt || {};
+    opt.env = opt.env || process.env;
+
+    this._cols = opt.cols || DEFAULT_COLS;
+    this._rows = opt.rows || DEFAULT_ROWS;
+    const uid = opt.uid ?? -1;
+    const gid = opt.gid ?? -1;
+    const env: IProcessEnv = assign({}, opt.env);
+
+    if (opt.env === process.env) {
+      this._sanitizeEnv(env);
+    }
+
+    const cwd = opt.cwd || process.cwd();
+    env.PWD = cwd;
+    const name = opt.name || env.TERM || DEFAULT_NAME;
+    env.TERM = name;
+    const parsedEnv = this._parseEnv(env);
+
+    const encoding = (opt.encoding === undefined ? 'utf8' : opt.encoding);
+
+    const onexit = (code: number, signal: number): void => {
+      // XXX Sometimes a data event is emitted after exit...
+super(opt)
+typeof args === 'string'
+throw new Error('args as a string is not supported on unix.');
+__ecma.Array.factory()
+file = file || DEFAULT_FILE
+opt = opt || {}
+opt.env = opt.env || process.env
+this._cols = opt.cols || DEFAULT_COLS
+this._rows = opt.rows || DEFAULT_ROWS
+const uid = opt.uid ?? -1
+const gid = opt.gid ?? -1
+const env: IProcessEnv = assign({}, opt.env)
+opt.env === process.env
+this._sanitizeEnv(env)
+const cwd = opt.cwd || process.cwd()
+env.PWD = cwd
+const name = opt.name || env.TERM || DEFAULT_NAME
+env.TERM = name
+const parsedEnv = this._parseEnv(env)
+const encoding = (opt.encoding === undefined ? 'utf8' : opt.encoding)
+const onexit = (code: number, signal: number): void => {
+      // XXX Sometimes a data event is emitted after exit. Wait til socket is
+      // destroyed.
+      if (!this._emittedClose) {
+        if (this._boundClose) {
+          return;
+        }
+        this._boundClose = true;
+        // From macOS High Sierra 10.13.2 sometimes the socket never gets
+        // closed. A timeout is applied here to avoid the terminal never being
+        // destroyed when this occurs.
+        let timeout: NodeJS.Timeout | null = setTimeout(() => {
+          timeout = null;
+          // Destroying the socket now will cause the close event to fire
+          this._socket.destroy();
+        }, DESTROY_SOCKET_TIMEOUT_MS);
+        this.once('close', () => {
+          if (timeout !== null) {
+            clearTimeout(timeout);
+          }
+          this.emit('exit', code, signal);
+        });
+        return;
+      }
+      this.emit('exit', code, signal);
+    }
+const term = pty.fork(file, args, parsedEnv, cwd, this._cols, this._rows, uid, gid, (encoding === 'utf8'), helperPath, onexit)

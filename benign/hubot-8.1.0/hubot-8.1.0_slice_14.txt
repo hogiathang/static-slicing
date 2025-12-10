@@ -1,0 +1,64 @@
+request (method, reqBody, callback) {
+    let req
+    if (typeof (reqBody) === 'function') {
+      callback = reqBody
+      reqBody = null
+    }
+
+    try {
+      let requestModule
+      const headers = extend({}, this.options.headers)
+      const sendingData = reqBody && (reqBody.length > 0)
+      headers.Host = this.options.hostname
+      if (this.options.port) { headers.Host += `:${this.options.port}` }
+
+      // If `callback` is `undefined` it means the caller isn't going to stream
+      // the body of the request using `callback` and we can set the
+      // content-length header ourselves.
+      //
+      // There is no way to conveniently assert in an else clause because the
+      // transfer encoding could be chunked or using a newer framing mechanism.
+      // And this is why we should'nt be creating a wrapper around http.
+      // Please just use `fetch`.
+      if (callback === undefined) {
+        headers['Content-Length'] = sendingData ? Buffer.byteLength(reqBody, this.opti...
+typeof (reqBody) === 'function'
+callback = reqBody
+reqBody = null
+const headers = extend({}, this.options.headers)
+const sendingData = reqBody && (reqBody.length > 0)
+headers.Host = this.options.hostname
+<operator>.formatString(":", this.options.port, "")
+callback === undefined
+headers['Content-Length'] = sendingData ? Buffer.byteLength(reqBody, this.options.encoding) : 0
+this.options.auth
+headers.Authorization = 'Basic ' + Buffer.from(this.options.auth, 'base64')
+const port = this.options.port ||
+        ScopedClient.defaultPort[this.options.protocol] || 80
+ScopedClient.defaultPort[this.options.protocol]
+_tmp_3 = this.options
+agent = _tmp_3.agent
+this.options
+this.options.protocol === 'https:'
+requestModule = https
+agent = this.options.httpsAgent
+requestModule = http
+agent = this.options.httpAgent
+const requestOptions = {
+        port,
+        host: this.options.hostname,
+        method,
+        path: this.fullPath(),
+        headers,
+        agent
+      }
+_tmp_4.port = port
+_tmp_4.host = this.options.hostname
+_tmp_4.method = method
+_tmp_4.path = this.fullPath()
+_tmp_4.headers = headers
+_tmp_4.agent = agent
+extend(requestOptions, this.passthroughOptions)
+req = requestModule.request(requestOptions)
+this.options.timeout
+req.setTimeout(this.options.timeout, () => req.abort())

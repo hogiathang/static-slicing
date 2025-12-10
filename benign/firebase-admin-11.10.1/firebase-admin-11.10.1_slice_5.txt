@@ -1,0 +1,15 @@
+async publishToEventarcApi(channel, events) {
+        if (events.length === 0) {
+            return;
+        }
+        const request = {
+            method: 'POST',
+            url: `${this.getEventarcHost()}/${channel}:publishEvents`,
+            data: JSON.stringify({ events }),
+        };
+        return this.sendRequest(request);
+    }
+events.length === 0
+_tmp_9.method = "POST"
+_tmp_9.url = <operator>.formatString("", this.getEventarcHost(), "/", channel, ":publishEvents")
+_tmp_9.data = JSON.stringify({ events })

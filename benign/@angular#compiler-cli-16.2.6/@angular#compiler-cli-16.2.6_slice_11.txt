@@ -1,0 +1,27 @@
+resolveLocal(ref, directive) {
+    if (ref instanceof TmplAstReference3 && this.referenceOpMap.has(ref)) {
+      return this.resolveOp(this.referenceOpMap.get(ref));
+    } else if (ref instanceof TmplAstVariable2 && this.varMap.has(ref)) {
+      return this.resolveOp(this.varMap.get(ref));
+    } else if (ref instanceof TmplAstTemplate2 && directive === void 0 && this.templateCtxOpMap.has(ref)) {
+      return this.resolveOp(this.templateCtxOpMap.get(ref));
+    } else if ((ref instanceof TmplAstElement3 || ref instanceof TmplAstTemplate2) && directive !== void 0 && this.directiveOpMap.has(ref)) {
+      const dirMap = this.directiveOpMap.get(ref);
+      if (dirMap.has(directive)) {
+        return this.resolveOp(dirMap.get(directive));
+      } else {
+        return null;
+      }
+    } else if (ref instanceof TmplAstElement3 && this.elementOpMap.has(ref)) {
+      return this.resolveOp(this.elementOpMap.get(ref));
+    } else {
+      return null;
+    }
+  }
+ref instanceof TmplAstReference3 && this.referenceOpMap.has(ref)
+ref instanceof TmplAstVariable2 && this.varMap.has(ref)
+ref instanceof TmplAstTemplate2 && directive === void 0 && this.templateCtxOpMap.has(ref)
+(ref instanceof TmplAstElement3 || ref instanceof TmplAstTemplate2) && directive !== void 0 && this.directiveOpMap.has(ref)
+const dirMap = this.directiveOpMap.get(ref)
+dirMap.has(directive)
+this.resolveOp(dirMap.get(directive))

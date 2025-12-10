@@ -1,0 +1,24 @@
+monitor.on(Server.SERVER_HEARTBEAT_SUCCEEDED, (event: ServerHeartbeatSucceededEvent) => {
+      this.emit(
+        Server.DESCRIPTION_RECEIVED,
+        new ServerDescription(this.description.hostAddress, event.reply, {
+          roundTripTime: calculateRoundTripTime(this.description.roundTripTime, event.duration)
+        })
+      );
+
+      if (this.s.state === STATE_CONNECTING) {
+        stateTransition(this, STATE_CONNECTED);
+        this.emit(Server.CONNECT, this);
+      }
+    })
+this.emit(
+        Server.DESCRIPTION_RECEIVED,
+        new ServerDescription(this.description.hostAddress, event.reply, {
+          roundTripTime: calculateRoundTripTime(this.description.roundTripTime, event.duration)
+        })
+      )
+Server.DESCRIPTION_RECEIVED
+new ServerDescription(this.description.hostAddress, event.reply, {
+          roundTripTime: calculateRoundTripTime(this.description.roundTripTime, event.duration)
+        })
+_tmp_19.roundTripTime = calculateRoundTripTime(this.description.roundTripTime, event.duration)

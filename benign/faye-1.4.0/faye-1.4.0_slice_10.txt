@@ -1,0 +1,44 @@
+_tmp_223.request = <lambda>225
+var href = this.endpoint.href
+var self = this
+global.XMLHttpRequest
+xhr = new XMLHttpRequest()
+global.ActiveXObject
+xhr = new ActiveXObject('Microsoft.XMLHTTP')
+xhr.open('POST', href, true)
+xhr.setRequestHeader('Content-Type', 'application/json')
+xhr.setRequestHeader('Pragma', 'no-cache')
+xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+var headers = this._dispatcher.headers
+_iterator_7 = <operator>.iterator(headers)
+!headers.hasOwnProperty(key)
+xhr.setRequestHeader(key, headers[key])
+var abort = function() { xhr.abort() }
+global.onbeforeunload !== undefined
+browser.Event.on(global, 'beforeunload', abort)
+xhr.onreadystatechange = function() {
+      if (!xhr || xhr.readyState !== 4) return;
+
+      var replies    = null,
+          status     = xhr.status,
+          text       = xhr.responseText,
+          successful = (status >= 200 && status < 300) || status === 304 || status === 1223;
+
+      if (global.onbeforeunload !== undefined)
+        browser.Event.detach(global, 'beforeunload', abort);
+
+      xhr.onreadystatechange = function() {};
+      xhr = null;
+
+      if (!successful) return self._handleError(messages);
+
+      try {
+        replies = JSON.parse(text);
+      } catch (error) {}
+
+      if (replies)
+        self._receive(replies);
+      else
+        self._handleError(messages);
+    }
+xhr.send(this.encode(messages))

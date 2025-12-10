@@ -1,0 +1,15 @@
+deps = deps === void 0 ? new Set() : deps
+Array.isArray(deps)
+deps = new Set(deps)
+(_tmp_10 = this._items).has
+const itemDeps = this._items.get(item) || new Set()
+let equal = true
+_iterator_2 = <operator>.iterator(deps)
+!itemDeps.has(dep)
+equal = false
+break;
+_iterator_3 = <operator>.iterator(itemDeps)
+!deps.has(dep)
+equal = false
+break;
+(_tmp_13 = this._items).delete

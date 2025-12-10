@@ -1,0 +1,28 @@
+_handleKeydown(event) {
+        // We don't handle any key bindings with a modifier key.
+        if (hasModifierKey(event)) {
+            return;
+        }
+        switch (event.keyCode) {
+            case ENTER:
+            case SPACE:
+                if (this.focusIndex !== this.selectedIndex) {
+                    const item = this._items.get(this.focusIndex);
+                    if (item && !item.disabled) {
+                        this.selectFocusedIndex.emit(this.focusIndex);
+                        this._itemSelected(event);
+                    }
+                }
+                break;
+            default:
+                this._keyManager.onKeydown(event);
+        }
+    }
+hasModifierKey(event)
+event.keyCode
+case ENTER:
+case SPACE:
+this.focusIndex !== this.selectedIndex
+const item = this._items.get(this.focusIndex)
+item && !item.disabled
+this.selectFocusedIndex.emit(this.focusIndex)

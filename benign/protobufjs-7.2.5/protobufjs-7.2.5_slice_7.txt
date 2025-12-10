@@ -1,0 +1,8 @@
+function(check) {
+    var version = basePkg && basePkg[check] && basePkg[check][pkg.name];
+    if (typeof version === "string" && version.charAt(0) !== pkg.versionScheme)
+        process.stderr.write(pkg.name + " " + warn + " " + pkg.name + "@" + version + " is configured as a dependency of " + basePkg.name + ". use " + pkg.name + "@" + pkg.versionScheme + version.substring(1) + " instead for API compatibility.\n");
+}
+var version = basePkg && basePkg[check] && basePkg[check][pkg.name]
+typeof version === "string" && version.charAt(0) !== pkg.versionScheme
+process.stderr.write(pkg.name + " " + warn + " " + pkg.name + "@" + version + " is configured as a dependency of " + basePkg.name + ". use " + pkg.name + "@" + pkg.versionScheme + version.substring(1) + " instead for API compatibility.\n")

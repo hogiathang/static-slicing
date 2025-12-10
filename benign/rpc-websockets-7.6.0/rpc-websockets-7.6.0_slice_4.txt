@@ -1,0 +1,21 @@
+ns = ns === void 0 ? "/" : ns
+typeof message !== "object" || message === null
+message.jsonrpc !== "2.0"
+!message.method
+typeof message.method !== "string"
+message.params && typeof message.params === "string"
+message.method === "rpc.on"
+message.method === "rpc.off"
+message.method === "rpc.login"
+!message.params
+!this.namespaces[ns].rpc_methods[message.method]
+let response = null
+this.namespaces[ns].rpc_methods[message.method].protected === true &&
+            this.namespaces[ns].clients.get(socket_id)["_authenticated"] === false
+this.namespaces[ns].clients.get(socket_id)["_authenticated"] === false
+response = await this.namespaces[ns].rpc_methods[message.method]
+                .fn(message.params, socket_id)
+message.params
+!message.id
+message.method === "rpc.login" && response === true
+const s = this.namespaces[ns].clients.get(socket_id)

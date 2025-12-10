@@ -1,0 +1,33 @@
+function copyFile = function copyFile(source, target, copyCallback) {
+    const readStream = fs.createReadStream(source);
+    const writeStream = fs.createWriteStream(target);
+    let done = false;
+
+    readStream.on('error', copyDone);
+    writeStream.on('error', copyDone);
+
+    writeStream.on('close', function onWriteCb() {
+        copyDone(null);
+    });
+
+    readStream.pipe(writeStream);
+
+    /**
+     * Finish copying. Reports error when needed
+     * @param [error] optional error
+     */
+    function copyDone(error) {
+        if (!done) {
+            done = true;
+            copyCallback(error);
+        }
+    }
+}
+const readStream = fs.createReadStream(source)
+const writeStream = fs.createWriteStream(target)
+function copyDone = function copyDone(error) {
+        if (!done) {
+            done = true;
+            copyCallback(error);
+        }
+    }

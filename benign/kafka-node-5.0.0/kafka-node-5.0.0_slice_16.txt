@@ -1,0 +1,30 @@
+KafkaClient.prototype.clearCallbackQueue = function (socket, error) {
+  const socketId = socket.socketId;
+  const queue = this.cbqueue.get(socketId);
+  if (!queue) {
+    return;
+  }
+
+  queue.forEach(function (handlers) {
+    const cb = handlers[1];
+    if (error) {
+      cb(error);
+    } else if (cb.timeoutId != null) {
+      clearTimeout(cb.timeoutId);
+    }
+  });
+
+  this.cbqueue.delete(socketId);
+}
+const socketId = socket.socketId
+const queue = this.cbqueue.get(socketId)
+!queue
+queue.forEach(function (handlers) {
+    const cb = handlers[1];
+    if (error) {
+      cb(error);
+    } else if (cb.timeoutId != null) {
+      clearTimeout(cb.timeoutId);
+    }
+  })
+(_tmp_54 = this.cbqueue).delete

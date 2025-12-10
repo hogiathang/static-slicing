@@ -1,0 +1,13 @@
+file => {
+            if (this.__closed__)
+                return;
+            this.__file__.resolve(file);
+            if (this.options.fd !== undefined)
+                this.emit('open', file.fd);
+            this.emit('ready');
+        }
+this.__closed__
+(_tmp_4 = this.__file__).resolve
+this.options.fd !== undefined
+this.emit('open', file.fd)
+this.emit('ready')

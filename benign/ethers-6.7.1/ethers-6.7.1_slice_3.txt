@@ -1,0 +1,13 @@
+forEachError(callback) {
+        const names = Array.from(this.#errors.keys());
+        names.sort((a, b) => a.localeCompare(b));
+        for (let i = 0; i < names.length; i++) {
+            const name = names[i];
+            callback((this.#errors.get(name)), i);
+        }
+    }
+const names = Array.from(this.#errors.keys())
+names.sort((a, b) => a.localeCompare(b))
+i < names.length
+const name = names[i]
+callback((this.#errors.get(name)), i)

@@ -1,0 +1,4 @@
+RequestBuilder.prototype.get = function(url, options) {
+  return new RequestObj(this.setCommonConfiguration(request.get(url), options));
+}
+new RequestObj(this.setCommonConfiguration(request.get(url), options))

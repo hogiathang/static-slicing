@@ -1,0 +1,20 @@
+function onDelete = async function onDelete(name) {
+  if (await isRegistryNotFound(name) || await isInternalRegistry(name, 'delete')) {
+    return;
+  }
+
+  const customRegistries = await readFile(NRMRC);
+  const registry = customRegistries[name];
+  delete customRegistries[name];
+  await writeFile(NRMRC, customRegistries);
+  printSuccess(`The registry '${name}' has been deleted successfully.`);
+
+  const currentRegistry = await getCurrentRegistry();
+  if (currentRegistry === registry[REGISTRY]) {
+    await onUse('npm');
+  }
+}
+await isRegistryNotFound(name) || await isInternalRegistry(name, 'delete')
+const customRegistries = await readFile(NRMRC)
+const registry = customRegistries[name]
+delete customRegistries[name]

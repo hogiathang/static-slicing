@@ -1,0 +1,74 @@
+var parseExternalFileAttributes = function (externalAttributes, platform) {
+    var types = {
+        // In theory, any of these could be set. Realistically, though, it will
+        // be regular, directory or symlink
+        1: 'NamedPipe',
+        2: 'Character',
+        4: 'Directory',
+        6: 'Block',
+        8: 'File',
+        10: 'SymbolicLink',
+        12: 'Socket'
+    };
+
+    switch (platform) {
+
+    case 3: // Unix
+        return {
+            platform: 'Unix',
+            type: types[(externalAttributes >> 28) & 0x0F] || 'File',  // default to File
+            mode: (externalAttributes >> 16) & 0xFFF
+        };
+
+    // case 0: // MSDOS
+    default:
+        if (platform !== 0) {
+            console.warn('Possibly unsupported ZIP platform type, ' + platform);
+        }
+
+        var attribs = {
+            A: (externalAttributes >> 5) & 0x01,
+            D: (externalAttributes >> 4) & 0x01,
+            V: (externalAttributes >> 3) & 0x01,
+            S: (externalAttributes >> ...
+var types = {
+        // In theory, any of these could be set. Realistically, though, it will
+        // be regular, directory or symlink
+        1: 'NamedPipe',
+        2: 'Character',
+        4: 'Directory',
+        6: 'Block',
+        8: 'File',
+        10: 'SymbolicLink',
+        12: 'Socket'
+    }
+_tmp_2.1 = "NamedPipe"
+_tmp_2.2 = "Character"
+_tmp_2.4 = "Directory"
+_tmp_2.6 = "Block"
+_tmp_2.8 = "File"
+_tmp_2.10 = "SymbolicLink"
+_tmp_2.12 = "Socket"
+default:
+platform !== 0
+console.warn('Possibly unsupported ZIP platform type, ' + platform)
+var attribs = {
+            A: (externalAttributes >> 5) & 0x01,
+            D: (externalAttributes >> 4) & 0x01,
+            V: (externalAttributes >> 3) & 0x01,
+            S: (externalAttributes >> 2) & 0x01,
+            H: (externalAttributes >> 1) & 0x01,
+            R: externalAttributes & 0x01
+        }
+_tmp_4.A = (externalAttributes >> 5) & 0x01
+_tmp_4.D = (externalAttributes >> 4) & 0x01
+_tmp_4.V = (externalAttributes >> 3) & 0x01
+_tmp_4.S = (externalAttributes >> 2) & 0x01
+_tmp_4.H = (externalAttributes >> 1) & 0x01
+_tmp_4.R = externalAttributes & 0x01
+var mode = parseInt('0444', 8)
+attribs.D
+mode |= parseInt('0111', 8)
+!attribs.R
+mode |= parseInt('0222', 8)
+mode &= ~process.umask()

@@ -1,0 +1,6 @@
+_tmp_0.makeUnauthenticatedRequest = makeUnauthenticatedRequest
+typeof params === 'function'
+callback = params
+params = {}
+var request = this.makeRequest(operation, params).toUnauthenticated()
+callback ? request.send(callback) : request

@@ -1,0 +1,6 @@
+_tmp_32.AssignmentExpression = AssignmentExpression
+!path.get("left").isIdentifier() || !path.parentPath.isExpressionStatement()
+const prev = path.parentPath.getSibling(path.parentPath.key - 1)
+!(prev && prev.isVariableDeclaration())
+const declars = prev.node.declarations
+declars.length !== 1 || declars[0].init || declars[0].id.name !== path.get("left").node.name

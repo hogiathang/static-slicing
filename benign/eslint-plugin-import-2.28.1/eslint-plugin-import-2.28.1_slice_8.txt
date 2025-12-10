@@ -1,0 +1,35 @@
+function MemberExpression = function MemberExpression(dereference) {
+            if (dereference.object.type !== 'Identifier') {return;}
+            if (!namespaces.has(dereference.object.name)) {return;}
+
+            if ((0, _declaredScope2['default'])(context, dereference.object.name) !== 'module') {return;}
+
+            // go deep
+            var namespace = namespaces.get(dereference.object.name);
+            var namepath = [dereference.object.name];
+            // while property is namespace and parent is member expression, keep validating
+            while (namespace instanceof _ExportMap2['default'] && dereference.type === 'MemberExpression') {
+              // ignore computed parts for now
+              if (dereference.computed) {return;}
+
+              var metadata = namespace.get(dereference.property.name);
+
+              if (!metadata) {break;}
+              var deprecation = getDeprecation(metadata);
+
+              if (deprecation) {
+                context.report({ node: dereference.property, mess...
+dereference.object.type !== 'Identifier'
+!namespaces.has(dereference.object.name)
+(0, _declaredScope2['default'])(context, dereference.object.name) !== 'module'
+var namespace = namespaces.get(dereference.object.name)
+var namepath = [dereference.object.name]
+namespace instanceof _ExportMap2['default'] && dereference.type === 'MemberExpression'
+dereference.computed
+var metadata = namespace.get(dereference.property.name)
+!metadata
+var deprecation = getDeprecation(metadata)
+context.report({ node: dereference.property, message: message(deprecation) })
+namepath.push(dereference.property.name)
+namespace = metadata.namespace
+dereference = dereference.parent

@@ -1,0 +1,24 @@
+segment => {
+                // zero-based starting column of the line in the generated code
+                let segAsStr = toBase64VLQ(segment.col0 - lastCol0);
+                lastCol0 = segment.col0;
+                if (segment.sourceUrl != null) {
+                    // zero-based index into the “sources” list
+                    segAsStr +=
+                        toBase64VLQ(sourcesIndex.get(segment.sourceUrl) - lastSourceIndex);
+                    lastSourceIndex = sourcesIndex.get(segment.sourceUrl);
+                    // the zero-based starting line in the original source
+                    segAsStr += toBase64VLQ(segment.sourceLine0 - lastSourceLine0);
+                    lastSourceLine0 = segment.sourceLine0;
+                    // the zero-based starting column in the original source
+                    segAsStr += toBase64VLQ(segment.sourceCol0 - lastSourceCol0);
+                    lastSourceCol0 = segment.sourceCol0;
+                }
+                return segAsSt...
+let segAsStr = toBase64VLQ(segment.col0 - lastCol0)
+lastCol0 = segment.col0
+segment.sourceUrl != null
+segAsStr +=
+                        toBase64VLQ(sourcesIndex.get(segment.sourceUrl) - lastSourceIndex)
+toBase64VLQ(sourcesIndex.get(segment.sourceUrl) - lastSourceIndex)
+lastSourceIndex = sourcesIndex.get(segment.sourceUrl)

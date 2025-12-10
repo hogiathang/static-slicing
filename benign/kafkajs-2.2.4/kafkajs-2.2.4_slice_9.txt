@@ -1,0 +1,41 @@
+async sendClientFinalMessage(clientMessageResponse) {
+    const { PREFIX } = this
+    const iterations = parseInt(clientMessageResponse.i, 10)
+    const { minIterations } = this.digestDefinition
+
+    if (!clientMessageResponse.r.startsWith(this.currentNonce)) {
+      throw new KafkaJSSASLAuthenticationError(
+        `${PREFIX} failed: Invalid server nonce, it does not start with the client nonce`
+      )
+    }
+
+    if (iterations < minIterations) {
+      throw new KafkaJSSASLAuthenticationError(
+        `${PREFIX} failed: Requested iterations ${iterations} is less than the minimum ${minIterations}`
+      )
+    }
+
+    const finalMessageWithoutProof = this.finalMessageWithoutProof(clientMessageResponse)
+    const clientProof = await this.clientProof(clientMessageResponse)
+    const finalMessage = `${finalMessageWithoutProof},p=${clientProof}`
+    const request = scram.finalMessage.request({ finalMessage })
+    const response = scram.finalMessage.response
+
+    return this.saslAuthentic...
+PREFIX = _tmp_30.PREFIX
+const iterations = parseInt(clientMessageResponse.i, 10)
+minIterations = _tmp_31.minIterations
+!clientMessageResponse.r.startsWith(this.currentNonce)
+throw new KafkaJSSASLAuthenticationError(
+        `${PREFIX} failed: Invalid server nonce, it does not start with the client nonce`
+      )
+<operator>.formatString("", PREFIX, " failed: Invalid server nonce, it does not start with the client nonce")
+iterations < minIterations
+throw new KafkaJSSASLAuthenticationError(
+        `${PREFIX} failed: Requested iterations ${iterations} is less than the minimum ${minIterations}`
+      )
+<operator>.formatString("", PREFIX, " failed: Requested iterations ", iterations, " is less than the minimum ", minIterations, "")
+const finalMessageWithoutProof = this.finalMessageWithoutProof(clientMessageResponse)
+const clientProof = await this.clientProof(clientMessageResponse)
+<operator>.formatString("", finalMessageWithoutProof, ",p=", clientProof, "")
+const request = scram.finalMessage.request({ finalMessage })

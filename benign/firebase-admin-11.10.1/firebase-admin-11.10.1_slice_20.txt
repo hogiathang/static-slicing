@@ -1,0 +1,47 @@
+async enqueue(data, functionName, extensionId, opts) {
+        if (!validator.isNonEmptyString(functionName)) {
+            throw new FirebaseFunctionsError('invalid-argument', 'Function name must be a non empty string');
+        }
+        let resources;
+        try {
+            resources = utils.parseResourceName(functionName, 'functions');
+        }
+        catch (err) {
+            throw new FirebaseFunctionsError('invalid-argument', 'Function name must be a single string or a qualified resource name');
+        }
+        resources.projectId = resources.projectId || await this.getProjectId();
+        resources.locationId = resources.locationId || DEFAULT_LOCATION;
+        if (!validator.isNonEmptyString(resources.resourceId)) {
+            throw new FirebaseFunctionsError('invalid-argument', 'No valid function name specified to enqueue tasks for.');
+        }
+        if (typeof extensionId !== 'undefined' && validator.isNonEmptyString(extensionId)) {
+            resources.resourc...
+!validator.isNonEmptyString(functionName)
+throw new FirebaseFunctionsError('invalid-argument', 'Function name must be a non empty string');
+resources = utils.parseResourceName(functionName, 'functions')
+throw new FirebaseFunctionsError('invalid-argument', 'Function name must be a single string or a qualified resource name');
+resources.projectId = resources.projectId || await this.getProjectId()
+resources.locationId = resources.locationId || DEFAULT_LOCATION
+!validator.isNonEmptyString(resources.resourceId)
+throw new FirebaseFunctionsError('invalid-argument', 'No valid function name specified to enqueue tasks for.');
+typeof extensionId !== 'undefined' && validator.isNonEmptyString(extensionId)
+<operator>.formatString("ext-", extensionId, "-", resources.resourceId, "")
+const task = this.validateTaskOptions(data, resources, opts)
+const serviceUrl = await this.getUrl(resources, CLOUD_TASKS_API_URL_FORMAT)
+const taskPayload = await this.updateTaskPayload(task, resources, extensionId)
+const request = {
+                method: 'POST',
+                url: serviceUrl,
+                headers: FIREBASE_FUNCTIONS_CONFIG_HEADERS,
+                data: {
+                    task: taskPayload,
+                }
+            }
+_tmp_13.method = "POST"
+_tmp_13.url = serviceUrl
+_tmp_13.headers = FIREBASE_FUNCTIONS_CONFIG_HEADERS
+_tmp_13.data = {
+                    task: taskPayload,
+                }
+_tmp_14.task = taskPayload
+await this.httpClient.send(request)

@@ -1,0 +1,47 @@
+function bindKey = function bindKey(parent, group, enter, update, exit, data, key) {
+  var i,
+      node,
+      nodeByKeyValue = new Map,
+      groupLength = group.length,
+      dataLength = data.length,
+      keyValues = new Array(groupLength),
+      keyValue;
+
+  // Compute the key for each node.
+  // If multiple nodes have the same key, the duplicates are added to exit.
+  for (i = 0; i < groupLength; ++i) {
+    if (node = group[i]) {
+      keyValues[i] = keyValue = key.call(node, node.__data__, i, group) + "";
+      if (nodeByKeyValue.has(keyValue)) {
+        exit[i] = node;
+      } else {
+        nodeByKeyValue.set(keyValue, node);
+      }
+    }
+  }
+
+  // Compute the key for each datum.
+  // If there a node associated with this key, join and add it to update.
+  // If there is not (or the key is a duplicate), add it to enter.
+  for (i = 0; i < dataLength; ++i) {
+    keyValue = key.call(parent, data[i], i, data) + "";
+    if (node = nodeByKeyValue.get(keyValue)) {
+      update[i] = node;
+      node._...
+var nodeByKeyValue = new Map
+var groupLength = group.length
+var dataLength = data.length
+var keyValues = new Array(groupLength)
+i < groupLength
+node = group[i]
+keyValues[i] = keyValue = key.call(node, node.__data__, i, group) + ""
+nodeByKeyValue.has(keyValue)
+exit[i] = node
+nodeByKeyValue.set(keyValue, node)
+i < dataLength
+keyValue = key.call(parent, data[i], i, data) + ""
+node = nodeByKeyValue.get(keyValue)
+update[i] = node
+node.__data__ = data[i]
+nodeByKeyValue.delete(keyValue)
+enter[i] = new EnterNode(parent, data[i])

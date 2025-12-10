@@ -1,0 +1,18 @@
+utils.memoize = function(type, pattern, options, fn) {
+  const key = utils.createKey(type + pattern, options);
+
+  if (cache.has(type, key)) {
+    return cache.get(type, key);
+  }
+
+  const val = fn(pattern, options);
+  if (options && options.cache === false) {
+    return val;
+  }
+
+  cache.set(type, key, val);
+  return val;
+}
+const key = utils.createKey(type + pattern, options)
+cache.has(type, key)
+cache.get(type, key)

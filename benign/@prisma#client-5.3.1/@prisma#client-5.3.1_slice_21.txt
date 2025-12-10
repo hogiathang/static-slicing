@@ -1,0 +1,11 @@
+function outputFileSync = function outputFileSync(file, ...args) {
+      const dir = path7.dirname(file);
+      if (fs6.existsSync(dir)) {
+        return fs6.writeFileSync(file, ...args);
+      }
+      mkdir.mkdirsSync(dir);
+      fs6.writeFileSync(file, ...args);
+    }
+const dir = path7.dirname(file)
+fs6.existsSync(dir)
+fs6.writeFileSync(file, ...args)

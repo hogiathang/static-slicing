@@ -1,0 +1,16 @@
+_tmp_4.signin = signin
+_tmp_5.html = (0, _signin.default)({
+          csrfToken: params.csrfToken,
+          providers: params.providers,
+          callbackUrl: params.callbackUrl,
+          theme,
+          ...query,
+          ...props
+        })
+_tmp_6.csrfToken = params.csrfToken
+_tmp_6.providers = params.providers
+_tmp_6.callbackUrl = params.callbackUrl
+_tmp_6.theme = theme
+...query
+...props
+_tmp_5.title = "Sign In"

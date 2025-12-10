@@ -1,0 +1,40 @@
+(request, cb) => {
+            const identifierPrefix = cachePrefix(compilation);
+            if (identifierPrefix === null) {
+              return fn.call(null, request, cb);
+            }
+
+            const cacheId = JSON.stringify([
+              identifierPrefix,
+              request.context,
+              request.request,
+            ]);
+            const absCacheId = JSON.stringify([
+              identifierPrefix,
+              request.context,
+              relateContext.relateAbsoluteRequest(
+                request.context,
+                request.request,
+              ),
+            ]);
+
+            request.contextInfo.resolveOptions = request.resolveOptions;
+
+            const next = () => {
+              const originalRequest = request;
+              return fn.call(null, request, function(err, request) {
+                if (err) {
+                  return cb(err);
+                }
+                if (!request.source) {
+                  compilation.__hardSourceModule...
+const identifierPrefix = cachePrefix(compilation)
+identifierPrefix === null
+const cacheId = JSON.stringify([
+              identifierPrefix,
+              request.context,
+              request.request,
+            ])
+_tmp_9.push(identifierPrefix)
+_tmp_9.push(request.context)
+_tmp_9.push(request.request)

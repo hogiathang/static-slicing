@@ -1,0 +1,50 @@
+_tmp_2170.closure = <lambda>1195
+config = config || {}
+var jscomp = Packages.com.google.javascript.jscomp
+var flags = Packages.com.google.common.flags
+var jsSourceFile = closurefromCode(String(fileName), String(fileContents))
+var sourceListArray = new java.util.ArrayList()
+var externList = new java.util.ArrayList()
+var Compiler = Packages.com.google.javascript.jscomp.Compiler
+var CommandLineRunner = Packages.com.google.javascript.jscomp.CommandLineRunner
+logger.trace("Minifying file: " + fileName)
+baseName = (new java.io.File(fileName)).getName()
+options = new jscomp.CompilerOptions()
+_iterator_14 = <operator>.iterator(config.CompilerOptions)
+config.CompilerOptions[option]
+options[option] = config.CompilerOptions[option]
+options.prettyPrint = keepLines || options.prettyPrint
+FLAG_compilation_level = jscomp.CompilationLevel[config.CompilationLevel || 'SIMPLE_OPTIMIZATIONS']
+FLAG_compilation_level.setOptionsForCompilationLevel(options)
+config.generateSourceMaps
+mappings = new java.util.ArrayList()
+mappings.add(new com.google.javascript.jscomp.SourceMap.LocationMapping(fileName, baseName + ".src.js"))
+options.setSourceMapLocationMappings(mappings)
+options.setSourceMapOutputPath(fileName + ".map")
+externList.addAll(CommandLineRunner.getDefaultExterns())
+config.externExportsPath
+externExportsPath = config.externExportsPath
+externList.add(jscomp.SourceFile.fromFile(externExportsPath))
+Compiler.setLoggingLevel(Packages.java.util.logging.Level[config.loggingLevel || 'WARNING'])
+compiler = new Compiler()
+sourceListArray.add(jsSourceFile)
+result = compiler.compile(externList, sourceListArray, options)
+result.success
+optimized = String(compiler.toSource())
+config.generateSourceMaps && result.sourceMap && outFileName
+outBaseName = (new java.io.File(outFileName)).getName()
+srcOutFileName = outFileName + ".src.js"
+outFileNameMap = outFileName + ".map"
+file.exists(outFileNameMap)
+concatNameMap = outFileNameMap.replace(/\.map$/, '.src.js.map')
+file.saveFile(concatNameMap, file.readFile(outFileNameMap))
+file.saveFile(srcOutFileName,
+                                      fileContents.replace(/\/\# sourceMappingURL=(.+).map/,
+                                                           '/# sourceMappingURL=$1.src.js.map'))
+fileContents.replace(/\/\# sourceMappingURL=(.+).map/,
+                                                           '/# sourceMappingURL=$1.src.js.map')
+"/# sourceMappingURL=$1.src.js.map"
+file.saveUtf8File(srcOutFileName, fileContents)
+writer = getFileWriter(outFileNameMap, "utf-8")
+result.sourceMap.appendTo(writer, outFileName)
+writer.close()

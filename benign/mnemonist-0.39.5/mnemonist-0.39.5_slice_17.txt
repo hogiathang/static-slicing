@@ -1,0 +1,45 @@
+MultiMap.prototype.remove = function(key, value) {
+  var container = this.items.get(key),
+      wasDeleted,
+      index;
+
+  if (!container)
+    return false;
+
+  if (this.Container === Set) {
+    wasDeleted = container.delete(value);
+
+    if (wasDeleted)
+      this.size--;
+
+    if (container.size === 0) {
+      this.items.delete(key);
+      this.dimension--;
+    }
+
+    return wasDeleted;
+  }
+  else {
+    index = container.indexOf(value);
+
+    if (index === -1)
+      return false;
+
+    this.size--;
+
+    if (container.length === 1) {
+      this.items.delete(key);
+      this.dimension--;
+
+      return true;
+    }
+
+    container.splice(index, 1);
+
+    return true;
+  }
+}
+var container = this.items.get(key)
+!container
+this.Container === Set
+wasDeleted = container.delete(value)

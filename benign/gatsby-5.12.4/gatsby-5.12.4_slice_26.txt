@@ -1,0 +1,49 @@
+handleSliceQueryResultHotUpdate(msg) {
+    const newResult = msg.payload.result
+
+    const cacheKey = msg.payload.id
+
+    // raw json db
+    {
+      const cachedResult = this.slicesDataDb.get(cacheKey)
+      if (!isEqual(newResult, cachedResult)) {
+        this.slicesDataDb.set(cacheKey, newResult)
+      }
+    }
+
+    // processed data
+    {
+      const cachedResult = this.slicesDb.get(cacheKey)
+      if (
+        !isEqual(newResult?.result?.data, cachedResult?.data) ||
+        !isEqual(newResult?.result?.sliceContext, cachedResult?.sliceContext)
+      ) {
+        const mergedResult = {
+          ...cachedResult,
+          data: newResult?.result?.data,
+          sliceContext: newResult?.result?.sliceContext,
+        }
+        this.slicesDb.set(cacheKey, mergedResult)
+        ___emitter.emit(`sliceQueryResult`, mergedResult)
+      }
+    }
+  }
+const newResult = msg.payload.result
+const cacheKey = msg.payload.id
+const cachedResult = this.slicesDataDb.get(cacheKey)
+!isEqual(newResult, cachedResult)
+this.slicesDataDb.set(cacheKey, newResult)
+const cachedResult = this.slicesDb.get(cacheKey)
+!isEqual(newResult?.result?.data, cachedResult?.data) ||
+        !isEqual(newResult?.result?.sliceContext, cachedResult?.sliceContext)
+!isEqual(newResult?.result?.sliceContext, cachedResult?.sliceContext)
+const mergedResult = {
+          ...cachedResult,
+          data: newResult?.result?.data,
+          sliceContext: newResult?.result?.sliceContext,
+        }
+...cachedResult
+_tmp_38.data = newResult.result.data
+_tmp_38.sliceContext = newResult.result.sliceContext
+this.slicesDb.set(cacheKey, mergedResult)
+___emitter.emit(`sliceQueryResult`, mergedResult)

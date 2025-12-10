@@ -1,0 +1,47 @@
+function phaseGenerateAdvance = function phaseGenerateAdvance(cpl) {
+  for (const [_, view] of cpl.views) {
+    const slotMap = /* @__PURE__ */ new Map();
+    for (const op of view.create) {
+      if (!hasConsumesSlotTrait(op)) {
+        continue;
+      } else if (op.slot === null) {
+        throw new Error(`AssertionError: expected slots to have been allocated before generating advance() calls`);
+      }
+      slotMap.set(op.xref, op.slot);
+    }
+    let slotContext = 0;
+    for (const op of view.update) {
+      if (!hasDependsOnSlotContextTrait(op)) {
+        continue;
+      } else if (!slotMap.has(op.target)) {
+        throw new Error(`AssertionError: reference to unknown slot for var ${op.target}`);
+      }
+      const slot = slotMap.get(op.target);
+      if (slotContext !== slot) {
+        const delta = slot - slotContext;
+        if (delta < 0) {
+          throw new Error(`AssertionError: slot counter should never need to move backwards`);
+        }
+        OpList.insertBefore(createAdvanceOp(delta), op);
+  ...
+_iterator_11 = <operator>.iterator(cpl.views)
+const slotMap = /* @__PURE__ */ new Map()
+_iterator_12 = <operator>.iterator(view.create)
+!hasConsumesSlotTrait(op)
+continue;
+op.slot === null
+throw new Error(`AssertionError: expected slots to have been allocated before generating advance() calls`);
+slotMap.set(op.xref, op.slot)
+let slotContext = 0
+_iterator_13 = <operator>.iterator(view.update)
+!hasDependsOnSlotContextTrait(op)
+continue;
+!slotMap.has(op.target)
+<operator>.formatString("AssertionError: reference to unknown slot for var ", op.target, "")
+const slot = slotMap.get(op.target)
+slotContext !== slot
+const delta = slot - slotContext
+delta < 0
+throw new Error(`AssertionError: slot counter should never need to move backwards`);
+OpList.insertBefore(createAdvanceOp(delta), op)
+slotContext = slot

@@ -1,0 +1,64 @@
+function computeOperations = function computeOperations(oldBlockMap, newBlockMap, logger) {
+    const nameToOldBlocks = buildBlockFileMap(oldBlockMap.files);
+    const nameToNewBlocks = buildBlockFileMap(newBlockMap.files);
+    let lastOperation = null;
+    // for now only one file is supported in block map
+    const blockMapFile = newBlockMap.files[0];
+    const operations = [];
+    const name = blockMapFile.name;
+    const oldEntry = nameToOldBlocks.get(name);
+    if (oldEntry == null) {
+        // new file (unrealistic case for now, because in any case both blockmap contain the only file named as "file")
+        throw new Error(`no file ${name} in old blockmap`);
+    }
+    const newFile = nameToNewBlocks.get(name);
+    let changedBlockCount = 0;
+    const { checksumToOffset: checksumToOldOffset, checksumToOldSize } = buildChecksumMap(nameToOldBlocks.get(name), oldEntry.offset, logger);
+    let newOffset = blockMapFile.offset;
+    for (let i = 0; i < newFile.checksums.length; newOffset += newFile.sizes[i], i+...
+const nameToOldBlocks = buildBlockFileMap(oldBlockMap.files)
+const nameToNewBlocks = buildBlockFileMap(newBlockMap.files)
+let lastOperation = null
+const blockMapFile = newBlockMap.files[0]
+__ecma.Array.factory()
+const name = blockMapFile.name
+const oldEntry = nameToOldBlocks.get(name)
+oldEntry == null
+<operator>.formatString("no file ", name, " in old blockmap")
+const newFile = nameToNewBlocks.get(name)
+let changedBlockCount = 0
+_tmp_1 = buildChecksumMap(nameToOldBlocks.get(name), oldEntry.offset, logger)
+let newOffset = blockMapFile.offset
+newOffset += newFile.sizes[i]
+const blockSize = newFile.sizes[i]
+const checksum = newFile.checksums[i]
+let oldOffset = checksumToOldOffset.get(checksum)
+oldOffset != null && checksumToOldSize.get(checksum) !== blockSize
+<operator>.formatString("Checksum ("", checksum, "") matches, but size differs (old: ", checksumToOldSize.get(checksum), ", new: ", blockSize, ")")
+oldOffset = undefined
+oldOffset === undefined
+changedBlockCount++
+lastOperation != null && lastOperation.kind === OperationKind.DOWNLOAD && lastOperation.end === newOffset
+lastOperation.end += blockSize
+lastOperation = {
+                    kind: OperationKind.DOWNLOAD,
+                    start: newOffset,
+                    end: newOffset + blockSize,
+                    // oldBlocks: null,
+                }
+_tmp_2.kind = OperationKind.DOWNLOAD
+_tmp_2.start = newOffset
+_tmp_2.end = newOffset + blockSize
+validateAndAdd(lastOperation, operations, checksum, i)
+lastOperation != null && lastOperation.kind === OperationKind.COPY && lastOperation.end === oldOffset
+lastOperation.end += blockSize
+lastOperation = {
+                    kind: OperationKind.COPY,
+                    start: oldOffset,
+                    end: oldOffset + blockSize,
+                    // oldBlocks: [checksum]
+                }
+_tmp_3.kind = OperationKind.COPY
+_tmp_3.start = oldOffset
+_tmp_3.end = oldOffset + blockSize
+validateAndAdd(lastOperation, operations, checksum, i)

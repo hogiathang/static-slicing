@@ -1,0 +1,10 @@
+fs.readdirSync(__dirname + '/src').forEach(function (filename) {
+  var src = fs.readFileSync(__dirname + '/src/' + filename, 'utf8');
+  var out = fixup(src);
+  out = out.replace(/require\(\'asap\/raw\'\)/g, "require('asap')");
+  fs.writeFileSync(__dirname + '/domains/' + filename, out);
+})
+var src = fs.readFileSync(__dirname + '/src/' + filename, 'utf8')
+var out = fixup(src)
+out = out.replace(/require\(\'asap\/raw\'\)/g, "require('asap')")
+fs.writeFileSync(__dirname + '/domains/' + filename, out)

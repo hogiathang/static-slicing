@@ -1,0 +1,61 @@
+uniqBy([...prs, ...issues], "number").map(async (issue) => {
+        const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease);
+        try {
+          const comment = { owner, repo, issue_number: issue.number, body };
+          debug("create comment: %O", comment);
+          const {
+            data: { html_url: url },
+          } = await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          );
+          logger.log("Added comment to issue #%d: %s", issue.number, url);
+
+          if (releasedLabels) {
+            const labels = releasedLabels.map((label) =>
+              template(label)(context),
+            );
+            await octokit.request(
+              "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+              {
+                owner,
+                repo,
+                issue_number: issue.number,
+    ...
+const body = successComment
+          ? template(successComment)({ ...context, issue })
+          : getSuccessComment(issue, releaseInfos, nextRelease)
+template(successComment)({ ...context, issue })
+getSuccessComment(issue, releaseInfos, nextRelease)
+const comment = { owner, repo, issue_number: issue.number, body }
+debug("create comment: %O", comment)
+_tmp_25 = await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          )
+_tmp_26.html_url = url
+await octokit.request(
+            "POST /repos/{owner}/{repo}/issues/{issue_number}/comments",
+            comment,
+          )
+"POST /repos/{owner}/{repo}/issues/{issue_number}/comments"
+logger.log("Added comment to issue #%d: %s", issue.number, url)
+const labels = releasedLabels.map((label) =>
+              template(label)(context),
+            )
+await octokit.request(
+              "POST /repos/{owner}/{repo}/issues/{issue_number}/labels",
+              {
+                owner,
+                repo,
+                issue_number: issue.number,
+                data: labels,
+              },
+            )
+"POST /repos/{owner}/{repo}/issues/{issue_number}/labels"
+_tmp_27.owner = owner
+_tmp_27.repo = repo
+_tmp_27.issue_number = issue.number
+_tmp_27.data = labels

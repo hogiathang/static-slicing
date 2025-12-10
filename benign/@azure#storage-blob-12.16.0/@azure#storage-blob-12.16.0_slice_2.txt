@@ -1,0 +1,14 @@
+getHeaderValueToSign(request, headerName) {
+        const value = request.headers.get(headerName);
+        if (!value) {
+            return "";
+        }
+        // When using version 2015-02-21 or later, if Content-Length is zero, then
+        // set the Content-Length part of the StringToSign to an empty string.
+        // https://docs.microsoft.com/en-us/rest/api/storageservices/authenticate-with-shared-key
+        if (headerName === HeaderConstants.CONTENT_LENGTH && value === "0") {
+            return "";
+        }
+        return value;
+    }
+const value = request.headers.get(headerName)

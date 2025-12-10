@@ -1,0 +1,86 @@
+function handleArguments = function handleArguments(env) {
+
+  // This translates the --continue flag in gulp
+  // To the settle env variable for undertaker
+  // We use the process.env so the user's gulpfile
+  // Can know about the flag
+  if (opts.continue) {
+    process.env.UNDERTAKER_SETTLE = 'true';
+  }
+
+  if (opts.help) {
+    parser.showHelp(console.log);
+    exit(0);
+  }
+
+  // Anything that needs to print outside of the logging mechanism should use console.log
+  if (opts.version) {
+    console.log('CLI version:', cliVersion);
+    console.log('Local version:', env.modulePackage.version || 'Unknown');
+    exit(0);
+  }
+
+  if (opts.verify) {
+    var pkgPath = opts.verify !== true ? opts.verify : 'package.json';
+    /* istanbul ignore else */
+    if (path.resolve(pkgPath) !== path.normalize(pkgPath)) {
+      pkgPath = path.join(env.cwd, pkgPath);
+    }
+    log.info('Verifying plugins in ' + pkgPath);
+    return getBlacklist(function(err, blacklist) {
+      /* istanbul ignore if */
+      if (err) {
+        retu...
+opts.continue
+process.env.UNDERTAKER_SETTLE = 'true'
+opts.help
+parser.showHelp(console.log)
+exit(0)
+opts.version
+console.log('CLI version:', cliVersion)
+console.log('Local version:', env.modulePackage.version || 'Unknown')
+exit(0)
+opts.verify
+!env.modulePath
+var missingNodeModules =
+      fs.existsSync(path.join(env.cwd, 'package.json'))
+      && !fs.existsSync(path.join(env.cwd, 'node_modules'))
+fs.existsSync(path.join(env.cwd, 'package.json'))
+      && !fs.existsSync(path.join(env.cwd, 'node_modules'))
+!fs.existsSync(path.join(env.cwd, 'node_modules'))
+var missingGulpMessage =
+      missingNodeModules
+        ? 'Local modules not found in'
+        : 'Local gulp not found in'
+missingNodeModules ? "Local modules not found in" : "Local gulp not found in"
+"Local modules not found in"
+"Local gulp not found in"
+log.error(
+      ansi.red(missingGulpMessage),
+      ansi.magenta(tildify(env.cwd))
+    )
+ansi.red(missingGulpMessage)
+ansi.magenta(tildify(env.cwd))
+var hasYarn = fs.existsSync(path.join(env.cwd, 'yarn.lock'))
+var installCommand =
+      missingNodeModules
+        ? hasYarn
+          ? 'yarn install'
+          : 'npm install'
+        : hasYarn
+          ? 'yarn add gulp'
+        : 'npm install gulp'
+missingNodeModules ? hasYarn ? "yarn install" : "npm install" : hasYarn ? "yarn add gulp" : "npm install gulp"
+hasYarn ? "yarn install" : "npm install"
+"yarn install"
+"npm install"
+hasYarn ? "yarn add gulp" : "npm install gulp"
+"yarn add gulp"
+"npm install gulp"
+log.error(ansi.red('Try running: ' + installCommand))
+exit(1)
+!env.configPath
+log.error(ansi.red('No gulpfile found'))
+exit(1)
+process.cwd() !== env.cwd
+process.chdir(env.cwd)

@@ -1,0 +1,44 @@
+function printDatasets = function printDatasets(datasets, filename, headers, opts) {
+    var isTTY = (filename ? false : process.stdout.isTTY)
+    var write = emit;
+    if (filename) {
+        var tmpPath = path.resolve(path.dirname(filename),
+            format('.%s-json-%s-%s.tmp', path.basename(filename), process.pid,
+                Date.now()));
+        var stats = fs.statSync(filename);
+        var f = fs.createWriteStream(tmpPath,
+            {encoding: 'utf8', mode: stats.mode});
+        write = f.write.bind(f);
+    }
+    if (headers && headers.length > 0) {
+        write(headers)
+    }
+    for (var i = 0; i < datasets.length; i++) {
+        var dataset = datasets[i];
+        var output = stringifyDatum(dataset[0], opts, isTTY);
+        var sep = dataset[1];
+        if (output && output.length) {
+            write(output);
+            write(sep);
+        } else if (dataset[2]) {
+            write(sep);
+        }
+    }
+    if (filename) {
+        f.on('open', function () {
+            f.end();
+      ...
+var isTTY = (filename ? false : process.stdout.isTTY)
+var write = emit
+var tmpPath = path.resolve(path.dirname(filename),
+            format('.%s-json-%s-%s.tmp', path.basename(filename), process.pid,
+                Date.now()))
+format('.%s-json-%s-%s.tmp', path.basename(filename), process.pid,
+                Date.now())
+Date.now()
+var stats = fs.statSync(filename)
+var f = fs.createWriteStream(tmpPath,
+            {encoding: 'utf8', mode: stats.mode})
+_tmp_47.encoding = "utf8"
+(_tmp_48 = f.write).bind
+headers && headers.length > 0

@@ -1,0 +1,53 @@
+UpdatePropertiesHandler.prototype.execute = function(context) {
+
+  var element = context.element,
+      changed = [ element ],
+      translate = this._translate;
+
+  if (!element) {
+    throw new Error(translate('element required'));
+  }
+
+  var elementRegistry = this._elementRegistry,
+      ids = this._moddle.ids;
+
+  var businessObject = element.businessObject,
+      properties = unwrapBusinessObjects(context.properties),
+      oldProperties = context.oldProperties || getProperties(element, properties);
+
+  if (isIdChange(properties, businessObject)) {
+    ids.unclaim(businessObject[ID]);
+
+    elementRegistry.updateId(element, properties[ID]);
+
+    ids.claim(properties[ID], businessObject);
+  }
+
+  // correctly indicate visual changes on default flow updates
+  if (DEFAULT_FLOW in properties) {
+
+    if (properties[DEFAULT_FLOW]) {
+      changed.push(elementRegistry.get(properties[DEFAULT_FLOW].id));
+    }
+
+    if (businessObject[DEFAULT_FLOW]) {
+      changed.push(elementRegistry.get(bu...
+var element = context.element
+_tmp_5 = __ecma.Array.factory()
+var translate = this._translate
+!element
+throw new Error(translate('element required'));
+var elementRegistry = this._elementRegistry
+var ids = this._moddle.ids
+var businessObject = element.businessObject
+var properties = unwrapBusinessObjects(context.properties)
+var oldProperties = context.oldProperties || getProperties(element, properties)
+isIdChange(properties, businessObject)
+ids.unclaim(businessObject[ID])
+elementRegistry.updateId(element, properties[ID])
+ids.claim(properties[ID], businessObject)
+DEFAULT_FLOW in properties
+properties[DEFAULT_FLOW]
+changed.push(elementRegistry.get(properties[DEFAULT_FLOW].id))
+businessObject[DEFAULT_FLOW]
+changed.push(elementRegistry.get(businessObject[DEFAULT_FLOW].id))

@@ -1,0 +1,27 @@
+function n = function n(e, t, r, a) {
+   var l, c, u;
+   "function" == typeof t ? (r = t, t = {}) : t && "object" == typeof t || (t = {
+    mode: t
+   }), l = t.mode, c = t.fs || s, void 0 === l && (l = o & ~process.umask()), a || (a = null), 
+   u = r || function() {}, e = i.resolve(e), c.mkdir(e, l, (function(r) {
+    if (!r) return u(null, a = a || e);
+    "ENOENT" === r.code ? n(i.dirname(e), t, (function(r, i) {
+     r ? u(r, i) : n(e, t, u, i);
+    })) : c.stat(e, (function(e, t) {
+     e || !t.isDirectory() ? u(r, a) : u(null, a);
+    }));
+   }));
+  }
+"function" == typeof t ? r = t, t = {} : t && "object" == typeof t || (t = {
+    mode: t
+   })
+_tmp_591.mode = t
+void 0 === l && (l = o & ~process.umask())
+c.mkdir(e, l, (function(r) {
+    if (!r) return u(null, a = a || e);
+    "ENOENT" === r.code ? n(i.dirname(e), t, (function(r, i) {
+     r ? u(r, i) : n(e, t, u, i);
+    })) : c.stat(e, (function(e, t) {
+     e || !t.isDirectory() ? u(r, a) : u(null, a);
+    }));
+   }))

@@ -1,0 +1,2 @@
+type = type === void 0 ? this.type : type
+(_tmp_2 = this.components).get

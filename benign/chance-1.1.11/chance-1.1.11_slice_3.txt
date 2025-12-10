@@ -1,0 +1,34 @@
+Chance.prototype.states = function (options) {
+        options = initOptions(options, { country: 'us', us_states_and_dc: true } );
+
+        var states;
+
+        switch (options.country.toLowerCase()) {
+            case 'us':
+                var us_states_and_dc = this.get("us_states_and_dc"),
+                    territories = this.get("territories"),
+                    armed_forces = this.get("armed_forces");
+
+                states = [];
+
+                if (options.us_states_and_dc) {
+                    states = states.concat(us_states_and_dc);
+                }
+                if (options.territories) {
+                    states = states.concat(territories);
+                }
+                if (options.armed_forces) {
+                    states = states.concat(armed_forces);
+                }
+                break;
+            case 'it':
+            case 'mx':
+                states = this.get("country_regions")[options.country.toLowerCase()];
+                break;
+         ...
+options = initOptions(options, { country: 'us', us_states_and_dc: true } )
+(_tmp_405 = options.country).toLowerCase
+"us"
+var us_states_and_dc = this.get("us_states_and_dc")
+var territories = this.get("territories")
+var armed_forces = this.get("armed_forces")

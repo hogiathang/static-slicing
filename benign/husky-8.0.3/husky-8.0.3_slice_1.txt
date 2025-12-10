@@ -1,0 +1,29 @@
+Object.defineProperty(exports, "__esModule", { value: true })
+const p = require("path")
+const h = require("./")
+function help = function help(code) {
+    console.log(`Usage:
+  husky install [dir] (default: .husky)
+  husky uninstall
+  husky set|add <file> [cmd]`);
+    process.exit(code);
+}
+_tmp_1 = process.argv
+const ln = args.length
+_tmp_2 = args
+const hook = (fn) => () => !ln || ln > 2 ? help(2) : fn(x, y)
+const cmds = {
+    install: () => (ln > 1 ? help(2) : h.install(x)),
+    uninstall: h.uninstall,
+    set: hook(h.set),
+    add: hook(h.add),
+    ['-v']: () => console.log(require(p.join(__dirname, '../package.json')).version),
+}
+ln > 1 ? help(2) : h.install(x)
+_tmp_3.uninstall = h.uninstall
+_tmp_3.set = hook(h.set)
+_tmp_3.add = hook(h.add)
+console.log(require(p.join(__dirname, '../package.json')).version)
+cmds[cmd] ? cmds[cmd]() : help(0)
+e instanceof Error ? <operator>.formatString("husky - ", e.message, "") : e
+process.exit(1)

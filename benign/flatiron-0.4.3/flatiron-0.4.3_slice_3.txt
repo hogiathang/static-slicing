@@ -1,0 +1,15 @@
+function createPackage = function createPackage(next) {
+    var pkg = JSON.parse(fs.readFileSync(path.join(scaffold, 'package.json'), 'utf8'));
+
+    pkg.dependencies.flatiron = flatiron.version;
+
+    flatiron.common.mixin(pkg, info);
+
+    app.log.info('Writing ' + 'package.json'.grey);
+    fs.writeFile(path.join(root, 'package.json'), JSON.stringify(pkg, null, 2) + '\n', next);
+  }
+var pkg = JSON.parse(fs.readFileSync(path.join(scaffold, 'package.json'), 'utf8'))
+pkg.dependencies.flatiron = flatiron.version
+(_tmp_15 = flatiron.common).mixin
+app.log.info('Writing ' + 'package.json'.grey)
+fs.writeFile(path.join(root, 'package.json'), JSON.stringify(pkg, null, 2) + '\n', next)

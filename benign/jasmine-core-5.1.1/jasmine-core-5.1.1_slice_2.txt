@@ -1,0 +1,40 @@
+this.exec = function(spy, args, invokeNew) {
+      let strategy = argsStrategies.get(args);
+
+      if (!strategy) {
+        if (argsStrategies.any() && !baseStrategy.isConfigured()) {
+          throw new Error(
+            "Spy '" +
+              strategyArgs.name +
+              "' received a call with arguments " +
+              j$.basicPrettyPrinter_(Array.prototype.slice.call(args)) +
+              ' but all configured strategies specify other arguments.'
+          );
+        } else {
+          strategy = baseStrategy;
+        }
+      }
+
+      return strategy.exec(spy, args, invokeNew);
+    }
+let strategy = argsStrategies.get(args)
+!strategy
+argsStrategies.any() && !baseStrategy.isConfigured()
+throw new Error(
+            "Spy '" +
+              strategyArgs.name +
+              "' received a call with arguments " +
+              j$.basicPrettyPrinter_(Array.prototype.slice.call(args)) +
+              ' but all configured strategies specify other arguments.'
+          );
+"Spy '" +
+              strategyArgs.name +
+              "' received a call with arguments " +
+              j$.basicPrettyPrinter_(Array.prototype.slice.call(args)) +
+              ' but all configured strategies specify other arguments.'
+strategyArgs.name
+"' received a call with arguments "
+j$.basicPrettyPrinter_(Array.prototype.slice.call(args))
+" but all configured strategies specify other arguments."
+strategy = baseStrategy
+strategy.exec(spy, args, invokeNew)

@@ -1,0 +1,333 @@
+function exec = async function exec(argv2) {
+    var _a, _b;
+    const argv = (0, minimist_1.default)(argv2, {
+        boolean: [
+            'b',
+            'build',
+            'bytecode',
+            'native-build',
+            'd',
+            'debug',
+            'h',
+            'help',
+            'public',
+            'v',
+            'version',
+        ],
+        string: [
+            '_',
+            'c',
+            'config',
+            'o',
+            'options',
+            'output',
+            'outdir',
+            'out-dir',
+            'out-path',
+            'public-packages',
+            'no-dict',
+            't',
+            'target',
+            'targets',
+            'C',
+            'compress',
+        ],
+        default: { bytecode: true, 'native-build': true },
+    });
+    if (argv.h || argv.help) {
+        (0, help_1.default)();
+        return;
+    }
+    // version
+    if (argv.v || argv.version) {
+        // eslint-disable-next-line no-console
+        console.log(versi...
+const argv = (0, minimist_1.default)(argv2, {
+        boolean: [
+            'b',
+            'build',
+            'bytecode',
+            'native-build',
+            'd',
+            'debug',
+            'h',
+            'help',
+            'public',
+            'v',
+            'version',
+        ],
+        string: [
+            '_',
+            'c',
+            'config',
+            'o',
+            'options',
+            'output',
+            'outdir',
+            'out-dir',
+            'out-path',
+            'public-packages',
+            'no-dict',
+            't',
+            'target',
+            'targets',
+            'C',
+            'compress',
+        ],
+        default: { bytecode: true, 'native-build': true },
+    })
+_tmp_13.boolean = [
+            'b',
+            'build',
+            'bytecode',
+            'native-build',
+            'd',
+            'debug',
+            'h',
+            'help',
+            'public',
+            'v',
+            'version',
+        ]
+_tmp_14.push("b")
+_tmp_14.push("build")
+_tmp_14.push("bytecode")
+_tmp_14.push("native-build")
+_tmp_14.push("d")
+_tmp_14.push("debug")
+_tmp_14.push("h")
+_tmp_14.push("help")
+_tmp_14.push("public")
+_tmp_14.push("v")
+_tmp_14.push("version")
+_tmp_13.string = [
+            '_',
+            'c',
+            'config',
+            'o',
+            'options',
+            'output',
+            'outdir',
+            'out-dir',
+            'out-path',
+            'public-packages',
+            'no-dict',
+            't',
+            'target',
+            'targets',
+            'C',
+            'compress',
+        ]
+_tmp_15.push("_")
+_tmp_15.push("c")
+_tmp_15.push("config")
+_tmp_15.push("o")
+_tmp_15.push("options")
+_tmp_15.push("output")
+_tmp_15.push("outdir")
+_tmp_15.push("out-dir")
+_tmp_15.push("out-path")
+_tmp_15.push("public-packages")
+_tmp_15.push("no-dict")
+_tmp_15.push("t")
+_tmp_15.push("target")
+_tmp_15.push("targets")
+_tmp_15.push("C")
+_tmp_15.push("compress")
+_tmp_13.default = { bytecode: true, 'native-build': true }
+argv.h || argv.help
+argv.v || argv.version
+<operator>.formatString("pkg@", version, "")
+log_1.log.debugMode = argv.d || argv.debug
+const forceBuild = argv.b || argv.build
+const algo = argv.C || argv.compress || 'None'
+let doCompress = compress_type_1.CompressType.None
+algo.toLowerCase()
+"brotli"
+"br"
+doCompress = compress_type_1.CompressType.Brotli
+break;
+"gzip"
+"gz"
+doCompress = compress_type_1.CompressType.GZip
+break;
+"none"
+break;
+default:
+throw (0, log_1.wasReported)(`Invalid compression algorithm ${algo} ( should be None, Brotli or Gzip)`);
+doCompress !== compress_type_1.CompressType.None
+console.log('compression: ', compress_type_1.CompressType[doCompress])
+!argv._.length
+throw (0, log_1.wasReported)('Entry file/directory is expected', [
+            'Pass --help to see usage information',
+        ]);
+_tmp_18.push("Pass --help to see usage information")
+argv._.length > 1
+throw (0, log_1.wasReported)('Not more than one entry file/directory is expected');
+let input = path_1.default.resolve(argv._[0])
+!(0, fs_extra_1.existsSync)(input)
+throw (0, log_1.wasReported)('Input file does not exist', [input]);
+(_tmp_21 = await (0, fs_extra_1.stat)(input)).isDirectory
+input = path_1.default.join(input, 'package.json')
+!(0, fs_extra_1.existsSync)(input)
+throw (0, log_1.wasReported)('Input file does not exist', [input]);
+isConfiguration(input)
+inputJson = JSON.parse(await (0, fs_extra_1.readFile)(input, 'utf-8'))
+inputJsonName = inputJson.name
+inputJsonName = inputJsonName.split('/').pop()
+_tmp_25 = inputJson
+typeof bin === 'object'
+bin[inputJsonName]
+bin = bin[inputJsonName]
+bin = bin[Object.keys(bin)[0]]
+inputBin = path_1.default.resolve(path_1.default.dirname(input), bin)
+!(0, fs_extra_1.existsSync)(inputBin)
+throw (0, log_1.wasReported)('Bin file does not exist (taken from package.json ' +
+                    "'bin' property)", [inputBin]);
+_tmp_28 = __ecma.Array.factory()
+inputJson && !inputBin
+throw (0, log_1.wasReported)("Property 'bin' does not exist in", [input]);
+const inputFin = inputBin || input
+let config = argv.c || argv.config
+inputJson && config
+throw (0, log_1.wasReported)("Specify either 'package.json' or config. Not both");
+config = path_1.default.resolve(config)
+!(0, fs_extra_1.existsSync)(config)
+throw (0, log_1.wasReported)('Config file does not exist', [config]);
+configJson = require(config)
+!configJson.name &&
+            !configJson.files &&
+            !configJson.dependencies &&
+            !configJson.pkg
+!configJson.files
+!configJson.dependencies
+!configJson.pkg
+configJson = { pkg: configJson }
+let output = argv.o || argv.output
+let outputPath = argv['out-path'] || argv.outdir || argv['out-dir']
+let autoOutput = false
+output && outputPath
+throw (0, log_1.wasReported)("Specify either 'output' or 'out-path'. Not both");
+!output
+name = inputJsonName
+!name
+throw (0, log_1.wasReported)("Property 'name' does not exist in", [argv._[0]]);
+name = configJson.name
+!name
+name = path_1.default.basename(inputFin)
+!outputPath
+inputJson && inputJson.pkg
+outputPath = inputJson.pkg.outputPath
+configJson && configJson.pkg
+outputPath = configJson.pkg.outputPath
+outputPath = outputPath || ''
+autoOutput = true
+const ext = path_1.default.extname(name)
+output = name.slice(0, -ext.length || undefined)
+output = path_1.default.resolve(outputPath || '', output)
+output = path_1.default.resolve(output)
+const sTargets = argv.t || argv.target || argv.targets || ''
+typeof sTargets !== 'string'
+throw (0, log_1.wasReported)(`Something is wrong near ${JSON.stringify(sTargets)}`);
+let targets = parseTargets(sTargets.split(',').filter((t) => t))
+!targets.length
+inputJson && inputJson.pkg
+jsonTargets = inputJson.pkg.targets
+configJson && configJson.pkg
+jsonTargets = configJson.pkg.targets
+targets = parseTargets(jsonTargets)
+!targets.length
+!autoOutput
+targets = parseTargets(['host'])
+(0, assert_1.default)(targets.length === 1)
+targets = parseTargets(['linux', 'macos', 'win'])
+log_1.log.info('Targets not specified. Assuming:', `${targets.map((t) => stringifyTarget(t)).join(', ')}`)
+const different = differentParts(targets)
+_iterator_3 = <operator>.iterator(targets)
+targets.length === 1
+file = output
+file = stringifyTargetForOutput(output, target, different)
+target.platform === 'win' && path_1.default.extname(file) !== '.exe'
+file += '.exe'
+target.output = file
+const bakes = (argv.options || '')
+        .split(',')
+        .filter((bake) => bake)
+        .map((bake) => `--${bake}`)
+split
+<lambda>2
+<operator>.formatString("--", bake, "")
+_iterator_4 = <operator>.iterator(targets)
+target.output === inputFin
+<operator>.formatString("-", target.platform, "")
+throw (0, log_1.wasReported)('Refusing to overwrite input file', [inputFin]);
+bytecode = _tmp_48.bytecode
+const nativeBuild = argv['native-build']
+_iterator_5 = <operator>.iterator(targets)
+target.forceBuild = forceBuild
+await needWithDryRun(target)
+target.fabricator = fabricatorForTarget(target)
+await needWithDryRun(Object.assign(Object.assign({}, target.fabricator), { forceBuild }))
+dryRunResults.fetched && !dryRunResults.built
+log_1.log.info('Fetching base Node.js binaries to PKG_CACHE_PATH')
+_iterator_6 = <operator>.iterator(targets)
+target.binaryPath = await needViaCache(target)
+const f = target.fabricator
+f && bytecode
+f.binaryPath = await needViaCache(f)
+f.platform === 'macos'
+<operator>.formatString("", f.binaryPath, "-signed")
+await (0, fs_extra_1.remove)(signedBinaryPath)
+(0, fs_extra_1.copyFileSync)(f.binaryPath, signedBinaryPath)
+(0, mach_o_1.signMachOExecutable)(signedBinaryPath)
+throw (0, log_1.wasReported)('Cannot generate bytecode', [
+                        'pkg fails to run "codesign" utility. Due to the mandatory signing',
+                        'requirement of macOS, executables must be signed. Please ensure the',
+                        'utility is installed and properly configured.',
+                    ]);
+_tmp_52.push("pkg fails to run "codesign" utility. Due to the mandatory signing")
+_tmp_52.push("requirement of macOS, executables must be signed. Please ensure the")
+_tmp_52.push("utility is installed and properly configured.")
+f.binaryPath = signedBinaryPath
+f.platform !== 'win'
+await (0, chmod_1.plusx)(f.binaryPath)
+marker = {
+            config: configJson,
+            base: path_1.default.dirname(config),
+            configPath: config,
+        }
+_tmp_53.config = configJson
+_tmp_53.base = path_1.default.dirname(config)
+_tmp_53.configPath = config
+marker = {
+            config: inputJson || {},
+            base: path_1.default.dirname(input),
+            configPath: input,
+        }
+_tmp_55.config = inputJson || {}
+_tmp_55.base = path_1.default.dirname(input)
+_tmp_55.configPath = input
+marker.toplevel = true
+const params = {}
+argv.public
+params.publicToplevel = true
+argv["public-packages"]
+params.publicPackages = argv['public-packages'].split(',')
+((_a = params.publicPackages) === null || _a === void 0 ? void 0 : _a.indexOf('*')) !== -1
+_tmp_60 = __ecma.Array.factory()
+argv["no-dict"]
+params.noDictionary = argv['no-dict'].split(',')
+((_b = params.noDictionary) === null || _b === void 0 ? void 0 : _b.indexOf('*')) !== -1
+_tmp_62 = __ecma.Array.factory()
+let entrypoint = inputFin
+const addition = isConfiguration(input) ? input : undefined
+const walkResult = await (0, walker_1.default)(marker, entrypoint, addition, params)
+entrypoint = walkResult.entrypoint
+records = walkResult.records
+symLinks = walkResult.symLinks
+const refineResult = (0, refiner_1.default)(records, entrypoint, symLinks)
+entrypoint = refineResult.entrypoint
+records = refineResult.records
+symLinks = refineResult.symLinks
+const backpack = (0, packer_1.default)({ records, entrypoint, bytecode, symLinks })
+log_1.log.debug('Targets:', JSON.stringify(targets, null, 2))

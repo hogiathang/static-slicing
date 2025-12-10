@@ -1,0 +1,7 @@
+iterate(items, function (value) {
+      var key = callbackfn(value, k++);
+      if (!has(map, key)) set(map, key, [value]);
+      else push(get(map, key), value);
+    })
+var key = callbackfn(value, k++)
+_tmp_3 = __ecma.Array.factory()

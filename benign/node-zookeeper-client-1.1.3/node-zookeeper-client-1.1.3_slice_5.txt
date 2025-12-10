@@ -1,0 +1,43 @@
+function deserialize = function deserialize(type, buffer, offset) {
+    var bytesRead = 0,
+        length = 0,
+        match,
+        value,
+        result;
+
+    switch (type) {
+    case 'int':
+        value = buffer.readInt32BE(offset);
+        bytesRead = 4;
+        break;
+    case 'long':
+        // Long is represented by a buffer of 8 bytes in big endian since
+        // Javascript does not support native 64 integer.
+        value = Buffer.alloc(8);
+        buffer.copy(value, 0, offset, offset + 8);
+        bytesRead = 8;
+        break;
+    case 'buffer':
+        length = buffer.readInt32BE(offset);
+        bytesRead = 4;
+
+        if (length === -1) {
+            value = undefined;
+        } else {
+            value = Buffer.alloc(length);
+            buffer.copy(
+                value,
+                0,
+                offset + bytesRead,
+                offset + bytesRead + length
+            );
+
+            bytesRead += length;
+        }
+        break;
+    case 'ustring':
+        length = buffer.r...
+var bytesRead = 0
+var length = 0
+default:
+(match = /^vector<([\w.]+)>$/.exec(type)) !== null

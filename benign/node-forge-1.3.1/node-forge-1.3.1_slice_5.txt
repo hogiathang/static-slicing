@@ -1,0 +1,34 @@
+socket.data = function(e) {
+    socket.sending = false;
+    var request = socket.options.request;
+    if(request.aborted) {
+      socket.close();
+    } else {
+      // receive all bytes available
+      var response = socket.options.response;
+      var bytes = socket.receive(e.bytesAvailable);
+      if(bytes !== null) {
+        // receive header and then body
+        socket.buffer.putBytes(bytes);
+        if(!response.headerReceived) {
+          response.readHeader(socket.buffer);
+          if(response.headerReceived) {
+            socket.options.headerReady({
+              request: socket.options.request,
+              response: response,
+              socket: socket
+            });
+          }
+        }
+        if(response.headerReceived && !response.bodyReceived) {
+          response.readBody(socket.buffer);
+        }
+        if(response.bodyReceived) {
+          socket.options.bodyReady({
+            request: socket.options.request,
+            response: response,
+            soc...
+socket.sending = false
+var request = socket.options.request
+request.aborted
+socket.close()

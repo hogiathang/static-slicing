@@ -1,0 +1,1 @@
+this[CACHE].forEach(((e, t) => get(this, t, !1)))

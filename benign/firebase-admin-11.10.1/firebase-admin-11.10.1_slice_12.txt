@@ -1,0 +1,20 @@
+(url) => {
+            const request = {
+                method: 'POST',
+                url,
+                headers: FIREBASE_APP_CHECK_CONFIG_HEADERS,
+                data: { app_check_token: token }
+            };
+            return this.httpClient.send(request);
+        }
+const request = {
+                method: 'POST',
+                url,
+                headers: FIREBASE_APP_CHECK_CONFIG_HEADERS,
+                data: { app_check_token: token }
+            }
+_tmp_16.method = "POST"
+_tmp_16.url = url
+_tmp_16.headers = FIREBASE_APP_CHECK_CONFIG_HEADERS
+_tmp_16.data = { app_check_token: token }
+(_tmp_18 = this.httpClient).send

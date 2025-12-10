@@ -1,0 +1,4 @@
+copyItemSync(srcItemName, destItemName) {
+        return fs.copyFileSync(path.resolve(this.baseDirectory, srcItemName), path.resolve(this.baseDirectory, destItemName));
+    }
+fs.copyFileSync(path.resolve(this.baseDirectory, srcItemName), path.resolve(this.baseDirectory, destItemName))

@@ -1,0 +1,23 @@
+function() {
+    var stream = this, item;
+    while (item = stream.read()) {
+      if (argv.group) {
+        items.push(item);
+      }
+      else {
+        if (argv.json) {
+          console.log(JSON.stringify(item));
+        }
+        else {
+          console.log(util.inspect(item, null, 10, true));
+        }
+      }
+    }
+  }
+var stream = this
+item = stream.read()
+argv.group
+items.push(item)
+argv.json
+console.log(JSON.stringify(item))
+console.log(util.inspect(item, null, 10, true))

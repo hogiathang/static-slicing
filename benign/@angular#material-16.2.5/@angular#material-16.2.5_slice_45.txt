@@ -1,0 +1,29 @@
+convertSafeAccess(ast, leftMostSafe, mode) {
+    let guardedExpression2 = this._visit(leftMostSafe.receiver, _Mode.Expression);
+    let temporary = void 0;
+    if (this.needsTemporaryInSafeAccess(leftMostSafe.receiver)) {
+      temporary = this.allocateTemporary();
+      guardedExpression2 = temporary.set(guardedExpression2);
+      this._resultMap.set(leftMostSafe.receiver, temporary);
+    }
+    const condition = guardedExpression2.isBlank();
+    if (leftMostSafe instanceof SafeCall) {
+      this._nodeMap.set(leftMostSafe, new Call(leftMostSafe.span, leftMostSafe.sourceSpan, leftMostSafe.receiver, leftMostSafe.args, leftMostSafe.argumentSpan));
+    } else if (leftMostSafe instanceof SafeKeyedRead) {
+      this._nodeMap.set(leftMostSafe, new KeyedRead(leftMostSafe.span, leftMostSafe.sourceSpan, leftMostSafe.receiver, leftMostSafe.key));
+    } else {
+      this._nodeMap.set(leftMostSafe, new PropertyRead(leftMostSafe.span, leftMostSafe.sourceSpan, leftMostSafe.nameSpan, leftMostSafe.r...
+let guardedExpression2 = this._visit(leftMostSafe.receiver, _Mode.Expression)
+let temporary = void 0
+this.needsTemporaryInSafeAccess(leftMostSafe.receiver)
+temporary = this.allocateTemporary()
+guardedExpression2 = temporary.set(guardedExpression2)
+this._resultMap.set(leftMostSafe.receiver, temporary)
+const condition = guardedExpression2.isBlank()
+leftMostSafe instanceof SafeCall
+this._nodeMap.set(leftMostSafe, new Call(leftMostSafe.span, leftMostSafe.sourceSpan, leftMostSafe.receiver, leftMostSafe.args, leftMostSafe.argumentSpan))
+leftMostSafe instanceof SafeKeyedRead
+this._nodeMap.set(leftMostSafe, new KeyedRead(leftMostSafe.span, leftMostSafe.sourceSpan, leftMostSafe.receiver, leftMostSafe.key))
+this._nodeMap.set(leftMostSafe, new PropertyRead(leftMostSafe.span, leftMostSafe.sourceSpan, leftMostSafe.nameSpan, leftMostSafe.receiver, leftMostSafe.name))
+const access = this._visit(ast, _Mode.Expression)
+this._nodeMap.delete(leftMostSafe)

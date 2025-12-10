@@ -1,0 +1,46 @@
+LRUMapWithDelete.prototype.set = function(key, value) {
+
+  var pointer = this.items.get(key);
+
+  // The key already exists, we just need to update the value and splay on top
+  if (typeof pointer !== 'undefined') {
+    this.splayOnTop(pointer);
+    this.V[pointer] = value;
+
+    return;
+  }
+
+  // The cache is not yet full
+  if (this.size < this.capacity) {
+    if (this.deletedSize > 0) {
+      // If there is a "hole" in the pointer list, reuse it
+      pointer = this.deleted[--this.deletedSize];
+    }
+    else {
+      // otherwise append to the pointer list
+      pointer = this.size;
+    }
+    this.size++;
+  }
+
+  // Cache is full, we need to drop the last value
+  else {
+    pointer = this.tail;
+    this.tail = this.backward[pointer];
+    this.items.delete(this.K[pointer]);
+  }
+
+  // Storing key & value
+  this.items.set(key, pointer);
+  this.K[pointer] = key;
+  this.V[pointer] = value;
+
+  // Moving the item at the front of the list
+  this.forward[pointer] = this.head;
+  this.backward[t...
+var pointer = this.items.get(key)
+typeof pointer !== 'undefined'
+this.size < this.capacity
+pointer = this.tail
+this.tail = this.backward[pointer]
+this.items.delete(this.K[pointer])

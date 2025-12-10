@@ -1,0 +1,66 @@
+addTemplate(ref, binder, template, pipes, schemas, sourceMapping, file, parseErrors, isStandalone) {
+    if (!this.host.shouldCheckComponent(ref.node)) {
+      return;
+    }
+    const fileData = this.dataForFile(ref.node.getSourceFile());
+    const shimData = this.pendingShimForComponent(ref.node);
+    const templateId = fileData.sourceManager.getTemplateId(ref.node);
+    const templateDiagnostics = [];
+    if (parseErrors !== null) {
+      templateDiagnostics.push(...this.getTemplateDiagnostics(parseErrors, templateId, sourceMapping));
+    }
+    const boundTarget = binder.bind({ template });
+    if (this.inlining === InliningMode.InlineOps) {
+      for (const dir of boundTarget.getUsedDirectives()) {
+        const dirRef = dir.ref;
+        const dirNode = dirRef.node;
+        if (!dir.isGeneric || !requiresInlineTypeCtor(dirNode, this.reflector, shimData.file)) {
+          continue;
+        }
+        this.addInlineTypeCtor(fileData, dirNode.getSourceFile(), dirRef, {
+          fnNa...
+(_tmp_1019 = this.host).shouldCheckComponent
+const fileData = this.dataForFile(ref.node.getSourceFile())
+const shimData = this.pendingShimForComponent(ref.node)
+const templateId = fileData.sourceManager.getTemplateId(ref.node)
+const templateDiagnostics = []
+parseErrors !== null
+templateDiagnostics.push(...this.getTemplateDiagnostics(parseErrors, templateId, sourceMapping))
+const boundTarget = binder.bind({ template })
+this.inlining === InliningMode.InlineOps
+_iterator_70 = <operator>.iterator(boundTarget.getUsedDirectives())
+const dirRef = dir.ref
+const dirNode = dirRef.node
+!dir.isGeneric || !requiresInlineTypeCtor(dirNode, this.reflector, shimData.file)
+continue;
+this.addInlineTypeCtor(fileData, dirNode.getSourceFile(), dirRef, {
+          fnName: "ngTypeCtor",
+          body: !dirNode.getSourceFile().isDeclarationFile,
+          fields: {
+            inputs: dir.inputs,
+            queries: dir.queries
+          },
+          coercedInputFields: dir.coercedInputFields
+        })
+_tmp_1023.fnName = "ngTypeCtor"
+_tmp_1023.body = !dirNode.getSourceFile().isDeclarationFile
+_tmp_1023.fields = {
+            inputs: dir.inputs,
+            queries: dir.queries
+          }
+_tmp_1024.inputs = dir.inputs
+_tmp_1024.queries = dir.queries
+_tmp_1023.coercedInputFields = dir.coercedInputFields
+shimData.templates.set(templateId, {
+      template,
+      boundTarget,
+      templateDiagnostics
+    })
+_tmp_1026.template = template
+_tmp_1026.boundTarget = boundTarget
+_tmp_1026.templateDiagnostics = templateDiagnostics
+__ecma.Array.factory()
+_iterator_71 = <operator>.iterator(boundTarget.getUsedPipes())
+!pipes.has(name)
+continue;
+usedPipes.push(pipes.get(name))

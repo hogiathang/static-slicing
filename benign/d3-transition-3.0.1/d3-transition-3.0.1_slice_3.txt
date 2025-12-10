@@ -1,0 +1,13 @@
+function <lambda>2 = function(value) {
+  var id = this._id;
+
+  return arguments.length
+      ? this.each((typeof value === "function"
+          ? durationFunction
+          : durationConstant)(id, value))
+      : get(this.node(), id).duration;
+}
+var id = this._id
+arguments.length ? this.each((typeof value === "function"
+          ? durationFunction
+          : durationConstant)(id, value)) : get(this.node(), id).duration

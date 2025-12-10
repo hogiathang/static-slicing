@@ -1,0 +1,39 @@
+CascaderSelect.prototype.handleVisibleChange = function handleVisibleChange(visible, type) {
+        var _this8 = this;
+
+        var searchValue = this.state.searchValue;
+
+        if (!('visible' in this.props)) {
+            this.setState({
+                visible: visible
+            });
+        }
+
+        if (!visible && searchValue) {
+            this.setState({
+                searchValue: ''
+            });
+        }
+
+        if (['fromCascader', 'keyboard'].indexOf(type) !== -1 && !visible) {
+            // 这里需要延迟下，showSearch 的情况下通过手动设置 menuProps={{focusable: true}} 回车 focus 会有延迟
+            setTimeout(function () {
+                return _this8.select.focusInput();
+            }, 0);
+        }
+
+        this.props.onVisibleChange(visible, type);
+    }
+var _this8 = this
+var searchValue = this.state.searchValue
+!('visible' in this.props)
+this.setState({
+                visible: visible
+            })
+_tmp_26.visible = visible
+!visible && searchValue
+this.setState({
+                searchValue: ''
+            })
+_tmp_27.searchValue = ""
+['fromCascader', 'keyboard'].indexOf(type) !== -1 && !visible

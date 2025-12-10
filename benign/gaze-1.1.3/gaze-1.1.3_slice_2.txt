@@ -1,0 +1,13 @@
+self._pollFile(file, function (err, filepath) {
+        if (err) {
+          self.emit('error', err);
+          return;
+        }
+        // Only emit changed if the file still exists
+        // Prevents changed/deleted duplicate events
+        if (fs.existsSync(filepath)) {
+          self.emit('changed', filepath);
+        }
+      })
+fs.existsSync(filepath)
+self.emit('changed', filepath)

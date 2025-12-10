@@ -1,0 +1,4 @@
+this.getTimestampKeys().forEach((key) => {
+    if (this.get(key)) this.set(key, new Date(this.get(key)));
+  })
+this.set(key, new Date(this.get(key)))

@@ -1,0 +1,64 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"VOICE_STATE_UPDATE"
+packet.d.guild_id && packet.d.user_id === this.client.user.id
+const voiceConnection = this.client.voiceConnections.get(packet.d.guild_id)
+packet.d.channel_id === null
+this.client.voiceConnections.leave(packet.d.guild_id)
+voiceConnection.channelID !== packet.d.channel_id
+voiceConnection.switchChannel(packet.d.channel_id, true)
+packet.d.self_stream === undefined
+packet.d.self_stream = false
+packet.d.guild_id === undefined
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+guild.pendingVoiceStates
+let member = guild.members.get(packet.d.id = packet.d.user_id)
+!member
+!packet.d.member
+packet.d.member.id = packet.d.user_id
+member = guild.members.add(packet.d.member, guild)
+const channel = guild.channels.find((channel) => (channel.type === ChannelTypes.GUILD_VOICE || channel.type === ChannelTypes.GUILD_STAGE_VOICE) && channel.voiceMembers.get(packet.d.id))
+(_tmp_102 = channel.voiceMembers).remove
+this.emit("debug", "VOICE_STATE_UPDATE member null but in channel: " + packet.d.id, this.id)
+const oldState = {
+                    deaf: member.voiceState.deaf,
+                    mute: member.voiceState.mute,
+                    selfDeaf: member.voiceState.selfDeaf,
+                    selfMute: member.voiceState.selfMute,
+                    selfStream: member.voiceState.selfStream,
+                    selfVideo: member.voiceState.selfVideo
+                }
+_tmp_103.deaf = member.voiceState.deaf
+_tmp_103.mute = member.voiceState.mute
+_tmp_103.selfDeaf = member.voiceState.selfDeaf
+_tmp_103.selfMute = member.voiceState.selfMute
+_tmp_103.selfStream = member.voiceState.selfStream
+_tmp_103.selfVideo = member.voiceState.selfVideo
+const oldChannelID = member.voiceState.channelID
+member.update(packet.d, this.client)
+oldChannelID != packet.d.channel_id
+oldChannel = guild.channels.get(oldChannelID)
+oldChannel && oldChannel.type !== ChannelTypes.GUILD_VOICE && oldChannel.type !== ChannelTypes.GUILD_STAGE_VOICE
+this.emit("warn", "Old channel not a recognized voice channel: " + oldChannelID, this.id)
+oldChannel = null
+packet.d.channel_id && (newChannel = guild.channels.get(packet.d.channel_id)) && (newChannel.type === ChannelTypes.GUILD_VOICE || newChannel.type === ChannelTypes.GUILD_STAGE_VOICE)
+(_tmp_109 = oldChannel.voiceMembers).remove
+this.emit("voiceChannelLeave", member, oldChannel)

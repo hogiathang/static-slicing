@@ -1,0 +1,5 @@
+_tmp_4.value = getPatternForRegExp
+var regExp = this.cache.get(pattern)
+!regExp
+regExp = new RegExp('^' + pattern)
+this.cache.put(pattern, regExp)

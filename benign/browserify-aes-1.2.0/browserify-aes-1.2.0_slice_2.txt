@@ -1,0 +1,18 @@
+Cipher.prototype._update = function (data) {
+  this._cache.add(data)
+  var chunk
+  var thing
+  var out = []
+
+  while ((chunk = this._cache.get())) {
+    thing = this._mode.encrypt(this, chunk)
+    out.push(thing)
+  }
+
+  return Buffer.concat(out)
+}
+(_tmp_9 = this._cache).add
+__ecma.Array.factory()
+(_tmp_10 = this._cache).get
+thing = this._mode.encrypt(this, chunk)
+out.push(thing)

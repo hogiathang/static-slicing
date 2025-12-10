@@ -1,0 +1,40 @@
+#chunks: Chunks = {}
+constructor(
+    option: CookieOption,
+    req: Partial<{
+      cookies: NextRequest["cookies"] | NextApiRequest["cookies"]
+      headers: NextRequest["headers"] | NextApiRequest["headers"]
+    }>,
+    logger: LoggerInstance | Console
+  ) {
+    this.#logger = logger
+    this.#option = option
+
+    const { cookies } = req
+    const { name: cookieName } = option
+
+    if (typeof cookies?.getAll === "function") {
+      // Next.js ^v13.0.1 (Edge Env)
+      for (const { name, value } of cookies.getAll()) {
+        if (name.startsWith(cookieName)) {
+          this.#chunks[name] = value
+        }
+      }
+    } else if (cookies instanceof Map) {
+      for (const name of cookies.keys()) {
+        if (name.startsWith(cookieName)) this.#chunks[name] = cookies.get(name)
+      }
+    } else {
+      for (const name in cookies) {
+        if (name.startsWith(cookieName)) this.#chunks[name] = cookies[name]
+      }
+    }
+  }
+this.#logger = logger
+this.#option = option
+cookies = _tmp_14.cookies
+cookieName = _tmp_15.name
+typeof cookies?.getAll === "function"
+cookies instanceof Map
+_iterator_1 = <operator>.iterator(cookies.keys())
+this.#chunks[name] = cookies.get(name)

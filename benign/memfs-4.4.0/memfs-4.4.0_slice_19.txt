@@ -1,0 +1,33 @@
+async getFileHandle(name, options) {
+        (0, util_1.assertName)(name, 'getFileHandle', 'FileSystemDirectoryHandle');
+        const filename = this.__path + name;
+        try {
+            const stats = await this.fs.promises.stat(filename);
+            if (!stats.isFile())
+                throw (0, util_1.newTypeMismatchError)();
+            return new NodeFileSystemFileHandle_1.NodeFileSystemFileHandle(this.fs, filename, this.ctx);
+        }
+        catch (error) {
+            if (error instanceof DOMException)
+                throw error;
+            if (error && typeof error === 'object') {
+                switch (error.code) {
+                    case 'ENOENT': {
+                        if (options === null || options === void 0 ? void 0 : options.create) {
+                            (0, util_1.assertCanWrite)(this.ctx.mode);
+                            await this.fs.promises.writeFile(filename, '');
+                            return new NodeFileSystemFileHandle_1.NodeFile...
+(0, util_1.assertName)(name, 'getFileHandle', 'FileSystemDirectoryHandle')
+const filename = this.__path + name
+const stats = await this.fs.promises.stat(filename)
+!stats.isFile()
+throw (0, util_1.newTypeMismatchError)();
+new NodeFileSystemFileHandle_1.NodeFileSystemFileHandle(this.fs, filename, this.ctx)
+error instanceof DOMException
+throw error;
+error && typeof error === 'object'
+error.code
+"ENOENT"
+options === null || options === void 0 ? void 0 : options.create
+(0, util_1.assertCanWrite)(this.ctx.mode)
+await this.fs.promises.writeFile(filename, '')

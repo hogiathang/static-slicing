@@ -1,0 +1,17 @@
+_tmp_162.Program:exit = "Program:exit"
+options.ignoreComments
+sourceCode.getAllComments()
+                            .forEach(comment => offsets.ignoreToken(comment))
+offsets.ignoreToken(comment)
+i < listenerCallQueue.length
+const nodeInfo = listenerCallQueue[i]
+!ignoredNodes.has(nodeInfo.node)
+nodeInfo.listener(nodeInfo.node)
+ignoredNodes.forEach(ignoreNode)
+addParensIndent(sourceCode.ast.tokens)
+const precedingTokens = new WeakMap()
+i < sourceCode.ast.comments.length
+const comment = sourceCode.ast.comments[i]
+const tokenOrCommentBefore = sourceCode.getTokenBefore(comment, { includeComments: true })
+const hasToken = precedingTokens.has(tokenOrCommentBefore) ? precedingTokens.get(tokenOrCommentBefore) : tokenOrCommentBefore
+precedingTokens.set(comment, hasToken)

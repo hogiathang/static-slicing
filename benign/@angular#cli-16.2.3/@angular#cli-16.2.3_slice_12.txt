@@ -1,0 +1,40 @@
+function _addPeerDependencies = function _addPeerDependencies(tree, packages, allDependencies, npmPackageJson, npmPackageJsonMap, logger) {
+    const maybePackage = packages.get(npmPackageJson.name);
+    if (!maybePackage) {
+        return;
+    }
+    const info = _buildPackageInfo(tree, packages, allDependencies, npmPackageJson, logger);
+    const version = (info.target && info.target.version) ||
+        npmPackageJson['dist-tags'][maybePackage] ||
+        maybePackage;
+    if (!npmPackageJson.versions[version]) {
+        return;
+    }
+    const packageJson = npmPackageJson.versions[version];
+    const error = false;
+    for (const [peer, range] of Object.entries(packageJson.peerDependencies || {})) {
+        if (packages.has(peer)) {
+            continue;
+        }
+        const peerPackageJson = npmPackageJsonMap.get(peer);
+        if (peerPackageJson) {
+            const peerInfo = _buildPackageInfo(tree, packages, allDependencies, peerPackageJson, logger);
+            if (semver.satisfies(peerInfo.installed.ve...
+const maybePackage = packages.get(npmPackageJson.name)
+!maybePackage
+const info = _buildPackageInfo(tree, packages, allDependencies, npmPackageJson, logger)
+const version = (info.target && info.target.version) ||
+        npmPackageJson['dist-tags'][maybePackage] ||
+        maybePackage
+npmPackageJson["dist-tags"][maybePackage]
+!npmPackageJson.versions[version]
+const packageJson = npmPackageJson.versions[version]
+const error = false
+_iterator_6 = <operator>.iterator(Object.entries(packageJson.peerDependencies || {}))
+packages.has(peer)
+continue;
+const peerPackageJson = npmPackageJsonMap.get(peer)
+const peerInfo = _buildPackageInfo(tree, packages, allDependencies, peerPackageJson, logger)
+semver.satisfies(peerInfo.installed.version, range)
+continue;
+packages.set(peer, range)

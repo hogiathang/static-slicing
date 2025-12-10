@@ -1,0 +1,10 @@
+Logger.prototype._log = function (type, msg) {
+  if (required) {
+    bus.emit('log', { type: type, message: msg || '', colour: msg || '' });
+  } else if (type === 'error') {
+    console.error(msg);
+  } else {
+    console.log(msg || '');
+  }
+}
+bus.emit('log', { type: type, message: msg || '', colour: msg || '' })

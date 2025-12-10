@@ -1,0 +1,9 @@
+RequestBuilder.prototype.patch = function(url, options) {
+  return new RequestObj(
+    this.setCommonConfiguration(request.patch(url), options)
+  );
+}
+new RequestObj(
+    this.setCommonConfiguration(request.patch(url), options)
+  )
+this.setCommonConfiguration(request.patch(url), options)

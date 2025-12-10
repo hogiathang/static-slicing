@@ -1,0 +1,43 @@
+function loadPlugins = function loadPlugins(...settings) {
+        const loaded = new Set();
+        for (const source of settings) {
+            const plugins = source.get(['plugin']) || [];
+            for (const plugin of plugins) {
+                const resolved = tryResolve(plugin);
+                if (loaded.has(resolved)) {
+                    continue;
+                }
+                (0, logging_1.debug)(`Loading plug-in: ${chalk.green(plugin)} from ${chalk.blue(resolved)}`);
+                plugin_1.PluginHost.instance.load(plugin);
+                loaded.add(resolved);
+            }
+        }
+        function tryResolve(plugin) {
+            try {
+                return require.resolve(plugin);
+            }
+            catch (e) {
+                (0, logging_1.error)(`Unable to resolve plugin ${chalk.green(plugin)}: ${e.stack}`);
+                throw new Error(`Unable to resolve plug-in: ${plugin}`);
+            }
+        }
+    }
+const loaded = new Set()
+_iterator_0 = <operator>.iterator(settings)
+const plugins = source.get(['plugin']) || []
+_iterator_1 = <operator>.iterator(plugins)
+const resolved = tryResolve(plugin)
+loaded.has(resolved)
+continue;
+<operator>.formatString("Loading plug-in: ", chalk.green(plugin), " from ", chalk.blue(resolved), "")
+(_tmp_263 = plugin_1.PluginHost.instance).load
+loaded.add(resolved)
+function tryResolve = function tryResolve(plugin) {
+            try {
+                return require.resolve(plugin);
+            }
+            catch (e) {
+                (0, logging_1.error)(`Unable to resolve plugin ${chalk.green(plugin)}: ${e.stack}`);
+                throw new Error(`Unable to resolve plug-in: ${plugin}`);
+            }
+        }

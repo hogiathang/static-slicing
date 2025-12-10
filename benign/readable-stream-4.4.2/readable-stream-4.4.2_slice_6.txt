@@ -1,0 +1,52 @@
+function readableAddChunk = function readableAddChunk(stream, chunk, encoding, addToFront) {
+  debug('readableAddChunk', chunk)
+  const state = stream._readableState
+  let err
+  if (!state.objectMode) {
+    if (typeof chunk === 'string') {
+      encoding = encoding || state.defaultEncoding
+      if (state.encoding !== encoding) {
+        if (addToFront && state.encoding) {
+          // When unshifting, if state.encoding is set, we have to save
+          // the string in the BufferList with the state encoding.
+          chunk = Buffer.from(chunk, encoding).toString(state.encoding)
+        } else {
+          chunk = Buffer.from(chunk, encoding)
+          encoding = ''
+        }
+      }
+    } else if (chunk instanceof Buffer) {
+      encoding = ''
+    } else if (Stream._isUint8Array(chunk)) {
+      chunk = Stream._uint8ArrayToBuffer(chunk)
+      encoding = ''
+    } else if (chunk != null) {
+      err = new ERR_INVALID_ARG_TYPE('chunk', ['string', 'Buffer', 'Uint8Array'], chunk)
+    }
+  }
+  if (err) {
+    errorOrD...
+debug('readableAddChunk', chunk)
+const state = stream._readableState
+!state.objectMode
+typeof chunk === 'string'
+encoding = encoding || state.defaultEncoding
+state.encoding !== encoding
+addToFront && state.encoding
+chunk = Buffer.from(chunk, encoding).toString(state.encoding)
+chunk = Buffer.from(chunk, encoding)
+encoding = ''
+chunk instanceof Buffer
+encoding = ''
+Stream._isUint8Array(chunk)
+chunk = Stream._uint8ArrayToBuffer(chunk)
+encoding = ''
+chunk != null
+err = new ERR_INVALID_ARG_TYPE('chunk', ['string', 'Buffer', 'Uint8Array'], chunk)
+chunk === null
+state.objectMode || (chunk && chunk.length > 0)
+state.ended
+state.destroyed || state.errored
+state.reading = false
+state.decoder && !encoding
+chunk = state.decoder.write(chunk)

@@ -1,0 +1,568 @@
+const parse = (input, options) => {
+  if (typeof input !== 'string') {
+    throw new TypeError('Expected a string');
+  }
+
+  input = REPLACEMENTS[input] || input;
+
+  const opts = { ...options };
+  const max = typeof opts.maxLength === 'number' ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH;
+
+  let len = input.length;
+  if (len > max) {
+    throw new SyntaxError(`Input length: ${len}, exceeds maximum allowed length: ${max}`);
+  }
+
+  const bos = { type: 'bos', value: '', output: opts.prepend || '' };
+  const tokens = [bos];
+
+  const capture = opts.capture ? '' : '?:';
+  const win32 = utils.isWindows(options);
+
+  // create constants based on platform, for windows or posix
+  const PLATFORM_CHARS = constants.globChars(win32);
+  const EXTGLOB_CHARS = constants.extglobChars(PLATFORM_CHARS);
+
+  const {
+    DOT_LITERAL,
+    PLUS_LITERAL,
+    SLASH_LITERAL,
+    ONE_CHAR,
+    DOTS_SLASH,
+    NO_DOT,
+    NO_DOT_SLASH,
+    NO_DOTS_SLASH,
+    QMARK,
+    QMARK_NO_DOT,
+    STAR,
+    START_ANCHOR
+  } ...
+typeof input !== 'string'
+throw new TypeError('Expected a string');
+input = REPLACEMENTS[input] || input
+const opts = { ...options }
+const max = typeof opts.maxLength === 'number' ? Math.min(MAX_LENGTH, opts.maxLength) : MAX_LENGTH
+let len = input.length
+len > max
+<operator>.formatString("Input length: ", len, ", exceeds maximum allowed length: ", max, "")
+const bos = { type: 'bos', value: '', output: opts.prepend || '' }
+_tmp_7 = __ecma.Array.factory()
+const capture = opts.capture ? '' : '?:'
+const win32 = utils.isWindows(options)
+const PLATFORM_CHARS = constants.globChars(win32)
+const EXTGLOB_CHARS = constants.extglobChars(PLATFORM_CHARS)
+_tmp_8 = PLATFORM_CHARS
+DOT_LITERAL = _tmp_8.DOT_LITERAL
+PLUS_LITERAL = _tmp_8.PLUS_LITERAL
+SLASH_LITERAL = _tmp_8.SLASH_LITERAL
+ONE_CHAR = _tmp_8.ONE_CHAR
+DOTS_SLASH = _tmp_8.DOTS_SLASH
+NO_DOT = _tmp_8.NO_DOT
+NO_DOT_SLASH = _tmp_8.NO_DOT_SLASH
+NO_DOTS_SLASH = _tmp_8.NO_DOTS_SLASH
+QMARK = _tmp_8.QMARK
+QMARK_NO_DOT = _tmp_8.QMARK_NO_DOT
+STAR = _tmp_8.STAR
+START_ANCHOR = _tmp_8.START_ANCHOR
+const globstar = opts => {
+    return `(${capture}(?:(?!${START_ANCHOR}${opts.dot ? DOTS_SLASH : DOT_LITERAL}).)*?)`;
+  }
+const nodot = opts.dot ? '' : NO_DOT
+const qmarkNoDot = opts.dot ? QMARK : QMARK_NO_DOT
+let star = opts.bash === true ? globstar(opts) : STAR
+opts.capture
+<operator>.formatString("(", star, ")")
+typeof opts.noext === 'boolean'
+opts.noextglob = opts.noext
+const state = {
+    input,
+    index: -1,
+    start: 0,
+    dot: opts.dot === true,
+    consumed: '',
+    output: '',
+    prefix: '',
+    backtrack: false,
+    negated: false,
+    brackets: 0,
+    braces: 0,
+    parens: 0,
+    quotes: 0,
+    globstar: false,
+    tokens
+  }
+_tmp_9.input = input
+_tmp_9.index = -1
+_tmp_9.start = 0
+_tmp_9.dot = opts.dot === true
+_tmp_9.consumed = ""
+_tmp_9.output = ""
+_tmp_9.prefix = ""
+_tmp_9.backtrack = false
+_tmp_9.negated = false
+_tmp_9.brackets = 0
+_tmp_9.braces = 0
+_tmp_9.parens = 0
+_tmp_9.quotes = 0
+_tmp_9.globstar = false
+_tmp_9.tokens = tokens
+input = utils.removePrefix(input, state)
+len = input.length
+__ecma.Array.factory()
+__ecma.Array.factory()
+__ecma.Array.factory()
+let prev = bos
+const eos = () => state.index === len - 1
+const peek = state.peek = (n = 1) => input[state.index + n]
+const advance = state.advance = () => input[++state.index] || ''
+const remaining = () => input.slice(state.index + 1)
+const consume = (value = '', num = 0) => {
+    state.consumed += value;
+    state.index += num;
+  }
+const append = token => {
+    state.output += token.output != null ? token.output : token.value;
+    consume(token.value);
+  }
+const negate = () => {
+    let count = 1;
+
+    while (peek() === '!' && (peek(2) !== '(' || peek(3) === '?')) {
+      advance();
+      state.start++;
+      count++;
+    }
+
+    if (count % 2 === 0) {
+      return false;
+    }
+
+    state.negated = true;
+    state.start++;
+    return true;
+  }
+const increment = type => {
+    state[type]++;
+    stack.push(type);
+  }
+const decrement = type => {
+    state[type]--;
+    stack.pop();
+  }
+const push = tok => {
+    if (prev.type === 'globstar') {
+      const isBrace = state.braces > 0 && (tok.type === 'comma' || tok.type === 'brace');
+      const isExtglob = tok.extglob === true || (extglobs.length && (tok.type === 'pipe' || tok.type === 'paren'));
+
+      if (tok.type !== 'slash' && tok.type !== 'paren' && !isBrace && !isExtglob) {
+        state.output = state.output.slice(0, -prev.output.length);
+        prev.type = 'star';
+        prev.value = '*';
+        prev.output = star;
+        state.output += prev.output;
+      }
+    }
+
+    if (extglobs.length && tok.type !== 'paren') {
+      extglobs[extglobs.length - 1].inner += tok.value;
+    }
+
+    if (tok.value || tok.output) append(tok);
+    if (prev && prev.type === 'text' && tok.type === 'text') {
+      prev.value += tok.value;
+      prev.output = (prev.output || '') + tok.value;
+      return;
+    }
+
+    tok.prev = prev;
+    tokens.push(tok);
+    prev = tok;
+  }
+const extglobOpen = (type, value) => {
+    const token = { ...EXTGLOB_CHARS[value], conditions: 1, inner: '' };
+
+    token.prev = prev;
+    token.parens = state.parens;
+    token.output = state.output;
+    const output = (opts.capture ? '(' : '') + token.open;
+
+    increment('parens');
+    push({ type, value, output: state.output ? '' : ONE_CHAR });
+    push({ type: 'paren', extglob: true, value: advance(), output });
+    extglobs.push(token);
+  }
+const extglobClose = token => {
+    let output = token.close + (opts.capture ? ')' : '');
+    let rest;
+
+    if (token.type === 'negate') {
+      let extglobStar = star;
+
+      if (token.inner && token.inner.length > 1 && token.inner.includes('/')) {
+        extglobStar = globstar(opts);
+      }
+
+      if (extglobStar !== star || eos() || /^\)+$/.test(remaining())) {
+        output = token.close = `)$))${extglobStar}`;
+      }
+
+      if (token.inner.includes('*') && (rest = remaining()) && /^\.[^\\/.]+$/.test(rest)) {
+        // Any non-magical string (`.ts`) or even nested expression (`.{ts,tsx}`) can follow after the closing parenthesis.
+        // In this case, we need to parse the string and use it in the output of the original pattern.
+        // Suitable patterns: `/!(*.d).ts`, `/!(*.d).{ts,tsx}`, `**/!(*-dbg).@(js)`.
+        //
+        // Disabling the `fastpaths` option due to a problem with parsing strings as `.ts` in the pattern like `**/!(*.d).ts`.
+        const expression = pa...
+opts.fastpaths !== false && !/(^[*!]|[/()[\]{}"])/.test(input)
+!eos()
+value = advance()
+value === '\u0000'
+continue;
+value === '\\'
+const next = peek()
+next === '/' && opts.bash !== true
+continue;
+next === '.' || next === ';'
+continue;
+!next
+value += '\\'
+push({ type: 'text', value })
+continue;
+const match = /^\\+/.exec(remaining())
+let slashes = 0
+match && match[0].length > 2
+slashes = match[0].length
+state.index += slashes
+slashes % 2 !== 0
+value += '\\'
+opts.unescape === true
+value = advance()
+value += advance()
+state.brackets === 0
+push({ type: 'text', value })
+continue;
+state.brackets > 0 && (value !== ']' || prev.value === '[' || prev.value === '[^')
+opts.posix !== false && value === ':'
+const inner = prev.value.slice(1)
+inner.includes('[')
+prev.posix = true
+inner.includes(':')
+const idx = prev.value.lastIndexOf('[')
+const pre = prev.value.slice(0, idx)
+const rest = prev.value.slice(idx + 2)
+const posix = POSIX_REGEX_SOURCE[rest]
+prev.value = pre + posix
+state.backtrack = true
+advance()
+!bos.output && tokens.indexOf(prev) === 1
+bos.output = ONE_CHAR
+continue;
+(value === '[' && peek() !== ':') || (value === '-' && peek() === ']')
+<operator>.formatString("\\", value, "")
+value === ']' && (prev.value === '[' || prev.value === '[^')
+<operator>.formatString("\\", value, "")
+opts.posix === true && value === '!' && prev.value === '['
+value = '^'
+prev.value += value
+_tmp_28.value = value
+continue;
+state.quotes === 1 && value !== '"'
+value = utils.escapeRegex(value)
+prev.value += value
+_tmp_29.value = value
+continue;
+value === '"'
+state.quotes = state.quotes === 1 ? 0 : 1
+opts.keepQuotes === true
+push({ type: 'text', value })
+continue;
+value === '('
+increment('parens')
+push({ type: 'paren', value })
+continue;
+value === ')'
+state.parens === 0 && opts.strictBrackets === true
+throw new SyntaxError(syntaxError('opening', '('));
+const extglob = extglobs[extglobs.length - 1]
+extglob && state.parens === extglob.parens + 1
+extglobClose(extglobs.pop())
+continue;
+push({ type: 'paren', value, output: state.parens ? ')' : '\\)' })
+decrement('parens')
+continue;
+value === '['
+opts.nobracket === true || !remaining().includes(']')
+opts.nobracket !== true && opts.strictBrackets === true
+throw new SyntaxError(syntaxError('closing', ']'));
+<operator>.formatString("\\", value, "")
+increment('brackets')
+push({ type: 'bracket', value })
+continue;
+value === ']'
+opts.nobracket === true || (prev && prev.type === 'bracket' && prev.value.length === 1)
+_tmp_37.output = <operator>.formatString("\\", value, "")
+continue;
+state.brackets === 0
+opts.strictBrackets === true
+throw new SyntaxError(syntaxError('opening', '['));
+_tmp_39.output = <operator>.formatString("\\", value, "")
+continue;
+decrement('brackets')
+const prevValue = prev.value.slice(1)
+prev.posix !== true && prevValue[0] === '^' && !prevValue.includes('/')
+<operator>.formatString("/", value, "")
+prev.value += value
+_tmp_41.value = value
+opts.literalBrackets === false || utils.hasRegexChars(prevValue)
+continue;
+const escaped = utils.escapeRegex(prev.value)
+state.output = state.output.slice(0, -prev.value.length)
+opts.literalBrackets === true
+state.output += escaped
+prev.value = escaped
+continue;
+<operator>.formatString("(", capture, "", escaped, "|", prev.value, ")")
+state.output += prev.value
+continue;
+value === '{' && opts.nobrace !== true
+increment('braces')
+const open = {
+        type: 'brace',
+        value,
+        output: '(',
+        outputIndex: state.output.length,
+        tokensIndex: state.tokens.length
+      }
+_tmp_43.type = "brace"
+_tmp_43.value = value
+_tmp_43.output = "("
+_tmp_43.outputIndex = state.output.length
+_tmp_43.tokensIndex = state.tokens.length
+braces.push(open)
+push(open)
+continue;
+value === '}'
+const brace = braces[braces.length - 1]
+opts.nobrace === true || !brace
+push({ type: 'text', value, output: value })
+continue;
+let output = ')'
+brace.dots === true
+const arr = tokens.slice()
+__ecma.Array.factory()
+let i = arr.length - 1
+tokens.pop()
+arr[i].type === 'brace'
+break;
+arr[i].type !== 'dots'
+range.unshift(arr[i].value)
+output = expandRange(range, opts)
+state.backtrack = true
+brace.comma !== true && brace.dots !== true
+const out = state.output.slice(0, brace.outputIndex)
+const toks = state.tokens.slice(brace.tokensIndex)
+brace.value = brace.output = '\\{'
+value = output = '\\}'
+state.output = out
+_iterator_0 = <operator>.iterator(toks)
+state.output += (t.output || t.value)
+push({ type: 'brace', value, output })
+decrement('braces')
+braces.pop()
+continue;
+value === '|'
+extglobs.length > 0
+extglobs[extglobs.length - 1].conditions++
+push({ type: 'text', value })
+continue;
+value === ','
+let output = value
+const brace = braces[braces.length - 1]
+brace && stack[stack.length - 1] === 'braces'
+brace.comma = true
+output = '|'
+push({ type: 'comma', value, output })
+continue;
+value === '/'
+prev.type === 'dot' && state.index === state.start + 1
+state.start = state.index + 1
+state.consumed = ''
+state.output = ''
+tokens.pop()
+prev = bos
+continue;
+push({ type: 'slash', value, output: SLASH_LITERAL })
+continue;
+value === '.'
+state.braces > 0 && prev.type === 'dot'
+prev.output = DOT_LITERAL
+const brace = braces[braces.length - 1]
+prev.type = 'dots'
+prev.output += value
+prev.value += value
+brace.dots = true
+continue;
+(state.braces + state.parens) === 0 && prev.type !== 'bos' && prev.type !== 'slash'
+push({ type: 'text', value, output: DOT_LITERAL })
+continue;
+push({ type: 'dot', value, output: DOT_LITERAL })
+continue;
+value === '?'
+const isGroup = prev && prev.value === '('
+!isGroup && opts.noextglob !== true && peek() === '(' && peek(2) !== '?'
+extglobOpen('qmark', value)
+continue;
+prev && prev.type === 'paren'
+const next = peek()
+let output = value
+next === '<' && !utils.supportsLookbehinds()
+throw new Error('Node.js v10 or higher is required for regex lookbehinds');
+(prev.value === '(' && !/[!=<:]/.test(next)) || (next === '<' && !/<([!=]|\w+>)/.test(remaining()))
+<operator>.formatString("\\", value, "")
+push({ type: 'text', value, output })
+continue;
+opts.dot !== true && (prev.type === 'slash' || prev.type === 'bos')
+push({ type: 'qmark', value, output: QMARK_NO_DOT })
+continue;
+push({ type: 'qmark', value, output: QMARK })
+continue;
+value === '!'
+opts.noextglob !== true && peek() === '('
+peek(2) !== '?' || !/[!=<:]/.test(peek(3))
+extglobOpen('negate', value)
+continue;
+opts.nonegate !== true && state.index === 0
+negate()
+continue;
+value === '+'
+opts.noextglob !== true && peek() === '(' && peek(2) !== '?'
+extglobOpen('plus', value)
+continue;
+(prev && prev.value === '(') || opts.regex === false
+push({ type: 'plus', value, output: PLUS_LITERAL })
+continue;
+(prev && (prev.type === 'bracket' || prev.type === 'paren' || prev.type === 'brace')) || state.parens > 0
+push({ type: 'plus', value })
+continue;
+push({ type: 'plus', value: PLUS_LITERAL })
+continue;
+value === '@'
+opts.noextglob !== true && peek() === '(' && peek(2) !== '?'
+push({ type: 'at', extglob: true, value, output: '' })
+continue;
+push({ type: 'text', value })
+continue;
+value !== '*'
+value === '$' || value === '^'
+<operator>.formatString("\\", value, "")
+const match = REGEX_NON_SPECIAL_CHARS.exec(remaining())
+value += match[0]
+state.index += match[0].length
+push({ type: 'text', value })
+continue;
+prev && (prev.type === 'globstar' || prev.star === true)
+prev.type = 'star'
+prev.star = true
+prev.value += value
+prev.output = star
+state.backtrack = true
+state.globstar = true
+consume(value)
+continue;
+let rest = remaining()
+opts.noextglob !== true && /^\([^?]/.test(rest)
+extglobOpen('star', value)
+continue;
+prev.type === 'star'
+opts.noglobstar === true
+consume(value)
+continue;
+const prior = prev.prev
+const before = prior.prev
+const isStart = prior.type === 'slash' || prior.type === 'bos'
+const afterStar = before && (before.type === 'star' || before.type === 'globstar')
+opts.bash === true && (!isStart || (rest[0] && rest[0] !== '/'))
+push({ type: 'star', value, output: '' })
+continue;
+const isBrace = state.braces > 0 && (prior.type === 'comma' || prior.type === 'brace')
+const isExtglob = extglobs.length && (prior.type === 'pipe' || prior.type === 'paren')
+!isStart && prior.type !== 'paren' && !isBrace && !isExtglob
+push({ type: 'star', value, output: '' })
+continue;
+rest.slice(0, 3) === '/**'
+const after = input[state.index + 4]
+after && after !== '/'
+break;
+rest = rest.slice(3)
+consume('/**', 3)
+prior.type === 'bos' && eos()
+prev.type = 'globstar'
+prev.value += value
+prev.output = globstar(opts)
+state.output = prev.output
+state.globstar = true
+consume(value)
+continue;
+prior.type === 'slash' && prior.prev.type !== 'bos' && !afterStar && eos()
+state.output = state.output.slice(0, -(prior.output + prev.output).length)
+<operator>.formatString("(?:", prior.output, "")
+prev.type = 'globstar'
+prev.output = globstar(opts) + (opts.strictSlashes ? ')' : '|$)')
+prev.value += value
+state.globstar = true
+state.output += prior.output + prev.output
+consume(value)
+continue;
+prior.type === 'slash' && prior.prev.type !== 'bos' && rest[0] === '/'
+const end = rest[1] !== void 0 ? '|$' : ''
+state.output = state.output.slice(0, -(prior.output + prev.output).length)
+<operator>.formatString("(?:", prior.output, "")
+prev.type = 'globstar'
+<operator>.formatString("", globstar(opts), "", SLASH_LITERAL, "|", SLASH_LITERAL, "", end, ")")
+prev.value += value
+state.output += prior.output + prev.output
+state.globstar = true
+consume(value + advance())
+push({ type: 'slash', value: '/', output: '' })
+continue;
+prior.type === 'bos' && rest[0] === '/'
+prev.type = 'globstar'
+prev.value += value
+<operator>.formatString("(?:^|", SLASH_LITERAL, "|", globstar(opts), "", SLASH_LITERAL, ")")
+state.output = prev.output
+state.globstar = true
+consume(value + advance())
+push({ type: 'slash', value: '/', output: '' })
+continue;
+state.output = state.output.slice(0, -prev.output.length)
+prev.type = 'globstar'
+prev.output = globstar(opts)
+prev.value += value
+state.output += prev.output
+state.globstar = true
+consume(value)
+continue;
+const token = { type: 'star', value, output: star }
+opts.bash === true
+token.output = '.*?'
+prev.type === 'bos' || prev.type === 'slash'
+token.output = nodot + token.output
+push(token)
+continue;
+prev && (prev.type === 'bracket' || prev.type === 'paren') && opts.regex === true
+token.output = value
+push(token)
+continue;
+state.index === state.start || prev.type === 'slash' || prev.type === 'dot'
+prev.type === 'dot'
+state.output += NO_DOT_SLASH
+prev.output += NO_DOT_SLASH
+opts.dot === true
+state.output += NO_DOTS_SLASH
+prev.output += NO_DOTS_SLASH
+state.output += nodot
+prev.output += nodot
+peek() !== '*'
+state.output += ONE_CHAR
+prev.output += ONE_CHAR
+push(token)

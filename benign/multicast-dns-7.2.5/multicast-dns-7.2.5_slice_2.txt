@@ -1,0 +1,22 @@
+var mdns = require('./')()
+var path = require('path')
+var os = require('os')
+var announcing = process.argv.indexOf('--announce') > -1
+process.argv.length < 3
+console.error('Usage: %s <hostname>', path.basename(process.argv[1]))
+process.exit(1)
+function getIp = function getIp () {
+  var networks = os.networkInterfaces()
+  var found = '127.0.0.1'
+
+  Object.keys(networks).forEach(function (k) {
+    var n = networks[k]
+    n.forEach(function (addr) {
+      if (addr.family === 'IPv4' && !addr.internal) {
+        found = addr.address
+      }
+    })
+  })
+
+  return found
+}

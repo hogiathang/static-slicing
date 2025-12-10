@@ -1,0 +1,36 @@
+this.parent.acquire(this, (err, connection) => {
+        const callbackWithRelease = (err, ...args) => {
+          try {
+            this.parent.release(connection)
+          } catch (e) {
+            // noop
+          }
+          callback(err, ...args)
+        }
+        if (err) return callbackWithRelease(err)
+
+        debug('connection(%d): borrowed to request #%d', IDS.get(connection), IDS.get(this))
+
+        if (this.canceled) {
+          debug('request(%d): canceled', IDS.get(this))
+          return callbackWithRelease(new RequestError('Canceled.', 'ECANCEL'))
+        }
+
+        this._cancel = () => {
+          debug('request(%d): cancel', IDS.get(this))
+          connection.cancel()
+        }
+
+        // attach handler to handle multiple error messages
+        connection.on('infoMessage', errorHandlers.infoMessage = handleInfo)
+        connection.on('errorMessage', errorHandlers.errorMessage = handleError.bind(null, false, connection))
+        connection.on('error', errorHandl...
+const callbackWithRelease = (err, ...args) => {
+          try {
+            this.parent.release(connection)
+          } catch (e) {
+            // noop
+          }
+          callback(err, ...args)
+        }
+debug('connection(%d): borrowed to request #%d', IDS.get(connection), IDS.get(this))

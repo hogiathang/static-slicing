@@ -1,0 +1,10 @@
+function <lambda>2 = function(name, listener) {
+  var id = this._id;
+
+  return arguments.length < 2
+      ? get(this.node(), id).on.on(name)
+      : this.each(onFunction(id, name, listener));
+}
+var id = this._id
+arguments.length < 2 ? get(this.node(), id).on.on(name) : this.each(onFunction(id, name, listener))
+(_tmp_5 = get(this.node(), id).on).on

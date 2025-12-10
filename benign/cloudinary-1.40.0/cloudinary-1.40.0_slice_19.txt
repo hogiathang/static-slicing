@@ -1,0 +1,3 @@
+_tmp_13.value = _delete
+var key = KeyValueCacheAdapter.generateCacheKey(publicId, type, resourceType, transformation, format)
+(_tmp_14 = this.storage).delete

@@ -1,0 +1,7 @@
+function add = function add(other, context) {
+    const selection = this._make(other, context);
+    const contents = uniqueSort([...this.get(), ...selection.get()]);
+    return this._make(contents);
+}
+const selection = this._make(other, context)
+const contents = uniqueSort([...this.get(), ...selection.get()])

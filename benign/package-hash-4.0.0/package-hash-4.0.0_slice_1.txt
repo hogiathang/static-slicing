@@ -1,0 +1,41 @@
+function addPackageData = function addPackageData (zalgo, pkgPath) {
+  const dir = path.dirname(pkgPath)
+
+  return zalgo.all([
+    dir,
+    zalgo.run(readFile, pkgPath),
+    zalgo.run(tryReadFile, path.join(dir, '.git', 'HEAD'))
+      .then(head => {
+        if (!head) return []
+
+        return zalgo.all([
+          zalgo.run(tryReadFile, path.join(dir, '.git', 'packed-refs')),
+          git.tryGetRef(zalgo, dir, head),
+          git.tryGetDiff(zalgo, dir)
+        ])
+          .then(results => {
+            return [head].concat(results.filter(Boolean))
+          })
+      })
+  ])
+}
+const dir = path.dirname(pkgPath)
+zalgo.all([
+    dir,
+    zalgo.run(readFile, pkgPath),
+    zalgo.run(tryReadFile, path.join(dir, '.git', 'HEAD'))
+      .then(head => {
+        if (!head) return []
+
+        return zalgo.all([
+          zalgo.run(tryReadFile, path.join(dir, '.git', 'packed-refs')),
+          git.tryGetRef(zalgo, dir, head),
+          git.tryGetDiff(zalgo, dir)
+        ])
+          .then(results => {
+            return [head].concat(results.filter(Boolean))
+          })
+      })
+  ])
+_tmp_0.push(dir)
+_tmp_0.push(zalgo.run(readFile, pkgPath))

@@ -1,0 +1,42 @@
+async exec (args) {
+    if (args.length > 1) {
+      throw this.usageError()
+    }
+
+    let spec = args.length && npa(args[0])
+    const force = this.npm.config.get('force')
+    const { silent } = this.npm
+    const dryRun = this.npm.config.get('dry-run')
+
+    log.silly('unpublish', 'args[0]', args[0])
+    log.silly('unpublish', 'spec', spec)
+
+    if ((!spec || !spec.rawSpec) && !force) {
+      throw this.usageError(
+        'Refusing to delete entire project.\n' +
+        'Run with --force to do this.'
+      )
+    }
+
+    const opts = { ...this.npm.flatOptions }
+
+    let pkgName
+    let pkgVersion
+    let manifest
+    let manifestErr
+    try {
+      const { content } = await pkgJson.prepare(this.npm.localPrefix)
+      manifest = content
+    } catch (err) {
+      manifestErr = err
+    }
+    if (spec) {
+      // If cwd has a package.json with a name that matches the package being
+      // unpublished, load up the publishConfig
+      if (manifest && manifest.name === spec.name && manif...
+args.length > 1
+throw this.usageError()
+let spec = args.length && npa(args[0])
+const force = this.npm.config.get('force')
+silent = _tmp_7.silent
+const dryRun = this.npm.config.get('dry-run')

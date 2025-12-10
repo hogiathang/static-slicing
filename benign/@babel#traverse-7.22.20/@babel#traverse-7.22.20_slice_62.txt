@@ -1,0 +1,59 @@
+push(opts) {
+    let path = this.path;
+    if (path.isPattern()) {
+      path = this.getPatternParent().path;
+    } else if (!path.isBlockStatement() && !path.isProgram()) {
+      path = this.getBlockParent().path;
+    }
+    if (path.isSwitchStatement()) {
+      path = (this.getFunctionParent() || this.getProgramParent()).path;
+    }
+    const {
+      init,
+      unique,
+      kind = "var",
+      id
+    } = opts;
+    if (!init && !unique && (kind === "var" || kind === "let") && path.isFunction() && !path.node.name && t.isCallExpression(path.parent, {
+      callee: path.node
+    }) && path.parent.arguments.length <= path.node.params.length && t.isIdentifier(id)) {
+      path.pushContainer("params", id);
+      path.scope.registerBinding("param", path.get("params")[path.node.params.length - 1]);
+      return;
+    }
+    if (path.isLoop() || path.isCatchClause() || path.isFunction()) {
+      path.ensureBlock();
+      path = path.get("body");
+    }
+    const blockHoist = opts._blockHoist ...
+let path = this.path
+path.isPattern()
+path = this.getPatternParent().path
+!path.isBlockStatement() && !path.isProgram()
+path = this.getBlockParent().path
+path.isSwitchStatement()
+path = (this.getFunctionParent() || this.getProgramParent()).path
+_tmp_51 = opts
+init = _tmp_51.init
+unique = _tmp_51.unique
+kind = _tmp_51.kind === void 0 ? "var" : _tmp_51.kind
+id = _tmp_51.id
+!init && !unique && (kind === "var" || kind === "let") && path.isFunction() && !path.node.name && t.isCallExpression(path.parent, {
+      callee: path.node
+    }) && path.parent.arguments.length <= path.node.params.length && t.isIdentifier(id)
+_tmp_52.callee = path.node
+path.parent.arguments.length <= path.node.params.length
+path.isLoop() || path.isCatchClause() || path.isFunction()
+path.ensureBlock()
+path = path.get("body")
+const blockHoist = opts._blockHoist == null ? 2 : opts._blockHoist
+<operator>.formatString("declaration:", kind, ":", blockHoist, "")
+let declarPath = !unique && path.getData(dataKey)
+!declarPath
+const declar = variableDeclaration(kind, [])
+declar._blockHoist = blockHoist
+_tmp_55 = path.unshiftContainer("body", [declar])
+path.setData(dataKey, declarPath)
+const declarator = variableDeclarator(id, init)
+const len = declarPath.node.declarations.push(declarator)
+path.scope.registerBinding(kind, declarPath.get("declarations")[len - 1])

@@ -1,0 +1,49 @@
+checkStreamConfigVersions(cfg) {
+        const nci = this.nc;
+        if (cfg.metadata) {
+            const { min, ok } = nci.features.get(semver_1.Feature.JS_STREAM_CONSUMER_METADATA);
+            if (!ok) {
+                throw new Error(`stream 'metadata' requires server ${min}`);
+            }
+        }
+        if (cfg.first_seq) {
+            const { min, ok } = nci.features.get(semver_1.Feature.JS_STREAM_FIRST_SEQ);
+            if (!ok) {
+                throw new Error(`stream 'first_seq' requires server ${min}`);
+            }
+        }
+        if (cfg.subject_transform) {
+            const { min, ok } = nci.features.get(semver_1.Feature.JS_STREAM_SUBJECT_TRANSFORM);
+            if (!ok) {
+                throw new Error(`stream 'subject_transform' requires server ${min}`);
+            }
+        }
+        if (cfg.compression) {
+            const { min, ok } = nci.features.get(semver_1.Feature.JS_STREAM_COMPRESSION);
+            if (!ok) {
+                throw new Error(`st...
+const nci = this.nc
+cfg.metadata
+_tmp_35 = nci.features.get(semver_1.Feature.JS_STREAM_CONSUMER_METADATA)
+!ok
+<operator>.formatString("stream 'metadata' requires server ", min, "")
+cfg.first_seq
+_tmp_38 = nci.features.get(semver_1.Feature.JS_STREAM_FIRST_SEQ)
+!ok
+<operator>.formatString("stream 'first_seq' requires server ", min, "")
+cfg.subject_transform
+_tmp_41 = nci.features.get(semver_1.Feature.JS_STREAM_SUBJECT_TRANSFORM)
+!ok
+<operator>.formatString("stream 'subject_transform' requires server ", min, "")
+cfg.compression
+_tmp_44 = nci.features.get(semver_1.Feature.JS_STREAM_COMPRESSION)
+function validateStreamSource = function validateStreamSource(context, src) {
+            var _a;
+            const count = ((_a = src.subject_transforms) === null || _a === void 0 ? void 0 : _a.length) || 0;
+            if (count > 0) {
+                const { min, ok } = nci.features.get(semver_1.Feature.JS_STREAM_SOURCE_SUBJECT_TRANSFORM);
+                if (!ok) {
+                    throw new Error(`${context} 'subject_transforms' requires server ${min}`);
+                }
+            }
+        }

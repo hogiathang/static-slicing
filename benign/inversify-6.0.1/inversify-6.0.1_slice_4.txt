@@ -1,0 +1,11 @@
+ModuleActivationStore.prototype.remove = function (moduleId) {
+            if (this._map.has(moduleId)) {
+                var handlers = this._map.get(moduleId);
+                this._map.delete(moduleId);
+                return handlers;
+            }
+            return this._getEmptyHandlersStore();
+        }
+(_tmp_3 = this._map).has
+var handlers = this._map.get(moduleId)
+(_tmp_5 = this._map).delete

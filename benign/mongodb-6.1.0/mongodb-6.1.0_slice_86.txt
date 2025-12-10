@@ -1,0 +1,40 @@
+async endSession(options?: EndSessionOptions): Promise<void> {
+    try {
+      if (this.inTransaction()) {
+        await this.abortTransaction();
+      }
+      if (!this.hasEnded) {
+        const serverSession = this[kServerSession];
+        if (serverSession != null) {
+          // release the server session back to the pool
+          this.sessionPool.release(serverSession);
+          // Make sure a new serverSession never makes it onto this ClientSession
+          Object.defineProperty(this, kServerSession, {
+            value: ServerSession.clone(serverSession),
+            writable: false
+          });
+        }
+        // mark the session as ended, and emit a signal
+        this.hasEnded = true;
+        this.emit('ended', this);
+      }
+    } catch {
+      // spec indicates that we should ignore all errors for `endSessions`
+    } finally {
+      maybeClearPinnedConnection(this, { force: true, ...options });
+    }
+  }
+this.inTransaction()
+await this.abortTransaction()
+!this.hasEnded
+const serverSession = this[kServerSession]
+serverSession != null
+this.sessionPool.release(serverSession)
+Object.defineProperty(this, kServerSession, {
+            value: ServerSession.clone(serverSession),
+            writable: false
+          })
+_tmp_42.value = ServerSession.clone(serverSession)
+_tmp_42.writable = false
+this.hasEnded = true
+this.emit('ended', this)

@@ -1,0 +1,35 @@
+type = 'keyframes'
+at = '@keyframes'
+isProcessed = false
+constructor(key, frames, options) {
+    const nameMatch = key.match(nameRegExp)
+    if (nameMatch && nameMatch[1]) {
+      this.name = nameMatch[1]
+    } else {
+      this.name = 'noname'
+      warning(false, `[JSS] Bad keyframes name ${key}`)
+    }
+    this.key = `${this.type}-${this.name}`
+    this.options = options
+    const {scoped, sheet, generateId} = options
+    this.id = scoped === false ? this.name : escape(generateId(this, sheet))
+    this.rules = new RuleList({...options, parent: this})
+
+    for (const name in frames) {
+      this.rules.add(name, frames[name], {
+        ...options,
+        parent: this
+      })
+    }
+
+    this.rules.process()
+  }
+const nameMatch = key.match(nameRegExp)
+nameMatch && nameMatch[1]
+this.name = nameMatch[1]
+this.name = 'noname'
+<operator>.formatString("[JSS] Bad keyframes name ", key, "")
+<operator>.formatString("", this.type, "-", this.name, "")
+this.options = options
+generateId = _tmp_1.generateId
+this.id = scoped === false ? this.name : escape(generateId(this, sheet))

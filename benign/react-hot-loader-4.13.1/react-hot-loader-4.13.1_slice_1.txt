@@ -1,0 +1,7 @@
+process.env.NODE_ENV === 'production'
+process.env.NODE_ENV === 'test'
+typeof window === 'undefined'
+!module.hot
+var evalAllowed = false
+var evalError = null
+eval('evalAllowed = true')

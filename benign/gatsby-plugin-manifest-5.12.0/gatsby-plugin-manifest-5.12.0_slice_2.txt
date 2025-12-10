@@ -1,0 +1,112 @@
+const makeManifest = async ({
+  cache,
+  reporter,
+  pluginOptions,
+  shouldLocalize = false,
+  basePath = ``
+}) => {
+  var _pluginOptions$includ2;
+  const {
+    icon,
+    ...manifest
+  } = pluginOptions;
+  const suffix = shouldLocalize && pluginOptions.lang ? `_${pluginOptions.lang}` : ``;
+  const faviconIsEnabled = (_pluginOptions$includ2 = pluginOptions.include_favicon) !== null && _pluginOptions$includ2 !== void 0 ? _pluginOptions$includ2 : true;
+
+  // Delete options we won't pass to the manifest.webmanifest.
+  delete manifest.plugins;
+  delete manifest.legacy;
+  delete manifest.theme_color_in_head;
+  delete manifest.cache_busting_mode;
+  delete manifest.crossOrigin;
+  delete manifest.icon_options;
+  delete manifest.include_favicon;
+  delete manifest.cacheDigest;
+
+  // If icons are not manually defined, use the default icon set.
+  if (!manifest.icons) {
+    manifest.icons = [..._common.defaultIcons];
+  }
+
+  // Specify extra options for each icon (if requested).
+  if (pluginOptions.ico...
+cache = param1_1.cache
+reporter = param1_1.reporter
+pluginOptions = param1_1.pluginOptions
+shouldLocalize = param1_1.shouldLocalize
+basePath = param1_1.basePath
+_tmp_20 = pluginOptions
+icon = _tmp_20.icon
+...manifest
+shouldLocalize && pluginOptions.lang ? <operator>.formatString("_", pluginOptions.lang, "") : ""
+const faviconIsEnabled = (_pluginOptions$includ2 = pluginOptions.include_favicon) !== null && _pluginOptions$includ2 !== void 0 ? _pluginOptions$includ2 : true
+delete manifest.plugins
+delete manifest.legacy
+delete manifest.theme_color_in_head
+delete manifest.cache_busting_mode
+delete manifest.crossOrigin
+delete manifest.icon_options
+delete manifest.include_favicon
+delete manifest.cacheDigest
+!manifest.icons
+manifest.icons = [..._common.defaultIcons]
+pluginOptions.icon_options
+manifest.icons = manifest.icons.map(icon => {
+      return {
+        ...pluginOptions.icon_options,
+        ...icon
+      };
+    })
+const paths = {}
+manifest.icons.forEach(icon => {
+    const iconPath = path.join(`public`, path.dirname(icon.src));
+    if (!paths[iconPath]) {
+      const exists = fs.existsSync(iconPath);
+      // create destination directory if it doesn't exist
+      if (!exists) {
+        fs.mkdirSync(iconPath, {
+          recursive: true
+        });
+      }
+      paths[iconPath] = true;
+    }
+  })
+typeof icon !== `undefined`
+!(0, _nodeHelpers.doesIconExist)(icon)
+<operator>.formatString("icon (", icon, ") does not exist as defined in gatsby-config.js. Make sure the file exists relative to the root of the site.")
+const sharp = await (0, _safeSharp.default)()
+const sharpIcon = sharp(icon)
+const metadata = await sharpIcon.metadata()
+metadata.width !== metadata.height
+reporter.warn(`The icon(${icon}) you provided to 'gatsby-plugin-manifest' is not square.\n` + `The icons we generate will be square and for the best results we recommend you provide a square icon.\n`)
+const cacheMode = typeof pluginOptions.cache_busting_mode !== `undefined` ? pluginOptions.cache_busting_mode : `query`
+const iconDigest = (0, _gatsbyCoreUtils.createContentDigest)(fs.readFileSync(icon))
+function processIconSet = async function processIconSet(iconSet) {
+      // if cacheBusting is being done via url query icons must be generated before cache busting runs
+      if (cacheMode === `query`) {
+        for (const dstIcon of iconSet) {
+          await checkCache(cache, dstIcon, icon, iconDigest, generateIcon);
+        }
+      }
+      if (cacheMode !== `none`) {
+        iconSet = iconSet.map(icon => {
+          const newIcon = {
+            ...icon
+          };
+          newIcon.src = (0, _common.addDigestToPath)(icon.src, iconDigest, cacheMode);
+          return newIcon;
+        });
+      }
+
+      // if file names are being modified by cacheBusting icons must be generated after cache busting runs
+      if (cacheMode !== `query`) {
+        for (const dstIcon of iconSet) {
+          await checkCache(cache, dstIcon, icon, iconDigest, generateIcon);
+        }
+      }
+      return iconSet;
+    }
+manifest.icons = await processIconSet(manifest.icons)
+await processIconSet(_common.favicons)
+metadata.format === `svg`
+fs.copyFileSync(icon, path.join(`public`, `favicon.svg`))

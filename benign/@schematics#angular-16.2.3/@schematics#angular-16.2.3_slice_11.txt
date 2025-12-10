@@ -1,0 +1,23 @@
+async (host, context) => {
+        const workspace = await (0, workspace_1.getWorkspace)(host);
+        const clientProject = workspace.projects.get(options.project);
+        if (!clientProject || clientProject.extensions.projectType !== 'application') {
+            throw new schematics_1.SchematicsException(`Universal requires a project type of "application".`);
+        }
+        const clientBuildTarget = clientProject.targets.get('build');
+        if (!clientBuildTarget) {
+            throw (0, project_targets_1.targetBuildNotFoundError)();
+        }
+        const clientBuildOptions = (clientBuildTarget.options ||
+            {});
+        if (!options.skipInstall) {
+            context.addTask(new tasks_1.NodePackageInstallTask());
+        }
+        const isStandalone = (0, ng_ast_utils_1.isStandaloneApp)(host, clientBuildOptions.main);
+        const templateSource = (0, schematics_1.apply)((0, schematics_1.url)(isStandalone ? './files/standalone-src' : './files/src'), [
+         ...
+const workspace = await (0, workspace_1.getWorkspace)(host)
+const clientProject = workspace.projects.get(options.project)
+!clientProject || clientProject.extensions.projectType !== 'application'
+throw new schematics_1.SchematicsException(`Universal requires a project type of "application".`);
+const clientBuildTarget = clientProject.targets.get('build')

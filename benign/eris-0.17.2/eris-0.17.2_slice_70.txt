@@ -1,0 +1,51 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"PRESENCE_UPDATE"
+packet.d.user.username !== undefined
+let user = this.client.users.get(packet.d.user.id)
+let oldUser = null
+user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)
+oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        }
+_tmp_77.username = user.username
+_tmp_77.discriminator = user.discriminator
+_tmp_77.avatar = user.avatar
+!user || oldUser
+user = this.client.users.update(packet.d.user, this.client)
+this.emit("userUpdate", user, oldUser)
+!packet.d.guild_id
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+let member = guild.members.get(packet.d.id = packet.d.user.id)
+let oldPresence = null
+oldPresence = {
+                        activities: member.activities,
+                        clientStatus: member.clientStatus,
+                        status: member.status
+                    }
+_tmp_84.activities = member.activities
+_tmp_84.clientStatus = member.clientStatus
+_tmp_84.status = member.status
+(!member && packet.d.user.username) || oldPresence
+member = guild.members.update(packet.d, guild)
+this.emit("presenceUpdate", member, oldPresence)

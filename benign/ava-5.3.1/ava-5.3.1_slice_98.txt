@@ -1,0 +1,2 @@
+_tmp_32.notifyOfPeerFailure = notifyOfPeerFailure
+_tmp_33.type = "peer-failed"

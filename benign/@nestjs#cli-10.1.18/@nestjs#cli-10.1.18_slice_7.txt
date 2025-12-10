@@ -1,0 +1,27 @@
+async runWebpack(configuration, appName, commandOptions, pathToTsconfig, debug, watchMode, onSuccess) {
+        const { WebpackCompiler } = await Promise.resolve().then(() => require('../lib/compiler/webpack-compiler'));
+        const webpackCompiler = new WebpackCompiler(this.pluginsLoader);
+        const webpackPath = (0, get_webpack_config_path_1.getWebpackConfigPath)(configuration, commandOptions, appName) ??
+            defaults_1.defaultWebpackConfigFilename;
+        const webpackConfigFactoryOrConfig = this.getWebpackConfigFactoryByPath(webpackPath, defaults_1.defaultWebpackConfigFilename);
+        return webpackCompiler.run(configuration, pathToTsconfig, appName, {
+            inputs: commandOptions,
+            webpackConfigFactoryOrConfig,
+            debug,
+            watchMode,
+            assetsManager: this.assetsManager,
+        }, onSuccess);
+    }
+_tmp_19 = await Promise.resolve().then(() => require('../lib/compiler/webpack-compiler'))
+const webpackCompiler = new WebpackCompiler(this.pluginsLoader)
+const webpackPath = (0, get_webpack_config_path_1.getWebpackConfigPath)(configuration, commandOptions, appName) ??
+            defaults_1.defaultWebpackConfigFilename
+defaults_1.defaultWebpackConfigFilename
+const webpackConfigFactoryOrConfig = this.getWebpackConfigFactoryByPath(webpackPath, defaults_1.defaultWebpackConfigFilename)
+webpackCompiler.run(configuration, pathToTsconfig, appName, {
+            inputs: commandOptions,
+            webpackConfigFactoryOrConfig,
+            debug,
+            watchMode,
+            assetsManager: this.assetsManager,
+        }, onSuccess)

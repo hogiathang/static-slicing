@@ -1,0 +1,88 @@
+function audit = function audit(req, res, route, err) {
+        var latency = res.get('Response-Time');
+
+        if (typeof latency !== 'number') {
+            latency = hrTimeDurationInMs(req._timeStart, req._timeFlushed);
+        }
+
+        var obj = {
+            remoteAddress: req.connection.remoteAddress,
+            remotePort: req.connection.remotePort,
+            req_id: req.getId(),
+            req: req,
+            res: res,
+            err: err,
+            latency: latency,
+            secure: req.secure,
+            _audit: true,
+            event: opts.event
+        };
+
+        // run through the custom context function
+        if (opts.context) {
+            obj.context = opts.context(req, res, route, err);
+        }
+
+        const origLog = (req && req.log) || opts.log;
+        if (printLog && origLog) {
+            const log = origLog.child(
+                {
+                    audit: true,
+                    component: opts.event
+                },
+                {
+            ...
+var latency = res.get('Response-Time')
+typeof latency !== 'number'
+latency = hrTimeDurationInMs(req._timeStart, req._timeFlushed)
+var obj = {
+            remoteAddress: req.connection.remoteAddress,
+            remotePort: req.connection.remotePort,
+            req_id: req.getId(),
+            req: req,
+            res: res,
+            err: err,
+            latency: latency,
+            secure: req.secure,
+            _audit: true,
+            event: opts.event
+        }
+_tmp_4.remoteAddress = req.connection.remoteAddress
+_tmp_4.remotePort = req.connection.remotePort
+_tmp_4.req_id = req.getId()
+_tmp_4.req = req
+_tmp_4.res = res
+_tmp_4.err = err
+_tmp_4.latency = latency
+_tmp_4.secure = req.secure
+_tmp_4._audit = true
+_tmp_4.event = opts.event
+opts.context
+obj.context = opts.context(req, res, route, err)
+const origLog = (req && req.log) || opts.log
+printLog && origLog
+const log = origLog.child(
+                {
+                    audit: true,
+                    component: opts.event
+                },
+                {
+                    serializers: serializers
+                }
+            )
+_tmp_5.audit = true
+_tmp_5.component = opts.event
+_tmp_6.serializers = serializers
+opts.event
+"after"
+log.info(obj, 'handled: %d', res.statusCode)
+break;
+"pre"
+log.info(obj, 'pre')
+break;
+"routed"
+log.info(obj, 'routed')
+break;
+default:
+throw new Error('Unexpected audit event: ' + opts.event);
+server.emit('audit', obj)

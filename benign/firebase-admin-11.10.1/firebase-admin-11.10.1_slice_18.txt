@@ -1,0 +1,28 @@
+async updateRuntimeData(projectId, instanceId, runtimeData) {
+        const url = this.getRuntimeDataUri(projectId, instanceId);
+        const request = {
+            method: 'PATCH',
+            url,
+            headers: FIREBASE_FUNCTIONS_CONFIG_HEADERS,
+            data: runtimeData,
+        };
+        try {
+            const res = await this.httpClient.send(request);
+            return res.data;
+        }
+        catch (err) {
+            throw this.toFirebaseError(err);
+        }
+    }
+const url = this.getRuntimeDataUri(projectId, instanceId)
+const request = {
+            method: 'PATCH',
+            url,
+            headers: FIREBASE_FUNCTIONS_CONFIG_HEADERS,
+            data: runtimeData,
+        }
+_tmp_4.method = "PATCH"
+_tmp_4.url = url
+_tmp_4.headers = FIREBASE_FUNCTIONS_CONFIG_HEADERS
+_tmp_4.data = runtimeData
+const res = await this.httpClient.send(request)

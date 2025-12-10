@@ -1,0 +1,43 @@
+const createSwapFile = async (fs, path, keepExistingData) => {
+    let handle;
+    let swapPath = path + '.crswap';
+    try {
+        handle = await fs.promises.open(swapPath, 'ax');
+    }
+    catch (error) {
+        if (!error || typeof error !== 'object' || error.code !== 'EEXIST')
+            throw error;
+    }
+    if (!handle) {
+        for (let i = 1; i < 1000; i++) {
+            try {
+                swapPath = `${path}.${i}.crswap`;
+                handle = await fs.promises.open(swapPath, 'ax');
+                break;
+            }
+            catch (error) {
+                if (!error || typeof error !== 'object' || error.code !== 'EEXIST')
+                    throw error;
+            }
+        }
+    }
+    if (!handle)
+        throw new Error(`Could not create a swap file for "${path}".`);
+    if (keepExistingData)
+        await fs.promises.copyFile(path, swapPath, fs.constants.COPYFILE_FICLONE);
+    return [handle, swapPath];
+}
+let swapPath = path + '.crswap'
+handle = await fs.promises.open(swapPath, 'ax')
+!error || typeof error !== 'object' || error.code !== 'EEXIST'
+throw error;
+!handle
+let i = 1
+<operator>.formatString("", path, ".", i, ".crswap")
+handle = await fs.promises.open(swapPath, 'ax')
+break;
+!error || typeof error !== 'object' || error.code !== 'EEXIST'
+throw error;
+!handle
+<operator>.formatString("Could not create a swap file for "", path, "".")
+await fs.promises.copyFile(path, swapPath, fs.constants.COPYFILE_FICLONE)

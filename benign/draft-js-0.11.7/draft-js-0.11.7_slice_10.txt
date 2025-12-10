@@ -1,0 +1,95 @@
+_proto.render = function render() {
+    var _this$props = this.props,
+        blockRenderMap = _this$props.blockRenderMap,
+        blockRendererFn = _this$props.blockRendererFn,
+        blockStyleFn = _this$props.blockStyleFn,
+        customStyleMap = _this$props.customStyleMap,
+        customStyleFn = _this$props.customStyleFn,
+        editorState = _this$props.editorState,
+        editorKey = _this$props.editorKey,
+        textDirectionality = _this$props.textDirectionality;
+    var content = editorState.getCurrentContent();
+    var selection = editorState.getSelection();
+    var forceSelection = editorState.mustForceSelection();
+    var decorator = editorState.getDecorator();
+    var directionMap = nullthrows(editorState.getDirectionMap());
+    var blocksAsArray = content.getBlocksAsArray();
+    var rootBlock = blocksAsArray[0];
+    var processedBlocks = [];
+    var nodeBlock = rootBlock;
+
+    while (nodeBlock) {
+      var blockKey = nodeBlock.getKey();
+      var blockProps = {
+ ...
+var _this$props = this.props
+var blockRenderMap = _this$props.blockRenderMap
+var blockRendererFn = _this$props.blockRendererFn
+var blockStyleFn = _this$props.blockStyleFn
+var customStyleMap = _this$props.customStyleMap
+var customStyleFn = _this$props.customStyleFn
+var editorState = _this$props.editorState
+var editorKey = _this$props.editorKey
+var textDirectionality = _this$props.textDirectionality
+var content = editorState.getCurrentContent()
+var selection = editorState.getSelection()
+var forceSelection = editorState.mustForceSelection()
+var decorator = editorState.getDecorator()
+var directionMap = nullthrows(editorState.getDirectionMap())
+var blocksAsArray = content.getBlocksAsArray()
+var rootBlock = blocksAsArray[0]
+var processedBlocks = []
+var nodeBlock = rootBlock
+var blockKey = nodeBlock.getKey()
+var blockProps = {
+        blockRenderMap: blockRenderMap,
+        blockRendererFn: blockRendererFn,
+        blockStyleFn: blockStyleFn,
+        contentState: content,
+        customStyleFn: customStyleFn,
+        customStyleMap: customStyleMap,
+        decorator: decorator,
+        editorKey: editorKey,
+        editorState: editorState,
+        forceSelection: forceSelection,
+        selection: selection,
+        block: nodeBlock,
+        direction: textDirectionality ? textDirectionality : directionMap.get(blockKey),
+        tree: editorState.getBlockTree(blockKey)
+      }
+_tmp_3.blockRenderMap = blockRenderMap
+_tmp_3.blockRendererFn = blockRendererFn
+_tmp_3.blockStyleFn = blockStyleFn
+_tmp_3.contentState = content
+_tmp_3.customStyleFn = customStyleFn
+_tmp_3.customStyleMap = customStyleMap
+_tmp_3.decorator = decorator
+_tmp_3.editorKey = editorKey
+_tmp_3.editorState = editorState
+_tmp_3.forceSelection = forceSelection
+_tmp_3.selection = selection
+_tmp_3.block = nodeBlock
+_tmp_3.direction = textDirectionality ? textDirectionality : directionMap.get(blockKey)
+_tmp_3.tree = editorState.getBlockTree(blockKey)
+var configForType = blockRenderMap.get(nodeBlock.getType()) || blockRenderMap.get('unstyled')
+var wrapperTemplate = configForType.wrapper
+processedBlocks.push({
+        /* $FlowFixMe[incompatible-type] (>=0.112.0 site=www,mobile) This
+         * comment suppresses an error found when Flow v0.112 was deployed. To
+         * see the error delete this comment and run Flow. */
+        block: React.createElement(DraftEditorBlockNode, _extends({
+          key: blockKey
+        }, blockProps)),
+        wrapperTemplate: wrapperTemplate,
+        key: blockKey,
+        offsetKey: DraftOffsetKey.encode(blockKey, 0, 0)
+      })
+_tmp_4.block = React.createElement(DraftEditorBlockNode, _extends({
+          key: blockKey
+        }, blockProps))
+_tmp_5.key = blockKey
+_tmp_4.wrapperTemplate = wrapperTemplate
+_tmp_4.key = blockKey
+_tmp_4.offsetKey = DraftOffsetKey.encode(blockKey, 0, 0)
+var nextBlockKey = nodeBlock.getNextSiblingKey()
+nodeBlock = nextBlockKey ? content.getBlockForKey(nextBlockKey) : null

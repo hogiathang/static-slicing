@@ -1,0 +1,21 @@
+function send = function send(args: ParsedArgs) {
+	const client = connect(args as IClientOptions)
+	client.on('connect', () => {
+		client.publish(
+			args.topic,
+			args.message,
+			args as IClientPublishOptions,
+			(err) => {
+				if (err) {
+					console.warn(err)
+				}
+				client.end()
+			},
+		)
+	})
+	client.on('error', (err) => {
+		console.warn(err)
+		client.end()
+	})
+}
+const client = connect(args as IClientOptions)

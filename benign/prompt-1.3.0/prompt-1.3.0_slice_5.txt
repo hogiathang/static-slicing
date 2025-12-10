@@ -1,0 +1,53 @@
+function (err, line) {
+    if (err && wait === false) {
+      return callback(err);
+    }
+
+    var against = {},
+        numericInput,
+        isValid;
+
+    if (line !== '') {
+
+      if (schema.properties[propName]) {
+        var type = (schema.properties[propName].type || '').toLowerCase().trim() || undefined;
+
+        //
+        // If type is some sort of numeric create a Number object to pass to revalidator
+        //
+        if (type === 'number' || type === 'integer') {
+          line = Number(line);
+        }
+
+        //
+        // Attempt to parse input as a boolean if the schema expects a boolean
+        //
+        if (type == 'boolean') {
+          if(line.toLowerCase() === "true" || line.toLowerCase() === 't') {
+            line = true;
+          } else if(line.toLowerCase() === "false" || line.toLowerCase() === 'f') {
+            line = false;
+          }
+        }
+
+        //
+        // If the type is an array, wait for the end. Fixes #54
+        //
+        if (type == '...
+err && wait === false
+var against = {}
+line !== ''
+schema.properties[propName]
+var type = (schema.properties[propName].type || '').toLowerCase().trim() || undefined
+type === 'number' || type === 'integer'
+line = Number(line)
+type == 'boolean'
+line.toLowerCase() === "true" || line.toLowerCase() === 't'
+line = true
+line.toLowerCase() === "false" || line.toLowerCase() === 'f'
+line = false
+type == 'array'
+var length = prop.schema.maxItems
+err.message == 'canceled'
+wait = false
+stdout.write('\n')

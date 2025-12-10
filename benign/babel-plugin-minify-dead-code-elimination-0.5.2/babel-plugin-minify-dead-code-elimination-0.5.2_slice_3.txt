@@ -1,0 +1,42 @@
+function getStatementsUntilBreak = function getStatementsUntilBreak(start) {
+          const result = {
+            bail: false,
+            statements: []
+          };
+
+          for (let i = start; i < cases.length; i++) {
+            const consequent = cases[i].get("consequent");
+
+            for (let j = 0; j < consequent.length; j++) {
+              const _isBreaking = isBreaking(consequent[j], path);
+
+              if (_isBreaking.bail) {
+                result.bail = true;
+                return result;
+              }
+
+              if (_isBreaking.break) {
+                // compute no more
+                // exit out of the loop
+                return result;
+              } else {
+                result.statements.push(consequent[j].node);
+              }
+            }
+          }
+
+          return result;
+        }
+const result = {
+            bail: false,
+            statements: []
+          }
+_tmp_72.bail = false
+_tmp_72.statements = __ecma.Array.factory()
+i < cases.length
+const consequent = cases[i].get("consequent")
+j < consequent.length
+const _isBreaking = isBreaking(consequent[j], path)
+_isBreaking.bail
+_isBreaking.break
+result.statements.push(consequent[j].node)

@@ -1,0 +1,38 @@
+function loadTask = function loadTask(filepath) {
+  // In case this was called recursively, save registry for later.
+  loadTaskStack.push(registry);
+  // Reset registry.
+  registry = {tasks: [], untasks: [], meta: {info: lastInfo, filepath: filepath}};
+  var filename = path.basename(filepath);
+  var msg = 'Loading "' + filename + '" tasks...';
+  var regCount = 0;
+  var fn;
+  try {
+    // Load taskfile.
+    fn = require(path.resolve(filepath));
+    if (typeof fn === 'function') {
+      fn.call(grunt, grunt);
+    }
+    grunt.verbose.write(msg).ok();
+    // Log registered/renamed/unregistered tasks.
+    ['un', ''].forEach(function(prefix) {
+      var list = grunt.util._.chain(registry[prefix + 'tasks']).uniq().sort().value();
+      if (list.length > 0) {
+        regCount++;
+        grunt.verbose.writeln((prefix ? '- ' : '+ ') + grunt.log.wordlist(list));
+      }
+    });
+    if (regCount === 0) {
+      grunt.verbose.warn('No tasks were registered or unregistered.');
+    }
+  } catch (e) {
+    // Something w...
+loadTaskStack.push(registry)
+registry = {tasks: [], untasks: [], meta: {info: lastInfo, filepath: filepath}}
+var filename = path.basename(filepath)
+var msg = 'Loading "' + filename + '" tasks...'
+var regCount = 0
+fn = require(path.resolve(filepath))
+typeof fn === 'function'
+fn.call(grunt, grunt)
+(_tmp_3 = grunt.verbose.write(msg)).ok

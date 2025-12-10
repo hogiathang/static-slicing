@@ -1,0 +1,1 @@
+function TAG_FORMATTERS = function TAG_FORMATTERS(){return _tagFormattersCache??(_tagFormattersCache={[cfn_resource_1.TagType.AUTOSCALING_GROUP]:new AsgFormatter,[cfn_resource_1.TagType.STANDARD]:new StandardFormatter,[cfn_resource_1.TagType.MAP]:new MapFormatter,[cfn_resource_1.TagType.KEY_VALUE]:new KeyValueFormatter,[cfn_resource_1.TagType.NOT_TAGGABLE]:new NoFormat})}

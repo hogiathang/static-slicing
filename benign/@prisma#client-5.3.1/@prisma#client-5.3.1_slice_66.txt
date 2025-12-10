@@ -1,0 +1,95 @@
+edge = edge === void 0 ? false : edge
+datasources2 = _tmp_2750.datasources
+const envPaths = getEnvPaths(schemaPath2, { cwd: outputDir2 })
+const relativeEnvPaths = {
+      rootEnvPath: envPaths.rootEnvPath && pathToPosix(import_path6.default.relative(outputDir2, envPaths.rootEnvPath)),
+      schemaEnvPath: envPaths.schemaEnvPath && pathToPosix(import_path6.default.relative(outputDir2, envPaths.schemaEnvPath))
+    }
+_tmp_2752.rootEnvPath = envPaths.rootEnvPath && pathToPosix(import_path6.default.relative(outputDir2, envPaths.rootEnvPath))
+_tmp_2752.schemaEnvPath = envPaths.schemaEnvPath && pathToPosix(import_path6.default.relative(outputDir2, envPaths.schemaEnvPath))
+const engineType = getClientEngineType(generator2)
+generator2.config.engineType = engineType
+const inlineSchema = (await (0, import_promises.readFile)(schemaPath2)).toString("base64")
+const inlineSchemaHash = import_crypto.default.createHash("sha256").update(inlineSchema).digest("hex")
+const config = {
+      generator: generator2,
+      relativeEnvPaths,
+      relativePath: pathToPosix(import_path6.default.relative(outputDir2, import_path6.default.dirname(schemaPath2))),
+      clientVersion: this.options.clientVersion,
+      engineVersion: this.options.engineVersion,
+      datasourceNames: datasources2.map((d) => d.name),
+      activeProvider: this.options.activeProvider,
+      postinstall: this.options.postinstall,
+      ciName: import_ci_info.default.name ?? void 0,
+      inlineDatasources: datasources2.reduce((acc, ds) => {
+        return acc[ds.name] = { url: ds.url }, acc;
+      }, {}),
+      inlineSchema,
+      inlineSchemaHash,
+      noEngine: noEngine2
+    }
+_tmp_2759.generator = generator2
+_tmp_2759.relativeEnvPaths = relativeEnvPaths
+_tmp_2759.relativePath = pathToPosix(import_path6.default.relative(outputDir2, import_path6.default.dirname(schemaPath2)))
+_tmp_2759.clientVersion = this.options.clientVersion
+_tmp_2759.engineVersion = this.options.engineVersion
+_tmp_2759.datasourceNames = datasources2.map((d) => d.name)
+_tmp_2759.activeProvider = this.options.activeProvider
+_tmp_2759.postinstall = this.options.postinstall
+_tmp_2759.ciName = import_ci_info.default.name ?? void 0
+_tmp_2759.inlineDatasources = datasources2.reduce((acc, ds) => {
+        return acc[ds.name] = { url: ds.url }, acc;
+      }, {})
+_tmp_2759.inlineSchema = inlineSchema
+_tmp_2759.inlineSchemaHash = inlineSchemaHash
+_tmp_2759.noEngine = noEngine2
+const relativeOutdir = import_path6.default.relative(process.cwd(), outputDir2)
+<operator>.formatString("", commonCodeJS({ ...this.options, browser: false }), "
+", buildRequirePath(edge), "
+
+/**
+ * Enums
+ */
+", this.dmmf.schema.enumTypes.prisma.map((type) => new Enum(type, true).toJS()).join("\n\n"), "
+", this.dmmf.schema.enumTypes.model?.map((type) => new Enum(type, false).toJS()).join("\n\n") ?? "", "
+
+", new Enum(
+      {
+        name: "ModelName",
+        values: this.dmmf.mappings.modelOperations.map((m) => m.model)
+      },
+      true
+    ).toJS(), "
+/**
+ * Create the Client
+ */
+const config = ", JSON.stringify(config, null, 2), "
+", buildDirname(edge, relativeOutdir), "
+", buildRuntimeDataModel(this.dmmf.datamodel), "
+
+", buildInjectableEdgeEnv(edge, datasources2), "
+", buildWarnEnvConflicts(edge, runtimeDir, runtimeName), "
+", buildDebugInitialization(edge), "
+const PrismaClient = getPrismaClient(config)
+exports.PrismaClient = PrismaClient
+Object.assign(exports, Prisma)", deno ? "\nexport { exports as default, Prisma, PrismaClient }" : "", "
+", buildNFTAnnotations(Boolean(edge || noEngine2), engineType, platforms, relativeOutdir), "
+")
+buildRequirePath(edge)
+(_tmp_2766 = this.dmmf.schema.enumTypes.prisma.map((type) => new Enum(type, true).toJS())).join
+this.dmmf.schema.enumTypes.model?.map((type) => new Enum(type, false).toJS()).join("\n\n") ?? ""
+(_tmp_2772 = new Enum(
+      {
+        name: "ModelName",
+        values: this.dmmf.mappings.modelOperations.map((m) => m.model)
+      },
+      true
+    )).toJS
+_tmp_2774.name = "ModelName"
+_tmp_2774.values = this.dmmf.mappings.modelOperations.map((m) => m.model)
+"
+/**
+ * Create the Client
+ */
+const config = "
+JSON.stringify(config, null, 2)

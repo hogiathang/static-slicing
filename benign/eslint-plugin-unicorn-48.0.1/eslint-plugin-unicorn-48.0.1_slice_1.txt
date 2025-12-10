@@ -1,0 +1,13 @@
+const resolveIdentifierName = (name, scope) => {
+	while (scope) {
+		const variable = scope.set.get(name);
+
+		if (variable) {
+			return variable;
+		}
+
+		scope = scope.upper;
+	}
+}
+const variable = scope.set.get(name)
+scope = scope.upper

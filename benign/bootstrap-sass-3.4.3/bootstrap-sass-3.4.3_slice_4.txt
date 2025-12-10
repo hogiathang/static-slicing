@@ -1,0 +1,11 @@
+function () {
+          $next.removeClass([type, direction].join(' ')).addClass('active')
+          $active.removeClass(['active', direction].join(' '))
+          that.sliding = false
+          setTimeout(function () {
+            that.$element.trigger(slidEvent)
+          }, 0)
+        }
+(_tmp_27 = $next.removeClass([type, direction].join(' '))).addClass
+$active.removeClass(['active', direction].join(' '))
+that.sliding = false

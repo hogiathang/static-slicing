@@ -1,0 +1,143 @@
+function footer = function footer(state) {
+  const clobberPrefix =
+    typeof state.options.clobberPrefix === 'string'
+      ? state.options.clobberPrefix
+      : 'user-content-'
+  const footnoteBackContent =
+    state.options.footnoteBackContent || defaultFootnoteBackContent
+  const footnoteBackLabel =
+    state.options.footnoteBackLabel || defaultFootnoteBackLabel
+  const footnoteLabel = state.options.footnoteLabel || 'Footnotes'
+  const footnoteLabelTagName = state.options.footnoteLabelTagName || 'h2'
+  const footnoteLabelProperties = state.options.footnoteLabelProperties || {
+    className: ['sr-only']
+  }
+  /** @type {Array<ElementContent>} */
+  const listItems = []
+  let referenceIndex = -1
+
+  while (++referenceIndex < state.footnoteOrder.length) {
+    const def = state.footnoteById.get(state.footnoteOrder[referenceIndex])
+
+    if (!def) {
+      continue
+    }
+
+    const content = state.all(def)
+    const id = String(def.identifier).toUpperCase()
+    const safeId = normalizeUri(id.toLowerCase()...
+const clobberPrefix =
+    typeof state.options.clobberPrefix === 'string'
+      ? state.options.clobberPrefix
+      : 'user-content-'
+typeof state.options.clobberPrefix === 'string' ? state.options.clobberPrefix : "user-content-"
+state.options.clobberPrefix
+"user-content-"
+const footnoteBackContent =
+    state.options.footnoteBackContent || defaultFootnoteBackContent
+state.options.footnoteBackContent || defaultFootnoteBackContent
+const footnoteBackLabel =
+    state.options.footnoteBackLabel || defaultFootnoteBackLabel
+state.options.footnoteBackLabel || defaultFootnoteBackLabel
+const footnoteLabel = state.options.footnoteLabel || 'Footnotes'
+const footnoteLabelTagName = state.options.footnoteLabelTagName || 'h2'
+const footnoteLabelProperties = state.options.footnoteLabelProperties || {
+    className: ['sr-only']
+  }
+_tmp_7 = __ecma.Array.factory()
+__ecma.Array.factory()
+let referenceIndex = -1
+++referenceIndex < state.footnoteOrder.length
+const def = state.footnoteById.get(state.footnoteOrder[referenceIndex])
+!def
+continue
+const content = state.all(def)
+const id = String(def.identifier).toUpperCase()
+const safeId = normalizeUri(id.toLowerCase())
+let rereferenceIndex = 0
+const backReferences = []
+const counts = state.footnoteCounts.get(id)
+counts !== undefined && ++rereferenceIndex <= counts
+backReferences.length > 0
+backReferences.push({type: 'text', value: ' '})
+let children =
+        typeof footnoteBackContent === 'string'
+          ? footnoteBackContent
+          : footnoteBackContent(referenceIndex, rereferenceIndex)
+typeof footnoteBackContent === 'string' ? footnoteBackContent : footnoteBackContent(referenceIndex, rereferenceIndex)
+footnoteBackContent(referenceIndex, rereferenceIndex)
+typeof children === 'string'
+children = {type: 'text', value: children}
+backReferences.push({
+        type: 'element',
+        tagName: 'a',
+        properties: {
+          href:
+            '#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : ''),
+          dataFootnoteBackref: '',
+          ariaLabel:
+            typeof footnoteBackLabel === 'string'
+              ? footnoteBackLabel
+              : footnoteBackLabel(referenceIndex, rereferenceIndex),
+          className: ['data-footnote-backref']
+        },
+        children: Array.isArray(children) ? children : [children]
+      })
+_tmp_13.type = "element"
+_tmp_13.tagName = "a"
+_tmp_13.properties = {
+          href:
+            '#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : ''),
+          dataFootnoteBackref: '',
+          ariaLabel:
+            typeof footnoteBackLabel === 'string'
+              ? footnoteBackLabel
+              : footnoteBackLabel(referenceIndex, rereferenceIndex),
+          className: ['data-footnote-backref']
+        }
+_tmp_14.href = '#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : '')
+'#' +
+            clobberPrefix +
+            'fnref-' +
+            safeId +
+            (rereferenceIndex > 1 ? '-' + rereferenceIndex : '')
+"fnref-"
+rereferenceIndex > 1 ? '-' + rereferenceIndex : ""
+_tmp_14.dataFootnoteBackref = ""
+_tmp_14.ariaLabel = typeof footnoteBackLabel === 'string' ? footnoteBackLabel : footnoteBackLabel(referenceIndex, rereferenceIndex)
+typeof footnoteBackLabel === 'string' ? footnoteBackLabel : footnoteBackLabel(referenceIndex, rereferenceIndex)
+footnoteBackLabel(referenceIndex, rereferenceIndex)
+_tmp_14.className = ['data-footnote-backref']
+_tmp_13.children = Array.isArray(children) ? children : [children]
+const tail = content[content.length - 1]
+tail && tail.type === 'element' && tail.tagName === 'p'
+const tailTail = tail.children[tail.children.length - 1]
+tailTail && tailTail.type === 'text'
+tailTail.value += ' '
+tail.children.push({type: 'text', value: ' '})
+tail.children.push(...backReferences)
+content.push(...backReferences)
+const listItem = {
+      type: 'element',
+      tagName: 'li',
+      properties: {id: clobberPrefix + 'fn-' + safeId},
+      children: state.wrap(content, true)
+    }
+_tmp_20.type = "element"
+_tmp_20.tagName = "li"
+_tmp_20.properties = {id: clobberPrefix + 'fn-' + safeId}
+_tmp_20.children = state.wrap(content, true)
+state.patch(def, listItem)
+listItems.push(listItem)

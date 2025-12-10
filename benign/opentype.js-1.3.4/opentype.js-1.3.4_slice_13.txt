@@ -1,0 +1,45 @@
+function buildPath = function buildPath(glyphs, glyph) {
+    if (glyph.isComposite) {
+        for (let j = 0; j < glyph.components.length; j += 1) {
+            const component = glyph.components[j];
+            const componentGlyph = glyphs.get(component.glyphIndex);
+            // Force the ttfGlyphLoader to parse the glyph.
+            componentGlyph.getPath();
+            if (componentGlyph.points) {
+                let transformedPoints;
+                if (component.matchedPoints === undefined) {
+                    // component positioned by offset
+                    transformedPoints = transformPoints(componentGlyph.points, component);
+                } else {
+                    // component positioned by matched points
+                    if ((component.matchedPoints[0] > glyph.points.length - 1) ||
+                        (component.matchedPoints[1] > componentGlyph.points.length - 1)) {
+                        throw Error('Matched points out of range in ' + glyph.name);
+                    ...
+glyph.isComposite
+j < glyph.components.length
+const component = glyph.components[j]
+const componentGlyph = glyphs.get(component.glyphIndex)
+componentGlyph.getPath()
+componentGlyph.points
+component.matchedPoints === undefined
+transformedPoints = transformPoints(componentGlyph.points, component)
+(component.matchedPoints[0] > glyph.points.length - 1) ||
+                        (component.matchedPoints[1] > componentGlyph.points.length - 1)
+component.matchedPoints[1] > componentGlyph.points.length - 1
+throw Error('Matched points out of range in ' + glyph.name);
+const firstPt = glyph.points[component.matchedPoints[0]]
+let secondPt = componentGlyph.points[component.matchedPoints[1]]
+const transform = {
+                        xScale: component.xScale, scale01: component.scale01,
+                        scale10: component.scale10, yScale: component.yScale,
+                        dx: 0, dy: 0
+                    }
+_tmp_13.scale01 = component.scale01
+_tmp_13.scale10 = component.scale10
+_tmp_13.dx = 0
+secondPt = transformPoints([secondPt], transform)[0]
+transform.dx = firstPt.x - secondPt.x
+transform.dy = firstPt.y - secondPt.y
+transformedPoints = transformPoints(componentGlyph.points, transform)
+glyph.points = glyph.points.concat(transformedPoints)

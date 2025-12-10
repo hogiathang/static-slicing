@@ -1,0 +1,10 @@
+var poll_1 = function () {
+                var info = _this.pollingInfoByQueryId.get(queryId);
+                if (info) {
+                    clearTimeout(info.timeout);
+                    info.timeout = setTimeout(maybeFetch_1, info.interval);
+                }
+            }
+var info = _this.pollingInfoByQueryId.get(queryId)
+clearTimeout(info.timeout)
+info.timeout = setTimeout(maybeFetch_1, info.interval)

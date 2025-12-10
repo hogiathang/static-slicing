@@ -1,0 +1,27 @@
+Pp.each = function each(callback, context) {
+        var childPaths = [];
+        var len = this.value.length;
+        var i = 0;
+        // Collect all the original child paths before invoking the callback.
+        for (var i = 0; i < len; ++i) {
+            if (hasOwn.call(this.value, i)) {
+                childPaths[i] = this.get(i);
+            }
+        }
+        // Invoke the callback on just the original child paths, regardless of
+        // any modifications made to the array by the callback. I chose these
+        // semantics over cleverly invoking the callback on new elements because
+        // this way is much easier to reason about.
+        context = context || this;
+        for (i = 0; i < len; ++i) {
+            if (hasOwn.call(childPaths, i)) {
+                callback.call(context, childPaths[i]);
+            }
+        }
+    }
+__ecma.Array.factory()
+var len = this.value.length
+var i = 0
+var i = 0
+hasOwn.call(this.value, i)
+childPaths[i] = this.get(i)

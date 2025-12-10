@@ -1,0 +1,21 @@
+initialize(segment) {
+        const outdatedReadVariables = new Set();
+        const freshReadVariables = new Set();
+
+        for (const prevSegment of segment.prevSegments) {
+            const info = this.info.get(prevSegment);
+
+            if (info) {
+                info.outdatedReadVariables.forEach(Set.prototype.add, outdatedReadVariables);
+                info.freshReadVariables.forEach(Set.prototype.add, freshReadVariables);
+            }
+        }
+
+        this.info.set(segment, { outdatedReadVariables, freshReadVariables });
+    }
+const outdatedReadVariables = new Set()
+const freshReadVariables = new Set()
+_iterator_2 = <operator>.iterator(segment.prevSegments)
+const info = this.info.get(prevSegment)
+info.outdatedReadVariables.forEach(Set.prototype.add, outdatedReadVariables)
+info.freshReadVariables.forEach(Set.prototype.add, freshReadVariables)

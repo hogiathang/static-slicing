@@ -1,0 +1,39 @@
+function checkNode = function checkNode(node) {
+            const importSource = node.source.value.trim();
+            const importNames = new Map();
+
+            if (node.type === "ExportAllDeclaration") {
+                const starToken = sourceCode.getFirstToken(node, 1);
+
+                importNames.set("*", [{ loc: starToken.loc }]);
+            } else if (node.specifiers) {
+                for (const specifier of node.specifiers) {
+                    let name;
+                    const specifierData = { loc: specifier.loc };
+
+                    if (specifier.type === "ImportDefaultSpecifier") {
+                        name = "default";
+                    } else if (specifier.type === "ImportNamespaceSpecifier") {
+                        name = "*";
+                    } else if (specifier.imported) {
+                        name = astUtils.getModuleExportName(specifier.imported);
+                    } else if (specifier.local) {
+                        name = astUtils.getModuleExportName(specif...
+const importSource = node.source.value.trim()
+const importNames = new Map()
+node.type === "ExportAllDeclaration"
+node.specifiers
+_iterator_0 = <operator>.iterator(node.specifiers)
+const specifierData = { loc: specifier.loc }
+specifier.type === "ImportDefaultSpecifier"
+name = "default"
+specifier.type === "ImportNamespaceSpecifier"
+name = "*"
+specifier.imported
+name = astUtils.getModuleExportName(specifier.imported)
+specifier.local
+name = astUtils.getModuleExportName(specifier.local)
+typeof name === "string"
+importNames.has(name)
+importNames.get(name).push(specifierData)
+importNames.set(name, [specifierData])

@@ -1,0 +1,40 @@
+*iterateGlobalReferences(traceMap) {
+        for (const key of Object.keys(traceMap)) {
+            const nextTraceMap = traceMap[key];
+            const path = [key];
+            const variable = this.globalScope.set.get(key);
+
+            if (isModifiedGlobal(variable)) {
+                continue
+            }
+
+            yield* this._iterateVariableReferences(
+                variable,
+                path,
+                nextTraceMap,
+                true,
+            );
+        }
+
+        for (const key of this.globalObjectNames) {
+            const path = [];
+            const variable = this.globalScope.set.get(key);
+
+            if (isModifiedGlobal(variable)) {
+                continue
+            }
+
+            yield* this._iterateVariableReferences(
+                variable,
+                path,
+                traceMap,
+                false,
+            );
+        }
+    }
+_iterator_6 = <operator>.iterator(Object.keys(traceMap))
+const nextTraceMap = traceMap[key]
+_tmp_94 = __ecma.Array.factory()
+const variable = this.globalScope.set.get(key)
+isModifiedGlobal(variable)
+continue

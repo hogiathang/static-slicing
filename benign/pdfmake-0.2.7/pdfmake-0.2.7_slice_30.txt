@@ -1,0 +1,77 @@
+this.drawInDocument = function(isClip, isMask) {
+        if (this.get('visibility') === 'hidden' || !this.shape) {return;}
+        doc.save();
+        this.transform();
+        this.clip();
+        if (!isClip) {
+          let masked = this.mask(),
+              group;
+          if (masked) {
+            group = docBeginGroup(getPageBBox());
+          }
+          let subPaths = this.shape.getSubPaths(),
+              fill = this.getFill(isClip, isMask),
+              stroke = this.getStroke(isClip, isMask),
+              lineWidth = this.get('stroke-width'),
+              lineCap = this.get('stroke-linecap');
+          if (fill || stroke) {
+            if (fill) {
+              docFillColor(fill);
+            }
+            if (stroke) {
+              for (let j = 0; j < subPaths.length; j++) {
+                if (isEqual(subPaths[j].totalLength, 0)) {
+                  if ((lineCap === 'square' || lineCap === 'round') && lineWidth > 0) {
+                    i...
+this.get('visibility') === 'hidden' || !this.shape
+doc.save()
+this.transform()
+this.clip()
+!isClip
+let masked = this.mask()
+group = docBeginGroup(getPageBBox())
+let subPaths = this.shape.getSubPaths()
+let fill = this.getFill(isClip, isMask)
+let stroke = this.getStroke(isClip, isMask)
+let lineWidth = this.get('stroke-width')
+let lineCap = this.get('stroke-linecap')
+fill || stroke
+docFillColor(fill)
+j < subPaths.length
+isEqual(subPaths[j].totalLength, 0)
+(lineCap === 'square' || lineCap === 'round') && lineWidth > 0
+subPaths[j].startPoint && subPaths[j].startPoint.length > 1
+let x = subPaths[j].startPoint[0]
+let y = subPaths[j].startPoint[1]
+docFillColor(stroke)
+lineCap === 'square'
+doc.rect(x - 0.5 * lineWidth, y - 0.5 * lineWidth, lineWidth, lineWidth)
+lineCap === 'round'
+doc.circle(x, y, 0.5 * lineWidth)
+doc.fill()
+let dashArray = this.get('stroke-dasharray')
+let dashOffset = this.get('stroke-dashoffset')
+isNotEqual(this.dashScale, 1)
+j < dashArray.length
+dashArray[j] *= this.dashScale
+dashOffset *= this.dashScale
+docStrokeColor(stroke)
+doc.lineWidth(lineWidth)
+                 .miterLimit(this.get('stroke-miterlimit'))
+                 .lineJoin(this.get('stroke-linejoin'))
+                 .lineCap(lineCap)
+                 .dash(dashArray, {phase: dashOffset})
+this.get('stroke-miterlimit')
+this.get('stroke-linejoin')
+lineCap
+_tmp_476.phase = dashOffset
+j < subPaths.length
+subPaths[j].totalLength > 0
+(_tmp_477 = subPaths[j]).insertInDocument
+fill && stroke
+doc.fillAndStroke(this.get('fill-rule'))
+doc.fill(this.get('fill-rule'))
+doc.stroke()
+let markerStart = this.get('marker-start')
+let markerMid = this.get('marker-mid')
+let markerEnd = this.get('marker-end')

@@ -1,0 +1,109 @@
+constructor(globalObject, args, privateData) {
+    super(globalObject, args, privateData);
+
+    this._ownerDocument = idlUtils.implForWrapper(globalObject._document);
+
+    const url = args[0];
+    let protocols = args[1] !== undefined ? args[1] : [];
+
+    const urlRecord = parseURL(url);
+    if (urlRecord === null) {
+      throw DOMException.create(this._globalObject, [`The URL '${url}' is invalid.`, "SyntaxError"]);
+    }
+    if (urlRecord.scheme !== "ws" && urlRecord.scheme !== "wss") {
+      throw DOMException.create(this._globalObject, [
+        `The URL's scheme must be either 'ws' or 'wss'. '${urlRecord.scheme}' is not allowed.`,
+        "SyntaxError"
+      ]);
+    }
+    if (urlRecord.fragment !== null) {
+      throw DOMException.create(this._globalObject, [
+        `The URL contains a fragment identifier ('${urlRecord.fragment}'). Fragment identifiers ` +
+        "are not allowed in WebSocket URLs.",
+        "SyntaxError"
+      ]);
+    }
+
+    if (typeof protocols === "string"...
+super(globalObject, args, privateData)
+this._ownerDocument = idlUtils.implForWrapper(globalObject._document)
+const url = args[0]
+args[1] !== undefined ? args[1] : __ecma.Array.factory()
+const urlRecord = parseURL(url)
+urlRecord === null
+throw DOMException.create(this._globalObject, [`The URL '${url}' is invalid.`, "SyntaxError"]);
+urlRecord.scheme !== "ws" && urlRecord.scheme !== "wss"
+throw DOMException.create(this._globalObject, [
+        `The URL's scheme must be either 'ws' or 'wss'. '${urlRecord.scheme}' is not allowed.`,
+        "SyntaxError"
+      ]);
+_tmp_11.push(<operator>.formatString("The URL's scheme must be either 'ws' or 'wss'. '", urlRecord.scheme, "' is not allowed."))
+_tmp_11.push("SyntaxError")
+urlRecord.fragment !== null
+throw DOMException.create(this._globalObject, [
+        `The URL contains a fragment identifier ('${urlRecord.fragment}'). Fragment identifiers ` +
+        "are not allowed in WebSocket URLs.",
+        "SyntaxError"
+      ]);
+_tmp_12.push(`The URL contains a fragment identifier ('${urlRecord.fragment}'). Fragment identifiers ` +
+        "are not allowed in WebSocket URLs.")
+"are not allowed in WebSocket URLs."
+_tmp_12.push("SyntaxError")
+typeof protocols === "string"
+_tmp_13 = __ecma.Array.factory()
+const protocolSet = new Set()
+_iterator_0 = <operator>.iterator(protocols)
+!verifySecWebSocketProtocol(protocol)
+throw DOMException.create(this._globalObject, [`The subprotocol '${protocol}' is invalid.`, "SyntaxError"]);
+const lowered = protocol.toLowerCase()
+protocolSet.has(lowered)
+throw DOMException.create(this._globalObject, [
+          `The subprotocol '${protocol}' is duplicated.`,
+          "SyntaxError"
+        ]);
+_tmp_16.push(<operator>.formatString("The subprotocol '", protocol, "' is duplicated."))
+_tmp_16.push("SyntaxError")
+protocolSet.add(lowered)
+this._urlRecord = urlRecord
+this.url = serializeURL(urlRecord)
+const nodeParsedURL = nodeURL.parse(this.url)
+this.extensions = ""
+this.binaryType = "blob"
+this._ws = null
+this._readyState = CONNECTING
+this._requiredToFail = false
+this.bufferedAmount = 0
+__ecma.Array.factory()
+let openSocketsForWindow = openSockets.get(globalObject._globalProxy)
+openSocketsForWindow === undefined
+openSocketsForWindow = new Set()
+openSockets.set(globalObject._globalProxy, openSocketsForWindow)
+openSocketsForWindow.add(this)
+new Promise(resolve => {
+      // close() called before _ws has been initialized.
+      if (this._requiredToFail) {
+        resolve();
+        this._readyState = CLOSED;
+        this._onConnectionClosed(1006, "");
+        return;
+      }
+
+      this._ws = new WebSocket(this.url, protocols, {
+        headers: {
+          "user-agent": globalObject.navigator.userAgent,
+          "cookie": this._ownerDocument._cookieJar.getCookieStringSync(nodeParsedURL, { http: true }),
+          "origin": globalObject._origin
+        },
+        rejectUnauthorized: globalObject._resourceLoader._strictSSL
+      });
+      this._ws.once("open", () => {
+        resolve();
+        this._onConnectionEstablished();
+      });
+      this._ws.on("message", this._onMessageReceived.bind(this));
+      this._ws.once("close", (...closeArgs) => {
+        resolve();
+        this._onConnectionClosed(...closeArgs);
+      });
+      this._ws.once("upgrade", ({ headers }) => {
+        if (Array.isArray(headers["set-cookie"...

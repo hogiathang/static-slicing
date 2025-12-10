@@ -1,0 +1,31 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"GUILD_MEMBER_REMOVE"
+packet.d.user.id === this.client.user.id
+const guild = this.client.guilds.get(packet.d.guild_id)
+!guild
+--guild.memberCount
+packet.d.id = packet.d.user.id
+this.emit("guildMemberRemove", guild, guild.members.remove(packet.d) || {
+                    id: packet.d.id,
+                    user: new User(packet.d.user, this.client)
+                })
+_tmp_172.id = packet.d.id
+_tmp_172.user = new User(packet.d.user, this.client)

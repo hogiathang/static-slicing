@@ -1,0 +1,5 @@
+_get(id) {
+
+        return this._byId.get(id) || this._byKey.get(id);
+    }
+this._byId.get(id) || this._byKey.get(id)

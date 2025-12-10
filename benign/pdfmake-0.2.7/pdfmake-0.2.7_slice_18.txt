@@ -1,0 +1,30 @@
+this.getPaint = function(bBox, gOpacity, isClip, isMask) {
+        let children = this.getChildren();
+        if (children.length === 0) {return;}
+        if (children.length === 1) {
+          let child = children[0],
+              stopColor = child.get('stop-color');
+          if (stopColor === 'none') {return;}
+          return opacityToColor(stopColor, child.get('stop-opacity') * gOpacity, isMask);
+        }
+        let bBoxUnits = (this.attr('gradientUnits') !== 'userSpaceOnUse'),
+            matrix = parseTranform(this.attr('gradientTransform')),
+            spread = this.attr('spreadMethod'),
+            grad,
+            x1, x2, y1, y2, r2,
+            nAfter = 0,
+            nBefore = 0,
+            nTotal = 1;
+        if (bBoxUnits) {
+          matrix = multiplyMatrix([bBox[2] - bBox[0], 0, 0, bBox[3] - bBox[1], bBox[0], bBox[1]], matrix);
+        }
+        if (matrix = validateMatrix(matrix)) {
+          if (this.name === 'linearGradient') {
+        ...
+let children = this.getChildren()
+children.length === 0
+children.length === 1
+let child = children[0]
+let stopColor = child.get('stop-color')
+stopColor === 'none'
+opacityToColor(stopColor, child.get('stop-opacity') * gOpacity, isMask)

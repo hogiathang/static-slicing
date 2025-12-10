@@ -1,0 +1,20 @@
+_tmp_2._computed_object_property_0 = <lambda>0
+!visited.has(type.name) && !(0, graphql_1.isSpecifiedScalarType)(type)
+(0, graphql_1.isUnionType)(type) ||
+                        (0, graphql_1.isInputObjectType)(type) ||
+                        (0, graphql_1.isInterfaceType)(type) ||
+                        (0, graphql_1.isObjectType)(type) ||
+                        (0, graphql_1.isScalarType)(type)
+(0, graphql_1.isInputObjectType)(type)
+(0, graphql_1.isInterfaceType)(type)
+(0, graphql_1.isObjectType)(type)
+(0, graphql_1.isScalarType)(type)
+(0, graphql_1.isUnionType)(type) &&
+                            skipEmptyUnionPruning &&
+                            !Object.keys(type.getTypes()).length
+!Object.keys(type.getTypes()).length
+(0, graphql_1.isInputObjectType)(type) || (0, graphql_1.isInterfaceType)(type) || (0, graphql_1.isObjectType)(type)
+skipEmptyCompositeTypePruning && !Object.keys(type.getFields()).length
+(0, graphql_1.isInterfaceType)(type) && skipUnimplementedInterfacesPruning
+prunedTypes.push(type.name)
+visited.delete(type.name)

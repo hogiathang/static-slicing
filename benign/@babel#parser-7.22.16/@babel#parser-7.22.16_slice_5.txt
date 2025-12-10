@@ -1,0 +1,53 @@
+declarePrivateName(name, elementType, loc) {
+    const {
+      privateNames,
+      loneAccessors,
+      undefinedPrivateNames
+    } = this.current();
+    let redefined = privateNames.has(name);
+    if (elementType & 3) {
+      const accessor = redefined && loneAccessors.get(name);
+      if (accessor) {
+        const oldStatic = accessor & 4;
+        const newStatic = elementType & 4;
+        const oldKind = accessor & 3;
+        const newKind = elementType & 3;
+        redefined = oldKind === newKind || oldStatic !== newStatic;
+        if (!redefined) loneAccessors.delete(name);
+      } else if (!redefined) {
+        loneAccessors.set(name, elementType);
+      }
+    }
+    if (redefined) {
+      this.parser.raise(Errors.PrivateNameRedeclaration, {
+        at: loc,
+        identifierName: name
+      });
+    }
+    privateNames.add(name);
+    undefinedPrivateNames.delete(name);
+  }
+_tmp_559 = this.current()
+privateNames = _tmp_559.privateNames
+loneAccessors = _tmp_559.loneAccessors
+undefinedPrivateNames = _tmp_559.undefinedPrivateNames
+this.current()
+let redefined = privateNames.has(name)
+elementType & 3
+const accessor = redefined && loneAccessors.get(name)
+const oldStatic = accessor & 4
+const newStatic = elementType & 4
+const oldKind = accessor & 3
+const newKind = elementType & 3
+redefined = oldKind === newKind || oldStatic !== newStatic
+loneAccessors.delete(name)
+!redefined
+loneAccessors.set(name, elementType)
+this.parser.raise(Errors.PrivateNameRedeclaration, {
+        at: loc,
+        identifierName: name
+      })
+_tmp_561.at = loc
+_tmp_561.identifierName = name
+privateNames.add(name)
+undefinedPrivateNames.delete(name)

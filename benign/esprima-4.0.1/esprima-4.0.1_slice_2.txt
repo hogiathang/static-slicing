@@ -1,0 +1,69 @@
+typeof require === 'function'
+fs = require('fs')
+esprima = require('esprima')
+esprima = require('../')
+typeof load === 'function'
+load('esprima.js')
+load('../esprima.js')
+typeof console === 'undefined' && typeof process === 'undefined'
+console = { log: print }
+fs = { readFileSync: readFile }
+process = { argv: arguments, exit: quit }
+process.argv.unshift('esparse.js')
+(_tmp_4 = process.argv).unshift
+function showUsage = function showUsage() {
+    console.log('Usage:');
+    console.log('   esparse [options] [file.js]');
+    console.log();
+    console.log('Available options:');
+    console.log();
+    console.log('  --comment      Gather all line and block comments in an array');
+    console.log('  --loc          Include line-column location info for each syntax node');
+    console.log('  --range        Include index-based range for each syntax node');
+    console.log('  --raw          Display the raw value of literals');
+    console.log('  --tokens       List all tokens in an array');
+    console.log('  --tolerant     Tolerate errors on a best-effort basis (experimental)');
+    console.log('  -v, --version  Shows program version');
+    console.log();
+    process.exit(1);
+}
+options = {}
+process.argv.splice(2).forEach(function (entry) {
+
+    if (forceFile || entry === '-' || entry.slice(0, 1) !== '-') {
+        if (typeof fname === 'string') {
+            console.log('Error: more than one input file.');
+            process.exit(1);
+        } else {
+            fname = entry;
+        }
+    } else if (entry === '-h' || entry === '--help') {
+        showUsage();
+    } else if (entry === '-v' || entry === '--version') {
+        console.log('ECMAScript Parser (using Esprima version', esprima.version, ')');
+        console.log();
+        process.exit(0);
+    } else if (entry === '--comment') {
+        options.comment = true;
+    } else if (entry === '--loc') {
+        options.loc = true;
+    } else if (entry === '--range') {
+        options.range = true;
+    } else if (entry === '--raw') {
+        options.raw = true;
+    } else if (entry === '--tokens') {
+        options.tokens = true;
+    } else if (entry === '--tolerant') {
+        options.tolerant = true;
+    } else if...
+function adjustRegexLiteral = function adjustRegexLiteral(key, value) {
+    if (key === 'value' && value instanceof RegExp) {
+        value = value.toString();
+    }
+    return value;
+}
+function run = function run(content) {
+    syntax = esprima.parse(content, options);
+    console.log(JSON.stringify(syntax, adjustRegexLiteral, 4));
+}
+fname && (fname !== '-' || forceFile)

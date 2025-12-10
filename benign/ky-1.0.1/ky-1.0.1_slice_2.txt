@@ -1,0 +1,16 @@
+function read = async function read() {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        controller.close();
+                        return;
+                    }
+                    if (onDownloadProgress) {
+                        transferredBytes += value.byteLength;
+                        const percent = totalBytes === 0 ? 0 : transferredBytes / totalBytes;
+                        onDownloadProgress({ percent, transferredBytes, totalBytes }, value);
+                    }
+                    controller.enqueue(value);
+                    await read();
+                }
+_tmp_56 = await reader.read()
+controller.close()

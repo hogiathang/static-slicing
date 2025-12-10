@@ -1,0 +1,22 @@
+function _formatVersion = function _formatVersion(version) {
+    if (version === undefined) {
+        return undefined;
+    }
+    if (!version.match(/^\d{1,30}\.\d{1,30}\.\d{1,30}/)) {
+        version += '.0';
+    }
+    if (!version.match(/^\d{1,30}\.\d{1,30}\.\d{1,30}/)) {
+        version += '.0';
+    }
+    if (!semver.valid(version)) {
+        throw new schematics_1.SchematicsException(`Invalid migration version: ${JSON.stringify(version)}`);
+    }
+    return version;
+}
+version === undefined
+!version.match(/^\d{1,30}\.\d{1,30}\.\d{1,30}/)
+version += '.0'
+!version.match(/^\d{1,30}\.\d{1,30}\.\d{1,30}/)
+version += '.0'
+!semver.valid(version)
+throw new schematics_1.SchematicsException(`Invalid migration version: ${JSON.stringify(version)}`);

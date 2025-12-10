@@ -1,0 +1,49 @@
+_tmp_25.JSXOpeningElement = JSXOpeningElement
+const targetIndex = findLastIndex(node.attributes, (attr) => attr.name && attr.name.name === 'target')
+const spreadAttributeIndex = findLastIndex(node.attributes, (attr) => (attr.type === 'JSXSpreadAttribute'))
+linkComponents.has(node.name.name)
+!attributeValuePossiblyBlank(node.attributes[targetIndex])
+const hasSpread = spreadAttributeIndex >= 0
+warnOnSpreadAttributes && hasSpread
+(hasSpread && targetIndex < spreadAttributeIndex) || !hasSpread || !warnOnSpreadAttributes
+const linkAttribute = linkComponents.get(node.name.name)
+const hasDangerousLink = hasExternalLink(node, linkAttribute, warnOnSpreadAttributes, spreadAttributeIndex)
+            || (enforceDynamicLinks === 'always' && hasDynamicLink(node, linkAttribute))
+enforceDynamicLinks === 'always' && hasDynamicLink(node, linkAttribute)
+hasDangerousLink && !hasSecureRel(node, allowReferrer, warnOnSpreadAttributes, spreadAttributeIndex)
+const messageId = allowReferrer ? 'noTargetBlankWithoutNoopener' : 'noTargetBlankWithoutNoreferrer'
+const relValue = allowReferrer ? 'noopener' : 'noreferrer'
+report(context, messages[messageId], messageId, {
+              node,
+              fix(fixer) {
+                // eslint 5 uses `node.attributes`; eslint 6+ uses `node.parent.attributes`
+                const nodeWithAttrs = node.parent.attributes ? node.parent : node;
+                // eslint 5 does not provide a `name` property on JSXSpreadElements
+                const relAttribute = nodeWithAttrs.attributes.find((attr) => attr.name && attr.name.name === 'rel');
+
+                if (targetIndex < spreadAttributeIndex || (spreadAttributeIndex >= 0 && !relAttribute)) {
+                  return null;
+                }
+
+                if (!relAttribute) {
+                  return fixer.insertTextAfter(nodeWithAttrs.attributes.slice(-1)[0], ` rel="${relValue}"`);
+                }
+
+                if (!relAttribute.value) {
+                  return fixer.insertTextAfter(relAttribute, `="${relValue}"`);
+                }
+
+                if (relAttribute.value.type === 'Literal') {...
+_tmp_26.node = node
+_tmp_26.fix = fix
+formComponents.has(node.name.name)
+!attributeValuePossiblyBlank(node.attributes[targetIndex])
+const hasSpread = spreadAttributeIndex >= 0
+warnOnSpreadAttributes && hasSpread
+(hasSpread && targetIndex < spreadAttributeIndex)
+              || !hasSpread
+              || !warnOnSpreadAttributes
+!hasSpread
+!warnOnSpreadAttributes
+!configuration.forms || hasSecureRel(node)
+const formAttribute = formComponents.get(node.name.name)

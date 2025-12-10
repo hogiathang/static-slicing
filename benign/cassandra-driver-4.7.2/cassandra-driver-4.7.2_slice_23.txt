@@ -1,0 +1,171 @@
+async _getStartupMessage() {
+    const cc = this._client.controlConnection;
+    const options = this._client.options;
+
+
+    const appInfo = await this._getAppInfo(options);
+    const message = {
+      metadata: {
+        name: 'driver.startup',
+        insightMappingId: 'v1',
+        insightType: 'EVENT',
+        timestamp: Date.now(),
+        tags: { language: 'nodejs' }
+      },
+      data: {
+        driverName: packageInfo.description,
+        driverVersion: packageInfo.version,
+        clientId: options.id,
+        sessionId: this._sessionId,
+        applicationName: appInfo.applicationName,
+        applicationVersion: appInfo.applicationVersion,
+        applicationNameWasGenerated: appInfo.applicationNameWasGenerated,
+        contactPoints: mapToObject(cc.getResolvedContactPoints()),
+        dataCenters: this._getDataCenters(),
+        initialControlConnection: cc.host ? cc.host.address : undefined,
+        protocolVersion: cc.protocolVersion,
+        localAddress: cc.getLocalA...
+const cc = this._client.controlConnection
+const options = this._client.options
+const appInfo = await this._getAppInfo(options)
+const message = {
+      metadata: {
+        name: 'driver.startup',
+        insightMappingId: 'v1',
+        insightType: 'EVENT',
+        timestamp: Date.now(),
+        tags: { language: 'nodejs' }
+      },
+      data: {
+        driverName: packageInfo.description,
+        driverVersion: packageInfo.version,
+        clientId: options.id,
+        sessionId: this._sessionId,
+        applicationName: appInfo.applicationName,
+        applicationVersion: appInfo.applicationVersion,
+        applicationNameWasGenerated: appInfo.applicationNameWasGenerated,
+        contactPoints: mapToObject(cc.getResolvedContactPoints()),
+        dataCenters: this._getDataCenters(),
+        initialControlConnection: cc.host ? cc.host.address : undefined,
+        protocolVersion: cc.protocolVersion,
+        localAddress: cc.getLocalAddress(),
+        hostName: os.hostname(),
+        executionProfiles: getExecutionProfiles(this._client),
+        poolSizeByHostDistance: {
+          local: options.pooling.coreConnec...
+_tmp_28.metadata = {
+        name: 'driver.startup',
+        insightMappingId: 'v1',
+        insightType: 'EVENT',
+        timestamp: Date.now(),
+        tags: { language: 'nodejs' }
+      }
+_tmp_29.name = "driver.startup"
+_tmp_29.insightMappingId = "v1"
+_tmp_29.insightType = "EVENT"
+_tmp_29.timestamp = Date.now()
+_tmp_29.tags = { language: 'nodejs' }
+_tmp_28.data = {
+        driverName: packageInfo.description,
+        driverVersion: packageInfo.version,
+        clientId: options.id,
+        sessionId: this._sessionId,
+        applicationName: appInfo.applicationName,
+        applicationVersion: appInfo.applicationVersion,
+        applicationNameWasGenerated: appInfo.applicationNameWasGenerated,
+        contactPoints: mapToObject(cc.getResolvedContactPoints()),
+        dataCenters: this._getDataCenters(),
+        initialControlConnection: cc.host ? cc.host.address : undefined,
+        protocolVersion: cc.protocolVersion,
+        localAddress: cc.getLocalAddress(),
+        hostName: os.hostname(),
+        executionProfiles: getExecutionProfiles(this._client),
+        poolSizeByHostDistance: {
+          local: options.pooling.coreConnectionsPerHost[types.distance.local],
+          remote: options.pooling.coreConnectionsPerHost[types.distance.remote]
+        },
+        heartbeatInterval: options.pooling.heartBeatInterval,
+        compression: 'NO...
+_tmp_31.driverName = packageInfo.description
+_tmp_31.driverVersion = packageInfo.version
+_tmp_31.clientId = options.id
+_tmp_31.sessionId = this._sessionId
+_tmp_31.applicationName = appInfo.applicationName
+_tmp_31.applicationVersion = appInfo.applicationVersion
+_tmp_31.applicationNameWasGenerated = appInfo.applicationNameWasGenerated
+_tmp_31.contactPoints = mapToObject(cc.getResolvedContactPoints())
+_tmp_31.dataCenters = this._getDataCenters()
+_tmp_31.initialControlConnection = cc.host ? cc.host.address : undefined
+_tmp_31.protocolVersion = cc.protocolVersion
+_tmp_31.localAddress = cc.getLocalAddress()
+_tmp_31.hostName = os.hostname()
+_tmp_31.executionProfiles = getExecutionProfiles(this._client)
+_tmp_31.poolSizeByHostDistance = {
+          local: options.pooling.coreConnectionsPerHost[types.distance.local],
+          remote: options.pooling.coreConnectionsPerHost[types.distance.remote]
+        }
+_tmp_32.local = options.pooling.coreConnectionsPerHost[types.distance.local]
+_tmp_32.remote = options.pooling.coreConnectionsPerHost[types.distance.remote]
+_tmp_31.heartbeatInterval = options.pooling.heartBeatInterval
+_tmp_31.compression = "NONE"
+_tmp_31.reconnectionPolicy = getPolicyInfo(options.policies.reconnection)
+_tmp_31.ssl = {
+          enabled: !!options.sslOptions,
+          certValidation: options.sslOptions ? !!options.sslOptions.rejectUnauthorized : undefined
+        }
+_tmp_33.enabled = !!options.sslOptions
+_tmp_33.certValidation = options.sslOptions ? !!options.sslOptions.rejectUnauthorized : undefined
+_tmp_31.authProvider = {
+          type: !(options.authProvider instanceof NoAuthProvider) ? getConstructor(options.authProvider) : undefined,
+        }
+_tmp_34.type = !(options.authProvider instanceof NoAuthProvider) ? getConstructor(options.authProvider) : undefined
+_tmp_31.otherOptions = {
+          coalescingThreshold: options.socketOptions.coalescingThreshold,
+        }
+_tmp_35.coalescingThreshold = options.socketOptions.coalescingThreshold
+_tmp_31.platformInfo = {
+          os: {
+            name: os.platform(),
+            version: os.release(),
+            arch: os.arch()
+          },
+          cpus: {
+            length: os.cpus().length,
+            model: os.cpus()[0].model
+          },
+          runtime: {
+            node: process.versions['node'],
+            v8: process.versions['v8'],
+            uv: process.versions['uv'],
+            openssl: process.versions['openssl'],
+            kerberos: kerberosModule ? kerberosModule.version : undefined
+          }
+        }
+_tmp_36.os = {
+            name: os.platform(),
+            version: os.release(),
+            arch: os.arch()
+          }
+_tmp_37.name = os.platform()
+_tmp_37.version = os.release()
+_tmp_37.arch = os.arch()
+_tmp_36.cpus = {
+            length: os.cpus().length,
+            model: os.cpus()[0].model
+          }
+_tmp_38.length = os.cpus().length
+_tmp_38.model = os.cpus()[0].model
+_tmp_36.runtime = {
+            node: process.versions['node'],
+            v8: process.versions['v8'],
+            uv: process.versions['uv'],
+            openssl: process.versions['openssl'],
+            kerberos: kerberosModule ? kerberosModule.version : undefined
+          }
+_tmp_39.node = process.versions["node"]
+_tmp_39.v8 = process.versions["v8"]
+_tmp_39.uv = process.versions["uv"]
+_tmp_39.openssl = process.versions["openssl"]
+_tmp_39.kerberos = kerberosModule ? kerberosModule.version : undefined
+_tmp_31.configAntiPatterns = this._getConfigAntiPatterns()
+_tmp_31.periodicStatusInterval = Math.floor(this._statusEventDelay / 1000)

@@ -1,0 +1,13 @@
+_tmp_0.createExe = <lambda>3
+var p = require('path')
+typeof dir === 'function'
+callback = dir
+dir = null
+dir = dir || process.cwd()
+var exeOrigin = p.join(__dirname,'..','bin','winsw','winsw.exe')
+var cfgOrigin = p.join(__dirname,'..','bin','winsw','winsw.exe.config')
+var exeDest = p.join(dir,name.replace(/[^\w]/gi,'').toLowerCase()+'.exe')
+var cfgDest = p.join(dir,name.replace(/[^\w]/gi,'').toLowerCase()+'.exe.config')
+var exeData = fs.readFileSync(exeOrigin,{encoding:'binary'})
+var cfgData = fs.readFileSync(cfgOrigin,{encoding:'binary'})
+fs.writeFileSync(exeDest,exeData,{encoding:'binary'})

@@ -1,0 +1,11 @@
+var fs = require('fs')
+var path = require('path')
+var os = require('os')
+var hook = path.join(__dirname, 'hook')
+var root = path.resolve(__dirname, '..', '..')
+var exists = fs.existsSync || path.existsSync
+var git = path.resolve(root, '.git')
+var hooks = path.resolve(git, 'hooks')
+var precommit = path.resolve(hooks, 'pre-commit')
+!exists(git) || !fs.lstatSync(git).isDirectory()
+fs.mkdirSync(hooks)

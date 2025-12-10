@@ -1,0 +1,36 @@
+function registerTSNode = function registerTSNode(root) {
+    const tsconfig = loadTSConfig(root);
+    if (!tsconfig)
+        return;
+    debug('registering ts-node at', root);
+    const tsNodePath = require.resolve('ts-node', { paths: [root, __dirname] });
+    const tsNode = require(tsNodePath);
+    TYPE_ROOTS.push(`${root}/node_modules/@types`);
+    if (tsconfig.compilerOptions.rootDirs) {
+        ROOT_DIRS.push(...tsconfig.compilerOptions.rootDirs.map(r => path.join(root, r)));
+    }
+    else {
+        ROOT_DIRS.push(`${root}/src`);
+    }
+    const cwd = process.cwd();
+    try {
+        process.chdir(root);
+        tsNode.register({
+            skipProject: true,
+            transpileOnly: true,
+            compilerOptions: {
+                esModuleInterop: tsconfig.compilerOptions.esModuleInterop,
+                target: tsconfig.compilerOptions.target || 'es2017',
+                experimentalDecorators: tsconfig.compilerOptions.experimentalDecorators || false,
+                emitDecoratorMetadata: tsc...
+const tsconfig = loadTSConfig(root)
+!tsconfig
+debug('registering ts-node at', root)
+const tsNodePath = require.resolve('ts-node', { paths: [root, __dirname] })
+const tsNode = require(tsNodePath)
+<operator>.formatString("", root, "/node_modules/@types")
+tsconfig.compilerOptions.rootDirs
+ROOT_DIRS.push(...tsconfig.compilerOptions.rootDirs.map(r => path.join(root, r)))
+<operator>.formatString("", root, "/src")
+const cwd = process.cwd()
+process.chdir(root)

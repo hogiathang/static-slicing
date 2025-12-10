@@ -1,0 +1,15 @@
+delete(value) {
+    const ref = this._refMap.get(value);
+    if (!ref) {
+      return false;
+    }
+
+    this._refMap.delete(value);
+    this._refSet.delete(ref);
+    this._finalizationRegistry.unregister(ref);
+    return true;
+  }
+const ref = this._refMap.get(value)
+!ref
+(_tmp_10 = this._refMap).delete
+(_tmp_11 = this._refSet).delete

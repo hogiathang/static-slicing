@@ -1,0 +1,10 @@
+_tmp_32.ForStatement = ForStatement
+const test = path.get("test")
+!test.isPure()
+const result = evaluate(test, {
+        tdz: this.tdz
+      })
+_tmp_84.tdz = this.tdz
+result.confident
+result.value
+const init = path.get("init")

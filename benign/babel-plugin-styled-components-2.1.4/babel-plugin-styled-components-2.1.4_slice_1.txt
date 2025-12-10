@@ -1,0 +1,28 @@
+const getFileHash = state => {
+  const {
+    file
+  } = state;
+  // hash calculation is costly due to fs operations, so we'll cache it per file.
+  if (file.get(FILE_HASH)) {
+    return file.get(FILE_HASH);
+  }
+  const filename = file.opts.filename;
+  // find module root directory
+  const moduleRoot = findModuleRoot(filename);
+  const filePath = moduleRoot && _path.default.relative(moduleRoot, filename).replace(separatorRegExp, '/');
+  const moduleName = moduleRoot && JSON.parse(_fs.default.readFileSync(_path.default.join(moduleRoot, 'package.json'))).name;
+  const code = file.code;
+  const stuffToHash = [moduleName];
+  if (filePath) {
+    stuffToHash.push(filePath);
+  } else {
+    stuffToHash.push(code);
+  }
+  const fileHash = (0, _hash.default)(stuffToHash.join(''));
+  file.set(FILE_HASH, fileHash);
+  return fileHash;
+}
+_tmp_21 = state
+file = _tmp_21.file
+file.get(FILE_HASH)
+file.get(FILE_HASH)

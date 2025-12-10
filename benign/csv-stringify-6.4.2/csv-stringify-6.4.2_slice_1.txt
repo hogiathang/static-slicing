@@ -1,0 +1,12 @@
+chunkIsHeader = chunkIsHeader === void 0 ? false : chunkIsHeader
+typeof chunk !== 'object'
+columns = _tmp_7.columns
+__ecma.Array.factory()
+Array.isArray(chunk)
+i<columns.length
+const field = get(chunk, columns[i].key)
+_tmp_13 = this.__cast(field, {
+            index: i, column: columns[i].key, records: this.info.records, header: chunkIsHeader
+          })
+_tmp_12.records = this.info.records
+_tmp_15 = __ecma.Array.factory()

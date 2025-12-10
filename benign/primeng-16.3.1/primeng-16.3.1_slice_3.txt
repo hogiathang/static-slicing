@@ -1,0 +1,7 @@
+hide(type) {
+        this.onHide.emit(type);
+        this.visible = false;
+        this.confirmation = null;
+        this.confirmationOptions = null;
+    }
+(_tmp_24 = this.onHide).emit

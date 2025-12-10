@@ -1,0 +1,55 @@
+function convertFunctionRest = function convertFunctionRest(path) {
+  const {
+    node,
+    scope
+  } = path;
+  if (!hasRest(node)) return false;
+  const restPath = path.get(`params.${node.params.length - 1}.argument`);
+  if (!restPath.isIdentifier()) {
+    const shadowedParams = new Set();
+    (0, _shadowUtils.collectShadowedParamsNames)(restPath, path.scope, shadowedParams);
+    let needsIIFE = shadowedParams.size > 0;
+    if (!needsIIFE) {
+      const state = {
+        needsOuterBinding: false,
+        scope
+      };
+      restPath.traverse(_shadowUtils.iifeVisitor, state);
+      needsIIFE = state.needsOuterBinding;
+    }
+    if (needsIIFE) {
+      path.ensureBlock();
+      path.set("body", _core.types.blockStatement([(0, _shadowUtils.buildScopeIIFE)(shadowedParams, path.node.body)]));
+    }
+  }
+  let rest = restPath.node;
+  node.params.pop();
+  if (_core.types.isPattern(rest)) {
+    const pattern = rest;
+    rest = scope.generateUidIdentifier("ref");
+    const declar = _core.types.variableDeclaration("let", [...
+_tmp_18 = path
+node = _tmp_18.node
+scope = _tmp_18.scope
+!hasRest(node)
+<operator>.formatString("params.", node.params.length - 1, ".argument")
+!restPath.isIdentifier()
+const shadowedParams = new Set()
+(0, _shadowUtils.collectShadowedParamsNames)(restPath, path.scope, shadowedParams)
+let needsIIFE = shadowedParams.size > 0
+!needsIIFE
+const state = {
+        needsOuterBinding: false,
+        scope
+      }
+_tmp_20.needsOuterBinding = false
+_tmp_20.scope = scope
+restPath.traverse(_shadowUtils.iifeVisitor, state)
+needsIIFE = state.needsOuterBinding
+path.ensureBlock()
+path.set("body", _core.types.blockStatement([(0, _shadowUtils.buildScopeIIFE)(shadowedParams, path.node.body)]))
+let rest = restPath.node
+(_tmp_23 = node.params).pop
+(_tmp_24 = _core.types).isPattern
+rest.name === "arguments"
+scope.rename(rest.name)

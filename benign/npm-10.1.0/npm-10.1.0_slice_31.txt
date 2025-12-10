@@ -1,0 +1,5 @@
+_tmp_5 = param2_0 === void 0 ? {} : param2_0
+const localPrefix = this.npm.localPrefix
+!runPath
+runPath = process.cwd()
+const call = this.npm.config.get('call')

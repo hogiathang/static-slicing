@@ -1,0 +1,100 @@
+BaseClient.prototype.request = function(options, data, fn) {
+	if (typeof data === "function") {
+		fn = data;
+		data = null;
+	}
+
+	fn = fn || function() {};
+
+	var reqOptions = extend({
+		host: this.server.host,
+		port: this.server.port,
+		method: "GET",
+		headers: {
+			authorization: this.authHeader,
+			"content-type": "application/json",
+			"user-agent": userAgent,
+			"content-length": typeof data === "string" ? data.length : 0
+		},
+		agent: (this.proxy) ? new HttpsProxyAgent(this.proxy) : null
+	}, options);
+
+	var req = (this.useHttp ? http : https).request(reqOptions, function(res) {
+		var response = "";
+		res.setEncoding("utf8");
+		res.on("data", function(chunk) {
+			response += chunk;
+		});
+		res.on("end", function() {
+			if (res.statusCode !== 200) {
+				var message;
+				if (res.headers["content-type"].indexOf("json") !== -1) {
+					response = JSON.parse(response);
+					message = response.message;
+					if (response.errors) {
+						if (Array.isArray(response.errors) && response.er...
+typeof data === "function"
+fn = data
+data = null
+fn = fn || function() {}
+var reqOptions = extend({
+		host: this.server.host,
+		port: this.server.port,
+		method: "GET",
+		headers: {
+			authorization: this.authHeader,
+			"content-type": "application/json",
+			"user-agent": userAgent,
+			"content-length": typeof data === "string" ? data.length : 0
+		},
+		agent: (this.proxy) ? new HttpsProxyAgent(this.proxy) : null
+	}, options)
+_tmp_3.host = this.server.host
+_tmp_3.port = this.server.port
+_tmp_3.method = "GET"
+_tmp_3.headers = {
+			authorization: this.authHeader,
+			"content-type": "application/json",
+			"user-agent": userAgent,
+			"content-length": typeof data === "string" ? data.length : 0
+		}
+_tmp_4.authorization = this.authHeader
+_tmp_4.content-type = "application/json"
+_tmp_4.user-agent = userAgent
+_tmp_4.content-length = typeof data === "string" ? data.length : 0
+_tmp_3.agent = this.proxy ? new HttpsProxyAgent(this.proxy) : null
+var req = (this.useHttp ? http : https).request(reqOptions, function(res) {
+		var response = "";
+		res.setEncoding("utf8");
+		res.on("data", function(chunk) {
+			response += chunk;
+		});
+		res.on("end", function() {
+			if (res.statusCode !== 200) {
+				var message;
+				if (res.headers["content-type"].indexOf("json") !== -1) {
+					response = JSON.parse(response);
+					message = response.message;
+					if (response.errors) {
+						if (Array.isArray(response.errors) && response.errors.length) {
+							message += " - " + response.errors.map(function(error) {
+								return "`" + error.field + "` " + error.code;
+							}).join(", ");
+						} else {
+							message += " - " + response.errors.toString();
+						}
+					}
+				} else {
+					message = response;
+				}
+				if (!message && res.statusCode === 403) {
+					message = "Forbidden";
+				}
+				fn(new Error(message));
+			} else {
+				fn(null, JSON.parse(response));
+			}
+		});
+	})
+req.on("error", fn)
+req.write(data)

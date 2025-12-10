@@ -1,0 +1,77 @@
+function assignRawDocsToIdStructure = function assignRawDocsToIdStructure(rawIds, resultDocs, resultOrder, options, recursed) {
+  // honor user specified sort order
+  const newOrder = [];
+  const sorting = options.sort && rawIds.length > 1;
+  const nullIfNotFound = options.$nullIfNotFound;
+  let doc;
+  let sid;
+  let id;
+
+  if (utils.isMongooseArray(rawIds)) {
+    rawIds = rawIds.__array;
+  }
+
+  let i = 0;
+  const len = rawIds.length;
+
+  if (sorting && recursed && options[kHasArray] === undefined) {
+    options[kHasArray] = false;
+    for (const key in resultOrder) {
+      if (Array.isArray(resultOrder[key])) {
+        options[kHasArray] = true;
+        break;
+      }
+    }
+  }
+
+  for (i = 0; i < len; ++i) {
+    id = rawIds[i];
+
+    if (Array.isArray(id)) {
+      // handle [ [id0, id2], [id3] ]
+      assignRawDocsToIdStructure(id, resultDocs, resultOrder, options, true);
+      newOrder.push(id);
+      continue;
+    }
+
+    if (id === null && sorting === false) {
+      // keep nulls for findOne unless sorting, which alway...
+__ecma.Array.factory()
+const sorting = options.sort && rawIds.length > 1
+const nullIfNotFound = options.$nullIfNotFound
+utils.isMongooseArray(rawIds)
+rawIds = rawIds.__array
+let i = 0
+const len = rawIds.length
+sorting && recursed && options[kHasArray] === undefined
+options[kHasArray] = false
+_iterator_0 = <operator>.iterator(resultOrder)
+Array.isArray(resultOrder[key])
+options[kHasArray] = true
+break;
+i < len
+id = rawIds[i]
+Array.isArray(id)
+assignRawDocsToIdStructure(id, resultDocs, resultOrder, options, true)
+newOrder.push(id)
+continue;
+id === null && sorting === false
+newOrder.push(id)
+continue;
+sid = String(id)
+doc = resultDocs[sid]
+options.clone && doc != null
+options.lean
+const _model = leanPopulateMap.get(doc)
+doc = clone(doc)
+leanPopulateMap.set(doc, _model)
+doc = doc.constructor.hydrate(doc._doc)
+const _resultOrder = resultOrder[sid]
+options[kHasArray]
+newOrder.push(doc)
+newOrder[_resultOrder] = doc
+newOrder.push(doc)
+id != null && id[modelSymbol] != null
+newOrder.push(id)
+newOrder.push(options.retainNullValues || nullIfNotFound ? null : id)
+newOrder[i] = doc || null

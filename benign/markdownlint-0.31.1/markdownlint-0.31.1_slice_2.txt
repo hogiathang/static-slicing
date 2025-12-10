@@ -1,0 +1,66 @@
+_tmp_629.function = MD037
+var lines = params.lines
+var parsers = params.parsers
+var emphasisTokensByMarker = new Map()
+var _arr = ["_", "__", "___", "*", "**", "***"]
+var marker = _arr[_i]
+emphasisTokensByMarker.set(marker, [])
+var tokens = filterByPredicate(parsers.micromark.tokens, function (token) {
+      return token.children.some(function (child) {
+        return child.type === "data";
+      });
+    })
+var _iterator = _createForOfIteratorHelper(tokens)
+!(_step = _iterator.n()).done
+var token = _step.value
+var _iterator2 = _createForOfIteratorHelper(emphasisTokensByMarker.values())
+!(_step2 = _iterator2.n()).done
+var emphasisTokens = _step2.value
+emphasisTokens.length = 0
+_iterator2.e(err)
+_iterator2.f()
+var _iterator3 = _createForOfIteratorHelper(token.children)
+!(_step3 = _iterator3.n()).done
+var child = _step3.value
+var text = child.text
+var type = child.type
+type === "data" && text.length <= 3
+var _emphasisTokens = emphasisTokensByMarker.get(text)
+_emphasisTokens.push(child)
+_iterator3.e(err)
+_iterator3.f()
+var _iterator4 = _createForOfIteratorHelper(emphasisTokensByMarker.entries())
+!(_step4 = _iterator4.n()).done
+var entry = _step4.value
+var _entry = _slicedToArray(entry, 2)
+var _marker = _entry[0]
+var _emphasisTokens2 = _entry[1]
+i + 1 < _emphasisTokens2.length
+var startToken = _emphasisTokens2[i]
+var startLine = lines[startToken.startLine - 1]
+var startSlice = startLine.slice(startToken.endColumn - 1)
+var startMatch = startSlice.match(/^\s+\S/)
+var _startMatch = _slicedToArray(startMatch, 1)
+var startSpaceCharacter = _startMatch[0]
+var startContext = "".concat(_marker).concat(startSpaceCharacter)
+addError(onError, startToken.startLine, undefined, startContext, [startToken.startColumn, startContext.length], {
+                  "editColumn": startToken.endColumn,
+                  "deleteCount": startSpaceCharacter.length - 1
+                })
+_tmp_638.editColumn = startToken.endColumn
+_tmp_638.deleteCount = startSpaceCharacter.length - 1
+var endToken = _emphasisTokens2[i + 1]
+var endLine = lines[endToken.startLine - 1]
+var endSlice = endLine.slice(0, endToken.startColumn - 1)
+var endMatch = endSlice.match(/\S\s+$/)
+var _endMatch = _slicedToArray(endMatch, 1)
+var endSpaceCharacter = _endMatch[0]
+var endContext = "".concat(endSpaceCharacter).concat(_marker)
+addError(onError, endToken.startLine, undefined, endContext, [endToken.endColumn - endContext.length, endContext.length], {
+                  "editColumn": endToken.startColumn - (endSpaceCharacter.length - 1),
+                  "deleteCount": endSpaceCharacter.length - 1
+                })
+_tmp_642.editColumn = endToken.startColumn - (endSpaceCharacter.length - 1)
+_tmp_642.deleteCount = endSpaceCharacter.length - 1
+_iterator4.e(err)
+_iterator4.f()

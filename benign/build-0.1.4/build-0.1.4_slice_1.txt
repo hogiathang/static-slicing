@@ -1,0 +1,6 @@
+Array.from(options).each(function(opt){
+            var from = fs.realpathSync(opt.from);
+            fs.renameSync(from, opt.to);
+        })
+var from = fs.realpathSync(opt.from)
+fs.renameSync(from, opt.to)

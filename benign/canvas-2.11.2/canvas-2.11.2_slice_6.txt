@@ -1,0 +1,43 @@
+Canvas.prototype.toDataURL = function (a1, a2, a3) {
+  // valid arg patterns (args -> [type, opts, fn]):
+  // [] -> ['image/png', null, null]
+  // [qual] -> ['image/png', null, null]
+  // [undefined] -> ['image/png', null, null]
+  // ['image/png'] -> ['image/png', null, null]
+  // ['image/png', qual] -> ['image/png', null, null]
+  // [fn] -> ['image/png', null, fn]
+  // [type, fn] -> [type, null, fn]
+  // [undefined, fn] -> ['image/png', null, fn]
+  // ['image/png', qual, fn] -> ['image/png', null, fn]
+  // ['image/jpeg', fn] -> ['image/jpeg', null, fn]
+  // ['image/jpeg', opts, fn] -> ['image/jpeg', opts, fn]
+  // ['image/jpeg', qual, fn] -> ['image/jpeg', {quality: qual}, fn]
+  // ['image/jpeg', undefined, fn] -> ['image/jpeg', null, fn]
+  // ['image/jpeg'] -> ['image/jpeg', null, fn]
+  // ['image/jpeg', opts] -> ['image/jpeg', opts, fn]
+  // ['image/jpeg', qual] -> ['image/jpeg', {quality: qual}, fn]
+
+  let type = 'image/png'
+  let opts = {}
+  let fn
+
+  if (typeof a1 === 'functio...
+let type = 'image/png'
+let opts = {}
+typeof a1 === 'function'
+fn = a1
+typeof a1 === 'string' && FORMATS.includes(a1.toLowerCase())
+type = a1.toLowerCase()
+typeof a2 === 'function'
+fn = a2
+typeof a2 === 'object'
+opts = a2
+typeof a2 === 'number'
+opts = { quality: Math.max(0, Math.min(1, a2)) }
+typeof a3 === 'function'
+fn = a3
+undefined !== a3
+<operator>.formatString("", typeof a3, " is not a function")
+this.width === 0 || this.height === 0
+const str = 'data:,'
+setTimeout(() => fn(null, str))

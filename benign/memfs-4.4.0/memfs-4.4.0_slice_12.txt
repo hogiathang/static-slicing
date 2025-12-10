@@ -1,0 +1,41 @@
+readFileBase(id, flagsNum, encoding) {
+        let result;
+        const isUserFd = typeof id === 'number';
+        const userOwnsFd = isUserFd && (0, util_1.isFd)(id);
+        let fd;
+        if (userOwnsFd)
+            fd = id;
+        else {
+            const filename = (0, util_1.pathToFilename)(id);
+            const steps = filenameToSteps(filename);
+            const link = this.getResolvedLink(steps);
+            if (link) {
+                const node = link.getNode();
+                if (node.isDirectory())
+                    throw (0, util_1.createError)(EISDIR, 'open', link.getPath());
+            }
+            fd = this.openSync(id, flagsNum);
+        }
+        try {
+            result = (0, util_1.bufferToEncoding)(this.getFileByFdOrThrow(fd).getBuffer(), encoding);
+        }
+        finally {
+            if (!userOwnsFd) {
+                this.closeSync(fd);
+            }
+        }
+        return result;
+    }
+const isUserFd = typeof id === 'number'
+const userOwnsFd = isUserFd && (0, util_1.isFd)(id)
+fd = id
+const filename = (0, util_1.pathToFilename)(id)
+const steps = filenameToSteps(filename)
+const link = this.getResolvedLink(steps)
+const node = link.getNode()
+node.isDirectory()
+throw (0, util_1.createError)(EISDIR, 'open', link.getPath());
+fd = this.openSync(id, flagsNum)
+result = (0, util_1.bufferToEncoding)(this.getFileByFdOrThrow(fd).getBuffer(), encoding)
+!userOwnsFd
+this.closeSync(fd)

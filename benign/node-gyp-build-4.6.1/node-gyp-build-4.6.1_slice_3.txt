@@ -1,0 +1,8 @@
+function preinstall = function preinstall () {
+  if (!process.argv[2]) return build()
+  exec(process.argv[2]).on('exit', function (code) {
+    if (code) process.exit(code)
+    build()
+  })
+}
+!process.argv[2]

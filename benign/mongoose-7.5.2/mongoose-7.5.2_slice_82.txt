@@ -1,0 +1,74 @@
+new Promise((resolve, reject) => {
+    for (const path of paths) {
+      const schemaType = schema.path(path);
+      if (schemaType == null) {
+        _checkDone();
+        continue;
+      }
+
+      const pieces = path.indexOf('.') === -1 ? [path] : path.split('.');
+      let cur = obj;
+      for (let i = 0; i < pieces.length - 1; ++i) {
+        cur = cur[pieces[i]];
+      }
+
+      let val = get(obj, path, void 0);
+
+      if (val != null) {
+        try {
+          val = schemaType.cast(val);
+          cur[pieces[pieces.length - 1]] = val;
+        } catch (err) {
+          error = error || new ValidationError();
+          error.addError(path, err);
+
+          _checkDone();
+          continue;
+        }
+      }
+
+      schemaType.doValidate(val, err => {
+        if (err) {
+          error = error || new ValidationError();
+          error.addError(path, err);
+        }
+        _checkDone();
+      }, context, { path: path });
+    }
+
+    function _checkDone() {
+      if (--remaining <= 0) ...
+_iterator_35 = <operator>.iterator(paths)
+const schemaType = schema.path(path)
+schemaType == null
+_checkDone()
+continue;
+const pieces = path.indexOf('.') === -1 ? [path] : path.split('.')
+let cur = obj
+i < pieces.length - 1
+cur = cur[pieces[i]]
+let val = get(obj, path, void 0)
+val != null
+val = schemaType.cast(val)
+cur[pieces[pieces.length - 1]] = val
+error = error || new ValidationError()
+error.addError(path, err)
+_checkDone()
+continue;
+schemaType.doValidate(val, err => {
+        if (err) {
+          error = error || new ValidationError();
+          error.addError(path, err);
+        }
+        _checkDone();
+      }, context, { path: path })
+_tmp_318.path = path
+function _checkDone = function _checkDone() {
+      if (--remaining <= 0) {
+        if (error) {
+          reject(error);
+        } else {
+          resolve();
+        }
+      }
+    }

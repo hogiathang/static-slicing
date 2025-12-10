@@ -1,0 +1,18 @@
+fs.stat(inputFile, function(err, stat) {
+        if (err) {
+          fatal('Cannot read ' + inputFile + '\n' + err.message);
+        }
+        else if (stat.isDirectory()) {
+          processDirectory(inputFile, outputFile, fileExt);
+        }
+        else if (!fileExt || path.extname(file) === '.' + fileExt) {
+          mkdir(outputDir, function() {
+            processFile(inputFile, outputFile);
+          });
+        }
+      })
+stat.isDirectory()
+!fileExt || path.extname(file) === '.' + fileExt
+mkdir(outputDir, function() {
+            processFile(inputFile, outputFile);
+          })

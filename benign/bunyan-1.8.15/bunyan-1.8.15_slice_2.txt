@@ -1,0 +1,68 @@
+RotatingFileStream = function RotatingFileStream(options) {
+    this.path = options.path;
+
+    this.count = (options.count == null ? 10 : options.count);
+    assert.equal(typeof (this.count), 'number',
+        format('rotating-file stream "count" is not a number: %j (%s) in %j',
+            this.count, typeof (this.count), this));
+    assert.ok(this.count >= 0,
+        format('rotating-file stream "count" is not >= 0: %j in %j',
+            this.count, this));
+
+    // Parse `options.period`.
+    if (options.period) {
+        // <number><scope> where scope is:
+        //    h   hours (at the start of the hour)
+        //    d   days (at the start of the day, i.e. just after midnight)
+        //    w   weeks (at the start of Sunday)
+        //    m   months (on the first of the month)
+        //    y   years (at the start of Jan 1st)
+        // with special values 'hourly' (1h), 'daily' (1d), "weekly" (1w),
+        // 'monthly' (1m) and 'yearly' (1y)
+        var period = {
+           ...
+this.path = options.path
+this.count = (options.count == null ? 10 : options.count)
+assert.equal(typeof (this.count), 'number',
+        format('rotating-file stream "count" is not a number: %j (%s) in %j',
+            this.count, typeof (this.count), this))
+format('rotating-file stream "count" is not a number: %j (%s) in %j',
+            this.count, typeof (this.count), this)
+typeof (this.count)
+assert.ok(this.count >= 0,
+        format('rotating-file stream "count" is not >= 0: %j in %j',
+            this.count, this))
+format('rotating-file stream "count" is not >= 0: %j in %j',
+            this.count, this)
+this.count
+options.period
+var period = {
+            'hourly': '1h',
+            'daily': '1d',
+            'weekly': '1w',
+            'monthly': '1m',
+            'yearly': '1y'
+        }[options.period] || options.period
+_tmp_76.hourly = "1h"
+_tmp_76.daily = "1d"
+_tmp_76.weekly = "1w"
+_tmp_76.monthly = "1m"
+_tmp_76.yearly = "1y"
+options.period
+var m = /^([1-9][0-9]*)([hdwmy]|ms)$/.exec(period)
+!m
+throw new Error(format('invalid period: "%s"', options.period));
+this.periodNum = Number(m[1])
+this.periodScope = m[2]
+this.periodNum = 1
+this.periodScope = 'd'
+var lastModified = null
+var fileInfo = fs.statSync(this.path)
+lastModified = fileInfo.mtime.getTime()
+var rotateAfterOpen = false
+var lastRotTime = this._calcRotTime(0)
+lastModified < lastRotTime
+rotateAfterOpen = true
+this.stream = fs.createWriteStream(this.path,
+        {flags: 'a', encoding: 'utf8'})
+_tmp_80.encoding = "utf8"

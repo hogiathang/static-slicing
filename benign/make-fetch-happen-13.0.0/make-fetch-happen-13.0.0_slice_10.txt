@@ -1,0 +1,49 @@
+async store (status) {
+    // if we got a status other than 200, 301, or 308,
+    // or the CachePolicy forbid storage, append the
+    // cache status header and return it untouched
+    if (
+      this.request.method !== 'GET' ||
+      ![200, 301, 308].includes(this.response.status) ||
+      !this.policy.storable()
+    ) {
+      this.response.headers.set('x-local-cache-status', 'skip')
+      return this.response
+    }
+
+    const size = this.response.headers.get('content-length')
+    const cacheOpts = {
+      algorithms: this.options.algorithms,
+      metadata: getMetadata(this.request, this.response, this.options),
+      size,
+      integrity: this.options.integrity,
+      integrityEmitter: this.response.body.hasIntegrityEmitter && this.response.body,
+    }
+
+    let body = null
+    // we only set a body if the status is a 200, redirects are
+    // stored as metadata only
+    if (this.response.status === 200) {
+      let cacheWriteResolve, cacheWriteReject
+      const cacheWritePromi...
+this.request.method !== 'GET' ||
+      ![200, 301, 308].includes(this.response.status) ||
+      !this.policy.storable()
+![200, 301, 308].includes(this.response.status)
+(_tmp_44 = this.policy).storable
+const size = this.response.headers.get('content-length')
+const cacheOpts = {
+      algorithms: this.options.algorithms,
+      metadata: getMetadata(this.request, this.response, this.options),
+      size,
+      integrity: this.options.integrity,
+      integrityEmitter: this.response.body.hasIntegrityEmitter && this.response.body,
+    }
+_tmp_47.algorithms = this.options.algorithms
+_tmp_47.metadata = getMetadata(this.request, this.response, this.options)
+_tmp_47.size = size
+_tmp_47.integrity = this.options.integrity
+_tmp_47.integrityEmitter = this.response.body.hasIntegrityEmitter && this.response.body
+let body = null
+this.response.status === 200
+await cacache.index.insert(this.options.cachePath, this.key, null, cacheOpts)

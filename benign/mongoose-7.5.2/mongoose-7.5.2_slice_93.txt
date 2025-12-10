@@ -1,0 +1,46 @@
+cast(val, doc, init) {
+    if (val instanceof MongooseMap) {
+      return val;
+    }
+
+    const path = this.path;
+
+    if (init) {
+      const map = new MongooseMap({}, path, doc, this.$__schemaType);
+
+      if (val instanceof global.Map) {
+        for (const key of val.keys()) {
+          let _val = val.get(key);
+          if (_val == null) {
+            _val = map.$__schemaType._castNullish(_val);
+          } else {
+            _val = map.$__schemaType.cast(_val, doc, true, null, { path: path + '.' + key });
+          }
+          map.$init(key, _val);
+        }
+      } else {
+        for (const key of Object.keys(val)) {
+          let _val = val[key];
+          if (_val == null) {
+            _val = map.$__schemaType._castNullish(_val);
+          } else {
+            _val = map.$__schemaType.cast(_val, doc, true, null, { path: path + '.' + key });
+          }
+          map.$init(key, _val);
+        }
+      }
+
+      return map;
+    }
+
+    return new MongooseMap(val, path, doc, this...
+val instanceof MongooseMap
+const path = this.path
+const map = new MongooseMap({}, path, doc, this.$__schemaType)
+val instanceof global.Map
+_iterator_0 = <operator>.iterator(val.keys())
+let _val = val.get(key)
+_val == null
+_val = map.$__schemaType._castNullish(_val)
+_val = map.$__schemaType.cast(_val, doc, true, null, { path: path + '.' + key })
+map.$init(key, _val)

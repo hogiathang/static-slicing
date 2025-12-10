@@ -1,0 +1,46 @@
+function copyFileSync = function copyFileSync(sourcePath, destinationPath, options = {}) {
+	if (!sourcePath || !destinationPath) {
+		throw new CopyFileError('`source` and `destination` required');
+	}
+
+	if (options.cwd) {
+		({sourcePath, destinationPath} = resolvePath(options.cwd, sourcePath, destinationPath));
+	}
+
+	options = {
+		overwrite: true,
+		...options,
+	};
+
+	const stat = fs.statSync(sourcePath);
+	checkSourceIsFile(stat, sourcePath);
+	fs.makeDirectorySync(path.dirname(destinationPath), {mode: options.directoryMode});
+
+	const flags = options.overwrite ? null : fsConstants.COPYFILE_EXCL;
+	try {
+		fs.copyFileSync(sourcePath, destinationPath, flags);
+	} catch (error) {
+		if (!options.overwrite && error.code === 'EEXIST') {
+			return;
+		}
+
+		throw error;
+	}
+
+	fs.utimesSync(destinationPath, stat.atime, stat.mtime);
+}
+!sourcePath || !destinationPath
+throw new CopyFileError('`source` and `destination` required');
+options.cwd
+_tmp_16 = resolvePath(options.cwd, sourcePath, destinationPath)
+options = {
+		overwrite: true,
+		...options,
+	}
+_tmp_17.overwrite = true
+...options
+const stat = fs.statSync(sourcePath)
+checkSourceIsFile(stat, sourcePath)
+fs.makeDirectorySync(path.dirname(destinationPath), {mode: options.directoryMode})
+const flags = options.overwrite ? null : fsConstants.COPYFILE_EXCL
+fs.copyFileSync(sourcePath, destinationPath, flags)

@@ -1,0 +1,29 @@
+const executeBinary = async ()=>{
+    const coreVersion = getCoreVersion();
+    const releaseBase = `https://github.com/swc-project/swc/releases/download/v${coreVersion}`;
+    const binaryName = getBinaryName();
+    const bin = new BinWrapper({
+        // do not explicitly run the binary to check existence to avoid
+        // redundant spawn
+        skipCheck: true
+    }).src(`${releaseBase}/${binaryName}`, platform, arch).dest(`node_modules/.bin/swc-cli-${coreVersion}`).use(binaryName);
+    await bin.run();
+    const binPath = bin.path;
+    const [, , ...args] = process.argv;
+    const options = {
+        cwd: process.cwd(),
+        stdio: "inherit"
+    };
+    return (0, _childProcess.spawn)(binPath, args, options);
+}
+const coreVersion = getCoreVersion()
+<operator>.formatString("https://github.com/swc-project/swc/releases/download/v", coreVersion, "")
+const binaryName = getBinaryName()
+const bin = new BinWrapper({
+        // do not explicitly run the binary to check existence to avoid
+        // redundant spawn
+        skipCheck: true
+    }).src(`${releaseBase}/${binaryName}`, platform, arch).dest(`node_modules/.bin/swc-cli-${coreVersion}`).use(binaryName)
+_tmp_23.skipCheck = true
+<operator>.formatString("node_modules/.bin/swc-cli-", coreVersion, "")
+await bin.run()

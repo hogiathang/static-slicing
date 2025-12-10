@@ -1,0 +1,61 @@
+addTokenKey(key: string, type: CredentialType): void {
+        this.logger.trace("BrowserCacheManager addTokenKey called");
+        const tokenKeys = this.getTokenKeys();
+
+        switch (type) {
+            case CredentialType.ID_TOKEN:
+                if (tokenKeys.idToken.indexOf(key) === -1) {
+                    this.logger.info(
+                        "BrowserCacheManager: addTokenKey - idToken added to map"
+                    );
+                    tokenKeys.idToken.push(key);
+                }
+                break;
+            case CredentialType.ACCESS_TOKEN:
+                if (tokenKeys.accessToken.indexOf(key) === -1) {
+                    this.logger.info(
+                        "BrowserCacheManager: addTokenKey - accessToken added to map"
+                    );
+                    tokenKeys.accessToken.push(key);
+                }
+                break;
+            case CredentialType.REFRESH_TOKEN:
+                if (tokenKeys.refreshToken.indexOf(key) === -1) {
+...
+this.logger.trace("BrowserCacheManager addTokenKey called")
+const tokenKeys = this.getTokenKeys()
+CredentialType.ID_TOKEN
+tokenKeys.idToken.indexOf(key) === -1
+this.logger.info(
+                        "BrowserCacheManager: addTokenKey - idToken added to map"
+                    )
+"BrowserCacheManager: addTokenKey - idToken added to map"
+(_tmp_58 = tokenKeys.idToken).push
+break;
+CredentialType.ACCESS_TOKEN
+tokenKeys.accessToken.indexOf(key) === -1
+this.logger.info(
+                        "BrowserCacheManager: addTokenKey - accessToken added to map"
+                    )
+"BrowserCacheManager: addTokenKey - accessToken added to map"
+(_tmp_61 = tokenKeys.accessToken).push
+break;
+CredentialType.REFRESH_TOKEN
+tokenKeys.refreshToken.indexOf(key) === -1
+this.logger.info(
+                        "BrowserCacheManager: addTokenKey - refreshToken added to map"
+                    )
+"BrowserCacheManager: addTokenKey - refreshToken added to map"
+(_tmp_64 = tokenKeys.refreshToken).push
+break;
+default:
+this.logger.error(
+                    `BrowserCacheManager:addTokenKey - CredentialType provided invalid. CredentialType: ${type}`
+                )
+<operator>.formatString("BrowserCacheManager:addTokenKey - CredentialType provided invalid. CredentialType: ", type, "")
+ClientAuthError.createUnexpectedCredentialTypeError()
+this.setItem(
+            `${StaticCacheKeys.TOKEN_KEYS}.${this.clientId}`,
+            JSON.stringify(tokenKeys)
+        )
+<operator>.formatString("", StaticCacheKeys.TOKEN_KEYS, ".", this.clientId, "")

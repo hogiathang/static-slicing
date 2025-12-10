@@ -1,0 +1,28 @@
+_tmp_8.VariableDeclarator = VariableDeclarator
+(_tmp_9 = path.get("id")).isObjectPattern
+var insertionPath = path
+path.get("id").traverse({
+          RestProperty: function RestProperty(path) {
+            if (this.originalPath.node.id.properties.length > 1 && !t.isIdentifier(this.originalPath.node.init)) {
+              var initRef = path.scope.generateUidIdentifierBasedOnNode(this.originalPath.node.init, "ref");
+
+              this.originalPath.insertBefore(t.variableDeclarator(initRef, this.originalPath.node.init));
+
+              this.originalPath.replaceWith(t.variableDeclarator(this.originalPath.node.id, initRef));
+
+              return;
+            }
+
+            var ref = this.originalPath.node.init;
+            var refPropertyPath = [];
+
+            path.findParent(function (path) {
+              if (path.isObjectProperty()) {
+                refPropertyPath.unshift(path.node.key.name);
+              } else if (path.isVariableDeclarator()) {
+                return true;
+              }
+            });
+
+            if (refPropertyPath.length) {
+              refPropertyPath.forEach(func...

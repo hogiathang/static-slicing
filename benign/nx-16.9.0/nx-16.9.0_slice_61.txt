@@ -1,0 +1,15 @@
+Object.entries(dependencies).forEach(([key, snapshot]) => {
+        const resolutionKey = `${snapshot.resolved}${snapshot.integrity}`;
+        if (resolutionMap.has(resolutionKey)) {
+            const existingSnapshot = resolutionMap.get(resolutionKey);
+            snapshotMap.get(existingSnapshot).add(key);
+        }
+        else {
+            resolutionMap.set(resolutionKey, snapshot);
+            snapshotMap.set(snapshot, new Set([key]));
+        }
+    })
+<operator>.formatString("", snapshot.resolved, "", snapshot.integrity, "")
+resolutionMap.has(resolutionKey)
+const existingSnapshot = resolutionMap.get(resolutionKey)
+(_tmp_38 = snapshotMap.get(existingSnapshot)).add

@@ -1,0 +1,33 @@
+function _createConnection = function _createConnection(self) {
+  if (self.state === DESTROYED || self.state === DESTROYING) {
+    return;
+  }
+
+  self.connectingConnections++;
+  connect(self.options, (err, connection) => {
+    self.connectingConnections--;
+
+    if (err) {
+      if (self.logger.isDebug()) {
+        self.logger.debug(`connection attempt failed with error [${JSON.stringify(err)}]`);
+      }
+
+      if (!self.reconnectId && self.options.reconnect) {
+        self.reconnectId = setTimeout(attemptReconnect(self), self.options.reconnectInterval);
+      }
+
+      return;
+    }
+
+    if (self.state === DESTROYED || self.state === DESTROYING) {
+      removeConnection(self, connection);
+      return connection.destroy();
+    }
+
+    connection.on('error', self._connectionErrorHandler);
+    connection.on('close', self._connectionCloseHandler);
+    connection.on('timeout', self._connectionTimeoutHandler);
+    connection.on('parseError', self._connectionParseErrorHandler);
+    connection.on('message', self._messa...
+self.state === DESTROYED || self.state === DESTROYING
+self.connectingConnections++

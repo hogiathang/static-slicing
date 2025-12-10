@@ -1,0 +1,17 @@
+const cachedJoin = (rootPath, request) => {
+	/** @type {string | undefined} */
+	let cacheEntry;
+	let cache = joinCache.get(rootPath);
+	if (cache === undefined) {
+		joinCache.set(rootPath, (cache = new Map()));
+	} else {
+		cacheEntry = cache.get(request);
+		if (cacheEntry !== undefined) return cacheEntry;
+	}
+	cacheEntry = join(rootPath, request);
+	cache.set(request, cacheEntry);
+	return cacheEntry;
+}
+let cache = joinCache.get(rootPath)
+cache === undefined
+cacheEntry = cache.get(request)

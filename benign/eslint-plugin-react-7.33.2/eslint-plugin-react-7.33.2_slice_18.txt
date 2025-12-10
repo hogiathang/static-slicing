@@ -1,0 +1,69 @@
+function markPropTypesAsUsed = function markPropTypesAsUsed(node, parentNames) {
+    parentNames = parentNames || [];
+    let type;
+    let name;
+    let allNames;
+    let properties;
+    switch (node.type) {
+      case 'OptionalMemberExpression':
+      case 'MemberExpression':
+        name = getPropertyName(node, context, utils, checkAsyncSafeLifeCycles);
+        if (name) {
+          allNames = parentNames.concat(name);
+          if (
+            // Match props.foo.bar, don't match bar[props.foo]
+            node.parent.type === 'MemberExpression'
+            && node.parent.object === node
+          ) {
+            markPropTypesAsUsed(node.parent, allNames);
+          }
+          // Handle the destructuring part of `const {foo} = props.a.b`
+          if (
+            node.parent.type === 'VariableDeclarator'
+            && node.parent.id.type === 'ObjectPattern'
+          ) {
+            node.parent.id.parent = node.parent; // patch for bug in eslint@4 in which ObjectPattern has no parent
+            markPropTy...
+parentNames = parentNames || []
+node.type
+"OptionalMemberExpression"
+"MemberExpression"
+name = getPropertyName(node, context, utils, checkAsyncSafeLifeCycles)
+allNames = parentNames.concat(name)
+node.parent.type === 'MemberExpression'
+            && node.parent.object === node
+node.parent.object === node
+markPropTypesAsUsed(node.parent, allNames)
+node.parent.type === 'VariableDeclarator'
+            && node.parent.id.type === 'ObjectPattern'
+node.parent.id.type === 'ObjectPattern'
+node.parent.id.parent = node.parent
+markPropTypesAsUsed(node.parent.id, allNames)
+node.parent.type === 'VariableDeclarator'
+            && node.parent.id.type === 'Identifier'
+node.parent.id.type === 'Identifier'
+propVariables.set(node.parent.id.name, allNames)
+type = name !== '__COMPUTED_PROP__' ? 'direct' : null
+break;
+"ArrowFunctionExpression"
+"FunctionDeclaration"
+"FunctionExpression"
+node.params.length === 0
+break;
+type = 'destructuring'
+const propParam = isSetStateUpdater(node) ? node.params[1] : node.params[0]
+properties = propParam.type === 'AssignmentPattern'
+          ? propParam.left.properties
+          : propParam.properties
+propParam.left.properties
+propParam.properties
+break;
+"ObjectPattern"
+type = 'destructuring'
+properties = node.properties
+break;
+"TSEmptyBodyFunctionExpression"
+break;
+default:
+<operator>.formatString("", node.type, " ASTNodes are not handled by markPropTypesAsUsed")
+const component = components.get(utils.getParentComponent())

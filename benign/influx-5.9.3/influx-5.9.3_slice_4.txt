@@ -1,0 +1,65 @@
+stream(options, callback) {
+        if (!this.hostIsAvailable()) {
+            return callback(new ServiceNotAvailableError("No host available"), null);
+        }
+        const once = doOnce();
+        const host = this._getHost();
+        let path = host.url.pathname === "/" ? "" : host.url.pathname;
+        path += options.path;
+        if (options.query) {
+            path += "?" + querystring.stringify(options.query);
+        }
+        const req = request(Object.assign({ headers: {
+                "content-length": options.body ? Buffer.from(options.body).length : 0,
+            }, hostname: host.url.hostname, method: options.method, path, port: Number(host.url.port), protocol: host.url.protocol, timeout: this._timeout }, host.options), once((res) => {
+            res.setEncoding("utf8");
+            if (res.statusCode >= 500) {
+                res.on("data", () => {
+                    /* ignore */
+                });
+                res.on("end", () => {
+                    re...
+!this.hostIsAvailable()
+const once = doOnce()
+const host = this._getHost()
+let path = host.url.pathname === "/" ? "" : host.url.pathname
+path += options.path
+options.query
+path += "?" + querystring.stringify(options.query)
+const req = request(Object.assign({ headers: {
+                "content-length": options.body ? Buffer.from(options.body).length : 0,
+            }, hostname: host.url.hostname, method: options.method, path, port: Number(host.url.port), protocol: host.url.protocol, timeout: this._timeout }, host.options), once((res) => {
+            res.setEncoding("utf8");
+            if (res.statusCode >= 500) {
+                res.on("data", () => {
+                    /* ignore */
+                });
+                res.on("end", () => {
+                    return this._handleRequestError(new ServiceNotAvailableError(res.statusMessage), host, options, callback);
+                });
+                return;
+            }
+            if (res.statusCode >= 300) {
+                return RequestError.Create(req, res, (err) => callback(err, res));
+            }
+            host.success();
+            return callback(undefined, res);
+        }))
+_tmp_25.content-length = options.body ? Buffer.from(options.body).length : 0
+once((res) => {
+            res.setEncoding("utf8");
+            if (res.statusCode >= 500) {
+                res.on("data", () => {
+                    /* ignore */
+                });
+                res.on("end", () => {
+                    return this._handleRequestError(new ServiceNotAvailableError(res.statusMessage), host, options, callback);
+                });
+                return;
+            }
+            if (res.statusCode >= 300) {
+                return RequestError.Create(req, res, (err) => callback(err, res));
+            }
+            host.success();
+            return callback(undefined, res);
+        })

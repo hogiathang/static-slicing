@@ -1,0 +1,20 @@
+_tmp_1.ObjectPattern = ObjectPattern
+_tmp_7 = path
+parentPath = _tmp_7.parentPath
+parent = _tmp_7.parent
+parentPath.isVariableDeclarator()
+obj = parentPath.get("init")
+parentPath.isAssignmentExpression()
+obj = parentPath.get("right")
+parentPath.isFunction()
+const grand = parentPath.parentPath
+grand.isCallExpression() || grand.isNewExpression()
+grand.node.callee === parent
+obj = grand.get("arguments")[path.key]
+let id = null
+let placement = null
+_tmp_8 = (0, _utils.resolveSource)(obj)
+id = _tmp_8.id
+placement = _tmp_8.placement
+(0, _utils.resolveSource)(obj)
+_iterator_0 = <operator>.iterator(path.get("properties"))

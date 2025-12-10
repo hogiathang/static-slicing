@@ -1,0 +1,74 @@
+RunSummary = function RunSummary (emitter, options) {
+    // keep a copy of this instance since, we need to refer to this from various events
+    var summary = this;
+
+    // and store the trackers and failures in the summary object itself
+    _.assign(summary, /** @lends RunSummary.prototype */ {
+        /**
+         * The collection that is being executed.
+         *
+         * @type {Collection}
+         */
+        collection: _.get(options, 'collection'),
+
+        /**
+         * The environment that is being used during the run
+         *
+         * @type {VariableScope}
+         *
+         */
+        environment: _.get(options, 'environment'),
+
+        /**
+         * Global variables being used during the run
+         *
+         * @type {VariableScope}
+         */
+        globals: _.get(options, 'globals'),
+
+        /**
+         * Holds information related to the run.
+         */
+        run: {
+            /**
+             * Holds the statistics of the run. Each property in it i...
+var summary = this
+_.assign(summary, /** @lends RunSummary.prototype */ {
+        /**
+         * The collection that is being executed.
+         *
+         * @type {Collection}
+         */
+        collection: _.get(options, 'collection'),
+
+        /**
+         * The environment that is being used during the run
+         *
+         * @type {VariableScope}
+         *
+         */
+        environment: _.get(options, 'environment'),
+
+        /**
+         * Global variables being used during the run
+         *
+         * @type {VariableScope}
+         */
+        globals: _.get(options, 'globals'),
+
+        /**
+         * Holds information related to the run.
+         */
+        run: {
+            /**
+             * Holds the statistics of the run. Each property in it is the item being tracked and has three numeric
+             * properties - total, failed, pending
+             *
+             * @type {Object.<Object>}
+             */
+            stats: {
+                iterations: {},
+                items:...
+_tmp_0.collection = _.get(options, 'collection')
+_tmp_0.environment = _.get(options, 'environment')
+_tmp_0.globals = _.get(options, 'globals')

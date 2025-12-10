@@ -1,0 +1,4 @@
+_tmp_28.connect = <lambda>15
+await cluster.connect()
+connectionStatus = CONNECTION_STATUS.CONNECTED
+instrumentationEmitter.emit(CONNECT)

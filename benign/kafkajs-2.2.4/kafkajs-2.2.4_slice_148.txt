@@ -1,0 +1,60 @@
+new Promise(async (resolve, reject) => {
+      this.authHandlers = {
+        onSuccess: rawData => {
+          this.authHandlers = null
+          this.authExpectResponse = false
+
+          response
+            .decode(rawData)
+            .then(data => response.parse(data))
+            .then(resolve)
+            .catch(reject)
+        },
+        onError: () => {
+          this.authHandlers = null
+          this.authExpectResponse = false
+
+          reject(
+            new KafkaJSConnectionError('Connection closed by the server', {
+              broker: `${this.host}:${this.port}`,
+            })
+          )
+        },
+      }
+
+      try {
+        const requestPayload = await request.encode()
+
+        this.failIfNotConnected()
+        this.socket.write(requestPayload, 'binary')
+      } catch (e) {
+        reject(e)
+      }
+    })
+this.authHandlers = {
+        onSuccess: rawData => {
+          this.authHandlers = null
+          this.authExpectResponse = false
+
+          response
+            .decode(rawData)
+            .then(data => response.parse(data))
+            .then(resolve)
+            .catch(reject)
+        },
+        onError: () => {
+          this.authHandlers = null
+          this.authExpectResponse = false
+
+          reject(
+            new KafkaJSConnectionError('Connection closed by the server', {
+              broker: `${this.host}:${this.port}`,
+            })
+          )
+        },
+      }
+_tmp_35.onSuccess = <lambda>13
+_tmp_35.onError = <lambda>15
+const requestPayload = await request.encode()
+this.failIfNotConnected()
+this.socket.write(requestPayload, 'binary')

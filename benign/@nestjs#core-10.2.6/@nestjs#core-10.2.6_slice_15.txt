@@ -1,0 +1,20 @@
+select(moduleType) {
+        const modulesContainer = this.container.getModules();
+        const contextModuleCtor = this.contextModule.metatype;
+        const scope = this.scope.concat(contextModuleCtor);
+        const moduleTokenFactory = this.container.getModuleTokenFactory();
+        const { type, dynamicMetadata } = this.moduleCompiler.extractMetadata(moduleType);
+        const token = moduleTokenFactory.create(type, dynamicMetadata);
+        const selectedModule = modulesContainer.get(token);
+        if (!selectedModule) {
+            throw new exceptions_1.UnknownModuleException();
+        }
+        return new NestApplicationContext(this.container, this.appOptions, selectedModule, scope);
+    }
+const modulesContainer = this.container.getModules()
+const contextModuleCtor = this.contextModule.metatype
+const scope = this.scope.concat(contextModuleCtor)
+const moduleTokenFactory = this.container.getModuleTokenFactory()
+_tmp_15 = this.moduleCompiler.extractMetadata(moduleType)
+const token = moduleTokenFactory.create(type, dynamicMetadata)
+const selectedModule = modulesContainer.get(token)

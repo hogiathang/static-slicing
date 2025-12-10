@@ -1,0 +1,229 @@
+function useAutocomplete = function useAutocomplete(props) {
+  const {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    unstable_isActiveElementInListbox = defaultIsActiveElementInListbox,
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    unstable_classNamePrefix = 'Mui',
+    autoComplete = false,
+    autoHighlight = false,
+    autoSelect = false,
+    blurOnSelect = false,
+    clearOnBlur = !props.freeSolo,
+    clearOnEscape = false,
+    componentName = 'useAutocomplete',
+    defaultValue = props.multiple ? [] : null,
+    disableClearable = false,
+    disableCloseOnSelect = false,
+    disabled: disabledProp,
+    disabledItemsFocusable = false,
+    disableListWrap = false,
+    filterOptions = defaultFilterOptions,
+    filterSelectedOptions = false,
+    freeSolo = false,
+    getOptionDisabled,
+    getOptionLabel: getOptionLabelProp = option => {
+      var _option$label;
+      return (_option$label = option.label) != null ? _option$label : option;
+    },
+    groupBy...
+_tmp_4 = props
+unstable_isActiveElementInListbox = _tmp_4.unstable_isActiveElementInListbox === void 0 ? defaultIsActiveElementInListbox : _tmp_4.unstable_isActiveElementInListbox
+unstable_classNamePrefix = _tmp_4.unstable_classNamePrefix === void 0 ? "Mui" : _tmp_4.unstable_classNamePrefix
+autoComplete = _tmp_4.autoComplete === void 0 ? false : _tmp_4.autoComplete
+autoHighlight = _tmp_4.autoHighlight === void 0 ? false : _tmp_4.autoHighlight
+autoSelect = _tmp_4.autoSelect === void 0 ? false : _tmp_4.autoSelect
+blurOnSelect = _tmp_4.blurOnSelect === void 0 ? false : _tmp_4.blurOnSelect
+clearOnBlur = _tmp_4.clearOnBlur === void 0 ? !props.freeSolo : _tmp_4.clearOnBlur
+clearOnEscape = _tmp_4.clearOnEscape === void 0 ? false : _tmp_4.clearOnEscape
+componentName = _tmp_4.componentName === void 0 ? "useAutocomplete" : _tmp_4.componentName
+defaultValue = _tmp_4.defaultValue === void 0 ? props.multiple ? __ecma.Array.factory() : null : _tmp_4.defaultValue
+disableClearable = _tmp_4.disableClearable === void 0 ? false : _tmp_4.disableClearable
+disableCloseOnSelect = _tmp_4.disableCloseOnSelect === void 0 ? false : _tmp_4.disableCloseOnSelect
+disabledProp = _tmp_4.disabled
+disabledItemsFocusable = _tmp_4.disabledItemsFocusable === void 0 ? false : _tmp_4.disabledItemsFocusable
+disableListWrap = _tmp_4.disableListWrap === void 0 ? false : _tmp_4.disableListWrap
+filterOptions = _tmp_4.filterOptions === void 0 ? defaultFilterOptions : _tmp_4.filterOptions
+filterSelectedOptions = _tmp_4.filterSelectedOptions === void 0 ? false : _tmp_4.filterSelectedOptions
+freeSolo = _tmp_4.freeSolo === void 0 ? false : _tmp_4.freeSolo
+getOptionDisabled = _tmp_4.getOptionDisabled
+getOptionLabelProp = _tmp_4.getOptionLabel === void 0 ? <lambda>3 : _tmp_4.getOptionLabel
+groupBy = _tmp_4.groupBy
+handleHomeEndKeys = _tmp_4.handleHomeEndKeys === void 0 ? !props.freeSolo : _tmp_4.handleHomeEndKeys
+idProp = _tmp_4.id
+includeInputInList = _tmp_4.includeInputInList === void 0 ? false : _tmp_4.includeInputInList
+inputValueProp = _tmp_4.inputValue
+isOptionEqualToValue = _tmp_4.isOptionEqualToValue === void 0 ? <lambda>4 : _tmp_4.isOptionEqualToValue
+multiple = _tmp_4.multiple === void 0 ? false : _tmp_4.multiple
+onChange = _tmp_4.onChange
+onClose = _tmp_4.onClose
+onHighlightChange = _tmp_4.onHighlightChange
+onInputChange = _tmp_4.onInputChange
+onOpen = _tmp_4.onOpen
+openProp = _tmp_4.open
+openOnFocus = _tmp_4.openOnFocus === void 0 ? false : _tmp_4.openOnFocus
+options = _tmp_4.options
+readOnly = _tmp_4.readOnly === void 0 ? false : _tmp_4.readOnly
+selectOnFocus = _tmp_4.selectOnFocus === void 0 ? !props.freeSolo : _tmp_4.selectOnFocus
+valueProp = _tmp_4.value
+const id = useId(idProp)
+let getOptionLabel = getOptionLabelProp
+getOptionLabel = option => {
+    const optionLabel = getOptionLabelProp(option);
+    if (typeof optionLabel !== 'string') {
+      if (process.env.NODE_ENV !== 'production') {
+        const erroneousReturn = optionLabel === undefined ? 'undefined' : `${typeof optionLabel} (${optionLabel})`;
+        console.error(`MUI: The \`getOptionLabel\` method of ${componentName} returned ${erroneousReturn} instead of a string for ${JSON.stringify(option)}.`);
+      }
+      return String(optionLabel);
+    }
+    return optionLabel;
+  }
+const ignoreFocus = React.useRef(false)
+const firstFocus = React.useRef(true)
+const inputRef = React.useRef(null)
+const listboxRef = React.useRef(null)
+_tmp_5 = React.useState(null)
+_tmp_6 = React.useState(-1)
+const defaultHighlighted = autoHighlight ? 0 : -1
+const highlightedIndexRef = React.useRef(defaultHighlighted)
+_tmp_8 = useControlled({
+    controlled: valueProp,
+    default: defaultValue,
+    name: componentName
+  })
+_tmp_7.controlled = valueProp
+_tmp_7.default = defaultValue
+_tmp_7.name = componentName
+_tmp_10 = useControlled({
+    controlled: inputValueProp,
+    default: '',
+    name: componentName,
+    state: 'inputValue'
+  })
+_tmp_9.controlled = inputValueProp
+_tmp_9.default = ""
+_tmp_9.name = componentName
+_tmp_9.state = "inputValue"
+_tmp_11 = React.useState(false)
+const resetInputValue = React.useCallback((event, newValue) => {
+    // retain current `inputValue` if new option isn't selected and `clearOnBlur` is false
+    // When `multiple` is enabled, `newValue` is an array of all selected items including the newly selected item
+    const isOptionSelected = multiple ? value.length < newValue.length : newValue !== null;
+    if (!isOptionSelected && !clearOnBlur) {
+      return;
+    }
+    let newInputValue;
+    if (multiple) {
+      newInputValue = '';
+    } else if (newValue == null) {
+      newInputValue = '';
+    } else {
+      const optionLabel = getOptionLabel(newValue);
+      newInputValue = typeof optionLabel === 'string' ? optionLabel : '';
+    }
+    if (inputValue === newInputValue) {
+      return;
+    }
+    setInputValueState(newInputValue);
+    if (onInputChange) {
+      onInputChange(event, newInputValue, 'reset');
+    }
+  }, [getOptionLabel, inputValue, multiple, onInputChange, setInputValueState, clearOnBlur, value])
+_tmp_12 = __ecma.Array.factory()
+_tmp_14 = useControlled({
+    controlled: openProp,
+    default: false,
+    name: componentName,
+    state: 'open'
+  })
+_tmp_13.controlled = openProp
+_tmp_13.default = false
+_tmp_13.name = componentName
+_tmp_13.state = "open"
+_tmp_15 = React.useState(true)
+const inputValueIsSelectedValue = !multiple && value != null && inputValue === getOptionLabel(value)
+const popupOpen = open && !readOnly
+const filteredOptions = popupOpen ? filterOptions(options.filter(option => {
+    if (filterSelectedOptions && (multiple ? value : [value]).some(value2 => value2 !== null && isOptionEqualToValue(option, value2))) {
+      return false;
+    }
+    return true;
+  }),
+  // we use the empty string to manipulate `filterOptions` to not filter any options
+  // i.e. the filter predicate always returns true
+  {
+    inputValue: inputValueIsSelectedValue && inputPristine ? '' : inputValue,
+    getOptionLabel
+  }) : []
+_tmp_18.inputValue = inputValueIsSelectedValue && inputPristine ? "" : inputValue
+_tmp_18.getOptionLabel = getOptionLabel
+__ecma.Array.factory()
+const previousProps = usePreviousProps({
+    filteredOptions,
+    value,
+    inputValue
+  })
+_tmp_19.filteredOptions = filteredOptions
+_tmp_19.value = value
+_tmp_19.inputValue = inputValue
+React.useEffect(() => {
+    const valueChange = value !== previousProps.value;
+    if (focused && !valueChange) {
+      return;
+    }
+
+    // Only reset the input's value when freeSolo if the component's value changes.
+    if (freeSolo && !valueChange) {
+      return;
+    }
+    resetInputValue(null, value);
+  }, [value, resetInputValue, focused, previousProps.value, freeSolo])
+_tmp_20.push(previousProps.value)
+const listboxAvailable = open && filteredOptions.length > 0 && !readOnly
+process.env.NODE_ENV !== 'production'
+value !== null && !freeSolo && options.length > 0
+const missingValue = (multiple ? value : [value]).filter(value2 => !options.some(option => isOptionEqualToValue(option, value2)))
+missingValue.length > 0
+console.warn([`MUI: The value provided to ${componentName} is invalid.`, `None of the options match with \`${missingValue.length > 1 ? JSON.stringify(missingValue) : JSON.stringify(missingValue[0])}\`.`, 'You can use the `isOptionEqualToValue` prop to customize the equality test.'].join('\n'))
+function validOptionIndex = function validOptionIndex(index, direction) {
+    if (!listboxRef.current || index === -1) {
+      return -1;
+    }
+    let nextFocus = index;
+    while (true) {
+      // Out of range
+      if (direction === 'next' && nextFocus === filteredOptions.length || direction === 'previous' && nextFocus === -1) {
+        return -1;
+      }
+      const option = listboxRef.current.querySelector(`[data-option-index="${nextFocus}"]`);
+
+      // Same logic as MenuList.js
+      const nextFocusDisabled = disabledItemsFocusable ? false : !option || option.disabled || option.getAttribute('aria-disabled') === 'true';
+      if (option && !option.hasAttribute('tabindex') || nextFocusDisabled) {
+        // Move to the next element.
+        nextFocus += direction === 'next' ? 1 : -1;
+      } else {
+        return nextFocus;
+      }
+    }
+  }
+function validTagIndex = function validTagIndex(index, direction) {
+    if (index === -1) {
+      return -1;
+    }
+    let nextFocus = index;
+    while (true) {
+      // Out of range
+      if (direction === 'next' && nextFocus === value.length || direction === 'previous' && nextFocus === -1) {
+        return -1;
+      }
+      const option = anchorEl.querySelector(`[data-tag-index="${nextFocus}"]`);
+
+      // Same logic as MenuList.js
+      if (!option || !option.hasAttribute('tabindex') || option.disabled || option.getAttribute('aria-disabled') === 'true') {
+        nextFocus += direction === 'next' ? 1 : -1;
+      } else {
+        return nextFocus;
+      }
+    }
+  }

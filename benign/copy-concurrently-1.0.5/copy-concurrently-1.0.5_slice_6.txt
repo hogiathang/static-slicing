@@ -1,0 +1,9 @@
+symlink(linkFrom, to, type).catch(function (err) {
+          if (type === 'dir') {
+            return symlink(linkFrom, to, 'junction')
+          } else {
+            return Promise.reject(err)
+          }
+        })
+type === 'dir'
+symlink(linkFrom, to, 'junction')

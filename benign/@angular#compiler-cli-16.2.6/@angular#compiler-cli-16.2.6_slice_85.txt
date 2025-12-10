@@ -1,0 +1,53 @@
+perf.inPhase(PerfPhase.Reconciliation, () => {
+      const physicallyChangedTsFiles = /* @__PURE__ */ new Set();
+      const changedResourceFiles = new Set(modifiedResourceFiles != null ? modifiedResourceFiles : []);
+      let priorAnalysis;
+      switch (oldState.kind) {
+        case IncrementalStateKind.Fresh:
+          return IncrementalCompilation.fresh(program, newVersions);
+        case IncrementalStateKind.Analyzed:
+          priorAnalysis = oldState;
+          break;
+        case IncrementalStateKind.Delta:
+          priorAnalysis = oldState.lastAnalyzedState;
+          for (const sfPath of oldState.physicallyChangedTsFiles) {
+            physicallyChangedTsFiles.add(sfPath);
+          }
+          for (const resourcePath of oldState.changedResourceFiles) {
+            changedResourceFiles.add(resourcePath);
+          }
+          break;
+      }
+      const oldVersions = priorAnalysis.versions;
+      const oldFilesArray = oldProgram.getSourceFiles().map(toOriginalSourceFile);
+...
+const physicallyChangedTsFiles = /* @__PURE__ */ new Set()
+const changedResourceFiles = new Set(modifiedResourceFiles != null ? modifiedResourceFiles : [])
+oldState.kind
+IncrementalStateKind.Analyzed
+priorAnalysis = oldState
+break;
+IncrementalStateKind.Delta
+priorAnalysis = oldState.lastAnalyzedState
+_iterator_24 = <operator>.iterator(oldState.physicallyChangedTsFiles)
+physicallyChangedTsFiles.add(sfPath)
+_iterator_25 = <operator>.iterator(oldState.changedResourceFiles)
+changedResourceFiles.add(resourcePath)
+break;
+const oldVersions = priorAnalysis.versions
+const oldFilesArray = oldProgram.getSourceFiles().map(toOriginalSourceFile)
+const oldFiles = new Set(oldFilesArray)
+const deletedTsFiles = new Set(oldFilesArray.map((sf) => absoluteFromSourceFile(sf)))
+_iterator_26 = <operator>.iterator(program.getSourceFiles())
+const sf = toOriginalSourceFile(possiblyRedirectedNewFile)
+const sfPath = absoluteFromSourceFile(sf)
+deletedTsFiles.delete(sfPath)
+oldFiles.has(sf)
+oldVersions === null || newVersions === null
+continue;
+oldVersions.has(sfPath) && newVersions.has(sfPath) && oldVersions.get(sfPath) === newVersions.get(sfPath)
+continue;
+sf.isDeclarationFile
+physicallyChangedTsFiles.add(sfPath)
+_iterator_27 = <operator>.iterator(deletedTsFiles)
+physicallyChangedTsFiles.delete(resolve(deletedFileName))

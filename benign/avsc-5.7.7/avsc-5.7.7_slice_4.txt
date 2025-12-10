@@ -1,0 +1,66 @@
+function extractFileHeader = function extractFileHeader(path, opts) {
+  opts = opts || {};
+
+  var decode = opts.decode === undefined ? true : !!opts.decode;
+  var size = Math.max(opts.size || 4096, 4);
+  var buf = utils.newBuffer(size);
+  var fd = fs.openSync(path, 'r');
+
+  try {
+    var pos = fs.readSync(fd, buf, 0, size);
+    if (pos < 4 || !containers.MAGIC_BYTES.equals(buf.slice(0, 4))) {
+      return null;
+    }
+
+    var tap = new utils.Tap(buf);
+    var header = null;
+    do {
+      header = containers.HEADER_TYPE._read(tap);
+    } while (!isValid());
+    if (decode !== false) {
+      var meta = header.meta;
+      meta['avro.schema'] = JSON.parse(meta['avro.schema'].toString());
+      if (meta['avro.codec'] !== undefined) {
+        meta['avro.codec'] = meta['avro.codec'].toString();
+      }
+    }
+    return header;
+  } finally {
+    fs.closeSync(fd);
+  }
+
+  function isValid() {
+    if (tap.isValid()) {
+      return true;
+    }
+    var len = 2 * tap.buf.length;
+    var buf = utils.newBuffer(len);
+    len =...
+opts = opts || {}
+var decode = opts.decode === undefined ? true : !!opts.decode
+var size = Math.max(opts.size || 4096, 4)
+var buf = utils.newBuffer(size)
+var fd = fs.openSync(path, 'r')
+var pos = fs.readSync(fd, buf, 0, size)
+pos < 4 || !containers.MAGIC_BYTES.equals(buf.slice(0, 4))
+var tap = new utils.Tap(buf)
+var header = null
+header = containers.HEADER_TYPE._read(tap)
+!isValid()
+decode !== false
+var meta = header.meta
+meta['avro.schema'] = JSON.parse(meta['avro.schema'].toString())
+meta['avro.codec'] !== undefined
+meta['avro.codec'] = meta['avro.codec'].toString()
+fs.closeSync(fd)
+function isValid = function isValid() {
+    if (tap.isValid()) {
+      return true;
+    }
+    var len = 2 * tap.buf.length;
+    var buf = utils.newBuffer(len);
+    len = fs.readSync(fd, buf, 0, len);
+    tap.buf = Buffer.concat([tap.buf, buf]);
+    tap.pos = 0;
+    return false;
+  }

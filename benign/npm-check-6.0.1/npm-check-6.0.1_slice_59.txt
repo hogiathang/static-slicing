@@ -1,0 +1,28 @@
+function updateAll = function updateAll(currentState) {
+    const packages = currentState.get('packages');
+
+    if (currentState.get('debug')) {
+        console.log('packages', packages);
+    }
+
+    const packagesToUpdate = packages.filter(packageEntry => packageEntry.mismatch || packageEntry.notInstalled || packageEntry.bump );
+
+    if (!packagesToUpdate.length) {
+        console.log(`${emoji(':heart:  ')}Your modules look ${chalk.bold('amazing')}. Keep up the great work.${emoji(' :heart:')}`);
+        return;
+    }
+
+    const isYarn = currentState.get('installer') === 'yarn';
+    const saveExact = currentState.get('saveExact');
+
+    const saveDependencies = packagesToUpdate
+        .filter(pkg => !pkg.devDependency)
+        .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact));
+
+    const saveDevDependencies = packagesToUpdate
+        .filter(pkg => pkg.devDependency)
+        .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact));
+
+    const updated...
+const packages = currentState.get('packages')
+currentState.get('debug')

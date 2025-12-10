@@ -1,0 +1,9 @@
+watcher.on("all", (event, filename) => {
+    var _depToFiles$get;
+    if (event !== "change" && event !== "add") return;
+    const absoluteFile = _path().resolve(filename);
+    callback([absoluteFile, ...((_depToFiles$get = depToFiles.get(absoluteFile)) != null ? _depToFiles$get : [])], event, absoluteFile);
+  })
+event !== "change" && event !== "add"
+const absoluteFile = _path().resolve(filename)
+callback([absoluteFile, ...((_depToFiles$get = depToFiles.get(absoluteFile)) != null ? _depToFiles$get : [])], event, absoluteFile)

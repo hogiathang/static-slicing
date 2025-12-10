@@ -1,0 +1,1 @@
+new Promise<null>((resolve) => setTimeout(resolve, timeout, null))

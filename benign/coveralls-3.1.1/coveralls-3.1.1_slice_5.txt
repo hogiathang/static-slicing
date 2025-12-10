@@ -1,0 +1,127 @@
+const getBaseOptions = cb => {
+  const options = {};
+  let git_commit = process.env.COVERALLS_GIT_COMMIT;
+  let git_branch = process.env.COVERALLS_GIT_BRANCH;
+  let git_committer_name;
+  let git_committer_email;
+  let git_message;
+
+  const match = (process.env.CI_PULL_REQUEST || '').match(/(\d+)$/);
+
+  if (match) {
+    options.service_pull_request = match[1];
+  }
+
+  if (process.env.TRAVIS) {
+    options.service_name = 'travis-ci';
+    options.service_number = process.env.TRAVIS_BUILD_NUMBER;
+    options.service_job_id = process.env.TRAVIS_JOB_ID;
+    options.service_pull_request = process.env.TRAVIS_PULL_REQUEST;
+    git_commit = 'HEAD';
+    git_branch = process.env.TRAVIS_BRANCH;
+  }
+
+  if (process.env.DRONE) {
+    options.service_name = 'drone';
+    options.service_job_id = process.env.DRONE_BUILD_NUMBER;
+    options.service_pull_request = process.env.DRONE_PULL_REQUEST;
+    git_committer_name = process.env.DRONE_COMMIT_AUTHOR;
+    git_committer_email = process.env.DRONE_COMMIT_AUTHOR_E...
+const options = {}
+let git_commit = process.env.COVERALLS_GIT_COMMIT
+let git_branch = process.env.COVERALLS_GIT_BRANCH
+const match = (process.env.CI_PULL_REQUEST || '').match(/(\d+)$/)
+options.service_pull_request = match[1]
+process.env.TRAVIS
+options.service_name = 'travis-ci'
+options.service_number = process.env.TRAVIS_BUILD_NUMBER
+options.service_job_id = process.env.TRAVIS_JOB_ID
+options.service_pull_request = process.env.TRAVIS_PULL_REQUEST
+git_commit = 'HEAD'
+git_branch = process.env.TRAVIS_BRANCH
+process.env.DRONE
+options.service_name = 'drone'
+options.service_job_id = process.env.DRONE_BUILD_NUMBER
+options.service_pull_request = process.env.DRONE_PULL_REQUEST
+git_committer_name = process.env.DRONE_COMMIT_AUTHOR
+git_committer_email = process.env.DRONE_COMMIT_AUTHOR_EMAIL
+git_commit = process.env.DRONE_COMMIT
+git_branch = process.env.DRONE_BRANCH
+git_message = process.env.DRONE_COMMIT_MESSAGE
+process.env.JENKINS_URL || process.env.JENKINS_HOME
+options.service_name = 'jenkins'
+options.service_job_id = process.env.BUILD_ID
+options.service_pull_request = process.env.CHANGE_ID || process.env.ghprbPullId
+git_committer_name = process.env.CHANGE_AUTHOR
+git_committer_email = process.env.CHANGE_AUTHOR_EMAIL
+git_commit = process.env.GIT_COMMIT
+git_branch = process.env.CHANGE_BRANCH || process.env.GIT_BRANCH || process.env.BRANCH_NAME
+process.env.CIRCLECI
+options.service_name = 'circleci'
+options.service_number = process.env.CIRCLE_WORKFLOW_ID
+options.service_job_number = process.env.CIRCLE_BUILD_NUM
+process.env.CI_PULL_REQUEST
+const pr = process.env.CI_PULL_REQUEST.split('/pull/')
+options.service_pull_request = pr[1]
+git_commit = process.env.CIRCLE_SHA1
+git_branch = process.env.CIRCLE_BRANCH
+process.env.CI_NAME && process.env.CI_NAME === 'codeship'
+options.service_name = 'codeship'
+options.service_job_id = process.env.CI_BUILD_NUMBER
+git_commit = process.env.CI_COMMIT_ID
+git_branch = process.env.CI_BRANCH
+git_committer_name = process.env.CI_COMMITTER_NAME
+git_committer_email = process.env.CI_COMMITTER_EMAIL
+git_message = process.env.CI_COMMIT_MESSAGE
+process.env.WERCKER
+options.service_name = 'wercker'
+options.service_job_id = process.env.WERCKER_BUILD_ID
+git_commit = process.env.WERCKER_GIT_COMMIT
+git_branch = process.env.WERCKER_GIT_BRANCH
+process.env.GITLAB_CI
+options.service_name = 'gitlab-ci'
+options.service_job_number = process.env.CI_BUILD_NAME
+options.service_job_id = process.env.CI_BUILD_ID
+options.service_pull_request = process.env.CI_MERGE_REQUEST_IID
+git_commit = process.env.CI_BUILD_REF
+git_branch = process.env.CI_BUILD_REF_NAME
+process.env.APPVEYOR
+options.service_name = 'appveyor'
+options.service_job_number = process.env.APPVEYOR_BUILD_NUMBER
+options.service_job_id = process.env.APPVEYOR_BUILD_ID
+git_commit = process.env.APPVEYOR_REPO_COMMIT
+git_branch = process.env.APPVEYOR_REPO_BRANCH
+process.env.SURF_SHA1
+options.service_name = 'surf'
+git_commit = process.env.SURF_SHA1
+git_branch = process.env.SURF_REF
+process.env.BUILDKITE
+options.service_name = 'buildkite'
+options.service_job_number = process.env.BUILDKITE_BUILD_NUMBER
+options.service_job_id = process.env.BUILDKITE_BUILD_ID
+options.service_pull_request = process.env.BUILDKITE_PULL_REQUEST
+git_commit = process.env.BUILDKITE_COMMIT
+git_branch = process.env.BUILDKITE_BRANCH
+git_committer_name = process.env.BUILDKITE_BUILD_CREATOR
+git_committer_email = process.env.BUILDKITE_BUILD_CREATOR_EMAIL
+git_message = process.env.BUILDKITE_MESSAGE
+process.env.SEMAPHORE
+options.service_name = 'semaphore'
+options.service_job_id = process.env.SEMAPHORE_BUILD_NUMBER
+git_commit = process.env.REVISION
+git_branch = process.env.BRANCH_NAME
+process.env.TF_BUILD
+options.service_name = 'Azure Pipelines'
+options.service_job_id = process.env.BUILD_BUILDID
+options.service_pull_request = process.env.SYSTEM_PULLREQUEST_PULLREQUESTNUMBER
+git_commit = process.env.BUILD_SOURCEVERSION
+git_branch = process.env.BUILD_SOURCEBRANCHNAME
+process.env.CF_BRANCH
+options.service_name = 'Codefresh'
+options.service_job_id = process.env.CF_BUILD_ID
+options.service_pull_request = process.env.CF_PULL_REQUEST_ID
+git_commit = process.env.CF_REVISION
+git_branch = process.env.CF_BRANCH
+git_committer_name = process.env.CF_COMMIT_AUTHOR
+git_message = process.env.CF_COMMIT_MESSAGE
+options.run_at = process.env.COVERALLS_RUN_AT || JSON.stringify(new Date()).slice(1, -1)

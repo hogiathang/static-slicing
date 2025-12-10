@@ -1,0 +1,42 @@
+function _buildPackageInfo = function _buildPackageInfo(tree, packages, allDependencies, npmPackageJson, logger) {
+    const name = npmPackageJson.name;
+    const packageJsonRange = allDependencies.get(name);
+    if (!packageJsonRange) {
+        throw new schematics_1.SchematicsException(`Package ${JSON.stringify(name)} was not found in package.json.`);
+    }
+    // Find out the currently installed version. Either from the package.json or the node_modules/
+    // TODO: figure out a way to read package-lock.json and/or yarn.lock.
+    let installedVersion;
+    const packageContent = tree.read(`/node_modules/${name}/package.json`);
+    if (packageContent) {
+        const content = JSON.parse(packageContent.toString());
+        installedVersion = content.version;
+    }
+    const packageVersionsNonDeprecated = [];
+    const packageVersionsDeprecated = [];
+    for (const [version, { deprecated }] of Object.entries(npmPackageJson.versions)) {
+        if (deprecated) {
+            packageVersionsDeprecated.push(version...
+const name = npmPackageJson.name
+const packageJsonRange = allDependencies.get(name)
+!packageJsonRange
+throw new schematics_1.SchematicsException(`Package ${JSON.stringify(name)} was not found in package.json.`);
+const packageContent = tree.read(`/node_modules/${name}/package.json`)
+const content = JSON.parse(packageContent.toString())
+installedVersion = content.version
+const packageVersionsNonDeprecated = []
+const packageVersionsDeprecated = []
+_iterator_3 = <operator>.iterator(Object.entries(npmPackageJson.versions))
+packageVersionsDeprecated.push(version)
+packageVersionsNonDeprecated.push(version)
+const findSatisfyingVersion = (targetVersion) => (semver.maxSatisfying(packageVersionsNonDeprecated, targetVersion) ??
+        semver.maxSatisfying(packageVersionsDeprecated, targetVersion)) ??
+        undefined
+!installedVersion
+installedVersion = findSatisfyingVersion(packageJsonRange)
+!installedVersion
+throw new schematics_1.SchematicsException(`An unexpected error happened; could not determine version for package ${name}.`);
+const installedPackageJson = npmPackageJson.versions[installedVersion] || packageContent
+!installedPackageJson
+throw new schematics_1.SchematicsException(`An unexpected error happened; package ${name} has no version ${installedVersion}.`);
+let targetVersion = packages.get(name)

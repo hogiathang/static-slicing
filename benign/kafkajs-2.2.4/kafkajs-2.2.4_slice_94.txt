@@ -1,0 +1,4 @@
+topics = param1_1.topics
+const request = require('./v1/request')
+const response = require('./v1/response')
+_tmp_3.request = request({ topics })

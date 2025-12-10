@@ -1,0 +1,56 @@
+function verifyPlatform = function verifyPlatform(version, platform)
+{
+	if (platform) return;
+
+	var situation = process.platform + '_' + process.arch;
+	console.error(
+		'-- ERROR -----------------------------------------------------------------------\n\n'
+		+ 'I am detecting that your computer (' + situation + ') may not be compatible with any\n'
+		+ 'of the official pre-built binaries.\n\n'
+		+ 'I recommend against using the npm installer for your situation. Check out the\n'
+		+ 'alternative installers at https://github.com/elm/compiler/releases/tag/' + version + '\n'
+		+ 'to see if there is something that will work better for you.\n\n'
+		+ 'From there I recommend asking for guidance on Slack or Discourse to find someone\n'
+		+ 'who can help with your specific situation.\n\n'
+		+ '--------------------------------------------------------------------------------\n'
+	);
+	process.exit(1);
+}
+var situation = process.platform + '_' + process.arch
+console.error(
+		'-- ERROR -----------------------------------------------------------------------\n\n'
+		+ 'I am detecting that your computer (' + situation + ') may not be compatible with any\n'
+		+ 'of the official pre-built binaries.\n\n'
+		+ 'I recommend against using the npm installer for your situation. Check out the\n'
+		+ 'alternative installers at https://github.com/elm/compiler/releases/tag/' + version + '\n'
+		+ 'to see if there is something that will work better for you.\n\n'
+		+ 'From there I recommend asking for guidance on Slack or Discourse to find someone\n'
+		+ 'who can help with your specific situation.\n\n'
+		+ '--------------------------------------------------------------------------------\n'
+	)
+'-- ERROR -----------------------------------------------------------------------\n\n'
+		+ 'I am detecting that your computer (' + situation + ') may not be compatible with any\n'
+		+ 'of the official pre-built binaries.\n\n'
+		+ 'I recommend against using the npm installer for your situation. Check out the\n'
+		+ 'alternative installers at https://github.com/elm/compiler/releases/tag/' + version + '\n'
+		+ 'to see if there is something that will work better for you.\n\n'
+		+ 'From there I recommend asking for guidance on Slack or Discourse to find someone\n'
+		+ 'who can help with your specific situation.\n\n'
+		+ '--------------------------------------------------------------------------------\n'
+") may not be compatible with any
+"
+"of the official pre-built binaries.
+
+"
+"I recommend against using the npm installer for your situation. Check out the
+"
+"alternative installers at https://github.com/elm/compiler/releases/tag/"
+"to see if there is something that will work better for you.
+
+"
+"From there I recommend asking for guidance on Slack or Discourse to find someone
+"
+"who can help with your specific situation.
+
+"
+process.exit(1)

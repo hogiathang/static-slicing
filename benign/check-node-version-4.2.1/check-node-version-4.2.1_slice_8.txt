@@ -1,0 +1,75 @@
+function runVersionCommand = function runVersionCommand(command, callback) {
+  process.env.PATH = globalPath;
+
+  exec(command, (execError, stdout, stderr) => {
+    const commandDescription = JSON.stringify(command);
+
+    if (!execError) {
+      const version = stdout.trim();
+
+      if (semver.valid(version)) {
+        return callback(null, {
+          version,
+        });
+      } else {
+        return callback(null, {
+          invalid: true,
+        })
+      }
+    }
+
+    if (toolNotFound(execError)) {
+      return callback(null, {
+        notfound: true,
+      });
+    }
+
+    // something went very wrong during execution
+    let errorMessage = `Command failed: ${commandDescription}`
+
+    if (stderr) {
+      errorMessage += `\n\nstderr:\n${stderr.toString().trim()}\n`;
+    }
+
+    errorMessage += `\n\noriginal error message:\n${execError.message}\n`;
+
+    return callback(new Error(errorMessage));
+  });
+
+  process.env.PATH = originalPath;
+}
+process.env.PATH = globalPath
+exec(command, (execError, stdout, stderr) => {
+    const commandDescription = JSON.stringify(command);
+
+    if (!execError) {
+      const version = stdout.trim();
+
+      if (semver.valid(version)) {
+        return callback(null, {
+          version,
+        });
+      } else {
+        return callback(null, {
+          invalid: true,
+        })
+      }
+    }
+
+    if (toolNotFound(execError)) {
+      return callback(null, {
+        notfound: true,
+      });
+    }
+
+    // something went very wrong during execution
+    let errorMessage = `Command failed: ${commandDescription}`
+
+    if (stderr) {
+      errorMessage += `\n\nstderr:\n${stderr.toString().trim()}\n`;
+    }
+
+    errorMessage += `\n\noriginal error message:\n${execError.message}\n`;
+
+    return callback(new Error(errorMessage));
+  })

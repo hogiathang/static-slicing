@@ -1,0 +1,54 @@
+function Content = function Content(config, _plt, _dom, elementRef, renderer, _app, _keyboard, _zone, viewCtrl, navCtrl) {
+            var _this = _super.call(this, config, elementRef, renderer, 'content') || this;
+            _this._plt = _plt;
+            _this._dom = _dom;
+            _this._app = _app;
+            _this._keyboard = _keyboard;
+            _this._zone = _zone;
+            /** @internal */
+            _this._scrollPadding = 0;
+            /** @internal */
+            _this._inputPolling = false;
+            /** @internal */
+            _this._hasRefresher = false;
+            /** @internal */
+            _this._imgs = [];
+            /** @internal */
+            _this._scrollDownOnLoad = false;
+            /**
+             * @output {ScrollEvent} Emitted when the scrolling first starts.
+             */
+            _this.ionScrollStart = new EventEmitterProxy();
+            /**
+             * @output {ScrollEvent} Emitted on every scroll event.
+             */
+            _this.ionScr...
+var _this = _super.call(this, config, elementRef, renderer, 'content') || this
+_this._plt = _plt
+_this._dom = _dom
+_this._app = _app
+_this._keyboard = _keyboard
+_this._zone = _zone
+_this._scrollPadding = 0
+_this._inputPolling = false
+_this._hasRefresher = false
+__ecma.Array.factory()
+_this._scrollDownOnLoad = false
+_this.ionScrollStart = new EventEmitterProxy()
+_this.ionScroll = new EventEmitterProxy()
+_this.ionScrollEnd = new EventEmitterProxy()
+var enableScrollListener = function () { return _this._scroll.enableEvents(); }
+_this.ionScroll.onSubscribe = enableScrollListener
+_this.ionScrollStart.onSubscribe = enableScrollListener
+_this.ionScrollEnd.onSubscribe = enableScrollListener
+_this.statusbarPadding = config.getBoolean('statusbarPadding', false)
+_this._imgReqBfr = config.getNumber('imgRequestBuffer', 1400)
+_this._imgRndBfr = config.getNumber('imgRenderBuffer', 400)
+_this._imgVelMax = config.getNumber('imgVelocityMax', 3)
+_this._scroll = new scroll_view_1.ScrollView(_app, _plt, _dom)
+nav_util_1.isTabs(navCtrl)
+_this._tabs = navCtrl
+break;
+navCtrl = navCtrl.parent
+_dom.read(_this._readDimensions.bind(_this))
+_dom.write(_this._writeDimensions.bind(_this))

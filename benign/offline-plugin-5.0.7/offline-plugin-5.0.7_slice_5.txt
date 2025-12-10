@@ -1,0 +1,38 @@
+var afterResolveFn = function afterResolveFn(result, callback) {
+        var resource = _path3['default'].resolve(compiler.context, result.resource);
+
+        if (resource !== runtimePath) {
+          callback(null, result);
+          return;
+        }
+
+        var data = {
+          autoUpdate: _this2.autoUpdate
+        };
+
+        _this2.useTools(function (tool, key) {
+          data[key] = tool.getConfig(_this2);
+        });
+
+        result.loaders.push({
+          loader: _path3['default'].join(__dirname, 'misc/runtime-loader.js'),
+          options: JSON.stringify(data)
+        });
+
+        callback(null, result);
+      }
+var resource = _path3['default'].resolve(compiler.context, result.resource)
+resource !== runtimePath
+var data = {
+          autoUpdate: _this2.autoUpdate
+        }
+_tmp_25.autoUpdate = _this2.autoUpdate
+_this2.useTools(function (tool, key) {
+          data[key] = tool.getConfig(_this2);
+        })
+result.loaders.push({
+          loader: _path3['default'].join(__dirname, 'misc/runtime-loader.js'),
+          options: JSON.stringify(data)
+        })
+_tmp_27.loader = _path3['default'].join(__dirname, 'misc/runtime-loader.js')
+_tmp_27.options = JSON.stringify(data)

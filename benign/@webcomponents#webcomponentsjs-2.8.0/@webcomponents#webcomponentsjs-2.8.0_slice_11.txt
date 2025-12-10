@@ -1,0 +1,1 @@
+function nc = function nc(a,b,c,d){for(d=void 0===d?!0:d;b<a.length;b++)if("\\"===a[b]&&b<a.length-1&&"\n"!==a[b+1])b++;else{if(-1!==c.indexOf(a[b]))return b;if(d&&mc.has(a[b])){var e=mc.get(a[b]);b=nc(a,b+1,[e.end],e.U)}}return a.length}

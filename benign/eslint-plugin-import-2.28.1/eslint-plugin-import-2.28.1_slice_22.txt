@@ -1,0 +1,34 @@
+newDefaultImports.forEach(function (value) {
+            if (!oldDefaultImports.has(value)) {
+              var imports = oldImportPaths.get(value);
+              if (typeof imports === 'undefined') {
+                imports = new Set();
+              }
+              imports.add(IMPORT_DEFAULT_SPECIFIER);
+              oldImportPaths.set(value, imports);
+
+              var _exports3 = exportList.get(value);
+              var currentExport = void 0;
+              if (typeof _exports3 !== 'undefined') {
+                currentExport = _exports3.get(IMPORT_DEFAULT_SPECIFIER);
+              } else {
+                _exports3 = new Map();
+                exportList.set(value, _exports3);
+              }
+
+              if (typeof currentExport !== 'undefined') {
+                currentExport.whereUsed.add(file);
+              } else {
+                var whereUsed = new Set();
+                whereUsed.add(file);
+                _exports3.set(IMPORT_DEFAULT_SPECIFIER, { whereUsed: whereUs...
+!oldDefaultImports.has(value)
+var imports = oldImportPaths.get(value)
+typeof imports === 'undefined'
+imports = new Set()
+imports.add(IMPORT_DEFAULT_SPECIFIER)
+oldImportPaths.set(value, imports)
+var _exports3 = exportList.get(value)
+var currentExport = void 0
+typeof _exports3 !== 'undefined'
+currentExport = _exports3.get(IMPORT_DEFAULT_SPECIFIER)

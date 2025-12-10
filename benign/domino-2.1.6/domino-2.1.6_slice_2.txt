@@ -1,0 +1,7 @@
+_tmp_17.LA = <lambda>25
+var total = index
+index > 0
+index > 5
+throw new Error("Too much lookahead.");
+tt = this.get()
+total--

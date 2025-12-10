@@ -1,0 +1,31 @@
+function onLink = function onLink(destStat, src, dest, opts) {
+      let resolvedSrc = fs6.readlinkSync(src);
+      if (opts.dereference) {
+        resolvedSrc = path7.resolve(process.cwd(), resolvedSrc);
+      }
+      if (!destStat) {
+        return fs6.symlinkSync(resolvedSrc, dest);
+      } else {
+        let resolvedDest;
+        try {
+          resolvedDest = fs6.readlinkSync(dest);
+        } catch (err) {
+          if (err.code === "EINVAL" || err.code === "UNKNOWN")
+            return fs6.symlinkSync(resolvedSrc, dest);
+          throw err;
+        }
+        if (opts.dereference) {
+          resolvedDest = path7.resolve(process.cwd(), resolvedDest);
+        }
+        if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
+          throw new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`);
+        }
+        if (stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
+          throw new Error(`Cannot overwrite '${resolvedDest}' with '${resolvedSrc}'.`);
+        }
+       ...
+let resolvedSrc = fs6.readlinkSync(src)
+opts.dereference
+resolvedSrc = path7.resolve(process.cwd(), resolvedSrc)
+!destStat
+fs6.symlinkSync(resolvedSrc, dest)

@@ -1,0 +1,30 @@
+compileFull(node, analysis, resolution, pool) {
+    var _a;
+    if (analysis.template.errors !== null && analysis.template.errors.length > 0) {
+      return [];
+    }
+    for (const [_, deferBlockDeps] of resolution.deferBlocks) {
+      for (const deferBlockDep of deferBlockDeps) {
+        const dep = deferBlockDep;
+        const classDecl = dep.classDeclaration;
+        const importDecl = (_a = resolution.deferrableDeclToImportDecl.get(classDecl)) != null ? _a : null;
+        if (importDecl && this.deferredSymbolTracker.canDefer(importDecl)) {
+          deferBlockDep.isDeferrable = true;
+          deferBlockDep.importPath = importDecl.moduleSpecifier.text;
+        }
+      }
+    }
+    const meta = { ...analysis.meta, ...resolution };
+    const fac = compileNgFactoryDefField(toFactoryMetadata(meta, FactoryTarget3.Component));
+    const def = compileComponentFromMetadata(meta, pool, makeBindingParser2());
+    const inputTransformFields = compileInputTransformFields(analysis.inputs);
+ ...
+analysis.template.errors !== null && analysis.template.errors.length > 0
+_iterator_132 = <operator>.iterator(resolution.deferBlocks)
+_iterator_133 = <operator>.iterator(deferBlockDeps)
+const dep = deferBlockDep
+const classDecl = dep.classDeclaration
+const importDecl = (_a = resolution.deferrableDeclToImportDecl.get(classDecl)) != null ? _a : null
+importDecl && this.deferredSymbolTracker.canDefer(importDecl)
+deferBlockDep.isDeferrable = true
+deferBlockDep.importPath = importDecl.moduleSpecifier.text

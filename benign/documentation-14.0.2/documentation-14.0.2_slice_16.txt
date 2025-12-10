@@ -1,0 +1,95 @@
+function inferMembership(comment) {
+    // Lends tags are go-betweens that let people reassign membership
+    // in bulk: they themselves don't get an inference step
+    if (comment.lends) {
+      return comment;
+    }
+
+    if (comment.kind === 'module') {
+      currentModule = comment;
+    }
+
+    // If someone explicitly specifies the parent of this chunk, don't
+    // try to infer it, just return what they specified.
+    if (comment.memberof) {
+      return normalizeMemberof(comment);
+    }
+
+    let path = comment.context.ast;
+    // If this chunk doesn't have code attached, like if it was the result
+    // of a polyglot parse, don't try to infer anything.
+    if (!path) {
+      return comment;
+    }
+
+    // INFERENCE ===============================================================
+    // Deal with an oddity of espree: the jsdoc comment is attached to a different
+    // node in the two expressions `a.b = c` vs `a.b = function () {}`.
+    if (
+      path.isExpressionStatement() &&
+ ...
+comment.lends
+comment.kind === 'module'
+currentModule = comment
+comment.memberof
+let path = comment.context.ast
+!path
+path.isExpressionStatement() &&
+      path.get('expression').isAssignmentExpression() &&
+      path.get('expression').get('left').isMemberExpression()
+(_tmp_11 = path.get('expression')).isAssignmentExpression
+(_tmp_12 = path.get('expression').get('left')).isMemberExpression
+path = path.get('expression').get('left')
+path.isObjectProperty() &&
+      (path.get('key').isIdentifier() || path.get('key').isLiteral())
+path.get('key').isIdentifier() || path.get('key').isLiteral()
+path = path.get('key')
+path.isMemberExpression()
+(path.isClassMethod() ||
+        path.isClassProperty() ||
+        path.isTSDeclareMethod()) &&
+      path.parentPath.isClassBody() &&
+      path.parentPath.parentPath.isClass()
+path.isClassProperty()
+path.isTSDeclareMethod()
+(_tmp_18 = path.parentPath).isClassBody
+(_tmp_19 = path.parentPath.parentPath).isClass
+(path.isIdentifier() || path.isLiteral()) &&
+      path.parentPath.isObjectProperty() &&
+      path.parentPath.parentPath.isObjectExpression()
+(_tmp_23 = path.parentPath).isObjectProperty
+(_tmp_24 = path.parentPath.parentPath).isObjectExpression
+objectParent = path.parentPath.parentPath
+path.isObjectMethod() && path.parentPath.isObjectExpression()
+objectParent = path.parentPath
+path.isObjectTypeProperty() || path.isTSTypeElement()
+objectParent = path.parentPath
+__ecma.Array.factory()
+!objectParent.isStatement()
+objectParent.isObjectProperty() ||
+          objectParent.isObjectTypeProperty() ||
+          objectParent.isTSPropertySignature()
+objectParent.isObjectTypeProperty()
+objectParent.isTSPropertySignature()
+objectKeys.unshift(objectParent.node.key.name)
+const lendsIdentifiers =
+          findLendsIdentifiers(objectParent) ||
+          findLendsIdentifiers(objectParent.get('properties')[0])
+findLendsIdentifiers(objectParent) ||
+          findLendsIdentifiers(objectParent.get('properties')[0])
+findLendsIdentifiers(objectParent.get('properties')[0])
+(_tmp_27 = objectParent.parentPath).isAssignmentExpression
+inferMembershipFromIdentifiers(comment, [
+            ...extractIdentifiers(objectParent.parentPath.get('left')),
+            ...objectKeys
+          ])
+_tmp_28.push(...extractIdentifiers(objectParent.parentPath.get('left')))
+(_tmp_30 = objectParent.parentPath).isVariableDeclarator
+(_tmp_33 = objectParent.parentPath).isExportDefaultDeclaration
+objectParent.parentPath.isTypeAlias() ||
+          objectParent.parentPath.isTSTypeAliasDeclaration()
+(_tmp_36 = objectParent.parentPath).isTSTypeAliasDeclaration
+objectParent.parentPath.isInterfaceDeclaration() ||
+          objectParent.parentPath.isTSInterfaceDeclaration()
+(_tmp_39 = objectParent.parentPath).isTSInterfaceDeclaration
+objectParent = objectParent.parentPath

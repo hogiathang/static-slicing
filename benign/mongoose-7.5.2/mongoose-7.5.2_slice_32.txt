@@ -1,0 +1,57 @@
+module.exports = function assignVals(o) {
+  // Options that aren't explicitly listed in `populateOptions`
+  const userOptions = Object.assign({}, get(o, 'allOptions.options.options'), get(o, 'allOptions.options'));
+  // `o.options` contains options explicitly listed in `populateOptions`, like
+  // `match` and `limit`.
+  const populateOptions = Object.assign({}, o.options, userOptions, {
+    justOne: o.justOne
+  });
+  populateOptions.$nullIfNotFound = o.isVirtual;
+  const populatedModel = o.populatedModel;
+
+  const originalIds = [].concat(o.rawIds);
+
+  // replace the original ids in our intermediate _ids structure
+  // with the documents found by query
+  o.allIds = [].concat(o.allIds);
+  assignRawDocsToIdStructure(o.rawIds, o.rawDocs, o.rawOrder, populateOptions);
+
+  // now update the original documents being populated using the
+  // result structure that contains real documents.
+  const docs = o.docs;
+  const rawIds = o.rawIds;
+  const options = o.options;
+  const count = o.count &&...
+const userOptions = Object.assign({}, get(o, 'allOptions.options.options'), get(o, 'allOptions.options'))
+function setValue = function setValue(val) {
+    if (count) {
+      return val;
+    }
+    if (val instanceof SkipPopulateValue) {
+      return val.val;
+    }
+    if (val === void 0) {
+      return val;
+    }
+
+    const _allIds = o.allIds[i];
+
+    if (o.path.endsWith('.$*')) {
+      // Skip maps re: gh-12494
+      return valueFilter(val, options, populateOptions, _allIds);
+    }
+
+    if (o.justOne === true && Array.isArray(val)) {
+      // Might be an embedded discriminator (re: gh-9244) with multiple models, so make sure to pick the right
+      // model before assigning.
+      const ret = [];
+      for (const doc of val) {
+        const _docPopulatedModel = leanPopulateMap.get(doc);
+        if (_docPopulatedModel == null || _docPopulatedModel === populatedModel) {
+          ret.push(doc);
+        }
+      }
+      // Since we don't want to have to create a new mongoosearray, make sure to
+      // modify the array in place
+      while (val.length > ret.length) {
+        Array.prototype.pop.apply(val, []);...

@@ -1,0 +1,12 @@
+transactionalId = param1_6.transactionalId
+const request = require('./v6/request')
+const response = require('./v6/response')
+_tmp_13.request = request({
+        acks,
+        timeout,
+        compression,
+        topicData,
+        transactionalId,
+        producerId,
+        producerEpoch,
+      })

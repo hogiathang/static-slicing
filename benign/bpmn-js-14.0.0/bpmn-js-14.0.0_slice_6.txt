@@ -1,0 +1,7 @@
+var participant = elementRegistry.find(function(element) {
+          var businessObject = getBusinessObject(element);
+
+          return businessObject && businessObject.get('processRef') && businessObject.get('processRef') === parent;
+        })
+var businessObject = getBusinessObject(element)
+businessObject && businessObject.get('processRef') && businessObject.get('processRef') === parent

@@ -1,0 +1,17 @@
+_tmp_1.tryToRemoveBlockStyle = tryToRemoveBlockStyle
+var selection = editorState.getSelection()
+var offset = selection.getAnchorOffset()
+selection.isCollapsed() && offset === 0
+var key = selection.getAnchorKey()
+var content = editorState.getCurrentContent()
+var block = content.getBlockForKey(key)
+var type = block.getType()
+var blockBefore = content.getBlockBefore(key)
+type === 'code-block' && blockBefore && blockBefore.getType() === 'code-block' && blockBefore.getLength() !== 0
+var depth = block.getDepth()
+type !== 'unstyled'
+(type === 'unordered-list-item' || type === 'ordered-list-item') && depth > 0
+var newBlockMap = onUntab(content.getBlockMap(), block)
+newBlockMap = newBlockMap.set(key, newBlockMap.get(key).merge({
+            depth: depth - 1
+          }))

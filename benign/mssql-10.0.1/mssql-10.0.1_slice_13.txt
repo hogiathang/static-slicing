@@ -1,0 +1,54 @@
+new shared.Promise((resolve, reject) => {
+      const resolveOnce = (v) => {
+        resolve(v)
+        resolve = reject = () => {}
+      }
+      const rejectOnce = (e) => {
+        reject(e)
+        resolve = reject = () => {}
+      }
+      let tedious
+      try {
+        tedious = new tds.Connection(this._config())
+      } catch (err) {
+        rejectOnce(err)
+        return
+      }
+      tedious.connect(err => {
+        if (err) {
+          err = new ConnectionError(err)
+          return rejectOnce(err)
+        }
+
+        debug('connection(%d): established', IDS.get(tedious))
+        this.collation = tedious.databaseCollation
+        resolveOnce(tedious)
+      })
+      IDS.add(tedious, 'Connection')
+      debug('pool(%d): connection #%d created', IDS.get(this), IDS.get(tedious))
+      debug('connection(%d): establishing', IDS.get(tedious))
+
+      tedious.on('end', () => {
+        const err = new ConnectionError('The connection ended without ever completing the connection')
+      ...
+const resolveOnce = (v) => {
+        resolve(v)
+        resolve = reject = () => {}
+      }
+const rejectOnce = (e) => {
+        reject(e)
+        resolve = reject = () => {}
+      }
+tedious = new tds.Connection(this._config())
+tedious.connect(err => {
+        if (err) {
+          err = new ConnectionError(err)
+          return rejectOnce(err)
+        }
+
+        debug('connection(%d): established', IDS.get(tedious))
+        this.collation = tedious.databaseCollation
+        resolveOnce(tedious)
+      })
+IDS.add(tedious, 'Connection')
+debug('pool(%d): connection #%d created', IDS.get(this), IDS.get(tedious))

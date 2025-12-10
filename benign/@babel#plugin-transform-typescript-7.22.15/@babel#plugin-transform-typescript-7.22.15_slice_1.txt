@@ -1,0 +1,35 @@
+function evaluateRef = function evaluateRef(path, prevMembers, seen) {
+    if (path.isMemberExpression()) {
+      const expr = path.node;
+      const obj = expr.object;
+      const prop = expr.property;
+      if (!_core.types.isIdentifier(obj) || (expr.computed ? !_core.types.isStringLiteral(prop) : !_core.types.isIdentifier(prop))) {
+        return;
+      }
+      const bindingIdentifier = path.scope.getBindingIdentifier(obj.name);
+      const data = ENUMS.get(bindingIdentifier);
+      if (!data) return;
+      return data.get(prop.computed ? prop.value : prop.name);
+    } else if (path.isIdentifier()) {
+      const name = path.node.name;
+      if (["Infinity", "NaN"].includes(name)) {
+        return Number(name);
+      }
+      let value = prevMembers == null ? void 0 : prevMembers.get(name);
+      if (value !== undefined) {
+        return value;
+      }
+      if (seen.has(path.node)) return;
+      const bindingInitPath = path.resolve();
+      if (bindingInitPath) {
+        seen.add(path.node);
+        val...
+path.isMemberExpression()
+const expr = path.node
+const obj = expr.object
+const prop = expr.property
+!_core.types.isIdentifier(obj) || (expr.computed ? !_core.types.isStringLiteral(prop) : !_core.types.isIdentifier(prop))
+const bindingIdentifier = path.scope.getBindingIdentifier(obj.name)
+const data = ENUMS.get(bindingIdentifier)
+!data
+data.get(prop.computed ? prop.value : prop.name)

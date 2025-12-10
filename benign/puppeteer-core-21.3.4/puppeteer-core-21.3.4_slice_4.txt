@@ -1,0 +1,9 @@
+off(type, handler) {
+            if (type === "request" /* PageEvent.Request */) {
+                handler =
+                    this.#requestHandlers.get(handler) || handler;
+            }
+            return super.off(type, handler);
+        }
+type === "request"
+this.#requestHandlers.get(handler) || handler

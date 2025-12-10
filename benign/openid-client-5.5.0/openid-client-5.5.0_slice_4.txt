@@ -1,0 +1,92 @@
+function getKeyStore = async function getKeyStore(reload = false) {
+  assertIssuerConfiguration(this, 'jwks_uri');
+
+  const keystore = keystores.get(this);
+  const cache = lrus(this);
+
+  if (reload || !keystore) {
+    if (inFlight.has(this)) {
+      return inFlight.get(this);
+    }
+    cache.reset();
+    inFlight.set(
+      this,
+      (async () => {
+        const response = await request
+          .call(this, {
+            method: 'GET',
+            responseType: 'json',
+            url: this.jwks_uri,
+            headers: {
+              Accept: 'application/json, application/jwk-set+json',
+            },
+          })
+          .finally(() => {
+            inFlight.delete(this);
+          });
+        const jwks = processResponse(response);
+
+        const joseKeyStore = KeyStore.fromJWKS(jwks, { onlyPublic: true });
+        cache.set('throttle', true, 60 * 1000);
+        keystores.set(this, joseKeyStore);
+
+        return joseKeyStore;
+      })(),
+    );
+
+    return inFlight.get(this);
+  }
+
+  return keyst...
+assertIssuerConfiguration(this, 'jwks_uri')
+const keystore = keystores.get(this)
+const cache = lrus(this)
+reload || !keystore
+inFlight.has(this)
+cache.reset()
+inFlight.set(
+      this,
+      (async () => {
+        const response = await request
+          .call(this, {
+            method: 'GET',
+            responseType: 'json',
+            url: this.jwks_uri,
+            headers: {
+              Accept: 'application/json, application/jwk-set+json',
+            },
+          })
+          .finally(() => {
+            inFlight.delete(this);
+          });
+        const jwks = processResponse(response);
+
+        const joseKeyStore = KeyStore.fromJWKS(jwks, { onlyPublic: true });
+        cache.set('throttle', true, 60 * 1000);
+        keystores.set(this, joseKeyStore);
+
+        return joseKeyStore;
+      })(),
+    )
+(async () => {
+        const response = await request
+          .call(this, {
+            method: 'GET',
+            responseType: 'json',
+            url: this.jwks_uri,
+            headers: {
+              Accept: 'application/json, application/jwk-set+json',
+            },
+          })
+          .finally(() => {
+            inFlight.delete(this);
+          });
+        const jwks = processResponse(response);
+
+        const joseKeyStore = KeyStore.fromJWKS(jwks, { onlyPublic: true });
+        cache.set('throttle', true, 60 * 1000);
+        keystores.set(this, joseKeyStore);
+
+        return joseKeyStore;
+      })()
+inFlight.get(this)

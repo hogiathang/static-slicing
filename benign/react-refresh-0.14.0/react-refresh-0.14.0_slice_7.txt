@@ -1,0 +1,37 @@
+failedRootsSnapshot.forEach(function (root) {
+      var helpers = helpersByRootSnapshot.get(root);
+
+      if (helpers === undefined) {
+        throw new Error('Could not find helpers for a root. This is a bug in React Refresh.');
+      }
+
+      if (!failedRoots.has(root)) {// No longer failed.
+      }
+
+      if (rootElements === null) {
+        return;
+      }
+
+      if (!rootElements.has(root)) {
+        return;
+      }
+
+      var element = rootElements.get(root);
+
+      try {
+        helpers.scheduleRoot(root, element);
+      } catch (err) {
+        if (!didError) {
+          didError = true;
+          firstError = err;
+        } // Keep trying other roots.
+
+      }
+    })
+var helpers = helpersByRootSnapshot.get(root)
+helpers === undefined
+throw new Error('Could not find helpers for a root. This is a bug in React Refresh.');
+!failedRoots.has(root)
+rootElements === null
+!rootElements.has(root)
+var element = rootElements.get(root)

@@ -1,0 +1,132 @@
+exports.minify = function(files, options, name) {
+    options = exports.defaults(options, {
+        compress         : {},
+        fromString       : false,
+        inSourceMap      : null,
+        mangle           : {},
+        mangleProperties : false,
+        nameCache        : null,
+        outFileName      : null,
+        output           : null,
+        outSourceMap     : null,
+        parse            : {},
+        sourceMapInline  : false,
+        sourceMapUrl     : null,
+        sourceRoot       : null,
+        spidermonkey     : false,
+        warnings         : false,
+    });
+    exports.base54.reset();
+
+    var inMap = options.inSourceMap;
+    if (typeof inMap == "string" && inMap != "inline") {
+        inMap = JSON.parse(rjsFile.readFile(inMap, "utf8"));
+    }
+
+    // 1. parse
+    var toplevel = null,
+        sourcesContent = {};
+
+    if (options.spidermonkey) {
+        if (inMap == "inline") {
+            throw new Error("inline source map only works with built-in pars...
+options = exports.defaults(options, {
+        compress         : {},
+        fromString       : false,
+        inSourceMap      : null,
+        mangle           : {},
+        mangleProperties : false,
+        nameCache        : null,
+        outFileName      : null,
+        output           : null,
+        outSourceMap     : null,
+        parse            : {},
+        sourceMapInline  : false,
+        sourceMapUrl     : null,
+        sourceRoot       : null,
+        spidermonkey     : false,
+        warnings         : false,
+    })
+_tmp_2064.compress = {}
+_tmp_2064.fromString = false
+_tmp_2064.inSourceMap = null
+_tmp_2064.mangle = {}
+_tmp_2064.mangleProperties = false
+_tmp_2064.nameCache = null
+_tmp_2064.outFileName = null
+_tmp_2064.output = null
+_tmp_2064.outSourceMap = null
+_tmp_2064.parse = {}
+_tmp_2064.sourceMapInline = false
+_tmp_2064.sourceMapUrl = null
+_tmp_2064.sourceRoot = null
+_tmp_2064.spidermonkey = false
+_tmp_2064.warnings = false
+(_tmp_2068 = exports.base54).reset
+var inMap = options.inSourceMap
+typeof inMap == "string" && inMap != "inline"
+inMap = JSON.parse(rjsFile.readFile(inMap, "utf8"))
+var toplevel = null
+var sourcesContent = {}
+options.spidermonkey
+inMap == "inline"
+throw new Error("inline source map only works with built-in parser");
+toplevel = exports.AST_Node.from_mozilla_ast(files)
+var addFile = function(file, fileUrl) {
+            var code = options.fromString
+                ? file
+                : rjsFile.readFile(file, "utf8");
+            if (inMap == "inline") {
+                inMap = read_source_map(code);
+            }
+            sourcesContent[fileUrl] = code;
+            toplevel = exports.parse(code, {
+                filename: fileUrl,
+                toplevel: toplevel,
+                bare_returns: options.parse ? options.parse.bare_returns : undefined
+            });
+        }
+!options.fromString
+files = exports.simple_glob(files)
+inMap == "inline" && files.length > 1
+throw new Error("inline source map only works with singular input");
+[].concat(files).forEach(function (files, i) {
+            if (typeof files === 'string') {
+                addFile(files, options.fromString ? i : files);
+            } else {
+                for (var fileUrl in files) {
+                    addFile(files[fileUrl], fileUrl);
+                }
+            }
+        })
+options.wrap
+toplevel = toplevel.wrap_commonjs(options.wrap, options.exportAll)
+options.compress
+var compress = { warnings: options.warnings }
+exports.merge(compress, options.compress)
+toplevel.figure_out_scope(options.mangle)
+var sq = exports.Compressor(compress)
+toplevel = sq.compress(toplevel)
+options.mangleProperties || options.nameCache
+options.mangleProperties.cache = exports.readNameCache(options.nameCache, "props")
+toplevel = exports.mangle_properties(toplevel, options.mangleProperties)
+exports.writeNameCache(options.nameCache, "props", options.mangleProperties.cache)
+options.mangle
+toplevel.figure_out_scope(options.mangle)
+toplevel.compute_char_frequency(options.mangle)
+toplevel.mangle_names(options.mangle)
+var output = { max_line_len: 32000 }
+options.outSourceMap || options.sourceMapInline
+output.source_map = exports.SourceMap({
+            // prefer outFileName, otherwise use outSourceMap without .map suffix
+            file: options.outFileName || (typeof options.outSourceMap === 'string' ? options.outSourceMap.replace(/\.map$/i, '') : null),
+            orig: inMap,
+            root: options.sourceRoot
+        })
+_tmp_2078.file = options.outFileName || (typeof options.outSourceMap === 'string' ? options.outSourceMap.replace(/\.map$/i, '') : null)
+_tmp_2078.orig = inMap
+_tmp_2078.root = options.sourceRoot
+options.sourceMapIncludeSources
+_iterator_12 = <operator>.iterator(sourcesContent)
+sourcesContent.hasOwnProperty(file)
+output.source_map.get().setSourceContent(file, sourcesContent[file])

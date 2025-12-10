@@ -1,0 +1,75 @@
+function preloadQueryDeduped = function preloadQueryDeduped(environment, pendingQueries, preloadableRequest, variables, options) {
+  var _options$fetchPolicy;
+  var params;
+  var query;
+  if (preloadableRequest.kind === 'PreloadableConcreteRequest') {
+    var preloadableConcreteRequest = preloadableRequest;
+    params = preloadableConcreteRequest.params;
+    query = params.id != null ? PreloadableQueryRegistry.get(params.id) : null;
+  } else {
+    query = getRequest(preloadableRequest);
+    params = query.params;
+  }
+  var network = environment.getNetwork();
+  var fetchPolicy = (_options$fetchPolicy = options === null || options === void 0 ? void 0 : options.fetchPolicy) !== null && _options$fetchPolicy !== void 0 ? _options$fetchPolicy : STORE_OR_NETWORK_DEFAULT;
+  var fetchKey = options === null || options === void 0 ? void 0 : options.fetchKey;
+  var networkCacheConfig = (0, _objectSpread2["default"])({
+    force: true
+  }, options === null || options === void 0 ? void 0 : options.networkCacheConfig);
+  var ca...
+preloadableRequest.kind === 'PreloadableConcreteRequest'
+var preloadableConcreteRequest = preloadableRequest
+params = preloadableConcreteRequest.params
+query = params.id != null ? PreloadableQueryRegistry.get(params.id) : null
+query = getRequest(preloadableRequest)
+params = query.params
+var network = environment.getNetwork()
+var fetchPolicy = (_options$fetchPolicy = options === null || options === void 0 ? void 0 : options.fetchPolicy) !== null && _options$fetchPolicy !== void 0 ? _options$fetchPolicy : STORE_OR_NETWORK_DEFAULT
+var fetchKey = options === null || options === void 0 ? void 0 : options.fetchKey
+var networkCacheConfig = (0, _objectSpread2["default"])({
+    force: true
+  }, options === null || options === void 0 ? void 0 : options.networkCacheConfig)
+_tmp_4.force = true
+options === null || options === void 0 ? void 0 : options.networkCacheConfig
+var cacheKey = "".concat(getRequestIdentifier(params, variables)).concat(fetchKey != null ? "-".concat(fetchKey) : '')
+var prevQueryEntry = pendingQueries.get(cacheKey)
+var availability = fetchPolicy === STORE_OR_NETWORK_DEFAULT && query != null && query != null ? environment.check(createOperationDescriptor(query, variables, networkCacheConfig)) : {
+    status: 'missing'
+  }
+_tmp_8.status = "missing"
+availability.status === 'available' && query != null
+nextQueryEntry = prevQueryEntry && prevQueryEntry.kind === 'cache' ? prevQueryEntry : {
+      cacheKey: cacheKey,
+      fetchKey: fetchKey,
+      fetchPolicy: fetchPolicy,
+      kind: 'cache',
+      id: params.id,
+      name: params.name,
+      status: {
+        cacheConfig: networkCacheConfig,
+        source: 'cache',
+        fetchTime: (_availability$fetchTi = availability === null || availability === void 0 ? void 0 : availability.fetchTime) !== null && _availability$fetchTi !== void 0 ? _availability$fetchTi : null
+      }
+    }
+_tmp_9.cacheKey = cacheKey
+_tmp_9.fetchKey = fetchKey
+_tmp_9.fetchPolicy = fetchPolicy
+_tmp_9.kind = "cache"
+_tmp_9.id = params.id
+_tmp_9.name = params.name
+_tmp_9.status = {
+        cacheConfig: networkCacheConfig,
+        source: 'cache',
+        fetchTime: (_availability$fetchTi = availability === null || availability === void 0 ? void 0 : availability.fetchTime) !== null && _availability$fetchTi !== void 0 ? _availability$fetchTi : null
+      }
+_tmp_10.cacheConfig = networkCacheConfig
+_tmp_10.source = "cache"
+_tmp_10.fetchTime = (_availability$fetchTi = availability === null || availability === void 0 ? void 0 : availability.fetchTime) !== null && _availability$fetchTi !== void 0 ? _availability$fetchTi : null
+!environment.isServer() && prevQueryEntry == null
+setTimeout(function () {
+        // Clear the cache entry after the default timeout
+        // null-check for Flow
+        if (nextQueryEntry != null) {
+          cleanup(pendingQueries, nextQueryEntry);
+        }
+      }, DEFAULT_PREFETCH_TIMEOUT)

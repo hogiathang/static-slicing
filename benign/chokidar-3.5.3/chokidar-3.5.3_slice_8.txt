@@ -1,0 +1,11 @@
+const clear = () => {
+    const item = action.get(path);
+    const count = item ? item.count : 0;
+    action.delete(path);
+    clearTimeout(timeoutObject);
+    if (item) clearTimeout(item.timeoutObject);
+    return count;
+  }
+const item = action.get(path)
+const count = item ? item.count : 0
+action.delete(path)

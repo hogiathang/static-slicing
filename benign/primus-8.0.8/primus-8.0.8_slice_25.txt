@@ -1,0 +1,58 @@
+XDRObject.prototype._start = function(method, url, payload) {
+  var self = this;
+  var xdr = new global.XDomainRequest();
+  // IE caches even POSTs
+  url = urlUtils.addQuery(url, 't=' + (+new Date()));
+
+  xdr.onerror = function() {
+    self._error();
+  };
+  xdr.ontimeout = function() {
+    self._error();
+  };
+  xdr.onprogress = function() {
+    self.emit('chunk', 200, xdr.responseText);
+  };
+  xdr.onload = function() {
+    self.emit('finish', 200, xdr.responseText);
+    self._cleanup(false);
+  };
+  this.xdr = xdr;
+  this.unloadRef = eventUtils.unloadAdd(function() {
+    self._cleanup(true);
+  });
+  try {
+    // Fails with AccessDenied if port number is bogus
+    this.xdr.open(method, url);
+    if (this.timeout) {
+      this.xdr.timeout = this.timeout;
+    }
+    this.xdr.send(payload);
+  } catch (x) {
+    this._error();
+  }
+}
+var self = this
+var xdr = new global.XDomainRequest()
+url = urlUtils.addQuery(url, 't=' + (+new Date()))
+xdr.onerror = function() {
+    self._error();
+  }
+xdr.ontimeout = function() {
+    self._error();
+  }
+xdr.onprogress = function() {
+    self.emit('chunk', 200, xdr.responseText);
+  }
+xdr.onload = function() {
+    self.emit('finish', 200, xdr.responseText);
+    self._cleanup(false);
+  }
+this.xdr = xdr
+this.unloadRef = eventUtils.unloadAdd(function() {
+    self._cleanup(true);
+  })
+this.xdr.open(method, url)
+this.timeout
+this.xdr.timeout = this.timeout
+(_tmp_299 = this.xdr).send

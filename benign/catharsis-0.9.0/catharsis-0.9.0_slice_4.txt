@@ -1,0 +1,37 @@
+type(type, useLongFormat) {
+        let result = new Result();
+
+        if (useLongFormat === undefined) {
+            useLongFormat = this._useLongFormat;
+        }
+        // ensure we don't use the long format for inner types
+        this._useLongFormat = false;
+
+        if (!type) {
+            return result;
+        }
+
+        switch (type.type) {
+            case Types.AllLiteral:
+                result = this._stringify(type, this._translate('all'), useLongFormat);
+                break;
+            case Types.FunctionType:
+                result = this._signature(type, useLongFormat);
+                break;
+            case Types.NameExpression:
+                result = this._stringify(type, null, useLongFormat);
+                break;
+            case Types.NullLiteral:
+                result = this._stringify(type, this._translate('null'), useLongFormat);
+                break;
+            case Types.RecordType:
+                result = this._record(type, useLongFormat);
+ ...
+let result = new Result()
+useLongFormat === undefined
+useLongFormat = this._useLongFormat
+this._useLongFormat = false
+!type
+type.type
+default:
+<operator>.formatString("Unknown type: ", JSON.stringify(type), "")

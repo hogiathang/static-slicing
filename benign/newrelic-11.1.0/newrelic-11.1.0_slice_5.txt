@@ -1,0 +1,44 @@
+add(segment, type, query, trace) {
+    const ttConfig = this.config.transaction_tracer
+
+    // If DT is enabled and the segment is part of a sampled transaction
+    // (i.e. we are creating a span event for this segment), then we need
+    // to collect the sql trace.
+    let slowQuery
+    switch (ttConfig.record_sql) {
+      case 'raw':
+        slowQuery = new SlowQuery(segment, type, query, trace)
+        logger.trace('recording raw sql')
+        segment.addAttribute('sql', slowQuery.query, true)
+        break
+      case 'obfuscated':
+        slowQuery = new SlowQuery(segment, type, query, trace)
+        logger.trace('recording obfuscated sql')
+        segment.addAttribute('sql_obfuscated', slowQuery.obfuscated, true)
+        break
+      default:
+        logger.trace(
+          'not recording sql statement, transaction_tracer.record_sql was set to %s',
+          ttConfig.record_sql
+        )
+        return
+    }
+
+    if (segment.getDurationInMillis() < ttConfig.explain_threshold) {...
+const ttConfig = this.config.transaction_tracer
+ttConfig.record_sql
+"raw"
+slowQuery = new SlowQuery(segment, type, query, trace)
+logger.trace('recording raw sql')
+segment.addAttribute('sql', slowQuery.query, true)
+break
+"obfuscated"
+slowQuery = new SlowQuery(segment, type, query, trace)
+logger.trace('recording obfuscated sql')
+segment.addAttribute('sql_obfuscated', slowQuery.obfuscated, true)
+break
+segment.getDurationInMillis() < ttConfig.explain_threshold
+slowQuery = slowQuery || new SlowQuery(segment, type, query, trace)
+segment.addAttribute('backtrace', slowQuery.trace)
+!this.config.slow_sql.enabled
+const ownSample = this.samples.get(slowQuery.normalized)

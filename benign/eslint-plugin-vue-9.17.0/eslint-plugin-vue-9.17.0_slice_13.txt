@@ -1,0 +1,55 @@
+function getExpectedIndents = function getExpectedIndents(tokens) {
+    const expectedIndents = []
+
+    for (const [i, token] of tokens.entries()) {
+      const offsetInfo = offsets.get(token)
+
+      if (offsetInfo != null) {
+        if (offsetInfo.expectedIndent == null) {
+          const baseOffsetInfo = offsets.get(offsetInfo.baseToken)
+          if (
+            baseOffsetInfo != null &&
+            baseOffsetInfo.expectedIndent != null &&
+            (i === 0 || !baseOffsetInfo.baseline)
+          ) {
+            expectedIndents.push(
+              baseOffsetInfo.expectedIndent +
+                offsetInfo.offset * options.indentSize
+            )
+            if (baseOffsetInfo.baseline) {
+              break
+            }
+          }
+        } else {
+          expectedIndents.push(offsetInfo.expectedIndent)
+        }
+      }
+    }
+    if (expectedIndents.length === 0) {
+      return null
+    }
+
+    return {
+      expectedIndent: expectedIndents[0],
+      expectedBaseIndent: Math.min(...expectedIndents)
+   ...
+const expectedIndents = []
+_iterator_5 = <operator>.iterator(tokens.entries())
+const offsetInfo = offsets.get(token)
+offsetInfo != null
+offsetInfo.expectedIndent == null
+const baseOffsetInfo = offsets.get(offsetInfo.baseToken)
+baseOffsetInfo != null &&
+            baseOffsetInfo.expectedIndent != null &&
+            (i === 0 || !baseOffsetInfo.baseline)
+baseOffsetInfo.expectedIndent != null
+i === 0 || !baseOffsetInfo.baseline
+expectedIndents.push(
+              baseOffsetInfo.expectedIndent +
+                offsetInfo.offset * options.indentSize
+            )
+baseOffsetInfo.expectedIndent +
+                offsetInfo.offset * options.indentSize
+offsetInfo.offset * options.indentSize
+baseOffsetInfo.baseline
+expectedIndents.push(offsetInfo.expectedIndent)

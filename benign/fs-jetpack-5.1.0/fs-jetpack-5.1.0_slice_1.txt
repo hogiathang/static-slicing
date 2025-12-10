@@ -1,0 +1,10 @@
+const checkMode = () => {
+      const mode = modeUtil.normalizeFileMode(stat.mode);
+      if (criteria.mode !== undefined && criteria.mode !== mode) {
+        return fs.chmod(path, criteria.mode);
+      }
+      return Promise.resolve();
+    }
+const mode = modeUtil.normalizeFileMode(stat.mode)
+criteria.mode !== undefined && criteria.mode !== mode
+fs.chmod(path, criteria.mode)

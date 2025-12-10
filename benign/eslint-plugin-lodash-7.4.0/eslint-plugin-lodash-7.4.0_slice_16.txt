@@ -1,0 +1,3 @@
+_tmp_7.LogicalExpression:exit = <lambda>0
+const state = getState()
+state && state.node === get(node, 'right.left.object')

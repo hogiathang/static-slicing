@@ -1,0 +1,1 @@
+function filterUndefined = function filterUndefined(obj){if(Array.isArray(obj))return obj.filter(x=>x!==void 0).map(x=>filterUndefined(x));if(typeof obj=="object"){const ret={};for(const[key,value]of Object.entries(obj))value!==void 0&&(ret[key]=filterUndefined(value));return ret}return obj}

@@ -1,0 +1,42 @@
+function c = function c(e, t) {
+   var r, i, s;
+   if (n(t = t || {}), f(e, "rimraf: missing path"), f.equal(typeof e, "string", "rimraf: path should be a string"), 
+   f(t, "rimraf: missing options"), f.equal(typeof t, "object", "rimraf: options should be object"), 
+   t.disableGlob || !d.hasMagic(e)) r = [ e ]; else try {
+    t.lstatSync(e), r = [ e ];
+   } catch (n) {
+    r = d.sync(e, t.glob);
+   }
+   if (r.length) for (i = 0; i < r.length; i++) {
+    e = r[i];
+    try {
+     s = t.lstatSync(e);
+    } catch (r) {
+     if ("ENOENT" === r.code) return;
+     "EPERM" === r.code && E && a(e, t, r);
+    }
+    try {
+     s && s.isDirectory() ? u(e, t, null) : t.unlinkSync(e);
+    } catch (r) {
+     if ("ENOENT" === r.code) return;
+     if ("EPERM" === r.code) return E ? a(e, t, r) : u(e, t, r);
+     if ("EISDIR" !== r.code) throw r;
+     u(e, t, r);
+    }
+   }
+  }
+f.equal(typeof e, "string", "rimraf: path should be a string")
+f.equal(typeof t, "object", "rimraf: options should be object")
+_tmp_808 = __ecma.Array.factory()
+_tmp_809 = __ecma.Array.factory()
+r = d.sync(e, t.glob)
+i < r.length
+e = r[i]
+s = t.lstatSync(e)
+"ENOENT" === r.code
+"EPERM" === r.code && E && a(e, t, r)
+s && s.isDirectory() ? u(e, t, null) : t.unlinkSync(e)
+"ENOENT" === r.code
+E ? a(e, t, r) : u(e, t, r)
+"EISDIR" !== r.code
+u(e, t, r)

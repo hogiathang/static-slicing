@@ -1,0 +1,44 @@
+function afterStartOk = function afterStartOk(reply) {
+    switch (reply.id) {
+    case defs.ConnectionSecure:
+      bail(new Error(
+        "Wasn't expecting to have to go through secure"));
+      break;
+    case defs.ConnectionClose:
+      bail(new Error(fmt("Handshake terminated by server: %s",
+                         closeMsg(reply))));
+      break;
+    case defs.ConnectionTune:
+      var fields = reply.fields;
+      tunedOptions.frameMax =
+        negotiate(fields.frameMax, allFields.frameMax);
+      tunedOptions.channelMax =
+        negotiate(fields.channelMax, allFields.channelMax);
+      tunedOptions.heartbeat =
+        negotiate(fields.heartbeat, allFields.heartbeat);
+      try {
+        send(defs.ConnectionTuneOk);
+        send(defs.ConnectionOpen);
+      } catch (err) {
+        bail(err);
+        return;
+      }
+      expect(defs.ConnectionOpenOk, onOpenOk);
+      break;
+    default:
+      bail(new Error(
+        fmt("Expected connection.secure, connection.close, " +
+            "or connection....
+reply.id
+defs.ConnectionTune
+var fields = reply.fields
+tunedOptions.frameMax =
+        negotiate(fields.frameMax, allFields.frameMax)
+negotiate(fields.frameMax, allFields.frameMax)
+tunedOptions.channelMax =
+        negotiate(fields.channelMax, allFields.channelMax)
+negotiate(fields.channelMax, allFields.channelMax)
+tunedOptions.heartbeat =
+        negotiate(fields.heartbeat, allFields.heartbeat)
+negotiate(fields.heartbeat, allFields.heartbeat)
+send(defs.ConnectionTuneOk)

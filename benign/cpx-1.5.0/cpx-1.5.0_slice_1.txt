@@ -1,0 +1,61 @@
+var _from = require("babel-runtime/core-js/array/from")
+var _from2 = _interopRequireDefault(_from)
+var _set = require("babel-runtime/core-js/set")
+var _set2 = _interopRequireDefault(_set)
+function _interopRequireDefault = function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var subarg = require("subarg")
+var unknowns = new _set2.default()
+var args = subarg(process.argv.slice(2), {
+    alias: {
+        c: "command",
+        C: "clean",
+        h: "help",
+        includeEmptyDirs: "include-empty-dirs",
+        L: "dereference",
+        p: "preserve",
+        t: "transform",
+        u: "update",
+        v: "verbose",
+        V: "version",
+        w: "watch"
+    },
+    boolean: ["clean", "dereference", "help", "include-empty-dirs", "initial", "preserve", "update", "verbose", "version", "watch"],
+    default: { initial: true },
+    unknown: function unknown(arg) {
+        if (arg[0] === "-") {
+            unknowns.add(arg);
+        }
+    }
+})
+_tmp_3.alias = {
+        c: "command",
+        C: "clean",
+        h: "help",
+        includeEmptyDirs: "include-empty-dirs",
+        L: "dereference",
+        p: "preserve",
+        t: "transform",
+        u: "update",
+        v: "verbose",
+        V: "version",
+        w: "watch"
+    }
+_tmp_4.c = "command"
+_tmp_4.C = "clean"
+_tmp_4.h = "help"
+_tmp_4.includeEmptyDirs = "include-empty-dirs"
+_tmp_4.L = "dereference"
+_tmp_4.p = "preserve"
+_tmp_4.t = "transform"
+_tmp_4.u = "update"
+_tmp_4.v = "verbose"
+_tmp_4.V = "version"
+_tmp_4.w = "watch"
+_tmp_3.boolean = ["clean", "dereference", "help", "include-empty-dirs", "initial", "preserve", "update", "verbose", "version", "watch"]
+_tmp_3.default = { initial: true }
+_tmp_3.unknown = unknown
+var source = args._[0]
+var outDir = args._[1]
+unknowns.size > 0
+console.error("Unknown option(s): " + (0, _from2.default)(unknowns).join(", "))
+process.exit(1)

@@ -1,0 +1,23 @@
+function normalizeRootRule = function normalizeRootRule(rule) {
+  let { params } = rule
+  let { type, selector, escapes } = parseRootRuleParams(params)
+  if (type === 'unknown') {
+    throw rule.error(
+      `Unknown @${rule.name} parameter ${JSON.stringify(params)}`
+    )
+  }
+  if (type === 'basic' && selector) {
+    let selectorBlock = new Rule({ selector, nodes: rule.nodes })
+    rule.removeAll()
+    rule.append(selectorBlock)
+  }
+  rule[rootRuleEscapes] = escapes
+  rule[rootRuleMergeSel] = escapes ? !escapes('all') : type === 'noop'
+}
+params = _tmp_24.params
+_tmp_25 = parseRootRuleParams(params)
+type === 'unknown'
+throw rule.error(
+      `Unknown @${rule.name} parameter ${JSON.stringify(params)}`
+    )
+<operator>.formatString("Unknown @", rule.name, " parameter ", JSON.stringify(params), "")

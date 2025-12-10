@@ -1,0 +1,70 @@
+CVShapeElement.prototype.drawLayer = function () {
+  var i;
+  var len = this.stylesList.length;
+  var j;
+  var jLen;
+  var k;
+  var kLen;
+  var elems;
+  var nodes;
+  var renderer = this.globalData.renderer;
+  var ctx = this.globalData.canvasContext;
+  var type;
+  var currentStyle;
+  for (i = 0; i < len; i += 1) {
+    currentStyle = this.stylesList[i];
+    type = currentStyle.type;
+
+    // Skipping style when
+    // Stroke width equals 0
+    // style should not be rendered (extra unused repeaters)
+    // current opacity equals 0
+    // global opacity equals 0
+    if (!(((type === 'st' || type === 'gs') && currentStyle.wi === 0) || !currentStyle.data._shouldRender || currentStyle.coOp === 0 || this.globalData.currentGlobalAlpha === 0)) {
+      renderer.save();
+      elems = currentStyle.elements;
+      if (type === 'st' || type === 'gs') {
+        renderer.ctxStrokeStyle(type === 'st' ? currentStyle.co : currentStyle.grd);
+        // ctx.strokeStyle = type =...
+var len = this.stylesList.length
+var renderer = this.globalData.renderer
+var ctx = this.globalData.canvasContext
+i < len
+currentStyle = this.stylesList[i]
+type = currentStyle.type
+!(((type === 'st' || type === 'gs') && currentStyle.wi === 0) || !currentStyle.data._shouldRender || currentStyle.coOp === 0 || this.globalData.currentGlobalAlpha === 0)
+renderer.save()
+elems = currentStyle.elements
+type === 'st' || type === 'gs'
+renderer.ctxStrokeStyle(type === 'st' ? currentStyle.co : currentStyle.grd)
+renderer.ctxLineWidth(currentStyle.wi)
+renderer.ctxLineCap(currentStyle.lc)
+renderer.ctxLineJoin(currentStyle.lj)
+renderer.ctxMiterLimit(currentStyle.ml || 0)
+renderer.ctxFillStyle(type === 'fl' ? currentStyle.co : currentStyle.grd)
+renderer.ctxOpacity(currentStyle.coOp)
+type !== 'st' && type !== 'gs'
+ctx.beginPath()
+renderer.ctxTransform(currentStyle.preTransforms.finalTransform.props)
+jLen = elems.length
+j < jLen
+type === 'st' || type === 'gs'
+ctx.beginPath()
+currentStyle.da
+ctx.setLineDash(currentStyle.da)
+ctx.lineDashOffset = currentStyle.do
+nodes = elems[j].trNodes
+kLen = nodes.length
+k < kLen
+nodes[k].t === 'm'
+ctx.moveTo(nodes[k].p[0], nodes[k].p[1])
+nodes[k].t === 'c'
+ctx.bezierCurveTo(nodes[k].pts[0], nodes[k].pts[1], nodes[k].pts[2], nodes[k].pts[3], nodes[k].pts[4], nodes[k].pts[5])
+ctx.closePath()
+type === 'st' || type === 'gs'
+renderer.ctxStroke()
+currentStyle.da
+ctx.setLineDash(this.dashResetter)
+type !== 'st' && type !== 'gs'
+this.globalData.renderer.ctxFill(currentStyle.r)
+renderer.restore()

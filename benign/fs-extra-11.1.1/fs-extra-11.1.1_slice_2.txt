@@ -1,0 +1,30 @@
+function createLinkSync = function createLinkSync (srcpath, dstpath) {
+  let dstStat
+  try {
+    dstStat = fs.lstatSync(dstpath)
+  } catch {}
+
+  try {
+    const srcStat = fs.lstatSync(srcpath)
+    if (dstStat && areIdentical(srcStat, dstStat)) return
+  } catch (err) {
+    err.message = err.message.replace('lstat', 'ensureLink')
+    throw err
+  }
+
+  const dir = path.dirname(dstpath)
+  const dirExists = fs.existsSync(dir)
+  if (dirExists) return fs.linkSync(srcpath, dstpath)
+  mkdir.mkdirsSync(dir)
+
+  return fs.linkSync(srcpath, dstpath)
+}
+dstStat = fs.lstatSync(dstpath)
+const srcStat = fs.lstatSync(srcpath)
+dstStat && areIdentical(srcStat, dstStat)
+err.message = err.message.replace('lstat', 'ensureLink')
+throw err
+const dir = path.dirname(dstpath)
+const dirExists = fs.existsSync(dir)
+mkdir.mkdirsSync(dir)
+fs.linkSync(srcpath, dstpath)

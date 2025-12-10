@@ -1,0 +1,2 @@
+_tmp_44.onVueObjectExit = onVueObjectExit
+const emits = vueEmitsDeclarations.get(node)

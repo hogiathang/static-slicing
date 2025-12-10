@@ -1,0 +1,316 @@
+static parseLevelPlaylist(
+    string: string,
+    baseurl: string,
+    id: number,
+    type: PlaylistLevelType,
+    levelUrlId: number,
+    multivariantVariableList: VariableMap | null
+  ): LevelDetails {
+    const level = new LevelDetails(baseurl);
+    const fragments: M3U8ParserFragments = level.fragments;
+    // The most recent init segment seen (applies to all subsequent segments)
+    let currentInitSegment: Fragment | null = null;
+    let currentSN = 0;
+    let currentPart = 0;
+    let totalduration = 0;
+    let discontinuityCounter = 0;
+    let prevFrag: Fragment | null = null;
+    let frag: Fragment = new Fragment(type, baseurl);
+    let result: RegExpExecArray | RegExpMatchArray | null;
+    let i: number;
+    let levelkeys: { [key: string]: LevelKey } | undefined;
+    let firstPdtIndex = -1;
+    let createNextFrag = false;
+
+    LEVEL_PLAYLIST_REGEX_FAST.lastIndex = 0;
+    level.m3u8 = string;
+    level.hasVariableRefs = __USE_VARIABLE_SUBSTITUTION__
+      ? hasVariableRefer...
+const level = new LevelDetails(baseurl)
+const fragments: M3U8ParserFragments = level.fragments
+let currentInitSegment: Fragment | null = null
+let currentSN = 0
+let currentPart = 0
+let totalduration = 0
+let discontinuityCounter = 0
+let prevFrag: Fragment | null = null
+let frag: Fragment = new Fragment(type, baseurl)
+let firstPdtIndex = -1
+let createNextFrag = false
+LEVEL_PLAYLIST_REGEX_FAST.lastIndex = 0
+level.m3u8 = string
+level.hasVariableRefs = __USE_VARIABLE_SUBSTITUTION__
+      ? hasVariableReferences(string)
+      : false
+hasVariableReferences(string)
+(result = LEVEL_PLAYLIST_REGEX_FAST.exec(string)) !== null
+createNextFrag = false
+frag = new Fragment(type, baseurl)
+frag.start = totalduration
+frag.sn = currentSN
+frag.cc = discontinuityCounter
+frag.level = id
+frag.initSegment = currentInitSegment
+frag.rawProgramDateTime = currentInitSegment.rawProgramDateTime
+currentInitSegment.rawProgramDateTime = null
+const duration = result[1]
+frag.duration = parseFloat(duration)
+const title = (' ' + result[2]).slice(1)
+frag.title = title || null
+frag.tagList.push(title ? ['INF', duration, title] : ['INF', duration])
+result[3]
+Number.isFinite(frag.duration)
+frag.start = totalduration
+setFragLevelKeys(frag, levelkeys, level)
+frag.sn = currentSN
+frag.level = id
+frag.cc = discontinuityCounter
+frag.urlId = levelUrlId
+fragments.push(frag)
+const uri = (' ' + result[3]).slice(1)
+frag.relurl = __USE_VARIABLE_SUBSTITUTION__
+            ? substituteVariables(level, uri)
+            : uri
+substituteVariables(level, uri)
+assignProgramDateTime(frag, prevFrag)
+prevFrag = frag
+totalduration += frag.duration
+currentSN++
+currentPart = 0
+createNextFrag = true
+result[4]
+const data = (' ' + result[4]).slice(1)
+frag.setByteRange(data, prevFrag)
+frag.setByteRange(data)
+result[5]
+frag.rawProgramDateTime = (' ' + result[5]).slice(1)
+frag.tagList.push(['PROGRAM-DATE-TIME', frag.rawProgramDateTime])
+firstPdtIndex === -1
+firstPdtIndex = fragments.length
+result = result[0].match(LEVEL_PLAYLIST_REGEX_SLOW)
+!result
+logger.warn('No matches on slow regex match for level playlist!')
+continue;
+i < result.length
+typeof result[i] !== 'undefined'
+break;
+const tag = (' ' + result[i]).slice(1)
+const value1 = (' ' + result[i + 1]).slice(1)
+const value2 = result[i + 2] ? (' ' + result[i + 2]).slice(1) : ''
+"PLAYLIST-TYPE"
+level.type = value1.toUpperCase()
+break;
+"MEDIA-SEQUENCE"
+currentSN = level.startSN = parseInt(value1)
+break;
+"SKIP"
+const skipAttrs = new AttrList(value1)
+substituteVariablesInAttributes(level, skipAttrs, [
+                'RECENTLY-REMOVED-DATERANGES',
+              ])
+_tmp_63.push("RECENTLY-REMOVED-DATERANGES")
+const skippedSegments =
+              skipAttrs.decimalInteger('SKIPPED-SEGMENTS')
+skipAttrs.decimalInteger('SKIPPED-SEGMENTS')
+Number.isFinite(skippedSegments)
+level.skippedSegments = skippedSegments
+let i = skippedSegments
+fragments.unshift(null)
+currentSN += skippedSegments
+const recentlyRemovedDateranges = skipAttrs.enumeratedString(
+              'RECENTLY-REMOVED-DATERANGES'
+            )
+"RECENTLY-REMOVED-DATERANGES"
+level.recentlyRemovedDateranges =
+                recentlyRemovedDateranges.split('\t')
+recentlyRemovedDateranges.split('\t')
+break;
+"TARGETDURATION"
+level.targetduration = Math.max(parseInt(value1), 1)
+break;
+"VERSION"
+level.version = parseInt(value1)
+break;
+"EXTM3U"
+break;
+"ENDLIST"
+level.live = false
+break;
+case '#':
+value1 || value2
+frag.tagList.push(value2 ? [value1, value2] : [value1])
+break;
+"DISCONTINUITY"
+discontinuityCounter++
+_tmp_68 = __ecma.Array.factory()
+break;
+"GAP"
+frag.gap = true
+_tmp_70 = __ecma.Array.factory()
+break;
+"BITRATE"
+frag.tagList.push([tag, value1])
+break;
+"DATERANGE"
+const dateRangeAttr = new AttrList(value1)
+substituteVariablesInAttributes(level, dateRangeAttr, [
+                'ID',
+                'CLASS',
+                'START-DATE',
+                'END-DATE',
+                'SCTE35-CMD',
+                'SCTE35-OUT',
+                'SCTE35-IN',
+              ])
+_tmp_74.push("ID")
+_tmp_74.push("CLASS")
+_tmp_74.push("START-DATE")
+_tmp_74.push("END-DATE")
+_tmp_74.push("SCTE35-CMD")
+_tmp_74.push("SCTE35-OUT")
+_tmp_74.push("SCTE35-IN")
+substituteVariablesInAttributes(
+                level,
+                dateRangeAttr,
+                dateRangeAttr.clientAttrs
+              )
+dateRangeAttr.clientAttrs
+const dateRange = new DateRange(
+              dateRangeAttr,
+              level.dateRanges[dateRangeAttr.ID]
+            )
+level.dateRanges[dateRangeAttr.ID]
+dateRange.isValid || level.skippedSegments
+level.dateRanges[dateRange.id] = dateRange
+<operator>.formatString("Ignoring invalid DATERANGE tag: "", value1, """)
+frag.tagList.push(['EXT-X-DATERANGE', value1])
+break;
+"DEFINE"
+const variableAttributes = new AttrList(value1)
+substituteVariablesInAttributes(level, variableAttributes, [
+                'NAME',
+                'VALUE',
+                'IMPORT',
+                'QUERYPARAM',
+              ])
+_tmp_79.push("NAME")
+_tmp_79.push("VALUE")
+_tmp_79.push("IMPORT")
+_tmp_79.push("QUERYPARAM")
+'IMPORT' in variableAttributes
+importVariableDefinition(
+                  level,
+                  variableAttributes,
+                  multivariantVariableList
+                )
+addVariableDefinition(level, variableAttributes, baseurl)
+break;
+"DISCONTINUITY-SEQUENCE"
+discontinuityCounter = parseInt(value1)
+break;
+"KEY"
+const levelKey = parseKey(value1, baseurl, level)
+levelKey.isSupported()
+levelKey.method === 'NONE'
+levelkeys = undefined
+break;
+!levelkeys
+levelkeys = {}
+levelkeys[levelKey.keyFormat]
+levelkeys = Object.assign({}, levelkeys)
+levelkeys[levelKey.keyFormat] = levelKey
+<operator>.formatString("[Keys] Ignoring invalid EXT-X-KEY tag: "", value1, """)
+break;
+"START"
+level.startTimeOffset = parseStartTimeOffset(value1)
+break;
+"MAP"
+const mapAttrs = new AttrList(value1)
+substituteVariablesInAttributes(level, mapAttrs, [
+                'BYTERANGE',
+                'URI',
+              ])
+_tmp_83.push("BYTERANGE")
+_tmp_83.push("URI")
+frag.duration
+const init = new Fragment(type, baseurl)
+setInitSegment(init, mapAttrs, id, levelkeys)
+currentInitSegment = init
+frag.initSegment = currentInitSegment
+currentInitSegment.rawProgramDateTime &&
+                !frag.rawProgramDateTime
+!frag.rawProgramDateTime
+frag.rawProgramDateTime = currentInitSegment.rawProgramDateTime
+setInitSegment(frag, mapAttrs, id, levelkeys)
+currentInitSegment = frag
+createNextFrag = true
+break;
+"SERVER-CONTROL"
+const serverControlAttrs = new AttrList(value1)
+level.canBlockReload = serverControlAttrs.bool('CAN-BLOCK-RELOAD')
+level.canSkipUntil = serverControlAttrs.optionalFloat(
+              'CAN-SKIP-UNTIL',
+              0
+            )
+"CAN-SKIP-UNTIL"
+0
+level.canSkipDateRanges =
+              level.canSkipUntil > 0 &&
+              serverControlAttrs.bool('CAN-SKIP-DATERANGES')
+level.canSkipUntil > 0 &&
+              serverControlAttrs.bool('CAN-SKIP-DATERANGES')
+serverControlAttrs.bool('CAN-SKIP-DATERANGES')
+level.partHoldBack = serverControlAttrs.optionalFloat(
+              'PART-HOLD-BACK',
+              0
+            )
+"PART-HOLD-BACK"
+0
+level.holdBack = serverControlAttrs.optionalFloat('HOLD-BACK', 0)
+break;
+"PART-INF"
+const partInfAttrs = new AttrList(value1)
+level.partTarget = partInfAttrs.decimalFloatingPoint('PART-TARGET')
+break;
+"PART"
+let partList = level.partList
+!partList
+partList = level.partList = []
+const previousFragmentPart =
+              currentPart > 0 ? partList[partList.length - 1] : undefined
+currentPart > 0 ? partList[partList.length - 1] : undefined
+const index = currentPart++
+const partAttrs = new AttrList(value1)
+substituteVariablesInAttributes(level, partAttrs, [
+                'BYTERANGE',
+                'URI',
+              ])
+_tmp_88.push("BYTERANGE")
+_tmp_88.push("URI")
+const part = new Part(
+              partAttrs,
+              frag,
+              baseurl,
+              index,
+              previousFragmentPart
+            )
+partList.push(part)
+frag.duration += part.duration
+break;
+"PRELOAD-HINT"
+const preloadHintAttrs = new AttrList(value1)
+substituteVariablesInAttributes(level, preloadHintAttrs, ['URI'])
+level.preloadHint = preloadHintAttrs
+break;
+"RENDITION-REPORT"
+const renditionReportAttrs = new AttrList(value1)
+substituteVariablesInAttributes(level, renditionReportAttrs, [
+                'URI',
+              ])
+_tmp_93.push("URI")
+level.renditionReports = level.renditionReports || []
+level.renditionReports.push(renditionReportAttrs)
+break;
+default:
+<operator>.formatString("line parsed but not handled: ", result, "")
+break;

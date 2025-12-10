@@ -1,0 +1,27 @@
+fs.lchmodSync = function (path, mode) {
+      var fd = fs.openSync(path, constants.O_WRONLY | constants.O_SYMLINK, mode)
+
+      // prefer to return the chmod error, if one occurs,
+      // but still try to close, and report closing errors if they occur.
+      var threw = true
+      var ret
+      try {
+        ret = fs.fchmodSync(fd, mode)
+        threw = false
+      } finally {
+        if (threw) {
+          try {
+            fs.closeSync(fd)
+          } catch (er) {}
+        } else {
+          fs.closeSync(fd)
+        }
+      }
+      return ret
+    }
+var fd = fs.openSync(path, constants.O_WRONLY | constants.O_SYMLINK, mode)
+var threw = true
+ret = fs.fchmodSync(fd, mode)
+threw = false
+fs.closeSync(fd)
+fs.closeSync(fd)

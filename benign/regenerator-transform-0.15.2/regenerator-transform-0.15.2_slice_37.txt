@@ -1,0 +1,56 @@
+Ep.explodeExpression = function(path, ignoreResult) {
+  const t = util.getTypes();
+  let expr = path.node;
+  if (expr) {
+    t.assertExpression(expr);
+  } else {
+    return expr;
+  }
+
+  let self = this;
+  let result; // Used optionally by several cases below.
+  let after;
+
+  function finish(expr) {
+    t.assertExpression(expr);
+    if (ignoreResult) {
+      self.emit(expr);
+    }
+    return expr;
+  }
+
+  // If the expression does not contain a leap, then we either emit the
+  // expression as a standalone statement or return it whole.
+  if (!meta.containsLeap(expr)) {
+    return finish(expr);
+  }
+
+  // If any child contains a leap (such as a yield or labeled continue or
+  // break statement), then any sibling subexpressions will almost
+  // certainly have to be exploded in order to maintain the order of their
+  // side effects relative to the leaping child(ren).
+  let hasLeapingChildren = meta.containsLeap.onlyChildren(expr);
+
+  // If ignoreResult is true, then we must take full respo...
+const t = util.getTypes()
+let expr = path.node
+t.assertExpression(expr)
+let self = this
+function finish = function finish(expr) {
+    t.assertExpression(expr);
+    if (ignoreResult) {
+      self.emit(expr);
+    }
+    return expr;
+  }
+!meta.containsLeap(expr)
+let hasLeapingChildren = meta.containsLeap.onlyChildren(expr)
+expr.type
+"ConditionalExpression"
+let elseLoc = this.loc()
+after = this.loc()
+let test = self.explodeExpression(path.get("test"))
+self.jumpIfNot(test, elseLoc)
+!ignoreResult
+result = self.makeTempVar()
+self.explodeViaTempVar(result, path.get("consequent"), hasLeapingChildren, ignoreResult)

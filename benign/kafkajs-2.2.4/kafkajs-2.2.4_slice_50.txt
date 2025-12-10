@@ -1,0 +1,10 @@
+_tmp_0.6 = <lambda>7
+replicaId = param1_6.replicaId
+isolationLevel = param1_6.isolationLevel
+maxWaitTime = param1_6.maxWaitTime
+minBytes = param1_6.minBytes
+maxBytes = param1_6.maxBytes
+topics = param1_6.topics
+const request = require('./v6/request')
+const response = require('./v6/response')
+_tmp_13.request = request({ replicaId, isolationLevel, maxWaitTime, minBytes, maxBytes, topics })

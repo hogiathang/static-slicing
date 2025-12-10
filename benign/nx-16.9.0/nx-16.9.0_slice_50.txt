@@ -1,0 +1,83 @@
+function versionHandler = async function versionHandler(args) {
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true });
+    const nxJson = (0, nx_json_1.readNxJson)();
+    if (args.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    // Apply default configuration to any optional user configuration
+    const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release);
+    const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups);
+    if (releaseGroupsData.error) {
+        return await (0, create_release_groups_1.handleCreateReleaseGroupsError)(releaseGroupsData.error);
+    }
+    const tree = new tree_1.FsTree(devkit_exports_1.workspaceRoot, args.verbose);
+    let { releaseGroups } = releaseGroupsData;
+    /**
+     * User is filtering to a subset of projects. We need to make sure that what they have provided can be reconciled
+     * against their configuration in terms of release...
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true })
+const nxJson = (0, nx_json_1.readNxJson)()
+args.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release)
+const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups)
+releaseGroupsData.error
+const tree = new tree_1.FsTree(devkit_exports_1.workspaceRoot, args.verbose)
+releaseGroups = _tmp_2.releaseGroups
+args.projects.length
+const matchingProjectsForFilter = (0, find_matching_projects_1.findMatchingProjects)(args.projects, projectGraph.nodes)
+!matchingProjectsForFilter.length
+devkit_exports_1.output.error({
+                title: `Your --projects filter "${args.projects}" did not match any projects in the workspace`,
+            })
+_tmp_4.title = <operator>.formatString("Your --projects filter "", args.projects, "" did not match any projects in the workspace")
+process.exit(1)
+const filteredProjectToReleaseGroup = new Map()
+const releaseGroupToFilteredProjects = new Map()
+_iterator_0 = <operator>.iterator(releaseGroups)
+const matchingProjectsForReleaseGroup = (0, find_matching_projects_1.findMatchingProjects)(releaseGroup.projects, projectGraph.nodes)
+_iterator_1 = <operator>.iterator(matchingProjectsForFilter)
+matchingProjectsForReleaseGroup.includes(matchingProject)
+filteredProjectToReleaseGroup.set(matchingProject, releaseGroup)
+!releaseGroupToFilteredProjects.has(releaseGroup)
+releaseGroupToFilteredProjects.set(releaseGroup, new Set())
+releaseGroupToFilteredProjects.get(releaseGroup).add(matchingProject)
+Object.keys(nxReleaseConfig.groups).length
+const unmatchedProjects = matchingProjectsForFilter.filter((p) => !filteredProjectToReleaseGroup.has(p))
+unmatchedProjects.length
+devkit_exports_1.output.error({
+                    title: `The following projects which match your projects filter "${args.projects}" did not match any configured release groups:`,
+                    bodyLines: unmatchedProjects.map((p) => `- ${p}`),
+                })
+_tmp_10.title = <operator>.formatString("The following projects which match your projects filter "", args.projects, "" did not match any configured release groups:")
+_tmp_10.bodyLines = unmatchedProjects.map((p) => `- ${p}`)
+process.exit(1)
+devkit_exports_1.output.note({
+            title: `Your filter "${args.projects}" matched the following projects:`,
+            bodyLines: matchingProjectsForFilter.map((p) => {
+                const releaseGroupForProject = filteredProjectToReleaseGroup.get(p);
+                if (releaseGroupForProject.name === create_release_groups_1.CATCH_ALL_RELEASE_GROUP) {
+                    return `- ${p}`;
+                }
+                return `- ${p} (release group "${releaseGroupForProject.name}")`;
+            }),
+        })
+_tmp_12.title = <operator>.formatString("Your filter "", args.projects, "" matched the following projects:")
+_tmp_12.bodyLines = matchingProjectsForFilter.map((p) => {
+                const releaseGroupForProject = filteredProjectToReleaseGroup.get(p);
+                if (releaseGroupForProject.name === create_release_groups_1.CATCH_ALL_RELEASE_GROUP) {
+                    return `- ${p}`;
+                }
+                return `- ${p} (release group "${releaseGroupForProject.name}")`;
+            })
+releaseGroups = releaseGroups.filter((rg) => releaseGroupToFilteredProjects.has(rg))
+_iterator_2 = <operator>.iterator(releaseGroups)
+const releaseGroupName = releaseGroup.name
+const generatorData = resolveGeneratorData({
+                ...extractGeneratorCollectionAndName(`release-group "${releaseGroupName}"`, releaseGroup.version.generator),
+                configGeneratorOptions: releaseGroup.version.generatorOptions,
+            })
+...extractGeneratorCollectionAndName(`release-group "${releaseGroupName}"`, releaseGroup.version.generator)
+_tmp_13.configGeneratorOptions = releaseGroup.version.generatorOptions
+const semverSpecifier = await resolveSemverSpecifier(args.specifier, `What kind of change is this for the ${releaseGroupToFilteredProjects.get(releaseGroup).size} matched project(s) within release group "${releaseGroupName}"?`, `What is the exact version for the ${releaseGroupToFilteredProjects.get(releaseGroup).size} matched project(s) within release group "${releaseGroupName}"?`)
+await runVersionOnProjects(projectGraph, nxJson, args, tree, generatorData, Array.from(releaseGroupToFilteredProjects.get(releaseGroup)), semverSpecifier)

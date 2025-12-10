@@ -1,0 +1,33 @@
+super._commit(err => {
+      if (err) return callback(err)
+
+      debug('transaction(%d): commit', IDS.get(this))
+
+      const req = new Request(this)
+      req.stream = false
+      req.query('commit tran', err => {
+        if (err) err = new TransactionError(err)
+
+        this.parent.release(this._acquiredConnection)
+        this._acquiredConnection = null
+        this._acquiredConfig = null
+
+        if (!err) debug('transaction(%d): commited', IDS.get(this))
+
+        callback(null)
+      })
+    })
+debug('transaction(%d): commit', IDS.get(this))
+const req = new Request(this)
+req.stream = false
+req.query('commit tran', err => {
+        if (err) err = new TransactionError(err)
+
+        this.parent.release(this._acquiredConnection)
+        this._acquiredConnection = null
+        this._acquiredConfig = null
+
+        if (!err) debug('transaction(%d): commited', IDS.get(this))
+
+        callback(null)
+      })

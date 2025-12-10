@@ -1,0 +1,25 @@
+function (request, response, next) {
+    // These config values should be up to date on every request
+    const client = injector.get('config.client')
+    const customContextFile = injector.get('config.customContextFile')
+    const customDebugFile = injector.get('config.customDebugFile')
+    const customClientContextFile = injector.get('config.customClientContextFile')
+    const includeCrossOriginAttribute = injector.get('config.crossOriginAttribute')
+
+    const normalizedUrl = stripHost(request.url) || request.url
+    // For backwards compatibility in middleware plugins, remove in v4.
+    request.normalizedUrl = normalizedUrl
+
+    let requestUrl = normalizedUrl.replace(/\?.*/, '')
+    const requestedRangeHeader = request.headers.range
+
+    // redirect /__karma__ to /__karma__ (trailing slash)
+    if (requestUrl === urlRoot.slice(0, -1)) {
+      response.setHeader('Location', proxyPath + urlRoot.slice(1))
+      response.writeHead(301)
+      return response.end('MOVED PERMANENTLY')
+ ...
+const client = injector.get('config.client')
+const customContextFile = injector.get('config.customContextFile')
+const customDebugFile = injector.get('config.customDebugFile')
+const customClientContextFile = injector.get('config.customClientContextFile')

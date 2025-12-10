@@ -1,0 +1,2 @@
+_tmp_6.getInt8 = getInt8
+get(this, 1, byteOffset)[0] << 24 >> 24

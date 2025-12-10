@@ -1,0 +1,102 @@
+const Client = function (host, port, prefix, suffix, globalize, cacheDns, mock,
+    globalTags, maxBufferSize, bufferFlushInterval, telegraf, sampleRate, protocol) {
+  let options = host || {};
+
+  // Adding options below is DEPRECATED.  Use the options object instead.
+  if (arguments.length > 1 || typeof(host) === 'string') {
+    options = {
+      host        : host,
+      port        : port,
+      prefix      : prefix,
+      suffix      : suffix,
+      globalize   : globalize,
+      cacheDns    : cacheDns,
+      mock        : mock === true,
+      globalTags  : globalTags,
+      maxBufferSize : maxBufferSize,
+      bufferFlushInterval: bufferFlushInterval,
+      telegraf    : telegraf,
+      sampleRate  : sampleRate,
+      protocol    : protocol
+    };
+  }
+
+
+  // hidden global_tags option for backwards compatibility
+  options.globalTags = options.globalTags || options.global_tags;
+
+  this.protocol = (options.protocol && options.protocol.toLowerCase());
+  if (! this.protocol) {
+    this.pr...
+let options = host || {}
+arguments.length > 1 || typeof(host) === 'string'
+options = {
+      host        : host,
+      port        : port,
+      prefix      : prefix,
+      suffix      : suffix,
+      globalize   : globalize,
+      cacheDns    : cacheDns,
+      mock        : mock === true,
+      globalTags  : globalTags,
+      maxBufferSize : maxBufferSize,
+      bufferFlushInterval: bufferFlushInterval,
+      telegraf    : telegraf,
+      sampleRate  : sampleRate,
+      protocol    : protocol
+    }
+_tmp_10.host = host
+_tmp_10.port = port
+_tmp_10.prefix = prefix
+_tmp_10.suffix = suffix
+_tmp_10.globalize = globalize
+_tmp_10.cacheDns = cacheDns
+_tmp_10.mock = mock === true
+_tmp_10.globalTags = globalTags
+_tmp_10.maxBufferSize = maxBufferSize
+_tmp_10.bufferFlushInterval = bufferFlushInterval
+_tmp_10.telegraf = telegraf
+_tmp_10.sampleRate = sampleRate
+_tmp_10.protocol = protocol
+options.globalTags = options.globalTags || options.global_tags
+this.protocol = (options.protocol && options.protocol.toLowerCase())
+! this.protocol
+this.protocol = PROTOCOL.UDP
+this.cacheDns = options.cacheDns === true
+this.cacheDnsTtl = options.cacheDnsTtl || CACHE_DNS_TTL_DEFAULT
+this.host = options.host || process.env.DD_AGENT_HOST
+this.port = options.port || parseInt(process.env.DD_DOGSTATSD_PORT, 10) || 8125
+this.path = options.path
+this.stream = options.stream
+this.prefix = options.prefix || ''
+this.suffix = options.suffix || ''
+this.tagPrefix = options.tagPrefix || '#'
+this.tagSeparator = options.tagSeparator || ','
+this.mock        = options.mock
+this.globalTags  = typeof options.globalTags === 'object' ?
+      helpers.formatTags(options.globalTags, options.telegraf) : []
+helpers.formatTags(options.globalTags, options.telegraf)
+const availableDDEnvs = Object.keys(DD_ENV_GLOBAL_TAGS_MAPPING).filter(key => process.env[key])
+availableDDEnvs.length > 0
+this.globalTags = this.globalTags.
+      filter((item) => !availableDDEnvs.some(env => item.startsWith(`${DD_ENV_GLOBAL_TAGS_MAPPING[env]}:`))).
+      concat(availableDDEnvs.map(env => `${DD_ENV_GLOBAL_TAGS_MAPPING[env]}:${helpers.sanitizeTags(process.env[env])}`))
+!availableDDEnvs.some(env => item.startsWith(`${DD_ENV_GLOBAL_TAGS_MAPPING[env]}:`))
+<operator>.formatString("", DD_ENV_GLOBAL_TAGS_MAPPING[env], ":", helpers.sanitizeTags(process.env[env]), "")
+this.telegraf = options.telegraf || false
+this.maxBufferSize = options.maxBufferSize || 0
+this.sampleRate = options.sampleRate || 1
+this.bufferFlushInterval = options.bufferFlushInterval || 1000
+this.bufferHolder = options.isChild ? options.bufferHolder : { buffer: '' }
+this.errorHandler = options.errorHandler
+this.tcpGracefulErrorHandling = 'tcpGracefulErrorHandling' in options ? options.tcpGracefulErrorHandling : true
+this.tcpGracefulRestartRateLimit = options.tcpGracefulRestartRateLimit || TCP_DEFAULT_GRACEFUL_RESTART_LIMIT
+this.udsGracefulErrorHandling = 'udsGracefulErrorHandling' in options ? options.udsGracefulErrorHandling : true
+this.udsGracefulRestartRateLimit = options.udsGracefulRestartRateLimit || UDS_DEFAULT_GRACEFUL_RESTART_LIMIT
+this.isChild = options.isChild
+this.closingFlushInterval = options.closingFlushInterval || 50
+this.udpSocketOptions = options.udpSocketOptions || { type: 'udp4' }
+this.mock
+__ecma.Array.factory()
+!options.isChild && this.maxBufferSize > 0
+this.intervalHandle = setInterval(this.onBufferFlushInterval.bind(this), this.bufferFlushInterval)

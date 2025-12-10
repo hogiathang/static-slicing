@@ -1,0 +1,20 @@
+error => {
+        if (connect.retry(error)) {
+          return;
+        }
+
+        this.connecting = false;
+
+        if (error) {
+          logger.debug('exhausted retries. Main error', connect.mainError());
+          this.emit('error', connect.mainError());
+          return;
+        }
+
+        this.ready = true;
+        this.emit('ready');
+      }
+connect.retry(error)
+this.connecting = false
+this.ready = true
+this.emit('ready')

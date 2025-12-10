@@ -1,0 +1,34 @@
+function getUpdatedSelectionState = function getUpdatedSelectionState(editorState, anchorKey, anchorOffset, focusKey, focusOffset) {
+  var selection = nullthrows(editorState.getSelection());
+
+  if (!anchorKey || !focusKey) {
+    // If we cannot make sense of the updated selection state, stick to the current one.
+    if (process.env.NODE_ENV !== "production") {
+      /* eslint-disable-next-line */
+      console.warn('Invalid selection state.', arguments, editorState.toJS());
+    }
+
+    return selection;
+  }
+
+  var anchorPath = DraftOffsetKey.decode(anchorKey);
+  var anchorBlockKey = anchorPath.blockKey;
+  var anchorLeafBlockTree = editorState.getBlockTree(anchorBlockKey);
+  var anchorLeaf = anchorLeafBlockTree && anchorLeafBlockTree.getIn([anchorPath.decoratorKey, 'leaves', anchorPath.leafKey]);
+  var focusPath = DraftOffsetKey.decode(focusKey);
+  var focusBlockKey = focusPath.blockKey;
+  var focusLeafBlockTree = editorState.getBlockTree(focusBlockKey);
+  var focusLeaf = focusLeafBlockTree && focusLeafBlockTree.getIn([...
+var selection = nullthrows(editorState.getSelection())
+!anchorKey || !focusKey
+var anchorPath = DraftOffsetKey.decode(anchorKey)
+var anchorBlockKey = anchorPath.blockKey
+var anchorLeafBlockTree = editorState.getBlockTree(anchorBlockKey)
+var anchorLeaf = anchorLeafBlockTree && anchorLeafBlockTree.getIn([anchorPath.decoratorKey, 'leaves', anchorPath.leafKey])
+var focusPath = DraftOffsetKey.decode(focusKey)
+var focusBlockKey = focusPath.blockKey
+var focusLeafBlockTree = editorState.getBlockTree(focusBlockKey)
+var focusLeaf = focusLeafBlockTree && focusLeafBlockTree.getIn([focusPath.decoratorKey, 'leaves', focusPath.leafKey])
+!anchorLeaf || !focusLeaf
+var anchorLeafStart = anchorLeaf.get('start')
+var focusLeafStart = focusLeaf.get('start')

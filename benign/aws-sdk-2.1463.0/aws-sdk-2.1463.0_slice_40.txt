@@ -1,0 +1,15 @@
+_tmp_0.wait = wait
+typeof params === 'function'
+params = undefined
+params && params.$waiter
+params = AWS.util.copy(params)
+typeof params.$waiter.delay === 'number'
+this.config.delay = params.$waiter.delay
+typeof params.$waiter.maxAttempts === 'number'
+this.config.maxAttempts = params.$waiter.maxAttempts
+delete params.$waiter
+var request = this.service.makeRequest(this.config.operation, params)
+request._waiter = this
+request.response.maxRetries = this.config.maxAttempts
+request.addListeners(this.listeners)
+request.send(callback)

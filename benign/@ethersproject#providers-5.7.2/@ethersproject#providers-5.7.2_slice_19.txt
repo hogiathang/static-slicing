@@ -1,0 +1,19 @@
+(error) => {
+            this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: this
+            });
+            throw error;
+        }
+this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: this
+            })
+_tmp_82.action = "response"
+_tmp_82.error = error
+_tmp_82.request = request
+_tmp_82.provider = this

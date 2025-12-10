@@ -1,0 +1,34 @@
+function versionHandler = async function versionHandler(args) {
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true });
+    const nxJson = (0, nx_json_1.readNxJson)();
+    if (args.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    // Apply default configuration to any optional user configuration
+    const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release);
+    const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups);
+    if (releaseGroupsData.error) {
+        return await (0, create_release_groups_1.handleCreateReleaseGroupsError)(releaseGroupsData.error);
+    }
+    const tree = new tree_1.FsTree(devkit_exports_1.workspaceRoot, args.verbose);
+    let { releaseGroups } = releaseGroupsData;
+    /**
+     * User is filtering to a subset of projects. We need to make sure that what they have provided can be reconciled
+     * against their configuration in terms of release...
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true })
+const nxJson = (0, nx_json_1.readNxJson)()
+args.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release)
+const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups)
+releaseGroupsData.error
+const tree = new tree_1.FsTree(devkit_exports_1.workspaceRoot, args.verbose)
+releaseGroups = _tmp_2.releaseGroups
+args.projects.length
+const matchingProjectsForFilter = (0, find_matching_projects_1.findMatchingProjects)(args.projects, projectGraph.nodes)
+!matchingProjectsForFilter.length
+devkit_exports_1.output.error({
+                title: `Your --projects filter "${args.projects}" did not match any projects in the workspace`,
+            })
+_tmp_4.title = <operator>.formatString("Your --projects filter "", args.projects, "" did not match any projects in the workspace")
+process.exit(1)

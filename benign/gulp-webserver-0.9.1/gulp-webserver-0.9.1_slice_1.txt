@@ -1,0 +1,140 @@
+module.exports = function(options) {
+
+  var defaults = {
+
+    /**
+     *
+     * BASIC DEFAULTS
+     *
+     **/
+
+    host: 'localhost',
+    port: 8000,
+    path: '/',
+    fallback: false,
+    https: false,
+    open: false,
+
+    /**
+     *
+     * MIDDLEWARE DEFAULTS
+     *
+     * NOTE:
+     *  All middleware should defaults should have the 'enable'
+     *  property if you want to support shorthand syntax like:
+     *
+     *    webserver({
+     *      livereload: true
+     *    });
+     *
+     */
+
+    // Middleware: Livereload
+    livereload: {
+      enable: false,
+      port: 35729,
+      filter: function (filename) {
+        if (filename.match(/node_modules/)) {
+          return false;
+        } else { return true; }
+      }
+    },
+
+    // Middleware: Directory listing
+    // For possible options, see:
+    //  https://github.com/expressjs/serve-index
+    directoryListing: {
+      enable: false,
+      path: './',
+      options: undefined
+    },
+
+    // Middleware: Proxy
+    // For pos...
+var defaults = {
+
+    /**
+     *
+     * BASIC DEFAULTS
+     *
+     **/
+
+    host: 'localhost',
+    port: 8000,
+    path: '/',
+    fallback: false,
+    https: false,
+    open: false,
+
+    /**
+     *
+     * MIDDLEWARE DEFAULTS
+     *
+     * NOTE:
+     *  All middleware should defaults should have the 'enable'
+     *  property if you want to support shorthand syntax like:
+     *
+     *    webserver({
+     *      livereload: true
+     *    });
+     *
+     */
+
+    // Middleware: Livereload
+    livereload: {
+      enable: false,
+      port: 35729,
+      filter: function (filename) {
+        if (filename.match(/node_modules/)) {
+          return false;
+        } else { return true; }
+      }
+    },
+
+    // Middleware: Directory listing
+    // For possible options, see:
+    //  https://github.com/expressjs/serve-index
+    directoryListing: {
+      enable: false,
+      path: './',
+      options: undefined
+    },
+
+    // Middleware: Proxy
+    // For possible options, see:
+    //  https://github.c...
+_tmp_0.host = "localhost"
+_tmp_0.port = 8000
+_tmp_0.path = "/"
+_tmp_0.fallback = false
+_tmp_0.https = false
+_tmp_0.open = false
+_tmp_0.livereload = {
+      enable: false,
+      port: 35729,
+      filter: function (filename) {
+        if (filename.match(/node_modules/)) {
+          return false;
+        } else { return true; }
+      }
+    }
+_tmp_1.enable = false
+_tmp_1.port = 35729
+_tmp_1.filter = <lambda>1
+_tmp_0.directoryListing = {
+      enable: false,
+      path: './',
+      options: undefined
+    }
+_tmp_2.enable = false
+_tmp_2.path = "./"
+_tmp_2.options = undefined
+_tmp_0.proxies = __ecma.Array.factory()
+var config = enableMiddlewareShorthand(defaults, options, [
+    'directoryListing',
+    'livereload'
+  ])
+_tmp_3.push("directoryListing")
+_tmp_3.push("livereload")
+typeof config.open === 'string' && config.open.length > 0 && config.open.indexOf('http') !== 0
+config.open = (config.open.indexOf('/') !== 0 ? '/' : '') + config.open

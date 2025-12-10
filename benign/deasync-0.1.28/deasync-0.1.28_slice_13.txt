@@ -1,0 +1,113 @@
+var cp = require('child_process')
+var fs = require('fs')
+var path = require('path')
+var force = false
+var debug = false
+var arch = process.arch
+var platform = process.platform
+var nodeV = /[0-9]+\.[0-9]+/.exec(process.versions.node)[0]
+var nodeVM = /[0-9]+/.exec(process.versions.node)[0]
+var args = process.argv.slice(2).filter(function (arg) {
+  if (arg === '-f') {
+    force = true;
+    return false;
+  } else if (arg.substring(0, 13) === '--target_arch') {
+    arch = arg.substring(14);
+  } else if (arg === '--debug') {
+    debug = true;
+  }
+  return true;
+})
+(_tmp_8 = {
+    ia32: true,
+    x64: true,
+    arm: true,
+    arm64: true,
+    ppc64: true,
+    ppc: true,
+    s390x: true,
+    mips64el: true,
+    loong64: true,
+  }).hasOwnProperty
+_tmp_9.ia32 = true
+_tmp_9.x64 = true
+_tmp_9.arm = true
+_tmp_9.arm64 = true
+_tmp_9.ppc64 = true
+_tmp_9.ppc = true
+_tmp_9.s390x = true
+_tmp_9.mips64el = true
+_tmp_9.loong64 = true
+hasOwnProperty
+console.error('Unsupported (?) architecture: `' + arch + '`')
+process.exit(1)
+var modPath = platform + '-' + arch + '-node-' + nodeV
+!force
+fs.statSync(path.join(__dirname, 'bin', modPath, 'deasync.node'))
+modPath = platform + '-' + arch + '-node-' + nodeVM
+fs.statSync(path.join(__dirname, 'bin', modPath, 'deasync.node'))
+console.log('`' + modPath + '` exists; testing')
+cp.execFile(
+      process.execPath,
+      ['quick-test.js'],
+      function (err, stdout, stderr) {
+        if (err || stderr) {
+          console.log('Problem with the binary; manual build incoming');
+          console.log('stdout=' + stdout);
+          console.log('err=' + err);
+          build();
+        } else {
+          console.log('Binary is fine; exiting');
+        }
+      }
+    )
+process.execPath
+_tmp_10 = __ecma.Array.factory()
+<lambda>2
+function build = function build() {
+  cp.spawn(
+    process.platform === 'win32' ? 'node-gyp.cmd' : 'node-gyp',
+    ['rebuild'].concat(args),
+    {
+      stdio: 'inherit',
+    }
+  ).on('exit', function (err) {
+    if (err) {
+      if (err === 127) {
+        console.error(
+          'node-gyp not found! Please upgrade your install of npm! You need at least 1.1.5 (I think) ' +
+            'and preferably 1.1.30.'
+        );
+      } else {
+        console.error('Build failed');
+      }
+      return process.exit(err);
+    }
+    afterBuild();
+  });
+}
+function afterBuild = function afterBuild() {
+  var targetPath = path.join(
+    __dirname,
+    'build',
+    debug ? 'Debug' : 'Release',
+    'deasync.node'
+  );
+  var installPath = path.join(__dirname, 'bin', modPath, 'deasync.node');
+
+  try {
+    fs.mkdirSync(path.join(__dirname, 'bin'));
+  } catch (ex) {}
+  try {
+    fs.mkdirSync(path.join(__dirname, 'bin', modPath));
+  } catch (ex) {}
+
+  try {
+    fs.statSync(targetPath);
+  } catch (ex) {
+    console.error('Build succeeded but target not found');
+    process.exit(1);
+  }
+  fs.renameSync(targetPath, installPath);
+  console.log('Installed in `' + installPath + '`');
+}

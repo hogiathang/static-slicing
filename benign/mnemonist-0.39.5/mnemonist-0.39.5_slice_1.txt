@@ -1,0 +1,38 @@
+function set = function set(key, value) {
+
+  // First we need to attempt to see if the relation is not flawed
+  if (this.items.has(key)) {
+    var currentValue = this.items.get(key);
+
+    // The relation already exists, we do nothing
+    if (currentValue === value)
+      return this;
+    else
+      this.inverse.items.delete(currentValue);
+  }
+
+  if (this.inverse.items.has(value)) {
+    var currentKey = this.inverse.items.get(value);
+
+    if (currentKey === key)
+      return this;
+    else
+      this.items.delete(currentKey);
+  }
+
+  // Here we actually add the relation
+  this.items.set(key, value);
+  this.inverse.items.set(value, key);
+
+  // Size
+  this.size = this.items.size;
+  this.inverse.size = this.inverse.items.size;
+
+  return this;
+}
+(_tmp_5 = this.items).has
+var currentValue = this.items.get(key)
+currentValue === value
+this.inverse.items.delete(currentValue)
+(_tmp_8 = this.inverse.items).has
+var currentKey = this.inverse.items.get(value)

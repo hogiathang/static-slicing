@@ -1,0 +1,26 @@
+promise.value = new Promise((resolve, reject) => {
+      try {
+        const _target = shared.toValue(target);
+        if (_target == null) {
+          resolve("");
+        } else if (typeof _target === "string") {
+          resolve(blobToBase64(new Blob([_target], { type: "text/plain" })));
+        } else if (_target instanceof Blob) {
+          resolve(blobToBase64(_target));
+        } else if (_target instanceof ArrayBuffer) {
+          resolve(window.btoa(String.fromCharCode(...new Uint8Array(_target))));
+        } else if (_target instanceof HTMLCanvasElement) {
+          resolve(_target.toDataURL(options == null ? void 0 : options.type, options == null ? void 0 : options.quality));
+        } else if (_target instanceof HTMLImageElement) {
+          const img = _target.cloneNode(false);
+          img.crossOrigin = "Anonymous";
+          imgLoaded(img).then(() => {
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+     ...
+const _target = shared.toValue(target)
+_target == null
+typeof _target === "string"
+_target instanceof Blob
+_target instanceof ArrayBuffer
+resolve(window.btoa(String.fromCharCode(...new Uint8Array(_target))))

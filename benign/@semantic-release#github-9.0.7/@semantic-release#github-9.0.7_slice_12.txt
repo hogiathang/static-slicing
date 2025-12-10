@@ -1,0 +1,99 @@
+function publish = async function publish(pluginConfig, context, { Octokit }) {
+  const {
+    cwd,
+    options: { repositoryUrl },
+    branch,
+    nextRelease: { name, gitTag, notes },
+    logger,
+  } = context;
+  const {
+    githubToken,
+    githubUrl,
+    githubApiPathPrefix,
+    proxy,
+    assets,
+    draftRelease,
+  } = resolveConfig(pluginConfig, context);
+  const { owner, repo } = parseGithubUrl(repositoryUrl);
+  const octokit = new Octokit(
+    toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    }),
+  );
+  const release = {
+    owner,
+    repo,
+    tag_name: gitTag,
+    target_commitish: branch.name,
+    name,
+    body: notes,
+    prerelease: isPrerelease(branch),
+  };
+
+  debug("release object: %O", release);
+
+  const draftReleaseOptions = { ...release, draft: true };
+
+  // When there are no assets, we publish a release directly.
+  if (!assets || assets.length === 0) {
+    // If draftRelease is true we create a draft release instead.
+    if (draftR...
+_tmp_0 = context
+cwd = _tmp_0.cwd
+_tmp_1.repositoryUrl = repositoryUrl
+branch = _tmp_0.branch
+_tmp_2.gitTag = gitTag
+logger = _tmp_0.logger
+_tmp_3 = resolveConfig(pluginConfig, context)
+githubToken = _tmp_3.githubToken
+githubUrl = _tmp_3.githubUrl
+githubApiPathPrefix = _tmp_3.githubApiPathPrefix
+proxy = _tmp_3.proxy
+assets = _tmp_3.assets
+draftRelease = _tmp_3.draftRelease
+resolveConfig(pluginConfig, context)
+_tmp_4 = parseGithubUrl(repositoryUrl)
+const octokit = new Octokit(
+    toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    }),
+  )
+toOctokitOptions({
+      githubToken,
+      githubUrl,
+      githubApiPathPrefix,
+      proxy,
+    })
+_tmp_6.githubToken = githubToken
+_tmp_6.githubUrl = githubUrl
+_tmp_6.githubApiPathPrefix = githubApiPathPrefix
+_tmp_6.proxy = proxy
+const release = {
+    owner,
+    repo,
+    tag_name: gitTag,
+    target_commitish: branch.name,
+    name,
+    body: notes,
+    prerelease: isPrerelease(branch),
+  }
+_tmp_7.owner = owner
+_tmp_7.repo = repo
+_tmp_7.tag_name = gitTag
+_tmp_7.target_commitish = branch.name
+_tmp_7.name = name
+_tmp_7.body = notes
+_tmp_7.prerelease = isPrerelease(branch)
+debug("release object: %O", release)
+const draftReleaseOptions = { ...release, draft: true }
+!assets || assets.length === 0
+await octokit.request(
+        "POST /repos/{owner}/{repo}/releases",
+        draftReleaseOptions,
+      )

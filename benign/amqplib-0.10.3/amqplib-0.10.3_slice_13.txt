@@ -1,0 +1,14 @@
+this.accept = function(f) {
+    if (f.id === defs.ConnectionCloseOk) {
+      if (k) k();
+      var s = stackCapture('ConnectionCloseOk received');
+      this.toClosed(s, undefined);
+    }
+    else if (f.id === defs.ConnectionClose) {
+      send(0, defs.ConnectionCloseOk, {});
+    }
+    // else ignore frame
+  }
+f.id === defs.ConnectionCloseOk
+f.id === defs.ConnectionClose
+send(0, defs.ConnectionCloseOk, {})

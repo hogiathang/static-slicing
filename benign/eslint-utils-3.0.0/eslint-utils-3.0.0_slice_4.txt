@@ -1,0 +1,21 @@
+*execAll(str) {
+        const { pattern, escaped } = internal.get(this);
+        let match = null;
+        let lastIndex = 0;
+
+        pattern.lastIndex = 0;
+        while ((match = pattern.exec(str)) != null) {
+            if (escaped || !isEscaped(str, match.index)) {
+                lastIndex = pattern.lastIndex;
+                yield match;
+                pattern.lastIndex = lastIndex;
+            }
+        }
+    }
+_tmp_87 = internal.get(this)
+let match = null
+let lastIndex = 0
+pattern.lastIndex = 0
+(match = pattern.exec(str)) != null
+escaped || !isEscaped(str, match.index)
+pattern.lastIndex = lastIndex

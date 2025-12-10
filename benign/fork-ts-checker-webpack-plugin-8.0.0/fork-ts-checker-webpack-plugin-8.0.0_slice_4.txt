@@ -1,0 +1,20 @@
+function readDir = function readDir(path) {
+    const normalizedPath = (0, path_1.normalize)(path);
+    if (!readDirCache.has(normalizedPath)) {
+        const stats = readStats(normalizedPath);
+        if (stats && stats.isDirectory()) {
+            readDirCache.set(normalizedPath, fs.readdirSync(normalizedPath, { withFileTypes: true }));
+        }
+        else {
+            readDirCache.set(normalizedPath, []);
+        }
+    }
+    return readDirCache.get(normalizedPath) || [];
+}
+const normalizedPath = (0, path_1.normalize)(path)
+!readDirCache.has(normalizedPath)
+const stats = readStats(normalizedPath)
+stats && stats.isDirectory()
+readDirCache.set(normalizedPath, fs.readdirSync(normalizedPath, { withFileTypes: true }))
+readDirCache.set(normalizedPath, [])
+readDirCache.get(normalizedPath) || []

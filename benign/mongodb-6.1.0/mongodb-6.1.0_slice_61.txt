@@ -1,0 +1,68 @@
+function processIncomingData = function processIncomingData(stream: MessageStream, callback: Callback<Buffer>): void {
+  const buffer = stream[kBuffer];
+  const sizeOfMessage = buffer.getInt32();
+
+  if (sizeOfMessage == null) {
+    return callback();
+  }
+
+  if (sizeOfMessage < 0) {
+    return callback(new MongoParseError(`Invalid message size: ${sizeOfMessage}`));
+  }
+
+  if (sizeOfMessage > stream.maxBsonMessageSize) {
+    return callback(
+      new MongoParseError(
+        `Invalid message size: ${sizeOfMessage}, max allowed: ${stream.maxBsonMessageSize}`
+      )
+    );
+  }
+
+  if (sizeOfMessage > buffer.length) {
+    return callback();
+  }
+
+  const message = buffer.read(sizeOfMessage);
+  const messageHeader: MessageHeader = {
+    length: message.readInt32LE(0),
+    requestId: message.readInt32LE(4),
+    responseTo: message.readInt32LE(8),
+    opCode: message.readInt32LE(12)
+  };
+
+  const monitorHasAnotherHello = () => {
+    if (stream.isMonitoringConnection) {
+      // Can we read the next message size?
+      co...
+const buffer = stream[kBuffer]
+const sizeOfMessage = buffer.getInt32()
+sizeOfMessage == null
+sizeOfMessage < 0
+sizeOfMessage > stream.maxBsonMessageSize
+sizeOfMessage > buffer.length
+const message = buffer.read(sizeOfMessage)
+const messageHeader: MessageHeader = {
+    length: message.readInt32LE(0),
+    requestId: message.readInt32LE(4),
+    responseTo: message.readInt32LE(8),
+    opCode: message.readInt32LE(12)
+  }
+_tmp_2.length = message.readInt32LE(0)
+_tmp_2.requestId = message.readInt32LE(4)
+_tmp_2.responseTo = message.readInt32LE(8)
+_tmp_2.opCode = message.readInt32LE(12)
+const monitorHasAnotherHello = () => {
+    if (stream.isMonitoringConnection) {
+      // Can we read the next message size?
+      const sizeOfMessage = buffer.getInt32();
+      if (sizeOfMessage != null && sizeOfMessage <= buffer.length) {
+        return true;
+      }
+    }
+    return false;
+  }
+let ResponseType = messageHeader.opCode === OP_MSG ? BinMsg : Response
+messageHeader.opCode !== OP_COMPRESSED
+const messageBody = message.subarray(MESSAGE_HEADER_SIZE)
+monitorHasAnotherHello()
+stream.emit('message', new ResponseType(message, messageHeader, messageBody))

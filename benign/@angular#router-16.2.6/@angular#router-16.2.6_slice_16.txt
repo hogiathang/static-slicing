@@ -1,0 +1,25 @@
+loadComponent(route) {
+        if (this.componentLoaders.get(route)) {
+            return this.componentLoaders.get(route);
+        }
+        else if (route._loadedComponent) {
+            return of(route._loadedComponent);
+        }
+        if (this.onLoadStartListener) {
+            this.onLoadStartListener(route);
+        }
+        const loadRunner = wrapIntoObservable(route.loadComponent())
+            .pipe(map(maybeUnwrapDefaultExport), tap(component => {
+            if (this.onLoadEndListener) {
+                this.onLoadEndListener(route);
+            }
+            (typeof ngDevMode === 'undefined' || ngDevMode) &&
+                assertStandalone(route.path ?? '', component);
+            route._loadedComponent = component;
+        }), finalize(() => {
+            this.componentLoaders.delete(route);
+        }));
+        // Use custom ConnectableObservable as share in runners pipe increasing the bundle size too much
+        const loader = new ConnectableObservable(loadRunne...
+(_tmp_564 = this.componentLoaders).get
+(_tmp_565 = this.componentLoaders).get

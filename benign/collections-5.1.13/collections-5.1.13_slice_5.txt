@@ -1,0 +1,23 @@
+PropertyChanges.prototype.getOwnPropertyChangeDescriptor = function (key) {
+    var objectPropertyChangeDescriptors = ObjectsPropertyChangeListeners.get(this), keyChangeDescriptor;
+    if (!objectPropertyChangeDescriptors) {
+        objectPropertyChangeDescriptors = Object.create(null);
+        ObjectsPropertyChangeListeners.set(this,objectPropertyChangeDescriptors);
+    }
+    if ( (keyChangeDescriptor = objectPropertyChangeDescriptors[key]) === void 0) {
+        var propertyName = ObjectChangeDescriptorName.get(key);
+        if(!propertyName) {
+            propertyName = String(key);
+            propertyName = propertyName && propertyName[0].toUpperCase() + propertyName.slice(1);
+            ObjectChangeDescriptorName.set(key,propertyName);
+        }
+        return objectPropertyChangeDescriptors[key] = new ObjectChangeDescriptor(propertyName);
+    }
+    else return keyChangeDescriptor;
+}
+var objectPropertyChangeDescriptors = ObjectsPropertyChangeListeners.get(this)
+!objectPropertyChangeDescriptors
+objectPropertyChangeDescriptors = Object.create(null)
+ObjectsPropertyChangeListeners.set(this,objectPropertyChangeDescriptors)
+(keyChangeDescriptor = objectPropertyChangeDescriptors[key]) === void 0
+var propertyName = ObjectChangeDescriptorName.get(key)

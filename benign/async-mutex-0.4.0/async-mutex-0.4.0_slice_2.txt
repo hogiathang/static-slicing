@@ -1,0 +1,6 @@
+new Promise(function (resolve, reject) {
+                sync.waitForUnlock(weight).then(resolve);
+                setTimeout(function () { return reject(timeoutError); }, timeout);
+            })
+(_tmp_24 = sync.waitForUnlock(weight)).then
+setTimeout(function () { return reject(timeoutError); }, timeout)

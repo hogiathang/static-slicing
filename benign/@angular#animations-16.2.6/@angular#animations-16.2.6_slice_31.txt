@@ -1,0 +1,27 @@
+function consumeOffset = function consumeOffset(styles) {
+    if (typeof styles == 'string')
+        return null;
+    let offset = null;
+    if (Array.isArray(styles)) {
+        styles.forEach(styleTuple => {
+            if (styleTuple instanceof Map && styleTuple.has('offset')) {
+                const obj = styleTuple;
+                offset = parseFloat(obj.get('offset'));
+                obj.delete('offset');
+            }
+        });
+    }
+    else if (styles instanceof Map && styles.has('offset')) {
+        const obj = styles;
+        offset = parseFloat(obj.get('offset'));
+        obj.delete('offset');
+    }
+    return offset;
+}
+typeof styles == 'string'
+let offset = null
+Array.isArray(styles)
+styles instanceof Map && styles.has('offset')
+const obj = styles
+offset = parseFloat(obj.get('offset'))
+obj.delete('offset')

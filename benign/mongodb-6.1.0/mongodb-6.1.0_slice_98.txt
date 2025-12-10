@@ -1,0 +1,9 @@
+srvMaxHosts = srvMaxHosts === void 0 ? 0 : srvMaxHosts
+const incomingHostnames = ev.hostnames()
+const currentHostnames = new Set(this.servers.keys())
+const hostnamesToAdd = new Set<string>(incomingHostnames)
+const hostnamesToRemove = new Set<string>()
+_iterator_4 = <operator>.iterator(currentHostnames)
+hostnamesToAdd.delete(hostname)
+!incomingHostnames.has(hostname)
+hostnamesToRemove.add(hostname)

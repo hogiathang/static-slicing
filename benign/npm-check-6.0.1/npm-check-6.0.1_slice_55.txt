@@ -1,0 +1,41 @@
+inquirer.prompt(questions).then(answers => {
+        const packagesToUpdate = answers.packages;
+        const isYarn = currentState.get('installer') === 'yarn';
+        const saveExact = currentState.get('saveExact');
+
+        if (!packagesToUpdate || !packagesToUpdate.length) {
+            console.log('No packages selected for update.');
+            return false;
+        }
+
+        const saveDependencies = packagesToUpdate
+            .filter(pkg => !pkg.devDependency)
+            .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact));
+
+        const saveDevDependencies = packagesToUpdate
+            .filter(pkg => pkg.devDependency)
+            .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact));
+
+        const updatedPackages = packagesToUpdate
+            .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact)).join(', ');
+
+        if (!currentState.get('global')) {
+            if (saveDependencies.le...
+const packagesToUpdate = answers.packages
+const isYarn = currentState.get('installer') === 'yarn'
+const saveExact = currentState.get('saveExact')
+!packagesToUpdate || !packagesToUpdate.length
+const saveDependencies = packagesToUpdate
+            .filter(pkg => !pkg.devDependency)
+            .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact))
+!pkg.devDependency
+buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact)
+const saveDevDependencies = packagesToUpdate
+            .filter(pkg => pkg.devDependency)
+            .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact))
+pkg.devDependency
+buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact)
+const updatedPackages = packagesToUpdate
+            .map(pkg => buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact)).join(', ')
+buildPackageToUpdate(pkg.moduleName, pkg.latest, isYarn, saveExact)
+!currentState.get('global')

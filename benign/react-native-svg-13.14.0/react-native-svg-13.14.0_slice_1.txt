@@ -1,0 +1,16 @@
+_tmp_66.enter = enter
+_tmp_67 = node
+property = _tmp_67.property
+value = _tmp_67.value
+important = _tmp_67.important
+const name = property.trim()
+const camel = (0, _xml.camelCase)(name)
+const val = _cssTree.default.generate(value).trim()
+_iterator_3 = <operator>.iterator(matched)
+_tmp_70 = element
+style = _tmp_70.style
+priority = _tmp_70.priority
+const current = priority.get(name)
+current === undefined || current < important
+priority.set(name, important)
+style[camel] = val

@@ -1,0 +1,30 @@
+(_tmp_0 = tree.map(function (leafSet, ii) {
+      var decoratorKey = leafSet.get('decoratorKey');
+      var leavesForLeafSet = leafSet.get('leaves');
+      var lastLeaf = leavesForLeafSet.size - 1;
+      var Leaves = leavesForLeafSet.map(function (leaf, jj) {
+        var offsetKey = DraftOffsetKey.encode(blockKey, ii, jj);
+        var start = leaf.get('start');
+        var end = leaf.get('end');
+        return React.createElement(DraftEditorLeaf, {
+          key: offsetKey,
+          offsetKey: offsetKey,
+          block: block,
+          start: start,
+          selection: hasSelection ? selection : null,
+          forceSelection: forceSelection,
+          text: text.slice(start, end),
+          styleSet: block.getInlineStyleAt(start),
+          customStyleMap: customStyleMap,
+          customStyleFn: customStyleFn,
+          isLast: decoratorKey === lastLeafSet && jj === lastLeaf
+        });
+      }).toArray();
+
+      if (!decoratorKey || !decorator) {
+        return Leaves;
+      }
+
+      r...).toArray
+var decoratorKey = leafSet.get('decoratorKey')
+var leavesForLeafSet = leafSet.get('leaves')

@@ -1,0 +1,22 @@
+function removeTemporaryFolderAndContent = function removeTemporaryFolderAndContent(folder) {
+    if (!folder) return;
+    if (NODE_VERSION_MAJOR <= 14) {
+      if (NODE_VERSION_MAJOR <= 10) {
+        // folder must be empty
+        for (const f of fs.readdirSync(folder)) {
+          fs.unlinkSync(path.join(folder, f));
+        }
+        fs.rmdirSync(folder);
+      } else {
+        fs.rmdirSync(folder, { recursive: true });
+      }
+    } else {
+      fs.rmSync(folder, { recursive: true });
+    }
+  }
+!folder
+NODE_VERSION_MAJOR <= 14
+NODE_VERSION_MAJOR <= 10
+_iterator_2 = <operator>.iterator(fs.readdirSync(folder))
+fs.unlinkSync(path.join(folder, f))
+fs.rmdirSync(folder)

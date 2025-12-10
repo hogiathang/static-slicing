@@ -1,0 +1,32 @@
+enumerateExportsOfModule(specifier, fromFile) {
+    const entryPointFile = this.moduleResolver.resolveModule(specifier, fromFile);
+    if (entryPointFile === null) {
+      return { module: null, exportMap: null };
+    }
+    const exports = this.reflectionHost.getExportsOfModule(entryPointFile);
+    if (exports === null) {
+      return { module: entryPointFile, exportMap: null };
+    }
+    const exportMap = /* @__PURE__ */ new Map();
+    for (const [name, declaration] of exports) {
+      if (exportMap.has(declaration.node)) {
+        const existingExport = exportMap.get(declaration.node);
+        if (isNamedDeclaration(declaration.node) && declaration.node.name.text === existingExport) {
+          continue;
+        }
+      }
+      exportMap.set(declaration.node, name);
+    }
+    return { module: entryPointFile, exportMap };
+  }
+const entryPointFile = this.moduleResolver.resolveModule(specifier, fromFile)
+entryPointFile === null
+const exports = this.reflectionHost.getExportsOfModule(entryPointFile)
+exports === null
+const exportMap = /* @__PURE__ */ new Map()
+_iterator_2 = <operator>.iterator(exports)
+exportMap.has(declaration.node)
+const existingExport = exportMap.get(declaration.node)
+isNamedDeclaration(declaration.node) && declaration.node.name.text === existingExport
+continue;
+exportMap.set(declaration.node, name)

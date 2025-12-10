@@ -1,0 +1,153 @@
+build() {
+    let patch = this.calculatePatch();
+
+    // We skip building if this is a rebuild with a zero-length patch
+    if (patch.length === 0) {
+      return;
+    }
+
+    let root = this.detectRootName();
+
+    let processedColocatedFiles = new Set();
+
+    for (let operation of patch) {
+      let [method, relativePath] = operation;
+
+      let filePathParts = path.parse(relativePath);
+
+      let isOutsideComponentsFolder = !relativePath.startsWith(`${root}/components/`);
+      let isPodsTemplate = filePathParts.name === 'template' && filePathParts.ext === '.hbs';
+      let isNotColocationExtension = !['.hbs', '.js', '.ts', '.coffee'].includes(filePathParts.ext);
+      let isDirectoryOperation = ['rmdir', 'mkdir'].includes(method);
+      let basePath = path.posix.join(filePathParts.dir, filePathParts.name);
+      let relativeTemplatePath = basePath + '.hbs';
+
+      // if the change in question has nothing to do with colocated templates
+      // just apply the patch to the outputPat...
+let patch = this.calculatePatch()
+patch.length === 0
+let root = this.detectRootName()
+let processedColocatedFiles = new Set()
+_iterator_0 = <operator>.iterator(patch)
+relativePath = _tmp_11[1]
+let filePathParts = path.parse(relativePath)
+let isOutsideComponentsFolder = !relativePath.startsWith(`${root}/components/`)
+let isPodsTemplate = filePathParts.name === 'template' && filePathParts.ext === '.hbs'
+let isNotColocationExtension = !['.hbs', '.js', '.ts', '.coffee'].includes(filePathParts.ext)
+let isDirectoryOperation = ['rmdir', 'mkdir'].includes(method)
+let basePath = path.posix.join(filePathParts.dir, filePathParts.name)
+let relativeTemplatePath = basePath + '.hbs'
+isOutsideComponentsFolder ||
+        isPodsTemplate ||
+        isNotColocationExtension ||
+        isDirectoryOperation
+<operator>.formatString("default operation for non-colocation modification: ", relativePath, "")
+FSTree.applyPatch(this.inputPaths[0], this.outputPath, [operation])
+continue;
+processedColocatedFiles.has(basePath)
+continue;
+processedColocatedFiles.add(basePath)
+let hasBackingClass = false
+let hasTemplate = this.inputHasFile(basePath + '.hbs')
+let backingClassPath = basePath
+this.inputHasFile(basePath + '.js')
+backingClassPath += '.js'
+hasBackingClass = true
+this.inputHasFile(basePath + '.ts')
+backingClassPath += '.ts'
+hasBackingClass = true
+this.inputHasFile(basePath + '.coffee')
+backingClassPath += '.coffee'
+hasBackingClass = true
+backingClassPath += '.js'
+hasBackingClass = false
+let originalJsContents = null
+let jsContents = null
+let prefix = ''
+let templatePath = path.join(this.inputPaths[0], basePath + '.hbs')
+let templateContents = fs.readFileSync(templatePath, { encoding: 'utf8' })
+let hbsInvocationOptions = {
+          contents: templateContents,
+          moduleName: relativeTemplatePath,
+          parseOptions: {
+            srcName: relativeTemplatePath,
+          },
+        }
+_tmp_19.contents = templateContents
+_tmp_19.moduleName = relativeTemplatePath
+_tmp_19.parseOptions = {
+            srcName: relativeTemplatePath,
+          }
+_tmp_20.srcName = relativeTemplatePath
+<operator>.formatString("hbs(", JSON.stringify(templateContents), ", ", JSON.stringify(
+          hbsInvocationOptions
+        ), ")")
+<operator>.formatString("import { hbs } from 'ember-cli-htmlbars';\nconst __COLOCATED_TEMPLATE__ = ", hbsInvocation, ";\n")
+backingClassPath.endsWith('.coffee')
+<operator>.formatString("import { hbs } from 'ember-cli-htmlbars'\n__COLOCATED_TEMPLATE__ = ", hbsInvocation, "\n")
+jsContents = originalJsContents = fs.readFileSync(
+          path.join(this.inputPaths[0], backingClassPath),
+          {
+            encoding: 'utf8',
+          }
+        )
+path.join(this.inputPaths[0], backingClassPath)
+_tmp_21.encoding = "utf8"
+hasTemplate && jsContents.includes('export { default }')
+<operator>.formatString("\`", backingClassPath, "\` contains an \`export { default }\` re-export, but it has a co-located template. You must explicitly extend the component to assign it a different template.")
+<operator>.formatString("", jsContents, "\nthrow new Error(", JSON.stringify(message), ");")
+prefix = ''
+hasTemplate && !jsContents.includes('export default')
+<operator>.formatString("\`", backingClassPath, "\` does not contain a \`default export\`. Did you forget to export the component class?")
+<operator>.formatString("", jsContents, "\nthrow new Error(", JSON.stringify(message), ");")
+prefix = ''
+jsContents = `import templateOnly from '@ember/component/template-only';\n\nexport default templateOnly();\n`
+jsContents = prefix + jsContents
+let jsOutputPath = path.join(this.outputPath, backingClassPath)
+"unlink"
+filePathParts.ext === '.hbs' && hasBackingClass
+fs.writeFileSync(jsOutputPath, originalJsContents, { encoding: 'utf8' })
+<operator>.formatString("removing colocated template for: ", basePath, "")
+filePathParts.ext !== '.hbs' && hasTemplate
+fs.writeFileSync(jsOutputPath, jsContents, { encoding: 'utf8' })
+logger.debug(
+              `converting colocated template with backing class to template only: ${basePath}`
+            )
+<operator>.formatString("converting colocated template with backing class to template only: ", basePath, "")
+fs.unlinkSync(jsOutputPath)
+typeof e === 'object' && e !== null && e.code === 'ENOENT'
+throw e;
+break;
+"change"
+"create"
+fs.writeFileSync(jsOutputPath, jsContents, { encoding: 'utf8' })
+logger.debug(
+            `writing colocated template: ${basePath} (template-only: ${!hasBackingClass})`
+          )
+<operator>.formatString("writing colocated template: ", basePath, " (template-only: ", !hasBackingClass, ")")
+break;
+default:
+throw new Error(
+            `ember-cli-htmlbars: Unexpected operation when patching files for colocation.\n\tOperation:\n${JSON.stringify(
+              [method, relativePath]
+            )}\n\tKnown files:\n${JSON.stringify(
+              this.currentEntries().map((e) => e.relativePath),
+              null,
+              2
+            )}`
+          );
+<operator>.formatString("ember-cli-htmlbars: Unexpected operation when patching files for colocation.\n\tOperation:\n", JSON.stringify(
+              [method, relativePath]
+            ), "\n\tKnown files:\n", JSON.stringify(
+              this.currentEntries().map((e) => e.relativePath),
+              null,
+              2
+            ), "")
+_tmp_26 = __ecma.Array.factory()
+JSON.stringify(
+              this.currentEntries().map((e) => e.relativePath),
+              null,
+              2
+            )
+this.currentEntries().map((e) => e.relativePath)
+2

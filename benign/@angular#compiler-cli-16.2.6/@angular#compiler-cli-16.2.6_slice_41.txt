@@ -1,0 +1,14 @@
+getSymbolByName(path, identifier) {
+    if (!this.files.has(path)) {
+      return null;
+    }
+    const file = this.files.get(path);
+    if (!file.has(identifier)) {
+      return null;
+    }
+    return file.get(identifier);
+  }
+(_tmp_548 = this.files).has
+const file = this.files.get(path)
+!file.has(identifier)
+file.get(identifier)

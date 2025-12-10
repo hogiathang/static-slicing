@@ -1,0 +1,30 @@
+function copyBodySync = function copyBodySync(src, dst) {
+    var buffer = Buffer.allocUnsafe(MAX_BUFFER);
+    var bytesRead = MAX_BUFFER;
+    var pos = 0;
+
+    var input = fs.openSync(src, "r");
+    try {
+        var output = fs.openSync(dst, "w");
+        try {
+            while (MAX_BUFFER === bytesRead) {
+                bytesRead = fs.readSync(input, buffer, 0, MAX_BUFFER, pos);
+                fs.writeSync(output, buffer, 0, bytesRead);
+                pos += bytesRead;
+            }
+        } finally {
+            fs.closeSync(output);
+        }
+    } finally {
+        fs.closeSync(input);
+    }
+}
+var buffer = Buffer.allocUnsafe(MAX_BUFFER)
+var bytesRead = MAX_BUFFER
+var pos = 0
+var input = fs.openSync(src, "r")
+var output = fs.openSync(dst, "w")
+MAX_BUFFER === bytesRead
+bytesRead = fs.readSync(input, buffer, 0, MAX_BUFFER, pos)
+fs.writeSync(output, buffer, 0, bytesRead)
+pos += bytesRead

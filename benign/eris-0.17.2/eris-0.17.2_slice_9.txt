@@ -1,0 +1,29 @@
+const get = async (_before, _after) => {
+                const messages = await this.requestHandler.request("GET", Endpoints.CHANNEL_MESSAGES(channelID), true, {
+                    limit: 100,
+                    before: _before || undefined,
+                    after: _after || undefined
+                });
+                if(limit <= messages.length) {
+                    return (_after ? messages.slice(messages.length - limit, messages.length).map((message) => new Message(message, this)).concat(logs) : logs.concat(messages.slice(0, limit).map((message) => new Message(message, this))));
+                }
+                limit -= messages.length;
+                logs = (_after ? messages.map((message) => new Message(message, this)).concat(logs) : logs.concat(messages.map((message) => new Message(message, this))));
+                if(messages.length < 100) {
+                    return logs;
+                }
+                this.emit("debug", `Getting ${limit} more messages during getMes...
+const messages = await this.requestHandler.request("GET", Endpoints.CHANNEL_MESSAGES(channelID), true, {
+                    limit: 100,
+                    before: _before || undefined,
+                    after: _after || undefined
+                })
+_tmp_434.limit = 100
+_tmp_434.before = _before || undefined
+_tmp_434.after = _after || undefined
+limit <= messages.length
+limit -= messages.length
+logs = (_after ? messages.map((message) => new Message(message, this)).concat(logs) : logs.concat(messages.map((message) => new Message(message, this))))
+messages.length < 100
+<operator>.formatString("Getting ", limit, " more messages during getMessages for ", channelID, ": ", _before, " ", _after, "")
+get((_before || !_after) && messages[messages.length - 1].id, _after && messages[0].id)

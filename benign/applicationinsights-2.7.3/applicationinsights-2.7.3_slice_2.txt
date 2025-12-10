@@ -1,0 +1,52 @@
+function InternalAzureLogger = function InternalAzureLogger() {
+        var _this = this;
+        this.TAG = "Logger";
+        this._cleanupTimeOut = 60 * 30 * 1000; // 30 minutes;
+        this._tempDir = "";
+        this._logFileName = "";
+        this._fileFullPath = "";
+        this._backUpNameFormat = "";
+        this._logToFile = false;
+        this._logToConsole = true;
+        var logDestination = process.env.APPLICATIONINSIGHTS_LOG_DESTINATION; // destination can be one of file, console or file+console
+        if (logDestination == "file+console") {
+            this._logToFile = true;
+        }
+        if (logDestination == "file") {
+            this._logToFile = true;
+            this._logToConsole = false;
+        }
+        this.maxSizeBytes = 50000;
+        this.maxHistory = 1;
+        this._logFileName = "applicationinsights.log";
+        // If custom path not provided use temp folder, /tmp for *nix and USERDIR/AppData/Local/Temp for Windows
+        var logFilePath = process.env....
+var _this = this
+this.TAG = "Logger"
+this._cleanupTimeOut = 60 * 30 * 1000
+this._tempDir = ""
+this._logFileName = ""
+this._fileFullPath = ""
+this._backUpNameFormat = ""
+this._logToFile = false
+this._logToConsole = true
+var logDestination = process.env.APPLICATIONINSIGHTS_LOG_DESTINATION
+logDestination == "file+console"
+this._logToFile = true
+logDestination == "file"
+this._logToFile = true
+this._logToConsole = false
+this.maxSizeBytes = 50000
+this.maxHistory = 1
+this._logFileName = "applicationinsights.log"
+var logFilePath = process.env.APPLICATIONINSIGHTS_LOGDIR
+!logFilePath
+this._tempDir = path.join(os.tmpdir(), "appInsights-node")
+path.isAbsolute(logFilePath)
+this._tempDir = logFilePath
+this._tempDir = path.join(process.cwd(), logFilePath)
+this._fileFullPath = path.join(this._tempDir, this._logFileName)
+this._backUpNameFormat = "." + this._logFileName
+this._logToFile
+!InternalAzureLogger._fileCleanupTimer
+InternalAzureLogger._fileCleanupTimer = setInterval(function () { _this._fileCleanupTask(); }, this._cleanupTimeOut)

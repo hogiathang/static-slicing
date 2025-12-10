@@ -1,0 +1,30 @@
+this[QUEUE].push(function (next) {
+                if (stat && stat.isDirectory()) {
+                    fs.rmdir(path, function (err) {
+                        if (err == null) {
+                            _this3.emit("remove", { path: path });
+                        }
+
+                        lastError = err;
+                        next();
+                    });
+                } else {
+                    fs.unlink(path, function (err) {
+                        if (err == null) {
+                            _this3.emit("remove", { path: path });
+                        }
+
+                        lastError = err;
+                        next();
+                    });
+                }
+            })
+stat && stat.isDirectory()
+fs.unlink(path, function (err) {
+                        if (err == null) {
+                            _this3.emit("remove", { path: path });
+                        }
+
+                        lastError = err;
+                        next();
+                    })

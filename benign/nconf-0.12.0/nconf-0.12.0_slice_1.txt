@@ -1,0 +1,41 @@
+var fs    = require('fs')
+var path  = require('path')
+var nconf = require('./lib/nconf')
+var single = new nconf.Provider({
+  env: true,
+  argv: true,
+  store: {
+    type: 'file',
+    file: path.join(__dirname, 'config.json')
+  }
+})
+_tmp_1.env = true
+_tmp_1.argv = true
+_tmp_1.store = {
+    type: 'file',
+    file: path.join(__dirname, 'config.json')
+  }
+_tmp_2.type = "file"
+_tmp_2.file = path.join(__dirname, 'config.json')
+var multiple = new nconf.Provider({
+  stores: [
+    { name: 'user', type: 'file', file: path.join(__dirname, 'user-config.json') },
+    { name: 'global', type: 'global', file: path.join(__dirname, 'global-config.json') }
+  ]
+})
+_tmp_4.stores = [
+    { name: 'user', type: 'file', file: path.join(__dirname, 'user-config.json') },
+    { name: 'global', type: 'global', file: path.join(__dirname, 'global-config.json') }
+  ]
+_tmp_5.push({ name: 'user', type: 'file', file: path.join(__dirname, 'user-config.json') })
+_tmp_5.push({ name: 'global', type: 'global', file: path.join(__dirname, 'global-config.json') })
+nconf.use('file', { file: path.join(__dirname, 'config.json') })
+nconf.set('database:host', '127.0.0.1')
+nconf.set('database:port', 5984)
+var database = nconf.get('database')
+console.dir(database)
+nconf.save(function (err) {
+  fs.readFile(path.join(__dirname, 'config.json'), function (err, data) {
+    console.dir(JSON.parse(data.toString()))
+  });
+})

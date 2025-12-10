@@ -1,0 +1,17 @@
+const parent = path.findParent(currentNode => {
+                if (currentNode.type !== 'CallExpression') {
+                  return false
+                }
+
+                return (
+                  currentNode.get('callee').node.name === globalOptions.createReactClassName ||
+                  (currentNode.get('callee').node.property &&
+                    currentNode.get('callee').node.property.name === 'createClass')
+                )
+              })
+currentNode.type !== 'CallExpression'
+currentNode.get('callee').node.name === globalOptions.createReactClassName ||
+                  (currentNode.get('callee').node.property &&
+                    currentNode.get('callee').node.property.name === 'createClass')
+currentNode.get('callee').node.property &&
+                    currentNode.get('callee').node.property.name === 'createClass'

@@ -1,0 +1,2 @@
+_tmp_108.exit = exit1
+get(file, "runtime") === "classic" || shouldUseCreateElement(path)

@@ -1,0 +1,34 @@
+function findHoistedNode = function findHoistedNode(packageName, versionMap, combinedDeps) {
+    const hoistedVersion = getHoistedVersion(packageName);
+    if (hoistedVersion) {
+        return versionMap.get(hoistedVersion);
+    }
+    const rootVersionSpecifier = combinedDeps[packageName];
+    if (!rootVersionSpecifier) {
+        return;
+    }
+    const versions = Array.from(versionMap.keys()).sort((a, b) => (0, semver_1.gt)(a, b) ? -1 : 1);
+    // take the highest version found
+    if (rootVersionSpecifier === '*') {
+        return versionMap.get(versions[0]);
+    }
+    // take version that satisfies the root version specifier
+    let version = versions.find((v) => (0, semver_1.satisfies)(v, rootVersionSpecifier));
+    if (!version) {
+        // try to find alias version
+        version = versions.find((v) => versionMap.get(v).name === `npm:${packageName}@${rootVersionSpecifier}`);
+    }
+    if (!version) {
+        // try to find tarball package
+        version = versions.find((v) => versionMap.get(v).data.v...
+const hoistedVersion = getHoistedVersion(packageName)
+const rootVersionSpecifier = combinedDeps[packageName]
+!rootVersionSpecifier
+const versions = Array.from(versionMap.keys()).sort((a, b) => (0, semver_1.gt)(a, b) ? -1 : 1)
+rootVersionSpecifier === '*'
+let version = versions.find((v) => (0, semver_1.satisfies)(v, rootVersionSpecifier))
+!version
+version = versions.find((v) => versionMap.get(v).name === `npm:${packageName}@${rootVersionSpecifier}`)
+!version
+version = versions.find((v) => versionMap.get(v).data.version !== v)
+versionMap.get(version)

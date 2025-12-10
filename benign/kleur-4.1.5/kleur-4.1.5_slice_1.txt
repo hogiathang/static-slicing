@@ -1,0 +1,10 @@
+function (txt) {
+		if (this !== void 0 && this.has !== void 0) {
+			!!~this.has.indexOf(open) || (this.has.push(open),this.keys.push(blk));
+			return txt === void 0 ? this : $.enabled ? run(this.keys, txt+'') : txt+'';
+		}
+		return txt === void 0 ? chain([open], [blk]) : $.enabled ? run([blk], txt+'') : txt+'';
+	}
+this !== void 0 && this.has !== void 0
+!!~this.has.indexOf(open) || (this.has.push(open),this.keys.push(blk))
+txt === void 0 ? this : $.enabled ? run(this.keys, txt+'') : txt+''

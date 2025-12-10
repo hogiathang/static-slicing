@@ -1,0 +1,24 @@
+var parse = exports.parse = function (content, file, type) {
+  content = '' + content
+  // if we don't know what it is, try json and fall back to ini
+  // if we know what it is, then it must be that.
+  if (!type) {
+    try { return JSON.parse(content) }
+    catch (er) { return ini.parse(content) }
+  } else if (type === 'json') {
+    if (this.emit) {
+      try { return JSON.parse(content) }
+      catch (er) { this.emit('error', er) }
+    } else {
+      return JSON.parse(content)
+    }
+  } else {
+    return ini.parse(content)
+  }
+}
+content = '' + content
+!type
+type === 'json'
+this.emit
+JSON.parse(content)
+this.emit('error', er)

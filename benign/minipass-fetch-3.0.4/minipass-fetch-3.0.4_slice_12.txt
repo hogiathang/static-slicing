@@ -1,0 +1,69 @@
+req.on('response', res => {
+      clearTimeout(reqTimeout)
+
+      const headers = createHeadersLenient(res.headers)
+
+      // HTTP fetch step 5
+      if (fetch.isRedirect(res.statusCode)) {
+        // HTTP fetch step 5.2
+        const location = headers.get('Location')
+
+        // HTTP fetch step 5.3
+        let locationURL = null
+        try {
+          locationURL = location === null ? null : new URL(location, request.url).toString()
+        } catch {
+          // error here can only be invalid URL in Location: header
+          // do not throw when options.redirect == manual
+          // let the user extract the errorneous redirect URL
+          if (request.redirect !== 'manual') {
+            /* eslint-disable-next-line max-len */
+            reject(new FetchError(`uri requested responds with an invalid redirect URL: ${location}`, 'invalid-redirect'))
+            finalize()
+            return
+          }
+        }
+
+        // HTTP fetch step 5.5
+        if (request.redirect === '...
+clearTimeout(reqTimeout)
+const headers = createHeadersLenient(res.headers)
+fetch.isRedirect(res.statusCode)
+const location = headers.get('Location')
+let locationURL = null
+locationURL = location === null ? null : new URL(location, request.url).toString()
+request.redirect !== 'manual'
+request.redirect === 'error'
+request.redirect === 'manual'
+request.redirect === 'follow' && locationURL !== null
+request.counter >= request.follow
+res.statusCode !== 303 &&
+              request.body &&
+              getTotalBytes(request) === null
+request.body
+getTotalBytes(request) === null
+request.headers.set('host', (new URL(locationURL)).host)
+const requestOpts = {
+            headers: new Headers(request.headers),
+            follow: request.follow,
+            counter: request.counter + 1,
+            agent: request.agent,
+            compress: request.compress,
+            method: request.method,
+            body: request.body,
+            signal: request.signal,
+            timeout: request.timeout,
+          }
+_tmp_36.headers = new Headers(request.headers)
+_tmp_36.follow = request.follow
+_tmp_36.counter = request.counter + 1
+_tmp_36.agent = request.agent
+_tmp_36.compress = request.compress
+_tmp_36.method = request.method
+_tmp_36.body = request.body
+_tmp_36.signal = request.signal
+_tmp_36.timeout = request.timeout
+const parsedOriginal = new URL(request.url)
+const parsedRedirect = new URL(locationURL)
+parsedOriginal.hostname !== parsedRedirect.hostname
+requestOpts.headers.delete('authorization')

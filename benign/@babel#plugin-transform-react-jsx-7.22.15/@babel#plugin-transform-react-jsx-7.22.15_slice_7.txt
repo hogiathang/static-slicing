@@ -1,0 +1,10 @@
+function buildJSXFragmentCall = function buildJSXFragmentCall(path, file) {
+      const args = [get(file, "id/fragment")()];
+      const children = _core.types.react.buildChildren(path.node);
+      args.push(_core.types.objectExpression(children.length > 0 ? [buildChildrenProperty(children)] : []));
+      if (development) {
+        args.push(path.scope.buildUndefinedNode(), _core.types.booleanLiteral(children.length > 1));
+      }
+      return call(file, children.length > 1 ? "jsxs" : "jsx", args);
+    }
+const args = [get(file, "id/fragment")()]

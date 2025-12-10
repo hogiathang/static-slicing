@@ -1,0 +1,10 @@
+configsExistInSubdirs = configsExistInSubdirs === void 0 ? false : configsExistInSubdirs
+_tmp_30 = internalSlotsMap.get(this)
+baseConfigArray = _tmp_30.baseConfigArray
+configArrayFactory = _tmp_30.configArrayFactory
+configCache = _tmp_30.configCache
+cwd = _tmp_30.cwd
+useEslintrc = _tmp_30.useEslintrc
+internalSlotsMap.get(this)
+!useEslintrc
+let configArray = configCache.get(directoryPath)

@@ -1,0 +1,4 @@
+_tmp_16.value = generateCacheKey
+type = type || "upload"
+resourceType = resourceType || "image"
+var sha1 = crypto.createHash('sha1')

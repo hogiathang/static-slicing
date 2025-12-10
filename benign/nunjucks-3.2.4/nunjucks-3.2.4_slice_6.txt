@@ -1,0 +1,45 @@
+_proto.getSource = function getSource(name) {
+    var fullpath = null;
+    var paths = this.searchPaths;
+    for (var i = 0; i < paths.length; i++) {
+      var basePath = path.resolve(paths[i]);
+      var p = path.resolve(paths[i], name);
+
+      // Only allow the current directory and anything
+      // underneath it to be searched
+      if (p.indexOf(basePath) === 0 && fs.existsSync(p)) {
+        fullpath = p;
+        break;
+      }
+    }
+    if (!fullpath) {
+      return null;
+    }
+    this.pathsToNames[fullpath] = name;
+    var source = {
+      src: fs.readFileSync(fullpath, 'utf-8'),
+      path: fullpath,
+      noCache: this.noCache
+    };
+    this.emit('load', name, source);
+    return source;
+  }
+var fullpath = null
+var paths = this.searchPaths
+i < paths.length
+var basePath = path.resolve(paths[i])
+var p = path.resolve(paths[i], name)
+p.indexOf(basePath) === 0 && fs.existsSync(p)
+fullpath = p
+break;
+!fullpath
+this.pathsToNames[fullpath] = name
+var source = {
+      src: fs.readFileSync(fullpath, 'utf-8'),
+      path: fullpath,
+      noCache: this.noCache
+    }
+_tmp_7.src = fs.readFileSync(fullpath, 'utf-8')
+_tmp_7.path = fullpath
+_tmp_7.noCache = this.noCache
+this.emit('load', name, source)

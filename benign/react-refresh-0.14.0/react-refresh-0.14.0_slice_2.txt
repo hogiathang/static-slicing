@@ -1,0 +1,21 @@
+_tmp_22.CallExpression = <lambda>5
+var node = path.node
+var callee = node.callee
+var name = null
+callee.type
+"Identifier"
+name = callee.name
+break;
+"MemberExpression"
+name = callee.property.name
+break;
+name === null || !/^use[A-Z]/.test(name)
+var fnScope = path.scope.getFunctionParent()
+fnScope === null
+var fnNode = fnScope.block
+!hookCalls.has(fnNode)
+hookCalls.set(fnNode, [])
+var hookCallsForFn = hookCalls.get(fnNode)
+var key = ''
+path.parent.type === 'VariableDeclarator'
+(_tmp_25 = path.parentPath.get('id')).getSource

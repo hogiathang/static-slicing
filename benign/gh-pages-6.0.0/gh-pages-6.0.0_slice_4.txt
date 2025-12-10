@@ -1,0 +1,36 @@
+function copyFile = function copyFile(obj, callback) {
+  let called = false;
+  function done(err) {
+    if (!called) {
+      called = true;
+      callback(err);
+    }
+  }
+
+  const read = fs.createReadStream(obj.src);
+  read.on('error', (err) => {
+    done(err);
+  });
+
+  const write = fs.createWriteStream(obj.dest);
+  write.on('error', (err) => {
+    done(err);
+  });
+  write.on('close', () => {
+    done();
+  });
+
+  read.pipe(write);
+}
+let called = false
+function done = function done(err) {
+    if (!called) {
+      called = true;
+      callback(err);
+    }
+  }
+const read = fs.createReadStream(obj.src)
+read.on('error', (err) => {
+    done(err);
+  })
+const write = fs.createWriteStream(obj.dest)

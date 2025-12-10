@@ -1,0 +1,36 @@
+function spawn = function spawn(params, binary, callback) {
+  var pathBin = get('pathOpenSSL') || process.env.OPENSSL_BIN || 'openssl'
+
+  testOpenSSLPath(pathBin, function (err) {
+    if (err) {
+      return callback(err)
+    }
+    var openssl = cpspawn(pathBin, params)
+    var stderr = ''
+
+    var stdout = (binary ? Buffer.alloc(0) : '')
+    openssl.stdout.on('data', function (data) {
+      if (!binary) {
+        stdout += data.toString('binary')
+      } else {
+        stdout = Buffer.concat([stdout, data])
+      }
+    })
+
+    openssl.stderr.on('data', function (data) {
+      stderr += data.toString('binary')
+    })
+    // We need both the return code and access to all of stdout.  Stdout isn't
+    // *really* available until the close event fires; the timing nuance was
+    // making this fail periodically.
+    var needed = 2 // wait for both exit and close.
+    var code = -1
+    var finished = false
+    var done = function (err) {
+      if (finished) {
+        return
+      }
+
+      if (err) {
+     ...
+var pathBin = get('pathOpenSSL') || process.env.OPENSSL_BIN || 'openssl'

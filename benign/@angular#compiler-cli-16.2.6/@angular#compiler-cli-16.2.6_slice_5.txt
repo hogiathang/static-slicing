@@ -1,0 +1,49 @@
+indexTrait(ref, seenTypesWithReexports) {
+    var _a, _b, _c;
+    if (seenTypesWithReexports.has(ref.node)) {
+      return;
+    }
+    seenTypesWithReexports.set(ref.node, /* @__PURE__ */ new Set());
+    const meta = (_a = this.metaReader.getDirectiveMetadata(ref)) != null ? _a : this.metaReader.getNgModuleMetadata(ref);
+    if (meta === null) {
+      return;
+    }
+    if (meta.imports !== null) {
+      for (const childRef of meta.imports) {
+        this.indexTrait(childRef, seenTypesWithReexports);
+      }
+    }
+    if (meta.kind === MetaKind.NgModule) {
+      if (!this.ngModuleAuthoritativeReference.has(ref.node)) {
+        this.ngModuleAuthoritativeReference.set(ref.node, ref);
+      }
+      for (const childRef of meta.exports) {
+        this.indexTrait(childRef, seenTypesWithReexports);
+        const childMeta = (_c = (_b = this.metaReader.getDirectiveMetadata(childRef)) != null ? _b : this.metaReader.getPipeMetadata(childRef)) != null ? _c : this.metaReader.getNgModuleMetadata(c...
+seenTypesWithReexports.has(ref.node)
+seenTypesWithReexports.set(ref.node, /* @__PURE__ */ new Set())
+const meta = (_a = this.metaReader.getDirectiveMetadata(ref)) != null ? _a : this.metaReader.getNgModuleMetadata(ref)
+meta === null
+meta.imports !== null
+_iterator_32 = <operator>.iterator(meta.imports)
+this.indexTrait(childRef, seenTypesWithReexports)
+meta.kind === MetaKind.NgModule
+(_tmp_454 = this.ngModuleAuthoritativeReference).has
+this.ngModuleAuthoritativeReference.set(ref.node, ref)
+_iterator_33 = <operator>.iterator(meta.exports)
+this.indexTrait(childRef, seenTypesWithReexports)
+const childMeta = (_c = (_b = this.metaReader.getDirectiveMetadata(childRef)) != null ? _b : this.metaReader.getPipeMetadata(childRef)) != null ? _c : this.metaReader.getNgModuleMetadata(childRef)
+childMeta === null
+continue;
+childMeta.kind
+MetaKind.Directive
+MetaKind.Pipe
+this.updateWith(this.typeToExportingModules, childRef.node, ref.node)
+this.updateWith(seenTypesWithReexports, ref.node, childRef.node)
+break;
+MetaKind.NgModule
+seenTypesWithReexports.has(childRef.node)
+_iterator_34 = <operator>.iterator(seenTypesWithReexports.get(childRef.node))
+this.updateWith(this.typeToExportingModules, reexported, ref.node)
+this.updateWith(seenTypesWithReexports, ref.node, reexported)
+break;

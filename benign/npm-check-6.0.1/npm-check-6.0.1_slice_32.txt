@@ -1,0 +1,11 @@
+function set = function set(key, value) {
+        if (get('debug')) {
+            debug('set key', key, 'to value', value);
+        }
+
+        if (currentStateObject.hasOwnProperty(key)) {
+            currentStateObject[key] = value;
+        } else {
+            throw new Error('unknown option "' + key + '" setting to "' + (0, _stringify2.default)(value, false, 4) + '".');
+        }
+    }

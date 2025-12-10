@@ -1,0 +1,47 @@
+function parseStackLinesV8 = function parseStackLinesV8(streamIn, lines, ident) {
+  let at = "    at ";
+  if (streamIn.readFileSync && !lines[0].startsWith(at) && lines[1].startsWith(at)) {
+    for (let i = 1; i < lines.length; i++) {
+      let line = lines[i];
+      if (!line.startsWith(at))
+        continue;
+      line = line.slice(at.length);
+      while (true) {
+        let match = /^(?:new |async )?\S+ \((.*)\)$/.exec(line);
+        if (match) {
+          line = match[1];
+          continue;
+        }
+        match = /^eval at \S+ \((.*)\)(?:, \S+:\d+:\d+)?$/.exec(line);
+        if (match) {
+          line = match[1];
+          continue;
+        }
+        match = /^(\S+):(\d+):(\d+)$/.exec(line);
+        if (match) {
+          let contents;
+          try {
+            contents = streamIn.readFileSync(match[1], "utf8");
+          } catch {
+            break;
+          }
+          let lineText = contents.split(/\r\n|\r|\n|\u2028|\u2029/)[+match[2] - 1] || "";
+          let column = +match[3] - 1;
+          l...
+let at = "    at "
+streamIn.readFileSync && !lines[0].startsWith(at) && lines[1].startsWith(at)
+i < lines.length
+let line = lines[i]
+!line.startsWith(at)
+continue;
+line = line.slice(at.length)
+let match = /^(?:new |async )?\S+ \((.*)\)$/.exec(line)
+line = match[1]
+continue;
+match = /^eval at \S+ \((.*)\)(?:, \S+:\d+:\d+)?$/.exec(line)
+line = match[1]
+continue;
+match = /^(\S+):(\d+):(\d+)$/.exec(line)
+contents = streamIn.readFileSync(match[1], "utf8")
+break;
+break;

@@ -1,0 +1,32 @@
+function optionalDiscoverEndpoint = function optionalDiscoverEndpoint(request) {
+  var service = request.service;
+  var api = service.api;
+  var operationModel = api.operations ? api.operations[request.operation] : undefined;
+  var inputShape = operationModel ? operationModel.input : undefined;
+
+  var identifiers = marshallCustomIdentifiers(request, inputShape);
+  var cacheKey = getCacheKey(request);
+  if (Object.keys(identifiers).length > 0) {
+    cacheKey = util.update(cacheKey, identifiers);
+    if (operationModel) cacheKey.operation = operationModel.name;
+  }
+  var endpoints = AWS.endpointCache.get(cacheKey);
+  if (endpoints && endpoints.length === 1 && endpoints[0].Address === '') {
+    //endpoint operation is being made but response not yet received
+    //or endpoint operation just failed in 1 minute
+    return;
+  } else if (endpoints && endpoints.length > 0) {
+    //found endpoint record from cache
+    request.httpRequest.updateEndpoint(endpoints[0].Address);
+  } else {
+    //endpoint record not in cache or out...
+var service = request.service
+var api = service.api
+var operationModel = api.operations ? api.operations[request.operation] : undefined
+var inputShape = operationModel ? operationModel.input : undefined
+var identifiers = marshallCustomIdentifiers(request, inputShape)
+var cacheKey = getCacheKey(request)
+Object.keys(identifiers).length > 0
+cacheKey = util.update(cacheKey, identifiers)
+cacheKey.operation = operationModel.name
+var endpoints = AWS.endpointCache.get(cacheKey)

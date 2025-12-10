@@ -1,0 +1,92 @@
+var onUntab = function onUntab(blockMap, block) {
+  var key = block.getKey();
+  var parentKey = block.getParentKey();
+  var nextSiblingKey = block.getNextSiblingKey();
+
+  if (parentKey == null) {
+    return blockMap;
+  }
+
+  var parent = blockMap.get(parentKey);
+  var existingChildren = parent.getChildKeys();
+  var blockIndex = existingChildren.indexOf(key);
+
+  if (blockIndex === 0 || blockIndex === existingChildren.count() - 1) {
+    blockMap = DraftTreeOperations.moveChildUp(blockMap, key);
+  } else {
+    // split the block into [0, blockIndex] in parent & the rest in a new block
+    var prevChildren = existingChildren.slice(0, blockIndex + 1);
+    var nextChildren = existingChildren.slice(blockIndex + 1);
+    blockMap = blockMap.set(parentKey, parent.merge({
+      children: prevChildren
+    }));
+    var newBlock = new ContentBlockNode({
+      key: generateRandomKey(),
+      text: '',
+      depth: parent.getDepth(),
+      type: parent.getType(),
+      children: nextChildren,
+      pare...
+var key = block.getKey()
+var parentKey = block.getParentKey()
+var nextSiblingKey = block.getNextSiblingKey()
+parentKey == null
+var parent = blockMap.get(parentKey)
+var existingChildren = parent.getChildKeys()
+var blockIndex = existingChildren.indexOf(key)
+blockIndex === 0 || blockIndex === existingChildren.count() - 1
+blockMap = DraftTreeOperations.moveChildUp(blockMap, key)
+var prevChildren = existingChildren.slice(0, blockIndex + 1)
+var nextChildren = existingChildren.slice(blockIndex + 1)
+blockMap = blockMap.set(parentKey, parent.merge({
+      children: prevChildren
+    }))
+_tmp_27.children = prevChildren
+var newBlock = new ContentBlockNode({
+      key: generateRandomKey(),
+      text: '',
+      depth: parent.getDepth(),
+      type: parent.getType(),
+      children: nextChildren,
+      parent: parent.getParentKey()
+    })
+_tmp_29.key = generateRandomKey()
+_tmp_29.text = ""
+_tmp_29.depth = parent.getDepth()
+_tmp_29.type = parent.getType()
+_tmp_29.children = nextChildren
+_tmp_29.parent = parent.getParentKey()
+!(nextSiblingKey != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must have a next sibling here') : invariant(false) : void 0
+var blocks = blockMap.toSeq()
+blockMap = blocks.takeUntil(function (block) {
+      return block.getKey() === nextSiblingKey;
+    }).concat([[newBlock.getKey(), newBlock]], blocks.skipUntil(function (block) {
+      return block.getKey() === nextSiblingKey;
+    })).toOrderedMap()
+blocks.skipUntil(function (block) {
+      return block.getKey() === nextSiblingKey;
+    })
+toOrderedMap
+blockMap = blockMap.map(function (block) {
+      return nextChildren.includes(block.getKey()) ? block.merge({
+        parent: newBlock.getKey()
+      }) : block;
+    })
+blockMap = blockMap.set(key, block.merge({
+      nextSibling: null
+    })).set(nextSiblingKey, blockMap.get(nextSiblingKey).merge({
+      prevSibling: null
+    }))
+_tmp_36.nextSibling = null
+blockMap.get(nextSiblingKey).merge({
+      prevSibling: null
+    })
+_tmp_38.prevSibling = null
+var parentNextSiblingKey = parent.getNextSiblingKey()
+parentNextSiblingKey != null
+blockMap = DraftTreeOperations.updateSibling(blockMap, newBlock.getKey(), parentNextSiblingKey)
+blockMap = DraftTreeOperations.updateSibling(blockMap, parentKey, newBlock.getKey())
+blockMap = DraftTreeOperations.moveChildUp(blockMap, key)
+var childWasUntabbed = false
+parentKey != null
+var _parent = blockMap.get(parentKey)

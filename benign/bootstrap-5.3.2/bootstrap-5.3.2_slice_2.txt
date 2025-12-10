@@ -1,0 +1,4 @@
+_tmp_1.remove = remove
+!elementMap.has(element)
+const instanceMap = elementMap.get(element)
+instanceMap.delete(key)

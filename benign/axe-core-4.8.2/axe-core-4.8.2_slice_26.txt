@@ -1,0 +1,45 @@
+memoized = defineLength(function(arg) {
+            var id, result, args = arguments;
+            if (resolve) {
+              args = resolve(args);
+            }
+            id = get2(args);
+            if (id !== null) {
+              if (hasOwnProperty.call(cache2, id)) {
+                if (getListeners) {
+                  conf.emit('get', id, args, this);
+                }
+                return cache2[id];
+              }
+            }
+            if (args.length === 1) {
+              result = call.call(original, this, args[0]);
+            } else {
+              result = apply.call(original, this, args);
+            }
+            if (id === null) {
+              id = get2(args);
+              if (id !== null) {
+                throw customError('Circular invocation', 'CIRCULAR_INVOCATION');
+              }
+              id = set2(args);
+            } else if (hasOwnProperty.call(cache2, id)) {
+              throw customError('Circular invocation', 'CIRCULAR_INVOCATION');
+  ...
+var args = arguments
+args = resolve(args)
+id = get2(args)
+id !== null
+hasOwnProperty.call(cache2, id)
+args.length === 1
+result = call.call(original, this, args[0])
+result = apply.call(original, this, args)
+id === null
+id = get2(args)
+id !== null
+throw customError('Circular invocation', 'CIRCULAR_INVOCATION');
+id = set2(args)
+hasOwnProperty.call(cache2, id)
+throw customError('Circular invocation', 'CIRCULAR_INVOCATION');
+cache2[id] = result
+conf.emit('set', id, null, result)

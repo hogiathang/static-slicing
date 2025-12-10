@@ -1,0 +1,10 @@
+exports.calculateMac = function (type, credentials, options) {
+
+    const normalized = exports.generateNormalizedString(type, options);
+
+    const hmac = Crypto.createHmac(credentials.algorithm, credentials.key).update(normalized);
+    const digest = hmac.digest('base64');
+    return digest;
+}
+const normalized = exports.generateNormalizedString(type, options)
+const hmac = Crypto.createHmac(credentials.algorithm, credentials.key).update(normalized)

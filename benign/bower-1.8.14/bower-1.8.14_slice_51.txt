@@ -1,0 +1,28 @@
+function (request) {
+
+      Logger.debug('Received request: ' + JSON.stringify(request));
+
+      try {
+        var func = configuration.rpc[request.method];
+
+        if (func === undefined) {
+          Logger.error("Method " + request.method +
+            " not registered in client");
+        } else {
+          func(request.params, request);
+        }
+      } catch (err) {
+        Logger.error('Exception processing request: ' + JSON.stringify(
+          request));
+        Logger.error(err);
+      }
+    }
+Logger.debug('Received request: ' + JSON.stringify(request))
+var func = configuration.rpc[request.method]
+func === undefined
+Logger.error("Method " + request.method +
+            " not registered in client")
+" not registered in client"
+func(request.params, request)
+Logger.error('Exception processing request: ' + JSON.stringify(
+          request))

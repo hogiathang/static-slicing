@@ -1,0 +1,67 @@
+missingDependencies.forEach(function (missingDep) {
+          if (setStateRecommendation !== null) {
+            return;
+          }
+
+          var usedDep = dependencies.get(missingDep);
+          var references = usedDep.references;
+          var id;
+          var maybeCall;
+
+          for (var _i3 = 0; _i3 < references.length; _i3++) {
+            id = references[_i3].identifier;
+            maybeCall = id.parent; // Try to see if we have setState(someExpr(missingDep)).
+
+            while (maybeCall != null && maybeCall !== componentScope.block) {
+              if (maybeCall.type === 'CallExpression') {
+                var correspondingStateVariable = setStateCallSites.get(maybeCall.callee);
+
+                if (correspondingStateVariable != null) {
+                  if (correspondingStateVariable.name === missingDep) {
+                    // setCount(count + 1)
+                    setStateRecommendation = {
+                      missingDep: missingDep,
+                      sett...
+setStateRecommendation !== null
+var usedDep = dependencies.get(missingDep)
+var references = usedDep.references
+_i3 < references.length
+id = references[_i3].identifier
+maybeCall = id.parent
+maybeCall != null && maybeCall !== componentScope.block
+maybeCall.type === 'CallExpression'
+var correspondingStateVariable = setStateCallSites.get(maybeCall.callee)
+correspondingStateVariable != null
+correspondingStateVariable.name === missingDep
+setStateRecommendation = {
+                      missingDep: missingDep,
+                      setter: maybeCall.callee.name,
+                      form: 'updater'
+                    }
+_tmp_106.missingDep = missingDep
+_tmp_106.setter = maybeCall.callee.name
+_tmp_106.form = "updater"
+stateVariables.has(id)
+setStateRecommendation = {
+                      missingDep: missingDep,
+                      setter: maybeCall.callee.name,
+                      form: 'reducer'
+                    }
+_tmp_107.missingDep = missingDep
+_tmp_107.setter = maybeCall.callee.name
+_tmp_107.form = "reducer"
+var resolved = references[_i3].resolved
+resolved != null
+var def = resolved.defs[0]
+def != null && def.type === 'Parameter'
+setStateRecommendation = {
+                          missingDep: missingDep,
+                          setter: maybeCall.callee.name,
+                          form: 'inlineReducer'
+                        }
+_tmp_108.missingDep = missingDep
+_tmp_108.setter = maybeCall.callee.name
+_tmp_108.form = "inlineReducer"
+break;
+maybeCall = maybeCall.parent
+setStateRecommendation !== null

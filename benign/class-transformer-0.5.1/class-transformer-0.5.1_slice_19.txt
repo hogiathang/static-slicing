@@ -1,0 +1,22 @@
+findMetadatas(metadatas, target, propertyName) {
+        const metadataFromTargetMap = metadatas.get(target);
+        let metadataFromTarget;
+        if (metadataFromTargetMap) {
+            metadataFromTarget = metadataFromTargetMap.get(propertyName);
+        }
+        const metadataFromAncestorsTarget = [];
+        for (const ancestor of this.getAncestors(target)) {
+            const ancestorMetadataMap = metadatas.get(ancestor);
+            if (ancestorMetadataMap) {
+                if (ancestorMetadataMap.has(propertyName)) {
+                    metadataFromAncestorsTarget.push(...ancestorMetadataMap.get(propertyName));
+                }
+            }
+        }
+        return metadataFromAncestorsTarget
+            .slice()
+            .reverse()
+            .concat((metadataFromTarget || []).slice().reverse());
+    }
+const metadataFromTargetMap = metadatas.get(target)
+metadataFromTarget = metadataFromTargetMap.get(propertyName)

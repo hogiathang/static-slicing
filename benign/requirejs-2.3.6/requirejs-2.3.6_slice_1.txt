@@ -1,0 +1,8 @@
+_tmp_43.deleteFile = <lambda>98
+file.exists(fileName)
+stat = fs.lstatSync(fileName)
+stat.isDirectory()
+files = fs.readdirSync(fileName)
+i < files.length
+this.deleteFile(path.join(fileName, files[i]))
+fs.rmdirSync(fileName)

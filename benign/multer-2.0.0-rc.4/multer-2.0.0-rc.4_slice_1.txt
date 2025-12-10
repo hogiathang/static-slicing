@@ -1,0 +1,29 @@
+function handleRequest = async function handleRequest (setup, req) {
+  const options = setup()
+  const result = await readBody(req, options.limits, options.fileFilter)
+
+  req.body = Object.create(null)
+
+  for (const field of result.fields) {
+    appendField(req.body, field.key, field.value)
+  }
+
+  const appendFile = createFileAppender(options.fileStrategy, req, options.fields)
+
+  for (const file of result.files) {
+    file.stream = fs.createReadStream(file.path)
+    file.stream.on('open', () => fs.unlink(file.path, () => {}))
+
+    appendFile(file)
+  }
+}
+const options = setup()
+const result = await readBody(req, options.limits, options.fileFilter)
+req.body = Object.create(null)
+_iterator_0 = <operator>.iterator(result.fields)
+appendField(req.body, field.key, field.value)
+const appendFile = createFileAppender(options.fileStrategy, req, options.fields)
+_iterator_1 = <operator>.iterator(result.files)
+file.stream = fs.createReadStream(file.path)
+file.stream.on('open', () => fs.unlink(file.path, () => {}))
+appendFile(file)

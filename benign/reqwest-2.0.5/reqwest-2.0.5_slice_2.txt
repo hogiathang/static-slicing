@@ -1,0 +1,79 @@
+var exec = require('child_process').exec
+var fs = require('fs')
+var Connect = require('connect')
+var dispatch = require('dispatch')
+var mime = require('mime')
+var DelayedStream = require('delayed-stream')
+var getMime = function(ext) {
+      return mime.lookup(ext == 'jsonp' ? 'js' : ext)
+    }
+var routes = {
+  '/': function (req, res) {
+    res.write(fs.readFileSync('./tests/tests.html', 'utf8'))
+    res.end()
+  },
+  '/tests/timeout$': function (req, res) {
+      var delayed = DelayedStream.create(req)
+      setTimeout(function() {
+        res.writeHead(200, {
+            'Expires': 0
+          , 'Cache-Control': 'max-age=0, no-cache, no-store'
+        })
+        req.query.callback && res.write(req.query.callback + '(')
+        res.write(JSON.stringify({ method: req.method, query: req.query, headers: req.headers }))
+        req.query.callback && res.write(');')
+        delayed.pipe(res)
+      }, 2000)
+  },
+  '/tests/204': function(req, res) {
+    res.writeHead(204);
+    res.end();
+  },
+  '(([\\w\\-\\/\\.]+)\\.(css|js|json|jsonp|html|xml)$)': function (req, res, next, uri, file, ext) {
+    res.writeHead(200, {
+        'Expires': 0
+      , 'Cache-Control': 'max-age=0, no-cache, no-store'
+      , 'Content-Type': getMime(ext)
+    })
+    if (req.query.echo !== undefined) {
+      e...
+_tmp_0./ = <lambda>1
+_tmp_0./tests/timeout$ = <lambda>2
+_tmp_0./tests/204 = <lambda>4
+_tmp_0.(([\\w\\-\\/\\.]+)\\.(css|js|json|jsonp|html|xml)$) = <lambda>5
+(_tmp_5 = Connect.createServer(Connect.query(), dispatch(routes))).listen
+var otherOriginRoutes = {
+    '/get-value': function (req, res) {
+      res.writeHead(200, {
+        'Access-Control-Allow-Origin': req.headers.origin,
+        'Content-Type': 'text/plain'
+      })
+      res.end('hello')
+    },
+    '/set-cookie': function (req, res) {
+      res.writeHead(200, {
+        'Access-Control-Allow-Origin': req.headers.origin,
+        'Access-Control-Allow-Credentials': 'true',
+        'Content-Type': 'text/plain',
+        'Set-Cookie': 'cookie=hello'
+      })
+      res.end('Set a cookie!')
+    },
+    '/get-cookie-value': function (req, res) {
+      var cookies = {}
+        , value
+
+      req.headers.cookie && req.headers.cookie.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=')
+        cookies[ parts[ 0 ].trim() ] = ( parts[ 1 ] || '' ).trim()
+      })
+      value = cookies.cookie
+
+      res.writeHead(200, {
+          'Access-Control-Allow-Origin': req.headers.origin,
+          'Access-Control-Allow-Credentials': 'true',
+          'C...
+_tmp_6./get-value = <lambda>6
+_tmp_6./set-cookie = <lambda>7
+_tmp_6./get-cookie-value = <lambda>8
+(_tmp_15 = Connect.createServer(Connect.query(), dispatch(otherOriginRoutes))).listen

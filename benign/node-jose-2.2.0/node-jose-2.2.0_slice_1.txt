@@ -1,0 +1,37 @@
+promise = promise.then(function(cdata){
+      var mdata = Buffer.concat([
+        adata,
+        DotLabel,
+        Buffer.from(kdata),
+        DotLabel,
+        Buffer.from(util.base64url.encode(iv), "utf8"),
+        DotLabel,
+        Buffer.from(util.base64url.encode(cdata), "utf8")
+      ]);
+      return Promise.all([
+        Promise.resolve(cdata),
+        HMAC["HS" + (size * 2)].sign(cik, mdata, { length: size })
+      ]);
+    })
+var mdata = Buffer.concat([
+        adata,
+        DotLabel,
+        Buffer.from(kdata),
+        DotLabel,
+        Buffer.from(util.base64url.encode(iv), "utf8"),
+        DotLabel,
+        Buffer.from(util.base64url.encode(cdata), "utf8")
+      ])
+_tmp_47.push(adata)
+_tmp_47.push(DotLabel)
+_tmp_47.push(Buffer.from(kdata))
+_tmp_47.push(DotLabel)
+_tmp_47.push(Buffer.from(util.base64url.encode(iv), "utf8"))
+_tmp_47.push(DotLabel)
+_tmp_47.push(Buffer.from(util.base64url.encode(cdata), "utf8"))
+Promise.all([
+        Promise.resolve(cdata),
+        HMAC["HS" + (size * 2)].sign(cik, mdata, { length: size })
+      ])
+_tmp_50.push(Promise.resolve(cdata))
+_tmp_50.push(HMAC["HS" + (size * 2)].sign(cik, mdata, { length: size }))

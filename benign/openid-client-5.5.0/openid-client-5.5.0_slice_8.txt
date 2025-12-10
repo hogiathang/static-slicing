@@ -1,0 +1,73 @@
+function clientAssertion = async function clientAssertion(endpoint, payload) {
+  let alg = this[`${endpoint}_endpoint_auth_signing_alg`];
+  if (!alg) {
+    assertIssuerConfiguration(
+      this.issuer,
+      `${endpoint}_endpoint_auth_signing_alg_values_supported`,
+    );
+  }
+
+  if (this[`${endpoint}_endpoint_auth_method`] === 'client_secret_jwt') {
+    if (!alg) {
+      const supported = this.issuer[`${endpoint}_endpoint_auth_signing_alg_values_supported`];
+      alg =
+        Array.isArray(supported) && supported.find((signAlg) => /^HS(?:256|384|512)/.test(signAlg));
+    }
+
+    if (!alg) {
+      throw new RPError(
+        `failed to determine a JWS Algorithm to use for ${
+          this[`${endpoint}_endpoint_auth_method`]
+        } Client Assertion`,
+      );
+    }
+
+    return new jose.CompactSign(Buffer.from(JSON.stringify(payload)))
+      .setProtectedHeader({ alg })
+      .sign(this.secretForAlg(alg));
+  }
+
+  const keystore = await keystores.get(this);
+
+  if (!keystore) {
+    throw new TypeError('no clie...
+this[<operator>.formatString("", endpoint, "_endpoint_auth_signing_alg")]
+!alg
+assertIssuerConfiguration(
+      this.issuer,
+      `${endpoint}_endpoint_auth_signing_alg_values_supported`,
+    )
+this.issuer
+<operator>.formatString("", endpoint, "_endpoint_auth_signing_alg_values_supported")
+this[<operator>.formatString("", endpoint, "_endpoint_auth_method")]
+const keystore = await keystores.get(this)
+!keystore
+throw new TypeError('no client jwks provided for signing a client assertion with');
+!alg
+this.issuer[<operator>.formatString("", endpoint, "_endpoint_auth_signing_alg_values_supported")]
+alg =
+      Array.isArray(supported) &&
+      supported.find((signAlg) => keystore.get({ alg: signAlg, use: 'sig' }))
+Array.isArray(supported) &&
+      supported.find((signAlg) => keystore.get({ alg: signAlg, use: 'sig' }))
+supported.find((signAlg) => keystore.get({ alg: signAlg, use: 'sig' }))
+!alg
+throw new RPError(
+      `failed to determine a JWS Algorithm to use for ${
+        this[`${endpoint}_endpoint_auth_method`]
+      } Client Assertion`,
+    );
+<operator>.formatString("failed to determine a JWS Algorithm to use for ", this[`${endpoint}_endpoint_auth_method`], " Client Assertion")
+this[<operator>.formatString("", endpoint, "_endpoint_auth_method")]
+" Client Assertion"
+const key = keystore.get({ alg, use: 'sig' })
+!key
+throw new RPError(
+      `no key found in client jwks to sign a client assertion with using alg ${alg}`,
+    );
+<operator>.formatString("no key found in client jwks to sign a client assertion with using alg ", alg, "")
+new jose.CompactSign(Buffer.from(JSON.stringify(payload)))
+    .setProtectedHeader({ alg, kid: key.jwk && key.jwk.kid })
+    .sign(key.keyObject)
+_tmp_14.kid = key.jwk && key.jwk.kid
+key.keyObject

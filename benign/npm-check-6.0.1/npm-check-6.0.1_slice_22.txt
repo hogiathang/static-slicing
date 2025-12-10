@@ -1,0 +1,32 @@
+function render = function render(pkg, currentState) {
+    var packageName = pkg.moduleName;
+    var rows = [];
+
+    var indent = '           ' + emoji('   ');
+
+    var installer = currentState.get('installer');
+    var isYarn = installer === 'yarn';
+
+    var args = [isYarn ? 'add' : 'install'];
+    if (currentState.get('global')) {
+        isYarn ? args.unshift('global') : args.push('--global');
+    }
+
+    var flags = [];
+    if (isYarn) {
+        pkg.devDependency && flags.push('--dev');
+    } else {
+        pkg.devDependency ? flags.push('--save-dev') : flags.push('--save');
+    }
+
+    var upgradeCommand = installer + ' ' + args.join(' ') + ' ' + packageName + '@' + pkg.latest + ' ' + flags.join(' ');
+    var upgradeMessage = chalk.green(upgradeCommand) + ' to go from ' + pkg.installed + ' to ' + pkg.latest;
+    // DYLAN: clean this up
+    var status = _([pkg.notInstalled ? chalk.bgRed.white.bold(emoji(' :worried: ') + ' MISSING! ') + ' Not installed.' : '', pkg.notInPackageJson ? chalk.bgRed.whit...
+var packageName = pkg.moduleName
+__ecma.Array.factory()
+var indent = '           ' + emoji('   ')
+var installer = currentState.get('installer')
+var isYarn = installer === 'yarn'
+var args = [isYarn ? 'add' : 'install']
+currentState.get('global')

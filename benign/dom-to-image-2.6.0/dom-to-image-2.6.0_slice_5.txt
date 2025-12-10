@@ -1,0 +1,7 @@
+_tmp_4.access = <lambda>5
+key === undefined ||
+				((key && typeof key === "string") && value === undefined)
+(key && typeof key === "string") && value === undefined
+stored = this.get( owner, key )
+stored !== undefined ? stored : this.get( owner, jQuery.camelCase(key) )
+this.get( owner, jQuery.camelCase(key) )

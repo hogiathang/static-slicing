@@ -1,0 +1,13 @@
+Pouch.on('destroyed', function onConstructorDestroyed(name) {
+    if (!destructListeners.has(name)) {
+      return;
+    }
+    var dbList = destructListeners.get(name);
+    destructListeners.delete(name);
+    dbList.forEach(function (db) {
+      db.emit('destroyed',true);
+    });
+  })
+!destructListeners.has(name)
+var dbList = destructListeners.get(name)
+destructListeners.delete(name)

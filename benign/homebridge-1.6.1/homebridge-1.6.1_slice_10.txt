@@ -1,0 +1,15 @@
+sendMessage(type, data) {
+        if (process.send) {
+            process.send({
+                id: type,
+                data,
+            });
+        }
+    }
+process.send
+process.send({
+                id: type,
+                data,
+            })
+_tmp_2.id = type
+_tmp_2.data = data

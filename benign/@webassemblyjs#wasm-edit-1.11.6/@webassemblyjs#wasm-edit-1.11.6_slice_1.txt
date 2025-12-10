@@ -1,0 +1,25 @@
+nodes.sort(function (a, b) {
+    var sectionA = (0, _helperWasmBytecode.getSectionForNode)(a);
+    var sectionB = (0, _helperWasmBytecode.getSectionForNode)(b);
+    var aId = _helperWasmBytecode["default"].sections[sectionA];
+    var bId = _helperWasmBytecode["default"].sections[sectionB];
+
+    if (typeof aId !== "number" || typeof bId !== "number") {
+      throw new Error("Section id not found");
+    }
+
+    if (aId === bId) {
+      // $FlowIgnore originalOrder is filled for all nodes
+      return originalOrder.get(a) - originalOrder.get(b);
+    }
+
+    return aId - bId;
+  })
+var sectionA = (0, _helperWasmBytecode.getSectionForNode)(a)
+var sectionB = (0, _helperWasmBytecode.getSectionForNode)(b)
+var aId = _helperWasmBytecode["default"].sections[sectionA]
+var bId = _helperWasmBytecode["default"].sections[sectionB]
+typeof aId !== "number" || typeof bId !== "number"
+throw new Error("Section id not found");
+aId === bId
+originalOrder.get(a) - originalOrder.get(b)

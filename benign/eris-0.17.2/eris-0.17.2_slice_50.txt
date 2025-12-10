@@ -1,0 +1,23 @@
+editChannelPermission(channelID, overwriteID, allow, deny, type, reason) {
+        if(typeof type === "string") { // backward compatibility
+            type = type === "member" ? 1 : 0;
+        }
+        return this.requestHandler.request("PUT", Endpoints.CHANNEL_PERMISSION(channelID, overwriteID), true, {
+            allow,
+            deny,
+            type,
+            reason
+        });
+    }
+typeof type === "string"
+type = type === "member" ? 1 : 0
+this.requestHandler.request("PUT", Endpoints.CHANNEL_PERMISSION(channelID, overwriteID), true, {
+            allow,
+            deny,
+            type,
+            reason
+        })
+_tmp_195.allow = allow
+_tmp_195.deny = deny
+_tmp_195.type = type
+_tmp_195.reason = reason

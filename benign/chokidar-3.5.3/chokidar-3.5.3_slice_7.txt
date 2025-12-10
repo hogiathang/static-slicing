@@ -1,0 +1,47 @@
+async _emit(event, path, val1, val2, val3) {
+  if (this.closed) return;
+
+  const opts = this.options;
+  if (isWindows) path = sysPath.normalize(path);
+  if (opts.cwd) path = sysPath.relative(opts.cwd, path);
+  /** @type Array<any> */
+  const args = [event, path];
+  if (val3 !== undefined) args.push(val1, val2, val3);
+  else if (val2 !== undefined) args.push(val1, val2);
+  else if (val1 !== undefined) args.push(val1);
+
+  const awf = opts.awaitWriteFinish;
+  let pw;
+  if (awf && (pw = this._pendingWrites.get(path))) {
+    pw.lastChange = new Date();
+    return this;
+  }
+
+  if (opts.atomic) {
+    if (event === EV_UNLINK) {
+      this._pendingUnlinks.set(path, args);
+      setTimeout(() => {
+        this._pendingUnlinks.forEach((entry, path) => {
+          this.emit(...entry);
+          this.emit(EV_ALL, ...entry);
+          this._pendingUnlinks.delete(path);
+        });
+      }, typeof opts.atomic === 'number' ? opts.atomic : 100);
+      return this;
+    }
+    if (event === EV_ADD && t...
+this.closed
+const opts = this.options
+path = sysPath.normalize(path)
+path = sysPath.relative(opts.cwd, path)
+_tmp_57 = __ecma.Array.factory()
+args.push(val1, val2, val3)
+args.push(val1, val2)
+val1 !== undefined
+const awf = opts.awaitWriteFinish
+awf && (pw = this._pendingWrites.get(path))
+opts.atomic
+event === EV_UNLINK
+event === EV_ADD && this._pendingUnlinks.has(path)
+event = args[0] = EV_CHANGE
+(_tmp_64 = this._pendingUnlinks).delete

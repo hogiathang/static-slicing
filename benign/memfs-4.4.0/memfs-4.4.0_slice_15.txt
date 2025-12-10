@@ -1,0 +1,12 @@
+chmodBase(filename, modeNum) {
+        const fd = this.openSync(filename, 'r');
+        try {
+            this.fchmodBase(fd, modeNum);
+        }
+        finally {
+            this.closeSync(fd);
+        }
+    }
+const fd = this.openSync(filename, 'r')
+this.fchmodBase(fd, modeNum)
+this.closeSync(fd)

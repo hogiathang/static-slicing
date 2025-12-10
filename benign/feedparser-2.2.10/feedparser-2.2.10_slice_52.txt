@@ -1,0 +1,22 @@
+el.forEach(function (enc){
+            enclosure = {};
+            enclosure.url = _.get(enc['@'], 'url');
+            enclosure.type = _.get(enc['@'], 'type') || _.get(enc['@'], 'medium');
+            enclosure.length = _.get(enc['@'], 'filesize');
+            var index = indexOfObject(item.enclosures, enclosure, ['url', 'type']);
+            if (index !== -1) {
+              enclosure = item.enclosures[index];
+            }
+            optionalAttributes.forEach(function (attribute) {
+              if (!enclosure[attribute] && _.get(enc['@'], attribute)) {
+                enclosure[attribute] = _.get(enc['@'], attribute);
+              }
+            });
+            if (index === -1) {
+              item.enclosures.push(enclosure);
+            }
+          })
+enclosure = {}
+enclosure.url = _.get(enc['@'], 'url')
+enclosure.type = _.get(enc['@'], 'type') || _.get(enc['@'], 'medium')
+enclosure.length = _.get(enc['@'], 'filesize')

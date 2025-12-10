@@ -1,0 +1,23 @@
+function onSetRepository = async function onSetRepository(name, repo) {
+  if (await isRegistryNotFound(name) || await isInternalRegistry(name, 'set repository of')) {
+    return;
+  }
+
+  const customRegistries = await readFile(NRMRC);
+  const registry = customRegistries[name];
+  registry[REPOSITORY] = repo;
+  await writeFile(NRMRC, customRegistries);
+  printSuccess(`Set the ${REPOSITORY} of registry '${name}' successfully.`);
+
+  const currentRegistry = await getCurrentRegistry();
+  if (currentRegistry && registry[REGISTRY] === currentRegistry) {
+    const npmrc = await readFile(NPMRC);
+    Object.assign(npmrc, { [REPOSITORY]: repo });
+    await writeFile(NPMRC, npmrc);
+    printSuccess(`Set repository attribute of npmrc successfully`);
+  }
+}
+await isRegistryNotFound(name) || await isInternalRegistry(name, 'set repository of')
+const customRegistries = await readFile(NRMRC)
+const registry = customRegistries[name]
+registry[REPOSITORY] = repo

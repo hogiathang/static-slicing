@@ -1,0 +1,41 @@
+const walk = function (tocPath, val) {
+    if (typeof val === 'object' && val.name) {
+      val.kind = 'note';
+      indexes[val.name] = i++;
+      if (typeof val.file === 'string') {
+        let filename = val.file;
+        if (!path.isAbsolute(val.file)) {
+          filename = path.join(process.cwd(), val.file);
+        }
+
+        try {
+          val.description = fs.readFileSync(filename).toString();
+          delete val.file;
+        } catch (err) {
+          process.stderr.write(chalk.red(`Failed to read file ${filename}`));
+        }
+      } else if (!val.description) {
+        val.description = '';
+      }
+      if (typeof val.description === 'string') {
+        val.description = parseMarkdown(val.description);
+      }
+      const childPath = tocPath.concat({ scope: 'static', name: val.name });
+      val.path = childPath;
+      if (val.children) {
+        val.children.forEach(walk.bind(null, childPath));
+      }
+      fixed.push(val);
+    } else {
+      indexes[val] = i++;
+      to...
+typeof val === 'object' && val.name
+val.kind = 'note'
+indexes[val.name] = i++
+typeof val.file === 'string'
+let filename = val.file
+!path.isAbsolute(val.file)
+filename = path.join(process.cwd(), val.file)
+val.description = fs.readFileSync(filename).toString()
+delete val.file
+process.stderr.write(chalk.red(`Failed to read file ${filename}`))

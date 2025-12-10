@@ -1,0 +1,25 @@
+const job = (() => __awaiter(this, void 0, void 0, function* () {
+                    if (this.asyncRequests) {
+                        this.perf.mark("reqStart");
+                        const a = [];
+                        for (let i = 0; i < this.msgs; i++) {
+                            a.push(this.nc.request(this.subject, this.payload, { timeout: 20000 }));
+                        }
+                        yield Promise.all(a);
+                        this.perf.mark("reqStop");
+                        this.perf.measure("req", "reqStart", "reqStop");
+                    }
+                    else {
+                        this.perf.mark("reqStart");
+                        for (let i = 0; i < this.msgs; i++) {
+                            yield this.nc.request(this.subject);
+                        }
+                        this.perf.mark("reqStop");
+                        this.perf.measure("req", "reqStart", "reqStop");
+                    }
+                }))()
+this.asyncRequests
+this.perf.mark("reqStart")
+__ecma.Array.factory()
+i < this.msgs
+a.push(this.nc.request(this.subject, this.payload, { timeout: 20000 }))

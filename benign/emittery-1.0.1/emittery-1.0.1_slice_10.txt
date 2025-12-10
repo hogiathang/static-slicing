@@ -1,0 +1,50 @@
+listenerCount(eventNames) {
+		eventNames = Array.isArray(eventNames) ? eventNames : [eventNames];
+		let count = 0;
+
+		for (const eventName of eventNames) {
+			if (typeof eventName === 'string') {
+				count += anyMap.get(this).size
+					+ (getListeners(this, eventName)?.size ?? 0)
+					+ (getEventProducers(this, eventName)?.size ?? 0)
+					+ (getEventProducers(this)?.size ?? 0);
+
+				continue;
+			}
+
+			if (typeof eventName !== 'undefined') {
+				assertEventName(eventName);
+			}
+
+			count += anyMap.get(this).size;
+
+			for (const value of eventsMap.get(this).values()) {
+				count += value.size;
+			}
+
+			for (const value of producersMap.get(this).values()) {
+				count += value.size;
+			}
+		}
+
+		return count;
+	}
+eventNames = Array.isArray(eventNames) ? eventNames : [eventNames]
+let count = 0
+_iterator_17 = <operator>.iterator(eventNames)
+typeof eventName === 'string'
+count += anyMap.get(this).size
+					+ (getListeners(this, eventName)?.size ?? 0)
+					+ (getEventProducers(this, eventName)?.size ?? 0)
+					+ (getEventProducers(this)?.size ?? 0)
+getListeners(this, eventName)?.size ?? 0
+getEventProducers(this, eventName)?.size ?? 0
+getEventProducers(this)?.size ?? 0
+continue;
+typeof eventName !== 'undefined'
+assertEventName(eventName)
+count += anyMap.get(this).size
+_iterator_18 = <operator>.iterator(eventsMap.get(this).values())
+count += value.size
+_iterator_19 = <operator>.iterator(producersMap.get(this).values())
+count += value.size

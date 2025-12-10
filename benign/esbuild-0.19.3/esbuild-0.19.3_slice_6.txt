@@ -1,0 +1,58 @@
+var runServiceSync = (callback) => {
+  let [command, args] = esbuildCommandAndArgs();
+  let stdin = new Uint8Array();
+  let { readFromStdout, afterClose, service } = createChannel({
+    writeToStdin(bytes) {
+      if (stdin.length !== 0)
+        throw new Error("Must run at most one command");
+      stdin = bytes;
+    },
+    isSync: true,
+    hasFS: true,
+    esbuild: node_exports
+  });
+  callback(service);
+  let stdout = child_process.execFileSync(command, args.concat(`--service=${"0.19.3"}`), {
+    cwd: defaultWD,
+    windowsHide: true,
+    input: stdin,
+    // We don't know how large the output could be. If it's too large, the
+    // command will fail with ENOBUFS. Reserve 16mb for now since that feels
+    // like it should be enough. Also allow overriding this with an environment
+    // variable.
+    maxBuffer: +process.env.ESBUILD_MAX_BUFFER || 16 * 1024 * 1024
+  });
+  readFromStdout(stdout);
+  afterClose(null);
+}
+_tmp_281 = esbuildCommandAndArgs()
+let stdin = new Uint8Array()
+_tmp_285 = createChannel({
+    writeToStdin(bytes) {
+      if (stdin.length !== 0)
+        throw new Error("Must run at most one command");
+      stdin = bytes;
+    },
+    isSync: true,
+    hasFS: true,
+    esbuild: node_exports
+  })
+_tmp_283.writeToStdin = writeToStdin
+_tmp_283.isSync = true
+_tmp_283.hasFS = true
+_tmp_283.esbuild = node_exports
+callback(service)
+let stdout = child_process.execFileSync(command, args.concat(`--service=${"0.19.3"}`), {
+    cwd: defaultWD,
+    windowsHide: true,
+    input: stdin,
+    // We don't know how large the output could be. If it's too large, the
+    // command will fail with ENOBUFS. Reserve 16mb for now since that feels
+    // like it should be enough. Also allow overriding this with an environment
+    // variable.
+    maxBuffer: +process.env.ESBUILD_MAX_BUFFER || 16 * 1024 * 1024
+  })
+_tmp_286.cwd = defaultWD
+_tmp_286.windowsHide = true
+_tmp_286.input = stdin
+_tmp_286.maxBuffer = +process.env.ESBUILD_MAX_BUFFER || 16 * 1024 * 1024

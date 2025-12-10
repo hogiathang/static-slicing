@@ -1,0 +1,101 @@
+const bench = require('fastbench')
+const pino = require('../')
+const bunyan = require('bunyan')
+const bole = require('bole')('bench')
+const winston = require('winston')
+const fs = require('fs')
+const dest = fs.createWriteStream('/dev/null')
+const loglevel = require('./utils/wrap-log-level')(dest)
+const plogNodeStream = pino(dest)
+delete require.cache[require.resolve('../')]
+const plogDest = require('../')(pino.destination('/dev/null'))
+delete require.cache[require.resolve('../')]
+const plogMinLength = require('../')(pino.destination({ dest: '/dev/null', sync: false, minLength: 4096 }))
+const blog = bunyan.createLogger({
+  name: 'myapp',
+  streams: [{
+    level: 'trace',
+    stream: dest
+  }]
+})
+_tmp_1.name = "myapp"
+_tmp_1.streams = [{
+    level: 'trace',
+    stream: dest
+  }]
+_tmp_3.level = "trace"
+_tmp_3.stream = dest
+(_tmp_4 = require('bole').output({
+  level: 'info',
+  stream: dest
+})).setFastTime
+_tmp_6.level = "info"
+_tmp_6.stream = dest
+setFastTime
+const chill = winston.createLogger({
+  transports: [
+    new winston.transports.Stream({
+      stream: fs.createWriteStream('/dev/null')
+    })
+  ]
+})
+_tmp_7.transports = [
+    new winston.transports.Stream({
+      stream: fs.createWriteStream('/dev/null')
+    })
+  ]
+_tmp_8.push(new winston.transports.Stream({
+      stream: fs.createWriteStream('/dev/null')
+    }))
+_tmp_10.stream = fs.createWriteStream('/dev/null')
+const max = 10
+const run = bench([
+  function benchBunyanObj (cb) {
+    for (var i = 0; i < max; i++) {
+      blog.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchWinstonObj (cb) {
+    for (var i = 0; i < max; i++) {
+      chill.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchBoleObj (cb) {
+    for (var i = 0; i < max; i++) {
+      bole.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchLogLevelObject (cb) {
+    for (var i = 0; i < max; i++) {
+      loglevel.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchPinoObj (cb) {
+    for (var i = 0; i < max; i++) {
+      plogDest.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchPinoMinLengthObj (cb) {
+    for (var i = 0; i < max; i++) {
+      plogMinLength.info({ hello: 'world' })
+    }
+    setImmediate(cb)
+  },
+  function benchPinoNodeStreamObj (cb) {
+    for (var i = 0; i < max; i++) {
+      plogNodeStream.info({ hello: 'world' })
+    }
+    s...
+_tmp_11.push(benchBunyanObj)
+_tmp_11.push(benchWinstonObj)
+_tmp_11.push(benchBoleObj)
+_tmp_11.push(benchLogLevelObject)
+_tmp_11.push(benchPinoObj)
+_tmp_11.push(benchPinoMinLengthObj)
+_tmp_11.push(benchPinoNodeStreamObj)
+10000

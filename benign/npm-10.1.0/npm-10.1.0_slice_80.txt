@@ -1,0 +1,71 @@
+async enable2fa (args) {
+    if (args.length > 1) {
+      throw new Error('npm profile enable-2fa [auth-and-writes|auth-only]')
+    }
+
+    const mode = args[0] || 'auth-and-writes'
+    if (mode !== 'auth-only' && mode !== 'auth-and-writes') {
+      throw new Error(
+        `Invalid two-factor authentication mode "${mode}".\n` +
+        'Valid modes are:\n' +
+        '  auth-only - Require two-factor authentication only when logging in\n' +
+        '  auth-and-writes - Require two-factor authentication when logging in ' +
+        'AND when publishing'
+      )
+    }
+
+    if (this.npm.config.get('json') || this.npm.config.get('parseable')) {
+      throw new Error(
+        'Enabling two-factor authentication is an interactive operation and ' +
+        (this.npm.config.get('json') ? 'JSON' : 'parseable') + ' output mode is not available'
+      )
+    }
+
+    const info = {
+      tfa: {
+        mode: mode,
+      },
+    }
+
+    // if they're using legacy auth currently then we have to
+    // ...
+args.length > 1
+throw new Error('npm profile enable-2fa [auth-and-writes|auth-only]')
+const mode = args[0] || 'auth-and-writes'
+mode !== 'auth-only' && mode !== 'auth-and-writes'
+throw new Error(
+        `Invalid two-factor authentication mode "${mode}".\n` +
+        'Valid modes are:\n' +
+        '  auth-only - Require two-factor authentication only when logging in\n' +
+        '  auth-and-writes - Require two-factor authentication when logging in ' +
+        'AND when publishing'
+      )
+`Invalid two-factor authentication mode "${mode}".\n` +
+        'Valid modes are:\n' +
+        '  auth-only - Require two-factor authentication only when logging in\n' +
+        '  auth-and-writes - Require two-factor authentication when logging in ' +
+        'AND when publishing'
+"Valid modes are:
+"
+"  auth-only - Require two-factor authentication only when logging in
+"
+"  auth-and-writes - Require two-factor authentication when logging in "
+"AND when publishing"
+this.npm.config.get('json') || this.npm.config.get('parseable')
+throw new Error(
+        'Enabling two-factor authentication is an interactive operation and ' +
+        (this.npm.config.get('json') ? 'JSON' : 'parseable') + ' output mode is not available'
+      )
+'Enabling two-factor authentication is an interactive operation and ' +
+        (this.npm.config.get('json') ? 'JSON' : 'parseable') + ' output mode is not available'
+this.npm.config.get('json') ? "JSON" : "parseable"
+const info = {
+      tfa: {
+        mode: mode,
+      },
+    }
+_tmp_48.tfa = {
+        mode: mode,
+      }
+_tmp_49.mode = mode
+const creds = this.npm.config.getCredentialsByURI(this.npm.config.get('registry'))

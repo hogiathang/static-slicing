@@ -1,0 +1,17 @@
+(url) => {
+            const request = {
+                method: 'GET',
+                url: `${url}/remoteConfig`,
+                headers: FIREBASE_REMOTE_CONFIG_HEADERS
+            };
+            return this.httpClient.send(request);
+        }
+const request = {
+                method: 'GET',
+                url: `${url}/remoteConfig`,
+                headers: FIREBASE_REMOTE_CONFIG_HEADERS
+            }
+_tmp_7.method = "GET"
+_tmp_7.url = <operator>.formatString("", url, "/remoteConfig")
+_tmp_7.headers = FIREBASE_REMOTE_CONFIG_HEADERS
+(_tmp_8 = this.httpClient).send

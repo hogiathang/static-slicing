@@ -1,0 +1,47 @@
+addInjectable(injectable, enhancerSubtype, host) {
+        if (this.isCustomProvider(injectable)) {
+            return this.addCustomProvider(injectable, this._injectables, enhancerSubtype);
+        }
+        let instanceWrapper = this.injectables.get(injectable);
+        if (!instanceWrapper) {
+            instanceWrapper = new instance_wrapper_1.InstanceWrapper({
+                token: injectable,
+                name: injectable.name,
+                metatype: injectable,
+                instance: null,
+                isResolved: false,
+                scope: (0, get_class_scope_1.getClassScope)(injectable),
+                durable: (0, is_durable_1.isDurable)(injectable),
+                subtype: enhancerSubtype,
+                host: this,
+            });
+            this._injectables.set(injectable, instanceWrapper);
+        }
+        if (host) {
+            const hostWrapper = this._controllers.get(host) || this._providers.get(host);
+            hostWrapper && hostWrapper.ad...
+this.isCustomProvider(injectable)
+let instanceWrapper = this.injectables.get(injectable)
+!instanceWrapper
+instanceWrapper = new instance_wrapper_1.InstanceWrapper({
+                token: injectable,
+                name: injectable.name,
+                metatype: injectable,
+                instance: null,
+                isResolved: false,
+                scope: (0, get_class_scope_1.getClassScope)(injectable),
+                durable: (0, is_durable_1.isDurable)(injectable),
+                subtype: enhancerSubtype,
+                host: this,
+            })
+_tmp_25.token = injectable
+_tmp_25.name = injectable.name
+_tmp_25.metatype = injectable
+_tmp_25.instance = null
+_tmp_25.isResolved = false
+_tmp_25.scope = (0, get_class_scope_1.getClassScope)(injectable)
+_tmp_25.durable = (0, is_durable_1.isDurable)(injectable)
+_tmp_25.subtype = enhancerSubtype
+_tmp_25.host = this
+this._injectables.set(injectable, instanceWrapper)
+const hostWrapper = this._controllers.get(host) || this._providers.get(host)

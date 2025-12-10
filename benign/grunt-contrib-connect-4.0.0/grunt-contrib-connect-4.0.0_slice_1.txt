@@ -1,0 +1,19 @@
+function findUnusedPort = function findUnusedPort(port, maxPort, hostname, callback) {
+          if (hostname === '::') {
+            hostname = '127.0.0.1';
+          }
+
+          if (port === 0) {
+            async.nextTick(function() {
+              callback(null, 0);
+            });
+          } else {
+            portscanner.findAPortNotInUse(port, maxPort, hostname, callback);
+          }
+        }
+hostname === '::'
+hostname = '127.0.0.1'
+port === 0
+async.nextTick(function() {
+              callback(null, 0);
+            })

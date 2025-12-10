@@ -1,0 +1,27 @@
+() => {
+      const actualSource = getSource(source, importName);
+      if ((0, _helperModuleImports.isModule)(path)) {
+        let reference = get(pass, `imports/${importName}`);
+        if (reference) return _core.types.cloneNode(reference);
+        reference = (0, _helperModuleImports.addNamed)(path, importName, actualSource, {
+          importedInterop: "uncompiled",
+          importPosition: "after"
+        });
+        set(pass, `imports/${importName}`, reference);
+        return reference;
+      } else {
+        let reference = get(pass, `requires/${actualSource}`);
+        if (reference) {
+          reference = _core.types.cloneNode(reference);
+        } else {
+          reference = (0, _helperModuleImports.addNamespace)(path, actualSource, {
+            importedInterop: "uncompiled"
+          });
+          set(pass, `requires/${actualSource}`, reference);
+        }
+        return _core.types.memberExpression(reference, _core.types.identifier(importName));
+      }
+    }
+const actualSource = getSource(source, importName)
+(0, _helperModuleImports.isModule)(path)
+<operator>.formatString("requires/", actualSource, "")

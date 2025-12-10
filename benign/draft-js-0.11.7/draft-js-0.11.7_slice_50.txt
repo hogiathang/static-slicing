@@ -1,0 +1,18 @@
+_tmp_1.onTab = onTab
+var selection = editorState.getSelection()
+var key = selection.getAnchorKey()
+key !== selection.getFocusKey()
+var content = editorState.getCurrentContent()
+var block = content.getBlockForKey(key)
+var type = block.getType()
+type !== 'unordered-list-item' && type !== 'ordered-list-item'
+event.preventDefault()
+var depth = block.getDepth()
+!event.shiftKey && depth === maxDepth
+var blockMap = editorState.getCurrentContent().getBlockMap()
+var prevSiblingKey = block.getPrevSiblingKey()
+var nextSiblingKey = block.getNextSiblingKey()
+!event.shiftKey
+prevSiblingKey == null
+var prevSibling = blockMap.get(prevSiblingKey)
+var nextSibling = nextSiblingKey != null ? blockMap.get(nextSiblingKey) : null

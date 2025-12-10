@@ -1,0 +1,22 @@
+const callback = (err, result, result2) => {
+            if (result) {
+              const inverseId = JSON.stringify([context, result.split('?')[0]]);
+              const resolveId = JSON.stringify([context, request]);
+
+              // Skip recording missing for any dependency in node_modules.
+              // Changes to them will be handled by the environment hash. If we
+              // tracked the stuff in node_modules too, we'd be adding a whole
+              // bunch of reduntant work.
+              if (result.includes('node_modules')) {
+                localMissing = localMissing.filter(
+                  missed => !missed.includes('node_modules'),
+                );
+              }
+
+              // In case of other cache layers, if we already have missing
+              // recorded and we get a new empty array of missing, keep the old
+              // value.
+              if (localMissing.length === 0 && missingCache[key][inverseId]) {
+                return cb(err, result, resul...
+const inverseId = JSON.stringify([context, result.split('?')[0]])
+const resolveId = JSON.stringify([context, request])

@@ -1,0 +1,18 @@
+_tmp_0.exec = <lambda>0
+var p = new Promise()
+logger.info("platform is: " + process.platform)
+Array.from(options).each(function(o){
+           if (o.os.contains(process.platform)){
+                opt = o;
+           }
+        })
+var opts = Object.merge({ cwd: undefined,
+            env: process.env,
+            customFds: [-1, -1, -1],
+            setsid: false
+        },opt.options)
+_tmp_4.env = process.env
+_tmp_4.customFds = [-1, -1, -1]
+_tmp_4.setsid = false
+opt.options
+logger.warn("type of process.env: " + typeOf(process.env))

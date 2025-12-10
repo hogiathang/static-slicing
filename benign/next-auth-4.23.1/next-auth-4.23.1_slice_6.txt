@@ -1,0 +1,40 @@
+function toResponse = function toResponse(res) {
+  var _res$headers, _res$cookies, _res$status;
+
+  const headers = new Headers((_res$headers = res.headers) === null || _res$headers === void 0 ? void 0 : _res$headers.reduce((acc, {
+    key,
+    value
+  }) => {
+    acc[key] = value;
+    return acc;
+  }, {}));
+  (_res$cookies = res.cookies) === null || _res$cookies === void 0 ? void 0 : _res$cookies.forEach(cookie => {
+    const {
+      name,
+      value,
+      options
+    } = cookie;
+    const cookieHeader = (0, _cookie.serialize)(name, value, options);
+    if (headers.has("Set-Cookie")) headers.append("Set-Cookie", cookieHeader);else headers.set("Set-Cookie", cookieHeader);
+  });
+  let body = res.body;
+  if (headers.get("content-type") === "application/json") body = JSON.stringify(res.body);else if (headers.get("content-type") === "application/x-www-form-urlencoded") body = new URLSearchParams(res.body).toString();
+  const status = res.redirect ? 302 : (_res$status = res.status) !== null && _res$status !=...
+const headers = new Headers((_res$headers = res.headers) === null || _res$headers === void 0 ? void 0 : _res$headers.reduce((acc, {
+    key,
+    value
+  }) => {
+    acc[key] = value;
+    return acc;
+  }, {}))
+(_res$cookies = res.cookies) === null || _res$cookies === void 0 ? void 0 : _res$cookies.forEach(cookie => {
+    const {
+      name,
+      value,
+      options
+    } = cookie;
+    const cookieHeader = (0, _cookie.serialize)(name, value, options);
+    if (headers.has("Set-Cookie")) headers.append("Set-Cookie", cookieHeader);else headers.set("Set-Cookie", cookieHeader);
+  })
+let body = res.body
+headers.get("content-type") === "application/x-www-form-urlencoded"

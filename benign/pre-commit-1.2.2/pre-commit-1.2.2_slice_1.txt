@@ -1,0 +1,41 @@
+Hook.prototype.initialize = function initialize() {
+  ['git', 'npm'].forEach(function each(binary) {
+    try { this[binary] = which.sync(binary); }
+    catch (e) {}
+  }, this);
+
+  //
+  // in GUI clients node and npm are not in the PATH so get node binary PATH,
+  // add it to the PATH list and try again.
+  //
+  if (!this.npm) {
+    try {
+      process.env.PATH += path.delimiter + path.dirname(process.env._);
+      this.npm = which.sync('npm');
+    } catch (e) {
+      return this.log(this.format(Hook.log.binary, 'npm'), 0);
+    }
+  }
+
+  //
+  // Also bail out if we cannot find the git binary.
+  //
+  if (!this.git) return this.log(this.format(Hook.log.binary, 'git'), 0);
+
+  this.root = this.exec(this.git, ['rev-parse', '--show-toplevel']);
+  this.status = this.exec(this.git, ['status', '--porcelain']);
+
+  if (this.status.code) return this.log(Hook.log.status, 0);
+  if (this.root.code) return this.log(Hook.log.root, 0);
+
+  this.status = this.status.stdout.toString().trim();
+  this.root =...
+['git', 'npm'].forEach(function each(binary) {
+    try { this[binary] = which.sync(binary); }
+    catch (e) {}
+  }, this)
+!this.npm
+process.env.PATH += path.delimiter + path.dirname(process.env._)
+this.npm = which.sync('npm')
+this.log(this.format(Hook.log.binary, 'git'), 0)
+this.root = this.exec(this.git, ['rev-parse', '--show-toplevel'])

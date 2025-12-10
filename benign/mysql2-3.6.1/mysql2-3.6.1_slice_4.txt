@@ -1,0 +1,20 @@
+this._removeIdleTimeoutConnectionsTimer = setTimeout(() => {
+      try {
+        while (
+          this._freeConnections.length > this.config.maxIdle &&
+          Date.now() - this._freeConnections.get(0).lastActiveTime >
+            this.config.idleTimeout
+        ) {
+          this._freeConnections.get(0).destroy();
+        }
+      } finally {
+        this._removeIdleTimeoutConnections();
+      }
+    }, 1000)
+this._freeConnections.length > this.config.maxIdle &&
+          Date.now() - this._freeConnections.get(0).lastActiveTime >
+            this.config.idleTimeout
+Date.now() - this._freeConnections.get(0).lastActiveTime >
+            this.config.idleTimeout
+this.config.idleTimeout
+(_tmp_22 = this._freeConnections.get(0)).destroy

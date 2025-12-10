@@ -1,0 +1,26 @@
+var getNextDelimitersBlockKeys = function getNextDelimitersBlockKeys(block, blockMap) {
+  var nextDelimiters = [];
+
+  if (!block) {
+    return nextDelimiters;
+  }
+
+  var nextDelimiter = getNextDelimiterBlockKey(block, blockMap);
+
+  while (nextDelimiter && blockMap.get(nextDelimiter)) {
+    var _block = blockMap.get(nextDelimiter);
+
+    nextDelimiters.push(nextDelimiter); // we do not need to keep checking all root node siblings, just the first occurance
+
+    nextDelimiter = _block.getParentKey() ? getNextDelimiterBlockKey(_block, blockMap) : null;
+  }
+
+  return nextDelimiters;
+}
+var nextDelimiters = []
+!block
+var nextDelimiter = getNextDelimiterBlockKey(block, blockMap)
+nextDelimiter && blockMap.get(nextDelimiter)
+var _block = blockMap.get(nextDelimiter)
+nextDelimiters.push(nextDelimiter)
+nextDelimiter = _block.getParentKey() ? getNextDelimiterBlockKey(_block, blockMap) : null

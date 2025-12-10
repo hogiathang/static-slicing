@@ -1,0 +1,21 @@
+_destroyRipple(rippleRef) {
+        const eventListeners = this._activeRipples.get(rippleRef) ?? null;
+        this._activeRipples.delete(rippleRef);
+        // Clear out the cached bounding rect if we have no more ripples.
+        if (!this._activeRipples.size) {
+            this._containerRect = null;
+        }
+        // If the current ref is the most recent transient ripple, unset it
+        // avoid memory leaks.
+        if (rippleRef === this._mostRecentTransientRipple) {
+            this._mostRecentTransientRipple = null;
+        }
+        rippleRef.state = 3 /* RippleState.HIDDEN */;
+        if (eventListeners !== null) {
+            rippleRef.element.removeEventListener('transitionend', eventListeners.onTransitionEnd);
+            rippleRef.element.removeEventListener('transitioncancel', eventListeners.onTransitionCancel);
+        }
+        rippleRef.element.remove();
+    }
+const eventListeners = this._activeRipples.get(rippleRef) ?? null
+(_tmp_22 = this._activeRipples).delete

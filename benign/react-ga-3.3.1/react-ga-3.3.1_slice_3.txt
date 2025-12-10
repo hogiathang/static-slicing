@@ -1,0 +1,34 @@
+function exception = function exception({ description, fatal }, trackerNames) {
+  if (typeof ga === 'function') {
+    // Required Fields
+    const fieldObject = {
+      hitType: 'exception'
+    };
+
+    // Optional Fields
+    if (description) {
+      fieldObject.exDescription = _format(description);
+    }
+
+    if (typeof fatal !== 'undefined') {
+      if (typeof fatal !== 'boolean') {
+        warn('`args.fatal` must be a boolean.');
+      } else {
+        fieldObject.exFatal = fatal;
+      }
+    }
+
+    // Send to GA
+    send(fieldObject, trackerNames);
+  }
+}
+typeof ga === 'function'
+const fieldObject = {
+      hitType: 'exception'
+    }
+_tmp_16.hitType = "exception"
+fieldObject.exDescription = _format(description)
+typeof fatal !== 'undefined'
+typeof fatal !== 'boolean'
+warn('`args.fatal` must be a boolean.')
+fieldObject.exFatal = fatal

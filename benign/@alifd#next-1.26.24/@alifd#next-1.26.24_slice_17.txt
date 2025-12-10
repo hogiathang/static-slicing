@@ -1,0 +1,28 @@
+Overlay.prototype.doAnimation = function doAnimation(open, close) {
+        var _this2 = this;
+
+        if (this.state.animation && _util.support.animation) {
+            if (open) {
+                this.onEntering();
+            } else if (close) {
+                this.onLeaving();
+            }
+            this.addAnimationEvents();
+        } else {
+            if (open) {
+                // fix https://github.com/alibaba-fusion/next/issues/1901
+                setTimeout(function () {
+                    _this2.props.onOpen();
+                    _util.dom.addClass(_this2.getWrapperNode(), 'opened');
+                    _manager2.default.addOverlay(_this2);
+                    _this2.props.afterOpen();
+                });
+            } else if (close) {
+                this.props.onClose();
+                _util.dom.removeClass(this.getWrapperNode(), 'opened');
+                _manager2.default.removeOverlay(this);
+                this.props.afterClose();
+            }
+          ...
+var _this2 = this
+this.state.animation && _util.support.animation

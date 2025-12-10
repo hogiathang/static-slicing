@@ -1,0 +1,17 @@
+this.getToken().then((token) => {
+            const requestCopy = Object.assign({}, request);
+            requestCopy.headers = Object.assign({}, request.headers);
+            const authHeader = 'Authorization';
+            requestCopy.headers[authHeader] = `Bearer ${token}`;
+            if (!requestCopy.httpAgent && this.app.options.httpAgent) {
+                requestCopy.httpAgent = this.app.options.httpAgent;
+            }
+            return super.send(requestCopy);
+        })
+const requestCopy = Object.assign({}, request)
+requestCopy.headers = Object.assign({}, request.headers)
+const authHeader = 'Authorization'
+requestCopy.headers[authHeader] = `Bearer ${token}`
+!requestCopy.httpAgent && this.app.options.httpAgent
+requestCopy.httpAgent = this.app.options.httpAgent
+super.send(requestCopy)

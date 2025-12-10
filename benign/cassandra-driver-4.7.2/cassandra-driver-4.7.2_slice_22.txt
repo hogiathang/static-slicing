@@ -1,0 +1,33 @@
+function executeConcurrent = function executeConcurrent(client, query, parameters, options) {
+  if (!client) {
+    throw new TypeError('Client instance is not defined');
+  }
+
+  if (typeof query === 'string') {
+    if (Array.isArray(parameters)) {
+      return new ArrayBasedExecutor(client, query, parameters, options).execute();
+    }
+
+    if (parameters instanceof Stream) {
+      return new StreamBasedExecutor(client, query, parameters, options).execute();
+    }
+
+    throw new TypeError('parameters should be an Array or a Stream instance');
+  }
+
+  if (Array.isArray(query)) {
+    options = parameters;
+    return new ArrayBasedExecutor(client, null, query, options).execute();
+  }
+
+  throw new TypeError('A string query or query and parameters array should be provided');
+}
+!client
+throw new TypeError('Client instance is not defined');
+typeof query === 'string'
+Array.isArray(parameters)
+parameters instanceof Stream
+throw new TypeError('parameters should be an Array or a Stream instance');
+Array.isArray(query)
+options = parameters
+(_tmp_6 = new ArrayBasedExecutor(client, null, query, options)).execute

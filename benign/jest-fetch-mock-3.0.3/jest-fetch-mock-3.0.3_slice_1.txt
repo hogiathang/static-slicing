@@ -1,0 +1,9 @@
+bodyOrFunction(request).then(resp => {
+          if (request.signal && request.signal.aborted) {
+            abort()
+          }
+          return typeof resp === 'string'
+            ? responseWrapper(resp, init)
+            : responseWrapper(resp.body, responseInit(resp, init))
+        })
+request.signal && request.signal.aborted

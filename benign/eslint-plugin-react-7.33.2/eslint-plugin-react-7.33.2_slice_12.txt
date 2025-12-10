@@ -1,0 +1,20 @@
+function isDeclaredInComponent = function isDeclaredInComponent(node, names) {
+      while (node) {
+        const component = components.get(node);
+
+        const isDeclared = component && component.confidence === 2
+          && internalIsDeclaredInComponent(component.declaredPropTypes || {}, names);
+
+        if (isDeclared) {
+          return true;
+        }
+
+        node = node.parent;
+      }
+      return false;
+    }
+const component = components.get(node)
+const isDeclared = component && component.confidence === 2
+          && internalIsDeclaredInComponent(component.declaredPropTypes || {}, names)
+internalIsDeclaredInComponent(component.declaredPropTypes || {}, names)
+node = node.parent

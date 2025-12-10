@@ -1,0 +1,8 @@
+constructor() {
+        const root = (0, src_1.normalize)(path.join(os.tmpdir(), `devkit-host-${+Date.now()}-${process.pid}`));
+        fs.mkdirSync((0, src_1.getSystemPath)(root));
+        super(new host_1.NodeJsSyncHost(), root);
+        this._root = root;
+    }
+const root = (0, src_1.normalize)(path.join(os.tmpdir(), `devkit-host-${+Date.now()}-${process.pid}`))
+fs.mkdirSync((0, src_1.getSystemPath)(root))

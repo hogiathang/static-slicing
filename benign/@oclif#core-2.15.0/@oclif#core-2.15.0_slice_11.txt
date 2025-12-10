@@ -1,0 +1,74 @@
+function registerTSNode = function registerTSNode(root) {
+    const tsconfig = loadTSConfig(root);
+    if (!tsconfig)
+        return;
+    debug('registering ts-node at', root);
+    const tsNodePath = require.resolve('ts-node', { paths: [root, __dirname] });
+    const tsNode = require(tsNodePath);
+    TYPE_ROOTS.push(`${root}/node_modules/@types`);
+    if (tsconfig.compilerOptions.rootDirs) {
+        ROOT_DIRS.push(...tsconfig.compilerOptions.rootDirs.map(r => path.join(root, r)));
+    }
+    else {
+        ROOT_DIRS.push(`${root}/src`);
+    }
+    const cwd = process.cwd();
+    try {
+        process.chdir(root);
+        tsNode.register({
+            skipProject: true,
+            transpileOnly: true,
+            compilerOptions: {
+                esModuleInterop: tsconfig.compilerOptions.esModuleInterop,
+                target: tsconfig.compilerOptions.target || 'es2017',
+                experimentalDecorators: tsconfig.compilerOptions.experimentalDecorators || false,
+                emitDecoratorMetadata: tsc...
+const tsconfig = loadTSConfig(root)
+!tsconfig
+debug('registering ts-node at', root)
+const tsNodePath = require.resolve('ts-node', { paths: [root, __dirname] })
+const tsNode = require(tsNodePath)
+<operator>.formatString("", root, "/node_modules/@types")
+tsconfig.compilerOptions.rootDirs
+ROOT_DIRS.push(...tsconfig.compilerOptions.rootDirs.map(r => path.join(root, r)))
+<operator>.formatString("", root, "/src")
+const cwd = process.cwd()
+process.chdir(root)
+tsNode.register({
+            skipProject: true,
+            transpileOnly: true,
+            compilerOptions: {
+                esModuleInterop: tsconfig.compilerOptions.esModuleInterop,
+                target: tsconfig.compilerOptions.target || 'es2017',
+                experimentalDecorators: tsconfig.compilerOptions.experimentalDecorators || false,
+                emitDecoratorMetadata: tsconfig.compilerOptions.emitDecoratorMetadata || false,
+                module: 'commonjs',
+                sourceMap: true,
+                rootDirs: ROOT_DIRS,
+                typeRoots: TYPE_ROOTS,
+                jsx: 'react',
+            },
+        })
+_tmp_4.skipProject = true
+_tmp_4.transpileOnly = true
+_tmp_4.compilerOptions = {
+                esModuleInterop: tsconfig.compilerOptions.esModuleInterop,
+                target: tsconfig.compilerOptions.target || 'es2017',
+                experimentalDecorators: tsconfig.compilerOptions.experimentalDecorators || false,
+                emitDecoratorMetadata: tsconfig.compilerOptions.emitDecoratorMetadata || false,
+                module: 'commonjs',
+                sourceMap: true,
+                rootDirs: ROOT_DIRS,
+                typeRoots: TYPE_ROOTS,
+                jsx: 'react',
+            }
+_tmp_5.esModuleInterop = tsconfig.compilerOptions.esModuleInterop
+_tmp_5.target = tsconfig.compilerOptions.target || 'es2017'
+_tmp_5.experimentalDecorators = tsconfig.compilerOptions.experimentalDecorators || false
+_tmp_5.emitDecoratorMetadata = tsconfig.compilerOptions.emitDecoratorMetadata || false
+_tmp_5.module = "commonjs"
+_tmp_5.sourceMap = true
+_tmp_5.rootDirs = ROOT_DIRS
+_tmp_5.typeRoots = TYPE_ROOTS
+_tmp_5.jsx = "react"
+process.chdir(cwd)

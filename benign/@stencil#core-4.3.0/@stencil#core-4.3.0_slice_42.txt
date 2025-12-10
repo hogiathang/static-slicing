@@ -1,0 +1,9 @@
+receiveFromWorker(e) {
+  if (this.successfulMessage = !0, this.stopped) return;
+  const t = this.tasks.get(e.stencilId);
+  t ? (null != e.stencilRtnError ? t.reject(e.stencilRtnError) : t.resolve(e.stencilRtnValue), 
+  this.tasks.delete(e.stencilId), this.emit("response", e)) : null != e.stencilRtnError && this.emit("error", e.stencilRtnError);
+ }
+this.successfulMessage = !0
+const t = this.tasks.get(e.stencilId)
+null != e.stencilRtnError && this.emit("error", e.stencilRtnError)

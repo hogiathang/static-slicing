@@ -1,0 +1,68 @@
+Collection.prototype.remove = function (doc) {
+      var frozen;
+
+      if (typeof doc === 'number') {
+        doc = this.get(doc);
+      }
+
+      if ('object' !== typeof doc) {
+        throw new Error('Parameter is not an object');
+      }
+      if (Array.isArray(doc)) {
+        this.removeBatch(doc);
+        return;
+      }
+
+      if (!hasOwnProperty.call(doc, '$loki')) {
+        throw new Error('Object is not a document stored in the collection');
+      }
+
+      try {
+        this.startTransaction();
+        var arr = this.get(doc.$loki, true),
+          // obj = arr[0],
+          position = arr[1];
+        var self = this;
+        this.uniqueNames.forEach(function (key) {
+          if (doc[key] !== null && typeof doc[key] !== 'undefined') {
+            var index = self.getUniqueIndex(key);
+            if (index) {
+              index.remove(doc[key]);
+            }
+          }
+        });
+        // now that we can efficiently determine the data[] position of newly added documen...
+typeof doc === 'number'
+doc = this.get(doc)
+'object' !== typeof doc
+throw new Error('Parameter is not an object');
+Array.isArray(doc)
+!hasOwnProperty.call(doc, '$loki')
+throw new Error('Object is not a document stored in the collection');
+this.startTransaction()
+var arr = this.get(doc.$loki, true)
+var position = arr[1]
+var self = this
+this.uniqueNames.forEach(function (key) {
+          if (doc[key] !== null && typeof doc[key] !== 'undefined') {
+            var index = self.getUniqueIndex(key);
+            if (index) {
+              index.remove(doc[key]);
+            }
+          }
+        })
+idx < this.DynamicViews.length
+(_tmp_361 = this.DynamicViews[idx]).removeDocument
+this.adaptiveBinaryIndices
+var bIndices = this.binaryIndices
+_iterator_15 = <operator>.iterator(bIndices)
+this.adaptiveBinaryIndexRemove(position, key)
+this.flagBinaryIndexesDirty()
+this.data.splice(position, 1)
+this.removeAutoUpdateObserver(doc)
+this.idIndex.splice(position, 1)
+this.isIncremental
+(_tmp_364 = this.dirtyIds).push
+this.commit()
+this.dirty = true
+this.emit('delete', arr[0])

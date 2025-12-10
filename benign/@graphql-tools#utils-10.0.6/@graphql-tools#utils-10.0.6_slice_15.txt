@@ -1,0 +1,29 @@
+function addPathSegmentInfo = function addPathSegmentInfo(type, fieldName, pathIndex, errors = [], errorInfo) {
+    for (const error of errors) {
+        const segmentInfo = {
+            type,
+            fieldName,
+            pathIndex,
+        };
+        const pathSegmentsInfo = errorInfo.segmentInfoMap.get(error);
+        if (pathSegmentsInfo == null) {
+            errorInfo.segmentInfoMap.set(error, [segmentInfo]);
+        }
+        else {
+            pathSegmentsInfo.push(segmentInfo);
+        }
+    }
+}
+_iterator_6 = <operator>.iterator(errors)
+const segmentInfo = {
+            type,
+            fieldName,
+            pathIndex,
+        }
+_tmp_16.type = type
+_tmp_16.fieldName = fieldName
+_tmp_16.pathIndex = pathIndex
+const pathSegmentsInfo = errorInfo.segmentInfoMap.get(error)
+pathSegmentsInfo == null
+errorInfo.segmentInfoMap.set(error, [segmentInfo])
+pathSegmentsInfo.push(segmentInfo)

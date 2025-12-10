@@ -1,0 +1,40 @@
+function updateRsFromPrimary = function updateRsFromPrimary(
+  serverDescriptions,
+  setName,
+  serverDescription,
+  maxSetVersion,
+  maxElectionId
+) {
+  setName = setName || serverDescription.setName;
+  if (setName !== serverDescription.setName) {
+    serverDescriptions.delete(serverDescription.address);
+    return [checkHasPrimary(serverDescriptions), setName, maxSetVersion, maxElectionId];
+  }
+
+  const electionIdOID = serverDescription.electionId ? serverDescription.electionId.$oid : null;
+  const maxElectionIdOID = maxElectionId ? maxElectionId.$oid : null;
+  if (serverDescription.setVersion != null && electionIdOID != null) {
+    if (maxSetVersion != null && maxElectionIdOID != null) {
+      if (maxSetVersion > serverDescription.setVersion || maxElectionIdOID > electionIdOID) {
+        // this primary is stale, we must remove it
+        serverDescriptions.set(
+          serverDescription.address,
+          new ServerDescription(serverDescription.address)
+        );
+
+        return [checkHasPrimary(serverDesc...
+setName = setName || serverDescription.setName
+setName !== serverDescription.setName
+const electionIdOID = serverDescription.electionId ? serverDescription.electionId.$oid : null
+const maxElectionIdOID = maxElectionId ? maxElectionId.$oid : null
+serverDescription.setVersion != null && electionIdOID != null
+maxSetVersion != null && maxElectionIdOID != null
+maxSetVersion > serverDescription.setVersion || maxElectionIdOID > electionIdOID
+maxElectionId = serverDescription.electionId
+serverDescription.setVersion != null &&
+    (maxSetVersion == null || serverDescription.setVersion > maxSetVersion)
+maxSetVersion == null || serverDescription.setVersion > maxSetVersion
+maxSetVersion = serverDescription.setVersion
+_iterator_0 = <operator>.iterator(serverDescriptions.keys())
+const server = serverDescriptions.get(address)
+server.type === ServerType.RSPrimary && server.address !== serverDescription.address

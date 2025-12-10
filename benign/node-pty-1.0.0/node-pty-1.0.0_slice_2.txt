@@ -1,0 +1,6 @@
+getConsoleProcessList = require('../build/Release/conpty_console_list.node').getConsoleProcessList
+getConsoleProcessList = require('../build/Debug/conpty_console_list.node').getConsoleProcessList
+const shellPid = parseInt(process.argv[2], 10)
+const consoleProcessList = getConsoleProcessList(shellPid)
+_tmp_0.consoleProcessList = consoleProcessList
+process.exit(0)

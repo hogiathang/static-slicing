@@ -1,0 +1,16 @@
+_tmp_15.ReturnStatement = ReturnStatement
+node.argument
+markReturnStatementsOnCurrentSegmentsAsUsed()
+node.argument ||
+                    astUtils.isInLoop(node) ||
+                    isInFinally(node) ||
+
+                    // Ignore `return` statements in unreachable places (https://github.com/eslint/eslint/issues/11647).
+                    !isAnySegmentReachable(scopeInfo.currentSegments)
+astUtils.isInLoop(node)
+isInFinally(node)
+!isAnySegmentReachable(scopeInfo.currentSegments)
+_iterator_3 = <operator>.iterator(scopeInfo.currentSegments)
+const info = segmentInfoMap.get(segment)
+(_tmp_27 = info.uselessReturns).push
+info.returned = true

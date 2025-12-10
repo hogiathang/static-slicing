@@ -1,0 +1,83 @@
+Kareem.prototype.execPost = function(name, context, args, options, callback) {
+  if (arguments.length < 5) {
+    callback = options;
+    options = null;
+  }
+  const posts = this._posts.get(name) || [];
+  const numPosts = posts.length;
+  let currentPost = 0;
+
+  let firstError = null;
+  if (options && options.error) {
+    firstError = options.error;
+  }
+
+  if (!numPosts) {
+    return nextTick(function() {
+      callback.apply(null, [firstError].concat(args));
+    });
+  }
+
+  function next() {
+    const post = posts[currentPost].fn;
+    let numArgs = 0;
+    const argLength = args.length;
+    const newArgs = [];
+    for (let i = 0; i < argLength; ++i) {
+      numArgs += args[i] && args[i]._kareemIgnore ? 0 : 1;
+      if (!args[i] || !args[i]._kareemIgnore) {
+        newArgs.push(args[i]);
+      }
+    }
+
+    if (firstError) {
+      if (isErrorHandlingMiddleware(posts[currentPost], numArgs)) {
+        const _cb = decorateNextFn(function(error) {
+          if (error) {
+            if (error...
+arguments.length < 5
+callback = options
+options = null
+const posts = this._posts.get(name) || []
+const numPosts = posts.length
+let currentPost = 0
+let firstError = null
+options && options.error
+firstError = options.error
+!numPosts
+nextTick(function() {
+      callback.apply(null, [firstError].concat(args));
+    })
+function next = function next() {
+    const post = posts[currentPost].fn;
+    let numArgs = 0;
+    const argLength = args.length;
+    const newArgs = [];
+    for (let i = 0; i < argLength; ++i) {
+      numArgs += args[i] && args[i]._kareemIgnore ? 0 : 1;
+      if (!args[i] || !args[i]._kareemIgnore) {
+        newArgs.push(args[i]);
+      }
+    }
+
+    if (firstError) {
+      if (isErrorHandlingMiddleware(posts[currentPost], numArgs)) {
+        const _cb = decorateNextFn(function(error) {
+          if (error) {
+            if (error instanceof Kareem.overwriteResult) {
+              args = error.args;
+              if (++currentPost >= numPosts) {
+                return callback.call(null, firstError);
+              }
+              return next();
+            }
+            firstError = error;
+          }
+          if (++currentPost >= numPosts) {
+            return callback.call(null, firstError);
+          }
+          next();
+        });
+
+        callMiddlewareFunction(post, context,
+          [first...

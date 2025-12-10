@@ -1,0 +1,4 @@
+match = allKeys.every(key => {
+                                return dn.get(key) === subject.get(key);
+                            })
+dn.get(key) === subject.get(key)

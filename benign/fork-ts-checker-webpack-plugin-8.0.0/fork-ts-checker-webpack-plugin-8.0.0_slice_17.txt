@@ -1,0 +1,5 @@
+_tmp_1.close = <lambda>0
+const watchers = watchersMap.get(normalizedPath) || []
+const nextWatchers = watchers.filter((watcher) => watcher !== callback)
+nextWatchers.length > 0
+watchersMap.delete(normalizedPath)

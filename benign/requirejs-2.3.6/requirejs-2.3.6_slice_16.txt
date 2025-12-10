@@ -1,0 +1,13 @@
+_tmp_51.copyFile = <lambda>111
+var destFile = new java.io.File(destFileName)
+srcFile = new java.io.File(srcFileName)
+destFile.exists() && destFile.lastModified() >= srcFile.lastModified()
+parentDir = destFile.getParentFile()
+!parentDir.exists()
+!parentDir.mkdirs()
+throw "Could not create directory: " + parentDir.getCanonicalPath();
+srcChannel = new java.io.FileInputStream(srcFileName).getChannel()
+destChannel = new java.io.FileOutputStream(destFileName).getChannel()
+destChannel.transferFrom(srcChannel, 0, srcChannel.size())
+srcChannel.close()
+destChannel.close()

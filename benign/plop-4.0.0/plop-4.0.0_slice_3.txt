@@ -1,0 +1,48 @@
+function createInitPlopfile = function createInitPlopfile(force = false) {
+  var initString =
+    "export default function (plop) {\n\n" +
+    "\tplop.setGenerator('basics', {\n" +
+    "\t\tdescription: 'this is a skeleton plopfile',\n" +
+    "\t\tprompts: [],\n" +
+    "\t\tactions: []\n" +
+    "\t});\n\n" +
+    "};";
+
+  if (fs.existsSync(process.cwd() + "/plopfile.js") && force === false) {
+    throw Error('"plopfile.js" already exists at this location.');
+  }
+
+  if (fs.existsSync(process.cwd() + "/plopfile.cjs") && force === false) {
+    throw Error('"plopfile.cjs" already exists at this location.');
+  }
+
+  fs.writeFileSync(process.cwd() + "/plopfile.js", initString);
+}
+var initString =
+    "export default function (plop) {\n\n" +
+    "\tplop.setGenerator('basics', {\n" +
+    "\t\tdescription: 'this is a skeleton plopfile',\n" +
+    "\t\tprompts: [],\n" +
+    "\t\tactions: []\n" +
+    "\t});\n\n" +
+    "};"
+"export default function (plop) {\n\n" +
+    "\tplop.setGenerator('basics', {\n" +
+    "\t\tdescription: 'this is a skeleton plopfile',\n" +
+    "\t\tprompts: [],\n" +
+    "\t\tactions: []\n" +
+    "\t});\n\n" +
+    "};"
+"	plop.setGenerator('basics', {
+"
+"		description: 'this is a skeleton plopfile',
+"
+"		prompts: [],
+"
+"		actions: []
+"
+fs.existsSync(process.cwd() + "/plopfile.js") && force === false
+throw Error('"plopfile.js" already exists at this location.');
+fs.existsSync(process.cwd() + "/plopfile.cjs") && force === false
+throw Error('"plopfile.cjs" already exists at this location.');
+fs.writeFileSync(process.cwd() + "/plopfile.js", initString)

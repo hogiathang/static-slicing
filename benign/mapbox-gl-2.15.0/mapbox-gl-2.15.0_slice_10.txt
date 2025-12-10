@@ -1,0 +1,31 @@
+function drawAtmosphere = function drawAtmosphere(painter: Painter, fog: Fog) {
+    const context = painter.context;
+    const gl = context.gl;
+    const tr = painter.transform;
+    const depthMode = new DepthMode(gl.LEQUAL, DepthMode.ReadOnly, [0, 1]);
+    const defines = tr.projection.name === 'globe' ? ['PROJECTION_GLOBE_VIEW', 'FOG'] : ['FOG'];
+    const program = painter.useProgram('globeAtmosphere', null, ((defines: any): DynamicDefinesType[]));
+
+    const transitionT = globeToMercatorTransition(tr.zoom);
+
+    const fogColor = fog.properties.get('color').toArray01();
+    const highColor = fog.properties.get('high-color').toArray01();
+    const spaceColor = fog.properties.get('space-color').toArray01PremultipliedAlpha();
+
+    const orientation = quat.identity([]);
+
+    quat.rotateY(orientation, orientation, -degToRad(tr._center.lng));
+    quat.rotateX(orientation, orientation, degToRad(tr._center.lat));
+
+    quat.rotateZ(orientation, orientation, tr.angle);
+    quat.rotateX(orientation, orientation, -tr...
+const context = painter.context
+const gl = context.gl
+const tr = painter.transform
+const depthMode = new DepthMode(gl.LEQUAL, DepthMode.ReadOnly, [0, 1])
+const defines = tr.projection.name === 'globe' ? ['PROJECTION_GLOBE_VIEW', 'FOG'] : ['FOG']
+const program = painter.useProgram('globeAtmosphere', null, ((defines: any): DynamicDefinesType[]))
+const transitionT = globeToMercatorTransition(tr.zoom)
+const fogColor = fog.properties.get('color').toArray01()
+const highColor = fog.properties.get('high-color').toArray01()
+const spaceColor = fog.properties.get('space-color').toArray01PremultipliedAlpha()

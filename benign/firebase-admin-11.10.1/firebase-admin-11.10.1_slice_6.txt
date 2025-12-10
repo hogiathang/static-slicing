@@ -1,0 +1,71 @@
+function toCloudEventProtoFormat = function toCloudEventProtoFormat(ce) {
+    const source = ce.source ?? process.env.EVENTARC_CLOUD_EVENT_SOURCE;
+    if (typeof source === 'undefined' || !validator.isNonEmptyString(source)) {
+        throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'source' is required.");
+    }
+    if (!validator.isNonEmptyString(ce.type)) {
+        throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'type' is required.");
+    }
+    const out = {
+        '@type': 'type.googleapis.com/io.cloudevents.v1.CloudEvent',
+        'id': ce.id ?? (0, uuid_1.v4)(),
+        'type': ce.type,
+        'specVersion': ce.specversion ?? '1.0',
+        'source': source
+    };
+    if (typeof ce.time !== 'undefined') {
+        if (!validator.isISODateString(ce.time)) {
+            throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'tyme' must be in ISO date format.");
+        }
+        setAttribute(out, 'time', {
+            'ceTimestamp': ce.time
+        });
+    }
+    else {
+   ...
+const source = ce.source ?? process.env.EVENTARC_CLOUD_EVENT_SOURCE
+typeof source === 'undefined' || !validator.isNonEmptyString(source)
+throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'source' is required.");
+!validator.isNonEmptyString(ce.type)
+throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'type' is required.");
+const out = {
+        '@type': 'type.googleapis.com/io.cloudevents.v1.CloudEvent',
+        'id': ce.id ?? (0, uuid_1.v4)(),
+        'type': ce.type,
+        'specVersion': ce.specversion ?? '1.0',
+        'source': source
+    }
+_tmp_2.@type = "type.googleapis.com/io.cloudevents.v1.CloudEvent"
+_tmp_2.id = ce.id ?? (0, uuid_1.v4)()
+_tmp_2.type = ce.type
+_tmp_2.specVersion = ce.specversion ?? '1.0'
+_tmp_2.source = source
+typeof ce.time !== 'undefined'
+!validator.isISODateString(ce.time)
+throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'tyme' must be in ISO date format.");
+setAttribute(out, 'time', {
+            'ceTimestamp': ce.time
+        })
+_tmp_4.ceTimestamp = ce.time
+setAttribute(out, 'time', {
+            'ceTimestamp': new Date().toISOString()
+        })
+_tmp_5.ceTimestamp = new Date().toISOString()
+typeof ce.datacontenttype !== 'undefined'
+!validator.isNonEmptyString(ce.datacontenttype)
+throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'datacontenttype' if specified must be non-empty string.");
+setAttribute(out, 'datacontenttype', {
+            'ceString': ce.datacontenttype
+        })
+_tmp_9.ceString = ce.datacontenttype
+ce.subject
+!validator.isNonEmptyString(ce.subject)
+throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'subject' if specified must be non-empty string.");
+setAttribute(out, 'subject', {
+            'ceString': ce.subject
+        })
+_tmp_11.ceString = ce.subject
+typeof ce.data === 'undefined'
+throw new FirebaseEventarcError('invalid-argument', "CloudEvent 'data' is required.");
+validator.isObject(ce.data)
+out['textData'] = JSON.stringify(ce.data)

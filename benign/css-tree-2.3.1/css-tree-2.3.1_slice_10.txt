@@ -1,0 +1,5 @@
+_tmp_3.token = token
+prevCode = this.tokenBefore(prevCode, type, value)
+this.emit(value, type, false)
+type === types.Delim && value.charCodeAt(0) === REVERSESOLIDUS
+this.emit('\n', types.WhiteSpace, true)

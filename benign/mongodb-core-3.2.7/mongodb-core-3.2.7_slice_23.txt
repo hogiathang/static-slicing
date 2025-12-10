@@ -1,0 +1,57 @@
+function connectProxies = function connectProxies(self, servers) {
+  // Update connectingProxies
+  self.connectingProxies = self.connectingProxies.concat(servers);
+
+  // Index used to interleaf the server connects, avoiding
+  // runtime issues on io constrained vm's
+  var timeoutInterval = 0;
+
+  function connect(server, timeoutInterval) {
+    setTimeout(function() {
+      // Emit opening server event
+      self.emit('serverOpening', {
+        topologyId: self.id,
+        address: server.name
+      });
+
+      // Emit the initial topology
+      emitTopologyDescriptionChanged(self);
+
+      // Add event handlers
+      server.once('close', handleInitialConnectEvent(self, 'close'));
+      server.once('timeout', handleInitialConnectEvent(self, 'timeout'));
+      server.once('parseError', handleInitialConnectEvent(self, 'parseError'));
+      server.once('error', handleInitialConnectEvent(self, 'error'));
+      server.once('connect', handleInitialConnectEvent(self, 'connect'));
+
+      // Command Monitoring events
+   ...
+self.connectingProxies = self.connectingProxies.concat(servers)
+var timeoutInterval = 0
+function connect = function connect(server, timeoutInterval) {
+    setTimeout(function() {
+      // Emit opening server event
+      self.emit('serverOpening', {
+        topologyId: self.id,
+        address: server.name
+      });
+
+      // Emit the initial topology
+      emitTopologyDescriptionChanged(self);
+
+      // Add event handlers
+      server.once('close', handleInitialConnectEvent(self, 'close'));
+      server.once('timeout', handleInitialConnectEvent(self, 'timeout'));
+      server.once('parseError', handleInitialConnectEvent(self, 'parseError'));
+      server.once('error', handleInitialConnectEvent(self, 'error'));
+      server.once('connect', handleInitialConnectEvent(self, 'connect'));
+
+      // Command Monitoring events
+      relayEvents(server, self, ['commandStarted', 'commandSucceeded', 'commandFailed']);
+
+      // Start connection
+      server.connect(self.s.connectOptions);
+    }, timeoutInterval);
+  }
+servers.length > 0
+connect(servers.shift(), timeoutInterval++)

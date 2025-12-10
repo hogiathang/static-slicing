@@ -1,0 +1,79 @@
+proto._getArguments = function() {
+    var complexFilters = this._complexFilters.get();
+
+    var fileOutput = this._outputs.some(function(output) {
+      return output.isFile;
+    });
+
+    return [].concat(
+        // Inputs and input options
+        this._inputs.reduce(function(args, input) {
+          var source = (typeof input.source === 'string') ? input.source : 'pipe:0';
+
+          // For each input, add input options, then '-i <source>'
+          return args.concat(
+            input.options.get(),
+            ['-i', source]
+          );
+        }, []),
+
+        // Global options
+        this._global.get(),
+
+        // Overwrite if we have file outputs
+        fileOutput ? ['-y'] : [],
+
+        // Complex filters
+        complexFilters,
+
+        // Outputs, filters and output options
+        this._outputs.reduce(function(args, output) {
+          var sizeFilters = utils.makeFilterStrings(output.sizeFilters.get());
+          var audioFilters = output.audioFilters.get();
+      ...
+var complexFilters = this._complexFilters.get()
+var fileOutput = this._outputs.some(function(output) {
+      return output.isFile;
+    })
+[].concat(
+        // Inputs and input options
+        this._inputs.reduce(function(args, input) {
+          var source = (typeof input.source === 'string') ? input.source : 'pipe:0';
+
+          // For each input, add input options, then '-i <source>'
+          return args.concat(
+            input.options.get(),
+            ['-i', source]
+          );
+        }, []),
+
+        // Global options
+        this._global.get(),
+
+        // Overwrite if we have file outputs
+        fileOutput ? ['-y'] : [],
+
+        // Complex filters
+        complexFilters,
+
+        // Outputs, filters and output options
+        this._outputs.reduce(function(args, output) {
+          var sizeFilters = utils.makeFilterStrings(output.sizeFilters.get());
+          var audioFilters = output.audioFilters.get();
+          var videoFilters = output.videoFilters.get().concat(sizeFilters);
+          var outputArg;
+
+          if (!output.target) {
+            outputArg = [];
+          } else if (typeof output.targe...
+this._inputs.reduce(function(args, input) {
+          var source = (typeof input.source === 'string') ? input.source : 'pipe:0';
+
+          // For each input, add input options, then '-i <source>'
+          return args.concat(
+            input.options.get(),
+            ['-i', source]
+          );
+        }, [])
+__ecma.Array.factory()
+(_tmp_15 = this._global).get

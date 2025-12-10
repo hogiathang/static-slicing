@@ -1,0 +1,20 @@
+v = param2_0.v
+const _valueKey = isTemplateResult(this._value)
+            ? getStringsFromTemplateResult(this._value)
+            : null
+getStringsFromTemplateResult(this._value)
+const vKey = isTemplateResult(v) ? getStringsFromTemplateResult(v) : null
+_valueKey !== null && (vKey === null || _valueKey !== vKey)
+const partValue = getCommittedValue(containerPart)
+const childPart = partValue.pop()
+let cachedContainerPart = this._templateCache.get(_valueKey)
+cachedContainerPart === undefined
+const fragment = document.createDocumentFragment()
+cachedContainerPart = render(nothing, fragment)
+cachedContainerPart.setConnected(false)
+this._templateCache.set(_valueKey, cachedContainerPart)
+setCommittedValue(cachedContainerPart, [childPart])
+insertPart(cachedContainerPart, undefined, childPart)
+vKey !== null
+_valueKey === null || _valueKey !== vKey
+const cachedContainerPart = this._templateCache.get(vKey)

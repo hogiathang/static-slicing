@@ -1,0 +1,32 @@
+function endCB(err, stdoutRing, stderrRing) {
+          delete self.ffmpegProc;
+
+          if (err) {
+            if (err.message.match(/ffmpeg exited with code/)) {
+              // Add ffmpeg error message
+              err.message += ': ' + utils.extractError(stderrRing.get());
+            }
+
+            emitEnd(err, stdoutRing.get(), stderrRing.get());
+          } else {
+            // Find out which outputs need flv metadata
+            var flvmeta = self._outputs.filter(function(output) {
+              return output.flags.flvmeta;
+            });
+
+            if (flvmeta.length) {
+              self._getFlvtoolPath(function(err, flvtool) {
+                if (err) {
+                  return emitEnd(err);
+                }
+
+                async.each(
+                  flvmeta,
+                  function(output, cb) {
+                    spawn(flvtool, ['-U', output.target])
+                      .on('error', function(err) {
+                        cb(new Error('Error running '...
+delete self.ffmpegProc
+err.message.match(/ffmpeg exited with code/)
+err.message += ': ' + utils.extractError(stderrRing.get())
+emitEnd(err, stdoutRing.get(), stderrRing.get())

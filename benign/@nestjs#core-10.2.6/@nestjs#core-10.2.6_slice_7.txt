@@ -1,0 +1,13 @@
+async addImport(relatedModule, token) {
+        if (!this.modules.has(token)) {
+            return;
+        }
+        const moduleRef = this.modules.get(token);
+        const { token: relatedModuleToken } = await this.moduleCompiler.compile(relatedModule);
+        const related = this.modules.get(relatedModuleToken);
+        moduleRef.addImport(related);
+    }
+(_tmp_30 = this.modules).has
+const moduleRef = this.modules.get(token)
+_tmp_33 = await this.moduleCompiler.compile(relatedModule)
+const related = this.modules.get(relatedModuleToken)

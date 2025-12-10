@@ -1,0 +1,87 @@
+function startScript = function startScript(script, pkg, processes, setMaxListeners,  scriptsCount) {
+  var exec = [npm, 'run', '-s', script].join(' ')
+    var patterns = null
+    var extensions = null
+    var ignores = null
+    var quiet = null
+    var inherit = null
+    var legacyWatch = null
+    var delay = null
+    var clearBuffer = null
+    var verbose = null
+    var runOnChangeOnly = null
+  var silent = null;
+
+    if (typeof pkg.watch[script] === 'object' && !Array.isArray(pkg.watch[script])) {
+      patterns = pkg.watch[script].patterns
+      extensions = pkg.watch[script].extensions
+      ignores = pkg.watch[script].ignore
+      quiet = pkg.watch[script].quiet
+      inherit = pkg.watch[script].inherit
+      legacyWatch = pkg.watch[script].legacyWatch
+      delay = pkg.watch[script].delay
+      clearBuffer = pkg.watch[script].clearBuffer
+      verbose = pkg.watch[script].verbose
+      runOnChangeOnly = pkg.watch[script].runOnChangeOnly
+      silent = pkg.watch[script].silent
+    } else {
+      patt...
+var exec = [npm, 'run', '-s', script].join(' ')
+var patterns = null
+var extensions = null
+var ignores = null
+var quiet = null
+var inherit = null
+var legacyWatch = null
+var delay = null
+var clearBuffer = null
+var verbose = null
+var runOnChangeOnly = null
+var silent = null
+typeof pkg.watch[script] === 'object' && !Array.isArray(pkg.watch[script])
+patterns = pkg.watch[script].patterns
+extensions = pkg.watch[script].extensions
+ignores = pkg.watch[script].ignore
+quiet = pkg.watch[script].quiet
+inherit = pkg.watch[script].inherit
+legacyWatch = pkg.watch[script].legacyWatch
+delay = pkg.watch[script].delay
+clearBuffer = pkg.watch[script].clearBuffer
+verbose = pkg.watch[script].verbose
+runOnChangeOnly = pkg.watch[script].runOnChangeOnly
+silent = pkg.watch[script].silent
+patterns = pkg.watch[script]
+verbose && silent
+console.error('Silent and Verbose can not both be on')
+patterns = [].concat(patterns).map(function (pattern) {
+      return ['--watch', pattern]
+    }).reduce(function (a, b) {
+      return a.concat(b)
+    })
+<lambda>2
+ignores = [].concat(ignores).map(function (ignore) {
+        return ['--ignore', ignore]
+      }).reduce(function (a, b) {
+        return a.concat(b)
+      })
+<lambda>4
+extensions ? ['--ext', extensions] : __ecma.Array.factory()
+args = args.concat(patterns)
+args = args.concat(ignores)
+args = args.concat(['--legacy-watch'])
+args = args.concat(['--delay', delay + 'ms'])
+_tmp_13 = __ecma.Array.factory()
+_tmp_14 = __ecma.Array.factory()
+args = args.concat(['--on-change-only'])
+process.setMaxListeners(scriptsCount)
+stdin.stdout.setMaxListeners(scriptsCount)
+stdin.stderr.setMaxListeners(scriptsCount)
+args = args.concat(['--exec', exec])
+var proc = processes[script] = spawn(nodemon, args, {
+      env: process.env,
+      cwd: pkgDir,
+      stdio: inherit === true ? ['pipe', 'inherit', 'inherit'] : 'pipe'
+    })
+_tmp_19.env = process.env
+_tmp_19.cwd = pkgDir
+_tmp_19.stdio = inherit === true ? ['pipe', 'inherit', 'inherit'] : "pipe"

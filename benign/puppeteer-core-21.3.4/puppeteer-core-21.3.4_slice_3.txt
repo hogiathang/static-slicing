@@ -1,0 +1,17 @@
+on(type, handler) {
+            if (type !== "request" /* PageEvent.Request */) {
+                return super.on(type, handler);
+            }
+            let wrapper = this.#requestHandlers.get(handler);
+            if (wrapper === undefined) {
+                wrapper = (event) => {
+                    event.enqueueInterceptAction(() => {
+                        return handler(event);
+                    });
+                };
+                this.#requestHandlers.set(handler, wrapper);
+            }
+            return super.on(type, wrapper);
+        }
+type !== "request"
+let wrapper = this.#requestHandlers.get(handler)

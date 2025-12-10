@@ -1,0 +1,85 @@
+function getValidHeadNodesAndAttributes = function getValidHeadNodesAndAttributes(
+  rootNode,
+  htmlAndBodyAttributes = {
+    html: {},
+    body: {},
+  }
+) {
+  const seenIds = new Map()
+  const validHeadNodes = []
+
+  // Filter out non-element nodes before looping since we don't care about them
+  for (const node of rootNode.childNodes) {
+    const nodeName = node.nodeName.toLowerCase()
+    const id = node.attributes?.id?.value
+
+    if (!isElementType(node)) continue
+
+    if (isValidNodeName(nodeName)) {
+      // <html> and <body> tags are treated differently, in that we don't render them, we only extract the attributes and apply them separetely
+      if (nodeName === `html` || nodeName === `body`) {
+        for (const attribute of node.attributes) {
+          const isStyleAttribute = attribute.name === `style`
+
+          // Merge attributes for same nodeName from previous loop iteration
+          htmlAndBodyAttributes[nodeName] = {
+            ...htmlAndBodyAttributes[nodeName],
+          }
+
+          if (!isStyleAttribute)...
+htmlAndBodyAttributes = htmlAndBodyAttributes === void 0 ? {
+    html: {},
+    body: {},
+  } : htmlAndBodyAttributes
+_tmp_5.html = {}
+_tmp_5.body = {}
+const seenIds = new Map()
+const validHeadNodes = []
+_iterator_3 = <operator>.iterator(rootNode.childNodes)
+const nodeName = node.nodeName.toLowerCase()
+const id = node.attributes?.id?.value
+!isElementType(node)
+isValidNodeName(nodeName)
+nodeName === `html` || nodeName === `body`
+_iterator_4 = <operator>.iterator(node.attributes)
+const isStyleAttribute = attribute.name === `style`
+htmlAndBodyAttributes[nodeName] = {
+            ...htmlAndBodyAttributes[nodeName],
+          }
+...htmlAndBodyAttributes[nodeName]
+!isStyleAttribute
+htmlAndBodyAttributes[nodeName][attribute.name] = attribute.value
+htmlAndBodyAttributes[nodeName].style = `${
+              htmlAndBodyAttributes[nodeName]?.style
+                ? htmlAndBodyAttributes[nodeName].style
+                : ``
+            }${attribute.value} `
+htmlAndBodyAttributes[nodeName].style ? htmlAndBodyAttributes[nodeName].style : ""
+htmlAndBodyAttributes[nodeName].style
+attribute.value
+let clonedNode = node.cloneNode(true)
+clonedNode.setAttribute(`data-gatsby-head`, true)
+clonedNode.nodeName.toLowerCase() === `script`
+clonedNode = massageScript(clonedNode)
+!seenIds.has(id)
+validHeadNodes.push(clonedNode)
+seenIds.set(id, validHeadNodes.length - 1)
+const indexOfPreviouslyInsertedNode = seenIds.get(id)
+validHeadNodes[
+              indexOfPreviouslyInsertedNode
+            ].parentNode?.removeChild(
+              validHeadNodes[indexOfPreviouslyInsertedNode]
+            )
+removeChild
+validHeadNodes[indexOfPreviouslyInsertedNode]
+validHeadNodes[indexOfPreviouslyInsertedNode] = clonedNode
+validHeadNodes.push(clonedNode)
+warnForInvalidTag(nodeName)
+node.childNodes.length
+validHeadNodes.push(
+        ...getValidHeadNodesAndAttributes(node, htmlAndBodyAttributes)
+          .validHeadNodes
+      )
+...getValidHeadNodesAndAttributes(node, htmlAndBodyAttributes)
+          .validHeadNodes
+validHeadNodes

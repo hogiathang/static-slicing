@@ -1,0 +1,14 @@
+function isIncludedConsoleBind = function isIncludedConsoleBind(memberExpr, excludeArray) {
+    const object = memberExpr.get("object");
+    if (!object.isMemberExpression()) return false;
+    if (isExcluded(object.get("property"), excludeArray)) return false;
+    return isGlobalConsoleId(object.get("object")) && memberExpr.get("property").isIdentifier({
+      name: "bind"
+    });
+  }
+const object = memberExpr.get("object")
+!object.isMemberExpression()
+isExcluded(object.get("property"), excludeArray)
+isGlobalConsoleId(object.get("object")) && memberExpr.get("property").isIdentifier({
+      name: "bind"
+    })

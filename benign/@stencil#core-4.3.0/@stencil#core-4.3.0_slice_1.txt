@@ -1,0 +1,83 @@
+t.realpath = function e(t, r, c) {
+   function u() {
+    var e = i.exec(t);
+    E = e[0].length, v = e[0], b = e[0], _ = "", o && !y[b] ? a.lstat(b, (function(e) {
+     if (e) return c(e);
+     y[b] = !0, f();
+    })) : process.nextTick(f);
+   }
+   function f() {
+    if (E >= t.length) return r && (r[m] = t), c(null, t);
+    n.lastIndex = E;
+    var e = n.exec(t);
+    return _ = v, v += e[0], b = _ + e[1], E = n.lastIndex, y[b] || r && r[b] === b ? process.nextTick(f) : r && Object.prototype.hasOwnProperty.call(r, b) ? d(r[b]) : a.lstat(b, h);
+   }
+   function h(e, t) {
+    if (e) return c(e);
+    if (!t.isSymbolicLink()) return y[b] = !0, r && (r[b] = b), process.nextTick(f);
+    if (!o) {
+     var n = t.dev.toString(32) + ":" + t.ino.toString(32);
+     if (g.hasOwnProperty(n)) return p(null, g[n], b);
+    }
+    a.stat(b, (function(e) {
+     if (e) return c(e);
+     a.readlink(b, (function(e, t) {
+      o || (g[n] = t), p(e, t);
+     }));
+    }));
+   }
+   function p(e, t, n) {
+    ...
+function u = function u() {
+    var e = i.exec(t);
+    E = e[0].length, v = e[0], b = e[0], _ = "", o && !y[b] ? a.lstat(b, (function(e) {
+     if (e) return c(e);
+     y[b] = !0, f();
+    })) : process.nextTick(f);
+   }
+function f = function f() {
+    if (E >= t.length) return r && (r[m] = t), c(null, t);
+    n.lastIndex = E;
+    var e = n.exec(t);
+    return _ = v, v += e[0], b = _ + e[1], E = n.lastIndex, y[b] || r && r[b] === b ? process.nextTick(f) : r && Object.prototype.hasOwnProperty.call(r, b) ? d(r[b]) : a.lstat(b, h);
+   }
+function h = function h(e, t) {
+    if (e) return c(e);
+    if (!t.isSymbolicLink()) return y[b] = !0, r && (r[b] = b), process.nextTick(f);
+    if (!o) {
+     var n = t.dev.toString(32) + ":" + t.ino.toString(32);
+     if (g.hasOwnProperty(n)) return p(null, g[n], b);
+    }
+    a.stat(b, (function(e) {
+     if (e) return c(e);
+     a.readlink(b, (function(e, t) {
+      o || (g[n] = t), p(e, t);
+     }));
+    }));
+   }
+function p = function p(e, t, n) {
+    if (e) return c(e);
+    var i = s.resolve(_, t);
+    r && (r[n] = i), d(i);
+   }
+function d = function d(e) {
+    t = s.resolve(e, t.slice(E)), u();
+   }
+"function" != typeof c && (c = function w(e) {
+    return "function" == typeof e ? e : function t() {
+     function e(e) {
+      if (e) {
+       if (process.throwDeprecation) throw e;
+       if (!process.noDeprecation) {
+        var t = "fs: missing callback " + (e.stack || e.message);
+        process.traceDeprecation ? console.trace(t) : console.error(t);
+       }
+      }
+     }
+     var t, r;
+     return l ? (r = new Error, t = function n(t) {
+      t && (r.message = t.message, e(t = r));
+     }) : t = e, t;
+    }();
+   }(r), r = null)
+(_tmp_771 = Object.prototype.hasOwnProperty).call

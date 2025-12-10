@@ -1,0 +1,54 @@
+_tmp_1.trigger = <lambda>4
+var eventPath = [ elem || document ]
+var type = hasOwn.call( event, "type" ) ? event.type : event
+hasOwn.call( event, "namespace" ) ? event.namespace.split(".") : __ecma.Array.factory()
+cur = tmp = elem = elem || document
+elem.nodeType === 3 || elem.nodeType === 8
+rfocusMorph.test( type + jQuery.event.triggered )
+type.indexOf(".") >= 0
+namespaces = type.split(".")
+type = namespaces.shift()
+namespaces.sort()
+ontype = type.indexOf(":") < 0 && "on" + type
+event = event[ jQuery.expando ] ?
+			event :
+			new jQuery.Event( type, typeof event === "object" && event )
+new jQuery.Event( type, typeof event === "object" && event )
+event.isTrigger = onlyHandlers ? 2 : 3
+event.namespace = namespaces.join(".")
+event.namespace_re = event.namespace ?
+			new RegExp( "(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)" ) :
+			null
+new RegExp( "(^|\\.)" + namespaces.join("\\.(?:.*\\.|)") + "(\\.|$)" )
+event.result = undefined
+!event.target
+event.target = elem
+data = data == null ?
+			[ event ] :
+			jQuery.makeArray( data, [ event ] )
+_tmp_28 = __ecma.Array.factory()
+jQuery.makeArray( data, [ event ] )
+special = jQuery.event.special[ type ] || {}
+!onlyHandlers && special.trigger && special.trigger.apply( elem, data ) === false
+!onlyHandlers && !special.noBubble && !jQuery.isWindow( elem )
+bubbleType = special.delegateType || type
+!rfocusMorph.test( bubbleType + type )
+cur = cur.parentNode
+cur = cur.parentNode
+eventPath.push( cur )
+tmp = cur
+tmp === (elem.ownerDocument || document)
+eventPath.push( tmp.defaultView || tmp.parentWindow || window )
+i = 0
+(cur = eventPath[i++]) && !event.isPropagationStopped()
+event.type = i > 1 ?
+				bubbleType :
+				special.bindType || type
+special.bindType || type
+handle = ( data_priv.get( cur, "events" ) || {} )[ event.type ] && data_priv.get( cur, "handle" )
+handle.apply( cur, data )
+handle = ontype && cur[ ontype ]
+handle && handle.apply && jQuery.acceptData( cur )
+event.result = handle.apply( cur, data )
+event.result === false
+event.preventDefault()

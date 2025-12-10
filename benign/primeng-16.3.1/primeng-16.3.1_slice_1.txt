@@ -1,0 +1,8 @@
+get(token, notFoundValue, flags) {
+        const value = this._additionalTokens.get(token);
+        if (value)
+            return value;
+        return this._parentInjector.get(token, notFoundValue);
+    }
+const value = this._additionalTokens.get(token)
+this._parentInjector.get(token, notFoundValue)

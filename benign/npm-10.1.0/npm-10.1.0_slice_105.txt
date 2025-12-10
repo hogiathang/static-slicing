@@ -1,0 +1,31 @@
+this.time('npm:load:display', () => {
+      this.#display.load({
+        // Use logColor since that is based on stderr
+        color: this.logColor,
+        chalk: this.logChalk,
+        progress: this.flatOptions.progress,
+        silent: this.silent,
+        timing: this.config.get('timing'),
+        loglevel: this.config.get('loglevel'),
+        unicode: this.config.get('unicode'),
+        heading: this.config.get('heading'),
+      })
+      process.env.COLOR = this.color ? '1' : '0'
+    })
+this.#display.load({
+        // Use logColor since that is based on stderr
+        color: this.logColor,
+        chalk: this.logChalk,
+        progress: this.flatOptions.progress,
+        silent: this.silent,
+        timing: this.config.get('timing'),
+        loglevel: this.config.get('loglevel'),
+        unicode: this.config.get('unicode'),
+        heading: this.config.get('heading'),
+      })
+_tmp_58.color = this.logColor
+_tmp_58.chalk = this.logChalk
+_tmp_58.progress = this.flatOptions.progress
+_tmp_58.silent = this.silent
+_tmp_58.timing = this.config.get('timing')
+_tmp_58.loglevel = this.config.get('loglevel')

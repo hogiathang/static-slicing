@@ -1,0 +1,51 @@
+_tmp_57.listen = listen
+const headers = {
+          Host: 'streaming.campfirenow.com',
+          Authorization: self.authorization,
+          'User-Agent': `Hubot/${this.robot != null ? this.robot.version : undefined} (${this.robot != null ? this.robot.name : undefined})`
+        }
+_tmp_64.Host = "streaming.campfirenow.com"
+_tmp_64.Authorization = self.authorization
+_tmp_64.User-Agent = <operator>.formatString("Hubot/", this.robot != null ? this.robot.version : undefined, " (", this.robot != null ? this.robot.name : undefined, ")")
+const options = {
+          agent: false,
+          host: 'streaming.campfirenow.com',
+          port: 443,
+          path: `/room/${id}/live.json`,
+          method: 'GET',
+          headers
+        }
+_tmp_65.agent = false
+_tmp_65.host = "streaming.campfirenow.com"
+_tmp_65.port = 443
+_tmp_65.path = <operator>.formatString("/room/", id, "/live.json")
+_tmp_65.method = "GET"
+_tmp_65.headers = headers
+const request = HTTPS.request(options, function (response) {
+          response.setEncoding('utf8')
+
+          let buf = ''
+
+          response.on('data', function (chunk) {
+            if (chunk === ' ') {
+              // campfire api sends a ' ' heartbeat every 3s
+
+            } else if (chunk.match(/^\s*Access Denied/)) {
+              return logger.error(`Campfire error on room ${id}: ${chunk}`)
+            } else {
+              // api uses newline terminated json payloads
+              // buffer across tcp packets and parse out lines
+              buf += chunk
+
+              return (() => {
+                let offset
+                const result = []
+                while ((offset = buf.indexOf('\r')) > -1) {
+                  let item
+                  const part = buf.substr(0, offset)
+                  buf = buf.substr(offset + 1)
+
+                  if (part) {
+                    try {
+                      const data = JSON.parse(part)
+                      item = self.emit(da...

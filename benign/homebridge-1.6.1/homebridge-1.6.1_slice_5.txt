@@ -1,0 +1,31 @@
+startChildProcess() {
+        this.bridgeStatus = "pending" /* PENDING */;
+        this.child = child_process_1.default.fork(path_1.default.resolve(__dirname, "childBridgeFork.js"), this.args, {
+            silent: true,
+        });
+        this.child.stdout.on("data", (data) => {
+            process.stdout.write(data);
+        });
+        this.child.stderr.on("data", (data) => {
+            process.stderr.write(data);
+        });
+        this.child.on("exit", () => {
+            this.log.warn("Child bridge process ended");
+        });
+        this.child.on("error", (e) => {
+            this.bridgeStatus = "down" /* DOWN */;
+            this.log.error("Child process error", e);
+        });
+        this.child.once("close", (code, signal) => {
+            this.bridgeStatus = "down" /* DOWN */;
+            this.handleProcessClose(code, signal);
+        });
+        // handle incoming ipc messages from the child process
+        this.child.on("message", (message) => {
+            var _a;
+...
+this.bridgeStatus = "pending"
+this.child = child_process_1.default.fork(path_1.default.resolve(__dirname, "childBridgeFork.js"), this.args, {
+            silent: true,
+        })
+_tmp_15.silent = true

@@ -1,0 +1,67 @@
+function fromKryptoKit = async function fromKryptoKit(entropy: string, password: string): Promise<Wallet> {
+  function kryptoKitBrokenScryptSeed(buf: Buffer) {
+    // js-scrypt calls `Buffer.from(String(salt), 'utf8')` on the seed even though it is a buffer
+    //
+    // The `buffer`` implementation used does the below transformation (doesn't matches the current version):
+    // https://github.com/feross/buffer/blob/67c61181b938b17d10dbfc0a545f713b8bd59de8/index.js
+
+    function decodeUtf8Char(str: string) {
+      try {
+        return decodeURIComponent(str)
+      } catch (err) {
+        return String.fromCharCode(0xfffd) // UTF 8 invalid char
+      }
+    }
+
+    let res = '',
+      tmp = ''
+    for (let i = 0; i < buf.length; i++) {
+      if (buf[i] <= 0x7f) {
+        res += decodeUtf8Char(tmp) + String.fromCharCode(buf[i])
+        tmp = ''
+      } else {
+        tmp += '%' + buf[i].toString(16)
+      }
+    }
+    return Buffer.from(res + decodeUtf8Char(tmp))
+  }
+
+  if (entropy[0] === '#') {
+    entropy = en...
+function kryptoKitBrokenScryptSeed = function kryptoKitBrokenScryptSeed(buf: Buffer) {
+    // js-scrypt calls `Buffer.from(String(salt), 'utf8')` on the seed even though it is a buffer
+    //
+    // The `buffer`` implementation used does the below transformation (doesn't matches the current version):
+    // https://github.com/feross/buffer/blob/67c61181b938b17d10dbfc0a545f713b8bd59de8/index.js
+
+    function decodeUtf8Char(str: string) {
+      try {
+        return decodeURIComponent(str)
+      } catch (err) {
+        return String.fromCharCode(0xfffd) // UTF 8 invalid char
+      }
+    }
+
+    let res = '',
+      tmp = ''
+    for (let i = 0; i < buf.length; i++) {
+      if (buf[i] <= 0x7f) {
+        res += decodeUtf8Char(tmp) + String.fromCharCode(buf[i])
+        tmp = ''
+      } else {
+        tmp += '%' + buf[i].toString(16)
+      }
+    }
+    return Buffer.from(res + decodeUtf8Char(tmp))
+  }
+entropy[0] === '#'
+entropy = entropy.slice(1)
+const type = entropy[0]
+entropy = entropy.slice(1)
+type === 'd'
+type === 'q'
+typeof password !== 'string'
+throw new Error('Password required')
+const encryptedSeed = sha256(Buffer.from(entropy.slice(0, 30)))
+const checksum = entropy.slice(30, 46)
+const salt = kryptoKitBrokenScryptSeed(encryptedSeed)

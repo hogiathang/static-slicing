@@ -1,0 +1,29 @@
+#getEncoder(type) {
+        // Basic encoder type (address, bool, uint256, etc)
+        {
+            const encoder = getBaseEncoder(type);
+            if (encoder) {
+                return encoder;
+            }
+        }
+        // Array
+        const match = type.match(/^(.*)(\x5b(\d*)\x5d)$/);
+        if (match) {
+            const subtype = match[1];
+            const subEncoder = this.getEncoder(subtype);
+            return (value) => {
+                (0, index_js_4.assertArgument)(!match[3] || parseInt(match[3]) === value.length, `array length mismatch; expected length ${parseInt(match[3])}`, "value", value);
+                let result = value.map(subEncoder);
+                if (this.#fullTypes.has(subtype)) {
+                    result = result.map(index_js_2.keccak256);
+                }
+                return (0, index_js_2.keccak256)((0, index_js_4.concat)(result));
+            };
+        }
+        // Struct
+        const fields = this.types[type];
+        if (fields) {...
+const encoder = getBaseEncoder(type)
+const match = type.match(/^(.*)(\x5b(\d*)\x5d)$/)
+const fields = this.types[type]
+const encodedType = (0, id_js_1.id)(this.#fullTypes.get(type))

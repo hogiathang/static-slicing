@@ -1,0 +1,28 @@
+parseRange(e) {
+  const r = ((this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE)) + ":" + e, n = cache.get(r);
+  if (n) return n;
+  const i = this.options.loose, s = i ? re[t.HYPHENRANGELOOSE] : re[t.HYPHENRANGE];
+  e = e.replace(s, hyphenReplace(this.options.includePrerelease)), debug_1("hyphen replace", e), 
+  e = e.replace(re[t.COMPARATORTRIM], comparatorTrimReplace), debug_1("comparator trim", e), 
+  e = e.replace(re[t.TILDETRIM], tildeTrimReplace), debug_1("tilde trim", e), e = e.replace(re[t.CARETTRIM], caretTrimReplace), 
+  debug_1("caret trim", e);
+  let o = e.split(" ").map((e => parseComparator(e, this.options))).join(" ").split(/\s+/).map((e => replaceGTE0(e, this.options)));
+  i && (o = o.filter((e => (debug_1("loose invalid filter", e, this.options), !!e.match(re[t.COMPARATORLOOSE]))))), 
+  debug_1("range list", o);
+  const a = new Map, l = o.map((e => new comparator(e, this.options)));
+  for (const e of l) {
+   if (isNullSet...
+const r = ((this.options.includePrerelease && FLAG_INCLUDE_PRERELEASE) | (this.options.loose && FLAG_LOOSE)) + ":" + e
+const s = i ? re[t.HYPHENRANGELOOSE] : re[t.HYPHENRANGE]
+e = e.replace(s, hyphenReplace(this.options.includePrerelease))
+e = e.replace(re[t.COMPARATORTRIM], comparatorTrimReplace)
+e = e.replace(re[t.TILDETRIM], tildeTrimReplace)
+debug_1("caret trim", e)
+let o = e.split(" ").map((e => parseComparator(e, this.options))).join(" ").split(/\s+/).map((e => replaceGTE0(e, this.options)))
+i && (o = o.filter((e => (debug_1("loose invalid filter", e, this.options), !!e.match(re[t.COMPARATORLOOSE])))))
+debug_1("range list", o)
+const l = o.map((e => new comparator(e, this.options)))
+!(_result_16 = _iterator_16.next()).done
+_tmp_959 = __ecma.Array.factory()
+a.set(e.value, e)
+a.size > 1 && a.has("") && a.delete("")

@@ -1,0 +1,40 @@
+function onLoadedStructures = function onLoadedStructures(sharedData) {
+	if (!(sharedData instanceof Map))
+		return sharedData;
+	let typed = sharedData.get('typed') || [];
+	if (Object.isFrozen(typed))
+		typed = typed.map(structure => structure.slice(0));
+	let named = sharedData.get('named');
+	let transitions = Object.create(null);
+	for (let i = 0, l = typed.length; i < l; i++) {
+		let structure = typed[i];
+		let transition = transitions;
+		for (let [type, size, key] of structure) {
+			let nextTransition = transition[key];
+			if (!nextTransition) {
+				transition[key] = nextTransition = {
+					key,
+					parent: transition,
+					enumerationOffset: 0,
+					ascii0: null,
+					ascii8: null,
+					num8: null,
+					string16: null,
+					object16: null,
+					num32: null,
+					float64: null,
+					date64: null,
+				};
+			}
+			transition = createTypeTransition(nextTransition, type, size);
+		}
+		transition[RECORD_SYMBOL] = i;
+	}
+	typed.transitions = transitions;
+	this.typedStructs = typed;
+	this.lastTypedStructuresLength = ty...
+!(sharedData instanceof Map)
+let typed = sharedData.get('typed') || []
+Object.isFrozen(typed)
+typed = typed.map(structure => structure.slice(0))
+let named = sharedData.get('named')

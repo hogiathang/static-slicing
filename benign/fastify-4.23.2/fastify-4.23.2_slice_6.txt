@@ -1,0 +1,34 @@
+Reply.prototype.compileSerializationSchema = function (schema, httpStatus = null, contentType = null) {
+  const { request } = this
+  const { method, url } = request
+
+  // Check if serialize function already compiled
+  if (this[kRouteContext][kReplyCacheSerializeFns]?.has(schema)) {
+    return this[kRouteContext][kReplyCacheSerializeFns].get(schema)
+  }
+
+  const serializerCompiler = this[kRouteContext].serializerCompiler ||
+   this.server[kSchemaController].serializerCompiler ||
+  (
+    // We compile the schemas if no custom serializerCompiler is provided
+    // nor set
+    this.server[kSchemaController].setupSerializer(this.server[kOptions]) ||
+    this.server[kSchemaController].serializerCompiler
+  )
+
+  const serializeFn = serializerCompiler({
+    schema,
+    method,
+    url,
+    httpStatus,
+    contentType
+  })
+
+  // We create a WeakMap to compile the schema only once
+  // Its done lazily to avoid add overhead by creating the WeakMap
+  // if it is not used
+  // TODO: Explore a cen...
+request = _tmp_54.request
+method = _tmp_55.method
+this[kRouteContext][kReplyCacheSerializeFns]?.has(schema)
+(_tmp_56 = this[kRouteContext][kReplyCacheSerializeFns]).get

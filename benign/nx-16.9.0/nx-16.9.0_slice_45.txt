@@ -1,0 +1,40 @@
+function publishHandler = async function publishHandler(args) {
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true });
+    const nxJson = (0, nx_json_1.readNxJson)();
+    // Apply default configuration to any optional user configuration
+    const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release);
+    const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups);
+    if (releaseGroupsData.error) {
+        return await (0, create_release_groups_1.handleCreateReleaseGroupsError)(releaseGroupsData.error);
+    }
+    let { releaseGroups } = releaseGroupsData;
+    /**
+     * User is filtering to a subset of projects. We need to make sure that what they have provided can be reconciled
+     * against their configuration in terms of release groups and the ungroupedProjectsHandling option.
+     */
+    if (args.projects?.length) {
+        const matchingProjectsForFilter = (0, find_matching_projects_1...
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true })
+const nxJson = (0, nx_json_1.readNxJson)()
+const nxReleaseConfig = (0, config_1.createNxReleaseConfig)(nxJson.release)
+const releaseGroupsData = await (0, create_release_groups_1.createReleaseGroups)(projectGraph, nxReleaseConfig.groups)
+releaseGroupsData.error
+releaseGroups = _tmp_1.releaseGroups
+args.projects.length
+const matchingProjectsForFilter = (0, find_matching_projects_1.findMatchingProjects)(args.projects, projectGraph.nodes)
+!matchingProjectsForFilter.length
+output_1.output.error({
+                title: `Your --projects filter "${args.projects}" did not match any projects in the workspace`,
+            })
+_tmp_3.title = <operator>.formatString("Your --projects filter "", args.projects, "" did not match any projects in the workspace")
+process.exit(1)
+const filteredProjectToReleaseGroup = new Map()
+const releaseGroupToFilteredProjects = new Map()
+_iterator_0 = <operator>.iterator(releaseGroups)
+const matchingProjectsForReleaseGroup = (0, find_matching_projects_1.findMatchingProjects)(releaseGroup.projects, projectGraph.nodes)
+_iterator_1 = <operator>.iterator(matchingProjectsForFilter)
+matchingProjectsForReleaseGroup.includes(matchingProject)
+filteredProjectToReleaseGroup.set(matchingProject, releaseGroup)
+!releaseGroupToFilteredProjects.has(releaseGroup)
+releaseGroupToFilteredProjects.set(releaseGroup, new Set())
+releaseGroupToFilteredProjects.get(releaseGroup).add(matchingProject)

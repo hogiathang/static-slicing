@@ -1,0 +1,47 @@
+function generateUUID = function generateUUID(value, namespace, buf, offset) {
+      if (typeof value === 'string') {
+        value = stringToBytes(value);
+      }
+
+      if (typeof namespace === 'string') {
+        namespace = parse(namespace);
+      }
+
+      if (namespace.length !== 16) {
+        throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
+      } // Compute hash of namespace and value, Per 4.3
+      // Future: Use spread syntax when supported on all platforms, e.g. `bytes =
+      // hashfunc([...namespace, ... value])`
+
+
+      var bytes = new Uint8Array(16 + value.length);
+      bytes.set(namespace);
+      bytes.set(value, namespace.length);
+      bytes = hashfunc(bytes);
+      bytes[6] = bytes[6] & 0x0f | version;
+      bytes[8] = bytes[8] & 0x3f | 0x80;
+
+      if (buf) {
+        offset = offset || 0;
+
+        for (var i = 0; i < 16; ++i) {
+          buf[offset + i] = bytes[i];
+        }
+
+        return buf;
+      }
+
+      return stringify(bytes);
+    }
+typeof value === 'string'
+value = stringToBytes(value)
+typeof namespace === 'string'
+namespace = parse(namespace)
+namespace.length !== 16
+throw TypeError('Namespace must be array-like (16 iterable integer values, 0-255)');
+var bytes = new Uint8Array(16 + value.length)
+bytes.set(namespace)
+bytes.set(value, namespace.length)
+bytes = hashfunc(bytes)
+bytes[6] = bytes[6] & 0x0f | version
+bytes[8] = bytes[8] & 0x3f | 0x80

@@ -1,0 +1,14 @@
+new P((resolve, reject) => {
+      // console.log("chunk", chunk.length);
+      this.next = resolve;
+      // this.appendReadBuf(chunk);
+      this.childProcess.stdin.write(chunk, () => {
+        // console.log("chunk callback");
+        this.flushResult();
+      });
+    })
+this.next = resolve
+this.childProcess.stdin.write(chunk, () => {
+        // console.log("chunk callback");
+        this.flushResult();
+      })

@@ -1,0 +1,28 @@
+(0, rxjs_1.tap)((message) => {
+            // Update the state.
+            state = this._updateState(message, state);
+            switch (message.kind) {
+                case api_1.JobOutboundMessageKind.ChannelCreate: {
+                    const maybeSubject = channelsSubject.get(message.name);
+                    // If it doesn't exist or it's closed on the other end.
+                    if (!maybeSubject) {
+                        const s = new rxjs_1.Subject();
+                        channelsSubject.set(message.name, s);
+                        channels.set(message.name, s.asObservable());
+                    }
+                    break;
+                }
+                case api_1.JobOutboundMessageKind.ChannelMessage: {
+                    const maybeSubject = channelsSubject.get(message.name);
+                    if (maybeSubject) {
+                        maybeSubject.next(message.message);
+                    }
+                    break;
+                }
+                ...
+state = this._updateState(message, state)
+message.kind
+api_1.JobOutboundMessageKind.ChannelError
+const maybeSubject = channelsSubject.get(message.name)
+maybeSubject.error(message.error)
+channelsSubject.delete(message.name)

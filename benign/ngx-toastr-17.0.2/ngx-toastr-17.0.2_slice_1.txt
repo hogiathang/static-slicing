@@ -1,0 +1,4 @@
+positionClass = positionClass === void 0 ? "" : positionClass
+!this._paneElements.get(overlayContainer)
+this._paneElements.set(overlayContainer, {})
+!this._paneElements.get(overlayContainer)[positionClass]

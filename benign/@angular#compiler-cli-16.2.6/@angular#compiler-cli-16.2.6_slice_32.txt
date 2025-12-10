@@ -1,0 +1,38 @@
+function parseTemplateDeclaration = function parseTemplateDeclaration(node, decorator, component, containingFile, evaluator, depTracker, resourceLoader, defaultPreserveWhitespaces) {
+  let preserveWhitespaces = defaultPreserveWhitespaces;
+  if (component.has("preserveWhitespaces")) {
+    const expr = component.get("preserveWhitespaces");
+    const value = evaluator.evaluate(expr);
+    if (typeof value !== "boolean") {
+      throw createValueHasWrongTypeError(expr, value, "preserveWhitespaces must be a boolean");
+    }
+    preserveWhitespaces = value;
+  }
+  let interpolationConfig = DEFAULT_INTERPOLATION_CONFIG;
+  if (component.has("interpolation")) {
+    const expr = component.get("interpolation");
+    const value = evaluator.evaluate(expr);
+    if (!Array.isArray(value) || value.length !== 2 || !value.every((element) => typeof element === "string")) {
+      throw createValueHasWrongTypeError(expr, value, "interpolation must be an array with 2 elements of string type");
+    }
+    interpolationConfig = InterpolationCon...
+let preserveWhitespaces = defaultPreserveWhitespaces
+component.has("preserveWhitespaces")
+const expr = component.get("preserveWhitespaces")
+const value = evaluator.evaluate(expr)
+typeof value !== "boolean"
+throw createValueHasWrongTypeError(expr, value, "preserveWhitespaces must be a boolean");
+preserveWhitespaces = value
+let interpolationConfig = DEFAULT_INTERPOLATION_CONFIG
+component.has("interpolation")
+const expr = component.get("interpolation")
+const value = evaluator.evaluate(expr)
+!Array.isArray(value) || value.length !== 2 || !value.every((element) => typeof element === "string")
+throw createValueHasWrongTypeError(expr, value, "interpolation must be an array with 2 elements of string type");
+interpolationConfig = InterpolationConfig.fromArray(value)
+component.has("templateUrl")
+component.has("template")
+_tmp_287.isInline = true
+_tmp_287.interpolationConfig = interpolationConfig
+_tmp_287.preserveWhitespaces = preserveWhitespaces
+_tmp_287.expression = component.get("template")

@@ -1,0 +1,45 @@
+function compileFile = function compileFile(from, to, command, options) {
+	var ext = path.extname(from);
+
+	if (ext !== '.js' && ext !== '.jsm' && ext !== '.es6' && ext !== '.jsx')
+		return;
+
+	if (to) {
+		var extTo = path.extname(to);
+		to = to.slice(0, -extTo.length) + '.js';
+	}
+
+	var source = fs.readFileSync(from, 'utf-8');
+	var result = buble.transform(source, {
+		target: options.target,
+		transforms: options.transforms,
+		source: from,
+		file: to,
+		jsx: options.jsx,
+		objectAssign: options.objectAssign,
+		namedFunctionExpressions: options.namedFunctionExpressions
+	});
+
+	write(result, to, command);
+}
+var ext = path.extname(from)
+ext !== '.js' && ext !== '.jsm' && ext !== '.es6' && ext !== '.jsx'
+var extTo = path.extname(to)
+to = to.slice(0, -extTo.length) + '.js'
+var source = fs.readFileSync(from, 'utf-8')
+var result = buble.transform(source, {
+		target: options.target,
+		transforms: options.transforms,
+		source: from,
+		file: to,
+		jsx: options.jsx,
+		objectAssign: options.objectAssign,
+		namedFunctionExpressions: options.namedFunctionExpressions
+	})
+_tmp_2.target = options.target
+_tmp_2.transforms = options.transforms
+_tmp_2.source = from
+_tmp_2.file = to
+_tmp_2.jsx = options.jsx
+_tmp_2.objectAssign = options.objectAssign
+_tmp_2.namedFunctionExpressions = options.namedFunctionExpressions

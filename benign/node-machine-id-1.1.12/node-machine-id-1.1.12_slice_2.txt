@@ -1,0 +1,5 @@
+function machineIdSync = function machineIdSync(original: boolean): string {
+    let id: string = expose(execSync(guid[platform]).toString());
+    return original ? id : hash(id);
+}
+let id: string = expose(execSync(guid[platform]).toString())

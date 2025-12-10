@@ -1,0 +1,36 @@
+QueryManager.prototype.getObservableFromLink = function (query, context, variables, deduplication) {
+        var _this = this;
+        if (deduplication === void 0) { deduplication = this.queryDeduplication; }
+        var observable;
+        var serverQuery = this.transform(query).serverQuery;
+        if (serverQuery) {
+            var _a = this, inFlightLinkObservables_1 = _a.inFlightLinkObservables, link = _a.link;
+            var operation = {
+                query: serverQuery,
+                variables: variables,
+                operationName: apollo_utilities_1.getOperationName(serverQuery) || void 0,
+                context: this.prepareContext(tslib_1.__assign(tslib_1.__assign({}, context), { forceFetch: !deduplication })),
+            };
+            context = operation.context;
+            if (deduplication) {
+                var byVariables_1 = inFlightLinkObservables_1.get(serverQuery) || new Map();
+                inFlightLinkObservables_1.set(serverQuery, byVariables_1...
+var _this = this
+deduplication = this.queryDeduplication
+var serverQuery = this.transform(query).serverQuery
+var inFlightLinkObservables_1 = _a.inFlightLinkObservables
+var operation = {
+                query: serverQuery,
+                variables: variables,
+                operationName: apollo_utilities_1.getOperationName(serverQuery) || void 0,
+                context: this.prepareContext(tslib_1.__assign(tslib_1.__assign({}, context), { forceFetch: !deduplication })),
+            }
+_tmp_147.query = serverQuery
+_tmp_147.variables = variables
+_tmp_147.operationName = apollo_utilities_1.getOperationName(serverQuery) || void 0
+_tmp_147.context = this.prepareContext(tslib_1.__assign(tslib_1.__assign({}, context), { forceFetch: !deduplication }))
+context = operation.context
+var byVariables_1 = inFlightLinkObservables_1.get(serverQuery) || new Map()
+inFlightLinkObservables_1.set(serverQuery, byVariables_1)
+var varJson_1 = JSON.stringify(variables)
+observable = byVariables_1.get(varJson_1)

@@ -1,0 +1,19 @@
+function (error) {
+            _this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: _this
+            });
+            throw error;
+        }
+_this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: _this
+            })
+_tmp_153.action = "response"
+_tmp_153.error = error
+_tmp_153.request = request
+_tmp_153.provider = _this

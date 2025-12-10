@@ -1,0 +1,25 @@
+options = options === void 0 ? {} : options
+jsiiDeprecationWarnings._aws_cdk_core_DockerBuildOptions(options)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, this.fromBuild)
+throw error;
+const buildArgs = options.buildArgs || {}
+options.file && path_1.isAbsolute(options.file)
+<operator>.formatString(""file" must be relative to the docker build directory. Got ", options.file, "")
+const input = JSON.stringify({ path, ...options })
+const tagHash = crypto.createHash('sha256').update(input).digest('hex')
+<operator>.formatString("cdk-", tagHash, "")
+const dockerArgs = [
+            'build', '-t', tag,
+            ...(options.file ? ['-f', path_1.join(path, options.file)] : []),
+            ...(options.platform ? ['--platform', options.platform] : []),
+            ...flatten(Object.entries(buildArgs).map(([k, v]) => ['--build-arg', `${k}=${v}`])),
+            path,
+        ]
+_tmp_41.push("build")
+options.file ? ['-f', path_1.join(path, options.file)] : __ecma.Array.factory()
+options.platform ? ['--platform', options.platform] : __ecma.Array.factory()
+_tmp_41.push(...flatten(Object.entries(buildArgs).map(([k, v]) => ['--build-arg', `${k}=${v}`])))
+_tmp_41.push(path)
+dockerExec(dockerArgs)
+const hash = fs_1.FileSystem.fingerprint(path, { extraHash: JSON.stringify(options) })

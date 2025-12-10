@@ -1,0 +1,31 @@
+function getTempfile = function getTempfile(name) {
+    var suffix = '',
+      filepath, fd;
+    tempdir = tempdir || require('os').tmpdir();
+
+    while (true) {
+      filepath = pathUtil.join(tempdir, name + suffix);
+      try {
+        fd = fs.openSync(filepath, 'wx');
+      } catch (e) {
+        if (e.code === 'EEXIST') {
+          suffix++;
+          continue;
+        } else {
+          throw e;
+        }
+      }
+      fs.closeSync(fd);
+      break;
+    }
+    return filepath;
+  }
+var suffix = ''
+tempdir = tempdir || require('os').tmpdir()
+filepath = pathUtil.join(tempdir, name + suffix)
+fd = fs.openSync(filepath, 'wx')
+e.code === 'EEXIST'
+suffix++
+continue;
+throw e;
+fs.closeSync(fd)

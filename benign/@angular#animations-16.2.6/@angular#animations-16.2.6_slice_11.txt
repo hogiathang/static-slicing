@@ -1,0 +1,25 @@
+_balanceNamespaceList(ns, hostElement) {
+        const namespaceList = this._namespaceList;
+        const namespacesByHostElement = this.namespacesByHostElement;
+        const limit = namespaceList.length - 1;
+        if (limit >= 0) {
+            let found = false;
+            // Find the closest ancestor with an existing namespace so we can then insert `ns` after it,
+            // establishing a top-down ordering of namespaces in `this._namespaceList`.
+            let ancestor = this.driver.getParentElement(hostElement);
+            while (ancestor) {
+                const ancestorNs = namespacesByHostElement.get(ancestor);
+                if (ancestorNs) {
+                    // An animation namespace has been registered for this ancestor, so we insert `ns`
+                    // right after it to establish top-down ordering of animation namespaces.
+                    const index = namespaceList.indexOf(ancestorNs);
+                    namespaceList.splice(index + 1, 0, ns);
+  ...
+const namespaceList = this._namespaceList
+const namespacesByHostElement = this.namespacesByHostElement
+const limit = namespaceList.length - 1
+limit >= 0
+let found = false
+let ancestor = this.driver.getParentElement(hostElement)
+const ancestorNs = namespacesByHostElement.get(ancestor)
+ancestor = this.driver.getParentElement(ancestor)

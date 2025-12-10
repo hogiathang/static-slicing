@@ -1,0 +1,24 @@
+function maybeCreateConstructor = function maybeCreateConstructor() {
+    const classBodyPath = classState.path.get("body");
+    for (const path of classBodyPath.get("body")) {
+      if (path.isClassMethod({
+        kind: "constructor"
+      })) return;
+    }
+    let params, body;
+    if (classState.isDerived) {
+      const constructor = _core.template.expression.ast`
+        (function () {
+          super(...arguments);
+        })
+      `;
+      params = constructor.params;
+      body = constructor.body;
+    } else {
+      params = [];
+      body = _core.types.blockStatement([]);
+    }
+    classBodyPath.unshiftContainer("body", _core.types.classMethod("constructor", _core.types.identifier("constructor"), params, body));
+  }
+const classBodyPath = classState.path.get("body")
+_iterator_0 = <operator>.iterator(classBodyPath.get("body"))

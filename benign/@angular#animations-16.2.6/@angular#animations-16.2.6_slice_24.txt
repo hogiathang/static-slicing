@@ -1,0 +1,37 @@
+buildKeyframes() {
+        let keyframes = this.keyframes;
+        let { delay, duration, easing } = this.timings;
+        if (this._stretchStartingKeyframe && delay) {
+            const newKeyframes = [];
+            const totalTime = duration + delay;
+            const startingGap = delay / totalTime;
+            // the original starting keyframe now starts once the delay is done
+            const newFirstKeyframe = copyStyles(keyframes[0]);
+            newFirstKeyframe.set('offset', 0);
+            newKeyframes.push(newFirstKeyframe);
+            const oldFirstKeyframe = copyStyles(keyframes[0]);
+            oldFirstKeyframe.set('offset', roundOffset(startingGap));
+            newKeyframes.push(oldFirstKeyframe);
+            /*
+              When the keyframe is stretched then it means that the delay before the animation
+              starts is gone. Instead the first keyframe is placed at the start of the animation
+              and it is then copied to where it starts when the ...
+let keyframes = this.keyframes
+duration = _tmp_271.duration
+this._stretchStartingKeyframe && delay
+const newKeyframes = []
+const totalTime = duration + delay
+const startingGap = delay / totalTime
+const newFirstKeyframe = copyStyles(keyframes[0])
+newFirstKeyframe.set('offset', 0)
+newKeyframes.push(newFirstKeyframe)
+const oldFirstKeyframe = copyStyles(keyframes[0])
+oldFirstKeyframe.set('offset', roundOffset(startingGap))
+newKeyframes.push(oldFirstKeyframe)
+const limit = keyframes.length - 1
+i <= limit
+let kf = copyStyles(keyframes[i])
+const oldOffset = kf.get('offset')
+const timeAtKeyframe = delay + oldOffset * duration
+kf.set('offset', roundOffset(timeAtKeyframe / totalTime))
+newKeyframes.push(kf)

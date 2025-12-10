@@ -1,0 +1,1 @@
+function removeWarning = function removeWarning(construct,id){const meta=construct.node._metadata;if(!meta)return;let i=0;for(;i<meta.length;){const m=meta[i];m.type===cxschema.ArtifactMetadataEntryType.WARN&&m.data.includes(ackTag(id))?meta.splice(i,1):i+=1}}

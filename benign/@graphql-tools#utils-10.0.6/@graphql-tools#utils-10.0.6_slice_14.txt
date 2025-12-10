@@ -1,0 +1,59 @@
+function astFromSchema = function astFromSchema(schema, pathToDirectivesInExtensions) {
+    const operationTypeMap = new Map([
+        ['query', undefined],
+        ['mutation', undefined],
+        ['subscription', undefined],
+    ]);
+    const nodes = [];
+    if (schema.astNode != null) {
+        nodes.push(schema.astNode);
+    }
+    if (schema.extensionASTNodes != null) {
+        for (const extensionASTNode of schema.extensionASTNodes) {
+            nodes.push(extensionASTNode);
+        }
+    }
+    for (const node of nodes) {
+        if (node.operationTypes) {
+            for (const operationTypeDefinitionNode of node.operationTypes) {
+                operationTypeMap.set(operationTypeDefinitionNode.operation, operationTypeDefinitionNode);
+            }
+        }
+    }
+    const rootTypeMap = (0, rootTypes_js_1.getRootTypeMap)(schema);
+    for (const [operationTypeNode, operationTypeDefinitionNode] of operationTypeMap) {
+        const rootType = rootTypeMap.get(operationTypeNode);
+        if (rootType != ...
+const operationTypeMap = new Map([
+        ['query', undefined],
+        ['mutation', undefined],
+        ['subscription', undefined],
+    ])
+_tmp_6.push(['query', undefined])
+_tmp_6.push(['mutation', undefined])
+_tmp_6.push(['subscription', undefined])
+__ecma.Array.factory()
+schema.astNode != null
+nodes.push(schema.astNode)
+schema.extensionASTNodes != null
+_iterator_2 = <operator>.iterator(schema.extensionASTNodes)
+nodes.push(extensionASTNode)
+_iterator_3 = <operator>.iterator(nodes)
+node.operationTypes
+_iterator_4 = <operator>.iterator(node.operationTypes)
+operationTypeMap.set(operationTypeDefinitionNode.operation, operationTypeDefinitionNode)
+const rootTypeMap = (0, rootTypes_js_1.getRootTypeMap)(schema)
+_iterator_5 = <operator>.iterator(operationTypeMap)
+const rootType = rootTypeMap.get(operationTypeNode)
+rootType != null
+const rootTypeAST = (0, astFromType_js_1.astFromType)(rootType)
+operationTypeDefinitionNode != null
+operationTypeDefinitionNode.type = rootTypeAST
+operationTypeMap.set(operationTypeNode, {
+                    kind: graphql_1.Kind.OPERATION_TYPE_DEFINITION,
+                    operation: operationTypeNode,
+                    type: rootTypeAST,
+                })
+_tmp_10.kind = graphql_1.Kind.OPERATION_TYPE_DEFINITION
+_tmp_10.operation = operationTypeNode
+_tmp_10.type = rootTypeAST

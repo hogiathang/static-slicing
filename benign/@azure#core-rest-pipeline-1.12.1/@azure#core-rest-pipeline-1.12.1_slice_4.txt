@@ -1,0 +1,20 @@
+_tmp_4.sendRequest = sendRequest
+!request.url.toLowerCase().startsWith("https://")
+throw new Error("Bearer token authentication for auxiliary header is not permitted for non-TLS protected (non-https) URLs.");
+!credentials || credentials.length === 0
+const tokenPromises = []
+_iterator_0 = <operator>.iterator(credentials)
+let getAccessToken = tokenCyclerMap.get(credential)
+!getAccessToken
+getAccessToken = createTokenCycler(credential)
+tokenCyclerMap.set(credential, getAccessToken)
+tokenPromises.push(sendAuthorizeRequest({
+                    scopes: Array.isArray(scopes) ? scopes : [scopes],
+                    request,
+                    getAccessToken,
+                    logger,
+                }))
+_tmp_8.scopes = Array.isArray(scopes) ? scopes : [scopes]
+_tmp_8.request = request
+_tmp_8.getAccessToken = getAccessToken
+_tmp_8.logger = logger

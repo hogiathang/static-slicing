@@ -1,0 +1,70 @@
+process.bin = process.title = 'bower'
+var Q = require('q')
+var mout = require('mout')
+var Logger = require('bower-logger')
+var userHome = require('user-home')
+var bower = require('../')
+var version = require('../version')
+var cli = require('../util/cli')
+var rootCheck = require('../util/rootCheck')
+var levels = Logger.LEVELS
+options = cli.readOptions({
+    version: { type: Boolean, shorthand: 'v' },
+    help: { type: Boolean, shorthand: 'h' },
+    'allow-root': { type: Boolean }
+})
+_tmp_5.version = { type: Boolean, shorthand: 'v' }
+_tmp_5.help = { type: Boolean, shorthand: 'h' }
+_tmp_5.allow-root = { type: Boolean }
+options.version
+process.stdout.write(version + '\n')
+process.exit()
+rootCheck(options, bower.config)
+bower.config.silent
+loglevel = levels.error
+bower.config.verbose
+loglevel = -Infinity
+Q.longStackSupport = true
+bower.config.quiet
+loglevel = levels.warn
+loglevel = levels[bower.config.loglevel] || levels.info
+options.argv.remain.length
+command = options.argv.remain.join(' ')
+bower.abbreviations[command]
+command = bower.abbreviations[command].replace(/\s/g, '.')
+break;
+command = command.replace(/\s/g, '.')
+mout.object.has(bower.commands, command)
+break;
+(_tmp_13 = options.argv.remain).pop
+commandFunc = command && mout.object.get(bower.commands, command)
+function handleLogger = function handleLogger(logger, renderer) {
+    logger
+        .on('end', function(data) {
+            if (!bower.config.silent && !bower.config.quiet) {
+                renderer.end(data);
+            }
+        })
+        .on('error', function(err) {
+            if (
+                command !== 'help' &&
+                (err.code === 'EREADOPTIONS' || err.code === 'EINVFORMAT')
+            ) {
+                logger = bower.commands.help(command);
+                renderer = cli.getRenderer('help', logger.json, bower.config);
+                handleLogger(logger, renderer);
+            } else {
+                if (levels.error >= loglevel) {
+                    renderer.error(err);
+                }
+
+                process.exit(1);
+            }
+        })
+        .on('log', function(log) {
+            if (levels[log.level] >= loglevel) {
+                renderer.log(log);
+            }
+        })
+        .on('prompt', function(prompt, callback) {
+            renderer.prompt(prompt).t...

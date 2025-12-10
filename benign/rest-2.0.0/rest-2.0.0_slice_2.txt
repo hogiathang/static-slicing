@@ -1,0 +1,6 @@
+request.cancel = function cancel() {
+			request.canceled = true;
+			clientRequest.abort();
+		}
+request.canceled = true
+clientRequest.abort()

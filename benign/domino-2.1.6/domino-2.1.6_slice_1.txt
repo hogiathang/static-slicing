@@ -1,0 +1,3 @@
+_tmp_17.advance = <lambda>23
+this.LA(0) !== 0 && !this.match(tokenTypes, channel)
+this.get()

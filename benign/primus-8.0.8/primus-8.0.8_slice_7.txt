@@ -1,0 +1,39 @@
+primus.on('incoming::error', function error(e) {
+    var connect = primus.timers.active('connect')
+      , err = e;
+
+    //
+    // When the error is not an Error instance we try to normalize it.
+    //
+    if ('string' === typeof e) {
+      err = new Error(e);
+    } else if (!(e instanceof Error) && 'object' === typeof e) {
+      //
+      // BrowserChannel and SockJS returns an object which contains some
+      // details of the error. In order to have a proper error we "copy" the
+      // details in an Error instance.
+      //
+      err = new Error(e.message || e.reason);
+      for (var key in e) {
+        if (Object.prototype.hasOwnProperty.call(e, key))
+          err[key] = e[key];
+      }
+    }
+    //
+    // We're still doing a reconnect attempt, it could be that we failed to
+    // connect because the server was down. Failing connect attempts should
+    // always emit an `error` event instead of a `open` event.
+    //
+    //
+    if (primus.recovery.reconnecting()) return primus....
+var connect = primus.timers.active('connect')
+var err = e
+'string' === typeof e
+err = new Error(e)
+!(e instanceof Error) && 'object' === typeof e
+err = new Error(e.message || e.reason)
+!(_result_1 = _iterator_1.next()).done
+(_tmp_33 = Object.prototype.hasOwnProperty).call
+err[key] = e[key]
+(_tmp_34 = primus.recovery).reconnecting
+primus.listeners('error').length

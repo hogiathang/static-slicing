@@ -1,0 +1,58 @@
+module.exports = function(callback)
+{
+	// figure out URL of binary
+	var version = package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1'); // turn '1.2.3-alpha' into '1.2.3'
+
+	var platform = {
+		darwin_x64: 'mac-64-bit',
+		darwin_arm64: 'mac-64-bit',
+		win32_x64: 'windows-64-bit',
+		linux_x64: 'linux-64-bit'
+	}[process.platform + '_' + process.arch];
+
+	verifyPlatform(version, platform);
+
+	var url = 'https://github.com/elm/compiler/releases/download/' + version + '/binary-for-' + platform + '.gz';
+
+	reportDownload(version, url);
+
+	// figure out where to put the binary (calls path.resolve() to get path separators right on Windows)
+	var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '');
+
+	// set up handler for request failure
+	function reportDownloadFailure(error)
+	{
+		exitFailure(url,'Something went wrong while fetching the following URL:\n\n' + url + '\n\nIt is saying:\n\n' + error);
+	}
+
+	// set up decompression pipe
+	var gunzip = zlib....
+var version = package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1')
+var platform = {
+		darwin_x64: 'mac-64-bit',
+		darwin_arm64: 'mac-64-bit',
+		win32_x64: 'windows-64-bit',
+		linux_x64: 'linux-64-bit'
+	}[process.platform + '_' + process.arch]
+_tmp_1.darwin_x64 = "mac-64-bit"
+_tmp_1.darwin_arm64 = "mac-64-bit"
+_tmp_1.win32_x64 = "windows-64-bit"
+_tmp_1.linux_x64 = "linux-64-bit"
+process.platform + '_' + process.arch
+verifyPlatform(version, platform)
+var url = 'https://github.com/elm/compiler/releases/download/' + version + '/binary-for-' + platform + '.gz'
+reportDownload(version, url)
+var binaryPath = path.resolve(__dirname, package.bin.elm) + (process.platform === 'win32' ? '.exe' : '')
+function reportDownloadFailure = function reportDownloadFailure(error)
+	{
+		exitFailure(url,'Something went wrong while fetching the following URL:\n\n' + url + '\n\nIt is saying:\n\n' + error);
+	}
+var gunzip = zlib.createGunzip().on('error', function(error) {
+		exitFailure(url, 'I ran into trouble decompressing the downloaded binary. It is saying:\n\n' + error);
+	})
+var write = fs.createWriteStream(binaryPath, {
+		encoding: 'binary',
+		mode: 0o755
+	}).on('finish', callback).on('error', function(error) {
+		exitFailure(url, 'I had some trouble writing file to disk. It is saying:\n\n' + error);
+	})

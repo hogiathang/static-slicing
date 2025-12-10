@@ -1,0 +1,59 @@
+const searchCachePackage = async (path, parsed, cacheKeys) => {
+  /* eslint-disable-next-line max-len */
+  const searchMFH = new RegExp(`^make-fetch-happen:request-cache:.*(?<!/[@a-zA-Z]+)/${parsed.name}/-/(${parsed.name}[^/]+.tgz)$`)
+  const searchPack = new RegExp(`^make-fetch-happen:request-cache:.*/${parsed.escapedName}$`)
+  const results = new Set()
+  cacheKeys = new Set(cacheKeys)
+  for (const key of cacheKeys) {
+    // match on the public key registry url format
+    if (searchMFH.test(key)) {
+      // extract the version from the filename
+      const filename = key.match(searchMFH)[1]
+      const noExt = filename.slice(0, -4)
+      const noScope = `${parsed.name.split('/').pop()}-`
+      const ver = noExt.slice(noScope.length)
+      if (semver.satisfies(ver, parsed.rawSpec)) {
+        results.add(key)
+      }
+      continue
+    }
+    // is this key a packument?
+    if (!searchPack.test(key)) {
+      continue
+    }
+
+    results.add(key)
+    let packument, details
+    try {
+      det...
+<operator>.formatString("^make-fetch-happen:request-cache:.*(?<!/[@a-zA-Z]+)/", parsed.name, "/-/(", parsed.name, "[^/]+.tgz)$")
+const searchPack = new RegExp(`^make-fetch-happen:request-cache:.*/${parsed.escapedName}$`)
+const results = new Set()
+cacheKeys = new Set(cacheKeys)
+_iterator_0 = <operator>.iterator(cacheKeys)
+searchMFH.test(key)
+const filename = key.match(searchMFH)[1]
+const noExt = filename.slice(0, -4)
+<operator>.formatString("", parsed.name.split('/').pop(), "-")
+const ver = noExt.slice(noScope.length)
+semver.satisfies(ver, parsed.rawSpec)
+results.add(key)
+continue
+!searchPack.test(key)
+continue
+results.add(key)
+details = await cacache.get(path, key)
+packument = jsonParse(details.data)
+continue
+!packument.versions || typeof packument.versions !== 'object'
+continue
+_iterator_1 = <operator>.iterator(Object.keys(packument.versions))
+semver.satisfies(ver, parsed.rawSpec)
+packument.versions[ver].dist &&
+          typeof packument.versions[ver].dist === 'object' &&
+          packument.versions[ver].dist.tarball !== undefined &&
+          cacheKeys.has(`make-fetch-happen:request-cache:${packument.versions[ver].dist.tarball}`)
+typeof packument.versions[ver].dist === 'object'
+packument.versions[ver].dist.tarball !== undefined
+<operator>.formatString("make-fetch-happen:request-cache:", packument.versions[ver].dist.tarball, "")
+<operator>.formatString("make-fetch-happen:request-cache:", packument.versions[ver].dist.tarball, "")

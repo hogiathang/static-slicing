@@ -1,0 +1,9 @@
+const path = require('node:path')
+const process = require('node:process')
+isRunningInChildProcess = _tmp_0.isRunningInChildProcess
+!isRunningInChildProcess && !isRunningInThread
+process.argv[1]
+const fp = path.relative('.', process.argv[1])
+console.log()
+<operator>.formatString("Test files must be run with the AVA CLI:\n\n    $ ava ", fp, "\n")
+process.exit(1)

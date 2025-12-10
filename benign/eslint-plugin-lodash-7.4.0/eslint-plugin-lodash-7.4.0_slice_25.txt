@@ -1,0 +1,4 @@
+function getFunctionMaxArity = function getFunctionMaxArity(version, name) {
+    return _.get(getMethodData(version), [name, 'args'], Infinity)
+}
+_.get(getMethodData(version), [name, 'args'], Infinity)

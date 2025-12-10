@@ -1,0 +1,6 @@
+const doSend = () => {
+    this.queueCallback(broker.socket, correlationId, [decode, cb]);
+    broker.write(request);
+  }
+this.queueCallback(broker.socket, correlationId, [decode, cb])
+broker.write(request)

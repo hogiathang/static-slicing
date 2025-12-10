@@ -1,0 +1,27 @@
+async execWorkspaces (args) {
+    await this.setWorkspaces()
+
+    const force = this.npm.config.get('force')
+    if (!force) {
+      throw this.usageError(
+        'Refusing to delete entire project(s).\n' +
+        'Run with --force to do this.'
+      )
+    }
+
+    for (const name of this.workspaceNames) {
+      await this.exec([name])
+    }
+  }
+await this.setWorkspaces()
+const force = this.npm.config.get('force')
+!force
+throw this.usageError(
+        'Refusing to delete entire project(s).\n' +
+        'Run with --force to do this.'
+      )
+'Refusing to delete entire project(s).\n' +
+        'Run with --force to do this.'
+"Run with --force to do this."
+_iterator_0 = <operator>.iterator(this.workspaceNames)
+_tmp_13 = __ecma.Array.factory()

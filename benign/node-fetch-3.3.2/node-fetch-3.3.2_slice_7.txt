@@ -1,0 +1,71 @@
+request_.on('response', response_ => {
+			request_.setTimeout(0);
+			const headers = fromRawHeaders(response_.rawHeaders);
+
+			// HTTP fetch step 5
+			if (isRedirect(response_.statusCode)) {
+				// HTTP fetch step 5.2
+				const location = headers.get('Location');
+
+				// HTTP fetch step 5.3
+				let locationURL = null;
+				try {
+					locationURL = location === null ? null : new URL(location, request.url);
+				} catch {
+					// error here can only be invalid URL in Location: header
+					// do not throw when options.redirect == manual
+					// let the user extract the errorneous redirect URL
+					if (request.redirect !== 'manual') {
+						reject(new FetchError(`uri requested responds with an invalid redirect URL: ${location}`, 'invalid-redirect'));
+						finalize();
+						return;
+					}
+				}
+
+				// HTTP fetch step 5.5
+				switch (request.redirect) {
+					case 'error':
+						reject(new FetchError(`uri requested responds with a redirect, redirect mode is set to error: ${request.url}`, '...
+request_.setTimeout(0)
+const headers = fromRawHeaders(response_.rawHeaders)
+isRedirect(response_.statusCode)
+const location = headers.get('Location')
+let locationURL = null
+locationURL = location === null ? null : new URL(location, request.url)
+request.redirect !== 'manual'
+request.redirect
+"follow"
+locationURL === null
+request.counter >= request.follow
+const requestOptions = {
+							headers: new Headers(request.headers),
+							follow: request.follow,
+							counter: request.counter + 1,
+							agent: request.agent,
+							compress: request.compress,
+							method: request.method,
+							body: clone(request),
+							signal: request.signal,
+							size: request.size,
+							referrer: request.referrer,
+							referrerPolicy: request.referrerPolicy
+						}
+_tmp_24.headers = new Headers(request.headers)
+_tmp_24.follow = request.follow
+_tmp_24.counter = request.counter + 1
+_tmp_24.agent = request.agent
+_tmp_24.compress = request.compress
+_tmp_24.method = request.method
+_tmp_24.body = clone(request)
+_tmp_24.signal = request.signal
+_tmp_24.size = request.size
+_tmp_24.referrer = request.referrer
+_tmp_24.referrerPolicy = request.referrerPolicy
+!isDomainOrSubdomain(request.url, locationURL) || !isSameProtocol(request.url, locationURL)
+_iterator_0 = <operator>.iterator(['authorization', 'www-authenticate', 'cookie', 'cookie2'])
+(_tmp_27 = requestOptions.headers).delete
+response_.statusCode !== 303 && request.body && options_.body instanceof Stream.Readable
+response_.statusCode === 303 || ((response_.statusCode === 301 || response_.statusCode === 302) && request.method === 'POST')
+requestOptions.method = 'GET'
+requestOptions.body = undefined
+requestOptions.headers.delete('content-length')

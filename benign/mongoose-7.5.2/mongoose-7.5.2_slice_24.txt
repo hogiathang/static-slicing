@@ -1,0 +1,51 @@
+module.exports = function isIndexEqual(schemaIndexKeysObject, options, dbIndex) {
+  // Special case: text indexes have a special format in the db. For example,
+  // `{ name: 'text' }` becomes:
+  // {
+  //   v: 2,
+  //   key: { _fts: 'text', _ftsx: 1 },
+  //   name: 'name_text',
+  //   ns: 'test.tests',
+  //   background: true,
+  //   weights: { name: 1 },
+  //   default_language: 'english',
+  //   language_override: 'language',
+  //   textIndexVersion: 3
+  // }
+  if (dbIndex.textIndexVersion != null) {
+    delete dbIndex.key._fts;
+    delete dbIndex.key._ftsx;
+    const weights = { ...dbIndex.weights, ...dbIndex.key };
+    if (Object.keys(weights).length !== Object.keys(schemaIndexKeysObject).length) {
+      return false;
+    }
+    for (const prop of Object.keys(weights)) {
+      if (!(prop in schemaIndexKeysObject)) {
+        return false;
+      }
+      const weight = weights[prop];
+      if (weight !== get(options, 'weights.' + prop) && !(weight === 1 && get(options, 'weights.' + ...
+dbIndex.textIndexVersion != null
+const optionKeys = [
+    'unique',
+    'partialFilterExpression',
+    'sparse',
+    'expireAfterSeconds',
+    'collation'
+  ]
+_tmp_1.push("unique")
+_tmp_1.push("partialFilterExpression")
+_tmp_1.push("sparse")
+_tmp_1.push("expireAfterSeconds")
+_tmp_1.push("collation")
+_iterator_1 = <operator>.iterator(optionKeys)
+!(key in options) && !(key in dbIndex)
+continue;
+key === 'collation'
+options[key] == null || dbIndex[key] == null
+const definedKeys = Object.keys(options.collation)
+const schemaCollation = options.collation
+const dbCollation = dbIndex.collation
+_iterator_2 = <operator>.iterator(definedKeys)
+get(schemaCollation, opt) !== get(dbCollation, opt)
+!utils.deepEqual(options[key], dbIndex[key])

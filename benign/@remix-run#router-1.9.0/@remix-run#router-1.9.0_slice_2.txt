@@ -1,0 +1,142 @@
+function callLoaderOrAction = async function callLoaderOrAction(
+  type: "loader" | "action",
+  request: Request,
+  match: AgnosticDataRouteMatch,
+  matches: AgnosticDataRouteMatch[],
+  manifest: RouteManifest,
+  mapRouteProperties: MapRoutePropertiesFunction,
+  basename: string,
+  opts: {
+    isStaticRequest?: boolean;
+    isRouteRequest?: boolean;
+    requestContext?: unknown;
+  } = {}
+): Promise<DataResult> {
+  let resultType;
+  let result;
+  let onReject: (() => void) | undefined;
+
+  let runHandler = (handler: ActionFunction | LoaderFunction) => {
+    // Setup a promise we can race against so that abort signals short circuit
+    let reject: () => void;
+    let abortPromise = new Promise((_, r) => (reject = r));
+    onReject = () => reject();
+    request.signal.addEventListener("abort", onReject);
+    return Promise.race([
+      handler({
+        request,
+        params: match.params,
+        context: opts.requestContext,
+      }),
+      abortPromise,
+    ]);
+  };
+
+  try {
+    let handler = match.route[type];...
+opts = opts === void 0 ? {} : opts
+let runHandler = (handler: ActionFunction | LoaderFunction) => {
+    // Setup a promise we can race against so that abort signals short circuit
+    let reject: () => void;
+    let abortPromise = new Promise((_, r) => (reject = r));
+    onReject = () => reject();
+    request.signal.addEventListener("abort", onReject);
+    return Promise.race([
+      handler({
+        request,
+        params: match.params,
+        context: opts.requestContext,
+      }),
+      abortPromise,
+    ]);
+  }
+let handler = match.route[type]
+match.route.lazy
+let values = await Promise.all([
+          // If the handler throws, don't let it immediately bubble out,
+          // since we need to let the lazy() execution finish so we know if this
+          // route has a boundary that can handle the error
+          runHandler(handler).catch((e) => {
+            handlerError = e;
+          }),
+          loadLazyRouteModule(match.route, mapRouteProperties, manifest),
+        ])
+_tmp_35.push(runHandler(handler).catch((e) => {
+            handlerError = e;
+          }))
+_tmp_35.push(loadLazyRouteModule(match.route, mapRouteProperties, manifest))
+throw handlerError;
+result = values[0]
+await loadLazyRouteModule(match.route, mapRouteProperties, manifest)
+handler = match.route[type]
+result = await runHandler(handler)
+type === "action"
+let url = new URL(request.url)
+let pathname = url.pathname + url.search
+throw getInternalRouterError(405, {
+            method: request.method,
+            pathname,
+            routeId: match.route.id,
+          });
+_tmp_38.method = request.method
+_tmp_38.pathname = pathname
+_tmp_38.routeId = match.route.id
+!handler
+let url = new URL(request.url)
+let pathname = url.pathname + url.search
+throw getInternalRouterError(404, {
+        pathname,
+      });
+_tmp_41.pathname = pathname
+result = await runHandler(handler)
+invariant(
+      result !== undefined,
+      `You defined ${type === "action" ? "an action" : "a loader"} for route ` +
+        `"${match.route.id}" but didn't return anything from your \`${type}\` ` +
+        `function. Please return a value or \`null\`.`
+    )
+result !== undefined
+`You defined ${type === "action" ? "an action" : "a loader"} for route ` +
+        `"${match.route.id}" but didn't return anything from your \`${type}\` ` +
+        `function. Please return a value or \`null\`.`
+<operator>.formatString(""", match.route.id, "" but didn't return anything from your \`", type, "\` ")
+"function. Please return a value or \`null\`."
+resultType = ResultType.error
+result = e
+request.signal.removeEventListener("abort", onReject)
+isResponse(result)
+let status = result.status
+redirectStatusCodes.has(status)
+let location = result.headers.get("Location")
+invariant(
+        location,
+        "Redirects returned/thrown from loaders/actions must have a Location header"
+      )
+"Redirects returned/thrown from loaders/actions must have a Location header"
+!ABSOLUTE_URL_REGEX.test(location)
+location = normalizeTo(
+          new URL(request.url),
+          matches.slice(0, matches.indexOf(match) + 1),
+          basename,
+          true,
+          location
+        )
+new URL(request.url)
+matches.slice(0, matches.indexOf(match) + 1)
+!opts.isStaticRequest
+let currentUrl = new URL(request.url)
+let url = location.startsWith("//")
+          ? new URL(currentUrl.protocol + location)
+          : new URL(location)
+new URL(currentUrl.protocol + location)
+new URL(location)
+let isSameBasename = stripBasename(url.pathname, basename) != null
+url.origin === currentUrl.origin && isSameBasename
+location = url.pathname + url.search + url.hash
+opts.isStaticRequest
+result.headers.set("Location", location)
+throw result;
+_tmp_49.type = ResultType.redirect
+_tmp_49.status = status
+_tmp_49.location = location
+_tmp_49.revalidate = result.headers.get("X-Remix-Revalidate") !== null

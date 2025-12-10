@@ -1,0 +1,30 @@
+doInstall(options) {
+        const appImageFile = process.env["APPIMAGE"];
+        if (appImageFile == null) {
+            throw (0, builder_util_runtime_1.newError)("APPIMAGE env is not defined", "ERR_UPDATER_OLD_FILE_NOT_FOUND");
+        }
+        // https://stackoverflow.com/a/1712051/1910191
+        (0, fs_1.unlinkSync)(appImageFile);
+        let destination;
+        const existingBaseName = path.basename(appImageFile);
+        // https://github.com/electron-userland/electron-builder/issues/2964
+        // if no version in existing file name, it means that user wants to preserve current custom name
+        if (path.basename(options.installerPath) === existingBaseName || !/\d+\.\d+\.\d+/.test(existingBaseName)) {
+            // no version in the file name, overwrite existing
+            destination = appImageFile;
+        }
+        else {
+            destination = path.join(path.dirname(appImageFile), path.basename(options.installerPath));
+        }
+        (0, child_process_1.ex...
+const appImageFile = process.env["APPIMAGE"]
+appImageFile == null
+throw (0, builder_util_runtime_1.newError)("APPIMAGE env is not defined", "ERR_UPDATER_OLD_FILE_NOT_FOUND");
+(0, fs_1.unlinkSync)(appImageFile)
+const existingBaseName = path.basename(appImageFile)
+path.basename(options.installerPath) === existingBaseName || !/\d+\.\d+\.\d+/.test(existingBaseName)
+destination = appImageFile
+destination = path.join(path.dirname(appImageFile), path.basename(options.installerPath))
+(0, child_process_1.execFileSync)("mv", ["-f", options.installerPath, destination])
+destination !== appImageFile
+this.emit("appimage-filename-updated", destination)

@@ -1,0 +1,26 @@
+_tmp_25.ForOfStatement|ForInStatement = "ForOfStatement|ForInStatement"
+_tmp_47 = path
+scope = _tmp_47.scope
+node = _tmp_47.node
+_tmp_48 = node
+left = _tmp_48.left
+_tmp_49 = this
+exported = _tmp_49.exported
+imported = _tmp_49.imported
+programScope = _tmp_49.scope
+!isVariableDeclaration(left)
+let didTransformExport = false
+const loopBodyScope = path.get("body").scope
+_iterator_4 = <operator>.iterator(Object.keys(getOuterBindingIdentifiers(left)))
+programScope.getBinding(name) === scope.getBinding(name)
+exported.has(name)
+didTransformExport = true
+loopBodyScope.hasOwnBinding(name)
+loopBodyScope.rename(name)
+imported.has(name) && !importConstViolationName
+importConstViolationName = name
+!didTransformExport && !importConstViolationName
+path.ensureBlock()
+const bodyPath = path.get("body")
+const newLoopId = scope.generateUidIdentifierBasedOnNode(left)
+path.get("left").replaceWith(variableDeclaration("let", [variableDeclarator(cloneNode(newLoopId))]))

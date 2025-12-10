@@ -1,0 +1,44 @@
+isExplicitMatch(filePath) {
+
+		assertNormalized(this);
+
+		const cache = dataCache.get(this);
+
+		// first check the cache to avoid duplicate work
+		let result = cache.explicitMatches.get(filePath);
+
+		if (typeof result == 'boolean') {
+			return result;
+		}
+
+		// TODO: Maybe move elsewhere? Maybe combine with getConfig() logic?
+		const relativeFilePath = path.relative(this.basePath, filePath);
+
+		if (shouldIgnorePath(this.ignores, filePath, relativeFilePath)) {
+			debug(`Ignoring ${filePath}`);
+
+			// cache and return result
+			cache.explicitMatches.set(filePath, false);
+			return false;
+		}
+
+		// filePath isn't automatically ignored, so try to find a match
+
+		for (const config of this) {
+
+			if (!config.files) {
+				continue;
+			}
+
+			if (pathMatches(filePath, this.basePath, config)) {
+				debug(`Matching config found for ${filePath}`);
+				cache.explicitMatches.set(filePath, true);
+				return true;
+			}
+		}
+
+		return false;
+	}
+assertNormalized(this)
+const cache = dataCache.get(this)
+let result = cache.explicitMatches.get(filePath)

@@ -1,0 +1,6 @@
+_tmp_2.destroy = destroy
+currentUid = uid
+debug2('DESTROY ' + name + ' uid:' + uid + ' context:' + util.inspect(namespace._contexts.get(currentUid))
+          + ' active:' + util.inspect(namespace.active, true))
+util.inspect(namespace.active, true)
+(_tmp_9 = namespace._contexts).delete

@@ -1,0 +1,13 @@
+additionalProps = additionalProps === void 0 ? {} : additionalProps
+<operator>.formatString("", stack.artifactId, ".assets")
+<operator>.formatString("", artifactId, ".json")
+const outPath = path.join(session.assembly.outdir, manifestFile)
+const manifest = {
+            version: cxschema.Manifest.version(),
+            files: this.files,
+            dockerImages: this.dockerImages,
+        }
+_tmp_22.version = cxschema.Manifest.version()
+_tmp_22.files = this.files
+_tmp_22.dockerImages = this.dockerImages
+fs.writeFileSync(outPath, JSON.stringify(manifest, undefined, 2))

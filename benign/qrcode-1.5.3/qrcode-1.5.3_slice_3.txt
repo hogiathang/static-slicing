@@ -1,0 +1,30 @@
+exports.getPenaltyN3 = function getPenaltyN3 (data) {
+  const size = data.size
+  let points = 0
+  let bitsCol = 0
+  let bitsRow = 0
+
+  for (let row = 0; row < size; row++) {
+    bitsCol = bitsRow = 0
+    for (let col = 0; col < size; col++) {
+      bitsCol = ((bitsCol << 1) & 0x7FF) | data.get(row, col)
+      if (col >= 10 && (bitsCol === 0x5D0 || bitsCol === 0x05D)) points++
+
+      bitsRow = ((bitsRow << 1) & 0x7FF) | data.get(col, row)
+      if (col >= 10 && (bitsRow === 0x5D0 || bitsRow === 0x05D)) points++
+    }
+  }
+
+  return points * PenaltyScores.N3
+}
+const size = data.size
+let points = 0
+let bitsCol = 0
+let bitsRow = 0
+let row = 0
+bitsCol = bitsRow = 0
+let col = 0
+bitsCol = ((bitsCol << 1) & 0x7FF) | data.get(row, col)
+col >= 10 && (bitsCol === 0x5D0 || bitsCol === 0x05D)
+bitsRow = ((bitsRow << 1) & 0x7FF) | data.get(col, row)
+col >= 10 && (bitsRow === 0x5D0 || bitsRow === 0x05D)

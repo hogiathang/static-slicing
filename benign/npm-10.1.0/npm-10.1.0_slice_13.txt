@@ -1,0 +1,18 @@
+constructor (npm) {
+    this.npm = npm
+
+    const { config } = this.npm
+
+    if (!this.constructor.skipConfigValidation) {
+      config.validate()
+    }
+
+    if (config.get('workspaces') === false && config.get('workspace').length) {
+      throw new Error('Can not use --no-workspaces and --workspace at the same time')
+    }
+  }
+this.npm = npm
+config = _tmp_3.config
+!this.constructor.skipConfigValidation
+config.validate()
+config.get('workspaces') === false && config.get('workspace').length

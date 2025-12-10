@@ -1,0 +1,18 @@
+destroy() {
+        const gl = this.context.gl;
+
+        const texture = this.colorAttachment.get();
+        if (texture) gl.deleteTexture(texture);
+
+        if (this.depthAttachment) {
+            const renderbuffer = this.depthAttachment.get();
+            if (renderbuffer) gl.deleteRenderbuffer(renderbuffer);
+        }
+
+        gl.deleteFramebuffer(this.framebuffer);
+    }
+const gl = this.context.gl
+const texture = this.colorAttachment.get()
+gl.deleteTexture(texture)
+this.depthAttachment
+const renderbuffer = this.depthAttachment.get()

@@ -1,0 +1,33 @@
+Object.values(nodes).forEach((node) => {
+        const foundOriginalKeys = findOriginalKeys(groupedDependencies, node);
+        if (!foundOriginalKeys) {
+            throw new Error(`Original key(s) not found for "${node.data.packageName}@${node.data.version}" while pruning yarn.lock.`);
+        }
+        const [matchedKeys, snapshot] = foundOriginalKeys;
+        snapshotMap.set(snapshot, new Set(matchedKeys));
+        // separately save keys that still exist
+        [snapshot.dependencies, snapshot.optionalDependencies].forEach((section) => {
+            Object.entries(section || {}).forEach(([name, versionSpec]) => addPackageVersion(name, versionSpec, existingKeys, isBerry));
+        });
+        // add package.json requested version to keys
+        const requestedVersion = getPackageJsonVersion(combinedDependencies, node);
+        if (requestedVersion) {
+            addPackageVersion(node.data.packageName, requestedVersion, existingKeys, isBerry);
+            const requestedKey = ...
+const foundOriginalKeys = findOriginalKeys(groupedDependencies, node)
+!foundOriginalKeys
+<operator>.formatString("Original key(s) not found for "", node.data.packageName, "@", node.data.version, "" while pruning yarn.lock.")
+_tmp_51 = foundOriginalKeys
+snapshotMap.set(snapshot, new Set(matchedKeys))
+[snapshot.dependencies, snapshot.optionalDependencies].forEach((section) => {
+            Object.entries(section || {}).forEach(([name, versionSpec]) => addPackageVersion(name, versionSpec, existingKeys, isBerry));
+        })
+const requestedVersion = getPackageJsonVersion(combinedDependencies, node)
+addPackageVersion(node.data.packageName, requestedVersion, existingKeys, isBerry)
+const requestedKey = isBerry
+                ? reverseMapBerryKey(node, requestedVersion, snapshot)
+                : `${node.data.packageName}@${requestedVersion}`
+reverseMapBerryKey(node, requestedVersion, snapshot)
+<operator>.formatString("", node.data.packageName, "@", requestedVersion, "")
+!snapshotMap.get(snapshot).has(requestedKey)
+snapshotMap.get(snapshot).add(requestedKey)

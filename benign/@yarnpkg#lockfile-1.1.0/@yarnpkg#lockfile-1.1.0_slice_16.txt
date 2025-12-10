@@ -1,0 +1,30 @@
+var createDict = function () {
+  // Thrash, waste and sodomy: IE GC bug
+  var iframe = __webpack_require__(68)('iframe');
+  var i = enumBugKeys.length;
+  var lt = '<';
+  var gt = '>';
+  var iframeDocument;
+  iframe.style.display = 'none';
+  __webpack_require__(102).appendChild(iframe);
+  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
+  // createDict = iframe.contentWindow.Object;
+  // html.removeChild(iframe);
+  iframeDocument = iframe.contentWindow.document;
+  iframeDocument.open();
+  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
+  iframeDocument.close();
+  createDict = iframeDocument.F;
+  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
+  return createDict();
+}
+var iframe = __webpack_require__(68)('iframe')
+var i = enumBugKeys.length
+var lt = '<'
+var gt = '>'
+iframe.style.display = 'none'
+(_tmp_526 = __webpack_require__(102)).appendChild
+iframe.src = 'javascript:'
+iframeDocument = iframe.contentWindow.document
+iframeDocument.open()
+iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt)

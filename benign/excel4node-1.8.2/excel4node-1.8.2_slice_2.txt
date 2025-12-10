@@ -1,0 +1,18 @@
+createStyle(opts) {
+        const thisStyle = new Style(this, opts);
+        const lookupKey = JSON.stringify(thisStyle.toObject());
+
+        // Use existing style if one exists
+        if (this.stylesLookup.get(lookupKey)) {
+            return this.stylesLookup.get(lookupKey);
+        }
+
+        this.stylesLookup.set(lookupKey, thisStyle);
+        const index = this.styles.push(thisStyle) - 1;
+        this.styles[index].ids.cellXfs = index;
+        return this.styles[index];
+    }
+const thisStyle = new Style(this, opts)
+const lookupKey = JSON.stringify(thisStyle.toObject())
+(_tmp_39 = this.stylesLookup).get
+(_tmp_40 = this.stylesLookup).get

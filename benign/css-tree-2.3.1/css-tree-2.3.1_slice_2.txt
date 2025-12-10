@@ -1,0 +1,66 @@
+function declarationValue = function declarationValue(token, getNextToken) {
+    if (!token) {
+        return 0;
+    }
+
+    let balanceCloseType = 0;
+    let balanceStash = [];
+    let length = 0;
+
+    // The <declaration-value> production matches any sequence of one or more tokens,
+    // so long as the sequence does not contain ...
+    scan:
+    do {
+        switch (token.type) {
+            // ... <bad-string-token>, <bad-url-token>,
+            case types.BadString:
+            case types.BadUrl:
+                break scan;
+
+            // ... unmatched <)-token>, <]-token>, or <}-token>,
+            case types.RightCurlyBracket:
+            case types.RightParenthesis:
+            case types.RightSquareBracket:
+                if (token.type !== balanceCloseType) {
+                    break scan;
+                }
+
+                balanceCloseType = balanceStash.pop();
+                break;
+
+            // ... or top-level <semicolon-token> tokens
+            case types.Semicolon:
+                if (bal...
+!token
+let balanceCloseType = 0
+__ecma.Array.factory()
+let length = 0
+scan:
+token.type
+types.BadString
+types.BadUrl
+break scan;
+types.RightCurlyBracket
+types.RightParenthesis
+types.RightSquareBracket
+token.type !== balanceCloseType
+break scan;
+balanceCloseType = balanceStash.pop()
+break;
+types.Semicolon
+balanceCloseType === 0
+break scan;
+break;
+types.Delim
+balanceCloseType === 0 && token.value === '!'
+break scan;
+break;
+types.Function
+types.LeftParenthesis
+types.LeftSquareBracket
+types.LeftCurlyBracket
+balanceStash.push(balanceCloseType)
+balanceCloseType = balancePair.get(token.type)
+break;
+length++
+token = getNextToken(length)

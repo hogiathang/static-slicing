@@ -1,0 +1,1 @@
+_tmp_507.push(new Promise((resolve) => setTimeout(resolve, interval)))

@@ -1,0 +1,33 @@
+get(identifier) {
+        // if multipleInstances is not supported, use the default name
+        const normalizedIdentifier = this.normalizeInstanceIdentifier(identifier);
+        if (!this.instancesDeferred.has(normalizedIdentifier)) {
+            const deferred = new Deferred();
+            this.instancesDeferred.set(normalizedIdentifier, deferred);
+            if (this.isInitialized(normalizedIdentifier) ||
+                this.shouldAutoInitialize()) {
+                // initialize the service if it can be auto-initialized
+                try {
+                    const instance = this.getOrInitializeService({
+                        instanceIdentifier: normalizedIdentifier
+                    });
+                    if (instance) {
+                        deferred.resolve(instance);
+                    }
+                }
+                catch (e) {
+                    // when the instance factory throws an exception during get(), it should not cause
+        ...
+const normalizedIdentifier = this.normalizeInstanceIdentifier(identifier)
+!this.instancesDeferred.has(normalizedIdentifier)
+const deferred = new Deferred()
+this.instancesDeferred.set(normalizedIdentifier, deferred)
+this.isInitialized(normalizedIdentifier) ||
+                this.shouldAutoInitialize()
+this.shouldAutoInitialize()
+const instance = this.getOrInitializeService({
+                        instanceIdentifier: normalizedIdentifier
+                    })
+_tmp_85.instanceIdentifier = normalizedIdentifier
+deferred.resolve(instance)
+this.instancesDeferred.get(normalizedIdentifier).promise

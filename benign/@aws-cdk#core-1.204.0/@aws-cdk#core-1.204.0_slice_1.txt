@@ -1,0 +1,34 @@
+static singletonReference(target, attribKey, refRender, fresh) {
+        let attribs = CfnReference.referenceTable.get(target);
+        if (!attribs) {
+            attribs = new Map();
+            CfnReference.referenceTable.set(target, attribs);
+        }
+        let cacheKey = attribKey;
+        switch (refRender) {
+            case ReferenceRendering.FN_SUB:
+                cacheKey += 'Fn::Sub';
+                break;
+            case ReferenceRendering.GET_ATT_STRING:
+                cacheKey += 'Fn::GetAtt::String';
+                break;
+        }
+        let ref = attribs.get(cacheKey);
+        if (!ref) {
+            ref = fresh();
+            attribs.set(cacheKey, ref);
+        }
+        return ref;
+    }
+let attribs = CfnReference.referenceTable.get(target)
+!attribs
+attribs = new Map()
+CfnReference.referenceTable.set(target, attribs)
+let cacheKey = attribKey
+ReferenceRendering.FN_SUB
+cacheKey += 'Fn::Sub'
+break;
+ReferenceRendering.GET_ATT_STRING
+cacheKey += 'Fn::GetAtt::String'
+break;
+let ref = attribs.get(cacheKey)

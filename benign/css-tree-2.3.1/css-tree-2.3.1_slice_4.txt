@@ -1,0 +1,31 @@
+tokenize(source, (type, start, end) => {
+            switch (type) {
+                default:
+                    balance[tokenCount] = sourceLength;
+                    break;
+
+                case balanceCloseType: {
+                    let balancePrev = balanceStart & OFFSET_MASK;
+                    balanceStart = balance[balancePrev];
+                    balanceCloseType = balanceStart >> TYPE_SHIFT;
+                    balance[tokenCount] = balancePrev;
+                    balance[balancePrev++] = tokenCount;
+                    for (; balancePrev < tokenCount; balancePrev++) {
+                        if (balance[balancePrev] === sourceLength) {
+                            balance[balancePrev] = tokenCount;
+                        }
+                    }
+                    break;
+                }
+
+                case types.LeftParenthesis:
+                case types.Function:
+                case types.LeftSquareBracket:
+                case types.LeftCurlyBracket:
+        ...
+types.LeftParenthesis
+types.Function
+types.LeftSquareBracket
+types.LeftCurlyBracket
+balance[tokenCount] = balanceStart
+balanceCloseType = balancePair.get(type)

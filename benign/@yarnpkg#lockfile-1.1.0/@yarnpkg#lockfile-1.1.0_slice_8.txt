@@ -1,0 +1,76 @@
+getLockfile(patterns) {
+    const lockfile = {};
+    const seen = new Map();
+
+    // order by name so that lockfile manifest is assigned to the first dependency with this manifest
+    // the others that have the same remoteKey will just refer to the first
+    // ordering allows for consistency in lockfile when it is serialized
+    const sortedPatternsKeys = Object.keys(patterns).sort((_misc || _load_misc()).sortAlpha);
+
+    for (var _iterator = sortedPatternsKeys, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]();;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      const pattern = _ref;
+
+      const pkg = patterns[pattern];
+      const remote = pkg._remote,
+            ref = pkg._reference;
+
+      invariant(ref, 'Package is missing a reference');
+ ...
+const lockfile = {}
+const seen = new Map()
+const sortedPatternsKeys = Object.keys(patterns).sort((_misc || _load_misc()).sortAlpha)
+var _iterator = _isArray ? _iterator : _iterator[Symbol.iterator]()
+_i >= _iterator.length
+_ref = _iterator[_i++]
+_i = _iterator.next()
+_i.done
+_ref = _i.value
+const pattern = _ref
+const pkg = patterns[pattern]
+const remote = pkg._remote
+const ref = pkg._reference
+invariant(ref, 'Package is missing a reference')
+invariant(remote, 'Package is missing a remote')
+const remoteKey = keyForRemote(remote)
+const seenPattern = remoteKey && seen.get(remoteKey)
+lockfile[pattern] = seenPattern
+!seenPattern.name && getName(pattern) !== pkg.name
+seenPattern.name = pkg.name
+continue;
+const obj = implodeEntry(pattern, {
+        name: pkg.name,
+        version: pkg.version,
+        uid: pkg._uid,
+        resolved: remote.resolved,
+        integrity: remote.integrity,
+        registry: remote.registry,
+        dependencies: pkg.dependencies,
+        peerDependencies: pkg.peerDependencies,
+        optionalDependencies: pkg.optionalDependencies,
+        permissions: ref.permissions,
+        prebuiltVariants: pkg.prebuiltVariants
+      })
+_tmp_134.name = pkg.name
+_tmp_134.version = pkg.version
+_tmp_134.uid = pkg._uid
+_tmp_134.resolved = remote.resolved
+_tmp_134.integrity = remote.integrity
+_tmp_134.registry = remote.registry
+_tmp_134.dependencies = pkg.dependencies
+_tmp_134.peerDependencies = pkg.peerDependencies
+_tmp_134.optionalDependencies = pkg.optionalDependencies
+_tmp_134.permissions = ref.permissions
+_tmp_134.prebuiltVariants = pkg.prebuiltVariants
+lockfile[pattern] = obj
+seen.set(remoteKey, obj)

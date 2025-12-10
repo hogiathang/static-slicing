@@ -1,0 +1,10 @@
+function updateFile = function updateFile(content, filename) {
+  if (!fs.existsSync(filename) || fs.readFileSync(filename) != content) {
+    fs.writeFileSync(filename, content)
+    console.log(`Written ${filename}`)
+  } else {
+    console.log(`Skipped ${filename} since content was not changed`)
+  }
+}
+!fs.existsSync(filename) || fs.readFileSync(filename) != content
+fs.writeFileSync(filename, content)

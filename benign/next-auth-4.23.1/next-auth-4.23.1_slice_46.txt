@@ -1,0 +1,12 @@
+_tmp_4.signout = signout
+_tmp_7.html = SignoutPage({
+          csrfToken: params.csrfToken,
+          url,
+          theme,
+          ...props,
+        })
+_tmp_8.csrfToken = params.csrfToken
+_tmp_8.url = url
+_tmp_8.theme = theme
+...props
+_tmp_7.title = "Sign Out"

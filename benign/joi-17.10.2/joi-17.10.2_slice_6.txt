@@ -1,0 +1,41 @@
+set(path, value, reason) {
+
+        if (!path.length) {                                     // No need to store root value
+            return;
+        }
+
+        if (reason === 'strip' &&
+            typeof path[path.length - 1] === 'number') {        // Cannot store stripped array values (due to shift)
+
+            return;
+        }
+
+        this._values = this._values || new Map();
+
+        let node = this._values;
+        for (let i = 0; i < path.length; ++i) {
+            const segment = path[i];
+            let next = node.get(segment);
+            if (!next) {
+                next = new Map();
+                node.set(segment, next);
+            }
+
+            node = next;
+        }
+
+        node[internals.value] = value;
+    }
+!path.length
+reason === 'strip' &&
+            typeof path[path.length - 1] === 'number'
+typeof path[path.length - 1] === 'number'
+this._values = this._values || new Map()
+let node = this._values
+i < path.length
+const segment = path[i]
+let next = node.get(segment)
+!next
+next = new Map()
+node.set(segment, next)
+node = next

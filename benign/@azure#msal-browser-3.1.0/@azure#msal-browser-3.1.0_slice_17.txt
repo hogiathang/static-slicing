@@ -1,0 +1,59 @@
+private onChannelMessage(event: MessageEvent): void {
+        this.logger.trace("NativeMessageHandler - onChannelMessage called.");
+        const request = event.data;
+
+        const resolver = this.resolvers.get(request.responseId);
+        const handshakeResolver = this.handshakeResolvers.get(
+            request.responseId
+        );
+
+        try {
+            const method = request.body.method;
+
+            if (method === NativeExtensionMethod.Response) {
+                if (!resolver) {
+                    return;
+                }
+                const response = request.body.response;
+                this.logger.trace(
+                    "NativeMessageHandler - Received response from browser extension"
+                );
+                this.logger.tracePii(
+                    `NativeMessageHandler - Received response from browser extension: ${JSON.stringify(
+                        response
+                    )}`
+                );
+                if (response.status !== ...
+this.logger.trace("NativeMessageHandler - onChannelMessage called.")
+const request = event.data
+const resolver = this.resolvers.get(request.responseId)
+const handshakeResolver = this.handshakeResolvers.get(
+            request.responseId
+        )
+request.responseId
+const method = request.body.method
+method === NativeExtensionMethod.Response
+method === NativeExtensionMethod.HandshakeResponse
+!handshakeResolver
+clearTimeout(this.timeoutId)
+window.removeEventListener(
+                    "message",
+                    this.windowListener,
+                    false
+                )
+"message"
+this.windowListener
+this.extensionId = request.extensionId
+this.extensionVersion = request.body.version
+this.logger.verbose(
+                    `NativeMessageHandler - Received HandshakeResponse from extension: ${this.extensionId}`
+                )
+<operator>.formatString("NativeMessageHandler - Received HandshakeResponse from extension: ", this.extensionId, "")
+this.handshakeEvent.end({
+                    extensionInstalled: true,
+                    success: true,
+                })
+_tmp_47.extensionInstalled = true
+_tmp_47.success = true
+handshakeResolver.resolve()
+this.handshakeResolvers.delete(request.responseId)

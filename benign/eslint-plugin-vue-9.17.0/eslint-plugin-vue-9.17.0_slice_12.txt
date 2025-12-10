@@ -1,0 +1,33 @@
+function copyOffset = function copyOffset(token, srcToken) {
+    if (!token) {
+      return
+    }
+    const offsetData = offsets.get(srcToken)
+    if (!offsetData) {
+      return
+    }
+
+    setOffset(
+      token,
+      offsetData.offset,
+      /** @type {Token} */ (offsetData.baseToken)
+    )
+    if (offsetData.baseline) {
+      setBaseline(token)
+    }
+    const o = /** @type {OffsetData} */ (offsets.get(token))
+    o.expectedIndent = offsetData.expectedIndent
+  }
+!token
+const offsetData = offsets.get(srcToken)
+!offsetData
+setOffset(
+      token,
+      offsetData.offset,
+      /** @type {Token} */ (offsetData.baseToken)
+    )
+offsetData.offset
+offsetData.baseToken
+offsetData.baseline
+setBaseline(token)
+const o = /** @type {OffsetData} */ (offsets.get(token))

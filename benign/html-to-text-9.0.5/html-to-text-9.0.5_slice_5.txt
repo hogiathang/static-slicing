@@ -1,0 +1,8 @@
+function formatCell = function formatCell (cellNode) {
+    const colspan = +get(cellNode, ['attribs', 'colspan']) || 1;
+    const rowspan = +get(cellNode, ['attribs', 'rowspan']) || 1;
+    builder.openTableCell({ maxColumnWidth: formatOptions.maxColumnWidth });
+    walk(cellNode.children, builder);
+    builder.closeTableCell({ colspan: colspan, rowspan: rowspan });
+  }
+const colspan = +get(cellNode, ['attribs', 'colspan']) || 1

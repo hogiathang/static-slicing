@@ -1,0 +1,3 @@
+_tmp_1.handler = <lambda>0
+(_tmp_2 = await Promise.resolve().then(() => require('./workspace-lint'))).workspaceLint
+process.exit(0)

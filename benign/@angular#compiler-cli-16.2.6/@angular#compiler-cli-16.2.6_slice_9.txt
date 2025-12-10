@@ -1,0 +1,34 @@
+execute() {
+    var _a;
+    let elId = null;
+    for (const binding of this.element.inputs) {
+      if (binding.type === 0 && this.claimedInputs.has(binding.name)) {
+        continue;
+      }
+      const expr = widenBinding(tcbExpression(binding.value, this.tcb, this.scope), this.tcb);
+      if (this.tcb.env.config.checkTypeOfDomBindings && binding.type === 0) {
+        if (binding.name !== "style" && binding.name !== "class") {
+          if (elId === null) {
+            elId = this.scope.resolve(this.element);
+          }
+          const propertyName = (_a = ATTR_TO_PROP.get(binding.name)) != null ? _a : binding.name;
+          const prop = ts23.factory.createElementAccessExpression(elId, ts23.factory.createStringLiteral(propertyName));
+          const stmt = ts23.factory.createBinaryExpression(prop, ts23.SyntaxKind.EqualsToken, wrapForDiagnostics(expr));
+          addParseSpanInfo(stmt, binding.sourceSpan);
+          this.scope.addStatement(ts23.factory.createExpressionStatement(s...
+let elId = null
+_iterator_49 = <operator>.iterator(this.element.inputs)
+binding.type === 0 && this.claimedInputs.has(binding.name)
+continue;
+const expr = widenBinding(tcbExpression(binding.value, this.tcb, this.scope), this.tcb)
+this.tcb.env.config.checkTypeOfDomBindings && binding.type === 0
+binding.name !== "style" && binding.name !== "class"
+elId === null
+elId = this.scope.resolve(this.element)
+const propertyName = (_a = ATTR_TO_PROP.get(binding.name)) != null ? _a : binding.name
+const prop = ts23.factory.createElementAccessExpression(elId, ts23.factory.createStringLiteral(propertyName))
+const stmt = ts23.factory.createBinaryExpression(prop, ts23.SyntaxKind.EqualsToken, wrapForDiagnostics(expr))
+addParseSpanInfo(stmt, binding.sourceSpan)
+this.scope.addStatement(ts23.factory.createExpressionStatement(stmt))
+this.scope.addStatement(ts23.factory.createExpressionStatement(expr))
+this.scope.addStatement(ts23.factory.createExpressionStatement(expr))

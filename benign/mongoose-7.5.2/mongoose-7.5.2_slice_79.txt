@@ -1,0 +1,36 @@
+parallelLimit(toExecute, limit, function(error, docs) {
+    if (error) {
+      callback(error, null);
+      return;
+    }
+
+    const originalDocIndex = new Map();
+    const validDocIndexToOriginalIndex = new Map();
+    for (let i = 0; i < docs.length; ++i) {
+      originalDocIndex.set(docs[i], i);
+    }
+
+    // We filter all failed pre-validations by removing nulls
+    const docAttributes = docs.filter(function(doc) {
+      return doc != null;
+    });
+    for (let i = 0; i < docAttributes.length; ++i) {
+      validDocIndexToOriginalIndex.set(i, originalDocIndex.get(docAttributes[i]));
+    }
+
+    // Make sure validation errors are in the same order as the
+    // original documents, so if both doc1 and doc2 both fail validation,
+    // `Model.insertMany([doc1, doc2])` will always have doc1's validation
+    // error before doc2's. Re: gh-12791.
+    if (validationErrors.length > 0) {
+      validationErrors.sort((err1, err2) => {
+        return validationErrorsToOriginalOrder.get(err1) -...
+const originalDocIndex = new Map()
+const validDocIndexToOriginalIndex = new Map()
+i < docs.length
+originalDocIndex.set(docs[i], i)
+const docAttributes = docs.filter(function(doc) {
+      return doc != null;
+    })
+i < docAttributes.length
+validDocIndexToOriginalIndex.set(i, originalDocIndex.get(docAttributes[i]))

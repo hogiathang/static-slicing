@@ -1,0 +1,53 @@
+async add (spec, tag, opts) {
+    spec = npa(spec || '')
+    const version = spec.rawSpec
+    const defaultTag = tag || this.npm.config.get('tag')
+
+    log.verbose('dist-tag add', defaultTag, 'to', spec.name + '@' + version)
+
+    if (!spec.name || !version || !defaultTag) {
+      throw this.usageError('must provide a spec with a name and version, and a tag to add')
+    }
+
+    const t = defaultTag.trim()
+
+    if (semver.validRange(t)) {
+      throw new Error('Tag name must not be a valid SemVer range: ' + t)
+    }
+
+    const tags = await this.fetchTags(spec, opts)
+    if (tags[t] === version) {
+      log.warn('dist-tag add', t, 'is already set to version', version)
+      return
+    }
+    tags[t] = version
+    const url =
+      `/-/package/${spec.escapedName}/dist-tags/${encodeURIComponent(t)}`
+    const reqOpts = {
+      ...opts,
+      method: 'PUT',
+      body: JSON.stringify(version),
+      headers: {
+        'content-type': 'application/json',
+      },
+      spec,
+    }
+    await ...
+spec = npa(spec || '')
+const version = spec.rawSpec
+const defaultTag = tag || this.npm.config.get('tag')
+log.verbose('dist-tag add', defaultTag, 'to', spec.name + '@' + version)
+!spec.name || !version || !defaultTag
+throw this.usageError('must provide a spec with a name and version, and a tag to add')
+const t = defaultTag.trim()
+semver.validRange(t)
+throw new Error('Tag name must not be a valid SemVer range: ' + t)
+const tags = await this.fetchTags(spec, opts)
+tags[t] === version
+tags[t] = version
+const url =
+      `/-/package/${spec.escapedName}/dist-tags/${encodeURIComponent(t)}`
+<operator>.formatString("/-/package/", spec.escapedName, "/dist-tags/", encodeURIComponent(t), "")
+...opts
+_tmp_15.method = "PUT"
+_tmp_15.body = JSON.stringify(version)

@@ -1,0 +1,35 @@
+onMessage(message) {
+        const delayedTimeoutId = this[kDelayedTimeoutId];
+        if (delayedTimeoutId != null) {
+            (0, timers_1.clearTimeout)(delayedTimeoutId);
+            this[kDelayedTimeoutId] = null;
+        }
+        const socketTimeoutMS = this[kStream].timeout ?? 0;
+        this[kStream].setTimeout(0);
+        // always emit the message, in case we are streaming
+        this.emit('message', message);
+        let operationDescription = this[kQueue].get(message.responseTo);
+        if (!operationDescription && this.isMonitoringConnection) {
+            // This is how we recover when the initial hello's requestId is not
+            // the responseTo when hello responses have been skipped:
+            // First check if the map is of invalid size
+            if (this[kQueue].size > 1) {
+                this.cleanup(true, new error_1.MongoRuntimeError(INVALID_QUEUE_SIZE));
+            }
+            else {
+                // Get the first orphaned operation descript...
+const delayedTimeoutId = this[kDelayedTimeoutId]
+delayedTimeoutId != null
+(0, timers_1.clearTimeout)(delayedTimeoutId)
+this[kDelayedTimeoutId] = null
+const socketTimeoutMS = this[kStream].timeout ?? 0
+(_tmp_33 = this[kStream]).setTimeout
+this.emit('message', message)
+let operationDescription = this[kQueue].get(message.responseTo)
+!operationDescription && this.isMonitoringConnection
+this[kQueue].size > 1
+const entry = this[kQueue].entries().next()
+entry.value != null
+requestId = _tmp_38[0]
+operationDescription = orphaned
+(_tmp_39 = this[kQueue]).delete

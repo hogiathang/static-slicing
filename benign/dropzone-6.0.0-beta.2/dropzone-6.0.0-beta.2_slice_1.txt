@@ -1,0 +1,70 @@
+_uploadData(files, dataBlocks) {
+    let xhr = new XMLHttpRequest();
+
+    // Put the xhr object in the file objects to be able to reference it later.
+    for (let file of files) {
+      file.xhr = xhr;
+    }
+    if (files[0].upload.chunked) {
+      // Put the xhr object in the right chunk object, so it can be associated
+      // later, and found with _getChunk.
+      files[0].upload.chunks[dataBlocks[0].chunkIndex].xhr = xhr;
+    }
+
+    let method = this.resolveOption(this.options.method, files, dataBlocks);
+    let url = this.resolveOption(this.options.url, files, dataBlocks);
+    xhr.open(method, url, true);
+
+    // Setting the timeout after open because of IE11 issue: https://gitlab.com/meno/dropzone/issues/8
+    let timeout = this.resolveOption(this.options.timeout, files);
+    if (timeout) xhr.timeout = this.resolveOption(this.options.timeout, files);
+
+    // Has to be after `.open()`. See https://github.com/enyo/dropzone/issues/179
+    xhr.withCredentials = !!this.options.with...
+let xhr = new XMLHttpRequest()
+_iterator_15 = <operator>.iterator(files)
+file.xhr = xhr
+files[0].upload.chunked
+files[0].upload.chunks[dataBlocks[0].chunkIndex].xhr = xhr
+let method = this.resolveOption(this.options.method, files, dataBlocks)
+let url = this.resolveOption(this.options.url, files, dataBlocks)
+xhr.open(method, url, true)
+let timeout = this.resolveOption(this.options.timeout, files)
+xhr.timeout = this.resolveOption(this.options.timeout, files)
+xhr.withCredentials = !!this.options.withCredentials
+xhr.onload = (e) => {
+      this._finishedUploading(files, xhr, e);
+    }
+xhr.ontimeout = () => {
+      this._handleUploadError(
+        files,
+        xhr,
+        `Request timedout after ${this.options.timeout / 1000} seconds`
+      );
+    }
+xhr.onerror = () => {
+      this._handleUploadError(files, xhr);
+    }
+let progressObj = xhr.upload != null ? xhr.upload : xhr
+progressObj.onprogress = (e) =>
+      this._updateFilesUploadProgress(files, xhr, e)
+let headers = this.options.defaultHeaders
+      ? {
+          Accept: "application/json",
+          "Cache-Control": "no-cache",
+          "X-Requested-With": "XMLHttpRequest",
+        }
+      : {}
+_tmp_103.Accept = "application/json"
+_tmp_103.Cache-Control = "no-cache"
+_tmp_103.X-Requested-With = "XMLHttpRequest"
+this.options.binaryBody
+headers["Content-Type"] = files[0].type
+this.options.headers
+extend(headers, this.options.headers)
+_iterator_16 = <operator>.iterator(headers)
+let headerValue = headers[headerName]
+xhr.setRequestHeader(headerName, headerValue)
+this.options.binaryBody
+_iterator_17 = <operator>.iterator(files)
+this.emit("sending", file, xhr)

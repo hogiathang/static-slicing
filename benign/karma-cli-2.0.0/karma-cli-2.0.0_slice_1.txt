@@ -1,0 +1,21 @@
+grunt.registerTask('release', 'Bump the version and publish to NPM.', function (type) {
+    grunt.task.run([
+      'npm-contributors',
+      'bump-only:' + (type || 'patch'),
+      'conventionalChangelog',
+      'bump-commit',
+      'npm-publish'
+    ])
+  })
+grunt.task.run([
+      'npm-contributors',
+      'bump-only:' + (type || 'patch'),
+      'conventionalChangelog',
+      'bump-commit',
+      'npm-publish'
+    ])
+_tmp_11.push("npm-contributors")
+_tmp_11.push('bump-only:' + (type || 'patch'))
+_tmp_11.push("conventionalChangelog")
+_tmp_11.push("bump-commit")
+_tmp_11.push("npm-publish")

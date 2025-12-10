@@ -1,0 +1,28 @@
+var checkExportPresence = function () {function checkExportPresence(node) {
+          if (!missingExports) {
+            return;
+          }
+
+          if (ignoredFiles.has(file)) {
+            return;
+          }
+
+          var exportCount = exportList.get(file);
+          var exportAll = exportCount.get(EXPORT_ALL_DECLARATION);
+          var namespaceImports = exportCount.get(IMPORT_NAMESPACE_SPECIFIER);
+
+          exportCount['delete'](EXPORT_ALL_DECLARATION);
+          exportCount['delete'](IMPORT_NAMESPACE_SPECIFIER);
+          if (exportCount.size < 1) {
+            // node.body[0] === 'undefined' only happens, if everything is commented out in the file
+            // being linted
+            context.report(node.body[0] ? node.body[0] : node, 'No exports found');
+          }
+          exportCount.set(EXPORT_ALL_DECLARATION, exportAll);
+          exportCount.set(IMPORT_NAMESPACE_SPECIFIER, namespaceImports);
+        }return checkExportPresence;}()
+!missingExports
+ignoredFiles.has(file)
+var exportCount = exportList.get(file)
+var exportAll = exportCount.get(EXPORT_ALL_DECLARATION)
+var namespaceImports = exportCount.get(IMPORT_NAMESPACE_SPECIFIER)

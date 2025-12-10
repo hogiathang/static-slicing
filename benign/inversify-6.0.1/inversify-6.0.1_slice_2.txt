@@ -1,0 +1,8 @@
+this.traverse((serviceIdentifier, value) => {
+            const lookupActivations = lookup.hasKey(serviceIdentifier) ? lookup.get(serviceIdentifier) : undefined;
+            if (lookupActivations !== undefined) {
+                const filteredValues = value.filter((lookupValue) => !lookupActivations.some((moduleActivation) => lookupValue === moduleActivation));
+                this._setValue(serviceIdentifier, filteredValues);
+            }
+        })
+const lookupActivations = lookup.hasKey(serviceIdentifier) ? lookup.get(serviceIdentifier) : undefined

@@ -1,0 +1,8 @@
+await new Promise((resolve, reject) => {
+                            try {
+                                setTimeout(resolve, 1000 * attemptNumber);
+                            }
+                            catch (e) {
+                                reject(e);
+                            }
+                        })

@@ -1,0 +1,33 @@
+function getdata = function getdata() {
+                    var found;
+
+                    if (operation === 'update_doc' || operation === 'insert_item_in_doc') {
+                        db.loadDatabase(dbName);
+                        var coll = db.getCollection(collName);
+                        
+                        //docName is not simply a docname, this is an object like: {name: 'user settings'}
+                        for(var i in docName) {
+                            currentDoc.key = i;
+                            currentDoc.value = docName[i];
+                        }
+                        for (var x = 0; x < coll.data.length; x++){
+                            if (coll.data[x][currentDoc.key] === currentDoc.value){
+                                currentDoc.lokiNum = coll.data[x].$loki;
+                            }
+                        }
+                        found = coll.get(parseInt(currentDoc.lokiNum, 10));
+
+                        if (operation === 'update_doc') {
+           ...
+operation === 'update_doc' || operation === 'insert_item_in_doc'
+db.loadDatabase(dbName)
+var coll = db.getCollection(collName)
+_iterator_0 = <operator>.iterator(docName)
+currentDoc.key = i
+currentDoc.value = docName[i]
+x < coll.data.length
+coll.data[x][currentDoc.key] === currentDoc.value
+currentDoc.lokiNum = coll.data[x].$loki
+found = coll.get(parseInt(currentDoc.lokiNum, 10))
+operation === 'update_doc'
+found.insert(thevalue)

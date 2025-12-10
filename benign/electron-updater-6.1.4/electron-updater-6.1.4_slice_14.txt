@@ -1,0 +1,78 @@
+async executeDownload(taskOptions) {
+        const fileInfo = taskOptions.fileInfo;
+        const downloadOptions = {
+            headers: taskOptions.downloadUpdateOptions.requestHeaders,
+            cancellationToken: taskOptions.downloadUpdateOptions.cancellationToken,
+            sha2: fileInfo.info.sha2,
+            sha512: fileInfo.info.sha512,
+        };
+        if (this.listenerCount(main_1.DOWNLOAD_PROGRESS) > 0) {
+            downloadOptions.onProgress = it => this.emit(main_1.DOWNLOAD_PROGRESS, it);
+        }
+        const updateInfo = taskOptions.downloadUpdateOptions.updateInfoAndProvider.info;
+        const version = updateInfo.version;
+        const packageInfo = fileInfo.packageInfo;
+        function getCacheUpdateFileName() {
+            // NodeJS URL doesn't decode automatically
+            const urlPath = decodeURIComponent(taskOptions.fileInfo.url.pathname);
+            if (urlPath.endsWith(`.${taskOptions.fileExtension}`)) {
+                return path.basename(...
+const fileInfo = taskOptions.fileInfo
+const downloadOptions = {
+            headers: taskOptions.downloadUpdateOptions.requestHeaders,
+            cancellationToken: taskOptions.downloadUpdateOptions.cancellationToken,
+            sha2: fileInfo.info.sha2,
+            sha512: fileInfo.info.sha512,
+        }
+_tmp_65.headers = taskOptions.downloadUpdateOptions.requestHeaders
+_tmp_65.cancellationToken = taskOptions.downloadUpdateOptions.cancellationToken
+_tmp_65.sha2 = fileInfo.info.sha2
+_tmp_65.sha512 = fileInfo.info.sha512
+this.listenerCount(main_1.DOWNLOAD_PROGRESS) > 0
+downloadOptions.onProgress = it => this.emit(main_1.DOWNLOAD_PROGRESS, it)
+const updateInfo = taskOptions.downloadUpdateOptions.updateInfoAndProvider.info
+const version = updateInfo.version
+const packageInfo = fileInfo.packageInfo
+function getCacheUpdateFileName = function getCacheUpdateFileName() {
+            // NodeJS URL doesn't decode automatically
+            const urlPath = decodeURIComponent(taskOptions.fileInfo.url.pathname);
+            if (urlPath.endsWith(`.${taskOptions.fileExtension}`)) {
+                return path.basename(urlPath);
+            }
+            else {
+                // url like /latest, generate name
+                return taskOptions.fileInfo.info.url;
+            }
+        }
+const downloadedUpdateHelper = await this.getOrCreateDownloadHelper()
+const cacheDir = downloadedUpdateHelper.cacheDirForPendingUpdate
+await (0, fs_extra_1.mkdir)(cacheDir, { recursive: true })
+const updateFileName = getCacheUpdateFileName()
+let updateFile = path.join(cacheDir, updateFileName)
+const packageFile = packageInfo == null ? null : path.join(cacheDir, `package-${version}${path.extname(packageInfo.path) || ".7z"}`)
+const done = async (isSaveCache) => {
+            await downloadedUpdateHelper.setDownloadedFile(updateFile, packageFile, updateInfo, fileInfo, updateFileName, isSaveCache);
+            await taskOptions.done({
+                ...updateInfo,
+                downloadedFile: updateFile,
+            });
+            return packageFile == null ? [updateFile] : [updateFile, packageFile];
+        }
+const log = this._logger
+const cachedUpdateFile = await downloadedUpdateHelper.validateDownloadedPath(updateFile, updateInfo, fileInfo, log)
+cachedUpdateFile != null
+const removeFileIfAny = async () => {
+            await downloadedUpdateHelper.clear().catch(() => {
+                // ignore
+            });
+            return await (0, fs_extra_1.unlink)(updateFile).catch(() => {
+                // ignore
+            });
+        }
+const tempUpdateFile = await (0, DownloadedUpdateHelper_1.createTempUpdateFile)(`temp-${updateFileName}`, cacheDir, log)
+await taskOptions.task(tempUpdateFile, downloadOptions, packageFile, removeFileIfAny)
+await (0, fs_extra_1.rename)(tempUpdateFile, updateFile)
+await removeFileIfAny()
+e instanceof builder_util_runtime_1.CancellationError
+log.info("cancelled")
+this.emit("update-cancelled", updateInfo)

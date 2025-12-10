@@ -1,0 +1,10 @@
+host.exists(record.path).pipe((0, rxjs_1.switchMap)((exists) => {
+                        if (!exists && !force) {
+                            return (0, rxjs_1.throwError)(new exception_1.FileDoesNotExistException(record.path));
+                        }
+                        else {
+                            return host.write(record.path, record.content);
+                        }
+                    }))
+!exists && !force
+host.write(record.path, record.content)

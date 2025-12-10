@@ -1,0 +1,108 @@
+(dispatch, getState) => {
+        const queryCacheKey = serializeQueryArgs({
+          queryArgs: arg,
+          endpointDefinition,
+          endpointName,
+        })
+
+        const thunk = queryThunk({
+          type: 'query',
+          subscribe,
+          forceRefetch: forceRefetch,
+          subscriptionOptions,
+          endpointName,
+          originalArgs: arg,
+          queryCacheKey,
+          [forceQueryFnSymbol]: forceQueryFn,
+        })
+        const selector = (
+          api.endpoints[endpointName] as ApiEndpointQuery<any, any>
+        ).select(arg)
+
+        const thunkResult = dispatch(thunk)
+        const stateAfter = selector(getState())
+
+        middlewareWarning(dispatch)
+
+        const { requestId, abort } = thunkResult
+
+        const skippedSynchronously = stateAfter.requestId !== requestId
+
+        const runningQuery = runningQueries.get(dispatch)?.[queryCacheKey]
+        const selectFromState = () => selector(getState())
+
+    ...
+const queryCacheKey = serializeQueryArgs({
+          queryArgs: arg,
+          endpointDefinition,
+          endpointName,
+        })
+_tmp_14.queryArgs = arg
+_tmp_14.endpointDefinition = endpointDefinition
+_tmp_14.endpointName = endpointName
+const thunk = queryThunk({
+          type: 'query',
+          subscribe,
+          forceRefetch: forceRefetch,
+          subscriptionOptions,
+          endpointName,
+          originalArgs: arg,
+          queryCacheKey,
+          [forceQueryFnSymbol]: forceQueryFn,
+        })
+_tmp_15.type = "query"
+_tmp_15.subscribe = subscribe
+_tmp_15.forceRefetch = forceRefetch
+_tmp_15.subscriptionOptions = subscriptionOptions
+_tmp_15.endpointName = endpointName
+_tmp_15.originalArgs = arg
+_tmp_15.queryCacheKey = queryCacheKey
+_tmp_15.forceQueryFnSymbol = forceQueryFn
+const selector = (
+          api.endpoints[endpointName] as ApiEndpointQuery<any, any>
+        ).select(arg)
+(_tmp_16 = api.endpoints[endpointName] as ApiEndpointQuery<any, any>)
+select
+const thunkResult = dispatch(thunk)
+const stateAfter = selector(getState())
+middlewareWarning(dispatch)
+requestId = _tmp_17.requestId
+const skippedSynchronously = stateAfter.requestId !== requestId
+const runningQuery = runningQueries.get(dispatch)?.[queryCacheKey]
+const selectFromState = () => selector(getState())
+const statePromise: QueryActionCreatorResult<any> = Object.assign(
+          forceQueryFn
+            ? // a query has been forced (upsertQueryData)
+              // -> we want to resolve it once data has been written with the data that will be written
+              thunkResult.then(selectFromState)
+            : skippedSynchronously && !runningQuery
+            ? // a query has been skipped due to a condition and we do not have any currently running query
+              // -> we want to resolve it immediately with the current data
+              Promise.resolve(stateAfter)
+            : // query just started or one is already in flight
+              // -> wait for the running query, then resolve with data from after that
+              Promise.all([runningQuery, thunkResult]).then(selectFromState),
+          {
+            arg,
+            requestId,
+            subscriptionOptions,
+            queryCacheKey,
+            abort,
+            async unwrap() {
+              co...
+forceQueryFn ? thunkResult.then(selectFromState) : skippedSynchronously && !runningQuery ? Promise.resolve(stateAfter) : Promise.all([runningQuery, thunkResult]).then(selectFromState)
+thunkResult.then(selectFromState)
+skippedSynchronously && !runningQuery ? Promise.resolve(stateAfter) : Promise.all([runningQuery, thunkResult]).then(selectFromState)
+Promise.resolve(stateAfter)
+Promise.all([runningQuery, thunkResult]).then(selectFromState)
+_tmp_20.arg = arg
+_tmp_20.requestId = requestId
+_tmp_20.subscriptionOptions = subscriptionOptions
+_tmp_20.queryCacheKey = queryCacheKey
+_tmp_20.abort = abort
+_tmp_20.unwrap = unwrap
+_tmp_20.refetch = <lambda>10
+_tmp_20.unsubscribe = unsubscribe
+_tmp_20.updateSubscriptionOptions = updateSubscriptionOptions
+!runningQuery && !skippedSynchronously && !forceQueryFn
+const running = runningQueries.get(dispatch) || {}

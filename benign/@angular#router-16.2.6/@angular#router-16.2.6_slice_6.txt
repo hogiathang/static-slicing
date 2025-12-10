@@ -1,0 +1,17 @@
+new Promise(resolve => {
+                            const router = injector.get(Router);
+                            const bootstrapDone = injector.get(BOOTSTRAP_DONE);
+                            afterNextNavigation(router, () => {
+                                // Unblock APP_INITIALIZER in case the initial navigation was canceled or errored
+                                // without a redirect.
+                                resolve(true);
+                            });
+                            injector.get(NavigationTransitions).afterPreactivation = () => {
+                                // Unblock APP_INITIALIZER once we get to `afterPreactivation`. At this point, we
+                                // assume activation will complete successfully (even though this is not
+                                // guaranteed).
+                                resolve(true);
+                                return bootstrapDone.closed ? of(void 0) : bootstrapDone;
+                  ...
+const router = injector.get(Router)
+const bootstrapDone = injector.get(BOOTSTRAP_DONE)

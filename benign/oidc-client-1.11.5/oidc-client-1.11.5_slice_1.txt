@@ -1,0 +1,31 @@
+CheckSessionIFrame.prototype.start = function start(session_state) {
+        var _this2 = this;
+
+        if (this._session_state !== session_state) {
+            _Log.Log.debug("CheckSessionIFrame.start");
+
+            this.stop();
+
+            this._session_state = session_state;
+
+            var send = function send() {
+                _this2._frame.contentWindow.postMessage(_this2._client_id + " " + _this2._session_state, _this2._frame_origin);
+            };
+
+            // trigger now
+            send();
+
+            // and setup timer
+            this._timer = window.setInterval(send, this._interval);
+        }
+    }
+var _this2 = this
+this._session_state !== session_state
+_Log.Log.debug("CheckSessionIFrame.start")
+this.stop()
+this._session_state = session_state
+var send = function send() {
+                _this2._frame.contentWindow.postMessage(_this2._client_id + " " + _this2._session_state, _this2._frame_origin);
+            }
+send()
+this._timer = window.setInterval(send, this._interval)

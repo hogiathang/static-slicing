@@ -1,0 +1,43 @@
+serverUpdateHandler(serverDescription) {
+    if (!this.s.description.hasServer(serverDescription.address)) {
+      return;
+    }
+
+    // these will be used for monitoring events later
+    const previousTopologyDescription = this.s.description;
+    const previousServerDescription = this.s.description.servers.get(serverDescription.address);
+
+    // first update the TopologyDescription
+    this.s.description = this.s.description.update(serverDescription);
+    if (this.s.description.compatibilityError) {
+      this.emit('error', new MongoError(this.s.description.compatibilityError));
+      return;
+    }
+
+    // emit monitoring events for this change
+    this.emit(
+      'serverDescriptionChanged',
+      new monitoring.ServerDescriptionChangedEvent(
+        this.s.id,
+        serverDescription.address,
+        previousServerDescription,
+        this.s.description.servers.get(serverDescription.address)
+      )
+    );
+
+    // update server list from updated descriptions
+    updateServers(t...
+!this.s.description.hasServer(serverDescription.address)
+const previousTopologyDescription = this.s.description
+const previousServerDescription = this.s.description.servers.get(serverDescription.address)
+this.s.description = this.s.description.update(serverDescription)
+this.s.description.compatibilityError
+this.emit(
+      'serverDescriptionChanged',
+      new monitoring.ServerDescriptionChangedEvent(
+        this.s.id,
+        serverDescription.address,
+        previousServerDescription,
+        this.s.description.servers.get(serverDescription.address)
+      )
+    )

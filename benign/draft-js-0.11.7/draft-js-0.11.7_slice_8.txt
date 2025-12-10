@@ -1,0 +1,12 @@
+var getDraftRenderConfig = function getDraftRenderConfig(block, blockRenderMap) {
+  var configForType = blockRenderMap.get(block.getType()) || blockRenderMap.get('unstyled');
+  var wrapperTemplate = configForType.wrapper;
+  var Element = configForType.element || blockRenderMap.get('unstyled').element;
+  return {
+    Element: Element,
+    wrapperTemplate: wrapperTemplate
+  };
+}
+var configForType = blockRenderMap.get(block.getType()) || blockRenderMap.get('unstyled')
+var wrapperTemplate = configForType.wrapper
+var Element = configForType.element || blockRenderMap.get('unstyled').element

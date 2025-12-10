@@ -1,0 +1,39 @@
+function strictLookup = function strictLookup(requireTerminal, compiler, parts, i, type) {
+  let stack = compiler.popStack(),
+    len = parts.length;
+  if (requireTerminal) {
+    len--;
+  }
+
+  for (; i < len; i++) {
+    stack = compiler.nameLookup(stack, parts[i], type);
+  }
+
+  if (requireTerminal) {
+    return [
+      compiler.aliasable('container.strict'),
+      '(',
+      stack,
+      ', ',
+      compiler.quotedString(parts[i]),
+      ', ',
+      JSON.stringify(compiler.source.currentLocation),
+      ' )'
+    ];
+  } else {
+    return stack;
+  }
+}
+let stack = compiler.popStack()
+let len = parts.length
+len--
+i < len
+stack = compiler.nameLookup(stack, parts[i], type)
+_tmp_0 = __ecma.Array.factory()
+_tmp_0.push(compiler.aliasable('container.strict'))
+_tmp_0.push("(")
+_tmp_0.push(stack)
+_tmp_0.push(", ")
+_tmp_0.push(compiler.quotedString(parts[i]))
+_tmp_0.push(", ")
+_tmp_0.push(JSON.stringify(compiler.source.currentLocation))

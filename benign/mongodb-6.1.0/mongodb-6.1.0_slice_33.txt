@@ -1,0 +1,105 @@
+function parseOptions = function parseOptions(
+  uri: string,
+  mongoClient: MongoClient | MongoClientOptions | undefined = undefined,
+  options: MongoClientOptions = {}
+): MongoOptions {
+  if (mongoClient != null && !(mongoClient instanceof MongoClient)) {
+    options = mongoClient;
+    mongoClient = undefined;
+  }
+
+  // validate BSONOptions
+  if (options.useBigInt64 && typeof options.promoteLongs === 'boolean' && !options.promoteLongs) {
+    throw new MongoAPIError('Must request either bigint or Long for int64 deserialization');
+  }
+
+  if (options.useBigInt64 && typeof options.promoteValues === 'boolean' && !options.promoteValues) {
+    throw new MongoAPIError('Must request either bigint or Long for int64 deserialization');
+  }
+
+  const url = new ConnectionString(uri);
+  const { hosts, isSRV } = url;
+
+  const mongoOptions = Object.create(null);
+
+  // Feature flags
+  for (const flag of Object.getOwnPropertySymbols(options)) {
+    if (FEATURE_FLAGS.has(flag)) {
+      mongoOptions[flag] = options[flag];
+   ...
+mongoClient = mongoClient === void 0 ? undefined : mongoClient
+options = options === void 0 ? {} : options
+mongoClient != null && !(mongoClient instanceof MongoClient)
+options = mongoClient
+mongoClient = undefined
+options.useBigInt64 && typeof options.promoteLongs === 'boolean' && !options.promoteLongs
+throw new MongoAPIError('Must request either bigint or Long for int64 deserialization');
+options.useBigInt64 && typeof options.promoteValues === 'boolean' && !options.promoteValues
+throw new MongoAPIError('Must request either bigint or Long for int64 deserialization');
+const url = new ConnectionString(uri)
+hosts = _tmp_40.hosts
+const mongoOptions = Object.create(null)
+_iterator_2 = <operator>.iterator(Object.getOwnPropertySymbols(options))
+FEATURE_FLAGS.has(flag)
+mongoOptions[flag] = options[flag]
+mongoOptions.hosts = isSRV ? [] : hosts.map(HostAddress.fromString)
+const urlOptions = new CaseInsensitiveMap<unknown[]>()
+url.pathname !== '/' && url.pathname !== ''
+const dbName = decodeURIComponent(
+      url.pathname[0] === '/' ? url.pathname.slice(1) : url.pathname
+    )
+url.pathname[0] === '/' ? url.pathname.slice(1) : url.pathname
+urlOptions.set('dbName', [dbName])
+url.username !== ''
+const auth: Document = {
+      username: decodeURIComponent(url.username)
+    }
+_tmp_44.username = decodeURIComponent(url.username)
+typeof url.password === 'string'
+auth.password = decodeURIComponent(url.password)
+_tmp_45 = __ecma.Array.factory()
+_iterator_3 = <operator>.iterator(url.searchParams.keys())
+const values = url.searchParams.getAll(key)
+const isReadPreferenceTags = /readPreferenceTags/i.test(key)
+!isReadPreferenceTags && values.length > 1
+throw new MongoInvalidArgumentError(
+        `URI option "${key}" cannot appear more than once in the connection string`
+      );
+<operator>.formatString("URI option "", key, "" cannot appear more than once in the connection string")
+!isReadPreferenceTags && values.includes('')
+<operator>.formatString("URI option "", key, "" cannot be specified with no value")
+!urlOptions.has(key)
+urlOptions.set(key, values)
+const objectOptions = new CaseInsensitiveMap<unknown>(
+    Object.entries(options).filter(([, v]) => v != null)
+  )
+Object.entries(options).filter(([, v]) => v != null)
+urlOptions.has('serverApi')
+throw new MongoParseError(
+      'URI cannot contain `serverApi`, it can only be passed to the client'
+    );
+"URI cannot contain `serverApi`, it can only be passed to the client"
+const uriMechanismProperties = urlOptions.get('authMechanismProperties')
+_iterator_4 = <operator>.iterator(uriMechanismProperties)
+/(^|,)ALLOWED_HOSTS:/.test(property as string)
+throw new MongoParseError(
+          'Auth mechanism property ALLOWED_HOSTS is not allowed in the connection string.'
+        );
+"Auth mechanism property ALLOWED_HOSTS is not allowed in the connection string."
+objectOptions.has('loadBalanced')
+throw new MongoParseError('loadBalanced is only a valid option in the URI');
+const allProvidedOptions = new CaseInsensitiveMap<unknown[]>()
+const allProvidedKeys = new Set<string>([...urlOptions.keys(), ...objectOptions.keys()])
+_iterator_5 = <operator>.iterator(allProvidedKeys)
+__ecma.Array.factory()
+const objectOptionValue = objectOptions.get(key)
+objectOptionValue != null
+values.push(objectOptionValue)
+const urlValues = urlOptions.get(key) ?? []
+values.push(...urlValues)
+allProvidedOptions.set(key, values)
+allProvidedOptions.has('tls') || allProvidedOptions.has('ssl')
+const tlsAndSslOpts = (allProvidedOptions.get('tls') || [])
+      .concat(allProvidedOptions.get('ssl') || [])
+      .map(getBoolean.bind(null, 'tls/ssl'))
+allProvidedOptions.get('ssl') || []

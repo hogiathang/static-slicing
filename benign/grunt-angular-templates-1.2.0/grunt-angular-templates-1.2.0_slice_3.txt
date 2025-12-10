@@ -1,0 +1,47 @@
+this.files.forEach(function(file) {
+      if (!file.src.length) {
+        grunt.log.warn('No templates found');
+      }
+
+      var expanded = file.orig.expand;
+      var cwd = file.orig.expand ? file.orig.cwd : file.cwd;
+
+      var compiler  = new Compiler(grunt, options, cwd, expanded);
+      var appender  = new Appender(grunt);
+      var modules   = compiler.modules(file.src);
+      var compiled  = [];
+
+      for (var module in modules) {
+        if (options.merge) {
+          compiled.push(compiler.compile(module, modules[module]));
+        } else {
+          //Compiling each file to the same module
+          for (var j = 0; j < file.src.length; j++) {
+            compiled.push(compiler.compile(module, [file.src[j]]));
+          }
+        }
+      }
+
+      if (options.append){
+        fs.appendFileSync(file.dest, compiled.join('\n'));
+        grunt.log.writeln('File ' + file.dest.cyan + ' updated.');
+      }
+      else{
+        if (options.merge) {
+          grunt.file.write(file....
+!file.src.length
+grunt.log.warn('No templates found')
+var expanded = file.orig.expand
+var cwd = file.orig.expand ? file.orig.cwd : file.cwd
+var compiler  = new Compiler(grunt, options, cwd, expanded)
+var appender  = new Appender(grunt)
+var modules   = compiler.modules(file.src)
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(modules)
+options.merge
+compiled.push(compiler.compile(module, modules[module]))
+j < file.src.length
+compiled.push(compiler.compile(module, [file.src[j]]))
+options.append
+options.merge
+grunt.file.write(file.dest, compiled.join('\n'))

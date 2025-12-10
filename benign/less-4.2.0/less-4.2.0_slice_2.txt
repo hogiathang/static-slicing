@@ -1,0 +1,67 @@
+function default_1 = function default_1(root, options) {
+    options = options || {};
+    var evaldRoot;
+    var variables = options.variables;
+    var evalEnv = new contexts_1.default.Eval(options);
+    //
+    // Allows setting variables with a hash, so:
+    //
+    //   `{ color: new tree.Color('#f01') }` will become:
+    //
+    //   new tree.Declaration('@color',
+    //     new tree.Value([
+    //       new tree.Expression([
+    //         new tree.Color('#f01')
+    //       ])
+    //     ])
+    //   )
+    //
+    if (typeof variables === 'object' && !Array.isArray(variables)) {
+        variables = Object.keys(variables).map(function (k) {
+            var value = variables[k];
+            if (!(value instanceof tree_1.default.Value)) {
+                if (!(value instanceof tree_1.default.Expression)) {
+                    value = new tree_1.default.Expression([value]);
+                }
+                value = new tree_1.default.Value([value]);
+            }
+            return new tree_1.default.Decla...
+options = options || {}
+var variables = options.variables
+var evalEnv = new contexts_1.default.Eval(options)
+typeof variables === 'object' && !Array.isArray(variables)
+variables = Object.keys(variables).map(function (k) {
+            var value = variables[k];
+            if (!(value instanceof tree_1.default.Value)) {
+                if (!(value instanceof tree_1.default.Expression)) {
+                    value = new tree_1.default.Expression([value]);
+                }
+                value = new tree_1.default.Value([value]);
+            }
+            return new tree_1.default.Declaration("@" + k, value, false, null, 0);
+        })
+evalEnv.frames = [new tree_1.default.Ruleset(null, variables)]
+var visitors = [
+        new visitors_1.default.JoinSelectorVisitor(),
+        new visitors_1.default.MarkVisibleSelectorsVisitor(true),
+        new visitors_1.default.ExtendVisitor(),
+        new visitors_1.default.ToCSSVisitor({ compress: Boolean(options.compress) })
+    ]
+_tmp_10.push(new visitors_1.default.JoinSelectorVisitor())
+_tmp_10.push(new visitors_1.default.MarkVisibleSelectorsVisitor(true))
+_tmp_10.push(new visitors_1.default.ExtendVisitor())
+_tmp_10.push(new visitors_1.default.ToCSSVisitor({ compress: Boolean(options.compress) }))
+var preEvalVisitors = []
+options.pluginManager
+visitorIterator = options.pluginManager.visitor()
+var i = 0
+visitorIterator.first()
+v = visitorIterator.get()
+v.isPreEvalVisitor
+i === 0 || preEvalVisitors.indexOf(v) === -1
+preEvalVisitors.push(v)
+v.run(root)
+i === 0 || visitors.indexOf(v) === -1
+v.isPreVisitor
+visitors.unshift(v)
+visitors.push(v)

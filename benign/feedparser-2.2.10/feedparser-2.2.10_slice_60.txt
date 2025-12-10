@@ -1,0 +1,19 @@
+el.forEach(function (category){
+            if ('category' == name && 'atom' == type) {
+              if (category['@'] && _.get(category['@'], 'term')) item.categories.push(_.get(category['@'], 'term'));
+            } else if ('category' == name && _.get(category) && 'rss' == type) {
+              item.categories.push(_.get(category).trim());
+            } else if ('dc:subject' == name && _.get(category)) {
+              _categories = _.get(category).split(' ').map(function (cat){ return cat.trim(); });
+              if (_categories.length) item.categories = item.categories.concat(_categories);
+            } else if ('itunes:category' == name) {
+              if (category['@'] && _.get(category['@'], 'text')) _category = _.get(category['@'], 'text');
+              if (category[name]) {
+                if (Array.isArray(category[name])) {
+                  category[name].forEach(function (subcategory){
+                    if (subcategory['@'] && _.get(subcategory['@'], 'text')) item...
+'category' == name && 'atom' == type
+'category' == name && _.get(category) && 'rss' == type
+'dc:subject' == name && _.get(category)
+'itunes:category' == name
+category['@'] && _.get(category['@'], 'text')

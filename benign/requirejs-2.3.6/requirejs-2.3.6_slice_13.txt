@@ -1,0 +1,18 @@
+_tmp_2256.convertDir = <lambda>1234
+var jsFileRegExp = /\.js$/
+fileList = file.getFilteredFileList(commonJsPath, /\w/, true)
+commonJsPath = commonJsPath.replace(/\\/g, "/")
+savePath = savePath.replace(/\\/g, "/")
+commonJsPath.charAt(commonJsPath.length - 1) === "/"
+commonJsPath = commonJsPath.substring(0, commonJsPath.length - 1)
+savePath.charAt(savePath.length - 1) === "/"
+savePath = savePath.substring(0, savePath.length - 1)
+!fileList || !fileList.length
+i < fileList.length
+fileName = fileList[i]
+convertedFileName = fileName.replace(commonJsPath, savePath)
+jsFileRegExp.test(fileName)
+fileContents = file.readFile(fileName)
+fileContents = commonJs.convert(fileName, fileContents)
+file.saveUtf8File(convertedFileName, fileContents)
+file.copyFile(fileName, convertedFileName, true)

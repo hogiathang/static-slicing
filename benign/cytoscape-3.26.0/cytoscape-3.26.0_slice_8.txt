@@ -1,0 +1,83 @@
+ETCp.getElement = function( ele, bb, pxRatio, lvl, reason ){
+  let self = this;
+  let r = this.renderer;
+  let zoom = r.cy.zoom();
+  let lookup = this.lookup;
+
+  if( !bb || bb.w === 0 || bb.h === 0 || isNaN(bb.w) || isNaN(bb.h) || !ele.visible() || ele.removed() ){ return null; }
+
+  if(
+    ( !self.allowEdgeTxrCaching && ele.isEdge() )
+    || ( !self.allowParentTxrCaching && ele.isParent() )
+  ){
+    return null;
+  }
+
+  if( lvl == null ){
+    lvl = Math.ceil( math.log2( zoom * pxRatio ) );
+  }
+
+  if( lvl < minLvl ){
+    lvl = minLvl;
+  } else if( zoom >= maxZoom || lvl > maxLvl ){
+    return null;
+  }
+
+  let scale = Math.pow( 2, lvl );
+  let eleScaledH = bb.h * scale;
+  let eleScaledW = bb.w * scale;
+  let scaledLabelShown = r.eleTextBiggerThanMin( ele, scale );
+
+  if( !this.isVisible(ele, scaledLabelShown) ){ return null; }
+
+  let eleCache = lookup.get( ele, lvl );
+
+  // if this get was on an unused/invalidated cache, then restore the texture usage metric
+  if( eleCache && eleCache...
+let self = this
+let r = this.renderer
+let zoom = r.cy.zoom()
+let lookup = this.lookup
+!bb || bb.w === 0 || bb.h === 0 || isNaN(bb.w) || isNaN(bb.h) || !ele.visible() || ele.removed()
+( !self.allowEdgeTxrCaching && ele.isEdge() )
+    || ( !self.allowParentTxrCaching && ele.isParent() )
+!self.allowParentTxrCaching && ele.isParent()
+lvl == null
+lvl = Math.ceil( math.log2( zoom * pxRatio ) )
+lvl < minLvl
+lvl = minLvl
+zoom >= maxZoom || lvl > maxLvl
+let scale = Math.pow( 2, lvl )
+let eleScaledH = bb.h * scale
+let eleScaledW = bb.w * scale
+let scaledLabelShown = r.eleTextBiggerThanMin( ele, scale )
+!this.isVisible(ele, scaledLabelShown)
+let eleCache = lookup.get( ele, lvl )
+eleCache && eleCache.invalidated
+eleCache.invalidated = false
+eleCache.texture.invalidatedWidth -= eleCache.width
+eleScaledH <= minTxrH
+txrH = minTxrH
+eleScaledH <= txrStepH
+txrH = txrStepH
+txrH = Math.ceil( eleScaledH / txrStepH ) * txrStepH
+eleScaledH > maxTxrH || eleScaledW > maxTxrW
+let txrQ = self.getTextureQueue( txrH )
+let txr = txrQ[ txrQ.length - 2 ]
+let addNewTxr = function(){
+    return self.recycleTexture( txrH, eleScaledW ) || self.addTexture( txrH, eleScaledW );
+  }
+!txr
+txr = txrQ[ txrQ.length - 1 ]
+!txr
+txr = addNewTxr()
+txr.width - txr.usedWidth < eleScaledW
+txr = addNewTxr()
+let scalableFrom = function( otherCache ){
+    return otherCache && otherCache.scaledLabelShown === scaledLabelShown;
+  }
+let deqing = reason && reason === getTxrReasons.dequeue
+let highQualityReq = reason && reason === getTxrReasons.highQuality
+let downscaleReq = reason && reason === getTxrReasons.downscale
+let l = lvl + 1
+let c = lookup.get( ele, l )

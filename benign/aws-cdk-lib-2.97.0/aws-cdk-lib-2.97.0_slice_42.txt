@@ -1,0 +1,1 @@
+<operator>.formatString("", core_1.Names.nodeUniqueId(method.api.node), ".", method.httpMethod, ".", method.resource.path.replace(/\//g,"."), "")

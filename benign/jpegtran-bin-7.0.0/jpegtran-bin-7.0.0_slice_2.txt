@@ -1,0 +1,6 @@
+var spawn = require("node:child_process").spawn
+var process = require("node:process")
+var jpegtran = require("./index.js")
+const input = process.argv.slice(2)
+spawn(jpegtran, input, {stdio: 'inherit'})
+	.on('exit', process.exit)

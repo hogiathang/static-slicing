@@ -1,0 +1,16 @@
+getOptionLabel = function getOptionLabel(option) {
+    var optionLabel = getOptionLabelProp(option);
+    if (typeof optionLabel !== 'string') {
+      if (process.env.NODE_ENV !== 'production') {
+        var erroneousReturn = optionLabel === undefined ? 'undefined' : "".concat(_typeof(optionLabel), " (").concat(optionLabel, ")");
+        console.error("MUI: The `getOptionLabel` method of ".concat(componentName, " returned ").concat(erroneousReturn, " instead of a string for ").concat(JSON.stringify(option), "."));
+      }
+      return String(optionLabel);
+    }
+    return optionLabel;
+  }
+var optionLabel = getOptionLabelProp(option)
+typeof optionLabel !== 'string'
+process.env.NODE_ENV !== 'production'
+var erroneousReturn = optionLabel === undefined ? 'undefined' : "".concat(_typeof(optionLabel), " (").concat(optionLabel, ")")
+console.error("MUI: The `getOptionLabel` method of ".concat(componentName, " returned ").concat(erroneousReturn, " instead of a string for ").concat(JSON.stringify(option), "."))

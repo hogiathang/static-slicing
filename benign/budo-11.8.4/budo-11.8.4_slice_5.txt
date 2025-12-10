@@ -1,0 +1,19 @@
+function errorHandler = function errorHandler (err, cwd, rootDirName) {
+  console.error('%s', err)
+  var msgStr = stripAnsi(err.message)
+  var params = [
+    JSON.stringify(msgStr),
+    JSON.stringify(cwd),
+    JSON.stringify(rootDirName)
+  ].join(',')
+  return ';(' + bundleError + ')(' + params + ');'
+}
+console.error('%s', err)
+var msgStr = stripAnsi(err.message)
+var params = [
+    JSON.stringify(msgStr),
+    JSON.stringify(cwd),
+    JSON.stringify(rootDirName)
+  ].join(',')
+_tmp_25.push(JSON.stringify(msgStr))
+_tmp_25.push(JSON.stringify(cwd))

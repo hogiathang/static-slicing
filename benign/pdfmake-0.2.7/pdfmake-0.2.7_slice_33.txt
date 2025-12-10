@@ -1,0 +1,30 @@
+this.drawMarker = function(isClip, isMask, posArray, strokeWidth) {
+        doc.save();
+        let orient = this.attr('orient'),
+            units = this.attr('markerUnits'),
+            rotate = (orient === 'auto' ? posArray[2] : (parseFloat(orient) || 0) * Math.PI / 180),
+            scale = (units === 'userSpaceOnUse' ? 1 : strokeWidth);
+        doc.transform(Math.cos(rotate) * scale, Math.sin(rotate) * scale, -Math.sin(rotate) * scale, Math.cos(rotate) * scale, posArray[0], posArray[1]);
+        let refX = this.getLength('refX', this.getVWidth(), 0),
+            refY = this.getLength('refY', this.getVHeight(), 0),
+            aspectRatioMatrix = parseAspectRatio(this.attr('preserveAspectRatio'), width, height, viewBox[2], viewBox[3], 0.5);
+        if (this.get('overflow') === 'hidden') {
+          doc.rect(aspectRatioMatrix[0] * (viewBox[0] + viewBox[2] / 2 - refX) - width / 2, aspectRatioMatrix[3] * (viewBox[1] + viewBox[3] / 2 - refY) - height / 2, width, height).c...
+doc.save()
+let orient = this.attr('orient')
+let units = this.attr('markerUnits')
+let rotate = (orient === 'auto' ? posArray[2] : (parseFloat(orient) || 0) * Math.PI / 180)
+let scale = (units === 'userSpaceOnUse' ? 1 : strokeWidth)
+doc.transform(Math.cos(rotate) * scale, Math.sin(rotate) * scale, -Math.sin(rotate) * scale, Math.cos(rotate) * scale, posArray[0], posArray[1])
+let refX = this.getLength('refX', this.getVWidth(), 0)
+let refY = this.getLength('refY', this.getVHeight(), 0)
+let aspectRatioMatrix = parseAspectRatio(this.attr('preserveAspectRatio'), width, height, viewBox[2], viewBox[3], 0.5)
+this.get('overflow') === 'hidden'
+(_tmp_526 = doc.rect(aspectRatioMatrix[0] * (viewBox[0] + viewBox[2] / 2 - refX) - width / 2, aspectRatioMatrix[3] * (viewBox[1] + viewBox[3] / 2 - refY) - height / 2, width, height)).clip
+doc.transform.apply(doc, aspectRatioMatrix)
+doc.translate(-refX, -refY)
+this.get('opacity') < 1 && !isClip
+group = docBeginGroup(getPageBBox())
+this.drawChildren(isClip, isMask)
+docEndGroup(group)
+doc.fillOpacity(this.get('opacity'))

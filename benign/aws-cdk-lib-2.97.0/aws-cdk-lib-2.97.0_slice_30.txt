@@ -1,0 +1,1 @@
+function defaultInvokeFunction = async function defaultInvokeFunction(req){lambda||(lambda=new client_lambda_1.Lambda(awsSdkConfig));try{return await lambda.invoke(req)}catch{return await(0,client_lambda_1.waitUntilFunctionActiveV2)({client:lambda,maxWaitTime:300},{FunctionName:req.FunctionName}),await lambda.invoke(req)}}

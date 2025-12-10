@@ -1,0 +1,21 @@
+fs.copyFileSync = function copyFileSync(src, dest, flags) {
+    if (!insideSnapshot(path.resolve(src))) {
+      ancestor.copyFileSync(src, dest, flags);
+      return;
+    }
+
+    if (flags & fs.constants.COPYFILE_EXCL) {
+      try {
+        fs.statSync(dest);
+      } catch (statError) {
+        if (statError.code !== 'ENOENT') throw statError;
+        copyInChunks(src, dest, DEFAULT_COPY_CHUNK_SIZE, fs);
+        return;
+      }
+
+      throw Object.assign(new Error('File already exists'), { code: 'EEXIST' });
+    }
+    copyInChunks(src, dest, DEFAULT_COPY_CHUNK_SIZE, fs);
+  }
+!insideSnapshot(path.resolve(src))
+ancestor.copyFileSync(src, dest, flags)

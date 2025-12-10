@@ -1,0 +1,95 @@
+async (arg, api) => {
+    const { signal, getState, extra, endpoint, forced, type } = api
+    let meta: FetchBaseQueryMeta | undefined
+    let {
+      url,
+      headers = new Headers(baseFetchOptions.headers),
+      params = undefined,
+      responseHandler = globalResponseHandler ?? ('json' as const),
+      validateStatus = globalValidateStatus ?? defaultValidateStatus,
+      timeout = defaultTimeout,
+      ...rest
+    } = typeof arg == 'string' ? { url: arg } : arg
+    let config: RequestInit = {
+      ...baseFetchOptions,
+      signal,
+      ...rest,
+    }
+
+    headers = new Headers(stripUndefined(headers))
+    config.headers =
+      (await prepareHeaders(headers, {
+        getState,
+        extra,
+        endpoint,
+        forced,
+        type,
+      })) || headers
+
+    // Only set the content-type to json if appropriate. Will not be true for FormData, ArrayBuffer, Blob, etc.
+    const isJsonifiable = (body: any) =>
+      typeof body === 'object' &...
+getState = _tmp_4.getState
+_tmp_6 = typeof arg == 'string' ? { url: arg } : arg
+url = _tmp_6.url
+headers = _tmp_6.headers === void 0 ? new Headers(baseFetchOptions.headers) : _tmp_6.headers
+params = _tmp_6.params === void 0 ? undefined : _tmp_6.params
+responseHandler = _tmp_6.responseHandler === void 0 ? globalResponseHandler ?? ('json' as const) : _tmp_6.responseHandler
+validateStatus = _tmp_6.validateStatus === void 0 ? globalValidateStatus ?? defaultValidateStatus : _tmp_6.validateStatus
+timeout = _tmp_6.timeout === void 0 ? defaultTimeout : _tmp_6.timeout
+...rest
+typeof arg == 'string' ? { url: arg } : arg
+let config: RequestInit = {
+      ...baseFetchOptions,
+      signal,
+      ...rest,
+    }
+...baseFetchOptions
+_tmp_8.signal = signal
+...rest
+headers = new Headers(stripUndefined(headers))
+config.headers =
+      (await prepareHeaders(headers, {
+        getState,
+        extra,
+        endpoint,
+        forced,
+        type,
+      })) || headers
+(await prepareHeaders(headers, {
+        getState,
+        extra,
+        endpoint,
+        forced,
+        type,
+      })) || headers
+_tmp_10.getState = getState
+_tmp_10.extra = extra
+_tmp_10.endpoint = endpoint
+_tmp_10.forced = forced
+_tmp_10.type = type
+const isJsonifiable = (body: any) =>
+      typeof body === 'object' &&
+      (isPlainObject(body) ||
+        Array.isArray(body) ||
+        typeof body.toJSON === 'function')
+!config.headers.has('content-type') && isJsonifiable(config.body)
+config.headers.set('content-type', jsonContentType)
+isJsonifiable(config.body) && isJsonContentType(config.headers)
+config.body = JSON.stringify(config.body, jsonReplacer)
+const divider = ~url.indexOf('?') ? '&' : '?'
+const query = paramsSerializer
+        ? paramsSerializer(params)
+        : new URLSearchParams(stripUndefined(params))
+paramsSerializer(params)
+new URLSearchParams(stripUndefined(params))
+url += divider + query
+url = joinUrls(baseUrl, url)
+const request = new Request(url, config)
+const requestClone = request.clone()
+meta = { request: requestClone }
+let timedOut = false
+setTimeout(() => {
+          timedOut = true
+          api.abort()
+        }, timeout)

@@ -1,0 +1,25 @@
+(function regroup(values, i) {
+    if (i >= keys.length) return reduce(values);
+    const groups = new InternMap();
+    const keyof = keys[i++];
+    let index = -1;
+    for (const value of values) {
+      const key = keyof(value, ++index, values);
+      const group = groups.get(key);
+      if (group) group.push(value);
+      else groups.set(key, [value]);
+    }
+    for (const [key, values] of groups) {
+      groups.set(key, regroup(values, i));
+    }
+    return map(groups);
+  })(values, 0)
+i >= keys.length
+const groups = new InternMap()
+const keyof = keys[i++]
+let index = -1
+_iterator_0 = <operator>.iterator(values)
+const key = keyof(value, ++index, values)
+const group = groups.get(key)
+group.push(value)
+_tmp_4 = __ecma.Array.factory()

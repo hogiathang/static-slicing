@@ -1,0 +1,84 @@
+Model.castObject = function castObject(obj, options) {
+  options = options || {};
+  const ret = {};
+
+  const schema = this.schema;
+  const paths = Object.keys(schema.paths);
+
+  for (const path of paths) {
+    const schemaType = schema.path(path);
+    if (!schemaType || !schemaType.$isMongooseArray) {
+      continue;
+    }
+
+    const val = get(obj, path);
+    pushNestedArrayPaths(paths, val, path);
+  }
+
+  let error = null;
+
+  for (const path of paths) {
+    const schemaType = schema.path(path);
+    if (schemaType == null) {
+      continue;
+    }
+
+    let val = get(obj, path, void 0);
+
+    if (val == null) {
+      continue;
+    }
+
+    const pieces = path.indexOf('.') === -1 ? [path] : path.split('.');
+    let cur = ret;
+    for (let i = 0; i < pieces.length - 1; ++i) {
+      if (cur[pieces[i]] == null) {
+        cur[pieces[i]] = isNaN(pieces[i + 1]) ? {} : [];
+      }
+      cur = cur[pieces[i]];
+    }
+
+    if (schemaType.$isMongooseDocumentArray) {
+      continue;
+    }
+    if (schema...
+options = options || {}
+const ret = {}
+const schema = this.schema
+const paths = Object.keys(schema.paths)
+_iterator_31 = <operator>.iterator(paths)
+const schemaType = schema.path(path)
+!schemaType || !schemaType.$isMongooseArray
+continue;
+const val = get(obj, path)
+pushNestedArrayPaths(paths, val, path)
+let error = null
+_iterator_32 = <operator>.iterator(paths)
+const schemaType = schema.path(path)
+schemaType == null
+continue;
+let val = get(obj, path, void 0)
+val == null
+continue;
+const pieces = path.indexOf('.') === -1 ? [path] : path.split('.')
+let cur = ret
+i < pieces.length - 1
+cur[pieces[i]] == null
+isNaN(pieces[i + 1]) ? {} : __ecma.Array.factory()
+cur = cur[pieces[i]]
+schemaType.$isMongooseDocumentArray
+continue;
+schemaType.$isSingleNested || schemaType.$isMongooseDocumentArrayElement
+val = Model.castObject.call(schemaType.caster, val)
+!options.ignoreCastErrors
+error = error || new ValidationError()
+error.addError(path, err)
+continue;
+cur[pieces[pieces.length - 1]] = val
+continue;
+val = schemaType.cast(val)
+cur[pieces[pieces.length - 1]] = val
+!options.ignoreCastErrors
+error = error || new ValidationError()
+error.addError(path, err)
+continue;

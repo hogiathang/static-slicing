@@ -1,0 +1,70 @@
+NobleBindings.prototype._onMessage = function(event) {
+  var type = event.type;
+  var peripheralUuid = event.peripheralUuid;
+  var address = event.address;
+  var addressType = event.addressType;
+  var connectable = event.connectable;
+  var advertisement = event.advertisement;
+  var rssi = event.rssi;
+  var serviceUuids = event.serviceUuids;
+  var serviceUuid = event.serviceUuid;
+  var includedServiceUuids = event.includedServiceUuids;
+  var characteristics = event.characteristics;
+  var characteristicUuid = event.characteristicUuid;
+  var data = event.data ? new Buffer(event.data, 'hex') : null;
+  var isNotification = event.isNotification;
+  var state = event.state;
+  var descriptors = event.descriptors;
+  var descriptorUuid = event.descriptorUuid;
+  var handle = event.handle;
+
+  if (type === 'stateChange') {
+    console.log(state);
+    this.emit('stateChange', state);
+  } else if (type === 'discover') {
+    advertisement = {
+      localName: advertisement.localName,
+      txPowerLe...
+var type = event.type
+var peripheralUuid = event.peripheralUuid
+var address = event.address
+var addressType = event.addressType
+var connectable = event.connectable
+var advertisement = event.advertisement
+var rssi = event.rssi
+var serviceUuids = event.serviceUuids
+var serviceUuid = event.serviceUuid
+var includedServiceUuids = event.includedServiceUuids
+var characteristics = event.characteristics
+var characteristicUuid = event.characteristicUuid
+var data = event.data ? new Buffer(event.data, 'hex') : null
+var isNotification = event.isNotification
+var state = event.state
+var descriptors = event.descriptors
+var descriptorUuid = event.descriptorUuid
+var handle = event.handle
+type === 'stateChange'
+type === 'discover'
+advertisement = {
+      localName: advertisement.localName,
+      txPowerLevel: advertisement.txPowerLevel,
+      serviceUuids: advertisement.serviceUuids,
+      manufacturerData: (advertisement.manufacturerData ? new Buffer(advertisement.manufacturerData, 'hex') : null),
+      serviceData: (advertisement.serviceData ? new Buffer(advertisement.serviceData, 'hex') : null)
+    }
+_tmp_11.localName = advertisement.localName
+_tmp_11.txPowerLevel = advertisement.txPowerLevel
+_tmp_11.serviceUuids = advertisement.serviceUuids
+_tmp_11.manufacturerData = advertisement.manufacturerData ? new Buffer(advertisement.manufacturerData, 'hex') : null
+_tmp_11.serviceData = advertisement.serviceData ? new Buffer(advertisement.serviceData, 'hex') : null
+this._peripherals[peripheralUuid] = {
+      uuid: peripheralUuid,
+      address: address,
+      advertisement: advertisement,
+      rssi: rssi
+    }
+_tmp_14.uuid = peripheralUuid
+_tmp_14.address = address
+_tmp_14.advertisement = advertisement
+_tmp_14.rssi = rssi
+this.emit('discover', peripheralUuid, address, addressType, connectable, advertisement, rssi)

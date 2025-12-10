@@ -1,0 +1,14 @@
+this.clearInterval = function (handle = 0) {
+    handle = webIDLConversions.long(handle);
+
+    const nodejsTimer = listOfActiveTimers.get(handle);
+    if (nodejsTimer) {
+      // We use setTimeout() in timerInitializationSteps even for this.setInterval().
+      clearTimeout(nodejsTimer);
+      listOfActiveTimers.delete(handle);
+    }
+  }
+handle = webIDLConversions.long(handle)
+const nodejsTimer = listOfActiveTimers.get(handle)
+clearTimeout(nodejsTimer)
+listOfActiveTimers.delete(handle)

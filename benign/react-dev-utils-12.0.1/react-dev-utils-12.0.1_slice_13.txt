@@ -1,0 +1,81 @@
+function launchEditor = function launchEditor(fileName, lineNumber, colNumber) {
+  if (!fs.existsSync(fileName)) {
+    return;
+  }
+
+  // Sanitize lineNumber to prevent malicious use on win32
+  // via: https://github.com/nodejs/node/blob/c3bb4b1aa5e907d489619fb43d233c3336bfc03d/lib/child_process.js#L333
+  // and it should be a positive integer
+  if (!(Number.isInteger(lineNumber) && lineNumber > 0)) {
+    return;
+  }
+
+  // colNumber is optional, but should be a positive integer too
+  // default is 1
+  if (!(Number.isInteger(colNumber) && colNumber > 0)) {
+    colNumber = 1;
+  }
+
+  let [editor, ...args] = guessEditor();
+
+  if (!editor) {
+    printInstructions(fileName, null);
+    return;
+  }
+
+  if (editor.toLowerCase() === 'none') {
+    return;
+  }
+
+  if (
+    process.platform === 'linux' &&
+    fileName.startsWith('/mnt/') &&
+    /Microsoft/i.test(os.release())
+  ) {
+    // Assume WSL / "Bash on Ubuntu on Windows" is being used, and
+    // that the file exists on the Windows file system.
+    // `os.release(...
+!fs.existsSync(fileName)
+!(Number.isInteger(lineNumber) && lineNumber > 0)
+!(Number.isInteger(colNumber) && colNumber > 0)
+colNumber = 1
+_tmp_20 = guessEditor()
+!editor
+editor.toLowerCase() === 'none'
+process.platform === 'linux' &&
+    fileName.startsWith('/mnt/') &&
+    /Microsoft/i.test(os.release())
+fileName.startsWith('/mnt/')
+/Microsoft/i.test(os.release())
+fileName = path.relative('', fileName)
+process.platform === 'win32' &&
+    !WINDOWS_FILE_NAME_WHITELIST.test(fileName.trim())
+!WINDOWS_FILE_NAME_WHITELIST.test(fileName.trim())
+let workspace = null
+args = args.concat(
+      getArgumentsForLineNumber(
+        editor,
+        fileName,
+        lineNumber,
+        colNumber,
+        workspace
+      )
+    )
+getArgumentsForLineNumber(
+        editor,
+        fileName,
+        lineNumber,
+        colNumber,
+        workspace
+      )
+args.push(fileName)
+_childProcess && isTerminalEditor(editor)
+_childProcess.kill('SIGKILL')
+process.platform === 'win32'
+_childProcess = child_process.spawn(
+      'cmd.exe',
+      ['/C', editor].concat(args),
+      { stdio: 'inherit' }
+    )
+"cmd.exe"
+(_tmp_22 = ['/C', editor]).concat

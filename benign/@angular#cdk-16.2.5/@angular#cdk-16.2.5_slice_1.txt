@@ -1,0 +1,19 @@
+_getIndexForValue(cache, value) {
+        const isEqual = this.compareWith || Object.is;
+        if (!cache.has(value)) {
+            let index = -1;
+            for (let i = 0; i < this.options.length; i++) {
+                if (isEqual(value, this.options.get(i).value)) {
+                    index = i;
+                    break;
+                }
+            }
+            cache.set(value, index);
+        }
+        return cache.get(value);
+    }
+const isEqual = this.compareWith || Object.is
+!cache.has(value)
+let index = -1
+i < this.options.length
+isEqual(value, this.options.get(i).value)

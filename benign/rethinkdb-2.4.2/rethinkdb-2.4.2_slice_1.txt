@@ -1,0 +1,41 @@
+function() {
+        var auth_i, auth_r, auth_salt, client_first_message_bare, compare_digest, handshake_callback, handshake_error, max, message, min, nullbyte, pbkdf2_hmac, protocol, r_string, server_first_message, server_signature, state, version, xor_bytes;
+        version = new Buffer(4);
+        version.writeUInt32LE(protoVersion, 0);
+        protocol = new Buffer(4);
+        protocol.writeUInt32LE(protoProtocol, 0);
+        r_string = new Buffer(crypto.randomBytes(18)).toString('base64');
+        _this.rawSocket.user = host["user"];
+        _this.rawSocket.password = host["password"];
+        if (_this.rawSocket.user === void 0) {
+          _this.rawSocket.user = "admin";
+        }
+        if (_this.rawSocket.password === void 0) {
+          _this.rawSocket.password = "";
+        }
+        client_first_message_bare = "n=" + _this.rawSocket.user + ",r=" + r_string;
+        message = JSON.stringify({
+          protocol_version: protoVersionNumber,
+          authentication_method...
+version = new Buffer(4)
+version.writeUInt32LE(protoVersion, 0)
+protocol = new Buffer(4)
+protocol.writeUInt32LE(protoProtocol, 0)
+r_string = new Buffer(crypto.randomBytes(18)).toString('base64')
+_this.rawSocket.user = host["user"]
+_this.rawSocket.password = host["password"]
+_this.rawSocket.user === void 0
+_this.rawSocket.user = "admin"
+_this.rawSocket.password === void 0
+_this.rawSocket.password = ""
+client_first_message_bare = "n=" + _this.rawSocket.user + ",r=" + r_string
+message = JSON.stringify({
+          protocol_version: protoVersionNumber,
+          authentication_method: "SCRAM-SHA-256",
+          authentication: "n,," + client_first_message_bare
+        })
+_tmp_83.protocol_version = protoVersionNumber
+_tmp_83.authentication_method = "SCRAM-SHA-256"
+_tmp_83.authentication = "n,," + client_first_message_bare
+nullbyte = new Buffer('\0', "binary")
+_this.rawSocket.write(Buffer.concat([version, Buffer(message.toString()), nullbyte]))

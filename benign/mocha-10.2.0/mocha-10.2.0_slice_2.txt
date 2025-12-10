@@ -1,0 +1,24 @@
+(pluginImplFound, pluginName) => {
+          const pluginImpl = requiredModule[pluginName];
+          if (pluginImpl) {
+            const plugin = this.registered.get(pluginName);
+            if (typeof plugin.validate === 'function') {
+              plugin.validate(pluginImpl);
+            }
+            this.loaded.set(pluginName, [
+              ...this.loaded.get(pluginName),
+              ...castArray(pluginImpl)
+            ]);
+            return true;
+          }
+          return pluginImplFound;
+        }
+const pluginImpl = requiredModule[pluginName]
+const plugin = this.registered.get(pluginName)
+typeof plugin.validate === 'function'
+plugin.validate(pluginImpl)
+this.loaded.set(pluginName, [
+              ...this.loaded.get(pluginName),
+              ...castArray(pluginImpl)
+            ])
+_tmp_33.push(...this.loaded.get(pluginName))

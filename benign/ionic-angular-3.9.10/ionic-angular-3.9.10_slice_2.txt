@@ -1,0 +1,11 @@
+LoadingCmp.prototype.ngOnInit = function () {
+        // If no spinner was passed in loading options we need to fall back
+        // to the loadingSpinner in the app's config, then the mode spinner
+        if (isUndefined(this.d.spinner)) {
+            this.d.spinner = this._config.get('loadingSpinner', this._config.get('spinner', 'ios'));
+        }
+        // If the user passed hide to the spinner we don't want to show it
+        this.showSpinner = isDefined(this.d.spinner) && this.d.spinner !== 'hide';
+    }
+isUndefined(this.d.spinner)
+this.d.spinner = this._config.get('loadingSpinner', this._config.get('spinner', 'ios'))

@@ -1,0 +1,69 @@
+const getMetadata = (request, response, options) => {
+  const metadata = {
+    time: Date.now(),
+    url: request.url,
+    reqHeaders: {},
+    resHeaders: {},
+
+    // options on which we must match the request and vary the response
+    options: {
+      compress: options.compress != null ? options.compress : request.compress,
+    },
+  }
+
+  // only save the status if it's not a 200 or 304
+  if (response.status !== 200 && response.status !== 304) {
+    metadata.status = response.status
+  }
+
+  for (const name of KEEP_REQUEST_HEADERS) {
+    if (request.headers.has(name)) {
+      metadata.reqHeaders[name] = request.headers.get(name)
+    }
+  }
+
+  // if the request's host header differs from the host in the url
+  // we need to keep it, otherwise it's just noise and we ignore it
+  const host = request.headers.get('host')
+  const parsedUrl = new url.URL(request.url)
+  if (host && parsedUrl.host !== host) {
+    metadata.reqHeaders.host = host
+  }
+
+  // if the response has a vary header, make sure
+  ...
+const metadata = {
+    time: Date.now(),
+    url: request.url,
+    reqHeaders: {},
+    resHeaders: {},
+
+    // options on which we must match the request and vary the response
+    options: {
+      compress: options.compress != null ? options.compress : request.compress,
+    },
+  }
+_tmp_5.time = Date.now()
+_tmp_5.url = request.url
+_tmp_5.reqHeaders = {}
+_tmp_5.resHeaders = {}
+_tmp_5.options = {
+      compress: options.compress != null ? options.compress : request.compress,
+    }
+_tmp_8.compress = options.compress != null ? options.compress : request.compress
+response.status !== 200 && response.status !== 304
+metadata.status = response.status
+_iterator_0 = <operator>.iterator(KEEP_REQUEST_HEADERS)
+(_tmp_9 = request.headers).has
+metadata.reqHeaders[name] = request.headers.get(name)
+const host = request.headers.get('host')
+const parsedUrl = new url.URL(request.url)
+host && parsedUrl.host !== host
+metadata.reqHeaders.host = host
+(_tmp_13 = response.headers).has
+const vary = response.headers.get('vary')
+vary !== '*'
+const varyHeaders = vary.trim().toLowerCase().split(/\s*,\s*/)
+_iterator_1 = <operator>.iterator(varyHeaders)
+(_tmp_17 = request.headers).has
+metadata.reqHeaders[name] = request.headers.get(name)

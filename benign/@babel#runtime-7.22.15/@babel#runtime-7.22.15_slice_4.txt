@@ -1,0 +1,38 @@
+function applyMemberDecs = function applyMemberDecs(e, t, r) {
+    for (var n, a, i, s = [], o = new Map(), c = new Map(), u = 0; u < t.length; u++) {
+      var l = t[u];
+      if (Array.isArray(l)) {
+        var f,
+          p,
+          d = l[1],
+          h = l[2],
+          v = l.length > 3,
+          g = d >= 5,
+          y = r;
+        if (g ? (f = e, 0 !== (d -= 5) && (p = a = a || []), v && !i && (i = function i(t) {
+          return checkInRHS(t) === e;
+        }), y = i) : (f = e.prototype, 0 !== d && (p = n = n || [])), 0 !== d && !v) {
+          var m = g ? c : o,
+            b = m.get(h) || 0;
+          if (!0 === b || 3 === b && 4 !== d || 4 === b && 3 !== d) throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + h);
+          !b && d > 2 ? m.set(h, d) : m.set(h, !0);
+        }
+        applyMemberDec(s, f, l, h, d, g, v, p, y);
+      }...
+__ecma.Array.factory()
+var l = t[u]
+Array.isArray(l)
+var d = l[1]
+var h = l[2]
+var v = l.length > 3
+var g = d >= 5
+var y = r
+g ? f = e, 0 !== (d -= 5) && (p = a = a || []), v && !i && (i = function i(t) {
+          return checkInRHS(t) === e;
+        }), y = i : f = e.prototype, 0 !== d && (p = n = n || [])
+0 !== d && (p = n = n || [])
+var m = g ? c : o
+var b = m.get(h) || 0
+throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + h);
+!b && d > 2 ? m.set(h, d) : m.set(h, !0)
+applyMemberDec(s, f, l, h, d, g, v, p, y)

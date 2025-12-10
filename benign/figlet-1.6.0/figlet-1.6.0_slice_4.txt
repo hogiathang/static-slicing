@@ -1,0 +1,47 @@
+me.loadFont = function (fontName, next) {
+    if (figFonts[fontName]) {
+      next(null, figFonts[fontName].options);
+      return;
+    }
+
+    if (typeof fetch !== "function") {
+      console.error(
+        "figlet.js requires the fetch API or a fetch polyfill such as https://cdnjs.com/libraries/fetch"
+      );
+      throw new Error("fetch is required for figlet.js to work.");
+    }
+
+    fetch(figDefaults.fontPath + "/" + fontName + ".flf")
+      .then(function (response) {
+        if (response.ok) {
+          return response.text();
+        }
+
+        console.log("Unexpected response", response);
+        throw new Error("Network response was not ok.");
+      })
+      .then(function (text) {
+        next(null, me.parseFont(fontName, text));
+      })
+      .catch(next);
+  }
+figFonts[fontName]
+typeof fetch !== "function"
+console.error(
+        "figlet.js requires the fetch API or a fetch polyfill such as https://cdnjs.com/libraries/fetch"
+      )
+"figlet.js requires the fetch API or a fetch polyfill such as https://cdnjs.com/libraries/fetch"
+throw new Error("fetch is required for figlet.js to work.");
+fetch(figDefaults.fontPath + "/" + fontName + ".flf")
+      .then(function (response) {
+        if (response.ok) {
+          return response.text();
+        }
+
+        console.log("Unexpected response", response);
+        throw new Error("Network response was not ok.");
+      })
+      .then(function (text) {
+        next(null, me.parseFont(fontName, text));
+      })
+      .catch(next)

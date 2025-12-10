@@ -1,0 +1,4 @@
+function ensureDirExists = function ensureDirExists(dir) {
+  fs.existsSync(dir) || fs.mkdirSync(dir)
+}
+fs.existsSync(dir) || fs.mkdirSync(dir)

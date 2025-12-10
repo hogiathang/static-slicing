@@ -1,0 +1,9 @@
+primus.on('outgoing::data', function write(message) {
+    if (!socket || socket.readyState !== 1) return;
+
+    try { socket.send(message); }
+    catch (e) { primus.emit('incoming::error', e); }
+  })
+!socket || socket.readyState !== 1
+socket.send(message)
+primus.emit('incoming::error', e)

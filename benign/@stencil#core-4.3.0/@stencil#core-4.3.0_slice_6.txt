@@ -1,0 +1,13 @@
+const receiveMessageFromMain = initServerProcess((msg) => {
+  // send message from worker going to main
+  process.send(msg, sendHandle);
+
+  if (msg.serverClosed) {
+    clearTimeout(closeTmr);
+    process.exit(0);
+  }
+})
+process.send(msg, sendHandle)
+msg.serverClosed
+clearTimeout(closeTmr)
+process.exit(0)

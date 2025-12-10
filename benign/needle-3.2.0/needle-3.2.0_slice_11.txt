@@ -1,0 +1,42 @@
+request = protocol.request(request_opts, function(resp) {
+
+    var headers = resp.headers;
+    debug('Got response', resp.statusCode, headers);
+    out.emit('response', resp);
+
+    set_timeout('read', config.read_timeout);
+
+    // if we got cookies, parse them unless we were instructed not to. make sure to include any
+    // cookies that might have been set on previous redirects.
+    if (config.parse_cookies && (headers['set-cookie'] || config.previous_resp_cookies)) {
+      resp.cookies = extend(config.previous_resp_cookies || {}, cookies.read(headers['set-cookie']));
+      debug('Got cookies', resp.cookies);
+    }
+
+    // if redirect code is found, determine if we should follow it according to the given options.
+    if (redirect_codes.indexOf(resp.statusCode) !== -1 && self.should_follow(headers.location, config, uri)) {
+      // clear timer before following redirects to prevent unexpected setTimeout consequence
+      clearTimeout(timer);
+
+      if (count <= config.follow_max) {
+ ...
+var headers = resp.headers
+debug('Got response', resp.statusCode, headers)
+out.emit('response', resp)
+set_timeout('read', config.read_timeout)
+config.parse_cookies && (headers['set-cookie'] || config.previous_resp_cookies)
+resp.cookies = extend(config.previous_resp_cookies || {}, cookies.read(headers['set-cookie']))
+debug('Got cookies', resp.cookies)
+redirect_codes.indexOf(resp.statusCode) !== -1 && self.should_follow(headers.location, config, uri)
+clearTimeout(timer)
+count <= config.follow_max
+out.emit('redirect', headers.location)
+!config.follow_keep_method
+method    = 'GET'
+post_data = null
+delete config.headers['content-length']
+config.follow_set_cookies && utils.host_and_ports_match(headers.location, uri)
+var request_cookies = cookies.read(config.headers['cookie'])
+config.previous_resp_cookies = resp.cookies
+Object.keys(request_cookies).length || Object.keys(resp.cookies || {}).length
+config.headers['cookie'] = cookies.write(extend(request_cookies, resp.cookies))

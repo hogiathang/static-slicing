@@ -1,0 +1,36 @@
+function loadNycConfig = function loadNycConfig(cwd, opts) {
+  let memokey = cwd;
+  const args = [_path.default.resolve(__dirname, 'load-nyc-config-sync.js'), cwd];
+
+  if ('nycrcPath' in opts) {
+    args.push(opts.nycrcPath);
+    memokey += memosep + opts.nycrcPath;
+  }
+  /* execFileSync is expensive, avoid it if possible! */
+
+
+  if (memoize.has(memokey)) {
+    return memoize.get(memokey);
+  }
+
+  const result = JSON.parse((0, _child_process.execFileSync)(process.execPath, args));
+  const error = result['load-nyc-config-sync-error'];
+
+  if (error) {
+    throw new Error(error);
+  }
+
+  const config = { ..._schema.default.defaults.babelPluginIstanbul,
+    cwd,
+    ...result
+  };
+  memoize.set(memokey, config);
+  return config;
+}
+let memokey = cwd
+const args = [_path.default.resolve(__dirname, 'load-nyc-config-sync.js'), cwd]
+'nycrcPath' in opts
+args.push(opts.nycrcPath)
+memokey += memosep + opts.nycrcPath
+memoize.has(memokey)
+memoize.get(memokey)

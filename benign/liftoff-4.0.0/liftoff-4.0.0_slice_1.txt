@@ -1,0 +1,13 @@
+Liftoff.prototype.requireLocal = function (moduleName, basedir) {
+  try {
+    this.emit('preload:before', moduleName);
+    var result = require(resolve.sync(moduleName, { basedir: basedir }));
+    this.emit('preload:success', moduleName, result);
+    return result;
+  } catch (e) {
+    this.emit('preload:failure', moduleName, e);
+  }
+}
+this.emit('preload:before', moduleName)
+var result = require(resolve.sync(moduleName, { basedir: basedir }))
+this.emit('preload:success', moduleName, result)

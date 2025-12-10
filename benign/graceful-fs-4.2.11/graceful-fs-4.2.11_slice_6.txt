@@ -1,0 +1,24 @@
+fs.lutimesSync = function (path, at, mt) {
+        var fd = fs.openSync(path, constants.O_SYMLINK)
+        var ret
+        var threw = true
+        try {
+          ret = fs.futimesSync(fd, at, mt)
+          threw = false
+        } finally {
+          if (threw) {
+            try {
+              fs.closeSync(fd)
+            } catch (er) {}
+          } else {
+            fs.closeSync(fd)
+          }
+        }
+        return ret
+      }
+var fd = fs.openSync(path, constants.O_SYMLINK)
+var threw = true
+ret = fs.futimesSync(fd, at, mt)
+threw = false
+fs.closeSync(fd)
+fs.closeSync(fd)

@@ -1,0 +1,19 @@
+_tmp_6.items = getElementsByTagName("item", feedRoot.children).map((item) => {
+            const { children } = item;
+            const entry = { media: getMediaElements(children) };
+            addConditionally(entry, "id", "guid", children);
+            addConditionally(entry, "title", "title", children);
+            addConditionally(entry, "link", "link", children);
+            addConditionally(entry, "description", "description", children);
+            const pubDate = fetch("pubDate", children) || fetch("dc:date", children);
+            if (pubDate)
+                entry.pubDate = new Date(pubDate);
+            return entry;
+        })
+children = _tmp_9.children
+const entry = { media: getMediaElements(children) }
+addConditionally(entry, "id", "guid", children)
+addConditionally(entry, "title", "title", children)
+addConditionally(entry, "link", "link", children)
+addConditionally(entry, "description", "description", children)
+const pubDate = fetch("pubDate", children) || fetch("dc:date", children)

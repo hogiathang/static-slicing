@@ -1,0 +1,11 @@
+function exists = function exists(path) {
+    const normalizedPath = (0, path_1.normalize)(path);
+    if (!existsCache.has(normalizedPath)) {
+        existsCache.set(normalizedPath, fs.existsSync(normalizedPath));
+    }
+    return !!existsCache.get(normalizedPath);
+}
+const normalizedPath = (0, path_1.normalize)(path)
+!existsCache.has(normalizedPath)
+existsCache.set(normalizedPath, fs.existsSync(normalizedPath))
+!!existsCache.get(normalizedPath)

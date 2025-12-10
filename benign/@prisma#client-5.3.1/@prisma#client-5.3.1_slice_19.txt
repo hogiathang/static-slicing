@@ -1,0 +1,40 @@
+var makeDir = async (input, options2) => {
+      checkPath(input);
+      options2 = processOptions(options2);
+      const mkdir = promisify2(options2.fs.mkdir);
+      const stat = promisify2(options2.fs.stat);
+      if (useNativeRecursiveOption && options2.fs.mkdir === fs6.mkdir) {
+        const pth = path7.resolve(input);
+        await mkdir(pth, {
+          mode: options2.mode,
+          recursive: true
+        });
+        return pth;
+      }
+      const make = async (pth) => {
+        try {
+          await mkdir(pth, options2.mode);
+          return pth;
+        } catch (error) {
+          if (error.code === "EPERM") {
+            throw error;
+          }
+          if (error.code === "ENOENT") {
+            if (path7.dirname(pth) === pth) {
+              throw permissionError(pth);
+            }
+            if (error.message.includes("null bytes")) {
+              throw error;
+            }
+            await make(path7.dirname(pth));
+            return make(pth);
+          }
+        ...
+checkPath(input)
+options2 = processOptions(options2)
+const mkdir = promisify2(options2.fs.mkdir)
+const stat = promisify2(options2.fs.stat)
+useNativeRecursiveOption && options2.fs.mkdir === fs6.mkdir
+const pth = path7.resolve(input)
+_tmp_2165.mode = options2.mode
+_tmp_2165.recursive = true

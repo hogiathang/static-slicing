@@ -1,0 +1,95 @@
+prompt.getInput = function (prop, callback) {
+  var schema = prop.schema || prop,
+      propName = prop.path && prop.path.join(':') || prop,
+      storedSchema = prompt.properties[propName.toLowerCase()],
+      delim = prompt.delimiter,
+      defaultLine,
+      against,
+      hidden,
+      length,
+      valid,
+      name,
+      raw,
+      msg;
+
+  //
+  // If there is a stored schema for `propName` in `propmpt.properties`
+  // then use it.
+  //
+  if (schema instanceof Object && !Object.keys(schema).length &&
+    typeof storedSchema !== 'undefined') {
+    schema = storedSchema;
+  }
+
+  //
+  // Build a proper validation schema if we just have a string
+  // and no `storedSchema`.
+  //
+  if (typeof prop === 'string' && !storedSchema) {
+    schema = {};
+  }
+
+  schema = convert(schema);
+  defaultLine = schema.default;
+  name = prop.description || schema.description || propName;
+  raw = prompt.colors
+    ? [colors.grey(name), colors.grey(delim)]
+    : [name, delim];
+
+  if (prompt.message)
+   ...
+var schema = prop.schema || prop
+var propName = prop.path && prop.path.join(':') || prop
+var storedSchema = prompt.properties[propName.toLowerCase()]
+var delim = prompt.delimiter
+schema instanceof Object && !Object.keys(schema).length &&
+    typeof storedSchema !== 'undefined'
+typeof storedSchema !== 'undefined'
+schema = storedSchema
+typeof prop === 'string' && !storedSchema
+schema = {}
+schema = convert(schema)
+defaultLine = schema.default
+name = prop.description || schema.description || propName
+raw = prompt.colors
+    ? [colors.grey(name), colors.grey(delim)]
+    : [name, delim]
+_tmp_35 = __ecma.Array.factory()
+_tmp_36 = __ecma.Array.factory()
+prompt.message
+raw.unshift(prompt.message, delim)
+prop = {
+    schema: schema,
+    path: propName.split(':')
+  }
+_tmp_37.schema = schema
+_tmp_37.path = propName.split(':')
+!schema.properties
+schema = (function () {
+      var obj = { properties: {} };
+      obj.properties[propName] = schema;
+      return obj;
+    })()
+prompt.override && prompt.override.hasOwnProperty(propName)
+prompt._performValidation(name, prop, prompt.override, schema, -1, callback)
+delete prompt.override[propName]
+typeof prop.schema.ask === 'function' &&
+    !prop.schema.ask()
+(_tmp_41 = prop.schema).ask
+var type = (schema.properties && schema.properties[propName] &&
+              schema.properties[propName].type || '').toLowerCase().trim()
+schema.properties[propName].type
+var wait = type === 'array'
+type === 'array'
+length = prop.schema.maxItems
+msg = (tmp.length + 1).toString() + '/' + length.toString()
+(_tmp_45 = tmp.length + 1).toString
+msg += delim
+raw.push(prompt.colors ? colors.grey(msg) : msg)
+length = raw.join('').length
+msg = raw.join('')
+schema.help
+schema.help.forEach(function (line) {
+      logger.help(line);
+    })
+prompt.emit('prompt', prop)

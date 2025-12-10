@@ -1,0 +1,51 @@
+ClientRequest.prototype._onFinish = function() {
+  var self = this;
+
+  if (self._destroyed)
+    return
+  var opts = self._opts;
+
+  var headersObj = self._headers;
+  var body;
+  if (opts.method === 'POST' || opts.method === 'PUT' || opts.method === 'PATCH') {
+    if (blobConstructor()) {
+      body = new global$1.Blob(self._body.map(function(buffer) {
+        return toArrayBuffer(buffer)
+      }), {
+        type: (headersObj['content-type'] || {}).value || ''
+      });
+    } else {
+      // get utf8 string
+      body = Buffer$1.concat(self._body).toString();
+    }
+  }
+
+  if (self._mode === 'fetch') {
+    var headers = Object.keys(headersObj).map(function(name) {
+      return [headersObj[name].name, headersObj[name].value]
+    });
+
+    global$1.fetch(self._opts.url, {
+      method: self._opts.method,
+      headers: headers,
+      body: body,
+      mode: 'cors',
+      credentials: opts.withCredentials ? 'include' : 'same-origin'
+    }).then(function(response) {
+      self._fetchRespons...
+var self = this
+self._destroyed
+var opts = self._opts
+var headersObj = self._headers
+opts.method === 'POST' || opts.method === 'PUT' || opts.method === 'PATCH'
+blobConstructor()
+body = new global$1.Blob(self._body.map(function(buffer) {
+        return toArrayBuffer(buffer)
+      }), {
+        type: (headersObj['content-type'] || {}).value || ''
+      })
+_tmp_584.type = (headersObj['content-type'] || {}).value || ''
+(_tmp_586 = Buffer$1.concat(self._body)).toString
+self._mode === 'fetch'
+var xhr = self._xhr = new global$1.XMLHttpRequest()
+xhr.open(self._opts.method, self._opts.url, true)

@@ -1,0 +1,21 @@
+addSourceContextToFrames(frames) {
+    for (const frame of frames) {
+      // Only add context if we have a filename and it hasn't already been added
+      if (frame.filename && frame.context_line === undefined) {
+        const sourceFileLines = FILE_CONTENT_CACHE.get(frame.filename);
+
+        if (sourceFileLines) {
+          try {
+            utils.addContextToFrame(sourceFileLines, frame, this._contextLines);
+          } catch (e) {
+            // anomaly, being defensive in case
+            // unlikely to ever happen in practice but can definitely happen in theory
+          }
+        }
+      }
+    }
+  }
+_iterator_2 = <operator>.iterator(frames)
+frame.filename && frame.context_line === undefined
+const sourceFileLines = FILE_CONTENT_CACHE.get(frame.filename)
+utils.addContextToFrame(sourceFileLines, frame, this._contextLines)

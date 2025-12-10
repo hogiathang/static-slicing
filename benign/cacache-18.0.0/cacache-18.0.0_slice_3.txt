@@ -1,0 +1,28 @@
+function verifyContent = async function verifyContent (filepath, sri) {
+  const contentInfo = {}
+  try {
+    const { size } = await stat(filepath)
+    contentInfo.size = size
+    contentInfo.valid = true
+    await ssri.checkStream(new fsm.ReadStream(filepath), sri)
+  } catch (err) {
+    if (err.code === 'ENOENT') {
+      return { size: 0, valid: false }
+    }
+    if (err.code !== 'EINTEGRITY') {
+      throw err
+    }
+
+    await rm(filepath, { recursive: true, force: true })
+    contentInfo.valid = false
+  }
+  return contentInfo
+}
+const contentInfo = {}
+_tmp_25 = await stat(filepath)
+contentInfo.size = size
+contentInfo.valid = true
+await ssri.checkStream(new fsm.ReadStream(filepath), sri)
+err.code === 'ENOENT'
+err.code !== 'EINTEGRITY'
+throw err

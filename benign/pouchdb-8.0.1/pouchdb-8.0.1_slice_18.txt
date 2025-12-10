@@ -1,0 +1,39 @@
+api._getAttachment = function (docId, attachId, attachment, opts, callback) {
+    var digest = attachment.digest;
+    var type = attachment.content_type;
+
+    stores.binaryStore.get(digest, function (err, attach) {
+      if (err) {
+        /* istanbul ignore if */
+        if (err.name !== 'NotFoundError') {
+          return callback(err);
+        }
+        // Empty attachment
+        return callback(null, opts.binary ? createEmptyBlobOrBuffer(type) : '');
+      }
+
+      if (opts.binary) {
+        callback(null, readAsBlobOrBuffer(attach, type));
+      } else {
+        callback(null, attach.toString('base64'));
+      }
+    });
+  }
+var digest = attachment.digest
+var type = attachment.content_type
+stores.binaryStore.get(digest, function (err, attach) {
+      if (err) {
+        /* istanbul ignore if */
+        if (err.name !== 'NotFoundError') {
+          return callback(err);
+        }
+        // Empty attachment
+        return callback(null, opts.binary ? createEmptyBlobOrBuffer(type) : '');
+      }
+
+      if (opts.binary) {
+        callback(null, readAsBlobOrBuffer(attach, type));
+      } else {
+        callback(null, attach.toString('base64'));
+      }
+    })

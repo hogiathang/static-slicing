@@ -1,0 +1,85 @@
+bundle(options, bundleDir) {
+        if (fs.existsSync(bundleDir)) {
+            return;
+        }
+        fs.ensureDirSync(bundleDir);
+        // Chmod the bundleDir to full access.
+        fs.chmodSync(bundleDir, 0o777);
+        // Always mount input and output dir
+        const volumes = [
+            {
+                hostPath: this.sourcePath,
+                containerPath: AssetStaging.BUNDLING_INPUT_DIR,
+            },
+            {
+                hostPath: bundleDir,
+                containerPath: AssetStaging.BUNDLING_OUTPUT_DIR,
+            },
+            ...options.volumes ?? [],
+        ];
+        let localBundling;
+        try {
+            process.stderr.write(`Bundling asset ${this.node.path}...\n`);
+            localBundling = options.local?.tryBundle(bundleDir, options);
+            if (!localBundling) {
+                let user;
+                if (options.user) {
+                    user = options.user;
+                }
+                else { // Default to curre...
+fs.existsSync(bundleDir)
+fs.ensureDirSync(bundleDir)
+fs.chmodSync(bundleDir, 0o777)
+const volumes = [
+            {
+                hostPath: this.sourcePath,
+                containerPath: AssetStaging.BUNDLING_INPUT_DIR,
+            },
+            {
+                hostPath: bundleDir,
+                containerPath: AssetStaging.BUNDLING_OUTPUT_DIR,
+            },
+            ...options.volumes ?? [],
+        ]
+_tmp_42.push({
+                hostPath: this.sourcePath,
+                containerPath: AssetStaging.BUNDLING_INPUT_DIR,
+            })
+_tmp_43.hostPath = this.sourcePath
+_tmp_43.containerPath = AssetStaging.BUNDLING_INPUT_DIR
+_tmp_42.push({
+                hostPath: bundleDir,
+                containerPath: AssetStaging.BUNDLING_OUTPUT_DIR,
+            })
+_tmp_44.hostPath = bundleDir
+_tmp_44.containerPath = AssetStaging.BUNDLING_OUTPUT_DIR
+_tmp_42.push(...options.volumes ?? [])
+<operator>.formatString("Bundling asset ", this.node.path, "...\n")
+localBundling = options.local?.tryBundle(bundleDir, options)
+!localBundling
+options.user
+user = options.user
+const userInfo = os.userInfo()
+user = userInfo.uid !== -1 // uid is -1 on Windows
+                        ? `${userInfo.uid}:${userInfo.gid}`
+                        : '1000:1000'
+<operator>.formatString("", userInfo.uid, ":", userInfo.gid, "")
+"1000:1000"
+options.image.run({
+                    command: options.command,
+                    user,
+                    volumes,
+                    environment: options.environment,
+                    workingDirectory: options.workingDirectory ?? AssetStaging.BUNDLING_INPUT_DIR,
+                    securityOpt: options.securityOpt ?? '',
+                })
+_tmp_47.command = options.command
+_tmp_47.user = user
+_tmp_47.volumes = volumes
+_tmp_47.environment = options.environment
+_tmp_47.workingDirectory = options.workingDirectory ?? AssetStaging.BUNDLING_INPUT_DIR
+_tmp_47.securityOpt = options.securityOpt ?? ''
+const bundleErrorDir = bundleDir + '-error'
+fs.existsSync(bundleErrorDir)
+fs.removeSync(bundleErrorDir)
+fs.renameSync(bundleDir, bundleErrorDir)

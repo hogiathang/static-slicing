@@ -1,0 +1,100 @@
+function run = async function run(entries, _opts,
+// using pre v7 Commander options as properties
+command) {
+  if (entries.length === 0) {
+    entries = ['.'];
+  }
+  entries = entries.map(entry => _path().default.resolve(entry));
+  let Parcel = require('@parcel/core').default;
+  let fs = new (_fs().NodeFS)();
+  let options = await normalizeOptions(command, fs);
+  let parcel = new Parcel({
+    entries,
+    // $FlowFixMe[extra-arg] - flow doesn't know about the `paths` option (added in Node v8.9.0)
+    defaultConfig: require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname]
+    }),
+    shouldPatchConsole: false,
+    ...options
+  });
+  let disposable = new (_events().Disposable)();
+  let unsubscribe;
+  let isExiting;
+  async function exit(exitCode = 0) {
+    if (isExiting) {
+      return;
+    }
+    isExiting = true;
+    if (unsubscribe != null) {
+      await unsubscribe();
+    } else if (parcel.isProfiling) {
+      await parcel.stopProfiling();
+    }
+    if (process.stdin.isTTY &...
+entries.length === 0
+_tmp_17 = __ecma.Array.factory()
+entries = entries.map(entry => _path().default.resolve(entry))
+let Parcel = require('@parcel/core').default
+let fs = new (_fs().NodeFS)()
+let options = await normalizeOptions(command, fs)
+let parcel = new Parcel({
+    entries,
+    // $FlowFixMe[extra-arg] - flow doesn't know about the `paths` option (added in Node v8.9.0)
+    defaultConfig: require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname]
+    }),
+    shouldPatchConsole: false,
+    ...options
+  })
+_tmp_21.entries = entries
+_tmp_21.defaultConfig = require.resolve('@parcel/config-default', {
+      paths: [fs.cwd(), __dirname]
+    })
+_tmp_22.paths = [fs.cwd(), __dirname]
+_tmp_21.shouldPatchConsole = false
+...options
+let disposable = new (_events().Disposable)()
+function exit = async function exit(exitCode = 0) {
+    if (isExiting) {
+      return;
+    }
+    isExiting = true;
+    if (unsubscribe != null) {
+      await unsubscribe();
+    } else if (parcel.isProfiling) {
+      await parcel.stopProfiling();
+    }
+    if (process.stdin.isTTY && process.stdin.isRaw) {
+      // $FlowFixMe
+      process.stdin.setRawMode(false);
+    }
+    disposable.dispose();
+    process.exit(exitCode);
+  }
+const isWatching = command.name() === 'watch' || command.name() === 'serve'
+process.stdin.isTTY
+(_tmp_25 = process.stdin).setRawMode
+require('readline').emitKeypressEvents(process.stdin)
+let stream = process.stdin.on('keypress', async (char, key) => {
+      if (!key.ctrl) {
+        return;
+      }
+      switch (key.name) {
+        case 'c':
+          // Detect the ctrl+c key, and gracefully exit after writing the asset graph to the cache.
+          // This is mostly for tools that wrap Parcel as a child process like yarn and npm.
+          //
+          // Setting raw mode prevents SIGINT from being sent in response to ctrl-c:
+          // https://nodejs.org/api/tty.html#tty_readstream_setrawmode_mode
+          //
+          // We don't use the SIGINT event for this because when run inside yarn, the parent
+          // yarn process ends before Parcel and it appears that Parcel has ended while it may still
+          // be cleaning up. Handling events from stdin prevents this impression.
+
+          // Enqueue a busy message to be shown if Parcel doesn't shut down
+          // within the timeout.
+          setTimeout(() => _logger().INTERNAL_ORIGINAL_CONSOLE.log(_chalk().def...
+disposable.add(() => {
+      stream.destroy();
+    })
+await parcel.run()

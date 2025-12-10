@@ -1,0 +1,25 @@
+constructor(params) {
+        this._promise = new Promise((resolve, reject) => {
+            this._resolve = resolve;
+            this._reject = reject;
+        });
+
+        let target = params.popupWindowTarget || DefaultPopupTarget;
+        let features = params.popupWindowFeatures || DefaultPopupFeatures;
+
+        this._popup = window.open('', target, features);
+        if (this._popup) {
+            Log.debug("PopupWindow.ctor: popup successfully created");
+            this._checkForPopupClosedTimer = window.setInterval(this._checkForPopupClosed.bind(this), CheckForPopupClosedInterval);
+        }
+    }
+this._promise = new Promise((resolve, reject) => {
+            this._resolve = resolve;
+            this._reject = reject;
+        })
+let target = params.popupWindowTarget || DefaultPopupTarget
+let features = params.popupWindowFeatures || DefaultPopupFeatures
+this._popup = window.open('', target, features)
+this._popup
+Log.debug("PopupWindow.ctor: popup successfully created")
+this._checkForPopupClosedTimer = window.setInterval(this._checkForPopupClosed.bind(this), CheckForPopupClosedInterval)

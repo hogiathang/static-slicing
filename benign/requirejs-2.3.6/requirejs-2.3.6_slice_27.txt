@@ -1,0 +1,49 @@
+build.createConfig = function (cfg) {
+        /*jslint evil: true */
+        var buildFileContents, buildFileConfig, mainConfig,
+            mainConfigFile, mainConfigPath, buildFile, absFilePath,
+            config = {},
+            buildBaseConfig = makeBuildBaseConfig();
+
+        //Make sure all paths are relative to current directory.
+        absFilePath = file.absPath('.');
+        build.makeAbsConfig(cfg, absFilePath);
+        build.makeAbsConfig(buildBaseConfig, absFilePath);
+
+        lang.mixin(config, buildBaseConfig);
+        lang.mixin(config, cfg, true);
+
+        //Set up log level early since it can affect if errors are thrown
+        //or caught and passed to errbacks, even while constructing config.
+        if (lang.hasProp(config, 'logLevel')) {
+            logger.logLevel(config.logLevel);
+        }
+
+        if (config.buildFile) {
+            //A build file exists, load it to get more config.
+            buildFile = file.absPath(config.buildFile);
+
+            //Fi...
+var config = {}
+var buildBaseConfig = makeBuildBaseConfig()
+absFilePath = file.absPath('.')
+build.makeAbsConfig(cfg, absFilePath)
+build.makeAbsConfig(buildBaseConfig, absFilePath)
+lang.mixin(config, buildBaseConfig)
+lang.mixin(config, cfg, true)
+lang.hasProp(config, 'logLevel')
+logger.logLevel(config.logLevel)
+config.buildFile
+buildFile = file.absPath(config.buildFile)
+!file.exists(buildFile)
+throw new Error("ERROR: build file does not exist: " + buildFile);
+absFilePath = config.baseUrl = file.absPath(file.parent(buildFile))
+buildFileContents = file.readFile(buildFile)
+buildFileContents = buildFileContents
+                                    .replace(/\/\/\#[^\n\r]+[\n\r]*$/, '')
+                                    .trim()
+                                    .replace(/;$/, '')
+/\/\/\#[^\n\r]+[\n\r]*$/
+trim
+replace
+buildFileConfig = eval("(" + buildFileContents + ")")

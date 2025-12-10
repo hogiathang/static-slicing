@@ -1,0 +1,27 @@
+_highlightCorrectOption() {
+        if (this._keyManager) {
+            if (this.empty) {
+                // Find the index of the first *enabled* option. Avoid calling `_keyManager.setActiveItem`
+                // because it activates the first option that passes the skip predicate, rather than the
+                // first *enabled* option.
+                let firstEnabledOptionIndex = -1;
+                for (let index = 0; index < this.options.length; index++) {
+                    const option = this.options.get(index);
+                    if (!option.disabled) {
+                        firstEnabledOptionIndex = index;
+                        break;
+                    }
+                }
+                this._keyManager.setActiveItem(firstEnabledOptionIndex);
+            }
+            else {
+                this._keyManager.setActiveItem(this._selectionModel.selected[0]);
+            }
+        }
+    }
+this._keyManager
+this.empty
+let firstEnabledOptionIndex = -1
+index < this.options.length
+const option = this.options.get(index)
+!option.disabled

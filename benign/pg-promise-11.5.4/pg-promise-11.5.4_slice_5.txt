@@ -1,0 +1,45 @@
+client.connect(err => {
+            if (err) {
+                Events.error(ctx.options, err, {
+                    cn: npm.utils.getSafeConnection(ctx.cn),
+                    dc: ctx.dc
+                });
+                reject(err);
+            } else {
+                setSchema(client, ctx);
+                setCtx(client, ctx);
+                const end = lockClientEnd(client);
+                client.on('error', onError);
+                resolve({
+                    client,
+                    useCount: 0,
+                    release() {
+                        client.end = end;
+                        const p = config.promise((res, rej) => client.end().then(res).catch(rej));
+                        Events.disconnect(ctx, client);
+                        client.removeListener('error', onError);
+                        return p;
+                    }
+                });
+                Events.connect(ctx, client, 0);
+            }
+        })
+setSchema(client, ctx)
+setCtx(client, ctx)
+const end = lockClientEnd(client)
+client.on('error', onError)
+resolve({
+                    client,
+                    useCount: 0,
+                    release() {
+                        client.end = end;
+                        const p = config.promise((res, rej) => client.end().then(res).catch(rej));
+                        Events.disconnect(ctx, client);
+                        client.removeListener('error', onError);
+                        return p;
+                    }
+                })
+_tmp_9.client = client
+_tmp_9.useCount = 0
+_tmp_9.release = release
+Events.connect(ctx, client, 0)

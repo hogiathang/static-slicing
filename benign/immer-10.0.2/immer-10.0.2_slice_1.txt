@@ -1,0 +1,21 @@
+get(key: any): any {
+			const state: MapState = this[DRAFT_STATE]
+			assertUnrevoked(state)
+			const value = latest(state).get(key)
+			if (state.finalized_ || !isDraftable(value)) {
+				return value
+			}
+			if (value !== state.base_.get(key)) {
+				return value // either already drafted or reassigned
+			}
+			// despite what it looks, this creates a draft only once, see above condition
+			const draft = createProxy(value, state)
+			prepareMapCopy(state)
+			state.copy_!.set(key, draft)
+			return draft
+		}
+const state: MapState = this[DRAFT_STATE]
+assertUnrevoked(state)
+const value = latest(state).get(key)
+state.finalized_ || !isDraftable(value)
+value !== state.base_.get(key)

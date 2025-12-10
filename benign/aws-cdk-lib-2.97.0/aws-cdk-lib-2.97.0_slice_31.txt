@@ -1,0 +1,10 @@
+<operator>.formatString("Template has changed for ProductStack Version ", this.props.currentVersionName, ".
+        ", this.props.currentVersionName, " already exist in ", productStackSnapshotDirectory, ".
+        Since locked has been set to ", this.props.currentVersionLocked, ",
+        Either update the currentVersionName to deploy a new version or deploy the existing ProductStack snapshot.
+        If ", this.props.currentVersionName, " was unintentionally synthesized and not deployed, 
+        delete the corresponding version from ", productStackSnapshotDirectory, " and redeploy.")
+this.props.currentVersionName
+this.props.currentVersionLocked
+this.props.currentVersionName
+ProductStackHistory[_a]={fqn:"aws-cdk-lib.aws_servicecatalog.ProductStackHistory",version:"2.97.0"}

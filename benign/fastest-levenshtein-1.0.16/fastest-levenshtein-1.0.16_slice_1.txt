@@ -1,0 +1,49 @@
+exports.__esModule = true
+var Benchmark = require("benchmark")
+var mod_js_1 = require("./mod.js")
+var fast_levenshtein_1 = require("fast-levenshtein")
+var fs = require("fs")
+var jslevenshtein = require("js-levenshtein")
+var leven = require("leven")
+var levenshteinEditDistance = require("levenshtein-edit-distance")
+var suite = new Benchmark.Suite()
+var randomstring = function (length) {
+    var result = "";
+    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+var randomstringArr = function (stringSize, arraySize) {
+    var i = 0;
+    var arr = [];
+    for (i = 0; i < arraySize; i++) {
+        arr.push(randomstring(stringSize));
+    }
+    return arr;
+}
+var arrSize = 1000
+!fs.existsSync("data.json")
+var data_1 = [
+        randomstringArr(4, arrSize),
+        randomstringArr(8, arrSize),
+        randomstringArr(16, arrSize),
+        randomstringArr(32, arrSize),
+        randomstringArr(64, arrSize),
+        randomstringArr(128, arrSize),
+        randomstringArr(256, arrSize),
+        randomstringArr(512, arrSize),
+        randomstringArr(1024, arrSize),
+    ]
+_tmp_1.push(randomstringArr(4, arrSize))
+_tmp_1.push(randomstringArr(8, arrSize))
+_tmp_1.push(randomstringArr(16, arrSize))
+_tmp_1.push(randomstringArr(32, arrSize))
+_tmp_1.push(randomstringArr(64, arrSize))
+_tmp_1.push(randomstringArr(128, arrSize))
+_tmp_1.push(randomstringArr(256, arrSize))
+_tmp_1.push(randomstringArr(512, arrSize))
+_tmp_1.push(randomstringArr(1024, arrSize))
+fs.writeFileSync("data.json", JSON.stringify(data_1))

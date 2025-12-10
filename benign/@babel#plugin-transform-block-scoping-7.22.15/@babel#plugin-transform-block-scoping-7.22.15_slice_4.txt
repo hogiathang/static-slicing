@@ -1,0 +1,52 @@
+function injectTDZChecks = function injectTDZChecks(binding, state) {
+  const allUsages = new Set(binding.referencePaths);
+  binding.constantViolations.forEach(allUsages.add, allUsages);
+  let dynamicTdz = false;
+  for (const path of binding.constantViolations) {
+    const {
+      node
+    } = path;
+    if (skipTDZChecks.has(node)) continue;
+    skipTDZChecks.add(node);
+    if (path.isUpdateExpression()) {
+      const arg = path.get("argument");
+      const replacement = getTDZReplacement(path, state, arg.node);
+      if (!replacement) continue;
+      if (replacement.status === "maybe") {
+        dynamicTdz = true;
+        path.insertBefore(replacement.node);
+      } else {
+        path.replaceWith(replacement.node);
+      }
+    } else if (path.isAssignmentExpression()) {
+      const nodes = [];
+      const ids = path.getBindingIdentifiers();
+      for (const name of Object.keys(ids)) {
+        const replacement = getTDZReplacement(path, state, ids[name]);
+        if (replacement) {
+          nodes.push(_core...
+const allUsages = new Set(binding.referencePaths)
+binding.constantViolations.forEach(allUsages.add, allUsages)
+let dynamicTdz = false
+_iterator_2 = <operator>.iterator(binding.constantViolations)
+_tmp_36 = path
+node = _tmp_36.node
+skipTDZChecks.has(node)
+skipTDZChecks.add(node)
+path.isUpdateExpression()
+const arg = path.get("argument")
+const replacement = getTDZReplacement(path, state, arg.node)
+!replacement
+replacement.status === "maybe"
+dynamicTdz = true
+path.insertBefore(replacement.node)
+path.replaceWith(replacement.node)
+path.isAssignmentExpression()
+__ecma.Array.factory()
+const ids = path.getBindingIdentifiers()
+_iterator_3 = <operator>.iterator(Object.keys(ids))
+const replacement = getTDZReplacement(path, state, ids[name])
+nodes.push(_core.types.expressionStatement(replacement.node))
+replacement.status === "inside"
+replacement.status === "maybe"
+path.insertBefore(nodes)

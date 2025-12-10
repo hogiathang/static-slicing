@@ -1,0 +1,54 @@
+async sendRequest(request) {
+        var _a;
+        const url = new URL(request.url);
+        const isInsecure = url.protocol !== "https:";
+        if (isInsecure && !request.allowInsecureConnection) {
+            throw new Error(`Cannot connect to ${request.url} while allowInsecureConnection is false.`);
+        }
+        const xhr = new XMLHttpRequest();
+        if (request.proxySettings) {
+            throw new Error("HTTP proxy is not supported in browser environment");
+        }
+        const abortSignal = request.abortSignal;
+        if (abortSignal) {
+            if (abortSignal.aborted) {
+                throw new AbortError("The operation was aborted.");
+            }
+            const listener = () => {
+                xhr.abort();
+            };
+            abortSignal.addEventListener("abort", listener);
+            xhr.addEventListener("readystatechange", () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    abortSignal.removeEventLi...
+const url = new URL(request.url)
+const isInsecure = url.protocol !== "https:"
+isInsecure && !request.allowInsecureConnection
+<operator>.formatString("Cannot connect to ", request.url, " while allowInsecureConnection is false.")
+const xhr = new XMLHttpRequest()
+request.proxySettings
+throw new Error("HTTP proxy is not supported in browser environment");
+const abortSignal = request.abortSignal
+abortSignal.aborted
+throw new AbortError("The operation was aborted.");
+const listener = () => {
+                xhr.abort();
+            }
+abortSignal.addEventListener("abort", listener)
+xhr.addEventListener("readystatechange", () => {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    abortSignal.removeEventListener("abort", listener);
+                }
+            })
+addProgressListener(xhr.upload, request.onUploadProgress)
+addProgressListener(xhr, request.onDownloadProgress)
+xhr.open(request.method, request.url)
+xhr.timeout = request.timeout
+xhr.withCredentials = request.withCredentials
+_iterator_1 = <operator>.iterator(request.headers)
+xhr.setRequestHeader(name, value)
+xhr.responseType = ((_a = request.streamResponseStatusCodes) === null || _a === void 0 ? void 0 : _a.size) ? "blob" : "text"
+const body = typeof request.body === "function" ? request.body() : request.body
+isNodeReadableStream(body) || isReadableStream(body)
+throw new Error("streams are not supported in XhrHttpClient.");
+xhr.send(body === undefined ? null : body)

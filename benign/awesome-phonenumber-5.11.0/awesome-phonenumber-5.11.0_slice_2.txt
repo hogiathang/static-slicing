@@ -1,0 +1,1 @@
+V.getNumberFrom=function(a,b){try{a:{if(Hb){var e=Hb.get(a);if(e){var c=e;break a}}let d;c=new V(null==a?void 0:null==(d=a.number)?void 0:d.e164,{})}return{valid:!0,number:Za(c.l,b)}}catch(d){return{valid:!1,error:d}}}

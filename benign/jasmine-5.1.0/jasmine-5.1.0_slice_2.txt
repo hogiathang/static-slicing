@@ -1,0 +1,16 @@
+function initJasmine = function initJasmine(options) {
+  const print = options.print;
+  const specDir = options.specDir;
+  makeDirStructure(path.join(specDir, 'support/'));
+  if(!fs.existsSync(path.join(specDir, 'support/jasmine.json'))) {
+    fs.writeFileSync(path.join(specDir, 'support/jasmine.json'), fs.readFileSync(path.join(__dirname, '../lib/examples/jasmine.json'), 'utf-8'));
+  }
+  else {
+    print('spec/support/jasmine.json already exists in your project.');
+  }
+}
+const print = options.print
+const specDir = options.specDir
+makeDirStructure(path.join(specDir, 'support/'))
+!fs.existsSync(path.join(specDir, 'support/jasmine.json'))
+fs.writeFileSync(path.join(specDir, 'support/jasmine.json'), fs.readFileSync(path.join(__dirname, '../lib/examples/jasmine.json'), 'utf-8'))

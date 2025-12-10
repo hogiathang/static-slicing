@@ -1,0 +1,62 @@
+new Promise(function(resolve, reject) {
+		var hasFinished = false;
+
+		var read = fs.createReadStream(srcPath);
+		read.on('error', handleCopyFailed);
+
+		var write = fs.createWriteStream(destPath, {
+			flags: 'w',
+			mode: stats.mode
+		});
+		write.on('error', handleCopyFailed);
+		write.on('finish', function() {
+			fs.utimes(destPath, stats.atime, stats.mtime, function() {
+				hasFinished = true;
+				resolve();
+			});
+		});
+
+		var transformStream = null;
+		if (options.transform) {
+			transformStream = options.transform(srcPath, destPath, stats);
+			if (transformStream) {
+				transformStream.on('error', handleCopyFailed);
+				read.pipe(transformStream).pipe(write);
+			} else {
+				read.pipe(write);
+			}
+		} else {
+			read.pipe(write);
+		}
+
+
+		function handleCopyFailed(error) {
+			if (hasFinished) { return; }
+			hasFinished = true;
+			if (typeof read.close === 'function') {
+				read.close();
+			}
+			if (typeof write.close === 'function') {
+				write.close();
+			}
+			return reject(error);...
+var hasFinished = false
+var read = fs.createReadStream(srcPath)
+read.on('error', handleCopyFailed)
+var write = fs.createWriteStream(destPath, {
+			flags: 'w',
+			mode: stats.mode
+		})
+_tmp_34.flags = "w"
+_tmp_34.mode = stats.mode
+function handleCopyFailed = function handleCopyFailed(error) {
+			if (hasFinished) { return; }
+			hasFinished = true;
+			if (typeof read.close === 'function') {
+				read.close();
+			}
+			if (typeof write.close === 'function') {
+				write.close();
+			}
+			return reject(error);
+		}

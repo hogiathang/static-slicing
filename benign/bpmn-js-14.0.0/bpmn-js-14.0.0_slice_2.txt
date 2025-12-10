@@ -1,0 +1,7 @@
+function getFillColor = function getFillColor(element, defaultColor) {
+  var di = getDi(element);
+
+  return di.get('color:background-color') || di.get('bioc:fill') || defaultColor || 'white';
+}
+var di = getDi(element)
+di.get('color:background-color') || di.get('bioc:fill') || defaultColor || 'white'

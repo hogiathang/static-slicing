@@ -1,0 +1,47 @@
+internals.string = function (ref, values, options) {
+
+    // Empty string
+
+    if (ref === '') {
+        return values.length === 1 && values[0] === '' ||               // '' contains ''
+            !options.once && !values.some((v) => v !== '');             // '' contains multiple '' if !once
+    }
+
+    // Map values
+
+    const map = new Map();
+    const patterns = [];
+
+    for (const value of values) {
+        Assert(typeof value === 'string', 'Cannot compare string reference to non-string value');
+
+        if (value) {
+            const existing = map.get(value);
+            if (existing) {
+                ++existing.allowed;
+            }
+            else {
+                map.set(value, { allowed: 1, hits: 0 });
+                patterns.push(EscapeRegex(value));
+            }
+        }
+        else if (options.once ||
+            options.only) {
+
+            return false;
+        }
+    }
+
+    if (!patterns.length) {                     // Non-empty string contains unlimited emp...
+ref === ''
+const map = new Map()
+__ecma.Array.factory()
+_iterator_6 = <operator>.iterator(values)
+Assert(typeof value === 'string', 'Cannot compare string reference to non-string value')
+const existing = map.get(value)
+++existing.allowed
+map.set(value, { allowed: 1, hits: 0 })
+patterns.push(EscapeRegex(value))
+options.once ||
+            options.only
+options.only

@@ -1,0 +1,9 @@
+this.files.forEach(function (file) {
+    file = path.resolve(file);
+    suite.emit(EVENT_FILE_PRE_REQUIRE, global, file, self);
+    suite.emit(EVENT_FILE_REQUIRE, require(file), file, self);
+    suite.emit(EVENT_FILE_POST_REQUIRE, global, file, self);
+  })
+file = path.resolve(file)
+suite.emit(EVENT_FILE_PRE_REQUIRE, global, file, self)
+suite.emit(EVENT_FILE_REQUIRE, require(file), file, self)

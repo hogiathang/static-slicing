@@ -1,0 +1,64 @@
+function queryPromised = async function queryPromised(db, fun, opts) {
+    /* istanbul ignore next */
+    if (typeof db._query === 'function') {
+      return customQuery(db, fun, opts);
+    }
+    if (isRemote(db)) {
+      return httpQuery(db, fun, opts);
+    }
+
+    const updateViewOpts = {
+      changes_batch_size: db.__opts.view_update_changes_batch_size || CHANGES_BATCH_SIZE$1
+    };
+
+    if (typeof fun !== 'string') {
+      // temp_view
+      checkQueryParseError(opts, fun);
+
+      tempViewQueue.add(async function () {
+        const view = await createView(
+          /* sourceDB */ db,
+          /* viewName */ 'temp_view/temp_view',
+          /* mapFun */ fun.map,
+          /* reduceFun */ fun.reduce,
+          /* temporary */ true,
+          /* localDocName */ localDocName);
+
+        return fin(updateView(view, updateViewOpts).then(
+          function () { return queryView(view, opts); }),
+          function () { return view.db.destroy(); }
+        );
+      });
+      return tempViewQueue.finish();
+    }...
+typeof db._query === 'function'
+isRemote(db)
+const updateViewOpts = {
+      changes_batch_size: db.__opts.view_update_changes_batch_size || CHANGES_BATCH_SIZE$1
+    }
+_tmp_629.changes_batch_size = db.__opts.view_update_changes_batch_size || CHANGES_BATCH_SIZE$1
+typeof fun !== 'string'
+const fullViewName = fun
+const parts = parseViewName(fullViewName)
+const designDocName = parts[0]
+const viewName = parts[1]
+const doc = await db.get('_design/' + designDocName)
+fun = doc.views && doc.views[viewName]
+!fun
+<operator>.formatString("ddoc ", doc._id, " has no view named ", viewName, "")
+ddocValidator(doc, viewName)
+checkQueryParseError(opts, fun)
+const view = await createView(
+        /* sourceDB */ db,
+        /* viewName */ fullViewName,
+        /* mapFun */ fun.map,
+        /* reduceFun */ fun.reduce,
+        /* temporary */ false,
+        /* localDocName */ localDocName)
+fun.map
+fun.reduce
+opts.stale === 'ok' || opts.stale === 'update_after'
+opts.stale === 'update_after'
+nextTick(function () {
+            updateView(view, updateViewOpts);
+          })

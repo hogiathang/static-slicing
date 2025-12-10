@@ -1,0 +1,53 @@
+p.connect((err, client) => {
+            if (err) {
+                Events.error(ctx.options, err, {
+                    cn: npm.utils.getSafeConnection(ctx.cn),
+                    dc: ctx.dc
+                });
+                reject(err);
+            } else {
+                if ('$useCount' in client) {
+                    // Make sure useCount drops to 1, if it ever reaches maximum integer number;
+                    // We do not drop it to zero, to avoid rerun of initialization queries that
+                    // usually check for useCount === 0;
+                    // istanbul ignore if
+                    if (client.$useCount >= Number.MAX_SAFE_INTEGER) {
+                        client.$useCount = 1; // resetting; cannot auto-test this
+                    } else {
+                        client.$useCount = ++client.$useCount;
+                    }
+                } else {
+                    Object.defineProperty(client, '$useCount', {
+                    ...
+'$useCount' in client
+client.$useCount >= Number.MAX_SAFE_INTEGER
+client.$useCount = 1
+client.$useCount = ++client.$useCount
+Object.defineProperty(client, '$useCount', {
+                        value: 0,
+                        configurable: false,
+                        enumerable: false,
+                        writable: true
+                    })
+_tmp_4.value = 0
+_tmp_4.configurable = false
+_tmp_4.enumerable = false
+_tmp_4.writable = true
+setSchema(client, ctx)
+setCtx(client, ctx)
+const end = lockClientEnd(client)
+client.on('error', onError)
+resolve({
+                    client,
+                    useCount: client.$useCount,
+                    release(kill) {
+                        client.end = end;
+                        client.release(kill || client.$connectionError);
+                        Events.disconnect(ctx, client);
+                        client.removeListener('error', onError);
+                    }
+                })
+_tmp_5.client = client
+_tmp_5.useCount = client.$useCount
+_tmp_5.release = release
+Events.connect(ctx, client, client.$useCount)

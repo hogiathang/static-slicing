@@ -1,0 +1,135 @@
+function compileSchema = function compileSchema(this: Ajv, sch: SchemaEnv): SchemaEnv {
+  // TODO refactor - remove compilations
+  const _sch = getCompilingSchema.call(this, sch)
+  if (_sch) return _sch
+  const rootId = getFullPath(this.opts.uriResolver, sch.root.baseId) // TODO if getFullPath removed 1 tests fails
+  const {es5, lines} = this.opts.code
+  const {ownProperties} = this.opts
+  const gen = new CodeGen(this.scope, {es5, lines, ownProperties})
+  let _ValidationError
+  if (sch.$async) {
+    _ValidationError = gen.scopeValue("Error", {
+      ref: ValidationError,
+      code: _`require("ajv/dist/runtime/validation_error").default`,
+    })
+  }
+
+  const validateName = gen.scopeName("validate")
+  sch.validateName = validateName
+
+  const schemaCxt: SchemaCxt = {
+    gen,
+    allErrors: this.opts.allErrors,
+    data: N.data,
+    parentData: N.parentData,
+    parentDataProperty: N.parentDataProperty,
+    dataNames: [N.data],
+    dataPathArr: [nil], // TODO can its length be used as dataLevel if nil is remo...
+const _sch = getCompilingSchema.call(this, sch)
+const rootId = getFullPath(this.opts.uriResolver, sch.root.baseId)
+_tmp_8 = this.opts.code
+ownProperties = _tmp_9.ownProperties
+const gen = new CodeGen(this.scope, {es5, lines, ownProperties})
+sch.$async
+_ValidationError = gen.scopeValue("Error", {
+      ref: ValidationError,
+      code: _`require("ajv/dist/runtime/validation_error").default`,
+    })
+_tmp_12.ref = ValidationError
+_tmp_12.code = _`require("ajv/dist/runtime/validation_error").default`
+const validateName = gen.scopeName("validate")
+sch.validateName = validateName
+const schemaCxt: SchemaCxt = {
+    gen,
+    allErrors: this.opts.allErrors,
+    data: N.data,
+    parentData: N.parentData,
+    parentDataProperty: N.parentDataProperty,
+    dataNames: [N.data],
+    dataPathArr: [nil], // TODO can its length be used as dataLevel if nil is removed?
+    dataLevel: 0,
+    dataTypes: [],
+    definedProperties: new Set<string>(),
+    topSchemaRef: gen.scopeValue(
+      "schema",
+      this.opts.code.source === true
+        ? {ref: sch.schema, code: stringify(sch.schema)}
+        : {ref: sch.schema}
+    ),
+    validateName,
+    ValidationError: _ValidationError,
+    schema: sch.schema,
+    schemaEnv: sch,
+    rootId,
+    baseId: sch.baseId || rootId,
+    schemaPath: nil,
+    errSchemaPath: sch.schemaPath || (this.opts.jtd ? "" : "#"),
+    errorPath: _`""`,
+    opts: this.opts,
+    self: this,
+  }
+_tmp_14.gen = gen
+_tmp_14.allErrors = this.opts.allErrors
+_tmp_14.data = N.data
+_tmp_14.parentData = N.parentData
+_tmp_14.parentDataProperty = N.parentDataProperty
+_tmp_15 = __ecma.Array.factory()
+_tmp_16 = __ecma.Array.factory()
+_tmp_14.dataLevel = 0
+_tmp_14.dataTypes = __ecma.Array.factory()
+_tmp_14.definedProperties = new Set<string>()
+_tmp_14.topSchemaRef = gen.scopeValue(
+      "schema",
+      this.opts.code.source === true
+        ? {ref: sch.schema, code: stringify(sch.schema)}
+        : {ref: sch.schema}
+    )
+"schema"
+this.opts.code.source === true ? {ref: sch.schema, code: stringify(sch.schema)} : {ref: sch.schema}
+_tmp_18.code = stringify(sch.schema)
+_tmp_19.ref = sch.schema
+_tmp_14.validateName = validateName
+_tmp_14.ValidationError = _ValidationError
+_tmp_14.schema = sch.schema
+_tmp_14.schemaEnv = sch
+_tmp_14.rootId = rootId
+_tmp_14.baseId = sch.baseId || rootId
+_tmp_14.schemaPath = nil
+_tmp_14.errSchemaPath = sch.schemaPath || (this.opts.jtd ? "" : "#")
+_tmp_20 = __ecma.Array.factory()
+_tmp_14.opts = this.opts
+_tmp_14.self = this
+(_tmp_21 = this._compilations).add
+validateFunctionCode(schemaCxt)
+gen.optimize(this.opts.code.optimize)
+const validateCode = gen.toString()
+<operator>.formatString("", gen.scopeRefs(N.scope), "return ", validateCode, "")
+sourceCode = this.opts.code.process(sourceCode, sch)
+const makeValidate = new Function(`${N.self}`, `${N.scope}`, sourceCode)
+const validate: AnyValidateFunction = makeValidate(this, this.scope.get())
+this.scope.value(validateName, {ref: validate})
+validate.errors = null
+validate.schema = sch.schema
+validate.schemaEnv = sch
+(validate as AsyncValidateFunction).$async = true
+this.opts.code.source === true
+validate.source = {validateName, validateCode, scopeValues: gen._values}
+this.opts.unevaluated
+props = _tmp_28.props
+validate.evaluated = {
+        props: props instanceof Name ? undefined : props,
+        items: items instanceof Name ? undefined : items,
+        dynamicProps: props instanceof Name,
+        dynamicItems: items instanceof Name,
+      }
+_tmp_29.props = props instanceof Name ? undefined : props
+_tmp_29.items = items instanceof Name ? undefined : items
+_tmp_29.dynamicProps = props instanceof Name
+_tmp_29.dynamicItems = items instanceof Name
+validate.source.evaluated = stringify(validate.evaluated)
+sch.validate = validate
+delete sch.validate
+delete sch.validateName
+this.logger.error("Error compiling schema, function code:", sourceCode)
+throw e
+(_tmp_31 = this._compilations).delete

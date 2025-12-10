@@ -1,0 +1,52 @@
+Scope.prototype._crawl = function _crawl() {
+    var path = this.path;
+
+    this.references = (0, _create2.default)(null);
+    this.bindings = (0, _create2.default)(null);
+    this.globals = (0, _create2.default)(null);
+    this.uids = (0, _create2.default)(null);
+    this.data = (0, _create2.default)(null);
+
+    if (path.isLoop()) {
+      for (var _iterator14 = t.FOR_INIT_KEYS, _isArray14 = Array.isArray(_iterator14), _i14 = 0, _iterator14 = _isArray14 ? _iterator14 : (0, _getIterator3.default)(_iterator14);;) {
+        var _ref14;
+
+        if (_isArray14) {
+          if (_i14 >= _iterator14.length) break;
+          _ref14 = _iterator14[_i14++];
+        } else {
+          _i14 = _iterator14.next();
+          if (_i14.done) break;
+          _ref14 = _i14.value;
+        }
+
+        var key = _ref14;
+
+        var node = path.get(key);
+        if (node.isBlockScoped()) this.registerBinding(node.node.kind, node);
+      }
+    }
+
+    if (path.isFunctionExpression() && path.has("id")) {
+   ...
+var path = this.path
+this.references = (0, _create2.default)(null)
+this.bindings = (0, _create2.default)(null)
+this.globals = (0, _create2.default)(null)
+this.uids = (0, _create2.default)(null)
+this.data = (0, _create2.default)(null)
+path.isLoop()
+var _iterator14 = _isArray14 ? _iterator14 : (0, _getIterator3.default)(_iterator14)
+_i14 >= _iterator14.length
+_ref14 = _iterator14[_i14++]
+_i14 = _iterator14.next()
+_i14.done
+_ref14 = _i14.value
+var key = _ref14
+var node = path.get(key)
+this.registerBinding(node.node.kind, node)
+path.isFunctionExpression() && path.has("id")
+!path.get("id").node[t.NOT_LOCAL_BINDING]
+this.registerBinding("local", path.get("id"), path)
+path.isClassExpression() && path.has("id")
+!path.get("id").node[t.NOT_LOCAL_BINDING]

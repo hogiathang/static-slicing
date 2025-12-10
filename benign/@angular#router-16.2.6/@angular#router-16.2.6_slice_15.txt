@@ -1,0 +1,2 @@
+_tmp_296.useFactory = <lambda>96
+const locationInitialized = injector.get(LOCATION_INITIALIZED, Promise.resolve())

@@ -1,0 +1,32 @@
+socket.connected = function(e) {
+    // socket primed by caching TLS session, handle next request
+    if(socket.options === null) {
+      _handleNextRequest(client, socket);
+    } else {
+      // socket in use
+      var request = socket.options.request;
+      request.connectTime = +new Date() - request.connectTime;
+      e.socket = socket;
+      socket.options.connected(e);
+      if(request.aborted) {
+        socket.close();
+      } else {
+        var out = request.toString();
+        if(request.body) {
+          out += request.body;
+        }
+        request.time = +new Date();
+        socket.send(out);
+        request.time = +new Date() - request.time;
+        socket.options.response.time = +new Date();
+        socket.sending = true;
+      }
+    }
+  }
+socket.options === null
+var request = socket.options.request
+request.connectTime = +new Date() - request.connectTime
+e.socket = socket
+(_tmp_15 = socket.options).connected
+request.aborted
+socket.close()

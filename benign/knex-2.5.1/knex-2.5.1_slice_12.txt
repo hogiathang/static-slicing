@@ -1,0 +1,48 @@
+fs.stat(BUILD_ARTIFACT, function (err, stats) {
+    if (err || !(stats.isFile() || stats.isDirectory())) {
+      // This script will run again after we run `npm install` below. Set an
+      // environment variable to tell it to skip the check. Really we just want
+      // the execSync's `env` to be modified, but it's easier just modify and
+      // pass along the entire `process.env`.
+      process.env.POSTINSTALL_BUILD_CWD = CWD;
+      // We already have prod dependencies, that's what triggered `postinstall`
+      // in the first place. So only install dev.
+
+      // Fetch package.json
+      const pkgJson = require(path.join(CWD, 'package.json'));
+      const devDeps = pkgJson.devDependencies;
+      // Values listed under `buildDependencies` contain the dependency names
+      // that are required for `lib` building.
+      const buildDependencies = _.pick(devDeps, pkgJson.buildDependencies);
+
+      // Proceed only if there is something to install
+      if (!_.isEmpty(buildDependenci...
+err || !(stats.isFile() || stats.isDirectory())
+process.env.POSTINSTALL_BUILD_CWD = CWD
+const pkgJson = require(path.join(CWD, 'package.json'))
+const devDeps = pkgJson.devDependencies
+const buildDependencies = _.pick(devDeps, pkgJson.buildDependencies)
+!_.isEmpty(buildDependencies)
+const opts = { env: process.env, stdio: 'inherit' }
+console.log('Building Knex.js')
+const installArgs = _(buildDependencies)
+          .pickBy(function (semver, dep) {
+            // Check if the dependency is already installed
+            try {
+              require(dep);
+              return false;
+            } catch (err) {
+              return true;
+            }
+          })
+          .map(function (semver, dep) {
+            // Format installable dependencies
+            return dep + '@' + semver;
+          })
+          .value()
+          .join(' ')
+<lambda>6
+<lambda>7
+value
+join
+const needsDepInstallation = !_.isEmpty(installArgs)

@@ -1,0 +1,28 @@
+options = options === void 0 ? {} : options
+_.defaults(options, {
+      key: null,
+      spec: null,
+      reporter: null,
+      reporterOptions: null,
+      project: process.cwd()
+    })
+_tmp_8.key = null
+_tmp_8.spec = null
+_tmp_8.reporter = null
+_tmp_8.reporterOptions = null
+_tmp_8.project = process.cwd()
+function run = function run() {
+      try {
+        const args = processRunOptions(options);
+        debug('run to spawn.start args %j', args);
+        return spawn.start(args, {
+          dev: options.dev
+        });
+      } catch (err) {
+        if (err.details) {
+          return exitWithError(err.details)();
+        }
+        throw err;
+      }
+    }
+options.dev

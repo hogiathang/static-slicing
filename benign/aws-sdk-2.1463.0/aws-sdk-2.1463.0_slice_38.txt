@@ -1,0 +1,63 @@
+_tmp_1.handleRequest = handleRequest
+var self = this
+var endpoint = httpRequest.endpoint
+var emitter = new EventEmitter()
+var href = endpoint.protocol + '//' + endpoint.hostname
+endpoint.port !== 80 && endpoint.port !== 443
+href += ':' + endpoint.port
+href += httpRequest.path
+var xhr = new XMLHttpRequest()
+httpRequest.stream = xhr
+xhr.addEventListener('readystatechange', function() {
+      try {
+        if (xhr.status === 0) return; // 0 code is invalid
+      } catch (e) { return; }
+
+      if (this.readyState >= this.HEADERS_RECEIVED && !headersEmitted) {
+        emitter.statusCode = xhr.status;
+        emitter.headers = self.parseHeaders(xhr.getAllResponseHeaders());
+        emitter.emit(
+          'headers',
+          emitter.statusCode,
+          emitter.headers,
+          xhr.statusText
+        );
+        headersEmitted = true;
+      }
+      if (this.readyState === this.DONE) {
+        self.finishRequest(xhr, emitter);
+      }
+    }, false)
+xhr.upload.addEventListener('progress', function (evt) {
+      emitter.emit('sendProgress', evt);
+    })
+xhr.addEventListener('progress', function (evt) {
+      emitter.emit('receiveProgress', evt);
+    }, false)
+xhr.addEventListener('timeout', function () {
+      errCallback(AWS.util.error(new Error('Timeout'), {code: 'TimeoutError'}));
+    }, false)
+xhr.addEventListener('error', function () {
+      errCallback(AWS.util.error(new Error('Network Failure'), {
+        code: 'NetworkingError'
+      }));
+    }, false)
+xhr.addEventListener('abort', function () {
+      errCallback(AWS.util.error(new Error('Request aborted'), {
+        code: 'RequestAbortedError'
+      }));
+    }, false)
+callback(emitter)
+xhr.open(httpRequest.method, href, httpOptions.xhrAsync !== false)
+AWS.util.each(httpRequest.headers, function (key, value) {
+      if (key !== 'Content-Length' && key !== 'User-Agent' && key !== 'Host') {
+        xhr.setRequestHeader(key, value);
+      }
+    })
+httpOptions.timeout && httpOptions.xhrAsync !== false
+xhr.timeout = httpOptions.timeout
+httpOptions.xhrWithCredentials
+xhr.withCredentials = true
+xhr.responseType = 'arraybuffer'
+httpRequest.body
+xhr.send()

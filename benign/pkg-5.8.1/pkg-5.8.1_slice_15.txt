@@ -1,0 +1,9 @@
+function createDirRecursively = function createDirRecursively(dir) {
+  if (!fs.existsSync(dir)) {
+    createDirRecursively(path.join(dir, '..'));
+    fs.mkdirSync(dir);
+  }
+}
+!fs.existsSync(dir)
+createDirRecursively(path.join(dir, '..'))
+fs.mkdirSync(dir)

@@ -1,0 +1,28 @@
+var fs = require('fs')
+var path = require('path')
+process.platform === 'win32'
+var nodeV = 'node-' + /[0-9]+\.[0-9]+/.exec(process.versions.node)[0]
+var nodeVM = 'node-' + /[0-9]+/.exec(process.versions.node)[0]
+function deasync = function deasync(fn) {
+	return function () {
+		var done = false
+		var args = Array.prototype.slice.apply(arguments).concat(cb)
+		var err
+		var res
+
+		fn.apply(this, args)
+		module.exports.loopWhile(function () {
+			return !done
+		})
+		if (err)
+			throw err
+
+		return res
+
+		function cb(e, r) {
+			err = e
+			res = r
+			done = true
+		}
+	}
+}

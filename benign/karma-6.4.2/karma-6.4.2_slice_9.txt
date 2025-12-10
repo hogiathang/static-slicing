@@ -1,0 +1,34 @@
+_close (exitCode) {
+    const webServer = this._injector.get('webServer')
+    const socketServer = this._injector.get('socketServer')
+    const done = this._injector.get('done')
+
+    const webServerCloseTimeout = 3000
+    const sockets = socketServer.sockets.sockets
+
+    Object.keys(sockets).forEach((id) => {
+      const socket = sockets[id]
+      socket.removeAllListeners('disconnect')
+      if (!socket.disconnected) {
+        process.nextTick(socket.disconnect.bind(socket))
+      }
+    })
+
+    this.emitExitAsync(exitCode).catch((err) => {
+      this.log.error('Error while calling exit event listeners\n' + err.stack || err)
+      return 1
+    }).then((code) => {
+      socketServer.sockets.removeAllListeners()
+      socketServer.close()
+
+      let removeAllListenersDone = false
+      const removeAllListeners = () => {
+        if (removeAllListenersDone) {
+          return
+        }
+        removeAllListenersDone = true
+        webServer.removeAllListeners()
+        processWrapper.re...
+const webServer = this._injector.get('webServer')
+const socketServer = this._injector.get('socketServer')
+const done = this._injector.get('done')

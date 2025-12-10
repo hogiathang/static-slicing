@@ -1,0 +1,41 @@
+ConnectionManager.prototype.onSocketTimeout = function () {
+    var header,
+        request;
+
+    if (this.socket &&
+            (this.state === STATES.CONNECTED ||
+             this.state === STATES.CONNECTED_READ_ONLY)) {
+        header = new jute.protocol.RequestHeader(
+            jute.XID_PING,
+            jute.OP_CODES.PING
+        );
+
+        request = new jute.Request(header, null);
+        this.queue(request);
+
+        // Re-register the timeout handler since it only fired once.
+        this.socket.setTimeout(
+            this.pingTimeout,
+            this.onSocketTimeout.bind(this)
+        );
+    }
+}
+this.socket &&
+            (this.state === STATES.CONNECTED ||
+             this.state === STATES.CONNECTED_READ_ONLY)
+this.state === STATES.CONNECTED ||
+             this.state === STATES.CONNECTED_READ_ONLY
+this.state === STATES.CONNECTED_READ_ONLY
+header = new jute.protocol.RequestHeader(
+            jute.XID_PING,
+            jute.OP_CODES.PING
+        )
+jute.XID_PING
+jute.OP_CODES.PING
+request = new jute.Request(header, null)
+this.queue(request)
+this.socket.setTimeout(
+            this.pingTimeout,
+            this.onSocketTimeout.bind(this)
+        )
+this.pingTimeout

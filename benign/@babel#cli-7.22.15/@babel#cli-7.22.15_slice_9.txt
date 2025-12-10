@@ -1,0 +1,14 @@
+function removeFileDependency = function removeFileDependency(filename, dep) {
+  const deps = depToFiles.get(dep);
+  deps.delete(filename);
+  if (deps.size === 0) {
+    depToFiles.delete(dep);
+    if (!hasStarted) {
+      watchQueue.delete(dep);
+    } else {
+      watcher.unwatch(dep);
+    }
+  }
+}
+const deps = depToFiles.get(dep)
+deps.delete(filename)

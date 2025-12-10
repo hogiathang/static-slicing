@@ -1,0 +1,31 @@
+getInternalClient(client, uri, options) {
+        // TODO(NODE-4144): Remove new variable for type narrowing
+        let internalClient = this[kInternalClient];
+        if (internalClient == null) {
+            const clonedOptions = {};
+            for (const key of [
+                ...Object.getOwnPropertyNames(options),
+                ...Object.getOwnPropertySymbols(options)
+            ]) {
+                if (['autoEncryption', 'minPoolSize', 'servers', 'caseTranslate', 'dbName'].includes(key))
+                    continue;
+                Reflect.set(clonedOptions, key, Reflect.get(options, key));
+            }
+            clonedOptions.minPoolSize = 0;
+            internalClient = new mongo_client_1.MongoClient(uri, clonedOptions);
+            this[kInternalClient] = internalClient;
+            for (const eventName of constants_1.MONGO_CLIENT_EVENTS) {
+                for (const listener of client.listeners(eventName)) {
+                    internalClient.on(eventName, liste...
+let internalClient = this[kInternalClient]
+internalClient == null
+const clonedOptions = {}
+_iterator_0 = <operator>.iterator([
+                ...Object.getOwnPropertyNames(options),
+                ...Object.getOwnPropertySymbols(options)
+            ])
+_tmp_5.push(...Object.getOwnPropertyNames(options))
+_tmp_5.push(...Object.getOwnPropertySymbols(options))
+(_tmp_6 = ['autoEncryption', 'minPoolSize', 'servers', 'caseTranslate', 'dbName']).includes
+continue;
+Reflect.set(clonedOptions, key, Reflect.get(options, key))

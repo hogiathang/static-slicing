@@ -1,0 +1,11 @@
+function getListeners = function getListeners(instance, eventName) {
+	const events = eventsMap.get(instance);
+	if (!events.has(eventName)) {
+		return;
+	}
+
+	return events.get(eventName);
+}
+const events = eventsMap.get(instance)
+!events.has(eventName)
+events.get(eventName)

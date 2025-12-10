@@ -1,0 +1,4 @@
+this.exists(this.root()).pipe((0, rxjs_1.delay)(50), (0, rxjs_1.concatMap)((exists) => (exists ? this.delete(this.root()) : rxjs_1.EMPTY)), (0, rxjs_1.retry)(10), (0, rxjs_1.finalize)(() => {
+            this._currentRoot = null;
+            this._scopedSyncHost = null;
+        }))

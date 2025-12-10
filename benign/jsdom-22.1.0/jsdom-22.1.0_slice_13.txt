@@ -1,0 +1,62 @@
+_fetchExternalScript() {
+    const document = this._ownerDocument;
+    const resourceLoader = document._resourceLoader;
+    const defaultEncoding = whatwgEncoding.labelToName(this.getAttributeNS(null, "charset")) || document._encoding;
+    let request;
+
+    if (!this._canRunScript()) {
+      return;
+    }
+
+    const src = this.getAttributeNS(null, "src");
+    const url = parseURLToResultingURLRecord(src, this._ownerDocument);
+    if (url === null) {
+      return;
+    }
+    const urlString = serializeURL(url);
+
+    const onLoadExternalScript = data => {
+      const { response } = request;
+      let contentType;
+
+      if (response && response.statusCode !== undefined && response.statusCode >= 400) {
+        throw new Error("Status code: " + response.statusCode);
+      }
+
+      if (response) {
+        contentType = MIMEType.parse(response.headers["content-type"]) || new MIMEType("text/plain");
+      }
+
+      const encoding = whatwgEncoding.getBOMEncoding(data) ||
+        (contentType ...
+const document = this._ownerDocument
+const resourceLoader = document._resourceLoader
+const defaultEncoding = whatwgEncoding.labelToName(this.getAttributeNS(null, "charset")) || document._encoding
+!this._canRunScript()
+const src = this.getAttributeNS(null, "src")
+const url = parseURLToResultingURLRecord(src, this._ownerDocument)
+url === null
+const urlString = serializeURL(url)
+const onLoadExternalScript = data => {
+      const { response } = request;
+      let contentType;
+
+      if (response && response.statusCode !== undefined && response.statusCode >= 400) {
+        throw new Error("Status code: " + response.statusCode);
+      }
+
+      if (response) {
+        contentType = MIMEType.parse(response.headers["content-type"]) || new MIMEType("text/plain");
+      }
+
+      const encoding = whatwgEncoding.getBOMEncoding(data) ||
+        (contentType && whatwgEncoding.labelToName(contentType.parameters.get("charset"))) ||
+        defaultEncoding;
+      const script = whatwgEncoding.decode(data, encoding);
+
+      this._innerEval(script, urlString);
+    }
+request = resourceLoader.fetch(urlString, {
+      element: this,
+      onLoad: onLoadExternalScript
+    })

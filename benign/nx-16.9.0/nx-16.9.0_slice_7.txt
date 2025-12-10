@@ -1,0 +1,38 @@
+function affected = async function affected(command, args, extraTargetDependencies = {}) {
+    perf_hooks_1.performance.mark('code-loading:end');
+    perf_hooks_1.performance.measure('code-loading', 'init-local', 'code-loading:end');
+    (0, workspace_configuration_check_1.workspaceConfigurationCheck)();
+    const nxJson = (0, configuration_1.readNxJson)();
+    const { nxArgs, overrides } = (0, command_line_utils_1.splitArgsIntoNxArgsAndOverrides)(args, 'affected', {
+        printWarnings: command !== 'print-affected' && !args.plain && args.graph !== 'stdout',
+    }, nxJson);
+    if (nxArgs.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    await (0, connect_to_nx_cloud_1.connectToNxCloudIfExplicitlyAsked)(nxArgs);
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true });
+    const projects = await getAffectedGraphNodes(nxArgs, projectGraph);
+    try {
+        switch (command) {
+            case 'graph':
+                logger_1.logger.warn([...
+perf_hooks_1.performance.mark('code-loading:end')
+perf_hooks_1.performance.measure('code-loading', 'init-local', 'code-loading:end')
+(0, workspace_configuration_check_1.workspaceConfigurationCheck)()
+const nxJson = (0, configuration_1.readNxJson)()
+_tmp_4 = (0, command_line_utils_1.splitArgsIntoNxArgsAndOverrides)(args, 'affected', {
+        printWarnings: command !== 'print-affected' && !args.plain && args.graph !== 'stdout',
+    }, nxJson)
+_tmp_3.printWarnings = command !== 'print-affected' && !args.plain && args.graph !== 'stdout'
+nxArgs.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+await (0, connect_to_nx_cloud_1.connectToNxCloudIfExplicitlyAsked)(nxArgs)
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true })
+const projects = await getAffectedGraphNodes(nxArgs, projectGraph)
+"affected"
+const projectsWithTarget = allProjectsWithTarget(projects, nxArgs)
+nxArgs.graph
+const status = await (0, run_command_1.runCommand)(projectsWithTarget, projectGraph, { nxJson }, nxArgs, overrides, null, extraTargetDependencies, { excludeTaskDependencies: false, loadDotEnvFiles: true })
+process.stdin["unref"]
+(_tmp_14 = process.stdin).unref
+process.exit(status)

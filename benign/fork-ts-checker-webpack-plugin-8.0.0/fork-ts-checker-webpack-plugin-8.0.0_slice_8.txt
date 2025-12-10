@@ -1,0 +1,9 @@
+function writeFile = function writeFile(path, data) {
+    if (!exists((0, path_1.dirname)(path))) {
+        createDir((0, path_1.dirname)(path));
+    }
+    memfs_1.fs.writeFileSync(real_file_system_1.realFileSystem.normalizePath(path), data);
+}
+!exists((0, path_1.dirname)(path))
+createDir((0, path_1.dirname)(path))
+memfs_1.fs.writeFileSync(real_file_system_1.realFileSystem.normalizePath(path), data)

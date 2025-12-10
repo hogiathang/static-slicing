@@ -1,0 +1,28 @@
+Client.prototype.clearCallbackQueue = function (socket, error) {
+  var socketId = socket.socketId;
+  var longpolling = socket.longpolling;
+
+  var queue = this.cbqueue.get(socketId);
+  if (!queue) {
+    return;
+  }
+
+  if (!longpolling) {
+    queue.forEach(function (handlers) {
+      var cb = handlers[1];
+      cb(error);
+    });
+  }
+
+  this.cbqueue.delete(socketId);
+}
+var socketId = socket.socketId
+var longpolling = socket.longpolling
+var queue = this.cbqueue.get(socketId)
+!queue
+!longpolling
+queue.forEach(function (handlers) {
+      var cb = handlers[1];
+      cb(error);
+    })
+(_tmp_43 = this.cbqueue).delete

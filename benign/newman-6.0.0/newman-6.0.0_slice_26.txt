@@ -1,0 +1,52 @@
+_.forEach(assertions, function (assertion) {
+                        var errorName = _.get(assertion, 'error.name', 'AssertionError');
+
+                        !assertion && (assertion = {});
+
+                        // store the legacy assertion index
+                        assertion.index && (legacyAssertionIndices[cursor.ref] = assertion.index);
+
+                        emitter.emit('assertion', (assertion.passed ? null : {
+                            name: errorName,
+                            index: assertion.index,
+                            test: assertion.name,
+                            message: _.get(assertion, 'error.message', assertion.name || ''),
+
+                            stack: errorName + ': ' + _.get(assertion, 'error.message', '') + '\n' +
+                                '   at Object.eval sandbox-script.js:' + (assertion.index + 1) + ':' +
+                                ((cursor && cursor.position || 0) + 1) + ')'
+                        }), {
+            ...
+var errorName = _.get(assertion, 'error.name', 'AssertionError')
+!assertion && (assertion = {})
+assertion.index && (legacyAssertionIndices[cursor.ref] = assertion.index)
+emitter.emit('assertion', (assertion.passed ? null : {
+                            name: errorName,
+                            index: assertion.index,
+                            test: assertion.name,
+                            message: _.get(assertion, 'error.message', assertion.name || ''),
+
+                            stack: errorName + ': ' + _.get(assertion, 'error.message', '') + '\n' +
+                                '   at Object.eval sandbox-script.js:' + (assertion.index + 1) + ':' +
+                                ((cursor && cursor.position || 0) + 1) + ')'
+                        }), {
+                            cursor: cursor,
+                            assertion: assertion.name,
+                            skipped: assertion.skipped,
+                            error: assertion.error,
+                            item: run.resolveCursor(cursor)
+                        })
+_tmp_42.name = errorName
+_tmp_42.index = assertion.index
+_tmp_42.test = assertion.name
+_tmp_42.message = _.get(assertion, 'error.message', assertion.name || '')
+_tmp_42.stack = errorName + ': ' + _.get(assertion, 'error.message', '') + '\n' +
+                                '   at Object.eval sandbox-script.js:' + (assertion.index + 1) + ':' +
+                                ((cursor && cursor.position || 0) + 1) + ')'
+assertion.index + 1
+(cursor && cursor.position || 0) + 1
+_tmp_43.cursor = cursor
+_tmp_43.assertion = assertion.name
+_tmp_43.skipped = assertion.skipped
+_tmp_43.error = assertion.error
+_tmp_43.item = run.resolveCursor(cursor)

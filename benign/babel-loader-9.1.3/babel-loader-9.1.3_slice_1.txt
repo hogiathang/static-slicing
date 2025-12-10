@@ -1,0 +1,17 @@
+const os = require("os")
+const path = require("path")
+const zlib = require("zlib")
+const crypto = require("crypto")
+_tmp_0 = require("util")
+promisify = _tmp_0.promisify
+require("util")
+_tmp_1 = require("fs/promises")
+readFile = _tmp_1.readFile
+writeFile = _tmp_1.writeFile
+mkdir = _tmp_1.mkdir
+require("fs/promises")
+const findCacheDirP = import("find-cache-dir")
+const transform = require("./transform")
+let defaultCacheDirectory = null
+let hashType = "sha256"
+crypto.createHash(hashType)

@@ -1,0 +1,51 @@
+exports.schema = function (schema, options) {
+
+    let obj;
+
+    for (const name in schema._flags) {
+        if (name[0] === '_') {
+            continue;
+        }
+
+        const result = internals.scan(schema._flags[name], { source: 'flags', name }, options);
+        if (result !== undefined) {
+            obj = obj || schema.clone();
+            obj._flags[name] = result;
+        }
+    }
+
+    for (let i = 0; i < schema._rules.length; ++i) {
+        const rule = schema._rules[i];
+        const result = internals.scan(rule.args, { source: 'rules', name: rule.name }, options);
+        if (result !== undefined) {
+            obj = obj || schema.clone();
+            const clone = Object.assign({}, rule);
+            clone.args = result;
+            obj._rules[i] = clone;
+
+            const existingUnique = obj._singleRules.get(rule.name);
+            if (existingUnique === rule) {
+                obj._singleRules.set(rule.name, clone);
+            }
+        }
+    }
+
+    for (const name...
+_iterator_3 = <operator>.iterator(schema._flags)
+name[0] === '_'
+continue;
+const result = internals.scan(schema._flags[name], { source: 'flags', name }, options)
+result !== undefined
+obj = obj || schema.clone()
+obj._flags[name] = result
+i < schema._rules.length
+const rule = schema._rules[i]
+const result = internals.scan(rule.args, { source: 'rules', name: rule.name }, options)
+result !== undefined
+obj = obj || schema.clone()
+const clone = Object.assign({}, rule)
+clone.args = result
+obj._rules[i] = clone
+const existingUnique = obj._singleRules.get(rule.name)
+existingUnique === rule
+obj._singleRules.set(rule.name, clone)

@@ -1,0 +1,68 @@
+(_tmp_819 = adapterFun('putAttachment', function (docId, attachmentId, rev, blob, type) {
+      var api = this;
+      if (typeof type === 'function') {
+        type = blob;
+        blob = rev;
+        rev = null;
+      }
+      // Lets fix in https://github.com/pouchdb/pouchdb/issues/3267
+      /* istanbul ignore if */
+      if (typeof type === 'undefined') {
+        type = blob;
+        blob = rev;
+        rev = null;
+      }
+      if (!type) {
+        guardedConsole('warn', 'Attachment', attachmentId, 'on document', docId, 'is missing content_type');
+      }
+
+      function createAttachment(doc) {
+        var prevrevpos = '_rev' in doc ? parseInt(doc._rev, 10) : 0;
+        doc._attachments = doc._attachments || {};
+        doc._attachments[attachmentId] = {
+          content_type: type,
+          data: blob,
+          revpos: ++prevrevpos
+        };
+        return api.put(doc);
+      }
+
+      return api.get(docId).then(function (doc) {
+        if (doc._rev !== rev) {
+          throw createErro...).bind
+var api = this
+typeof type === 'function'
+type = blob
+blob = rev
+rev = null
+typeof type === 'undefined'
+type = blob
+blob = rev
+rev = null
+!type
+guardedConsole('warn', 'Attachment', attachmentId, 'on document', docId, 'is missing content_type')
+function createAttachment = function createAttachment(doc) {
+        var prevrevpos = '_rev' in doc ? parseInt(doc._rev, 10) : 0;
+        doc._attachments = doc._attachments || {};
+        doc._attachments[attachmentId] = {
+          content_type: type,
+          data: blob,
+          revpos: ++prevrevpos
+        };
+        return api.put(doc);
+      }
+api.get(docId).then(function (doc) {
+        if (doc._rev !== rev) {
+          throw createError(REV_CONFLICT);
+        }
+
+        return createAttachment(doc);
+      }, function (err) {
+        // create new doc
+        /* istanbul ignore else */
+        if (err.reason === MISSING_DOC.message) {
+          return createAttachment({_id: docId});
+        } else {
+          throw err;
+        }
+      })

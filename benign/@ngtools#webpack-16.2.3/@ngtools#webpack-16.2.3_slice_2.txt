@@ -1,0 +1,35 @@
+childCompiler.runAsChild((error, _, childCompilation) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+                else if (!childCompilation) {
+                    reject(new Error('Unknown child compilation error'));
+                    return;
+                }
+                // Workaround to attempt to reduce memory usage of child compilations.
+                // This removes the child compilation from the main compilation and manually propagates
+                // all dependencies, warnings, and errors.
+                const parent = childCompiler.parentCompilation;
+                if (parent) {
+                    parent.children = parent.children.filter((child) => child !== childCompilation);
+                    let fileDependencies;
+                    for (const dependency of childCompilation.fileDependencies) {
+                        // Skip paths that do not appear to be files (have no extension).
+   ...
+!childCompilation
+const parent = childCompiler.parentCompilation
+parent.children = parent.children.filter((child) => child !== childCompilation)
+_iterator_7 = <operator>.iterator(childCompilation.fileDependencies)
+!path.extname(dependency)
+continue;
+data && containingFile && dependency.endsWith(entry)
+parent.fileDependencies.add(containingFile)
+parent.fileDependencies.add(dependency)
+const resolvedFile = (0, paths_1.normalizePath)(dependency)
+const entry = this._reverseDependencies.get(resolvedFile)
+entry.add(filePath)
+this._reverseDependencies.set(resolvedFile, new Set([filePath]))
+fileDependencies.add(dependency)
+fileDependencies = new Set([dependency])
+this._fileDependencies.set(filePath, fileDependencies)

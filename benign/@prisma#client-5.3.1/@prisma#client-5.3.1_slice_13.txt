@@ -1,0 +1,27 @@
+fs6.readlink(src, (err, resolvedSrc) => {
+        if (err)
+          return cb(err);
+        if (opts.dereference) {
+          resolvedSrc = path7.resolve(process.cwd(), resolvedSrc);
+        }
+        if (!destStat) {
+          return fs6.symlink(resolvedSrc, dest, cb);
+        } else {
+          fs6.readlink(dest, (err2, resolvedDest) => {
+            if (err2) {
+              if (err2.code === "EINVAL" || err2.code === "UNKNOWN")
+                return fs6.symlink(resolvedSrc, dest, cb);
+              return cb(err2);
+            }
+            if (opts.dereference) {
+              resolvedDest = path7.resolve(process.cwd(), resolvedDest);
+            }
+            if (stat.isSrcSubdir(resolvedSrc, resolvedDest)) {
+              return cb(new Error(`Cannot copy '${resolvedSrc}' to a subdirectory of itself, '${resolvedDest}'.`));
+            }
+            if (stat.isSrcSubdir(resolvedDest, resolvedSrc)) {
+              return cb(new Error(`Cannot overwrite '${resolvedDest}' with '$...
+opts.dereference
+resolvedSrc = path7.resolve(process.cwd(), resolvedSrc)
+!destStat
+fs6.symlink(resolvedSrc, dest, cb)

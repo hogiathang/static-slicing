@@ -1,0 +1,44 @@
+function getMedian = function getMedian(quorum, results) {
+    let resultWeight = 0;
+    const errorMap = new Map();
+    let bestError = null;
+    const values = [];
+    for (const { value, tag, weight } of results) {
+        if (value instanceof Error) {
+            const e = errorMap.get(tag) || { value, weight: 0 };
+            e.weight += weight;
+            errorMap.set(tag, e);
+            if (bestError == null || e.weight > bestError.weight) {
+                bestError = e;
+            }
+        }
+        else {
+            values.push(BigInt(value));
+            resultWeight += weight;
+        }
+    }
+    if (resultWeight < quorum) {
+        // We have quorum for an error
+        if (bestError && bestError.weight >= quorum) {
+            return bestError.value;
+        }
+        // We do not have quorum for a result
+        return undefined;
+    }
+    // Get the sorted values
+    values.sort((a, b) => ((a < b) ? -1 : (b > a) ? 1 : 0));
+    const mid = Math.floor(values.length / 2);
+    // Odd-le...
+let resultWeight = 0
+const errorMap = new Map()
+let bestError = null
+__ecma.Array.factory()
+_iterator_2 = <operator>.iterator(results)
+value instanceof Error
+const e = errorMap.get(tag) || { value, weight: 0 }
+e.weight += weight
+errorMap.set(tag, e)
+bestError == null || e.weight > bestError.weight
+bestError = e
+values.push(BigInt(value))
+resultWeight += weight

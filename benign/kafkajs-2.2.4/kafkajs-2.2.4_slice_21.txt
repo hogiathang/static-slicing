@@ -1,0 +1,4 @@
+creations = param1_1.creations
+const request = require('./v1/request')
+const response = require('./v1/response')
+_tmp_3.request = request({ creations })

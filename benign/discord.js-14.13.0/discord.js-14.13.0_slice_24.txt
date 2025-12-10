@@ -1,0 +1,5 @@
+force = _tmp_12.force === void 0 ? false : _tmp_12.force
+typeof id === 'object'
+!force
+const existing = this.cache.get(id)
+const command = await this.client.rest.get(this.commandPath({ id, guildId }))

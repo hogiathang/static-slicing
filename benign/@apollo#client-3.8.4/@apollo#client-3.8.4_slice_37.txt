@@ -1,0 +1,14 @@
+OperationBatcher.prototype.scheduleQueueConsumption = function (key) {
+        var _this = this;
+        clearTimeout(this.scheduledBatchTimerByKey.get(key));
+        this.scheduledBatchTimerByKey.set(key, setTimeout(function () {
+            _this.consumeQueue(key);
+            _this.scheduledBatchTimerByKey.delete(key);
+        }, this.batchInterval));
+    }
+var _this = this
+clearTimeout(this.scheduledBatchTimerByKey.get(key))
+this.scheduledBatchTimerByKey.set(key, setTimeout(function () {
+            _this.consumeQueue(key);
+            _this.scheduledBatchTimerByKey.delete(key);
+        }, this.batchInterval))

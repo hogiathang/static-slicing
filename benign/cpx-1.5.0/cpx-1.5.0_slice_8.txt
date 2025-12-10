@@ -1,0 +1,4 @@
+module.exports = function version() {
+    console.log("v" + (get("../package.json") || get("../../package.json")));
+}
+console.log("v" + (get("../package.json") || get("../../package.json")))

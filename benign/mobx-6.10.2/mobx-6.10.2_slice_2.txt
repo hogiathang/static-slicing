@@ -1,0 +1,33 @@
+has(key: K): boolean {
+        if (!globalState.trackingDerivation) {
+            return this.has_(key)
+        }
+
+        let entry = this.hasMap_.get(key)
+        if (!entry) {
+            const newEntry = (entry = new ObservableValue(
+                this.has_(key),
+                referenceEnhancer,
+                __DEV__ ? `${this.name_}.${stringifyKey(key)}?` : "ObservableMap.key?",
+                false
+            ))
+            this.hasMap_.set(key, newEntry)
+            onBecomeUnobserved(newEntry, () => this.hasMap_.delete(key))
+        }
+
+        return entry.get()
+    }
+!globalState.trackingDerivation
+let entry = this.hasMap_.get(key)
+!entry
+const newEntry = (entry = new ObservableValue(
+                this.has_(key),
+                referenceEnhancer,
+                __DEV__ ? `${this.name_}.${stringifyKey(key)}?` : "ObservableMap.key?",
+                false
+            ))
+this.has_(key)
+__DEV__ ? <operator>.formatString("", this.name_, ".", stringifyKey(key), "?") : "ObservableMap.key?"
+this.hasMap_.set(key, newEntry)
+onBecomeUnobserved(newEntry, () => this.hasMap_.delete(key))
+entry.get()

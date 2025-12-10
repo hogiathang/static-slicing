@@ -1,0 +1,2 @@
+module.exports.tarball.file = (spec, dest, opts) =>
+  get(spec, opts).tarballFile(dest)

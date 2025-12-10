@@ -1,0 +1,12 @@
+editSelfConnection(platform, id, data) {
+        return this.requestHandler.request("PATCH", Endpoints.USER_CONNECTION_PLATFORM("@me", platform, id), true, {
+            visibility: data.visibility,
+            friend_sync: data.friendSync
+        });
+    }
+this.requestHandler.request("PATCH", Endpoints.USER_CONNECTION_PLATFORM("@me", platform, id), true, {
+            visibility: data.visibility,
+            friend_sync: data.friendSync
+        })
+_tmp_271.visibility = data.visibility
+_tmp_271.friend_sync = data.friendSync

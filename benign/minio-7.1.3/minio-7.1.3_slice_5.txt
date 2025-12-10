@@ -1,0 +1,53 @@
+function signV4 = function signV4(
+  request: IRequest,
+  accessKey: string,
+  secretKey: string,
+  region: string,
+  requestDate: Date,
+  sha256sum: string,
+  serviceName = 's3',
+) {
+  if (!isObject(request)) {
+    throw new TypeError('request should be of type "object"')
+  }
+  if (!isString(accessKey)) {
+    throw new TypeError('accessKey should be of type "string"')
+  }
+  if (!isString(secretKey)) {
+    throw new TypeError('secretKey should be of type "string"')
+  }
+  if (!isString(region)) {
+    throw new TypeError('region should be of type "string"')
+  }
+
+  if (!accessKey) {
+    throw new errors.AccessKeyRequiredError('accessKey is required for signing')
+  }
+  if (!secretKey) {
+    throw new errors.SecretKeyRequiredError('secretKey is required for signing')
+  }
+
+  const signedHeaders = getSignedHeaders(request.headers)
+  const canonicalRequest = getCanonicalRequest(request.method, request.path, request.headers, signedHeaders, sha256sum)
+  const serviceIdentifier = serviceName || 's3'
+  const str...
+serviceName = serviceName === void 0 ? "s3" : serviceName
+!isObject(request)
+throw new TypeError('request should be of type "object"')
+!isString(accessKey)
+throw new TypeError('accessKey should be of type "string"')
+!isString(secretKey)
+throw new TypeError('secretKey should be of type "string"')
+!isString(region)
+throw new TypeError('region should be of type "string"')
+!accessKey
+throw new errors.AccessKeyRequiredError('accessKey is required for signing')
+!secretKey
+throw new errors.SecretKeyRequiredError('secretKey is required for signing')
+const signedHeaders = getSignedHeaders(request.headers)
+const canonicalRequest = getCanonicalRequest(request.method, request.path, request.headers, signedHeaders, sha256sum)
+const serviceIdentifier = serviceName || 's3'
+const stringToSign = getStringToSign(canonicalRequest, requestDate, region, serviceIdentifier)
+const signingKey = getSigningKey(requestDate, region, secretKey, serviceIdentifier)
+const credential = getCredential(accessKey, region, requestDate, serviceIdentifier)
+const signature = crypto.createHmac('sha256', signingKey).update(stringToSign).digest('hex').toLowerCase()

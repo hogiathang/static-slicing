@@ -1,0 +1,37 @@
+const setFsWatchFileListener = (path, fullPath, options, handlers) => {
+  const {listener, rawEmitter} = handlers;
+  let cont = FsWatchFileInstances.get(fullPath);
+
+  /* eslint-disable no-unused-vars, prefer-destructuring */
+  let listeners = new Set();
+  let rawEmitters = new Set();
+
+  const copts = cont && cont.options;
+  if (copts && (copts.persistent < options.persistent || copts.interval > options.interval)) {
+    // "Upgrade" the watcher to persistence or a quicker interval.
+    // This creates some unlikely edge case issues if the user mixes
+    // settings in a very weird way, but solving for those cases
+    // doesn't seem worthwhile for the added complexity.
+    listeners = cont.listeners;
+    rawEmitters = cont.rawEmitters;
+    fs.unwatchFile(fullPath);
+    cont = undefined;
+  }
+
+  /* eslint-enable no-unused-vars, prefer-destructuring */
+
+  if (cont) {
+    addAndConvert(cont, KEY_LISTENERS, listener);
+    addAndConvert(cont, KEY_RAW, rawEmitter);
+  } else {
+    // TODO
+    // l...
+rawEmitter = _tmp_12.rawEmitter
+let cont = FsWatchFileInstances.get(fullPath)
+let listeners = new Set()
+let rawEmitters = new Set()
+const copts = cont && cont.options
+copts && (copts.persistent < options.persistent || copts.interval > options.interval)
+listeners = cont.listeners
+rawEmitters = cont.rawEmitters
+fs.unwatchFile(fullPath)

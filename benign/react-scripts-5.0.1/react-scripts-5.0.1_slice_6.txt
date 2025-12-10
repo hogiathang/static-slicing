@@ -1,0 +1,30 @@
+process.env.BABEL_ENV = 'development'
+process.env.NODE_ENV = 'development'
+process.on('unhandledRejection', err => {
+  throw err;
+})
+require('../config/env')
+const fs = require('fs')
+const chalk = require('react-dev-utils/chalk')
+const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
+const clearConsole = require('react-dev-utils/clearConsole')
+const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles')
+_tmp_0 = require('react-dev-utils/WebpackDevServerUtils')
+choosePort = _tmp_0.choosePort
+createCompiler = _tmp_0.createCompiler
+prepareProxy = _tmp_0.prepareProxy
+prepareUrls = _tmp_0.prepareUrls
+require('react-dev-utils/WebpackDevServerUtils')
+const openBrowser = require('react-dev-utils/openBrowser')
+const semver = require('semver')
+const paths = require('../config/paths')
+const configFactory = require('../config/webpack.config')
+const createDevServerConfig = require('../config/webpackDevServer.config')
+const getClientEnvironment = require('../config/env')
+const react = require(require.resolve('react', { paths: [paths.appPath] }))
+const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1))
+const useYarn = fs.existsSync(paths.yarnLockFile)
+const isInteractive = process.stdout.isTTY
+!checkRequiredFiles([paths.appHtml, paths.appIndexJs])
+process.exit(1)

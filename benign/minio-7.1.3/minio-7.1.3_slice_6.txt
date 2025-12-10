@@ -1,0 +1,74 @@
+function presignSignatureV4 = function presignSignatureV4(
+  request: IRequest,
+  accessKey: string,
+  secretKey: string,
+  sessionToken: string | undefined,
+  region: string,
+  requestDate: Date,
+  expires: number,
+) {
+  if (!isObject(request)) {
+    throw new TypeError('request should be of type "object"')
+  }
+  if (!isString(accessKey)) {
+    throw new TypeError('accessKey should be of type "string"')
+  }
+  if (!isString(secretKey)) {
+    throw new TypeError('secretKey should be of type "string"')
+  }
+  if (!isString(region)) {
+    throw new TypeError('region should be of type "string"')
+  }
+
+  if (!accessKey) {
+    throw new errors.AccessKeyRequiredError('accessKey is required for presigning')
+  }
+  if (!secretKey) {
+    throw new errors.SecretKeyRequiredError('secretKey is required for presigning')
+  }
+
+  if (!isNumber(expires)) {
+    throw new TypeError('expires should be of type "number"')
+  }
+  if (expires < 1) {
+    throw new errors.ExpiresParamError('expires param cannot be less than 1 seconds')
+  }
+  ...
+!isObject(request)
+throw new TypeError('request should be of type "object"')
+!isString(accessKey)
+throw new TypeError('accessKey should be of type "string"')
+!isString(secretKey)
+throw new TypeError('secretKey should be of type "string"')
+!isString(region)
+throw new TypeError('region should be of type "string"')
+!accessKey
+throw new errors.AccessKeyRequiredError('accessKey is required for presigning')
+!secretKey
+throw new errors.SecretKeyRequiredError('secretKey is required for presigning')
+!isNumber(expires)
+throw new TypeError('expires should be of type "number"')
+expires < 1
+throw new errors.ExpiresParamError('expires param cannot be less than 1 seconds')
+expires > 604800
+throw new errors.ExpiresParamError('expires param cannot be greater than 7 days')
+const iso8601Date = makeDateLong(requestDate)
+const signedHeaders = getSignedHeaders(request.headers)
+const credential = getCredential(accessKey, region, requestDate)
+const hashedPayload = 'UNSIGNED-PAYLOAD'
+const requestQuery: string[] = []
+<operator>.formatString("X-Amz-Algorithm=", signV4Algorithm, "")
+<operator>.formatString("X-Amz-Credential=", uriEscape(credential), "")
+<operator>.formatString("X-Amz-Date=", iso8601Date, "")
+<operator>.formatString("X-Amz-Expires=", expires, "")
+<operator>.formatString("X-Amz-SignedHeaders=", uriEscape(signedHeaders.join(';').toLowerCase()), "")
+<operator>.formatString("X-Amz-Security-Token=", uriEscape(sessionToken), "")
+const resource = request.path.split('?')[0]
+let query = request.path.split('?')[1]
+query = query + '&' + requestQuery.join('&')
+query = requestQuery.join('&')
+const path = resource + '?' + query
+const canonicalRequest = getCanonicalRequest(request.method, path, request.headers, signedHeaders, hashedPayload)
+const stringToSign = getStringToSign(canonicalRequest, requestDate, region)
+const signingKey = getSigningKey(requestDate, region, secretKey)
+const signature = crypto.createHmac('sha256', signingKey).update(stringToSign).digest('hex').toLowerCase()

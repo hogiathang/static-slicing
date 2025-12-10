@@ -1,0 +1,49 @@
+this.encodeTuple = function (value, tupleInfo) {
+    const parts = [];
+    let totalLength = 0;
+    const length = Math.min(tupleInfo.length, value.length);
+
+    for (let i = 0; i < length; i++) {
+      const type = tupleInfo[i];
+      const item = this.encode(value.get(i), type);
+
+      if (!item) {
+        parts.push(nullValueBuffer);
+        totalLength += 4;
+        continue;
+      }
+
+      if (item === types.unset) {
+        parts.push(unsetValueBuffer);
+        totalLength += 4;
+        continue;
+      }
+
+      const lengthBuffer = utils.allocBufferUnsafe(4);
+      lengthBuffer.writeInt32BE(item.length, 0);
+      parts.push(lengthBuffer);
+      parts.push(item);
+      totalLength += item.length + 4;
+    }
+
+    return Buffer.concat(parts, totalLength);
+  }
+__ecma.Array.factory()
+let totalLength = 0
+const length = Math.min(tupleInfo.length, value.length)
+i < length
+const type = tupleInfo[i]
+const item = this.encode(value.get(i), type)
+!item
+parts.push(nullValueBuffer)
+totalLength += 4
+continue;
+item === types.unset
+parts.push(unsetValueBuffer)
+totalLength += 4
+continue;
+const lengthBuffer = utils.allocBufferUnsafe(4)
+lengthBuffer.writeInt32BE(item.length, 0)
+parts.push(lengthBuffer)
+parts.push(item)
+totalLength += item.length + 4

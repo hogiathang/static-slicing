@@ -1,0 +1,4 @@
+function isObjectOfMethodCall = function isObjectOfMethodCall(node) {
+    return _.get(node, 'parent.object') === node && _.get(node, 'parent.parent.type') === 'CallExpression'
+}
+_.get(node, 'parent.object') === node && _.get(node, 'parent.parent.type') === 'CallExpression'

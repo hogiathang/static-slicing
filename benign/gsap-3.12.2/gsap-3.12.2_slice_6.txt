@@ -1,0 +1,27 @@
+var _forceNonZeroScale = function _forceNonZeroScale(e) {
+  // walks up the element's ancestors and finds any that had their scale set to 0 via GSAP, and changes them to 0.0001 to ensure that measurements work. Firefox has a bug that causes it to incorrectly report getBoundingClientRect() when scale is 0.
+  var a, cache;
+
+  while (e && e !== _body) {
+    cache = e._gsap;
+    cache && cache.uncache && cache.get(e, "x"); // force re-parsing of transforms if necessary
+
+    if (cache && !cache.scaleX && !cache.scaleY && cache.renderTransform) {
+      cache.scaleX = cache.scaleY = 1e-4;
+      cache.renderTransform(1, cache);
+      a ? a.push(cache) : a = [cache];
+    }
+
+    e = e.parentNode;
+  }
+
+  return a;
+}
+e && e !== _body
+cache = e._gsap
+cache && cache.uncache && cache.get(e, "x")
+cache && !cache.scaleX && !cache.scaleY && cache.renderTransform
+cache.scaleX = cache.scaleY = 1e-4
+cache.renderTransform(1, cache)
+a ? a.push(cache) : a = [cache]
+e = e.parentNode

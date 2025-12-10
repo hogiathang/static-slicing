@@ -1,0 +1,12 @@
+function createEnd = function createEnd() {
+		end = Stream()
+		end.map(function(value) {
+			if (value === true) {
+				stream._parents.forEach(function (p) {p._unregisterChild(stream)})
+				stream._state = "ended"
+				stream._parents.length = dependentStreams.length = dependentFns.length = 0
+			}
+			return value
+		})
+		return end
+	}

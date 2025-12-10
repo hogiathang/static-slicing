@@ -1,0 +1,47 @@
+(_tmp_46 = function(data) {
+    var opcode = data[0];
+    var i = 0;
+
+    if (opcode === ATT_OP_READ_BY_TYPE_RESP) {
+      var type = data[1];
+      var num = (data.length - 2) / type;
+
+      for (i = 0; i < num; i++) {
+        includedServices.push({
+          endHandle: data.readUInt16LE(2 + i * type + 0),
+          startHandle: data.readUInt16LE(2 + i * type + 2),
+          uuid: (type == 8) ? data.readUInt16LE(2 + i * type + 6).toString(16) : data.slice(2 + i * type + 6).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+        });
+      }
+    }
+
+    if (opcode !== ATT_OP_READ_BY_TYPE_RESP || includedServices[includedServices.length - 1].endHandle === service.endHandle) {
+      var includedServiceUuids = [];
+
+      for (i = 0; i < includedServices.length; i++) {
+        if (uuids.length === 0 || uuids.indexOf(includedServices[i].uuid) !== -1) {
+          includedServiceUuids.push(includedServices[i].uuid);
+        }
+      }
+
+      this.emit('includedServicesDiscover', this._...).bind
+var opcode = data[0]
+var i = 0
+opcode === ATT_OP_READ_BY_TYPE_RESP
+var type = data[1]
+var num = (data.length - 2) / type
+i < num
+includedServices.push({
+          endHandle: data.readUInt16LE(2 + i * type + 0),
+          startHandle: data.readUInt16LE(2 + i * type + 2),
+          uuid: (type == 8) ? data.readUInt16LE(2 + i * type + 6).toString(16) : data.slice(2 + i * type + 6).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+        })
+_tmp_47.endHandle = data.readUInt16LE(2 + i * type + 0)
+_tmp_47.startHandle = data.readUInt16LE(2 + i * type + 2)
+_tmp_47.uuid = type == 8 ? data.readUInt16LE(2 + i * type + 6).toString(16) : data.slice(2 + i * type + 6).slice(0, 16).toString('hex').match(/.{1,2}/g).reverse().join('')
+opcode !== ATT_OP_READ_BY_TYPE_RESP || includedServices[includedServices.length - 1].endHandle === service.endHandle
+var includedServiceUuids = []
+i < includedServices.length
+uuids.length === 0 || uuids.indexOf(includedServices[i].uuid) !== -1
+includedServiceUuids.push(includedServices[i].uuid)
+this.emit('includedServicesDiscover', this._address, service.uuid, includedServiceUuids)

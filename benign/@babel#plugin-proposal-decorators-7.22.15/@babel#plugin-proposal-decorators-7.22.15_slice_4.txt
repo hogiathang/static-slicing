@@ -1,0 +1,3 @@
+_tmp_82.AssignmentExpression = AssignmentExpression
+!WARNING_CALLS.has(path.node.right)
+path.replaceWith(_core.types.callExpression(state.addHelper("initializerDefineProperty"), [_core.types.cloneNode(path.get("left.object").node), _core.types.stringLiteral(path.get("left.property").node.name || path.get("left.property").node.value), _core.types.cloneNode(path.get("right.arguments")[0].node), _core.types.cloneNode(path.get("right.arguments")[1].node)]))

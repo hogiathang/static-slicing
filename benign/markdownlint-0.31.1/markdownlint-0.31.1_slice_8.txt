@@ -1,0 +1,26 @@
+_tmp_13.function = MD051
+_tmp_16 = params.parsers.micromark
+const fragments = new Map()
+const headingTexts = filterByTypes(
+      tokens,
+      [ "atxHeadingText", "setextHeadingText" ]
+    )
+_tmp_18.push("setextHeadingText")
+_iterator_0 = <operator>.iterator(headingTexts)
+const fragment = convertHeadingToHTMLFragment(headingText)
+fragment !== "#"
+const count = fragments.get(fragment) || 0
+<operator>.formatString("", fragment, "-", count, "")
+fragments.set(fragment, count + 1)
+let match = null
+(match = anchorRe.exec(headingText.text)) !== null
+anchor = _tmp_19[1]
+!fragments.has(anchor)
+fragments.set(anchor, 1)
+_iterator_1 = <operator>.iterator(filterByTypes(tokens, [ "htmlText" ]))
+const htmlTagInfo = getHtmlTagInfo(token)
+htmlTagInfo && !htmlTagInfo.close
+const anchorMatch = idRe.exec(token.text) ||
+          (htmlTagInfo.name.toLowerCase() === "a" && nameRe.exec(token.text))
+htmlTagInfo.name.toLowerCase() === "a" && nameRe.exec(token.text)
+<operator>.formatString("#", anchorMatch[1], "")

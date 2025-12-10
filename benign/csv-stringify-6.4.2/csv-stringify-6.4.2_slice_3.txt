@@ -1,0 +1,97 @@
+chunkIsHeader = chunkIsHeader === void 0 ? false : chunkIsHeader
+typeof chunk !== 'object'
+columns = _tmp_7.columns
+__ecma.Array.factory()
+Array.isArray(chunk)
+chunk.splice(columns.length)
+i<chunk.length
+const field = chunk[i]
+_tmp_9 = this.__cast(field, {
+            index: i, column: i, records: this.info.records, header: chunkIsHeader
+          })
+_tmp_8.records = this.info.records
+_tmp_11 = __ecma.Array.factory()
+i<columns.length
+const field = get(chunk, columns[i].key)
+_tmp_13 = this.__cast(field, {
+            index: i, column: columns[i].key, records: this.info.records, header: chunkIsHeader
+          })
+_tmp_12.records = this.info.records
+_tmp_15 = __ecma.Array.factory()
+let csvrecord = ''
+i<record.length
+_tmp_16 = record[i]
+typeof value === "string"
+options = this.options
+is_object(value)
+options = value
+value = options.value
+delete options.value
+typeof value !== "string" && value !== undefined && value !== null
+options = {...this.options, ...options}
+_tmp_19 = normalize_options(options)
+err !== undefined
+value === undefined || value === null
+options = this.options
+<operator>.formatString("Invalid Casting Value: returned value must return a string, an object, null or undefined, got ", JSON.stringify(value), "")
+record_delimiter = _tmp_22.record_delimiter
+'' === value && '' === field
+let quotedMatch = quoted_match && quoted_match.filter(quoted_match => {
+            if(typeof quoted_match === 'string'){
+              return value.indexOf(quoted_match) !== -1;
+            }else{
+              return quoted_match.test(value);
+            }
+          })
+quotedMatch = quotedMatch && quotedMatch.length > 0
+const shouldQuote = quotedMatch || true === quoted_empty ||
+            (true === quoted_string && false !== quoted_empty)
+true === quoted_string && false !== quoted_empty
+shouldQuote === true
+value = quote + value + quote
+csvrecord += value
+typeof value !== 'string'
+const containsdelimiter = delimiter.length && value.indexOf(delimiter) >= 0
+const containsQuote = (quote !== '') && value.indexOf(quote) >= 0
+const containsEscape = value.indexOf(escape) >= 0 && (escape !== quote)
+const containsRecordDelimiter = value.indexOf(record_delimiter) >= 0
+const quotedString = quoted_string && typeof field === 'string'
+let quotedMatch = quoted_match && quoted_match.filter(quoted_match => {
+            if(typeof quoted_match === 'string'){
+              return value.indexOf(quoted_match) !== -1;
+            }else{
+              return quoted_match.test(value);
+            }
+          })
+quotedMatch = quotedMatch && quotedMatch.length > 0
+value[0]
+case '=':
+case '+':
+case '-':
+case '@':
+case '\t':
+case '\r':
+case '\uFF1D':
+case '\uFF0B':
+case '\uFF0D':
+case '\uFF20':
+<operator>.formatString("'", value, "")
+break;
+const shouldQuote = containsQuote === true || containsdelimiter || containsRecordDelimiter || quoted || quotedString || quotedMatch
+shouldQuote === true && containsEscape === true
+const regexp = escape === '\\'
+              ? new RegExp(escape + escape, 'g')
+              : new RegExp(escape, 'g')
+new RegExp(escape + escape, 'g')
+new RegExp(escape, 'g')
+value = value.replace(regexp, escape + escape)
+containsQuote === true
+const regexp = new RegExp(quote,'g')
+value = value.replace(regexp, escape + quote)
+shouldQuote === true
+value = quote + value + quote
+csvrecord += value
+quoted_empty === true || (field === '' && quoted_string === true && quoted_empty !== false)
+csvrecord += quote + quote
+i !== record.length - 1
+csvrecord += delimiter

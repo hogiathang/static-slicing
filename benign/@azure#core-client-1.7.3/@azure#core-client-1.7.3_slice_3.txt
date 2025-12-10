@@ -1,0 +1,40 @@
+function appendQueryParams = function appendQueryParams(url, queryParams, sequenceParams, noOverwrite = false) {
+    if (queryParams.size === 0) {
+        return url;
+    }
+    const parsedUrl = new URL(url);
+    // QUIRK: parsedUrl.searchParams will have their name/value pairs decoded, which
+    // can change their meaning to the server, such as in the case of a SAS signature.
+    // To avoid accidentally un-encoding a query param, we parse the key/values ourselves
+    const combinedParams = simpleParseQueryParams(parsedUrl.search);
+    for (const [name, value] of queryParams) {
+        const existingValue = combinedParams.get(name);
+        if (Array.isArray(existingValue)) {
+            if (Array.isArray(value)) {
+                existingValue.push(...value);
+                const valueSet = new Set(existingValue);
+                combinedParams.set(name, Array.from(valueSet));
+            }
+            else {
+                existingValue.push(value);
+            }
+        }
+        else if (existingValue) ...
+queryParams.size === 0
+const parsedUrl = new URL(url)
+const combinedParams = simpleParseQueryParams(parsedUrl.search)
+_iterator_4 = <operator>.iterator(queryParams)
+const existingValue = combinedParams.get(name)
+Array.isArray(existingValue)
+Array.isArray(value)
+existingValue.push(...value)
+const valueSet = new Set(existingValue)
+combinedParams.set(name, Array.from(valueSet))
+existingValue.push(value)
+Array.isArray(value)
+value.unshift(existingValue)
+sequenceParams.has(name)
+combinedParams.set(name, [existingValue, value])
+!noOverwrite
+combinedParams.set(name, value)
+combinedParams.set(name, value)

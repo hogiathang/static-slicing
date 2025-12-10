@@ -1,0 +1,8 @@
+stream._map = function(fn, ignoreInitial) {
+		var target = ignoreInitial ? Stream() : Stream(fn(value))
+		target._parents.push(stream)
+		dependentStreams.push(target)
+		dependentFns.push(fn)
+		return target
+	}
+var target = ignoreInitial ? Stream() : Stream(fn(value))

@@ -1,0 +1,27 @@
+function handleProjectGraphError = function handleProjectGraphError(opts, e) {
+    if (opts.exitOnError) {
+        const lines = e.message.split('\n');
+        output_1.output.error({
+            title: lines[0],
+            bodyLines: lines.slice(1),
+        });
+        if (process.env.NX_VERBOSE_LOGGING === 'true') {
+            console.error(e);
+        }
+        process.exit(1);
+    }
+    else {
+        throw e;
+    }
+}
+opts.exitOnError
+const lines = e.message.split('\n')
+output_1.output.error({
+            title: lines[0],
+            bodyLines: lines.slice(1),
+        })
+_tmp_10.title = lines[0]
+_tmp_10.bodyLines = lines.slice(1)
+process.env.NX_VERBOSE_LOGGING === 'true'
+console.error(e)
+process.exit(1)

@@ -1,0 +1,34 @@
+addHistory = function(repl, filename, maxSize) {
+    var buffer, fd, lastLine, readFd, size, stat;
+    lastLine = null;
+    try {
+      // Get file info and at most maxSize of command history
+      stat = fs.statSync(filename);
+      size = Math.min(maxSize, stat.size);
+      // Read last `size` bytes from the file
+      readFd = fs.openSync(filename, 'r');
+      buffer = Buffer.alloc(size);
+      fs.readSync(readFd, buffer, 0, size, stat.size - size);
+      fs.closeSync(readFd);
+      // Set the history on the interpreter
+      repl.history = buffer.toString().split('\n').reverse();
+      if (stat.size > maxSize) {
+        // If the history file was truncated we should pop off a potential partial line
+        repl.history.pop();
+      }
+      if (repl.history[0] === '') {
+        // Shift off the final blank newline
+        repl.history.shift();
+      }
+      repl.historyIndex = -1;
+      lastLine = repl.history[0];
+    } catch (error) {}
+    fd = fs.openSync(filename, 'a');
+    re...
+lastLine = null
+stat = fs.statSync(filename)
+size = Math.min(maxSize, stat.size)
+readFd = fs.openSync(filename, 'r')
+buffer = Buffer.alloc(size)
+fs.readSync(readFd, buffer, 0, size, stat.size - size)
+fs.closeSync(readFd)

@@ -1,0 +1,30 @@
+const https = require('https')
+const fs = require('fs')
+const HttpsProxyAgent = require('https-proxy-agent')
+const url = require('url')
+const useCaCertificate = process.argv[6]
+var fileStream = fs.createWriteStream(binaryPath)
+var options = url.parse(httpPath)
+proxyHost && proxyPort
+options.agent = new HttpsProxyAgent({
+    host: proxyHost,
+    port: proxyPort
+  })
+_tmp_1.host = proxyHost
+_tmp_1.port = proxyPort
+options.ca = fs.readFileSync(useCaCertificate)
+console.log("failed to read cert file", err)
+https.get(options, function (response) {
+  response.pipe(fileStream);
+  response.on('error', function(err) {
+    console.error('Got Error in binary download response', err);
+  });
+  fileStream.on('error', function (err) {
+    console.error('Got Error while downloading binary file', err);
+  });
+  fileStream.on('close', function () {
+    console.log('Done');
+  });
+}).on('error', function(err) {
+  console.error('Got Error in binary downloading request', err);
+})

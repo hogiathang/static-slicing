@@ -1,0 +1,17 @@
+call(parser/*, namespace, values, option_string = undefined*/) {
+        let version = this.version
+        if (version === undefined) {
+            version = parser.version
+        }
+        let formatter = parser._get_formatter()
+        formatter.add_text(version)
+        parser._print_message(formatter.format_help(), process.stdout)
+        parser.exit()
+    }
+let version = this.version
+version === undefined
+version = parser.version
+let formatter = parser._get_formatter()
+formatter.add_text(version)
+parser._print_message(formatter.format_help(), process.stdout)
+parser.exit()

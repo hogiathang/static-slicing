@@ -1,0 +1,48 @@
+this._cache.getOrCreate(topLevelType, () => {
+      const toVisit = [{ type: topLevelType }];
+      const visited = /* @__PURE__ */ new Set();
+      let item;
+      while (item = toVisit.shift()) {
+        const { type: currentType } = item;
+        const cached = this._cache.get(currentType);
+        if (cached === true) {
+          this._cacheResultsForTree(item);
+          return true;
+        }
+        if (cached === false) {
+          continue;
+        }
+        if (visited.has(currentType)) {
+          continue;
+        }
+        if (currentType.meta?.source) {
+          this._cache.set(currentType, false);
+          continue;
+        }
+        visited.add(currentType);
+        for (const field of currentType.fields) {
+          for (const fieldType of field.inputTypes) {
+            if (fieldType.location === "fieldRefTypes") {
+              this._cacheResultsForTree(item);
+              return true;
+            }
+            const inputObject = this._dmmf.resolveInputObjectT...
+const toVisit = [{ type: topLevelType }]
+const visited = /* @__PURE__ */ new Set()
+item = toVisit.shift()
+currentType = _tmp_2708.type
+const cached = this._cache.get(currentType)
+cached === true
+cached === false
+continue;
+visited.has(currentType)
+continue;
+currentType.meta.source
+this._cache.set(currentType, false)
+continue;
+visited.add(currentType)
+_iterator_52 = <operator>.iterator(currentType.fields)
+_iterator_53 = <operator>.iterator(field.inputTypes)
+fieldType.location === "fieldRefTypes"
+const inputObject = this._dmmf.resolveInputObjectType(fieldType)
+toVisit.push({ type: inputObject, parent: item })

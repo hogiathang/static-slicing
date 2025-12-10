@@ -1,0 +1,26 @@
+async finalize() {
+    const finalizedPlugins = Object.create(null);
+
+    for await (const [exportName, pluginImpls] of this.loaded.entries()) {
+      if (pluginImpls.length) {
+        const plugin = this.registered.get(exportName);
+        finalizedPlugins[plugin.optionName] =
+          typeof plugin.finalize === 'function'
+            ? await plugin.finalize(pluginImpls)
+            : pluginImpls;
+      }
+    }
+
+    debug('finalized plugins: %O', finalizedPlugins);
+    return finalizedPlugins;
+  }
+const finalizedPlugins = Object.create(null)
+_iterator_0 = <operator>.iterator(this.loaded.entries())
+pluginImpls.length
+const plugin = this.registered.get(exportName)
+finalizedPlugins[plugin.optionName] =
+          typeof plugin.finalize === 'function'
+            ? await plugin.finalize(pluginImpls)
+            : pluginImpls
+typeof plugin.finalize === 'function' ? await plugin.finalize(pluginImpls) : pluginImpls
+await plugin.finalize(pluginImpls)

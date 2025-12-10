@@ -1,0 +1,25 @@
+function file = function file(filepath /*, stat*/) {
+			var x = path.extname(filepath).toLocaleLowerCase(), match,
+					possibleExtensions = [ "", ".html", ".htm", ".xhtml", ".php", ".svg" ];
+			if (hasNoOrigin && (possibleExtensions.indexOf(x) > -1)) {
+				// TODO: Sync file read here is not nice, but we need to determine if the html should be injected or not
+				var contents = fs.readFileSync(filepath, "utf8");
+				for (var i = 0; i < injectCandidates.length; ++i) {
+					match = injectCandidates[i].exec(contents);
+					if (match) {
+						injectTag = match[0];
+						break;
+					}
+				}
+				if (injectTag === null && LiveServer.logLevel >= 3) {
+					console.warn("Failed to inject refresh script!".yellow,
+						"Couldn't find any of the tags ", injectCandidates, "from", filepath);
+				}
+			}
+		}
+(_tmp_5 = path.extname(filepath)).toLocaleLowerCase
+var possibleExtensions = [ "", ".html", ".htm", ".xhtml", ".php", ".svg" ]
+hasNoOrigin && (possibleExtensions.indexOf(x) > -1)
+var contents = fs.readFileSync(filepath, "utf8")
+i < injectCandidates.length
+match = injectCandidates[i].exec(contents)

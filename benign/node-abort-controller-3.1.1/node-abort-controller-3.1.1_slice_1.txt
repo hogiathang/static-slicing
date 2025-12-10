@@ -1,0 +1,12 @@
+dispatchEvent(type) {
+    const event = { type, target: this };
+    const handlerName = `on${type}`;
+
+    if (typeof this[handlerName] === "function") this[handlerName](event);
+
+    this.eventEmitter.emit(type, event);
+  }
+const event = { type, target: this }
+<operator>.formatString("on", type, "")
+typeof this[handlerName] === "function"
+this.eventEmitter.emit(type, event)

@@ -1,0 +1,4 @@
+ModelBase.prototype.escape = function(key) {
+  return _.escape(this.get(key));
+}
+_.escape(this.get(key))

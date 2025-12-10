@@ -1,0 +1,27 @@
+writePendingTests(evt) {
+		for (const [file, testsInFile] of evt.pendingTests) {
+			if (testsInFile.size === 0) {
+				continue;
+			}
+
+			this.lineWriter.writeLine(`${testsInFile.size} tests were pending in ${this.relativeFile(file)}\n`);
+			const testTitleToLogs = evt.pendingTestsLogs.get(file);
+			for (const title of testsInFile) {
+				const logs = testTitleToLogs?.get(title);
+				this.lineWriter.writeLine(`${figures.circleDotted} ${this.prefixTitle(file, title)}`);
+				this.writeLogs({logs});
+			}
+
+			this.lineWriter.writeLine('');
+		}
+	}
+_iterator_0 = <operator>.iterator(evt.pendingTests)
+testsInFile.size === 0
+continue;
+<operator>.formatString("", testsInFile.size, " tests were pending in ", this.relativeFile(file), "\n")
+const testTitleToLogs = evt.pendingTestsLogs.get(file)
+_iterator_1 = <operator>.iterator(testsInFile)
+const logs = testTitleToLogs?.get(title)
+<operator>.formatString("", figures.circleDotted, " ", this.prefixTitle(file, title), "")
+this.writeLogs({logs})
+(_tmp_68 = this.lineWriter).writeLine

@@ -1,0 +1,42 @@
+function _isIconLigature = function _isIconLigature(textVNode) {
+      var differenceThreshold = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : .15;
+      var occurrenceThreshold = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3;
+      var nodeValue = textVNode.actualNode.nodeValue.trim();
+      if (!sanitize_default(nodeValue) || has_unicode_default(nodeValue, {
+        emoji: true,
+        nonBmp: true
+      })) {
+        return false;
+      }
+      var canvasContext = cache_default.get('canvasContext', function() {
+        return document.createElement('canvas').getContext('2d', {
+          willReadFrequently: true
+        });
+      });
+      var canvas = canvasContext.canvas;
+      var fonts = cache_default.get('fonts', function() {
+        return {};
+      });
+      var style = window.getComputedStyle(textVNode.parent.actualNode);
+      var fontFamily = style.getPropertyValue('font-family');
+      if (!fonts[fontFamily]) {
+        fonts[fontFamily] = {
+         ...
+var differenceThreshold = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : .15
+var occurrenceThreshold = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 3
+var nodeValue = textVNode.actualNode.nodeValue.trim()
+!sanitize_default(nodeValue) || has_unicode_default(nodeValue, {
+        emoji: true,
+        nonBmp: true
+      })
+_tmp_413.emoji = true
+_tmp_413.nonBmp = true
+var canvasContext = cache_default.get('canvasContext', function() {
+        return document.createElement('canvas').getContext('2d', {
+          willReadFrequently: true
+        });
+      })
+var canvas = canvasContext.canvas
+var fonts = cache_default.get('fonts', function() {
+        return {};
+      })

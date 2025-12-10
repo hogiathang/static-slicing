@@ -1,0 +1,48 @@
+this.downloadSync = function(conf, destParentDir, retries) {
+    console.log('Downloading in sync');
+    var that = this;
+    if(!this.checkPath(destParentDir))
+      fs.mkdirSync(destParentDir);
+
+    var destBinaryName = (this.windows) ? 'BrowserStackLocal.exe' : 'BrowserStackLocal';
+    var binaryPath = path.join(destParentDir, destBinaryName);
+
+    let cmd, opts;
+    cmd = 'node';
+    opts = [path.join(__dirname, 'download.js'), binaryPath, this.httpPath];
+    if(conf.proxyHost && conf.proxyPort) {
+      opts.push(conf.proxyHost, conf.proxyPort);
+      if (conf.useCaCertificate) {
+        opts.push(conf.useCaCertificate);
+      }
+    } else if (conf.useCaCertificate) {
+      opts.push(undefined, undefined, conf.useCaCertificate);
+    }
+
+    try{
+      const obj = childProcess.spawnSync(cmd, opts);
+      let output;
+      if(obj.stdout.length > 0) {
+        if(fs.existsSync(binaryPath)){
+          fs.chmodSync(binaryPath, '0755');
+          return binaryPath;
+        }else{
+      ...
+console.log('Downloading in sync')
+var that = this
+!this.checkPath(destParentDir)
+fs.mkdirSync(destParentDir)
+var destBinaryName = (this.windows) ? 'BrowserStackLocal.exe' : 'BrowserStackLocal'
+var binaryPath = path.join(destParentDir, destBinaryName)
+cmd = 'node'
+opts = [path.join(__dirname, 'download.js'), binaryPath, this.httpPath]
+conf.proxyHost && conf.proxyPort
+opts.push(conf.proxyHost, conf.proxyPort)
+conf.useCaCertificate
+opts.push(conf.useCaCertificate)
+conf.useCaCertificate
+opts.push(undefined, undefined, conf.useCaCertificate)
+const obj = childProcess.spawnSync(cmd, opts)
+obj.stdout.length > 0
+fs.existsSync(binaryPath)
+fs.chmodSync(binaryPath, '0755')

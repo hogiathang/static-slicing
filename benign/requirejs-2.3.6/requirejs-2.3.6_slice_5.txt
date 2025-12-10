@@ -1,0 +1,339 @@
+function (console, args, readFileFunc) {
+    var fileName, env, fs, vm, path, exec, rhinoContext, dir, nodeRequire,
+        nodeDefine, exists, reqMain, loadedOptimizedLib, existsForNode, Cc, Ci,
+        version = '2.3.6',
+        jsSuffixRegExp = /\.js$/,
+        commandOption = '',
+        useLibLoaded = {},
+        //Used by jslib/rhino/args.js
+        rhinoArgs = args,
+        //Used by jslib/xpconnect/args.js
+        xpconnectArgs = args,
+        readFile = typeof readFileFunc !== 'undefined' ? readFileFunc : null;
+
+    function showHelp() {
+        console.log('See https://github.com/requirejs/r.js for usage.');
+    }
+
+    if (typeof process !== 'undefined' && process.versions && !!process.versions.node) {
+        env = 'node';
+
+        //Get the fs module via Node's require before it
+        //gets replaced. Used in require/node.js
+        fs = require('fs');
+        vm = require('vm');
+        path = require('path');
+        //In Node 0.7+ existsSync is on fs.
+        exists...
+var version = '2.3.6'
+var jsSuffixRegExp = /\.js$/
+var commandOption = ''
+var useLibLoaded = {}
+var rhinoArgs = args
+var xpconnectArgs = args
+var readFile = typeof readFileFunc !== 'undefined' ? readFileFunc : null
+function showHelp = function showHelp() {
+        console.log('See https://github.com/requirejs/r.js for usage.');
+    }
+typeof process !== 'undefined' && process.versions && !!process.versions.node
+env = 'node'
+fs = require('fs')
+vm = require('vm')
+path = require('path')
+existsForNode = fs.existsSync || path.existsSync
+nodeRequire = require
+nodeDefine = define
+reqMain = require.main
+require = undefined
+define = undefined
+readFile = function (path) {
+            return fs.readFileSync(path, 'utf8');
+        }
+exec = function (string, name) {
+            return vm.runInThisContext(this.requirejsVars.require.makeNodeWrapper(string),
+                                       name ? fs.realpathSync(name) : '');
+        }
+exists = function (fileName) {
+            return existsForNode(fileName);
+        }
+fileName = process.argv[2]
+fileName && fileName.indexOf('-') === 0
+commandOption = fileName.substring(1)
+fileName = process.argv[3]
+typeof Packages !== 'undefined'
+env = 'rhino'
+fileName = args[0]
+fileName && fileName.indexOf('-') === 0
+commandOption = fileName.substring(1)
+fileName = args[1]
+typeof importPackage !== 'undefined'
+rhinoContext = Packages.org.mozilla.javascript.ContextFactory.getGlobal().enterContext()
+exec = function (string, name) {
+                return rhinoContext.evaluateString(this, string, name, 0, null);
+            }
+exec = function (string, name) {
+                load({ script: string, name: name});
+            }
+readFile = readFully
+exists = function (fileName) {
+            return (new java.io.File(fileName)).exists();
+        }
+typeof console === 'undefined'
+console = {
+                log: function () {
+                    print.apply(undefined, arguments);
+                }
+            }
+_tmp_2424.log = <lambda>1331
+(typeof navigator !== 'undefined' && typeof document !== 'undefined') ||
+            (typeof importScripts !== 'undefined' && typeof self !== 'undefined')
+typeof importScripts !== 'undefined' && typeof self !== 'undefined'
+env = 'browser'
+readFile = function (path) {
+            return fs.readFileSync(path, 'utf8');
+        }
+exec = function (string) {
+            return eval(string);
+        }
+exists = function () {
+            console.log('x.js exists not applicable in browser env');
+            return false;
+        }
+typeof Components !== 'undefined' && Components.classes && Components.interfaces
+env = 'xpconnect'
+Components.utils['import']('resource://gre/modules/FileUtils.jsm')
+Cc = Components.classes
+Ci = Components.interfaces
+fileName = args[0]
+fileName && fileName.indexOf('-') === 0
+commandOption = fileName.substring(1)
+fileName = args[1]
+xpcUtil = {
+            isWindows: ('@mozilla.org/windows-registry-key;1' in Cc),
+            cwd: function () {
+                return FileUtils.getFile("CurWorkD", []).path;
+            },
+
+            //Remove . and .. from paths, normalize on front slashes
+            normalize: function (path) {
+                //There has to be an easier way to do this.
+                var i, part, ary,
+                    firstChar = path.charAt(0);
+
+                if (firstChar !== '/' &&
+                        firstChar !== '\\' &&
+                        path.indexOf(':') === -1) {
+                    //A relative path. Use the current working directory.
+                    path = xpcUtil.cwd() + '/' + path;
+                }
+
+                ary = path.replace(/\\/g, '/').split('/');
+
+                for (i = 0; i < ary.length; i += 1) {
+                    part = ary[i];
+                    if (part === '.') {
+                        ary.splice(i, 1);
+                        i -= 1;
+  ...
+_tmp_2426.isWindows = '@mozilla.org/windows-registry-key;1' in Cc
+_tmp_2426.cwd = <lambda>1335
+_tmp_2426.normalize = <lambda>1336
+_tmp_2426.xpfile = <lambda>1337
+_tmp_2426.readFile = <lambda>1338
+readFile = xpcUtil.readFile
+exec = function (string) {
+            return eval(string);
+        }
+exists = function (fileName) {
+            return xpcUtil.xpfile(fileName).exists();
+        }
+typeof console === 'undefined'
+console = {
+                log: function () {
+                    print.apply(undefined, arguments);
+                }
+            }
+_tmp_2435.log = <lambda>1341
+function (global, setTimeout) {
+    var req, s, head, baseElement, dataMain, src,
+        interactiveScript, currentlyAddingScript, mainScript, subPath,
+        version = '2.3.6',
+        commentRegExp = /\/\*[\s\S]*?\*\/|([^:"'=]|^)\/\/.*$/mg,
+        cjsRequireRegExp = /[^.]\s*require\s*\(\s*["']([^'"\s]+)["']\s*\)/g,
+        jsSuffixRegExp = /\.js$/,
+        currDirRegExp = /^\.\//,
+        op = Object.prototype,
+        ostring = op.toString,
+        hasOwn = op.hasOwnProperty,
+        isBrowser = !!(typeof window !== 'undefined' && typeof navigator !== 'undefined' && window.document),
+        isWebWorker = !isBrowser && typeof importScripts !== 'undefined',
+        //PS3 indicates loaded and complete, but need to wait for complete
+        //specifically. Sequence is 'loading', 'loaded', execution,
+        // then 'complete'. The UA check is unfortunate, but not sure how
+        //to feature test w/o causing perf issues.
+        readyRegExp = isBrowser && navigator.platform === ...
+typeof setTimeout === 'undefined' ? undefined : setTimeout
+this.requirejsVars = {
+        require: require,
+        requirejs: require,
+        define: define
+    }
+_tmp_2537.require = require
+_tmp_2537.requirejs = require
+_tmp_2537.define = define
+env === 'browser'
+function () {
+    // Separate function to avoid eval pollution, same with arguments use.
+    function exec() {
+        eval(arguments[0]);
+    }
+
+    require.load = function (context, moduleName, url) {
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('GET', url, true);
+        xhr.send();
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                exec(xhr.responseText);
+
+                //Support anonymous modules.
+                context.completeLoad(moduleName);
+            }
+        };
+    };
+}()
+env === 'rhino'
+function () {
+    'use strict';
+    require.load = function (context, moduleName, url) {
+
+        load(url);
+
+        //Support anonymous modules.
+        context.completeLoad(moduleName);
+    };
+
+}()
+env === 'node'
+this.requirejsVars.nodeRequire = nodeRequire
+require.nodeRequire = nodeRequire
+function () {
+    var nodeReq = requirejsVars.nodeRequire,
+        req = requirejsVars.require,
+        def = requirejsVars.define,
+        fs = nodeReq('fs'),
+        path = nodeReq('path'),
+        vm = nodeReq('vm'),
+        //In Node 0.7+ existsSync is on fs.
+        exists = fs.existsSync || path.existsSync,
+        hasOwn = Object.prototype.hasOwnProperty;
+
+    function hasProp(obj, prop) {
+        return hasOwn.call(obj, prop);
+    }
+
+    function syncTick(fn) {
+        fn();
+    }
+
+    function makeError(message, moduleName) {
+        var err = new Error(message);
+        err.requireModules = [moduleName];
+        return err;
+    }
+
+    //Supply an implementation that allows synchronous get of a module.
+    req.get = function (context, moduleName, relModuleMap, localRequire) {
+        if (moduleName === "require" || moduleName === "exports" || moduleName === "module") {
+            context.onError(makeError("Explicit require of " + moduleName + " is not allowed.", moduleName...
+env === 'xpconnect'
+function () {
+    'use strict';
+    require.load = function (context, moduleName, url) {
+
+        load(url);
+
+        //Support anonymous modules.
+        context.completeLoad(moduleName);
+    };
+
+}()
+commandOption !== 'o' && (!fileName || !jsSuffixRegExp.test(fileName))
+fileName = 'main.js'
+function loadLib = function loadLib() {
+        /*jslint strict: false */
+/*global Packages: false, process: false, window: false, navigator: false,
+  document: false, define: false */
+
+/**
+ * A plugin that modifies any /env/ path to be the right path based on
+ * the host environment. Right now only works for Node, Rhino and browser.
+ */
+(function () {
+    var pathRegExp = /(\/|^)env\/|\{env\}/,
+        env = 'unknown';
+
+    if (typeof process !== 'undefined' && process.versions && !!process.versions.node) {
+        env = 'node';
+    } else if (typeof Packages !== 'undefined') {
+        env = 'rhino';
+    } else if ((typeof navigator !== 'undefined' && typeof document !== 'undefined') ||
+            (typeof importScripts !== 'undefined' && typeof self !== 'undefined')) {
+        env = 'browser';
+    } else if (typeof Components !== 'undefined' && Components.classes && Components.interfaces) {
+        env = 'xpconnect';
+    }
+
+    define('env', {
+        get: function () {
+            return env;
+     ...
+function setBaseUrl = function setBaseUrl(fileName) {
+        //Use the file name's directory as the baseUrl if available.
+        dir = fileName.replace(/\\/g, '/');
+        if (dir.indexOf('/') !== -1) {
+            dir = dir.split('/');
+            dir.pop();
+            dir = dir.join('/');
+            //Make sure dir is JS-escaped, since it will be part of a JS string.
+            exec("require({baseUrl: '" + dir.replace(/[\\"']/g, '\\$&') + "'});");
+        }
+    }
+function createRjsApi = function createRjsApi() {
+        //Create a method that will run the optimzer given an object
+        //config.
+        requirejs.optimize = function (config, callback, errback) {
+            if (!loadedOptimizedLib) {
+                loadLib();
+                loadedOptimizedLib = true;
+            }
+
+            //Create the function that will be called once build modules
+            //have been loaded.
+            var runBuild = function (build, logger, quit) {
+                //Make sure config has a log level, and if not,
+                //make it "silent" by default.
+                config.logLevel = config.hasOwnProperty('logLevel') ?
+                                  config.logLevel : logger.SILENT;
+
+                //Reset build internals first in case this is part
+                //of a long-running server process that could have
+                //exceptioned out in a bad state. It is only defined
+                //after the first call though.
+                if (requirej...
+env === 'node' && reqMain !== module
+env === 'browser'
+(env === 'rhino' || env === 'xpconnect') &&
+            //User sets up requirejsAsLib variable to indicate it is loaded
+            //via load() to be used as a library.
+            typeof requirejsAsLib !== 'undefined' && requirejsAsLib
+typeof requirejsAsLib !== 'undefined'
+commandOption === 'o'
+commandOption === 'v'
+commandOption === 'convert'
+commandOption === 'lib'
+loadLib()
+setBaseUrl(fileName)
+exists(fileName)

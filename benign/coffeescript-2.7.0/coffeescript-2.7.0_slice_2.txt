@@ -1,0 +1,30 @@
+findDirectoryIndex = function(source) {
+    var err, ext, i, index, len, ref;
+    ref = CoffeeScript.FILE_EXTENSIONS;
+    for (i = 0, len = ref.length; i < len; i++) {
+      ext = ref[i];
+      index = path.join(source, `index${ext}`);
+      try {
+        if ((fs.statSync(index)).isFile()) {
+          return index;
+        }
+      } catch (error) {
+        err = error;
+        if (err.code !== 'ENOENT') {
+          throw err;
+        }
+      }
+    }
+    console.error(`Missing index.coffee or index.litcoffee in ${source}`);
+    return process.exit(1);
+  }
+ref = CoffeeScript.FILE_EXTENSIONS
+len = ref.length
+ext = ref[i]
+<operator>.formatString("index", ext, "")
+(_tmp_44 = fs.statSync(index)).isFile
+err = error
+err.code !== 'ENOENT'
+throw err;
+<operator>.formatString("Missing index.coffee or index.litcoffee in ", source, "")
+process.exit(1)

@@ -1,0 +1,89 @@
+function test = async function test() {
+		let interval;
+		try {
+			if (+new Date() - startTime > timeoutConnection * second) {
+				exit(
+					`Aborting connection to webdriver after ${timeoutConnection} seconds`
+				);
+			}
+
+			const mochaUrl = url.parse(
+				`http://localhost:${port}/test/mocha.html`,
+				true
+			);
+			delete mochaUrl.search;
+			if (process.env.filter) {
+				mochaUrl.query.grep = process.env.filter;
+				mochaUrl.query.invert = "true";
+			}
+			mochaUrl.query.browser = fullBrowserName;
+			await client.url(url.format(mochaUrl));
+
+			await waitForExist("li.test", 120000);
+			let index = 0;
+			let running = false;
+			interval = setInterval(async function () {
+				if (interval === null || running) {
+					return;
+				}
+				running = true;
+				logE("get h1,h2");
+				const texts = await client.$$("li h1, li h2");
+				if (index === texts.length) {
+					return;
+				}
+				for (let i = index, len = texts.length; i < len; i++) {
+					if (interval === null) {
+						return;
+					}
+					logE("get ...
++new Date() - startTime > timeoutConnection * second
+exit(
+					`Aborting connection to webdriver after ${timeoutConnection} seconds`
+				)
+<operator>.formatString("Aborting connection to webdriver after ", timeoutConnection, " seconds")
+const mochaUrl = url.parse(
+				`http://localhost:${port}/test/mocha.html`,
+				true
+			)
+<operator>.formatString("http://localhost:", port, "/test/mocha.html")
+delete mochaUrl.search
+process.env.filter
+mochaUrl.query.grep = process.env.filter
+mochaUrl.query.invert = "true"
+mochaUrl.query.browser = fullBrowserName
+await client.url(url.format(mochaUrl))
+await waitForExist("li.test", 120000)
+let index = 0
+let running = false
+interval = setInterval(async function () {
+				if (interval === null || running) {
+					return;
+				}
+				running = true;
+				logE("get h1,h2");
+				const texts = await client.$$("li h1, li h2");
+				if (index === texts.length) {
+					return;
+				}
+				for (let i = index, len = texts.length; i < len; i++) {
+					if (interval === null) {
+						return;
+					}
+					logE("get text[i]" + i);
+					const text = await texts[i].getText();
+					console.log(
+						text
+							.replace(/^(.*)\n(.*)$/g, "$2 $1")
+							.replace(/^(.*[^0-9])([0-9]+ms)$/g, "$1 $2")
+					);
+				}
+				index = texts.length;
+				running = false;
+			}, 100)
+100
+await waitForText("#status", 120000)
+await client.pause(5000)
+await waitForExist("li.failures a", 5000)
+const text = await (await client.$("#mocha-stats")).getText()
+clearInterval(interval)

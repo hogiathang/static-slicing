@@ -1,0 +1,38 @@
+function bindAllMethods = function bindAllMethods(target, methods) {
+    if (methods === void 0) { methods = []; }
+    var targetProto = target.prototype;
+    var proto = target.prototype;
+    var boundKeys = [];
+    while (proto && proto !== Object.prototype) {
+        for (var _i = 0, _a = Object.getOwnPropertyNames(proto); _i < _a.length; _i++) {
+            var key = _a[_i];
+            var include = methods.length ? methods.indexOf(key) !== -1 : true;
+            var descriptor = Object.getOwnPropertyDescriptor(proto, key);
+            if (include && key !== 'constructor') {
+                // If this property is a getter and it's NOT an instance decorated
+                // method, ignore it. Instance decorators are getters until first accessed.
+                if (descriptor.get) {
+                    var chainData = factory_1.InstanceChainMap.get([proto, key]);
+                    if (!chainData || !chainData.isMethod) {
+                        continue;
+                    }
+                }
+      ...
+__ecma.Array.factory()
+var targetProto = target.prototype
+var proto = target.prototype
+__ecma.Array.factory()
+proto && proto !== Object.prototype
+var _a = Object.getOwnPropertyNames(proto)
+var key = _a[_i]
+var include = methods.length ? methods.indexOf(key) !== -1 : true
+var descriptor = Object.getOwnPropertyDescriptor(proto, key)
+include && key !== 'constructor'
+descriptor.get
+var chainData = factory_1.InstanceChainMap.get([proto, key])
+!chainData || !chainData.isMethod
+continue;
+isFunction(proto[key]) && boundKeys.indexOf(key) === -1
+Object.defineProperty(targetProto, key, bind_1.Bind(proto, key, descriptor))
+boundKeys.push(key)
+proto = Object.getPrototypeOf(proto)

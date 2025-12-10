@@ -1,0 +1,78 @@
+new Promise((resolve, reject) => {
+        _.defaults(overrides, {
+          onStderrData: false,
+          electronLogging: false
+        });
+        const {
+          onStderrData,
+          electronLogging
+        } = overrides;
+        const envOverrides = util.getEnvOverrides(options);
+        const electronArgs = [];
+        const node11WindowsFix = isPlatform('win32');
+        let startScriptPath;
+        if (options.dev) {
+          executable = 'node';
+          // if we're in dev then reset
+          // the launch cmd to be 'npm run dev'
+          startScriptPath = path.resolve(__dirname, '..', '..', '..', 'scripts', 'start.js'), debug('in dev mode the args became %o', args);
+        }
+        if (!options.dev && verify.needsSandbox()) {
+          electronArgs.push('--no-sandbox');
+        }
+
+        // strip dev out of child process options
+        /**
+         * @type {import('child_process').ForkOptions}
+         */
+        let stdioOptions = _.pick(options, 'env', 'det...
+_.defaults(overrides, {
+          onStderrData: false,
+          electronLogging: false
+        })
+_tmp_13.onStderrData = false
+_tmp_13.electronLogging = false
+_tmp_14 = overrides
+onStderrData = _tmp_14.onStderrData
+electronLogging = _tmp_14.electronLogging
+const envOverrides = util.getEnvOverrides(options)
+const electronArgs = []
+const node11WindowsFix = isPlatform('win32')
+options.dev
+executable = 'node'
+startScriptPath = path.resolve(__dirname, '..', '..', '..', 'scripts', 'start.js')
+!options.dev && verify.needsSandbox()
+electronArgs.push('--no-sandbox')
+let stdioOptions = _.pick(options, 'env', 'detached', 'stdio')
+stdioOptions.env = _.extend({}, stdioOptions.env, envOverrides)
+stdioOptions = _.extend({}, stdioOptions, {
+            windowsHide: false
+          })
+_tmp_17.windowsHide = false
+stdioOptions.env.ELECTRON_ENABLE_LOGGING = true
+util.isPossibleLinuxWithIncorrectDisplay()
+debug('passing DISPLAY', process.env.DISPLAY)
+stdioOptions.env.DISPLAY = process.env.DISPLAY
+stdioOptions.env.ELECTRON_RUN_AS_NODE
+startScriptPath = path.join(state.getBinaryPkgPath(path.dirname(executable)), '..', 'index.js')
+args = [...electronArgs, '--', ...args]
+args.unshift(startScriptPath)
+process.env.CYPRESS_INTERNAL_DEV_DEBUG
+args.unshift(process.env.CYPRESS_INTERNAL_DEV_DEBUG)
+debug('spawn args %o %o', args, _.omit(stdioOptions, 'env'))
+debug('spawning Cypress with executable: %s', executable)
+const child = cp.spawn(executable, args, stdioOptions)
+function resolveOn = function resolveOn(event) {
+          return function (code, signal) {
+            debug('child event fired %o', {
+              event,
+              code,
+              signal
+            });
+            if (code === null) {
+              const errorObject = errors.errors.childProcessKilled(event, signal);
+              return errors.getError(errorObject).then(reject);
+            }
+            resolve(code);
+          };
+        }

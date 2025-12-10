@@ -1,0 +1,75 @@
+Collection.prototype.update = function (doc) {
+      var adaptiveBatchOverride, k, len;
+
+      if (Array.isArray(doc)) {
+        len = doc.length;
+
+        // if not cloning, disable adaptive binary indices for the duration of the batch update,
+        // followed by lazy rebuild and re-enabling adaptive indices after batch update.
+        adaptiveBatchOverride = !this.cloneObjects &&
+          this.adaptiveBinaryIndices && Object.keys(this.binaryIndices).length > 0;
+
+        if (adaptiveBatchOverride) {
+          this.adaptiveBinaryIndices = false;
+        }
+
+        try {
+          for (k = 0; k < len; k += 1) {
+            this.update(doc[k]);
+          }
+        }
+        finally {
+          if (adaptiveBatchOverride) {
+            this.ensureAllIndexes();
+            this.adaptiveBinaryIndices = true;
+          }
+        }
+
+        return;
+      }
+
+      // verify object is a properly formed document
+      if (!hasOwnProperty.call(doc, '$loki')) {
+        throw new Error('Tryin...
+Array.isArray(doc)
+!hasOwnProperty.call(doc, '$loki')
+throw new Error('Trying to update unsynced document. Please save the document first by using insert() or addMany()');
+this.startTransaction()
+var arr = this.get(doc.$loki, true)
+var self = this
+!arr
+throw new Error('Trying to update a document not in collection.');
+oldInternal = arr[0]
+position = arr[1]
+newInternal = this.cloneObjects || (!this.disableDeltaChangesApi && this.disableFreeze) ? clone(doc, this.cloneMethod) : doc
+this.emit('pre-update', doc)
+this.uniqueNames.forEach(function (key) {
+          self.getUniqueIndex(key, true).update(oldInternal, newInternal);
+        })
+this.data[position] = newInternal
+newInternal !== doc
+this.addAutoUpdateObserver(doc)
+idx < this.DynamicViews.length
+this.DynamicViews[idx].evaluateDocument(position, false)
+this.adaptiveBinaryIndices
+var bIndices = this.binaryIndices
+_iterator_12 = <operator>.iterator(bIndices)
+this.adaptiveBinaryIndexUpdate(position, key)
+this.flagBinaryIndexesDirty()
+this.idIndex[position] = newInternal.$loki
+this.isIncremental
+this.dirtyIds.push(newInternal.$loki)
+this.commit()
+this.dirty = true
+this.disableChangesApi
+newInternal = this.updateMeta(newInternal)
+newInternal = this.updateMetaWithChange(newInternal, oldInternal)
+!this.disableFreeze
+deepFreeze(newInternal)
+this.cloneObjects
+returnObj = clone(newInternal, this.cloneMethod)
+returnObj = newInternal
+this.emit('update', returnObj, oldInternal)
+this.rollback()
+this.lokiConsoleWrapper.error(err.message)
+this.emit('error', err)

@@ -1,0 +1,31 @@
+_detach (config, done) {
+    const tmpFile = tmp.fileSync({ keep: true })
+    this.log.info('Starting karma detached')
+    this.log.info('Run "karma stop" to stop the server.')
+    this.log.debug(`Writing config to tmp-file ${tmpFile.name}`)
+    config.detached = false
+    try {
+      fs.writeFileSync(tmpFile.name, JSON.stringify(config), 'utf8')
+    } catch (e) {
+      this.log.error("Couldn't write temporary configuration file")
+      done(1)
+      return
+    }
+    const child = spawn(process.argv[0], [path.resolve(__dirname, '../lib/detached.js'), tmpFile.name], {
+      detached: true,
+      stdio: 'ignore'
+    })
+    child.unref()
+  }
+const tmpFile = tmp.fileSync({ keep: true })
+this.log.info('Starting karma detached')
+this.log.info('Run "karma stop" to stop the server.')
+<operator>.formatString("Writing config to tmp-file ", tmpFile.name, "")
+config.detached = false
+fs.writeFileSync(tmpFile.name, JSON.stringify(config), 'utf8')
+const child = spawn(process.argv[0], [path.resolve(__dirname, '../lib/detached.js'), tmpFile.name], {
+      detached: true,
+      stdio: 'ignore'
+    })
+_tmp_95.detached = true
+_tmp_95.stdio = "ignore"

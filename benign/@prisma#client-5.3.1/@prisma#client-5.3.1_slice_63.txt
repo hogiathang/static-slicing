@@ -1,0 +1,55 @@
+<operator>.formatString("", aggregateTypes.map(buildOutputType).map((type) => stringify(type)).join("\n\n"), "
+
+", aggregateTypes.length > 1 ? aggregateTypes.slice(1).map((type) => {
+      const newType = {
+        name: getAggregateInputType(type.name),
+        constraints: {
+          maxNumFields: null,
+          minNumFields: null
+        },
+        fields: type.fields.map((field) => ({
+          ...field,
+          name: field.name,
+          isNullable: false,
+          isRequired: false,
+          inputTypes: [
+            {
+              isList: false,
+              location: "scalar",
+              type: "true"
+            }
+          ]
+        }))
+      };
+      return new InputType(newType, this.genericsInfo).toTS();
+    }).join("\n") : "", "
+
+export type ", aggregateArgsName, "<ExtArgs extends $Extensions.Args = $Extensions.DefaultArgs> = {
+", (0, import_indent_string4.default)(
+      aggregateRootField.args.map((arg) => {
+        arg.comment = getArgFieldJSDoc(this.type, DMMF.ModelAction.aggregate, arg);
+        return new InputField(arg, this.genericsInfo).toTS();
+      }).concat(
+        aggregateType.fields.map((f) => {
+          let data = "";
+          const comment = getArgFieldJSDoc(this.type, DMMF.ModelAction.aggregate, f.name);
+          data += comment ? wrapComment(comment) + "\n" : "";
+          if (f.name === "_count" || f.name === "count") {
+            data += `${f.name}?: true | ${getCountAggregateInputName(model.name)}`;
+          } else {
+            data += `${f.name}?: ${getAggregateInputType(f.outputType.type)}`;
+          }
+          return data;
+        })
+      ).join("\n"),
+      TAB_SIZE
+    ), "
+}
+
+export type ", getAggregateGetName(model.name), "<T extends ", getAggregateArgsName(model.name), "> = {
+      [P in keyof T & keyof ", aggregateName, "]: P extends '_count' | 'count'
+    ? T[P] extends true
+      ? number
+      : GetScalarType<T[P], ", aggregateName, "[P]>
+    : GetScalarType<T[P], ", aggregateName, "[P]>
+}")

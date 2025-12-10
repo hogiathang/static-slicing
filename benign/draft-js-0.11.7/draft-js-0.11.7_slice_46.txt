@@ -1,0 +1,19 @@
+var mergeBlocks = function mergeBlocks(blockMap, key) {
+  verifyTree(blockMap); // current block must be a non-leaf
+
+  var block = blockMap.get(key);
+  !(block !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must exist in block map') : invariant(false) : void 0;
+  !(block.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must be a non-leaf') : invariant(false) : void 0; // next block must exist & be a non-leaf
+
+  var nextBlockKey = block.getNextSiblingKey();
+  !(nextBlockKey != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must have a next block') : invariant(false) : void 0;
+  var nextBlock = blockMap.get(nextBlockKey);
+  !(nextBlock != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'next block must exist in block map') : invariant(false) : void 0;
+  !(nextBlock.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'next block must be a no...
+verifyTree(blockMap)
+var block = blockMap.get(key)
+!(block !== null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must exist in block map') : invariant(false) : void 0
+!(block.getChildKeys().count() > 0) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must be a non-leaf') : invariant(false) : void 0
+var nextBlockKey = block.getNextSiblingKey()
+!(nextBlockKey != null) ? process.env.NODE_ENV !== "production" ? invariant(false, 'block must have a next block') : invariant(false) : void 0
+var nextBlock = blockMap.get(nextBlockKey)

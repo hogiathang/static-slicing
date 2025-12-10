@@ -1,0 +1,24 @@
+ns.drainQueuedTransitions(microtaskId).forEach(entry => {
+                const player = entry.player;
+                const element = entry.element;
+                allPlayers.push(player);
+                if (this.collectedEnterElements.length) {
+                    const details = element[REMOVAL_FLAG];
+                    // animations for move operations (elements being removed and reinserted,
+                    // e.g. when the order of an *ngFor list changes) are currently not supported
+                    if (details && details.setForMove) {
+                        if (details.previousTriggersValues &&
+                            details.previousTriggersValues.has(entry.triggerName)) {
+                            const previousValue = details.previousTriggersValues.get(entry.triggerName);
+                            // we need to restore the previous trigger value since the element has
+                            // only been moved and hasn't actually left the DOM
+         ...
+const player = entry.player
+const element = entry.element
+allPlayers.push(player)
+this.collectedEnterElements.length
+const details = element[REMOVAL_FLAG]
+details && details.setForMove
+const nodeIsOrphaned = !bodyNode || !this.driver.containsElement(bodyNode, element)
+const leaveClassName = leaveNodeMapIds.get(element)
+const enterClassName = enterNodeMapIds.get(element)

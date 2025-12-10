@@ -1,0 +1,22 @@
+(authResponse) => {
+                    if (authResponse === null || authResponse === void 0 ? void 0 : authResponse.account) {
+                        this.account = msalToPublic(this.clientId, authResponse.account);
+                    }
+                    const successMessage = `Authentication Complete. You can close the browser and return to the application.`;
+                    if (authResponse && authResponse.expiresOn) {
+                        const expiresOnTimestamp = authResponse === null || authResponse === void 0 ? void 0 : authResponse.expiresOn.valueOf();
+                        res.writeHead(200);
+                        res.end(successMessage);
+                        this.logger.getToken.info(formatSuccess(scopes));
+                        resolve({
+                            expiresOnTimestamp,
+                            token: authResponse.accessToken,
+                        });
+                    }
+                    else {
+                        const e...
+authResponse === null || authResponse === void 0 ? void 0 : authResponse.account
+this.account = msalToPublic(this.clientId, authResponse.account)
+const successMessage = `Authentication Complete. You can close the browser and return to the application.`
+authResponse && authResponse.expiresOn
+const errorMessage = formatError(scopes, `${url.searchParams.get("error")}. ${url.searchParams.get("error_description")}`)

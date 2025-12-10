@@ -1,0 +1,35 @@
+var write = function (log, src, type, msg, id, callback) {
+  var cmd;
+
+  if (msg == null) { return };
+  if (msg.trim().length == 0) { return };
+
+  msg = msg.replace(/\r\n|\n\r|\r|\n/g, "\f")
+
+  log = log || 'APPLICATION';
+  log = eventlogs.indexOf(log.toUpperCase()) >= 0 ? log : 'APPLICATION';
+  type = (type || 'INFORMATION').trim().toUpperCase();
+  type = (validtypes.indexOf(type.trim().toUpperCase()) >= 0 ? type : 'INFORMATION').trim().toUpperCase();
+  id = typeof id == 'number' ? (id > 0 ? id : 1000) : 1000;
+  src = (src || 'Unknown Application').trim();
+
+  cmd = "eventcreate /L " + log + " /T " + type + " /SO \"" + src + "\" /D \"" + msg + "\" /ID " + id;
+
+  exec(cmd, function (err) {
+    if (err && err.message.indexOf("Access is Denied")) {
+      wincmd.elevate(cmd, callback);
+    } else if (callback) {
+      callback(err);
+    }
+  });
+}
+msg == null
+msg.trim().length == 0
+msg = msg.replace(/\r\n|\n\r|\r|\n/g, "\f")
+log = log || 'APPLICATION'
+log = eventlogs.indexOf(log.toUpperCase()) >= 0 ? log : 'APPLICATION'
+(_tmp_2 = (type || 'INFORMATION').trim()).toUpperCase
+(_tmp_4 = (validtypes.indexOf(type.trim().toUpperCase()) >= 0 ? type : 'INFORMATION').trim()).toUpperCase
+id = typeof id == 'number' ? (id > 0 ? id : 1000) : 1000
+(_tmp_7 = src || 'Unknown Application').trim
+cmd = "eventcreate /L " + log + " /T " + type + " /SO \"" + src + "\" /D \"" + msg + "\" /ID " + id

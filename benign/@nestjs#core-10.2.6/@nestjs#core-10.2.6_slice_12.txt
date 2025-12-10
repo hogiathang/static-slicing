@@ -1,0 +1,25 @@
+insertEnhancerEdge(entry) {
+        const moduleRef = this.container.getModuleByKey(entry.moduleToken);
+        const sourceInstanceWrapper = moduleRef.controllers.get(entry.classRef) ??
+            moduleRef.providers.get(entry.classRef);
+        const existingSourceNode = this.graph.getNodeById(sourceInstanceWrapper.id);
+        const enhancers = existingSourceNode.metadata.enhancers ?? [];
+        if (entry.enhancerInstanceWrapper) {
+            this.insertClassToClassEdge(sourceInstanceWrapper, entry.enhancerInstanceWrapper, moduleRef, undefined, 'decorator');
+            enhancers.push({
+                id: entry.enhancerInstanceWrapper.id,
+                methodKey: entry.methodKey,
+                subtype: entry.subtype,
+            });
+        }
+        else {
+            const name = entry.enhancerRef.constructor?.name ??
+                entry.enhancerRef.name;
+            enhancers.push({
+                name,
+                methodKey: entry.methodKey,
+                sub...
+const moduleRef = this.container.getModuleByKey(entry.moduleToken)
+const sourceInstanceWrapper = moduleRef.controllers.get(entry.classRef) ??
+            moduleRef.providers.get(entry.classRef)
+moduleRef.providers.get(entry.classRef)

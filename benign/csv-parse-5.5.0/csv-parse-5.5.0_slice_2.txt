@@ -1,0 +1,68 @@
+const parse = function(){
+  let data, options, callback;
+  for(const i in arguments){
+    const argument = arguments[i];
+    const type = typeof argument;
+    if(data === undefined && (typeof argument === 'string' || Buffer.isBuffer(argument))){
+      data = argument;
+    }else if(options === undefined && is_object(argument)){
+      options = argument;
+    }else if(callback === undefined && type === 'function'){
+      callback = argument;
+    }else{
+      throw new CsvError('CSV_INVALID_ARGUMENT', [
+        'Invalid argument:',
+        `got ${JSON.stringify(argument)} at index ${i}`
+      ], options || {});
+    }
+  }
+  const parser = new Parser(options);
+  if(callback){
+    const records = options === undefined || options.objname === undefined ? [] : {};
+    parser.on('readable', function(){
+      let record;
+      while((record = this.read()) !== null){
+        if(options === undefined || options.objname === undefined){
+          records.push(record);
+        }else{
+          records[rec...
+_iterator_0 = <operator>.iterator(arguments)
+const argument = arguments[i]
+const type = typeof argument
+data === undefined && (typeof argument === 'string' || Buffer.isBuffer(argument))
+data = argument
+options === undefined && is_object(argument)
+options = argument
+callback === undefined && type === 'function'
+callback = argument
+throw new CsvError('CSV_INVALID_ARGUMENT', [
+        'Invalid argument:',
+        `got ${JSON.stringify(argument)} at index ${i}`
+      ], options || {});
+_tmp_6.push("Invalid argument:")
+_tmp_6.push(<operator>.formatString("got ", JSON.stringify(argument), " at index ", i, ""))
+options || {}
+const parser = new Parser(options)
+options === undefined || options.objname === undefined ? __ecma.Array.factory() : {}
+parser.on('readable', function(){
+      let record;
+      while((record = this.read()) !== null){
+        if(options === undefined || options.objname === undefined){
+          records.push(record);
+        }else{
+          records[record[0]] = record[1];
+        }
+      }
+    })
+parser.on('error', function(err){
+      callback(err, undefined, parser.api.__infoDataSet());
+    })
+parser.on('end', function(){
+      callback(undefined, records, parser.api.__infoDataSet());
+    })
+data !== undefined
+const writer = function(){
+      parser.write(data);
+      parser.end();
+    }
+typeof setImmediate === 'function'

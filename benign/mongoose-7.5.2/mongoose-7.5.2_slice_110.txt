@@ -1,0 +1,47 @@
+function Mongoose = function Mongoose(options) {
+  this.connections = [];
+  this.nextConnectionId = 0;
+  this.models = {};
+  this.events = new EventEmitter();
+  this.__driver = driver.get();
+  // default global options
+  this.options = Object.assign({
+    pluralization: true,
+    autoIndex: true,
+    autoCreate: true
+  }, options);
+  const createInitialConnection = utils.getOption('createInitialConnection', this.options);
+  if (createInitialConnection == null || createInitialConnection) {
+    const conn = this.createConnection(); // default connection
+    conn.models = this.models;
+  }
+
+  if (this.options.pluralization) {
+    this._pluralize = legacyPluralize;
+  }
+
+  // If a user creates their own Mongoose instance, give them a separate copy
+  // of the `Schema` constructor so they get separate custom types. (gh-6933)
+  if (!options || !options[defaultMongooseSymbol]) {
+    const _this = this;
+    this.Schema = function() {
+      this.base = _this;
+      return Schema.apply(this, arguments);
+    };
+   ...
+__ecma.Array.factory()
+this.nextConnectionId = 0
+this.models = {}
+this.events = new EventEmitter()
+this.__driver = driver.get()
+this.options = Object.assign({
+    pluralization: true,
+    autoIndex: true,
+    autoCreate: true
+  }, options)
+_tmp_2.pluralization = true
+_tmp_2.autoIndex = true
+_tmp_2.autoCreate = true
+const createInitialConnection = utils.getOption('createInitialConnection', this.options)
+createInitialConnection == null || createInitialConnection
+const conn = this.createConnection()

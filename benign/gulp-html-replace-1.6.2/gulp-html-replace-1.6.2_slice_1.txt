@@ -1,0 +1,24 @@
+function () {
+                    var result;
+
+                    while (result = utilExtensions.exec(task.tpl)) {
+                        var type = result[0];
+                        var unique = {};
+
+                        if (task.uni[type]) {
+                            continue;
+                        }
+
+                        unique.regex = new RegExp(result[0], "g");
+                        unique.value = null;
+                        task.uni[type] = unique;
+                    }
+                }
+result = utilExtensions.exec(task.tpl)
+var type = result[0]
+var unique = {}
+task.uni[type]
+continue;
+unique.regex = new RegExp(result[0], "g")
+unique.value = null
+task.uni[type] = unique

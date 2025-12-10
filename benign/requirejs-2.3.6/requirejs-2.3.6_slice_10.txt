@@ -1,0 +1,11 @@
+_tmp_51.saveFile = <lambda>116
+var outFile = new java.io.File(fileName)
+parentDir = outFile.getAbsoluteFile().getParentFile()
+!parentDir.exists()
+!parentDir.mkdirs()
+throw "Could not create directory: " + parentDir.getAbsolutePath();
+outWriter = new java.io.OutputStreamWriter(new java.io.FileOutputStream(outFile), encoding)
+outWriter = new java.io.OutputStreamWriter(new java.io.FileOutputStream(outFile))
+os = new java.io.BufferedWriter(outWriter)
+typeof importPackage !== 'undefined'
+os.write(fileContents)

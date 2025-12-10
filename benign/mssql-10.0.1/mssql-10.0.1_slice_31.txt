@@ -1,0 +1,54 @@
+constructor (config, callback) {
+    super()
+
+    IDS.add(this, 'ConnectionPool')
+    debug('pool(%d): created', IDS.get(this))
+
+    this._connectStack = []
+    this._closeStack = []
+
+    this._connected = false
+    this._connecting = false
+    this._healthy = false
+
+    if (typeof config === 'string') {
+      try {
+        this.config = this.constructor.parseConnectionString(config)
+      } catch (ex) {
+        if (typeof callback === 'function') {
+          return setImmediate(callback, ex)
+        }
+        throw ex
+      }
+    } else {
+      this.config = clone(config)
+    }
+
+    // set defaults
+    this.config.port = this.config.port || 1433
+    this.config.options = this.config.options || {}
+    this.config.stream = this.config.stream || false
+    this.config.parseJSON = this.config.parseJSON || false
+    this.config.arrayRowMode = this.config.arrayRowMode || false
+    this.config.validateConnection = 'validateConnection' in this.config ? this.config.validateConnection : true
+...
+super()
+IDS.add(this, 'ConnectionPool')
+debug('pool(%d): created', IDS.get(this))
+this._connectStack = []
+__ecma.Array.factory()
+this._connected = false
+this._connecting = false
+this._healthy = false
+typeof config === 'string'
+this.config = this.constructor.parseConnectionString(config)
+typeof callback === 'function'
+throw ex
+this.config = clone(config)
+this.config.port = this.config.port || 1433
+this.config.options = this.config.options || {}
+this.config.stream = this.config.stream || false
+this.config.parseJSON = this.config.parseJSON || false
+this.config.arrayRowMode = this.config.arrayRowMode || false
+this.config.validateConnection = 'validateConnection' in this.config ? this.config.validateConnection : true
+const namedServer = /^(.*)\\(.*)$/.exec(this.config.server)

@@ -1,0 +1,35 @@
+wsEvent(packet) {
+        switch(packet.t) { /* eslint-disable no-redeclare */ // (╯°□°）╯︵ ┻━┻
+            case "PRESENCE_UPDATE": {
+                if(packet.d.user.username !== undefined) {
+                    let user = this.client.users.get(packet.d.user.id);
+                    let oldUser = null;
+                    if(user && (user.username !== packet.d.user.username || user.discriminator !== packet.d.user.discriminator || user.avatar !== packet.d.user.avatar)) {
+                        oldUser = {
+                            username: user.username,
+                            discriminator: user.discriminator,
+                            avatar: user.avatar
+                        };
+                    }
+                    if(!user || oldUser) {
+                        user = this.client.users.update(packet.d.user, this.client);
+                        /**
+                        * Fired when a user's avatar, discriminator or username changes
+                        * @ev...
+packet.t
+"MESSAGE_REACTION_REMOVE_ALL"
+const channel = this.client.getChannel(packet.d.channel_id)
+message = channel.messages.get(packet.d.message_id)
+message.reactions = {}
+!message
+message = {
+                        id: packet.d.message_id,
+                        channel: channel || {id: packet.d.channel_id}
+                    }
+_tmp_153.id = packet.d.message_id
+_tmp_153.channel = channel || {id: packet.d.channel_id}
+packet.d.guild_id
+message.guildID = packet.d.guild_id
+!message.channel.guild
+message.channel.guild = {id: packet.d.guild_id}
+this.emit("messageReactionRemoveAll", message)

@@ -1,0 +1,2 @@
+_tmp_106.exit = exit
+get(file, "runtime") === "classic"

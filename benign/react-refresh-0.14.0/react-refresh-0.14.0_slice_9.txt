@@ -1,0 +1,10 @@
+function collectCustomHooksForSignature = function collectCustomHooksForSignature(type) {
+  {
+    var signature = allSignaturesByType.get(type);
+
+    if (signature !== undefined) {
+      computeFullKey(signature);
+    }
+  }
+}
+var signature = allSignaturesByType.get(type)

@@ -1,0 +1,11 @@
+onCanceled = cancel => {
+        if (!request) {
+          return;
+        }
+        reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel);
+        request.abort();
+        request = null;
+      }
+!request
+reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel)
+request.abort()

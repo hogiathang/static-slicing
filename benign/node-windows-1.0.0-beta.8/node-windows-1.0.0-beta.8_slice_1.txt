@@ -1,0 +1,51 @@
+var launch = function (logLevel, msg) {
+  if (forcekill) {
+    log.info("Process killed");
+    return;
+  }
+
+  //log.info('Starting '+argv.f);
+  if (logLevel && msg) {
+    log[logLevel](msg);
+  }
+
+  // Set the start time if it's null
+  if (startTime == null) {
+    startTime = startTime || new Date();
+    setTimeout(function () {
+      startTime = null;
+      starts = 0;
+    }, (max * 1000) + 1);
+  }
+  starts += 1;
+
+  // Fork the child process
+  var opts = { env: process.env };
+  var args = [];
+  if (argv.d) opts.cwd = argv.d;
+  if (argv.s) opts.detached = true;
+  if (argv.scriptoptions) args = argv.scriptoptions.split(' ');
+  child = fork(script, args, opts);
+
+  // When the child dies, attempt to restart based on configuration
+  child.on('exit', function (code) {
+    log.warn(argv.f + ' stopped running.');
+
+    // If an error is thrown and the process is configured to exit, then kill the parent.
+    if (code !== 0 && argv.a == "yes") {
+      log.error(argv.f + ' exited with error code ' ...
+logLevel && msg
+log[logLevel](msg)
+startTime == null
+startTime = startTime || new Date()
+setTimeout(function () {
+      startTime = null;
+      starts = 0;
+    }, (max * 1000) + 1)
+(max * 1000) + 1
+starts += 1
+var opts = { env: process.env }
+__ecma.Array.factory()
+opts.cwd = argv.d
+opts.detached = true
+args = argv.scriptoptions.split(' ')

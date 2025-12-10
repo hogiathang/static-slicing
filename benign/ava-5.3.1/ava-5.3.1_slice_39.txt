@@ -1,0 +1,364 @@
+function loadCli = async function loadCli() { // eslint-disable-line complexity
+	let conf;
+	let confError;
+	try {
+		const {argv: {config: configFile}} = yargs(hideBin(process.argv)).help(false).version(false);
+		const loaded = await loadConfig({configFile});
+		if (loaded.unsupportedFiles.length > 0) {
+			console.log(chalk.magenta(
+				`  ${figures.warning} AVA does not support JSON config, ignoring:\n\n    ${loaded.unsupportedFiles.join('\n    ')}`,
+			));
+		}
+
+		conf = loaded.config;
+		if (conf.configFile && path.basename(conf.configFile) !== path.relative(conf.projectDir, conf.configFile)) {
+			console.log(chalk.magenta(`  ${figures.warning} Using configuration from ${conf.configFile}`));
+		}
+	} catch (error) {
+		confError = error;
+	}
+
+	// Enter debug mode if the main process is being inspected. This assumes the
+	// worker processes are automatically inspected, too. It is not necessary to
+	// run AVA with the debug command, though it's allowed.
+	let activeInspector = false;
+	try {
+		const {default: ...
+_tmp_14 = yargs(hideBin(process.argv)).help(false).version(false)
+const loaded = await loadConfig({configFile})
+loaded.unsupportedFiles.length > 0
+console.log(chalk.magenta(
+				`  ${figures.warning} AVA does not support JSON config, ignoring:\n\n    ${loaded.unsupportedFiles.join('\n    ')}`,
+			))
+<operator>.formatString("  ", figures.warning, " AVA does not support JSON config, ignoring:\n\n    ", loaded.unsupportedFiles.join('\n    '), "")
+conf = loaded.config
+conf.configFile && path.basename(conf.configFile) !== path.relative(conf.projectDir, conf.configFile)
+<operator>.formatString("  ", figures.warning, " Using configuration from ", conf.configFile, "")
+confError = error
+let activeInspector = false
+_tmp_18 = await import('node:inspector')
+activeInspector = inspector.url() !== undefined
+let debug = activeInspector
+		? {
+			active: true,
+			break: false,
+			files: [],
+			host: undefined,
+			port: undefined,
+		} : null
+_tmp_19.active = true
+_tmp_19.break = false
+_tmp_19.files = __ecma.Array.factory()
+_tmp_19.host = undefined
+_tmp_19.port = undefined
+let resetCache = false
+(_tmp_21 = yargs(hideBin(process.argv))
+		.scriptName('ava')
+		.version(pkg.version)
+		.parserConfiguration({
+			'boolean-negation': true,
+			'camel-case-expansion': false,
+			'combine-arrays': false,
+			'dot-notation': false,
+			'duplicate-arguments-array': true,
+			'flatten-duplicate-arrays': true,
+			'negation-prefix': 'no-',
+			'parse-numbers': true,
+			'populate--': true,
+			'set-placeholder-key': false,
+			'short-option-groups': true,
+			'strip-aliased': true,
+			'unknown-options-as-args': false,
+		})
+		.usage('$0 [<pattern>...]')
+		.usage('$0 debug [<pattern>...]')
+		.usage('$0 reset-cache')
+		.options({
+			color: {
+				description: 'Force color output',
+				type: 'boolean',
+			},
+			config: {
+				description: 'Specific JavaScript file for AVA to read its config from, instead of using package.json or ava.config.* files',
+			},
+		})
+		.command('* [<pattern>...]', 'Run tests', yargs => yargs.options(FLAGS).positional('pattern', {
+			array: true,
+			describe: 'Select which test files to ru...).example
+"ava"
+pkg.version
+parserConfiguration
+_tmp_34.boolean-negation = true
+_tmp_34.camel-case-expansion = false
+_tmp_34.combine-arrays = false
+_tmp_34.dot-notation = false
+_tmp_34.duplicate-arguments-array = true
+_tmp_34.flatten-duplicate-arrays = true
+_tmp_34.negation-prefix = "no-"
+_tmp_34.parse-numbers = true
+_tmp_34.populate-- = true
+_tmp_34.set-placeholder-key = false
+_tmp_34.short-option-groups = true
+_tmp_34.strip-aliased = true
+_tmp_34.unknown-options-as-args = false
+"$0 [<pattern>...]"
+"$0 debug [<pattern>...]"
+"$0 reset-cache"
+options
+_tmp_35.color = {
+				description: 'Force color output',
+				type: 'boolean',
+			}
+_tmp_36.description = "Force color output"
+_tmp_36.type = "boolean"
+_tmp_35.config = {
+				description: 'Specific JavaScript file for AVA to read its config from, instead of using package.json or ava.config.* files',
+			}
+_tmp_37.description = "Specific JavaScript file for AVA to read its config from, instead of using package.json or ava.config.* files"
+yargs.options(FLAGS).positional('pattern', {
+			array: true,
+			describe: 'Select which test files to run. Leave empty if you want AVA to run all test files as per your configuration. Accepts glob patterns, directories that (recursively) contain test files, and file paths optionally suffixed with a colon and comma-separated numbers and/or ranges identifying the 1-based line(s) of specific tests to run',
+			type: 'string',
+		})
+<lambda>2
+command
+"debug [<pattern>...]"
+"Activate Node.js inspector and run a single test file"
+yargs.options(FLAGS).options({
+				break: {
+					description: 'Break before the test file is loaded',
+					type: 'boolean',
+				},
+				host: {
+					default: '127.0.0.1',
+					description: 'Address or hostname through which you can connect to the inspector',
+					type: 'string',
+				},
+				port: {
+					default: 9229,
+					description: 'Port on which you can connect to the inspector',
+					type: 'number',
+				},
+			}).positional('pattern', {
+				demand: true,
+				describe: 'Glob pattern to select a single test file to debug, optionally suffixed with a colon and comma-separated numbers and/or ranges identifying the 1-based line(s) of specific tests to run',
+				type: 'string',
+			})
+<lambda>4
+command
+"reset-cache"
+"Delete any temporary files and state kept by AVA, then exit"
+<lambda>5
+<lambda>6
+"$0"
+"$0 test.js"
+"$0 test.js:4,7-9"
+help
+const combined = {...conf}
+_iterator_0 = <operator>.iterator(Object.keys(FLAGS))
+flag === 'no-worker-threads' && Reflect.has(argv, 'worker-threads')
+combined.workerThreads = argv['worker-threads']
+continue;
+argv[flag] !== undefined
+flag === 'fail-fast'
+combined.failFast = argv[flag]
+flag === 'update-snapshots'
+combined.updateSnapshots = argv[flag]
+flag !== 'node-arguments'
+combined[flag] = argv[flag]
+const chalkOptions = {level: 0}
+combined.color !== false
+_tmp_51 = await import('chalk')
+chalkOptions.level = level
+_tmp_53 = await import('./chalk.js')
+setChalk(chalkOptions)
+confError.cause
+<operator>.formatString("", confError.message, "\n\n", chalk.gray(confError.cause?.stack ?? confError.cause), "")
+exit(confError.message)
+experiments = _tmp_54.nonSemVerExperiments
+const cacheDir = path.join(projectDir, 'node_modules', '.cache', 'ava')
+entries = fs.readdirSync(cacheDir)
+error.code === 'ENOENT'
+__ecma.Array.factory()
+throw error;
+_iterator_1 = <operator>.iterator(entries)
+fs.rmSync(path.join(cacheDir, entry), {recursive: true, force: true})
+entries.length === 0
+<operator>.formatString("\n", chalk.green(figures.tick), " No cache files to remove")
+<operator>.formatString("\n", chalk.green(figures.tick), " Removed AVA cache files in ", cacheDir, "")
+process.exit(0)
+<operator>.formatString("Error removing AVA cache files in ", cacheDir, "\n\n", chalk.gray((error && error.stack) || error), "")
+argv.watch
+argv.tap && !conf.tap
+exit('The TAP reporter is not available when using watch mode.')
+exit('Watch mode is not available in CI, as it prevents AVA from terminating.')
+debug !== null
+exit('Watch mode is not available when debugging.')
+debug !== null
+argv.tap && !conf.tap
+exit('The TAP reporter is not available when debugging.')
+exit('Debugging is not available in CI.')
+combined.timeout
+console.log(chalk.magenta(`  ${figures.warning} The timeout option has been disabled to help with debugging.`))
+Reflect.has(combined, 'concurrency') && (!Number.isInteger(combined.concurrency) || combined.concurrency < 0)
+exit('The --concurrency or -c flag must be provided with a nonnegative integer.')
+!combined.tap && Object.keys(experiments).length > 0
+console.log(chalk.magenta(`  ${figures.warning} Experiments are enabled. These are unsupported and may change or be removed at any time.`))
+Reflect.has(conf, 'babel')
+exit('Built-in Babel support has been removed.')
+Reflect.has(conf, 'compileEnhancements')
+exit('Enhancement compilation must be configured in AVA’s Babel options.')
+Reflect.has(conf, 'helpers')
+exit('AVA no longer compiles helpers. Add exclusion patterns to the ’files’ configuration and specify ’compileAsTests’ in the Babel options instead.')
+Reflect.has(conf, 'sources')
+exit('’sources’ has been removed. Use ’ignoredByWatcher’ to provide glob patterns of files that the watcher should ignore.')
+Reflect.has(conf, 'sortTestFiles') && typeof conf.sortTestFiles !== 'function'
+exit('’sortTestFiles’ must be a comparator function.')
+projectPackageObject = JSON.parse(fs.readFileSync(path.resolve(projectDir, 'package.json')))
+error.code !== 'ENOENT'
+throw error;
+defaultModuleType = _tmp_57.type === void 0 ? "commonjs" : _tmp_57.type
+__ecma.Array.factory()
+Reflect.has(conf, 'typescript')
+_tmp_58 = await providerManager.typescript(projectDir)
+providers.push({
+				level,
+				main: main({config: conf.typescript}),
+				type: 'typescript',
+			})
+_tmp_59.level = level
+_tmp_59.main = main({config: conf.typescript})
+_tmp_59.type = "typescript"
+exit(error.message)
+environmentVariables = validateEnvironmentVariables(conf.environmentVariables)
+exit(error.message)
+extensions = normalizeExtensions(conf.extensions, providers)
+exit(error.message)
+moduleTypes = normalizeModuleTypes(conf.extensions, defaultModuleType, experiments)
+exit(error.message)
+globs = normalizeGlobs({files: conf.files, ignoredByWatcher: conf.ignoredByWatcher, extensions, providers})
+exit(error.message)
+nodeArguments = normalizeNodeArguments(conf.nodeArguments, argv['node-arguments'])
+exit(error.message)
+let parallelRuns = null
+isCi && ciParallelVars && combined.utilizeParallelBuilds !== false
+currentIndex = _tmp_62.index
+parallelRuns = {currentIndex, totalRuns}
+combined.match === '' ? __ecma.Array.factory() : arrify(combined.match)
+const input = debug ? debug.files : (argv.pattern || [])
+const filter = input
+		.map(pattern => splitPatternAndLineNumbers(pattern))
+		.map(({pattern, ...rest}) => ({
+			pattern: normalizePattern(path.relative(projectDir, path.resolve(process.cwd(), pattern))),
+			...rest,
+		}))
+splitPatternAndLineNumbers(pattern)
+pattern = param1_0.pattern
+const api = new Api({
+		cacheEnabled: combined.cache !== false,
+		chalkOptions,
+		concurrency: combined.concurrency || 0,
+		workerThreads: combined.workerThreads !== false,
+		debug,
+		environmentVariables,
+		experiments,
+		extensions,
+		failFast: combined.failFast,
+		failWithoutAssertions: combined.failWithoutAssertions !== false,
+		globs,
+		match,
+		moduleTypes,
+		nodeArguments,
+		parallelRuns,
+		sortTestFiles: conf.sortTestFiles,
+		projectDir,
+		providers,
+		ranFromCli: true,
+		require: arrify(combined.require),
+		serial: combined.serial,
+		snapshotDir: combined.snapshotDir ? path.resolve(projectDir, combined.snapshotDir) : null,
+		timeout: combined.timeout || '10s',
+		updateSnapshots: combined.updateSnapshots,
+		workerArgv: argv['--'],
+	})
+_tmp_67.cacheEnabled = combined.cache !== false
+_tmp_67.chalkOptions = chalkOptions
+_tmp_67.concurrency = combined.concurrency || 0
+_tmp_67.workerThreads = combined.workerThreads !== false
+_tmp_67.debug = debug
+_tmp_67.environmentVariables = environmentVariables
+_tmp_67.experiments = experiments
+_tmp_67.extensions = extensions
+_tmp_67.failFast = combined.failFast
+_tmp_67.failWithoutAssertions = combined.failWithoutAssertions !== false
+_tmp_67.globs = globs
+_tmp_67.match = match
+_tmp_67.moduleTypes = moduleTypes
+_tmp_67.nodeArguments = nodeArguments
+_tmp_67.parallelRuns = parallelRuns
+_tmp_67.sortTestFiles = conf.sortTestFiles
+_tmp_67.projectDir = projectDir
+_tmp_67.providers = providers
+_tmp_67.ranFromCli = true
+_tmp_67.require = arrify(combined.require)
+_tmp_67.serial = combined.serial
+_tmp_67.snapshotDir = combined.snapshotDir ? path.resolve(projectDir, combined.snapshotDir) : null
+_tmp_67.timeout = combined.timeout || '10s'
+_tmp_67.updateSnapshots = combined.updateSnapshots
+_tmp_67.workerArgv = argv["--"]
+const reporter = combined.tap && !combined.watch && debug === null ? new TapReporter({
+		extensions: globs.extensions,
+		projectDir,
+		reportStream: process.stdout,
+		stdStream: process.stderr,
+	}) : new DefaultReporter({
+		extensions: globs.extensions,
+		projectDir,
+		reportStream: process.stdout,
+		stdStream: process.stderr,
+		watching: combined.watch,
+	})
+_tmp_69.extensions = globs.extensions
+_tmp_69.projectDir = projectDir
+_tmp_69.reportStream = process.stdout
+_tmp_69.stdStream = process.stderr
+new DefaultReporter({
+		extensions: globs.extensions,
+		projectDir,
+		reportStream: process.stdout,
+		stdStream: process.stderr,
+		watching: combined.watch,
+	})
+_tmp_71.extensions = globs.extensions
+_tmp_71.projectDir = projectDir
+_tmp_71.reportStream = process.stdout
+_tmp_71.stdStream = process.stderr
+_tmp_71.watching = combined.watch
+api.on('run', plan => {
+		reporter.startRun(plan);
+
+		if (process.env.AVA_EMIT_RUN_STATUS_OVER_IPC === 'I\'ll find a payphone baby / Take some time to talk to you') {
+			const bufferedSend = controlFlow(process);
+
+			plan.status.on('stateChange', evt => {
+				bufferedSend(evt);
+			});
+		}
+
+		plan.status.on('stateChange', evt => {
+			if (evt.type === 'interrupt') {
+				reporter.endRun();
+				process.exit(1); // eslint-disable-line unicorn/no-process-exit
+			}
+		});
+	})
+combined.watch
+let debugWithoutSpecificFile = false
+api.on('run', plan => {
+			if (debug !== null && plan.files.length !== 1) {
+				debugWithoutSpecificFile = true;
+			}
+		})
+const runStatus = await api.run({filter})
+debugWithoutSpecificFile && !debug.active
+exit('Provide the path to the test file you wish to debug')

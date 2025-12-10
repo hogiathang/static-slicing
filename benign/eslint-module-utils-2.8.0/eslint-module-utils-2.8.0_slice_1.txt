@@ -1,0 +1,32 @@
+exports.fileExistsWithCaseSync = function fileExistsWithCaseSync(filepath, cacheSettings, strict) {
+  // don't care if the FS is case-sensitive
+  if (CASE_SENSITIVE_FS) { return true; }
+
+  // null means it resolved to a builtin
+  if (filepath === null) { return true; }
+  if (filepath.toLowerCase() === process.cwd().toLowerCase() && !strict) { return true; }
+  const parsedPath = path.parse(filepath);
+  const dir = parsedPath.dir;
+
+  let result = fileExistsCache.get(filepath, cacheSettings);
+  if (result != null) { return result; }
+
+  // base case
+  if (dir === '' || parsedPath.root === filepath) {
+    result = true;
+  } else {
+    const filenames = fs.readdirSync(dir);
+    if (filenames.indexOf(parsedPath.base) === -1) {
+      result = false;
+    } else {
+      result = fileExistsWithCaseSync(dir, cacheSettings, strict);
+    }
+  }
+  fileExistsCache.set(filepath, result);
+  return result;
+}
+filepath === null
+filepath.toLowerCase() === process.cwd().toLowerCase() && !strict
+const parsedPath = path.parse(filepath)
+const dir = parsedPath.dir
+let result = fileExistsCache.get(filepath, cacheSettings)

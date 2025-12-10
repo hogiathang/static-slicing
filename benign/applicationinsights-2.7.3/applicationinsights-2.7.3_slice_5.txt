@@ -1,0 +1,20 @@
+Sender.prototype._storeToDiskSync = function (payload) {
+        try {
+            this._logInfo("Checking existence of data storage directory: " + this._tempDir);
+            if (!fs.existsSync(this._tempDir)) {
+                fs.mkdirSync(this._tempDir);
+            }
+            // Make sure permissions are valid
+            FileAccessControl_1.FileAccessControl.applyACLRulesSync(this._tempDir);
+            var dirSize = FileSystemHelper.getShallowDirectorySizeSync(this._tempDir);
+            if (dirSize > this._maxBytesOnDisk) {
+                this._logInfo("Not saving data due to max size limit being met. Directory size in bytes is: " + dirSize);
+                return;
+            }
+            //create file - file name for now is the timestamp, a better approach would be a UUID but that
+            //would require an external dependency
+            var fileName = new Date().getTime() + ".ai.json";
+            var fileFullPath = path.join(this._tempDir, fileN...
+this._logInfo("Checking existence of data storage directory: " + this._tempDir)
+!fs.existsSync(this._tempDir)
+fs.mkdirSync(this._tempDir)

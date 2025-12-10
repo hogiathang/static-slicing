@@ -1,0 +1,66 @@
+_tmp_8.Class = Class
+var buildClassProperty = state.opts.spec ? buildClassPropertySpec : buildClassPropertyNonSpec
+var isDerived = !!path.node.superClass
+var constructor = void 0
+__ecma.Array.factory()
+var body = path.get("body")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)
+_i >= _iterator.length
+_ref4 = _iterator[_i++]
+_i = _iterator.next()
+_i.done
+_ref4 = _i.value
+var _path = _ref4
+_path.isClassProperty()
+props.push(_path)
+_path.isClassMethod({ kind: "constructor" })
+constructor = _path
+!props.length
+__ecma.Array.factory()
+var ref = void 0
+path.isClassExpression() || !path.node.id
+(0, _babelHelperFunctionName2.default)(path)
+ref = path.scope.generateUidIdentifier("class")
+ref = path.node.id
+__ecma.Array.factory()
+var _iterator2 = _isArray2 ? _iterator2 : (0, _getIterator3.default)(_iterator2)
+_i2 >= _iterator2.length
+_ref5 = _iterator2[_i2++]
+_i2 = _iterator2.next()
+_i2.done
+_ref5 = _i2.value
+var _prop = _ref5
+var propNode = _prop.node
+propNode.decorators && propNode.decorators.length > 0
+!state.opts.spec && !propNode.value
+var isStatic = propNode.static
+nodes.push(buildClassProperty(ref, propNode))
+!propNode.value
+instanceBody.push(buildClassProperty(t.thisExpression(), propNode))
+instanceBody.length
+!constructor
+var newConstructor = t.classMethod("constructor", t.identifier("constructor"), [], t.blockStatement([]))
+newConstructor.params = [t.restElement(t.identifier("args"))]
+newConstructor.body.body.push(t.returnStatement(t.callExpression(t.super(), [t.spreadElement(t.identifier("args"))])))
+var _body$unshiftContaine = body.unshiftContainer("body", newConstructor)
+constructor = _body$unshiftContaine[0]
+var collisionState = {
+            collision: false,
+            scope: constructor.scope
+          }
+_tmp_14.collision = false
+_tmp_14.scope = constructor.scope
+var _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3)
+_i3 >= _iterator3.length
+_ref6 = _iterator3[_i3++]
+_i3 = _iterator3.next()
+_i3.done
+_ref6 = _i3.value
+var prop = _ref6
+prop.traverse(referenceVisitor, collisionState)
+collisionState.collision
+collisionState.collision
+var initialisePropsRef = path.scope.generateUidIdentifier("initialiseProps")
+nodes.push(t.variableDeclaration("var", [t.variableDeclarator(initialisePropsRef, t.functionExpression(null, [], t.blockStatement(instanceBody)))]))
+instanceBody = [t.expressionStatement(t.callExpression(t.memberExpression(initialisePropsRef, t.identifier("call")), [t.thisExpression()]))]
+constructor.get("body").unshiftContainer("body", instanceBody)

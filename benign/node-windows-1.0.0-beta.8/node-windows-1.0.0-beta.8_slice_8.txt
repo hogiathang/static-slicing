@@ -1,0 +1,13 @@
+_tmp_44.value = <lambda>10
+this.script == null || this.name == null
+throw Error('Script and Name are required but were not provided.');
+this.exists
+var missing = false
+!fs.existsSync(path.join(this.root, this._exe))
+this.log.warn('The main executable is missing or cannot be found (' + path.join(this.root, this._exe) + ')')
+missing = true
+!fs.existsSync(path.join(this.root, this.id + '.xml'))
+this.log.warn('The primary configuration file is missing or cannot be found (' + path.join(this.root, this.id + '.xml') + ')')
+missing = true
+missing.length > 0
+this.emit('invalidinstallation')

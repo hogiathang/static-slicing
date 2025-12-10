@@ -1,0 +1,23 @@
+isMultiple = isMultiple === void 0 ? false : isMultiple
+typeof isMultiple === 'function'
+cb = isMultiple
+isMultiple = false
+Array.isArray(data)
+typeof data.isMultiple === 'undefined'
+data.isMultiple = isMultiple
+typeof data.substitutionWrappers === 'undefined'
+data.substitutionWrappers = this.substitutionWrappers
+const mail = Mail.create(data)
+const body = mail.toJSON()
+this.filterSecrets(body)
+const request = {
+        method: 'POST',
+        url: '/v3/mail/send',
+        headers: mail.headers,
+        body,
+      }
+_tmp_19.method = "POST"
+_tmp_19.url = "/v3/mail/send"
+_tmp_19.headers = mail.headers
+_tmp_19.body = body
+this.client.request(request, cb)

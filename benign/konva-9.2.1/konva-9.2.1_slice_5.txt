@@ -1,0 +1,14 @@
+clearCache() {
+          if (this._cache.has(CANVAS)) {
+              const { scene, filter, hit } = this._cache.get(CANVAS);
+              Util.releaseCanvas(scene, filter, hit);
+              this._cache.delete(CANVAS);
+          }
+          this._clearSelfAndDescendantCache();
+          this._requestDraw();
+          return this;
+      }
+(_tmp_323 = this._cache).has
+_tmp_325 = this._cache.get(CANVAS)
+Util.releaseCanvas(scene, filter, hit)
+(_tmp_326 = this._cache).delete

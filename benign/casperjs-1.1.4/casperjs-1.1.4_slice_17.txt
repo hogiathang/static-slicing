@@ -1,0 +1,38 @@
+var onNavigationRequested = function onNavigationRequested(url, type, willNavigate, isMainFrame) {
+        casper.log(f('Navigation requested: url=%s, type=%s, willNavigate=%s, isMainFrame=%s',
+                     url, type, willNavigate, isMainFrame), "debug");
+        this.browserInitializing = false;
+        casper.page.switchToMainFrame();
+        if (isMainFrame && casper.requestUrl !== url) {
+            var currentUrl = casper.requestUrl;
+            var newUrl = url;
+            var pos = currentUrl.indexOf('#');
+            if (pos !== -1) {
+                currentUrl = currentUrl.substring(0, pos);
+            }
+            pos = newUrl.indexOf('#');
+            if (pos !== -1) {
+                newUrl = newUrl.substring(0, pos);
+            }
+            // for URLs that are only different by their hash part
+            // or if navigation locked (willNavigate == false)
+            // don't turn navigationRequested to true, because
+            // there will not be loadStarte...
+casper.log(f('Navigation requested: url=%s, type=%s, willNavigate=%s, isMainFrame=%s',
+                     url, type, willNavigate, isMainFrame), "debug")
+"debug"
+this.browserInitializing = false
+(_tmp_11 = casper.page).switchToMainFrame
+isMainFrame && casper.requestUrl !== url
+var currentUrl = casper.requestUrl
+var newUrl = url
+var pos = currentUrl.indexOf('#')
+pos !== -1
+currentUrl = currentUrl.substring(0, pos)
+pos = newUrl.indexOf('#')
+pos !== -1
+newUrl = newUrl.substring(0, pos)
+willNavigate && currentUrl !== newUrl
+casper.navigationRequested = true
+casper.requestUrl = url
+casper.emit('navigation.requested', url, type, willNavigate, isMainFrame)

@@ -1,0 +1,44 @@
+var get = function (value) {
+          var results, hasMembers;
+          if (value == "$") {
+            // Unexpected end of input.
+            abort();
+          }
+          if (typeof value == "string") {
+            if ((charIndexBuggy ? value.charAt(0) : value[0]) == "@") {
+              // Remove the sentinel `@` character.
+              return value.slice(1);
+            }
+            // Parse object and array literals.
+            if (value == "[") {
+              // Parses a JSON array, returning a new JavaScript array.
+              results = [];
+              for (;;) {
+                value = lex();
+                // A closing square bracket marks the end of the array literal.
+                if (value == "]") {
+                  break;
+                }
+                // If the array literal contains elements, the current token
+                // should be a comma separating the previous element from the
+                // next.
+                if (hasMembers) {
+        ...
+value == "$"
+abort()
+typeof value == "string"
+(charIndexBuggy ? value.charAt(0) : value[0]) == "@"
+value == "["
+value == "{"
+results = {}
+value = lex()
+value == "}"
+value == ","
+value = lex()
+value == "}"
+abort()
+abort()
+hasMembers = true
+value == "," || typeof value != "string" || (charIndexBuggy ? value.charAt(0) : value[0]) != "@" || lex() != ":"
+abort()
+results[value.slice(1)] = get(lex())

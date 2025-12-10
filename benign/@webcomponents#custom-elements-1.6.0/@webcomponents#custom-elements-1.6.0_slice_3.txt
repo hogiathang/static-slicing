@@ -1,0 +1,20 @@
+internal_localNameToDefinition(localName) {
+        const existingDefinition = this._localNameToDefinition.get(localName);
+        if (existingDefinition) {
+            return existingDefinition;
+        }
+        const constructorGetter = this._localNameToConstructorGetter.get(localName);
+        if (constructorGetter) {
+            this._localNameToConstructorGetter.delete(localName);
+            try {
+                return this.internal_reifyDefinition(localName, constructorGetter());
+            }
+            catch (e) {
+                this._internals.reportTheException(e);
+            }
+        }
+        return undefined;
+    }
+const existingDefinition = this._localNameToDefinition.get(localName)
+const constructorGetter = this._localNameToConstructorGetter.get(localName)
+(_tmp_36 = this._localNameToConstructorGetter).delete

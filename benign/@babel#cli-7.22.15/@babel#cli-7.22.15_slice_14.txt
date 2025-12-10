@@ -1,0 +1,11 @@
+_fs().readdirSync(path).forEach(function (file) {
+      const curPath = path + "/" + file;
+      if (_fs().lstatSync(curPath).isDirectory()) {
+        deleteDir(curPath);
+      } else {
+        _fs().unlinkSync(curPath);
+      }
+    })
+const curPath = path + "/" + file
+(_tmp_19 = _fs().lstatSync(curPath)).isDirectory
+(_tmp_21 = _fs()).unlinkSync

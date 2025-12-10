@@ -1,0 +1,12 @@
+function linkCategoryValue = function linkCategoryValue(categoryValue, category, definitions) {
+  collectionAdd(category.get('categoryValue'), categoryValue);
+  categoryValue.$parent = category;
+
+  collectionAdd(definitions.get('rootElements'), category);
+  category.$parent = definitions;
+
+  return categoryValue;
+}
+collectionAdd(category.get('categoryValue'), categoryValue)
+categoryValue.$parent = category
+collectionAdd(definitions.get('rootElements'), category)

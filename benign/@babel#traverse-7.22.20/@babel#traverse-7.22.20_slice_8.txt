@@ -1,0 +1,46 @@
+function hoistFunctionEnvironment = function hoistFunctionEnvironment(fnPath, noNewArrows = true, allowInsertArrow = true, allowInsertArrowWithRest = true) {
+  let arrowParent;
+  let thisEnvFn = fnPath.findParent(p => {
+    if (p.isArrowFunctionExpression()) {
+      var _arrowParent;
+      (_arrowParent = arrowParent) != null ? _arrowParent : arrowParent = p;
+      return false;
+    }
+    return p.isFunction() || p.isProgram() || p.isClassProperty({
+      static: false
+    }) || p.isClassPrivateProperty({
+      static: false
+    });
+  });
+  const inConstructor = thisEnvFn.isClassMethod({
+    kind: "constructor"
+  });
+  if (thisEnvFn.isClassProperty() || thisEnvFn.isClassPrivateProperty()) {
+    if (arrowParent) {
+      thisEnvFn = arrowParent;
+    } else if (allowInsertArrow) {
+      fnPath.replaceWith(callExpression(arrowFunctionExpression([], toExpression(fnPath.node)), []));
+      thisEnvFn = fnPath.get("callee");
+      fnPath = thisEnvFn.get("body");
+    } else {
+      throw fnPath.buildCodeFrameError("Unable to t...
+let thisEnvFn = fnPath.findParent(p => {
+    if (p.isArrowFunctionExpression()) {
+      var _arrowParent;
+      (_arrowParent = arrowParent) != null ? _arrowParent : arrowParent = p;
+      return false;
+    }
+    return p.isFunction() || p.isProgram() || p.isClassProperty({
+      static: false
+    }) || p.isClassPrivateProperty({
+      static: false
+    });
+  })
+const inConstructor = thisEnvFn.isClassMethod({
+    kind: "constructor"
+  })
+_tmp_15.kind = "constructor"
+thisEnvFn.isClassProperty() || thisEnvFn.isClassPrivateProperty()
+fnPath.replaceWith(callExpression(arrowFunctionExpression([], toExpression(fnPath.node)), []))
+thisEnvFn = fnPath.get("callee")
+fnPath = thisEnvFn.get("body")

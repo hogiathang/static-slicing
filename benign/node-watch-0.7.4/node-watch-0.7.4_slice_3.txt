@@ -1,0 +1,23 @@
+hasNativeRecursive(function(has) {
+        if (!has) {
+          var fullPath = path.resolve(name);
+          // remove watcher on removal
+          if (!is.exists(name)) {
+            self.close(fullPath);
+          }
+          // watch new created directory
+          else {
+            var shouldWatch = is.directory(name)
+              && !self.watchers[fullPath]
+              && shouldNotSkip(name, info.options.filter);
+
+            if (shouldWatch) {
+              self.watchDirectory(name, info.options);
+            }
+          }
+        }
+      })
+!has
+var fullPath = path.resolve(name)
+!is.exists(name)
+self.close(fullPath)

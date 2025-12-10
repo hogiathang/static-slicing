@@ -1,0 +1,6 @@
+_tmp_2.Function = Function
+const params = path.get("params")
+_iterator_4 = <operator>.iterator(params)
+path.scope.registerBinding("param", param)
+path.isFunctionExpression() && path.has("id") && !path.get("id").node[NOT_LOCAL_BINDING]
+path.scope.registerBinding("local", path.get("id"), path)

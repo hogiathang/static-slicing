@@ -1,0 +1,90 @@
+function search = function search(parts, schema, subdoc, nestedPath) {
+    let p = parts.length + 1;
+    let foundschema;
+    let trypath;
+
+    while (p--) {
+      trypath = parts.slice(0, p).join('.');
+      foundschema = schema.path(trypath);
+      if (foundschema == null) {
+        continue;
+      }
+
+      if (foundschema.caster) {
+        // array of Mixed?
+        if (foundschema.caster instanceof Mixed) {
+          return foundschema.caster;
+        }
+
+        let schemas = null;
+        if (foundschema.schema != null && foundschema.schema.discriminators != null) {
+          const discriminators = foundschema.schema.discriminators;
+          const discriminatorKeyPath = trypath + '.' +
+            foundschema.schema.options.discriminatorKey;
+          const keys = subdoc ? mpath.get(discriminatorKeyPath, subdoc) || [] : [];
+          schemas = Object.keys(discriminators).
+            reduce(function(cur, discriminator) {
+              const tiedValue = discriminators[discriminator].discriminato...
+let p = parts.length + 1
+p--
+trypath = parts.slice(0, p).join('.')
+foundschema = schema.path(trypath)
+foundschema == null
+continue;
+foundschema.caster
+foundschema.caster instanceof Mixed
+let schemas = null
+foundschema.schema != null && foundschema.schema.discriminators != null
+const discriminators = foundschema.schema.discriminators
+const discriminatorKeyPath = trypath + '.' +
+            foundschema.schema.options.discriminatorKey
+foundschema.schema.options.discriminatorKey
+subdoc ? mpath.get(discriminatorKeyPath, subdoc) || [] : __ecma.Array.factory()
+schemas = Object.keys(discriminators).
+            reduce(function(cur, discriminator) {
+              const tiedValue = discriminators[discriminator].discriminatorMapping.value;
+              if (doc == null || keys.indexOf(discriminator) !== -1 || keys.indexOf(tiedValue) !== -1) {
+                cur.push(discriminators[discriminator]);
+              }
+              return cur;
+            }, [])
+<lambda>0
+__ecma.Array.factory()
+p !== parts.length && foundschema.schema
+p !== parts.length &&
+            foundschema.$isMongooseArray &&
+            foundschema.casterConstructor.$isMongooseArray
+foundschema.$isMongooseArray
+foundschema.casterConstructor.$isMongooseArray
+let type = foundschema
+type.$isMongooseArray && !type.$isMongooseDocumentArray
+type = type.casterConstructor
+const ret = search(
+            parts.slice(p),
+            type.schema,
+            null,
+            nestedPath.concat(parts.slice(0, p))
+          )
+parts.slice(p)
+type.schema
+nestedPath.concat(parts.slice(0, p))
+ret != null
+type.schema.discriminators
+const discriminatorPaths = []
+_iterator_1 = <operator>.iterator(Object.keys(type.schema.discriminators))
+const _schema = type.schema.discriminators[discriminatorName] || type.schema
+const ret = search(parts.slice(p), _schema, null, nestedPath.concat(parts.slice(0, p)))
+ret != null
+discriminatorPaths.push(ret)
+discriminatorPaths.length > 0
+foundschema.$isSchemaMap && foundschema.$__schemaType instanceof Mixed
+const fullPath = nestedPath.concat([trypath]).join('.')
+topLevelDoc != null && topLevelDoc.$__ && topLevelDoc.$populated(fullPath) && p < parts.length
+const model = doc.$__.populated[fullPath].options[populateModelSymbol]
+model != null
+const _val = get(topLevelDoc, trypath)
+_val != null
+const model = Array.isArray(_val) && _val.length > 0 ?
+          leanPopulateMap.get(_val[0]) :
+          leanPopulateMap.get(_val)
+leanPopulateMap.get(_val[0])

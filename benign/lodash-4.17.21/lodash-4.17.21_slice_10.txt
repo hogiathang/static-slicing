@@ -1,0 +1,42 @@
+function equalObjects = function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+      var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+          objProps = getAllKeys(object),
+          objLength = objProps.length,
+          othProps = getAllKeys(other),
+          othLength = othProps.length;
+
+      if (objLength != othLength && !isPartial) {
+        return false;
+      }
+      var index = objLength;
+      while (index--) {
+        var key = objProps[index];
+        if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+          return false;
+        }
+      }
+      // Check that cyclic values are equal.
+      var objStacked = stack.get(object);
+      var othStacked = stack.get(other);
+      if (objStacked && othStacked) {
+        return objStacked == other && othStacked == object;
+      }
+      var result = true;
+      stack.set(object, other);
+      stack.set(other, object);
+
+      var skipCtor = isPartial;
+      while (++index < objLength) {
+        key = objProps[ind...
+var isPartial = bitmask & COMPARE_PARTIAL_FLAG
+var objProps = getAllKeys(object)
+var objLength = objProps.length
+var othProps = getAllKeys(other)
+var othLength = othProps.length
+objLength != othLength && !isPartial
+var index = objLength
+index--
+var key = objProps[index]
+!(isPartial ? key in other : hasOwnProperty.call(other, key))
+var objStacked = stack.get(object)
+var othStacked = stack.get(other)

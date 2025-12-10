@@ -1,0 +1,86 @@
+new Promise((resolve, reject) => {
+        if (!Buffer.alloc) {
+            throw (0, log_1.wasReported)('Your node.js does not have Buffer.alloc. Please upgrade!');
+        }
+        const { prelude } = backpack;
+        let { entrypoint, stripes } = backpack;
+        entrypoint = (0, common_1.snapshotify)(entrypoint, slash);
+        stripes = stripes.slice();
+        const vfs = {};
+        for (const stripe of stripes) {
+            let { snap } = stripe;
+            snap = (0, common_1.snapshotify)(snap, slash);
+            const vfsKey = makeKey(doCompress, snap, slash);
+            if (!vfs[vfsKey])
+                vfs[vfsKey] = {};
+        }
+        const snapshotSymLinks = {};
+        for (const [key, value] of Object.entries(symLinks)) {
+            const k = (0, common_1.snapshotify)(key, slash);
+            const v = (0, common_1.snapshotify)(value, slash);
+            const vfsKey = makeKey(doCompress, k, slash);
+            snapshotSymLinks[vfsKey] = makeKey(doCompress,...
+!Buffer.alloc
+throw (0, log_1.wasReported)('Your node.js does not have Buffer.alloc. Please upgrade!');
+prelude = _tmp_30.prelude
+entrypoint = _tmp_31.entrypoint
+entrypoint = (0, common_1.snapshotify)(entrypoint, slash)
+stripes = stripes.slice()
+const vfs = {}
+_iterator_0 = <operator>.iterator(stripes)
+snap = _tmp_33.snap
+snap = (0, common_1.snapshotify)(snap, slash)
+const vfsKey = makeKey(doCompress, snap, slash)
+!vfs[vfsKey]
+vfs[vfsKey] = {}
+const snapshotSymLinks = {}
+_iterator_1 = <operator>.iterator(Object.entries(symLinks))
+const k = (0, common_1.snapshotify)(key, slash)
+const v = (0, common_1.snapshotify)(value, slash)
+const vfsKey = makeKey(doCompress, k, slash)
+snapshotSymLinks[vfsKey] = makeKey(doCompress, v, slash)
+let count = 0
+function pipeToNewMeter = function pipeToNewMeter(s) {
+            meter = (0, stream_meter_1.default)();
+            return s.pipe(meter);
+        }
+function pipeMayCompressToNewMeter = function pipeMayCompressToNewMeter(s) {
+            if (doCompress === compress_type_1.CompressType.GZip) {
+                return pipeToNewMeter(s.pipe((0, zlib_1.createGzip)()));
+            }
+            if (doCompress === compress_type_1.CompressType.Brotli) {
+                return pipeToNewMeter(s.pipe((0, zlib_1.createBrotliCompress)()));
+            }
+            return pipeToNewMeter(s);
+        }
+function next = function next(s) {
+            count += 1;
+            return pipeToNewMeter(s);
+        }
+const binaryBuffer = fs_extra_1.default.readFileSync(target.binaryPath)
+const placeholders = discoverPlaceholders(binaryBuffer)
+let track = 0
+(_tmp_39 = new multistream_1.default((cb) => {
+            if (count === 0) {
+                return cb(null, next((0, into_stream_1.default)(binaryBuffer)));
+            }
+            if (count === 1) {
+                payloadPosition = meter.bytes;
+                return cb(null, next((0, into_stream_1.default)(Buffer.alloc(0))));
+            }
+            if (count === 2) {
+                if (prevStripe && !prevStripe.skip) {
+                    const { store } = prevStripe;
+                    let { snap } = prevStripe;
+                    snap = (0, common_1.snapshotify)(snap, slash);
+                    const vfsKey = makeKey(doCompress, snap, slash);
+                    vfs[vfsKey][store] = [track, meter.bytes];
+                    track += meter.bytes;
+                }
+                if (stripes.length) {
+                    // clone to prevent 'skip' propagate
+                    // to other targets, since same stripe
+                    // is used for several targets
+             ...).pipe
+<lambda>8
+fs_extra_1.default.createWriteStream(target.output)

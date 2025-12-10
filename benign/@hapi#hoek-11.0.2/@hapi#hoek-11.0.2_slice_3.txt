@@ -1,0 +1,89 @@
+internals.array = function (ref, values, options) {
+
+    if (!Array.isArray(values)) {
+        values = [values];
+    }
+
+    if (!ref.length) {
+        return false;
+    }
+
+    if (options.only &&
+        options.once &&
+        ref.length !== values.length) {
+
+        return false;
+    }
+
+    let compare;
+
+    // Map values
+
+    const map = new Map();
+    for (const value of values) {
+        if (!options.deep ||
+            !value ||
+            typeof value !== 'object') {
+
+            const existing = map.get(value);
+            if (existing) {
+                ++existing.allowed;
+            }
+            else {
+                map.set(value, { allowed: 1, hits: 0 });
+            }
+        }
+        else {
+            compare = compare ?? internals.compare(options);
+
+            let found = false;
+            for (const [key, existing] of map.entries()) {
+                if (compare(key, value)) {
+                    ++existing.allowed;
+                    found = true;
+        ...
+!Array.isArray(values)
+_tmp_3 = __ecma.Array.factory()
+!ref.length
+options.only &&
+        options.once &&
+        ref.length !== values.length
+options.once
+ref.length !== values.length
+const map = new Map()
+_iterator_0 = <operator>.iterator(values)
+!options.deep ||
+            !value ||
+            typeof value !== 'object'
+!value
+typeof value !== 'object'
+const existing = map.get(value)
+++existing.allowed
+map.set(value, { allowed: 1, hits: 0 })
+compare = compare ?? internals.compare(options)
+let found = false
+_iterator_1 = <operator>.iterator(map.entries())
+compare(key, value)
+++existing.allowed
+found = true
+break;
+!found
+map.set(value, { allowed: 1, hits: 0 })
+let hits = 0
+_iterator_2 = <operator>.iterator(ref)
+!options.deep ||
+            !item ||
+            typeof item !== 'object'
+!item
+typeof item !== 'object'
+match = map.get(item)
+compare = compare ?? internals.compare(options)
+_iterator_3 = <operator>.iterator(map.entries())
+compare(key, item)
+match = existing
+break;
+++match.hits
+++hits
+options.once &&
+                match.hits > match.allowed
+match.hits > match.allowed

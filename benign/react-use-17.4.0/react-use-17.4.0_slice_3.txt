@@ -1,0 +1,2 @@
+_tmp_1.dec = <lambda>4
+delta === void 0

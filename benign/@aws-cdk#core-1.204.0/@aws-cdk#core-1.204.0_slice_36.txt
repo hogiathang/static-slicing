@@ -1,0 +1,7 @@
+options = options === void 0 ? {} : options
+jsiiDeprecationWarnings._aws_cdk_core_DockerRunOptions(options)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, this.run)
+throw error;
+const deprecated = jsii_deprecated_1.quiet()
+const result = super.run(options)

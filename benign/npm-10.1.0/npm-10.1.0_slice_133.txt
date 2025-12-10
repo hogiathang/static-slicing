@@ -1,0 +1,25 @@
+async viewMan (man) {
+    const viewer = this.npm.config.get('viewer')
+
+    if (viewer === 'browser') {
+      return openUrl(this.npm, this.htmlMan(man), 'help available at the following URL', true)
+    }
+
+    let args = ['man', [man]]
+    if (viewer === 'woman') {
+      args = ['emacsclient', ['-e', `(woman-find-file '${man}')`]]
+    }
+
+    return spawn(...args, { stdio: 'inherit' }).catch(err => {
+      if (err.code) {
+        throw new Error(`help process exited with code: ${err.code}`)
+      } else {
+        throw err
+      }
+    })
+  }
+const viewer = this.npm.config.get('viewer')
+viewer === 'browser'
+_tmp_13 = __ecma.Array.factory()
+viewer === 'woman'
+_tmp_16.push(<operator>.formatString("(woman-find-file '", man, "')"))

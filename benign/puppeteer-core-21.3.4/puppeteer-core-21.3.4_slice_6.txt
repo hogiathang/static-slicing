@@ -1,0 +1,37 @@
+#getCallbacksAndRemoteValue(params) {
+        const { data, source } = params;
+        (0, assert_js_1.assert)(data.type === 'array');
+        (0, assert_js_1.assert)(data.value);
+        const callerIdRemote = data.value[0];
+        (0, assert_js_1.assert)(callerIdRemote);
+        (0, assert_js_1.assert)(callerIdRemote.type === 'number');
+        (0, assert_js_1.assert)(typeof callerIdRemote.value === 'number');
+        let bindingMap = this.#callerInfos.get(source.realm);
+        if (!bindingMap) {
+            bindingMap = new Map();
+            this.#callerInfos.set(source.realm, bindingMap);
+        }
+        const callerId = callerIdRemote.value;
+        let callbacks = bindingMap.get(callerId);
+        if (!callbacks) {
+            callbacks = {
+                resolve: new Deferred_js_1.Deferred(),
+                reject: new Deferred_js_1.Deferred(),
+            };
+            bindingMap.set(callerId, callbacks);
+        }
+        return { callbacks, remoteValue: data };
+    }
+source = _tmp_46.source
+(0, assert_js_1.assert)(data.type === 'array')
+(0, assert_js_1.assert)(data.value)
+const callerIdRemote = data.value[0]
+(0, assert_js_1.assert)(callerIdRemote)
+(0, assert_js_1.assert)(callerIdRemote.type === 'number')
+(0, assert_js_1.assert)(typeof callerIdRemote.value === 'number')
+let bindingMap = this.#callerInfos.get(source.realm)
+!bindingMap
+bindingMap = new Map()
+this.#callerInfos.set(source.realm, bindingMap)
+const callerId = callerIdRemote.value
+let callbacks = bindingMap.get(callerId)

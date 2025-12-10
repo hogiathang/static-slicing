@@ -1,0 +1,27 @@
+function buildCreateElementOpeningElementAttributes = function buildCreateElementOpeningElementAttributes(file, path, attribs) {
+      const runtime = get(file, "runtime");
+      {
+        if (runtime !== "automatic") {
+          const objs = [];
+          const props = attribs.reduce(accumulateAttribute, []);
+          if (!useSpread) {
+            let start = 0;
+            props.forEach((prop, i) => {
+              if (_core.types.isSpreadElement(prop)) {
+                if (i > start) {
+                  objs.push(_core.types.objectExpression(props.slice(start, i)));
+                }
+                objs.push(prop.argument);
+                start = i + 1;
+              }
+            });
+            if (props.length > start) {
+              objs.push(_core.types.objectExpression(props.slice(start)));
+            }
+          } else if (props.length) {
+            objs.push(_core.types.objectExpression(props));
+          }
+          if (!objs.length) {
+            return _core.types.nullLiteral();
+          }
+          if (objs.lengt...

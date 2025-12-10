@@ -1,0 +1,17 @@
+function wrapFiber = function wrapFiber(fiber) {
+  var wrapper = fiberToWrapper.get(fiber);
+
+  if (wrapper === undefined && fiber.alternate !== null) {
+    wrapper = fiberToWrapper.get(fiber.alternate);
+  }
+
+  if (wrapper === undefined) {
+    wrapper = new ReactTestInstance(fiber);
+    fiberToWrapper.set(fiber, wrapper);
+  }
+
+  return wrapper;
+}
+var wrapper = fiberToWrapper.get(fiber)
+wrapper === undefined && fiber.alternate !== null
+wrapper = fiberToWrapper.get(fiber.alternate)

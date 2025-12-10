@@ -1,0 +1,45 @@
+function resolveCommandAttempt = function resolveCommandAttempt(parsed, withoutPathExt) {
+    const env = parsed.options.env || process.env;
+    const cwd = process.cwd();
+    const hasCustomCwd = parsed.options.cwd != null;
+    // Worker threads do not have process.chdir()
+    const shouldSwitchCwd = hasCustomCwd && process.chdir !== undefined && !process.chdir.disabled;
+
+    // If a custom `cwd` was specified, we need to change the process cwd
+    // because `which` will do stat calls but does not support a custom cwd
+    if (shouldSwitchCwd) {
+        try {
+            process.chdir(parsed.options.cwd);
+        } catch (err) {
+            /* Empty */
+        }
+    }
+
+    let resolved;
+
+    try {
+        resolved = which.sync(parsed.command, {
+            path: env[getPathKey({ env })],
+            pathExt: withoutPathExt ? path.delimiter : undefined,
+        });
+    } catch (e) {
+        /* Empty */
+    } finally {
+        if (shouldSwitchCwd) {
+            process.chdir(cwd);
+        }
+    }
+
+    // If we succe...
+const env = parsed.options.env || process.env
+const cwd = process.cwd()
+const hasCustomCwd = parsed.options.cwd != null
+const shouldSwitchCwd = hasCustomCwd && process.chdir !== undefined && !process.chdir.disabled
+process.chdir(parsed.options.cwd)
+resolved = which.sync(parsed.command, {
+            path: env[getPathKey({ env })],
+            pathExt: withoutPathExt ? path.delimiter : undefined,
+        })
+_tmp_0.path = env[getPathKey({ env })]
+_tmp_0.pathExt = withoutPathExt ? path.delimiter : undefined
+process.chdir(cwd)

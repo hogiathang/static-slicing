@@ -1,0 +1,10 @@
+function isCompositeComponentWithType = function isCompositeComponentWithType(inst, type) {
+    if (!isCompositeComponent(inst)) {
+      return false;
+    }
+
+    var internalInstance = get(inst);
+    var constructor = internalInstance.type;
+    return constructor === type;
+  }
+!isCompositeComponent(inst)

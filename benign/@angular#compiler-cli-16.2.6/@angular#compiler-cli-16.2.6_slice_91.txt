@@ -1,0 +1,51 @@
+emit(opts) {
+    var _a;
+    if (opts !== void 0 && opts.emitFlags !== void 0 && opts.emitFlags & EmitFlags.I18nBundle) {
+      this.emitXi18n();
+      if (!(opts.emitFlags & EmitFlags.JS)) {
+        return {
+          diagnostics: [],
+          emitSkipped: true,
+          emittedFiles: []
+        };
+      }
+    }
+    const forceEmit = (_a = opts == null ? void 0 : opts.forceEmit) != null ? _a : false;
+    this.compiler.perfRecorder.memory(PerfCheckpoint.PreEmit);
+    const res = this.compiler.perfRecorder.inPhase(PerfPhase.TypeScriptEmit, () => {
+      var _a2;
+      const { transformers } = this.compiler.prepareEmit();
+      const ignoreFiles = this.compiler.ignoreForEmit;
+      const emitCallback = (_a2 = opts == null ? void 0 : opts.emitCallback) != null ? _a2 : defaultEmitCallback;
+      const writeFile = (fileName, data, writeByteOrderMark, onError, sourceFiles) => {
+        if (sourceFiles !== void 0) {
+          for (const writtenSf of sourceFiles) {
+            if (written...
+opts !== void 0 && opts.emitFlags !== void 0 && opts.emitFlags & EmitFlags.I18nBundle
+this.emitXi18n()
+!(opts.emitFlags & EmitFlags.JS)
+const forceEmit = (_a = opts == null ? void 0 : opts.forceEmit) != null ? _a : false
+this.compiler.perfRecorder.memory(PerfCheckpoint.PreEmit)
+const res = this.compiler.perfRecorder.inPhase(PerfPhase.TypeScriptEmit, () => {
+      var _a2;
+      const { transformers } = this.compiler.prepareEmit();
+      const ignoreFiles = this.compiler.ignoreForEmit;
+      const emitCallback = (_a2 = opts == null ? void 0 : opts.emitCallback) != null ? _a2 : defaultEmitCallback;
+      const writeFile = (fileName, data, writeByteOrderMark, onError, sourceFiles) => {
+        if (sourceFiles !== void 0) {
+          for (const writtenSf of sourceFiles) {
+            if (writtenSf.isDeclarationFile) {
+              continue;
+            }
+            this.compiler.incrementalCompilation.recordSuccessfulEmit(writtenSf);
+          }
+        }
+        this.host.writeFile(fileName, data, writeByteOrderMark, onError, sourceFiles);
+      };
+      const customTransforms = opts && opts.customTransformers;
+      const beforeTransforms = transformers.before || [];
+      const afterDeclarationsTransforms = transformers.afterDeclarations;
+      if (customTransf...
+this.options.tracePerformance !== void 0
+const perf = this.compiler.perfRecorder.finalize()
+getFileSystem().writeFile(getFileSystem().resolve(this.options.tracePerformance), JSON.stringify(perf, null, 2))

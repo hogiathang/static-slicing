@@ -1,0 +1,6 @@
+function buildCreateElementFragmentCall = function buildCreateElementFragmentCall(path, file) {
+      if (filter && !filter(path.node, file)) return;
+      return call(file, "createElement", [get(file, "id/fragment")(), _core.types.nullLiteral(), ..._core.types.react.buildChildren(path.node)]);
+    }
+filter && !filter(path.node, file)
+call(file, "createElement", [get(file, "id/fragment")(), _core.types.nullLiteral(), ..._core.types.react.buildChildren(path.node)])

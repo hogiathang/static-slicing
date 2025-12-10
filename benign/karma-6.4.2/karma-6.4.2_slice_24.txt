@@ -1,0 +1,177 @@
+async _start (config, launcher, preprocess, fileList, capturedBrowsers, executor, done) {
+    if (config.detached) {
+      this._detach(config, done)
+      return
+    }
+
+    this._fileList = fileList
+
+    await Promise.all(
+      config.frameworks.map((framework) => this._injector.get('framework:' + framework))
+    )
+
+    const webServer = this._injector.get('webServer')
+    const socketServer = this._injector.get('socketServer')
+
+    const singleRunDoneBrowsers = Object.create(null)
+    const singleRunBrowsers = new BrowserCollection(new EventEmitter())
+    let singleRunBrowserNotCaptured = false
+
+    webServer.on('error', (err) => {
+      this.log.error(`Webserver fail ${err}`)
+      this._close(1)
+    })
+
+    const afterPreprocess = () => {
+      if (config.autoWatch) {
+        const watcher = this.get('watcher')
+        this._injector.invoke(watcher)
+      }
+
+      webServer.listen(this._boundServer, () => {
+        this.log.info(`Karma v${constant.VERSION} server started at ${c...
+config.detached
+this._fileList = fileList
+await Promise.all(
+      config.frameworks.map((framework) => this._injector.get('framework:' + framework))
+    )
+config.frameworks.map((framework) => this._injector.get('framework:' + framework))
+const webServer = this._injector.get('webServer')
+const socketServer = this._injector.get('socketServer')
+const singleRunDoneBrowsers = Object.create(null)
+const singleRunBrowsers = new BrowserCollection(new EventEmitter())
+let singleRunBrowserNotCaptured = false
+webServer.on('error', (err) => {
+      this.log.error(`Webserver fail ${err}`)
+      this._close(1)
+    })
+const afterPreprocess = () => {
+      if (config.autoWatch) {
+        const watcher = this.get('watcher')
+        this._injector.invoke(watcher)
+      }
+
+      webServer.listen(this._boundServer, () => {
+        this.log.info(`Karma v${constant.VERSION} server started at ${config.protocol}//${config.hostname}:${config.port}${config.urlRoot}`)
+
+        this.emit('listening', config.port)
+        if (config.browsers && config.browsers.length) {
+          this._injector.invoke(launcher.launch, launcher).forEach((browserLauncher) => {
+            singleRunDoneBrowsers[browserLauncher.id] = false
+          })
+        }
+        if (this.loadErrors.length > 0) {
+          this.log.error(new Error(`Found ${this.loadErrors.length} load error${this.loadErrors.length === 1 ? '' : 's'}`))
+          this._close(1)
+        }
+      })
+    }
+fileList.refresh().then(afterPreprocess, (err) => {
+      this.log.error('Error during file loading or preprocessing\n' + err.stack || err)
+      afterPreprocess()
+    })
+this.on('browsers_change', () => socketServer.sockets.emit('info', capturedBrowsers.serialize()))
+this.on('browser_register', (browser) => {
+      launcher.markCaptured(browser.id)
+
+      if (launcher.areAllCaptured()) {
+        this.emit('browsers_ready')
+
+        if (config.autoWatch) {
+          executor.schedule()
+        }
+      }
+    })
+config.browserConsoleLogOptions && config.browserConsoleLogOptions.path
+const configLevel = config.browserConsoleLogOptions.level || 'debug'
+const configFormat = config.browserConsoleLogOptions.format || '%b %T: %m'
+const configPath = config.browserConsoleLogOptions.path
+const configPathDir = path.dirname(configPath)
+fs.mkdirSync(configPathDir, { recursive: true })
+<operator>.formatString("Writing browser console to file: ", configPath, "")
+const browserLogFile = fs.openSync(configPath, 'w+')
+const levels = ['log', 'error', 'warn', 'info', 'debug']
+this.on('browser_log', function (browser, message, level) {
+        if (levels.indexOf(level.toLowerCase()) > levels.indexOf(configLevel)) {
+          return
+        }
+        if (!helper.isString(message)) {
+          message = util.inspect(message, { showHidden: false, colors: false })
+        }
+        const logMap = { '%m': message, '%t': level.toLowerCase(), '%T': level.toUpperCase(), '%b': browser }
+        const logString = configFormat.replace(/%[mtTb]/g, (m) => logMap[m])
+        this.log.debug(`Writing browser console line: ${logString}`)
+        fs.writeSync(browserLogFile, logString + '\n')
+      })
+socketServer.sockets.on('connection', (socket) => {
+      this.log.debug(`A browser has connected on socket ${socket.id}`)
+
+      const replySocketEvents = events.bufferEvents(socket, ['start', 'info', 'karma_error', 'result', 'complete'])
+
+      socket.on('error', (err) => {
+        this.log.debug('karma server socket error: ' + err)
+      })
+
+      socket.on('register', (info) => {
+        const knownBrowser = info.id ? (capturedBrowsers.getById(info.id) || singleRunBrowsers.getById(info.id)) : null
+
+        if (knownBrowser) {
+          knownBrowser.reconnect(socket, info.isSocketReconnect)
+        } else {
+          const newBrowser = this._injector.createChild([{
+            id: ['value', info.id || null],
+            fullName: ['value', (helper.isDefined(info.displayName) ? info.displayName : info.name)],
+            socket: ['value', socket]
+          }]).invoke(Browser.factory)
+
+          newBrowser.init()
+
+          if (config.singleRun) {
+            newBrowser.execute()
+ ...
+const emitRunCompleteIfAllBrowsersDone = () => {
+      if (Object.keys(singleRunDoneBrowsers).every((key) => singleRunDoneBrowsers[key])) {
+        this.emit('run_complete', singleRunBrowsers, singleRunBrowsers.getResults(singleRunBrowserNotCaptured, config))
+      }
+    }
+this.on('browser_complete', (completedBrowser) => {
+      if (completedBrowser.lastResult.disconnected && completedBrowser.disconnectsCount <= config.browserDisconnectTolerance) {
+        this.log.info(`Restarting ${completedBrowser.name} (${completedBrowser.disconnectsCount} of ${config.browserDisconnectTolerance} attempts)`)
+
+        if (!launcher.restart(completedBrowser.id)) {
+          this.emit('browser_restart_failure', completedBrowser)
+        }
+      } else {
+        this.emit('browser_complete_with_no_more_retries', completedBrowser)
+      }
+    })
+this.on('stop', (done) => {
+      this.log.debug('Received stop event, exiting.')
+      this._close()
+      done()
+    })
+config.singleRun
+this.on('browser_restart_failure', (completedBrowser) => {
+        singleRunDoneBrowsers[completedBrowser.id] = true
+        emitRunCompleteIfAllBrowsersDone()
+      })
+this.on('browser_complete_with_no_more_retries', function (completedBrowser) {
+        singleRunDoneBrowsers[completedBrowser.id] = true
+
+        if (launcher.kill(completedBrowser.id)) {
+          completedBrowser.remove()
+        }
+
+        emitRunCompleteIfAllBrowsersDone()
+      })
+this.on('browser_process_failure', (browserLauncher) => {
+        singleRunDoneBrowsers[browserLauncher.id] = true
+        singleRunBrowserNotCaptured = true
+
+        emitRunCompleteIfAllBrowsersDone()
+      })
+this.on('run_complete', (browsers, results) => {
+        this.log.debug('Run complete, exiting.')
+        this._close(results.exitCode)
+      })
+this.emit('run_start', singleRunBrowsers)

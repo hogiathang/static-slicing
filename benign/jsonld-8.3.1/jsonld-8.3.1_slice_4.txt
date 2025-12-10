@@ -1,0 +1,517 @@
+api.compact = async ({
+  activeCtx,
+  activeProperty = null,
+  element,
+  options = {}
+}) => {
+  // recursively compact array
+  if(_isArray(element)) {
+    let rval = [];
+    for(let i = 0; i < element.length; ++i) {
+      const compacted = await api.compact({
+        activeCtx,
+        activeProperty,
+        element: element[i],
+        options
+      });
+      if(compacted === null) {
+        // FIXME: need event?
+        continue;
+      }
+      rval.push(compacted);
+    }
+    if(options.compactArrays && rval.length === 1) {
+      // use single element if no container is specified
+      const container = _getContextValue(
+        activeCtx, activeProperty, '@container') || [];
+      if(container.length === 0) {
+        rval = rval[0];
+      }
+    }
+    return rval;
+  }
+
+  // use any scoped context on activeProperty
+  const ctx = _getContextValue(activeCtx, activeProperty, '@context');
+  if(!_isUndefined(ctx)) {
+    activeCtx = await _processContext({
+      activeCtx,
+      localCt...
+activeCtx = param1_0.activeCtx
+activeProperty = param1_0.activeProperty
+element = param1_0.element
+options = param1_0.options
+_isArray(element)
+const ctx = _getContextValue(activeCtx, activeProperty, '@context')
+!_isUndefined(ctx)
+activeCtx = await _processContext({
+      activeCtx,
+      localCtx: ctx,
+      propagate: true,
+      overrideProtected: true,
+      options
+    })
+_tmp_19.activeCtx = activeCtx
+_tmp_19.localCtx = ctx
+_tmp_19.propagate = true
+_tmp_19.overrideProtected = true
+_tmp_19.options = options
+_isObject(element)
+options.link && '@id' in element &&
+      options.link.hasOwnProperty(element['@id'])
+options.link.hasOwnProperty(element['@id'])
+const linked = options.link[element['@id']]
+i < linked.length
+linked[i].expanded === element
+_isValue(element) || _isSubjectReference(element)
+_isList(element)
+const container = _getContextValue(
+        activeCtx, activeProperty, '@container') || []
+__ecma.Array.factory()
+container.includes('@list')
+const insideReverse = (activeProperty === '@reverse')
+const rval = {}
+const inputCtx = activeCtx
+!_isValue(element) && !_isSubjectReference(element)
+activeCtx = activeCtx.revertToPreviousContext()
+const propertyScopedCtx =
+      _getContextValue(inputCtx, activeProperty, '@context')
+_getContextValue(inputCtx, activeProperty, '@context')
+!_isUndefined(propertyScopedCtx)
+activeCtx = await _processContext({
+        activeCtx,
+        localCtx: propertyScopedCtx,
+        propagate: true,
+        overrideProtected: true,
+        options
+      })
+_tmp_27.activeCtx = activeCtx
+_tmp_27.localCtx = propertyScopedCtx
+_tmp_27.propagate = true
+_tmp_27.overrideProtected = true
+_tmp_27.options = options
+options.link && '@id' in element
+!options.link.hasOwnProperty(element['@id'])
+options.link[element['@id']] = []
+options.link[element['@id']].push({expanded: element, compacted: rval})
+let types = element['@type'] || []
+types.length > 1
+(_tmp_31 = Array.from(types)).sort
+const typeContext = activeCtx
+_iterator_2 = <operator>.iterator(types)
+const compactedType = api.compactIri(
+        {activeCtx: typeContext, iri: type, relativeTo: {vocab: true}})
+_tmp_32.relativeTo = {vocab: true}
+const ctx = _getContextValue(inputCtx, compactedType, '@context')
+!_isUndefined(ctx)
+activeCtx = await _processContext({
+          activeCtx,
+          localCtx: ctx,
+          options,
+          propagate: false
+        })
+_tmp_34.activeCtx = activeCtx
+_tmp_34.localCtx = ctx
+_tmp_34.options = options
+_tmp_34.propagate = false
+const keys = Object.keys(element).sort()
+_iterator_3 = <operator>.iterator(keys)
+const expandedValue = element[expandedProperty]
+expandedProperty === '@id'
+let compactedValue = _asArray(expandedValue).map(
+          expandedIri => api.compactIri({
+            activeCtx,
+            iri: expandedIri,
+            relativeTo: {vocab: false},
+            base: options.base
+          }))
+api.compactIri({
+            activeCtx,
+            iri: expandedIri,
+            relativeTo: {vocab: false},
+            base: options.base
+          })
+compactedValue.length === 1
+compactedValue = compactedValue[0]
+const alias = api.compactIri(
+          {activeCtx, iri: '@id', relativeTo: {vocab: true}})
+_tmp_39.relativeTo = {vocab: true}
+rval[alias] = compactedValue
+continue;
+expandedProperty === '@type'
+let compactedValue = _asArray(expandedValue).map(
+          expandedIri => api.compactIri({
+            activeCtx: inputCtx,
+            iri: expandedIri,
+            relativeTo: {vocab: true}
+          }))
+api.compactIri({
+            activeCtx: inputCtx,
+            iri: expandedIri,
+            relativeTo: {vocab: true}
+          })
+compactedValue.length === 1
+compactedValue = compactedValue[0]
+const alias = api.compactIri(
+          {activeCtx, iri: '@type', relativeTo: {vocab: true}})
+_tmp_44.relativeTo = {vocab: true}
+const container = _getContextValue(
+          activeCtx, alias, '@container') || []
+__ecma.Array.factory()
+const typeAsSet =
+          container.includes('@set') &&
+          _processingMode(activeCtx, 1.1)
+container.includes('@set') &&
+          _processingMode(activeCtx, 1.1)
+_processingMode(activeCtx, 1.1)
+const isArray =
+          typeAsSet || (_isArray(compactedValue) && expandedValue.length === 0)
+typeAsSet || (_isArray(compactedValue) && expandedValue.length === 0)
+_addValue(rval, alias, compactedValue, {propertyIsArray: isArray})
+continue;
+expandedProperty === '@reverse'
+const compactedValue = await api.compact({
+          activeCtx,
+          activeProperty: '@reverse',
+          element: expandedValue,
+          options
+        })
+_tmp_47.activeCtx = activeCtx
+_tmp_47.activeProperty = "@reverse"
+_tmp_47.element = expandedValue
+_tmp_47.options = options
+_iterator_4 = <operator>.iterator(compactedValue)
+activeCtx.mappings.has(compactedProperty) &&
+            activeCtx.mappings.get(compactedProperty).reverse
+activeCtx.mappings.get(compactedProperty).reverse
+const value = compactedValue[compactedProperty]
+const container = _getContextValue(
+              activeCtx, compactedProperty, '@container') || []
+__ecma.Array.factory()
+const useArray = (
+              container.includes('@set') || !options.compactArrays)
+container.includes('@set') || !options.compactArrays
+_addValue(
+              rval, compactedProperty, value, {propertyIsArray: useArray})
+_tmp_50.propertyIsArray = useArray
+delete compactedValue[compactedProperty]
+Object.keys(compactedValue).length > 0
+const alias = api.compactIri({
+            activeCtx,
+            iri: expandedProperty,
+            relativeTo: {vocab: true}
+          })
+_tmp_51.activeCtx = activeCtx
+_tmp_51.iri = expandedProperty
+_tmp_51.relativeTo = {vocab: true}
+_addValue(rval, alias, compactedValue)
+continue;
+expandedProperty === '@preserve'
+const compactedValue = await api.compact({
+          activeCtx,
+          activeProperty,
+          element: expandedValue,
+          options
+        })
+_tmp_53.activeCtx = activeCtx
+_tmp_53.activeProperty = activeProperty
+_tmp_53.element = expandedValue
+_tmp_53.options = options
+!(_isArray(compactedValue) && compactedValue.length === 0)
+_addValue(rval, expandedProperty, compactedValue)
+continue;
+expandedProperty === '@index'
+const container = _getContextValue(
+          activeCtx, activeProperty, '@container') || []
+__ecma.Array.factory()
+container.includes('@index')
+continue;
+const alias = api.compactIri({
+          activeCtx,
+          iri: expandedProperty,
+          relativeTo: {vocab: true}
+        })
+_tmp_54.activeCtx = activeCtx
+_tmp_54.iri = expandedProperty
+_tmp_54.relativeTo = {vocab: true}
+_addValue(rval, alias, expandedValue)
+continue;
+expandedProperty !== '@graph' && expandedProperty !== '@list' &&
+        expandedProperty !== '@included' &&
+        _isKeyword(expandedProperty)
+expandedProperty !== '@included'
+_isKeyword(expandedProperty)
+const alias = api.compactIri({
+          activeCtx,
+          iri: expandedProperty,
+          relativeTo: {vocab: true}
+        })
+_tmp_56.activeCtx = activeCtx
+_tmp_56.iri = expandedProperty
+_tmp_56.relativeTo = {vocab: true}
+_addValue(rval, alias, expandedValue)
+continue;
+!_isArray(expandedValue)
+throw new JsonLdError(
+          'JSON-LD expansion error; expanded value must be an array.',
+          'jsonld.SyntaxError');
+"JSON-LD expansion error; expanded value must be an array."
+"jsonld.SyntaxError"
+expandedValue.length === 0
+const itemActiveProperty = api.compactIri({
+          activeCtx,
+          iri: expandedProperty,
+          value: expandedValue,
+          relativeTo: {vocab: true},
+          reverse: insideReverse
+        })
+_tmp_59.activeCtx = activeCtx
+_tmp_59.iri = expandedProperty
+_tmp_59.value = expandedValue
+_tmp_59.relativeTo = {vocab: true}
+_tmp_59.reverse = insideReverse
+const nestProperty = activeCtx.mappings.has(itemActiveProperty) ?
+          activeCtx.mappings.get(itemActiveProperty)['@nest'] : null
+activeCtx.mappings.get(itemActiveProperty)["@nest"]
+let nestResult = rval
+_checkNestProperty(activeCtx, nestProperty, options)
+!_isObject(rval[nestProperty])
+rval[nestProperty] = {}
+nestResult = rval[nestProperty]
+_addValue(
+          nestResult, itemActiveProperty, expandedValue, {
+            propertyIsArray: true
+          })
+_tmp_64.propertyIsArray = true
+_iterator_5 = <operator>.iterator(expandedValue)
+const itemActiveProperty = api.compactIri({
+          activeCtx,
+          iri: expandedProperty,
+          value: expandedItem,
+          relativeTo: {vocab: true},
+          reverse: insideReverse
+        })
+_tmp_65.activeCtx = activeCtx
+_tmp_65.iri = expandedProperty
+_tmp_65.value = expandedItem
+_tmp_65.relativeTo = {vocab: true}
+_tmp_65.reverse = insideReverse
+const nestProperty = activeCtx.mappings.has(itemActiveProperty) ?
+          activeCtx.mappings.get(itemActiveProperty)['@nest'] : null
+activeCtx.mappings.get(itemActiveProperty)["@nest"]
+let nestResult = rval
+_checkNestProperty(activeCtx, nestProperty, options)
+!_isObject(rval[nestProperty])
+rval[nestProperty] = {}
+nestResult = rval[nestProperty]
+const container = _getContextValue(
+          activeCtx, itemActiveProperty, '@container') || []
+__ecma.Array.factory()
+const isGraph = _isGraph(expandedItem)
+const isList = _isList(expandedItem)
+inner = expandedItem['@list']
+inner = expandedItem['@graph']
+let compactedItem = await api.compact({
+          activeCtx,
+          activeProperty: itemActiveProperty,
+          element: (isList || isGraph) ? inner : expandedItem,
+          options
+        })
+_tmp_70.activeCtx = activeCtx
+_tmp_70.activeProperty = itemActiveProperty
+_tmp_70.element = isList || isGraph ? inner : expandedItem
+_tmp_70.options = options
+!_isArray(compactedItem)
+_tmp_71 = __ecma.Array.factory()
+!container.includes('@list')
+compactedItem = {
+              [api.compactIri({
+                activeCtx,
+                iri: '@list',
+                relativeTo: {vocab: true}
+              })]: compactedItem
+            }
+_tmp_72._computed_object_property_0 = compactedItem
+'@index' in expandedItem
+compactedItem[api.compactIri({
+                activeCtx,
+                iri: '@index',
+                relativeTo: {vocab: true}
+              })] = expandedItem['@index']
+_tmp_73.activeCtx = activeCtx
+_tmp_73.iri = "@index"
+_tmp_73.relativeTo = {vocab: true}
+expandedItem["@index"]
+_addValue(nestResult, itemActiveProperty, compactedItem, {
+              valueIsArray: true,
+              allowDuplicate: true
+            })
+_tmp_75.valueIsArray = true
+_tmp_75.allowDuplicate = true
+continue;
+container.includes('@graph') && (container.includes('@id') ||
+            container.includes('@index') && _isSimpleGraph(expandedItem))
+container.includes('@index') && _isSimpleGraph(expandedItem)
+nestResult.hasOwnProperty(itemActiveProperty)
+mapObject = nestResult[itemActiveProperty]
+nestResult[itemActiveProperty] = mapObject = {}
+const key = (container.includes('@id') ?
+              expandedItem['@id'] : expandedItem['@index']) ||
+              api.compactIri({activeCtx, iri: '@none',
+                relativeTo: {vocab: true}})
+expandedItem["@index"]
+api.compactIri({activeCtx, iri: '@none',
+                relativeTo: {vocab: true}})
+_tmp_77.relativeTo = {vocab: true}
+_addValue(
+              mapObject, key, compactedItem, {
+                propertyIsArray:
+                  (!options.compactArrays || container.includes('@set'))
+              })
+_tmp_79.propertyIsArray = !options.compactArrays || container.includes('@set')
+!options.compactArrays || container.includes('@set')
+container.includes('@graph') &&
+            _isSimpleGraph(expandedItem)
+_isSimpleGraph(expandedItem)
+_isArray(compactedItem) && compactedItem.length > 1
+compactedItem = {'@included': compactedItem}
+_addValue(
+              nestResult, itemActiveProperty, compactedItem, {
+                propertyIsArray:
+                  (!options.compactArrays || container.includes('@set'))
+              })
+_tmp_81.propertyIsArray = !options.compactArrays || container.includes('@set')
+!options.compactArrays || container.includes('@set')
+_isArray(compactedItem) && compactedItem.length === 1 &&
+              options.compactArrays
+options.compactArrays
+compactedItem = compactedItem[0]
+compactedItem = {
+              [api.compactIri({
+                activeCtx,
+                iri: '@graph',
+                relativeTo: {vocab: true}
+              })]: compactedItem
+            }
+_tmp_82._computed_object_property_1 = compactedItem
+'@id' in expandedItem
+compactedItem[api.compactIri({
+                activeCtx,
+                iri: '@id',
+                relativeTo: {vocab: true}
+              })] = expandedItem['@id']
+_tmp_83.activeCtx = activeCtx
+_tmp_83.iri = "@id"
+_tmp_83.relativeTo = {vocab: true}
+expandedItem["@id"]
+'@index' in expandedItem
+compactedItem[api.compactIri({
+                activeCtx,
+                iri: '@index',
+                relativeTo: {vocab: true}
+              })] = expandedItem['@index']
+_tmp_85.activeCtx = activeCtx
+_tmp_85.iri = "@index"
+_tmp_85.relativeTo = {vocab: true}
+expandedItem["@index"]
+_addValue(
+              nestResult, itemActiveProperty, compactedItem, {
+                propertyIsArray:
+                  (!options.compactArrays || container.includes('@set'))
+              })
+_tmp_87.propertyIsArray = !options.compactArrays || container.includes('@set')
+!options.compactArrays || container.includes('@set')
+container.includes('@language') ||
+          container.includes('@index') || container.includes('@id') ||
+          container.includes('@type')
+container.includes('@index')
+container.includes('@type')
+nestResult.hasOwnProperty(itemActiveProperty)
+mapObject = nestResult[itemActiveProperty]
+nestResult[itemActiveProperty] = mapObject = {}
+container.includes('@language')
+_isValue(compactedItem)
+compactedItem = compactedItem['@value']
+key = expandedItem['@language']
+container.includes('@index')
+const indexKey = _getContextValue(
+              activeCtx, itemActiveProperty, '@index') || '@index'
+"@index"
+const containerKey = api.compactIri(
+              {activeCtx, iri: indexKey, relativeTo: {vocab: true}})
+_tmp_89.relativeTo = {vocab: true}
+indexKey === '@index'
+key = expandedItem['@index']
+delete compactedItem[containerKey]
+_tmp_91 = _asArray(compactedItem[indexKey] || [])
+!_isString(key)
+key = null
+others.length
+0
+delete compactedItem[indexKey]
+break;
+1
+compactedItem[indexKey] = others[0]
+break;
+default:
+compactedItem[indexKey] = others
+break;
+container.includes('@id')
+const idKey = api.compactIri({activeCtx, iri: '@id',
+              relativeTo: {vocab: true}})
+_tmp_92.relativeTo = {vocab: true}
+key = compactedItem[idKey]
+delete compactedItem[idKey]
+container.includes('@type')
+const typeKey = api.compactIri({
+              activeCtx,
+              iri: '@type',
+              relativeTo: {vocab: true}
+            })
+_tmp_94.activeCtx = activeCtx
+_tmp_94.iri = "@type"
+_tmp_94.relativeTo = {vocab: true}
+_tmp_96 = _asArray(compactedItem[typeKey] || [])
+types.length
+0
+delete compactedItem[typeKey]
+break;
+1
+compactedItem[typeKey] = types[0]
+break;
+default:
+compactedItem[typeKey] = types
+break;
+Object.keys(compactedItem).length === 1 &&
+              '@id' in expandedItem
+'@id' in expandedItem
+compactedItem = await api.compact({
+                activeCtx,
+                activeProperty: itemActiveProperty,
+                element: {'@id': expandedItem['@id']},
+                options
+              })
+_tmp_97.activeCtx = activeCtx
+_tmp_97.activeProperty = itemActiveProperty
+_tmp_97.element = {'@id': expandedItem['@id']}
+_tmp_97.options = options
+!key
+key = api.compactIri({activeCtx, iri: '@none',
+              relativeTo: {vocab: true}})
+_tmp_99.relativeTo = {vocab: true}
+_addValue(
+            mapObject, key, compactedItem, {
+              propertyIsArray: container.includes('@set')
+            })
+_tmp_101.propertyIsArray = container.includes('@set')
+const isArray = (!options.compactArrays ||
+            container.includes('@set') || container.includes('@list') ||
+            (_isArray(compactedItem) && compactedItem.length === 0) ||
+            expandedProperty === '@list' || expandedProperty === '@graph')
+container.includes('@list')
+_isArray(compactedItem) && compactedItem.length === 0
+expandedProperty === '@graph'
+_addValue(
+            nestResult, itemActiveProperty, compactedItem,
+            {propertyIsArray: isArray})
+_tmp_102.propertyIsArray = isArray

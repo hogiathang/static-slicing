@@ -1,0 +1,29 @@
+exports.print = function(name) {
+  var code = 0;
+  var filepath = path.join(__dirname, '../completion', name);
+  var output;
+  try {
+    // Attempt to read shell completion file.
+    output = String(fs.readFileSync(filepath));
+  } catch (err) {
+    code = 5;
+    output = 'echo "Specified grunt shell auto-completion rules ';
+    if (name && name !== 'true') {
+      output += 'for \'' + name + '\' ';
+    }
+    output += 'not found."';
+  }
+
+  console.log(output);
+  process.exit(code);
+}
+var code = 0
+var filepath = path.join(__dirname, '../completion', name)
+output = String(fs.readFileSync(filepath))
+code = 5
+output = 'echo "Specified grunt shell auto-completion rules '
+name && name !== 'true'
+output += 'for \'' + name + '\' '
+output += 'not found."'
+console.log(output)
+process.exit(code)

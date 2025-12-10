@@ -1,0 +1,6 @@
+fastify.post('/post/:id', async function (request, reply) {
+  const { id } = request.params
+  reply.code(201).send({ data: `${id}` })
+})
+_tmp_3 = request.params
+_tmp_5.data = <operator>.formatString("", id, "")

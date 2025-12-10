@@ -1,0 +1,4 @@
+asyncAll(this.actors, (actor, done) => {
+            actor.send(type, data, done);
+        }, cb)
+actor.send(type, data, done)

@@ -1,0 +1,15 @@
+fs.statAsync(executable).then(stat => {
+      const lastAccessedTime = _.get(stat, 'atime');
+      if (!lastAccessedTime) {
+        // the test runner has never been opened
+        // or could be a test simulating missing timestamp
+        return binary;
+      }
+      const accessed = dayjs(lastAccessedTime).fromNow();
+      binary.accessed = accessed;
+      return binary;
+    }, e => {
+      // could not find the binary or gets its stats
+      return binary;
+    })
+const lastAccessedTime = _.get(stat, 'atime')

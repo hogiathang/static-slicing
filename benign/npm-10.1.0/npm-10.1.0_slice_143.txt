@@ -1,0 +1,76 @@
+async list () {
+    const msg = []
+    // long does not have a flattener
+    const long = this.npm.config.get('long')
+    for (const [where, { data, source }] of this.npm.config.data.entries()) {
+      if (where === 'default' && !long) {
+        continue
+      }
+
+      const keys = Object.keys(data).sort(localeCompare)
+      if (!keys.length) {
+        continue
+      }
+
+      msg.push(`; "${where}" config from ${source}`, '')
+      for (const k of keys) {
+        const v = publicVar(k) ? JSON.stringify(data[k]) : '(protected)'
+        const src = this.npm.config.find(k)
+        const overridden = src !== where
+        msg.push((overridden ? '; ' : '') +
+          `${k} = ${v} ${overridden ? `; overridden by ${src}` : ''}`)
+      }
+      msg.push('')
+    }
+
+    if (!long) {
+      msg.push(
+        `; node bin location = ${process.execPath}`,
+        `; node version = ${process.version}`,
+        `; npm local prefix = ${this.npm.localPrefix}`,
+        `; npm version = ${this.npm.versi...
+__ecma.Array.factory()
+const long = this.npm.config.get('long')
+_iterator_3 = <operator>.iterator(this.npm.config.data.entries())
+where === 'default' && !long
+continue
+const keys = Object.keys(data).sort(localeCompare)
+!keys.length
+continue
+<operator>.formatString("; "", where, "" config from ", source, "")
+_iterator_4 = <operator>.iterator(keys)
+const v = publicVar(k) ? JSON.stringify(data[k]) : '(protected)'
+const src = this.npm.config.find(k)
+const overridden = src !== where
+msg.push((overridden ? '; ' : '') +
+          `${k} = ${v} ${overridden ? `; overridden by ${src}` : ''}`)
+<operator>.formatString("", k, " = ", v, " ", overridden ? `; overridden by ${src}` : '', "")
+msg.push('')
+!long
+msg.push(
+        `; node bin location = ${process.execPath}`,
+        `; node version = ${process.version}`,
+        `; npm local prefix = ${this.npm.localPrefix}`,
+        `; npm version = ${this.npm.version}`,
+        `; cwd = ${process.cwd()}`,
+        `; HOME = ${process.env.HOME}`,
+        '; Run `npm config ls -l` to show all defaults.'
+      )
+<operator>.formatString("; node bin location = ", process.execPath, "")
+<operator>.formatString("; node version = ", process.version, "")
+<operator>.formatString("; npm local prefix = ", this.npm.localPrefix, "")
+<operator>.formatString("; npm version = ", this.npm.version, "")
+<operator>.formatString("; cwd = ", process.cwd(), "")
+<operator>.formatString("; HOME = ", process.env.HOME, "")
+"; Run `npm config ls -l` to show all defaults."
+msg.push('')
+!this.npm.global
+_tmp_57 = await pkgJson.normalize(this.npm.prefix).catch(() => ({ content: {} }))
+content.publishConfig
+const pkgPath = resolve(this.npm.prefix, 'package.json')
+<operator>.formatString("; "publishConfig" from ", pkgPath, "")
+msg.push('; This set of config values will be used at publish-time.', '')
+const pkgKeys = Object.keys(content.publishConfig).sort(localeCompare)
+_iterator_5 = <operator>.iterator(pkgKeys)
+const v = publicVar(k) ? JSON.stringify(content.publishConfig[k]) : '(protected)'
+<operator>.formatString("", k, " = ", v, "")

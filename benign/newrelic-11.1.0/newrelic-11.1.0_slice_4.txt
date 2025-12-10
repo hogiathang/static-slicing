@@ -1,0 +1,14 @@
+_merge(samples) {
+    for (const sample of samples.values()) {
+      const ownSample = this.samples.get(sample.trace.normalized)
+      if (ownSample) {
+        ownSample.merge(sample)
+      } else {
+        this.samples.set(sample.trace.normalized, sample)
+      }
+    }
+  }
+_iterator_1 = <operator>.iterator(samples.values())
+const ownSample = this.samples.get(sample.trace.normalized)
+ownSample.merge(sample)
+this.samples.set(sample.trace.normalized, sample)

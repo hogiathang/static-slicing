@@ -1,0 +1,13 @@
+_tmp_1.store = <lambda>4
+file.uncompressedSize === 0
+writer = touch.bind(null, destination)
+file.uncompressedSize <= zip.chunkSize
+writer = function () {
+                return zip.getBuffer(file._offset, file._offset + file.uncompressedSize)
+                .then(function (buffer) {
+                    return writeFile(destination, buffer, { mode: file.mode });
+                });
+            }
+var input = new stream.Readable()
+input.wrap(fs.createReadStream(zip.filename, {start: file._offset, end: file._offset + file.uncompressedSize - 1}))
+writer = pipePromise.bind(null, input, destination, { mode: file.mode })

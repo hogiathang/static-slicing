@@ -1,0 +1,3 @@
+let chainId = null
+chainId = yield this.send("eth_chainId", [])
+chainId = yield this.send("net_version", [])

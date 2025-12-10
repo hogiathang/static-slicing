@@ -1,0 +1,17 @@
+function sendRequest = function sendRequest(transport) {
+        var rt = (method === 'ping' ? ping_request_timeout : request_timeout);
+        request.timeout = setTimeout(timeout, rt * Math.pow(2, retried++));
+        message2Key[message] = {
+          id: id,
+          dest: dest
+        };
+        requests.set(request, id, dest);
+
+        transport = transport || encode_transport || self.getTransport();
+        if (transport)
+          return transport.send(message);
+
+        return message;
+      }
+var rt = (method === 'ping' ? ping_request_timeout : request_timeout)
+request.timeout = setTimeout(timeout, rt * Math.pow(2, retried++))

@@ -1,0 +1,68 @@
+function handleDeprecatedOptions = function handleDeprecatedOptions (options) {
+  if (options.tags) {
+    const tagDefinitions = Object.entries(options.tags).map(
+      ([selector, definition]) => ({ ...definition, selector: selector || '*' })
+    );
+    options.selectors.push(...tagDefinitions);
+    options.selectors = mergeDuplicatesPreferLast(options.selectors, (s => s.selector));
+  }
+
+  function set (obj, path, value) {
+    const valueKey = path.pop();
+    for (const key of path) {
+      let nested = obj[key];
+      if (!nested) {
+        nested = {};
+        obj[key] = nested;
+      }
+      obj = nested;
+    }
+    obj[valueKey] = value;
+  }
+
+  if (options['baseElement']) {
+    const baseElement = options['baseElement'];
+    set(
+      options,
+      ['baseElements', 'selectors'],
+      (Array.isArray(baseElement) ? baseElement : [baseElement])
+    );
+  }
+  if (options['returnDomByDefault'] !== undefined) {
+    set(options, ['baseElements', 'returnDomByDefault'], options['returnDomByDefault']);
+  }
+
+  for (const ...
+options.tags
+const tagDefinitions = Object.entries(options.tags).map(
+      ([selector, definition]) => ({ ...definition, selector: selector || '*' })
+    )
+_tmp_114.selector = selector || '*'
+options.selectors.push(...tagDefinitions)
+options.selectors = mergeDuplicatesPreferLast(options.selectors, (s => s.selector))
+function set = function set (obj, path, value) {
+    const valueKey = path.pop();
+    for (const key of path) {
+      let nested = obj[key];
+      if (!nested) {
+        nested = {};
+        obj[key] = nested;
+      }
+      obj = nested;
+    }
+    obj[valueKey] = value;
+  }
+options["baseElement"]
+const baseElement = options['baseElement']
+set(
+      options,
+      ['baseElements', 'selectors'],
+      (Array.isArray(baseElement) ? baseElement : [baseElement])
+    )
+_tmp_116 = __ecma.Array.factory()
+Array.isArray(baseElement) ? baseElement : [baseElement]
+options['returnDomByDefault'] !== undefined
+set(options, ['baseElements', 'returnDomByDefault'], options['returnDomByDefault'])
+_iterator_7 = <operator>.iterator(options.selectors)
+definition.format === 'anchor' && get(definition, ['options', 'noLinkBrackets'])
+set(definition, ['options', 'linkBrackets'], false)

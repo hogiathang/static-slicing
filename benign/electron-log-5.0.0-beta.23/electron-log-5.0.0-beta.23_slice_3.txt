@@ -1,0 +1,42 @@
+function initializePreload = function initializePreload(preloadOption) {
+  let preloadPath = typeof preloadOption === 'string'
+    ? preloadOption
+    : path.resolve(__dirname, '../renderer/electron-log-preload.js');
+
+  if (!fs.existsSync(preloadPath)) {
+    preloadPath = path.join(
+      electronApi.getAppUserDataPath() || os.tmpdir(),
+      'electron-log-preload.js',
+    );
+    const preloadCode = `
+      try {
+        (${preloadInitializeFn.toString()})(require('electron'));
+      } catch(e) {
+        console.error(e);
+      }
+    `;
+    fs.writeFileSync(preloadPath, preloadCode, 'utf8');
+  }
+
+  electronApi.setPreloadFileForSessions({ filePath: preloadPath });
+}
+let preloadPath = typeof preloadOption === 'string'
+    ? preloadOption
+    : path.resolve(__dirname, '../renderer/electron-log-preload.js')
+path.resolve(__dirname, '../renderer/electron-log-preload.js')
+!fs.existsSync(preloadPath)
+preloadPath = path.join(
+      electronApi.getAppUserDataPath() || os.tmpdir(),
+      'electron-log-preload.js',
+    )
+electronApi.getAppUserDataPath() || os.tmpdir()
+"electron-log-preload.js"
+<operator>.formatString("
+      try {
+        (", preloadInitializeFn.toString(), ")(require('electron'));
+      } catch(e) {
+        console.error(e);
+      }
+    ")
+preloadInitializeFn.toString()
+fs.writeFileSync(preloadPath, preloadCode, 'utf8')

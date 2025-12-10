@@ -1,0 +1,49 @@
+function transmit = function transmit (logger, opts, args) {
+  const send = opts.send
+  const ts = opts.ts
+  const methodLevel = opts.methodLevel
+  const methodValue = opts.methodValue
+  const val = opts.val
+  const bindings = logger._logEvent.bindings
+
+  applySerializers(
+    args,
+    logger._serialize || Object.keys(logger.serializers),
+    logger.serializers,
+    logger._stdErrSerialize === undefined ? true : logger._stdErrSerialize
+  )
+  logger._logEvent.ts = ts
+  logger._logEvent.messages = args.filter(function (arg) {
+    // bindings can only be objects, so reference equality check via indexOf is fine
+    return bindings.indexOf(arg) === -1
+  })
+
+  logger._logEvent.level.label = methodLevel
+  logger._logEvent.level.value = methodValue
+
+  send(methodLevel, logger._logEvent, val)
+
+  logger._logEvent = createLogEventShape(bindings)
+}
+const send = opts.send
+const ts = opts.ts
+const methodLevel = opts.methodLevel
+const methodValue = opts.methodValue
+const val = opts.val
+const bindings = logger._logEvent.bindings
+applySerializers(
+    args,
+    logger._serialize || Object.keys(logger.serializers),
+    logger.serializers,
+    logger._stdErrSerialize === undefined ? true : logger._stdErrSerialize
+  )
+logger._serialize || Object.keys(logger.serializers)
+logger.serializers
+logger._stdErrSerialize === undefined ? true : logger._stdErrSerialize
+logger._logEvent.ts = ts
+logger._logEvent.messages = args.filter(function (arg) {
+    // bindings can only be objects, so reference equality check via indexOf is fine
+    return bindings.indexOf(arg) === -1
+  })
+logger._logEvent.level.label = methodLevel
+logger._logEvent.level.value = methodValue

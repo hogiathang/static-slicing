@@ -1,0 +1,4 @@
+_tmp_3.ExportDefaultDeclaration = ExportDefaultDeclaration
+file = param2_1.file
+file.get(versionKey) !== "7.22.15"
+const decl = path.get("declaration")

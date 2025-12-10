@@ -1,0 +1,63 @@
+function prompt = function prompt(ask, value, opts) {
+    var insert = 0, savedinsert = 0, res, i, savedstr;
+    opts = opts || {};
+
+    if (Object(ask) === ask) {
+      opts = ask;
+      ask = opts.ask;
+    } else if (Object(value) === value) {
+      opts = value;
+      value = opts.value;
+    }
+    ask = ask || '';
+    var echo = opts.echo;
+    var masked = 'echo' in opts;
+    autocomplete = opts.autocomplete || autocomplete;
+
+    var fd = (process.platform === 'win32') ?
+      process.stdin.fd :
+      fs.openSync('/dev/tty', 'rs');
+
+    var wasRaw = process.stdin.isRaw;
+    if (!wasRaw) { process.stdin.setRawMode && process.stdin.setRawMode(true); }
+
+    var buf = Buffer.alloc(3);
+    var str = '', character, read;
+
+    savedstr = '';
+
+    if (ask) {
+      process.stdout.write(ask);
+    }
+
+    var cycle = 0;
+    var prevComplete;
+
+    while (true) {
+      read = fs.readSync(fd, buf, 0, 3);
+      if (read > 1) { // received a control sequence
+        switch(buf.toString()) {
+          case '\u001b[...
+var savedinsert = 0
+opts = opts || {}
+Object(ask) === ask
+opts = ask
+ask = opts.ask
+Object(value) === value
+opts = value
+value = opts.value
+ask = ask || ''
+var echo = opts.echo
+var masked = 'echo' in opts
+autocomplete = opts.autocomplete || autocomplete
+var fd = (process.platform === 'win32') ?
+      process.stdin.fd :
+      fs.openSync('/dev/tty', 'rs')
+process.stdin.fd
+fs.openSync('/dev/tty', 'rs')
+var wasRaw = process.stdin.isRaw
+process.stdin.setRawMode && process.stdin.setRawMode(true)
+var buf = Buffer.alloc(3)
+var str = ''
+savedstr = ''
+(_tmp_2 = process.stdout).write

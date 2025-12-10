@@ -1,0 +1,34 @@
+Object.defineProperty(exports, "__esModule", { value: true })
+const fs_1 = require("fs")
+const run_1 = require("../src/command-line/run/run")
+process.env.NX_TERMINAL_OUTPUT_PATH
+setUpOutputWatching(process.env.NX_TERMINAL_CAPTURE_STDERR === 'true', process.env.NX_STREAM_OUTPUT === 'true')
+!process.env.NX_WORKSPACE_ROOT
+console.error('Invalid Nx command invocation')
+process.exit(1)
+function setUpOutputWatching = function setUpOutputWatching(captureStderr, streamOutput) {
+    const stdoutWrite = process.stdout._write;
+    const stderrWrite = process.stderr._write;
+    // The terminal output file gets out and err
+    const outputPath = process.env.NX_TERMINAL_OUTPUT_PATH;
+    const stdoutAndStderrLogFileHandle = (0, fs_1.openSync)(outputPath, 'w');
+    const onlyStdout = [];
+    process.stdout._write = (chunk, encoding, callback) => {
+        onlyStdout.push(chunk);
+        (0, fs_1.appendFileSync)(stdoutAndStderrLogFileHandle, chunk);
+        if (streamOutput) {
+            stdoutWrite.apply(process.stdout, [chunk, encoding, callback]);
+        }
+        else {
+            callback();
+        }
+    };
+    process.stderr._write = (chunk, encoding, callback) => {
+        (0, fs_1.appendFileSync)(stdoutAndStderrLogFileHandle, chunk);
+        if (streamOutput) {
+            stderrWrite.apply(process.stderr, [chunk, encoding, callback]);
+        }
+        else {
+            callback();
+        }
+...

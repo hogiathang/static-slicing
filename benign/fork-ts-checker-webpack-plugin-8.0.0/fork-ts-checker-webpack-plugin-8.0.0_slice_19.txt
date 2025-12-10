@@ -1,0 +1,6 @@
+dirsToUnwatch.forEach((dirToUnwatch) => {
+                var _a;
+                (_a = this.dirsWatchers.get(dirToUnwatch)) === null || _a === void 0 ? void 0 : _a.close();
+                this.dirsWatchers.delete(dirToUnwatch);
+            })
+(_a = this.dirsWatchers.get(dirToUnwatch)) === null || _a === void 0 ? void 0 : _a.close()

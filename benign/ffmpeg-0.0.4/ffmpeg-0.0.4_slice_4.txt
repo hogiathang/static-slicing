@@ -1,0 +1,27 @@
+this.fnExtractSoundToMP3 = function (destionationFileName, callback) {
+		// Check if file already exists. In this case will remove it
+		if (fs.existsSync(destionationFileName)) 
+			fs.unlinkSync(destionationFileName);
+
+		// Building the final path
+		var destinationDirName		= path.dirname(destionationFileName)
+		  , destinationFileNameWE	= path.basename(destionationFileName, path.extname(destionationFileName)) + '.mp3'
+		  , finalPath				= path.join(destinationDirName, destinationFileNameWE);
+		
+		resetCommands(this);
+		
+		// Adding commands to the list
+		this.addCommand('-vn');
+		this.addCommand('-ar', 44100);
+		this.addCommand('-ac', 2);
+		this.addCommand('-ab', 192);
+		this.addCommand('-f', 'mp3');
+		
+		// Add destination file path to the command list
+		setOutput(finalPath);
+		
+		// Executing the commands list
+		return execCommand.call(this, callback);
+	}
+fs.existsSync(destionationFileName)
+fs.unlinkSync(destionationFileName)

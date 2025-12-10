@@ -1,0 +1,30 @@
+const result = fetchJson(this.connection, JSON.stringify(request), getResult).then((result) => {
+            this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: this
+            });
+
+            return result;
+
+        }, (error) => {
+            this.emit("debug", {
+                action: "response",
+                error: error,
+                request: request,
+                provider: this
+            });
+
+            throw error;
+        })
+this.emit("debug", {
+                action: "response",
+                request: request,
+                response: result,
+                provider: this
+            })
+_tmp_77.action = "response"
+_tmp_77.request = request
+_tmp_77.response = result
+_tmp_77.provider = this

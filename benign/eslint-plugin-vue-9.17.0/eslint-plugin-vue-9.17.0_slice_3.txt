@@ -1,0 +1,18 @@
+function verifyReactiveVariable = function verifyReactiveVariable(node) {
+      const ref = reactiveVariableReferences.get(node)
+      if (!ref || ref.escape) {
+        return
+      }
+      if (scopes.get(ref.define) !== scopeStack) {
+        // Not in the same scope
+        return
+      }
+
+      context.report({
+        node,
+        messageId: 'getReactiveVariableInSameScope'
+      })
+    }
+const ref = reactiveVariableReferences.get(node)
+!ref || ref.escape
+scopes.get(ref.define) !== scopeStack

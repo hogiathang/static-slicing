@@ -1,0 +1,37 @@
+Ep.explodeClass = function(path) {
+  const explodingChildren = [];
+
+  if (path.node.superClass) {
+    explodingChildren.push(path.get("superClass"));
+  }
+
+  path.get("body.body").forEach(member => {
+    if (member.node.computed) {
+      explodingChildren.push(member.get("key"));
+    }
+  });
+
+  const hasLeapingChildren = explodingChildren.some(
+    child => meta.containsLeap(child));
+
+  for (let i = 0; i < explodingChildren.length; i++) {
+    const child = explodingChildren[i];
+    const isLast = i === explodingChildren.length - 1;
+
+    if (isLast) {
+      child.replaceWith(this.explodeExpression(child));
+    } else {
+      child.replaceWith(this.explodeViaTempVar(null, child, hasLeapingChildren));
+    }
+  }
+
+  return path.node;
+}
+const explodingChildren = []
+path.node.superClass
+explodingChildren.push(path.get("superClass"))
+path.get("body.body").forEach(member => {
+    if (member.node.computed) {
+      explodingChildren.push(member.get("key"));
+    }
+  })

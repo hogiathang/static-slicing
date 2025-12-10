@@ -1,0 +1,9 @@
+put = (strarr, key) => {
+      // The key may or may not be present. If it is present, it's a number.
+      const index = get(strarr, key);
+      if (index !== undefined) return index;
+
+      const { array, _indexes: indexes } = strarr;
+
+      return (indexes[key] = (array as string[]).push(key) - 1);
+    }

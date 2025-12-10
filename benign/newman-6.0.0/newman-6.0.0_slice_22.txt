@@ -1,0 +1,82 @@
+_tmp_5.fetchJson = <lambda>7
+!callback && _.isFunction(options) && (callback = options, options = {})
+var postmanApiKey = _.get(options, 'postmanApiKey')
+var headers = { 'User-Agent': USER_AGENT_VALUE }
+!fs.existsSync(location) && POSTMAN_API_PATH_MAP[type] && postmanApiKey && UID_REGEX.test(location)
+<operator>.formatString("", POSTMAN_API_URL, "/", POSTMAN_API_PATH_MAP[type], "/", location, "")
+headers[API_KEY_HEADER] = postmanApiKey
+(/^https?:\/\/.*/).test(location) ? request.get({
+                url: location,
+                json: true,
+                headers: headers,
+                // Temporary fix to fetch the collection from https URL on Node v12
+                // @todo find the root cause in postman-request
+                // Refer: https://github.com/postmanlabs/newman/issues/1991
+                agentOptions: {
+                    keepAlive: true
+                }
+            }, (err, response, body) => {
+                if (err) {
+                    return callback(_.set(err, 'help', `unable to fetch data from url "${location}"`));
+                }
+
+                try {
+                    _.isString(body) && (body = liquidJSON.parse(body.trim()));
+                }
+                catch (e) {
+                    return callback(_.set(e, 'help', `the url "${location}" did not provide valid JSON data`));
+                }
+
+                var error,
+                    urlObj,
+                    resource = 'resource';
+
+          ... : fs.readFile(location, function (err, value) {
+                if (err) {
+                    return callback(_.set(err, 'help', `unable to read data from file "${location}"`));
+                }
+
+                try {
+                    value = liquidJSON.parse(value.toString(util.detectEncoding(value)).trim());
+                }
+                catch (e) {
+                    return callback(_.set(e, 'help', `the file at "${location}" does not contain valid JSON data`));
+                }
+
+                return callback(null, value);
+            })
+request.get({
+                url: location,
+                json: true,
+                headers: headers,
+                // Temporary fix to fetch the collection from https URL on Node v12
+                // @todo find the root cause in postman-request
+                // Refer: https://github.com/postmanlabs/newman/issues/1991
+                agentOptions: {
+                    keepAlive: true
+                }
+            }, (err, response, body) => {
+                if (err) {
+                    return callback(_.set(err, 'help', `unable to fetch data from url "${location}"`));
+                }
+
+                try {
+                    _.isString(body) && (body = liquidJSON.parse(body.trim()));
+                }
+                catch (e) {
+                    return callback(_.set(e, 'help', `the url "${location}" did not provide valid JSON data`));
+                }
+
+                var error,
+                    urlObj,
+                    resource = 'resource';
+
+          ...
+_tmp_9.url = location
+_tmp_9.json = true
+_tmp_9.headers = headers
+_tmp_9.agentOptions = {
+                    keepAlive: true
+                }
+_tmp_10.keepAlive = true
+<lambda>8

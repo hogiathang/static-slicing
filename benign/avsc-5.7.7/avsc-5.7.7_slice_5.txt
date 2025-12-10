@@ -1,0 +1,23 @@
+Type.prototype.equals = function (type, opts) {
+  var canon = ( // Canonical equality.
+    Type.isType(type) &&
+    this.fingerprint().equals(type.fingerprint())
+  );
+  if (!canon || !(opts && opts.strict)) {
+    return canon;
+  }
+  return (
+    JSON.stringify(this.schema({exportAttrs: true})) ===
+    JSON.stringify(type.schema({exportAttrs: true}))
+  );
+}
+var canon = ( // Canonical equality.
+    Type.isType(type) &&
+    this.fingerprint().equals(type.fingerprint())
+  )
+Type.isType(type) &&
+    this.fingerprint().equals(type.fingerprint())
+this.fingerprint().equals(type.fingerprint())
+!canon || !(opts && opts.strict)
+JSON.stringify(this.schema({exportAttrs: true})) ===
+    JSON.stringify(type.schema({exportAttrs: true}))

@@ -1,0 +1,41 @@
+const validateBinary = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    try {
+        const { name } = require(path.resolve(process.env.INIT_CWD, 'package.json'));
+        if (name === '@swc/core') {
+            return;
+        }
+    }
+    catch (_) {
+        return;
+    }
+    // TODO: We do not take care of the case if user try to install with `--no-optional`.
+    // For now, it is considered as deliberate decision.
+    let binding;
+    try {
+        binding = require('./binding');
+        // Check if binding binary actually works.
+        // For the latest version, checks target triple. If it's old version doesn't have target triple, use parseSync instead.
+        const triple = binding.getTargetTriple ? binding.getTargetTriple() : binding.parseSync('console.log()', Buffer.from(JSON.stringify({ syntax: "ecmascript" })));
+        assert.ok(triple, 'Failed to read target triple from native binary.');
+    }
+    catch (error) {
+        // if error is unsupported archit...
+_tmp_9 = require(path.resolve(process.env.INIT_CWD, 'package.json'))
+name === '@swc/core'
+binding = require('./binding')
+const triple = binding.getTargetTriple ? binding.getTargetTriple() : binding.parseSync('console.log()', Buffer.from(JSON.stringify({ syntax: "ecmascript" })))
+assert.ok(triple, 'Failed to read target triple from native binary.')
+!((_a = error.message) === null || _a === void 0 ? void 0 : _a.includes('Unsupported architecture'))
+console.warn(error)
+console.warn(`@swc/core was not able to resolve native bindings installation. It'll try to use @swc/wasm as fallback instead.`)
+!!binding
+!!process.env["SWC_BINARY_PATH"]
+wasmBinding = require.resolve(`@swc/wasm`)
+!!wasmBinding && (0, fs_1.existsSync)(wasmBinding)
+const env = Object.assign(Object.assign({}, process.env), { npm_config_global: undefined })
+_tmp_13 = require(path.join(path.dirname(require.resolve('@swc/core')), 'package.json'))
+const coreDir = path.dirname(require.resolve('@swc/core'))
+const installDir = path.join(coreDir, 'npm-install')
+fs.mkdirSync(installDir)
+fs.writeFileSync(path.join(installDir, 'package.json'), '{}')

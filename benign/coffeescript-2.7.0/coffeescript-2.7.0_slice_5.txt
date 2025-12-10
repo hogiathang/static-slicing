@@ -1,0 +1,20 @@
+opts = opts === void 0 ? {} : opts
+_tmp_35 = process.versions.node.split('.').map(function(n) {
+        return parseInt(n, 10);
+      })
+major < 6
+console.warn("Node 6+ required for CoffeeScript REPL")
+process.exit(1)
+CoffeeScript.register()
+process.argv = ['coffee'].concat(process.argv.slice(2))
+opts.transpile
+transpile = {}
+transpile.transpile = require('@babel/core').transform
+transpile.transpile = require('babel-core').transform
+console.error(`To use --transpile with an interactive REPL, @babel/core must be installed either in the current folder or globally:
+  npm install --save-dev @babel/core
+or
+  npm install --global @babel/core
+And you must save options to configure Babel in one of the places it looks to find its options.
+See https://coffeescript.org/#transpilation`)
+process.exit(1)

@@ -1,0 +1,94 @@
+const errorMessage = (er, npm) => {
+  const short = []
+  const detail = []
+  const files = []
+
+  if (er.message) {
+    er.message = replaceInfo(er.message)
+  }
+  if (er.stack) {
+    er.stack = replaceInfo(er.stack)
+  }
+
+  switch (er.code) {
+    case 'ERESOLVE': {
+      short.push(['ERESOLVE', er.message])
+      detail.push(['', ''])
+      // XXX(display): error messages are logged so we use the logColor since that is based
+      // on stderr. This should be handled solely by the display layer so it could also be
+      // printed to stdout if necessary.
+      const { explanation, file } = report(er, npm.logChalk, npm.noColorChalk)
+      detail.push(['', explanation])
+      files.push(['eresolve-report.txt', file])
+      break
+    }
+
+    case 'ENOLOCK': {
+      const cmd = npm.command || ''
+      short.push([cmd, 'This command requires an existing lockfile.'])
+      detail.push([cmd, 'Try creating one first with: npm i --package-lock-only'])
+      detail.push([cmd, `Original error: ${er.mes...
+__ecma.Array.factory()
+__ecma.Array.factory()
+__ecma.Array.factory()
+er.message
+er.message = replaceInfo(er.message)
+er.stack
+er.stack = replaceInfo(er.stack)
+er.code
+"EACCES"
+"EPERM"
+const isCachePath =
+        typeof er.path === 'string' &&
+        npm.config.loaded &&
+        er.path.startsWith(npm.config.get('cache'))
+typeof er.path === 'string' &&
+        npm.config.loaded &&
+        er.path.startsWith(npm.config.get('cache'))
+npm.config.loaded
+er.path.startsWith(npm.config.get('cache'))
+const isCacheDest =
+        typeof er.dest === 'string' &&
+        npm.config.loaded &&
+        er.dest.startsWith(npm.config.get('cache'))
+typeof er.dest === 'string' &&
+        npm.config.loaded &&
+        er.dest.startsWith(npm.config.get('cache'))
+npm.config.loaded
+er.dest.startsWith(npm.config.get('cache'))
+_tmp_25 = require('./is-windows.js')
+!isWindows && (isCachePath || isCacheDest)
+log.verbose(er.stack)
+short.push([
+          '',
+          [
+            '',
+            'Your cache folder contains root-owned files, due to a bug in',
+            'previous versions of npm which has since been addressed.',
+            '',
+            'To permanently fix this problem, please run:',
+            `  sudo chown -R ${process.getuid()}:${process.getgid()} ${JSON.stringify(
+              npm.config.get('cache')
+            )}`,
+          ].join('\n'),
+        ])
+_tmp_26.push("")
+_tmp_26.push([
+            '',
+            'Your cache folder contains root-owned files, due to a bug in',
+            'previous versions of npm which has since been addressed.',
+            '',
+            'To permanently fix this problem, please run:',
+            `  sudo chown -R ${process.getuid()}:${process.getgid()} ${JSON.stringify(
+              npm.config.get('cache')
+            )}`,
+          ].join('\n'))
+_tmp_28.push("")
+_tmp_28.push("Your cache folder contains root-owned files, due to a bug in")
+_tmp_28.push("previous versions of npm which has since been addressed.")
+_tmp_28.push("")
+_tmp_28.push("To permanently fix this problem, please run:")
+_tmp_28.push(<operator>.formatString("  sudo chown -R ", process.getuid(), ":", process.getgid(), " ", JSON.stringify(
+              npm.config.get('cache')
+            ), ""))
+(_tmp_29 = npm.config).get

@@ -1,0 +1,6 @@
+function nextPageHandler(pageState) {
+      execOptions.setPageState(pageState);
+      return new RequestHandler(request, execOptions, client).send();
+    }
+execOptions.setPageState(pageState)
+(_tmp_25 = new RequestHandler(request, execOptions, client)).send

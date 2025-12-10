@@ -1,0 +1,84 @@
+function awaitAndContinue = function awaitAndContinue(state, path, value, continuation, directExpression) {
+        const declarators = [];
+        if (continuation) {
+            if (isPassthroughContinuation(continuation)) {
+                continuation = undefined;
+            }
+            else {
+                continuation = unwrapReturnCallWithPassthroughArgument(continuation, path.scope);
+            }
+        }
+        if (!continuation && directExpression && extractLooseBooleanValue(directExpression) === true) {
+            return {
+                declarators,
+                expression: value,
+            };
+        }
+        if (types.isCallExpression(value) &&
+            value.arguments.length === 0 &&
+            isContinuation(value.callee) &&
+            value.callee.params.length === 0) {
+            const newValue = expressionInSingleReturnStatement(value.callee);
+            if (newValue) {
+                value = newValue;
+            }
+        }
+        if (continuation &&
+            !d...
+const declarators = []
+isPassthroughContinuation(continuation)
+continuation = undefined
+continuation = unwrapReturnCallWithPassthroughArgument(continuation, path.scope)
+!continuation && directExpression && extractLooseBooleanValue(directExpression) === true
+types.isCallExpression(value) &&
+            value.arguments.length === 0 &&
+            isContinuation(value.callee) &&
+            value.callee.params.length === 0
+value.arguments.length === 0
+isContinuation(value.callee)
+value.callee.params.length === 0
+const newValue = expressionInSingleReturnStatement(value.callee)
+value = newValue
+continuation &&
+            !directExpression &&
+            types.isCallExpression(value) &&
+            types.isMemberExpression(value.callee) &&
+            helperNameMap.get(value.callee) === "_yield"
+!directExpression
+types.isCallExpression(value)
+types.isMemberExpression(value.callee)
+helperNameMap.get(value.callee) === "_yield"
+readConfigKey(state.opts, "inlineHelpers")
+const callTarget = types.isCallExpression(value) && value.arguments.length === 0 && !types.isMemberExpression(value.callee)
+            ? value.callee
+            : undefined
+value.callee
+const args = [callTarget || value]
+const ignoreResult = continuation && isEmptyContinuation(continuation)
+!ignoreResult && continuation
+args.push(continuation)
+directExpression && extractLooseBooleanValue(directExpression) !== false
+!ignoreResult && !continuation
+args.push(voidExpression())
+args.push(directExpression)
+const baseHelper = directExpression
+            ? callTarget
+                ? "_call"
+                : "_await"
+            : callTarget
+                ? "_invoke"
+                : "_continue"
+callTarget ? "_call" : "_await"
+"_call"
+"_await"
+callTarget ? "_invoke" : "_continue"
+"_invoke"
+"_continue"
+const helperName = ignoreResult ? (baseHelper + "Ignored") : baseHelper
+args.length === 1
+"_continueIgnored"
+const firstArgument = args[0]
+types.isCallExpression(firstArgument) &&
+                        (types.isIdentifier(firstArgument.callee) || types.isMemberExpression(firstArgument.callee))
+types.isIdentifier(firstArgument.callee) || types.isMemberExpression(firstArgument.callee)
+helperNameMap.get(firstArgument.callee) === "_continueIgnored"

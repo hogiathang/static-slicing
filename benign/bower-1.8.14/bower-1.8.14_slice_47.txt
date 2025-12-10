@@ -1,0 +1,42 @@
+function extractGz = function extractGz(archive, dst) {
+    var deferred = Q.defer();
+
+    var stream = fs.createReadStream(archive);
+
+    var reject = function(error) {
+        destroy(stream);
+        deferred.reject(error);
+    };
+    stream
+        .on('error', reject)
+        .pipe(zlib.createGunzip())
+        .on('error', reject)
+        .pipe(createWriteStream(dst))
+        .on('error', reject)
+        .on('finish', function(result) {
+            destroy(stream);
+            deferred.resolve(dst);
+        });
+
+    return deferred.promise;
+}
+var deferred = Q.defer()
+var stream = fs.createReadStream(archive)
+var reject = function(error) {
+        destroy(stream);
+        deferred.reject(error);
+    }
+stream
+        .on('error', reject)
+        .pipe(zlib.createGunzip())
+        .on('error', reject)
+        .pipe(createWriteStream(dst))
+        .on('error', reject)
+        .on('finish', function(result) {
+            destroy(stream);
+            deferred.resolve(dst);
+        })
+"error"
+zlib.createGunzip()
+"error"
+createWriteStream(dst)

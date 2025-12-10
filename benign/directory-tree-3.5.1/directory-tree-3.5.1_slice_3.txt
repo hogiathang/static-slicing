@@ -1,0 +1,141 @@
+const fs = require('fs')
+const commandLineUsage = require('command-line-usage')
+const commandLineArgs = require('command-line-args')
+const directoryTree = require('../lib/directory-tree')
+const optionList = [
+    {
+        name: 'path',
+        alias: 'p',
+        required: true,
+        defaultOption: true,
+        typeLabel: '{underline string}',
+        description: '🗂 The input folder to process. Required.'
+    },
+    {
+        name: 'exclude',
+        alias: 'e',
+        type: String,
+        description: '🐒 Exclude some folders from processing by regexp string. Ex -e "test_data/some_dir$|js|.DS_Store"'
+    },
+    {
+        name: 'output',
+        alias: 'o',
+        type: String,
+        description: '📝 Put result into file provided by this options. Overwrites if exists.'
+    },
+    {
+        name: 'depth',
+        alias: 'd',
+        type: Number,
+        description: '☞ Reads dirs in deep as specified. Usage of size attribute with depth option is prohibited.'
+    },
+    {
+        name: 'attributes',
+        type: String,
+        description: 'ℹ️ Grab file attributes. Example: --attributes size,type,extension. Usage of size attribute with depth option is prohibit...
+_tmp_0.push({
+        name: 'path',
+        alias: 'p',
+        required: true,
+        defaultOption: true,
+        typeLabel: '{underline string}',
+        description: '🗂 The input folder to process. Required.'
+    })
+_tmp_1.name = "path"
+_tmp_1.alias = "p"
+_tmp_1.required = true
+_tmp_1.defaultOption = true
+_tmp_1.typeLabel = "{underline string}"
+_tmp_1.description = "🗂 The input folder to process. Required."
+_tmp_0.push({
+        name: 'exclude',
+        alias: 'e',
+        type: String,
+        description: '🐒 Exclude some folders from processing by regexp string. Ex -e "test_data/some_dir$|js|.DS_Store"'
+    })
+_tmp_2.name = "exclude"
+_tmp_2.alias = "e"
+_tmp_2.type = String
+_tmp_2.description = "🐒 Exclude some folders from processing by regexp string. Ex -e "test_data/some_dir$|js|.DS_Store""
+_tmp_0.push({
+        name: 'output',
+        alias: 'o',
+        type: String,
+        description: '📝 Put result into file provided by this options. Overwrites if exists.'
+    })
+_tmp_3.name = "output"
+_tmp_3.alias = "o"
+_tmp_3.type = String
+_tmp_3.description = "📝 Put result into file provided by this options. Overwrites if exists."
+_tmp_0.push({
+        name: 'depth',
+        alias: 'd',
+        type: Number,
+        description: '☞ Reads dirs in deep as specified. Usage of size attribute with depth option is prohibited.'
+    })
+_tmp_4.name = "depth"
+_tmp_4.alias = "d"
+_tmp_4.type = Number
+_tmp_4.description = "☞ Reads dirs in deep as specified. Usage of size attribute with depth option is prohibited."
+_tmp_0.push({
+        name: 'attributes',
+        type: String,
+        description: 'ℹ️ Grab file attributes. Example: --attributes size,type,extension. Usage of size attribute with depth option is prohibited'
+    })
+_tmp_5.name = "attributes"
+_tmp_5.type = String
+_tmp_5.description = "ℹ️ Grab file attributes. Example: --attributes size,type,extension. Usage of size attribute with depth option is prohibited"
+_tmp_0.push({
+        name: 'pretty',
+        type: Boolean,
+        description: '💎 Json pretty print'
+    })
+_tmp_6.name = "pretty"
+_tmp_6.type = Boolean
+_tmp_6.description = "💎 Json pretty print"
+_tmp_0.push({
+        name: 'help',
+        alias: 'h',
+        type: Boolean,
+        description: '⁉️ Print this usage guide.'
+    })
+_tmp_7.name = "help"
+_tmp_7.alias = "h"
+_tmp_7.type = Boolean
+_tmp_7.description = "⁉️ Print this usage guide."
+const usageNotes = [
+    {
+        header: '⛄️️ Folder-tree command line script',
+        content: 'Used for generates json representation of folder internals'
+    },
+    {
+        header: '🔥 Options 🔥',
+        optionList: optionList
+    }
+]
+_tmp_8.push({
+        header: '⛄️️ Folder-tree command line script',
+        content: 'Used for generates json representation of folder internals'
+    })
+_tmp_9.header = "⛄️️ Folder-tree command line script"
+_tmp_9.content = "Used for generates json representation of folder internals"
+_tmp_8.push({
+        header: '🔥 Options 🔥',
+        optionList: optionList
+    })
+_tmp_10.header = "🔥 Options 🔥"
+_tmp_10.optionList = optionList
+const usage = commandLineUsage(usageNotes)
+let options = null
+options = commandLineArgs(optionList)
+Object.keys(options).length === 0 || options.help || !options.path
+!fs.existsSync(options.path)
+const result = directoryTree(options.path, {
+        depth: options.depth,
+        exclude: options.exclude ? [new RegExp(options.exclude)] : undefined,
+        attributes: options.attributes ? options.attributes.split(',') : undefined
+    })
+_tmp_11.depth = options.depth
+_tmp_11.exclude = options.exclude ? [new RegExp(options.exclude)] : undefined
+_tmp_11.attributes = options.attributes ? options.attributes.split(',') : undefined
+const resultString = JSON.stringify(result, null, options.pretty ? '  ' : '')

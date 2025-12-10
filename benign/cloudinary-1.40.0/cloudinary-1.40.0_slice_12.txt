@@ -1,0 +1,57 @@
+function process_layer = function process_layer(layer) {
+  let result = '';
+  if (isPlainObject(layer)) {
+    if (layer.resource_type === "fetch" || (layer.url != null)) {
+      result = `fetch:${base64EncodeURL(layer.url)}`;
+    } else {
+      let public_id = layer.public_id;
+      let format = layer.format;
+      let resource_type = layer.resource_type || "image";
+      let type = layer.type || "upload";
+      let text = layer.text;
+      let style = null;
+      let components = [];
+      const noPublicId = isEmpty(public_id);
+      if (!noPublicId) {
+        public_id = public_id.replace(new RegExp("/", 'g'), ":");
+        if (format != null) {
+          public_id = `${public_id}.${format}`;
+        }
+      }
+      if (isEmpty(text) && resource_type !== "text") {
+        if (noPublicId) {
+          throw "Must supply public_id for resource_type layer_parameter";
+        }
+        if (resource_type === "subtitles") {
+          style = textStyle(layer);
+        }
+      } else {
+        resource_type = "tex...
+let result = ''
+isPlainObject(layer)
+layer.resource_type === "fetch" || (layer.url != null)
+let public_id = layer.public_id
+let format = layer.format
+let resource_type = layer.resource_type || "image"
+let type = layer.type || "upload"
+let text = layer.text
+let style = null
+__ecma.Array.factory()
+const noPublicId = isEmpty(public_id)
+!noPublicId
+public_id = public_id.replace(new RegExp("/", 'g'), ":")
+format != null
+<operator>.formatString("", public_id, ".", format, "")
+isEmpty(text) && resource_type !== "text"
+resource_type = "text"
+type = null
+style = textStyle(layer)
+!isEmpty(text)
+const noStyle = isEmpty(style)
+!(noPublicId || noStyle) || (noPublicId && noStyle)
+throw "Must supply either style parameters or a public_id when providing text parameter in a text overlay/underlay";
+let re = /\$\([a-zA-Z]\w*\)/g
+let start = 0
+let textSource = smart_escape(decodeURIComponent(text), /[,\/]/g)
+text = ""
+let res = re.exec(textSource)

@@ -1,0 +1,26 @@
+var program = require('commander')
+program
+  .option('-e, --encoding [type]', 'Specify the encoding of dotenv file')
+  .option('-p, --path [type]', 'Specify a custom path of dotenv file')
+  .option('-s, --silent', 'silent')
+  .parse(process.argv)
+"Specify the encoding of dotenv file"
+"Specify a custom path of dotenv file"
+"silent"
+process.argv
+var scriptName = program.args[0]
+!program.silent
+console.log('running better-npm-run in', process.cwd())
+var join = require('path').join
+var fullPackagePath = join(process.cwd(), 'package.json')
+var pkg = require(fullPackagePath)
+var exec = require('./lib/exec.js')
+!pkg.scripts
+process.stderr.write('ERROR: No scripts found!')
+process.exit(1)
+!pkg.betterScripts
+process.stderr.write('ERROR: No betterScripts found!')
+process.exit(1)
+!scriptName
+process.stderr.write('ERROR: No script name provided!')
+process.exit(1)

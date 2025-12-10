@@ -1,0 +1,7 @@
+optionalAttributes.forEach(function (attribute) {
+              if (!enclosure[attribute] && _.get(enc['@'], attribute)) {
+                enclosure[attribute] = _.get(enc['@'], attribute);
+              }
+            })
+!enclosure[attribute] && _.get(enc['@'], attribute)
+enclosure[attribute] = _.get(enc['@'], attribute)

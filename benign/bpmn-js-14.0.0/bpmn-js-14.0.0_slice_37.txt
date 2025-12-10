@@ -1,0 +1,11 @@
+function hasEventDefinition = function hasEventDefinition(element, type) {
+  var businessObject = getBusinessObject(element);
+
+  return type && businessObject.get('eventDefinitions').some(function(definition) {
+    return is(definition, type);
+  });
+}
+var businessObject = getBusinessObject(element)
+type && businessObject.get('eventDefinitions').some(function(definition) {
+    return is(definition, type);
+  })

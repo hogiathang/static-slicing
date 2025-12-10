@@ -1,0 +1,48 @@
+request.toString = function() {
+    /* Sample request header:
+      GET /some/path/?query HTTP/1.1
+      Host: www.someurl.com
+      Connection: close
+      Accept-Encoding: deflate
+      Accept: image/gif, text/html
+      User-Agent: Mozilla 4.0
+     */
+
+    // set default headers
+    if(request.getField('User-Agent') === null) {
+      request.setField('User-Agent', 'forge.http 1.0');
+    }
+    if(request.getField('Accept') === null) {
+      request.setField('Accept', '*/*');
+    }
+    if(request.getField('Connection') === null) {
+      request.setField('Connection', 'keep-alive');
+      request.setField('Keep-Alive', '115');
+    }
+
+    // add Accept-Encoding if not specified
+    if(request.flashApi !== null &&
+      request.getField('Accept-Encoding') === null) {
+      request.setField('Accept-Encoding', 'deflate');
+    }
+
+    // if the body isn't null, deflate it if its larger than 100 bytes
+    if(request.flashApi !== null && request.body !== null &&
+      request.getField('Cont...
+request.getField('User-Agent') === null
+request.setField('User-Agent', 'forge.http 1.0')
+request.getField('Accept') === null
+request.setField('Accept', '*/*')
+request.getField('Connection') === null
+request.setField('Connection', 'keep-alive')
+request.setField('Keep-Alive', '115')
+request.flashApi !== null &&
+      request.getField('Accept-Encoding') === null
+request.getField('Accept-Encoding') === null
+request.setField('Accept-Encoding', 'deflate')
+request.flashApi !== null && request.body !== null &&
+      request.getField('Content-Encoding') === null &&
+      !request.bodyDeflated && request.body.length > 100
+request.getField('Content-Encoding') === null
+request.body.length > 100
+request.body = forge.util.deflate(request.flashApi, request.body)

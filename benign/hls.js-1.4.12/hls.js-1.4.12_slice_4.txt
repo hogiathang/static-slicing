@@ -1,0 +1,74 @@
+function consumeCueSettings = function consumeCueSettings(input: string, cue: VTTCue) {
+    const settings = new Settings();
+
+    parseOptions(
+      input,
+      function (k, v) {
+        let vals;
+        switch (k) {
+          case 'region':
+            // Find the last region we parsed with the same region id.
+            for (let i = regionList.length - 1; i >= 0; i--) {
+              if (regionList[i].id === v) {
+                settings.set(k, regionList[i].region);
+                break;
+              }
+            }
+            break;
+          case 'vertical':
+            settings.alt(k, v, ['rl', 'lr']);
+            break;
+          case 'line':
+            vals = v.split(',');
+            settings.integer(k, vals[0]);
+            if (settings.percent(k, vals[0])) {
+              settings.set('snapToLines', false);
+            }
+
+            settings.alt(k, vals[0], ['auto']);
+            if (vals.length === 2) {
+              settings.alt('lineAlign', vals[1], ['start', center, 'end']);
+            }...
+const settings = new Settings()
+parseOptions(
+      input,
+      function (k, v) {
+        let vals;
+        switch (k) {
+          case 'region':
+            // Find the last region we parsed with the same region id.
+            for (let i = regionList.length - 1; i >= 0; i--) {
+              if (regionList[i].id === v) {
+                settings.set(k, regionList[i].region);
+                break;
+              }
+            }
+            break;
+          case 'vertical':
+            settings.alt(k, v, ['rl', 'lr']);
+            break;
+          case 'line':
+            vals = v.split(',');
+            settings.integer(k, vals[0]);
+            if (settings.percent(k, vals[0])) {
+              settings.set('snapToLines', false);
+            }
+
+            settings.alt(k, vals[0], ['auto']);
+            if (vals.length === 2) {
+              settings.alt('lineAlign', vals[1], ['start', center, 'end']);
+            }
+
+            break;
+          case 'position':
+            vals = v.split(',');
+            setting...
+<lambda>0
+/\s/
+cue.region = settings.get('region', null)
+cue.vertical = settings.get('vertical', '')
+let line = settings.get('line', 'auto')
+line === 'auto' && defaults.line === -1
+line = -1
+cue.line = line
+cue.lineAlign = settings.get('lineAlign', 'start')

@@ -1,0 +1,8 @@
+process.on("exit", function () {
+        if (signal) {
+          process.kill(process.pid, signal);
+        } else {
+          process.exit(code);
+        }
+      })
+process.kill(process.pid, signal)

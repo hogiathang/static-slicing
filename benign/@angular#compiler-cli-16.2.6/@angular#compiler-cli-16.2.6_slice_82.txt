@@ -1,0 +1,130 @@
+resolve(node, analysis, symbol) {
+    if (this.semanticDepGraphUpdater !== null && analysis.baseClass instanceof Reference) {
+      symbol.baseClass = this.semanticDepGraphUpdater.getSymbol(analysis.baseClass.node);
+    }
+    if (analysis.isPoisoned && !this.usePoisonedData) {
+      return {};
+    }
+    const context = getSourceFile(node);
+    const metadata = analysis.meta;
+    const data = {
+      declarations: EMPTY_ARRAY2,
+      declarationListEmitMode: 0,
+      deferBlocks: /* @__PURE__ */ new Map(),
+      deferrableDeclToImportDecl: /* @__PURE__ */ new Map()
+    };
+    const diagnostics = [];
+    const scope = this.scopeReader.getScopeForComponent(node);
+    if (scope !== null) {
+      const matcher = new SelectorMatcher2();
+      const pipes = /* @__PURE__ */ new Map();
+      const dependencies = scope.kind === ComponentScopeKind.NgModule ? scope.compilation.dependencies : scope.dependencies;
+      for (const dep of dependencies) {
+        if (dep.kind === MetaKind.Directive ...
+this.semanticDepGraphUpdater !== null && analysis.baseClass instanceof Reference
+symbol.baseClass = this.semanticDepGraphUpdater.getSymbol(analysis.baseClass.node)
+analysis.isPoisoned && !this.usePoisonedData
+const context = getSourceFile(node)
+const metadata = analysis.meta
+const data = {
+      declarations: EMPTY_ARRAY2,
+      declarationListEmitMode: 0,
+      deferBlocks: /* @__PURE__ */ new Map(),
+      deferrableDeclToImportDecl: /* @__PURE__ */ new Map()
+    }
+_tmp_1050.declarations = EMPTY_ARRAY2
+_tmp_1050.declarationListEmitMode = 0
+_tmp_1050.deferBlocks = new Map()
+_tmp_1050.deferrableDeclToImportDecl = new Map()
+const diagnostics = []
+const scope = this.scopeReader.getScopeForComponent(node)
+scope !== null
+const matcher = new SelectorMatcher2()
+const pipes = /* @__PURE__ */ new Map()
+const dependencies = scope.kind === ComponentScopeKind.NgModule ? scope.compilation.dependencies : scope.dependencies
+_iterator_117 = <operator>.iterator(dependencies)
+dep.kind === MetaKind.Directive && dep.selector !== null
+matcher.addSelectables(CssSelector2.parse(dep.selector), [dep])
+dep.kind === MetaKind.Pipe
+pipes.set(dep.name, dep)
+const binder = new R3TargetBinder(matcher)
+const bound = binder.bind({ template: metadata.template.nodes })
+const deferBlocks = /* @__PURE__ */ new Map()
+_iterator_118 = <operator>.iterator(bound.getDeferBlocks())
+deferBlocks.set(deferBlock, binder.bind({ template: deferBlock.children }))
+const eagerlyUsed = /* @__PURE__ */ new Set()
+_iterator_119 = <operator>.iterator(bound.getEagerlyUsedDirectives())
+eagerlyUsed.add(dir.ref.node)
+_iterator_120 = <operator>.iterator(bound.getEagerlyUsedPipes())
+!pipes.has(name)
+continue;
+eagerlyUsed.add(pipes.get(name).ref.node)
+const wholeTemplateUsed = new Set(eagerlyUsed)
+_iterator_121 = <operator>.iterator(deferBlocks.values())
+_iterator_122 = <operator>.iterator(bound2.getEagerlyUsedDirectives())
+wholeTemplateUsed.add(dir.ref.node)
+_iterator_123 = <operator>.iterator(bound2.getEagerlyUsedPipes())
+!pipes.has(name)
+continue;
+wholeTemplateUsed.add(pipes.get(name).ref.node)
+const declarations = /* @__PURE__ */ new Map()
+_iterator_124 = <operator>.iterator(dependencies)
+declarations.has(dep.ref.node)
+continue;
+dep.kind
+MetaKind.Directive
+!wholeTemplateUsed.has(dep.ref.node) || dep.matchSource !== MatchSource.Selector
+continue;
+const dirType = this.refEmitter.emit(dep.ref, context)
+assertSuccessfulReferenceEmit(dirType, node.name, dep.isComponent ? "component" : "directive")
+declarations.set(dep.ref.node, {
+              kind: R3TemplateDependencyKind.Directive,
+              ref: dep.ref,
+              type: dirType.expression,
+              importedFile: dirType.importedFile,
+              selector: dep.selector,
+              inputs: dep.inputs.propertyNames,
+              outputs: dep.outputs.propertyNames,
+              exportAs: dep.exportAs,
+              isComponent: dep.isComponent
+            })
+_tmp_1065.kind = R3TemplateDependencyKind.Directive
+_tmp_1065.ref = dep.ref
+_tmp_1065.type = dirType.expression
+_tmp_1065.importedFile = dirType.importedFile
+_tmp_1065.selector = dep.selector
+_tmp_1065.inputs = dep.inputs.propertyNames
+_tmp_1065.outputs = dep.outputs.propertyNames
+_tmp_1065.exportAs = dep.exportAs
+_tmp_1065.isComponent = dep.isComponent
+break;
+MetaKind.Pipe
+!wholeTemplateUsed.has(dep.ref.node)
+continue;
+const pipeType = this.refEmitter.emit(dep.ref, context)
+assertSuccessfulReferenceEmit(pipeType, node.name, "pipe")
+declarations.set(dep.ref.node, {
+              kind: R3TemplateDependencyKind.Pipe,
+              type: pipeType.expression,
+              name: dep.name,
+              ref: dep.ref,
+              importedFile: pipeType.importedFile
+            })
+_tmp_1067.kind = R3TemplateDependencyKind.Pipe
+_tmp_1067.type = pipeType.expression
+_tmp_1067.name = dep.name
+_tmp_1067.ref = dep.ref
+_tmp_1067.importedFile = pipeType.importedFile
+break;
+MetaKind.NgModule
+const ngModuleType = this.refEmitter.emit(dep.ref, context)
+assertSuccessfulReferenceEmit(ngModuleType, node.name, "NgModule")
+declarations.set(dep.ref.node, {
+              kind: R3TemplateDependencyKind.NgModule,
+              type: ngModuleType.expression,
+              importedFile: ngModuleType.importedFile
+            })
+_tmp_1069.kind = R3TemplateDependencyKind.NgModule
+_tmp_1069.type = ngModuleType.expression
+_tmp_1069.importedFile = ngModuleType.importedFile
+break;

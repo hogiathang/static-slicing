@@ -1,0 +1,34 @@
+connect(data) {
+        this.connecting = true;
+        if(this.ws && this.ws.readyState !== WebSocket.CLOSED) {
+            this.disconnect(undefined, true);
+            setTimeout(() => {
+                if(!this.connecting && !this.ready) {
+                    this.connect(data);
+                }
+            }, 500).unref();
+            return;
+        }
+        clearTimeout(this.connectionTimeout);
+        this.connectionTimeout = setTimeout(() => {
+            if(this.connecting) {
+                this.disconnect(new Error("Voice connection timeout"));
+            }
+            this.connectionTimeout = null;
+        }, this.shard.client ? this.shard.client.options.connectionTimeout : 30000).unref();
+        if(!data.endpoint) {
+            return; // Endpoint null, wait next update.
+        }
+        if(!data.token || !data.session_id || !data.user_id) {
+            this.disconnect(new Error("Malformed voice server update: " + JSON.stringify(data)));
+            return;
+      ...
+this.connecting = true
+this.ws && this.ws.readyState !== WebSocket.CLOSED
+this.disconnect(undefined, true)
+(_tmp_17 = setTimeout(() => {
+                if(!this.connecting && !this.ready) {
+                    this.connect(data);
+                }
+            }, 500)).unref
+500

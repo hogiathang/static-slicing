@@ -1,0 +1,72 @@
+const errorMessage = (er, npm) => {
+  const short = []
+  const detail = []
+  const files = []
+
+  if (er.message) {
+    er.message = replaceInfo(er.message)
+  }
+  if (er.stack) {
+    er.stack = replaceInfo(er.stack)
+  }
+
+  switch (er.code) {
+    case 'ERESOLVE': {
+      short.push(['ERESOLVE', er.message])
+      detail.push(['', ''])
+      // XXX(display): error messages are logged so we use the logColor since that is based
+      // on stderr. This should be handled solely by the display layer so it could also be
+      // printed to stdout if necessary.
+      const { explanation, file } = report(er, npm.logChalk, npm.noColorChalk)
+      detail.push(['', explanation])
+      files.push(['eresolve-report.txt', file])
+      break
+    }
+
+    case 'ENOLOCK': {
+      const cmd = npm.command || ''
+      short.push([cmd, 'This command requires an existing lockfile.'])
+      detail.push([cmd, 'Try creating one first with: npm i --package-lock-only'])
+      detail.push([cmd, `Original error: ${er.mes...
+__ecma.Array.factory()
+__ecma.Array.factory()
+__ecma.Array.factory()
+er.message
+er.message = replaceInfo(er.message)
+er.stack
+er.stack = replaceInfo(er.stack)
+er.code
+"EBADENGINE"
+short.push(['engine', er.message])
+short.push(['engine', 'Not compatible with your version of node/npm: ' + er.pkgid])
+detail.push([
+        'notsup',
+        [
+          'Not compatible with your version of node/npm: ' + er.pkgid,
+          'Required: ' + JSON.stringify(er.required),
+          'Actual:   ' +
+            JSON.stringify({
+              npm: npm.version,
+              node: process.version,
+            }),
+        ].join('\n'),
+      ])
+_tmp_111.push("notsup")
+_tmp_111.push([
+          'Not compatible with your version of node/npm: ' + er.pkgid,
+          'Required: ' + JSON.stringify(er.required),
+          'Actual:   ' +
+            JSON.stringify({
+              npm: npm.version,
+              node: process.version,
+            }),
+        ].join('\n'))
+_tmp_113.push('Not compatible with your version of node/npm: ' + er.pkgid)
+_tmp_113.push('Required: ' + JSON.stringify(er.required))
+_tmp_113.push('Actual:   ' +
+            JSON.stringify({
+              npm: npm.version,
+              node: process.version,
+            }))
+_tmp_114.npm = npm.version
+_tmp_114.node = process.version

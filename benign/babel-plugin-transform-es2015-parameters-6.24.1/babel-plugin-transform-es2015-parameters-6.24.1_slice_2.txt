@@ -1,0 +1,53 @@
+_tmp_4.Function = Function
+var node = path.node
+var scope = path.scope
+!hasDefaults(node)
+path.ensureBlock()
+var state = {
+      iife: false,
+      scope: scope
+    }
+_tmp_6.iife = false
+_tmp_6.scope = scope
+__ecma.Array.factory()
+var argsIdentifier = t.identifier("arguments")
+argsIdentifier._shadowedFunctionLiteral = path
+function pushDefNode = function pushDefNode(left, right, i) {
+      var defNode = buildDefaultParam({
+        VARIABLE_NAME: left,
+        DEFAULT_VALUE: right,
+        ARGUMENT_KEY: t.numericLiteral(i),
+        ARGUMENTS: argsIdentifier
+      });
+      defNode._blockHoist = node.params.length - i;
+      body.push(defNode);
+    }
+var lastNonDefaultParam = (0, _babelHelperGetFunctionArity2.default)(node)
+var params = path.get("params")
+i < params.length
+var param = params[i]
+!param.isAssignmentPattern()
+!state.iife && !param.isIdentifier()
+param.traverse(iifeVisitor, state)
+continue;
+var left = param.get("left")
+var right = param.get("right")
+i >= lastNonDefaultParam || left.isPattern()
+var placeholder = scope.generateUidIdentifier("x")
+placeholder._isDefaultPlaceholder = true
+node.params[i] = placeholder
+node.params[i] = left.node
+!state.iife
+right.isIdentifier() && !isSafeBinding(scope, right.node)
+state.iife = true
+right.traverse(iifeVisitor, state)
+pushDefNode(left.node, right.node, i)
+var _i2 = lastNonDefaultParam + 1
+var _param = node.params[_i2]
+_param._isDefaultPlaceholder
+var declar = buildCutOff(_param, argsIdentifier, t.numericLiteral(_i2))
+declar._blockHoist = node.params.length - _i2
+body.push(declar)
+node.params = node.params.slice(0, lastNonDefaultParam)
+state.iife
+path.get("body").unshiftContainer("body", body)

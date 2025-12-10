@@ -1,0 +1,55 @@
+function isMounted = function isMounted(component) {
+  {
+    var owner = ReactCurrentOwner.current;
+
+    if (owner !== null && owner.tag === ClassComponent) {
+      var ownerFiber = owner;
+      var instance = ownerFiber.stateNode;
+
+      if (!instance._warnedAboutRefsInRender) {
+        error(
+          "%s is accessing isMounted inside its render() function. " +
+            "render() should be a pure function of props and state. It should " +
+            "never access something that requires stale data from the previous " +
+            "render, such as refs. Move this logic to componentDidMount and " +
+            "componentDidUpdate instead.",
+          getComponentNameFromFiber(ownerFiber) || "A component"
+        );
+      }
+
+      instance._warnedAboutRefsInRender = true;
+    }
+  }
+
+  var fiber = get(component);
+
+  if (!fiber) {
+    return false;
+  }
+
+  return getNearestMountedFiber(fiber) === fiber;
+}
+var owner = ReactCurrentOwner.current
+owner !== null && owner.tag === ClassComponent
+var ownerFiber = owner
+var instance = ownerFiber.stateNode
+!instance._warnedAboutRefsInRender
+error(
+          "%s is accessing isMounted inside its render() function. " +
+            "render() should be a pure function of props and state. It should " +
+            "never access something that requires stale data from the previous " +
+            "render, such as refs. Move this logic to componentDidMount and " +
+            "componentDidUpdate instead.",
+          getComponentNameFromFiber(ownerFiber) || "A component"
+        )
+"%s is accessing isMounted inside its render() function. " +
+            "render() should be a pure function of props and state. It should " +
+            "never access something that requires stale data from the previous " +
+            "render, such as refs. Move this logic to componentDidMount and " +
+            "componentDidUpdate instead."
+"render() should be a pure function of props and state. It should "
+"never access something that requires stale data from the previous "
+"render, such as refs. Move this logic to componentDidMount and "
+"componentDidUpdate instead."
+getComponentNameFromFiber(ownerFiber) || "A component"
+instance._warnedAboutRefsInRender = true

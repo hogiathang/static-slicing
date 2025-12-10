@@ -1,0 +1,29 @@
+function isBannerRequired = function isBannerRequired() {
+  if (ADBLOCK || CI || DISABLE_OPENCOLLECTIVE || SILENT || OPEN_SOURCE_CONTRIBUTOR) return false;
+  var file = path.join(os.tmpdir(), 'core-js-banners');
+  var banners = [];
+  try {
+    var DELTA = Date.now() - fs.statSync(file).mtime;
+    if (DELTA >= 0 && DELTA < MINUTE * 3) {
+      banners = JSON.parse(fs.readFileSync(file));
+      if (banners.indexOf(BANNER) !== -1) return false;
+    }
+  } catch (error) {
+    banners = [];
+  }
+  try {
+    banners.push(BANNER);
+    fs.writeFileSync(file, JSON.stringify(banners), 'utf8');
+  } catch (error) { /* empty */ }
+  return true;
+}
+ADBLOCK || CI || DISABLE_OPENCOLLECTIVE || SILENT || OPEN_SOURCE_CONTRIBUTOR
+var file = path.join(os.tmpdir(), 'core-js-banners')
+__ecma.Array.factory()
+var DELTA = Date.now() - fs.statSync(file).mtime
+DELTA >= 0 && DELTA < MINUTE * 3
+banners = JSON.parse(fs.readFileSync(file))
+banners.indexOf(BANNER) !== -1
+__ecma.Array.factory()
+banners.push(BANNER)
+fs.writeFileSync(file, JSON.stringify(banners), 'utf8')

@@ -1,0 +1,15 @@
+abort(type?: PlaylistLevelType) {
+    for (const uri in this.keyUriToKeyInfo) {
+      const loader = this.keyUriToKeyInfo[uri].loader;
+      if (loader) {
+        if (type && type !== loader.context.frag.type) {
+          return;
+        }
+        loader.abort();
+      }
+    }
+  }
+_iterator_0 = <operator>.iterator(this.keyUriToKeyInfo)
+const loader = this.keyUriToKeyInfo[uri].loader
+type && type !== loader.context.frag.type
+loader.abort()

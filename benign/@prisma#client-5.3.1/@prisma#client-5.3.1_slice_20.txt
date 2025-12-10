@@ -1,0 +1,30 @@
+function createFileSync = function createFileSync(file) {
+      let stats;
+      try {
+        stats = fs6.statSync(file);
+      } catch {
+      }
+      if (stats && stats.isFile())
+        return;
+      const dir = path7.dirname(file);
+      try {
+        if (!fs6.statSync(dir).isDirectory()) {
+          fs6.readdirSync(dir);
+        }
+      } catch (err) {
+        if (err && err.code === "ENOENT")
+          mkdir.mkdirsSync(dir);
+        else
+          throw err;
+      }
+      fs6.writeFileSync(file, "");
+    }
+stats = fs6.statSync(file)
+stats && stats.isFile()
+const dir = path7.dirname(file)
+(_tmp_1950 = fs6.statSync(dir)).isDirectory
+fs6.readdirSync(dir)
+err && err.code === "ENOENT"
+mkdir.mkdirsSync(dir)
+throw err;
+fs6.writeFileSync(file, "")

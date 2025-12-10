@@ -1,0 +1,4 @@
+_tmp_20.getVariableByName = getVariableByName
+let scope = initScope
+const variable = scope.set.get(name)
+scope = scope.upper

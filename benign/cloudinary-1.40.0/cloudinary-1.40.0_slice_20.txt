@@ -1,0 +1,6 @@
+delete(publicId, type, resourceType, transformation, format) {
+    let key = KeyValueCacheAdapter.generateCacheKey(publicId, type, resourceType, transformation, format);
+    return this.storage.delete(key);
+  }
+let key = KeyValueCacheAdapter.generateCacheKey(publicId, type, resourceType, transformation, format)
+(_tmp_3 = this.storage).delete

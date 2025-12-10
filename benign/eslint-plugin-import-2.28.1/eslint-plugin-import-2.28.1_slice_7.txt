@@ -1,0 +1,46 @@
+node.specifiers.forEach(function (im) {
+          var imported = void 0;var local = void 0;
+          switch (im.type) {
+
+            case 'ImportNamespaceSpecifier':{
+                if (!imports.size) {return;}
+                namespaces.set(im.local.name, imports);
+                return;
+              }
+
+            case 'ImportDefaultSpecifier':
+              imported = 'default';
+              local = im.local.name;
+              break;
+
+            case 'ImportSpecifier':
+              imported = im.imported.name;
+              local = im.local.name;
+              break;
+
+            default:return; // can't handle this one
+          }
+
+          // unknown thing can't be deprecated
+          var exported = imports.get(imported);
+          if (exported == null) {return;}
+
+          // capture import of deep namespace
+          if (exported.namespace) {namespaces.set(local, exported.namespace);}
+
+          var deprecation = getDeprecation(imports.get(imported));
+          if (...
+var imported = void 0
+im.type
+"ImportDefaultSpecifier"
+imported = 'default'
+local = im.local.name
+break;
+"ImportSpecifier"
+imported = im.imported.name
+local = im.local.name
+break;
+var exported = imports.get(imported)
+exported == null
+namespaces.set(local, exported.namespace)
+var deprecation = getDeprecation(imports.get(imported))

@@ -1,0 +1,19 @@
+this.consumerGroup.sendOffsetCommitRequest(commits, error => {
+      if (error) {
+        logger.error('commit request failed', error);
+        if (callback) {
+          return callback(error);
+        }
+        this.emit('error', error);
+        return;
+      }
+      for (let tp of commits) {
+        if (_.get(this.commitQueue, [tp.topic, tp.partition]) === tp.offset) {
+          this.commitQueue[tp.topic][tp.partition] = null;
+        }
+      }
+      callback && callback(null);
+    })
+_iterator_0 = <operator>.iterator(commits)
+_.get(this.commitQueue, [tp.topic, tp.partition]) === tp.offset
+this.commitQueue[tp.topic][tp.partition] = null

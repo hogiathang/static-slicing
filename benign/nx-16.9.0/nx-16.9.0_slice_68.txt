@@ -1,0 +1,31 @@
+calculateTargetDepsFromFiles(sourceProject) {
+        const fileDeps = new Map();
+        const files = this.projectFileMap[sourceProject] || [];
+        if (!files) {
+            return fileDeps;
+        }
+        for (let f of files) {
+            if (f.deps) {
+                for (let d of f.deps) {
+                    const target = (0, project_graph_1.fileDataDepTarget)(d);
+                    if (!fileDeps.has(target)) {
+                        fileDeps.set(target, new Set([(0, project_graph_1.fileDataDepType)(d)]));
+                    }
+                    else {
+                        fileDeps.get(target).add((0, project_graph_1.fileDataDepType)(d));
+                    }
+                }
+            }
+        }
+        return fileDeps;
+    }
+const fileDeps = new Map()
+const files = this.projectFileMap[sourceProject] || []
+!files
+_iterator_7 = <operator>.iterator(files)
+f.deps
+_iterator_8 = <operator>.iterator(f.deps)
+const target = (0, project_graph_1.fileDataDepTarget)(d)
+!fileDeps.has(target)
+fileDeps.set(target, new Set([(0, project_graph_1.fileDataDepType)(d)]))
+fileDeps.get(target).add((0, project_graph_1.fileDataDepType)(d))

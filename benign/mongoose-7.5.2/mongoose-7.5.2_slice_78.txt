@@ -1,0 +1,41 @@
+error => {
+        // `writeErrors` is a property reported by the MongoDB driver,
+        // just not if there's only 1 error.
+        if (error.writeErrors == null &&
+            (error.result && error.result.result && error.result.result.writeErrors) != null) {
+          error.writeErrors = error.result.result.writeErrors;
+        }
+
+        // `insertedDocs` is a Mongoose-specific property
+        const hasWriteErrors = error && error.writeErrors;
+        const erroredIndexes = new Set((error && error.writeErrors || []).map(err => err.index));
+
+        if (error.writeErrors != null) {
+          for (let i = 0; i < error.writeErrors.length; ++i) {
+            const originalIndex = validDocIndexToOriginalIndex.get(error.writeErrors[i].index);
+            error.writeErrors[i] = {
+              ...error.writeErrors[i],
+              index: originalIndex
+            };
+            if (!ordered) {
+              results[originalIndex] = error.writeErrors[i];
+            }
+          }
+  ...
+error.writeErrors == null &&
+            (error.result && error.result.result && error.result.result.writeErrors) != null
+(error.result && error.result.result && error.result.result.writeErrors) != null
+error.writeErrors = error.result.result.writeErrors
+const hasWriteErrors = error && error.writeErrors
+const erroredIndexes = new Set((error && error.writeErrors || []).map(err => err.index))
+error.writeErrors != null
+i < error.writeErrors.length
+const originalIndex = validDocIndexToOriginalIndex.get(error.writeErrors[i].index)
+error.writeErrors[i] = {
+              ...error.writeErrors[i],
+              index: originalIndex
+            }
+...error.writeErrors[i]
+_tmp_267.index = originalIndex
+!ordered
+results[originalIndex] = error.writeErrors[i]

@@ -1,0 +1,11 @@
+_tmp_19.sign = sign
+request.httpRequest.headers[expiresHeader] = expireTime || 3600
+request.on('build', signedUrlBuilder)
+request.on('sign', signedUrlSigner)
+request.removeListener('afterBuild',
+      AWS.EventListeners.Core.SET_CONTENT_LENGTH)
+AWS.EventListeners.Core.SET_CONTENT_LENGTH
+request.removeListener('afterBuild',
+      AWS.EventListeners.Core.COMPUTE_SHA256)
+AWS.EventListeners.Core.COMPUTE_SHA256
+request.emit('beforePresign', [request])

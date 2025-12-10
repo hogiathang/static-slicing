@@ -1,0 +1,38 @@
+function dataImpl( name, value ){
+      let p = params;
+      let self = this;
+      let selfIsArrayLike = self.length !== undefined;
+      let all = selfIsArrayLike ? self : [ self ]; // put in array if not array-like
+      let single = selfIsArrayLike ? self[0] : self;
+
+      // .data('foo', ...)
+      if (is.string(name)) { // set or get property
+        let isPathLike = name.indexOf('.') !== -1; // there might be a normal field with a dot 
+        let path = isPathLike && toPath(name);
+
+        // .data('foo')
+        if( p.allowGetting && value === undefined ){ // get
+
+          let ret;
+          if( single ){
+            p.beforeGet( single );
+
+            // check if it's path and a field with the same name doesn't exist
+            if (path && single._private[ p.field ][ name ] === undefined) {
+              ret = get(single._private[ p.field ], path);
+            } else {
+              ret = single._private[ p.field ][ name ];
+            }
+          }
+          return ret...
+let p = params
+let self = this
+let selfIsArrayLike = self.length !== undefined
+let all = selfIsArrayLike ? self : [ self ]
+let single = selfIsArrayLike ? self[0] : self
+is.string(name)
+let isPathLike = name.indexOf('.') !== -1
+let path = isPathLike && toPath(name)
+p.allowGetting && value === undefined
+p.beforeGet( single )
+path && single._private[ p.field ][ name ] === undefined

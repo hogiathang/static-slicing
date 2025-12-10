@@ -1,0 +1,17 @@
+_tmp_42.loadConfig = <lambda>12
+!fp
+!fsUtils.exists(fp)
+cli.error("Can't find config file: " + fp)
+exports.exit(1)
+var config = JSON.parse(stripJsonComments(fsUtils.readFile(fp)))
+config.dirname = path.dirname(fp)
+config["extends"]
+var baseConfig = exports.loadConfig(path.resolve(config.dirname, config['extends']))
+config = _.merge({}, baseConfig, config, function(a, b) {
+          if (_.isArray(a)) {
+            return a.concat(b);
+          }
+        })
+delete config['extends']
+cli.error("Can't parse config file: " + fp + "\nError:" + err)
+exports.exit(1)

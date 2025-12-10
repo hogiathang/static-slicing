@@ -1,0 +1,46 @@
+function testKey = function testKey(pattern, namespace) {var path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [init.name];
+              if (!(namespace instanceof _ExportMap2['default'])) {return;}
+
+              if (pattern.type !== 'ObjectPattern') {return;}var _iteratorNormalCompletion = true;var _didIteratorError = false;var _iteratorError = undefined;try {
+
+                for (var _iterator = pattern.properties[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {var property = _step.value;
+                  if (
+                  property.type === 'ExperimentalRestProperty' ||
+                  property.type === 'RestElement' ||
+                  !property.key)
+                  {
+                    continue;
+                  }
+
+                  if (property.key.type !== 'Identifier') {
+                    context.report({
+                      node: property,
+                      message: 'O...
+!(namespace instanceof _ExportMap2['default'])
+var _iteratorNormalCompletion = true
+!(_iteratorNormalCompletion = (_step = _iterator.next()).done)
+property.type === 'ExperimentalRestProperty' ||
+                  property.type === 'RestElement' ||
+                  !property.key
+property.type === 'RestElement'
+!property.key
+continue;
+property.key.type !== 'Identifier'
+context.report({
+                      node: property,
+                      message: 'Only destructure top-level names.' })
+_tmp_17.node = property
+_tmp_17.message = "Only destructure top-level names."
+continue;
+!namespace.has(property.key.name)
+context.report({
+                      node: property,
+                      message: makeMessage(property.key, path) })
+_tmp_18.node = property
+_tmp_18.message = makeMessage(property.key, path)
+continue;
+path.push(property.key.name)
+var dependencyExportMap = namespace.get(property.key.name)
+dependencyExportMap !== null
+testKey(property.value, dependencyExportMap.namespace, path)
+path.pop()

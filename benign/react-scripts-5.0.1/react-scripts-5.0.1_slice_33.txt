@@ -1,0 +1,78 @@
+compiler.run((err, stats) => {
+      let messages;
+      if (err) {
+        if (!err.message) {
+          return reject(err);
+        }
+
+        let errMessage = err.message;
+
+        // Add additional information for postcss errors
+        if (Object.prototype.hasOwnProperty.call(err, 'postcssNode')) {
+          errMessage +=
+            '\nCompileError: Begins at CSS selector ' +
+            err['postcssNode'].selector;
+        }
+
+        messages = formatWebpackMessages({
+          errors: [errMessage],
+          warnings: [],
+        });
+      } else {
+        messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        );
+      }
+      if (messages.errors.length) {
+        // Only keep the first error. Others are often indicative
+        // of the same problem, but confuse the reader with noise.
+        if (messages.errors.length > 1) {
+          messages.errors.length = 1;
+        }
+        return reject(new Error(messages.erro...
+!err.message
+let errMessage = err.message
+Object.prototype.hasOwnProperty.call(err, 'postcssNode')
+errMessage +=
+            '\nCompileError: Begins at CSS selector ' +
+            err['postcssNode'].selector
+'\nCompileError: Begins at CSS selector ' +
+            err['postcssNode'].selector
+err["postcssNode"].selector
+messages = formatWebpackMessages({
+          errors: [errMessage],
+          warnings: [],
+        })
+_tmp_3 = __ecma.Array.factory()
+_tmp_2.warnings = __ecma.Array.factory()
+messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        )
+stats.toJson({ all: false, warnings: true, errors: true })
+messages.errors.length
+process.env.CI &&
+        (typeof process.env.CI !== 'string' ||
+          process.env.CI.toLowerCase() !== 'false') &&
+        messages.warnings.length
+typeof process.env.CI !== 'string' ||
+          process.env.CI.toLowerCase() !== 'false'
+process.env.CI.toLowerCase() !== 'false'
+messages.warnings.length
+const filteredWarnings = messages.warnings.filter(
+          w => !/Failed to parse source map/.test(w)
+        )
+(_tmp_9 = /Failed to parse source map/).test
+filteredWarnings.length
+const resolveArgs = {
+        stats,
+        previousFileSizes,
+        warnings: messages.warnings,
+      }
+_tmp_11.stats = stats
+_tmp_11.previousFileSizes = previousFileSizes
+_tmp_11.warnings = messages.warnings
+bfj
+          .write(paths.appBuild + '/bundle-stats.json', stats.toJson())
+          .then(() => resolve(resolveArgs))
+          .catch(error => reject(new Error(error)))
+paths.appBuild + '/bundle-stats.json'

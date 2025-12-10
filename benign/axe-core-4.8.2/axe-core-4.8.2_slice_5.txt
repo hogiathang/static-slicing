@@ -1,0 +1,48 @@
+function toGamut = function toGamut(color) {
+      var _ref48 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}, _ref48$method = _ref48.method, method = _ref48$method === void 0 ? defaults.gamut_mapping : _ref48$method, _ref48$space = _ref48.space, space = _ref48$space === void 0 ? color.space : _ref48$space;
+      if (isString(arguments[1])) {
+        space = arguments[1];
+      }
+      space = ColorSpace.get(space);
+      if (inGamut(color, space, {
+        epsilon: 0
+      })) {
+        return color;
+      }
+      var spaceColor = to(color, space);
+      if (method !== 'clip' && !inGamut(color, space)) {
+        var clipped = toGamut(clone2(spaceColor), {
+          method: 'clip',
+          space: space
+        });
+        if (deltaE2000(color, clipped) > 2) {
+          var coordMeta = ColorSpace.resolveCoord(method);
+          var mapSpace = coordMeta.space;
+          var coordId = coordMeta.id;
+          var mappedColor = to(spaceColor, mapSpace);
+          var bounds = coo...
+var _ref48 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {}
+isString(arguments[1])
+space = arguments[1]
+space = ColorSpace.get(space)
+inGamut(color, space, {
+        epsilon: 0
+      })
+_tmp_543.epsilon = 0
+var spaceColor = to(color, space)
+method !== 'clip' && !inGamut(color, space)
+var clipped = toGamut(clone2(spaceColor), {
+          method: 'clip',
+          space: space
+        })
+_tmp_544.method = "clip"
+_tmp_544.space = space
+deltaE2000(color, clipped) > 2
+var coordMeta = ColorSpace.resolveCoord(method)
+var mapSpace = coordMeta.space
+var coordId = coordMeta.id
+var mappedColor = to(spaceColor, mapSpace)
+var bounds = coordMeta.range || coordMeta.refRange
+var min = bounds[0]
+var \u03b52 = .01
+var low = min

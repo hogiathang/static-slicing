@@ -1,0 +1,15 @@
+this.drawChildren = function(isClip, isMask) {
+        let children = this.getChildren();
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].get('display') !== 'none') {
+            if (typeof children[i].drawInDocument === 'function') {
+              children[i].drawInDocument(isClip, isMask);
+            }
+          }
+        }
+      }
+let children = this.getChildren()
+i < children.length
+children[i].get('display') !== 'none'
+typeof children[i].drawInDocument === 'function'
+children[i].drawInDocument(isClip, isMask)

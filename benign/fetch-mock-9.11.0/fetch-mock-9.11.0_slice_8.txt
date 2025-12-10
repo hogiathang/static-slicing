@@ -1,0 +1,62 @@
+req.on('response', function (res) {
+			clearTimeout(reqTimeout);
+
+			const headers = createHeadersLenient(res.headers);
+
+			// HTTP fetch step 5
+			if (fetch.isRedirect(res.statusCode)) {
+				// HTTP fetch step 5.2
+				const location = headers.get('Location');
+
+				// HTTP fetch step 5.3
+				const locationURL = location === null ? null : resolve_url(request.url, location);
+
+				// HTTP fetch step 5.5
+				switch (request.redirect) {
+					case 'error':
+						reject(new FetchError(`uri requested responds with a redirect, redirect mode is set to error: ${request.url}`, 'no-redirect'));
+						finalize();
+						return;
+					case 'manual':
+						// node-fetch-specific step: make manual redirect a bit easier to use by setting the Location header value to the resolved URL.
+						if (locationURL !== null) {
+							// handle corrupted header
+							try {
+								headers.set('Location', locationURL);
+							} catch (err) {
+								// istanbul ignore next: nodejs server prevent invalid response ...
+clearTimeout(reqTimeout)
+const headers = createHeadersLenient(res.headers)
+fetch.isRedirect(res.statusCode)
+const location = headers.get('Location')
+const locationURL = location === null ? null : resolve_url(request.url, location)
+request.redirect
+"manual"
+locationURL !== null
+headers.set('Location', locationURL)
+reject(err)
+break;
+"follow"
+locationURL === null
+break;
+res.once('end', function () {
+				if (signal) signal.removeEventListener('abort', abortAndFinalize);
+			})
+let body = res.pipe(new PassThrough$1$1())
+const response_options = {
+				url: request.url,
+				status: res.statusCode,
+				statusText: res.statusMessage,
+				headers: headers,
+				size: request.size,
+				timeout: request.timeout,
+				counter: request.counter
+			}
+_tmp_364.url = request.url
+_tmp_364.status = res.statusCode
+_tmp_364.statusText = res.statusMessage
+_tmp_364.headers = headers
+_tmp_364.size = request.size
+_tmp_364.timeout = request.timeout
+_tmp_364.counter = request.counter
+const codings = headers.get('Content-Encoding')

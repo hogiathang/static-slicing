@@ -1,0 +1,13 @@
+_tmp_2.authenticate = <lambda>2
+oauthBearerProvider = _tmp_3.oauthBearerProvider
+oauthBearerProvider == null
+throw new KafkaJSSASLAuthenticationError(
+          'SASL OAUTHBEARER: Missing OAuth bearer token provider'
+        )
+"SASL OAUTHBEARER: Missing OAuth bearer token provider"
+const oauthBearerToken = await oauthBearerProvider()
+oauthBearerToken.value == null
+throw new KafkaJSSASLAuthenticationError('SASL OAUTHBEARER: Invalid OAuth bearer token')
+<operator>.formatString("", host, ":", port, "")
+logger.debug('Authenticate with SASL OAUTHBEARER', { broker })
+await saslAuthenticate({ request: await request(sasl, oauthBearerToken) })

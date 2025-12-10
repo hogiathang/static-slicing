@@ -1,0 +1,25 @@
+function _walkUpdatePath = function _walkUpdatePath(schema, op, path, update, ctx) {
+  const schematype = schema.path(path);
+  if (schematype == null) {
+    return;
+  }
+
+  let immutable = get(schematype, 'options.immutable', null);
+  if (immutable == null) {
+    return;
+  }
+  if (typeof immutable === 'function') {
+    immutable = immutable.call(ctx, ctx);
+  }
+
+  if (!immutable) {
+    return;
+  }
+
+  update.$setOnInsert = update.$setOnInsert || {};
+  update.$setOnInsert[path] = op[path];
+  delete op[path];
+}
+const schematype = schema.path(path)
+schematype == null
+let immutable = get(schematype, 'options.immutable', null)

@@ -1,0 +1,17 @@
+constructor(version) {
+        if (!validator.isNonNullObject(version)) {
+            throw new remote_config_api_client_internal_1.FirebaseRemoteConfigError('invalid-argument', `Invalid Remote Config version instance: ${JSON.stringify(version)}`);
+        }
+        if (typeof version.versionNumber !== 'undefined') {
+            if (!validator.isNonEmptyString(version.versionNumber) &&
+                !validator.isNumber(version.versionNumber)) {
+                throw new remote_config_api_client_internal_1.FirebaseRemoteConfigError('invalid-argument', 'Version number must be a non-empty string in int64 format or a number');
+            }
+            if (!Number.isInteger(Number(version.versionNumber))) {
+                throw new remote_config_api_client_internal_1.FirebaseRemoteConfigError('invalid-argument', 'Version number must be an integer or a string in int64 format');
+            }
+            this.versionNumber = version.versionNumber;
+        }
+        if (typeof version.u...
+!validator.isNonNullObject(version)
+throw new remote_config_api_client_internal_1.FirebaseRemoteConfigError('invalid-argument', `Invalid Remote Config version instance: ${JSON.stringify(version)}`);

@@ -1,0 +1,29 @@
+private dateWithoutTimezoneAdjustment() {
+        const date = new Date(
+            this.get("year"),
+            this.get("month") - 1,
+            this.get("day"),
+            this.get("hour"),
+            this.get("minute"),
+            this.get("second"),
+            this.get("millisecond")
+        );
+
+        date.setFullYear(this.get("year"));
+        return date;
+    }
+const date = new Date(
+            this.get("year"),
+            this.get("month") - 1,
+            this.get("day"),
+            this.get("hour"),
+            this.get("minute"),
+            this.get("second"),
+            this.get("millisecond")
+        )
+this.get("year")
+this.get("month") - 1
+this.get("day")
+this.get("hour")
+this.get("minute")
+this.get("second")

@@ -1,0 +1,5 @@
+const run = (type) => {
+  process.stderr.write(`benchmarking ${type}\n`)
+  return execSync(`node ${join(__dirname, 'runbench')} ${type} -q`)
+}
+<operator>.formatString("benchmarking ", type, "\n")

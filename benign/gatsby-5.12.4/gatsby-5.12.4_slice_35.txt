@@ -1,0 +1,1505 @@
+var _platform = require("platform")
+var cssEscape = require("css.escape")
+function nodeArray = function nodeArray(input) {
+  if (!input) {
+    return []
+  }
+
+  if (Array.isArray(input)) {
+    return input
+  }
+
+  // instanceof Node - does not work with iframes
+  if (input.nodeType !== undefined) {
+    return [input]
+  }
+
+  if (typeof input === 'string') {
+    input = document.querySelectorAll(input)
+  }
+
+  if (input.length !== undefined) {
+    return [].slice.call(input, 0)
+  }
+
+  throw new TypeError('unexpected input ' + String(input))
+}
+function contextToElement = function contextToElement(_ref) {
+  var context = _ref.context,
+    _ref$label = _ref.label,
+    label = _ref$label === undefined ? 'context-to-element' : _ref$label,
+    resolveDocument = _ref.resolveDocument,
+    defaultToDocument = _ref.defaultToDocument
+
+  var element = nodeArray(context)[0]
+
+  if (resolveDocument && element && element.nodeType === Node.DOCUMENT_NODE) {
+    element = element.documentElement
+  }
+
+  if (!element && defaultToDocument) {
+    return document.documentElement
+  }
+
+  if (!element) {
+    throw new TypeError(label + ' requires valid options.context')
+  }
+
+  if (
+    element.nodeType !== Node.ELEMENT_NODE &&
+    element.nodeType !== Node.DOCUMENT_FRAGMENT_NODE
+  ) {
+    throw new TypeError(label + ' requires options.context to be an Element')
+  }
+
+  return element
+}
+function getShadowHost = function getShadowHost() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context
+
+  var element = contextToElement({
+    label: 'get/shadow-host',
+    context: context,
+  })
+
+  // walk up to the root
+  var container = null
+
+  while (element) {
+    container = element
+    element = element.parentNode
+  }
+
+  // https://developer.mozilla.org/en-US/docs/Web/API/Node.nodeType
+  // NOTE: Firefox 34 does not expose ShadowRoot.host (but 37 does)
+  if (
+    container.nodeType === container.DOCUMENT_FRAGMENT_NODE &&
+    container.host
+  ) {
+    // the root is attached to a fragment node that has a host
+    return container.host
+  }
+
+  return null
+}
+function getDocument = function getDocument(node) {
+  if (!node) {
+    return document
+  }
+
+  if (node.nodeType === Node.DOCUMENT_NODE) {
+    return node
+  }
+
+  return node.ownerDocument || document
+}
+function isActiveElement = function isActiveElement(context) {
+  var element = contextToElement({
+    label: 'is/active-element',
+    resolveDocument: true,
+    context: context,
+  })
+
+  var _document = getDocument(element)
+  if (_document.activeElement === element) {
+    return true
+  }
+
+  var shadowHost = getShadowHost({ context: element })
+  if (shadowHost && shadowHost.shadowRoot.activeElement === element) {
+    return true
+  }
+
+  return false
+}
+function getParents = function getParents() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context
+
+  var list = []
+  var element = contextToElement({
+    label: 'get/parents',
+    context: context,
+  })
+
+  while (element) {
+    list.push(element)
+    // IE does know support parentElement on SVGElement
+    element = element.parentNode
+    if (element && element.nodeType !== Node.ELEMENT_NODE) {
+      element = null
+    }
+  }
+
+  return list
+}
+var names = [
+  'matches',
+  'webkitMatchesSelector',
+  'mozMatchesSelector',
+  'msMatchesSelector',
+]
+_tmp_149.push("matches")
+_tmp_149.push("webkitMatchesSelector")
+_tmp_149.push("mozMatchesSelector")
+_tmp_149.push("msMatchesSelector")
+var name = null
+function findMethodName = function findMethodName(element) {
+  names.some(function (_name) {
+    if (!element[_name]) {
+      return false
+    }
+
+    name = _name
+    return true
+  })
+}
+function elementMatches = function elementMatches(element, selector) {
+  if (!name) {
+    findMethodName(element)
+  }
+
+  return element[name](selector)
+}
+function before = function before() {
+  var data = {
+    // remember what had focus to restore after test
+    activeElement: document.activeElement,
+    // remember scroll positions to restore after test
+    windowScrollTop: window.scrollTop,
+    windowScrollLeft: window.scrollLeft,
+    bodyScrollTop: document.body.scrollTop,
+    bodyScrollLeft: document.body.scrollLeft,
+  }
+
+  // wrap tests in an element hidden from screen readers to prevent them
+  // from announcing focus, which can be quite irritating to the user
+  var iframe = document.createElement('iframe')
+  iframe.setAttribute(
+    'style',
+    'position:absolute; position:fixed; top:0; left:-2px; width:1px; height:1px; overflow:hidden;'
+  )
+  iframe.setAttribute('aria-live', 'off')
+  iframe.setAttribute('aria-busy', 'true')
+  iframe.setAttribute('aria-hidden', 'true')
+  document.body.appendChild(iframe)
+
+  var _window = iframe.contentWindow
+  var _document = _window.document
+
+  _document.open()
+  _document.close()
+  var wrapper = _document.c...
+function test = function test(data, options) {
+  // make sure we operate on a clean slate
+  data.wrapper.innerHTML = ''
+  // create dummy element to test focusability of
+  var element =
+    typeof options.element === 'string'
+      ? data.document.createElement(options.element)
+      : options.element(data.wrapper, data.document)
+  // allow callback to further specify dummy element
+  // and optionally define element to focus
+  var focus =
+    options.mutate && options.mutate(element, data.wrapper, data.document)
+  if (!focus && focus !== false) {
+    focus = element
+  }
+  // element needs to be part of the DOM to be focusable
+  !element.parentNode && data.wrapper.appendChild(element)
+  // test if the element with invalid tabindex can be focused
+  focus && focus.focus && focus.focus()
+  // validate test's result
+  return options.validate
+    ? options.validate(element, focus, data.document)
+    : data.document.activeElement === focus
+}
+function after = function after(data) {
+  // restore focus to what it was before test and cleanup
+  if (data.activeElement === document.body) {
+    document.activeElement &&
+    document.activeElement.blur &&
+    document.activeElement.blur()
+    if (platform.is.IE10) {
+      // IE10 does not redirect focus to <body> when the activeElement is removed
+      document.body.focus()
+    }
+  } else {
+    data.activeElement && data.activeElement.focus && data.activeElement.focus()
+  }
+
+  document.body.removeChild(data.iframe)
+
+  // restore scroll position
+  window.scrollTop = data.windowScrollTop
+  window.scrollLeft = data.windowScrollLeft
+  document.body.scrollTop = data.bodyScrollTop
+  document.body.scrollLeft = data.bodyScrollLeft
+}
+function detectFocus = function detectFocus(tests) {
+  var data = before()
+
+  var results = {}
+  Object.keys(tests).map(function (key) {
+    results[key] = test(data, tests[key])
+  })
+
+  after(data)
+  return results
+}
+function readLocalStorage = function readLocalStorage(key) {
+  // allow reading from storage to retrieve previous support results
+  // even while the document does not have focus
+  var data = void 0
+
+  try {
+    data = window.localStorage && window.localStorage.getItem(key)
+    data = data ? JSON.parse(data) : {}
+  } catch (e) {
+    data = {}
+  }
+
+  return data
+}
+function writeLocalStorage = function writeLocalStorage(key, value) {
+  if (!document.hasFocus()) {
+    // if the document does not have focus when tests are executed, focus() may
+    // not be handled properly and events may not be dispatched immediately.
+    // This can happen when a document is reloaded while Developer Tools have focus.
+    try {
+      window.localStorage && window.localStorage.removeItem(key)
+    } catch (e) {
+      // ignore
+    }
+
+    return
+  }
+
+  try {
+    window.localStorage &&
+    window.localStorage.setItem(key, JSON.stringify(value))
+  } catch (e) {
+    // ignore
+  }
+}
+function cssShadowPiercingDeepCombinator = function cssShadowPiercingDeepCombinator() {
+  var combinator = void 0
+
+  // see https://dev.w3.org/csswg/css-scoping-1/#deep-combinator
+  // https://bugzilla.mozilla.org/show_bug.cgi?id=1117572
+  // https://code.google.com/p/chromium/issues/detail?id=446051
+  try {
+    document.querySelector('html >>> :first-child')
+    combinator = '>>>'
+  } catch (noArrowArrowArrow) {
+    try {
+      // old syntax supported at least up to Chrome 41
+      // https://code.google.com/p/chromium/issues/detail?id=446051
+      document.querySelector('html /deep/ :first-child')
+      combinator = '/deep/'
+    } catch (noDeep) {
+      combinator = ''
+    }
+  }
+
+  return combinator
+}
+function focusInZeroDimensionObject = function focusInZeroDimensionObject() {
+  return result
+}
+function focusObjectSwf = function focusObjectSwf() {
+  return result$1
+}
+function makeFocusableForeignObject = function makeFocusableForeignObject() {
+  var fragment = document.createElement('div')
+  fragment.innerHTML =
+    '<svg><foreignObject width="30" height="30">\n      <input type="text"/>\n  </foreignObject></svg>'
+
+  return fragment.firstChild.firstChild
+}
+function focusSvgForeignObjectHack = function focusSvgForeignObjectHack(element) {
+  // Edge13, Edge14: foreignObject focus hack
+  // https://jsbin.com/kunehinugi/edit?html,js,output
+  // https://jsbin.com/fajagi/3/edit?html,js,output
+  var isSvgElement =
+    element.ownerSVGElement || element.nodeName.toLowerCase() === 'svg'
+  if (!isSvgElement) {
+    return false
+  }
+
+  // inject and focus an <input> element into the SVG element to receive focus
+  var foreignObject = makeFocusableForeignObject()
+  element.appendChild(foreignObject)
+  var input = foreignObject.querySelector('input')
+  input.focus()
+
+  // upon disabling the activeElement, IE and Edge
+  // will not shift focus to <body> like all the other
+  // browsers, but instead find the first focusable
+  // ancestor and shift focus to that
+  input.disabled = true
+
+  // clean up
+  element.removeChild(foreignObject)
+  return true
+}
+function generate = function generate(element) {
+  return (
+    '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
+    element +
+    '</svg>'
+  )
+}
+function focus = function focus(element) {
+  if (element.focus) {
+    return
+  }
+
+  try {
+    HTMLElement.prototype.focus.call(element)
+  } catch (e) {
+    focusSvgForeignObjectHack(element)
+  }
+}
+function validate = function validate(element, focusTarget, _document) {
+  focus(focusTarget)
+  return _document.activeElement === focusTarget
+}
+function focusSvgInIframe = function focusSvgInIframe() {
+  return result$2
+}
+function tabsequenceAreaAtImgPosition = function tabsequenceAreaAtImgPosition() {
+  return result$3
+}
+function executeTests = function executeTests() {
+  var results = detectFocus(testDescriptions)
+  Object.keys(testCallbacks).forEach(function (key) {
+    results[key] = testCallbacks[key]()
+  })
+
+  return results
+}
+function _supports = function _supports() {
+  if (supportsCache) {
+    return supportsCache
+  }
+
+  supportsCache = cache$1.get()
+  if (!supportsCache.time) {
+    cache$1.set(executeTests())
+    supportsCache = cache$1.get()
+  }
+
+  return supportsCache
+}
+function isValidTabindex = function isValidTabindex(context) {
+  if (!supports) {
+    supports = _supports()
+  }
+
+  var validIntegerPattern = supports.focusTabindexTrailingCharacters
+    ? validIntegerPatternWithTrailing
+    : validIntegerPatternNoTrailing
+
+  var element = contextToElement({
+    label: 'is/valid-tabindex',
+    resolveDocument: true,
+    context: context,
+  })
+
+  // Edge 14 has a capitalization problem on SVG elements,
+  // see https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/9282058/
+  var hasTabindex = element.hasAttribute('tabindex')
+  var hasTabIndex = element.hasAttribute('tabIndex')
+
+  if (!hasTabindex && !hasTabIndex) {
+    return false
+  }
+
+  // older Firefox and Internet Explorer don't support tabindex on SVG elements
+  var isSvgElement =
+    element.ownerSVGElement || element.nodeName.toLowerCase() === 'svg'
+  if (isSvgElement && !supports.focusSvgTabindexAttribute) {
+    return false
+  }
+
+  // @browser-issue Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128...
+function tabindexValue = function tabindexValue(element) {
+  if (!isValidTabindex(element)) {
+    return null
+  }
+
+  // Edge 14 has a capitalization problem on SVG elements,
+  // see https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/9282058/
+  var hasTabindex = element.hasAttribute('tabindex')
+  var attributeName = hasTabindex ? 'tabindex' : 'tabIndex'
+
+  // @browser-issue Gecko https://bugzilla.mozilla.org/show_bug.cgi?id=1128054
+  var tabindex = parseInt(element.getAttribute(attributeName), 10)
+  return isNaN(tabindex) ? -1 : tabindex
+}
+function isUserModifyWritable = function isUserModifyWritable(style) {
+  // https://www.w3.org/TR/1999/WD-css3-userint-19990916#user-modify
+  // https://github.com/medialize/ally.js/issues/17
+  var userModify = style.webkitUserModify || ''
+  return Boolean(userModify && userModify.indexOf('write') !== -1)
+}
+function hasCssOverflowScroll = function hasCssOverflowScroll(style) {
+  return [
+    style.getPropertyValue('overflow'),
+    style.getPropertyValue('overflow-x'),
+    style.getPropertyValue('overflow-y'),
+  ].some(function (overflow) {
+    return overflow === 'auto' || overflow === 'scroll'
+  })
+}
+function hasCssDisplayFlex = function hasCssDisplayFlex(style) {
+  return style.display.indexOf('flex') > -1
+}
+function isScrollableContainer = function isScrollableContainer(element, nodeName, parentNodeName, parentStyle) {
+  if (nodeName !== 'div' && nodeName !== 'span') {
+    // Internet Explorer advances scrollable containers and bodies to focusable
+    // only if the scrollable container is <div> or <span> - this does *not*
+    // happen for <section>, <article>, …
+    return false
+  }
+
+  if (
+    parentNodeName &&
+    parentNodeName !== 'div' &&
+    parentNodeName !== 'span' &&
+    !hasCssOverflowScroll(parentStyle)
+  ) {
+    return false
+  }
+
+  return (
+    element.offsetHeight < element.scrollHeight ||
+    element.offsetWidth < element.scrollWidth
+  )
+}
+function isFocusRelevantRules = function isFocusRelevantRules() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    _ref$except = _ref.except,
+    except =
+      _ref$except === undefined
+        ? {
+          flexbox: false,
+          scrollable: false,
+          shadow: false,
+        }
+        : _ref$except
+
+  if (!supports$1) {
+    supports$1 = _supports()
+  }
+
+  var element = contextToElement({
+    label: 'is/focus-relevant',
+    resolveDocument: true,
+    context: context,
+  })
+
+  if (!except.shadow && element.shadowRoot) {
+    // a ShadowDOM host receives focus when the focus moves to its content
+    return true
+  }
+
+  var nodeName = element.nodeName.toLowerCase()
+
+  if (nodeName === 'input' && element.type === 'hidden') {
+    // input[type="hidden"] supports.cannot be focused
+    return false
+  }
+
+  if (
+    nodeName === 'input' ||
+    nodeName === 'select' ||
+    nodeName === 'button' ||
+    nodeName === 'textarea'
+  ) {
+    return t...
+function findIndex = function findIndex(array, callback) {
+  // attempt to use native or polyfilled Array#findIndex first
+  if (array.findIndex) {
+    return array.findIndex(callback)
+  }
+
+  var length = array.length
+
+  // shortcut if the array is empty
+  if (length === 0) {
+    return -1
+  }
+
+  // otherwise loop over array
+  for (var i = 0; i < length; i++) {
+    if (callback(array[i], i, array)) {
+      return i
+    }
+  }
+
+  return -1
+}
+function getContentDocument = function getContentDocument(node) {
+  try {
+    // works on <object> and <iframe>
+    return (
+      node.contentDocument ||
+      // works on <object> and <iframe>
+      (node.contentWindow && node.contentWindow.document) ||
+      // works on <object> and <iframe> that contain SVG
+      (node.getSVGDocument && node.getSVGDocument()) ||
+      null
+    )
+  } catch (e) {
+    // SecurityError: Failed to read the 'contentDocument' property from 'HTMLObjectElement'
+    // also IE may throw member not found exception e.g. on <object type="image/png">
+    return null
+  }
+}
+function getWindow = function getWindow(node) {
+  var _document = getDocument(node)
+  return _document.defaultView || window
+}
+function selectInShadows = function selectInShadows(selector) {
+  if (typeof shadowPrefix !== 'string') {
+    var operator = cssShadowPiercingDeepCombinator()
+    if (operator) {
+      shadowPrefix = ', html ' + operator + ' '
+    }
+  }
+
+  if (!shadowPrefix) {
+    return selector
+  }
+
+  return (
+    selector +
+    shadowPrefix +
+    selector
+      .replace(/\s*,\s*/g, ',')
+      .split(',')
+      .join(shadowPrefix)
+  )
+}
+function findDocumentHostElement = function findDocumentHostElement(_window) {
+  if (!selector) {
+    selector = selectInShadows('object, iframe')
+  }
+
+  if (_window._frameElement !== undefined) {
+    return _window._frameElement
+  }
+
+  _window._frameElement = null
+
+  var potentialHosts = _window.parent.document.querySelectorAll(selector)
+  ;[].some.call(potentialHosts, function (element) {
+    var _document = getContentDocument(element)
+    if (_document !== _window.document) {
+      return false
+    }
+
+    _window._frameElement = element
+    return true
+  })
+
+  return _window._frameElement
+}
+function getFrameElement = function getFrameElement(element) {
+  var _window = getWindow(element)
+  if (!_window.parent || _window.parent === _window) {
+    // if there is no parent browsing context,
+    // we're not going to get a frameElement either way
+    return null
+  }
+
+  try {
+    // see https://developer.mozilla.org/en-US/docs/Web/API/Window/frameElement
+    // does not work within <embed> anywhere, and not within in <object> in IE
+    return _window.frameElement || findDocumentHostElement(_window)
+  } catch (e) {
+    return null
+  }
+}
+function computedStyle = function computedStyle(element, property) {
+  return window.getComputedStyle(element, null).getPropertyValue(property)
+}
+function notDisplayed = function notDisplayed(_path) {
+  return _path.some(function (element) {
+    // display:none is not visible (optimized away at layout)
+    return computedStyle(element, 'display') === 'none'
+  })
+}
+function notVisible = function notVisible(_path) {
+  // https://github.com/jquery/jquery-ui/blob/master/ui/core.js#L109-L114
+  // NOTE: a nested element can reverse visibility:hidden|collapse by explicitly setting visibility:visible
+  // NOTE: visibility can be ["", "visible", "hidden", "collapse"]
+  var hidden = findIndex(_path, function (element) {
+    var visibility = computedStyle(element, 'visibility')
+    return visibility === 'hidden' || visibility === 'collapse'
+  })
+
+  if (hidden === -1) {
+    // there is no hidden element
+    return false
+  }
+
+  var visible = findIndex(_path, function (element) {
+    return computedStyle(element, 'visibility') === 'visible'
+  })
+
+  if (visible === -1) {
+    // there is no visible element (but a hidden element)
+    return true
+  }
+
+  if (hidden < visible) {
+    // there is a hidden element and it's closer than the first visible element
+    return true
+  }
+
+  // there may be a hidden element, but the closest element is visible
+  return false
+}
+function collapsedParent = function collapsedParent(_path) {
+  var offset = 1
+  if (_path[0].nodeName.toLowerCase() === 'summary') {
+    offset = 2
+  }
+
+  return _path.slice(offset).some(function (element) {
+    // "content children" of a closed details element are not visible
+    return (
+      element.nodeName.toLowerCase() === 'details' && element.open === false
+    )
+  })
+}
+function isVisibleRules = function isVisibleRules() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    _ref$except = _ref.except,
+    except =
+      _ref$except === undefined
+        ? {
+          notRendered: false,
+          cssDisplay: false,
+          cssVisibility: false,
+          detailsElement: false,
+          browsingContext: false,
+        }
+        : _ref$except
+
+  var element = contextToElement({
+    label: 'is/visible',
+    resolveDocument: true,
+    context: context,
+  })
+
+  var nodeName = element.nodeName.toLowerCase()
+  if (!except.notRendered && notRenderedElementsPattern.test(nodeName)) {
+    return true
+  }
+
+  var _path = getParents({ context: element })
+
+  // in Internet Explorer <audio> has a default display: none, where others have display: inline
+  // but IE allows focusing <audio style="display:none">, but not <div display:none><audio>
+  // this is irrelevant to other browsers, as the controls attribute is requ...
+function getMapByName = function getMapByName(name, _document) {
+  // apparently getElementsByName() also considers id attribute in IE & opera
+  // https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementsByName
+  var map = _document.querySelector('map[name="' + cssEscape(name) + '"]')
+  return map || null
+}
+function getImageOfArea = function getImageOfArea(element) {
+  var map = element.parentElement
+
+  if (!map.name || map.nodeName.toLowerCase() !== 'map') {
+    return null
+  }
+
+  // NOTE: image maps can also be applied to <object> with image content,
+  // but no browser supports this at the moment
+
+  // HTML5 specifies HTMLMapElement.images to be an HTMLCollection of all
+  // <img> and <object> referencing the <map> element, but no browser implements this
+  //   https://www.w3.org/TR/html5/embedded-content-0.html#the-map-element
+  //   https://developer.mozilla.org/en-US/docs/Web/API/HTMLMapElement
+  // the image must be valid and loaded for the map to take effect
+  var _document = getDocument(element)
+  return (
+    _document.querySelector('img[usemap="#' + cssEscape(map.name) + '"]') ||
+    null
+  )
+}
+function isValidArea = function isValidArea(context) {
+  if (!supports$2) {
+    supports$2 = _supports()
+  }
+
+  var element = contextToElement({
+    label: 'is/valid-area',
+    context: context,
+  })
+
+  var nodeName = element.nodeName.toLowerCase()
+  if (nodeName !== 'area') {
+    return false
+  }
+
+  var hasTabindex = element.hasAttribute('tabindex')
+  if (!supports$2.focusAreaTabindex && hasTabindex) {
+    // Blink and WebKit do not consider <area tabindex="-1" href="#void"> focusable
+    return false
+  }
+
+  var img = getImageOfArea(element)
+  if (!img || !isVisible(img)) {
+    return false
+  }
+
+  // Firefox only allows fully loaded images to reference image maps
+  // https://stereochro.me/ideas/detecting-broken-images-js
+  if (
+    !supports$2.focusBrokenImageMap &&
+    (!img.complete ||
+      !img.naturalHeight ||
+      img.offsetWidth <= 0 ||
+      img.offsetHeight <= 0)
+  ) {
+    return false
+  }
+
+  // Firefox supports.can focus area elements even if they don't have an href attribute
+  if (!supports$...
+function isNativeDisabledSupported = function isNativeDisabledSupported(context) {
+  if (!supports$3) {
+    supports$3 = _supports()
+
+    if (supports$3.focusFieldsetDisabled) {
+      delete disabledElements.fieldset
+    }
+
+    if (supports$3.focusFormDisabled) {
+      delete disabledElements.form
+    }
+
+    disabledElementsPattern = new RegExp(
+      '^(' + Object.keys(disabledElements).join('|') + ')$'
+    )
+  }
+
+  var element = contextToElement({
+    label: 'is/native-disabled-supported',
+    context: context,
+  })
+
+  var nodeName = element.nodeName.toLowerCase()
+  return Boolean(disabledElementsPattern.test(nodeName))
+}
+function isDisabledFieldset = function isDisabledFieldset(element) {
+  var nodeName = element.nodeName.toLowerCase()
+  return nodeName === 'fieldset' && element.disabled
+}
+function isDisabledForm = function isDisabledForm(element) {
+  var nodeName = element.nodeName.toLowerCase()
+  return nodeName === 'form' && element.disabled
+}
+function isDisabled = function isDisabled(context) {
+  if (!supports$4) {
+    supports$4 = _supports()
+  }
+
+  var element = contextToElement({
+    label: 'is/disabled',
+    context: context,
+  })
+
+  if (element.hasAttribute('data-ally-disabled')) {
+    // treat ally's element/disabled like the DOM native element.disabled
+    return true
+  }
+
+  if (!isNativeDisabledSupported(element)) {
+    // non-form elements do not support the disabled attribute
+    return false
+  }
+
+  if (element.disabled) {
+    // the element itself is disabled
+    return true
+  }
+
+  var parents = getParents({ context: element })
+  if (parents.some(isDisabledFieldset)) {
+    // a parental <fieldset> is disabld and inherits the state onto this element
+    return true
+  }
+
+  if (!supports$4.focusFormDisabled && parents.some(isDisabledForm)) {
+    // a parental <form> is disabld and inherits the state onto this element
+    return true
+  }
+
+  return false
+}
+function isOnlyTabbableRules = function isOnlyTabbableRules() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    _ref$except = _ref.except,
+    except =
+      _ref$except === undefined
+        ? {
+          onlyFocusableBrowsingContext: false,
+          visible: false,
+        }
+        : _ref$except
+
+  var element = contextToElement({
+    label: 'is/only-tabbable',
+    resolveDocument: true,
+    context: context,
+  })
+
+  if (!except.visible && !isVisible(element)) {
+    return false
+  }
+
+  if (
+    !except.onlyFocusableBrowsingContext &&
+    (platform.is.GECKO || platform.is.TRIDENT || platform.is.EDGE)
+  ) {
+    var frameElement = getFrameElement(element)
+    if (frameElement) {
+      if (tabindexValue(frameElement) < 0) {
+        // iframe[tabindex="-1"] and object[tabindex="-1"] inherit the
+        // tabbable demotion onto elements of their browsing contexts
+        return false
+      }
+    }
+  }
+
+  var nodeName = element.nodeName.toLo...
+function isOnlyFocusRelevant = function isOnlyFocusRelevant(element) {
+  var nodeName = element.nodeName.toLowerCase()
+  if (nodeName === 'embed' || nodeName === 'keygen') {
+    // embed is considered focus-relevant but not focusable
+    // see https://github.com/medialize/ally.js/issues/82
+    return true
+  }
+
+  var _tabindex = tabindexValue(element)
+  if (element.shadowRoot && _tabindex === null) {
+    // ShadowDOM host elements *may* receive focus
+    // even though they are not considered focuable
+    return true
+  }
+
+  if (nodeName === 'label') {
+    // <label tabindex="0"> is only tabbable in Firefox, not script-focusable
+    // there's no way to make an element focusable other than by adding a tabindex,
+    // and focus behavior of the label element seems hard-wired to ignore tabindex
+    // in some browsers (like Gecko, Blink and WebKit)
+    return !supports$5.focusLabelTabindex || _tabindex === null
+  }
+
+  if (nodeName === 'legend') {
+    return _tabindex === null
+  }
+
+  if (
+    supports$5.focusSvgFocus...
+function isFocusableRules = function isFocusableRules() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    _ref$except = _ref.except,
+    except =
+      _ref$except === undefined
+        ? {
+          disabled: false,
+          visible: false,
+          onlyTabbable: false,
+        }
+        : _ref$except
+
+  if (!supports$5) {
+    supports$5 = _supports()
+  }
+
+  var _isOnlyTabbable = isOnlyTabbable.rules.except({
+    onlyFocusableBrowsingContext: true,
+    visible: except.visible,
+  })
+
+  var element = contextToElement({
+    label: 'is/focusable',
+    resolveDocument: true,
+    context: context,
+  })
+
+  var focusRelevant = isFocusRelevant.rules({
+    context: element,
+    except: except,
+  })
+
+  if (!focusRelevant || isOnlyFocusRelevant(element)) {
+    return false
+  }
+
+  if (!except.disabled && isDisabled(element)) {
+    return false
+  }
+
+  if (!except.onlyTabbable && _isOnlyTabbable(element)) {
+    // some elements may be keyboard focu...
+function createFilter = function createFilter(condition) {
+  // see https://developer.mozilla.org/en-US/docs/Web/API/NodeFilter
+  var filter = function filter(node) {
+    if (node.shadowRoot) {
+      // return ShadowRoot elements regardless of them being focusable,
+      // so they can be walked recursively later
+      return NodeFilter.FILTER_ACCEPT
+    }
+
+    if (condition(node)) {
+      // finds elements that could have been found by document.querySelectorAll()
+      return NodeFilter.FILTER_ACCEPT
+    }
+
+    return NodeFilter.FILTER_SKIP
+  }
+  // IE requires a function, Browsers require {acceptNode: function}
+  // see http://www.bennadel.com/blog/2607-finding-html-comment-nodes-in-the-dom-using-treewalker.htm
+  filter.acceptNode = filter
+  return filter
+}
+function queryFocusableStrict = function queryFocusableStrict() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    includeContext = _ref.includeContext,
+    includeOnlyTabbable = _ref.includeOnlyTabbable,
+    strategy = _ref.strategy
+
+  if (!context) {
+    context = document.documentElement
+  }
+
+  var _isFocusable = isFocusable.rules.except({
+    onlyTabbable: includeOnlyTabbable,
+  })
+
+  var _document = getDocument(context)
+  // see https://developer.mozilla.org/en-US/docs/Web/API/Document/createTreeWalker
+  var walker = _document.createTreeWalker(
+    // root element to start search in
+    context,
+    // element type filter
+    NodeFilter.SHOW_ELEMENT,
+    // custom NodeFilter filter
+    strategy === 'all' ? PossiblyFocusableFilter : createFilter(_isFocusable),
+    // deprecated, but IE requires it
+    false
+  )
+
+  var list = []
+
+  while (walker.nextNode()) {
+    if (walker.currentNode.shadowRoot) {
+      if (_isFocusable(walker.currentNo...
+function selector$2 = function selector$2() {
+  if (!supports$6) {
+    supports$6 = _supports()
+  }
+
+  if (typeof selector$1 === 'string') {
+    return selector$1
+  }
+
+  // https://www.w3.org/TR/html5/editing.html#sequential-focus-navigation-and-the-tabindex-attribute
+  selector$1 =
+    '' +
+    // IE11 supports.can focus <table> and <td>
+    (supports$6.focusTable ? 'table, td,' : '') +
+    // IE11 supports.can focus <fieldset>
+    (supports$6.focusFieldset ? 'fieldset,' : '') +
+    // Namespace problems of [xlink:href] explained in https://stackoverflow.com/a/23047888/515124
+    // svg a[*|href] does not match in IE9, but since we're filtering
+    // through is/focusable we can include all <a> from SVG
+    'svg a,' +
+    // may behave as 'svg, svg *,' in chrome as *every* svg element with a focus event listener is focusable
+    // navigational elements
+    'a[href],' +
+    // validity determined by is/valid-area.js
+    'area[href],' +
+    // validity determined by is/disabled.js
+    'input, select, tex...
+function queryFocusableQuick = function queryFocusableQuick() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    includeContext = _ref.includeContext,
+    includeOnlyTabbable = _ref.includeOnlyTabbable
+
+  var _selector = selector$2()
+  var elements = context.querySelectorAll(_selector)
+  // the selector potentially matches more than really is focusable
+
+  var _isFocusable = isFocusable.rules.except({
+    onlyTabbable: includeOnlyTabbable,
+  })
+
+  var result = [].filter.call(elements, _isFocusable)
+
+  // add context if requested and focusable
+  if (includeContext && _isFocusable(context)) {
+    result.unshift(context)
+  }
+
+  return result
+}
+function queryFocusable = function queryFocusable() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    includeContext = _ref.includeContext,
+    includeOnlyTabbable = _ref.includeOnlyTabbable,
+    _ref$strategy = _ref.strategy,
+    strategy = _ref$strategy === undefined ? 'quick' : _ref$strategy
+
+  var element = contextToElement({
+    label: 'query/focusable',
+    resolveDocument: true,
+    defaultToDocument: true,
+    context: context,
+  })
+
+  var options = {
+    context: element,
+    includeContext: includeContext,
+    includeOnlyTabbable: includeOnlyTabbable,
+    strategy: strategy,
+  }
+
+  if (strategy === 'quick') {
+    return queryFocusableQuick(options)
+  } else if (strategy === 'strict' || strategy === 'all') {
+    return queryFocusableStrict(options)
+  }
+
+  throw new TypeError(
+    'query/focusable requires option.strategy to be one of ["quick", "strict", "all"]'
+  )
+}
+function isTabbableRules = function isTabbableRules() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    _ref$except = _ref.except,
+    except =
+      _ref$except === undefined
+        ? {
+          flexbox: false,
+          scrollable: false,
+          shadow: false,
+          visible: false,
+          onlyTabbable: false,
+        }
+        : _ref$except
+
+  if (!supports$7) {
+    supports$7 = _supports()
+  }
+
+  var element = contextToElement({
+    label: 'is/tabbable',
+    resolveDocument: true,
+    context: context,
+  })
+
+  if (platform.is.BLINK && platform.is.ANDROID && platform.majorVersion > 42) {
+    // External keyboard support worked fine in CHrome 42, but stopped working in Chrome 45.
+    // The on-screen keyboard does not provide a way to focus the next input element (like iOS does).
+    // That leaves us with no option to advance focus by keyboard, ergo nothing is tabbable (keyboard focusable).
+    return false
+  }
+
+  var fra...
+function queryTabbable = function queryTabbable() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    includeContext = _ref.includeContext,
+    includeOnlyTabbable = _ref.includeOnlyTabbable,
+    strategy = _ref.strategy
+
+  var _isTabbable = isTabbable.rules.except({
+    onlyTabbable: includeOnlyTabbable,
+  })
+
+  return queryFocusable({
+    context: context,
+    includeContext: includeContext,
+    includeOnlyTabbable: includeOnlyTabbable,
+    strategy: strategy,
+  }).filter(_isTabbable)
+}
+function compareDomPosition = function compareDomPosition(a, b) {
+  return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING
+    ? -1
+    : 1
+}
+function sortDomOrder = function sortDomOrder(elements) {
+  return elements.sort(compareDomPosition)
+}
+function getFirstSuccessorOffset = function getFirstSuccessorOffset(list, target) {
+  // find the first element that comes AFTER the target element
+  return findIndex(list, function (element) {
+    return (
+      target.compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING
+    )
+  })
+}
+function findInsertionOffsets = function findInsertionOffsets(list, elements, resolveElement) {
+  // instead of mutating the elements list directly, remember position and map
+  // to inject later, when we can do this more efficiently
+  var insertions = []
+  elements.forEach(function (element) {
+    var replace = true
+    var offset = list.indexOf(element)
+
+    if (offset === -1) {
+      // element is not in target list
+      offset = getFirstSuccessorOffset(list, element)
+      replace = false
+    }
+
+    if (offset === -1) {
+      // there is no successor in the tabsequence,
+      // meaning the image must be the last element
+      offset = list.length
+    }
+
+    // allow the consumer to replace the injected element
+    var injections = nodeArray(
+      resolveElement ? resolveElement(element) : element
+    )
+    if (!injections.length) {
+      // we can't inject zero elements
+      return
+    }
+
+    insertions.push({
+      offset: offset,
+      replace: replace,
+      elements: injections,
+    })
+  })
+
+  return i...
+function insertElementsAtOffsets = function insertElementsAtOffsets(list, insertions) {
+  // remember the number of elements we have already injected
+  // so we account for the caused index offset
+  var inserted = 0
+  // make sure that we insert the elements in sequence,
+  // otherwise the offset compensation won't work
+  insertions.sort(function (a, b) {
+    return a.offset - b.offset
+  })
+  insertions.forEach(function (insertion) {
+    // array.splice has an annoying function signature :(
+    var remove = insertion.replace ? 1 : 0
+    var args = [insertion.offset + inserted, remove].concat(insertion.elements)
+    list.splice.apply(list, args)
+    inserted += insertion.elements.length - remove
+  })
+}
+function mergeInDomOrder = function mergeInDomOrder() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    list = _ref.list,
+    elements = _ref.elements,
+    resolveElement = _ref.resolveElement
+
+  // operate on a copy so we don't mutate the original array
+  var _list = list.slice(0)
+  // make sure the elements we're injecting are provided in DOM order
+  var _elements = nodeArray(elements).slice(0)
+  sortDomOrder(_elements)
+  // find the offsets within the target array (list) at which to inject
+  // each individual element (from elements)
+  var insertions = findInsertionOffsets(_list, _elements, resolveElement)
+  // actually inject the elements into the target array at the identified positions
+  insertElementsAtOffsets(_list, insertions)
+  return _list
+}
+function _classCallCheck = function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function')
+  }
+}
+function sortArea = function sortArea(elements, context) {
+  // images - unless they are focusable themselves, likely not
+  // part of the elements list, so we'll have to find them and
+  // sort them into the elements list manually
+  var usemaps = context.querySelectorAll('img[usemap]')
+  var maps = new Maps(context)
+
+  // remove all <area> elements from the elements list,
+  // but put them the map for later retrieval
+  var _elements = maps.extractAreasFromList(elements)
+
+  if (!usemaps.length) {
+    // the context does not contain any <area>s so no need
+    // to replace anything, just remove any maps
+    return _elements
+  }
+
+  return mergeInDomOrder({
+    list: _elements,
+    elements: usemaps,
+    resolveElement: function resolveElement(image) {
+      var name = image.getAttribute('usemap').slice(1)
+      return maps.getAreasFor(name)
+    },
+  })
+}
+function _classCallCheck$1 = function _classCallCheck$1(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function')
+  }
+}
+function sortShadowed = function sortShadowed(elements, context, sortElements) {
+  var shadows = new Shadows(context, sortElements)
+  var _elements = shadows.extractElements(elements)
+
+  if (_elements.length === elements.length) {
+    // no shadowed content found, no need to continue
+    return sortElements(elements)
+  }
+
+  return shadows.sort(_elements)
+}
+function sortTabindex = function sortTabindex(elements) {
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement.tabIndex
+  // elements with tabIndex "0" (including tabbableElements without tabIndex) should be navigated in the order they appear.
+  // elements with a positive tabIndex:
+  //   Elements that have identical tabIndexes should be navigated in the order they appear.
+  //   Navigation proceeds from the lowest tabIndex to the highest tabIndex.
+
+  // NOTE: sort implementation may be unstable and thus mess up DOM order,
+  // that's why we build a map that's being sorted instead. If we were able to rely
+  // on a stable sorting algorithm, sortTabindex() could be as simple as
+  // elements.sort(function(a, b) { return a.tabIndex - b.tabIndex; });
+  // at this time Chrome does not use a stable sorting algorithm
+  // see http://blog.rodneyrehm.de/archives/14-Sorting-Were-Doing-It-Wrong.html#stability
+
+  // NOTE: compareDocumentPosition seemed like more overhead than just sorting this with buck...
+function moveContextToBeginning = function moveContextToBeginning(elements, context) {
+  var pos = elements.indexOf(context)
+  if (pos > 0) {
+    var tmp = elements.splice(pos, 1)
+    return tmp.concat(elements)
+  }
+
+  return elements
+}
+function sortElements = function sortElements(elements, _context) {
+  if (supports$8.tabsequenceAreaAtImgPosition) {
+    // Some browsers sort <area> in DOM order, some place the <area>s
+    // where the <img> referecing them would've been in DOM order.
+    // https://github.com/medialize/ally.js/issues/5
+    elements = sortArea(elements, _context)
+  }
+
+  elements = sortTabindex(elements)
+  return elements
+}
+function queryTabsequence = function queryTabsequence() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    context = _ref.context,
+    includeContext = _ref.includeContext,
+    includeOnlyTabbable = _ref.includeOnlyTabbable,
+    strategy = _ref.strategy
+
+  if (!supports$8) {
+    supports$8 = _supports()
+  }
+
+  var _context = nodeArray(context)[0] || document.documentElement
+  var elements = queryTabbable({
+    context: _context,
+    includeContext: includeContext,
+    includeOnlyTabbable: includeOnlyTabbable,
+    strategy: strategy,
+  })
+
+  if (document.body.createShadowRoot && platform.is.BLINK) {
+    // sort tabindex localized to shadow dom
+    // see https://github.com/medialize/ally.js/issues/6
+    elements = sortShadowed(elements, _context, sortElements)
+  } else {
+    elements = sortElements(elements, _context)
+  }
+
+  if (includeContext) {
+    // if we include the context itself, it has to be the first
+    // element of the sequence
+    elements = moveContext...
+function createExpectedModifiers = function createExpectedModifiers(ignoreModifiers) {
+  var value = ignoreModifiers ? null : false
+  return {
+    altKey: value,
+    ctrlKey: value,
+    metaKey: value,
+    shiftKey: value,
+  }
+}
+function resolveModifiers = function resolveModifiers(modifiers) {
+  var ignoreModifiers = modifiers.indexOf('*') !== -1
+  var expected = createExpectedModifiers(ignoreModifiers)
+
+  modifiers.forEach(function (token) {
+    if (token === '*') {
+      // we've already covered the all-in operator
+      return
+    }
+
+    // we want the modifier pressed
+    var value = true
+    var operator = token.slice(0, 1)
+    if (operator === '?') {
+      // we don't care if the modifier is pressed
+      value = null
+    } else if (operator === '!') {
+      // we do not want the modifier pressed
+      value = false
+    }
+
+    if (value !== true) {
+      // compensate for the modifier's operator
+      token = token.slice(1)
+    }
+
+    var propertyName = modifier[token]
+    if (!propertyName) {
+      throw new TypeError('Unknown modifier "' + token + '"')
+    }
+
+    expected[propertyName] = value
+  })
+
+  return expected
+}
+function resolveKey = function resolveKey(key) {
+  var code = keycode[key] || parseInt(key, 10)
+  if (!code || typeof code !== 'number' || isNaN(code)) {
+    throw new TypeError('Unknown key "' + key + '"')
+  }
+
+  return [code].concat(keycode._alias[code] || [])
+}
+function matchModifiers = function matchModifiers(expected, event) {
+  // returns true on match
+  return !modifierSequence.some(function (prop) {
+    // returns true on mismatch
+    return (
+      typeof expected[prop] === 'boolean' &&
+      Boolean(event[prop]) !== expected[prop]
+    )
+  })
+}
+function keyBinding = function keyBinding(text) {
+  return text.split(/\s+/).map(function (_text) {
+    var tokens = _text.split('+')
+    var _modifiers = resolveModifiers(tokens.slice(0, -1))
+    var _keyCodes = resolveKey(tokens.slice(-1))
+    return {
+      keyCodes: _keyCodes,
+      modifiers: _modifiers,
+      matchModifiers: matchModifiers.bind(null, _modifiers),
+    }
+  })
+}
+function getParentComparator = function getParentComparator() {
+  var _ref =
+      arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
+    parent = _ref.parent,
+    element = _ref.element,
+    includeSelf = _ref.includeSelf
+
+  if (parent) {
+    return function isChildOf(node) {
+      return Boolean(
+        (includeSelf && node === parent) ||
+        parent.compareDocumentPosition(node) &
+        Node.DOCUMENT_POSITION_CONTAINED_BY
+      )
+    }
+  } else if (element) {
+    return function isParentOf(node) {
+      return Boolean(
+        (includeSelf && element === node) ||
+        node.compareDocumentPosition(element) &
+        Node.DOCUMENT_POSITION_CONTAINED_BY
+      )
+    }
+  }
+
+  throw new TypeError(
+    'util/compare-position#getParentComparator required either options.parent or options.element'
+  )
+}
+function whenKey = function whenKey() {
+  var map =
+    arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {}
+
+  var bindings = {}
+
+  var context = nodeArray(map.context)[0] || document.documentElement
+  delete map.context
+  var filter = nodeArray(map.filter)
+  delete map.filter
+
+  var mapKeys = Object.keys(map)
+  if (!mapKeys.length) {
+    throw new TypeError('when/key requires at least one option key')
+  }
+
+  var registerBinding = function registerBinding(event) {
+    event.keyCodes.forEach(function (code) {
+      if (!bindings[code]) {
+        bindings[code] = []
+      }
+
+      bindings[code].push(event)
+    })
+  }
+
+  mapKeys.forEach(function (text) {
+    if (typeof map[text] !== 'function') {
+      throw new TypeError(
+        'when/key requires option["' + text + '"] to be a function'
+      )
+    }
+
+    var addCallback = function addCallback(event) {
+      event.callback = map[text]
+      return event
+    }
+
+    keyBinding(text).map(addCallback).forEach(registerBinding)
+  })
+
+  v...

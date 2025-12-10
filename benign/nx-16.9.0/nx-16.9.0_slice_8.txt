@@ -1,0 +1,52 @@
+function affected = async function affected(command, args, extraTargetDependencies = {}) {
+    perf_hooks_1.performance.mark('code-loading:end');
+    perf_hooks_1.performance.measure('code-loading', 'init-local', 'code-loading:end');
+    (0, workspace_configuration_check_1.workspaceConfigurationCheck)();
+    const nxJson = (0, configuration_1.readNxJson)();
+    const { nxArgs, overrides } = (0, command_line_utils_1.splitArgsIntoNxArgsAndOverrides)(args, 'affected', {
+        printWarnings: command !== 'print-affected' && !args.plain && args.graph !== 'stdout',
+    }, nxJson);
+    if (nxArgs.verbose) {
+        process.env.NX_VERBOSE_LOGGING = 'true';
+    }
+    await (0, connect_to_nx_cloud_1.connectToNxCloudIfExplicitlyAsked)(nxArgs);
+    const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true });
+    const projects = await getAffectedGraphNodes(nxArgs, projectGraph);
+    try {
+        switch (command) {
+            case 'graph':
+                logger_1.logger.warn([...
+perf_hooks_1.performance.mark('code-loading:end')
+perf_hooks_1.performance.measure('code-loading', 'init-local', 'code-loading:end')
+(0, workspace_configuration_check_1.workspaceConfigurationCheck)()
+const nxJson = (0, configuration_1.readNxJson)()
+_tmp_4 = (0, command_line_utils_1.splitArgsIntoNxArgsAndOverrides)(args, 'affected', {
+        printWarnings: command !== 'print-affected' && !args.plain && args.graph !== 'stdout',
+    }, nxJson)
+_tmp_3.printWarnings = command !== 'print-affected' && !args.plain && args.graph !== 'stdout'
+nxArgs.verbose
+process.env.NX_VERBOSE_LOGGING = 'true'
+await (0, connect_to_nx_cloud_1.connectToNxCloudIfExplicitlyAsked)(nxArgs)
+const projectGraph = await (0, project_graph_1.createProjectGraphAsync)({ exitOnError: true })
+const projects = await getAffectedGraphNodes(nxArgs, projectGraph)
+"graph"
+logger_1.logger.warn([logger_1.NX_PREFIX, command_object_1.affectedGraphDeprecationMessage].join(' '))
+const projectNames = projects.map((p) => p.name)
+await (0, graph_1.generateGraph)(args, projectNames)
+break;
+"print-affected"
+nxArgs.targets && nxArgs.targets.length > 0
+await (0, print_affected_1.printAffected)(allProjectsWithTarget(projects, nxArgs), projectGraph, { nxJson }, nxArgs, overrides)
+await (0, print_affected_1.printAffected)(projects, projectGraph, { nxJson }, nxArgs, overrides)
+break;
+"affected"
+const projectsWithTarget = allProjectsWithTarget(projects, nxArgs)
+nxArgs.graph
+const status = await (0, run_command_1.runCommand)(projectsWithTarget, projectGraph, { nxJson }, nxArgs, overrides, null, extraTargetDependencies, { excludeTaskDependencies: false, loadDotEnvFiles: true })
+process.stdin["unref"]
+(_tmp_14 = process.stdin).unref
+process.exit(status)
+break;
+(_tmp_15 = output_1.output).drain
+printError(e, args.verbose)
+process.exit(1)

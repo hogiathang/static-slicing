@@ -1,0 +1,64 @@
+function validate = function validate(tokens, comments, lastToken) {
+    // Calculate and save expected indentation.
+    const firstToken = tokens[0]
+    const actualIndent = firstToken.loc.start.column
+    const expectedIndents = getExpectedIndents(tokens)
+    if (!expectedIndents) {
+      return
+    }
+
+    const expectedBaseIndent = expectedIndents.expectedBaseIndent
+    const expectedIndent = expectedIndents.expectedIndent
+
+    // Debug log
+    // console.log('line', firstToken.loc.start.line, '=', { actualIndent, expectedIndent }, 'from:')
+    // for (const token of tokens) {
+    //   const offsetInfo = offsets.get(token)
+    //   if (offsetInfo == null) {
+    //     console.log('    ', JSON.stringify(sourceCode.getText(token)), 'is unknown.')
+    //   } else if (offsetInfo.expectedIndent != null) {
+    //     console.log('    ', JSON.stringify(sourceCode.getText(token)), 'is fixed at', offsetInfo.expectedIndent, '.')
+    //   } else {
+    //     const baseOffsetInfo = offsets.get(offsetInfo.baseTo...
+const firstToken = tokens[0]
+const actualIndent = firstToken.loc.start.column
+const expectedIndents = getExpectedIndents(tokens)
+!expectedIndents
+const expectedBaseIndent = expectedIndents.expectedBaseIndent
+const expectedIndent = expectedIndents.expectedIndent
+const baseline = new Set()
+_iterator_7 = <operator>.iterator(tokens)
+const offsetInfo = offsets.get(token)
+offsetInfo != null
+offsetInfo.baseline
+offsetInfo.expectedIndent =
+            options.indentChar === ' '
+              ? Math.max(
+                  0,
+                  token.loc.start.column + expectedBaseIndent - actualIndent
+                )
+              : // In hard-tabs mode, it cannot align tokens strictly, so use one additional offset.
+                // But the additional offset isn't needed if it's at the beginning of the line.
+                expectedBaseIndent + (token === tokens[0] ? 0 : 1)
+options.indentChar === ' ' ? Math.max(
+                  0,
+                  token.loc.start.column + expectedBaseIndent - actualIndent
+                ) : expectedBaseIndent + (token === tokens[0] ? 0 : 1)
+Math.max(
+                  0,
+                  token.loc.start.column + expectedBaseIndent - actualIndent
+                )
+0
+token.loc.start.column + expectedBaseIndent - actualIndent
+expectedBaseIndent + (token === tokens[0] ? 0 : 1)
+baseline.add(token)
+baseline.has(offsetInfo.baseToken)
+offsetInfo.expectedIndent = /** @type {OffsetData} */ (
+            offsets.get(offsetInfo.baseToken)
+          ).expectedIndent
+offsets.get(offsetInfo.baseToken)
+expectedIndent
+baseline.add(token)
+offsetInfo.expectedIndent = expectedBaseIndent
+ignoreTokens.has(firstToken)
+const lastOffsetInfo = offsets.get(lastToken)

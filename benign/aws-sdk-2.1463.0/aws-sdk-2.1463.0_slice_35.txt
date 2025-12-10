@@ -1,0 +1,69 @@
+function requiredDiscoverEndpoint = function requiredDiscoverEndpoint(request, done) {
+  var service = request.service;
+  var api = service.api;
+  var operationModel = api.operations ? api.operations[request.operation] : undefined;
+  var inputShape = operationModel ? operationModel.input : undefined;
+
+  var identifiers = marshallCustomIdentifiers(request, inputShape);
+  var cacheKey = getCacheKey(request);
+  if (Object.keys(identifiers).length > 0) {
+    cacheKey = util.update(cacheKey, identifiers);
+    if (operationModel) cacheKey.operation = operationModel.name;
+  }
+  var cacheKeyStr = AWS.EndpointCache.getKeyString(cacheKey);
+  var endpoints = AWS.endpointCache.get(cacheKeyStr); //endpoint cache also accepts string keys
+  if (endpoints && endpoints.length === 1 && endpoints[0].Address === '') {
+    //endpoint operation is being made but response not yet received
+    //push request object to a pending queue
+    if (!requestQueue[cacheKeyStr]) requestQueue[cacheKeyStr] = [];
+    requestQueue[cacheKeyStr].push({reque...
+var service = request.service
+var api = service.api
+var operationModel = api.operations ? api.operations[request.operation] : undefined
+var inputShape = operationModel ? operationModel.input : undefined
+var identifiers = marshallCustomIdentifiers(request, inputShape)
+var cacheKey = getCacheKey(request)
+Object.keys(identifiers).length > 0
+cacheKey = util.update(cacheKey, identifiers)
+cacheKey.operation = operationModel.name
+var cacheKeyStr = AWS.EndpointCache.getKeyString(cacheKey)
+var endpoints = AWS.endpointCache.get(cacheKeyStr)
+endpoints && endpoints.length === 1 && endpoints[0].Address === ''
+endpoints && endpoints.length > 0
+var endpointRequest = service.makeRequest(api.endpointOperation, {
+      Operation: operationModel.name,
+      Identifiers: identifiers,
+    })
+_tmp_18.Operation = operationModel.name
+_tmp_18.Identifiers = identifiers
+endpointRequest.removeListener('validate', AWS.EventListeners.Core.VALIDATE_PARAMETERS)
+addApiVersionHeader(endpointRequest)
+AWS.endpointCache.put(cacheKeyStr, [{
+      Address: '',
+      CachePeriodInMinutes: 60 //long-live cache
+    }])
+_tmp_21.Address = ""
+_tmp_21.CachePeriodInMinutes = 60
+endpointRequest.send(function(err, data) {
+      if (err) {
+        request.response.error = util.error(err, { retryable: false });
+        AWS.endpointCache.remove(cacheKey);
+
+        //fail all the pending requests in batch
+        if (requestQueue[cacheKeyStr]) {
+          var pendingRequests = requestQueue[cacheKeyStr];
+          util.arrayEach(pendingRequests, function(requestContext) {
+            requestContext.request.response.error = util.error(err, { retryable: false });
+            requestContext.callback();
+          });
+          delete requestQueue[cacheKeyStr];
+        }
+      } else if (data) {
+        AWS.endpointCache.put(cacheKeyStr, data.Endpoints);
+        request.httpRequest.updateEndpoint(data.Endpoints[0].Address);
+
+        //update the endpoint for all the pending requests in batch
+        if (requestQueue[cacheKeyStr]) {
+          var pendingRequests = requestQueue[cacheKeyStr];
+          util.arrayEach(pendingRequests, function(requestContext) {
+          ...

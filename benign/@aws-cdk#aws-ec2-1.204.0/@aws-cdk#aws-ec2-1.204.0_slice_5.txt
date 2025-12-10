@@ -1,0 +1,61 @@
+constructor(scope, id, props) {
+        super(scope, id);
+        this.securityGroups = [];
+        try {
+            jsiiDeprecationWarnings._aws_cdk_aws_ec2_InstanceProps(props);
+        }
+        catch (error) {
+            if (process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError") {
+                Error.captureStackTrace(error, Instance);
+            }
+            throw error;
+        }
+        if (props.initOptions && !props.init) {
+            throw new Error('Setting \'initOptions\' requires that \'init\' is also set');
+        }
+        if (props.securityGroup) {
+            this.securityGroup = props.securityGroup;
+        }
+        else {
+            this.securityGroup = new security_group_1.SecurityGroup(this, 'InstanceSecurityGroup', {
+                vpc: props.vpc,
+                allowAllOutbound: props.allowAllOutbound !== false,
+            });
+        }
+        this.connections = new connections_1.Connections({ securityGroups: [this.securityGroup] })...
+super(scope, id)
+this.securityGroups = []
+jsiiDeprecationWarnings._aws_cdk_aws_ec2_InstanceProps(props)
+process.env.JSII_DEBUG !== "1" && error.name === "DeprecationError"
+Error.captureStackTrace(error, Instance)
+throw error;
+props.initOptions && !props.init
+throw new Error('Setting \'initOptions\' requires that \'init\' is also set');
+props.securityGroup
+this.securityGroup = props.securityGroup
+this.securityGroup = new security_group_1.SecurityGroup(this, 'InstanceSecurityGroup', {
+                vpc: props.vpc,
+                allowAllOutbound: props.allowAllOutbound !== false,
+            })
+_tmp_3.vpc = props.vpc
+_tmp_3.allowAllOutbound = props.allowAllOutbound !== false
+this.connections = new connections_1.Connections({ securityGroups: [this.securityGroup] })
+this.securityGroups.push(this.securityGroup)
+core_1.Tags.of(this).add(NAME_TAG, props.instanceName || this.node.path)
+this.role = props.role || new iam.Role(this, 'InstanceRole', {
+            assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
+        })
+_tmp_11.assumedBy = new iam.ServicePrincipal('ec2.amazonaws.com')
+this.grantPrincipal = this.role
+const iamProfile = new iam.CfnInstanceProfile(this, 'InstanceProfile', {
+            roles: [this.role.roleName],
+        })
+_tmp_14.roles = [this.role.roleName]
+const imageConfig = props.machineImage.getImage(this)
+this.userData = props.userData ?? imageConfig.userData
+const userDataToken = core_1.Lazy.string({ produce: () => core_1.Fn.base64(this.userData.render()) })
+const securityGroupsToken = core_1.Lazy.list({ produce: () => this.securityGroups.map(sg => sg.securityGroupId) })
+_tmp_25 = props.vpc.selectSubnets(props.vpcSubnets)
+props.availabilityZone
+subnets.length > 0
+core_1.Annotations.of(this).addError(`Did not find any subnets matching '${JSON.stringify(props.vpcSubnets)}', please use a different selection.`)

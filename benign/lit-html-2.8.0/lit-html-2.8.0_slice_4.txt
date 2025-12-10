@@ -1,0 +1,12 @@
+get _lastElementForRef() {
+        var _a, _b, _c;
+        return typeof this._ref === 'function'
+            ? (_b = lastElementForContextAndCallback
+                .get((_a = this._context) !== null && _a !== void 0 ? _a : globalThis)) === null || _b === void 0 ? void 0 : _b.get(this._ref)
+            : (_c = this._ref) === null || _c === void 0 ? void 0 : _c.value;
+    }
+typeof this._ref === 'function' ? (_b = lastElementForContextAndCallback
+                .get((_a = this._context) !== null && _a !== void 0 ? _a : globalThis)) === null || _b === void 0 ? void 0 : _b.get(this._ref) : (_c = this._ref) === null || _c === void 0 ? void 0 : _c.value
+(_b = lastElementForContextAndCallback
+                .get((_a = this._context) !== null && _a !== void 0 ? _a : globalThis)) === null || _b === void 0 ? void 0 : _b.get(this._ref)
+(_a = this._context) !== null && _a !== void 0 ? _a : globalThis

@@ -1,0 +1,69 @@
+keys.forEach(function (key) {
+            var kswitch = switches[key];
+            var desc = descriptions[key] || '';
+            
+            if (wrap) {
+                desc = wordwrap(switchlen + 4, wrap)(desc)
+                    .slice(switchlen + 4)
+                ;
+            }
+            
+            var spadding = new Array(
+                Math.max(switchlen - kswitch.length + 3, 0)
+            ).join(' ');
+            
+            var dpadding = new Array(
+                Math.max(desclen - desc.length + 1, 0)
+            ).join(' ');
+            
+            var type = null;
+            
+            if (options.boolean[key]) type = '[boolean]';
+            if (options.string[key]) type = '[string]';
+            
+            if (!wrap && dpadding.length > 0) {
+                desc += dpadding;
+            }
+            
+            var prelude = '  ' + kswitch + spadding;
+            var extra = [
+                type,
+                demanded[key]
+                   ...
+var kswitch = switches[key]
+var desc = descriptions[key] || ''
+desc = wordwrap(switchlen + 4, wrap)(desc)
+                    .slice(switchlen + 4)
+switchlen + 4
+var spadding = new Array(
+                Math.max(switchlen - kswitch.length + 3, 0)
+            ).join(' ')
+Math.max(switchlen - kswitch.length + 3, 0)
+join
+var dpadding = new Array(
+                Math.max(desclen - desc.length + 1, 0)
+            ).join(' ')
+Math.max(desclen - desc.length + 1, 0)
+join
+var type = null
+options.boolean[key]
+options.string[key]
+!wrap && dpadding.length > 0
+desc += dpadding
+var prelude = '  ' + kswitch + spadding
+var extra = [
+                type,
+                demanded[key]
+                    ? '[required]'
+                    : null
+                ,
+                options.default[key] !== undefined
+                    ? '[default: ' + JSON.stringify(options.default[key]) + ']'
+                    : null
+                ,
+            ].filter(Boolean).join('  ')
+_tmp_39.push(type)
+_tmp_39.push(demanded[key] ? "[required]" : null)
+"[required]"
+_tmp_39.push(options.default[key] !== undefined ? '[default: ' + JSON.stringify(options.default[key]) + ']' : null)
+'[default: ' + JSON.stringify(options.default[key]) + ']'

@@ -1,0 +1,54 @@
+function downloadBrowser = async function downloadBrowser() {
+    overrideProxy();
+    const configuration = getConfiguration();
+    if (configuration.skipDownload) {
+        logPolitely('**INFO** Skipping browser download as instructed.');
+        return;
+    }
+    const downloadBaseUrl = configuration.downloadBaseUrl;
+    const platform = detectBrowserPlatform();
+    if (!platform) {
+        throw new Error('The current platform is not supported.');
+    }
+    const product = configuration.defaultProduct;
+    const browser = productToBrowser(product);
+    const unresolvedBuildId = configuration.browserRevision || PUPPETEER_REVISIONS[product] || 'latest';
+    const buildId = await resolveBuildId(browser, platform, unresolvedBuildId);
+    // TODO: deprecate downloadPath in favour of cacheDirectory.
+    const cacheDir = configuration.downloadPath ?? configuration.cacheDirectory;
+    try {
+        const result = await install({
+            browser,
+            cacheDir,
+            platform,
+            buildId,...
+overrideProxy()
+const configuration = getConfiguration()
+configuration.skipDownload
+const downloadBaseUrl = configuration.downloadBaseUrl
+const platform = detectBrowserPlatform()
+!platform
+throw new Error('The current platform is not supported.');
+const product = configuration.defaultProduct
+const browser = productToBrowser(product)
+const unresolvedBuildId = configuration.browserRevision || PUPPETEER_REVISIONS[product] || 'latest'
+const buildId = await resolveBuildId(browser, platform, unresolvedBuildId)
+const cacheDir = configuration.downloadPath ?? configuration.cacheDirectory
+const result = await install({
+            browser,
+            cacheDir,
+            platform,
+            buildId,
+            downloadProgressCallback: makeProgressCallback(browser, buildId),
+            baseUrl: downloadBaseUrl,
+        })
+_tmp_4.browser = browser
+_tmp_4.cacheDir = cacheDir
+_tmp_4.platform = platform
+_tmp_4.buildId = buildId
+_tmp_4.downloadProgressCallback = makeProgressCallback(browser, buildId)
+_tmp_4.baseUrl = downloadBaseUrl
+<operator>.formatString("", supportedProducts[product], " (", result.buildId, ") downloaded to ", result.path, "")
+<operator>.formatString("ERROR: Failed to set up ", supportedProducts[product], " r", buildId, "! Set "PUPPETEER_SKIP_DOWNLOAD" env variable to skip download.")
+console.error(error)
+process.exit(1)

@@ -1,0 +1,70 @@
+load(url) {
+    if (!url) {
+      return;
+    }
+
+    this.url = url;
+    this.imageData = {};
+
+    const { element, options } = this;
+
+    if (!options.rotatable && !options.scalable) {
+      options.checkOrientation = false;
+    }
+
+    // Only IE10+ supports Typed Arrays
+    if (!options.checkOrientation || !window.ArrayBuffer) {
+      this.clone();
+      return;
+    }
+
+    // Detect the mime type of the image directly if it is a Data URL
+    if (REGEXP_DATA_URL.test(url)) {
+      // Read ArrayBuffer from Data URL of JPEG images directly for better performance
+      if (REGEXP_DATA_URL_JPEG.test(url)) {
+        this.read(dataURLToArrayBuffer(url));
+      } else {
+        // Only a JPEG image may contains Exif Orientation information,
+        // the rest types of Data URLs are not necessary to check orientation at all.
+        this.clone();
+      }
+
+      return;
+    }
+
+    // 1. Detect the mime type of the image by a XMLHttpRequest.
+    // 2. Load the image as ArrayBuffer for readi...
+!url
+this.url = url
+this.imageData = {}
+element = _tmp_7.element
+!options.rotatable && !options.scalable
+options.checkOrientation = false
+!options.checkOrientation || !window.ArrayBuffer
+REGEXP_DATA_URL.test(url)
+const xhr = new XMLHttpRequest()
+const clone = this.clone.bind(this)
+this.reloading = true
+this.xhr = xhr
+xhr.onabort = clone
+xhr.onerror = clone
+xhr.ontimeout = clone
+xhr.onprogress = () => {
+      // Abort the request directly if it not a JPEG image for better performance
+      if (xhr.getResponseHeader('content-type') !== MIME_TYPE_JPEG) {
+        xhr.abort();
+      }
+    }
+xhr.onload = () => {
+      this.read(xhr.response);
+    }
+xhr.onloadend = () => {
+      this.reloading = false;
+      this.xhr = null;
+    }
+options.checkCrossOrigin && isCrossOriginURL(url) && element.crossOrigin
+url = addTimestamp(url)
+xhr.open('GET', url, true)
+xhr.responseType = 'arraybuffer'
+xhr.withCredentials = element.crossOrigin === 'use-credentials'
+xhr.send()

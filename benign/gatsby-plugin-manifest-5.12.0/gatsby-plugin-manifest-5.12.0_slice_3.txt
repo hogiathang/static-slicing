@@ -1,0 +1,20 @@
+manifest.icons.forEach(icon => {
+    const iconPath = path.join(`public`, path.dirname(icon.src));
+    if (!paths[iconPath]) {
+      const exists = fs.existsSync(iconPath);
+      // create destination directory if it doesn't exist
+      if (!exists) {
+        fs.mkdirSync(iconPath, {
+          recursive: true
+        });
+      }
+      paths[iconPath] = true;
+    }
+  })
+const iconPath = path.join(`public`, path.dirname(icon.src))
+!paths[iconPath]
+const exists = fs.existsSync(iconPath)
+!exists
+fs.mkdirSync(iconPath, {
+          recursive: true
+        })

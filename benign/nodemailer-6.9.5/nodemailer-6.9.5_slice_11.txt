@@ -1,0 +1,70 @@
+let connect = ipaddress => {
+                        let proxyV2 = !!this.meta.get('proxy_socks_module').SocksClient;
+                        let socksClient = proxyV2 ? this.meta.get('proxy_socks_module').SocksClient : this.meta.get('proxy_socks_module');
+                        let proxyType = Number(proxy.protocol.replace(/\D/g, '')) || 5;
+                        let connectionOpts = {
+                            proxy: {
+                                ipaddress,
+                                port: Number(proxy.port),
+                                type: proxyType
+                            },
+                            [proxyV2 ? 'destination' : 'target']: {
+                                host: options.host,
+                                port: options.port
+                            },
+                            command: 'connect'
+                        };
+
+                        if (proxy.auth) {
+                            let username = decodeURIComponent(proxy.auth....
+let proxyV2 = !!this.meta.get('proxy_socks_module').SocksClient
+let socksClient = proxyV2 ? this.meta.get('proxy_socks_module').SocksClient : this.meta.get('proxy_socks_module')
+let proxyType = Number(proxy.protocol.replace(/\D/g, '')) || 5
+let connectionOpts = {
+                            proxy: {
+                                ipaddress,
+                                port: Number(proxy.port),
+                                type: proxyType
+                            },
+                            [proxyV2 ? 'destination' : 'target']: {
+                                host: options.host,
+                                port: options.port
+                            },
+                            command: 'connect'
+                        }
+_tmp_61.proxy = {
+                                ipaddress,
+                                port: Number(proxy.port),
+                                type: proxyType
+                            }
+_tmp_62.ipaddress = ipaddress
+_tmp_62.port = Number(proxy.port)
+_tmp_62.type = proxyType
+_tmp_61._computed_object_property_0 = {
+                                host: options.host,
+                                port: options.port
+                            }
+_tmp_63.host = options.host
+_tmp_63.port = options.port
+_tmp_61.command = "connect"
+proxy.auth
+let username = decodeURIComponent(proxy.auth.split(':').shift())
+let password = decodeURIComponent(proxy.auth.split(':').pop())
+connectionOpts.proxy.userId = username
+connectionOpts.proxy.password = password
+proxyType === 4
+connectionOpts.userid = username
+connectionOpts.authentication = {
+                                    username,
+                                    password
+                                }
+_tmp_68.username = username
+_tmp_68.password = password
+socksClient.createConnection(connectionOpts, (err, info) => {
+                            if (err) {
+                                return callback(err);
+                            }
+                            return callback(null, {
+                                connection: info.socket || info
+                            });
+                        })

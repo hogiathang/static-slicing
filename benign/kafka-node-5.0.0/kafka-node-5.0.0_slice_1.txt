@@ -1,0 +1,30 @@
+Client.prototype.unqueueCallback = function (socket, id) {
+  var socketId = socket.socketId;
+
+  var queue = this.cbqueue.get(socketId);
+  try {
+    if (!queue) {
+      return null;
+    }
+
+    if (!queue.has(id)) {
+      return null;
+    }
+
+    var result = queue.get(id);
+
+    // cleanup socket queue
+    queue.delete(id);
+
+    return result;
+  } finally {
+    if (queue && !queue.size) {
+      this.cbqueue.delete(socketId);
+    }
+  }
+}
+var socketId = socket.socketId
+var queue = this.cbqueue.get(socketId)
+!queue
+!queue.has(id)
+var result = queue.get(id)

@@ -1,0 +1,2 @@
+_tmp_6.getFloat64 = getFloat64
+unpackIEEE754(get(this, 8, byteOffset, arguments.length > 1 ? arguments[1] : false), 52)

@@ -1,0 +1,20 @@
+function extractOriginalSegments = function extractOriginalSegments(mappings) {
+  const originalSegments = /* @__PURE__ */ new Map();
+  for (const mapping of mappings) {
+    const originalSource = mapping.originalSource;
+    if (!originalSegments.has(originalSource)) {
+      originalSegments.set(originalSource, []);
+    }
+    const segments = originalSegments.get(originalSource);
+    segments.push(mapping.originalSegment);
+  }
+  originalSegments.forEach((segmentMarkers) => segmentMarkers.sort(compareSegments));
+  return originalSegments;
+}
+const originalSegments = /* @__PURE__ */ new Map()
+_iterator_1 = <operator>.iterator(mappings)
+const originalSource = mapping.originalSource
+!originalSegments.has(originalSource)
+originalSegments.set(originalSource, [])
+const segments = originalSegments.get(originalSource)
+segments.push(mapping.originalSegment)

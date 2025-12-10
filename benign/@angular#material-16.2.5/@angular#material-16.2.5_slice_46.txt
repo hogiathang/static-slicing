@@ -1,0 +1,19 @@
+async clickItem(itemFilter, ...subItemFilters) {
+        await this.open();
+        const items = await this.getItems(itemFilter);
+        if (!items.length) {
+            throw Error(`Could not find item matching ${JSON.stringify(itemFilter)}`);
+        }
+        if (!subItemFilters.length) {
+            return await items[0].click();
+        }
+        const menu = await items[0].getSubmenu();
+        if (!menu) {
+            throw Error(`Item matching ${JSON.stringify(itemFilter)} does not have a submenu`);
+        }
+        return menu.clickItem(...subItemFilters);
+    }
+await this.open()
+const items = await this.getItems(itemFilter)
+!items.length
+<operator>.formatString("Could not find item matching ", JSON.stringify(itemFilter), "")

@@ -1,0 +1,8 @@
+_tmp_1.tabbable = (0, _schemas.enumArraySchema)((0, _toConsumableArray2["default"])(_ariaQuery.roles.keys()).filter(function (name) {
+    return !_ariaQuery.roles.get(name)["abstract"] && _ariaQuery.roles.get(name).superClass.some(function (klasses) {
+      return (0, _arrayIncludes["default"])(klasses, 'widget');
+    });
+  }))
+!_ariaQuery.roles.get(name)["abstract"] && _ariaQuery.roles.get(name).superClass.some(function (klasses) {
+      return (0, _arrayIncludes["default"])(klasses, 'widget');
+    })

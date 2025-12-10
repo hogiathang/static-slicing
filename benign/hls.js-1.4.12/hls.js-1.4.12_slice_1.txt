@@ -1,0 +1,17 @@
+function getContentLength = function getContentLength(headers: Headers): number | undefined {
+  const contentRange = headers.get('Content-Range');
+  if (contentRange) {
+    const byteRangeLength = getByteRangeLength(contentRange);
+    if (Number.isFinite(byteRangeLength)) {
+      return byteRangeLength;
+    }
+  }
+  const contentLength = headers.get('Content-Length');
+  if (contentLength) {
+    return parseInt(contentLength);
+  }
+}
+const contentRange = headers.get('Content-Range')
+const byteRangeLength = getByteRangeLength(contentRange)
+Number.isFinite(byteRangeLength)
+const contentLength = headers.get('Content-Length')

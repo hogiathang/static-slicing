@@ -1,0 +1,30 @@
+loadPage(rawPath) {
+    const pagePath = (0, _findPath.findPath)(rawPath);
+    if (this.pageDb.has(pagePath)) {
+      const page = this.pageDb.get(pagePath);
+      if (process.env.BUILD_STAGE !== `develop` || !page.payload.stale) {
+        if (page.error) {
+          return Promise.resolve({
+            error: page.error,
+            status: page.status
+          });
+        }
+        return Promise.resolve(page.payload);
+      }
+    }
+    if (this.inFlightDb.has(pagePath)) {
+      return this.inFlightDb.get(pagePath);
+    }
+    const loadDataPromises = [this.loadAppData(), this.loadPageDataJson(pagePath)];
+    if (global.hasPartialHydration) {
+      loadDataPromises.push(this.loadPartialHydrationJson(pagePath));
+    }
+    const inFlightPromise = Promise.all(loadDataPromises).then(allData => {
+      const [appDataResponse, pageDataResponse, rscDataResponse] = allData;
+      if (pageDataResponse.status === PageResourceStatus.Error || (rscDataResponse === null || rscDataResponse === v...
+const pagePath = (0, _findPath.findPath)(rawPath)
+(_tmp_68 = this.pageDb).has
+const page = this.pageDb.get(pagePath)
+process.env.BUILD_STAGE !== `develop` || !page.payload.stale
+(_tmp_71 = this.inFlightDb).has
+(_tmp_72 = this.inFlightDb).get

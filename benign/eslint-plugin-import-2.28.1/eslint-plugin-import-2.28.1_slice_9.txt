@@ -1,0 +1,9 @@
+value.forEach(function (val) {
+      var currentExports = exportList.get(val);
+      if (currentExports) {
+        var currentExport = currentExports.get(EXPORT_ALL_DECLARATION);
+        currentExport.whereUsed.add(key);
+      }
+    })
+var currentExports = exportList.get(val)
+var currentExport = currentExports.get(EXPORT_ALL_DECLARATION)

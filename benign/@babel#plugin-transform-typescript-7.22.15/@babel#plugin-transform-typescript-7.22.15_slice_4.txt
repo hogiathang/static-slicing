@@ -1,0 +1,85 @@
+_tmp_21.enter = enter
+_tmp_22 = state
+file = _tmp_22.file
+let fileJsxPragma = null
+let fileJsxPragmaFrag = null
+const programScope = path.scope
+!GLOBAL_TYPES.has(programScope)
+GLOBAL_TYPES.set(programScope, new Set())
+file.ast.comments
+_iterator_3 = <operator>.iterator(file.ast.comments)
+const jsxMatches = JSX_PRAGMA_REGEX.exec(comment.value)
+jsxMatches[1]
+fileJsxPragmaFrag = jsxMatches[2]
+fileJsxPragma = jsxMatches[2]
+let pragmaImportName = fileJsxPragma || jsxPragma
+_tmp_24 = pragmaImportName.split(".")
+let pragmaFragImportName = fileJsxPragmaFrag || jsxPragmaFrag
+_tmp_25 = pragmaFragImportName.split(".")
+_iterator_4 = <operator>.iterator(path.get("body"))
+stmt.isImportDeclaration()
+!NEEDS_EXPLICIT_ESM.has(state.file.ast.program)
+NEEDS_EXPLICIT_ESM.set(state.file.ast.program, true)
+stmt.node.importKind === "type"
+_iterator_5 = <operator>.iterator(stmt.node.specifiers)
+registerGlobalType(programScope, specifier.local.name)
+stmt.remove()
+continue;
+const importsToRemove = new Set()
+const specifiersLength = stmt.node.specifiers.length
+const isAllSpecifiersElided = () => specifiersLength > 0 && specifiersLength === importsToRemove.size
+_iterator_6 = <operator>.iterator(stmt.node.specifiers)
+specifier.type === "ImportSpecifier" && specifier.importKind === "type"
+registerGlobalType(programScope, specifier.local.name)
+const binding = stmt.scope.getBinding(specifier.local.name)
+importsToRemove.add(binding.path)
+NEEDS_EXPLICIT_ESM.set(path.node, false)
+stmt.node.specifiers.length === 0
+NEEDS_EXPLICIT_ESM.set(path.node, false)
+continue;
+_iterator_7 = <operator>.iterator(stmt.node.specifiers)
+const binding = stmt.scope.getBinding(specifier.local.name)
+binding && !importsToRemove.has(binding.path)
+isImportTypeOnly({
+                      binding,
+                      programPath: path,
+                      pragmaImportName,
+                      pragmaFragImportName
+                    })
+_tmp_29.binding = binding
+_tmp_29.programPath = path
+_tmp_29.pragmaImportName = pragmaImportName
+_tmp_29.pragmaFragImportName = pragmaFragImportName
+importsToRemove.add(binding.path)
+NEEDS_EXPLICIT_ESM.set(path.node, false)
+isAllSpecifiersElided() && !onlyRemoveTypeImports
+stmt.remove()
+_iterator_8 = <operator>.iterator(importsToRemove)
+importPath.remove()
+continue;
+stmt.isExportDeclaration()
+stmt = stmt.get("declaration")
+stmt.isVariableDeclaration({
+              declare: true
+            })
+_tmp_30.declare = true
+_iterator_9 = <operator>.iterator(Object.keys(stmt.getBindingIdentifiers()))
+registerGlobalType(programScope, name)
+stmt.isTSTypeAliasDeclaration() || stmt.isTSDeclareFunction() && stmt.get("id").isIdentifier() || stmt.isTSInterfaceDeclaration() || stmt.isClassDeclaration({
+              declare: true
+            }) || stmt.isTSEnumDeclaration({
+              declare: true
+            }) || stmt.isTSModuleDeclaration({
+              declare: true
+            }) && stmt.get("id").isIdentifier()
+_tmp_32.declare = true
+stmt.isTSEnumDeclaration({
+              declare: true
+            })
+_tmp_33.declare = true
+stmt.isTSModuleDeclaration({
+              declare: true
+            }) && stmt.get("id").isIdentifier()
+_tmp_34.declare = true
+(_tmp_35 = stmt.get("id")).isIdentifier
+registerGlobalType(programScope, stmt.node.id.name)

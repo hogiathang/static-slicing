@@ -1,0 +1,21 @@
+function replaceImpureComputedKeys = function replaceImpureComputedKeys(properties, scope) {
+    const impureComputedPropertyDeclarators = [];
+    for (const propPath of properties) {
+      const key = propPath.get("key");
+      if (propPath.node.computed && !key.isPure()) {
+        const name = scope.generateUidBasedOnNode(key.node);
+        const declarator = core.types.variableDeclarator(core.types.identifier(name), key.node);
+        impureComputedPropertyDeclarators.push(declarator);
+        key.replaceWith(core.types.identifier(name));
+      }
+    }
+    return impureComputedPropertyDeclarators;
+  }
+const impureComputedPropertyDeclarators = []
+_iterator_2 = <operator>.iterator(properties)
+const key = propPath.get("key")
+propPath.node.computed && !key.isPure()
+const name = scope.generateUidBasedOnNode(key.node)
+const declarator = core.types.variableDeclarator(core.types.identifier(name), key.node)
+impureComputedPropertyDeclarators.push(declarator)
+key.replaceWith(core.types.identifier(name))

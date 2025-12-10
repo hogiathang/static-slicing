@@ -1,0 +1,9 @@
+invalidate(file) {
+        const sourceFile = this.get(file);
+        if (sourceFile) {
+            this.delete(file);
+            this.angularDiagnostics.delete(sourceFile);
+        }
+    }
+const sourceFile = this.get(file)
+this.delete(file)

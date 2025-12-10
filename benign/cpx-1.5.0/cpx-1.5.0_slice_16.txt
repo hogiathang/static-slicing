@@ -1,0 +1,16 @@
+q.push(function (next) {
+            return fs.utimes(dst, stat.atime, stat.mtime, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            });
+        })
+fs.utimes(dst, stat.atime, stat.mtime, function (err) {
+                if (err) {
+                    cb(err);
+                } else {
+                    next();
+                }
+            })

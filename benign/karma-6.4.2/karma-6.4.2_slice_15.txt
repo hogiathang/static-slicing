@@ -1,0 +1,12 @@
+function (request, response, next) {
+    if (request.url !== urlRoot + 'stop') return next()
+    response.writeHead(200)
+    log.info('Stopping server')
+    response.end('OK')
+    process.kill(process.pid, 'SIGINT')
+  }
+request.url !== urlRoot + 'stop'
+response.writeHead(200)
+log.info('Stopping server')
+response.end('OK')
+process.kill(process.pid, 'SIGINT')

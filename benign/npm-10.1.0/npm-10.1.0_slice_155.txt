@@ -1,0 +1,65 @@
+async execWorkspaces (args) {
+    // Suppresses JSON output in publish() so we can handle it here
+    this.suppressOutput = true
+
+    const results = {}
+    const json = this.npm.config.get('json')
+    const { silent } = this.npm
+    await this.setWorkspaces()
+
+    for (const [name, workspace] of this.workspaces.entries()) {
+      let pkgContents
+      try {
+        pkgContents = await this.exec([workspace])
+      } catch (err) {
+        if (err.code === 'EPRIVATE') {
+          log.warn(
+            'publish',
+            `Skipping workspace ${
+              this.npm.chalk.green(name)
+            }, marked as ${
+              this.npm.chalk.bold('private')
+            }`
+          )
+          continue
+        }
+        throw err
+      }
+      // This needs to be in-line w/ the rest of the output that non-JSON
+      // publish generates
+      if (!silent && !json) {
+        this.npm.output(`+ ${pkgContents.id}`)
+      } else {
+        results[name] = pkgContents
+      }
+    }
+
+    if...
+this.suppressOutput = true
+const results = {}
+const json = this.npm.config.get('json')
+silent = _tmp_23.silent
+await this.setWorkspaces()
+_iterator_0 = <operator>.iterator(this.workspaces.entries())
+pkgContents = await this.exec([workspace])
+err.code === 'EPRIVATE'
+log.warn(
+            'publish',
+            `Skipping workspace ${
+              this.npm.chalk.green(name)
+            }, marked as ${
+              this.npm.chalk.bold('private')
+            }`
+          )
+"publish"
+<operator>.formatString("Skipping workspace ", this.npm.chalk.green(name), ", marked as ", this.npm.chalk.bold('private'), "")
+(_tmp_26 = this.npm.chalk).green
+", marked as "
+(_tmp_27 = this.npm.chalk).bold
+continue
+throw err
+!silent && !json
+<operator>.formatString("+ ", pkgContents.id, "")
+results[name] = pkgContents
+!silent && json
+this.npm.output(JSON.stringify(results, null, 2))

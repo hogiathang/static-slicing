@@ -1,0 +1,5 @@
+concat((data) => {
+					parsedArgs.message = data
+					send(parsedArgs)
+				})
+parsedArgs.message = data

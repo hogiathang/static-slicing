@@ -1,0 +1,20 @@
+_tmp_1.copyFileSync = <lambda>47
+bufferSize == null
+bufferSize = 16 * 1024
+mkdirp.sync(path.dirname(destinationFilePath))
+readFd = null
+writeFd = null
+readFd = fs.openSync(sourceFilePath, 'r')
+writeFd = fs.openSync(destinationFilePath, 'w')
+bytesRead = 1
+position = 0
+__ecma.Array.factory()
+bytesRead > 0
+buffer = new Buffer(bufferSize)
+bytesRead = fs.readSync(readFd, buffer, 0, buffer.length, position)
+fs.writeSync(writeFd, buffer, 0, bytesRead, position)
+_results.push(position += bytesRead)
+readFd != null
+fs.closeSync(readFd)
+writeFd != null
+fs.closeSync(writeFd)

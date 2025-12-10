@@ -1,0 +1,29 @@
+permissionsOf(memberID) {
+        const member = typeof memberID === "string" ? this.members.get(memberID) : memberID;
+        if(member.id === this.ownerID) {
+            return new Permission(Permissions.all);
+        } else {
+            let permissions = this.roles.get(this.id).permissions.allow;
+            if(permissions & Permissions.administrator) {
+                return new Permission(Permissions.all);
+            }
+            for(let role of member.roles) {
+                role = this.roles.get(role);
+                if(!role) {
+                    continue;
+                }
+
+                const {allow: perm} = role.permissions;
+                if(perm & Permissions.administrator) {
+                    permissions = Permissions.all;
+                    break;
+                } else {
+                    permissions |= perm;
+                }
+            }
+            return new Permission(permissions);
+        }
+    }
+const member = typeof memberID === "string" ? this.members.get(memberID) : memberID
+member.id === this.ownerID
+let permissions = this.roles.get(this.id).permissions.allow

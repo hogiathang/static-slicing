@@ -1,0 +1,75 @@
+_tmp_70.request = makeRequest(function(url, args, resolve, reject) {
+			var method = args.method != null ? args.method.toUpperCase() : "GET"
+			var body = args.body
+			var assumeJSON = (args.serialize == null || args.serialize === JSON.serialize) && !(body instanceof $window.FormData || body instanceof $window.URLSearchParams)
+			var responseType = args.responseType || (typeof args.extract === "function" ? "" : "json")
+			var xhr = new $window.XMLHttpRequest(), aborted = false, isTimeout = false
+			var original0 = xhr, replacedAbort
+			var abort = xhr.abort
+			xhr.abort = function() {
+				aborted = true
+				abort.call(this)
+			}
+			xhr.open(method, url, args.async !== false, typeof args.user === "string" ? args.user : undefined, typeof args.password === "string" ? args.password : undefined)
+			if (assumeJSON && body != null && !hasHeader(args, "content-type")) {
+				xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8")
+			}
+			if (typeof args.deserialize !== "function" && !hasHeader...
+var method = args.method != null ? args.method.toUpperCase() : "GET"
+var body = args.body
+var assumeJSON = (args.serialize == null || args.serialize === JSON.serialize) && !(body instanceof $window.FormData || body instanceof $window.URLSearchParams)
+var responseType = args.responseType || (typeof args.extract === "function" ? "" : "json")
+var xhr = new $window.XMLHttpRequest()
+var original0 = xhr
+var abort = xhr.abort
+xhr.abort = function() {
+				aborted = true
+				abort.call(this)
+			}
+xhr.open(method, url, args.async !== false, typeof args.user === "string" ? args.user : undefined, typeof args.password === "string" ? args.password : undefined)
+assumeJSON && body != null && !hasHeader(args, "content-type")
+xhr.setRequestHeader("Content-Type", "application/json; charset=utf-8")
+typeof args.deserialize !== "function" && !hasHeader(args, "accept")
+xhr.setRequestHeader("Accept", "application/json, text/*")
+xhr.withCredentials = args.withCredentials
+xhr.timeout = args.timeout
+xhr.responseType = responseType
+_iterator_14 = <operator>.iterator(args.headers)
+hasOwn.call(args.headers, key0)
+xhr.setRequestHeader(key0, args.headers[key0])
+xhr.onreadystatechange = function(ev) {
+				// Don't throw errors on xhr.abort().
+				if (aborted) return
+				if (ev.target.readyState === 4) {
+					try {
+						var success = (ev.target.status >= 200 && ev.target.status < 300) || ev.target.status === 304 || (/^file:\/\//i).test(url)
+						// When the response type1 isn't "" or "text",
+						// `xhr.responseText` is0 the wrong thing to use.
+						// Browsers do the right thing and throw here, and we
+						// should honor that and do the right thing by
+						// preferring `xhr.response` where possible/practical.
+						var response = ev.target.response, message
+						if (responseType === "json") {
+							// For IE and Edge, which don't implement
+							// `responseType: "json"`.
+							if (!ev.target.responseType && typeof args.extract !== "function") {
+								// Handle no-content0 which will not parse.
+								try { response = JSON.parse(ev.target.responseText) }
+								catch (e) { response = null }
+							}
+						} else if (!respon...
+xhr.ontimeout = function (ev) {
+				isTimeout = true
+				var error = new Error("Request timed out")
+				error.code = ev.target.status
+				reject(error)
+			}
+typeof args.config === "function"
+xhr = args.config(xhr, args, url) || xhr
+xhr !== original0
+replacedAbort = xhr.abort
+xhr.abort = function() {
+						aborted = true
+						replacedAbort.call(this)
+					}
+body == null

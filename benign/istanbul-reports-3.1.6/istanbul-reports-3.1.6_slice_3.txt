@@ -1,0 +1,31 @@
+fs.readdirSync(srcDir).forEach(f => {
+                const resolvedSource = path.resolve(srcDir, f);
+                const resolvedDestination = '.';
+                const stat = fs.statSync(resolvedSource);
+                let dest;
+
+                if (stat.isFile()) {
+                    dest = resolvedDestination + '/' + f;
+                    if (this.verbose) {
+                        console.log('Write asset: ' + dest);
+                    }
+                    writer.copyFile(
+                        resolvedSource,
+                        dest,
+                        assetHeaders[path.extname(f)]
+                    );
+                }
+            })
+const resolvedSource = path.resolve(srcDir, f)
+const resolvedDestination = '.'
+const stat = fs.statSync(resolvedSource)
+stat.isFile()
+dest = resolvedDestination + '/' + f
+this.verbose
+console.log('Write asset: ' + dest)
+writer.copyFile(
+                        resolvedSource,
+                        dest,
+                        assetHeaders[path.extname(f)]
+                    )
+assetHeaders[path.extname(f)]

@@ -1,0 +1,28 @@
+calculateAlreadySetTargetDeps(sourceProject) {
+        const alreadySetTargetProjects = new Map();
+        if (this.graph.dependencies[sourceProject]) {
+            const removed = this.removedEdges[sourceProject];
+            for (const d of this.graph.dependencies[sourceProject]) {
+                // static and dynamic dependencies of internal projects
+                // will be rebuilt based on the file dependencies
+                // we only need to keep the implicit dependencies
+                if (d.type === project_graph_1.DependencyType.implicit && !removed?.has(d.target)) {
+                    if (!alreadySetTargetProjects.has(d.target)) {
+                        alreadySetTargetProjects.set(d.target, new Map([[d.type, d]]));
+                    }
+                    else {
+                        alreadySetTargetProjects.get(d.target).set(d.type, d);
+                    }
+                }
+            }
+        }
+        return alreadySetTargetProjects;
+    }
+const alreadySetTargetProjects = new Map()
+this.graph.dependencies[sourceProject]
+const removed = this.removedEdges[sourceProject]
+_iterator_9 = <operator>.iterator(this.graph.dependencies[sourceProject])
+d.type === project_graph_1.DependencyType.implicit && !removed?.has(d.target)
+!alreadySetTargetProjects.has(d.target)
+alreadySetTargetProjects.set(d.target, new Map([[d.type, d]]))
+(_tmp_58 = alreadySetTargetProjects.get(d.target)).set

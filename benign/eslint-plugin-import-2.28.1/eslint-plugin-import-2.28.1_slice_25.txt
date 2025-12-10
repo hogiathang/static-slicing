@@ -1,0 +1,31 @@
+newNamespaceImports.forEach(function (value) {
+            if (!oldNamespaceImports.has(value)) {
+              var imports = oldImportPaths.get(value);
+              if (typeof imports === 'undefined') {
+                imports = new Set();
+              }
+              imports.add(IMPORT_NAMESPACE_SPECIFIER);
+              oldImportPaths.set(value, imports);
+
+              var _exports5 = exportList.get(value);
+              var currentExport = void 0;
+              if (typeof _exports5 !== 'undefined') {
+                currentExport = _exports5.get(IMPORT_NAMESPACE_SPECIFIER);
+              } else {
+                _exports5 = new Map();
+                exportList.set(value, _exports5);
+              }
+
+              if (typeof currentExport !== 'undefined') {
+                currentExport.whereUsed.add(file);
+              } else {
+                var whereUsed = new Set();
+                whereUsed.add(file);
+                _exports5.set(IMPORT_NAMESPACE_SPECIFIER, { whereUse...
+!oldNamespaceImports.has(value)
+var imports = oldImportPaths.get(value)
+typeof imports === 'undefined'
+imports = new Set()
+imports.add(IMPORT_NAMESPACE_SPECIFIER)
+oldImportPaths.set(value, imports)
+var _exports5 = exportList.get(value)

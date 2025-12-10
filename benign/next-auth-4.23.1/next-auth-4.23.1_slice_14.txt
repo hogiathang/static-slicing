@@ -1,0 +1,56 @@
+function getToken = async function getToken<R extends boolean = false>(
+  params: GetTokenParams<R>
+): Promise<R extends true ? string : JWT | null> {
+  const {
+    req,
+    secureCookie = process.env.NEXTAUTH_URL?.startsWith("https://") ??
+      !!process.env.VERCEL,
+    cookieName = secureCookie
+      ? "__Secure-next-auth.session-token"
+      : "next-auth.session-token",
+    raw,
+    decode: _decode = decode,
+    logger = console,
+    secret = process.env.NEXTAUTH_SECRET,
+  } = params
+
+  if (!req) throw new Error("Must pass `req` to JWT getToken()")
+
+  const sessionStore = new SessionStore(
+    { name: cookieName, options: { secure: secureCookie } },
+    { cookies: req.cookies, headers: req.headers },
+    logger
+  )
+
+  let token = sessionStore.value
+
+  const authorizationHeader =
+    req.headers instanceof Headers
+      ? req.headers.get("authorization")
+      : req.headers?.authorization
+
+  if (!token && authorizationHeader?.split(" ")[0] === "Bearer") {
+    const urlEncodedToken = authorizationHea...
+_tmp_12 = params
+req = _tmp_12.req
+secureCookie = _tmp_12.secureCookie === void 0 ? process.env.NEXTAUTH_URL?.startsWith("https://") ??
+      !!process.env.VERCEL : _tmp_12.secureCookie
+!!process.env.VERCEL
+cookieName = _tmp_12.cookieName === void 0 ? secureCookie ? "__Secure-next-auth.session-token" : "next-auth.session-token" : _tmp_12.cookieName
+"__Secure-next-auth.session-token"
+"next-auth.session-token"
+raw = _tmp_12.raw
+_decode = _tmp_12.decode === void 0 ? decode : _tmp_12.decode
+logger = _tmp_12.logger === void 0 ? console : _tmp_12.logger
+secret = _tmp_12.secret === void 0 ? process.env.NEXTAUTH_SECRET : _tmp_12.secret
+throw new Error("Must pass `req` to JWT getToken()")
+const sessionStore = new SessionStore(
+    { name: cookieName, options: { secure: secureCookie } },
+    { cookies: req.cookies, headers: req.headers },
+    logger
+  )
+_tmp_15.options = { secure: secureCookie }
+_tmp_17.cookies = req.cookies
+let token = sessionStore.value
+req.headers instanceof Headers ? req.headers.get("authorization") : req.headers.authorization
+req.headers.get("authorization")

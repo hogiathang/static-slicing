@@ -1,0 +1,52 @@
+function executeAutoPipeline = function executeAutoPipeline(client, slotKey) {
+    /*
+      If a pipeline is already executing, keep queueing up commands
+      since ioredis won't serve two pipelines at the same time
+    */
+    if (client._runningAutoPipelines.has(slotKey)) {
+        return;
+    }
+    if (!client._autoPipelines.has(slotKey)) {
+        /*
+          Rare edge case. Somehow, something has deleted this running autopipeline in an immediate
+          call to executeAutoPipeline.
+         
+          Maybe the callback in the pipeline.exec is sometimes called in the same tick,
+          e.g. if redis is disconnected?
+        */
+        return;
+    }
+    client._runningAutoPipelines.add(slotKey);
+    // Get the pipeline and immediately delete it so that new commands are queued on a new pipeline
+    const pipeline = client._autoPipelines.get(slotKey);
+    client._autoPipelines.delete(slotKey);
+    const callbacks = pipeline[exports.kCallbacks];
+    // Stop keeping a reference to callbacks immediately after...
+(_tmp_0 = client._runningAutoPipelines).has
+(_tmp_1 = client._autoPipelines).has
+(_tmp_2 = client._runningAutoPipelines).add
+const pipeline = client._autoPipelines.get(slotKey)
+(_tmp_4 = client._autoPipelines).delete
+const callbacks = pipeline[exports.kCallbacks]
+pipeline[exports.kCallbacks] = null
+pipeline.exec(function (err, results) {
+        client._runningAutoPipelines.delete(slotKey);
+        /*
+          Invoke all callback in nextTick so the stack is cleared
+          and callbacks can throw errors without affecting other callbacks.
+        */
+        if (err) {
+            for (let i = 0; i < callbacks.length; i++) {
+                process.nextTick(callbacks[i], err);
+            }
+        }
+        else {
+            for (let i = 0; i < callbacks.length; i++) {
+                process.nextTick(callbacks[i], ...results[i]);
+            }
+        }
+        // If there is another pipeline on the same node, immediately execute it without waiting for nextTick
+        if (client._autoPipelines.has(slotKey)) {
+            executeAutoPipeline(client, slotKey);
+        }
+    })

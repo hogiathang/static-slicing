@@ -1,0 +1,12 @@
+deleteKeyMappingFor(ele){
+    let id = ele.id();
+    let prevKey = this.keyForId.get(id);
+
+    this.deleteIdForKey(prevKey, id);
+
+    this.keyForId.delete(id);
+  }
+let id = ele.id()
+let prevKey = this.keyForId.get(id)
+this.deleteIdForKey(prevKey, id)
+(_tmp_11 = this.keyForId).delete

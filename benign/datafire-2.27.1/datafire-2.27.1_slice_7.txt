@@ -1,0 +1,25 @@
+let sendRequest = (resolve, reject, isRetry) => {
+        request(reqOpts, (err, resp, body) => {
+          if (err) {
+            return reject(err);
+          }
+          if (body) {
+            let encoding = resp.headers['content-encoding'];
+            if (encoding === 'gzip') {
+              body = zlib.gunzipSync(body, ZLIB_OPTIONS).toString('utf8');
+            } else if (encoding === 'deflate') {
+              body = zlib.inflateSync(body, ZLIB_OPTIONS).toString('utf8');
+            } else {
+              body = body.toString('utf8');
+            }
+          }
+          if (!isRetry && resp.statusCode === 401 && hasRefreshToken) {
+            refreshOAuthToken(err => {
+              if (err) reject(new Response({statusCode: 401}));
+              else sendRequest(resolve, reject, true);
+            })
+            return;
+          } else if (resp.statusCode >= 300) {
+            return reject(new Response({statusCode: resp.statusCode, body}));
+          }
+          let ctype = r...

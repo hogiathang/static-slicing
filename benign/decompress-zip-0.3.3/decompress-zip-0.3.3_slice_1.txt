@@ -1,0 +1,10 @@
+function (linkTo) {
+            return symlink(path.resolve(parent, linkTo), destination)
+            .then(function () {
+                return {symlink: file.path, linkTo: linkTo};
+            });
+        }
+symlink(path.resolve(parent, linkTo), destination)
+            .then(function () {
+                return {symlink: file.path, linkTo: linkTo};
+            })

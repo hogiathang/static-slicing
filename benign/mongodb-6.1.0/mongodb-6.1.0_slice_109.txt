@@ -1,0 +1,68 @@
+command(ns, command, options, callback) {
+        let cmd = { ...command };
+        const readPreference = (0, shared_1.getReadPreference)(options);
+        const shouldUseOpMsg = supportsOpMsg(this);
+        const session = options?.session;
+        let clusterTime = this.clusterTime;
+        if (this.serverApi) {
+            const { version, strict, deprecationErrors } = this.serverApi;
+            cmd.apiVersion = version;
+            if (strict != null)
+                cmd.apiStrict = strict;
+            if (deprecationErrors != null)
+                cmd.apiDeprecationErrors = deprecationErrors;
+        }
+        if (hasSessionSupport(this) && session) {
+            if (session.clusterTime &&
+                clusterTime &&
+                session.clusterTime.clusterTime.greaterThan(clusterTime.clusterTime)) {
+                clusterTime = session.clusterTime;
+            }
+            const err = (0, sessions_1.applySession)(session, cmd, options);
+            if (err) {
+       ...
+let cmd = { ...command }
+const readPreference = (0, shared_1.getReadPreference)(options)
+const shouldUseOpMsg = supportsOpMsg(this)
+const session = options?.session
+let clusterTime = this.clusterTime
+this.serverApi
+deprecationErrors = _tmp_55.deprecationErrors
+cmd.apiVersion = version
+strict != null
+cmd.apiStrict = strict
+deprecationErrors != null
+cmd.apiDeprecationErrors = deprecationErrors
+hasSessionSupport(this) && session
+session.clusterTime &&
+                clusterTime &&
+                session.clusterTime.clusterTime.greaterThan(clusterTime.clusterTime)
+session.clusterTime.clusterTime.greaterThan(clusterTime.clusterTime)
+clusterTime = session.clusterTime
+const err = (0, sessions_1.applySession)(session, cmd, options)
+session.explicit
+cmd.$clusterTime = clusterTime
+(0, shared_1.isSharded)(this) && !shouldUseOpMsg && readPreference && readPreference.mode !== 'primary'
+cmd = {
+                $query: cmd,
+                $readPreference: readPreference.toJSON()
+            }
+_tmp_58.$query = cmd
+_tmp_58.$readPreference = readPreference.toJSON()
+const commandOptions = Object.assign({
+            numberToSkip: 0,
+            numberToReturn: -1,
+            checkKeys: false,
+            // This value is not overridable
+            secondaryOk: readPreference.secondaryOk()
+        }, options)
+_tmp_59.numberToSkip = 0
+_tmp_59.numberToReturn = -1
+_tmp_59.checkKeys = false
+_tmp_59.secondaryOk = readPreference.secondaryOk()
+<operator>.formatString("", ns.db, ".$cmd")
+const message = shouldUseOpMsg
+            ? new commands_1.Msg(cmdNs, cmd, commandOptions)
+            : new commands_1.Query(cmdNs, cmd, commandOptions)
+new commands_1.Msg(cmdNs, cmd, commandOptions)
+new commands_1.Query(cmdNs, cmd, commandOptions)

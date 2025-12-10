@@ -1,0 +1,28 @@
+function instantiatePlugin (kind, name) {
+    if (pluginInstances.has(name)) {
+      return pluginInstances.get(name)
+    }
+
+    let p
+    try {
+      p = injector.get(`${kind}:${name}`)
+      if (!p) {
+        log.error(`Failed to instantiate ${kind} ${name}`)
+        emitter.emit('load_error', kind, name)
+      }
+    } catch (e) {
+      if (e.message.includes(`No provider for "${kind}:${name}"`)) {
+        log.error(`Cannot load "${name}", it is not registered!\n  Perhaps you are missing some plugin?`)
+      } else {
+        log.error(`Cannot load "${name}"!\n  ` + e.stack)
+      }
+      emitter.emit('load_error', kind, name)
+    }
+    pluginInstances.set(name, p, `${kind}:${name}`)
+    return p
+  }
+pluginInstances.has(name)
+<operator>.formatString("", kind, ":", name, "")
+!p
+<operator>.formatString("Failed to instantiate ", kind, " ", name, "")
+emitter.emit('load_error', kind, name)

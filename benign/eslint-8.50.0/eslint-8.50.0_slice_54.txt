@@ -1,0 +1,47 @@
+executeOnFiles(patterns) {
+        const {
+            cacheFilePath,
+            fileEnumerator,
+            lastConfigArrays,
+            lintResultCache,
+            linter,
+            options: {
+                allowInlineConfig,
+                cache,
+                cwd,
+                fix,
+                reportUnusedDisableDirectives
+            }
+        } = internalSlotsMap.get(this);
+        const results = [];
+        const startTime = Date.now();
+
+        // Clear the last used config arrays.
+        lastConfigArrays.length = 0;
+
+        // Delete cache file; should this do here?
+        if (!cache) {
+            try {
+                fs.unlinkSync(cacheFilePath);
+            } catch (error) {
+                const errorCode = error && error.code;
+
+                // Ignore errors when no such file exists or file system is read only (and cache file does not exist)
+                if (errorCode !== "ENOENT" && !(errorCode === "EROFS" && !fs.existsSync(cacheFilePath))) ...
+_tmp_55 = internalSlotsMap.get(this)
+cacheFilePath = _tmp_55.cacheFilePath
+fileEnumerator = _tmp_55.fileEnumerator
+lastConfigArrays = _tmp_55.lastConfigArrays
+lintResultCache = _tmp_55.lintResultCache
+linter = _tmp_55.linter
+_tmp_56.allowInlineConfig = allowInlineConfig
+_tmp_56.cache = cache
+_tmp_56.cwd = cwd
+_tmp_56.fix = fix
+_tmp_56.reportUnusedDisableDirectives = reportUnusedDisableDirectives
+internalSlotsMap.get(this)
+__ecma.Array.factory()
+const startTime = Date.now()
+lastConfigArrays.length = 0
+!cache
+fs.unlinkSync(cacheFilePath)

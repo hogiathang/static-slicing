@@ -1,0 +1,43 @@
+function updateFileMap = function updateFileMap(projectsConfigurations, { projectFileMap, nonProjectFiles }, allWorkspaceFiles, updatedFiles, deletedFiles) {
+    const projectRootMappings = (0, find_project_for_path_1.createProjectRootMappingsFromProjectConfigurations)(projectsConfigurations);
+    let nonProjectFilesMap = new Map(nonProjectFiles.map((f) => [f.file, f]));
+    for (const f of updatedFiles.keys()) {
+        const project = (0, find_project_for_path_1.findProjectForPath)(f, projectRootMappings);
+        if (project) {
+            const matchingProjectFiles = projectFileMap[project] ?? [];
+            if (matchingProjectFiles) {
+                const fileData = matchingProjectFiles.find((t) => t.file === f);
+                if (fileData) {
+                    fileData.hash = updatedFiles.get(f);
+                }
+                else {
+                    matchingProjectFiles.push({
+                        file: f,
+                        hash: updatedFiles.get(f),
+                    });
+      ...
+const projectRootMappings = (0, find_project_for_path_1.createProjectRootMappingsFromProjectConfigurations)(projectsConfigurations)
+let nonProjectFilesMap = new Map(nonProjectFiles.map((f) => [f.file, f]))
+_iterator_2 = <operator>.iterator(updatedFiles.keys())
+const project = (0, find_project_for_path_1.findProjectForPath)(f, projectRootMappings)
+const matchingProjectFiles = projectFileMap[project] ?? []
+const fileData = matchingProjectFiles.find((t) => t.file === f)
+fileData.hash = updatedFiles.get(f)
+matchingProjectFiles.push({
+                        file: f,
+                        hash: updatedFiles.get(f),
+                    })
+_tmp_7.file = f
+_tmp_7.hash = updatedFiles.get(f)
+const hash = updatedFiles.get(f)
+const entry = nonProjectFilesMap.get(f) ?? { file: f, hash }
+entry.hash = hash
+nonProjectFilesMap.set(f, entry)
+const fileData = allWorkspaceFiles.find((t) => t.file === f)
+fileData.hash = updatedFiles.get(f)
+allWorkspaceFiles.push({
+                file: f,
+                hash: updatedFiles.get(f),
+            })
+_tmp_9.file = f
+_tmp_9.hash = updatedFiles.get(f)

@@ -1,0 +1,24 @@
+new Promise((resolve, reject) => {
+      const callback = promiseUtils.getCallback(resolve, reject);
+
+      // eslint-disable-next-line prefer-const
+      let timeout;
+
+      function newConnectionListener(err) {
+        clearTimeout(timeout);
+        callback(err);
+      }
+
+      this.once('newConnection', newConnectionListener);
+
+      timeout = setTimeout(() => {
+        this.removeListener('newConnection', newConnectionListener);
+        callback(new errors.OperationTimedOutError('A connection could not be acquired before timeout.'));
+      }, metadataQueryAbortTimeout);
+    })
+const callback = promiseUtils.getCallback(resolve, reject)
+function newConnectionListener = function newConnectionListener(err) {
+        clearTimeout(timeout);
+        callback(err);
+      }
+this.once('newConnection', newConnectionListener)

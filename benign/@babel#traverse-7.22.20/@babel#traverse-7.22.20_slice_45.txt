@@ -1,0 +1,5 @@
+function ConditionalExpression = function ConditionalExpression() {
+  const argumentTypes = [this.get("consequent").getTypeAnnotation(), this.get("alternate").getTypeAnnotation()];
+  return (0, _util.createUnionType)(argumentTypes);
+}
+const argumentTypes = [this.get("consequent").getTypeAnnotation(), this.get("alternate").getTypeAnnotation()]

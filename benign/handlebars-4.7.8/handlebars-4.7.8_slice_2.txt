@@ -1,0 +1,20 @@
+_tmp_1.pushId = <lambda>40
+type === 'BlockParam'
+this.pushStackLiteral(
+        'blockParams[' +
+          name[0] +
+          '].path[' +
+          name[1] +
+          ']' +
+          (child ? ' + ' + JSON.stringify('.' + child) : '')
+      )
+'blockParams[' +
+          name[0] +
+          '].path[' +
+          name[1] +
+          ']' +
+          (child ? ' + ' + JSON.stringify('.' + child) : '')
+name[0]
+"].path["
+name[1]
+child ? ' + ' + JSON.stringify('.' + child) : ""

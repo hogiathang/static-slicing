@@ -1,0 +1,16 @@
+var decorator = function (target, name, _descriptor) {
+                var descriptor = _this._resolveDescriptor(target, name, _descriptor);
+                var value = descriptor.value, writable = descriptor.writable, enumerable = descriptor.enumerable, configurable = descriptor.configurable, get = descriptor.get, set = descriptor.set;
+                var isFirstInstance = !common_1.InstanceChainMap.has([target, name]);
+                var chainData = common_1.InstanceChainMap.get([target, name]) || { fns: [], properties: [] };
+                var isGetter = isFirstInstance && isFunction(get);
+                var isSetter = isFirstInstance && isFunction(set);
+                var isMethod = isFirstInstance && isFunction(value);
+                var isProperty = isFirstInstance && !isGetter && !isSetter && !isMethod;
+                var baseValue = isGetter ? get : isMethod ? value : undefined;
+                chainData.properties.push(name);
+                chainData.fns.push(function (f...
+var descriptor = _this._resolveDescriptor(target, name, _descriptor)
+var configurable = descriptor.configurable
+var isFirstInstance = !common_1.InstanceChainMap.has([target, name])
+var chainData = common_1.InstanceChainMap.get([target, name]) || { fns: [], properties: [] }

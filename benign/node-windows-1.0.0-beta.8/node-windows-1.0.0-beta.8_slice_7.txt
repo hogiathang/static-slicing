@@ -1,0 +1,53 @@
+me.execute('"' + path.resolve(me.root, me._exe) + '" uninstall', function (error, stdout, stderr) {
+            if (error) {
+              me.checkPermError(error);
+            } else if (stderr.trim().length > 0) {
+              console.log('Error: ', stderr);
+            } else {
+              sleep(waitTime); // Wait for uninstall to fully finish
+
+              var rm = function (file) {
+                if (fs.existsSync(path.join(me.root, file))) {
+                  fs.unlinkSync(path.join(me.root, file));
+                }
+              };
+
+              // Remove the daemon files individually to prevent security warnings.
+              rm(me.id + '.xml');
+
+              // Remove known wrappers
+              rm(me.id + '.wrapper.log');
+              rm(me.id + '.out.log');
+              rm(me.id + '.err.log');
+
+              // Remove the executable and executable .NET runtime config file
+              rm(me.id + '.exe');
+              rm(me.id + '.exe.config');
+
+             ...
+stderr.trim().length > 0
+sleep(waitTime)
+var rm = function (file) {
+                if (fs.existsSync(path.join(me.root, file))) {
+                  fs.unlinkSync(path.join(me.root, file));
+                }
+              }
+rm(me.id + '.xml')
+rm(me.id + '.wrapper.log')
+rm(me.id + '.out.log')
+rm(me.id + '.err.log')
+rm(me.id + '.exe')
+rm(me.id + '.exe.config')
+var _other_files = fs.readdirSync(me.root).filter(function (file) {
+                const regex = /^.+\.((wrapper|out|err)\.log)|(exe|xml)$/g
+                return !regex.exec(file)
+              })
+_other_files.forEach(function (f) {
+                rm(f)
+              })
+fs.readdirSync(me.root).length === 0
+me.root !== path.dirname(me.script)
+fs.rmdir(me.root, function () {
+                    sleep(1);
+                    me.emit('uninstall');
+                  })

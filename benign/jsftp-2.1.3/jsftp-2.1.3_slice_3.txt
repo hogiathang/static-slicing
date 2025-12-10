@@ -1,0 +1,28 @@
+this.execute("pasv", (err, res) => {
+    if (err) {
+      return callback(err);
+    }
+
+    const options = this.getPasvPort(res.text);
+    if (!options) {
+      return callback(new Error("Bad passive host/port combination"));
+    }
+
+    const socket = (this._pasvSocket = this.createSocket
+      ? this.createSocket(options)
+      : createConnection(options));
+    socket.setTimeout(this.timeout || TIMEOUT);
+    socket.once("close", () => {
+      this._pasvSocket = undefined;
+    });
+
+    callback(null, socket);
+  })
+const options = this.getPasvPort(res.text)
+!options
+const socket = (this._pasvSocket = this.createSocket
+      ? this.createSocket(options)
+      : createConnection(options))
+this.createSocket(options)
+createConnection(options)
+socket.setTimeout(this.timeout || TIMEOUT)

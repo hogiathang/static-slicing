@@ -1,0 +1,46 @@
+function rewriteLiveReferences = function rewriteLiveReferences(programPath, metadata) {
+  const imported = new Map();
+  const exported = new Map();
+  const requeueInParent = path => {
+    programPath.requeue(path);
+  };
+  for (const [source, data] of metadata.source) {
+    for (const [localName, importName] of data.imports) {
+      imported.set(localName, [source, importName, null]);
+    }
+    for (const localName of data.importsNamespace) {
+      imported.set(localName, [source, null, localName]);
+    }
+  }
+  for (const [local, data] of metadata.local) {
+    let exportMeta = exported.get(local);
+    if (!exportMeta) {
+      exportMeta = [];
+      exported.set(local, exportMeta);
+    }
+    exportMeta.push(...data.names);
+  }
+  const rewriteBindingInitVisitorState = {
+    metadata,
+    requeueInParent,
+    scope: programPath.scope,
+    exported
+  };
+  programPath.traverse(rewriteBindingInitVisitor, rewriteBindingInitVisitorState);
+  const bindingNames = new Set([...Array.from(imported.keys()), ...Array.from(exporte...
+const imported = new Map()
+const exported = new Map()
+const requeueInParent = path => {
+    programPath.requeue(path);
+  }
+_iterator_0 = <operator>.iterator(metadata.source)
+_iterator_1 = <operator>.iterator(data.imports)
+imported.set(localName, [source, importName, null])
+_iterator_2 = <operator>.iterator(data.importsNamespace)
+imported.set(localName, [source, null, localName])
+_iterator_3 = <operator>.iterator(metadata.local)
+let exportMeta = exported.get(local)
+!exportMeta
+__ecma.Array.factory()
+exported.set(local, exportMeta)
+exportMeta.push(...data.names)

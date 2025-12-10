@@ -1,0 +1,25 @@
+function item = function item (index) {
+      if (index >= arr.length) {
+        if (ignoreThisItem) {
+          ignoreItems = false
+        }
+
+        if (ignoreItems) {
+          return Promise.resolve()
+        }
+
+        return emit(events.endPrefix + events[type])
+          .then(() => references.delete(obj))
+      }
+
+      if (ignoreItems) {
+        return item(index + 1)
+      }
+
+      return action(arr[index])
+        .then(() => item(index + 1))
+    }
+index >= arr.length
+ignoreItems = false
+emit(events.endPrefix + events[type])
+          .then(() => references.delete(obj))

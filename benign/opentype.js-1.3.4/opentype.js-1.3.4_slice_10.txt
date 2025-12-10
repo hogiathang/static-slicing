@@ -1,0 +1,69 @@
+function makeCFFTable = function makeCFFTable(glyphs, options) {
+    const t = new table.Table('CFF ', [
+        {name: 'header', type: 'RECORD'},
+        {name: 'nameIndex', type: 'RECORD'},
+        {name: 'topDictIndex', type: 'RECORD'},
+        {name: 'stringIndex', type: 'RECORD'},
+        {name: 'globalSubrIndex', type: 'RECORD'},
+        {name: 'charsets', type: 'RECORD'},
+        {name: 'charStringsIndex', type: 'RECORD'},
+        {name: 'privateDict', type: 'RECORD'}
+    ]);
+
+    const fontScale = 1 / options.unitsPerEm;
+    // We use non-zero values for the offsets so that the DICT encodes them.
+    // This is important because the size of the Top DICT plays a role in offset calculation,
+    // and the size shouldn't change after we've written correct offsets.
+    const attrs = {
+        version: options.version,
+        fullName: options.fullName,
+        familyName: options.familyName,
+        weight: options.weightName,
+        fontBBox: options.fontBBox || [0, 0, 0, 0],
+        fontMatrix: [fo...
+const t = new table.Table('CFF ', [
+        {name: 'header', type: 'RECORD'},
+        {name: 'nameIndex', type: 'RECORD'},
+        {name: 'topDictIndex', type: 'RECORD'},
+        {name: 'stringIndex', type: 'RECORD'},
+        {name: 'globalSubrIndex', type: 'RECORD'},
+        {name: 'charsets', type: 'RECORD'},
+        {name: 'charStringsIndex', type: 'RECORD'},
+        {name: 'privateDict', type: 'RECORD'}
+    ])
+_tmp_96.push({name: 'header', type: 'RECORD'})
+_tmp_96.push({name: 'nameIndex', type: 'RECORD'})
+_tmp_96.push({name: 'topDictIndex', type: 'RECORD'})
+_tmp_96.push({name: 'stringIndex', type: 'RECORD'})
+_tmp_96.push({name: 'globalSubrIndex', type: 'RECORD'})
+_tmp_96.push({name: 'charsets', type: 'RECORD'})
+_tmp_96.push({name: 'charStringsIndex', type: 'RECORD'})
+_tmp_96.push({name: 'privateDict', type: 'RECORD'})
+const fontScale = 1 / options.unitsPerEm
+const attrs = {
+        version: options.version,
+        fullName: options.fullName,
+        familyName: options.familyName,
+        weight: options.weightName,
+        fontBBox: options.fontBBox || [0, 0, 0, 0],
+        fontMatrix: [fontScale, 0, 0, fontScale, 0, 0],
+        charset: 999,
+        encoding: 0,
+        charStrings: 999,
+        private: [0, 999]
+    }
+_tmp_105.version = options.version
+_tmp_105.fullName = options.fullName
+_tmp_105.familyName = options.familyName
+_tmp_105.weight = options.weightName
+_tmp_105.fontBBox = options.fontBBox || [0, 0, 0, 0]
+_tmp_105.fontMatrix = [fontScale, 0, 0, fontScale, 0, 0]
+_tmp_105.charset = 999
+_tmp_105.encoding = 0
+_tmp_105.charStrings = 999
+_tmp_108 = __ecma.Array.factory()
+const privateAttrs = {}
+__ecma.Array.factory()
+i < glyphs.length
+glyph = glyphs.get(i)
+glyphNames.push(glyph.name)

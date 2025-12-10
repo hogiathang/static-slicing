@@ -1,0 +1,63 @@
+async run () {
+    const start = process.hrtime.bigint()
+
+    // Find all deps in tree
+    const { edges, registries } = this.getEdgesOut(this.tree.inventory.values(), this.filterSet)
+    if (edges.size === 0) {
+      throw new Error('found no installed dependencies to audit')
+    }
+
+    const tuf = await tufClient.initTUF({
+      cachePath: this.opts.tufCache,
+      retry: this.opts.retry,
+      timeout: this.opts.timeout,
+    })
+    await Promise.all([...registries].map(registry => this.setKeys({ registry, tuf })))
+
+    const progress = log.newItem('verifying registry signatures', edges.size)
+    const mapper = async (edge) => {
+      progress.completeWork(1)
+      await this.getVerifiedInfo(edge)
+    }
+    await pMap(edges, mapper, { concurrency: 20, stopOnError: true })
+
+    // Didn't find any dependencies that could be verified, e.g. only local
+    // deps, missing version, not on a registry etc.
+    if (!this.auditedWithKeysCount) {
+      throw new Error('found no dependencies...
+const start = process.hrtime.bigint()
+_tmp_4 = this.getEdgesOut(this.tree.inventory.values(), this.filterSet)
+edges.size === 0
+throw new Error('found no installed dependencies to audit')
+const tuf = await tufClient.initTUF({
+      cachePath: this.opts.tufCache,
+      retry: this.opts.retry,
+      timeout: this.opts.timeout,
+    })
+_tmp_6.cachePath = this.opts.tufCache
+_tmp_6.retry = this.opts.retry
+_tmp_6.timeout = this.opts.timeout
+await Promise.all([...registries].map(registry => this.setKeys({ registry, tuf })))
+const progress = log.newItem('verifying registry signatures', edges.size)
+const mapper = async (edge) => {
+      progress.completeWork(1)
+      await this.getVerifiedInfo(edge)
+    }
+await pMap(edges, mapper, { concurrency: 20, stopOnError: true })
+!this.auditedWithKeysCount
+throw new Error('found no dependencies to audit that where installed from ' +
+                      'a supported registry')
+"a supported registry"
+const invalid = this.invalid.sort(sortAlphabetically)
+const missing = this.missing.sort(sortAlphabetically)
+const hasNoInvalidOrMissing = invalid.length === 0 && missing.length === 0
+!hasNoInvalidOrMissing
+process.exitCode = 1
+(_tmp_14 = this.npm.config).get
+this.npm.output(JSON.stringify({
+        invalid,
+        missing,
+      }, null, 2))
+_tmp_16.invalid = invalid
+_tmp_16.missing = missing
+2

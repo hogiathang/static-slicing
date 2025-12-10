@@ -1,0 +1,78 @@
+styfn.parseImpl = function( name, value, propIsBypass, propIsFlat ){
+  let self = this;
+
+  name = util.camel2dash( name ); // make sure the property name is in dash form (e.g. 'property-name' not 'propertyName')
+
+  let property = self.properties[ name ];
+  let passedValue = value;
+  let types = self.types;
+
+  if( !property ){ return null; } // return null on property of unknown name
+  if( value === undefined ){ return null; } // can't assign undefined
+
+  // the property may be an alias
+  if( property.alias ){
+    property = property.pointsTo;
+    name = property.name;
+  }
+
+  let valueIsString = is.string( value );
+  if( valueIsString ){ // trim the value to make parsing easier
+    value = value.trim();
+  }
+
+  let type = property.type;
+  if( !type ){ return null; } // no type, no luck
+
+  // check if bypass is null or empty string (i.e. indication to delete bypass property)
+  if( propIsBypass && (value === '' || value === null) ){
+    return {
+      name: name,
+      value: value,
+   ...
+let self = this
+name = util.camel2dash( name )
+let property = self.properties[ name ]
+let passedValue = value
+let types = self.types
+!property
+value === undefined
+property.alias
+property = property.pointsTo
+name = property.name
+let valueIsString = is.string( value )
+value = value.trim()
+let type = property.type
+!type
+propIsBypass && (value === '' || value === null)
+is.fn( value )
+!valueIsString || propIsFlat || value.length < 7 || value[1] !== 'a'
+value.length >= 7 && value[0] === 'd' && ( data = new RegExp( types.data.regex ).exec( value ) )
+value.length >= 10 && value[0] === 'm' && ( mapData = new RegExp( types.mapData.regex ).exec( value ) )
+type.multiple && propIsFlat !== 'multiple'
+let checkEnums = function(){
+    for( let i = 0; i < type.enums.length; i++ ){
+      let en = type.enums[ i ];
+
+      if( en === value ){
+        return {
+          name: name,
+          value: value,
+          strValue: '' + value,
+          bypass: propIsBypass
+        };
+      }
+    }
+
+    return null;
+  }
+type.number
+type.propList
+type.color
+type.regex || type.regexes
+type.enums
+let enumProp = checkEnums()
+let regexes = type.regexes ? type.regexes : [ type.regex ]
+i < regexes.length
+let regex = new RegExp( regexes[ i ] )
+let m = regex.exec( value )

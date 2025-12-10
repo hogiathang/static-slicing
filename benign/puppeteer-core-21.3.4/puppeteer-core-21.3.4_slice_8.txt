@@ -1,0 +1,17 @@
+#onResponseCompleted(event) {
+        const request = this.#requestMap.get(event.request.request);
+        if (!request) {
+            return;
+        }
+        const response = new HTTPResponse_js_1.BidiHTTPResponse(request, event);
+        request._response = response;
+        if (event.navigation) {
+            this.#navigationMap.set(event.navigation, response);
+        }
+        if (response.fromCache()) {
+            this.emit(NetworkManager_js_1.NetworkManagerEvent.RequestServedFromCache, request);
+        }
+        this.emit(NetworkManager_js_1.NetworkManagerEvent.Response, response);
+        this.emit(NetworkManager_js_1.NetworkManagerEvent.RequestFinished, request);
+    }
+const request = this.#requestMap.get(event.request.request)

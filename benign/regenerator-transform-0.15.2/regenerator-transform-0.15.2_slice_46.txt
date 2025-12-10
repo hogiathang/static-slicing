@@ -1,0 +1,28 @@
+_tmp_6.Method = Method
+let node = path.node
+!shouldRegenerate(node, state)
+const container = t.functionExpression(
+      null,
+      [],
+      t.cloneNode(node.body, false),
+      node.generator,
+      node.async,
+    )
+__ecma.Array.factory()
+t.cloneNode(node.body, false)
+node.generator
+node.async
+path.get("body").set("body", [
+      t.returnStatement(
+        t.callExpression(container, []),
+      ),
+    ])
+_tmp_8.push(t.returnStatement(
+        t.callExpression(container, []),
+      ))
+t.callExpression(container, [])
+node.async = false
+node.generator = false
+(_tmp_9 = path
+      .get("body.body.0.argument.callee")).unwrapFunctionEnvironment
+"body.body.0.argument.callee"

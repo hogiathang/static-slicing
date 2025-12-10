@@ -1,0 +1,50 @@
+const req = new tds.Request(command, err => {
+          // tedious v15 has started using AggregateErrors to wrap multiple errors into single error objects
+          (err?.errors ? err.errors : [err]).forEach((e, i, { length }) => {
+            // to make sure we handle no-sql errors as well
+            if (e && (!errors.length || (errors.length && errors.length >= length && e.message !== errors[errors.length - length + i].message))) {
+              e = new RequestError(e, 'EREQUEST')
+              if (this.stream) this.emit('error', e)
+              errors.push(e)
+            }
+          })
+
+          // process batch outputs
+          if (batchHasOutput) {
+            if (!this.stream) batchLastRow = recordsets.pop()[0]
+
+            for (const name in batchLastRow) {
+              const value = batchLastRow[name]
+              if (name !== '___return___') {
+                output[name] = value
+              }
+            }
+          }
+
+          delete this._cancel
+
+          let error
+ ...
+(err?.errors ? err.errors : [err]).forEach((e, i, { length }) => {
+            // to make sure we handle no-sql errors as well
+            if (e && (!errors.length || (errors.length && errors.length >= length && e.message !== errors[errors.length - length + i].message))) {
+              e = new RequestError(e, 'EREQUEST')
+              if (this.stream) this.emit('error', e)
+              errors.push(e)
+            }
+          })
+batchLastRow = recordsets.pop()[0]
+_iterator_5 = <operator>.iterator(batchLastRow)
+const value = batchLastRow[name]
+name !== '___return___'
+output[name] = value
+delete this._cancel
+errors.length && !this.stream
+error = errors.pop()
+error.precedingErrors = errors
+!hasReturned
+_iterator_6 = <operator>.iterator(errorHandlers)
+connection.removeListener(event, errorHandlers[event])
+this.parent.release(connection)
+hasReturned = true
+debug('request(%d): failed', IDS.get(this), error)

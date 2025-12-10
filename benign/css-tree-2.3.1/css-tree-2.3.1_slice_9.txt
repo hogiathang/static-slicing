@@ -1,0 +1,3 @@
+_tmp_3.token = token
+prevCode = this.tokenBefore(prevCode, type, value)
+this.emit(value, type, false)

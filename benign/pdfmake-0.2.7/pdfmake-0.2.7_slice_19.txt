@@ -1,0 +1,106 @@
+this.getPaint = function(bBox, gOpacity, isClip, isMask) {
+        let children = this.getChildren();
+        if (children.length === 0) {return;}
+        if (children.length === 1) {
+          let child = children[0],
+              stopColor = child.get('stop-color');
+          if (stopColor === 'none') {return;}
+          return opacityToColor(stopColor, child.get('stop-opacity') * gOpacity, isMask);
+        }
+        let bBoxUnits = (this.attr('gradientUnits') !== 'userSpaceOnUse'),
+            matrix = parseTranform(this.attr('gradientTransform')),
+            spread = this.attr('spreadMethod'),
+            grad,
+            x1, x2, y1, y2, r2,
+            nAfter = 0,
+            nBefore = 0,
+            nTotal = 1;
+        if (bBoxUnits) {
+          matrix = multiplyMatrix([bBox[2] - bBox[0], 0, 0, bBox[3] - bBox[1], bBox[0], bBox[1]], matrix);
+        }
+        if (matrix = validateMatrix(matrix)) {
+          if (this.name === 'linearGradient') {
+        ...
+let children = this.getChildren()
+children.length === 0
+children.length === 1
+let bBoxUnits = (this.attr('gradientUnits') !== 'userSpaceOnUse')
+let matrix = parseTranform(this.attr('gradientTransform'))
+let spread = this.attr('spreadMethod')
+let nAfter = 0
+let nBefore = 0
+let nTotal = 1
+matrix = multiplyMatrix([bBox[2] - bBox[0], 0, 0, bBox[3] - bBox[1], bBox[0], bBox[1]], matrix)
+matrix = validateMatrix(matrix)
+this.name === 'linearGradient'
+x1 = this.getLength('x1', (bBoxUnits ? 1 : this.getVWidth()), 0)
+x2 = this.getLength('x2', (bBoxUnits ? 1 : this.getVWidth()), (bBoxUnits ? 1 : this.getVWidth()))
+y1 = this.getLength('y1', (bBoxUnits ? 1 : this.getVHeight()), 0)
+y2 = this.getLength('y2', (bBoxUnits ? 1 : this.getVHeight()), 0)
+x2 = this.getLength('cx', (bBoxUnits ? 1 : this.getVWidth()), (bBoxUnits ? 0.5 : 0.5 * this.getVWidth()))
+y2 = this.getLength('cy', (bBoxUnits ? 1 : this.getVHeight()), (bBoxUnits ? 0.5 : 0.5 * this.getVHeight()))
+r2 = this.getLength('r', (bBoxUnits ? 1 : this.getViewport()), (bBoxUnits ? 0.5 : 0.5 * this.getViewport()))
+x1 = this.getLength('fx', (bBoxUnits ? 1 : this.getVWidth()), x2)
+y1 = this.getLength('fy', (bBoxUnits ? 1 : this.getVHeight()), y2)
+r2 < 0
+warningCallback('SvgElemGradient: negative r value')
+let d = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+let multiplier = 1
+d > r2
+multiplier = r2 / d
+x1 = x2 + (x1 - x2) * multiplier
+y1 = y2 + (y1 - y2) * multiplier
+r2 = Math.max(r2, d * multiplier * (1 + 1e-6))
+spread === 'reflect' || spread === 'repeat'
+let inv = inverseMatrix(matrix)
+let corner1 = transformPoint([bBox[0], bBox[1]], inv)
+let corner2 = transformPoint([bBox[2], bBox[1]], inv)
+let corner3 = transformPoint([bBox[2], bBox[3]], inv)
+let corner4 = transformPoint([bBox[0], bBox[3]], inv)
+this.name === 'linearGradient'
+nAfter  = Math.max((corner1[0] - x2) * (x2 - x1) + (corner1[1] - y2) * (y2 - y1),
+                                 (corner2[0] - x2) * (x2 - x1) + (corner2[1] - y2) * (y2 - y1),
+                                 (corner3[0] - x2) * (x2 - x1) + (corner3[1] - y2) * (y2 - y1),
+                                 (corner4[0] - x2) * (x2 - x1) + (corner4[1] - y2) * (y2 - y1))
+                                / (Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+(corner2[0] - x2) * (x2 - x1) + (corner2[1] - y2) * (y2 - y1)
+(corner3[0] - x2) * (x2 - x1) + (corner3[1] - y2) * (y2 - y1)
+(corner4[0] - x2) * (x2 - x1) + (corner4[1] - y2) * (y2 - y1)
+Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
+nBefore = Math.max((corner1[0] - x1) * (x1 - x2) + (corner1[1] - y1) * (y1 - y2),
+                                 (corner2[0] - x1) * (x1 - x2) + (corner2[1] - y1) * (y1 - y2),
+                                 (corner3[0] - x1) * (x1 - x2) + (corner3[1] - y1) * (y1 - y2),
+                                 (corner4[0] - x1) * (x1 - x2) + (corner4[1] - y1) * (y1 - y2))
+                                / (Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+(corner2[0] - x1) * (x1 - x2) + (corner2[1] - y1) * (y1 - y2)
+(corner3[0] - x1) * (x1 - x2) + (corner3[1] - y1) * (y1 - y2)
+(corner4[0] - x1) * (x1 - x2) + (corner4[1] - y1) * (y1 - y2)
+Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)
+nAfter  = Math.sqrt(Math.max(Math.pow(corner1[0] - x2, 2) + Math.pow(corner1[1] - y2, 2),
+                                           Math.pow(corner2[0] - x2, 2) + Math.pow(corner2[1] - y2, 2),
+                                           Math.pow(corner3[0] - x2, 2) + Math.pow(corner3[1] - y2, 2),
+                                           Math.pow(corner4[0] - x2, 2) + Math.pow(corner4[1] - y2, 2))) / r2 - 1
+Math.pow(corner2[0] - x2, 2) + Math.pow(corner2[1] - y2, 2)
+Math.pow(corner3[0] - x2, 2) + Math.pow(corner3[1] - y2, 2)
+Math.pow(corner4[0] - x2, 2) + Math.pow(corner4[1] - y2, 2)
+nAfter = Math.ceil(nAfter + 0.5)
+nBefore = Math.ceil(nBefore + 0.5)
+nTotal = nBefore + 1 + nAfter
+this.name === 'linearGradient'
+grad = doc.linearGradient(x1 - nBefore * (x2 - x1), y1 - nBefore * (y2 - y1), x2 + nAfter * (x2 - x1), y2 + nAfter * (y2 - y1))
+grad = doc.radialGradient(x1, y1, 0, x2, y2, r2 + nAfter * r2)
+n < nTotal
+let offset = 0
+let inOrder = (spread !== 'reflect' || (n - nBefore) % 2 === 0)
+i < children.length
+let child = children[inOrder ? i : children.length - 1 - i]
+let stopColor = child.get('stop-color')
+stopColor = DefaultColors.transparent
+stopColor = opacityToColor(stopColor, child.get('stop-opacity') * gOpacity, isMask)
+offset = Math.max(offset, inOrder ? child.getPercent('offset', 0) : 1 - child.getPercent('offset', 0))
+i === 0 && stopColor[0].length === 4
+i === 0 && offset > 0
+grad.stop((n + 0) / nTotal, stopColor[0], stopColor[1])
+grad.stop((n + offset) / (nAfter + nBefore + 1), stopColor[0], stopColor[1])
+i === children.length - 1 && offset < 1
+grad.stop((n + 1) / nTotal, stopColor[0], stopColor[1])

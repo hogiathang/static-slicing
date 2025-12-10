@@ -1,0 +1,83 @@
+exports.request = ({request:client}) => async ({provider, input}) => {
+  var options = {
+    method: 'POST',
+    url: provider.request_url,
+    oauth: {
+      callback: provider.redirect_uri,
+      consumer_key: provider.key,
+      consumer_secret: provider.secret
+    }
+  }
+  if (provider.private_key) {
+    options.oauth.signature_method = 'RSA-SHA1'
+    options.oauth.private_key = provider.private_key
+    delete options.oauth.consumer_secret
+  }
+  if (provider.etsy || provider.linkedin) {
+    options.qs = {scope: provider.scope}
+  }
+  if (provider.getpocket) {
+    delete options.oauth
+    options.headers = {
+      'x-accept': 'application/x-www-form-urlencoded'
+    }
+    options.form = {
+      consumer_key: provider.key,
+      redirect_uri: provider.redirect_uri,
+      state: provider.state
+    }
+  }
+  if (provider.freshbooks) {
+    options.oauth.signature_method = 'PLAINTEXT'
+  }
+  if (provider.twitter) {
+    if (provider.scope) {
+      options.qs = {x_auth_access_type: [].concat(...
+var options = {
+    method: 'POST',
+    url: provider.request_url,
+    oauth: {
+      callback: provider.redirect_uri,
+      consumer_key: provider.key,
+      consumer_secret: provider.secret
+    }
+  }
+_tmp_0.method = "POST"
+_tmp_0.url = provider.request_url
+_tmp_0.oauth = {
+      callback: provider.redirect_uri,
+      consumer_key: provider.key,
+      consumer_secret: provider.secret
+    }
+_tmp_1.callback = provider.redirect_uri
+_tmp_1.consumer_key = provider.key
+_tmp_1.consumer_secret = provider.secret
+provider.private_key
+options.oauth.signature_method = 'RSA-SHA1'
+options.oauth.private_key = provider.private_key
+delete options.oauth.consumer_secret
+provider.etsy || provider.linkedin
+options.qs = {scope: provider.scope}
+provider.getpocket
+delete options.oauth
+options.headers = {
+      'x-accept': 'application/x-www-form-urlencoded'
+    }
+_tmp_3.x-accept = "application/x-www-form-urlencoded"
+options.form = {
+      consumer_key: provider.key,
+      redirect_uri: provider.redirect_uri,
+      state: provider.state
+    }
+_tmp_4.consumer_key = provider.key
+_tmp_4.redirect_uri = provider.redirect_uri
+_tmp_4.state = provider.state
+provider.freshbooks
+options.oauth.signature_method = 'PLAINTEXT'
+provider.twitter
+provider.scope
+options.qs = {x_auth_access_type: [].concat(provider.scope).join()}
+provider.custom_params
+options.qs = {x_auth_access_type: provider.custom_params.x_auth_access_type}
+provider.subdomain
+options.url = options.url.replace('[subdomain]', provider.subdomain)

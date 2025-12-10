@@ -1,0 +1,18 @@
+oldExportAll.forEach(function (value) {
+            if (!newExportAll.has(value)) {
+              var imports = oldImportPaths.get(value);
+              imports['delete'](EXPORT_ALL_DECLARATION);
+
+              var _exports2 = exportList.get(value);
+              if (typeof _exports2 !== 'undefined') {
+                var currentExport = _exports2.get(EXPORT_ALL_DECLARATION);
+                if (typeof currentExport !== 'undefined') {
+                  currentExport.whereUsed['delete'](file);
+                }
+              }
+            }
+          })
+!newExportAll.has(value)
+var imports = oldImportPaths.get(value)
+imports['delete'](EXPORT_ALL_DECLARATION)
+var _exports2 = exportList.get(value)

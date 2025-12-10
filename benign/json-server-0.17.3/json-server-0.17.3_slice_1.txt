@@ -1,0 +1,76 @@
+module.exports = function (argv) {
+  const source = argv._[0];
+  let app;
+  let server;
+
+  if (!fs.existsSync(argv.snapshots)) {
+    console.log(`Error: snapshots directory ${argv.snapshots} doesn't exist`);
+    process.exit(1);
+  } // noop log fn
+
+
+  if (argv.quiet) {
+    console.log = () => {};
+  }
+
+  console.log();
+  console.log(chalk.cyan('  \\{^_^}/ hi!'));
+
+  function start(cb) {
+    console.log();
+    console.log(chalk.gray('  Loading', source));
+    server = undefined; // create db and load object, JSON file, JS or HTTP database
+
+    return load(source).then(db => {
+      // Load additional routes
+      let routes;
+
+      if (argv.routes) {
+        console.log(chalk.gray('  Loading', argv.routes));
+        routes = JSON.parse(fs.readFileSync(argv.routes));
+      } // Load middlewares
+
+
+      let middlewares;
+
+      if (argv.middlewares) {
+        middlewares = argv.middlewares.map(function (m) {
+          console.log(chalk.gray('  Loading', m));
+          return require(path...
+const source = argv._[0]
+!fs.existsSync(argv.snapshots)
+<operator>.formatString("Error: snapshots directory ", argv.snapshots, " doesn't exist")
+process.exit(1)
+function start = function start(cb) {
+    console.log();
+    console.log(chalk.gray('  Loading', source));
+    server = undefined; // create db and load object, JSON file, JS or HTTP database
+
+    return load(source).then(db => {
+      // Load additional routes
+      let routes;
+
+      if (argv.routes) {
+        console.log(chalk.gray('  Loading', argv.routes));
+        routes = JSON.parse(fs.readFileSync(argv.routes));
+      } // Load middlewares
+
+
+      let middlewares;
+
+      if (argv.middlewares) {
+        middlewares = argv.middlewares.map(function (m) {
+          console.log(chalk.gray('  Loading', m));
+          return require(path.resolve(m));
+        });
+      } // Done
+
+
+      console.log(chalk.gray('  Done')); // Create app and server
+
+      app = createApp(db, routes, middlewares, argv);
+      server = app.listen(argv.port, argv.host); // Enhance with a destroy function
+
+      enableDestroy(server); // Display server informations
+
+      prettyPrint(argv, db.getState(), routes); // Catch ...

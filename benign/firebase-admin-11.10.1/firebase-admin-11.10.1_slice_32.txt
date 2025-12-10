@@ -1,0 +1,29 @@
+this.getAccountId().then((serviceAccount) => {
+            const request = {
+                method: 'POST',
+                url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${serviceAccount}:signBlob`,
+                data: { payload: buffer.toString('base64') },
+            };
+            return this.httpClient.send(request);
+        }).then((response) => {
+            // Response from IAM is base64 encoded. Decode it into a buffer and return.
+            return Buffer.from(response.data.signedBlob, 'base64');
+        }).catch((err) => {
+            if (err instanceof api_request_1.HttpError) {
+                throw new CryptoSignerError({
+                    code: CryptoSignerErrorCode.SERVER_ERROR,
+                    message: err.message,
+                    cause: err
+                });
+            }
+            throw err;
+        })
+const request = {
+                method: 'POST',
+                url: `https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/${serviceAccount}:signBlob`,
+                data: { payload: buffer.toString('base64') },
+            }
+_tmp_13.method = "POST"
+_tmp_13.url = <operator>.formatString("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/", serviceAccount, ":signBlob")
+_tmp_13.data = { payload: buffer.toString('base64') }
+(_tmp_15 = this.httpClient).send

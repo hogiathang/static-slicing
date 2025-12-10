@@ -1,0 +1,54 @@
+public handleTopDragStart = (e: DragEvent): void => {
+		if (e.defaultPrevented) {
+			return
+		}
+
+		const { dragStartSourceIds } = this
+		this.dragStartSourceIds = null
+
+		const clientOffset = getEventClientOffset(e)
+
+		// Avoid crashing if we missed a drop event or our previous drag died
+		if (this.monitor.isDragging()) {
+			this.actions.endDrag()
+			this.cancelHover()
+		}
+
+		// Don't publish the source just yet (see why below)
+		this.actions.beginDrag(dragStartSourceIds || [], {
+			publishSource: false,
+			getSourceClientOffset: this.getSourceClientOffset,
+			clientOffset,
+		})
+
+		const { dataTransfer } = e
+		const nativeType = matchNativeItemType(dataTransfer)
+
+		if (this.monitor.isDragging()) {
+			if (dataTransfer && typeof dataTransfer.setDragImage === 'function') {
+				// Use custom drag image if user specifies it.
+				// If child drag source refuses drag but parent agrees,
+				// use parent's node as drag image. Neither works in IE though.
+				const sourceId: string = this.mon...
+e.defaultPrevented
+dragStartSourceIds = _tmp_13.dragStartSourceIds
+this.dragStartSourceIds = null
+const clientOffset = getEventClientOffset(e)
+(_tmp_14 = this.monitor).isDragging
+(_tmp_15 = this.actions).endDrag
+this.cancelHover()
+this.actions.beginDrag(dragStartSourceIds || [], {
+			publishSource: false,
+			getSourceClientOffset: this.getSourceClientOffset,
+			clientOffset,
+		})
+_tmp_17.publishSource = false
+_tmp_17.getSourceClientOffset = this.getSourceClientOffset
+_tmp_17.clientOffset = clientOffset
+dataTransfer = _tmp_18.dataTransfer
+const nativeType = matchNativeItemType(dataTransfer)
+(_tmp_19 = this.monitor).isDragging
+dataTransfer && typeof dataTransfer.setDragImage === 'function'
+const sourceId: string = this.monitor.getSourceId() as string
+const sourceNode = this.sourceNodes.get(sourceId)
+const dragPreview = this.sourcePreviewNodes.get(sourceId) || sourceNode

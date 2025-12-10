@@ -1,0 +1,17 @@
+toJSON(options) {
+    if (typeof (options && options.flattenMaps) === 'boolean' ? options.flattenMaps : true) {
+      const ret = {};
+      const keys = this.keys();
+      for (const key of keys) {
+        ret[key] = clone(this.get(key), options);
+      }
+      return ret;
+    }
+
+    return new Map(this);
+  }
+typeof (options && options.flattenMaps) === 'boolean' ? options.flattenMaps : true
+const ret = {}
+const keys = this.keys()
+_iterator_1 = <operator>.iterator(keys)
+ret[key] = clone(this.get(key), options)

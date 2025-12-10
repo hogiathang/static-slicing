@@ -1,0 +1,44 @@
+const handleCache = async function (directory, params) {
+  const {
+    source,
+    options = {},
+    cacheIdentifier,
+    cacheDirectory,
+    cacheCompression
+  } = params;
+  const file = path.join(directory, filename(source, cacheIdentifier, options));
+  try {
+    // No errors mean that the file was previously cached
+    // we just need to return it
+    return await read(file, cacheCompression);
+  } catch (err) {}
+  const fallback = typeof cacheDirectory !== "string" && directory !== os.tmpdir();
+
+  // Make sure the directory exists.
+  try {
+    // overwrite directory if exists
+    await mkdir(directory, {
+      recursive: true
+    });
+  } catch (err) {
+    if (fallback) {
+      return handleCache(os.tmpdir(), params);
+    }
+    throw err;
+  }
+
+  // Otherwise just transform the file
+  // return it to the user asap and write it in cache
+  const result = await transform(source, options);
+
+  // Do not cache if there are external dependencies,
+  // since they might change and we cannot contr...
+_tmp_3 = params
+source = _tmp_3.source
+options = _tmp_3.options === void 0 ? {} : _tmp_3.options
+cacheIdentifier = _tmp_3.cacheIdentifier
+cacheDirectory = _tmp_3.cacheDirectory
+cacheCompression = _tmp_3.cacheCompression
+const file = path.join(directory, filename(source, cacheIdentifier, options))
+await read(file, cacheCompression)
+const fallback = typeof cacheDirectory !== "string" && directory !== os.tmpdir()

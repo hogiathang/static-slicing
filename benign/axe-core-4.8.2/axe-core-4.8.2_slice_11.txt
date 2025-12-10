@@ -1,0 +1,11 @@
+function contrastLstar = function contrastLstar(color1, color2) {
+      color1 = getColor(color1);
+      color2 = getColor(color2);
+      var L1 = get(color1, [ lab, 'l' ]);
+      var L2 = get(color2, [ lab, 'l' ]);
+      return Math.abs(L1 - L2);
+    }
+color1 = getColor(color1)
+color2 = getColor(color2)
+var L1 = get(color1, [ lab, 'l' ])
+var L2 = get(color2, [ lab, 'l' ])

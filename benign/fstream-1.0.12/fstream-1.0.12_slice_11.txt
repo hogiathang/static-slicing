@@ -1,0 +1,29 @@
+fs[stat](self._path, function (er, current) {
+      // console.error(" W Finish Stated", self._path, self.size, current)
+      if (er) {
+        // if we're in the process of writing out a
+        // directory, it's very possible that the thing we're linking to
+        // doesn't exist yet (especially if it was intended as a symlink),
+        // so swallow ENOENT errors here and just soldier on.
+        if (er.code === 'ENOENT' &&
+          (self.type === 'Link' || self.type === 'SymbolicLink') &&
+          process.platform === 'win32') {
+          self.ready = true
+          self.emit('ready')
+          self.emit('end')
+          self.emit('close')
+          self.end = self._finish = function () {}
+          return
+        } else return self.error(er)
+      }
+      setProps(self._old = current)
+    })
+er.code === 'ENOENT' &&
+          (self.type === 'Link' || self.type === 'SymbolicLink') &&
+          process.platform === 'win32'
+self.type === 'Link' || self.type === 'SymbolicLink'
+process.platform === 'win32'
+self.ready = true
+self.emit('ready')
+self.emit('end')
+self.emit('close')

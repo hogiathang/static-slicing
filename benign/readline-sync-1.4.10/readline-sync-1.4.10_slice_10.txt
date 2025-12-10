@@ -1,0 +1,412 @@
+var IS_WIN = process.platform === 'win32'
+var ALGORITHM_CIPHER = 'aes-256-cbc'
+var ALGORITHM_HASH = 'sha256'
+var DEFAULT_ERR_MSG = 'The current environment doesn\'t support interactive reading from TTY.'
+var fs = require('fs')
+var TTY = process.binding('tty_wrap').TTY
+function getHostArgs = function getHostArgs(options) {
+  // Send any text to crazy Windows shell safely.
+  function encodeArg(arg) {
+    return arg.replace(/[^\w\u0080-\uFFFF]/g, function(chr) {
+      return '#' + chr.charCodeAt(0) + ';';
+    });
+  }
+
+  return extHostArgs.concat((function(conf) {
+    var args = [];
+    Object.keys(conf).forEach(function(optionName) {
+      if (conf[optionName] === 'boolean') {
+        if (options[optionName]) { args.push('--' + optionName); }
+      } else if (conf[optionName] === 'string') {
+        if (options[optionName]) {
+          args.push('--' + optionName, encodeArg(options[optionName]));
+        }
+      }
+    });
+    return args;
+  })({
+    /* eslint-disable key-spacing */
+    display:        'string',
+    displayOnly:    'boolean',
+    keyIn:          'boolean',
+    hideEchoBack:   'boolean',
+    mask:           'string',
+    limit:          'string',
+    caseSensitive:  'boolean'
+    /* eslint-enable key-spacing */
+  }));
+}
+function _execFileSync = function _execFileSync(options, execOptions) {
+
+  function getTempfile(name) {
+    var suffix = '',
+      filepath, fd;
+    tempdir = tempdir || require('os').tmpdir();
+
+    while (true) {
+      filepath = pathUtil.join(tempdir, name + suffix);
+      try {
+        fd = fs.openSync(filepath, 'wx');
+      } catch (e) {
+        if (e.code === 'EEXIST') {
+          suffix++;
+          continue;
+        } else {
+          throw e;
+        }
+      }
+      fs.closeSync(fd);
+      break;
+    }
+    return filepath;
+  }
+
+  var res = {},
+    pathStdout = getTempfile('readline-sync.stdout'),
+    pathStderr = getTempfile('readline-sync.stderr'),
+    pathExit = getTempfile('readline-sync.exit'),
+    pathDone = getTempfile('readline-sync.done'),
+    crypto = require('crypto'),
+    hostArgs, shellPath, shellArgs, exitCode, extMessage, shasum, decipher, password;
+
+  shasum = crypto.createHash(ALGORITHM_HASH);
+  shasum.update('' + process.pid + (salt++) + Math.random());
+  password = shasum.digest('h...
+function readlineExt = function readlineExt(options) {
+  var res = {},
+    execOptions = {env: process.env, encoding: options.encoding},
+    hostArgs, extMessage;
+
+  if (!extHostPath) {
+    if (IS_WIN) {
+      if (process.env.PSModulePath) { // Windows PowerShell
+        extHostPath = 'powershell.exe';
+        extHostArgs = ['-ExecutionPolicy', 'Bypass',
+          '-File', __dirname + '\\read.ps1']; // eslint-disable-line no-path-concat
+      } else { // Windows Script Host
+        extHostPath = 'cscript.exe';
+        extHostArgs = ['//nologo', __dirname + '\\read.cs.js']; // eslint-disable-line no-path-concat
+      }
+    } else {
+      extHostPath = '/bin/sh';
+      extHostArgs = [__dirname + '/read.sh']; // eslint-disable-line no-path-concat
+    }
+  }
+  if (IS_WIN && !process.env.PSModulePath) { // Windows Script Host
+    // ScriptPW (Win XP and Server2003) needs TTY stream as STDIN.
+    // In this case, If STDIN isn't TTY, an error is thrown.
+    execOptions.stdio = [process.stdin];
+  }
+
+  if (childPro...
+function _readlineSync = function _readlineSync(options) {
+  var input = '',
+    displaySave = options.display,
+    silent = !options.display && options.keyIn && options.hideEchoBack && !options.mask;
+
+  function tryExt() {
+    var res = readlineExt(options);
+    if (res.error) { throw res.error; }
+    return res.input;
+  }
+
+  if (_DBG_checkOptions) { _DBG_checkOptions(options); }
+
+  (function() { // open TTY
+    var fsB, constants, verNum;
+
+    function getFsB() {
+      if (!fsB) {
+        fsB = process.binding('fs'); // For raw device path
+        constants = process.binding('constants');
+        // for v6.3.0+
+        constants = constants && constants.fs && typeof constants.fs.O_RDWR === 'number'
+          ? constants.fs : constants;
+      }
+      return fsB;
+    }
+
+    if (typeof fdR !== 'string') { return; }
+    fdR = null;
+
+    if (IS_WIN) {
+      // iojs-v2.3.2+ input stream can't read first line. (#18)
+      // ** Don't get process.stdin before check! **
+      // Fixed v5.1.0
+      // Fixed v4.2.4
+...
+function flattenArray = function flattenArray(array, validator) {
+  var flatArray = [];
+  function _flattenArray(array) {
+    if (array == null) { return; }
+    if (Array.isArray(array)) {
+      array.forEach(_flattenArray);
+    } else if (!validator || validator(array)) {
+      flatArray.push(array);
+    }
+  }
+  _flattenArray(array);
+  return flatArray;
+}
+function escapePattern = function escapePattern(pattern) {
+  return pattern.replace(/[\x00-\x7f]/g, // eslint-disable-line no-control-regex
+    function(s) { return '\\x' + ('00' + s.charCodeAt().toString(16)).substr(-2); });
+}
+function margeOptions = function margeOptions() {
+  var optionsList = Array.prototype.slice.call(arguments),
+    optionNames, fromDefault;
+
+  if (optionsList.length && typeof optionsList[0] === 'boolean') {
+    fromDefault = optionsList.shift();
+    if (fromDefault) {
+      optionNames = Object.keys(defaultOptions);
+      optionsList.unshift(defaultOptions);
+    }
+  }
+
+  return optionsList.reduce(function(options, optionsPart) {
+    if (optionsPart == null) { return options; }
+
+    // ======== DEPRECATED ========
+    if (optionsPart.hasOwnProperty('noEchoBack') &&
+        !optionsPart.hasOwnProperty('hideEchoBack')) {
+      optionsPart.hideEchoBack = optionsPart.noEchoBack;
+      delete optionsPart.noEchoBack;
+    }
+    if (optionsPart.hasOwnProperty('noTrim') &&
+        !optionsPart.hasOwnProperty('keepWhitespace')) {
+      optionsPart.keepWhitespace = optionsPart.noTrim;
+      delete optionsPart.noTrim;
+    }
+    // ======== /DEPRECATED ========
+
+    if (!fromDefault) { optionNames = Object.keys(optionsP...
+function isMatched = function isMatched(res, comps, caseSensitive) {
+  return comps.some(function(comp) {
+    var type = typeof comp;
+    return type === 'string'
+      ? (caseSensitive ? res === comp : res.toLowerCase() === comp.toLowerCase()) :
+      type === 'number' ? parseFloat(res) === comp :
+      type === 'function' ? comp(res) :
+      comp instanceof RegExp ? comp.test(res) : false;
+  });
+}
+function replaceHomePath = function replaceHomePath(path, expand) {
+  var homePath = pathUtil.normalize(
+    IS_WIN ? (process.env.HOMEDRIVE || '') + (process.env.HOMEPATH || '') :
+    process.env.HOME || '').replace(/[/\\]+$/, '');
+  path = pathUtil.normalize(path);
+  return expand ? path.replace(/^~(?=\/|\\|$)/, homePath) :
+    path.replace(new RegExp('^' + escapePattern(homePath) +
+      '(?=\\/|\\\\|$)', IS_WIN ? 'i' : ''), '~');
+}
+function replacePlaceholder = function replacePlaceholder(text, generator) {
+  var PTN_INNER = '(?:\\(([\\s\\S]*?)\\))?(\\w+|.-.)(?:\\(([\\s\\S]*?)\\))?',
+    rePlaceholder = new RegExp('(\\$)?(\\$<' + PTN_INNER + '>)', 'g'),
+    rePlaceholderCompat = new RegExp('(\\$)?(\\$\\{' + PTN_INNER + '\\})', 'g');
+
+  function getPlaceholderText(s, escape, placeholder, pre, param, post) {
+    var text;
+    return escape || typeof (text = generator(param)) !== 'string' ? placeholder :
+      text ? (pre || '') + text + (post || '') : '';
+  }
+
+  return text.replace(rePlaceholder, getPlaceholderText)
+    .replace(rePlaceholderCompat, getPlaceholderText);
+}
+function array2charlist = function array2charlist(array, caseSensitive, collectSymbols) {
+  var group = [],
+    groupClass = -1,
+    charCode = 0,
+    symbols = '',
+    values, suppressed;
+  function addGroup(groups, group) {
+    if (group.length > 3) { // ellipsis
+      groups.push(group[0] + '...' + group[group.length - 1]);
+      suppressed = true;
+    } else if (group.length) {
+      groups = groups.concat(group);
+    }
+    return groups;
+  }
+
+  values = array.reduce(function(chars, value) {
+    return chars.concat((value + '').split(''));
+  }, []).reduce(function(groups, curChar) {
+    var curGroupClass, curCharCode;
+    if (!caseSensitive) { curChar = curChar.toLowerCase(); }
+    curGroupClass = /^\d$/.test(curChar) ? 1 :
+      /^[A-Z]$/.test(curChar) ? 2 : /^[a-z]$/.test(curChar) ? 3 : 0;
+    if (collectSymbols && curGroupClass === 0) {
+      symbols += curChar;
+    } else {
+      curCharCode = curChar.charCodeAt(0);
+      if (curGroupClass && curGroupClass === groupClass &&
+          curCharCode === ...
+function joinChunks = function joinChunks(chunks, suppressed) {
+  return chunks.join(chunks.length > 2 ? ', ' : suppressed ? ' / ' : '/');
+}
+function getPhContent = function getPhContent(param, options) {
+  var resCharlist = {},
+    text, values, arg;
+  if (options.phContent) {
+    text = options.phContent(param, options);
+  }
+  if (typeof text !== 'string') {
+    switch (param) {
+      case 'hideEchoBack':
+      case 'mask':
+      case 'defaultInput':
+      case 'caseSensitive':
+      case 'keepWhitespace':
+      case 'encoding':
+      case 'bufferSize':
+      case 'history':
+      case 'cd':
+        text = !options.hasOwnProperty(param) ? '' :
+          typeof options[param] === 'boolean' ? (options[param] ? 'on' : 'off') :
+          options[param] + '';
+        break;
+      // case 'prompt':
+      // case 'query':
+      // case 'display':
+      //   text = options.hasOwnProperty('displaySrc') ? options.displaySrc + '' : '';
+      //   break;
+      case 'limit':
+      case 'trueValue':
+      case 'falseValue':
+        values = options[options.hasOwnProperty(param + 'Src') ? param + 'Src' : param];
+        if (options.keyIn) { // suppress
+    ...
+function getPhCharlist = function getPhCharlist(param) {
+  var matches = /^(.)-(.)$/.exec(param),
+    text = '',
+    from, to, code, step;
+  if (!matches) { return null; }
+  from = matches[1].charCodeAt(0);
+  to = matches[2].charCodeAt(0);
+  step = from < to ? 1 : -1;
+  for (code = from; code !== to + step; code += step) { text += String.fromCharCode(code); }
+  return text;
+}
+function parseCl = function parseCl(cl) {
+  var reToken = new RegExp(/(\s*)(?:("|')(.*?)(?:\2|$)|(\S+))/g),
+    taken = '',
+    args = [],
+    matches, part;
+  cl = cl.trim();
+  while ((matches = reToken.exec(cl))) {
+    part = matches[3] || matches[4] || '';
+    if (matches[1]) {
+      args.push(taken);
+      taken = '';
+    }
+    taken += part;
+  }
+  if (taken) { args.push(taken); }
+  return args;
+}
+function toBool = function toBool(res, options) {
+  return (
+    (options.trueValue.length &&
+      isMatched(res, options.trueValue, options.caseSensitive)) ? true :
+    (options.falseValue.length &&
+      isMatched(res, options.falseValue, options.caseSensitive)) ? false : res);
+}
+function getValidLine = function getValidLine(options) {
+  var res, forceNext, limitMessage,
+    matches, histInput, args, resCheck;
+
+  function _getPhContent(param) { return getPhContent(param, options); }
+  function addDisplay(text) { options.display += (/[^\r\n]$/.test(options.display) ? '\n' : '') + text; }
+
+  options.limitSrc = options.limit;
+  options.displaySrc = options.display;
+  options.limit = ''; // for readlineExt
+  options.display = replacePlaceholder(options.display + '', _getPhContent);
+
+  while (true) {
+    res = _readlineSync(options);
+    forceNext = false;
+    limitMessage = '';
+
+    if (options.defaultInput && !res) { res = options.defaultInput; }
+
+    if (options.history) {
+      if ((matches = /^\s*!(?:!|-1)(:p)?\s*$/.exec(res))) { // `!!` `!-1` +`:p`
+        histInput = inputHistory[0] || '';
+        if (matches[1]) { // only display
+          forceNext = true;
+        } else { // replace input
+          res = histInput;
+        }
+        // Show it even if it is empty (NL only).
+  ...
+function _questionNum = function _questionNum(query, options, parser) {
+  var validValue;
+  function getValidValue(value) {
+    validValue = parser(value);
+    return !isNaN(validValue) && typeof validValue === 'number';
+  }
+  /* eslint-disable key-spacing */
+  exports.question(query, margeOptions({
+    // -------- default
+    limitMessage:       'Input valid number, please.'
+  }, options, {
+    // -------- forced
+    limit:              getValidValue,
+    cd:                 false
+    // trueValue, falseValue, caseSensitive, keepWhitespace don't work.
+  }));
+  /* eslint-enable key-spacing */
+  return validValue;
+}
+function getClHandler = function getClHandler(commandHandler, options) {
+  var clHandler = {},
+    hIndex = {};
+  if (typeof commandHandler === 'object') {
+    Object.keys(commandHandler).forEach(function(cmd) {
+      if (typeof commandHandler[cmd] === 'function') {
+        hIndex[options.caseSensitive ? cmd : cmd.toLowerCase()] = commandHandler[cmd];
+      }
+    });
+    clHandler.preCheck = function(res) {
+      var cmdKey;
+      clHandler.args = parseCl(res);
+      cmdKey = clHandler.args[0] || '';
+      if (!options.caseSensitive) { cmdKey = cmdKey.toLowerCase(); }
+      clHandler.hRes =
+        cmdKey !== '_' && hIndex.hasOwnProperty(cmdKey)
+          ? hIndex[cmdKey].apply(res, clHandler.args.slice(1)) :
+          hIndex.hasOwnProperty('_') ? hIndex._.apply(res, clHandler.args) : null;
+      return {res: res, forceNext: false};
+    };
+    if (!hIndex.hasOwnProperty('_')) {
+      clHandler.limit = function() { // It's called after preCheck.
+        var cmdKey = clHandler.args[0] || '';
+        if (!opt...
+function _keyInYN = function _keyInYN(query, options, limit) {
+  var res;
+  if (query == null) { query = 'Are you sure? '; }
+  if ((!options || options.guide !== false) && (query += '')) {
+    query = query.replace(/\s*:?\s*$/, '') + ' [y/n]: ';
+  }
+  /* eslint-disable key-spacing */
+  res = exports.keyIn(query, margeOptions(options, {
+    // -------- forced
+    hideEchoBack:       false,
+    limit:              limit,
+    trueValue:          'y',
+    falseValue:         'n',
+    caseSensitive:      false
+    // mask doesn't work.
+  }));
+  // added:     guide
+  /* eslint-enable key-spacing */
+  return typeof res === 'boolean' ? res : '';
+}
+function _setOption = function _setOption(optionName, args) {
+  var options;
+  if (args.length) { options = {}; options[optionName] = args[0]; }
+  return exports.setDefaultOptions(options)[optionName];
+}

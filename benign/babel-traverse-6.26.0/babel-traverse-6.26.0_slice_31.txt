@@ -1,0 +1,59 @@
+function _resolve = function _resolve(dangerous, resolved) {
+  if (resolved && resolved.indexOf(this) >= 0) return;
+
+  resolved = resolved || [];
+  resolved.push(this);
+
+  if (this.isVariableDeclarator()) {
+    if (this.get("id").isIdentifier()) {
+      return this.get("init").resolve(dangerous, resolved);
+    } else {}
+  } else if (this.isReferencedIdentifier()) {
+    var binding = this.scope.getBinding(this.node.name);
+    if (!binding) return;
+
+    if (!binding.constant) return;
+
+    if (binding.kind === "module") return;
+
+    if (binding.path !== this) {
+      var ret = binding.path.resolve(dangerous, resolved);
+
+      if (this.find(function (parent) {
+        return parent.node === ret.node;
+      })) return;
+      return ret;
+    }
+  } else if (this.isTypeCastExpression()) {
+    return this.get("expression").resolve(dangerous, resolved);
+  } else if (dangerous && this.isMemberExpression()) {
+
+    var targetKey = this.toComputedKey();
+    if (!t.isLiteral(targetKey)) return;
+
+    var targetName = ...
+resolved && resolved.indexOf(this) >= 0
+resolved = resolved || []
+resolved.push(this)
+this.isVariableDeclarator()
+this.isReferencedIdentifier()
+this.isTypeCastExpression()
+dangerous && this.isMemberExpression()
+var targetKey = this.toComputedKey()
+!t.isLiteral(targetKey)
+var targetName = targetKey.value
+var target = this.get("object").resolve(dangerous, resolved)
+target.isObjectExpression()
+var props = target.get("properties")
+var _iterator3 = _isArray3 ? _iterator3 : (0, _getIterator3.default)(_iterator3)
+_i3 >= _iterator3.length
+_ref3 = _iterator3[_i3++]
+_i3 = _iterator3.next()
+_i3.done
+_ref3 = _i3.value
+var prop = _ref3
+!prop.isProperty()
+var key = prop.get("key")
+var match = prop.isnt("computed") && key.isIdentifier({ name: targetName })
+match = match || key.isLiteral({ value: targetName })
+prop.get("value").resolve(dangerous, resolved)

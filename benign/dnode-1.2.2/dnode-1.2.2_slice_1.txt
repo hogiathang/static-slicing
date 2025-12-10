@@ -1,0 +1,44 @@
+function dnode = function dnode (cons, opts) {
+    Stream.call(this);
+    var self = this;
+    
+    self.opts = opts || {};
+    
+    self.cons = typeof cons === 'function'
+        ? cons
+        : function () { return cons || {} }
+    ;
+    
+    self.readable = true;
+    self.writable = true;
+    
+    process.nextTick(function () {
+        if (self._ended) return;
+        self.proto = self._createProto();
+        self.proto.start();
+        
+        if (!self._handleQueue) return;
+        for (var i = 0; i < self._handleQueue.length; i++) {
+            self.handle(self._handleQueue[i]);
+        }
+    });
+}
+Stream.call(this)
+var self = this
+self.opts = opts || {}
+self.cons = typeof cons === 'function'
+        ? cons
+        : function () { return cons || {} }
+cons || {}
+self.readable = true
+self.writable = true
+process.nextTick(function () {
+        if (self._ended) return;
+        self.proto = self._createProto();
+        self.proto.start();
+        
+        if (!self._handleQueue) return;
+        for (var i = 0; i < self._handleQueue.length; i++) {
+            self.handle(self._handleQueue[i]);
+        }
+    })

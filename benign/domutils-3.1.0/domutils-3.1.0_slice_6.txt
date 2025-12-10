@@ -1,0 +1,19 @@
+_tmp_5.items = (0, legacy_js_1.getElementsByTagName)("item", feedRoot.children).map(function (item) {
+            var children = item.children;
+            var entry = { media: getMediaElements(children) };
+            addConditionally(entry, "id", "guid", children);
+            addConditionally(entry, "title", "title", children);
+            addConditionally(entry, "link", "link", children);
+            addConditionally(entry, "description", "description", children);
+            var pubDate = fetch("pubDate", children) || fetch("dc:date", children);
+            if (pubDate)
+                entry.pubDate = new Date(pubDate);
+            return entry;
+        })
+var children = item.children
+var entry = { media: getMediaElements(children) }
+addConditionally(entry, "id", "guid", children)
+addConditionally(entry, "title", "title", children)
+addConditionally(entry, "link", "link", children)
+addConditionally(entry, "description", "description", children)
+var pubDate = fetch("pubDate", children) || fetch("dc:date", children)

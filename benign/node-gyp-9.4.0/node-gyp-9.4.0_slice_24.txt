@@ -1,0 +1,87 @@
+process.title = 'node-gyp'
+const envPaths = require('env-paths')
+const gyp = require('../')
+const log = require('npmlog')
+const os = require('os')
+const prog = gyp()
+var completed = false
+prog.parseArgv(process.argv)
+prog.devDir = prog.opts.devdir
+var homeDir = os.homedir()
+prog.devDir
+prog.devDir = prog.devDir.replace(/^~/, homeDir)
+prog.devDir = envPaths('node-gyp', { suffix: '' }).cache
+throw new Error(
+    "node-gyp requires that the user's home directory is specified " +
+    'in either of the environmental variables HOME or USERPROFILE. ' +
+    'Overide with: --devdir /path/to/.node-gyp')
+"node-gyp requires that the user's home directory is specified " +
+    'in either of the environmental variables HOME or USERPROFILE. ' +
+    'Overide with: --devdir /path/to/.node-gyp'
+"in either of the environmental variables HOME or USERPROFILE. "
+"Overide with: --devdir /path/to/.node-gyp"
+prog.todo.length === 0
+~process.argv.indexOf('-v') || ~process.argv.indexOf('--version')
+console.log('v%s', prog.version)
+console.log('%s', prog.usage())
+process.exit(0)
+log.info('it worked if it ends with', 'ok')
+log.verbose('cli', process.argv)
+log.info('using', 'node-gyp@%s', prog.version)
+log.info('using', 'node@%s | %s | %s', process.versions.node, process.platform, process.arch)
+var dir = prog.opts.directory
+var fs = require('fs')
+var stat = fs.statSync(dir)
+stat.isDirectory()
+log.info('chdir', dir)
+process.chdir(dir)
+function run = function run () {
+  var command = prog.todo.shift()
+  if (!command) {
+    // done!
+    completed = true
+    log.info('ok')
+    return
+  }
+
+  prog.commands[command.name](command.args, function (err) {
+    if (err) {
+      log.error(command.name + ' error')
+      log.error('stack', err.stack)
+      errorMessage()
+      log.error('not ok')
+      return process.exit(1)
+    }
+    if (command.name === 'list') {
+      var versions = arguments[1]
+      if (versions.length > 0) {
+        versions.forEach(function (version) {
+          console.log(version)
+        })
+      } else {
+        console.log('No node development files installed. Use `node-gyp install` to install a version.')
+      }
+    } else if (arguments.length >= 2) {
+      console.log.apply(console, [].slice.call(arguments, 1))
+    }
+
+    // now run the next command in the queue
+    process.nextTick(run)
+  })
+}
+function errorMessage = function errorMessage () {
+  // copied from npm's lib/utils/error-handler.js
+  var os = require('os')
+  log.error('System', os.type() + ' ' + os.release())
+  log.error('command', process.argv
+    .map(JSON.stringify).join(' '))
+  log.error('cwd', process.cwd())
+  log.error('node -v', process.version)
+  log.error('node-gyp -v', 'v' + prog.package.version)
+}
+function issueMessage = function issueMessage () {
+  errorMessage()
+  log.error('', ['Node-gyp failed to build your package.',
+    'Try to update npm and/or node-gyp and if it does not help file an issue with the package author.'
+  ].join('\n'))
+}

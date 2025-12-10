@@ -1,0 +1,14 @@
+function getRootElement = function getRootElement(businessObject) {
+    if (isAny(businessObject, [ 'bpmn:ReceiveTask', 'bpmn:SendTask' ])) {
+      return businessObject.get('messageRef');
+    }
+
+    var eventDefinitions = businessObject.get('eventDefinitions'),
+        eventDefinition = eventDefinitions[ 0 ];
+
+    return eventDefinition.get(getRootElementReferencePropertyName(eventDefinition));
+  }
+isAny(businessObject, [ 'bpmn:ReceiveTask', 'bpmn:SendTask' ])
+var eventDefinitions = businessObject.get('eventDefinitions')
+var eventDefinition = eventDefinitions[ 0 ]
+eventDefinition.get(getRootElementReferencePropertyName(eventDefinition))

@@ -1,0 +1,52 @@
+var memoizerific = function () {
+			var currentCache = cache,
+				newMap,
+				fnResult,
+				argsLengthMinusOne = arguments.length - 1,
+				lruPath = Array(argsLengthMinusOne + 1),
+				isMemoized = true,
+				i;
+
+			if ((memoizerific.numArgs || memoizerific.numArgs === 0) && memoizerific.numArgs !== argsLengthMinusOne + 1) {
+				throw new Error('Memoizerific functions should always be called with the same number of arguments');
+			}
+
+			// loop through each argument to traverse the map tree
+			for (i = 0; i < argsLengthMinusOne; i++) {
+				lruPath[i] = {
+					cacheItem: currentCache,
+					arg: arguments[i]
+				};
+
+				// climb through the hierarchical map tree until the second-last argument has been found, or an argument is missing.
+				// if all arguments up to the second-last have been found, this will potentially be a cache hit (determined later)
+				if (currentCache.has(arguments[i])) {
+					currentCache = currentCache.get(arguments[i]);
+					continue;
+				}
+
+				isMemoized = false;
+
+...
+var currentCache = cache
+var argsLengthMinusOne = arguments.length - 1
+var lruPath = Array(argsLengthMinusOne + 1)
+var isMemoized = true
+(memoizerific.numArgs || memoizerific.numArgs === 0) && memoizerific.numArgs !== argsLengthMinusOne + 1
+throw new Error('Memoizerific functions should always be called with the same number of arguments');
+i < argsLengthMinusOne
+lruPath[i] = {
+					cacheItem: currentCache,
+					arg: arguments[i]
+				}
+_tmp_20.cacheItem = currentCache
+_tmp_20.arg = arguments[i]
+currentCache.has(arguments[i])
+currentCache = currentCache.get(arguments[i])
+continue;
+isMemoized = false
+newMap = new MapOrSimilar(undefined === 'true')
+currentCache.set(arguments[i], newMap)
+currentCache = newMap
+currentCache.has(arguments[argsLengthMinusOne])
+fnResult = currentCache.get(arguments[argsLengthMinusOne])

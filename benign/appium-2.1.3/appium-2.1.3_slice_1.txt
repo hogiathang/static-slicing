@@ -1,0 +1,20 @@
+args = args === void 0 ? process.argv.slice(2) : args
+!NON_SERVER_ARGS.has(args[0])
+args.unshift(SERVER_SUBCOMMAND)
+const parsed = this.parser.parse_known_args(args)
+unknownArgs = _tmp_9[1]
+knownArgs?.driverCommand === 'ls'
+knownArgs.driverCommand = 'list'
+knownArgs?.pluginCommand === 'ls'
+knownArgs.pluginCommand = 'list'
+unknownArgs?.length &&
+        (knownArgs.driverCommand === 'run' || knownArgs.pluginCommand === 'run')
+knownArgs.driverCommand === 'run' || knownArgs.pluginCommand === 'run'
+unknownArgs.length
+<operator>.formatString("[ERROR] Unrecognized arguments: ", unknownArgs.join(' '), "")
+ArgParser._transformParsedArgs(knownArgs)
+this.debug
+throw err;
+console.error()
+console.error(err.message)
+process.exit(1)

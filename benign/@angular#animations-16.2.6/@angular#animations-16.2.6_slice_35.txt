@@ -1,0 +1,14 @@
+clearElementCache(element) {
+        this._engine.statesByElement.delete(element);
+        this._elementListeners.delete(element);
+        const elementPlayers = this._engine.playersByElement.get(element);
+        if (elementPlayers) {
+            elementPlayers.forEach(player => player.destroy());
+            this._engine.playersByElement.delete(element);
+        }
+    }
+(_tmp_39 = this._engine.statesByElement).delete
+(_tmp_40 = this._elementListeners).delete
+const elementPlayers = this._engine.playersByElement.get(element)
+elementPlayers.forEach(player => player.destroy())
+(_tmp_42 = this._engine.playersByElement).delete

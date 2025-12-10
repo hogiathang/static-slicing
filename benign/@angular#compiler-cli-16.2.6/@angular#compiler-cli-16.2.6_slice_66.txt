@@ -1,0 +1,57 @@
+analyze(node, decorator) {
+    var _a, _b, _c, _d;
+    this.perf.eventCount(PerfEvent.AnalyzeComponent);
+    const containingFile = node.getSourceFile().fileName;
+    this.literalCache.delete(decorator);
+    let diagnostics;
+    let isPoisoned = false;
+    const directiveResult = extractDirectiveMetadata(node, decorator, this.reflector, this.evaluator, this.refEmitter, this.referencesRegistry, this.isCore, this.annotateForClosureCompiler, this.elementSchemaRegistry.getDefaultComponentElementName());
+    if (directiveResult === void 0) {
+      return {};
+    }
+    const { decorator: component, metadata, inputs, outputs, hostDirectives, rawHostDirectives } = directiveResult;
+    const encapsulation = (_a = resolveEnumValue(this.evaluator, component, "encapsulation", "ViewEncapsulation")) != null ? _a : ViewEncapsulation.Emulated;
+    const changeDetection = resolveEnumValue(this.evaluator, component, "changeDetection", "ChangeDetectionStrategy");
+    let animations = null;
+    let ani...
+this.perf.eventCount(PerfEvent.AnalyzeComponent)
+const containingFile = node.getSourceFile().fileName
+(_tmp_993 = this.literalCache).delete
+let isPoisoned = false
+const directiveResult = extractDirectiveMetadata(node, decorator, this.reflector, this.evaluator, this.refEmitter, this.referencesRegistry, this.isCore, this.annotateForClosureCompiler, this.elementSchemaRegistry.getDefaultComponentElementName())
+directiveResult === void 0
+rawHostDirectives = _tmp_996.rawHostDirectives
+const encapsulation = (_a = resolveEnumValue(this.evaluator, component, "encapsulation", "ViewEncapsulation")) != null ? _a : ViewEncapsulation.Emulated
+const changeDetection = resolveEnumValue(this.evaluator, component, "changeDetection", "ChangeDetectionStrategy")
+let animations = null
+let animationTriggerNames = null
+component.has("animations")
+const animationExpression = component.get("animations")
+animations = new WrappedNodeExpr7(animationExpression)
+const animationsValue = this.evaluator.evaluate(animationExpression, animationTriggerResolver)
+animationTriggerNames = { includesDynamicAnimations: false, staticTriggerNames: [] }
+collectAnimationNames(animationsValue, animationTriggerNames)
+const relativeContextFilePath = this.rootDirs.reduce((previous, rootDir) => {
+      const candidate = relative(absoluteFrom(rootDir), absoluteFrom(containingFile));
+      if (previous === void 0 || candidate.length < previous.length) {
+        return candidate;
+      } else {
+        return previous;
+      }
+    }, void 0)
+void 0
+let viewProvidersRequiringFactory = null
+let providersRequiringFactory = null
+let wrappedViewProviders = null
+component.has("viewProviders")
+const viewProviders = component.get("viewProviders")
+viewProvidersRequiringFactory = resolveProvidersRequiringFactory(viewProviders, this.reflector, this.evaluator)
+wrappedViewProviders = new WrappedNodeExpr7(this.annotateForClosureCompiler ? wrapFunctionExpressionsInParens(viewProviders) : viewProviders)
+component.has("providers")
+providersRequiringFactory = resolveProvidersRequiringFactory(component.get("providers"), this.reflector, this.evaluator)
+let resolvedImports = null
+let rawImports = (_b = component.get("imports")) != null ? _b : null
+rawImports && !metadata.isStandalone
+diagnostics === void 0
+__ecma.Array.factory()
+diagnostics.push(makeDiagnostic(ErrorCode.COMPONENT_NOT_STANDALONE, component.get("imports"), `'imports' is only valid on a component that is standalone.`, [makeRelatedInformation(node.name, `Did you forget to add 'standalone: true' to this @Component?`)]))

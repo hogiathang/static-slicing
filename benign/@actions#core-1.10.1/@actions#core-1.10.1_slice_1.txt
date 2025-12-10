@@ -1,0 +1,10 @@
+function setOutput = function setOutput(name, value) {
+    const filePath = process.env['GITHUB_OUTPUT'] || '';
+    if (filePath) {
+        return file_command_1.issueFileCommand('OUTPUT', file_command_1.prepareKeyValueMessage(name, value));
+    }
+    process.stdout.write(os.EOL);
+    command_1.issueCommand('set-output', { name }, utils_1.toCommandValue(value));
+}
+const filePath = process.env['GITHUB_OUTPUT'] || ''
+(_tmp_10 = process.stdout).write

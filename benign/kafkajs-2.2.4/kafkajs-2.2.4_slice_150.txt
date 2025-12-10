@@ -1,0 +1,15 @@
+new Promise((resolve, reject) => {
+    checkCondition(resolve, reject)
+
+    if (ignoreTimeout) {
+      return
+    }
+
+    timeoutId = setTimeout(() => {
+      if (!fulfilled) {
+        fulfilled = true
+        return reject(new KafkaJSTimeout(timeoutMessage))
+      }
+    }, maxWait)
+  })
+checkCondition(resolve, reject)

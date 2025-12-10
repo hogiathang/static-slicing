@@ -1,0 +1,35 @@
+this.cli.on('close', () => {
+      let history, i, item, len
+
+      history = this.cli.history()
+
+      if (history.length <= historySize) {
+        return this.shutdown()
+      }
+
+      const startIndex = history.length - historySize
+      history = history.reverse().splice(startIndex, historySize)
+      const fileOpts = {
+        mode: 0x180
+      }
+
+      const outstream = fs.createWriteStream(historyPath, fileOpts)
+      outstream.on('end', this.shutdown.bind(this))
+      for (i = 0, len = history.length; i < len; i++) {
+        item = history[i]
+        outstream.write(item + '\n')
+      }
+    })
+history = this.cli.history()
+history.length <= historySize
+const startIndex = history.length - historySize
+history = history.reverse().splice(startIndex, historySize)
+const fileOpts = {
+        mode: 0x180
+      }
+_tmp_23.mode = 0x180
+const outstream = fs.createWriteStream(historyPath, fileOpts)
+outstream.on('end', this.shutdown.bind(this))
+len = history.length
+item = history[i]
+outstream.write(item + '\n')

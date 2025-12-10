@@ -1,0 +1,2 @@
+_tmp_34.escape = <lambda>28
+_.escape(this.get(attr))

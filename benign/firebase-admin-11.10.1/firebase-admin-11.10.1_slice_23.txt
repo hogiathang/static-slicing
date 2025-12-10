@@ -1,0 +1,55 @@
+invokeRequestHandler(host, path, requestData) {
+        const request = {
+            method: FIREBASE_MESSAGING_HTTP_METHOD,
+            url: `https://${host}${path}`,
+            data: requestData,
+            headers: LEGACY_FIREBASE_MESSAGING_HEADERS,
+            timeout: FIREBASE_MESSAGING_TIMEOUT,
+        };
+        return this.httpClient.send(request).then((response) => {
+            // Send non-JSON responses to the catch() below where they will be treated as errors.
+            if (!response.isJson()) {
+                throw new api_request_1.HttpError(response);
+            }
+            // Check for backend errors in the response.
+            const errorCode = (0, messaging_errors_internal_1.getErrorCode)(response.data);
+            if (errorCode) {
+                throw new api_request_1.HttpError(response);
+            }
+            // Return entire response.
+            return response.data;
+        })
+            .catch((err) => {
+            if (err instanceof api_re...
+const request = {
+            method: FIREBASE_MESSAGING_HTTP_METHOD,
+            url: `https://${host}${path}`,
+            data: requestData,
+            headers: LEGACY_FIREBASE_MESSAGING_HEADERS,
+            timeout: FIREBASE_MESSAGING_TIMEOUT,
+        }
+_tmp_5.method = FIREBASE_MESSAGING_HTTP_METHOD
+_tmp_5.url = <operator>.formatString("https://", host, "", path, "")
+_tmp_5.data = requestData
+_tmp_5.headers = LEGACY_FIREBASE_MESSAGING_HEADERS
+_tmp_5.timeout = FIREBASE_MESSAGING_TIMEOUT
+this.httpClient.send(request).then((response) => {
+            // Send non-JSON responses to the catch() below where they will be treated as errors.
+            if (!response.isJson()) {
+                throw new api_request_1.HttpError(response);
+            }
+            // Check for backend errors in the response.
+            const errorCode = (0, messaging_errors_internal_1.getErrorCode)(response.data);
+            if (errorCode) {
+                throw new api_request_1.HttpError(response);
+            }
+            // Return entire response.
+            return response.data;
+        })
+            .catch((err) => {
+            if (err instanceof api_request_1.HttpError) {
+                throw (0, messaging_errors_internal_1.createFirebaseError)(err);
+            }
+            // Re-throw the error if it already has the proper format.
+            throw err;
+        })

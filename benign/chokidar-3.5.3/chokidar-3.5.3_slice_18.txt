@@ -1,0 +1,41 @@
+_throttle(actionType, path, timeout) {
+  if (!this._throttled.has(actionType)) {
+    this._throttled.set(actionType, new Map());
+  }
+
+  /** @type {Map<Path, Object>} */
+  const action = this._throttled.get(actionType);
+  /** @type {Object} */
+  const actionPath = action.get(path);
+
+  if (actionPath) {
+    actionPath.count++;
+    return false;
+  }
+
+  let timeoutObject;
+  const clear = () => {
+    const item = action.get(path);
+    const count = item ? item.count : 0;
+    action.delete(path);
+    clearTimeout(timeoutObject);
+    if (item) clearTimeout(item.timeoutObject);
+    return count;
+  };
+  timeoutObject = setTimeout(clear, timeout);
+  const thr = {timeoutObject, clear, count: 0};
+  action.set(path, thr);
+  return thr;
+}
+!this._throttled.has(actionType)
+this._throttled.set(actionType, new Map())
+const action = this._throttled.get(actionType)
+const actionPath = action.get(path)
+const clear = () => {
+    const item = action.get(path);
+    const count = item ? item.count : 0;
+    action.delete(path);
+    clearTimeout(timeoutObject);
+    if (item) clearTimeout(item.timeoutObject);
+    return count;
+  }

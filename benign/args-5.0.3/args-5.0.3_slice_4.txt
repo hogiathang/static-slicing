@@ -1,0 +1,32 @@
+_tmp_3.runCommand = runCommand
+details.usage === 'help' && !this.config.help
+details.init = false
+details.usage === 'version' && !this.config.version
+details.init = false
+details.init
+const subCommand = Array.isArray(details.usage)
+      ? details.usage[0]
+      : details.usage
+details.usage[0]
+details.usage
+let full = this.binary + '-' + subCommand
+const args = process.argv.slice(2)
+let l = args.length
+args[i] === subCommand
+args.splice(i, 1)
+break
+process.platform === 'win32'
+const binaryExt = path.extname(this.binary)
+const mainModule = process.env.APPVEYOR
+        ? '_fixture'
+        : process.mainModule.filename
+"_fixture"
+process.mainModule.filename
+<operator>.formatString("", mainModule, "-", subCommand, "")
+path.extname(this.binary)
+<operator>.formatString("", mainModule.replace(binaryExt, ''), "-", subCommand, "", binaryExt, "")
+args.unshift(full)
+this.child = spawn(process.execPath, args, {
+        stdio: 'inherit'
+      })
+_tmp_35.stdio = "inherit"

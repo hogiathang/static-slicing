@@ -1,0 +1,39 @@
+module.exports = function getPackageJson(startPath = "a.js") {
+    const startDir = path.dirname(path.resolve(startPath))
+    let dir = startDir
+    let prevDir = ""
+    let data = null
+
+    do {
+        data = cache.get(dir)
+        if (data) {
+            if (dir !== startDir) {
+                cache.set(startDir, data)
+            }
+            return data
+        }
+
+        data = readPackageJson(dir)
+        if (data) {
+            cache.set(dir, data)
+            cache.set(startDir, data)
+            return data
+        }
+
+        // Go to next.
+        prevDir = dir
+        dir = path.resolve(dir, "..")
+    } while (dir !== prevDir)
+
+    cache.set(startDir, null)
+    return null
+}
+const startDir = path.dirname(path.resolve(startPath))
+let dir = startDir
+let prevDir = ""
+let data = null
+data = cache.get(dir)
+data = readPackageJson(dir)
+prevDir = dir
+dir = path.resolve(dir, "..")
+dir !== prevDir

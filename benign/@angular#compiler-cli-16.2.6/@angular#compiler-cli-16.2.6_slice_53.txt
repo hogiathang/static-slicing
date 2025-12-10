@@ -1,0 +1,29 @@
+get diagnostics() {
+    var _a;
+    const diagnostics = [];
+    for (const clazz of this.classes.keys()) {
+      const record = this.classes.get(clazz);
+      if (record.metaDiagnostics !== null) {
+        diagnostics.push(...record.metaDiagnostics);
+      }
+      for (const trait of record.traits) {
+        if ((trait.state === TraitState.Analyzed || trait.state === TraitState.Resolved) && trait.analysisDiagnostics !== null) {
+          diagnostics.push(...trait.analysisDiagnostics);
+        }
+        if (trait.state === TraitState.Resolved) {
+          diagnostics.push(...(_a = trait.resolveDiagnostics) != null ? _a : []);
+        }
+      }
+    }
+    return diagnostics;
+  }
+const diagnostics = []
+_iterator_95 = <operator>.iterator(this.classes.keys())
+const record = this.classes.get(clazz)
+record.metaDiagnostics !== null
+diagnostics.push(...record.metaDiagnostics)
+_iterator_96 = <operator>.iterator(record.traits)
+(trait.state === TraitState.Analyzed || trait.state === TraitState.Resolved) && trait.analysisDiagnostics !== null
+diagnostics.push(...trait.analysisDiagnostics)
+trait.state === TraitState.Resolved
+diagnostics.push(...(_a = trait.resolveDiagnostics) != null ? _a : [])

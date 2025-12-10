@@ -1,0 +1,30 @@
+async _markLog() {
+    const count = (await readdir(this.path)).filter(item =>
+      /log\d+$/.test(item),
+    ).length;
+    const marker = Math.random()
+      .toString(16)
+      .substring(2)
+      .padStart(13, '0');
+    const logName = `log${count.toString().padStart(4, '0')}`;
+    const file = resolve(this.path, logName);
+    await write(file, marker);
+    const writtenMarker = await read(file, 'utf8');
+    if (marker === writtenMarker) {
+      return file;
+    }
+    return null;
+  }
+const count = (await readdir(this.path)).filter(item =>
+      /log\d+$/.test(item),
+    ).length
+length
+const marker = Math.random()
+      .toString(16)
+      .substring(2)
+      .padStart(13, '0')
+16
+2
+"0"
+<operator>.formatString("log", count.toString().padStart(4, '0'), "")
+const file = resolve(this.path, logName)

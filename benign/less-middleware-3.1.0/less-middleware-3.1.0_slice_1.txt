@@ -1,0 +1,6 @@
+process.once('SIGUSR2', function() { // Handle nodemon restarts
+    _saveCacheToFile();
+    process.kill(process.pid, 'SIGUSR2');
+  })
+_saveCacheToFile()
+process.kill(process.pid, 'SIGUSR2')

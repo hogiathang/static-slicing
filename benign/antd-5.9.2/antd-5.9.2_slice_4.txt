@@ -1,0 +1,11 @@
+const removeWatermark = container => {
+    const watermarkEle = watermarkMap.get(container);
+    if (watermarkEle && container) {
+      container.removeChild(watermarkEle);
+    }
+    watermarkMap.delete(container);
+  }
+const watermarkEle = watermarkMap.get(container)
+watermarkEle && container
+container.removeChild(watermarkEle)
+watermarkMap.delete(container)

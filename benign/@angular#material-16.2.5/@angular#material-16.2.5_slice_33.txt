@@ -1,0 +1,25 @@
+boundI18nAttrs = boundI18nAttrs === void 0 ? __ecma.Array.factory() : boundI18nAttrs
+const alreadySeen = /* @__PURE__ */ new Set()
+__ecma.Array.factory()
+_iterator_189 = <operator>.iterator(renderAttributes)
+attr.name === NG_PROJECT_AS_ATTR_NAME
+ngProjectAsAttr = attr
+attr.i18n
+i18nVarRefsCache = _tmp_3285.i18nVarRefsCache
+i18nVarRefsCache.has(attr.i18n)
+i18nVarRef = i18nVarRefsCache.get(attr.i18n)
+i18nVarRef = this.i18nTranslate(attr.i18n)
+i18nVarRefsCache.set(attr.i18n, i18nVarRef)
+attrExprs.push(literal(attr.name), i18nVarRef)
+attrExprs.push(...getAttributeNameLiterals(attr.name), trustedConstAttribute(elementName, attr))
+function addAttrExpr = function addAttrExpr(key, value) {
+      if (typeof key === "string") {
+        if (!alreadySeen.has(key)) {
+          attrExprs.push(...getAttributeNameLiterals(key));
+          value !== void 0 && attrExprs.push(value);
+          alreadySeen.add(key);
+        }
+      } else {
+        attrExprs.push(literal(key));
+      }
+    }

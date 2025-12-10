@@ -1,0 +1,44 @@
+function _handlePathsToValidate = function _handlePathsToValidate(paths, pathsToValidate) {
+  const _pathsToValidate = new Set(pathsToValidate);
+  const parentPaths = new Map([]);
+  for (const path of pathsToValidate) {
+    if (path.indexOf('.') === -1) {
+      continue;
+    }
+    const pieces = path.split('.');
+    let cur = pieces[0];
+    for (let i = 1; i < pieces.length; ++i) {
+      // Since we skip subpaths under single nested subdocs to
+      // avoid double validation, we need to add back the
+      // single nested subpath if the user asked for it (gh-8626)
+      parentPaths.set(cur, path);
+      cur = cur + '.' + pieces[i];
+    }
+  }
+
+  const ret = new Set();
+  for (const path of paths) {
+    if (_pathsToValidate.has(path)) {
+      ret.add(path);
+    } else if (parentPaths.has(path)) {
+      ret.add(parentPaths.get(path));
+    }
+  }
+  return ret;
+}
+const _pathsToValidate = new Set(pathsToValidate)
+const parentPaths = new Map([])
+_iterator_12 = <operator>.iterator(pathsToValidate)
+path.indexOf('.') === -1
+continue;
+const pieces = path.split('.')
+let cur = pieces[0]
+i < pieces.length
+parentPaths.set(cur, path)
+cur = cur + '.' + pieces[i]
+const ret = new Set()
+_iterator_13 = <operator>.iterator(paths)
+_pathsToValidate.has(path)
+ret.add(path)
+parentPaths.has(path)
+ret.add(parentPaths.get(path))

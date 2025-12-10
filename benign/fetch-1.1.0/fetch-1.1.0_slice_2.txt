@@ -1,0 +1,32 @@
+function FetchStream = function FetchStream(url, options) {
+    Stream.call(this);
+
+    options = options || {};
+
+    this.url = url;
+    if (!this.url) {
+        return this.emit('error', new Error('url not defined'));
+    }
+
+    this.userAgent = options.userAgent || 'FetchStream';
+
+    this._redirect_count = 0;
+
+    this.options = options || {};
+    this.normalizeOptions();
+
+    // prevent errors before 'error' handler is set by defferring actions
+    if (typeof setImmediate !== 'undefined') {
+        setImmediate(this.runStream.bind(this, url));
+    } else {
+        process.nextTick(this.runStream.bind(this, url));
+    }
+    this.responseBuffer = USE_ALLOC ? Buffer.alloc(0, '', 'binary') : new Buffer(0, 'binary');
+    this.ended = false;
+    this.readyToRead = 0;
+}
+Stream.call(this)
+options = options || {}
+this.url = url
+!this.url
+this.emit('error', new Error('url not defined'))

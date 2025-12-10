@@ -1,0 +1,4 @@
+timeout = param1_1.timeout
+const request = require('./v1/request')
+const response = require('./v1/response')
+_tmp_4.request = request({ topics, timeout })

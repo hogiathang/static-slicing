@@ -1,0 +1,16 @@
+Decipher.prototype._update = function (data) {
+  this._cache.add(data)
+  var chunk
+  var thing
+  var out = []
+  while ((chunk = this._cache.get(this._autopadding))) {
+    thing = this._mode.decrypt(this, chunk)
+    out.push(thing)
+  }
+  return Buffer.concat(out)
+}
+(_tmp_11 = this._cache).add
+__ecma.Array.factory()
+chunk = this._cache.get(this._autopadding)
+thing = this._mode.decrypt(this, chunk)
+out.push(thing)

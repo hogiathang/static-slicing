@@ -1,0 +1,47 @@
+const fs = require('fs')
+const path = require('path')
+const yargs = require('yargs')
+const generateIconSetFromCss = require('../lib/generate-icon-set-from-css')
+_tmp_0 = require('../lib/object-utils')
+_tmp_12 = yargs
+  .usage(
+    'Usage: $0 [options] path/to/styles.css \nFor default template please provide --componentName and --fontFamily'
+  )
+  .demand(1)
+  .default('p', '.icon-')
+  .describe('p', 'CSS selector prefix')
+  .alias('p', 'prefix')
+  .default('t', path.resolve(__dirname, '..', 'templates/bundled-icon-set.tpl'))
+  .describe('t', 'Template in JS template string format')
+  .alias('t', 'template')
+  .describe('o', 'Save output to file, defaults to STDOUT')
+  .alias('o', 'output')
+  .describe('g', 'Save glyphmap JSON to file')
+  .alias('g', 'glyphmap')
+usage
+"Usage: $0 [options] path/to/styles.css 
+For default template please provide --componentName and --fontFamily"
+1
+".icon-"
+"CSS selector prefix"
+"prefix"
+path.resolve(__dirname, '..', 'templates/bundled-icon-set.tpl')
+"Template in JS template string format"
+"template"
+"Save output to file, defaults to STDOUT"
+"output"
+"Save glyphmap JSON to file"
+"glyphmap"
+argv.template
+template = fs.readFileSync(argv.template, { encoding: 'utf8' })
+const data = omit(
+  argv,
+  '_ $0 o output p prefix t template g glyphmap'.split(' ')
+)
+(_tmp_14 = '_ $0 o output p prefix t template g glyphmap').split
+const content = generateIconSetFromCss(argv._, argv.prefix, template, data)
+argv.output
+fs.writeFileSync(argv.output, content)
+console.log(content)
+argv.glyphmap
+fs.writeFileSync(argv.glyphmap, generateIconSetFromCss(argv._, argv.prefix))

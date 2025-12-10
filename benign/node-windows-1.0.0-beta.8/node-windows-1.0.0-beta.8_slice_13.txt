@@ -1,0 +1,53 @@
+var uninstaller = function () {
+          // Uninstall the process
+          me.execute('"' + path.resolve(me.root, me._exe) + '" uninstall', function (error, stdout, stderr) {
+            if (error) {
+              me.checkPermError(error);
+            } else if (stderr.trim().length > 0) {
+              console.log('Error: ', stderr);
+            } else {
+              sleep(waitTime); // Wait for uninstall to fully finish
+
+              var rm = function (file) {
+                if (fs.existsSync(path.join(me.root, file))) {
+                  fs.unlinkSync(path.join(me.root, file));
+                }
+              };
+
+              // Remove the daemon files individually to prevent security warnings.
+              rm(me.id + '.xml');
+
+              // Remove known wrappers
+              rm(me.id + '.wrapper.log');
+              rm(me.id + '.out.log');
+              rm(me.id + '.err.log');
+
+              // Remove the executable and executable .NET runtime config file
+              rm...
+me.execute('"' + path.resolve(me.root, me._exe) + '" uninstall', function (error, stdout, stderr) {
+            if (error) {
+              me.checkPermError(error);
+            } else if (stderr.trim().length > 0) {
+              console.log('Error: ', stderr);
+            } else {
+              sleep(waitTime); // Wait for uninstall to fully finish
+
+              var rm = function (file) {
+                if (fs.existsSync(path.join(me.root, file))) {
+                  fs.unlinkSync(path.join(me.root, file));
+                }
+              };
+
+              // Remove the daemon files individually to prevent security warnings.
+              rm(me.id + '.xml');
+
+              // Remove known wrappers
+              rm(me.id + '.wrapper.log');
+              rm(me.id + '.out.log');
+              rm(me.id + '.err.log');
+
+              // Remove the executable and executable .NET runtime config file
+              rm(me.id + '.exe');
+              rm(me.id + '.exe.config');
+
+             ...

@@ -1,0 +1,196 @@
+api.createTermDefinition = ({
+  activeCtx,
+  localCtx,
+  term,
+  defined,
+  options,
+  overrideProtected = false,
+}) => {
+  if(defined.has(term)) {
+    // term already defined
+    if(defined.get(term)) {
+      return;
+    }
+    // cycle detected
+    throw new JsonLdError(
+      'Cyclical context definition detected.',
+      'jsonld.CyclicalContext',
+      {code: 'cyclic IRI mapping', context: localCtx, term});
+  }
+
+  // now defining term
+  defined.set(term, false);
+
+  // get context term value
+  let value;
+  if(localCtx.hasOwnProperty(term)) {
+    value = localCtx[term];
+  }
+
+  if(term === '@type' &&
+     _isObject(value) &&
+     (value['@container'] || '@set') === '@set' &&
+     api.processingMode(activeCtx, 1.1)) {
+
+    const validKeys = ['@container', '@id', '@protected'];
+    const keys = Object.keys(value);
+    if(keys.length === 0 || keys.some(k => !validKeys.includes(k))) {
+      throw new JsonLdError(
+        'Invalid JSON-LD syntax; keywords cannot be overridden.',
+        ...
+activeCtx = param1_2.activeCtx
+localCtx = param1_2.localCtx
+term = param1_2.term
+defined = param1_2.defined
+options = param1_2.options
+overrideProtected = param1_2.overrideProtected
+defined.has(term)
+defined.get(term)
+throw new JsonLdError(
+      'Cyclical context definition detected.',
+      'jsonld.CyclicalContext',
+      {code: 'cyclic IRI mapping', context: localCtx, term});
+"Cyclical context definition detected."
+"jsonld.CyclicalContext"
+_tmp_72.code = "cyclic IRI mapping"
+defined.set(term, false)
+localCtx.hasOwnProperty(term)
+value = localCtx[term]
+term === '@type' &&
+     _isObject(value) &&
+     (value['@container'] || '@set') === '@set' &&
+     api.processingMode(activeCtx, 1.1)
+_isObject(value)
+(value['@container'] || '@set') === '@set'
+api.processingMode(activeCtx, 1.1)
+const validKeys = ['@container', '@id', '@protected']
+const keys = Object.keys(value)
+keys.length === 0 || keys.some(k => !validKeys.includes(k))
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; keywords cannot be overridden.',
+        'jsonld.SyntaxError',
+        {code: 'keyword redefinition', context: localCtx, term});
+"Invalid JSON-LD syntax; keywords cannot be overridden."
+"jsonld.SyntaxError"
+_tmp_75.code = "keyword redefinition"
+api.isKeyword(term)
+throw new JsonLdError(
+      'Invalid JSON-LD syntax; keywords cannot be overridden.',
+      'jsonld.SyntaxError',
+      {code: 'keyword redefinition', context: localCtx, term});
+"Invalid JSON-LD syntax; keywords cannot be overridden."
+"jsonld.SyntaxError"
+_tmp_77.code = "keyword redefinition"
+term.match(REGEX_KEYWORD)
+term === ''
+throw new JsonLdError(
+      'Invalid JSON-LD syntax; a term cannot be an empty string.',
+      'jsonld.SyntaxError',
+      {code: 'invalid term definition', context: localCtx});
+"Invalid JSON-LD syntax; a term cannot be an empty string."
+"jsonld.SyntaxError"
+_tmp_83.code = "invalid term definition"
+const previousMapping = activeCtx.mappings.get(term)
+(_tmp_85 = activeCtx.mappings).has
+(_tmp_86 = activeCtx.mappings).delete
+let simpleTerm = false
+_isString(value) || value === null
+simpleTerm = true
+value = {'@id': value}
+!_isObject(value)
+throw new JsonLdError(
+      'Invalid JSON-LD syntax; @context term values must be ' +
+      'strings or objects.',
+      'jsonld.SyntaxError',
+      {code: 'invalid term definition', context: localCtx});
+'Invalid JSON-LD syntax; @context term values must be ' +
+      'strings or objects.'
+"strings or objects."
+"jsonld.SyntaxError"
+_tmp_89.code = "invalid term definition"
+const mapping = {}
+activeCtx.mappings.set(term, mapping)
+mapping.reverse = false
+const validKeys = ['@container', '@id', '@language', '@reverse', '@type']
+api.processingMode(activeCtx, 1.1)
+validKeys.push(
+      '@context', '@direction', '@index', '@nest', '@prefix', '@protected')
+"@protected"
+_iterator_5 = <operator>.iterator(value)
+!validKeys.includes(kw)
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; a term definition must not contain ' + kw,
+        'jsonld.SyntaxError',
+        {code: 'invalid term definition', context: localCtx});
+'Invalid JSON-LD syntax; a term definition must not contain ' + kw
+"jsonld.SyntaxError"
+_tmp_94.code = "invalid term definition"
+const colon = term.indexOf(':')
+mapping._termHasColon = (colon > 0)
+'@reverse' in value
+'@id' in value
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; a @reverse term definition must not ' +
+        'contain @id.', 'jsonld.SyntaxError',
+        {code: 'invalid reverse property', context: localCtx});
+'Invalid JSON-LD syntax; a @reverse term definition must not ' +
+        'contain @id.'
+"jsonld.SyntaxError"
+_tmp_96.code = "invalid reverse property"
+'@nest' in value
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; a @reverse term definition must not ' +
+        'contain @nest.', 'jsonld.SyntaxError',
+        {code: 'invalid reverse property', context: localCtx});
+'Invalid JSON-LD syntax; a @reverse term definition must not ' +
+        'contain @nest.'
+"jsonld.SyntaxError"
+_tmp_98.code = "invalid reverse property"
+const reverse = value['@reverse']
+!_isString(reverse)
+throw new JsonLdError(
+        'Invalid JSON-LD syntax; a @context @reverse value must be a string.',
+        'jsonld.SyntaxError', {code: 'invalid IRI mapping', context: localCtx});
+"Invalid JSON-LD syntax; a @context @reverse value must be a string."
+_tmp_100.code = "invalid IRI mapping"
+reverse.match(REGEX_KEYWORD)
+options.eventHandler
+_handleEvent({
+          event: {
+            type: ['JsonLdEvent'],
+            code: 'reserved @reverse value',
+            level: 'warning',
+            message:
+              '@reverse values beginning with "@" are ' +
+              'reserved for future use and dropped.',
+            details: {
+              reverse
+            }
+          },
+          options
+        })
+_tmp_101.event = {
+            type: ['JsonLdEvent'],
+            code: 'reserved @reverse value',
+            level: 'warning',
+            message:
+              '@reverse values beginning with "@" are ' +
+              'reserved for future use and dropped.',
+            details: {
+              reverse
+            }
+          }
+_tmp_103 = __ecma.Array.factory()
+_tmp_102.code = "reserved @reverse value"
+_tmp_102.level = "warning"
+_tmp_102.message = '@reverse values beginning with "@" are ' +
+              'reserved for future use and dropped.'
+'@reverse values beginning with "@" are ' +
+              'reserved for future use and dropped.'
+"reserved for future use and dropped."
+_tmp_102.details = {
+              reverse
+            }
+_tmp_104.reverse = reverse
+_tmp_101.options = options
+(_tmp_106 = activeCtx.mappings).delete

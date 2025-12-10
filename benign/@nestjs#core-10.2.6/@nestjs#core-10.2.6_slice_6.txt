@@ -1,0 +1,27 @@
+async addModule(metatype, scope) {
+        // In DependenciesScanner#scanForModules we already check for undefined or invalid modules
+        // We still need to catch the edge-case of `forwardRef(() => undefined)`
+        if (!metatype) {
+            throw new exceptions_1.UndefinedForwardRefException(scope);
+        }
+        const { type, dynamicMetadata, token } = await this.moduleCompiler.compile(metatype);
+        if (this.modules.has(token)) {
+            return {
+                moduleRef: this.modules.get(token),
+                inserted: true,
+            };
+        }
+        return {
+            moduleRef: await this.setModule({
+                token,
+                type,
+                dynamicMetadata,
+            }, scope),
+            inserted: true,
+        };
+    }
+!metatype
+throw new exceptions_1.UndefinedForwardRefException(scope);
+_tmp_10 = await this.moduleCompiler.compile(metatype)
+(_tmp_11 = this.modules).has
+_tmp_12.moduleRef = this.modules.get(token)

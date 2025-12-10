@@ -1,0 +1,2 @@
+_tmp_24.signalError = signalError
+send({type: 'shared-worker-error', channelId})

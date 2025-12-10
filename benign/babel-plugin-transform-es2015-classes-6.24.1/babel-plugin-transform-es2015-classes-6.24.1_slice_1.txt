@@ -1,0 +1,55 @@
+ClassTransformer.prototype.constructorMeMaybe = function constructorMeMaybe() {
+    var hasConstructor = false;
+    var paths = this.path.get("body.body");
+    for (var _iterator = paths, _isArray = Array.isArray(_iterator), _i = 0, _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator);;) {
+      var _ref;
+
+      if (_isArray) {
+        if (_i >= _iterator.length) break;
+        _ref = _iterator[_i++];
+      } else {
+        _i = _iterator.next();
+        if (_i.done) break;
+        _ref = _i.value;
+      }
+
+      var path = _ref;
+
+      hasConstructor = path.equals("kind", "constructor");
+      if (hasConstructor) break;
+    }
+    if (hasConstructor) return;
+
+    var params = void 0,
+        body = void 0;
+
+    if (this.isDerived) {
+      var _constructor = buildDerivedConstructor().expression;
+      params = _constructor.params;
+      body = _constructor.body;
+    } else {
+      params = [];
+      body = t.blockStatement([]);
+    }
+
+    this.path.get("body").uns...
+var hasConstructor = false
+var paths = this.path.get("body.body")
+var _iterator = _isArray ? _iterator : (0, _getIterator3.default)(_iterator)
+_i >= _iterator.length
+_ref = _iterator[_i++]
+_i = _iterator.next()
+_i.done
+_ref = _i.value
+var path = _ref
+hasConstructor = path.equals("kind", "constructor")
+break;
+var params = void 0
+var body = void 0
+this.isDerived
+var _constructor = buildDerivedConstructor().expression
+params = _constructor.params
+body = _constructor.body
+__ecma.Array.factory()
+body = t.blockStatement([])
+this.path.get("body").unshiftContainer("body", t.classMethod("constructor", t.identifier("constructor"), params, body))

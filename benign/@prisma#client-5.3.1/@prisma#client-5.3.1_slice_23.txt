@@ -1,0 +1,136 @@
+_tmp_1820.../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/graceful-fs.js = "../../node_modules/.pnpm/graceful-fs@4.2.10/node_modules/graceful-fs/graceful-fs.js"
+var fs6 = require("fs")
+var polyfills = require_polyfills()
+var legacy = require_legacy_streams()
+var clone = require_clone()
+var util2 = require("util")
+typeof Symbol === "function" && typeof Symbol.for === "function"
+gracefulQueue = Symbol.for("graceful-fs.queue")
+previousSymbol = Symbol.for("graceful-fs.previous")
+gracefulQueue = "___graceful-fs.queue"
+previousSymbol = "___graceful-fs.previous"
+function noop = function noop() {
+    }
+function publishQueue = function publishQueue(context, queue2) {
+      Object.defineProperty(context, gracefulQueue, {
+        get: function() {
+          return queue2;
+        }
+      });
+    }
+var debug7 = noop
+util2.debuglog
+debug7 = util2.debuglog("gfs4")
+/\bgfs4\b/i.test(process.env.NODE_DEBUG || "")
+debug7 = function() {
+        var m = util2.format.apply(util2, arguments);
+        m = "GFS4: " + m.split(/\n/).join("\nGFS4: ");
+        console.error(m);
+      }
+!fs6[gracefulQueue]
+queue = global[gracefulQueue] || []
+publishQueue(fs6, queue)
+fs6.close = function(fs$close) {
+        function close(fd, cb) {
+          return fs$close.call(fs6, fd, function(err) {
+            if (!err) {
+              resetQueue();
+            }
+            if (typeof cb === "function")
+              cb.apply(this, arguments);
+          });
+        }
+        Object.defineProperty(close, previousSymbol, {
+          value: fs$close
+        });
+        return close;
+      }(fs6.close)
+fs6.close
+fs6.closeSync = function(fs$closeSync) {
+        function closeSync(fd) {
+          fs$closeSync.apply(fs6, arguments);
+          resetQueue();
+        }
+        Object.defineProperty(closeSync, previousSymbol, {
+          value: fs$closeSync
+        });
+        return closeSync;
+      }(fs6.closeSync)
+fs6.closeSync
+/\bgfs4\b/i.test(process.env.NODE_DEBUG || "")
+process.on("exit", function() {
+          debug7(fs6[gracefulQueue]);
+          require("assert").equal(fs6[gracefulQueue].length, 0);
+        })
+!global[gracefulQueue]
+publishQueue(global, fs6[gracefulQueue])
+module2.exports = patch(clone(fs6))
+function patch = function patch(fs7) {
+      polyfills(fs7);
+      fs7.gracefulify = patch;
+      fs7.createReadStream = createReadStream;
+      fs7.createWriteStream = createWriteStream;
+      var fs$readFile = fs7.readFile;
+      fs7.readFile = readFile2;
+      function readFile2(path7, options2, cb) {
+        if (typeof options2 === "function")
+          cb = options2, options2 = null;
+        return go$readFile(path7, options2, cb);
+        function go$readFile(path8, options3, cb2, startTime) {
+          return fs$readFile(path8, options3, function(err) {
+            if (err && (err.code === "EMFILE" || err.code === "ENFILE"))
+              enqueue([go$readFile, [path8, options3, cb2], err, startTime || Date.now(), Date.now()]);
+            else {
+              if (typeof cb2 === "function")
+                cb2.apply(this, arguments);
+            }
+          });
+        }
+      }
+      var fs$writeFile = fs7.writeFile;
+      fs7.writeFile = writeFile;
+      function writeFile(path7, data, optio...
+function enqueue = function enqueue(elem) {
+      debug7("ENQUEUE", elem[0].name, elem[1]);
+      fs6[gracefulQueue].push(elem);
+      retry();
+    }
+function resetQueue = function resetQueue() {
+      var now = Date.now();
+      for (var i = 0; i < fs6[gracefulQueue].length; ++i) {
+        if (fs6[gracefulQueue][i].length > 2) {
+          fs6[gracefulQueue][i][3] = now;
+          fs6[gracefulQueue][i][4] = now;
+        }
+      }
+      retry();
+    }
+function retry = function retry() {
+      clearTimeout(retryTimer);
+      retryTimer = void 0;
+      if (fs6[gracefulQueue].length === 0)
+        return;
+      var elem = fs6[gracefulQueue].shift();
+      var fn = elem[0];
+      var args = elem[1];
+      var err = elem[2];
+      var startTime = elem[3];
+      var lastTime = elem[4];
+      if (startTime === void 0) {
+        debug7("RETRY", fn.name, args);
+        fn.apply(null, args);
+      } else if (Date.now() - startTime >= 6e4) {
+        debug7("TIMEOUT", fn.name, args);
+        var cb = args.pop();
+        if (typeof cb === "function")
+          cb.call(null, err);
+      } else {
+        var sinceAttempt = Date.now() - lastTime;
+        var sinceStart = Math.max(lastTime - startTime, 1);
+        var desiredDelay = Math.min(sinceStart * 1.2, 100);
+        if (sinceAttempt >= desiredDelay) {
+          debug7("RETRY", fn.name, args);
+          fn.apply(null, args.concat([startTime]));
+        } else {
+          fs6[gracefulQueue].push(elem);
+     ...

@@ -1,0 +1,5 @@
+jmespath = require('./jmespath')
+(_tmp_0 = process.stdin).setEncoding
+process.argv.length < 2
+console.log("Must provide a jmespath expression.")
+process.exit(1)

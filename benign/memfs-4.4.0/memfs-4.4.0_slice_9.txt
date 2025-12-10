@@ -1,0 +1,4 @@
+this._emit = (type) => {
+            this.emit('change', type, this._filenameEncoded);
+        }
+this.emit('change', type, this._filenameEncoded)

@@ -1,0 +1,1 @@
+this.cacheKey=calculateCacheKey({outdir:this.assetOutdir,sourcePath:path.resolve(props.sourcePath),bundling:props.bundling,assetHashType:this.hashType,customFingerprint:this.customSourceFingerprint,extraHash:props.extraHash,exclude:props.exclude,ignoreMode:props.ignoreMode,skip})

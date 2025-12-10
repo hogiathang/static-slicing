@@ -1,0 +1,5 @@
+var dnode = require('dnode')
+process.argv.length < 4
+var user = process.argv[2]
+var pass = process.argv[3]
+var d = dnode.connect(7007)

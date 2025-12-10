@@ -1,0 +1,90 @@
+Modem.prototype.dial = function (options, callback) {
+  var opts, address, data;
+  var self = this;
+
+  if (options.options) {
+    opts = options.options;
+  }
+
+  // Prevent credentials from showing up in URL
+  if (opts && opts.authconfig) {
+    delete opts.authconfig;
+  }
+
+  // Prevent abortsignal from showing up in the URL
+  if (opts && opts.abortSignal) {
+    delete opts.abortSignal;
+  }
+
+  if (this.version) {
+    options.path = '/' + this.version + options.path;
+  }
+
+  if (this.host) {
+    var parsed = url.parse(self.host);
+    address = url.format({
+      'protocol': parsed.protocol || self.protocol,
+      'hostname': parsed.hostname || self.host,
+      'port': self.port
+    });
+    address = url.resolve(address, options.path);
+  } else {
+    address = options.path;
+  }
+
+  if (options.path.indexOf('?') !== -1) {
+    if (opts && Object.keys(opts).length > 0) {
+      address += this.buildQuerystring(opts._query || opts);
+    } else {
+      address = address.substring(0, address.len...
+var self = this
+options.options
+opts = options.options
+opts && opts.authconfig
+delete opts.authconfig
+opts && opts.abortSignal
+delete opts.abortSignal
+this.version
+options.path = '/' + this.version + options.path
+this.host
+var parsed = url.parse(self.host)
+address = url.format({
+      'protocol': parsed.protocol || self.protocol,
+      'hostname': parsed.hostname || self.host,
+      'port': self.port
+    })
+_tmp_13.protocol = parsed.protocol || self.protocol
+_tmp_13.hostname = parsed.hostname || self.host
+_tmp_13.port = self.port
+address = url.resolve(address, options.path)
+address = options.path
+options.path.indexOf('?') !== -1
+opts && Object.keys(opts).length > 0
+address += this.buildQuerystring(opts._query || opts)
+address = address.substring(0, address.length - 1)
+var optionsf = {
+    path: address,
+    method: options.method,
+    headers: options.headers || Object.assign({}, self.headers),
+    key: self.key,
+    cert: self.cert,
+    ca: self.ca
+  }
+_tmp_15.path = address
+_tmp_15.method = options.method
+_tmp_15.headers = options.headers || Object.assign({}, self.headers)
+_tmp_15.key = self.key
+_tmp_15.cert = self.cert
+_tmp_15.ca = self.ca
+this.checkServerIdentity
+optionsf.checkServerIdentity = this.checkServerIdentity
+this.agent
+optionsf.agent = this.agent
+options.authconfig
+optionsf.headers['X-Registry-Auth'] = options.authconfig.key || options.authconfig.base64 ||
+      Buffer.from(JSON.stringify(options.authconfig)).toString('base64').replace(/\+/g, "-").replace(/\//g, "_")
+Buffer.from(JSON.stringify(options.authconfig)).toString('base64').replace(/\+/g, "-").replace(/\//g, "_")
+options.registryconfig
+optionsf.headers['X-Registry-Config'] = options.registryconfig.base64 ||
+      Buffer.from(JSON.stringify(options.registryconfig)).toString('base64')
+(_tmp_20 = Buffer.from(JSON.stringify(options.registryconfig))).toString

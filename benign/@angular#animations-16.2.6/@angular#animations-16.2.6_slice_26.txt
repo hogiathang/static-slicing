@@ -1,0 +1,34 @@
+queuedInstructions.forEach(entry => {
+            const { element, player, instruction } = entry;
+            // this means that it was never consumed by a parent animation which
+            // means that it is independent and therefore should be set for animation
+            if (subTimelines.has(element)) {
+                if (disabledElementsSet.has(element)) {
+                    player.onDestroy(() => setStyles(element, instruction.toStyles));
+                    player.disabled = true;
+                    player.overrideTotalTime(instruction.totalTime);
+                    skippedPlayers.push(player);
+                    return;
+                }
+                // this will flow up the DOM and query the map to figure out
+                // if a parent animation has priority over it. In the situation
+                // that a parent is detected then it will cancel the loop. If
+                // nothing is detected, or it takes a few hops to find a parent,
+                // th...
+instruction = _tmp_466.instruction
+subTimelines.has(element)
+disabledElementsSet.has(element)
+let parentWithAnimation = NO_PARENT_ANIMATION_ELEMENT_DETECTED
+animationElementMap.size > 1
+let elm = element
+const parentsToAdd = []
+elm = elm.parentNode
+const detectedParent = animationElementMap.get(elm)
+parentWithAnimation = detectedParent
+break;
+parentsToAdd.push(elm)
+parentsToAdd.forEach(parent => animationElementMap.set(parent, parentWithAnimation))
+const innerPlayer = this._buildAnimation(player.namespaceId, instruction, allPreviousPlayersMap, skippedPlayersMap, preStylesMap, postStylesMap)
+player.setRealPlayer(innerPlayer)
+parentWithAnimation === NO_PARENT_ANIMATION_ELEMENT_DETECTED
+const parentPlayers = this.playersByElement.get(parentWithAnimation)

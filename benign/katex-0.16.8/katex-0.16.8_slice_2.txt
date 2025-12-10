@@ -1,0 +1,38 @@
+function parseCD = function parseCD(parser: Parser): ParseNode<"array"> {
+    // Get the array's parse nodes with \\ temporarily mapped to \cr.
+    const parsedRows: AnyParseNode[][] = [];
+    parser.gullet.beginGroup();
+    parser.gullet.macros.set("\\cr", "\\\\\\relax");
+    parser.gullet.beginGroup();
+    while (true) {  // eslint-disable-line no-constant-condition
+        // Get the parse nodes for the next row.
+        parsedRows.push(parser.parseExpression(false, "\\\\"));
+        parser.gullet.endGroup();
+        parser.gullet.beginGroup();
+        const next = parser.fetch().text;
+        if (next === "&" || next === "\\\\") {
+            parser.consume();
+        } else if (next === "\\end") {
+            if (parsedRows[parsedRows.length - 1].length === 0) {
+                parsedRows.pop(); // final row ended in \\
+            }
+            break;
+        } else {
+            throw new ParseError("Expected \\\\ or \\cr or \\end",
+                                 parser.nextToken);
+        }
+...
+const parsedRows: AnyParseNode[][] = []
+(_tmp_14 = parser.gullet).beginGroup
+parser.gullet.macros.set("\\cr", "\\\\\\relax")
+(_tmp_16 = parser.gullet).beginGroup
+parsedRows.push(parser.parseExpression(false, "\\\\"))
+(_tmp_17 = parser.gullet).endGroup
+(_tmp_18 = parser.gullet).beginGroup
+const next = parser.fetch().text
+next === "&" || next === "\\\\"
+parser.consume()
+next === "\\end"
+throw new ParseError("Expected \\\\ or \\cr or \\end",
+                                 parser.nextToken);
+parser.nextToken

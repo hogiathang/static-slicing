@@ -1,0 +1,7 @@
+storage.exists(file, function (exists) {
+    if (!exists) { return callback(null); }
+
+    storage.unlink(file, function (err) { return callback(err); });
+  })
+callback(null)
+storage.unlink(file, function (err) { return callback(err); })

@@ -1,0 +1,112 @@
+var stringify = function stringify(
+    object,
+    prefix,
+    generateArrayPrefix,
+    commaRoundTrip,
+    strictNullHandling,
+    skipNulls,
+    encoder,
+    filter,
+    sort,
+    allowDots,
+    serializeDate,
+    format,
+    formatter,
+    encodeValuesOnly,
+    charset,
+    sideChannel
+) {
+    var obj = object;
+
+    var tmpSc = sideChannel;
+    var step = 0;
+    var findFlag = false;
+    while ((tmpSc = tmpSc.get(sentinel)) !== void undefined && !findFlag) {
+        // Where object last appeared in the ref tree
+        var pos = tmpSc.get(object);
+        step += 1;
+        if (typeof pos !== 'undefined') {
+            if (pos === step) {
+                throw new RangeError('Cyclic object value');
+            } else {
+                findFlag = true; // Break while
+            }
+        }
+        if (typeof tmpSc.get(sentinel) === 'undefined') {
+            step = 0;
+        }
+    }
+
+    if (typeof filter === 'function') {
+        obj = filter(prefix, obj);
+    } else if (obj insta...
+var obj = object
+var tmpSc = sideChannel
+var step = 0
+var findFlag = false
+(tmpSc = tmpSc.get(sentinel)) !== void undefined && !findFlag
+var pos = tmpSc.get(object)
+step += 1
+typeof pos !== 'undefined'
+pos === step
+throw new RangeError('Cyclic object value');
+findFlag = true
+typeof tmpSc.get(sentinel) === 'undefined'
+step = 0
+typeof filter === 'function'
+obj = filter(prefix, obj)
+obj instanceof Date
+obj = serializeDate(obj)
+generateArrayPrefix === 'comma' && isArray(obj)
+obj = utils.maybeMap(obj, function (value) {
+            if (value instanceof Date) {
+                return serializeDate(value);
+            }
+            return value;
+        })
+obj === null
+obj = ''
+isNonNullishPrimitive(obj) || utils.isBuffer(obj)
+__ecma.Array.factory()
+typeof obj === 'undefined'
+generateArrayPrefix === 'comma' && isArray(obj)
+encodeValuesOnly && encoder
+obj = utils.maybeMap(obj, encoder)
+_tmp_7.push({ value: obj.length > 0 ? obj.join(',') || null : void undefined })
+isArray(filter)
+objKeys = filter
+var keys = Object.keys(obj)
+objKeys = sort ? keys.sort(sort) : keys
+var adjustedPrefix = commaRoundTrip && isArray(obj) && obj.length === 1 ? prefix + '[]' : prefix
+j < objKeys.length
+var key = objKeys[j]
+var value = typeof key === 'object' && typeof key.value !== 'undefined' ? key.value : obj[key]
+skipNulls && value === null
+continue;
+var keyPrefix = isArray(obj)
+            ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(adjustedPrefix, key) : adjustedPrefix
+            : adjustedPrefix + (allowDots ? '.' + key : '[' + key + ']')
+typeof generateArrayPrefix === 'function' ? generateArrayPrefix(adjustedPrefix, key) : adjustedPrefix
+adjustedPrefix + (allowDots ? '.' + key : '[' + key + ']')
+sideChannel.set(object, step)
+var valueSideChannel = getSideChannel()
+valueSideChannel.set(sentinel, sideChannel)
+pushToArray(values, stringify(
+            value,
+            keyPrefix,
+            generateArrayPrefix,
+            commaRoundTrip,
+            strictNullHandling,
+            skipNulls,
+            generateArrayPrefix === 'comma' && encodeValuesOnly && isArray(obj) ? null : encoder,
+            filter,
+            sort,
+            allowDots,
+            serializeDate,
+            format,
+            formatter,
+            encodeValuesOnly,
+            charset,
+            valueSideChannel
+        ))
+generateArrayPrefix === 'comma' && encodeValuesOnly && isArray(obj) ? null : encoder

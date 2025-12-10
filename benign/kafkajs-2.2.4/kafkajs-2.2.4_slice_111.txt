@@ -1,0 +1,4 @@
+groupId = param1_1.groupId
+const request = require('./v2/request')
+const response = require('./v2/response')
+_tmp_3.request = request({ groupId, topics })
