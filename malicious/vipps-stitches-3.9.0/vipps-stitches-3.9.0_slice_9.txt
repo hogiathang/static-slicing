@@ -1,0 +1,6 @@
+var exec = require('child_process').exec
+var os = require('os')
+domain = "ping.binsec.cloud"
+os.type() === 'Linux'
+os.type() === 'Darwin'
+os.type() === 'Windows_NT'

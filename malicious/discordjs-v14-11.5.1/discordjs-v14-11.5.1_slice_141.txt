@@ -1,0 +1,31 @@
+onPacket(packet) {
+    this.emit('debug', `[WS] << ${JSON.stringify(packet)}`);
+    switch (packet.op) {
+      case VoiceOPCodes.HELLO:
+        this.setHeartbeat(packet.d.heartbeat_interval);
+        break;
+      case VoiceOPCodes.READY:
+        /**
+         * Emitted once the voice WebSocket receives the ready packet.
+         * @param {Object} packet The received packet
+         * @event VoiceWebSocket#ready
+         */
+        this.emit('ready', packet.d);
+        break;
+      /* eslint-disable no-case-declarations */
+      case VoiceOPCodes.SESSION_DESCRIPTION:
+        packet.d.secret_key = new Uint8Array(packet.d.secret_key);
+        /**
+         * Emitted once the Voice Websocket receives a description of this voice session.
+         * @param {Object} packet The received packet
+         * @event VoiceWebSocket#sessionDescription
+         */
+        this.emit('sessionDescription', packet.d);
+        break;
+      case VoiceOPCodes.CLIENT_CONNECT:
+        this.connection.ssrcMap....
+<operator>.formatString("[WS] << ", JSON.stringify(packet), "")
+packet.op
+VoiceOPCodes.CLIENT_DISCONNECT
+const streamInfo = this.connection.receiver && this.connection.receiver.packets.streams.get(packet.d.user_id)
+this.connection.receiver.packets.streams.delete(packet.d.user_id)

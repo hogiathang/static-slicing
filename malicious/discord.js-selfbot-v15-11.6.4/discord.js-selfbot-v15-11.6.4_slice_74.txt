@@ -1,0 +1,19 @@
+get roles() {
+    const list = new Collection();
+    const everyoneRole = this.guild.roles.get(this.guild.id);
+
+    if (everyoneRole) list.set(everyoneRole.id, everyoneRole);
+
+    for (const roleID of this._roles) {
+      const role = this.guild.roles.get(roleID);
+      if (role) list.set(role.id, role);
+    }
+
+    return list;
+  }
+const list = new Collection()
+const everyoneRole = this.guild.roles.get(this.guild.id)
+list.set(everyoneRole.id, everyoneRole)
+_iterator_0 = <operator>.iterator(this._roles)
+const role = this.guild.roles.get(roleID)
+list.set(role.id, role)

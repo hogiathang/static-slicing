@@ -1,0 +1,28 @@
+handle(data) {
+    const messages = new Collection();
+    const channel = this.client.channels.get(data.channel_id);
+
+    if (channel) {
+      for (const id of data.ids) {
+        const message = channel.messages.get(id);
+        if (message) {
+          message.deleted = true;
+          messages.set(message.id, message);
+          channel.messages.delete(id);
+        }
+      }
+    }
+
+    if (messages.size > 0)
+      this.client.emit(Constants.Events.MESSAGE_BULK_DELETE, messages);
+    return { messages };
+  }
+const messages = new Collection()
+const channel = this.client.channels.get(data.channel_id)
+_iterator_0 = <operator>.iterator(data.ids)
+const message = channel.messages.get(id)
+message.deleted = true
+messages.set(message.id, message)
+(_tmp_3 = channel.messages).delete
+messages.size > 0
+this.client.emit(Constants.Events.MESSAGE_BULK_DELETE, messages)

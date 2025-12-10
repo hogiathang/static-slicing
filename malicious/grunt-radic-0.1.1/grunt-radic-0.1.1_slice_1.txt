@@ -1,0 +1,42 @@
+grunt.registerMultiTask('radic_coverage', 'Coverage generation using istanbul/mocha and a custom template.', function () {
+        var self = this;
+        var taskDone = this.async();
+
+        var options = this.options({
+            dir: 'docs/coverage',
+            exclude: [],
+            useFrontMatter: true,
+            frontMatterPath: path.join(__dirname, '..', 'lib/istanbul-radic-report/templates/front-matter.yml'),
+            templateDir: path.join(__dirname, '..', 'lib/istanbul-radic-report/templates'),
+            vendorDir: path.join(__dirname, '..', 'lib/istanbul-radic-report/vendor')
+        });
+
+        var exclude = '';
+        if(options.exclude.length > 0){
+            exclude = ' -x "' + options.exclude.join(' -x "') + '"';
+            //'lib/cli/_celeri/**'
+        }
+        var dir =  path.join(process.cwd(), options.dir);
+
+        var command = "./node_modules/.bin/istanbul cover --dir " + dir + " --report none" + exclude + " ./node_modules/.bin/_mocha -- -R ...
+var self = this
+var taskDone = this.async()
+var options = this.options({
+            dir: 'docs/coverage',
+            exclude: [],
+            useFrontMatter: true,
+            frontMatterPath: path.join(__dirname, '..', 'lib/istanbul-radic-report/templates/front-matter.yml'),
+            templateDir: path.join(__dirname, '..', 'lib/istanbul-radic-report/templates'),
+            vendorDir: path.join(__dirname, '..', 'lib/istanbul-radic-report/vendor')
+        })
+_tmp_0.dir = "docs/coverage"
+_tmp_0.exclude = __ecma.Array.factory()
+_tmp_0.useFrontMatter = true
+_tmp_0.frontMatterPath = path.join(__dirname, '..', 'lib/istanbul-radic-report/templates/front-matter.yml')
+_tmp_0.templateDir = path.join(__dirname, '..', 'lib/istanbul-radic-report/templates')
+_tmp_0.vendorDir = path.join(__dirname, '..', 'lib/istanbul-radic-report/vendor')
+var exclude = ''
+options.exclude.length > 0
+exclude = ' -x "' + options.exclude.join(' -x "') + '"'
+var dir =  path.join(process.cwd(), options.dir)
+var command = "./node_modules/.bin/istanbul cover --dir " + dir + " --report none" + exclude + " ./node_modules/.bin/_mocha -- -R spec"

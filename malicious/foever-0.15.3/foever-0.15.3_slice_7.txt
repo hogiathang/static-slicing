@@ -1,0 +1,66 @@
+forever.load = function (options) {
+  // memorize current options.
+  this._loadedOptions = options;
+
+  //
+  // Setup the incoming options with default options.
+  //
+  options           = options           || {};
+  options.loglength = options.loglength || 100;
+  options.logstream = options.logstream || false;
+  options.root      = options.root      || forever.root;
+  options.pidPath   = options.pidPath   || path.join(options.root, 'pids');
+  options.sockPath  = options.sockPath  || path.join(options.root, 'sock');
+
+  //
+  // If forever is initalized and the config directories are identical
+  // simply return without creating directories
+  //
+  if (forever.initialized && forever.config.get('root') === options.root &&
+    forever.config.get('pidPath') === options.pidPath) {
+    return;
+  }
+
+  forever.config = new nconf.File({ file: path.join(options.root, 'config.json') });
+
+  //
+  // Try to load the forever `config.json` from
+  // the specified location.
+  //
+  try {
+    forever.confi...
+this._loadedOptions = options
+options           = options           || {}
+options.loglength = options.loglength || 100
+options.logstream = options.logstream || false
+options.root      = options.root      || forever.root
+options.pidPath   = options.pidPath   || path.join(options.root, 'pids')
+options.sockPath  = options.sockPath  || path.join(options.root, 'sock')
+forever.initialized && forever.config.get('root') === options.root &&
+    forever.config.get('pidPath') === options.pidPath
+forever.config.get('pidPath') === options.pidPath
+forever.config = new nconf.File({ file: path.join(options.root, 'config.json') })
+(_tmp_33 = forever.config).loadSync
+options.columns  = options.columns  || forever.config.get('columns')
+!options.columns
+options.columns = [
+      'uid', 'command', 'script', 'forever', 'pid', 'id', 'logfile', 'uptime'
+    ]
+_tmp_35.push("command")
+forever.config.set('root', options.root)
+forever.config.set('pidPath', options.pidPath)
+forever.config.set('sockPath', options.sockPath)
+forever.config.set('loglength', options.loglength)
+forever.config.set('logstream', options.logstream)
+forever.config.set('columns', options.columns)
+forever.out.transports.console.timestamp = forever.config.get('timestamp') === 'true'
+options.debug = options.debug || forever.config.get('debug') || false
+options.debug
+forever._debug()
+function tryCreate = function tryCreate(dir) {
+    try {
+      fs.mkdirSync(dir, '0755');
+    }
+    catch (ex) { }
+  }
+tryCreate(forever.config.get('root'))

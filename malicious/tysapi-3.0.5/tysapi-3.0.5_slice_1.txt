@@ -1,0 +1,48 @@
+shell.exec(cmd, {silent: true}, (code) => {
+      if (code) {
+        loader.fail(`An error occurred during plugin installation. \nPlease make sure this plugin is available on npm: https://www.npmjs.com/package/${pluginID}`);
+        process.exit(1);
+      }
+
+      // Remove the created package.json needed for yarn
+      if (!isTysapiInstalledWithNPM) {
+        shell.rm('-r', `${pluginPath}/package.json`);
+      }
+
+      try {
+        const prjPath = path.resolve(process.cwd(), 'node_modules', `${pluginID}`);
+
+        // Move the plugin from the `node_modules` folder to the `./plugins` folder.
+        loader.info(`FROM ${prjPath}`);
+        loader.info(`TO ${pluginPath}`);
+
+        // fs.copySync(`${pluginPath}/node_modules/${pluginID}`, pluginPath, {
+        //   overwrite: true,
+        //   dereference: true,
+        // });
+
+        fs.copySync(prjPath, pluginPath, {
+          overwrite: true,
+          dereference: true,
+        });
+        // Copy .gitignore because the file is...
+<operator>.formatString("An error occurred during plugin installation. \nPlease make sure this plugin is available on npm: https://www.npmjs.com/package/", pluginID, "")
+process.exit(1)
+!isTysapiInstalledWithNPM
+<operator>.formatString("", pluginPath, "/package.json")
+const prjPath = path.resolve(process.cwd(), 'node_modules', `${pluginID}`)
+<operator>.formatString("FROM ", prjPath, "")
+<operator>.formatString("TO ", pluginPath, "")
+fs.copySync(prjPath, pluginPath, {
+          overwrite: true,
+          dereference: true,
+        })
+_tmp_6.overwrite = true
+_tmp_6.dereference = true
+fs.accessSync(path.join(pluginPath, '.gitignore'))
+err.code === 'ENOENT'
+process.mainModule.filename.indexOf('yarn') !== -1
+fs.copySync(path.resolve(__dirname, '..', '..', 'tysapi-generate-plugin', 'templates', 'gitignore'), path.join(pluginPath, '.gitignore'))
+fs.copySync(path.resolve(__dirname, '..', 'node_modules', 'tysapi-generate-plugin', 'templates', 'gitignore'), path.join(pluginPath, '.gitignore'))
+<operator>.formatString("The ", cyan(plugin), " plugin has been successfully installed.")
+process.exit(0)

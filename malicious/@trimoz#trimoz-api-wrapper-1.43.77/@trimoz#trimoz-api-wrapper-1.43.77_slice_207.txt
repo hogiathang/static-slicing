@@ -1,0 +1,2 @@
+_tmp_1.passwordUpdate = <lambda>16
+const request = API.http.post('v3/passwordUpdate', params, { headers: { 'Content-Type': 'application/json' } })

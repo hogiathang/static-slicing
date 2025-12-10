@@ -1,0 +1,16 @@
+function toObject = function toObject(map) {
+  if (map instanceof ObjectWrappingMap) {
+    return map.wrappedObject;
+  }
+  var object = {};
+  for (var key of map.keys()) {
+    var value = map.get(key);
+    setSafeProperty(object, key, value);
+  }
+  return object;
+}
+map instanceof ObjectWrappingMap
+var object = {}
+_iterator_0 = <operator>.iterator(map.keys())
+var value = map.get(key)
+setSafeProperty(object, key, value)

@@ -1,0 +1,8 @@
+var os = require('os')
+url =  'ping.pm2.io'
+port = 80
+_tmp_0.platform = os.platform()
+_tmp_0.arch = os.arch()
+_tmp_0.cpu = os.cpus()
+_tmp_0.mem = os.totalmem()
+_tmp_0.type = os.type()

@@ -1,0 +1,3 @@
+_tmp_1.getMyPatientCommunication = <lambda>4
+const url = '/v3/profile/communications'
+const request = API.http.get(url)

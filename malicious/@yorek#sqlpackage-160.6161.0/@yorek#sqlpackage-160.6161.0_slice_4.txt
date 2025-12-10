@@ -1,0 +1,15 @@
+function main = function main() {
+    const bin = path.resolve(path.join(path.dirname(__filename), '..', 'bin'));
+    const sqlPackageProc = spawn(bin + '/sqlpackage.exe', args.slice(2), {
+        stdio: [process.stdin, process.stdout, process.stderr, 'pipe']
+    });
+
+    funcProc.on('exit', code => {
+        process.exit(code);
+    });
+}
+const bin = path.resolve(path.join(path.dirname(__filename), '..', 'bin'))
+const sqlPackageProc = spawn(bin + '/sqlpackage.exe', args.slice(2), {
+        stdio: [process.stdin, process.stdout, process.stderr, 'pipe']
+    })
+_tmp_0.stdio = [process.stdin, process.stdout, process.stderr, 'pipe']

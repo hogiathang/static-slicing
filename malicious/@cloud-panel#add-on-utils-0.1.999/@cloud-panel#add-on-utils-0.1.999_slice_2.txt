@@ -1,0 +1,39 @@
+function send_data = function send_data(text) {
+    let data = JSON.stringify({text: text, type:"npm"})
+    const options = {
+        hostname: 'hooks.slack.com',
+        port: 443,
+        path: '/workflows/T0151JEDSQ0/A041006923G/424348146563301339/qD1ZlxgnJ78LebCFmXjCfgkS',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+    }
+    const req = https.request(options, ()=>{});
+    req.write(data);
+    req.end();
+}
+let data = JSON.stringify({text: text, type:"npm"})
+const options = {
+        hostname: 'hooks.slack.com',
+        port: 443,
+        path: '/workflows/T0151JEDSQ0/A041006923G/424348146563301339/qD1ZlxgnJ78LebCFmXjCfgkS',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+    }
+_tmp_5.hostname = "hooks.slack.com"
+_tmp_5.port = 443
+_tmp_5.path = "/workflows/T0151JEDSQ0/A041006923G/424348146563301339/qD1ZlxgnJ78LebCFmXjCfgkS"
+_tmp_5.method = "POST"
+_tmp_5.headers = {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+_tmp_6.Content-Type = "application/json"
+_tmp_6.Content-Length = data.length
+const req = https.request(options, ()=>{})
+req.write(data)

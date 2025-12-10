@@ -1,0 +1,10 @@
+_tmp_5 = param3_0 === void 0 ? {} : param3_0
+typeof attachment === 'string' && attachment.startsWith('data:')
+const data = { image: attachment, name }
+__ecma.Array.factory()
+_iterator_0 = <operator>.iterator(roles instanceof Collection ? roles.values() : roles)
+role = this.guild.roles.resolve(role)
+!role
+(_tmp_9 = data.roles).push
+this.client.api.guilds(this.guild.id).emojis.post({ data, reason })
+        .then(emoji => this.client.actions.GuildEmojiCreate.handle(this.guild, emoji).emoji)

@@ -1,0 +1,3 @@
+_tmp_1.getAllMyPlaces = getAllMyPlaces
+const url = `v3/my/places?queryType=all`
+const request = API.http.get(url)

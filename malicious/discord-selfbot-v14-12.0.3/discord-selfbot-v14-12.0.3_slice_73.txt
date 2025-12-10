@@ -1,0 +1,11 @@
+execArgv = execArgv === void 0 ? this.manager.execArgv : execArgv
+this.process = childProcess
+      .fork(path.resolve(this.manager.file), args, {
+        env: this.env,
+        execArgv
+      })
+      .on("exit", this._exitListener)
+      .on("message", this._handleMessage.bind(this))
+path.resolve(this.manager.file)
+_tmp_7.env = this.env
+_tmp_7.execArgv = execArgv

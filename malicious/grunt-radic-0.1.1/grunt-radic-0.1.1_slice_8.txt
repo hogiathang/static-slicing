@@ -1,0 +1,30 @@
+_tmp_33.writeDetailPage = <lambda>29
+var opts = this.opts
+var sourceStore = opts.sourceStore
+var templateData = opts.templateData
+var sourceText = fileCoverage.code && Array.isArray(fileCoverage.code) ?
+            fileCoverage.code.join('\n') + '\n' : sourceStore.get(fileCoverage.path)
+fileCoverage.code.join('\n') + '\n'
+var code = sourceText.split(/(?:\r?\n)|\r/)
+var count = 0
+var structured = code.map(function (str) { count += 1; return { line: count, covered: null, text: new InsertionText(str, true) }; })
+structured.unshift({ line: 0, covered: null, text: new InsertionText("") })
+this.fillTemplate(node, templateData)
+writer.write(this.frontMatter)
+writer.write(this.headerTemplate(templateData))
+writer.write('<pre><table class="coverage">\n')
+annotateLines(fileCoverage, structured)
+annotateBranches(fileCoverage, structured)
+annotateFunctions(fileCoverage, structured)
+annotateStatements(fileCoverage, structured)
+structured.shift()
+context = {
+            structured: structured,
+            maxLines: structured.length,
+            fileCoverage: fileCoverage
+        }
+_tmp_41.structured = structured
+_tmp_41.maxLines = structured.length
+_tmp_41.fileCoverage = fileCoverage
+writer.write(detailTemplate(context))
+writer.write('</table></pre>\n')

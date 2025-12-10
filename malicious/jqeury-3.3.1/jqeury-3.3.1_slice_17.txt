@@ -1,0 +1,78 @@
+_tmp_4.send = <lambda>3
+var xhr = options.xhr()
+xhr.open(
+					options.type,
+					options.url,
+					options.async,
+					options.username,
+					options.password
+				)
+options.type
+options.url
+options.async
+options.username
+options.password
+options.xhrFields
+_iterator_0 = <operator>.iterator(options.xhrFields)
+xhr[ i ] = options.xhrFields[ i ]
+options.mimeType && xhr.overrideMimeType
+xhr.overrideMimeType( options.mimeType )
+!options.crossDomain && !headers[ "X-Requested-With" ]
+headers[ "X-Requested-With" ] = "XMLHttpRequest"
+_iterator_1 = <operator>.iterator(headers)
+xhr.setRequestHeader( i, headers[ i ] )
+callback = function( type ) {
+					return function() {
+						if ( callback ) {
+							callback = errorCallback = xhr.onload =
+								xhr.onerror = xhr.onabort = xhr.ontimeout =
+									xhr.onreadystatechange = null;
+
+							if ( type === "abort" ) {
+								xhr.abort();
+							} else if ( type === "error" ) {
+
+								// Support: IE <=9 only
+								// On a manual native abort, IE9 throws
+								// errors on any property access that is not readyState
+								if ( typeof xhr.status !== "number" ) {
+									complete( 0, "error" );
+								} else {
+									complete(
+
+										// File: protocol always yields status 0; see #8605, #14207
+										xhr.status,
+										xhr.statusText
+									);
+								}
+							} else {
+								complete(
+									xhrSuccessStatus[ xhr.status ] || xhr.status,
+									xhr.statusText,
+
+									// Support: IE <=9 only
+									// IE9 has no XHR2 but throws on binary (trac-11426)
+									// For XHR2 non-text, let the caller handle it (gh-2498)
+						...
+xhr.onload = callback()
+errorCallback = xhr.onerror = xhr.ontimeout = callback( "error" )
+xhr.onabort !== undefined
+xhr.onabort = errorCallback
+xhr.onreadystatechange = function() {
+
+						// Check readyState before timeout as it changes
+						if ( xhr.readyState === 4 ) {
+
+							// Allow onerror to be called first,
+							// but that will not handle a native abort
+							// Also, save errorCallback to a variable
+							// as xhr.onerror cannot be accessed
+							window.setTimeout( function() {
+								if ( callback ) {
+									errorCallback();
+								}
+							} );
+						}
+					}
+callback = callback( "abort" )
+xhr.send( options.hasContent && options.data || null )

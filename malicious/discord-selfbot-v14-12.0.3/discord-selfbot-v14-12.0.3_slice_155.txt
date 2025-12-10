@@ -1,0 +1,28 @@
+gen() {
+    const API = `${this.client.options.http.host}/api/v${this.client.options.http.version}`;
+    const request = snekfetch[this.method](`${API}${this.path}`);
+    if (this.auth) request.set("Authorization", this.getAuth());
+    if (this.reason)
+      request.set("X-Audit-Log-Reason", encodeURIComponent(this.reason));
+    if (!this.rest.client.browser)
+      request.set("User-Agent", this.rest.userAgentManager.userAgent);
+    if (this.files) {
+      for (const file of this.files)
+        if (file && file.file) request.attach(file.name, file.file, file.name);
+      if (typeof this.data !== "undefined")
+        request.attach("payload_json", JSON.stringify(this.data));
+    } else if (this.data) {
+      request.send(this.data);
+    }
+    return request;
+  }
+<operator>.formatString("", this.client.options.http.host, "/api/v", this.client.options.http.version, "")
+const request = snekfetch[this.method](`${API}${this.path}`)
+request.set("Authorization", this.getAuth())
+this.reason
+request.set("X-Audit-Log-Reason", encodeURIComponent(this.reason))
+!this.rest.client.browser
+request.set("User-Agent", this.rest.userAgentManager.userAgent)
+this.files
+this.data
+request.send(this.data)

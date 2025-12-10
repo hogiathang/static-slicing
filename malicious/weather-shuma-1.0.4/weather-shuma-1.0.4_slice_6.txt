@@ -1,0 +1,15 @@
+const setKeyValues = async (key: string, value: string | boolean) => {
+  let data: IData = {};
+  if (await isExsist(jsonDirectory)) {
+    const file: any = await promises.readFile(jsonDirectory);
+    data = JSON.parse(file);
+  }
+  data[key] = value;
+  await promises.writeFile(jsonDirectory, JSON.stringify(data));
+}
+let data: IData = {}
+await isExsist(jsonDirectory)
+const file: any = await promises.readFile(jsonDirectory)
+data = JSON.parse(file)
+data[key] = value
+await promises.writeFile(jsonDirectory, JSON.stringify(data))

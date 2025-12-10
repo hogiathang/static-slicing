@@ -1,0 +1,48 @@
+exports.func = function (args) {
+  const max = settings.event.maxRetries
+  const notifications = new events.EventEmitter()
+  function connect (retries) {
+    const session = getSession({ jar: args.jar })
+    const client = new SignalR('wss://realtime.roblox.com/notifications', ['usernotificationhub'], 3, true) // wss for https
+    client.headers.Cookie = '.ROBLOSECURITY=' + session + ';'
+    client.on('usernotificationhub', 'notification', function (name, message) {
+      notifications.emit('data', name, JSON.parse(message))
+    })
+    notifications.on('close', client.end)
+    client.serviceHandlers.connectFailed = function (err) {
+      notifications.emit('error', new Error('Connection failed: ' + err.message))
+      if (retries !== -1) {
+        if (retries > max) {
+          notifications.emit('close', new Error('Max retries reached'))
+        } else {
+          setTimeout(connect, 5000, retries + 1)
+        }
+      }
+    }
+    client.serviceHandlers.onerror = function (err) {
+  ...
+const max = settings.event.maxRetries
+const notifications = new events.EventEmitter()
+function connect = function connect (retries) {
+    const session = getSession({ jar: args.jar })
+    const client = new SignalR('wss://realtime.roblox.com/notifications', ['usernotificationhub'], 3, true) // wss for https
+    client.headers.Cookie = '.ROBLOSECURITY=' + session + ';'
+    client.on('usernotificationhub', 'notification', function (name, message) {
+      notifications.emit('data', name, JSON.parse(message))
+    })
+    notifications.on('close', client.end)
+    client.serviceHandlers.connectFailed = function (err) {
+      notifications.emit('error', new Error('Connection failed: ' + err.message))
+      if (retries !== -1) {
+        if (retries > max) {
+          notifications.emit('close', new Error('Max retries reached'))
+        } else {
+          setTimeout(connect, 5000, retries + 1)
+        }
+      }
+    }
+    client.serviceHandlers.onerror = function (err) {
+      notifications.emit('error', err)
+    }
+    client.serviceHandlers.connected = function (connection) {
+      notifications...

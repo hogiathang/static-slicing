@@ -1,0 +1,54 @@
+query(entity, plugin) {
+    if (!entity) {
+      return this.log.error(
+        `You can't call the query method without passing the model's name as a first argument.`,
+      );
+    }
+
+    const model = entity.toLowerCase();
+
+    const Model =
+      get(tysapi.plugins, [plugin, 'models', model]) || get(tysapi, ['models', model]) || undefined;
+
+    if (!Model) {
+      return this.log.error(`The model ${model} can't be found.`);
+    }
+
+    const connector = Model.orm;
+
+    if (!connector) {
+      return this.log.error(`Impossible to determine the use ORM for the model ${model}.`);
+    }
+
+    // Get stack trace.
+    const stack = stackTrace.get()[1];
+    const file = stack.getFileName();
+    // const method = stack.getFunctionName();
+
+    // Extract plugin path.
+    let pluginPath = undefined;
+
+    if (file.indexOf('tysapi-plugin-') !== -1) {
+      pluginPath = file.split(path.sep).filter(x => x.indexOf('tysapi-plugin-') !== -1)[0];
+    } else if (file.indexOf(path.sep + 'plugins' + pa...
+!entity
+const model = entity.toLowerCase()
+const Model =
+      get(tysapi.plugins, [plugin, 'models', model]) || get(tysapi, ['models', model]) || undefined
+get(tysapi.plugins, [plugin, 'models', model]) || get(tysapi, ['models', model]) || undefined
+!Model
+const connector = Model.orm
+!connector
+const stack = stackTrace.get()[1]
+const file = stack.getFileName()
+let pluginPath = undefined
+file.indexOf('tysapi-plugin-') !== -1
+pluginPath = file.split(path.sep).filter(x => x.indexOf('tysapi-plugin-') !== -1)[0]
+file.indexOf(path.sep + 'plugins' + path.sep) !== -1
+const pathTerms = file.split(path.sep)
+const index = pathTerms.indexOf('plugins')
+index !== -1
+pluginPath = pathTerms[index + 1]
+!pluginPath
+const pluginName = pluginPath.replace('tysapi-plugin-', '').toLowerCase()
+const queries = get(this.plugins, `${pluginName}.config.queries.${connector}`)

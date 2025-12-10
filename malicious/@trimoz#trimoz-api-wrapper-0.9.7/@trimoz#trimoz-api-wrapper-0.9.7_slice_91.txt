@@ -1,0 +1,2 @@
+_tmp_1.geocode = <lambda>6
+const request = API.http.get(`/v3/geocode?address=${address}`)

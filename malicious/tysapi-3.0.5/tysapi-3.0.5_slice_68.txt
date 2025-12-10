@@ -1,0 +1,18 @@
+new Promise((resolve, reject) => {
+          // Don't load disabled middleware.
+          if (this.config.middleware.settings[middleware].enabled === false) {
+            return resolve();
+          }
+
+          const module = this.middleware[middleware].load;
+
+          // Retrieve middlewares configurations order
+          const middlewares = Object.keys(this.middleware).filter(middleware => this.config.middleware.settings[middleware].enabled !== false);
+          const middlewaresBefore = get(this.config.middleware, 'load.before', []).filter(middleware => !isUndefined(this.middleware[middleware])).filter(middleware => this.config.middleware.settings[middleware].enabled !== false);
+          const middlewaresOrder = get(this.config.middleware, 'load.order', []).filter(middleware => !isUndefined(this.middleware[middleware])).filter(middleware => this.config.middleware.settings[middleware].enabled !== false);
+          const middlewaresAfter = get(this.config.middleware, 'load.after...
+this.config.middleware.settings[middleware].enabled === false
+const module = this.middleware[middleware].load
+const middlewares = Object.keys(this.middleware).filter(middleware => this.config.middleware.settings[middleware].enabled !== false)
+const middlewaresBefore = get(this.config.middleware, 'load.before', []).filter(middleware => !isUndefined(this.middleware[middleware])).filter(middleware => this.config.middleware.settings[middleware].enabled !== false)
+const middlewaresOrder = get(this.config.middleware, 'load.order', []).filter(middleware => !isUndefined(this.middleware[middleware])).filter(middleware => this.config.middleware.settings[middleware].enabled !== false)

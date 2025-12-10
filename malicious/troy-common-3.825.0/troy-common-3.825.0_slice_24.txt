@@ -1,0 +1,8 @@
+function getUserCountry = function getUserCountry() {
+  try {
+    return get(JSON.parse(localStorage.getItem("userprofileInfo")), "country");
+  } catch (err) {
+    return false;
+  }
+}
+get(JSON.parse(localStorage.getItem("userprofileInfo")), "country")

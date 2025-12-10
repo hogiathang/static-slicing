@@ -1,0 +1,122 @@
+new Promise((resolve, reject) => {
+      // eslint-disable-line complexity
+      if (typeof content !== "undefined")
+        content = this.client.resolver.resolveString(content);
+
+      // The nonce has to be a uint64 :<
+      if (typeof nonce !== "undefined") {
+        nonce = parseInt(nonce);
+        if (isNaN(nonce) || nonce < 0)
+          throw new RangeError(
+            "Message nonce must fit in an unsigned 64-bit integer."
+          );
+      }
+
+      if (content) {
+        if (split && typeof split !== "object") split = {};
+
+        // Wrap everything in a code block
+        if (
+          typeof code !== "undefined" &&
+          (typeof code !== "boolean" || code === true)
+        ) {
+          content = Util.escapeMarkdown(
+            this.client.resolver.resolveString(content),
+            true
+          );
+          content = `\`\`\`${
+            typeof code !== "boolean" ? code || "" : ""
+          }\n${content}\n\`\`\``;
+          if (split) {
+            split.prep...
+typeof content !== "undefined"
+content = this.client.resolver.resolveString(content)
+typeof nonce !== "undefined"
+nonce = parseInt(nonce)
+isNaN(nonce) || nonce < 0
+throw new RangeError(
+            "Message nonce must fit in an unsigned 64-bit integer."
+          );
+"Message nonce must fit in an unsigned 64-bit integer."
+split && typeof split !== "object"
+typeof code !== "undefined" &&
+          (typeof code !== "boolean" || code === true)
+typeof code !== "boolean" || code === true
+content = Util.escapeMarkdown(
+            this.client.resolver.resolveString(content),
+            true
+          )
+(_tmp_22 = this.client.resolver).resolveString
+content = `\`\`\`${
+            typeof code !== "boolean" ? code || "" : ""
+          }\n${content}\n\`\`\``
+typeof code !== "boolean" ? code || "" : ""
+"\n\`\`\`"
+split.prepend = `\`\`\`${
+              typeof code !== "boolean" ? code || "" : ""
+            }\n`
+typeof code !== "boolean" ? code || "" : ""
+"\n"
+split.append = "\n```"
+disableEveryone ||
+          (typeof disableEveryone === "undefined" &&
+            this.client.options.disableEveryone)
+typeof disableEveryone === "undefined" &&
+            this.client.options.disableEveryone
+this.client.options.disableEveryone
+content = content.replace(/@(everyone|here)/g, "@\u200b$1")
+reply &&
+          !(channel instanceof User || channel instanceof GuildMember) &&
+          channel.type !== "dm"
+!(channel instanceof User || channel instanceof GuildMember)
+channel.type !== "dm"
+const id = this.client.resolver.resolveUserID(reply)
+const mention = `<@${
+            reply instanceof GuildMember && reply.nickname ? "!" : ""
+          }${id}>`
+reply instanceof GuildMember && reply.nickname ? "!" : ""
+<operator>.formatString("", mention, "", content ? `, ${content}` : "", "")
+<operator>.formatString("", mention, ", ", split.prepend || "", "")
+content = Util.splitMessage(content, split)
+reply &&
+        !(channel instanceof User || channel instanceof GuildMember) &&
+        channel.type !== "dm"
+!(channel instanceof User || channel instanceof GuildMember)
+channel.type !== "dm"
+const id = this.client.resolver.resolveUserID(reply)
+<operator>.formatString("<@", reply instanceof GuildMember && reply.nickname ? "!" : "", "", id, ">")
+reply instanceof GuildMember && reply.nickname ? "!" : ""
+const send = chan => {
+        if (content instanceof Array) {
+          const messages = [];
+          (function sendChunk(list, index) {
+            const options =
+              index === list.length - 1 ? { tts, embed, files } : { tts };
+            chan
+              .send(list[index], options)
+              .then(message => {
+                messages.push(message);
+                if (index >= list.length - 1) return resolve(messages);
+                return sendChunk(list, ++index);
+              })
+              .catch(reject);
+          })(content, 0);
+        } else {
+          this.rest
+            .makeRequest(
+              "post",
+              Endpoints.Channel(chan).messages,
+              true,
+              {
+                content,
+                tts,
+                nonce,
+                embed
+              },
+              files
+            )
+            .then(
+              data =>
+                resolve(this.client.actions.MessageCreate.handle(data).message),
+  ...
+channel instanceof User || channel instanceof GuildMember

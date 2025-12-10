@@ -1,0 +1,15 @@
+get parsedUsers() {
+    if (this._parsedUsers) return this._parsedUsers;
+    this._parsedUsers = new Collection();
+    let matches;
+    while ((matches = this.constructor.GlobalUsersPattern.exec(this._content)) !== null) {
+      const user = this.client.users.cache.get(matches[1]);
+      if (user) this._parsedUsers.set(user.id, user);
+    }
+    return this._parsedUsers;
+  }
+this._parsedUsers
+this._parsedUsers = new Collection()
+(matches = this.constructor.GlobalUsersPattern.exec(this._content)) !== null
+const user = this.client.users.cache.get(matches[1])
+this._parsedUsers.set(user.id, user)

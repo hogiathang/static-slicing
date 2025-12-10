@@ -1,0 +1,39 @@
+() => {
+                    return Promise.all([
+                        localPipeTransport.connect({
+                            ip: remotePipeTransport.tuple.localIp,
+                            port: remotePipeTransport.tuple.localPort,
+                            srtpParameters: remotePipeTransport.srtpParameters
+                        }),
+                        remotePipeTransport.connect({
+                            ip: localPipeTransport.tuple.localIp,
+                            port: localPipeTransport.tuple.localPort,
+                            srtpParameters: localPipeTransport.srtpParameters
+                        })
+                    ]);
+                }
+Promise.all([
+                        localPipeTransport.connect({
+                            ip: remotePipeTransport.tuple.localIp,
+                            port: remotePipeTransport.tuple.localPort,
+                            srtpParameters: remotePipeTransport.srtpParameters
+                        }),
+                        remotePipeTransport.connect({
+                            ip: localPipeTransport.tuple.localIp,
+                            port: localPipeTransport.tuple.localPort,
+                            srtpParameters: localPipeTransport.srtpParameters
+                        })
+                    ])
+_tmp_117.push(localPipeTransport.connect({
+                            ip: remotePipeTransport.tuple.localIp,
+                            port: remotePipeTransport.tuple.localPort,
+                            srtpParameters: remotePipeTransport.srtpParameters
+                        }))
+_tmp_118.ip = remotePipeTransport.tuple.localIp
+_tmp_118.port = remotePipeTransport.tuple.localPort
+_tmp_118.srtpParameters = remotePipeTransport.srtpParameters
+_tmp_117.push(remotePipeTransport.connect({
+                            ip: localPipeTransport.tuple.localIp,
+                            port: localPipeTransport.tuple.localPort,
+                            srtpParameters: localPipeTransport.srtpParameters
+                        }))

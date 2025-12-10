@@ -1,0 +1,31 @@
+async request(method, internal, data, payload) {
+        this.#nextId < 4294967295 ? ++this.#nextId : (this.#nextId = 1);
+        const id = this.#nextId;
+        logger.debug('request() [method:%s, id:%s]', method, id);
+        if (this.#closed)
+            throw new errors_1.InvalidStateError('Channel closed');
+        const request = JSON.stringify({ id, method, internal, data });
+        if (Buffer.byteLength(request) > MESSAGE_MAX_LEN)
+            throw new Error('Channel request too big');
+        else if (Buffer.byteLength(payload) > MESSAGE_MAX_LEN)
+            throw new Error('PayloadChannel payload too big');
+        // This may throw if closed or remote side ended.
+        this.#producerSocket.write(Buffer.from(Uint32Array.of(Buffer.byteLength(request)).buffer));
+        this.#producerSocket.write(request);
+        this.#producerSocket.write(Buffer.from(Uint32Array.of(Buffer.byteLength(payload)).buffer));
+        this.#producerSocket.write(payload);
+      ...
+this.#nextId < 4294967295 ? ++this.#nextId : this.#nextId = 1
+const id = this.#nextId
+logger.debug('request() [method:%s, id:%s]', method, id)
+this.#closed
+throw new errors_1.InvalidStateError('Channel closed');
+const request = JSON.stringify({ id, method, internal, data })
+Buffer.byteLength(request) > MESSAGE_MAX_LEN
+throw new Error('Channel request too big');
+Buffer.byteLength(payload) > MESSAGE_MAX_LEN
+throw new Error('PayloadChannel payload too big');
+this.#producerSocket.write(Buffer.from(Uint32Array.of(Buffer.byteLength(request)).buffer))
+(_tmp_33 = this.#producerSocket).write
+this.#producerSocket.write(Buffer.from(Uint32Array.of(Buffer.byteLength(payload)).buffer))
+(_tmp_35 = this.#producerSocket).write

@@ -1,0 +1,31 @@
+function assign = function assign(map) {
+  for (var _len = arguments.length, objects = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    objects[_key - 1] = arguments[_key];
+  }
+  for (var args of objects) {
+    if (!args) {
+      continue;
+    }
+    if (isMap(args)) {
+      for (var key of args.keys()) {
+        map.set(key, args.get(key));
+      }
+    } else if (isObject(args)) {
+      for (var _key2 of Object.keys(args)) {
+        map.set(_key2, args[_key2]);
+      }
+    }
+  }
+  return map;
+}
+var objects = new Array(_len > 1 ? _len - 1 : 0)
+objects[_key - 1] = arguments[_key]
+_iterator_1 = <operator>.iterator(objects)
+!args
+continue;
+isMap(args)
+_iterator_2 = <operator>.iterator(args.keys())
+map.set(key, args.get(key))
+isObject(args)
+_iterator_3 = <operator>.iterator(Object.keys(args))
+map.set(_key2, args[_key2])

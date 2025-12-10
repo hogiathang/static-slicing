@@ -1,0 +1,5 @@
+message = param1_0.message
+!force
+const existing = this.cache.get(message)
+existing && !existing.partial
+const data = await this.client.rest.get(Routes.channelMessage(this.channel.id, message))

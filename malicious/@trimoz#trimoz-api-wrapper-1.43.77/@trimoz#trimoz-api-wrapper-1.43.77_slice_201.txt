@@ -1,0 +1,2 @@
+_tmp_1.resendMfaCode = <lambda>9
+const request = API.http.post('v3/login/resendMfaCode', params, { headers: { 'Content-Type': 'application/json' } })

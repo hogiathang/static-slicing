@@ -1,0 +1,3 @@
+_tmp_1.updateConfigurationMessages = <lambda>20
+const url = 'v3/resources/' + resourceId + '/configuration/messages'
+const request = API.http.put(url, params)

@@ -1,0 +1,43 @@
+var app = require( 'express' )()
+var DataProxy = require( '../index' )
+DataProxy.init( require('path').resolve( __dirname, './interface_demo.json' ) )
+app.use( '/proxy/', DataProxy.Interceptor )
+app.get( '/index', function( req, res ) {
+    res.sendfile( 'dataproxy-client.html' );
+} )
+app.get( '/getCombinedData', function( req, res ) {
+    var searchProxy = DataProxy.create( 'Search.*' );
+    searchProxy.list( { q: 'ihpone6' } )
+        .list( { q: '冲锋衣' } )
+        .suggest( { q: 'i' } )
+        .getNav( { q: '滑板' } )
+        .done( function( data1, data2, data3, data4 ) {
+            res.send( {
+            	"list_ihpone6": data1,
+            	"list_冲锋衣": data2,
+            	"suggest_i": data3,
+            	"getNav_滑板": data4
+            } );
+        } ).error( function( err ) {
+            console.log( err );
+            res.send( 500, err );
+        } );
+} )
+app.get( '/getMycart', function( req, res ) {
+    var cookie = req.headers.cookie;
+    console.log( 'request cookie:\n', cookie );
+    var cart = DataProxy.create( 'Cart.*' );
+    cart.getMyCart()
+        .withCookie( cookie )
+        .done( function( data , setCookies ) {
+            console.log( 'response cookie:\n', setCookies );
+            res.setHeader( 'Set-Cookie', setCookies );
+            res.send( data );
+        }, function( err ) {
+            console.log( err );
+            res.send( 500, err );
+        } );
+} )
+app.get( '/dataproxy-client.js', function( req, res ) {
+	res.sendfile( './dataproxy-client.js' );
+} )

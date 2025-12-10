@@ -1,0 +1,4 @@
+this.config.routes = Object.keys(this.api || []).reduce((acc, key) => {
+    return acc.concat(get(this.api[key], 'config.routes') || {});
+  }, [])
+acc.concat(get(this.api[key], 'config.routes') || {})

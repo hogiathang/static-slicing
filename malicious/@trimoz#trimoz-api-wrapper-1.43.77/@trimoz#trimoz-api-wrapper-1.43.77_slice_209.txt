@@ -1,0 +1,2 @@
+_tmp_1.confirmAppointment = <lambda>2
+const request = API.http.post('/v3/confirmAppointment', params)

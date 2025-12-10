@@ -1,0 +1,79 @@
+exports.runInContext = function (code, contextifiedSandbox, options) {
+  if (code === "this") {
+    // Special case for during window creation.
+    return contextifiedSandbox;
+  }
+
+  if (options === undefined) {
+    options = {};
+  }
+
+  const comments = [];
+  const tokens = [];
+  const ast = acorn.parse(code, {
+    allowReturnOutsideFunction: true,
+    ranges: true,
+    // collect comments in Esprima's format
+    onComment: comments,
+    // collect token ranges
+    onToken: tokens
+  });
+
+  // make sure we keep comments
+  escodegen.attachComments(ast, comments, tokens);
+
+  const globals = findGlobals(ast);
+  for (let i = 0; i < globals.length; ++i) {
+    if (globals[i].name === "window" || globals[i].name === "this") {
+      continue;
+    }
+
+    const { nodes } = globals[i];
+    for (let j = 0; j < nodes.length; ++j) {
+      const { type, name } = nodes[j];
+      nodes[j].type = "MemberExpression";
+      nodes[j].property = { name, type };
+      nodes[j].computed = false;
+      nodes...
+code === "this"
+options === undefined
+options = {}
+__ecma.Array.factory()
+__ecma.Array.factory()
+const ast = acorn.parse(code, {
+    allowReturnOutsideFunction: true,
+    ranges: true,
+    // collect comments in Esprima's format
+    onComment: comments,
+    // collect token ranges
+    onToken: tokens
+  })
+_tmp_9.allowReturnOutsideFunction = true
+_tmp_9.ranges = true
+_tmp_9.onComment = comments
+_tmp_9.onToken = tokens
+escodegen.attachComments(ast, comments, tokens)
+const globals = findGlobals(ast)
+i < globals.length
+globals[i].name === "window" || globals[i].name === "this"
+continue;
+nodes = _tmp_10.nodes
+j < nodes.length
+type = _tmp_11.type
+nodes[j].type = "MemberExpression"
+nodes[j].property = { name, type }
+nodes[j].computed = false
+nodes[j].object = {
+        name: "window",
+        type: "Identifier"
+      }
+_tmp_13.name = "window"
+_tmp_13.type = "Identifier"
+const lastNode = ast.body[ast.body.length - 1]
+lastNode.type === "ExpressionStatement"
+lastNode.type = "ReturnStatement"
+lastNode.argument = lastNode.expression
+delete lastNode.expression
+const rewrittenCode = escodegen.generate(ast, { comment: true })
+const suffix = options.filename !== undefined ? "\n//# sourc=" + options.filename : ""
+Function("window", rewrittenCode + suffix).bind(contextifiedSandbox)(contextifiedSandbox)

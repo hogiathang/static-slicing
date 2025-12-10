@@ -1,0 +1,3 @@
+_tmp_1.getFormDetail = <lambda>2
+<operator>.formatString("/v3/establishments/", establishmentId, "/available-forms/", formId, "")
+const request = API.http.get(url)

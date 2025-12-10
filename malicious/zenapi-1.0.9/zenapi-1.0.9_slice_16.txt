@@ -1,0 +1,21 @@
+stop() {
+    // Destroy server and available connections.
+    this.server.destroy();
+
+    if (
+      cluster.isWorker &&
+      this.config.environment === 'development' &&
+      get(this.config, 'currentEnvironment.server.autoReload.enabled', true) === true
+    ) {
+      process.send('stop');
+    }
+
+    // Kill process.
+    process.exit(1);
+  }
+(_tmp_47 = this.server).destroy
+cluster.isWorker &&
+      this.config.environment === 'development' &&
+      get(this.config, 'currentEnvironment.server.autoReload.enabled', true) === true
+this.config.environment === 'development'
+get(this.config, 'currentEnvironment.server.autoReload.enabled', true) === true

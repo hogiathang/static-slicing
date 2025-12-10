@@ -1,0 +1,30 @@
+_cachePolicy(options, _segment, realm) {
+
+        options = Config.apply('cachePolicy', options);
+
+        const plugin = realm && realm.plugin;
+        const segment = options.segment || _segment || (plugin ? `!${plugin}` : '');
+        Hoek.assert(segment, 'Missing cache segment name');
+
+        const cacheName = options.cache || '_default';
+        const cache = this.caches.get(cacheName);
+        Hoek.assert(cache, 'Unknown cache', cacheName);
+        Hoek.assert(!cache.segments[segment] || cache.shared || options.shared, 'Cannot provision the same cache segment more than once');
+        cache.segments[segment] = true;
+
+        const policy = new Catbox.Policy(options, cache.client, segment);
+        this.events.emit('cachePolicy', [policy, options.cache, segment]);
+
+        return policy;
+    }
+options = Config.apply('cachePolicy', options)
+const plugin = realm && realm.plugin
+const segment = options.segment || _segment || (plugin ? `!${plugin}` : '')
+Hoek.assert(segment, 'Missing cache segment name')
+const cacheName = options.cache || '_default'
+const cache = this.caches.get(cacheName)
+Hoek.assert(cache, 'Unknown cache', cacheName)
+Hoek.assert(!cache.segments[segment] || cache.shared || options.shared, 'Cannot provision the same cache segment more than once')
+cache.segments[segment] = true
+const policy = new Catbox.Policy(options, cache.client, segment)
+this.events.emit('cachePolicy', [policy, options.cache, segment])

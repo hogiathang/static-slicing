@@ -1,0 +1,3 @@
+_tmp_1.updateStatus = <lambda>8
+const url = 'v3/establishments/' + establishmentId + '/status'
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

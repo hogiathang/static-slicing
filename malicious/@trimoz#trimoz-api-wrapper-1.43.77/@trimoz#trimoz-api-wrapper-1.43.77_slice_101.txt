@@ -1,0 +1,4 @@
+timezone = timezone === void 0 ? null : timezone
+<operator>.formatString("v3/establishments/", establishmentId, "/schedules?dateStart=", dateStart, "&dateStop=", dateStop, "&places=", placesIds, "&resources=", resourceIds, "&services=", servicesIds, "")
+timezone ? <operator>.formatString("&timezone=", timezone, "") : ""
+const request = API.http.get(url)

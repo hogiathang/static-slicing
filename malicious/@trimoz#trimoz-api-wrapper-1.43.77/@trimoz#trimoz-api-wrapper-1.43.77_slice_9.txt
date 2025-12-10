@@ -1,0 +1,3 @@
+_tmp_1.getAppointmentMessagesHistory = getAppointmentMessagesHistory
+<operator>.formatString("/v3/establishments/", establishmentId, "/appointments/", appointmentId, "/history")
+const request = API.http.get(url)

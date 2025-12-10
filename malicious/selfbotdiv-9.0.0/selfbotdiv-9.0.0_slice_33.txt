@@ -1,0 +1,22 @@
+this._listener = msg => {
+      const ssrc = +msg.readUInt32BE(8).toString(10);
+      const user = this.voiceConnection.ssrcMap.get(ssrc);
+      if (!user) {
+        if (!this.queues.has(ssrc)) this.queues.set(ssrc, []);
+        this.queues.get(ssrc).push(msg);
+      } else {
+        if (this.queues.get(ssrc)) {
+          this.queues.get(ssrc).push(msg);
+          this.queues.get(ssrc).map(m => this.handlePacket(m, user));
+          this.queues.delete(ssrc);
+          return;
+        }
+        this.handlePacket(msg, user);
+      }
+    }
+const ssrc = +msg.readUInt32BE(8).toString(10)
+const user = this.voiceConnection.ssrcMap.get(ssrc)
+!user
+(_tmp_10 = this.queues).get
+(_tmp_11 = this.queues.get(ssrc)).push
+this.queues.get(ssrc).map(m => this.handlePacket(m, user))

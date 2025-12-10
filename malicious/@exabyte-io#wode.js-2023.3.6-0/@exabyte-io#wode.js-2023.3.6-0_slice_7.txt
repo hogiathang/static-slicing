@@ -1,0 +1,23 @@
+initialize(config) {
+        this._materials = [];
+        this._defaultTargets = ["band_gaps:direct", "band_gaps:indirect"];
+        this._features = lodash.get(config, "input.0.endpoint_options.data.features", []);
+        this._targets = lodash.get(
+            config,
+            "input.0.endpoint_options.data.targets",
+            this._defaultTargets,
+        );
+        this._ids = lodash.get(config, "input.0.endpoint_options.data.ids", []);
+        this._jobId = null;
+    }
+__ecma.Array.factory()
+this._defaultTargets = ["band_gaps:direct", "band_gaps:indirect"]
+this._features = lodash.get(config, "input.0.endpoint_options.data.features", [])
+this._targets = lodash.get(
+            config,
+            "input.0.endpoint_options.data.targets",
+            this._defaultTargets,
+        )
+"input.0.endpoint_options.data.targets"
+this._defaultTargets
+this._ids = lodash.get(config, "input.0.endpoint_options.data.ids", [])

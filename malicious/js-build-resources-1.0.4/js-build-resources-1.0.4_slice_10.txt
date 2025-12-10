@@ -1,0 +1,39 @@
+function userSettingsRoutes = function userSettingsRoutes(server: restify.Server): void {
+  server.get(AuthenticationMiddleware.settingsPath, getUserSettings);
+  server.post(
+    AuthenticationMiddleware.settingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    postUserSettings,
+  );
+  server.get(
+    AuthenticationMiddleware.allSettingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    getAllSettings,
+  );
+  server.del(
+    AuthenticationMiddleware.deleteSettingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    deleteUserSettings,
+  );
+}
+server.get(AuthenticationMiddleware.settingsPath, getUserSettings)
+server.post(
+    AuthenticationMiddleware.settingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    postUserSettings,
+  )
+AuthenticationMiddleware.settingsPath
+AuthenticationMiddleware.checkPreAuthentication
+AuthenticationMiddleware.checkAuthentication
+server.get(
+    AuthenticationMiddleware.allSettingsPath,
+    AuthenticationMiddleware.checkPreAuthentication,
+    AuthenticationMiddleware.checkAuthentication,
+    getAllSettings,
+  )
+AuthenticationMiddleware.allSettingsPath
+AuthenticationMiddleware.checkPreAuthentication

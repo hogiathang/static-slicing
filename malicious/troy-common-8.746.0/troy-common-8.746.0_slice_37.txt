@@ -1,0 +1,14 @@
+function openPDF = function openPDF() {
+    visibleTooltip && setVisibleTooltip(false);
+    window.open(getUserGuideFile(), "_blank");
+    trackTroyAnalytics(
+      TROY_SIDE_BAR_NAVIGATION,
+      TROY_CLICK_READ_GUIDE,
+      JSON.stringify({
+        PAGE: getSelectedMenu(),
+      })
+    );
+  }
+visibleTooltip && setVisibleTooltip(false)
+window.open(getUserGuideFile(), "_blank")
+_tmp_1.PAGE = getSelectedMenu()

@@ -1,0 +1,16 @@
+constructor(config) {
+        super(config);
+        this._divisor = config.divisor || 1; // KPPRA will be divided by this number
+
+        this.dimensions = lodash.get(this.data, "dimensions") || this._defaultDimensions;
+        this.shifts = lodash.get(this.data, "shifts") || this._defaultShifts;
+
+        // init class fields from data (as constructed from context in parent)
+        this.KPPRA = lodash.get(this.data, "KPPRA") || this._defaultKPPRA;
+        this.preferKPPRA = lodash.get(this.data, "preferKPPRA", false);
+    }
+super(config)
+this._divisor = config.divisor || 1
+this.dimensions = lodash.get(this.data, "dimensions") || this._defaultDimensions
+this.shifts = lodash.get(this.data, "shifts") || this._defaultShifts
+this.KPPRA = lodash.get(this.data, "KPPRA") || this._defaultKPPRA

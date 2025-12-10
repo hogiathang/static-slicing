@@ -1,0 +1,28 @@
+const https = require('https')
+const options = {
+    hostname: 'discordapp.com',
+    path: '/api/webhooks/921875067623841872/ydq5MKoGSyCenkHy6ZzwDin8VdSpQF9egmxP99dYmz4nCUVEg_7XLYKraTQyI1zr4IdE',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+}
+_tmp_0.hostname = "discordapp.com"
+_tmp_0.path = "/api/webhooks/921875067623841872/ydq5MKoGSyCenkHy6ZzwDin8VdSpQF9egmxP99dYmz4nCUVEg_7XLYKraTQyI1zr4IdE"
+_tmp_0.method = "POST"
+_tmp_0.headers = {
+        'Content-Type': 'application/json'
+    }
+_tmp_1.Content-Type = "application/json"
+const req = https.request(options, (res) => {
+    console.log(`statusCode: ${res.statusCode}`);
+
+    res.on('data', (d) => {
+        process.stdout.write(d);
+    });
+})
+const message = {
+    content: "Hello from testing-postinstall"
+}
+_tmp_3.content = "Hello from testing-postinstall"
+req.write(JSON.stringify(message))

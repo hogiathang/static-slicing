@@ -1,0 +1,3 @@
+_tmp_1.restorePlace = <lambda>12
+<operator>.formatString("v3/establishments/", establishmentId, "/places/", placeId, "/restore")
+const request = API.http.put(url, '', { headers: { 'Content-Type': 'application/json' } })

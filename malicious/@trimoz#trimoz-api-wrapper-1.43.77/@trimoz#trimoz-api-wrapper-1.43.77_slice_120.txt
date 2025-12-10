@@ -1,0 +1,3 @@
+_tmp_1.getBaseSettings = <lambda>1
+const url = 'v3/settings' + (appModule ? '?appModule=' + appModule : '')
+const request = API.http.get(url)

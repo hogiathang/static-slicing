@@ -1,0 +1,32 @@
+(request, response, next) => {
+            let ipAddress: string = null;
+
+            for (const header of this.ipAddressHeaders) {
+                ipAddress = request.get(header);
+
+                if (ipAddress) {
+                    break;
+                }
+            }
+
+            ipAddress = ipAddress.split(',')[0].trim();
+
+            if (this.mode === 'allow') {
+                if (this.ipAddresses.indexOf(ipAddress) > -1) {
+                    next();
+                    return;
+                }
+            }
+
+            if (this.mode === 'deny') {
+                if (this.ipAddresses.indexOf(ipAddress) === -1) {
+                    next();
+                    return;
+                }
+            }
+
+            response.status(403).end();
+        }
+let ipAddress: string = null
+_iterator_0 = <operator>.iterator(this.ipAddressHeaders)
+ipAddress = request.get(header)

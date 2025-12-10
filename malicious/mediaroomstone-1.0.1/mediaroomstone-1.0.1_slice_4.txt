@@ -1,0 +1,43 @@
+maxPacketLifeTime = param1_4.maxPacketLifeTime
+logger.debug('consumeData()')
+!dataProducerId || typeof dataProducerId !== 'string'
+throw new TypeError('missing dataProducerId');
+appData && typeof appData !== 'object'
+throw new TypeError('if given, appData must be an object');
+const dataProducer = this.getDataProducerById(dataProducerId)
+!dataProducer
+<operator>.formatString("DataProducer with id "", dataProducerId, "" not found")
+this.constructor.name !== 'DirectTransport'
+type = 'sctp'
+sctpStreamParameters =
+                utils.clone(dataProducer.sctpStreamParameters)
+utils.clone(dataProducer.sctpStreamParameters)
+ordered !== undefined
+sctpStreamParameters.ordered = ordered
+maxPacketLifeTime !== undefined
+sctpStreamParameters.maxPacketLifeTime = maxPacketLifeTime
+maxRetransmits !== undefined
+sctpStreamParameters.maxRetransmits = maxRetransmits
+sctpStreamId = this.getNextSctpStreamId()
+this.#sctpStreamIds[sctpStreamId] = 1
+sctpStreamParameters.streamId = sctpStreamId
+type = 'direct'
+ordered !== undefined ||
+                maxPacketLifeTime !== undefined ||
+                maxRetransmits !== undefined
+maxPacketLifeTime !== undefined
+maxRetransmits !== undefined
+logger.warn('consumeData() | ordered, maxPacketLifeTime and maxRetransmits are ignored when consuming data on a DirectTransport')
+protocol = _tmp_87.protocol
+const internal = { ...this.internal, dataConsumerId: (0, uuid_1.v4)(), dataProducerId }
+const reqData = {
+            type,
+            sctpStreamParameters,
+            label,
+            protocol
+        }
+_tmp_89.type = type
+_tmp_89.sctpStreamParameters = sctpStreamParameters
+_tmp_89.label = label
+_tmp_89.protocol = protocol
+const data = await this.channel.request('transport.consumeData', internal, reqData)

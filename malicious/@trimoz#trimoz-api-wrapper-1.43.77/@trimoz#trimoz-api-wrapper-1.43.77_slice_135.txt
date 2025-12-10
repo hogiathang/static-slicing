@@ -1,0 +1,3 @@
+_tmp_1.unassignServicesAndResources = <lambda>2
+const url = 'v3/establishments/' + establishmentId + '/places/resources/services/unassign'
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

@@ -1,0 +1,15 @@
+async createAsset(name, data, type) {
+    return this.client.api.oauth2.applications(this.id).assets.post({ data: {
+      name,
+      type: ClientApplicationAssetTypes[type.toUpperCase()],
+      image: await DataResolver.resolveImage(data),
+    } });
+  }
+this.client.api.oauth2.applications(this.id).assets.post({ data: {
+      name,
+      type: ClientApplicationAssetTypes[type.toUpperCase()],
+      image: await DataResolver.resolveImage(data),
+    } })
+_tmp_18.name = name
+_tmp_18.type = ClientApplicationAssetTypes[type.toUpperCase()]
+_tmp_18.image = await DataResolver.resolveImage(data)

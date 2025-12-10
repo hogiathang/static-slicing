@@ -1,0 +1,16 @@
+_tmp_0.setupGlobals = <lambda>1
+global.wrapAsync = wrapAsync
+global.wrapAsyncObject = wrapAsyncObject
+global.request = request
+_.extend(global, wrapAsyncObject(global, ['request'], {
+      syncByDefault: booleanHelper.isTruthy(process.env['chimp.sync'])
+    }))
+_tmp_2.syncByDefault = booleanHelper.isTruthy(process.env['chimp.sync'])
+global.Promise = Promise
+booleanHelper.isTruthy(process.env['chimp.ddp0'])
+global.ddp = new DDP(process.env['chimp.ddp0']).connect()
+global.ddp.instances = []
+_iterator_0 = <operator>.iterator(process.env)
+key.indexOf('chimp.ddp') !== -1
+var index = key.match(/chimp.ddp(.*)/)[1]
+global.ddp.instances.push(new DDP(process.env['chimp.ddp' + index]).connect())

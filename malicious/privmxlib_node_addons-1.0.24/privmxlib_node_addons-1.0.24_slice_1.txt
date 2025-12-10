@@ -1,0 +1,4 @@
+var platform = process.platform
+console.log(platform)
+platform == "linux"
+_tmp_0 = require('child_process')

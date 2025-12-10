@@ -1,0 +1,13 @@
+register(key, flushable) {
+        const flushables = this.flushableMap.get(key);
+        if (flushables) {
+            flushables.add(flushable);
+        }
+        else {
+            this.flushableMap.set(key, new Set([flushable]));
+            this.intervals.set(key, setInterval(this.handle.bind(this), key, key).unref());
+        }
+    }
+const flushables = this.flushableMap.get(key)
+this.flushableMap.set(key, new Set([flushable]))
+this.intervals.set(key, setInterval(this.handle.bind(this), key, key).unref())

@@ -1,0 +1,24 @@
+failAction(request, failAction, err, options) {
+
+        const retain = options.retain ? err : undefined;
+        if (failAction === 'ignore') {
+            return retain;
+        }
+
+        if (failAction === 'log') {
+            request._log(options.tags, err);
+            return retain;
+        }
+
+        if (failAction === 'error') {
+            throw err;
+        }
+
+        return this.execute(failAction, request, { realm: request.route.realm, args: [options.details || err] });
+    }
+const retain = options.retain ? err : undefined
+failAction === 'ignore'
+failAction === 'log'
+failAction === 'error'
+throw err;
+this.execute(failAction, request, { realm: request.route.realm, args: [options.details || err] })

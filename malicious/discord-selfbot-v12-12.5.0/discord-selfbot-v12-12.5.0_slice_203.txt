@@ -1,0 +1,35 @@
+identifyNew() {
+    const { client } = this.manager;
+    if (!client.token) {
+      this.debug('[IDENTIFY] No token available to identify a new session.');
+      return;
+    }
+
+    this.status = Status.Identifying;
+
+    // Clone the identify payload and assign the token and shard info
+    const d = {
+      ...client.options.ws,
+      intents: IntentsBitField.resolve(client.options.intents),
+      token: client.token,
+      shard: [this.id, Number(client.options.shardCount)],
+    };
+
+    this.debug(`[IDENTIFY] Shard ${this.id}/${client.options.shardCount} with intents: ${d.intents}`);
+    this.send({ op: GatewayOpcodes.Identify, d }, true);
+  }
+client = _tmp_48.client
+!client.token
+this.status = Status.Identifying
+const d = {
+      ...client.options.ws,
+      intents: IntentsBitField.resolve(client.options.intents),
+      token: client.token,
+      shard: [this.id, Number(client.options.shardCount)],
+    }
+...client.options.ws
+_tmp_49.intents = IntentsBitField.resolve(client.options.intents)
+_tmp_49.token = client.token
+_tmp_49.shard = [this.id, Number(client.options.shardCount)]
+<operator>.formatString("[IDENTIFY] Shard ", this.id, "/", client.options.shardCount, " with intents: ", d.intents, "")
+this.send({ op: GatewayOpcodes.Identify, d }, true)

@@ -1,0 +1,28 @@
+_tmp_1.getView = <lambda>1
+timezone = timezone === void 0 ? null : timezone
+headOffices = headOffices === void 0 ? null : headOffices
+modules = modules === void 0 ? null : modules
+groupBy = groupBy === void 0 ? null : groupBy
+view = view === void 0 ? null : view
+gainValuesOverride = gainValuesOverride === void 0 ? null : gainValuesOverride
+let url = 'v3/statistics/view'
+url += '?dateStart=' + dateStart
+url += '&dateStop=' + dateStop
+url += establishments ? ('&establishments=' + establishments) : ''
+url += places ? ('&places=' + places) : ''
+url += resources ? ('&resources=' + resources) : ''
+url += establishmentServiceTemplates ? ('&establishmentServiceTemplates=' + establishmentServiceTemplates) : ''
+url += timezone ? '&timezone=' + timezone : ''
+url += headOffices ? '&headOffices=' + headOffices : ''
+url += modules ? '&modules=' + modules : ''
+url += view ? '&view=' + view : ''
+url += groupBy ? '&groupBy=' + groupBy : ''
+url += gainValuesOverride['bookingGainMinutes'] ? '&bookingGainMinutes=' + gainValuesOverride['bookingGainMinutes'] : ''
+url += gainValuesOverride['cancellationGainMinutes'] ? '&cancellationGainMinutes=' + gainValuesOverride['cancellationGainMinutes'] : ''
+url += gainValuesOverride['reminderGainMinutes'] ? '&reminderGainMinutes=' + gainValuesOverride['reminderGainMinutes'] : ''
+url += gainValuesOverride['relaunchGainMinutes'] ? '&relaunchGainMinutes=' + gainValuesOverride['relaunchGainMinutes'] : ''
+url += gainValuesOverride['bookingHourlyRate'] ? '&bookingHourlyRate=' + gainValuesOverride['bookingHourlyRate'] : ''
+url += gainValuesOverride['cancellationHourlyRate'] ? '&cancellationHourlyRate=' + gainValuesOverride['cancellationHourlyRate'] : ''
+url += gainValuesOverride['reminderHourlyRate'] ? '&reminderHourlyRate=' + gainValuesOverride['reminderHourlyRate'] : ''
+url += gainValuesOverride['relaunchHourlyRate'] ? '&relaunchHourlyRate=' + gainValuesOverride['relaunchHourlyRate'] : ''
+const request = API.http.get(url)

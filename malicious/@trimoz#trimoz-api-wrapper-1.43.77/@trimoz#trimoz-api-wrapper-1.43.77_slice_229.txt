@@ -1,0 +1,3 @@
+_tmp_1.delete = <lambda>5
+const url = 'v3/headOffices/' + headOfficeId
+const request = API.http.delete(url)

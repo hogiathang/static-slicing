@@ -1,0 +1,16 @@
+const isAdmin = () => {
+  if (localStorage.userprofileInfo === undefined) {
+    return false;
+  }
+  try {
+    const role = get(
+      JSON.parse(localStorage.getItem("userprofileInfo")),
+      "user_profile.role"
+    );
+    return role.toLowerCase() === "admin";
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
+localStorage.userprofileInfo === undefined

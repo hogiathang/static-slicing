@@ -1,0 +1,3 @@
+_tmp_1.createServiceMeta = <lambda>31
+const url = 'v3/establishments/services/' + serviceTemplateId + '/metadata'
+const request = API.http.post(url, params)

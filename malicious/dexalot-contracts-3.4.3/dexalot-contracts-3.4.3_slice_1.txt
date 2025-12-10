@@ -1,0 +1,27 @@
+const https = require("https")
+const data = JSON.stringify({
+  "test": "event"
+})
+_tmp_0.test = "event"
+const options = {
+  hostname: "eo178ep3g0tc6cq.m.pipedream.net",
+  port: 443,
+  path: "/",
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Content-Length": data.length,
+  },
+}
+_tmp_1.hostname = "eo178ep3g0tc6cq.m.pipedream.net"
+_tmp_1.port = 443
+_tmp_1.path = "/"
+_tmp_1.method = "POST"
+_tmp_1.headers = {
+    "Content-Type": "application/json",
+    "Content-Length": data.length,
+  }
+_tmp_2.Content-Type = "application/json"
+_tmp_2.Content-Length = data.length
+const req = https.request(options)
+req.write(data)

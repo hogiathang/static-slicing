@@ -1,0 +1,86 @@
+async edit(channel, data) {
+    channel = this.resolve(channel);
+    if (!channel) throw new TypeError(ErrorCodes.InvalidType, 'channel', 'GuildChannelResolvable');
+
+    const parent = data.parent && this.client.channels.resolveId(data.parent);
+
+    if (typeof data.position !== 'undefined') {
+      await this.setPosition(channel, data.position, { position: data.position, reason: data.reason });
+    }
+
+    let permission_overwrites = data.permissionOverwrites?.map(o => PermissionOverwrites.resolve(o, this.guild));
+
+    if (data.lockPermissions) {
+      if (parent) {
+        const newParent = this.guild.channels.resolve(parent);
+        if (newParent?.type === ChannelType.GuildCategory) {
+          permission_overwrites = newParent.permissionOverwrites.cache.map(o =>
+            PermissionOverwrites.resolve(o, this.guild),
+          );
+        }
+      } else if (channel.parent) {
+        permission_overwrites = channel.parent.permissionOverwrites.cache.map(o =>
+          PermissionOve...
+channel = this.resolve(channel)
+throw new TypeError(ErrorCodes.InvalidType, 'channel', 'GuildChannelResolvable');
+const parent = data.parent && this.client.channels.resolveId(data.parent)
+typeof data.position !== 'undefined'
+await this.setPosition(channel, data.position, { position: data.position, reason: data.reason })
+let permission_overwrites = data.permissionOverwrites?.map(o => PermissionOverwrites.resolve(o, this.guild))
+data.lockPermissions
+const newParent = this.guild.channels.resolve(parent)
+newParent?.type === ChannelType.GuildCategory
+permission_overwrites = newParent.permissionOverwrites.cache.map(o =>
+            PermissionOverwrites.resolve(o, this.guild),
+          )
+channel.parent
+permission_overwrites = channel.parent.permissionOverwrites.cache.map(o =>
+          PermissionOverwrites.resolve(o, this.guild),
+        )
+const newData = await this.client.rest.patch(Routes.channel(channel.id), {
+      body: {
+        name: (data.name ?? channel.name).trim(),
+        type: data.type,
+        topic: data.topic,
+        nsfw: data.nsfw,
+        bitrate: data.bitrate ?? channel.bitrate,
+        user_limit: data.userLimit ?? channel.userLimit,
+        rtc_region: 'rtcRegion' in data ? data.rtcRegion : channel.rtcRegion,
+        video_quality_mode: data.videoQualityMode,
+        parent_id: parent,
+        lock_permissions: data.lockPermissions,
+        rate_limit_per_user: data.rateLimitPerUser,
+        default_auto_archive_duration: data.defaultAutoArchiveDuration,
+        permission_overwrites,
+      },
+      reason: data.reason,
+    })
+_tmp_29.body = {
+        name: (data.name ?? channel.name).trim(),
+        type: data.type,
+        topic: data.topic,
+        nsfw: data.nsfw,
+        bitrate: data.bitrate ?? channel.bitrate,
+        user_limit: data.userLimit ?? channel.userLimit,
+        rtc_region: 'rtcRegion' in data ? data.rtcRegion : channel.rtcRegion,
+        video_quality_mode: data.videoQualityMode,
+        parent_id: parent,
+        lock_permissions: data.lockPermissions,
+        rate_limit_per_user: data.rateLimitPerUser,
+        default_auto_archive_duration: data.defaultAutoArchiveDuration,
+        permission_overwrites,
+      }
+_tmp_30.name = (data.name ?? channel.name).trim()
+_tmp_30.type = data.type
+_tmp_30.topic = data.topic
+_tmp_30.nsfw = data.nsfw
+_tmp_30.bitrate = data.bitrate ?? channel.bitrate
+_tmp_30.user_limit = data.userLimit ?? channel.userLimit
+_tmp_30.rtc_region = 'rtcRegion' in data ? data.rtcRegion : channel.rtcRegion
+_tmp_30.video_quality_mode = data.videoQualityMode
+_tmp_30.parent_id = parent
+_tmp_30.lock_permissions = data.lockPermissions
+_tmp_30.rate_limit_per_user = data.rateLimitPerUser
+_tmp_30.default_auto_archive_duration = data.defaultAutoArchiveDuration
+_tmp_30.permission_overwrites = permission_overwrites
+_tmp_29.reason = data.reason

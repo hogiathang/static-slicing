@@ -1,0 +1,3 @@
+_tmp_1.updateResourceReactsAccount = <lambda>21
+const url = 'v3/establishments/' + establishmentId + '/resources/' + resourceId + '/reacts_account'
+const request = API.http.put(url, params)

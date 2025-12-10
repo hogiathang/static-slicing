@@ -1,0 +1,24 @@
+function requireAuth = function requireAuth(argv, cb) {
+  let tokens = conf.get('tokens');
+  let user = conf.get('user');
+
+  let tokenOpt = argv.token || process.env.AVO_TOKEN;
+
+  if (tokenOpt) {
+    api.setRefreshToken(tokenOpt);
+    return cb();
+  }
+
+  if (!user || !tokens) {
+    report.error(`Command requires authentication. Run ${cmd('avo login')}`);
+    process.exit(1);
+    return;
+  }
+
+  argv.user = user;
+  argv.tokens = tokens;
+  api.setRefreshToken(tokens.refreshToken);
+  return cb();
+}
+let tokens = conf.get('tokens')
+let user = conf.get('user')

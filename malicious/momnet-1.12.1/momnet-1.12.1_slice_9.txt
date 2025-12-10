@@ -1,0 +1,25 @@
+function listMonthsImpl = function listMonthsImpl(format, index, field) {
+    if (isNumber(format)) {
+        index = format;
+        format = undefined;
+    }
+
+    format = format || '';
+
+    if (index != null) {
+        return get(format, index, field, 'month');
+    }
+
+    var i,
+        out = [];
+    for (i = 0; i < 12; i++) {
+        out[i] = get(format, i, field, 'month');
+    }
+    return out;
+}
+isNumber(format)
+index = format
+format = undefined
+format = format || ''
+index != null
+get(format, index, field, 'month')

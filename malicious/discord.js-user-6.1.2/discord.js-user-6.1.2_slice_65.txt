@@ -1,0 +1,56 @@
+updateOverwrite(userOrRole, options, reason) {
+    const allow = new Permissions(0);
+    const deny = new Permissions(0);
+    let type;
+
+    const role = this.guild.roles.get(userOrRole);
+
+    if (role || userOrRole instanceof Role) {
+      userOrRole = role || userOrRole;
+      type = 'role';
+    } else {
+      userOrRole = this.client.users.resolve(userOrRole);
+      type = 'member';
+      if (!userOrRole) return Promise.reject(new TypeError('INVALID_TYPE', 'parameter', 'User nor a Role', true));
+    }
+
+    const prevOverwrite = this.permissionOverwrites.get(userOrRole.id);
+
+    if (prevOverwrite) {
+      allow.add(prevOverwrite.allowed);
+      deny.add(prevOverwrite.denied);
+    }
+
+    for (const perm in options) {
+      if (options[perm] === true) {
+        allow.add(Permissions.FLAGS[perm] || 0);
+        deny.remove(Permissions.FLAGS[perm] || 0);
+      } else if (options[perm] === false) {
+        allow.remove(Permissions.FLAGS[perm] || 0);
+        deny.add(Permissions.FLAGS[pe...
+const allow = new Permissions(0)
+const deny = new Permissions(0)
+const role = this.guild.roles.get(userOrRole)
+role || userOrRole instanceof Role
+userOrRole = role || userOrRole
+type = 'role'
+userOrRole = this.client.users.resolve(userOrRole)
+type = 'member'
+Promise.reject(new TypeError('INVALID_TYPE', 'parameter', 'User nor a Role', true))
+const prevOverwrite = this.permissionOverwrites.get(userOrRole.id)
+allow.add(prevOverwrite.allowed)
+deny.add(prevOverwrite.denied)
+_iterator_2 = <operator>.iterator(options)
+options[perm] === true
+allow.add(Permissions.FLAGS[perm] || 0)
+deny.remove(Permissions.FLAGS[perm] || 0)
+options[perm] === false
+allow.remove(Permissions.FLAGS[perm] || 0)
+deny.add(Permissions.FLAGS[perm] || 0)
+options[perm] === null
+allow.remove(Permissions.FLAGS[perm] || 0)
+deny.remove(Permissions.FLAGS[perm] || 0)
+this.client.api.channels(this.id).permissions[userOrRole.id]
+      .put({ data: { id: userOrRole.id, type, allow: allow.bitfield, deny: deny.bitfield }, reason })
+      .then(() => this)
+_tmp_51.data = { id: userOrRole.id, type, allow: allow.bitfield, deny: deny.bitfield }

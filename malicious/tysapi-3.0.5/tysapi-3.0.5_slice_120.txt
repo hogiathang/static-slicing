@@ -1,0 +1,19 @@
+_.forEach(config.generators, (info, name) => {
+        try {
+          process.chdir(path.resolve(__dirname, '..', 'node_modules', 'tysapi-generate-' + name));
+          logger.debug('Pulling the latest updates of `tysapi-generate-' + name + '`.');
+          shell.exec(`git pull ${info.remote} ${info.branch}`, (code) => {
+            if (code) {
+              logger.error('Impossible to update `tysapi-generate-' + name + '`.');
+            } else {
+              logger.info('Successfully updated `tysapi-generate-' + name + '`.');
+            }
+          });
+        } catch (err) {
+          process.chdir(path.resolve(__dirname, '..', 'node_modules'));
+          logger.debug('Cloning the `tysapi-generate-' + name + '` repository for the first time...');
+          shell.exec(`git clone ${info.repository} tysapi-generate-${name}`, (code, stdout, stderr) => {
+            if (code) {
+              logger.error('Impossible to clone the `tysapi-generate-' + name + '` repository.');
+       ...
+process.chdir(path.resolve(__dirname, '..', 'node_modules', 'tysapi-generate-' + name))

@@ -1,0 +1,5 @@
+_tmp_1.uploadDocument = <lambda>29
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceId + '/upload/' + language
+const params = new FormData()
+params.append('document', file, file.name)
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' } })

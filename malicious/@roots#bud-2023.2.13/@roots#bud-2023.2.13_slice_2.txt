@@ -1,0 +1,35 @@
+var platform = require("node:os").platform
+var dirname = require("node:path").dirname
+var fileURLToPath = require("node:url").fileURLToPath
+var execaCommandSync = require("execa").execaCommandSync
+process.env.npm_package_version === `0.0.0`
+process.exit(0)
+const execaOptions = {
+  cwd: process.env.INIT_CWD ?? process.cwd(),
+  reject: false,
+  timeout: 10000,
+}
+_tmp_0.cwd = process.env.INIT_CWD ?? process.cwd()
+_tmp_0.reject = false
+_tmp_0.timeout = 10000
+execaCommandSync(`npx browserslist --update-db`, execaOptions)
+platform() === `darwin`
+const notifierPath = resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    `..`,
+    `vendor`,
+    `mac.no-index`,
+    `roots-notifier.app`,
+    `Contents`,
+    `MacOS`,
+    `roots-notifier`,
+  )
+dirname(fileURLToPath(import.meta.url))
+"vendor"
+"mac.no-index"
+"roots-notifier.app"
+"Contents"
+"MacOS"
+"roots-notifier"
+execaCommandSync(`chmod u+x ${notifierPath}`, execaOptions)
+process.exit(0)

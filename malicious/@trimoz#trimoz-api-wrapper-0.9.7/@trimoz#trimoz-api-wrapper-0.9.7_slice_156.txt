@@ -1,0 +1,3 @@
+_tmp_1.transmitForm = <lambda>7
+<operator>.formatString("/v3/establishments/", establishmentId, "/appointments/", appointmentId, "/forms/", formId, "/transmit")
+const request = API.http.put(url, params)

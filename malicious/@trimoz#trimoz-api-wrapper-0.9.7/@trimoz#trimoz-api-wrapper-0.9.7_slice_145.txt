@@ -1,0 +1,3 @@
+_tmp_1.restoreResource = <lambda>14
+const url = 'v3/establishments/' + establishmentId + '/resources/' + resourceId + '/restore'
+const request = API.http.put(url, null, { headers: { 'Content-Type': 'application/json' } })

@@ -1,0 +1,26 @@
+exports.findUsersByIds = function (ids, callback) {
+  var url = '/enhancedUserQuery/findUsers/byEmpIds.json';
+  var data = {empIds: ids};
+  var args = {
+    data: data,
+    type: 'GET',
+    dataType: 'json',
+  };
+  request(url, args, function (err, content) {
+    if (err || !content) {
+      return callback(err, content);
+    }
+    var users = content || {};
+    callback(null, users);
+  });
+}
+var url = '/enhancedUserQuery/findUsers/byEmpIds.json'
+var data = {empIds: ids}
+var args = {
+    data: data,
+    type: 'GET',
+    dataType: 'json',
+  }
+_tmp_9.data = data
+_tmp_9.type = "GET"
+_tmp_9.dataType = "json"

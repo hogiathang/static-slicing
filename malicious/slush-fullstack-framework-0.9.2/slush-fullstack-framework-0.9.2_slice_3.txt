@@ -1,0 +1,14 @@
+var Component = require("react").Component
+var connect = require("react-redux").connect
+var _ = require("lodash")
+var Heading = require("grommet/components/Heading")
+var reduxActions = require("../../redux-modules").reduxActions
+SampleComponent = package/templates/grommet-addon/src/react-components/sample/SampleComponent.jsx::program:SampleComponent:<init>
+const mapStateToProps = (state) => {
+  return {
+    ...state.SampleReducer
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return { dispatch }
+}

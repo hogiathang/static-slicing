@@ -1,0 +1,6 @@
+appointmentId = appointmentId === void 0 ? null : appointmentId
+let url = 'v3/establishments/' + establishmentId + '/schedules/daysWithAvailability?dateStart=' + dateStart + '&dateStop=' + dateStop + '&places=' + place
+url += timezone ? '&timezone=' + timezone : ''
+url += service ? '&service=' + service : ''
+url += appointmentId ? '&appointmentId=' + appointmentId : ''
+const request = API.http.get(url)

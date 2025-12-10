@@ -1,0 +1,3 @@
+_tmp_1.updateResourceSettings = <lambda>16
+const url = 'v3/establishments/' + establishmentId + '/resources/' + resourceId + '/settings'
+const request = API.http.put(url, payload)

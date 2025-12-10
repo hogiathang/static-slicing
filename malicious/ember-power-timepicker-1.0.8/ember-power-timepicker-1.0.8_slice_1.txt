@@ -1,0 +1,4 @@
+_tmp_17.init = init
+this._super(...arguments)
+let increment = this.get('increment')
+let startTimeHour = this.get('startTimeHour')

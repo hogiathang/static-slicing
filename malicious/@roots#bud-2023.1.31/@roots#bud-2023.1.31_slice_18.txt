@@ -1,0 +1,5 @@
+const set = (path, bud) => {
+    _set(instances, path, bud);
+    return get(path);
+}
+_set(instances, path, bud)

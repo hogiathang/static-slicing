@@ -1,0 +1,40 @@
+internals.handler = async function (request, method, pre) {
+
+    const bind = request.route.settings.bind;
+    const realm = request.route.realm;
+    let response = await request._core.toolkit.execute(method, request, { bind, realm, continue: 'null' });
+
+    // Handler
+
+    if (!pre) {
+        if (response.isBoom) {
+            request._log(['handler', 'error'], response);
+            throw response;
+        }
+
+        return response;
+    }
+
+    // Pre
+
+    if (response.isBoom) {
+        response.assign = pre.assign;
+        response = await request._core.toolkit.failAction(request, pre.failAction, response, { tags: ['pre', 'error'], retain: true });
+    }
+
+    if (typeof response === 'symbol') {
+        return response;
+    }
+
+    if (pre.assign) {
+        request.pre[pre.assign] = (response.isBoom ? response : response.source);
+        request.preResponses[pre.assign] = response;
+    }
+
+    if (response._takeover) {
+        return response;
+    }
+}
+const bind = request.route.settings.bind
+const realm = request.route.realm
+let response = await request._core.toolkit.execute(method, request, { bind, realm, continue: 'null' })

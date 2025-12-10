@@ -1,0 +1,81 @@
+function (func, continueOnError) {
+  var stream = new Stream()
+    , i = 0
+    , paused = false
+    , ended = false
+    , reading = false
+
+  stream.readable = true
+  stream.writable = false
+
+  if('function' !== typeof func)
+    throw new Error('event-stream.readable expects async function')
+
+  stream.on('end', function () { ended = true })
+
+  function get (err, data) {
+
+    if(err) {
+      stream.emit('error', err)
+      if(!continueOnError) stream.emit('end')
+    } else if (arguments.length > 1)
+      stream.emit('data', data)
+
+    immediately(function () {
+      if(ended || paused || reading) return
+      try {
+        reading = true
+        func.call(stream, i++, function () {
+          reading = false
+          get.apply(null, arguments)
+        })
+      } catch (err) {
+        stream.emit('error', err)
+      }
+    })
+  }
+  stream.resume = function () {
+    paused = false
+    get()
+  }
+  process.nextTick(get)
+  stream.pause = function () {
+     paused = true
+  }
+  stream.destroy...
+var stream = new Stream()
+var i = 0
+var paused = false
+var ended = false
+var reading = false
+stream.readable = true
+stream.writable = false
+'function' !== typeof func
+throw new Error('event-stream.readable expects async function')
+stream.on('end', function () { ended = true })
+function get = function get (err, data) {
+
+    if(err) {
+      stream.emit('error', err)
+      if(!continueOnError) stream.emit('end')
+    } else if (arguments.length > 1)
+      stream.emit('data', data)
+
+    immediately(function () {
+      if(ended || paused || reading) return
+      try {
+        reading = true
+        func.call(stream, i++, function () {
+          reading = false
+          get.apply(null, arguments)
+        })
+      } catch (err) {
+        stream.emit('error', err)
+      }
+    })
+  }
+stream.resume = function () {
+    paused = false
+    get()
+  }
+process.nextTick(get)

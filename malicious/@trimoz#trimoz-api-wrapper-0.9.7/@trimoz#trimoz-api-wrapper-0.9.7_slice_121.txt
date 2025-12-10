@@ -1,0 +1,3 @@
+_tmp_1.getGlobalSettings = <lambda>2
+const url = 'v3/globalSettings'
+const request = API.http.get(url)

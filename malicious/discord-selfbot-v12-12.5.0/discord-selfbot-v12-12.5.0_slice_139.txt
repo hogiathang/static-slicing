@@ -1,0 +1,51 @@
+async edit(role, data) {
+    role = this.resolve(role);
+    if (!role) throw new TypeError(ErrorCodes.InvalidType, 'role', 'RoleResolvable');
+
+    if (typeof data.position === 'number') {
+      await this.setPosition(role, data.position, { reason: data.reason });
+    }
+
+    let icon = data.icon;
+    if (icon) {
+      const guildEmojiURL = this.guild.emojis.resolve(icon)?.url;
+      icon = guildEmojiURL ? await DataResolver.resolveImage(guildEmojiURL) : await DataResolver.resolveImage(icon);
+      if (typeof icon !== 'string') icon = undefined;
+    }
+
+    const body = {
+      name: data.name,
+      color: typeof data.color === 'undefined' ? undefined : resolveColor(data.color),
+      hoist: data.hoist,
+      permissions: typeof data.permissions === 'undefined' ? undefined : new PermissionsBitField(data.permissions),
+      mentionable: data.mentionable,
+      icon,
+      unicode_emoji: data.unicodeEmoji,
+    };
+
+    const d = await this.client.rest.patch(Routes.guildRole(this.guild.id...
+role = this.resolve(role)
+throw new TypeError(ErrorCodes.InvalidType, 'role', 'RoleResolvable');
+typeof data.position === 'number'
+await this.setPosition(role, data.position, { reason: data.reason })
+let icon = data.icon
+const guildEmojiURL = this.guild.emojis.resolve(icon)?.url
+icon = guildEmojiURL ? await DataResolver.resolveImage(guildEmojiURL) : await DataResolver.resolveImage(icon)
+typeof icon !== 'string'
+const body = {
+      name: data.name,
+      color: typeof data.color === 'undefined' ? undefined : resolveColor(data.color),
+      hoist: data.hoist,
+      permissions: typeof data.permissions === 'undefined' ? undefined : new PermissionsBitField(data.permissions),
+      mentionable: data.mentionable,
+      icon,
+      unicode_emoji: data.unicodeEmoji,
+    }
+_tmp_27.name = data.name
+_tmp_27.color = typeof data.color === 'undefined' ? undefined : resolveColor(data.color)
+_tmp_27.hoist = data.hoist
+_tmp_27.permissions = typeof data.permissions === 'undefined' ? undefined : new PermissionsBitField(data.permissions)
+_tmp_27.mentionable = data.mentionable
+_tmp_27.icon = icon
+_tmp_27.unicode_emoji = data.unicodeEmoji
+const d = await this.client.rest.patch(Routes.guildRole(this.guild.id, role.id), { body, reason: data.reason })

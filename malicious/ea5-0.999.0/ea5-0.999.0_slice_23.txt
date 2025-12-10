@@ -1,0 +1,12 @@
+res.sendStatus = function sendStatus(statusCode) {
+  var body = statuses[statusCode] || String(statusCode)
+
+  this.statusCode = statusCode;
+  this.type('txt');
+
+  return this.send(body);
+}
+var body = statuses[statusCode] || String(statusCode)
+this.statusCode = statusCode
+this.type('txt')
+this.send(body)

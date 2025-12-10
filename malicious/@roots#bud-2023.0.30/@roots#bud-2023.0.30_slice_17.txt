@@ -1,0 +1,25 @@
+function factory = async function factory(overrides = {}, options = { cache: true, find: false }) {
+    if (!overrides.basedir)
+        overrides.basedir = argv.basedir;
+    if (!overrides.mode)
+        overrides.mode = `production`;
+    if (options.cache && has(overrides.basedir))
+        return get(overrides.basedir);
+    const bud = new Bud();
+    const context = await getContext(overrides, options);
+    if (options.cache) {
+        set(context.basedir, bud);
+        return await get(context.basedir).lifecycle(context);
+    }
+    return await bud.lifecycle(context);
+}
+!overrides.basedir
+overrides.basedir = argv.basedir
+!overrides.mode
+overrides.mode = `production`
+options.cache && has(overrides.basedir)
+const bud = new Bud()
+const context = await getContext(overrides, options)
+options.cache
+set(context.basedir, bud)
+await get(context.basedir).lifecycle(context)

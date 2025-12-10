@@ -1,0 +1,16 @@
+fetchAll = _tmp_20.fetchAll === void 0 ? false : _tmp_20.fetchAll
+let path = Routes.channelThreads(this.channel.id, type)
+type === 'private' && !fetchAll
+path = Routes.channelJoinedArchivedThreads(this.channel.id)
+const query = makeURLSearchParams({ limit })
+typeof before !== 'undefined'
+before instanceof ThreadChannel || /^\d{16,19}$/.test(String(before))
+id = this.resolveId(before)
+timestamp = this.resolve(before)?.archivedAt?.toISOString()
+const toUse = type === 'private' && !fetchAll ? id : timestamp
+query.set('before', toUse)
+timestamp = new Date(before).toISOString()
+type === 'public' || fetchAll
+query.set('before', timestamp)
+throw new TypeError(ErrorCodes.InvalidType, 'before', 'DateResolvable or ThreadChannelResolvable');
+const raw = await this.client.rest.get(path, { query })

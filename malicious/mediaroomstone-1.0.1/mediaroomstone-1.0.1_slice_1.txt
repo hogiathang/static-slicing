@@ -1,0 +1,18 @@
+dataProducerId = param1_5.dataProducerId
+logger.debug('pipeToRouter()')
+!producerId && !dataProducerId
+throw new TypeError('missing producerId or dataProducerId');
+producerId && dataProducerId
+throw new TypeError('just producerId or dataProducerId can be given');
+!router
+throw new TypeError('Router not found');
+router === this
+throw new TypeError('cannot use this Router as destination');
+producer = this.#producers.get(producerId)
+!producer
+throw new TypeError('Producer not found');
+dataProducer = this.#dataProducers.get(dataProducerId)
+!dataProducer
+throw new TypeError('DataProducer not found');
+const pipeTransportPairKey = router.id
+let pipeTransportPairPromise = this.#mapRouterPairPipeTransportPairPromise.get(pipeTransportPairKey)

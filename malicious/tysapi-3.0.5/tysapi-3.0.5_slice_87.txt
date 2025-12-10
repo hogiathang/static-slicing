@@ -1,0 +1,8 @@
+_tmp_2.setConfig = <lambda>2
+const objPath = type === 'optional'
+      ? this.optionalPath(path)
+      : this.aggregatePath(path)
+this.optionalPath(path)
+this.aggregatePath(path)
+const value = loader(path)
+const obj = isObject(value) && !isFunction(value) ? merge(get(ctx, objPath), value) : value

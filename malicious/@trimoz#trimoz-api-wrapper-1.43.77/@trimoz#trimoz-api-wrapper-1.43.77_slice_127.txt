@@ -1,0 +1,3 @@
+const retrieveErrorInternalCode = (error) => {
+    return get(error, 'response.data.messages.errors[0].internal_code', null);
+}

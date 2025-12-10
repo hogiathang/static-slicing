@@ -1,0 +1,21 @@
+function deleteAppSettings = async function deleteAppSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const status = validateRequestParams(request, OperationType.DELETE);
+    if (status === undefined) {
+      const appId: string = request.params.appID;
+      const { settingName } = request.params;
+
+      logger.debug(`${CLASS_NAME} | ${deleteAppSettings.name}() | Updating App Settings`);
+
+      await settingsRepo.deleteAppSettings(appId, settingName);
+
+      return response.send(200, 'Success');
+    }
+    return response.send(400, { code: 400, message: status });
+  } catch (err) {
+    return response.send(500, { code: 500, message: 'Unable to delete app settings' });
+  }
+}
+const status = validateRequestParams(request, OperationType.DELETE)
+status === undefined
+response.send(400, { code: 400, message: status })

@@ -1,0 +1,28 @@
+public warning(message: string, meta?: any): void {
+        const fileName: string = path.join(this.filePath, `${this.name}-${moment().format(this.format)}.log`);
+
+        if (!fs.existsSync(fileName)) {
+            fs.closeSync(fs.openSync(fileName, 'w'));
+        }
+
+        fs.appendFile(fileName, JSON.stringify({
+            level: 'warning',
+            message,
+            meta,
+        }), (err: Error) => {
+
+        });
+    }
+const fileName: string = path.join(this.filePath, `${this.name}-${moment().format(this.format)}.log`)
+!fs.existsSync(fileName)
+fs.closeSync(fs.openSync(fileName, 'w'))
+fs.appendFile(fileName, JSON.stringify({
+            level: 'warning',
+            message,
+            meta,
+        }), (err: Error) => {
+
+        })
+_tmp_9.level = "warning"
+_tmp_9.message = message
+_tmp_9.meta = meta

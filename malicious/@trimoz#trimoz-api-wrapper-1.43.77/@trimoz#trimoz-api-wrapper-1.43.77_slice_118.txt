@@ -1,0 +1,3 @@
+_tmp_1.getByIds = getByIds
+<operator>.formatString("v3/establishments/", establishmentId, "/findByIds?ids=", servicesIds, "")
+const request = API.http.get(url)

@@ -1,0 +1,9 @@
+exports.fetch = engineOptions => {
+  for (const encoder of list) {
+    const fetched = fetch(encoder, engineOptions);
+    if (fetched) return fetched;
+  }
+  return null;
+}
+_iterator_0 = <operator>.iterator(list)
+const fetched = fetch(encoder, engineOptions)

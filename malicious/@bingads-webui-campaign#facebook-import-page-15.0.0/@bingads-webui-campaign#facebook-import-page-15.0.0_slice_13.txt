@@ -1,0 +1,23 @@
+function setGlobalEval = function setGlobalEval( elems, refElements ) {
+	var i = 0,
+		l = elems.length;
+
+	for ( ; i < l; i++ ) {
+		dataPriv.set(
+			elems[ i ],
+			"globalEval",
+			!refElements || dataPriv.get( refElements[ i ], "globalEval" )
+		);
+	}
+}
+var i = 0
+var l = elems.length
+i < l
+dataPriv.set(
+			elems[ i ],
+			"globalEval",
+			!refElements || dataPriv.get( refElements[ i ], "globalEval" )
+		)
+elems[i]
+"globalEval"
+!refElements || dataPriv.get( refElements[ i ], "globalEval" )

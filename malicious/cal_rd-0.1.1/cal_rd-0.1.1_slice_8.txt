@@ -1,0 +1,9 @@
+var React = require("react")
+var connect = require("react-redux").connect
+var payments = require("../selectors/payments")
+connect((state, props)=>({ monthlyOverpayment:state.mortgage.monthlyOverpayment, ...payments(state) }))(
+({monthlyPayment, monthlyOverpayment, title})=> (
+  <h2>{title}
+    <span className="money"> {(+monthlyPayment + (+monthlyOverpayment)).toFixed(2)}</span>
+  </h2>
+))

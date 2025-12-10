@@ -1,0 +1,35 @@
+public async cancel(type: string, userId: string): Promise<boolean> {
+        const subscription: Subscription = await this.subscriptionRepository.findByUserId(type, userId);
+
+        if (!subscription) {
+            return null;
+        }
+
+        let payments: Payment[] = await this.paymentRepository.list(subscription.id);
+
+        if (payments.length === 0) {
+            return false;
+        }
+
+        payments = payments.sort((a: Payment, b: Payment) => {
+            return a.timestamp.getTime() - b.timestamp.getTime();
+        });
+
+        const firstPayment: Payment = payments[0];
+
+        await this.paymentGateway.cancel(firstPayment.token);
+
+        await this.subscriptionRepository.delete(subscription.id);
+
+        return true;
+    }
+const subscription: Subscription = await this.subscriptionRepository.findByUserId(type, userId)
+!subscription
+let payments: Payment[] = await this.paymentRepository.list(subscription.id)
+payments.length === 0
+payments = payments.sort((a: Payment, b: Payment) => {
+            return a.timestamp.getTime() - b.timestamp.getTime();
+        })
+const firstPayment: Payment = payments[0]
+await this.paymentGateway.cancel(firstPayment.token)
+await this.subscriptionRepository.delete(subscription.id)

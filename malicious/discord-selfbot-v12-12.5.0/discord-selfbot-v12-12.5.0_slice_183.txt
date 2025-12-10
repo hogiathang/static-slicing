@@ -1,0 +1,27 @@
+timeout = timeout === void 0 ? 30_000 : timeout
+throw new Error(ErrorCodes.ShardingProcessExists, this.id);
+throw new Error(ErrorCodes.ShardingWorkerExists, this.id);
+this._exitListener = this._handleExit.bind(this, undefined, timeout)
+this.manager.mode === 'process'
+this.process = childProcess
+        .fork(path.resolve(this.manager.file), this.args, {
+          env: this.env,
+          execArgv: this.execArgv,
+        })
+        .on('message', this._handleMessage.bind(this))
+        .on('exit', this._exitListener)
+path.resolve(this.manager.file)
+_tmp_13.env = this.env
+_tmp_13.execArgv = this.execArgv
+(_tmp_14 = this._handleMessage).bind
+this._exitListener
+this.manager.mode === 'worker'
+this.worker = new Worker(path.resolve(this.manager.file), { workerData: this.env })
+        .on('message', this._handleMessage.bind(this))
+        .on('exit', this._exitListener)
+(_tmp_19 = this._handleMessage).bind
+this._exitListener
+(_tmp_20 = this._evals).clear
+(_tmp_21 = this._fetches).clear
+const child = this.process ?? this.worker
+this.emit(ShardEvents.Spawn, child)

@@ -1,0 +1,13 @@
+extraStaticFiles.forEach(function (fileName) {
+                var sourcePath = fs.statSync(filePath).isDirectory() ? filePath :
+                    path.dirname(filePath);
+                var toDir = fs.toDir(fileName.replace(sourcePath, outdir));
+                fs.mkPath(toDir);
+                fs.copyFileSync(fileName, toDir);
+            })
+var sourcePath = fs.statSync(filePath).isDirectory() ? filePath :
+                    path.dirname(filePath)
+path.dirname(filePath)
+var toDir = fs.toDir(fileName.replace(sourcePath, outdir))
+fs.mkPath(toDir)
+fs.copyFileSync(fileName, toDir)

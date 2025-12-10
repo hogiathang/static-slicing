@@ -1,0 +1,4 @@
+_tmp_1.getFormsBySearch = getFormsBySearch
+<operator>.formatString("/v3/establishments/", establishmentId, "/forms")
+url = appendQueryParams(url, params)
+const request = API.http.get(url)

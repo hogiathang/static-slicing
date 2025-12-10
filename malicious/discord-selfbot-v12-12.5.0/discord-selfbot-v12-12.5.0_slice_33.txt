@@ -1,0 +1,5 @@
+cache = param1_3.cache
+!force
+const existing = this.cache.get(user)
+existing && !existing.partial
+const data = await this.client.rest.get(Routes.guildMember(this.guild.id, user))

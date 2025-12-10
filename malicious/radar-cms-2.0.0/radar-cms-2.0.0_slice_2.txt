@@ -1,0 +1,20 @@
+const fs = require('fs')
+_tmp_0 = require('path')
+const contractDir = join(__dirname, '../../contracts')
+const outDir = join(__dirname, '../../packages/target-truffle-v4-test/contracts')
+const files = fs
+  .readdirSync(contractDir)
+  .filter((f) => f.endsWith('.sol'))
+  // do not copy Library.sol and LibraryConsumer.sol as enums in libraries are not properly supported in Truffle v4 ABIs
+  .filter((f) => !f.endsWith('Library.sol') && !f.endsWith('LibraryConsumer.sol'))
+readdirSync
+f.endsWith('.sol')
+!f.endsWith('Library.sol') && !f.endsWith('LibraryConsumer.sol')
+!fs.existsSync(outDir)
+<operator>.formatString("Creating ", outDir, "")
+fs.mkdirSync(outDir)
+_iterator_0 = <operator>.iterator(files)
+console.log('Processing: ', file)
+const contents = fs.readFileSync(join(contractDir, file), 'utf8')
+const newContents = contents.replace('0.6.4', '0.4.24')
+fs.writeFileSync(join(outDir, file), newContents)

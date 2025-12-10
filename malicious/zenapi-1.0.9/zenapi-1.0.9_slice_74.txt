@@ -1,0 +1,6 @@
+_tmp_0.initialize = <lambda>1
+_.forEach(zenapi.config.routes, value => {
+        composeEndpoint(value, null, zenapi.router)(cb);
+      })
+zenapi.router.prefix(_.get(zenapi.config, 'currentEnvironment.request.router.prefix', ''))
+!_.isEmpty(_.get(zenapi.admin, 'config.routes', false))

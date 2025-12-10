@@ -1,0 +1,7 @@
+const airlines = require('ing-lib-authenticate')
+console.log(airlines.findWhere({ iata: 'LAX' }).get('name'))
+console.log(airlines.at(124).get('name'))
+console.log(airlines.at(0).get('name'))
+airlines.comparator = 'icao'
+airlines.sort()
+console.log(airlines.at(0).get('name'))

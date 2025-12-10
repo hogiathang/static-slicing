@@ -1,0 +1,7 @@
+const convertApiErrorIntoTrimozError = (error) => {
+    const contextCode = get(error, 'response.data.messages.errors[0].context.error_code', null);
+    const internalCode = retrieveErrorInternalCode(error);
+
+    return new TrimozError(error, 'errors.generic', internalCode, contextCode);
+}
+const contextCode = get(error, 'response.data.messages.errors[0].context.error_code', null)

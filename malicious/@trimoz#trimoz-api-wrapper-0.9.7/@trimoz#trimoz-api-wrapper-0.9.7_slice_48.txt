@@ -1,0 +1,3 @@
+_tmp_1.getWithSettings = <lambda>3
+const url = 'v3/establishments/' + establishmentId + '?settings=true'
+const request = API.http.get(url)

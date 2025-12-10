@@ -1,0 +1,18 @@
+public error(error: Error, meta?: any): void {
+        const fileName: string = path.join(this.filePath, `${this.name}-${moment().format(this.format)}.log`);
+
+        if (!fs.existsSync(fileName)) {
+            fs.closeSync(fs.openSync(fileName, 'w'));
+        }
+
+        fs.appendFile(fileName, JSON.stringify({
+            error,
+            level: 'error',
+            meta,
+        }), (err: Error) => {
+
+        });
+    }
+const fileName: string = path.join(this.filePath, `${this.name}-${moment().format(this.format)}.log`)
+!fs.existsSync(fileName)
+fs.closeSync(fs.openSync(fileName, 'w'))

@@ -1,0 +1,3 @@
+_tmp_1.incrementPublicVisitsForEstablishment = <lambda>3
+<operator>.formatString("v3/establishments/", establishment, "/statistics/publicVisits")
+const request = API.http.post(url)

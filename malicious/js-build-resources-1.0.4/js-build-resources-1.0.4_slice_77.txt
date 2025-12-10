@@ -1,0 +1,17 @@
+function deleteUserSettings = async function deleteUserSettings(request: Request, response: Response): Promise<Response> {
+  if (!request.params.userId)
+    return response.send(400, { code: 400, message: 'userId is required to delete user settings' });
+
+  try {
+    const { userId } = request.params;
+    logger.debug(`${CLASS_NAME} | ${deleteUserSettings.name}() | Deleting User Settings`);
+
+    await settingsRepo.deleteUserSettings(userId);
+
+    return response.send(200, 'success');
+  } catch (err) {
+    return response.send(500, { code: 500, message: 'Unable to delete user settings' });
+  }
+}
+!request.params.userId
+response.send(400, { code: 400, message: 'userId is required to delete user settings' })

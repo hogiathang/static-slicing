@@ -1,0 +1,11 @@
+function isGlobalFeatureEnabled = function isGlobalFeatureEnabled(feat) {
+  try {
+    const features = localStorage.getItem(TOGGLE_FEATURE);
+    const featuresJson = JSON.parse(features);
+    return get(featuresJson, feat, false);
+  } catch (e) {
+    return false;
+  }
+}
+const features = localStorage.getItem(TOGGLE_FEATURE)
+const featuresJson = JSON.parse(features)

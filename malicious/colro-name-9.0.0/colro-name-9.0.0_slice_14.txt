@@ -1,0 +1,6 @@
+const timeoutHandler = (delay, event) => {
+		request.abort();
+		request.emit('error', new TimeoutError(delay, event, options));
+	}
+request.abort()
+request.emit('error', new TimeoutError(delay, event, options))

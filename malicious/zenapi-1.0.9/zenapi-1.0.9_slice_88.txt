@@ -1,0 +1,7 @@
+_tmp_2.setConfigAdmin = <lambda>3
+const objPath = 'admin.' + (type === 'optional'
+      ? this.optionalPath(path)
+      : this.aggregatePath(path))
+this.optionalPath(path)
+this.aggregatePath(path)
+objPath.split('.').length === 1

@@ -1,0 +1,2 @@
+_tmp_1.sendJoinUsMail = <lambda>4
+const request = API.http.post('/v3/joinUs', params)

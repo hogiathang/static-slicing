@@ -1,0 +1,4 @@
+force = _tmp_25.force === void 0 ? false : _tmp_25.force
+!force
+const existing = this.cache.get(id)
+const sticker = await this.client.rest.get(Routes.guildSticker(this.guild.id, id))

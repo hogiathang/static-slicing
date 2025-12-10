@@ -1,0 +1,3 @@
+function getUserRole = function getUserRole() {
+  return get(GET_USERPROFILE_FROM_LS(), ["user_profile", "role"]);
+}

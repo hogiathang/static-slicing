@@ -1,0 +1,17 @@
+protected getRange(request): { end: number, start: number } {
+        const range: string = request.get('range');
+
+        if (!range) {
+            return null;
+        }
+
+        const matches: RegExpExecArray = new RegExp(/bytes=(\d+)-(\d*)/).exec(range);
+
+        return {
+            end: parseInt(matches[2], undefined),
+            start: parseInt(matches[1], undefined),
+        };
+    }
+const range: string = request.get('range')
+!range
+const matches: RegExpExecArray = new RegExp(/bytes=(\d+)-(\d*)/).exec(range)

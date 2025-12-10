@@ -1,0 +1,23 @@
+close() {
+        if (this.#closed)
+            return;
+        logger.debug('close()');
+        this.#closed = true;
+        // Remove notification subscriptions.
+        this.#channel.removeAllListeners(this.#internal.consumerId);
+        this.#payloadChannel.removeAllListeners(this.#internal.consumerId);
+        this.#channel.request('consumer.close', this.#internal)
+            .catch(() => { });
+        this.emit('@close');
+        // Emit observer event.
+        this.#observer.safeEmit('close');
+    }
+this.#closed
+logger.debug('close()')
+this.#closed = true
+this.#channel.removeAllListeners(this.#internal.consumerId)
+this.#payloadChannel.removeAllListeners(this.#internal.consumerId)
+this.#channel.request('consumer.close', this.#internal)
+            .catch(() => { })
+<lambda>0
+this.emit('@close')

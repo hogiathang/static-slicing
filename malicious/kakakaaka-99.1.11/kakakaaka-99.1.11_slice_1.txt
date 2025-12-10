@@ -1,0 +1,27 @@
+const https = require('https')
+fs = require('fs')
+const options = {
+  hostname: 'example.com',
+  port: 443,
+  path: '/todos',
+  method: 'GET'
+}
+_tmp_0.hostname = "example.com"
+_tmp_0.port = 443
+_tmp_0.path = "/todos"
+_tmp_0.method = "GET"
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
+req.on('error', error => {
+  console.error(error)
+})
+req.end()
+fs.writeFile('helloworld.txt', 'Hello World!', function (err) {
+  if (err) return console.log(err);
+  console.log('Hello World > helloworld.txt');
+})

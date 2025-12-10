@@ -1,0 +1,4 @@
+_tmp_1.getAllEstSpecificSettings = <lambda>11
+const values = settingIds.join(',')
+const url = 'v3/establishments/' + establishmentId + '/services/settings?settingIds=' + values
+const request = API.http.get(url)

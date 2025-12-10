@@ -1,0 +1,24 @@
+const getBusinessLineIdsFromLocalStorage = () => {
+  // the localStorage data is coming from get-all-stores api
+  // the value is set after user login success
+  let result = localStorage.getItem(BUSINESS_LINE_IDS_LS);
+  try {
+    result = JSON.parse(result) || [];
+  } catch (_) {
+    result = [];
+  }
+  if (result && result.length > 0) {
+    return result;
+  }
+  // if cannot get business lines from get-all-stores api
+  // then get from user profile
+  const userProfile = GET_USERPROFILE_FROM_LS() || {};
+  result = get(userProfile, "business_line_ids") || [];
+  return result;
+}
+let result = localStorage.getItem(BUSINESS_LINE_IDS_LS)
+result = JSON.parse(result) || []
+__ecma.Array.factory()
+result && result.length > 0
+const userProfile = GET_USERPROFILE_FROM_LS() || {}
+result = get(userProfile, "business_line_ids") || []

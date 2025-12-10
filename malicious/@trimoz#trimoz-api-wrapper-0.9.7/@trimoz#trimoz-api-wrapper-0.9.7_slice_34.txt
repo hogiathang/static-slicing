@@ -1,0 +1,7 @@
+_tmp_1.getAllByEstablishmentPublic = getAllByEstablishmentPublic
+const url = 'v3/establishments/' + establishmentId + '/resources?light=true'
+const params = {
+                light: true,
+            }
+_tmp_13.light = true
+const request = API.http.get(url, params)

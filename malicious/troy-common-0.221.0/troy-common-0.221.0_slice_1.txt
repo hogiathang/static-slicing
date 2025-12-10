@@ -1,0 +1,14 @@
+function checkIdleTimeout = function checkIdleTimeout(history, trackEvent) {
+  //remove idle timeout for local dev and cashier
+  if (process.env.TROY_NO_CHECK_IDLE_TIMEOUT === "true" || isRoleCashier()) {
+    return;
+  }
+  interval = setInterval(() => {
+    const expireAt = localStorage.getItem(EXPIRY_TIME);
+    const now = Date.now();
+    if (expireAt && now > expireAt && !isPaused){
+      forceLogout(history, trackEvent);
+    }
+  }, 1000);
+}
+process.env.TROY_NO_CHECK_IDLE_TIMEOUT === "true" || isRoleCashier()

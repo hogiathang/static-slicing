@@ -1,0 +1,7 @@
+_tmp_1.create = create
+const url = 'v3/establishments/' + establishmentId + '/appointments'
+const params = new FormData()
+forEach(payload, (val, key) => {
+                params.append(key, val);
+            })
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'multipart/form-data' }, timeout: 30000 })

@@ -1,0 +1,26 @@
+async fetchAuthor(emoji) {
+    emoji = this.resolve(emoji);
+    if (!emoji) throw new TypeError(ErrorCodes.InvalidType, 'emoji', 'EmojiResolvable', true);
+    if (emoji.managed) {
+      throw new Error(ErrorCodes.EmojiManaged);
+    }
+
+    const { me } = this.guild.members;
+    if (!me) throw new Error(ErrorCodes.GuildUncachedMe);
+    if (!me.permissions.has(PermissionFlagsBits.ManageEmojisAndStickers)) {
+      throw new Error(ErrorCodes.MissingManageEmojisAndStickersPermission, this.guild);
+    }
+
+    const data = await this.client.rest.get(Routes.guildEmoji(this.guild.id, emoji.id));
+    emoji._patch(data);
+    return emoji.author;
+  }
+emoji = this.resolve(emoji)
+throw new TypeError(ErrorCodes.InvalidType, 'emoji', 'EmojiResolvable', true);
+emoji.managed
+throw new Error(ErrorCodes.EmojiManaged);
+_tmp_32 = this.guild.members
+throw new Error(ErrorCodes.GuildUncachedMe);
+!me.permissions.has(PermissionFlagsBits.ManageEmojisAndStickers)
+throw new Error(ErrorCodes.MissingManageEmojisAndStickersPermission, this.guild);
+const data = await this.client.rest.get(Routes.guildEmoji(this.guild.id, emoji.id))

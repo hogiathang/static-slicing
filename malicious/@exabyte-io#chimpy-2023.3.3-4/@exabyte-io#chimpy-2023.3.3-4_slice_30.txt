@@ -1,0 +1,83 @@
+SimianReporter.prototype.report = function report(jsonCucumberResult, callback) {
+  SimianReporter.reportCallback = callback;
+  const query = {
+    accessToken: this.options.simianAccessToken,
+  };
+  if (this.options.simianRepositoryId) {
+    query.repositoryId = this.options.simianRepositoryId;
+  }
+  const url = require('url').format({
+    protocol: 'http',
+    host: this.options.simianResultEndPoint,
+    query,
+  });
+
+  const data = {
+    type: 'cucumber',
+    branch: this.options.simianResultBranch,
+    result: jsonCucumberResult,
+  };
+  if (this.options.simianBuildNumber) {
+    data.buildNumber = parseInt(this.options.simianBuildNumber, 10);
+  }
+
+  request.post(
+    {
+      url,
+      json: true,
+      body: data,
+    },
+    (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        log.debug('[chimp][simian-reporter]', 'received data', body);
+      } else {
+        if (body) {
+          log.error('[chimp][simian-reporter] Error from Simian:', body.e...
+SimianReporter.reportCallback = callback
+const query = {
+    accessToken: this.options.simianAccessToken,
+  }
+_tmp_0.accessToken = this.options.simianAccessToken
+this.options.simianRepositoryId
+query.repositoryId = this.options.simianRepositoryId
+const url = require('url').format({
+    protocol: 'http',
+    host: this.options.simianResultEndPoint,
+    query,
+  })
+_tmp_2.protocol = "http"
+_tmp_2.host = this.options.simianResultEndPoint
+_tmp_2.query = query
+const data = {
+    type: 'cucumber',
+    branch: this.options.simianResultBranch,
+    result: jsonCucumberResult,
+  }
+_tmp_3.type = "cucumber"
+_tmp_3.branch = this.options.simianResultBranch
+_tmp_3.result = jsonCucumberResult
+this.options.simianBuildNumber
+data.buildNumber = parseInt(this.options.simianBuildNumber, 10)
+request.post(
+    {
+      url,
+      json: true,
+      body: data,
+    },
+    (error, response, body) => {
+      if (!error && response.statusCode === 200) {
+        log.debug('[chimp][simian-reporter]', 'received data', body);
+      } else {
+        if (body) {
+          log.error('[chimp][simian-reporter] Error from Simian:', body.error);
+        } else {
+          log.error('[chimp][simian-reporter]', 'Error while sending result to Simian:', error);
+        }
+      }
+      SimianReporter.reportCallback(error);
+    }
+  )
+_tmp_4.url = url
+_tmp_4.json = true
+_tmp_4.body = data
+<lambda>0

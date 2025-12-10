@@ -1,0 +1,33 @@
+function getAllSettings = async function getAllSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const { appId, settingName, pageState, fetchSize } = request.query;
+
+    if (settingName && !appId) {
+      return response.send(400, {
+        code: 400,
+        message: 'Must provide appId query parameter if filtering by settingName',
+      });
+    }
+
+    if (fetchSize > 1000) {
+      return response.send(400, {
+        code: 400,
+        message: 'Please provide fetch size value of 1000 or less',
+      });
+    }
+
+    logger.debug(`${CLASS_NAME} | ${getAllSettings.name}() | Getting All Settings`);
+
+    const result = await settingsRepo.getAllSettings({ pageState, appId, settingName, fetchSize });
+    return response.send(200, result);
+  } catch (err) {
+    return response.send(500, { code: 500, message: `Unable to fetch all settings:  ${err}` });
+  }
+}
+settingName = _tmp_14.settingName
+settingName && !appId
+fetchSize > 1000
+response.send(400, {
+        code: 400,
+        message: 'Please provide fetch size value of 1000 or less',
+      })

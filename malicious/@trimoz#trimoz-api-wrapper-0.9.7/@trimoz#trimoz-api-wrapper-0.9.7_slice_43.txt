@@ -1,0 +1,3 @@
+_tmp_1.getTypes = <lambda>8
+const url = 'v3/resources/types'
+const request = API.http.get(url)

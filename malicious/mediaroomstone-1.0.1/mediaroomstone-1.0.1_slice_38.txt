@@ -1,0 +1,43 @@
+const process = require('process')
+const os = require('os')
+const fs = require('fs')
+_tmp_5 = require('child_process')
+_tmp_6 = require('./package.json')
+const isFreeBSD = os.platform() === 'freebsd'
+const isWindows = os.platform() === 'win32'
+const task = process.argv.slice(2).join(' ')
+const MAYOR_VERSION = version.split('.')[0]
+const MAKE = process.env.MAKE || (isFreeBSD ? 'gmake' : 'make')
+<operator>.formatString("npm-scripts.js [INFO] running task "", task, """)
+"lint:worker"
+function taskReplaceVersion = function taskReplaceVersion()
+{
+	const files =
+	[
+		'node/lib/index.js',
+		'node/lib/index.d.ts',
+		'node/lib/Worker.js'
+	];
+
+	for (const file of files)
+	{
+		const text = fs.readFileSync(file, { encoding: 'utf8' });
+		const result = text.replace(/__MEDIASOUP_VERSION__/g, version);
+
+		fs.writeFileSync(file, result, { encoding: 'utf8' });
+	}
+}
+function execute = function execute(command)
+{
+	// eslint-disable-next-line no-console
+	console.log(`npm-scripts.js [INFO] executing command: ${command}`);
+
+	try
+	{
+		execSync(command, { stdio: [ 'ignore', process.stdout, process.stderr ] });
+	}
+	catch (error)
+	{
+		process.exit(1);
+	}
+}

@@ -1,0 +1,20 @@
+handle(data) {
+    const channel = this.getChannel(data);
+    if (channel) {
+      const { id, channel_id, guild_id, author, timestamp, type } = data;
+      const message = this.getMessage({ id, channel_id, guild_id, author, timestamp, type }, channel);
+      if (message) {
+        message.patch(data);
+        return {
+          old: message._edits[0],
+          updated: message,
+        };
+      }
+    }
+
+    return {};
+  }
+const channel = this.getChannel(data)
+channel_id = _tmp_0.channel_id
+const message = this.getMessage({ id, channel_id, guild_id, author, timestamp, type }, channel)
+message.patch(data)

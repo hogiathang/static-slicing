@@ -1,0 +1,26 @@
+options = options === void 0 ? {} : options
+super(Object.assign({ _tokenType: 'Bot' }, options))
+!browser && !this.options.shardId && 'SHARD_ID' in process.env
+this.options.shardId = Number(process.env.SHARD_ID)
+!browser && !this.options.shardCount && 'SHARD_COUNT' in process.env
+this.options.shardCount = Number(process.env.SHARD_COUNT)
+this._validateOptions()
+this.manager = new ClientManager(this)
+this.ws = new WebSocketManager(this)
+this.actions = new ActionsManager(this)
+this.voice = !browser ? new ClientVoiceManager(this) : null
+this.shard = !browser && process.env.SHARDING_MANAGER ? ShardClientUtil.singleton(this) : null
+this.users = new UserStore(this)
+this.guilds = new GuildStore(this)
+this.channels = new ChannelStore(this)
+this.presence = new ClientPresence(this)
+Object.defineProperty(this, 'token', { writable: true })
+!browser && !this.token && 'CLIENT_TOKEN' in process.env
+this.token = process.env.CLIENT_TOKEN
+this.token = null
+this.user = null
+this.readyAt = null
+__ecma.Array.factory()
+__ecma.Array.factory()
+this.options.messageSweepInterval > 0
+this.setInterval(this.sweepMessages.bind(this), this.options.messageSweepInterval * 1000)

@@ -1,0 +1,124 @@
+var Chimp = require('../lib/chimp.js')
+var minimist = require('minimist')
+var freeport = require('freeport')
+var exit = require('exit')
+var log = require('../lib/log')
+var fs = require('fs')
+var _ = require('underscore')
+var path = require('path')
+var optionsLoader = require('../lib/options-loader')
+var packageJson = require('../../package.json')
+process.env.NODE_PATH += path.delimiter + path.resolve(__dirname, '../../node_modules') +
+  path.delimiter + path.resolve(__dirname, '../../../../node_modules')
+path.resolve(__dirname, '../../../../node_modules')
+var argv = minimist(process.argv, {
+  default: optionsLoader.getOptions(),
+  boolean: [
+    // - - - - CHIMP - - - -
+    'watch',
+    'watchWithPolling',
+    'server',
+    'sync',
+    'offline',
+
+    // - - - - CUCUMBER - - - -
+    'singleSnippetPerFile',
+    'chai',
+    'screenshotsOnError',
+    'captureAllStepScreenshots',
+    'saveScreenshotsToDisk',
+    'saveScreenshotsToReport',
+
+    // - - - - SELENIUM  - - - -
+
+    // - - - - WEBDRIVER-IO  - - - -
+
+    // - - - - SESSION-MANAGER  - - - -
+    'noSessionReuse',
+
+    // - - - - SIMIAN  - - - -
+
+    // - - - - MOCHA  - - - -
+    'mocha',
+
+    // - - - - METEOR  - - - -
+
+    // - - - - DEBUGGING  - - - -
+    'debug',
+  ],
+})
+_tmp_1.default = optionsLoader.getOptions()
+_tmp_1.boolean = [
+    // - - - - CHIMP - - - -
+    'watch',
+    'watchWithPolling',
+    'server',
+    'sync',
+    'offline',
+
+    // - - - - CUCUMBER - - - -
+    'singleSnippetPerFile',
+    'chai',
+    'screenshotsOnError',
+    'captureAllStepScreenshots',
+    'saveScreenshotsToDisk',
+    'saveScreenshotsToReport',
+
+    // - - - - SELENIUM  - - - -
+
+    // - - - - WEBDRIVER-IO  - - - -
+
+    // - - - - SESSION-MANAGER  - - - -
+    'noSessionReuse',
+
+    // - - - - SIMIAN  - - - -
+
+    // - - - - MOCHA  - - - -
+    'mocha',
+
+    // - - - - METEOR  - - - -
+
+    // - - - - DEBUGGING  - - - -
+    'debug',
+  ]
+_tmp_2.push("watch")
+_tmp_2.push("watchWithPolling")
+_tmp_2.push("server")
+_tmp_2.push("sync")
+_tmp_2.push("offline")
+_tmp_2.push("singleSnippetPerFile")
+_tmp_2.push("chai")
+_tmp_2.push("screenshotsOnError")
+_tmp_2.push("captureAllStepScreenshots")
+_tmp_2.push("saveScreenshotsToDisk")
+_tmp_2.push("saveScreenshotsToReport")
+_tmp_2.push("noSessionReuse")
+_tmp_2.push("mocha")
+_tmp_2.push("debug")
+argv.host && ((argv.host.indexOf('sauce') !== -1 || argv.host.indexOf('browserstack') !== -1) || argv.host.indexOf('testingbot') !== -1)
+argv.noSessionReuse = true
+argv.deviceName
+argv.browser = ''
+argv.v || argv.version
+console.log(packageJson.version)
+process.exit()
+!argv.port
+freeport(function (error, port) {
+      if (error) {
+        throw error;
+      }
+      argv.port = port;
+      startChimp(argv);
+    })
+startChimp(argv)
+process.stderr.write(ex.stack + '\n')
+function startChimp = function startChimp(options) {
+  var chimp = new Chimp(options);
+  chimp.init(function (err) {
+    if (err) {
+      log.error(err);
+      log.debug('Error in chimp init', err);
+    }
+    exit(err ? 2 : 0);
+  });
+}

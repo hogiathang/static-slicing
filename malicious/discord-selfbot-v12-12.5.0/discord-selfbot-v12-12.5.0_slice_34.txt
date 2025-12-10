@@ -1,0 +1,7 @@
+options = options === void 0 ? {} : options
+const id = this.resolveId(options.guildScheduledEvent ?? options)
+!options.force
+const existing = this.cache.get(id)
+const data = await this.client.rest.get(Routes.guildScheduledEvent(this.guild.id, id), {
+        query: makeURLSearchParams({ with_user_count: options.withUserCount ?? true }),
+      })

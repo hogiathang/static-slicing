@@ -1,0 +1,54 @@
+function command_add = async function command_add()
+{
+    let mime = cliArg('t', 'mime');
+    let overrideFilename = cliArg('n', 'name');
+
+    let filename = process.argv[3];
+    if (!filename) { print_usage(); return; }
+
+    //
+    console.log('encryping contents..');
+
+    let file = createReadStream(filename);
+    let identify = new (require('identify-stream'));
+    file.pipe(identify);
+
+    if (!mime)
+    {
+        let streamType = await new Promise(r => identify.on('complete', r));
+
+        mime = streamType
+            ? streamType.mime
+            : (fileExts.filter(ext => filename.match(ext[0]))[0] || [0,'text/plain;charset=utf-8'])[1];
+    }
+
+    let usePreview = previewTypes.filter(pt => mime.match(pt)).length > 0; // used in template.htm
+    //
+
+    let output = createWriteStream('.enc.htm');
+    let template = readFileSync(join(__dirname, 'template.htm')).toString().split('{{content}}');
+
+    let minifyCfg = minify.createConfiguration({ minify_css: true, do_not_minify_doctype: true });
+
+    fil...
+let mime = cliArg('t', 'mime')
+let overrideFilename = cliArg('n', 'name')
+let filename = process.argv[3]
+print_usage()
+console.log('encryping contents..')
+let file = createReadStream(filename)
+let identify = new (require('identify-stream'))
+file.pipe(identify)
+!mime
+let streamType = await new Promise(r => identify.on('complete', r))
+mime = streamType
+            ? streamType.mime
+            : (fileExts.filter(ext => filename.match(ext[0]))[0] || [0,'text/plain;charset=utf-8'])[1]
+streamType.mime
+fileExts.filter(ext => filename.match(ext[0]))[0] || [0,'text/plain;charset=utf-8'][1]
+let usePreview = previewTypes.filter(pt => mime.match(pt)).length > 0
+let output = createWriteStream('.enc.htm')
+let template = readFileSync(join(__dirname, 'template.htm')).toString().split('{{content}}')
+let minifyCfg = minify.createConfiguration({ minify_css: true, do_not_minify_doctype: true })
+filename = overrideFilename || filename
+output.write(minify.minify(eval(`\`${template[0]}\``), minifyCfg))

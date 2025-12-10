@@ -1,0 +1,13 @@
+client.serviceHandlers.connectFailed = function (err) {
+      notifications.emit('error', new Error('Connection failed: ' + err.message))
+      if (retries !== -1) {
+        if (retries > max) {
+          notifications.emit('close', new Error('Max retries reached'))
+        } else {
+          setTimeout(connect, 5000, retries + 1)
+        }
+      }
+    }
+notifications.emit('error', new Error('Connection failed: ' + err.message))
+retries !== -1
+retries > max

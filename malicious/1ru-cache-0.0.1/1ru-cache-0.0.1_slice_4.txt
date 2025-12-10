@@ -1,0 +1,1 @@
+this[CACHE].forEach((value, key) => get(this, key, false))

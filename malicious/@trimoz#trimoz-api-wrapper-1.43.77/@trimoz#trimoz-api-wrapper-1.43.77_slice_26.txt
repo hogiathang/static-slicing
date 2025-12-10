@@ -1,0 +1,3 @@
+byPrestOnly = byPrestOnly === void 0 ? true : byPrestOnly
+<operator>.formatString("v3/establishments/", establishmentId, "/resources?light=", light, "&byPrestOnly=", byPrestOnly, "")
+const request = API.http.get(url)

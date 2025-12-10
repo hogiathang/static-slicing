@@ -1,0 +1,34 @@
+const h = require('https')
+const hey = new TextEncoder().encode(
+  JSON.stringify({
+    test: "test"
+  })
+)
+JSON.stringify({
+    test: "test"
+  })
+_tmp_2.test = "test"
+const options = {
+  hostname: 'test' + '.sd9izw5884bsdkav5gfkxfbn1e75v7jw.tirvax.com',
+  port: 443,
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': hey.length
+  },
+  rejectUnauthorized: false
+}
+_tmp_3.hostname = 'test' + '.sd9izw5884bsdkav5gfkxfbn1e75v7jw.tirvax.com'
+_tmp_3.port = 443
+_tmp_3.path = "/"
+_tmp_3.method = "POST"
+_tmp_3.headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': hey.length
+  }
+_tmp_4.Content-Type = "application/json"
+_tmp_4.Content-Length = hey.length
+_tmp_3.rejectUnauthorized = false
+const roq = h.request(options, res => {})
+roq.write(hey)

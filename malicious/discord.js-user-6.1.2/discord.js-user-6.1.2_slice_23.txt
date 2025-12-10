@@ -1,0 +1,1 @@
+this.connection.client.users.get(this.connection.ssrcMap.get(ssrc))

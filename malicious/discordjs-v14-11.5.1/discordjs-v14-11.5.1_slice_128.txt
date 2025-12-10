@@ -1,0 +1,5 @@
+cache = cache === void 0 ? true : cache
+const existing = this.cache.get(data.id)
+const channel = Channel.create(this.client, data, guild)
+!channel
+this.client.emit(Events.DEBUG, `Failed to find guild, or unknown type for channel ${data.id} ${data.type}`)

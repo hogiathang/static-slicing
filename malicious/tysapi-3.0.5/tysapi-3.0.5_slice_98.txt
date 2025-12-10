@@ -1,0 +1,67 @@
+const get = async (params = {}) => {
+        Object.assign(source, params);
+
+        const {
+          key,
+          environment = tysapi.config.environment,
+          type = 'core',
+          name = '',
+          tag = ''
+        } = source;
+
+        const prefix = `${type}${name ? `_${name}` : ''}`;
+
+
+        const where = {
+          key: `${prefix}_${key}`,
+          environment,
+          tag
+        };
+
+        const data = tysapi.models['core_store'].orm === 'mongoose'
+          ? await tysapi.models['core_store'].findOne(where)
+          : await tysapi.models['core_store'].forge(where).fetch().then(config => {
+            if (config) {
+              return config.toJSON();
+            }
+          });
+
+        if (!data) {
+          return null;
+        }
+
+        if (data.type === 'object' || data.type === 'array' || data.type === 'boolean') {
+          try {
+            return JSON.parse(data.value);
+          } catch (err) {
+            return new Date(data.value);
+          }
+...
+Object.assign(source, params)
+_tmp_11 = source
+key = _tmp_11.key
+environment = _tmp_11.environment === void 0 ? tysapi.config.environment : _tmp_11.environment
+type = _tmp_11.type === void 0 ? "core" : _tmp_11.type
+name = _tmp_11.name === void 0 ? "" : _tmp_11.name
+tag = _tmp_11.tag === void 0 ? "" : _tmp_11.tag
+<operator>.formatString("", type, "", name ? `_${name}` : '', "")
+const where = {
+          key: `${prefix}_${key}`,
+          environment,
+          tag
+        }
+_tmp_12.key = <operator>.formatString("", prefix, "_", key, "")
+_tmp_12.environment = environment
+_tmp_12.tag = tag
+const data = tysapi.models['core_store'].orm === 'mongoose'
+          ? await tysapi.models['core_store'].findOne(where)
+          : await tysapi.models['core_store'].forge(where).fetch().then(config => {
+            if (config) {
+              return config.toJSON();
+            }
+          })
+await tysapi.models['core_store'].forge(where).fetch().then(config => {
+            if (config) {
+              return config.toJSON();
+            }
+          })

@@ -1,0 +1,10 @@
+delete(key) {
+    const item = this.get(key, true);
+    if (!item) return false;
+    if (this[kLru] && lruable.includes(item.type)) this[kLru].remove(key);
+    return super.delete(key);
+  }
+const item = this.get(key, true)
+!item
+this[kLru] && lruable.includes(item.type)
+(_tmp_8 = super).delete

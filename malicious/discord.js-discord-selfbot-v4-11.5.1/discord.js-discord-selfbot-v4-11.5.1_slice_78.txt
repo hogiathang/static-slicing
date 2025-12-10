@@ -1,0 +1,10 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const settings = client.user.guildSettings.get(packet.d.guild_id);
+    if (settings) settings.patch(packet.d);
+    else client.user.guildSettings.set(packet.d.guild_id, new ClientUserGuildSettings(packet.d, client));
+    client.emit(Constants.Events.USER_GUILD_SETTINGS_UPDATE, client.user.guildSettings.get(packet.d.guild_id));
+  }
+const client = this.packetManager.client
+const settings = client.user.guildSettings.get(packet.d.guild_id)
+settings.patch(packet.d)

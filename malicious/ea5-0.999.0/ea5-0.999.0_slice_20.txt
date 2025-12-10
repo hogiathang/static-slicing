@@ -1,0 +1,19 @@
+app.lazyrouter = function lazyrouter() {
+  if (!this._router) {
+    this._router = new Router({
+      caseSensitive: this.enabled('case sensitive routing'),
+      strict: this.enabled('strict routing')
+    });
+
+    this._router.use(query(this.get('query parser fn')));
+    this._router.use(middleware.init(this));
+  }
+}
+!this._router
+this._router = new Router({
+      caseSensitive: this.enabled('case sensitive routing'),
+      strict: this.enabled('strict routing')
+    })
+_tmp_8.caseSensitive = this.enabled('case sensitive routing')
+_tmp_8.strict = this.enabled('strict routing')
+this._router.use(query(this.get('query parser fn')))

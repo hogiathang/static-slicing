@@ -1,0 +1,2 @@
+_tmp_1.passwordReset = <lambda>15
+const request = API.http.post('v3/passwordReset', params, { headers: { 'Content-Type': 'application/json' } })

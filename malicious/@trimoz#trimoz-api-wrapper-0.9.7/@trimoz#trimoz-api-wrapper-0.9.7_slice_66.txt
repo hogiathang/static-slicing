@@ -1,0 +1,3 @@
+_tmp_1.getHeadOfficeBanks = <lambda>7
+<operator>.formatString("v3/headOffices/", headOfficeId, "/banks")
+const request = API.http.get(url)

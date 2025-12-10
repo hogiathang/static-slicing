@@ -1,0 +1,4 @@
+cache = cache === void 0 ? true : cache
+const existing = this.cache.get(id)
+existing && !existing.partial
+const data = await this.client.api.users(id).get()

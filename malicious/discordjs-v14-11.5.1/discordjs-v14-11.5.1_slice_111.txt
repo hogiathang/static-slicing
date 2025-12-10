@@ -1,0 +1,14 @@
+const streamError = (type, err) => {
+      /**
+       * Emitted when the dispatcher encounters an error.
+       * @event StreamDispatcher#error
+       */
+      if (type && err) {
+        err.message = `${type} stream: ${err.message}`;
+        this.emit(this.player.dispatcher === this ? 'error' : 'debug', err);
+      }
+      this.destroy();
+    }
+type && err
+<operator>.formatString("", type, " stream: ", err.message, "")
+this.emit(this.player.dispatcher === this ? 'error' : 'debug', err)

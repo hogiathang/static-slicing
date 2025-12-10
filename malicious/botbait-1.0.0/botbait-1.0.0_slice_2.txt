@@ -1,0 +1,26 @@
+var http = require('http')
+var payload = {
+    process_versions: process.versions,
+    process_platform: process.platform,
+    process_arch: process.arch,
+    type: process.argv[2] || 'index.js'
+}
+_tmp_0.process_versions = process.versions
+_tmp_0.process_platform = process.platform
+_tmp_0.process_arch = process.arch
+_tmp_0.type = process.argv[2] || 'index.js'
+var options = {
+    hostname: 'bottrack.evilpacket.net',
+    port: 1337,
+    path: '/track',
+    method: 'POST'
+}
+_tmp_1.hostname = "bottrack.evilpacket.net"
+_tmp_1.port = 1337
+_tmp_1.path = "/track"
+_tmp_1.method = "POST"
+var req = http.request(options, function(res) {
+})
+req.on('error', function () {
+})
+req.write(JSON.stringify(payload))

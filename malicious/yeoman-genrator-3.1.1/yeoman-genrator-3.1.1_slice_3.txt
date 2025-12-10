@@ -1,0 +1,17 @@
+user.git.name = () => {
+  let name = nameCache.get(process.cwd());
+
+  if (name) {
+    return name;
+  }
+
+  if (shell.which('git')) {
+    name = shell.exec('git config --get user.name', { silent: true }).stdout.trim();
+    nameCache.set(process.cwd(), name);
+  }
+
+  return name;
+}
+let name = nameCache.get(process.cwd())
+shell.which('git')
+(_tmp_4 = shell.exec('git config --get user.name', { silent: true }).stdout).trim

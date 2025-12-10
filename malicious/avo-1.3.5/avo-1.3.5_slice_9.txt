@@ -1,0 +1,26 @@
+let command = () => {
+        let user = conf.get('user');
+        let tokens = conf.get('tokens');
+        let currentToken = _.get(tokens, 'refreshToken');
+        let token = currentToken;
+        api.setRefreshToken(token);
+        if (token) {
+          logout(token);
+        }
+        if (token || user || tokens) {
+          var msg = 'Logged out';
+          if (token === currentToken) {
+            if (user) {
+              msg += ' from ' + bold(user.email);
+            }
+          } else {
+            msg += ' token "' + bold(token) + '"';
+          }
+          report.log(msg);
+        } else {
+          report.log(`No need to logout, you're not logged in`);
+        }
+      }
+let user = conf.get('user')
+let tokens = conf.get('tokens')
+let currentToken = _.get(tokens, 'refreshToken')

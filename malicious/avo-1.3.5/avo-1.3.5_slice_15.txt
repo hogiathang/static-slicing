@@ -1,0 +1,87 @@
+function _avo_invoke = function _avo_invoke(eventId, hash, messages) {
+  if (_avo_sampling_rate > 0) {
+    if (Math.random() < _avo_sampling_rate) {
+      const data = JSON.stringify({
+        "ac": "jee2AprkP9qW3578bIQ2",
+        "br": "master",
+        "en": __ENV__,
+        "ev": eventId,
+        "ha": hash,
+        "sc": "fwtXqAc0fCLy7b7oGW40",
+        "se": (new Date()).toISOString(),
+        "so": "xOUFa-ew2",
+        "va": messages.length === 0,
+        "me": messages
+      });
+      var options = {
+        hostname: 'api.avo.app',
+        port: 443,
+        path: '/i',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(data)
+        }
+      };
+      var req = require('https').request(options, (res) => {
+        const chunks = [];
+        res.on('data', (data) => chunks.push(data));
+        res.on('end', () => {
+          try {
+            const data = JSON.parse(Buffer.concat(chunks));
+            _avo_sampling_rat...
+_avo_sampling_rate > 0
+Math.random() < _avo_sampling_rate
+const data = JSON.stringify({
+        "ac": "jee2AprkP9qW3578bIQ2",
+        "br": "master",
+        "en": __ENV__,
+        "ev": eventId,
+        "ha": hash,
+        "sc": "fwtXqAc0fCLy7b7oGW40",
+        "se": (new Date()).toISOString(),
+        "so": "xOUFa-ew2",
+        "va": messages.length === 0,
+        "me": messages
+      })
+_tmp_0.ac = "jee2AprkP9qW3578bIQ2"
+_tmp_0.br = "master"
+_tmp_0.en = __ENV__
+_tmp_0.ev = eventId
+_tmp_0.ha = hash
+_tmp_0.sc = "fwtXqAc0fCLy7b7oGW40"
+_tmp_0.se = (new Date()).toISOString()
+_tmp_0.so = "xOUFa-ew2"
+_tmp_0.va = messages.length === 0
+_tmp_0.me = messages
+var options = {
+        hostname: 'api.avo.app',
+        port: 443,
+        path: '/i',
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(data)
+        }
+      }
+_tmp_3.hostname = "api.avo.app"
+_tmp_3.port = 443
+_tmp_3.path = "/i"
+_tmp_3.method = "POST"
+_tmp_3.headers = {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(data)
+        }
+_tmp_4.Content-Type = "application/json"
+_tmp_4.Content-Length = Buffer.byteLength(data)
+var req = require('https').request(options, (res) => {
+        const chunks = [];
+        res.on('data', (data) => chunks.push(data));
+        res.on('end', () => {
+          try {
+            const data = JSON.parse(Buffer.concat(chunks));
+            _avo_sampling_rate = data.sa;
+          } catch(e) {}
+        });
+      })
+req.write(data)

@@ -1,0 +1,3 @@
+_tmp_1.deleteServiceMeta = <lambda>32
+const url = 'v3/establishments/services/' + serviceTemplateId + '/metadata/' + metaId
+const request = API.http.delete(url)

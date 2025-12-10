@@ -1,0 +1,3 @@
+_tmp_1.updateTemplate = <lambda>18
+const url = 'v3/services/templates/' + templateId
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

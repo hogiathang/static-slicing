@@ -1,0 +1,3 @@
+_tmp_1.getBasicMeta = <lambda>13
+const url = 'v3/services/metas'
+const request = API.http.get(url)

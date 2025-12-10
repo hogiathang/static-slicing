@@ -1,0 +1,14 @@
+async fetchWidgetSettings() {
+    const data = await this.client.rest.get(Routes.guildWidgetSettings(this.id));
+    this.widgetEnabled = data.enabled;
+    this.widgetChannelId = data.channel_id;
+    return {
+      enabled: data.enabled,
+      channel: data.channel_id ? this.channels.cache.get(data.channel_id) : null,
+    };
+  }
+const data = await this.client.rest.get(Routes.guildWidgetSettings(this.id))
+this.widgetEnabled = data.enabled
+this.widgetChannelId = data.channel_id
+_tmp_76.enabled = data.enabled
+_tmp_76.channel = data.channel_id ? this.channels.cache.get(data.channel_id) : null

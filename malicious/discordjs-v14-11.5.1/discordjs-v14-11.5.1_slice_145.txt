@@ -1,0 +1,28 @@
+async remove(roleOrRoles, reason) {
+    if (roleOrRoles instanceof Collection || Array.isArray(roleOrRoles)) {
+      roleOrRoles = roleOrRoles.map(r => this.guild.roles.resolve(r));
+      if (roleOrRoles.includes(null)) {
+        throw new TypeError('INVALID_TYPE', 'roles', 'Array or Collection of Roles or Snowflakes', true);
+      }
+
+      const newRoles = this._roles.filter(role => !roleOrRoles.includes(role));
+      return this.set(newRoles, reason);
+    } else {
+      roleOrRoles = this.guild.roles.resolve(roleOrRoles);
+      if (roleOrRoles === null) {
+        throw new TypeError('INVALID_TYPE', 'roles', 'Array or Collection of Roles or Snowflakes', true);
+      }
+
+      await this.client.api.guilds[this.guild.id].members[this.member.id].roles[roleOrRoles.id].delete({ reason });
+
+      const clone = this.member._clone();
+      const newRoles = this._roles.filter(role => role.id !== roleOrRoles.id);
+      clone._roles = [...newRoles.keys()];
+      return clone;
+    }
+  }
+roleOrRoles instanceof Collection || Array.isArray(roleOrRoles)
+roleOrRoles = this.guild.roles.resolve(roleOrRoles)
+roleOrRoles === null
+throw new TypeError('INVALID_TYPE', 'roles', 'Array or Collection of Roles or Snowflakes', true);
+await this.client.api.guilds[this.guild.id].members[this.member.id].roles[roleOrRoles.id].delete({ reason })

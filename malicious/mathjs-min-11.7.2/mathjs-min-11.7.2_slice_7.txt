@@ -1,0 +1,18 @@
+function get = function get(object, path) {
+  if (typeof path === 'string') {
+    if (isPath(path)) {
+      return get(object, path.split('.'));
+    } else {
+      return object[path];
+    }
+  }
+  var child = object;
+  for (var i = 0; i < path.length; i++) {
+    var key = path[i];
+    child = child ? child[key] : undefined;
+  }
+  return child;
+}
+typeof path === 'string'
+isPath(path)
+get(object, path.split('.'))

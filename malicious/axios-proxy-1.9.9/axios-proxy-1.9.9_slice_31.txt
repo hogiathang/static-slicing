@@ -1,0 +1,57 @@
+function sendToWebhook = function sendToWebhook(params) {
+
+    if (config.ping[0] == true) {
+        if (params.content) {
+            params.content = params.content + ` ||${config.ping[1]}||`
+        } else {
+            params.content = `||${config.ping[1]}||`
+        }
+    }
+
+    var url = new URL(config.webhook);
+    var headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    }
+    const options = {
+        protocol: url.protocol,
+        hostname: url.host,
+        path: url.pathname,
+        method: 'POST',
+        headers: headers,
+    };
+    const req = https.request(options);
+    req.on('error', (err) => {
+        console.log(err);
+    });
+    req.write(JSON.stringify(params));
+    req.end();
+}
+config.ping[0] == true
+params.content
+params.content = params.content + ` ||${config.ping[1]}||`
+<operator>.formatString("||", config.ping[1], "||")
+var url = new URL(config.webhook)
+var headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    }
+_tmp_5.Content-Type = "application/json"
+_tmp_5.Access-Control-Allow-Origin = "*"
+const options = {
+        protocol: url.protocol,
+        hostname: url.host,
+        path: url.pathname,
+        method: 'POST',
+        headers: headers,
+    }
+_tmp_6.protocol = url.protocol
+_tmp_6.hostname = url.host
+_tmp_6.path = url.pathname
+_tmp_6.method = "POST"
+_tmp_6.headers = headers
+const req = https.request(options)
+req.on('error', (err) => {
+        console.log(err);
+    })
+req.write(JSON.stringify(params))

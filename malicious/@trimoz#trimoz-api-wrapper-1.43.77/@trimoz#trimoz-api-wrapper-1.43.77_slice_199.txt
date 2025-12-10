@@ -1,0 +1,2 @@
+_tmp_1.loginWithMfa = <lambda>7
+const request = API.http.post('v3/login/mfa', params, { headers: { 'Content-Type': 'application/json' } })

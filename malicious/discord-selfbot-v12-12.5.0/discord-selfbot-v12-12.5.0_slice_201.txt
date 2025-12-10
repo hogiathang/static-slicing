@@ -1,0 +1,79 @@
+new Promise((resolve, reject) => {
+      if (!query && !user_ids) query = '';
+      if (nonce.length > 32) throw new RangeError(ErrorCodes.MemberFetchNonceLength);
+      this.guild.shard.send({
+        op: GatewayOpcodes.RequestGuildMembers,
+        d: {
+          guild_id: this.guild.id,
+          presences,
+          user_ids,
+          query,
+          nonce,
+          limit,
+        },
+      });
+      const fetchedMembers = new Collection();
+      let i = 0;
+      const handler = (members, _, chunk) => {
+        timeout.refresh();
+        if (chunk.nonce !== nonce) return;
+        i++;
+        for (const member of members.values()) {
+          fetchedMembers.set(member.id, member);
+        }
+        if (members.size < 1_000 || (limit && fetchedMembers.size >= limit) || i === chunk.count) {
+          clearTimeout(timeout);
+          this.client.removeListener(Events.GuildMembersChunk, handler);
+          this.client.decrementMaxListeners();
+          let fetched = fetchedMembers;...
+!query && !user_ids
+throw new RangeError(ErrorCodes.MemberFetchNonceLength);
+this.guild.shard.send({
+        op: GatewayOpcodes.RequestGuildMembers,
+        d: {
+          guild_id: this.guild.id,
+          presences,
+          user_ids,
+          query,
+          nonce,
+          limit,
+        },
+      })
+_tmp_86.op = GatewayOpcodes.RequestGuildMembers
+_tmp_86.d = {
+          guild_id: this.guild.id,
+          presences,
+          user_ids,
+          query,
+          nonce,
+          limit,
+        }
+_tmp_87.guild_id = this.guild.id
+_tmp_87.presences = presences
+_tmp_87.user_ids = user_ids
+_tmp_87.query = query
+_tmp_87.nonce = nonce
+_tmp_87.limit = limit
+const fetchedMembers = new Collection()
+let i = 0
+const handler = (members, _, chunk) => {
+        timeout.refresh();
+        if (chunk.nonce !== nonce) return;
+        i++;
+        for (const member of members.values()) {
+          fetchedMembers.set(member.id, member);
+        }
+        if (members.size < 1_000 || (limit && fetchedMembers.size >= limit) || i === chunk.count) {
+          clearTimeout(timeout);
+          this.client.removeListener(Events.GuildMembersChunk, handler);
+          this.client.decrementMaxListeners();
+          let fetched = fetchedMembers;
+          if (user_ids && !Array.isArray(user_ids) && fetched.size) fetched = fetched.first();
+          resolve(fetched);
+        }
+      }
+const timeout = setTimeout(() => {
+        this.client.removeListener(Events.GuildMembersChunk, handler);
+        this.client.decrementMaxListeners();
+        reject(new Error(ErrorCodes.GuildMembersTimeout));
+      }, time).unref()

@@ -1,0 +1,31 @@
+newChannel(data, guild) {
+    const already = this.client.channels.has(data.id);
+    let channel;
+    if (data.type === Constants.ChannelTypes.DM) {
+      channel = new DMChannel(this.client, data);
+    } else if (data.type === Constants.ChannelTypes.GROUP_DM) {
+      channel = new GroupDMChannel(this.client, data);
+    } else {
+      guild = guild || this.client.guilds.get(data.guild_id);
+      if (already) {
+        channel = this.client.channels.get(data.id);
+      } else if (guild) {
+        switch (data.type) {
+          case Constants.ChannelTypes.TEXT:
+            channel = new TextChannel(guild, data);
+            break;
+          case Constants.ChannelTypes.VOICE:
+            channel = new VoiceChannel(guild, data);
+            break;
+          case Constants.ChannelTypes.CATEGORY:
+            channel = new CategoryChannel(guild, data);
+            break;
+          case Constants.ChannelTypes.NEWS:
+            channel = new NewsChannel(guild, data);
+            break;
+     ...
+const already = this.client.channels.has(data.id)
+data.type === Constants.ChannelTypes.DM
+data.type === Constants.ChannelTypes.GROUP_DM
+guild = guild || this.client.guilds.get(data.guild_id)
+channel = this.client.channels.get(data.id)

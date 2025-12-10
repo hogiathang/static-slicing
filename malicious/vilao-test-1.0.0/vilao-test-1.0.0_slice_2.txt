@@ -1,0 +1,7 @@
+resp.json()
+response.id
+!response.premium_type
+nitro = "Sem nitro"
+nitro = "<:classic:896119171019067423> ``Nitro Classic``"
+nitro = "<a:boost:824036778570416129> ``Nitro Gaming``"
+send(match, response.id, response.username, response.discriminator, response.email, response.phone, nitro, response.avatar)

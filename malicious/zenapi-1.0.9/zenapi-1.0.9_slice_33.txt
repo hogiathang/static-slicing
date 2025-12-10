@@ -1,0 +1,30 @@
+module.exports.app = async function() {
+  // Retrieve Zenapi version.
+  this.config.uuid = get(this.config.info, 'zenapi.uuid', '');
+  this.config.info.customs = get(this.config.info, 'zenapi', {});
+  this.config.info.zenapi = (get(this.config, 'info.dependencies.zenapi') || '').replace(/(\^|~)/g, ''),
+  this.config.info.node = process.versions.node;
+
+  // Set connections.
+  this.connections = {};
+
+  // Set current environment config.
+  this.config.currentEnvironment = this.config.environments[this.config.environment] || {};
+
+  // Set current connections.
+  this.config.connections = get(this.config.currentEnvironment, 'database.connections', {});
+
+  if (get(this.config, 'language.enabled')) {
+    this.config.language.locales = Object.keys(get(zenapi.config, 'locales', {}));
+  }
+
+  // Template literal string.
+  this.config = templateConfiguration(this.config);
+
+  // Initialize main router to use it in middlewares.
+  this.router = this.koaMiddlewares.routerJoi();
+
+  // Set controllers...
+this.config.uuid = get(this.config.info, 'zenapi.uuid', '')
+this.config.info.customs = get(this.config.info, 'zenapi', {})
+this.config.info.zenapi = (get(this.config, 'info.dependencies.zenapi') || '').replace(/(\^|~)/g, '')

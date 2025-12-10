@@ -1,0 +1,5 @@
+this.getTranslationFromCDN = function (args) {
+            var fileName = _this.getFileName(args);
+            return get(_this.cdnBase + "/" + fileName);
+        }
+var fileName = _this.getFileName(args)

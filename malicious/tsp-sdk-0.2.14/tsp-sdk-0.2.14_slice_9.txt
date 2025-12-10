@@ -1,0 +1,6 @@
+public getTranslationFromCDN = (args: TranslationArgs) => {
+    const fileName = this.getFileName(args);
+    return get(`${this.cdnBase}/${fileName}`);
+  }
+const fileName = this.getFileName(args)
+<operator>.formatString("", this.cdnBase, "/", fileName, "")

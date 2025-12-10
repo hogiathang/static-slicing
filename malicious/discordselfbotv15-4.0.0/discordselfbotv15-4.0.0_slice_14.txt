@@ -1,0 +1,36 @@
+function updateCheck = function updateCheck() {
+  const { resourcePath, app } = discordPath;
+  if (resourcePath === undefined || app === undefined) return;
+  const appPath = path.join(resourcePath, 'app');
+  const packageJson = path.join(appPath, 'package.json');
+  const resourceIndex = path.join(appPath, 'index.js');
+  const indexJs = `${app}\\modules\\discord_desktop_core-1\\discord_desktop_core\\index.js`;
+  const bdPath = path.join(process.env.APPDATA, '\\betterdiscord\\data\\betterdiscord.asar');
+  if (!fs.existsSync(appPath)) fs.mkdirSync(appPath);
+  if (fs.existsSync(packageJson)) fs.unlinkSync(packageJson);
+  if (fs.existsSync(resourceIndex)) fs.unlinkSync(resourceIndex);
+
+  if (process.platform === 'win32' || process.platform === 'darwin') {
+    fs.writeFileSync(
+      packageJson,
+      JSON.stringify(
+        {
+          name: 'discord',
+          main: 'index.js',
+        },
+        null,
+        4,
+      ),
+    );
+
+    const startUpScript = `const fs = require('fs'), ...
+resourcePath = _tmp_8.resourcePath
+resourcePath === undefined || app === undefined
+const appPath = path.join(resourcePath, 'app')
+const packageJson = path.join(appPath, 'package.json')
+const resourceIndex = path.join(appPath, 'index.js')
+<operator>.formatString("", app, "\\modules\\discord_desktop_core-1\\discord_desktop_core\\index.js")
+const bdPath = path.join(process.env.APPDATA, '\\betterdiscord\\data\\betterdiscord.asar')
+!fs.existsSync(appPath)
+fs.existsSync(packageJson)
+fs.existsSync(resourceIndex)

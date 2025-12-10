@@ -1,0 +1,1 @@
+Object.values(this.plugins).map(x => execBootstrap(get(x, 'config.functions.bootstrap')))

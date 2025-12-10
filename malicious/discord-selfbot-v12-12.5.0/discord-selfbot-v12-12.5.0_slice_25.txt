@@ -1,0 +1,4 @@
+force = _tmp_40.force === void 0 ? false : _tmp_40.force
+id && !force
+const existing = this.cache.get(id)
+const data = await this.client.rest.get(Routes.guildChannels(this.guild.id))

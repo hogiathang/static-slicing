@@ -1,0 +1,3 @@
+_tmp_1.sendSMS = sendSMS
+const url = 'v3/establishments/' + establishmentId + '/appointments/sms'
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

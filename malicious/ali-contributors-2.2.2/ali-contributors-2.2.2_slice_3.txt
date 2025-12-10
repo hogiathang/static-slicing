@@ -1,0 +1,9 @@
+module.exports = function(content, callback) {
+  if (process.platform !== 'darwin') {
+    return callback(new Error('upload clipboard only support mac'));
+  }
+  const execSh = util.format('echo "%s" | pbcopy', content.replace(/\"/g, '\\"'));
+  exec(execSh, callback);
+}
+process.platform !== 'darwin'
+const execSh = util.format('echo "%s" | pbcopy', content.replace(/\"/g, '\\"'))

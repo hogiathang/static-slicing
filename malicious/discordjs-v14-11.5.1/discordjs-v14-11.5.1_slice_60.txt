@@ -1,0 +1,55 @@
+constructor(message, users, roles, everyone, crosspostedChannels) {
+    /**
+     * The client the message is from
+     * @type {Client}
+     * @readonly
+     */
+    Object.defineProperty(this, 'client', { value: message.client });
+
+    /**
+     * The guild the message is in
+     * @type {?Guild}
+     * @readonly
+     */
+    Object.defineProperty(this, 'guild', { value: message.guild });
+
+    /**
+     * The initial message content
+     * @type {string}
+     * @readonly
+     * @private
+     */
+    Object.defineProperty(this, '_content', { value: message.content });
+
+    /**
+     * Whether `@everyone` or `@here` were mentioned
+     * @type {boolean}
+     */
+    this.everyone = Boolean(everyone);
+
+    if (users) {
+      if (users instanceof Collection) {
+        /**
+         * Any users that were mentioned
+         * <info>Order as received from the API, not as they appear in the message content</info>
+         * @type {Collection<Snowflake, User>}
+         */
+        this.users = new C...
+Object.defineProperty(this, 'client', { value: message.client })
+Object.defineProperty(this, 'guild', { value: message.guild })
+Object.defineProperty(this, '_content', { value: message.content })
+this.everyone = Boolean(everyone)
+users instanceof Collection
+this.users = new Collection(users)
+this.users = new Collection()
+_iterator_0 = <operator>.iterator(users)
+mention.member && message.guild
+message.guild.members.add(Object.assign(mention.member, { user: mention }))
+const user = message.client.users.add(mention)
+this.users.set(user.id, user)
+this.users = new Collection()
+roles instanceof Collection
+this.roles = new Collection()
+_iterator_1 = <operator>.iterator(roles)
+const role = message.channel.guild.roles.cache.get(mention)
+this.roles.set(role.id, role)

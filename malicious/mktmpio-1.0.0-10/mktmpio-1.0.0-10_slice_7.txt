@@ -1,0 +1,41 @@
+function spawnSubShell = function spawnSubShell(cmd, instance, callback) {
+  var env = _.pick(instance, ['username', 'password', 'host', 'port']);
+  env = _.mapKeys(env, function(v, key) {
+    return makeEnv(instance.type, key);
+  });
+  if (cmd.env) {
+    _.assign(env, cmd.env);
+  }
+  debug('spawning shell with env:', env);
+  if (cmd.cmd) {
+    cmd = cmd.cmd;
+  }
+  cmd = _.map(cmd, String);
+  var opts = {
+    env: _.defaults(env, process.env),
+    stdio: 'inherit',
+  };
+  debug('spawning subshell:', cmd);
+  setTimeout(function() {
+    var child = cp.spawn(_.head(cmd), _.tail(cmd), opts);
+    child.on('exit', callback);
+    child.on('error', callback);
+  }, 200);
+}
+var env = _.pick(instance, ['username', 'password', 'host', 'port'])
+env = _.mapKeys(env, function(v, key) {
+    return makeEnv(instance.type, key);
+  })
+cmd.env
+_.assign(env, cmd.env)
+debug('spawning shell with env:', env)
+cmd.cmd
+cmd = cmd.cmd
+cmd = _.map(cmd, String)
+var opts = {
+    env: _.defaults(env, process.env),
+    stdio: 'inherit',
+  }
+_tmp_1.env = _.defaults(env, process.env)
+_tmp_1.stdio = "inherit"
+debug('spawning subshell:', cmd)

@@ -1,0 +1,44 @@
+const enableHookNestedDependencies = function (name, flattenHooksConfig, force = false) {
+  if (!this.hook[name]) {
+    this.log.warn(`(hook:${name}) \`tysapi-hook-${name}\` is missing in your dependencies. Please run \`npm install tysapi-hook-${name}\``);
+  }
+
+  // Couldn't find configurations for this hook.
+  if (isEmpty(get(flattenHooksConfig, name, true))) {
+    // Check if database connector is used
+    const modelsUsed = Object.keys(assign(clone(this.api) || {}, this.plugins))
+      .filter(x => isObject(get(this.api, [x, 'models']) || get(this.plugins, [x, 'models']))) // Filter API with models
+      .map(x => get(this.api, [x, 'models']) || get(this.plugins, [x, 'models'])) // Keep models
+      .filter(models => {
+        const apiModelsUsed = Object.keys(models).filter(model => {
+          const connector = get(this.config.connections, models[model].connection, {}).connector;
+
+          if (connector) {
+            return connector.replace('tysapi-hook-', '') === name;
+          ...
+!this.hook[name]
+<operator>.formatString("(hook:", name, ") \`tysapi-hook-", name, "\` is missing in your dependencies. Please run \`npm install tysapi-hook-", name, "\`")
+isEmpty(get(flattenHooksConfig, name, true))
+const modelsUsed = Object.keys(assign(clone(this.api) || {}, this.plugins))
+      .filter(x => isObject(get(this.api, [x, 'models']) || get(this.plugins, [x, 'models']))) // Filter API with models
+      .map(x => get(this.api, [x, 'models']) || get(this.plugins, [x, 'models'])) // Keep models
+      .filter(models => {
+        const apiModelsUsed = Object.keys(models).filter(model => {
+          const connector = get(this.config.connections, models[model].connection, {}).connector;
+
+          if (connector) {
+            return connector.replace('tysapi-hook-', '') === name;
+          }
+
+          return false;
+        });
+
+        return apiModelsUsed.length !== 0;
+      })
+isObject(get(this.api, [x, 'models']) || get(this.plugins, [x, 'models']))
+get(this.api, [x, 'models']) || get(this.plugins, [x, 'models'])
+<lambda>27
+flattenHooksConfig[name] = {
+      enabled: force || modelsUsed.length > 0 // Will return false if there is no model, else true.
+    }
+_tmp_105.enabled = force || modelsUsed.length > 0

@@ -1,0 +1,5 @@
+cache = cache === void 0 ? true : cache
+const existing = this.cache.get(id)
+const roles = await this.client.api.guilds(this.guild.id).roles.get()
+_iterator_0 = <operator>.iterator(roles)
+id ? this.cache.get(id) || null : this

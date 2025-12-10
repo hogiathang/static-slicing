@@ -1,0 +1,28 @@
+handle(key) {
+        const flushables = this.flushableMap.get(key);
+        if (!flushables || flushables.size === 0) {
+            const intervalId = this.intervals.get(key);
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            this.flushableMap.delete(key);
+            this.intervals.delete(key);
+            return;
+        }
+        const failedFlushables = new Set();
+        for (const flushable of flushables) {
+            try {
+                flushable.flush().catch(consts_1.noop);
+            }
+            catch (err) {
+                failedFlushables.add(flushable);
+            }
+        }
+        this.flushableMap.set(key, failedFlushables);
+    }
+const flushables = this.flushableMap.get(key)
+!flushables || flushables.size === 0
+const intervalId = this.intervals.get(key)
+clearInterval(intervalId)
+(_tmp_15 = this.flushableMap).delete
+(_tmp_16 = this.intervals).delete

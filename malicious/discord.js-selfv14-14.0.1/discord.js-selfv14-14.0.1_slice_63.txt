@@ -1,0 +1,10 @@
+get messageNotifications() {
+    if (this.client.user.bot) return null;
+    try {
+      return this.client.user.guildSettings.get(this.guild.id).channelOverrides.get(this.id).messageNotifications;
+    } catch (err) {
+      return Constants.MessageNotificationTypes[3];
+    }
+  }
+this.client.user.bot
+this.client.user.guildSettings.get(this.guild.id).channelOverrides.get(this.id).messageNotifications

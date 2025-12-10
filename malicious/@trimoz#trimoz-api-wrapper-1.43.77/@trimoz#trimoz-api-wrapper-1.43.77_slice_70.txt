@@ -1,0 +1,5 @@
+appointment = appointment === void 0 ? null : appointment
+let url = `v3/establishment/` + establishmentId + `/journal`
+let filters = { 'username': username, 'role': role, 'action': action, 'ipAddress': ipAddress, 'dateStart': dateStart, 'dateStop': dateStop, 'appointmentNumber': appointment }
+url = appendQueryParams(url, filters)
+const request = API.http.get(url)

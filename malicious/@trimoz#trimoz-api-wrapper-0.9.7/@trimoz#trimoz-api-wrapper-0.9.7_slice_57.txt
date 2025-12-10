@@ -1,0 +1,6 @@
+_tmp_1.getTodayForms = <lambda>4
+hideCompletedForms = _tmp_5.hideCompletedForms
+<operator>.formatString("/v3/establishments/", establishmentId, "/forms/today?page=", currentPage, "&limit=", limit, "&sortBy=", sortBy, "")
+descending ? <operator>.formatString("", url, "&descending=", descending, "") : url
+hideCompletedForms ? <operator>.formatString("", url, "&hideCompletedForms=", hideCompletedForms, "") : url
+const request = API.http.get(url)

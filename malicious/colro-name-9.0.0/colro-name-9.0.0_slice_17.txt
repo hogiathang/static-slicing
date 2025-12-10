@@ -1,0 +1,74 @@
+module.exports = (request, options) => {
+	/* istanbul ignore next: this makes sure timed-out isn't called twice */
+	if (request[reentry]) {
+		return;
+	}
+
+	request[reentry] = true;
+	const {gotTimeout: delays, host, hostname} = options;
+	const timeoutHandler = (delay, event) => {
+		request.abort();
+		request.emit('error', new TimeoutError(delay, event, options));
+	};
+
+	const cancelers = [];
+	const cancelTimeouts = () => {
+		cancelers.forEach(cancelTimeout => cancelTimeout());
+	};
+
+	request.on('error', cancelTimeouts);
+	request.once('response', response => {
+		response.once('end', cancelTimeouts);
+	});
+
+	if (delays.request !== undefined) {
+		const cancelTimeout = addTimeout(
+			delays.request,
+			timeoutHandler,
+			'request'
+		);
+		cancelers.push(cancelTimeout);
+	}
+
+	if (delays.socket !== undefined) {
+		request.setTimeout(
+			delays.socket,
+			() => {
+				timeoutHandler(delays.socket, 'socket');
+			}
+		);
+	}
+
+	if (delays.lookup !== undefined && !request.socketPath && !net.isIP(hostname...
+request[reentry]
+request[reentry] = true
+delays = _tmp_1.gotTimeout
+const timeoutHandler = (delay, event) => {
+		request.abort();
+		request.emit('error', new TimeoutError(delay, event, options));
+	}
+__ecma.Array.factory()
+const cancelTimeouts = () => {
+		cancelers.forEach(cancelTimeout => cancelTimeout());
+	}
+request.on('error', cancelTimeouts)
+request.once('response', response => {
+		response.once('end', cancelTimeouts);
+	})
+delays.request !== undefined
+const cancelTimeout = addTimeout(
+			delays.request,
+			timeoutHandler,
+			'request'
+		)
+delays.request
+"request"
+cancelers.push(cancelTimeout)
+delays.socket !== undefined
+request.setTimeout(
+			delays.socket,
+			() => {
+				timeoutHandler(delays.socket, 'socket');
+			}
+		)
+delays.socket

@@ -1,0 +1,10 @@
+push(request) {
+    if (this.busy) {
+      this.queue.push(request);
+      return this.run();
+    } else {
+      return this.execute(request);
+    }
+  }
+this.busy
+this.execute(request)

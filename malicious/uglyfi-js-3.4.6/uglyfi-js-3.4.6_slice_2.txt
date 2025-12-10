@@ -1,0 +1,121 @@
+AST_Scope.DEFMETHOD("hoist_declarations", function(compressor) {
+        if (compressor.has_directive("use asm")) return;
+        var hoist_funs = compressor.option("hoist_funs");
+        var hoist_vars = compressor.option("hoist_vars");
+        var self = this;
+        if (hoist_vars) {
+            // let's count var_decl first, we seem to waste a lot of
+            // space if we hoist `var` when there's only one.
+            var var_decl = 0;
+            self.walk(new TreeWalker(function(node) {
+                if (var_decl > 1) return true;
+                if (node instanceof AST_Scope && node !== self) return true;
+                if (node instanceof AST_Var) {
+                    var_decl++;
+                    return true;
+                }
+            }));
+            if (var_decl <= 1) hoist_vars = false;
+        }
+        if (!hoist_funs && !hoist_vars) return;
+        var dirs = [];
+        var hoisted = [];
+        var vars = new Dictionary(), vars_found = 0;
+        var...
+compressor.has_directive("use asm")
+var hoist_funs = compressor.option("hoist_funs")
+var hoist_vars = compressor.option("hoist_vars")
+var self = this
+var var_decl = 0
+self.walk(new TreeWalker(function(node) {
+                if (var_decl > 1) return true;
+                if (node instanceof AST_Scope && node !== self) return true;
+                if (node instanceof AST_Var) {
+                    var_decl++;
+                    return true;
+                }
+            }))
+hoist_vars = false
+!hoist_funs && !hoist_vars
+__ecma.Array.factory()
+__ecma.Array.factory()
+var vars = new Dictionary()
+var tt = new TreeTransformer(function(node) {
+            if (node === self) return;
+            if (node instanceof AST_Directive) {
+                dirs.push(node);
+                return make_node(AST_EmptyStatement, node);
+            }
+            if (hoist_funs && node instanceof AST_Defun
+                && (tt.parent() === self || !compressor.has_directive("use strict"))) {
+                hoisted.push(node);
+                return make_node(AST_EmptyStatement, node);
+            }
+            if (hoist_vars && node instanceof AST_Var) {
+                node.definitions.forEach(function(def) {
+                    vars.set(def.name.name, def);
+                    ++vars_found;
+                });
+                var seq = node.to_assignments(compressor);
+                var p = tt.parent();
+                if (p instanceof AST_ForIn && p.init === node) {
+                    if (seq) return seq;
+                    var def = node.definitions[0].name;
+                    return mak...
+self.transform(tt)
+vars_found > 0
+__ecma.Array.factory()
+vars.each(function(def, name) {
+                if (self instanceof AST_Lambda
+                    && !all(self.argnames, function(argname) {
+                        return argname.name != name;
+                    })) {
+                    vars.del(name);
+                } else {
+                    def = def.clone();
+                    def.value = null;
+                    defs.push(def);
+                    vars.set(name, def);
+                }
+            })
+defs.length > 0
+i < self.body.length
+self.body[i] instanceof AST_SimpleStatement
+var expr = self.body[i].body
+expr instanceof AST_Assign
+                            && expr.operator == "="
+                            && (sym = expr.left) instanceof AST_Symbol
+                            && vars.has(sym.name)
+expr.operator == "="
+(sym = expr.left) instanceof AST_Symbol
+vars.has(sym.name)
+var def = vars.get(sym.name)
+def.value
+def.value = expr.right
+remove(defs, def)
+defs.push(def)
+(_tmp_362 = self.body).splice
+continue;
+expr instanceof AST_Sequence
+                            && (assign = expr.expressions[0]) instanceof AST_Assign
+                            && assign.operator == "="
+                            && (sym = assign.left) instanceof AST_Symbol
+                            && vars.has(sym.name)
+(assign = expr.expressions[0]) instanceof AST_Assign
+assign.operator == "="
+(sym = assign.left) instanceof AST_Symbol
+vars.has(sym.name)
+var def = vars.get(sym.name)
+def.value
+def.value = assign.right
+remove(defs, def)
+defs.push(def)
+self.body[i].body = make_sequence(expr, expr.expressions.slice(1))
+continue;
+self.body[i] instanceof AST_EmptyStatement
+(_tmp_364 = self.body).splice
+continue;
+self.body[i] instanceof AST_BlockStatement
+var tmp = [ i, 1 ].concat(self.body[i].body)
+self.body.splice.apply(self.body, tmp)
+continue;

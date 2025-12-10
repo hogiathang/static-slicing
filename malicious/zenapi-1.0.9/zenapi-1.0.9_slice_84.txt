@@ -1,0 +1,3 @@
+_tmp_0.defineStore = <lambda>4
+_.isEmpty(_.get(session, 'client'))
+_.isEmpty(_.get(session, 'connection'))

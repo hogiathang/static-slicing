@@ -1,0 +1,67 @@
+module.exports = function(appPath = '') {
+  // Check that we're in a valid Tysapi project.
+  if (!cli.isTysapiApp()) {
+    return console.log(`⛔️ ${cyan('tysapi start')} can only be used inside a Tysapi project.`);
+  }
+
+  appPath = path.join(process.cwd(), appPath);
+
+  try {
+    const tysapi = (function() {
+      try {
+        return require(path.resolve(appPath, 'node_modules', 'tysapi'));
+      } catch (e) {
+        return require('../lib'); // tysapi // eslint-disable-line import/no-unresolved
+      }
+    })();
+
+    // Set NODE_ENV
+    if (_.isEmpty(process.env.NODE_ENV)) {
+      process.env.NODE_ENV = 'development';
+    }
+
+    // Require server configurations
+    const server = require(path.resolve(
+      appPath,
+      'config',
+      'environments',
+      'development',
+      'server.json'
+    ));
+
+    if (process.env.NODE_ENV === 'development' && _.get(server, 'autoReload.enabled') === true) {
+      if (cluster.isMaster) {
+        cluster.on('message', (worker, message) => {
+...
+!cli.isTysapiApp()
+appPath = path.join(process.cwd(), appPath)
+const tysapi = (function() {
+      try {
+        return require(path.resolve(appPath, 'node_modules', 'tysapi'));
+      } catch (e) {
+        return require('../lib'); // tysapi // eslint-disable-line import/no-unresolved
+      }
+    })()
+_.isEmpty(process.env.NODE_ENV)
+process.env.NODE_ENV = 'development'
+const server = require(path.resolve(
+      appPath,
+      'config',
+      'environments',
+      'development',
+      'server.json'
+    ))
+"config"
+"environments"
+"development"
+"server.json"
+process.env.NODE_ENV === 'development' && _.get(server, 'autoReload.enabled') === true
+tysapi.start(
+      {
+        appPath,
+      },
+      afterwards
+    )
+_tmp_13.appPath = appPath
+logger.error(e)
+process.exit(1)

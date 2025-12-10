@@ -1,0 +1,3 @@
+_tmp_1.getAllMyResources = getAllMyResources
+const url = `v3/my/resources?queryType=all`
+const request = API.http.get(url)

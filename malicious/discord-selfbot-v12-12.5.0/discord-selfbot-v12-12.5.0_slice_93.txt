@@ -1,0 +1,19 @@
+options = options === void 0 ? {} : options
+unicodeEmoji = _tmp_14.unicodeEmoji
+color &&= resolveColor(color)
+permissions = new PermissionsBitField(permissions)
+const guildEmojiURL = this.guild.emojis.resolve(icon)?.url
+icon = guildEmojiURL ? await DataResolver.resolveImage(guildEmojiURL) : await DataResolver.resolveImage(icon)
+typeof icon !== 'string'
+const data = await this.client.rest.post(Routes.guildRoles(this.guild.id), {
+      body: {
+        name,
+        color,
+        hoist,
+        permissions,
+        mentionable,
+        icon,
+        unicode_emoji: unicodeEmoji,
+      },
+      reason,
+    })

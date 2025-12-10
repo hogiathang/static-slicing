@@ -1,0 +1,3 @@
+_tmp_1.createHeadOfficeBank = <lambda>9
+<operator>.formatString("v3/headOffices/", headOfficeId, "/banks")
+const request = API.http.post(url, params, { headers: { 'Content-Type': 'application/json' } })

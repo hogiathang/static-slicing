@@ -1,0 +1,19 @@
+function infinityNorm = function infinityNorm(A) {
+    var n = A.size()[0];
+    var infNorm = 0;
+    for (var i = 0; i < n; i++) {
+      var rowSum = 0;
+      for (var j = 0; j < n; j++) {
+        rowSum += abs(A.get([i, j]));
+      }
+      infNorm = Math.max(rowSum, infNorm);
+    }
+    return infNorm;
+  }
+var n = A.size()[0]
+var infNorm = 0
+var i = 0
+var rowSum = 0
+var j = 0
+_tmp_1 = __ecma.Array.factory()
+infNorm = Math.max(rowSum, infNorm)

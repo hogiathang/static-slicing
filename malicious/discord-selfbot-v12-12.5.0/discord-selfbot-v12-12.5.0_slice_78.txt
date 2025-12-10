@@ -1,0 +1,29 @@
+str.replaceAll(/<(@[!&]?|#)(\d{17,19})>/g, (match, type, id) => {
+    switch (type) {
+      case '@':
+      case '@!': {
+        const member = channel.guild?.members.cache.get(id);
+        if (member) {
+          return `@${member.displayName}`;
+        }
+
+        const user = channel.client.users.cache.get(id);
+        return user ? `@${user.username}` : match;
+      }
+      case '@&': {
+        if (channel.type === ChannelType.DM) return match;
+        const role = channel.guild.roles.cache.get(id);
+        return role ? `@${role.name}` : match;
+      }
+      case '#': {
+        const mentionedChannel = channel.client.channels.cache.get(id);
+        return mentionedChannel ? `#${mentionedChannel.name}` : match;
+      }
+      default: {
+        return match;
+      }
+    }
+  })
+case '@&':
+channel.type === ChannelType.DM
+const role = channel.guild.roles.cache.get(id)

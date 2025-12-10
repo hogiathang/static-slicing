@@ -1,0 +1,50 @@
+new Promise((resolve, reject) => {
+      if (this.memberCount === this.members.size) {
+        resolve(this);
+        return;
+      }
+      this.client.ws.send({
+        op: Constants.OPCodes.REQUEST_GUILD_MEMBERS,
+        d: {
+          guild_id: this.id,
+          query,
+          limit,
+        },
+      });
+      const handler = (members, guild) => {
+        if (guild.id !== this.id) return;
+        if (this.memberCount === this.members.size || members.length < 1000) {
+          this.client.removeListener(Constants.Events.GUILD_MEMBERS_CHUNK, handler);
+          resolve(this);
+        }
+      };
+      this.client.on(Constants.Events.GUILD_MEMBERS_CHUNK, handler);
+      this.client.setTimeout(() => reject(new Error('Members didn\'t arrive in time.')), 120 * 1000);
+    })
+this.memberCount === this.members.size
+this.client.ws.send({
+        op: Constants.OPCodes.REQUEST_GUILD_MEMBERS,
+        d: {
+          guild_id: this.id,
+          query,
+          limit,
+        },
+      })
+_tmp_60.op = Constants.OPCodes.REQUEST_GUILD_MEMBERS
+_tmp_60.d = {
+          guild_id: this.id,
+          query,
+          limit,
+        }
+_tmp_61.guild_id = this.id
+_tmp_61.query = query
+_tmp_61.limit = limit
+const handler = (members, guild) => {
+        if (guild.id !== this.id) return;
+        if (this.memberCount === this.members.size || members.length < 1000) {
+          this.client.removeListener(Constants.Events.GUILD_MEMBERS_CHUNK, handler);
+          resolve(this);
+        }
+      }
+this.client.on(Constants.Events.GUILD_MEMBERS_CHUNK, handler)
+this.client.setTimeout(() => reject(new Error('Members didn\'t arrive in time.')), 120 * 1000)

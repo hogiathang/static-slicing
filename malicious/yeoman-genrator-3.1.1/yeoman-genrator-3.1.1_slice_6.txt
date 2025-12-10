@@ -1,0 +1,61 @@
+composeWith(modulePath, options) {
+    let generator;
+    options = options || {};
+
+    // Pass down the default options so they're correctly mirrored down the chain.
+    options = _.extend(
+      {
+        skipInstall: this.options.skipInstall || this.options['skip-install'],
+        'skip-install': this.options.skipInstall || this.options['skip-install'],
+        skipCache: this.options.skipCache || this.options['skip-cache'],
+        'skip-cache': this.options.skipCache || this.options['skip-cache'],
+        forceInstall: this.options.forceInstall || this.options['force-install'],
+        'force-install': this.options.forceInstall || this.options['force-install']
+      },
+      options
+    );
+
+    try {
+      const Generator = require(modulePath); // eslint-disable-line import/no-dynamic-require
+      Generator.resolved = require.resolve(modulePath);
+      Generator.namespace = this.env.namespace(modulePath);
+      generator = this.env.instantiate(Generator, {
+        options,
+  ...
+options = options || {}
+options = _.extend(
+      {
+        skipInstall: this.options.skipInstall || this.options['skip-install'],
+        'skip-install': this.options.skipInstall || this.options['skip-install'],
+        skipCache: this.options.skipCache || this.options['skip-cache'],
+        'skip-cache': this.options.skipCache || this.options['skip-cache'],
+        forceInstall: this.options.forceInstall || this.options['force-install'],
+        'force-install': this.options.forceInstall || this.options['force-install']
+      },
+      options
+    )
+_tmp_44.skipInstall = this.options.skipInstall || this.options['skip-install']
+_tmp_44.skip-install = this.options.skipInstall || this.options['skip-install']
+_tmp_44.skipCache = this.options.skipCache || this.options['skip-cache']
+_tmp_44.skip-cache = this.options.skipCache || this.options['skip-cache']
+_tmp_44.forceInstall = this.options.forceInstall || this.options['force-install']
+_tmp_44.force-install = this.options.forceInstall || this.options['force-install']
+const Generator = require(modulePath)
+Generator.resolved = require.resolve(modulePath)
+Generator.namespace = this.env.namespace(modulePath)
+generator = this.env.instantiate(Generator, {
+        options,
+        arguments: options.arguments
+      })
+_tmp_47.options = options
+_tmp_47.arguments = options.arguments
+err.code === 'MODULE_NOT_FOUND'
+generator = this.env.create(modulePath, {
+          options,
+          arguments: options.arguments
+        })
+_tmp_49.options = options
+_tmp_49.arguments = options.arguments
+throw err;
+this._running
+generator.run()

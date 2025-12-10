@@ -1,0 +1,6 @@
+_tmp_1.getFormBySearch = getFormBySearch
+hideCompletedForms = _tmp_5.hideCompletedForms
+<operator>.formatString("/v3/forms/search?value=", search, "&page=", currentPage, "&limit=", limit, "&sortBy=", sortBy, "")
+descending ? <operator>.formatString("", url, "&descending=", descending, "") : url
+hideCompletedForms ? <operator>.formatString("", url, "&hideCompletedForms=", hideCompletedForms, "") : url
+const request = API.http.get(url)

@@ -1,0 +1,21 @@
+exports.defaults = function (method, handler, core) {
+
+    let defaults = null;
+
+    if (typeof handler === 'object') {
+        const type = Object.keys(handler)[0];
+        const serverHandler = core.decorations.handler.get(type);
+
+        Hoek.assert(serverHandler, 'Unknown handler:', type);
+
+        if (serverHandler.defaults) {
+            defaults = (typeof serverHandler.defaults === 'function' ? serverHandler.defaults(method) : serverHandler.defaults);
+        }
+    }
+
+    return defaults || {};
+}
+let defaults = null
+typeof handler === 'object'
+const type = Object.keys(handler)[0]
+const serverHandler = core.decorations.handler.get(type)

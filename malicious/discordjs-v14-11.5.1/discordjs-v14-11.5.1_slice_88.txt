@@ -1,0 +1,30 @@
+handle(data) {
+    const client = this.client;
+    let channel = client.channels.cache.get(data.id);
+
+    if (channel) {
+      client.channels.remove(channel.id);
+      channel.deleted = true;
+      if (channel.messages && !(channel instanceof DMChannel)) {
+        for (const message of channel.messages.cache.values()) {
+          message.deleted = true;
+        }
+      }
+      /**
+       * Emitted whenever a channel is deleted.
+       * @event Client#channelDelete
+       * @param {DMChannel|GuildChannel} channel The channel that was deleted
+       */
+      client.emit(Events.CHANNEL_DELETE, channel);
+    }
+
+    return { channel };
+  }
+const client = this.client
+let channel = client.channels.cache.get(data.id)
+client.channels.remove(channel.id)
+channel.deleted = true
+channel.messages && !(channel instanceof DMChannel)
+_iterator_0 = <operator>.iterator(channel.messages.cache.values())
+message.deleted = true
+client.emit(Events.CHANNEL_DELETE, channel)

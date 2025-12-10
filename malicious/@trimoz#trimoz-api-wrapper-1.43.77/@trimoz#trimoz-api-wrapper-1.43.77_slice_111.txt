@@ -1,0 +1,3 @@
+_tmp_1.getEstMetadata = <lambda>9
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceId + '/metadata/available'
+const request = API.http.get(url)

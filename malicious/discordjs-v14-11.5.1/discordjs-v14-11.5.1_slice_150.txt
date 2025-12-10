@@ -1,0 +1,14 @@
+closeCode = _tmp_57.closeCode === void 0 ? 1000 : _tmp_57.closeCode
+<operator>.formatString("[DESTROY]
+    Close Code    : ", closeCode, "
+    Reset         : ", reset, "
+    Emit DESTROYED: ", emit, "")
+"
+    Reset         : "
+"
+    Emit DESTROYED: "
+this.setHeartbeatTimer(-1)
+this.setHelloTimeout(-1)
+this.connection
+this.connection.readyState === WebSocket.OPEN
+(_tmp_58 = this.connection).close

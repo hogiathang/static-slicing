@@ -1,0 +1,3 @@
+_tmp_1.getEstSettings = <lambda>14
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceId + '/settings'
+const request = API.http.get(url)

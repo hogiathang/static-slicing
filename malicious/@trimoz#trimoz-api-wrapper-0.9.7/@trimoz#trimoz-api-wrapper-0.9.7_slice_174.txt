@@ -1,0 +1,3 @@
+_tmp_1.updateServiceSettings = <lambda>34
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceTemplateId + '/settings'
+const request = API.http.put(url, params)

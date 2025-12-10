@@ -1,0 +1,16 @@
+const eventListener = (event) => {
+      if (!isOriginVerified(event.origin)) return;
+      const authMessageType = get(event, ["data", "authMessageType"]);
+
+      if (authMessageType === HC_HANDOVER_READY) {
+        postJWT(event, jwt);
+      }
+
+      if (authMessageType === HC_HANDOVER_COMPLETE) {
+        removeHelpCenterIframe();
+        window.removeEventListener("message", eventListener);
+        clearTimeout(timeOut);
+        resolve();
+      }
+    }
+!isOriginVerified(event.origin)

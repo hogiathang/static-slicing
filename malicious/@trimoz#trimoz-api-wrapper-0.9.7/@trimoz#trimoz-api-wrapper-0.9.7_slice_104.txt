@@ -1,0 +1,3 @@
+_tmp_1.getAvailable = <lambda>2
+const url = 'v3/services/available'
+const request = API.http.get(url)

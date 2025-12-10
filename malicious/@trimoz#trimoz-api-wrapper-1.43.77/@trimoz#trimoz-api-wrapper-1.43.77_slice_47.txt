@@ -1,0 +1,2 @@
+_tmp_1.getAllWithSettings = <lambda>2
+const request = API.http.get('/v3/establishments?settings=true', null)

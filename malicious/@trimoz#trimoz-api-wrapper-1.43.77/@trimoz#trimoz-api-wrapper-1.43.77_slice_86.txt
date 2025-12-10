@@ -1,0 +1,3 @@
+_tmp_1.getAllMyServices = getAllMyServices
+const url = `v3/my/services?queryType=all`
+const request = API.http.get(url)

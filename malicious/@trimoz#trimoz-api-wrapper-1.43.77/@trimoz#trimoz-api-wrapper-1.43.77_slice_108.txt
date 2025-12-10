@@ -1,0 +1,3 @@
+_tmp_1.getAllEstablishmentServices = <lambda>6
+<operator>.formatString("v3/establishments/", establishmentId, "/services/all")
+const request = API.http.get(url)

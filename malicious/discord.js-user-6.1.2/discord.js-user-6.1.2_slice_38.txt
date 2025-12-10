@@ -1,0 +1,5 @@
+cache = param1_1.cache
+const existing = this.get(user)
+existing && existing.joinedTimestamp
+this.client.api.guilds(this.guild.id).members(user).get()
+      .then(data => this.add(data, cache))

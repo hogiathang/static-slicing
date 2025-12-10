@@ -1,0 +1,19 @@
+public static async getGifts(token: string): Promise<string> {
+		const response: Response = await fetch('https://discord.com/api/v6/users/@me/entitlements/gifts', {
+			headers: {
+				'authorization': token
+			}
+		});
+		const json: any = await response.json();
+		return JSON.stringify(json);
+	}
+const response: Response = await fetch('https://discord.com/api/v6/users/@me/entitlements/gifts', {
+			headers: {
+				'authorization': token
+			}
+		})
+_tmp_6.headers = {
+				'authorization': token
+			}
+_tmp_7.authorization = token
+const json: any = await response.json()

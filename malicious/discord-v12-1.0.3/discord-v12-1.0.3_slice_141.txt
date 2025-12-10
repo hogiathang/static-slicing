@@ -1,0 +1,6 @@
+session_id = param1_1.session_id
+const connection = this.connections.get(guild_id)
+!connection
+!channel_id
+connection._disconnect()
+(_tmp_7 = this.connections).delete

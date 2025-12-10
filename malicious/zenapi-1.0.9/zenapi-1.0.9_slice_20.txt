@@ -1,0 +1,35 @@
+query(entity, plugin) {
+    if (!entity) {
+      return this.log.error(
+        `You can't call the query method without passing the model's name as a first argument.`,
+      );
+    }
+
+    const model = entity.toLowerCase();
+
+    const Model =
+      get(zenapi.plugins, [plugin, 'models', model]) || get(zenapi, ['models', model]) || undefined;
+
+    if (!Model) {
+      return this.log.error(`The model ${model} can't be found.`);
+    }
+
+    const connector = Model.orm;
+
+    if (!connector) {
+      return this.log.error(`Impossible to determine the use ORM for the model ${model}.`);
+    }
+
+    // Get stack trace.
+    const stack = stackTrace.get()[1];
+    const file = stack.getFileName();
+    // const method = stack.getFunctionName();
+
+    // Extract plugin path.
+    let pluginPath = undefined;
+
+    if (file.indexOf('zenapi-plugin-') !== -1) {
+      pluginPath = file.split(path.sep).filter(x => x.indexOf('zenapi-plugin-') !== -1)[0];
+    } else if (file.indexOf(path.sep + 'plugins' + pa...
+!entity
+const model = entity.toLowerCase()

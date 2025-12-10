@@ -1,0 +1,11 @@
+push(request) {
+    if (this.busy) {
+      this.queue.push(request);
+      return this.run();
+    } else {
+      return this.execute(request);
+    }
+  }
+this.busy
+(_tmp_8 = this.queue).push
+this.run()

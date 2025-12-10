@@ -1,0 +1,58 @@
+module.exports = function (name, cliArguments) {
+  console.log('🚀 Starting to create your Zenapi application.');
+
+  const developerMode = cliArguments.dev !== undefined;
+
+  if (developerMode) {
+    console.log('🦄 Dev mode is activated!');
+  }
+
+  console.log();
+
+  // Build initial scope.
+  const scope = {
+    rootPath: process.cwd(),
+    zenapiRoot: path.resolve(__dirname, '..'),
+    generatorType: 'new',
+    name,
+    zenapiPackageJSON: packageJSON,
+    developerMode,
+    debug: cliArguments.debug !== undefined,
+    quick: cliArguments.quickstart !== undefined
+  };
+
+  const dbArguments = ['dbclient', 'dbhost', 'dbport', 'dbname', 'dbusername', 'dbpassword'];
+  const matchingDbArguments = _.intersection(_.keys(cliArguments), dbArguments);
+
+  if (matchingDbArguments.length) {
+    if (matchingDbArguments.length !== dbArguments.length && cliArguments.dbclient !== 'sqlite') {
+      console.log(`⛔️ Some database arguments are missing. Required arguments list: ${dbArguments}`);
+      ret...
+console.log('🚀 Starting to create your Zenapi application.')
+const developerMode = cliArguments.dev !== undefined
+console.log('🦄 Dev mode is activated!')
+console.log()
+const scope = {
+    rootPath: process.cwd(),
+    zenapiRoot: path.resolve(__dirname, '..'),
+    generatorType: 'new',
+    name,
+    zenapiPackageJSON: packageJSON,
+    developerMode,
+    debug: cliArguments.debug !== undefined,
+    quick: cliArguments.quickstart !== undefined
+  }
+_tmp_1.rootPath = process.cwd()
+_tmp_1.zenapiRoot = path.resolve(__dirname, '..')
+_tmp_1.generatorType = "new"
+_tmp_1.name = name
+_tmp_1.zenapiPackageJSON = packageJSON
+_tmp_1.developerMode = developerMode
+_tmp_1.debug = cliArguments.debug !== undefined
+_tmp_1.quick = cliArguments.quickstart !== undefined
+const dbArguments = ['dbclient', 'dbhost', 'dbport', 'dbname', 'dbusername', 'dbpassword']
+const matchingDbArguments = _.intersection(_.keys(cliArguments), dbArguments)
+matchingDbArguments.length
+matchingDbArguments.length !== dbArguments.length && cliArguments.dbclient !== 'sqlite'
+<operator>.formatString("⛔️ Some database arguments are missing. Required arguments list: ", dbArguments, "")
+process.exit(1)

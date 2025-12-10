@@ -1,0 +1,11 @@
+function installIdOrUserId = function installIdOrUserId() {
+  let installId = conf.get('avo_install_id');
+  let user = conf.get('user');
+  if (user && user.user_id) {
+    return user.user_id;
+  } else {
+    return installId;
+  }
+}
+let installId = conf.get('avo_install_id')
+let user = conf.get('user')

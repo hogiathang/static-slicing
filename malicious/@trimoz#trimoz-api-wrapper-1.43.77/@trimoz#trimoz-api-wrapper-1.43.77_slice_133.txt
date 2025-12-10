@@ -1,0 +1,3 @@
+_tmp_1.insertOrUpdateEstablishmentMessageConfigurations = <lambda>2
+const url = 'v3/establishments/' + establishmentId + '/configuration/messages'
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

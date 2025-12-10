@@ -1,0 +1,41 @@
+Contributors.prototype.getUsers = function(path, fn) {
+  fn = fn || noop;
+
+  const localMaps = require('./AUTHORS.map.json');
+  if (path) {
+    const localMapFile = join(path, 'AUTHORS.map.json');
+    if (fs.existsSync(localMapFile)) {
+      copy(require(localMapFile)).to(localMaps);
+    }
+  }
+
+  // get git logs
+  exec('git log --format="%an %ae"', { cwd: path, maxBuffer: 500 * 1024 }, function(err, stdout, stderr) {
+    if (stderr) {
+      const e = errorException(stderr, 'GITError');
+      e.message = stderr;
+      return fn(e);
+    }
+
+    if (err) {
+      return fn(err);
+    }
+
+    const items = stdout.split('\n').map(function(line) {
+      return line.split(' ');
+    });
+    // email: { orginalName: name, email: email }
+    const result = {};
+
+    // filter output. email is the unique key.
+    for (let i = items.length; i--;) {
+      const item = items[i];
+      let name = item[0];
+      let email = item[1];
+      if (item.length > 2) {
+        name = item.slice(0, item.length -...
+fn = fn || noop
+const localMaps = require('./AUTHORS.map.json')
+const localMapFile = join(path, 'AUTHORS.map.json')
+fs.existsSync(localMapFile)
+copy(require(localMapFile)).to(localMaps)

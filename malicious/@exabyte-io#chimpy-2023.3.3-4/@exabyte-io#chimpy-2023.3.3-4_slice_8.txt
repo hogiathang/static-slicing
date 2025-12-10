@@ -1,0 +1,62 @@
+Jasmine.prototype.start = function (callback) {
+
+  var self = this;
+  if (glob.sync(self.options.path).length === 0) {
+    const infoMessage = `[chimp][jasmine] Directory ${self.options.path} does not exist. Not running`;
+    if (booleanHelper.isTruthy(this.options['fail-when-no-tests-run'])) {
+      callback(infoMessage);
+    }
+    else {
+      log.info(infoMessage);
+      callback();
+    }
+    return;
+  }
+
+  log.debug('[chimp][jasmine] Running...');
+
+  var opts = {
+    env: process.env,
+    silent: true
+  };
+
+  var port;
+  if (this.options.debugJasmine) {
+    port = parseInt(this.options.debugJasmine);
+    if (port > 1) {
+      opts.execArgv = ['--debug=' + port];
+    } else {
+      opts.execArgv = ['--debug'];
+    }
+  }
+
+  if (this.options.debugBrkMocha) {
+    port = parseInt(this.options.debugBrkMocha);
+    if (port > 1) {
+      opts.execArgv = ['--debug-brk=' + port];
+    } else {
+      opts.execArgv = ['--debug-brk'];
+    }
+  }
+
+  self.child = cp.fork(path.join(__dirname, 'jas...
+var self = this
+glob.sync(self.options.path).length === 0
+log.debug('[chimp][jasmine] Running...')
+var opts = {
+    env: process.env,
+    silent: true
+  }
+_tmp_0.env = process.env
+_tmp_0.silent = true
+this.options.debugJasmine
+port = parseInt(this.options.debugJasmine)
+port > 1
+opts.execArgv = ['--debug=' + port]
+_tmp_2 = __ecma.Array.factory()
+this.options.debugBrkMocha
+port = parseInt(this.options.debugBrkMocha)
+port > 1
+opts.execArgv = ['--debug-brk=' + port]
+opts.execArgv = ['--debug-brk']
+self.child = cp.fork(path.join(__dirname, 'jasmine-wrapper.js'), [], opts)

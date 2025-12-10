@@ -1,0 +1,54 @@
+Chimp.prototype._handshakeOverDDP = function () {
+  const ddp = new DDPClient({
+    host: process.env['chimp.ddp'].match(/http:\/\/(.*):/)[1],
+    port: process.env['chimp.ddp'].match(/:([0-9]+)/)[1],
+    ssl: false,
+    autoReconnect: true,
+    autoReconnectTimer: 500,
+    maintainCollections: true,
+    ddpVersion: '1',
+    useSockJs: true,
+  });
+  ddp.connect((error) => {
+    if (error) {
+      log.error('[chimp] Error handshaking via DDP');
+      throw (error);
+    }
+  }).then(() => {
+    log.debug('[chimp] Handshaking with DDP server');
+    ddp.call('handshake').then(() => {
+      log.debug('[chimp] Handshake complete, closing DDP connection');
+      ddp.close();
+    });
+  });
+}
+const ddp = new DDPClient({
+    host: process.env['chimp.ddp'].match(/http:\/\/(.*):/)[1],
+    port: process.env['chimp.ddp'].match(/:([0-9]+)/)[1],
+    ssl: false,
+    autoReconnect: true,
+    autoReconnectTimer: 500,
+    maintainCollections: true,
+    ddpVersion: '1',
+    useSockJs: true,
+  })
+_tmp_18.host = process.env['chimp.ddp'].match(/http:\/\/(.*):/)[1]
+_tmp_18.port = process.env['chimp.ddp'].match(/:([0-9]+)/)[1]
+_tmp_18.ssl = false
+_tmp_18.autoReconnect = true
+_tmp_18.autoReconnectTimer = 500
+_tmp_18.maintainCollections = true
+_tmp_18.ddpVersion = "1"
+_tmp_18.useSockJs = true
+ddp.connect((error) => {
+    if (error) {
+      log.error('[chimp] Error handshaking via DDP');
+      throw (error);
+    }
+  }).then(() => {
+    log.debug('[chimp] Handshaking with DDP server');
+    ddp.call('handshake').then(() => {
+      log.debug('[chimp] Handshake complete, closing DDP connection');
+      ddp.close();
+    });
+  })

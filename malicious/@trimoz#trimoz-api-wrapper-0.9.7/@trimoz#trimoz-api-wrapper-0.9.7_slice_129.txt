@@ -1,0 +1,3 @@
+_tmp_1.update = update
+const url = 'v3/establishments/' + establishmentId + '/appointments/' + appointmentId
+const request = API.http.put(url, params, { headers: { 'Content-Type': 'application/json' } })

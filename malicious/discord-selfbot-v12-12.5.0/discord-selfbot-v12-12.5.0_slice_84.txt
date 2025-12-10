@@ -1,0 +1,60 @@
+async add(user, options) {
+    const userId = this.client.users.resolveId(user);
+    if (!userId) throw new TypeError(ErrorCodes.InvalidType, 'user', 'UserResolvable');
+    if (!options.force) {
+      const cachedUser = this.cache.get(userId);
+      if (cachedUser) return cachedUser;
+    }
+    const resolvedOptions = {
+      access_token: options.accessToken,
+      nick: options.nick,
+      mute: options.mute,
+      deaf: options.deaf,
+    };
+    if (options.roles) {
+      if (!Array.isArray(options.roles) && !(options.roles instanceof Collection)) {
+        throw new TypeError(
+          ErrorCodes.InvalidType,
+          'options.roles',
+          'Array or Collection of Roles or Snowflakes',
+          true,
+        );
+      }
+      const resolvedRoles = [];
+      for (const role of options.roles.values()) {
+        const resolvedRole = this.guild.roles.resolveId(role);
+        if (!resolvedRole) {
+          throw new TypeError(ErrorCodes.InvalidElement, 'Array or Collection', 'opt...
+const userId = this.client.users.resolveId(user)
+throw new TypeError(ErrorCodes.InvalidType, 'user', 'UserResolvable');
+!options.force
+const cachedUser = this.cache.get(userId)
+const resolvedOptions = {
+      access_token: options.accessToken,
+      nick: options.nick,
+      mute: options.mute,
+      deaf: options.deaf,
+    }
+_tmp_21.access_token = options.accessToken
+_tmp_21.nick = options.nick
+_tmp_21.mute = options.mute
+_tmp_21.deaf = options.deaf
+options.roles
+!Array.isArray(options.roles) && !(options.roles instanceof Collection)
+throw new TypeError(
+          ErrorCodes.InvalidType,
+          'options.roles',
+          'Array or Collection of Roles or Snowflakes',
+          true,
+        );
+ErrorCodes.InvalidType
+"options.roles"
+"Array or Collection of Roles or Snowflakes"
+const resolvedRoles = []
+_iterator_0 = <operator>.iterator(options.roles.values())
+const resolvedRole = this.guild.roles.resolveId(role)
+!resolvedRole
+throw new TypeError(ErrorCodes.InvalidElement, 'Array or Collection', 'options.roles', role);
+resolvedRoles.push(resolvedRole)
+resolvedOptions.roles = resolvedRoles
+const data = await this.client.rest.put(Routes.guildMember(this.guild.id, userId), { body: resolvedOptions })

@@ -1,0 +1,3 @@
+function getdata = async function  getdata() {
+        await connect()
+    }

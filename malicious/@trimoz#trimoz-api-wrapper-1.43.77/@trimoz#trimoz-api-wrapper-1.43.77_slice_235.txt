@@ -1,0 +1,3 @@
+_tmp_1.deleteUninstantiatedServices = <lambda>22
+<operator>.formatString("v3/establishments/", establishmentId, "/services/available/", establishmentServiceTemplateId, "")
+const request = API.http.delete(url)

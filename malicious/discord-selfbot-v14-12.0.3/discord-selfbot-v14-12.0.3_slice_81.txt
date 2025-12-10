@@ -1,0 +1,60 @@
+handle(data) {
+    const client = this.client;
+
+    let channel = client.channels.get(data.id);
+    if (channel) {
+      const oldChannel = Util.cloneObject(channel);
+
+      if (ChannelTypes[channel.type.toUpperCase()] !== data.type) {
+        
+        let channelClass;
+        switch (data.type) {
+          case ChannelTypes.TEXT:
+            channelClass = TextChannel;
+            break;
+          case ChannelTypes.VOICE:
+            channelClass = VoiceChannel;
+            break;
+          case ChannelTypes.CATEGORY:
+            channelClass = CategoryChannel;
+            break;
+          case ChannelTypes.NEWS:
+            channelClass = NewsChannel;
+            break;
+          case ChannelTypes.STORE:
+            channelClass = StoreChannel;
+            break;
+        }
+
+        // Create the new channel instance and copy over cached data
+        const newChannel = new channelClass(channel.guild, data);
+        if (channel.messages && newChannel.messages) {
+          for (cons...
+const client = this.client
+let channel = client.channels.get(data.id)
+const oldChannel = Util.cloneObject(channel)
+ChannelTypes[channel.type.toUpperCase()] !== data.type
+data.type
+ChannelTypes.TEXT
+channelClass = TextChannel
+break;
+ChannelTypes.VOICE
+channelClass = VoiceChannel
+break;
+ChannelTypes.CATEGORY
+channelClass = CategoryChannel
+break;
+ChannelTypes.NEWS
+channelClass = NewsChannel
+break;
+ChannelTypes.STORE
+channelClass = StoreChannel
+break;
+const newChannel = new channelClass(channel.guild, data)
+channel.messages && newChannel.messages
+_iterator_0 = <operator>.iterator(channel.messages)
+newChannel.messages.set(id, message)
+channel = newChannel
+this.client.channels.set(channel.id, channel)
+channel.setup(data)
+client.emit(Constants.Events.CHANNEL_UPDATE, oldChannel, channel)

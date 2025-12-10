@@ -1,0 +1,27 @@
+onUDPMessage(buffer) {
+    const ssrc = +buffer.readUInt32BE(8).toString(10);
+    const user = this.client.users.get(this.ssrcMap.get(ssrc));
+    if (!user) return;
+
+    let speakingTimeout = this.speakingTimeouts.get(ssrc);
+    if (typeof speakingTimeout === 'undefined') {
+      this.onSpeaking({ user_id: user.id, ssrc, speaking: true });
+    } else {
+      this.client.clearTimeout(speakingTimeout);
+    }
+
+    speakingTimeout = this.client.setTimeout(() => {
+      try {
+        this.onSpeaking({ user_id: user.id, ssrc, speaking: false });
+        this.client.clearTimeout(speakingTimeout);
+        this.speakingTimeouts.delete(ssrc);
+      } catch (ex) {
+        // Connection already closed, ignore
+      }
+    }, DISCORD_SPEAKING_DELAY);
+    this.speakingTimeouts.set(ssrc, speakingTimeout);
+  }
+const ssrc = +buffer.readUInt32BE(8).toString(10)
+const user = this.client.users.get(this.ssrcMap.get(ssrc))
+!user
+let speakingTimeout = this.speakingTimeouts.get(ssrc)

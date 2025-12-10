@@ -1,0 +1,70 @@
+const unzipper = require('unzipper')
+const url = require('url')
+const HttpsProxyAgent = require('https-proxy-agent')
+const https = require('https')
+const version = require('../package.json').version
+const chalk = require('chalk')
+const path = require('path')
+const fs = require('fs')
+const rimraf = require('rimraf')
+const glob = require('glob')
+const execSync = require('child_process').execSync
+const ProgressBar = require('progress')
+const os = require('os')
+function getPath = function getPath() {
+    const bin = path.resolve(path.join(path.dirname(__filename), '..', 'bin'));
+    if (fs.existsSync(bin)) {
+        rimraf.sync(bin);
+    }
+    return bin
+}
+let endpoint = ''
+os.platform() === 'win32'
+endpoint = 'https://download.microsoft.com/download/5/f/6/5f693b52-f844-46f0-90d2-4c7562d8d566/sqlpackage-win7-x64-en-16.0.6161.0.zip'
+os.platform() === 'darwin'
+os.arch() === 'arm64'
+throw Error('architecture ' + os.arch() + ' isn\'t supported');
+endpoint = 'https://download.microsoft.com/download/7/2/a/72a55da0-38fc-49e4-bfdb-87dadf3737be/sqlpackage-osx-x64-en-16.0.6161.0.zip'
+os.platform() === 'linux'
+endpoint = 'https://download.microsoft.com/download/f/0/9/f091c731-45be-48fa-ae84-bc28388e3ef8/sqlpackage-linux-x64-en-16.0.6161.0.zip'
+throw Error('platform ' + os.platform() + ' isn\'t supported');
+console.log('attempting to GET %j', endpoint)
+const options = url.parse(endpoint)
+const proxy = process.env.npm_config_https_proxy ||
+            process.env.npm_config_proxy ||
+            process.env.HTTPS_PROXY ||
+            process.env.https_proxy ||
+            process.env.HTTP_PROXY ||
+            process.env.http_proxy
+process.env.npm_config_proxy
+process.env.HTTPS_PROXY
+process.env.https_proxy
+process.env.HTTP_PROXY
+process.env.http_proxy
+console.log('using proxy server %j', proxy)
+options.agent = new HttpsProxyAgent(proxy)
+https.get(options, response => {
+
+        const bar = new ProgressBar('[:bar] Downloading SqlPackage', {
+            total: Number(response.headers['content-length']),
+            width: 18
+        });
+
+        if (response.statusCode === 200) {
+            const installPath = getPath();
+            response.on('data', data => bar.tick(data.length));
+            const unzipStream = unzipper.Extract({ path: installPath })
+                .on('close', () => {
+                    if (os.platform() === 'linux' || os.platform() === 'darwin') {
+                        fs.chmodSync(`${installPath}/sqlpackage.exe`, 0o755);                        
+                    }
+                });
+            response.pipe(unzipStream);
+        } else {
+            console.error(chalk.red('Error downloading zip file from ' + endpoint));
+            console.error(chalk.red('Expected: 200, Actual: ' + response.statusCode));
+            process.exit(1);
+        }
+    })
+    .on('error', err => {
+       ...

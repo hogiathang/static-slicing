@@ -1,0 +1,225 @@
+grunt.registerTask('bump_version', function (version) {
+        if (!version || version.split('.').length !== 3) {
+            grunt.fail.fatal(
+                'malformed version. Use\n\n    grunt bump_version:1.2.3'
+            );
+        }
+
+        grunt.config('string-replace.moment-js', {
+            files: { 'src/moment.js': 'src/moment.js' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /\/\/! version : .*/,
+                        replacement: '//! version : ' + version,
+                    },
+                    {
+                        pattern: /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'",
+                    },
+                ],
+            },
+        });
+
+        grunt.config('string-replace.package-json', {
+            files: { 'package.json': 'package.json' },
+            options: {
+                replacements: [
+        ...
+!version || version.split('.').length !== 3
+grunt.fail.fatal(
+                'malformed version. Use\n\n    grunt bump_version:1.2.3'
+            )
+"malformed version. Use
+
+    grunt bump_version:1.2.3"
+grunt.config('string-replace.moment-js', {
+            files: { 'src/moment.js': 'src/moment.js' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /\/\/! version : .*/,
+                        replacement: '//! version : ' + version,
+                    },
+                    {
+                        pattern: /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'",
+                    },
+                ],
+            },
+        })
+_tmp_1.files = { 'src/moment.js': 'src/moment.js' }
+_tmp_1.options = {
+                replacements: [
+                    {
+                        pattern: /\/\/! version : .*/,
+                        replacement: '//! version : ' + version,
+                    },
+                    {
+                        pattern: /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'",
+                    },
+                ],
+            }
+_tmp_3.replacements = [
+                    {
+                        pattern: /\/\/! version : .*/,
+                        replacement: '//! version : ' + version,
+                    },
+                    {
+                        pattern: /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'",
+                    },
+                ]
+_tmp_4.push({
+                        pattern: /\/\/! version : .*/,
+                        replacement: '//! version : ' + version,
+                    })
+_tmp_5.pattern = /\/\/! version : .*/
+_tmp_5.replacement = '//! version : ' + version
+_tmp_4.push({
+                        pattern: /moment\.version = '.*'/,
+                        replacement: "moment.version = '" + version + "'",
+                    })
+_tmp_6.pattern = /moment\.version = '.*'/
+_tmp_6.replacement = "moment.version = '" + version + "'"
+grunt.config('string-replace.package-json', {
+            files: { 'package.json': 'package.json' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    },
+                ],
+            },
+        })
+_tmp_7.files = { 'package.json': 'package.json' }
+_tmp_7.options = {
+                replacements: [
+                    {
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    },
+                ],
+            }
+_tmp_9.replacements = [
+                    {
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    },
+                ]
+_tmp_10.push({
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    })
+_tmp_11.pattern = /"version": .*/
+_tmp_11.replacement = '"version": "' + version + '",'
+grunt.config('string-replace.component-json', {
+            files: { 'component.json': 'component.json' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    },
+                ],
+            },
+        })
+_tmp_12.files = { 'component.json': 'component.json' }
+_tmp_12.options = {
+                replacements: [
+                    {
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    },
+                ],
+            }
+_tmp_14.replacements = [
+                    {
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    },
+                ]
+_tmp_15.push({
+                        pattern: /"version": .*/,
+                        replacement: '"version": "' + version + '",',
+                    })
+_tmp_16.pattern = /"version": .*/
+_tmp_16.replacement = '"version": "' + version + '",'
+grunt.config('string-replace.moment-js-nuspec', {
+            files: { 'Moment.js.nuspec': 'Moment.js.nuspec' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /<version>.*<\/version>/,
+                        replacement: '<version>' + version + '</version>',
+                    },
+                ],
+            },
+        })
+_tmp_17.files = { 'Moment.js.nuspec': 'Moment.js.nuspec' }
+_tmp_17.options = {
+                replacements: [
+                    {
+                        pattern: /<version>.*<\/version>/,
+                        replacement: '<version>' + version + '</version>',
+                    },
+                ],
+            }
+_tmp_19.replacements = [
+                    {
+                        pattern: /<version>.*<\/version>/,
+                        replacement: '<version>' + version + '</version>',
+                    },
+                ]
+_tmp_20.push({
+                        pattern: /<version>.*<\/version>/,
+                        replacement: '<version>' + version + '</version>',
+                    })
+_tmp_21.pattern = /<version>.*<\/version>/
+_tmp_21.replacement = '<version>' + version + '</version>'
+grunt.config('string-replace.meteor-package-js', {
+            files: { 'meteor/package.js': 'meteor/package.js' },
+            options: {
+                replacements: [
+                    {
+                        pattern: /version: .*/,
+                        replacement: "version: '" + version + "',",
+                    },
+                ],
+            },
+        })
+_tmp_22.files = { 'meteor/package.js': 'meteor/package.js' }
+_tmp_22.options = {
+                replacements: [
+                    {
+                        pattern: /version: .*/,
+                        replacement: "version: '" + version + "',",
+                    },
+                ],
+            }
+_tmp_24.replacements = [
+                    {
+                        pattern: /version: .*/,
+                        replacement: "version: '" + version + "',",
+                    },
+                ]
+_tmp_25.push({
+                        pattern: /version: .*/,
+                        replacement: "version: '" + version + "',",
+                    })
+_tmp_26.pattern = /version: .*/
+_tmp_26.replacement = "version: '" + version + "',"
+grunt.task.run([
+            'string-replace:moment-js',
+            'string-replace:package-json',
+            'string-replace:component-json',
+            'string-replace:moment-js-nuspec',
+            'string-replace:meteor-package-js',
+        ])
+_tmp_28.push("string-replace:moment-js")
+_tmp_28.push("string-replace:package-json")
+_tmp_28.push("string-replace:component-json")
+_tmp_28.push("string-replace:moment-js-nuspec")
+_tmp_28.push("string-replace:meteor-package-js")

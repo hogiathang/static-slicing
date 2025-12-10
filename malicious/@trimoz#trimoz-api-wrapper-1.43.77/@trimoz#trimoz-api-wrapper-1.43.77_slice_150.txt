@@ -1,0 +1,2 @@
+_tmp_1.update = <lambda>7
+const request = API.http.put('v3/establishments/' + establishmentId + (withSettings ? '?settings=true' : ''), params)

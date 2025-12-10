@@ -1,0 +1,56 @@
+start = (callback) => {
+    const args = this._getExecOptions(this.options);
+
+    if (!fs.existsSync(this.options.path)) {
+      const infoMessage = `[chimp][cucumber] Directory ${this.options.path} does not exist. Not running`;
+      if (booleanHelper.isTruthy(this.options['fail-when-no-tests-run'])) {
+        callback(infoMessage);
+      }
+      else {
+        log.info(infoMessage);
+        callback();
+      }
+      return;
+    }
+
+    log.debug('[chimp][cucumber] Running with', args);
+
+    const opts = {
+      env: process.env,
+      silent: true,
+    };
+
+    let port;
+    if (booleanHelper.isTruthy(this.options.debugCucumber)) {
+      port = parseInt(this.options.debugCucumber, 10);
+      if (port > 1) {
+        opts.execArgv = ['--debug=' + port];
+      } else {
+        opts.execArgv = ['--debug'];
+      }
+    }
+
+    if (booleanHelper.isTruthy(this.options.debugBrkCucumber)) {
+      port = parseInt(this.options.debugBrkCucumber, 10);
+      if (port > 1) {
+        opts.execArgv =...
+const args = this._getExecOptions(this.options)
+!fs.existsSync(this.options.path)
+log.debug('[chimp][cucumber] Running with', args)
+const opts = {
+      env: process.env,
+      silent: true,
+    }
+_tmp_0.env = process.env
+_tmp_0.silent = true
+booleanHelper.isTruthy(this.options.debugCucumber)
+port = parseInt(this.options.debugCucumber, 10)
+port > 1
+opts.execArgv = ['--debug=' + port]
+_tmp_2 = __ecma.Array.factory()
+booleanHelper.isTruthy(this.options.debugBrkCucumber)
+port = parseInt(this.options.debugBrkCucumber, 10)
+port > 1
+opts.execArgv = ['--debug-brk=' + port]
+opts.execArgv = ['--debug-brk']
+this.cucumberChild = cp.fork(path.join(__dirname, 'cucumber-wrapper.js'), args, opts)

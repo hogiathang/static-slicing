@@ -1,0 +1,4 @@
+member = param1_0.member
+!force
+const existing = this.cache.get(member)
+const data = await this.client.rest.get(Routes.threadMembers(this.thread.id, member))

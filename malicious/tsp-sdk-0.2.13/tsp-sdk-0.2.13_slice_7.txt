@@ -1,0 +1,6 @@
+public getTranslationFromAPI = ({ language, type, id, keys, hash }: TranslationArgs) => {
+    const data = { [`${type}_id`]: id, language, keys, hash };
+    return get(`${this.apiBase}/transify`, data);
+  }
+const data = { [`${type}_id`]: id, language, keys, hash }
+<operator>.formatString("", this.apiBase, "/transify")

@@ -1,0 +1,15 @@
+user.git.email = () => {
+  let email = emailCache.get(process.cwd());
+
+  if (email) {
+    return email;
+  }
+
+  if (shell.which('git')) {
+    email = shell.exec('git config --get user.email', { silent: true }).stdout.trim();
+    emailCache.set(process.cwd(), email);
+  }
+
+  return email;
+}
+let email = emailCache.get(process.cwd())

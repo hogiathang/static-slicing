@@ -1,0 +1,2 @@
+_tmp_1.logoutJwt = <lambda>11
+const request = API.http.post('v3/auth/logout')

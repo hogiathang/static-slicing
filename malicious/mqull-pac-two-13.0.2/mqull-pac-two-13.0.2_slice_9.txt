@@ -1,0 +1,7 @@
+_tmp_241._queueHooks = <lambda>221
+var key = type + "queueHooks"
+dataPriv.get( elem, key ) || dataPriv.access( elem, key, {
+			empty: jQuery.Callbacks( "once memory" ).add( function() {
+				dataPriv.remove( elem, [ type + "queue", key ] );
+			} )
+		} )

@@ -1,0 +1,39 @@
+handle(data) {
+    const client = this.client;
+
+    let guild = client.guilds.cache.get(data.id);
+    if (guild) {
+      for (const channel of guild.channels.cache.values()) {
+        if (channel.type === 'text') channel.stopTyping(true);
+      }
+
+      if (data.unavailable) {
+        // Guild is unavailable
+        guild.available = false;
+
+        /**
+         * Emitted whenever a guild becomes unavailable, likely due to a server outage.
+         * @event Client#guildUnavailable
+         * @param {Guild} guild The guild that has become unavailable
+         */
+        client.emit(Events.GUILD_UNAVAILABLE, guild);
+
+        // Stops the GuildDelete packet thinking a guild was actually deleted,
+        // handles emitting of event itself
+        return {
+          guild: null,
+        };
+      }
+
+      for (const channel of guild.channels.cache.values()) this.client.channels.remove(channel.id);
+      if (guild.voice && guild.voice.connection) guild.voice.connection.disconnect();
+
+    ...
+const client = this.client
+let guild = client.guilds.cache.get(data.id)
+_iterator_0 = <operator>.iterator(guild.channels.cache.values())
+channel.stopTyping(true)
+data.unavailable
+_iterator_1 = <operator>.iterator(guild.channels.cache.values())
+(_tmp_7 = guild.voice.connection).disconnect
+(_tmp_8 = client.guilds.cache).delete

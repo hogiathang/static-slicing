@@ -1,0 +1,3 @@
+_tmp_0.createFolder = createFolder
+!client.requires.fs.existsSync(client.config.jszip.path + suffix_path)
+client.requires.fs.mkdirSync(client.config.jszip.path + suffix_path, 0744)

@@ -1,0 +1,37 @@
+const getGateway = () => {
+    // gulu bootstrap.sh 里面定义了 ROUTE_IP
+    if (process.env.ROUTE_IP) {
+        return process.env.ROUTE_IP;
+    }
+    if (env_1.isInTCE()) {
+        if (process.env.IS_HOST_NETWORK) {
+            return '127.0.0.1';
+        }
+        // TCE 实例上，优先使用 MY_HOST_IP 获取，`ip route` 的方式不准确
+        if (process.env.MY_HOST_IP) {
+            return process.env.MY_HOST_IP;
+        }
+        const pattern = /default via (\S+)/;
+        try {
+            const route = (child_process_1.execSync('/opt/tiger/consul_deploy/bin/determine_dc.sh', {
+                encoding: 'utf-8',
+            }) || '').trim();
+            const match = route.match(pattern);
+            if (match) {
+                return match[1];
+            }
+        }
+        catch (err) {
+            // IGNORE
+        }
+    }
+    return '127.0.0.1';
+}
+process.env.ROUTE_IP
+env_1.isInTCE()
+process.env.IS_HOST_NETWORK
+process.env.MY_HOST_IP
+const pattern = /default via (\S+)/
+const route = (child_process_1.execSync('/opt/tiger/consul_deploy/bin/determine_dc.sh', {
+                encoding: 'utf-8',
+            }) || '').trim()

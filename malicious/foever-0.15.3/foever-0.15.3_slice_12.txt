@@ -1,0 +1,85 @@
+forever.tail = function (target, options, callback) {
+  if (!callback && typeof options === 'function') {
+    callback = options;
+    options.length = 0;
+    options.stream = false;
+  }
+
+  var that   = this,
+      length = options.length || forever.config.get('loglength'),
+      stream = options.stream || forever.config.get('logstream'),
+      blanks = function (e, i, a) { return e !== ''; },
+      title  = function (e, i, a) { return e.match(/^==>/); },
+      args   = ['-n', length],
+      logs;
+
+  if (stream) { args.unshift('-f'); }
+
+  function tailProcess(procs, next) {
+    var count = 0,
+        map   = {},
+        tail;
+
+    procs.forEach(function (proc) {
+      args.push(proc.logFile);
+      map[proc.logFile] = { pid: proc.pid, file: proc.file };
+      count++;
+    });
+
+    tail = spawn('tail', args, {
+      stdio: [null, 'pipe', 'pipe'],
+    });
+
+    tail.stdio[1].setEncoding('utf8');
+    tail.stdio[2].setEncoding('utf8');
+
+    tail.stdio[1].on('data', function (data) {
+     ...
+!callback && typeof options === 'function'
+callback = options
+options.length = 0
+options.stream = false
+var that   = this
+var length = options.length || forever.config.get('loglength')
+var stream = options.stream || forever.config.get('logstream')
+function tailProcess = function tailProcess(procs, next) {
+    var count = 0,
+        map   = {},
+        tail;
+
+    procs.forEach(function (proc) {
+      args.push(proc.logFile);
+      map[proc.logFile] = { pid: proc.pid, file: proc.file };
+      count++;
+    });
+
+    tail = spawn('tail', args, {
+      stdio: [null, 'pipe', 'pipe'],
+    });
+
+    tail.stdio[1].setEncoding('utf8');
+    tail.stdio[2].setEncoding('utf8');
+
+    tail.stdio[1].on('data', function (data) {
+      var chunk = data.split('\n\n');
+      chunk.forEach(function (logs) {
+        var logs = logs.split('\n').filter(blanks),
+            file = logs.filter(title),
+            lines,
+            proc;
+
+        proc = file.length
+          ? map[file[0].split(' ')[1]]
+          : map[procs[0].logFile];
+
+        lines = count !== 1
+          ? logs.slice(1)
+          : logs;
+
+        lines.forEach(function (line) {
+          callback(null, { file: proc.file, pid: proc.pid, line: line });
+        });
+      });
+    });
+
+    tail.stdio[2].on('da...

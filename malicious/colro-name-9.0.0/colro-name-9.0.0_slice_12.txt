@@ -1,0 +1,51 @@
+cacheReq.once('request', request => {
+			let aborted = false;
+			request.once('abort', _ => {
+				aborted = true;
+			});
+
+			request.once('error', error => {
+				if (aborted) {
+					return;
+				}
+
+				if (!(error instanceof GotError)) {
+					error = new RequestError(error, options);
+				}
+				emitter.emit('retry', error, retried => {
+					if (!retried) {
+						emitter.emit('error', error);
+					}
+				});
+			});
+
+			progress.upload(request, emitter, uploadBodySize);
+
+			if (options.gotTimeout) {
+				timedOut(request, options);
+			}
+
+			emitter.emit('request', request);
+		})
+let aborted = false
+request.once('abort', _ => {
+				aborted = true;
+			})
+request.once('error', error => {
+				if (aborted) {
+					return;
+				}
+
+				if (!(error instanceof GotError)) {
+					error = new RequestError(error, options);
+				}
+				emitter.emit('retry', error, retried => {
+					if (!retried) {
+						emitter.emit('error', error);
+					}
+				});
+			})
+progress.upload(request, emitter, uploadBodySize)
+options.gotTimeout
+timedOut(request, options)
+emitter.emit('request', request)

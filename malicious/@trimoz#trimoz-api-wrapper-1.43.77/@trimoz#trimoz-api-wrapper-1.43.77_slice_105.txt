@@ -1,0 +1,3 @@
+_tmp_1.getAllAvailableByEstablishment = <lambda>3
+const url = 'v3/establishments/' + establishmentId + '/services/available'
+const request = API.http.get(url)

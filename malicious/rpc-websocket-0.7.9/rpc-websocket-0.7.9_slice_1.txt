@@ -1,0 +1,12 @@
+RpcSocket.prototype.emitError=function(type,msg,desc) {
+        var error=new Error(msg);
+        error.type=type;
+        if(desc) error.description=desc;
+        else error.description = '';
+        this.emit('error', error);
+}
+var error=new Error(msg)
+error.type=type
+error.description=desc
+error.description = ''
+this.emit('error', error)

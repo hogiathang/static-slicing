@@ -1,0 +1,38 @@
+zenapi.app.use(async (ctx, next) => {
+        try {
+          // App logic.
+          await next();
+        } catch (error) {
+          // emit error if configured
+          if (_.get(zenapi, 'config.currentEnvironment.server.emitErrors', false)) {
+            zenapi.app.emit('error', error, ctx);
+          }
+
+          // Log error.
+          console.error(error);
+
+          // Wrap error into a Boom's response.
+          ctx.status = error.status || 500;
+          ctx.body = _.get(ctx.body, 'isBoom')
+            ? ctx.body || error && error.message
+            : Boom.wrap(error, ctx.status);
+        }
+
+        if (ctx.response.headers.location) {
+          return;
+        }
+
+        // Empty body is considered as `notFound` response.
+        if (!ctx.body && ctx.body !== 0) {
+          ctx.notFound();
+        }
+
+        if (ctx.body.isBoom && ctx.body.data) {
+          ctx.body.output.payload.message = ctx.body.data;
+        }
+
+        // Format `ctx.body` and `ctx.status`.
+      ...
+await next()
+_.get(zenapi, 'config.currentEnvironment.server.emitErrors', false)
+zenapi.app.emit('error', error, ctx)

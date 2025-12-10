@@ -1,0 +1,56 @@
+function postUserSettings = async function postUserSettings(request: Request, response: Response): Promise<Response> {
+  try {
+    const status = validateRequestParams(request);
+    if (status === undefined) {
+      const userId: string = request.params.userID;
+      const appId: string = request.params.appID;
+
+      const result = {};
+
+      logger.debug(`${CLASS_NAME} | ${postUserSettings.name}() | Updating User Settings`);
+      const authenticatedUser: string | undefined = _.toUpper(request.username);
+
+      if (authenticatedUser && userId && authenticatedUser !== _.toUpper(userId)) {
+        logger.warn(
+          `${CLASS_NAME} | ${postUserSettings.name}() | Authenticated user is trying to update other person details.`,
+        );
+        return response.send(403, {
+          code: 403,
+          message: `Forbidden: You are not allowed to update settings details of others.`,
+        });
+      }
+
+      const filter = await settingsRepo.getAppSettings(appId, undefined);
+      // const filter = { general: ...
+const status = validateRequestParams(request)
+status === undefined
+const userId: string = request.params.userID
+const appId: string = request.params.appID
+const result = {}
+<operator>.formatString("", CLASS_NAME, " | ", postUserSettings.name, "() | Updating User Settings")
+const authenticatedUser: string | undefined = _.toUpper(request.username)
+authenticatedUser && userId && authenticatedUser !== _.toUpper(userId)
+const filter = await settingsRepo.getAppSettings(appId, undefined)
+const updateSettingsPromises: Promise<boolean>[] = []
+_iterator_0 = <operator>.iterator(request.body)
+Object.prototype.hasOwnProperty.call(request.body, setting)
+let updatedValue = request.body[setting]
+setting in filter &&
+            (updatedValue === null ||
+              settingsRepo.checkValueIsValidOption(updatedValue, filter[setting].options))
+updatedValue === null ||
+              settingsRepo.checkValueIsValidOption(updatedValue, filter[setting].options)
+settingsRepo.checkValueIsValidOption(updatedValue, filter[setting].options)
+filter[setting].setting_type === 'array'
+Array.isArray(updatedValue)
+updatedValue = updatedValue.join(',')
+updatedValue != null
+Array.isArray(updatedValue)
+updateSettingsPromises.push(
+              settingsRepo.updateUserSettings(_.toUpper(userId), appId, setting, updatedValue),
+            )
+settingsRepo.updateUserSettings(_.toUpper(userId), appId, setting, updatedValue)
+result[setting] = updatedValue === null ? null : request.body[setting]
+await Promise.all(updateSettingsPromises)
+response.send(200, result)
+_tmp_11.message = <operator>.formatString("Unable to update user settings: ", error, " ")

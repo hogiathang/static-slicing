@@ -1,0 +1,45 @@
+useEffect(function () {
+    if (!file) {
+      return;
+    }
+
+    var context = {};
+    contextRef.current = context;
+    setResult(function (s) {
+      return Object.assign(Object.assign({}, s), {
+        loading: true
+      });
+    });
+    request(Object.assign(Object.assign({}, optionsRef.current), {
+      file: file,
+      onError: function onError(e, body) {
+        if (contextRef.current !== context) return;
+
+        if (callable(optionsRef.current.onError)) {
+          optionsRef.current.onError(e, body);
+        }
+
+        setResult(function (s) {
+          return Object.assign(Object.assign({}, s), {
+            error: e,
+            loading: false
+          });
+        });
+      },
+      onSuccess: function onSuccess(body, xhr) {
+        if (contextRef.current !== context) return;
+
+        if (callable(optionsRef.current.onSuccess)) {
+          optionsRef.current.onSuccess(body, xhr);
+        }
+
+        setResult(function (s) {
+          return Object.assign(Object.assign(...
+!file
+var context = {}
+contextRef.current = context
+setResult(function (s) {
+      return Object.assign(Object.assign({}, s), {
+        loading: true
+      });
+    })

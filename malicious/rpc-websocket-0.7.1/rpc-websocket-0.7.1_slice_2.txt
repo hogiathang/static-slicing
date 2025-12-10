@@ -1,0 +1,8 @@
+RpcSocket.prototype.basicSend=function(data) {
+        this.emit('beforeSend',data);
+        this.webSocket.send(JSON.stringify(data));
+        this.emit('afterSend',data);
+}
+this.emit('beforeSend',data)
+this.webSocket.send(JSON.stringify(data))
+this.emit('afterSend',data)

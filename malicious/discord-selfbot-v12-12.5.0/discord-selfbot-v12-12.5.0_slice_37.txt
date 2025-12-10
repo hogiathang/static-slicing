@@ -1,0 +1,10 @@
+async fetchUser(sticker) {
+    sticker = this.resolve(sticker);
+    if (!sticker) throw new TypeError(ErrorCodes.InvalidType, 'sticker', 'StickerResolvable');
+    const data = await this.client.rest.get(Routes.guildSticker(this.guild.id, sticker.id));
+    sticker._patch(data);
+    return sticker.user;
+  }
+sticker = this.resolve(sticker)
+throw new TypeError(ErrorCodes.InvalidType, 'sticker', 'StickerResolvable');
+const data = await this.client.rest.get(Routes.guildSticker(this.guild.id, sticker.id))

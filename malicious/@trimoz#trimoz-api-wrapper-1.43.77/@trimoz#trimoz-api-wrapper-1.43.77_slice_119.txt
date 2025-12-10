@@ -1,0 +1,3 @@
+_tmp_1.getModules = <lambda>20
+const url = 'v3/services/modules'
+const request = API.http.get(url)

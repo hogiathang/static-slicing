@@ -1,0 +1,333 @@
+var ChildProcess = require("node:child_process").ChildProcess
+var Worker = require("node:worker_threads").Worker
+var APIInteractionDataResolvedGuildMember = require("discord-api-types/v10").APIInteractionDataResolvedGuildMember
+var CommandOptionNonChoiceResolvableType = require(".").CommandOptionNonChoiceResolvableType
+var expectNotAssignable = require("tsd").expectNotAssignable
+var ContextMenuCommandBuilder = require("@discordjs/builders").ContextMenuCommandBuilder
+const client: Client = new Client({
+  intents: GatewayIntentBits.Guilds,
+  makeCache: Options.cacheWithLimits({
+    MessageManager: 200,
+    // @ts-expect-error
+    Message: 100,
+    GuildMemberManager: {
+      maxSize: 200,
+      keepOverLimit: member => member.id === client.user?.id,
+    },
+  }),
+})
+_tmp_1.intents = GatewayIntentBits.Guilds
+_tmp_1.makeCache = Options.cacheWithLimits({
+    MessageManager: 200,
+    // @ts-expect-error
+    Message: 100,
+    GuildMemberManager: {
+      maxSize: 200,
+      keepOverLimit: member => member.id === client.user?.id,
+    },
+  })
+_tmp_2.MessageManager = 200
+_tmp_2.Message = 100
+_tmp_2.GuildMemberManager = {
+      maxSize: 200,
+      keepOverLimit: member => member.id === client.user?.id,
+    }
+_tmp_3.maxSize = 200
+_tmp_3.keepOverLimit = <lambda>0
+const testGuildId = '222078108977594368'
+const testUserId = '987654321098765432'
+const globalCommandId = '123456789012345678'
+const guildCommandId = '234567890123456789'
+client.on('ready', async () => {
+  console.log(`Client is logged in as ${client.user!.tag} and ready!`);
+
+  // Test fetching all global commands and ones from one guild
+  expectType<Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>>(
+    await client.application!.commands.fetch(),
+  );
+  expectType<Collection<string, ApplicationCommand<{ guild: GuildResolvable }>>>(
+    await client.application!.commands.fetch({ guildId: testGuildId }),
+  );
+
+  // Test command manager methods
+  const globalCommand = await client.application?.commands.fetch(globalCommandId);
+  const guildCommandFromGlobal = await client.application?.commands.fetch(guildCommandId, { guildId: testGuildId });
+  const guildCommandFromGuild = await client.guilds.cache.get(testGuildId)?.commands.fetch(guildCommandId);
+
+  await client.application?.commands.create(slashCommandBuilder);
+  await client.application?.commands.create(contextMenuCommandBuilder);
+  await guild.commands.create(slashCommandBuilder);
+...
+client.on('guildCreate', async g => {
+  const channel = g.channels.cache.random();
+  if (!channel) return;
+
+  if (channel.type === ChannelType.GuildText) {
+    const row: ActionRowData<MessageActionRowComponentData> = {
+      type: ComponentType.ActionRow,
+      components: [
+        new ButtonBuilder(),
+        { type: ComponentType.Button, style: ButtonStyle.Primary, label: 'string', customId: 'foo' },
+        { type: ComponentType.Button, style: ButtonStyle.Link, label: 'test', url: 'test' },
+        { type: ComponentType.SelectMenu, customId: 'foo' },
+        new SelectMenuBuilder(),
+        // @ts-expect-error
+        { type: ComponentType.TextInput, style: TextInputStyle.Paragraph, customId: 'foo', label: 'test' },
+        // @ts-expect-error
+        new TextInputBuilder(),
+      ],
+    };
+
+    const row2 = new ActionRowBuilder<MessageActionRowComponentBuilder>({
+      type: ComponentType.ActionRow,
+      components: [
+        { type: ComponentType.Button, style: ButtonStyle.P...
+client.on('messageReactionRemoveAll', async message => {
+  console.log(`messageReactionRemoveAll - id: ${message.id} (${message.id.length})`);
+
+  if (message.partial) message = await message.fetch();
+
+  console.log(`messageReactionRemoveAll - content: ${message.content}`);
+})
+client.on('messageCreate', async message => {
+  const { channel } = message;
+  assertIsMessage(channel.send('string'));
+  assertIsMessage(channel.send({}));
+  assertIsMessage(channel.send({ embeds: [] }));
+
+  const attachment = new AttachmentBuilder('file.png');
+  const embed = new EmbedBuilder();
+  assertIsMessage(channel.send({ files: [attachment] }));
+  assertIsMessage(channel.send({ embeds: [embed] }));
+  assertIsMessage(channel.send({ embeds: [embed], files: [attachment] }));
+
+  if (message.inGuild()) {
+    expectAssignable<Message<true>>(message);
+    const component = await message.awaitMessageComponent({ componentType: ComponentType.Button });
+    expectType<ButtonInteraction<'cached'>>(component);
+    expectType<Message<true>>(await component.reply({ fetchReply: true }));
+
+    const buttonCollector = message.createMessageComponentCollector({ componentType: ComponentType.Button });
+    expectType<InteractionCollector<ButtonInteraction<'cached'>>>(buttonCollector);
+    expect...
+client.on('threadCreate', thread => {
+  if (thread.type === ChannelType.GuildPrivateThread) {
+    expectType<number>(thread.createdTimestamp);
+    expectType<Date>(thread.createdAt);
+  } else {
+    expectType<number | null>(thread.createdTimestamp);
+    expectType<Date | null>(thread.createdAt);
+  }
+})
+client.on('threadMembersUpdate', (addedMembers, removedMembers, thread) => {
+  expectType<Collection<Snowflake, ThreadMember>>(addedMembers);
+  expectType<Collection<Snowflake, ThreadMember | PartialThreadMember>>(removedMembers);
+  expectType<AnyThreadChannel>(thread);
+  const left = removedMembers.first();
+  if (!left) return;
+
+  if (left.partial) {
+    expectType<PartialThreadMember>(left);
+    expectType<null>(left.flags);
+  } else {
+    expectType<ThreadMember>(left);
+    expectType<ThreadMemberFlagsBitField>(left.flags);
+  }
+})
+client.on('interactionCreate', async interaction => {
+  expectType<Snowflake | null>(interaction.guildId);
+  expectType<Snowflake | null>(interaction.channelId);
+  expectType<GuildMember | APIInteractionGuildMember | null>(interaction.member);
+
+  if (interaction.type === InteractionType.MessageComponent) {
+    expectType<Snowflake>(interaction.channelId);
+  }
+
+  if (interaction.type !== InteractionType.ApplicationCommand) return;
+
+  void new ActionRowBuilder<MessageActionRowComponentBuilder>();
+
+  const button = new ButtonBuilder();
+
+  const actionRow = new ActionRowBuilder<MessageActionRowComponentBuilder>({
+    type: ComponentType.ActionRow,
+    components: [button.toJSON()],
+  });
+
+  actionRow.toJSON();
+
+  await interaction.reply({ content: 'Hi!', components: [actionRow] });
+
+  // @ts-expect-error
+  interaction.reply({ content: 'Hi!', components: [[button]] });
+
+  void new ActionRowBuilder({});
+
+  // @ts-expect-error
+  await interaction.reply({ content: 'Hi!', components: [button...
+client.login('absolutely-valid-token')
+client.on('ready', client => {
+  expectType<Client<true>>(client);
+})
+expectType<ClientApplication>(loggedInClient.application)
+expectType<Date>(loggedInClient.readyAt)
+expectType<number>(loggedInClient.readyTimestamp)
+expectType<string>(loggedInClient.token)
+expectType<number>(loggedInClient.uptime)
+expectType<ClientUser>(loggedInClient.user)
+expectType<null>(loggedOutClient.application)
+expectType<null>(loggedOutClient.readyAt)
+expectType<null>(loggedOutClient.readyTimestamp)
+expectType<string | null>(loggedOutClient.token)
+expectType<null>(loggedOutClient.uptime)
+expectType<null>(loggedOutClient.user)
+expectType<undefined>(serialize(undefined))
+expectType<null>(serialize(null))
+expectType<number[]>(serialize([1, 2, 3]))
+expectType<{}>(serialize(new Set([1, 2, 3])))
+expectType<{}>(
+  serialize(
+    new Map([
+      [1, '2'],
+      [2, '4'],
+    ]),
+  ),
+)
+serialize(
+    new Map([
+      [1, '2'],
+      [2, '4'],
+    ]),
+  )
+new Map([
+      [1, '2'],
+      [2, '4'],
+    ])
+_tmp_354 = __ecma.Array.factory()
+_tmp_355 = __ecma.Array.factory()
+expectType<string>(serialize(new PermissionsBitField(PermissionFlagsBits.AttachFiles)))
+expectType<number>(serialize(new IntentsBitField(GatewayIntentBits.Guilds)))
+expectAssignable<unknown>(
+  serialize(
+    new Collection([
+      [1, '2'],
+      [2, '4'],
+    ]),
+  ),
+)
+serialize(
+    new Collection([
+      [1, '2'],
+      [2, '4'],
+    ]),
+  )
+new Collection([
+      [1, '2'],
+      [2, '4'],
+    ])
+_tmp_360 = __ecma.Array.factory()
+_tmp_361 = __ecma.Array.factory()
+expectType<never>(serialize(Symbol('a')))
+expectType<never>(serialize(() => {}))
+expectType<never>(serialize(BigInt(42)))
+expectType<Promise<number[]>>(shardingManager.broadcastEval(() => 1))
+expectType<Promise<number[]>>(shardClientUtil.broadcastEval(() => 1))
+expectType<Promise<number[]>>(shardingManager.broadcastEval(async () => 1))
+expectType<Promise<number[]>>(shardClientUtil.broadcastEval(async () => 1))
+expectType<TextBasedChannelFields['send']>(dmChannel.send)
+expectType<TextBasedChannelFields['send']>(threadChannel.send)
+expectType<TextBasedChannelFields['send']>(newsChannel.send)
+expectType<TextBasedChannelFields['send']>(textChannel.send)
+expectType<TextBasedChannelFields['send']>(voiceChannel.send)
+expectAssignable<PartialTextBasedChannelFields>(user)
+expectAssignable<PartialTextBasedChannelFields>(guildMember)
+expectType<Promise<NewsChannel>>(textChannel.setType(ChannelType.GuildNews))
+expectType<Promise<TextChannel>>(newsChannel.setType(ChannelType.GuildText))
+expectType<Message | null>(dmChannel.lastMessage)
+expectType<Message | null>(threadChannel.lastMessage)
+expectType<Message | null>(newsChannel.lastMessage)
+expectType<Message | null>(textChannel.lastMessage)
+expectType<Message | null>(voiceChannel.lastMessage)
+notPropertyOf(user, 'lastMessage')
+notPropertyOf(user, 'lastMessageId')
+notPropertyOf(guildMember, 'lastMessage')
+notPropertyOf(guildMember, 'lastMessageId')
+messageCollector.on('collect', (...args) => {
+  expectType<[Message, Collection<Snowflake, Message>]>(args);
+})
+(async () => {
+  for await (const value of messageCollector) {
+    expectType<[Message<boolean>, Collection<Snowflake, Message>]>(value);
+  }
+})()
+reactionCollector.on('dispose', (...args) => {
+  expectType<[MessageReaction, User]>(args);
+})
+(async () => {
+  for await (const value of reactionCollector) {
+    expectType<[MessageReaction, User]>(value);
+  }
+})()
+expectAssignable<'messageCreate'>(Events.MessageCreate)
+expectAssignable<'close'>(WebSocketShardEvents.Close)
+expectAssignable<'death'>(ShardEvents.Death)
+expectAssignable<1>(Status.Connecting)
+expectType<Promise<ApplicationCommandScope>>(applicationCommandManager.create(applicationCommandData))
+expectAssignable<Promise<ApplicationCommand>>(applicationCommandManager.create(applicationCommandData, '0'))
+expectType<Promise<ApplicationCommandScope>>(
+    applicationCommandManager.edit(applicationCommandResolvable, applicationCommandData),
+  )
+applicationCommandManager.edit(applicationCommandResolvable, applicationCommandData)
+expectType<Promise<ApplicationCommand>>(
+    applicationCommandManager.edit(applicationCommandResolvable, applicationCommandData, '0'),
+  )
+applicationCommandManager.edit(applicationCommandResolvable, applicationCommandData, '0')
+expectType<Promise<Collection<Snowflake, ApplicationCommandScope>>>(
+    applicationCommandManager.set([applicationCommandData]),
+  )
+applicationCommandManager.set([applicationCommandData])
+expectType<Promise<Collection<Snowflake, ApplicationCommand>>>(
+    applicationCommandManager.set([applicationCommandData], '0'),
+  )
+applicationCommandManager.set([applicationCommandData], '0')
+applicationNonChoiceOptionData.choices
+expectType<ApplicationCommandOptionType.SubcommandGroup>(applicationSubGroupCommandData.type)
+expectType<ApplicationCommandSubCommandData[] | undefined>(applicationSubGroupCommandData.options)
+expectType<Promise<Collection<Snowflake, ApplicationCommand>>>(guildApplicationCommandManager.fetch())
+expectType<Promise<Collection<Snowflake, ApplicationCommand>>>(guildApplicationCommandManager.fetch(undefined, {}))
+expectType<Promise<ApplicationCommand>>(guildApplicationCommandManager.fetch('0'))
+expectType<Promise<VoiceChannel>>(categoryChannelChildManager.create({ name: 'name', type: ChannelType.GuildVoice }))
+expectType<Promise<TextChannel>>(categoryChannelChildManager.create({ name: 'name', type: ChannelType.GuildText }))
+expectType<Promise<NewsChannel>>(categoryChannelChildManager.create({ name: 'name', type: ChannelType.GuildNews }))
+expectType<Promise<StageChannel>>(
+    categoryChannelChildManager.create({ name: 'name', type: ChannelType.GuildStageVoice }),
+  )
+categoryChannelChildManager.create({ name: 'name', type: ChannelType.GuildStageVoice })
+expectType<Promise<TextChannel>>(categoryChannelChildManager.create({ name: 'name' }))
+expectType<Promise<TextChannel>>(categoryChannelChildManager.create({ name: 'name' }))
+expectType<Promise<TextChannel>>(guildChannelManager.create({ name: 'name' }))
+expectType<Promise<TextChannel>>(guildChannelManager.create({ name: 'name' }))
+expectType<Promise<VoiceChannel>>(guildChannelManager.create({ name: 'name', type: ChannelType.GuildVoice }))
+expectType<Promise<CategoryChannel>>(guildChannelManager.create({ name: 'name', type: ChannelType.GuildCategory }))
+expectType<Promise<TextChannel>>(guildChannelManager.create({ name: 'name', type: ChannelType.GuildText }))
+expectType<Promise<NewsChannel>>(guildChannelManager.create({ name: 'name', type: ChannelType.GuildNews }))
+expectType<Promise<StageChannel>>(guildChannelManager.create({ name: 'name', type: ChannelType.GuildStageVoice }))
+expectType<Promise<Collection<Snowflake, AnyChannel>>>(guildChannelManager.fetch())
+expectType<Promise<Collection<Snowflake, AnyChannel>>>(guildChannelManager.fetch(undefined, {}))
+expectType<Promise<AnyChannel | null>>(guildChannelManager.fetch('0'))
+expectType<Promise<Message>>(messageManager.fetch('1234567890'))
+expectType<Promise<Message>>(messageManager.fetch({ message: '1234567890' }))
+expectType<Promise<Message>>(messageManager.fetch({ message: '1234567890', cache: true, force: false }))
+expectType<Promise<Collection<Snowflake, Message>>>(messageManager.fetch())
+expectType<Promise<Collection<Snowflake, Message>>>(messageManager.fetch({}))
+expectType<Promise<Collection<Snowflake, Message>>>(
+    messageManager.fetch({ limit: 100, before: '1234567890', cache: false }),
+  )
+messageManager.fetch({ limit: 100, before: '1234567890', cache: false })
+messageManager.fetch({ cache: true, force: false })
+messageManager.fetch({ message: '1234567890', after: '1234567890', cache: true, force: false })
+expectType<Promise<Collection<Snowflake, Role>>>(roleManager.fetch())
+expectType<Promise<Collection<Snowflake, Role>>>(roleManager.fetch(undefined, {}))
+expectType<Promise<Role | null>>(roleManager.fetch('0'))
+expectType<Promise<Collection<Snowflake, GuildEmoji>>>(guildEmojiManager.fetch())
+expectType<Promise<Collection<Snowflake, GuildEmoji>>>(guildEmojiManager.fetch(undefined, {}))

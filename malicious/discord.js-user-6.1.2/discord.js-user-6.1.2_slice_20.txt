@@ -1,0 +1,34 @@
+new Promise((resolve, reject) => {
+      if (!channel.joinable) {
+        throw new Error('VOICE_JOIN_CHANNEL', channel.full);
+      }
+
+      let connection = this.connections.get(channel.guild.id);
+
+      if (connection) {
+        if (connection.channel.id !== channel.id) {
+          this.connections.get(channel.guild.id).updateChannel(channel);
+        }
+        resolve(connection);
+        return;
+      } else {
+        connection = new VoiceConnection(this, channel);
+        this.connections.set(channel.guild.id, connection);
+      }
+
+      connection.once('failed', reason => {
+        this.connections.delete(channel.guild.id);
+        reject(reason);
+      });
+
+      connection.once('authenticated', () => {
+        connection.once('ready', () => resolve(connection));
+        connection.once('error', reject);
+        connection.once('disconnect', () => this.connections.delete(channel.guild.id));
+      });
+    })
+!channel.joinable
+throw new Error('VOICE_JOIN_CHANNEL', channel.full);
+let connection = this.connections.get(channel.guild.id)
+connection.channel.id !== channel.id
+(_tmp_13 = this.connections.get(channel.guild.id)).updateChannel

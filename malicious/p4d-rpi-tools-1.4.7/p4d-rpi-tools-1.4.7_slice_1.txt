@@ -1,0 +1,24 @@
+function(online) {
+  if(online) {
+    console.log("Connection established!");
+    date.ip = ip.address();
+    data.uptime = os.uptime();  // Update uptime
+    socket.emit('boot', data);
+    console.log("Sending boot signal to Hermes with the following data: ");
+    console.log(data);
+  }
+  else {
+    console.log("Unable to establish a connection after " + (config.wait.interval*config.wait.times/1000) + " seconds ...");
+  }
+  console.log("Bye!");
+  process.exit();
+}
+console.log("Connection established!")
+date.ip = ip.address()
+data.uptime = os.uptime()
+socket.emit('boot', data)
+console.log("Sending boot signal to Hermes with the following data: ")
+console.log(data)
+console.log("Unable to establish a connection after " + (config.wait.interval*config.wait.times/1000) + " seconds ...")
+console.log("Bye!")
+process.exit()

@@ -1,0 +1,82 @@
+function defaultPrefilter = function defaultPrefilter( elem, props, opts ) {
+	var prop, value, toggle, hooks, oldfire, propTween, restoreDisplay, display,
+		isBox = "width" in props || "height" in props,
+		anim = this,
+		orig = {},
+		style = elem.style,
+		hidden = elem.nodeType && isHiddenWithinTree( elem ),
+		dataShow = dataPriv.get( elem, "fxshow" );
+
+	// Queue-skipping animations hijack the fx hooks
+	if ( !opts.queue ) {
+		hooks = jQuery._queueHooks( elem, "fx" );
+		if ( hooks.unqueued == null ) {
+			hooks.unqueued = 0;
+			oldfire = hooks.empty.fire;
+			hooks.empty.fire = function() {
+				if ( !hooks.unqueued ) {
+					oldfire();
+				}
+			};
+		}
+		hooks.unqueued++;
+
+		anim.always( function() {
+
+			// Ensure the complete handler is called before this completes
+			anim.always( function() {
+				hooks.unqueued--;
+				if ( !jQuery.queue( elem, "fx" ).length ) {
+					hooks.empty.fire();
+				}
+			} );
+		} );
+	}
+
+	// Detect show/hide animations
+	for ( prop in props ) {
+		value = ...
+var isBox = "width" in props || "height" in props
+var anim = this
+var orig = {}
+var style = elem.style
+var hidden = elem.nodeType && isHiddenWithinTree( elem )
+var dataShow = dataPriv.get( elem, "fxshow" )
+!opts.queue
+hooks = jQuery._queueHooks( elem, "fx" )
+hooks.unqueued == null
+hooks.unqueued = 0
+oldfire = hooks.empty.fire
+hooks.empty.fire = function() {
+				if ( !hooks.unqueued ) {
+					oldfire();
+				}
+			}
+hooks.unqueued++
+anim.always( function() {
+
+			// Ensure the complete handler is called before this completes
+			anim.always( function() {
+				hooks.unqueued--;
+				if ( !jQuery.queue( elem, "fx" ).length ) {
+					hooks.empty.fire();
+				}
+			} );
+		} )
+_iterator_5 = <operator>.iterator(props)
+value = props[ prop ]
+rfxtypes.test( value )
+delete props[ prop ]
+toggle = toggle || value === "toggle"
+value === ( hidden ? "hide" : "show" )
+value === "show" && dataShow && dataShow[ prop ] !== undefined
+hidden = true
+continue;
+orig[ prop ] = dataShow && dataShow[ prop ] || jQuery.style( elem, prop )
+propTween = !jQuery.isEmptyObject( props )
+!propTween && jQuery.isEmptyObject( orig )
+isBox && elem.nodeType === 1
+opts.overflow = [ style.overflow, style.overflowX, style.overflowY ]
+restoreDisplay = dataShow && dataShow.display
+restoreDisplay == null
+restoreDisplay = dataPriv.get( elem, "display" )

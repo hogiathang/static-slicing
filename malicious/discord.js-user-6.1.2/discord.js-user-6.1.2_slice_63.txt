@@ -1,0 +1,28 @@
+async add(roleOrRoles, reason) {
+    if (roleOrRoles instanceof Collection || roleOrRoles instanceof Array) {
+      roleOrRoles = roleOrRoles.map(r => this.guild.roles.resolve(r));
+      if (roleOrRoles.includes(null)) {
+        return Promise.reject(new TypeError('INVALID_TYPE', 'roles',
+          'Array or Collection of Roles or Snowflakes', true));
+      }
+
+      const newRoles = [...new Set(roleOrRoles.concat(...this.values()))];
+      return this.set(newRoles, reason);
+    } else {
+      roleOrRoles = this.guild.roles.resolve(roleOrRoles);
+      if (roleOrRoles === null) {
+        return Promise.reject(new TypeError('INVALID_TYPE', 'roles',
+          'Array or Collection of Roles or Snowflakes', true));
+      }
+
+      await this.client.api.guilds[this.guild.id].members[this.member.id].roles[roleOrRoles.id].put({ reason });
+
+      const clone = this.member._clone();
+      clone.roles._patch([...this.keys(), roleOrRoles.id]);
+      return clone;
+    }
+  }
+roleOrRoles instanceof Collection || roleOrRoles instanceof Array
+roleOrRoles = this.guild.roles.resolve(roleOrRoles)
+roleOrRoles === null
+await this.client.api.guilds[this.guild.id].members[this.member.id].roles[roleOrRoles.id].put({ reason })

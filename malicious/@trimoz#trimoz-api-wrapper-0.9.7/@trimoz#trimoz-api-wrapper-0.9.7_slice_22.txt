@@ -1,0 +1,4 @@
+_tmp_1.getPlaceSpecificSettings = <lambda>13
+const settingIdsStr = settingIds.join('&settingIds[]=')
+<operator>.formatString("v3/establishments/", establishmentId, "/places/", placeId, "/settings?settingIds[]=", settingIdsStr, "")
+const request = API.http.get(url)

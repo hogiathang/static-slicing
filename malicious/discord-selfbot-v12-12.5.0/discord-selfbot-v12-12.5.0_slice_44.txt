@@ -1,0 +1,6 @@
+force = _tmp_16.force === void 0 ? false : _tmp_16.force
+const id = this.resolveId(user)
+!force
+const existing = this.cache.get(id)
+existing && !existing.partial
+const data = await this.client.rest.get(Routes.user(id))

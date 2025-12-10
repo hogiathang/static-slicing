@@ -1,0 +1,3 @@
+lang = lang === void 0 ? "" : lang
+const url = 'v3/establishments/' + establishmentId + '/texts' + (lang ? '/' + lang : '')
+const request = API.http.get(url)

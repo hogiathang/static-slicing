@@ -1,0 +1,7 @@
+_tmp_1.getTodayForms = <lambda>2
+hideCancelledAppointments = _tmp_3.hideCancelledAppointments
+<operator>.formatString("/v3/forms/today?page=", currentPage, "&limit=", limit, "&sortBy=", sortBy, "")
+descending ? <operator>.formatString("", url, "&descending=", descending, "") : url
+hideCompletedForms ? <operator>.formatString("", url, "&hideCompletedForms=", hideCompletedForms, "") : url
+hideCancelledAppointments ? <operator>.formatString("", url, "&hideCancelledAppointments=", hideCancelledAppointments, "") : url
+const request = API.http.get(url)

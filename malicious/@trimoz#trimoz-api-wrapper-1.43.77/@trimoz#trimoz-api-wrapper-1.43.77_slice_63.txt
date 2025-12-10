@@ -1,0 +1,3 @@
+_tmp_1.getAll = <lambda>1
+const url = 'v3/headOffices'
+const request = API.http.get(url)

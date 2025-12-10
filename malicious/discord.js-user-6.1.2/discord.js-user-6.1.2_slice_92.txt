@@ -1,0 +1,22 @@
+handle(data) {
+    const client = this.client;
+
+    const guild = client.guilds.get(data.id);
+    if (guild) {
+      const old = guild._update(data);
+      client.emit(Events.GUILD_UPDATE, old, guild);
+      return {
+        old,
+        updated: guild,
+      };
+    }
+
+    return {
+      old: null,
+      updated: null,
+    };
+  }
+const client = this.client
+const guild = client.guilds.get(data.id)
+const old = guild._update(data)
+client.emit(Events.GUILD_UPDATE, old, guild)

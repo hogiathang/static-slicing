@@ -1,0 +1,3 @@
+_tmp_1.delete = <lambda>12
+<operator>.formatString("v3/establishments/", establishmentId, "/resources/", resourceId, "?validate=", validate, "")
+const request = API.http.delete(url)

@@ -1,0 +1,21 @@
+closeCode = _tmp_61.closeCode === void 0 ? 1_000 : _tmp_61.closeCode
+<operator>.formatString("[DESTROY]
+    Close Code    : ", closeCode, "
+    Reset         : ", reset, "
+    Emit DESTROYED: ", emit, "")
+"
+    Reset         : "
+"
+    Emit DESTROYED: "
+this.setHeartbeatTimer(-1)
+this.setHelloTimeout(-1)
+this.debug(
+      `[WebSocket] Destroy: Attempting to close the WebSocket. | WS State: ${
+        CONNECTION_STATE[this.connection?.readyState ?? WebSocket.CLOSED]
+      }`,
+    )
+<operator>.formatString("[WebSocket] Destroy: Attempting to close the WebSocket. | WS State: ", CONNECTION_STATE[this.connection?.readyState ?? WebSocket.CLOSED], "")
+CONNECTION_STATE[this.connection?.readyState ?? WebSocket.CLOSED]
+this.connection
+this.connection.readyState === WebSocket.OPEN
+(_tmp_62 = this.connection).close

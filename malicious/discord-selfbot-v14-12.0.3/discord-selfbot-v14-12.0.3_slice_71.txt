@@ -1,0 +1,35 @@
+setup(data) {
+    /**
+     * If the user has Discord Premium
+     * @type {boolean}
+     */
+    this.premium = data.premium;
+
+    /**
+     * The date since which the user has had Discord Premium
+     * @type {?Date}
+     */
+    this.premiumSince = data.premium_since
+      ? new Date(data.premium_since)
+      : null;
+
+    for (const guild of data.mutual_guilds) {
+      if (this.client.guilds.has(guild.id)) {
+        this.mutualGuilds.set(guild.id, this.client.guilds.get(guild.id));
+      }
+    }
+    for (const connection of data.connected_accounts) {
+      this.connections.set(
+        connection.id,
+        new UserConnection(this.user, connection)
+      );
+    }
+  }
+this.premium = data.premium
+this.premiumSince = data.premium_since
+      ? new Date(data.premium_since)
+      : null
+new Date(data.premium_since)
+_iterator_0 = <operator>.iterator(data.mutual_guilds)
+(_tmp_4 = this.client.guilds).has
+this.mutualGuilds.set(guild.id, this.client.guilds.get(guild.id))

@@ -1,0 +1,6 @@
+_tmp_0.initialize = <lambda>1
+_.forEach(tysapi.config.routes, value => {
+        composeEndpoint(value, null, tysapi.router)(cb);
+      })
+tysapi.router.prefix(_.get(tysapi.config, 'currentEnvironment.request.router.prefix', ''))
+!_.isEmpty(_.get(tysapi.admin, 'config.routes', false))

@@ -1,0 +1,2 @@
+_tmp_23.handler = <lambda>11
+var saved = dataPriv.get( this, type )

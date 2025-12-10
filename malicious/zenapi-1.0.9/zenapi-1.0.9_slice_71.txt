@@ -1,0 +1,37 @@
+_tmp_1.initialize = <lambda>1
+zenapi.koaMiddlewares.locale(zenapi.app)
+zenapi.app.use(
+        zenapi.koaMiddlewares.i18n(zenapi.app, {
+          directory: path.resolve(
+            zenapi.config.appPath,
+            zenapi.config.paths.config,
+            'locales'
+          ),
+          locales: Object.keys(get(zenapi.config, 'locales', {})),
+          defaultLocale: zenapi.config.middleware.settings.language.defaultLocale,
+          modes: zenapi.config.middleware.settings.language.modes,
+          cookieName: zenapi.config.middleware.settings.language.cookieName,
+          extension: '.json'
+        })
+      )
+zenapi.koaMiddlewares.i18n(zenapi.app, {
+          directory: path.resolve(
+            zenapi.config.appPath,
+            zenapi.config.paths.config,
+            'locales'
+          ),
+          locales: Object.keys(get(zenapi.config, 'locales', {})),
+          defaultLocale: zenapi.config.middleware.settings.language.defaultLocale,
+          modes: zenapi.config.middleware.settings.language.modes,
+          cookieName: zenapi.config.middleware.settings.language.cookieName,
+          extension: '.json'
+        })
+_tmp_5.directory = path.resolve(
+            zenapi.config.appPath,
+            zenapi.config.paths.config,
+            'locales'
+          )
+zenapi.config.appPath
+zenapi.config.paths.config
+"locales"
+_tmp_5.locales = Object.keys(get(zenapi.config, 'locales', {}))

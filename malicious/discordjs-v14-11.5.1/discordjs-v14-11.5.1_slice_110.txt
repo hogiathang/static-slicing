@@ -1,0 +1,13 @@
+speaking = param1_1.speaking
+speaking = new Speaking(speaking).freeze()
+const guild = this.channel.guild
+const user = this.client.users.cache.get(user_id)
+const old = this._speaking.get(user_id)
+this._speaking.set(user_id, speaking)
+this.status === VoiceStatus.CONNECTED
+this.emit('speaking', user, speaking)
+!speaking.has(Speaking.FLAGS.SPEAKING)
+(_tmp_63 = this.receiver.packets)._stoppedSpeaking
+guild && user && !speaking.equals(old)
+const member = guild.member(user)
+this.client.emit(Events.GUILD_MEMBER_SPEAKING, member, speaking)

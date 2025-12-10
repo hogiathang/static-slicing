@@ -1,0 +1,18 @@
+handle(data) {
+    const client = this.client;
+
+    const guild = client.guilds.get(data.guild_id);
+    if (guild) {
+      for (const partialRole of data.roles) {
+        const role = guild.roles.get(partialRole.id);
+        if (role) role.position = partialRole.position;
+      }
+    }
+
+    return { guild };
+  }
+const client = this.client
+const guild = client.guilds.get(data.guild_id)
+_iterator_0 = <operator>.iterator(data.roles)
+const role = guild.roles.get(partialRole.id)
+role.position = partialRole.position

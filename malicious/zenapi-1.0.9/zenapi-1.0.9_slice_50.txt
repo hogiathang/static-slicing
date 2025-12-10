@@ -1,0 +1,39 @@
+files.map(p => cb => {
+        const folders = p.replace(/^.\/node_modules\/zenapi-hook-/, './')
+          .split('/');
+        const name = source === 'plugins' ? folders[folders.length - 2] : folders[1];
+
+        this.hook[name] = this.hook[name] || {
+          loaded: false
+        };
+
+        let dependencies = [];
+        if (source === 'node_modules') {
+          try {
+            dependencies = get(require(path.resolve(this.config.appPath, 'node_modules', `zenapi-hook-${name}`, 'package.json')), 'zenapi.dependencies', []);
+          } catch(err) {
+            // Silent
+          }
+        }
+
+        if (endsWith(p, 'index.js') && !this.hook[name].load) {
+          // Lazy loading.
+          Object.defineProperty(this.hook[name], 'load', {
+            configurable: false,
+            enumerable: true,
+            get: () => require(path.resolve(cwd, p)),
+            dependencies
+          });
+
+          this.hook[name].dependencies = dependencies;
+        } else if (endsWith(p...
+const folders = p.replace(/^.\/node_modules\/zenapi-hook-/, './')
+          .split('/')
+split
+const name = source === 'plugins' ? folders[folders.length - 2] : folders[1]
+this.hook[name] = this.hook[name] || {
+          loaded: false
+        }
+_tmp_11.loaded = false
+__ecma.Array.factory()
+source === 'node_modules'

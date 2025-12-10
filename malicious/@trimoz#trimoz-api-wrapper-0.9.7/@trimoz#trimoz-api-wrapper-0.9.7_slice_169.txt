@@ -1,0 +1,3 @@
+_tmp_1.restore = <lambda>24
+const url = 'v3/establishments/' + establishmentId + '/services/' + serviceId + '/restore'
+const request = API.http.put(url, params)

@@ -1,0 +1,40 @@
+close() {
+        if (this.#closed)
+            return;
+        logger.debug('close()');
+        this.#closed = true;
+        this.#channel.request('router.close', this.#internal)
+            .catch(() => { });
+        // Close every Transport.
+        for (const transport of this.#transports.values()) {
+            transport.routerClosed();
+        }
+        this.#transports.clear();
+        // Clear the Producers map.
+        this.#producers.clear();
+        // Close every RtpObserver.
+        for (const rtpObserver of this.#rtpObservers.values()) {
+            rtpObserver.routerClosed();
+        }
+        this.#rtpObservers.clear();
+        // Clear the DataProducers map.
+        this.#dataProducers.clear();
+        this.emit('@close');
+        // Emit observer event.
+        this.#observer.safeEmit('close');
+    }
+this.#closed
+logger.debug('close()')
+this.#closed = true
+this.#channel.request('router.close', this.#internal)
+            .catch(() => { })
+<lambda>0
+_iterator_0 = <operator>.iterator(this.#transports.values())
+transport.routerClosed()
+(_tmp_12 = this.#transports).clear
+(_tmp_13 = this.#producers).clear
+_iterator_1 = <operator>.iterator(this.#rtpObservers.values())
+rtpObserver.routerClosed()
+(_tmp_15 = this.#rtpObservers).clear
+(_tmp_16 = this.#dataProducers).clear
+this.emit('@close')

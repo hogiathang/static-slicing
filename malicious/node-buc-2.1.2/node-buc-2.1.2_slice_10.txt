@@ -1,0 +1,36 @@
+exports.getUsersByLoginid = function(loginid, callback){
+  var url = '/enhancedUserQuery/getUserByLoginName.json';
+  var args = {
+    data: {
+      loginName: loginid
+    },
+    type: 'POST',
+    dataType: 'json',
+  };
+  request(url, args, function(err, content){
+    if (err) {
+      return callback(err);
+    }
+    callback(null, content || {});
+  });
+}
+var url = '/enhancedUserQuery/getUserByLoginName.json'
+var args = {
+    data: {
+      loginName: loginid
+    },
+    type: 'POST',
+    dataType: 'json',
+  }
+_tmp_17.data = {
+      loginName: loginid
+    }
+_tmp_18.loginName = loginid
+_tmp_17.type = "POST"
+_tmp_17.dataType = "json"
+request(url, args, function(err, content){
+    if (err) {
+      return callback(err);
+    }
+    callback(null, content || {});
+  })

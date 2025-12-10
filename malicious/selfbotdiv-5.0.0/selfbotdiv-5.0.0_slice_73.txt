@@ -1,0 +1,8 @@
+options = options === void 0 ? {} : options
+this.destroy()
+this.opusEncoder = OpusEncoders.fetch(options)
+const transcoder = this.prism.transcode({
+      type: 'ffmpeg',
+      media: stream,
+      ffmpegArguments: ffmpegArguments.concat(['-ss', String(options.seek || 0)]),
+    })

@@ -1,0 +1,11 @@
+_tmp_5.style = <lambda>2
+!elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style
+var origName = camelCase( name )
+var isCustomProp = rcustomProp.test( name )
+var style = elem.style
+!isCustomProp
+name = finalPropName( origName )
+hooks = jQuery.cssHooks[ name ] || jQuery.cssHooks[ origName ]
+value !== undefined
+type = typeof value
+type === "string" && ( ret = rcssNum.exec( value ) ) && ret[ 1 ]

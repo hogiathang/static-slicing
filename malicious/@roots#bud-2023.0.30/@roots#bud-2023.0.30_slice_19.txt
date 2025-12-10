@@ -1,0 +1,18 @@
+setEditor(editor) {
+        if (isString(editor)) {
+            this.editor = editor;
+            return this;
+        }
+        if (editor === true) {
+            this.editor =
+                this.bud.env.get(`VISUAL`) ?? this.bud.env.get(`EDITOR`);
+            return this;
+        }
+        this.editor = false;
+        return this;
+    }
+isString(editor)
+editor === true
+this.editor =
+                this.bud.env.get(`VISUAL`) ?? this.bud.env.get(`EDITOR`)
+this.bud.env.get(`VISUAL`) ?? this.bud.env.get(`EDITOR`)

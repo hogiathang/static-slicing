@@ -1,0 +1,30 @@
+handle(packet) {
+    const client = this.packetManager.client;
+    const data = packet.d;
+    const channel = client.channels.get(data.channel_id);
+    const user = client.users.get(data.user_id);
+    const timestamp = new Date(data.timestamp * 1000);
+
+    if (channel && user) {
+      if (channel.type === 'voice') {
+        client.emit(Constants.Events.WARN, `Discord sent a typing packet to voice channel ${channel.id}`);
+        return;
+      }
+      if (channel._typing.has(user.id)) {
+        const typing = channel._typing.get(user.id);
+        typing.lastTimestamp = timestamp;
+        typing.resetTimeout(tooLate(channel, user));
+      } else {
+        channel._typing.set(user.id, new TypingData(client, timestamp, timestamp, tooLate(channel, user)));
+        client.emit(Constants.Events.TYPING_START, channel, user);
+      }
+    }
+  }
+const client = this.packetManager.client
+const data = packet.d
+const channel = client.channels.get(data.channel_id)
+const user = client.users.get(data.user_id)
+const timestamp = new Date(data.timestamp * 1000)
+channel && user
+channel.type === 'voice'
+client.emit(Constants.Events.WARN, `Discord sent a typing packet to voice channel ${channel.id}`)

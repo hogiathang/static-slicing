@@ -1,0 +1,71 @@
+constructor(guild, data) {
+    const targetType = GuildAuditLogs.targetType(data.action_type);
+    /**
+     * The target type of this entry
+     * @type {string}
+     */
+    this.targetType = targetType;
+
+    /**
+     * The action type of this entry
+     * @type {string}
+     */
+    this.actionType = GuildAuditLogs.actionType(data.action_type);
+
+    /**
+     * Specific action type of this entry
+     * @type {string}
+     */
+    this.action = Object.keys(Actions).find(k => Actions[k] === data.action_type);
+
+    /**
+     * The reason of this entry
+     * @type {?string}
+     */
+    this.reason = data.reason || null;
+
+    /**
+     * The user that executed this entry
+     * @type {User}
+     */
+    this.executor = guild.client.users.get(data.user_id);
+
+    /**
+     * Specific property changes
+     * @type {Object[]}
+     */
+    this.changes = data.changes ? data.changes.map(c => ({ name: c.key, old: c.old_value, new: c.new_value })) : null;
+
+    /**
+     * The ID of this entry
+     * @t...
+const targetType = GuildAuditLogs.targetType(data.action_type)
+this.targetType = targetType
+this.actionType = GuildAuditLogs.actionType(data.action_type)
+this.action = Object.keys(Actions).find(k => Actions[k] === data.action_type)
+this.reason = data.reason || null
+this.executor = guild.client.users.get(data.user_id)
+this.changes = data.changes ? data.changes.map(c => ({ name: c.key, old: c.old_value, new: c.new_value })) : null
+this.id = data.id
+this.extra = null
+data.options
+data.action_type === Actions.MEMBER_PRUNE
+this.extra = {
+          removed: data.options.members_removed,
+          days: data.options.delete_member_days,
+        }
+_tmp_20.removed = data.options.members_removed
+_tmp_20.days = data.options.delete_member_days
+data.options.type
+"member"
+this.extra = guild.members.get(this.options.id)
+this.extra = { id: this.options.id }
+break;
+"role"
+this.extra = guild.roles.get(this.options.id)
+this.extra = { id: this.options.id, name: this.options.role_name }
+break;
+default:
+break;
+[Targets.USER, Targets.GUILD].includes(targetType)
+this.target = guild.client[`${targetType.toLowerCase()}s`].get(data.target_id)

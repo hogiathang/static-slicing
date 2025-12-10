@@ -1,0 +1,71 @@
+exports.search = function (query, callback) {
+  var url = '/enhancedUserQuery/findUsers/byFuzzyQuery.json';
+  if (typeof query === 'string') {
+    query = {
+      q: query
+    };
+  }
+  var data = {
+    fuzzyStr: query.q,
+  };
+  if (query.available) {
+    data.available = query.available;
+  }
+  if (query.page) {
+    data.page = query.page;
+  }
+  if (query.sizePerPage) {
+    data.sizePerPage = query.sizePerPage;
+  }
+  if (query.rightFuzzy !== undefined) {
+    data.rightFuzzy = query.rightFuzzy;
+  }
+  if (query.leftFuzzy !== undefined) {
+    data.leftFuzzy = query.leftFuzzy;
+  }
+
+  var args = {
+    data: data,
+    type: 'GET',
+    dataType: 'json'
+  };
+  request(url, args, function (err, content) {
+    if (err) {
+      return callback(err);
+    }
+    content = content || {};
+    var result = {
+      count: content.count || 0,
+      users: content.items || []
+    };
+    callback(null, result);
+  });
+}
+var url = '/enhancedUserQuery/findUsers/byFuzzyQuery.json'
+typeof query === 'string'
+query = {
+      q: query
+    }
+_tmp_4.q = query
+var data = {
+    fuzzyStr: query.q,
+  }
+_tmp_5.fuzzyStr = query.q
+query.available
+data.available = query.available
+query.page
+data.page = query.page
+query.sizePerPage
+data.sizePerPage = query.sizePerPage
+query.rightFuzzy !== undefined
+data.rightFuzzy = query.rightFuzzy
+query.leftFuzzy !== undefined
+data.leftFuzzy = query.leftFuzzy
+var args = {
+    data: data,
+    type: 'GET',
+    dataType: 'json'
+  }
+_tmp_6.data = data
+_tmp_6.type = "GET"
+_tmp_6.dataType = "json"
